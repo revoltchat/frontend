@@ -14,7 +14,8 @@
   },
   "private": true,
   "dependencies": {
-    "dayjs": "^1.11.5",
+    "@revolt/ui": "workspace:^1.0.0",
+    "solid-hcaptcha": "^0.2.5",
     "solid-js": "^1.5.1"
   }
 }

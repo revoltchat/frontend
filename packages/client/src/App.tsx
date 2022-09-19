@@ -6,9 +6,7 @@ import type { Component } from "solid-js";
 const App: Component = () => {
   return (
     <div>
-      <H1>
-        hello! <Test />
-      </H1>
+      <Test />
     </div>
   );
 };

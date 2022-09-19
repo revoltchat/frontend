@@ -3,6 +3,6 @@
     "files.exclude": {
         "**/node_modules": true,
         "**/pnpm-lock.yaml": true,
-        "**/tsconfig.json": true
+        "**/tsconfig.json": false
     }
 }
