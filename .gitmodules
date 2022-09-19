@@ -1,3 +1,6 @@
 [submodule "packages/revolt.js"]
 	path = packages/revolt.js
 	url = https://github.com/revoltchat/revolt.js
+[submodule "components/i18n/locales"]
+	path = components/i18n/locales
+	url = https://github.com/revoltchat/translations

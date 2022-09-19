@@ -1,4 +1,5 @@
 import { styled } from "solid-styled-components";
+import { LocaleSelector, useI18n } from "@revolt/i18n";
 
 import { BiLogosGithub, BiLogosTwitter, BiLogosMastodon } from "solid-icons/bi";
 
@@ -72,10 +73,13 @@ const Logo = styled("img")`
  * Authentication page
  */
 export function AuthPage() {
+  const [t] = useI18n();
+
   return (
     <Base>
       <Nav>
         <Logo src={wordmark} />
+        <LocaleSelector />
       </Nav>
       <div>welcome to COCK!</div>
       <Nav>
@@ -84,12 +88,12 @@ export function AuthPage() {
           <BiLogosTwitter size={24} color="white" />
           <BiLogosMastodon size={24} color="white" />
           <Bullet />
-          <a>About</a>
-          <a>Terms of Service</a>
-          <a>Privacy Policy</a>
+          <a>{t("general.about")}</a>
+          <a>{t("general.tos")}</a>
+          <a>{t("general.privacy")}</a>
         </NavItems>
         <NavItems>
-          Image by @fakurian
+          {t("general.image_by")} @fakurian
           <Bullet />
           <a>unsplash.com</a>
         </NavItems>

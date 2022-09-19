@@ -1,5 +1,5 @@
 {
-  "name": "@revolt/auth",
+  "name": "@revolt/i18n",
   "version": "1.0.0",
   "description": "",
   "main": "index.tsx",
@@ -9,17 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "revolt.js": "workspace:^6.0.18",
-    "solid-icons": "^1.0.1",
-    "solid-styled-components": "^0.28.4",
-    "vite": "^3.0.9"
-  },
   "private": true,
   "dependencies": {
-    "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
-    "solid-hcaptcha": "^0.2.5",
+    "@solid-primitives/i18n": "^1.1.1",
     "solid-js": "^1.5.1"
   }
 }

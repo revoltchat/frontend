@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cd packages/client && pnpm run dev --host"
+    "dev": "cd packages/client && pnpm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "engines": {
     "node": ">=18",
-    "pnpm": ">=7"
+    "pnpm": ">=6"
   },
   "private": true
 }
