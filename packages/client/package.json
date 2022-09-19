@@ -1,0 +1,24 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "revolt.js": "workspace:^6.0.18",
+    "typescript": "^4.8.2",
+    "vite": "^3.0.9",
+    "vite-plugin-solid": "^2.3.0"
+  },
+  "dependencies": {
+    "@revolt/auth": "workspace:^1.0.0",
+    "@revolt/ui": "workspace:^1.0.0",
+    "solid-js": "^1.5.1"
+  },
+  "private": true
+}

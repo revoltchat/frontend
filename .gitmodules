@@ -1,0 +1,3 @@
+[submodule "packages/revolt.js"]
+	path = packages/revolt.js
+	url = https://github.com/revoltchat/revolt.js
