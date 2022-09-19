@@ -1,5 +1,5 @@
 import { styled } from "solid-styled-components";
-import { LocaleSelector, useI18n } from "@revolt/i18n";
+import { LocaleSelector, useTranslation } from "@revolt/i18n";
 
 import { BiLogosGithub, BiLogosTwitter, BiLogosMastodon } from "solid-icons/bi";
 
@@ -73,7 +73,7 @@ const Logo = styled("img")`
  * Authentication page
  */
 export function AuthPage() {
-  const [t] = useI18n();
+  const t = useTranslation();
 
   return (
     <Base>
