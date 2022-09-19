@@ -1,0 +1,7 @@
+I had a pretty bad experience with migrating to a Yarn workspace, failing and then trying to migrate pnpm workspace, spending way too much effort for it to _sorta_ work.. I ended up at a brick wall when React 18 typings were just straight up refusing to cooperate with Preact. And I've had this issue a couple times before in the past and it's slowly been repelling me from working with Preact. (context #1)
+
+Now a few days ago, somebody was making a Solid client for Revolt so I helped them out in getting revolt.js working with it, and I found out that you can actually use MobX with Solid pretty much out of the box with about 7 lines of code providing compatibility, so this got me interested in using Solid again. (context #2)
+
+So I'm now experimenting with a new monorepo trying to see how I could potentially work on a new client and I haven't done too much yet but it's just been such a breeze, everything has just sort of clicked so far and I haven't run into any major issues that don't have any obvious solutions.
+
+Abandoning the current client right now would be a bad idea since a lot of people use the platform and I know of at least one big instance currently running so I can't just stop maintaining it but, I think I'm probably going to go the way of Lantern / Nertivia and also jump ship to Solid.js.

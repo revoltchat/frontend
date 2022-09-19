@@ -68,6 +68,9 @@ const Logo = styled("img")`
   height: 24px;
 `;
 
+/**
+ * Authentication page
+ */
 export function AuthPage() {
   return (
     <Base>
