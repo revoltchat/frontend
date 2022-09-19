@@ -10,13 +10,19 @@ importers:
       '@revolt/ui': workspace:^1.0.0
       revolt.js: workspace:^6.0.18
       solid-hcaptcha: ^0.2.5
+      solid-icons: ^1.0.1
       solid-js: ^1.5.1
+      solid-styled-components: ^0.28.4
+      vite: ^3.0.9
     dependencies:
       '@revolt/ui': link:../ui
       solid-hcaptcha: 0.2.5_solid-js@1.5.5
       solid-js: 1.5.5
     devDependencies:
       revolt.js: link:../../packages/revolt.js
+      solid-icons: 1.0.1_solid-js@1.5.5
+      solid-styled-components: 0.28.4_solid-js@1.5.5
+      vite: 3.0.9
 
   components/ui:
     specifiers:
@@ -28,20 +34,24 @@ importers:
 
   packages/client:
     specifiers:
+      '@fontsource/inter': ^4.5.12
+      '@fontsource/open-sans': ^4.5.11
       '@revolt/auth': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       '@solidjs/router': ^0.4.3
       revolt.js: workspace:^6.0.18
       solid-js: ^1.5.1
       typescript: ^4.8.2
-      vite: 3.0.9
-      vite-plugin-solid: 2.3.0
+      vite: ^3.0.9
+      vite-plugin-solid: ^2.3.0
     dependencies:
       '@revolt/auth': link:../../components/auth
       '@revolt/ui': link:../../components/ui
       '@solidjs/router': 0.4.3_solid-js@1.5.5
       solid-js: 1.5.5
     devDependencies:
+      '@fontsource/inter': 4.5.12
+      '@fontsource/open-sans': 4.5.11
       revolt.js: link:../revolt.js
       typescript: 4.8.3
       vite: 3.0.9
@@ -453,6 +463,14 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@fontsource/inter/4.5.12:
+    resolution: {integrity: sha512-bGKk4/8tube/nCk8hav0ZDBVbzJzc7m0Vt4xF5p15IN4YImwGdtKG38Oq5bU8xHNS+VfvbFFCepgQNj7Pr/Lvg==}
+    dev: true
+
+  /@fontsource/open-sans/4.5.11:
+    resolution: {integrity: sha512-nG0gmbx4pSr8wltdG/ZdlS6OrsMK40Wt6iyuLTKHEf0TQfzKRMlWaskZHdeuWCwS6WUgqHKMf9KSwGdxPfapOg==}
     dev: true
 
   /@hcaptcha/types/1.0.2:
@@ -1506,7 +1524,6 @@ packages:
       csstype: ^3.0.10
     dependencies:
       csstype: 3.1.1
-    dev: false
 
   /grapheme-splitter/1.0.4:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
@@ -2045,6 +2062,15 @@ packages:
       solid-js: 1.5.5
     dev: false
 
+  /solid-icons/1.0.1_solid-js@1.5.5:
+    resolution: {integrity: sha512-9rxPeJ1UDGzWGlksjuXuyK2CdL1vg89inDyOl43koL3zoMgXLzY6LVLuMeuhslHbjq7Fp2h6fSSImj9ygfvleA==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      solid-js: '*'
+    dependencies:
+      solid-js: 1.5.5
+    dev: true
+
   /solid-js/1.5.5:
     resolution: {integrity: sha512-5gXszD7ekhe59IyMa3+AvREJnBWVjwaeC7afL8C3UNPj5gQQCrsMs/cXwI3JRpj6D+3TESTyuQ2sY++m4cYiTg==}
     dependencies:
@@ -2069,7 +2095,6 @@ packages:
       csstype: 3.1.1
       goober: 2.1.11_csstype@3.1.1
       solid-js: 1.5.5
-    dev: false
 
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

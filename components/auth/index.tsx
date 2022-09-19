@@ -1,3 +1,5 @@
+export { AuthPage } from "./src/AuthPage";
+
 import { H1 } from "@revolt/ui";
 
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";

@@ -10,6 +10,8 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@fontsource/inter": "^4.5.12",
+    "@fontsource/open-sans": "^4.5.11",
     "revolt.js": "workspace:^6.0.18",
     "typescript": "^4.8.2",
     "vite": "^3.0.9",

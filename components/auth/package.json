@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "revolt.js": "workspace:^6.0.18"
+    "revolt.js": "workspace:^6.0.18",
+    "solid-icons": "^1.0.1",
+    "solid-styled-components": "^0.28.4",
+    "vite": "^3.0.9"
   },
   "private": true,
   "dependencies": {
