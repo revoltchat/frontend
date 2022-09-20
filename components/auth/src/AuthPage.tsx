@@ -1,10 +1,14 @@
-import { styled } from "solid-styled-components";
+import { Route, Routes } from "@solidjs/router";
+import { css, styled } from "solid-styled-components";
 import { LocaleSelector, useTranslation } from "@revolt/i18n";
 
 import { BiLogosGithub, BiLogosTwitter, BiLogosMastodon } from "solid-icons/bi";
 
 import background from "./background.jpg";
 import wordmark from "../../../assets/wordmark.svg";
+
+import FlowCreate from "./flows/FlowCreate";
+import FlowLogin from "./flows/FlowLogin";
 
 /**
  * Authentication page layout
@@ -27,6 +31,14 @@ const Base = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  /* TODO breakpoint md */
+  @media (max-width: 768px) {
+    padding: 30px 20px;
+    background-image: unset;
+    background-color: #242424;
+    /* TODO primary bg */
+  }
 `;
 
 /**
@@ -43,13 +55,26 @@ const Nav = styled("div")`
 /**
  * Navigation items
  */
-const NavItems = styled("div")`
+const NavItems = styled("div")<{
+  stack?: boolean;
+  hide?: boolean;
+  grow?: boolean;
+}>`
   gap: 10px;
   display: flex;
   align-items: center;
+  flex-grow: ${(props) => (props.grow ? 1 : 0)};
 
   color: #ddd;
   font-size: 0.9em;
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.hide ? "none" : "flex")};
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: ${(props) => (props.stack ? "column" : "row")};
+  }
 `;
 
 /**
@@ -60,6 +85,10 @@ const Bullet = styled("div")`
   width: 5px;
   background: grey;
   border-radius: 50%;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 /**
@@ -81,18 +110,31 @@ export function AuthPage() {
         <Logo src={wordmark} />
         <LocaleSelector />
       </Nav>
-      <div>welcome to COCK!</div>
+      <div>
+        <Routes>
+          <Route path="/login/create" component={FlowCreate} />
+          <Route path="/login/resend" component={FlowCreate} />
+          <Route path="/login/reset" component={FlowCreate} />
+          <Route path="/login/verify/:token" component={FlowCreate} />
+          <Route path="/login/reset/:token" component={FlowCreate} />
+          <Route path="/*any" component={FlowLogin} />
+        </Routes>
+      </div>
       <Nav>
-        <NavItems>
-          <BiLogosGithub size={24} color="white" />
-          <BiLogosTwitter size={24} color="white" />
-          <BiLogosMastodon size={24} color="white" />
+        <NavItems stack grow>
+          <NavItems>
+            <BiLogosGithub size={24} color="white" />
+            <BiLogosTwitter size={24} color="white" />
+            <BiLogosMastodon size={24} color="white" />
+          </NavItems>
           <Bullet />
-          <a>{t("general.about")}</a>
-          <a>{t("general.tos")}</a>
-          <a>{t("general.privacy")}</a>
+          <NavItems>
+            <a>{t("general.about")}</a>
+            <a>{t("general.tos")}</a>
+            <a>{t("general.privacy")}</a>
+          </NavItems>
         </NavItems>
-        <NavItems>
+        <NavItems hide>
           {t("general.image_by")} @fakurian
           <Bullet />
           <a>unsplash.com</a>
