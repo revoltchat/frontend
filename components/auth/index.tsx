@@ -1,3 +1,5 @@
+/// <reference path="../../types/styled.d.ts" />
+
 export { AuthPage } from "./src/AuthPage";
 
 import { H1 } from "@revolt/ui";

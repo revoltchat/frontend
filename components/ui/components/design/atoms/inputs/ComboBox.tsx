@@ -7,12 +7,13 @@ export const ComboBox = styled("select")`
   font-family: inherit;
   font-weight: 500;
 
-  color: var(--foreground);
-  background: var(--secondary-background);
+  color: ${({ theme }) => theme!.colours.foreground};
+  background: ${({ theme }) => theme!.colours["background-100"]};
 
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
   box-sizing: border-box;
+
   outline: none;
   cursor: pointer;
 

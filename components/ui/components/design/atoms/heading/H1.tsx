@@ -6,5 +6,5 @@ export const H1 = styled("h1")`
 
   font-weight: 600;
   font-size: 1.2rem;
-  color: var(--foreground);
+  color: ${({ theme }) => theme!.colours.foreground};
 `;

@@ -3,6 +3,7 @@ import { render } from "solid-js/web";
 
 import "./styles.css";
 
+import { ThemeProvider, darkTheme } from "@revolt/ui";
 import i18n, { I18nContext } from "@revolt/i18n";
 import { Router } from "@solidjs/router";
 import App from "./App";
@@ -11,7 +12,9 @@ render(
   () => (
     <Router>
       <I18nContext.Provider value={i18n}>
-        <App />
+        <ThemeProvider theme={darkTheme}>
+          <App />
+        </ThemeProvider>
       </I18nContext.Provider>
     </Router>
   ),

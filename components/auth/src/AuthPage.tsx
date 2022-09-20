@@ -1,5 +1,5 @@
 import { Route, Routes } from "@solidjs/router";
-import { css, styled } from "solid-styled-components";
+import { styled } from "solid-styled-components";
 import { LocaleSelector, useTranslation } from "@revolt/i18n";
 
 import { BiLogosGithub, BiLogosTwitter, BiLogosMastodon } from "solid-icons/bi";
@@ -32,11 +32,10 @@ const Base = styled("div")`
   flex-direction: column;
   justify-content: space-between;
 
-  /* TODO breakpoint md */
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
     padding: 30px 20px;
     background-image: unset;
-    background-color: #242424;
+    background-color: ${({ theme }) => theme!.colours["background-200"]};
     /* TODO primary bg */
   }
 `;
@@ -68,11 +67,11 @@ const NavItems = styled("div")<{
   color: #ddd;
   font-size: 0.9em;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
     display: ${(props) => (props.hide ? "none" : "flex")};
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
     flex-direction: ${(props) => (props.stack ? "column" : "row")};
   }
 `;
@@ -86,7 +85,7 @@ const Bullet = styled("div")`
   background: grey;
   border-radius: 50%;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
     display: none;
   }
 `;
