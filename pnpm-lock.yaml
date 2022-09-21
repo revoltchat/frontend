@@ -7,6 +7,7 @@ importers:
 
   components/auth:
     specifiers:
+      '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       '@solidjs/router': ^0.4.3
@@ -17,15 +18,31 @@ importers:
       solid-styled-components: ^0.28.4
       vite: ^3.0.9
     dependencies:
+      '@revolt/client': link:../client
       '@revolt/i18n': link:../i18n
       '@revolt/ui': link:../ui
-      solid-hcaptcha: 0.2.5_solid-js@1.5.5
-      solid-js: 1.5.5
-    devDependencies:
       '@solidjs/router': 0.4.3_solid-js@1.5.5
       revolt.js: link:../../packages/revolt.js
+      solid-hcaptcha: 0.2.5_solid-js@1.5.5
       solid-icons: 1.0.1_solid-js@1.5.5
+      solid-js: 1.5.5
       solid-styled-components: 0.28.4_solid-js@1.5.5
+    devDependencies:
+      vite: 3.0.9
+
+  components/client:
+    specifiers:
+      detect-browser: ^5.3.0
+      mobx: ^6.3.2
+      revolt.js: workspace:^6.0.18
+      solid-js: ^1.5.1
+      vite: ^3.0.9
+    dependencies:
+      detect-browser: 5.3.0
+      mobx: 6.6.2
+      revolt.js: link:../../packages/revolt.js
+      solid-js: 1.5.5
+    devDependencies:
       vite: 3.0.9
 
   components/i18n:
@@ -51,6 +68,7 @@ importers:
       '@fontsource/inter': ^4.5.12
       '@fontsource/open-sans': ^4.5.11
       '@revolt/auth': workspace:^1.0.0
+      '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       '@solidjs/router': ^0.4.3
@@ -61,6 +79,7 @@ importers:
       vite-plugin-solid: ^2.3.0
     dependencies:
       '@revolt/auth': link:../../components/auth
+      '@revolt/client': link:../../components/client
       '@revolt/i18n': link:../../components/i18n
       '@revolt/ui': link:../../components/ui
       '@solidjs/router': 0.4.3_solid-js@1.5.5
@@ -622,6 +641,7 @@ packages:
       solid-js: ^1.3.5
     dependencies:
       solid-js: 1.5.5
+    dev: false
 
   /@types/events/3.0.0:
     resolution: {integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==}
@@ -990,6 +1010,10 @@ packages:
   /deep-is/0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
+
+  /detect-browser/5.3.0:
+    resolution: {integrity: sha512-53rsFbGdwMwlF7qvCt0ypLM5V5/Mbl0szB7GPN8y9NCcbknYOeVVXdrXEq+90IwAfrrzt6Hd+u2E2ntakICU8w==}
+    dev: false
 
   /dir-glob/3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
@@ -1547,6 +1571,7 @@ packages:
       csstype: ^3.0.10
     dependencies:
       csstype: 3.1.1
+    dev: false
 
   /grapheme-splitter/1.0.4:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
@@ -2092,7 +2117,7 @@ packages:
       solid-js: '*'
     dependencies:
       solid-js: 1.5.5
-    dev: true
+    dev: false
 
   /solid-js/1.5.5:
     resolution: {integrity: sha512-5gXszD7ekhe59IyMa3+AvREJnBWVjwaeC7afL8C3UNPj5gQQCrsMs/cXwI3JRpj6D+3TESTyuQ2sY++m4cYiTg==}
@@ -2118,6 +2143,7 @@ packages:
       csstype: 3.1.1
       goober: 2.1.11_csstype@3.1.1
       solid-js: 1.5.5
+    dev: false
 
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

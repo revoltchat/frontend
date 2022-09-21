@@ -1,0 +1,22 @@
+{
+  "name": "@revolt/client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "vite": "^3.0.9"
+  },
+  "dependencies": {
+    "detect-browser": "^5.3.0",
+    "mobx": "^6.3.2",
+    "revolt.js": "workspace:^6.0.18",
+    "solid-js": "^1.5.1"
+  }
+}

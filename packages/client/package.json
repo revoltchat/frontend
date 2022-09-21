@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@revolt/auth": "workspace:^1.0.0",
+    "@revolt/client": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
     "@solidjs/router": "^0.4.3",
