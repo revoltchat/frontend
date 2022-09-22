@@ -1,9 +1,12 @@
 import { clientController } from "@revolt/client";
+import { useNavigate } from "@solidjs/router";
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
 import { createSignal, Show } from "solid-js";
 
 export default function FlowLogin() {
   let hcaptcha: HCaptchaFunctions | undefined;
+
+  const navigate = useNavigate();
 
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
@@ -30,6 +33,8 @@ export default function FlowLogin() {
           password: password(),
           captcha: response!.response,
         });
+
+        navigate("/", { replace: true });
       } catch (err) {
         setError("login failed");
       }
@@ -42,10 +47,14 @@ export default function FlowLogin() {
     <div>
       <p>login</p>
       <input
+        name="email"
+        type="email"
         placeholder="email"
         onInput={(e) => setEmail(e.currentTarget.value)}
       />
       <input
+        name="password"
+        type="password"
         placeholder="password"
         onInput={(e) => setPassword(e.currentTarget.value)}
       />

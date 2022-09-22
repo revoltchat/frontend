@@ -111,11 +111,11 @@ export function AuthPage() {
       </Nav>
       <div>
         <Routes>
-          <Route path="/login/create" component={FlowCreate} />
-          <Route path="/login/resend" component={FlowCreate} />
-          <Route path="/login/reset" component={FlowCreate} />
-          <Route path="/login/verify/:token" component={FlowCreate} />
-          <Route path="/login/reset/:token" component={FlowCreate} />
+          <Route path="/create" component={FlowCreate} />
+          <Route path="/resend" component={FlowCreate} />
+          <Route path="/reset" component={FlowCreate} />
+          <Route path="/verify/:token" component={FlowCreate} />
+          <Route path="/reset/:token" component={FlowCreate} />
           <Route path="/*any" component={FlowLogin} />
         </Routes>
       </div>

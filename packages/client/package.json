@@ -23,6 +23,7 @@
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
     "@solidjs/router": "^0.4.3",
+    "mobx": "^6.3.2",
     "solid-js": "^1.5.1"
   },
   "private": true

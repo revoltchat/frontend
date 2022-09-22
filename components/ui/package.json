@@ -11,6 +11,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
+    "@thisbeyond/solid-dnd": "^0.7.1",
     "solid-js": "^1.5.1",
     "solid-styled-components": "^0.28.4"
   }

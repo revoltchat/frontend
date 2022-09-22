@@ -1,6 +1,8 @@
 export * from "./components/design/atoms/heading";
 export * from "./components/design/atoms/inputs";
 
+export { ServerList } from "./components/navigation/servers/ServerList";
+
 import type { DefaultTheme } from "solid-styled-components";
 export { ThemeProvider } from "solid-styled-components";
 
