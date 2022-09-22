@@ -1,0 +1,25 @@
+{
+  "name": "showcase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite --host --port 5273",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "@revolt/ui": "workspace:^1.0.0",
+    "solid-js": "^1.5.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.3",
+    "vite": "^3.0.9",
+    "vite-plugin-solid": "^2.3.0"
+  }
+}

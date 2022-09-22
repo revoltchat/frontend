@@ -1,6 +1,10 @@
 export * from "./components/design/atoms/heading";
 export * from "./components/design/atoms/inputs";
 
+export { Masks } from "./components/common/Masks";
+export { Avatar } from "./components/design/atoms/display/Avatar";
+export { UserStatus } from "./components/design/atoms/indicators/UserStatus";
+
 export { ServerList } from "./components/navigation/servers/ServerList";
 
 import type { DefaultTheme } from "solid-styled-components";
@@ -24,7 +28,7 @@ export const darkTheme: DefaultTheme = {
     "status-focus": "#4799F0",
     "status-busy": "#F84848",
     "status-streaming": "#977EFF",
-    "status-offline": "#A5A5A5",
+    "status-invisible": "#A5A5A5",
   },
   breakpoints: {
     sm: "640px",

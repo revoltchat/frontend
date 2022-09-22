@@ -11,8 +11,12 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
+    "@fontsource/inter": "^4.5.12",
     "@thisbeyond/solid-dnd": "^0.7.1",
     "solid-js": "^1.5.1",
     "solid-styled-components": "^0.28.4"
+  },
+  "devDependencies": {
+    "revolt.js": "workspace:^6.0.18"
   }
 }

@@ -1,5 +1,5 @@
 /* @refresh reload */
-import "./styles.css";
+import "@revolt/ui/styles.css";
 
 /**
  * Configure MobX

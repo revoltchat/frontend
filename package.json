@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cd packages/client && pnpm run dev"
+    "dev": "cd packages/client && pnpm run dev",
+    "showcase": "cd packages/showcase && pnpm run dev"
   },
   "keywords": [],
   "author": "",
