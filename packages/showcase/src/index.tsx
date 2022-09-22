@@ -6,36 +6,35 @@ import "@revolt/ui/styles.css";
  */
 import { render } from "solid-js/web";
 
-import {
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  ThemeProvider,
-  darkTheme,
-  Masks,
-  Avatar,
-  UserStatus,
-} from "@revolt/ui";
+import { ThemeProvider, darkTheme, Masks, TooltipDemo } from "@revolt/ui";
 
 render(
   () => (
     <div style={{ background: "#111", height: "100%" }}>
       <Masks />
       <ThemeProvider theme={darkTheme}>
-        <H1>hello!</H1>
+        {/*<H1>hello!</H1>
         <H2>hello!</H2>
         <H3>hello!</H3>
         <H4>hello!</H4>
         <H5>hello!</H5>
+        <Preloader type="spinner" />
+        <Preloader type="ring" />
+        <Turbo />
+        <SaveStatus status="editing" />
         <Avatar
           size={64}
           fallback="deez nuts"
-          holepunch="bottom-right"
-          overlay={<UserStatus status="online" />}
+          holepunch="right"
+          overlay={
+            <>
+              <UserStatus status="Online" />
+              <Unreads count={0} unread />
+            </>
+          }
           interactive
-        />
+        />*/}
+        <TooltipDemo />
       </ThemeProvider>
     </div>
   ),

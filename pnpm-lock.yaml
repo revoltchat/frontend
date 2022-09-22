@@ -76,14 +76,20 @@ importers:
   components/ui:
     specifiers:
       '@fontsource/inter': ^4.5.12
+      '@popperjs/core': ^2.11.6
       '@thisbeyond/solid-dnd': ^0.7.1
       revolt.js: workspace:^6.0.18
+      solid-icons: ^1.0.1
       solid-js: ^1.5.1
+      solid-popper: ^0.2.1
       solid-styled-components: ^0.28.4
     dependencies:
       '@fontsource/inter': 4.5.12
+      '@popperjs/core': 2.11.6
       '@thisbeyond/solid-dnd': 0.7.1_solid-js@1.5.5
+      solid-icons: 1.0.1_solid-js@1.5.5
       solid-js: 1.5.5
+      solid-popper: 0.2.1_e1ade5bc2f9c060bc2dc6cdf730c259d
       solid-styled-components: 0.28.4_solid-js@1.5.5
     devDependencies:
       revolt.js: link:../../packages/revolt.js
@@ -659,6 +665,10 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
     dev: true
+
+  /@popperjs/core/2.11.6:
+    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
+    dev: false
 
   /@solid-primitives/i18n/1.1.1_solid-js@1.5.5:
     resolution: {integrity: sha512-ywIJ4MADZ25of6X/hgPTd6UNWbgM6X/ZNJStIexAlaLi9fFWw1yFRP/cllSBabEfMoCWgOETgoT16JQzxZlphg==}
@@ -2210,6 +2220,17 @@ packages:
     resolution: {integrity: sha512-5gXszD7ekhe59IyMa3+AvREJnBWVjwaeC7afL8C3UNPj5gQQCrsMs/cXwI3JRpj6D+3TESTyuQ2sY++m4cYiTg==}
     dependencies:
       csstype: 3.1.1
+    dev: false
+
+  /solid-popper/0.2.1_e1ade5bc2f9c060bc2dc6cdf730c259d:
+    resolution: {integrity: sha512-SRsEbsOPy4yGr6BE7xHlrbHtPRf/t/DHLoJWbxXkmbjxqFAFwUbGAE616B+5OKc1cJeF3UprRDfbQdW5y7o5Ag==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@popperjs/core': ^2.10.2
+      solid-js: ^1.2.0
+    dependencies:
+      '@popperjs/core': 2.11.6
+      solid-js: 1.5.5
     dev: false
 
   /solid-refresh/0.4.1_solid-js@1.5.5:

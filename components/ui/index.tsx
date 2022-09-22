@@ -5,6 +5,10 @@ export { Masks } from "./components/common/Masks";
 export { Avatar } from "./components/design/atoms/display/Avatar";
 export { UserStatus } from "./components/design/atoms/indicators/UserStatus";
 
+export * from "./components/design/atoms/indicators";
+
+export * from "./components/poppers/Tooltip";
+
 export { ServerList } from "./components/navigation/servers/ServerList";
 
 import type { DefaultTheme } from "solid-styled-components";

@@ -12,8 +12,11 @@
   "private": true,
   "dependencies": {
     "@fontsource/inter": "^4.5.12",
+    "@popperjs/core": "^2.11.6",
     "@thisbeyond/solid-dnd": "^0.7.1",
+    "solid-icons": "^1.0.1",
     "solid-js": "^1.5.1",
+    "solid-popper": "^0.2.1",
     "solid-styled-components": "^0.28.4"
   },
   "devDependencies": {
