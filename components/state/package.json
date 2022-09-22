@@ -1,0 +1,22 @@
+{
+  "name": "@revolt/state",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "@revolt/client": "workspace:^1.0.0",
+    "color-rgba": "^2.4.0",
+    "json-stringify-deterministic": "^1.0.7",
+    "localforage": "^1.10.0",
+    "mobx": "^6.3.2",
+    "revolt.js": "workspace:^6.0.18",
+    "solid-js": "^1.5.1"
+  }
+}
