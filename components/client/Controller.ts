@@ -1,5 +1,5 @@
 import { detect } from "detect-browser";
-import { action, computed, makeAutoObservable, ObservableMap } from "mobx";
+import { makeAutoObservable, ObservableMap } from "mobx";
 import { API, Client, Nullable } from "revolt.js";
 
 // import { injectController } from "../../lib/window";

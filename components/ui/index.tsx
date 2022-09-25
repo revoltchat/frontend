@@ -1,12 +1,14 @@
-export * from "./components/design/atoms/heading";
 export * from "./components/design/atoms/inputs";
 
 export { Masks } from "./components/common/Masks";
 export { Avatar } from "./components/design/atoms/display/Avatar";
+export { Typography } from "./components/design/atoms/display/Typography";
 export { UserStatus } from "./components/design/atoms/indicators/UserStatus";
+export { FormGroup } from "./components/design/atoms/display/FormGroup";
 
 export * from "./components/design/atoms/indicators";
 
+export * from "./components/design/layout";
 export * from "./components/poppers/Tooltip";
 
 export { ServerList } from "./components/navigation/servers/ServerList";
@@ -43,5 +45,10 @@ export const darkTheme: DefaultTheme = {
   borderRadius: {
     md: "6px",
     lg: "12px",
+  },
+  gap: {
+    sm: "4px",
+    md: "8px",
+    lg: "16px",
   },
 };

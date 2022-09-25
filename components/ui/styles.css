@@ -1,4 +1,7 @@
-@import "@fontsource/inter";
+@import "@fontsource/open-sans/400";
+@import "@fontsource/open-sans/500";
+@import "@fontsource/open-sans/600";
+@import "@fontsource/open-sans/700";
 
 * {
     box-sizing: border-box;
@@ -6,7 +9,7 @@
 
 body {
     margin: 0;
-    font-family: "Inter";
+    font-family: "Open Sans", sans-serif;
 }
 
 #root {

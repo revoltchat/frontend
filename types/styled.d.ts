@@ -9,13 +9,16 @@ declare module "solid-styled-components" {
         | `foreground-${100 | 200 | 300 | 400}`
         | 'background'
         | `background-${100 | 200 | 300 | 400}`
-        | `status-${'online' | 'idle' | 'focus' | 'busy' | 'streaming' | 'offline'}`]: string;
+        | `status-${'online' | 'idle' | 'focus' | 'busy' | 'streaming' | 'invisible'}`]: string;
     };
     breakpoints: {
       [key in 'sm' | 'md' | 'lg' | 'xl']: string;
     };
     borderRadius: {
       [key in 'md' | 'lg']: string;
+    };
+    gap: {
+      [key in 'sm' | 'md' | 'lg']: string;
     };
   }
 }

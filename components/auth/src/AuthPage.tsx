@@ -9,6 +9,7 @@ import wordmark from "../../../assets/wordmark.svg";
 
 import FlowCreate from "./flows/FlowCreate";
 import FlowLogin from "./flows/FlowLogin";
+import { FlowBase } from "./flows/Flow";
 
 /**
  * Authentication page layout
@@ -109,7 +110,7 @@ export function AuthPage() {
         <Logo src={wordmark} />
         <LocaleSelector />
       </Nav>
-      <div>
+      <FlowBase>
         <Routes>
           <Route path="/create" component={FlowCreate} />
           <Route path="/resend" component={FlowCreate} />
@@ -118,7 +119,7 @@ export function AuthPage() {
           <Route path="/reset/:token" component={FlowCreate} />
           <Route path="/*any" component={FlowLogin} />
         </Routes>
-      </div>
+      </FlowBase>
       <Nav>
         <NavItems stack grow>
           <NavItems>

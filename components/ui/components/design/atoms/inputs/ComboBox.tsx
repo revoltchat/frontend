@@ -1,18 +1,19 @@
 import { styled } from "solid-styled-components";
 
 export const ComboBox = styled("select")`
-  padding: 11px 16px;
+  padding: 4px;
+  height: fit-content;
 
+  font-weight: 500;
   font-size: 0.9375rem;
   font-family: inherit;
-  font-weight: 500;
 
   color: ${({ theme }) => theme!.colours.foreground};
   background: ${({ theme }) => theme!.colours["background-100"]};
 
-  border: none;
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
   box-sizing: border-box;
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  border: 2px solid ${({ theme }) => theme!.colours["background-300"]};
 
   outline: none;
   cursor: pointer;

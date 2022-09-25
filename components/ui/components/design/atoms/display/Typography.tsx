@@ -1,0 +1,78 @@
+import type { JSX } from "solid-js/jsx-runtime";
+import { styled } from "solid-styled-components";
+
+const H1 = styled("h1")`
+  /* legacy: SETTINGS TITLE */
+
+  margin: 0;
+  line-height: 1rem;
+
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme!.colours.foreground};
+`;
+
+const H2 = styled("h2")`
+  /* legacy: MODAL TITLE */
+
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: ${({ theme }) => theme!.colours.foreground};
+`;
+
+const H3 = styled("h3")`
+  /* legacy: SETTINGS SECTION TITLE */
+
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: ${({ theme }) => theme!.colours["foreground-100"]};
+`;
+
+const H4 = styled("h4")`
+  /* legacy: MODAL TITLE */
+
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  color: ${({ theme }) => theme!.colours["foreground-100"]};
+`;
+
+const Subtitle = styled("h5")`
+  /* legacy: SETTINGS DESCRIPTION */
+
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.75rem;
+`;
+
+const InputLabel = styled("label")`
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme!.colours["foreground"]};
+`;
+
+type Variant = "h1" | "h2" | "h3" | "h4" | "subtitle" | "label";
+
+type TypographyProps = {
+  variant: Variant;
+} & JSX.HTMLAttributes<any>;
+
+export const Typography = ({ variant, ...props }: TypographyProps) => {
+  switch (variant) {
+    case "h1":
+      return <H1 {...props} />;
+    case "h2":
+      return <H2 {...props} />;
+    case "h3":
+      return <H3 {...props} />;
+    case "h4":
+      return <H4 {...props} />;
+    case "subtitle":
+      return <Subtitle {...props} />;
+    case "label":
+      return <InputLabel {...props} />;
+  }
+};
