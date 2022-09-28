@@ -1,5 +1,4 @@
 Run the client locally:
-
 ```
 git clone https://github.com/insertish/revoltchat-solid-client-monorepo
 git submodule init
@@ -10,7 +9,6 @@ pnpm dev
 ```
 
 Add a new package to a workspace:
-
 ```
 pnpm add solid-hcaptcha --filter @revolt/auth
 ```
