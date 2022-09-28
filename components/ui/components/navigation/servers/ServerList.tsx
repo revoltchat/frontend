@@ -12,12 +12,13 @@ import { createSignal, For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Link } from "@revolt/routing";
 import { Avatar } from "../../design/atoms/display/Avatar";
-import { Unreads } from "../../design/atoms/indicators";
+import { Unreads, UserStatus } from "../../design/atoms/indicators";
 import { BiRegularHome } from "solid-icons/bi";
+import { Nullable, User } from "revolt.js";
 
 const ServerListBase = styled.div`
   overflow-y: scroll;
-  scrollbar-width: none;
+  padding: 5px;
 
   background: ${({ theme }) => theme!.colours["background-100"]};
 
@@ -72,9 +73,10 @@ const Sortable = (props: { item: Server }) => {
 
 interface Props {
   orderedServers: Server[];
+  currentUser: Nullable<User>;
 }
 
-export const ServerList = ({ orderedServers }: Props) => {
+export const ServerList = ({ orderedServers, currentUser }: Props) => {
   const [activeItem, setActiveItem] = createSignal<string | null>(null);
   const ids = () => orderedServers.map(({ _id }) => _id);
 
@@ -108,7 +110,19 @@ export const ServerList = ({ orderedServers }: Props) => {
             {/* list header goes here */}
             <div class="sortable">
               <Link href="/">
-                <BiRegularHome size={24} color="white" />
+                <Show when={currentUser != null}>
+                  <Avatar
+                    size={42}
+                    src={currentUser!!.generateAvatarURL({ max_side: 256 })}
+                    holepunch="top-right"
+                    overlay={
+                      <>
+                        <UserStatus status={currentUser!!.status?.presence == null ? "Invisible" : currentUser!!.status?.presence} />
+                      </>
+                    }
+                    fallback={currentUser!!.username}
+                  />
+                </Show>
               </Link>
             </div>
             <For each={orderedServers}>

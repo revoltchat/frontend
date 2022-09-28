@@ -36,10 +36,9 @@ const Home: Component = () => {
 
 export const Sidebar: Component = () => {
   const client = useClient();
-
   return (
-    <div style={{ display: "flex", "flex-shrink": 0 }}>
-      <ServerList orderedServers={[...client.servers.values()]} />
+    <div style={{ display: "flex", "flex-shrink": 0, "scrollbar-width": "none" }}>
+      <ServerList orderedServers={[...client.servers.values()]} currentUser={client.user} />
       <Routes>
         <Route path="/server/:server/*" component={Server} />
         <Route path="/*" component={Home} />
