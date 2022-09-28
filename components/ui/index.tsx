@@ -12,6 +12,7 @@ export * from "./components/design/layout";
 export * from "./components/poppers/Tooltip";
 
 export { ServerList } from "./components/navigation/servers/ServerList";
+export { ServerSidebar } from "./components/navigation/channels/ServerSidebar";
 
 import type { DefaultTheme } from "solid-styled-components";
 export { ThemeProvider } from "solid-styled-components";

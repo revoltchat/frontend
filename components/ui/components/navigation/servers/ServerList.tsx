@@ -13,6 +13,7 @@ import { styled } from "solid-styled-components";
 import { Link } from "@revolt/routing";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Unreads } from "../../design/atoms/indicators";
+import { BiRegularHome } from "solid-icons/bi";
 
 const ServerListBase = styled.div`
   overflow-y: scroll;
@@ -105,6 +106,11 @@ export const ServerList = ({ orderedServers }: Props) => {
         <div class="column self-stretch">
           <SortableProvider ids={ids()}>
             {/* list header goes here */}
+            <div class="sortable">
+              <Link href="/">
+                <BiRegularHome size={24} color="white" />
+              </Link>
+            </div>
             <For each={orderedServers}>
               {(item) => <Sortable item={item} />}
             </For>

@@ -1,3 +1,4 @@
+import { splitProps } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
 import { styled } from "solid-styled-components";
 
@@ -60,19 +61,21 @@ type TypographyProps = {
   variant: Variant;
 } & JSX.HTMLAttributes<any>;
 
-export const Typography = ({ variant, ...props }: TypographyProps) => {
-  switch (variant) {
+export const Typography = (props: TypographyProps) => {
+  const [local, others] = splitProps(props, ["variant"]);
+
+  switch (local.variant) {
     case "h1":
-      return <H1 {...props} />;
+      return <H1 {...others} />;
     case "h2":
-      return <H2 {...props} />;
+      return <H2 {...others} />;
     case "h3":
-      return <H3 {...props} />;
+      return <H3 {...others} />;
     case "h4":
-      return <H4 {...props} />;
+      return <H4 {...others} />;
     case "subtitle":
-      return <Subtitle {...props} />;
+      return <Subtitle {...others} />;
     case "label":
-      return <InputLabel {...props} />;
+      return <InputLabel {...others} />;
   }
 };
