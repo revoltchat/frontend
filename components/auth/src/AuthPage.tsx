@@ -1,4 +1,4 @@
-import { Route, Routes } from "@solidjs/router";
+import { Route, Routes } from "@revolt/routing";
 import { styled } from "solid-styled-components";
 import { LocaleSelector, useTranslation } from "@revolt/i18n";
 

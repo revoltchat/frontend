@@ -1,12 +1,11 @@
 import { clientController, useClient } from "@revolt/client";
 import { ServerList } from "@revolt/ui";
-import { Navigate } from "@solidjs/router";
-import { For } from "solid-js";
+import { Link, Navigate } from "@revolt/routing";
 
 export function HomeTesting() {
-  /*if (!clientController.isLoggedIn()) {
+  if (!clientController.isLoggedIn()) {
     return <Navigate href="/login" replace />;
-  }*/
+  }
 
   const client = useClient();
 
@@ -31,16 +30,9 @@ export function HomeTesting() {
       <span>Hello, {client.user?.username ?? "no username yet"}!</span>
       <div>(status = {client.user?.status?.presence ?? "Online"})</div>
       <button onClick={changeStatus}>change status</button>
+      <Link href="/login">go to login</Link>
       <div>
-        your servers:
-        <ul>
-          <For each={[...client.servers.values()]}>
-            {({ name }) => <li>{name}</li>}
-          </For>
-        </ul>
-      </div>
-      <div>
-        <ServerList />
+        <ServerList orderedServers={[...client.servers.values()]} />
       </div>
     </div>
   );

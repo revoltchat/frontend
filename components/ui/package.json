@@ -13,6 +13,7 @@
   "dependencies": {
     "@fontsource/inter": "^4.5.12",
     "@popperjs/core": "^2.11.6",
+    "@revolt/routing": "workspace:^1.0.0",
     "@thisbeyond/solid-dnd": "^0.7.1",
     "solid-icons": "^1.0.1",
     "solid-js": "^1.5.1",

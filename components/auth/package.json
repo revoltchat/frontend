@@ -16,8 +16,8 @@
   "dependencies": {
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
+    "@revolt/routing": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
-    "@solidjs/router": "^0.4.3",
     "revolt.js": "workspace:^6.0.18",
     "solid-hcaptcha": "^0.2.5",
     "solid-icons": "^1.0.1",

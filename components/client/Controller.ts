@@ -141,7 +141,7 @@ export default class ClientController {
      * @param entry Session Information
      * @param knowledge Whether the session is new or existing
      */
-    addSession(
+    async addSession(
         entry: { session: SessionPrivate; apiUrl?: string },
         knowledge: "new" | "existing",
     ) {
@@ -151,7 +151,7 @@ export default class ClientController {
         this.sessions.set(user_id, session);
         this.pickNextSession();
 
-        session
+        await session
             .emit({
                 action: "LOGIN",
                 session: entry.session,

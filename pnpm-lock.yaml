@@ -9,8 +9,8 @@ importers:
     specifiers:
       '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
+      '@revolt/routing': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      '@solidjs/router': ^0.4.3
       revolt.js: workspace:^6.0.18
       solid-hcaptcha: ^0.2.5
       solid-icons: ^1.0.1
@@ -20,8 +20,8 @@ importers:
     dependencies:
       '@revolt/client': link:../client
       '@revolt/i18n': link:../i18n
+      '@revolt/routing': link:../routing
       '@revolt/ui': link:../ui
-      '@solidjs/router': 0.4.3_solid-js@1.5.5
       revolt.js: link:../../packages/revolt.js
       solid-hcaptcha: 0.2.5_solid-js@1.5.5
       solid-icons: 1.0.1_solid-js@1.5.5
@@ -55,6 +55,14 @@ importers:
       '@solid-primitives/i18n': 1.1.1_solid-js@1.5.5
       solid-js: 1.5.5
 
+  components/routing:
+    specifiers:
+      '@solidjs/router': ^0.4.3
+      solid-js: ^1.5.1
+    dependencies:
+      '@solidjs/router': 0.4.3_solid-js@1.5.5
+      solid-js: 1.5.5
+
   components/state:
     specifiers:
       '@revolt/client': workspace:^1.0.0
@@ -77,6 +85,7 @@ importers:
     specifiers:
       '@fontsource/inter': ^4.5.12
       '@popperjs/core': ^2.11.6
+      '@revolt/routing': workspace:^1.0.0
       '@thisbeyond/solid-dnd': ^0.7.1
       revolt.js: workspace:^6.0.18
       solid-icons: ^1.0.1
@@ -86,6 +95,7 @@ importers:
     dependencies:
       '@fontsource/inter': 4.5.12
       '@popperjs/core': 2.11.6
+      '@revolt/routing': link:../routing
       '@thisbeyond/solid-dnd': 0.7.1_solid-js@1.5.5
       solid-icons: 1.0.1_solid-js@1.5.5
       solid-js: 1.5.5
@@ -101,8 +111,8 @@ importers:
       '@revolt/auth': workspace:^1.0.0
       '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
+      '@revolt/routing': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      '@solidjs/router': ^0.4.3
       mobx: ^6.3.2
       revolt.js: workspace:^6.0.18
       solid-js: ^1.5.1
@@ -113,8 +123,8 @@ importers:
       '@revolt/auth': link:../../components/auth
       '@revolt/client': link:../../components/client
       '@revolt/i18n': link:../../components/i18n
+      '@revolt/routing': link:../../components/routing
       '@revolt/ui': link:../../components/ui
-      '@solidjs/router': 0.4.3_solid-js@1.5.5
       mobx: 6.6.2
       solid-js: 1.5.5
     devDependencies:

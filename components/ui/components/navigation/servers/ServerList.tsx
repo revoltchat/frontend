@@ -7,8 +7,10 @@ import {
   createSortable,
   closestCenter,
 } from "@thisbeyond/solid-dnd";
-import { createSignal, For } from "solid-js";
+import { Server } from "revolt.js/dist/maps/Servers";
+import { createSignal, For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
+import { Link } from "@revolt/routing";
 
 const ServerListBase = styled.div`
   .sortable {
@@ -29,8 +31,12 @@ const ServerListBase = styled.div`
   }
 `;
 
-const Sortable = (props: { item: number }) => {
-  const sortable = createSortable(props.item);
+const Test = () => {
+  return <Link href="/login">test</Link>;
+};
+
+const Sortable = (props: { item: Server }) => {
+  const sortable = createSortable(props.item._id);
   const [state] = useDragDropContext()!;
   return (
     <div
@@ -41,28 +47,34 @@ const Sortable = (props: { item: number }) => {
         transition: !!state.active.draggable,
       }}
     >
-      {!sortable.isActiveDraggable && props.item}
+      <Show when={!sortable.isActiveDraggable}>
+        <Link href={`/server/${props.item._id}`}>{props.item.name}</Link>
+      </Show>
     </div>
   );
 };
 
-export const ServerList = () => {
-  const [items, setItems] = createSignal([1, 2, 3, 4, 5, 6]);
-  const [activeItem, setActiveItem] = createSignal<number | null>(null);
-  const ids = () => items();
+interface Props {
+  orderedServers: Server[];
+}
+
+export const ServerList = ({ orderedServers }: Props) => {
+  const [activeItem, setActiveItem] = createSignal<string | null>(null);
+  const ids = () => orderedServers.map(({ _id }) => _id);
 
   const onDragStart: DragEventHandler = ({ draggable }) =>
-    setActiveItem(draggable.id as number);
+    setActiveItem(draggable.id as string);
 
   const onDragEnd: DragEventHandler = ({ draggable, droppable }) => {
     if (draggable && droppable) {
       const currentItems = ids();
-      const fromIndex = currentItems.indexOf(draggable.id as number);
-      const toIndex = currentItems.indexOf(droppable.id as number);
+      const fromIndex = currentItems.indexOf(draggable.id as string);
+      const toIndex = currentItems.indexOf(droppable.id as string);
       if (fromIndex !== toIndex) {
         const updatedItems = currentItems.slice();
         updatedItems.splice(toIndex, 0, ...updatedItems.splice(fromIndex, 1));
-        setItems(updatedItems);
+        // setItems(updatedItems);
+        console.debug("update!");
       }
     }
   };
@@ -78,7 +90,9 @@ export const ServerList = () => {
         <div class="column self-stretch">
           <SortableProvider ids={ids()}>
             {/* list header goes here */}
-            <For each={items()}>{(item) => <Sortable item={item} />}</For>
+            <For each={orderedServers}>
+              {(item) => <Sortable item={item} />}
+            </For>
             {/* list footer goes here */}
           </SortableProvider>
         </div>

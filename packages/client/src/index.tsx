@@ -27,7 +27,7 @@ import { render } from "solid-js/web";
 
 import { ThemeProvider, darkTheme } from "@revolt/ui";
 import i18n, { I18nContext } from "@revolt/i18n";
-import { Router } from "@solidjs/router";
+import { Router } from "@revolt/routing";
 import App from "./App";
 
 render(

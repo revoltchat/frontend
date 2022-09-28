@@ -1,0 +1,17 @@
+{
+  "name": "@revolt/routing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "@solidjs/router": "^0.4.3",
+    "solid-js": "^1.5.1"
+  }
+}

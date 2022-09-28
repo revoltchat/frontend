@@ -1,6 +1,6 @@
 import { clientController } from "@revolt/client";
 import { Button, Column, FormGroup, Input, Row, Typography } from "@revolt/ui";
-import { useNavigate } from "@solidjs/router";
+import { useNavigate } from "@revolt/routing";
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
 import { createSignal, Show } from "solid-js";
 import { styled } from "solid-styled-components";
@@ -21,7 +21,9 @@ export default function FlowLogin() {
 
   const [error, setError] = createSignal<string | undefined>();
 
-  const login = async () => {
+  const login = async (ev: Event) => {
+    ev.preventDefault();
+
     if (!email() || !password()) {
       setError("no email or password");
       return;
@@ -48,6 +50,24 @@ export default function FlowLogin() {
       }
     } catch (err) {
       setError("hCaptcha cancelled or failed");
+    }
+  };
+
+  const tokenLogin = async () => {
+    try {
+      await clientController.addSession(
+        {
+          session: {
+            user_id: "01EX2NCWQ0CHS3QJF0FEQS1GR4",
+            token: import.meta.env.VITE_TOKEN,
+          },
+        },
+        "existing"
+      );
+
+      navigate("/", { replace: true });
+    } catch (err) {
+      setError("login failed");
     }
   };
 
@@ -82,6 +102,8 @@ export default function FlowLogin() {
         </FormGroup>
 
         <Button type="submit">login</Button>
+
+        <Button onClick={tokenLogin}>use VITE_TOKEN</Button>
 
         <Show when={error()}>
           <span>error: {error()}</span>
