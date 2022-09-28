@@ -1,3 +1,5 @@
+import { useTheme } from "solid-styled-components";
+
 export type Props = {
   unread: boolean;
   count: number;
@@ -7,10 +9,12 @@ export type Props = {
  * Overlays unreads in current SVG
  */
 export function Unreads({ unread, count }: Props) {
+  const theme = useTheme();
+
   if (count > 0) {
     return (
       <>
-        <circle cx="27" cy="5" r="5" fill={"var(--error)"} />
+        <circle cx="27" cy="5" r="5" fill={theme!.colours["error"]} />
         <text
           x="27"
           y="5"

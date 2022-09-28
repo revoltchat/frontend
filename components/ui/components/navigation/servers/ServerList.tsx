@@ -11,14 +11,19 @@ import { Server } from "revolt.js/dist/maps/Servers";
 import { createSignal, For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Link } from "@revolt/routing";
+import { Avatar } from "../../design/atoms/display/Avatar";
+import { Unreads } from "../../design/atoms/indicators";
 
 const ServerListBase = styled.div`
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  background: ${({ theme }) => theme!.colours["background-100"]};
+
   .sortable {
-    width: 56px;
-    height: 52px;
-    margin: 1em 0;
+    width: 50px;
+    height: 50px;
     display: grid;
-    background: gray;
     place-items: center;
   }
 
@@ -30,10 +35,6 @@ const ServerListBase = styled.div`
     transition: 0.25s ease transform;
   }
 `;
-
-const Test = () => {
-  return <Link href="/login">test</Link>;
-};
 
 const Sortable = (props: { item: Server }) => {
   const sortable = createSortable(props.item._id);
@@ -48,7 +49,21 @@ const Sortable = (props: { item: Server }) => {
       }}
     >
       <Show when={!sortable.isActiveDraggable}>
-        <Link href={`/server/${props.item._id}`}>{props.item.name}</Link>
+        <Link href={`/server/${props.item._id}`}>
+          <Avatar
+            size={42}
+            src={props.item.generateIconURL({ max_side: 256 })}
+            holepunch={props.item.isUnread() ? "top-right" : "none"}
+            overlay={
+              <>
+                <Show when={props.item.isUnread()}>
+                  <Unreads count={props.item.getMentions().length} unread />
+                </Show>
+              </>
+            }
+            fallback={props.item.name}
+          />
+        </Link>
       </Show>
     </div>
   );

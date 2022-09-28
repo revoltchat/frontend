@@ -53,7 +53,7 @@ const FallbackBase = styled("div")`
   font-weight: 600;
   font-size: 0.75rem;
   color: ${({ theme }) => theme!.colours["foreground"]};
-  background: ${({ theme }) => theme!.colours["background-100"]};
+  background: ${({ theme }) => theme!.colours["background-200"]};
 `;
 
 const ParentBase = styled("svg")<Pick<Props, "interactive">>`

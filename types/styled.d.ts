@@ -9,6 +9,9 @@ declare module "solid-styled-components" {
         | `foreground-${100 | 200 | 300 | 400}`
         | 'background'
         | `background-${100 | 200 | 300 | 400}`
+        | 'success'
+        | 'warning'
+        | 'error'
         | `status-${'online' | 'idle' | 'focus' | 'busy' | 'streaming' | 'invisible'}`]: string;
     };
     breakpoints: {
