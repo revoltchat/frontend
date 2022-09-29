@@ -15,7 +15,7 @@ export { ServerList } from "./components/navigation/servers/ServerList";
 export { ServerSidebar } from "./components/navigation/channels/ServerSidebar";
 
 import type { DefaultTheme } from "solid-styled-components";
-export { ThemeProvider } from "solid-styled-components";
+export { ThemeProvider, styled } from "solid-styled-components";
 
 export const darkTheme: DefaultTheme = {
   colours: {
@@ -25,7 +25,7 @@ export const darkTheme: DefaultTheme = {
     "foreground-200": "#CCC",
     "foreground-300": "#AAA",
     "foreground-400": "#848484",
-    background: "#000",
+    background: "#191919",
     "background-100": "#1E1E1E",
     "background-200": "#242424",
     "background-300": "#363636",
@@ -54,5 +54,8 @@ export const darkTheme: DefaultTheme = {
     sm: "4px",
     md: "8px",
     lg: "16px",
+  },
+  fonts: {
+    primary: '"Open Sans", sans-serif',
   },
 };

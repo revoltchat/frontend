@@ -14,12 +14,10 @@ import { Link } from "@revolt/routing";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Unreads } from "../../design/atoms/indicators";
 import { BiRegularHome } from "solid-icons/bi";
+import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 
-const ServerListBase = styled.div`
-  overflow-y: scroll;
-  scrollbar-width: none;
-
-  background: ${({ theme }) => theme!.colours["background-100"]};
+const ServerListBase = styled(InvisibleScrollContainer)`
+  background: ${({ theme }) => theme!.colours["background"]};
 
   .sortable {
     width: 50px;

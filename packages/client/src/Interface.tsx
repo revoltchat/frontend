@@ -11,7 +11,14 @@ const Interface: Component = () => {
   }
 
   return (
-    <div style={{ display: "flex", height: "100%" }}>
+    <div
+      style={{
+        display: "flex",
+        height: "100%",
+        "overflow-x": "auto",
+        "scroll-snap-type": "x mandatory",
+      }}
+    >
       <Sidebar />
       <Content />
     </div>

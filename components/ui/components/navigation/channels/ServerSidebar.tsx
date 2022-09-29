@@ -2,15 +2,13 @@ import { Link } from "@revolt/routing";
 import { Server } from "revolt.js";
 import { For } from "solid-js";
 import { styled } from "solid-styled-components";
+import { ScrollContainer } from "../../common/ScrollContainers";
 import { Typography } from "../../design/atoms/display/Typography";
 import { Button } from "../../design/atoms/inputs";
 
-const Base = styled.div`
-  overflow-y: scroll;
-  scrollbar-width: thin;
-
+const Base = styled(ScrollContainer)`
   width: 232px;
-  background: ${({ theme }) => theme!.colours["background-200"]};
+  background: ${({ theme }) => theme!.colours["background-100"]};
 `;
 
 interface Props {

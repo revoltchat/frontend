@@ -23,5 +23,8 @@ declare module "solid-styled-components" {
     gap: {
       [key in 'sm' | 'md' | 'lg']: string;
     };
+    fonts: {
+      [key in 'primary']: string;
+    };
   }
 }
