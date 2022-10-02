@@ -25,7 +25,7 @@ enableExternalSource((fn, trigger) => {
  */
 import { render } from "solid-js/web";
 
-import { ThemeProvider, revoltDark } from "@revolt/ui";
+import { ThemeProvider, revoltDark, GlobalStyles } from "@revolt/ui";
 import i18n, { I18nContext } from "@revolt/i18n";
 import { Router } from "@revolt/routing";
 import App from "./App";
@@ -36,6 +36,7 @@ render(
       <I18nContext.Provider value={i18n}>
         <ThemeProvider theme={revoltDark}>
           <App />
+          <GlobalStyles />
         </ThemeProvider>
       </I18nContext.Provider>
     </Router>
