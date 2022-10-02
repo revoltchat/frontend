@@ -1,3 +1,0 @@
-Add a new package to a workspace:
-
-pnpm add solid-hcaptcha --filter @revolt/auth
