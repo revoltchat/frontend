@@ -1,14 +1,13 @@
 import { useClient } from "@revolt/client";
-import { styled } from "@revolt/ui";
-import { ScrollContainer } from "@revolt/ui/components/common/ScrollContainers";
-import { Channel, Message } from "revolt.js";
+import { Message, ScrollContainer, styled } from "@revolt/ui";
+import type { Message as MessageType } from "revolt.js";
+import { Channel } from "revolt.js";
 import {
   Accessor,
   createEffect,
   createSignal,
   For,
   onCleanup,
-  Show,
 } from "solid-js";
 
 const Base = styled(ScrollContainer)`
@@ -23,14 +22,14 @@ const Base = styled(ScrollContainer)`
     flex-direction: column-reverse;
   }
 
-  /* temporary */
+  /* TODO: temporary */
   color: white;
 `;
 
 export function Messages({ channel }: { channel: Accessor<Channel> }) {
   const client = useClient();
 
-  const [messages, setMessages] = createSignal<Message[]>([]);
+  const [messages, setMessages] = createSignal<MessageType[]>([]);
 
   createEffect(() => {
     channel()
@@ -38,7 +37,7 @@ export function Messages({ channel }: { channel: Accessor<Channel> }) {
       .then(({ messages }) => setMessages(messages));
   });
 
-  function onMessage(msg: Message) {
+  function onMessage(msg: MessageType) {
     if (msg.channel_id === channel()._id) {
       setMessages([msg, ...messages()]);
     }
@@ -51,26 +50,14 @@ export function Messages({ channel }: { channel: Accessor<Channel> }) {
     <Base offsetTop={48}>
       <div>
         <For each={messages()}>
-          {(message) => (
-            <div>
-              {message.author?.username}: {message.content}
-              <Show when={message.attachments}>
-                <For each={message.attachments}>
-                  {(item) => (
-                    <Show when={item.metadata.type === "Image"}>
-                      <img
-                        style={{
-                          "max-width": "420px",
-                          "max-height": "420px",
-                        }}
-                        src={`https://autumn.revolt.chat/attachments/${item._id}`}
-                      />
-                    </Show>
-                  )}
-                </For>
-              </Show>
-            </div>
-          )}
+          {(message, i) => {
+            let prev = messages()[i() + 1];
+            let head = prev?.author?._id !== message.author?._id;
+
+            return (
+              <Message message={message} head={head} />
+            );
+          }}
         </For>
       </div>
     </Base>

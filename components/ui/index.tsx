@@ -30,3 +30,26 @@ export { ThemeProvider, styled } from "solid-styled-components";
 
 /* themes */
 export { revoltDark } from "./themes/RevoltDark";
+export { GlobalStyles } from "./themes/GlobalStyles";
+
+/* solid.js custom directives */
+declare module "solid-js" {
+  namespace JSX {
+    interface Directives {
+      customTooltip: string;
+    }
+  }
+}
+
+
+/* TODO: temporary */
+import dayjs from "dayjs";
+import calendar from "dayjs/plugin/calendar";
+import format from "dayjs/plugin/localizedFormat";
+import update from "dayjs/plugin/updateLocale";
+
+dayjs.extend(calendar);
+dayjs.extend(format);
+dayjs.extend(update);
+
+export { dayjs };
