@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "cd packages/client && pnpm run dev",
-    "showcase": "cd packages/showcase && pnpm run dev"
+    "showcase": "cd packages/showcase && pnpm run dev",
+    "build": "pnpm run --filter revolt.js build"
   },
   "keywords": [],
   "author": "",
