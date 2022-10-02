@@ -6,13 +6,13 @@ import "@revolt/ui/styles.css";
  */
 import { render } from "solid-js/web";
 
-import { ThemeProvider, darkTheme, Masks, TooltipDemo } from "@revolt/ui";
+import { ThemeProvider, revoltDark, Masks, TooltipDemo } from "@revolt/ui";
 
 render(
   () => (
     <div style={{ background: "#111", height: "100%" }}>
       <Masks />
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={revoltDark}>
         {/*<H1>hello!</H1>
         <H2>hello!</H2>
         <H3>hello!</H3>
