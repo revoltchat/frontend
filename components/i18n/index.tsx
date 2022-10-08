@@ -2,6 +2,7 @@ import { createI18nContext, useI18n } from "@solid-primitives/i18n";
 
 export { I18nContext, useI18n } from "@solid-primitives/i18n";
 export { LocaleSelector } from "./LocaleSelector";
+export * from "./dayjs";
 
 import en from "./locales/en.json";
 

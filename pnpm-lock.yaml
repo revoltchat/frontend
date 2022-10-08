@@ -49,10 +49,12 @@ importers:
     specifiers:
       '@revolt/ui': workspace:^1.0.0
       '@solid-primitives/i18n': ^1.1.1
+      dayjs: ^1.11.5
       solid-js: ^1.5.1
     dependencies:
       '@revolt/ui': link:../ui
       '@solid-primitives/i18n': 1.1.1_solid-js@1.5.5
+      dayjs: 1.11.5
       solid-js: 1.5.5
 
   components/routing:
@@ -115,6 +117,8 @@ importers:
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
+      '@types/lodash.isequal': ^4.5.5
+      lodash.isequal: ^4.5.0
       mobx: ^6.3.2
       revolt.js: workspace:^6.0.18
       solid-js: ^1.5.1
@@ -127,11 +131,13 @@ importers:
       '@revolt/i18n': link:../../components/i18n
       '@revolt/routing': link:../../components/routing
       '@revolt/ui': link:../../components/ui
+      lodash.isequal: 4.5.0
       mobx: 6.6.2
       solid-js: 1.5.5
     devDependencies:
       '@fontsource/inter': 4.5.12
       '@fontsource/open-sans': 4.5.11
+      '@types/lodash.isequal': 4.5.6
       revolt.js: link:../revolt.js
       typescript: 4.8.3
       vite: 3.0.9
@@ -1081,6 +1087,10 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}

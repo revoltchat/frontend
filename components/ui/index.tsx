@@ -11,9 +11,16 @@ export * from "./components/design/atoms/indicators";
 export * from "./components/design/layout";
 export * from "./components/poppers/Tooltip";
 
+export { Time } from "./components/design/atoms/display/Time";
+
 export { ServerList } from "./components/navigation/servers/ServerList";
 export { HomeSidebar } from "./components/navigation/channels/HomeSidebar";
 export { ServerSidebar } from "./components/navigation/channels/ServerSidebar";
+
+export {
+  ScrollContainer,
+  InvisibleScrollContainer,
+} from "./components/common/ScrollContainers";
 
 export { MessageBox } from "./components/messaging/composition/MessageBox";
 export {
@@ -21,6 +28,8 @@ export {
   HeaderWithImage,
   HeaderWithTransparency,
 } from "./components/design/atoms/display/Header";
+
+export { Message } from "./components/messaging/message/Message";
 
 import type { DefaultTheme } from "solid-styled-components";
 export { ThemeProvider, styled } from "solid-styled-components";

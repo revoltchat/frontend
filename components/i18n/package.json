@@ -13,6 +13,7 @@
   "dependencies": {
     "@revolt/ui": "workspace:^1.0.0",
     "@solid-primitives/i18n": "^1.1.1",
+    "dayjs": "^1.11.5",
     "solid-js": "^1.5.1"
   }
 }

@@ -59,7 +59,19 @@ const SmallText = styled("span")`
   font-size: 0.7rem;
 `;
 
-type Variant = "h1" | "h2" | "h3" | "h4" | "subtitle" | "label" | "small";
+const Username = styled("span")`
+  font-weight: 600;
+`;
+
+type Variant =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "subtitle"
+  | "label"
+  | "small"
+  | "username";
 
 type TypographyProps = {
   variant: Variant;
@@ -87,5 +99,7 @@ export const Typography = (props: TypographyProps) => {
       return <InputLabel {...others} />;
     case "small":
       return <SmallText {...others} />;
+    case "username":
+      return <Username {...others} />;
   }
 };
