@@ -66,6 +66,7 @@ const FallbackBase = styled("div")`
  * Avatar parent container
  */
 const ParentBase = styled("svg")<Pick<Props, "interactive">>`
+  flex-shrink: 0;
   user-select: none;
   cursor: ${(props) => (props.interactive ? "cursor" : "inherit")};
 

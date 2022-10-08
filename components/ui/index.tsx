@@ -12,6 +12,7 @@ export * from "./components/design/layout";
 export * from "./components/poppers/Tooltip";
 
 export { ServerList } from "./components/navigation/servers/ServerList";
+export { HomeSidebar } from "./components/navigation/channels/HomeSidebar";
 export { ServerSidebar } from "./components/navigation/channels/ServerSidebar";
 
 import type { DefaultTheme } from "solid-styled-components";
@@ -51,6 +52,7 @@ export const darkTheme: DefaultTheme = {
     lg: "12px",
   },
   gap: {
+    none: "0",
     sm: "4px",
     md: "8px",
     lg: "16px",

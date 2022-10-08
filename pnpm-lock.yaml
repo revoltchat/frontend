@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 importers:
 
@@ -85,6 +85,7 @@ importers:
     specifiers:
       '@fontsource/inter': ^4.5.12
       '@popperjs/core': ^2.11.6
+      '@revolt/i18n': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@thisbeyond/solid-dnd': ^0.7.1
       revolt.js: workspace:^6.0.18
@@ -95,11 +96,12 @@ importers:
     dependencies:
       '@fontsource/inter': 4.5.12
       '@popperjs/core': 2.11.6
+      '@revolt/i18n': link:../i18n
       '@revolt/routing': link:../routing
       '@thisbeyond/solid-dnd': 0.7.1_solid-js@1.5.5
       solid-icons: 1.0.1_solid-js@1.5.5
       solid-js: 1.5.5
-      solid-popper: 0.2.1_e1ade5bc2f9c060bc2dc6cdf730c259d
+      solid-popper: 0.2.1_4gw6lpbptqdaxqw4ntpxgdbftu
       solid-styled-components: 0.28.4_solid-js@1.5.5
     devDependencies:
       revolt.js: link:../../packages/revolt.js
@@ -1079,7 +1081,6 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
-    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -2230,9 +2231,8 @@ packages:
     resolution: {integrity: sha512-5gXszD7ekhe59IyMa3+AvREJnBWVjwaeC7afL8C3UNPj5gQQCrsMs/cXwI3JRpj6D+3TESTyuQ2sY++m4cYiTg==}
     dependencies:
       csstype: 3.1.1
-    dev: false
 
-  /solid-popper/0.2.1_e1ade5bc2f9c060bc2dc6cdf730c259d:
+  /solid-popper/0.2.1_4gw6lpbptqdaxqw4ntpxgdbftu:
     resolution: {integrity: sha512-SRsEbsOPy4yGr6BE7xHlrbHtPRf/t/DHLoJWbxXkmbjxqFAFwUbGAE616B+5OKc1cJeF3UprRDfbQdW5y7o5Ag==}
     engines: {node: '>=10'}
     peerDependencies:
