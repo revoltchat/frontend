@@ -1,9 +1,15 @@
 import { styled } from "solid-styled-components";
 
-export const ScrollContainer = styled.div<{ offsetTop?: number }>`
+/**
+ * Basic scroll container with correct styling
+ */
+export const ScrollContainer = styled.div<{
+  offsetTop?: number;
+  scrollDirection?: "x" | "y";
+}>`
   scrollbar-width: thin;
-  overflow-y: scroll;
   padding-top: ${(props) => props.offsetTop || 0}px;
+  ${(props) => `overflow-${props.scrollDirection ?? "y"}`}: scroll;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -25,6 +31,9 @@ export const ScrollContainer = styled.div<{ offsetTop?: number }>`
   }
 `;
 
+/**
+ * Scroll container with no visible track
+ */
 export const InvisibleScrollContainer = styled(ScrollContainer)`
   scrollbar-width: none;
 

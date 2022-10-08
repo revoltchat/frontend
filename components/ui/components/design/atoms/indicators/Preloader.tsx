@@ -1,5 +1,8 @@
 import { keyframes, styled } from "solid-styled-components";
 
+/**
+ * Animation for spinner
+ */
 const skSpinner = keyframes`
     0%, 80%, 100% { 
         -webkit-transform: scale(0);
@@ -11,6 +14,9 @@ const skSpinner = keyframes`
     }
 `;
 
+/**
+ * Animation for ring
+ */
 const prRing = keyframes`
     0% {
         transform: rotate(0deg);
@@ -20,6 +26,9 @@ const prRing = keyframes`
     }
 `;
 
+/**
+ * Preloader component styling
+ */
 const PreloaderBase = styled("div")<{ grow?: boolean }>`
   height: ${(props) => (props.grow ? "100%" : "fit-content")};
 
@@ -91,6 +100,9 @@ export interface Props {
   grow?: boolean;
 }
 
+/**
+ * Generic loading indicator with no progress indicator
+ */
 export function Preloader({ type, grow }: Props) {
   return (
     <PreloaderBase grow={grow}>

@@ -8,6 +8,9 @@ import { Accessor, Component, createMemo, Match, Switch } from "solid-js";
 import { MessageBox } from "./text/MessageBox";
 import { Messages } from "./text/Messages";
 
+/**
+ * Channel layout
+ */
 const Base = styled("div")`
   flex-grow: 1;
   display: flex;
@@ -16,6 +19,9 @@ const Base = styled("div")`
   background: ${({ theme }) => theme!.colours["background-200"]};
 `;
 
+/**
+ * Temporary channel header
+ */
 const ChannelHeader: Component<{
   channel: Accessor<Channel>;
 }> = ({ channel }) => {
@@ -44,6 +50,9 @@ const ChannelHeader: Component<{
   );
 };
 
+/**
+ * Channel component
+ */
 export const ChannelPage: Component = () => {
   const params = useParams();
   const client = useClient();

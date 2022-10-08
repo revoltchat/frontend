@@ -37,7 +37,6 @@ const Base = styled("div")`
     padding: 30px 20px;
     background-image: unset;
     background-color: ${({ theme }) => theme!.colours["background-200"]};
-    /* TODO primary bg */
   }
 `;
 

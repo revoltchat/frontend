@@ -1,5 +1,8 @@
 import "solid-styled-components";
 
+/**
+ * Declare our custom theme options
+ */
 declare module "solid-styled-components" {
   export interface DefaultTheme {
     colours: {

@@ -1,5 +1,8 @@
 import { styled } from "solid-styled-components";
 
+/**
+ * Container for authentication page flows
+ */
 export const FlowBase = styled("div")`
   background-color: rgba(36, 36, 36, 0.75);
   border: 2px solid rgba(128, 128, 128, 0.15);

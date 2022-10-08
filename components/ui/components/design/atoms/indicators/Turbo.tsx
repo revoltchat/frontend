@@ -39,6 +39,9 @@ const Base = styled("div")`
   }
 `;
 
+/**
+ * Concept icon
+ */
 export function Turbo() {
   return (
     <Base>

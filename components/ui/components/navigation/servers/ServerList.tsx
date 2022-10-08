@@ -1,3 +1,5 @@
+// ! TODO: #5 switch dnd libraries
+
 import { DragEventHandler, useDragDropContext } from "@thisbeyond/solid-dnd";
 import {
   DragDropProvider,
@@ -16,6 +18,9 @@ import { Unreads } from "../../design/atoms/indicators";
 import { BiRegularHome } from "solid-icons/bi";
 import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 
+/**
+ * Server list container
+ */
 const ServerListBase = styled(InvisibleScrollContainer)`
   background: ${({ theme }) => theme!.colours["background"]};
 
@@ -35,11 +40,15 @@ const ServerListBase = styled(InvisibleScrollContainer)`
   }
 `;
 
+/**
+ * Sortable Server element
+ */
 const Sortable = (props: { item: Server }) => {
   const sortable = createSortable(props.item._id);
   const [state] = useDragDropContext()!;
   return (
     <div
+      // @ts-expect-error Solid.js does not like Typescript
       use:sortable
       class="sortable"
       classList={{

@@ -1,5 +1,8 @@
 import { styled } from "solid-styled-components";
 
+/**
+ * Dropdown element
+ */
 export const ComboBox = styled("select")`
   padding: 4px;
   height: fit-content;

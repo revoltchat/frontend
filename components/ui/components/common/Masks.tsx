@@ -1,3 +1,6 @@
+/**
+ * SVG masks required in other components
+ */
 export function Masks() {
   return (
     <svg width={0} height={0} style={{ position: "fixed" }}>

@@ -1,9 +1,15 @@
 import { styled } from "solid-styled-components";
 
 export interface Props {
+  /**
+   * Colour scheme
+   */
   readonly palette?: "primary" | "secondary";
 }
 
+/**
+ * Input element
+ */
 export const Input = styled("input")<Props>`
   width: 100%;
   margin: 0.2em 0;

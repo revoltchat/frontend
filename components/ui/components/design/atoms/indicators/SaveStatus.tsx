@@ -5,6 +5,9 @@ import {
 } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
 
+/**
+ * Text and icon styling
+ */
 const Base = styled("div")`
   gap: 8px;
   padding: 4px;
@@ -17,11 +20,18 @@ const Base = styled("div")`
   color: ${({ theme }) => theme!.colours.foreground};
 `;
 
+/**
+ * Possible edit states
+ */
 export type EditStatus = "saved" | "editing" | "saving";
+
 interface Props {
   status: EditStatus;
 }
 
+/**
+ * Display a generic auto-save status
+ */
 export function SaveStatus({ status }: Props) {
   return (
     <Base>

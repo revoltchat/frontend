@@ -7,10 +7,16 @@ import { styled } from "solid-styled-components";
 
 import wave from "./wave.svg";
 
+/**
+ * Wave emoji
+ */
 const Wave = styled.img`
   height: 1.8em;
 `;
 
+/**
+ * Flow for logging into an account
+ */
 export default function FlowLogin() {
   let hcaptcha: HCaptchaFunctions | undefined;
 

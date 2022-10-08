@@ -3,6 +3,9 @@ import { useI18n } from "@solid-primitives/i18n";
 import { ComboBox } from "@revolt/ui";
 import { For } from "solid-js";
 
+/**
+ * Dropdown box for selecting the current language
+ */
 export function LocaleSelector() {
   const [_, { locale, add }] = useI18n();
 

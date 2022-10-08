@@ -6,6 +6,7 @@ import { ScrollContainer } from "../../common/ScrollContainers";
 import { Typography } from "../../design/atoms/display/Typography";
 import { Button } from "../../design/atoms/inputs";
 
+// TODO: move to generic
 const Base = styled(ScrollContainer)`
   width: 232px;
   background: ${({ theme }) => theme!.colours["background-100"]};
@@ -15,6 +16,9 @@ interface Props {
   server: () => Server;
 }
 
+/**
+ * Display server information and channels
+ */
 export const ServerSidebar = ({ server }: Props) => {
   return (
     <Base>

@@ -3,6 +3,9 @@ import { Link, Route, Routes, useParams } from "@revolt/routing";
 import { ServerList, ServerSidebar } from "@revolt/ui";
 import { Component, createMemo, For } from "solid-js";
 
+/**
+ * Render sidebar for a server
+ */
 const Server: Component = () => {
   const params = useParams();
   const client = useClient();
@@ -12,6 +15,9 @@ const Server: Component = () => {
   return <ServerSidebar server={server} />;
 };
 
+/**
+ * Render sidebar for home
+ */
 const Home: Component = () => {
   const client = useClient();
   // TODO validate server existence
@@ -34,6 +40,9 @@ const Home: Component = () => {
   );
 };
 
+/**
+ * Left-most channel navigation sidebar
+ */
 export const Sidebar: Component = () => {
   const client = useClient();
 

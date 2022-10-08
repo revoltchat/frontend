@@ -4,6 +4,9 @@ import { Component, lazy } from "solid-js";
 const AuthPage = lazy(() => import("./Auth"));
 const Interface = lazy(() => import("./Interface"));
 
+/**
+ * App routing
+ */
 const App: Component = () => {
   return (
     <Routes>

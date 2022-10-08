@@ -1,5 +1,8 @@
 import ClientController from "./Controller";
 
+/**
+ * Global client controller
+ */
 export const clientController = new ClientController();
 
 /**

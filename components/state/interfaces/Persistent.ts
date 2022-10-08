@@ -1,3 +1,6 @@
+// ! TODO: this is a direct port of the state
+// ! this will need to be polished up and integrated
+
 import Store from "./Store";
 
 /**

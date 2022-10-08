@@ -2,6 +2,9 @@ import { ChannelPage } from "./channels";
 import { Component } from "solid-js";
 import { Route, Routes } from "@revolt/routing";
 
+/**
+ * Render content without sidebars
+ */
 export const Content: Component = () => {
   return (
     <Routes>

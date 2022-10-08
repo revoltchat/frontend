@@ -27,6 +27,11 @@ const Base = styled(ScrollContainer)`
   color: white;
 `;
 
+/**
+ * Render messages in a Channel
+ *
+ * TODO: split this up into separate renderer and list
+ */
 export function Messages({ channel }: { channel: Accessor<Channel> }) {
   const client = useClient();
 

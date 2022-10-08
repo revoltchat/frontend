@@ -19,7 +19,11 @@ export const UserStatus = ({ status }: Props) => {
       cx="27"
       cy="27"
       r="5"
-      fill={theme.colours[`status-${status.toLowerCase()}`]}
+      fill={
+        theme.colours[
+          `status-${status.toLowerCase()}` as keyof typeof theme.colours
+        ]
+      }
     />
   );
 };

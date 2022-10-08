@@ -2,6 +2,9 @@ import { styled } from "@revolt/ui";
 import { Channel } from "revolt.js";
 import { Accessor, createSignal } from "solid-js";
 
+/**
+ * Message box container
+ */
 const Base = styled("div")`
   height: 48px;
   flex-shrink: 0;
@@ -11,6 +14,9 @@ const Base = styled("div")`
   background: ${({ theme }) => theme!.colours["background-300"]};
 `;
 
+/**
+ * Input area
+ */
 const Input = styled("textarea")`
   border: none;
   resize: none;
@@ -24,10 +30,16 @@ const Input = styled("textarea")`
   color: ${({ theme }) => theme!.colours.foreground};
 `;
 
+/**
+ * Action buttons
+ */
 const Button = styled("a")`
   //
 `;
 
+/**
+ * Specific-width containers
+ */
 const Spacer = styled("div")<{ size: "short" | "normal" | "wide" }>`
   display: grid;
   flex-shrink: 0;
@@ -36,6 +48,9 @@ const Spacer = styled("div")<{ size: "short" | "normal" | "wide" }>`
     size === "wide" ? 62 : size === "normal" ? 42 : 14}px;
 `;
 
+/**
+ * Message box
+ */
 export function MessageBox({ channel }: { channel: Accessor<Channel> }) {
   let input: HTMLTextAreaElement | undefined;
   const [value, setValue] = createSignal("");

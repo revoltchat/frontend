@@ -1,3 +1,5 @@
+/// <reference path="./types/styled.d.ts" />
+
 /* @refresh reload */
 import "@revolt/ui/styles.css";
 

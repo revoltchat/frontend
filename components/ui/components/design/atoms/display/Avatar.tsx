@@ -34,6 +34,9 @@ export type Props = {
   interactive?: boolean;
 };
 
+/**
+ * Avatar image
+ */
 const Image = styled("img")`
   width: 100%;
   height: 100%;
@@ -41,6 +44,9 @@ const Image = styled("img")`
   border-radius: 50%;
 `;
 
+/**
+ * Text fallback container
+ */
 const FallbackBase = styled("div")`
   width: 100%;
   height: 100%;
@@ -56,6 +62,9 @@ const FallbackBase = styled("div")`
   background: ${({ theme }) => theme!.colours["background-200"]};
 `;
 
+/**
+ * Avatar parent container
+ */
 const ParentBase = styled("svg")<Pick<Props, "interactive">>`
   user-select: none;
   cursor: ${(props) => (props.interactive ? "cursor" : "inherit")};
@@ -94,6 +103,7 @@ export function Avatar({
         y="0"
         width="32"
         height="32"
+        // @ts-expect-error Solid.js does not like `mask`
         mask={holepunch ? `url(#holepunch-${holepunch})` : undefined}
       >
         {src && <Image src={src} />}

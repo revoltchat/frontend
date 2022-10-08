@@ -61,6 +61,10 @@ type TypographyProps = {
   variant: Variant;
 } & JSX.HTMLAttributes<any>;
 
+/**
+ * Typography component for displaying text around the app
+ * @param props Text rendering options
+ */
 export const Typography = (props: TypographyProps) => {
   const [local, others] = splitProps(props, ["variant"]);
 

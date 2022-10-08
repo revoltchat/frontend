@@ -1,5 +1,8 @@
 import { styled } from "solid-styled-components";
 
+/**
+ * Divider line
+ */
 const Base = styled("div")<{ unread?: boolean }>`
   height: 0;
   display: flex;
@@ -23,6 +26,9 @@ const Base = styled("div")<{ unread?: boolean }>`
       theme!.colours[unread ? "accent" : "foreground-400"]};
 `;
 
+/**
+ * Unread indicator
+ */
 const Unread = styled("div")`
   font-size: 0.625rem;
   font-weight: 600;
@@ -35,10 +41,20 @@ const Unread = styled("div")`
 `;
 
 interface Props {
+  /**
+   * Display the date
+   */
   date?: string;
+
+  /**
+   * Show unread indicator
+   */
   unread?: boolean;
 }
 
+/**
+ * Generic message divider
+ */
 export function MessageDivider({ unread, date }: Props) {
   return (
     <Base unread={unread}>

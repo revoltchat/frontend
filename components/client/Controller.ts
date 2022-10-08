@@ -1,3 +1,6 @@
+// ! TODO: this is a direct port of the Controller
+// ! this will need to be polished up and integrated
+
 import { detect } from "detect-browser";
 import { makeAutoObservable, ObservableMap } from "mobx";
 import { API, Client, Nullable } from "revolt.js";

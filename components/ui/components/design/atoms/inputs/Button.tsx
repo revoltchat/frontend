@@ -1,7 +1,17 @@
+// ! TODO: this is a direct port of the Button
+// ! this will need to be polished up and rewritten for solid-styled-components
+
 import { styled } from "solid-styled-components";
 
 export interface Props {
+  /**
+   * Whether to display a smaller or icon button
+   */
   readonly compact?: boolean | "icon";
+
+  /**
+   * Colour scheme
+   */
   readonly palette?:
     | "primary"
     | "secondary"
@@ -13,6 +23,9 @@ export interface Props {
     | "error";
 }
 
+/**
+ * Button element
+ */
 export const Button = styled("button")<Props>`
   z-index: 1;
 
