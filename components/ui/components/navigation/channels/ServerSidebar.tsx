@@ -135,7 +135,8 @@ export const ServerSidebar = ({ server, channelId }: Props) => {
   return (
     <SidebarBase>
       <Column gap="lg">
-        <Typography variant="h2">{server().name}</Typography>
+        {/*<Typography variant="h2">{server().name}</Typography>*/}
+        <div />
         <For each={server().orderedChannels}>
           {(category) => <Category category={category} channelId={channelId} />}
         </For>
