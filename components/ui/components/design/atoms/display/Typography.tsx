@@ -55,7 +55,11 @@ const InputLabel = styled("label")`
   color: ${({ theme }) => theme!.colours["foreground"]};
 `;
 
-type Variant = "h1" | "h2" | "h3" | "h4" | "subtitle" | "label";
+const SmallText = styled("span")`
+  font-size: 0.7rem;
+`;
+
+type Variant = "h1" | "h2" | "h3" | "h4" | "subtitle" | "label" | "small";
 
 type TypographyProps = {
   variant: Variant;
@@ -81,5 +85,7 @@ export const Typography = (props: TypographyProps) => {
       return <Subtitle {...others} />;
     case "label":
       return <InputLabel {...others} />;
+    case "small":
+      return <SmallText {...others} />;
   }
 };

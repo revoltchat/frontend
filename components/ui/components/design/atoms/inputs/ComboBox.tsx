@@ -21,8 +21,6 @@ export const ComboBox = styled("select")`
   outline: none;
   cursor: pointer;
 
-  transition: 0.1s ease-in-out all;
-
   &:focus-visible {
     box-shadow: 0 0 0 1.5pt var(--accent);
   }

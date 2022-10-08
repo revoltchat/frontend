@@ -23,7 +23,7 @@ export const Input = styled("input")<Props>`
   border: 2px solid transparent;
   border-radius: ${({ theme }) => theme!.borderRadius.md};
 
-  transition: 0.1s ease-in-out all;
+  transition: ${(props) => props.theme!.transitions.fast} all;
 
   &:disabled {
     filter: brightness(0.9);

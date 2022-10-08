@@ -60,4 +60,8 @@ export const darkTheme: DefaultTheme = {
   fonts: {
     primary: '"Open Sans", sans-serif',
   },
+  transitions: {
+    fast: ".1s ease-in-out",
+    medium: ".2s ease",
+  },
 };

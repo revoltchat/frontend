@@ -29,5 +29,8 @@ declare module "solid-styled-components" {
     fonts: {
       [key in 'primary']: string;
     };
+    transitions: {
+      [key in 'fast' | 'medium']: string;
+    };
   }
 }

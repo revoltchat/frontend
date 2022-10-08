@@ -4,9 +4,14 @@ import { Link } from "@revolt/routing";
 import { createMemo, createSignal, For, Match, Switch } from "solid-js";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
-import { Column } from "../../design/layout";
+import { Column, Row } from "../../design/layout";
 import { SidebarBase } from "./common";
-import { BiRegularHash, BiRegularPhoneCall } from "solid-icons/bi";
+import {
+  BiRegularHash,
+  BiRegularPhoneCall,
+  BiSolidChevronDown,
+  BiSolidChevronRight,
+} from "solid-icons/bi";
 import { styled } from "solid-styled-components";
 
 interface Props {
@@ -62,6 +67,31 @@ function Entry({
 }
 
 /**
+ * Category title styling
+ */
+const CategoryBase = styled(Row)<{ open: boolean }>`
+  padding: 0 4px;
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+
+  color: ${(props) => props.theme!.colours["foreground-200"]};
+
+  &:hover {
+    color: ${(props) => props.theme!.colours["foreground-100"]};
+  }
+
+  &:active {
+    color: ${(props) => props.theme!.colours["foreground"]};
+  }
+
+  svg {
+    transition: ${(props) => props.theme!.transitions.fast} transform;
+    transform: rotateZ(${(props) => (props.open ? 90 : 0)}deg);
+  }
+`;
+
+/**
  * Single category entry
  */
 function Category({
@@ -80,9 +110,15 @@ function Category({
 
   return (
     <Column gap="sm">
-      <Typography variant="h3" onClick={() => setShown(!shown())}>
-        {category.title}
-      </Typography>
+      <CategoryBase
+        open={shown()}
+        onClick={() => setShown(!shown())}
+        align
+        gap="sm"
+      >
+        <BiSolidChevronRight size={12} />
+        <Typography variant="small">{category.title}</Typography>
+      </CategoryBase>
       <For each={channels()}>
         {(channel) => (
           <Entry channel={channel} active={() => channel._id === channelId()} />

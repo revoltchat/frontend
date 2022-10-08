@@ -37,7 +37,7 @@ export const Button = styled("button")<Props>`
   font-weight: 500;
   font-family: inherit;
 
-  transition: 0.1s ease all;
+  transition: ${(props) => props.theme!.transitions.fast} all;
 
   border: none;
   cursor: pointer;

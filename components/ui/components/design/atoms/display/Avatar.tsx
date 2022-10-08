@@ -71,7 +71,7 @@ const ParentBase = styled("svg")<Pick<Props, "interactive">>`
   cursor: ${(props) => (props.interactive ? "cursor" : "inherit")};
 
   foreignObject {
-    transition: 150ms ease filter;
+    transition: ${(props) => props.theme!.transitions.fast} filter;
   }
 
   &:hover foreignObject {

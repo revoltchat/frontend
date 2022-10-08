@@ -61,7 +61,7 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   filter: ${(props) =>
     props.attention === "muted" ? "brightness(0.75)" : "none"};
 
-  transition: 0.2s ease all;
+  transition: ${(props) => props.theme!.transitions.fast} all;
 
   .content {
     flex-grow: 1;

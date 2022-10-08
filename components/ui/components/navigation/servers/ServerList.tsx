@@ -49,6 +49,7 @@ export const ServerList = ({ orderedServers, user }: Props) => {
             overlay={
               <UserStatus status={user.status?.presence ?? "Invisible"} />
             }
+            interactive
           />
         </Link>
       </EntryContainer>
