@@ -5,9 +5,9 @@ import { For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Link } from "@revolt/routing";
 import { Avatar } from "../../design/atoms/display/Avatar";
-import { Unreads } from "../../design/atoms/indicators";
-import { BiRegularHome } from "solid-icons/bi";
+import { Unreads, UserStatus } from "../../design/atoms/indicators";
 import { InvisibleScrollContainer } from "../../common/ScrollContainers";
+import { User } from "revolt.js";
 
 /**
  * Server list container
@@ -23,8 +23,8 @@ const ServerListBase = styled(InvisibleScrollContainer)`
  * Server entries
  */
 const EntryContainer = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   display: grid;
   flex-shrink: 0;
   place-items: center;
@@ -32,14 +32,24 @@ const EntryContainer = styled.div`
 
 interface Props {
   orderedServers: Server[];
+  user: User;
 }
 
-export const ServerList = ({ orderedServers }: Props) => {
+export const ServerList = ({ orderedServers, user }: Props) => {
   return (
     <ServerListBase>
       <EntryContainer>
         <Link href="/">
-          <BiRegularHome size={24} color="white" />
+          <Avatar
+            size={42}
+            src={
+              user.generateAvatarURL({ max_side: 256 }) ?? user.defaultAvatarURL
+            }
+            holepunch={"bottom-right"}
+            overlay={
+              <UserStatus status={user.status?.presence ?? "Invisible"} />
+            }
+          />
         </Link>
       </EntryContainer>
       <For each={orderedServers}>

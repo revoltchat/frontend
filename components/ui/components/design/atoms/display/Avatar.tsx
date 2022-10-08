@@ -103,7 +103,7 @@ export function Avatar({
         y="0"
         width="32"
         height="32"
-        // @ts-expect-error Solid.js does not like `mask`
+        // @ts-expect-error Solid.js typing issue
         mask={holepunch ? `url(#holepunch-${holepunch})` : undefined}
       >
         {src && <Image src={src} />}

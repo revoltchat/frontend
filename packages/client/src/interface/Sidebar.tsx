@@ -48,7 +48,10 @@ export const Sidebar: Component = () => {
 
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>
-      <ServerList orderedServers={[...client.servers.values()]} />
+      <ServerList
+        orderedServers={[...client.servers.values()]}
+        user={client.user!}
+      />
       <Routes>
         <Route path="/server/:server/*" component={Server} />
         <Route path="/*" component={Home} />
