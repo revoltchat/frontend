@@ -1,4 +1,4 @@
-import { styled, MessageBox } from "@revolt/ui";
+import { styled, MessageBox, HeaderWithTransparency } from "@revolt/ui";
 import { useClient } from "@revolt/client";
 import { useParams } from "@revolt/routing";
 import { Channel } from "revolt.js";
@@ -6,6 +6,7 @@ import { Channel } from "revolt.js";
 import { Accessor, Component, createMemo, Match, Switch } from "solid-js";
 
 import { Messages } from "./text/Messages";
+import { MessageComposition } from "./text/Composition";
 
 /**
  * Channel layout
@@ -25,6 +26,12 @@ const ChannelHeader: Component<{
   channel: Accessor<Channel>;
 }> = ({ channel }) => {
   return (
+    <HeaderWithTransparency palette="primary">
+      {channel().name}
+    </HeaderWithTransparency>
+  );
+
+  /*return (
     <div
       style={{
         position: "absolute",
@@ -44,9 +51,8 @@ const ChannelHeader: Component<{
       }}
     >
       {channel().name}
-      {/*port Header!!*/}
     </div>
-  );
+  );*/
 };
 
 /**
@@ -64,7 +70,7 @@ export const ChannelPage: Component = () => {
         <Match when={!channel()}>404</Match>
         <Match when={channel()!.channel_type !== "VoiceChannel"}>
           <Messages channel={channel} />
-          <MessageBox channel={channel} />
+          <MessageComposition channel={channel} />
         </Match>
       </Switch>
     </Base>

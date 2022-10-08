@@ -1,8 +1,10 @@
 import { styled } from "solid-styled-components";
-import { ScrollContainer } from "../../common/ScrollContainers";
 
-export const SidebarBase = styled(ScrollContainer)`
+export const SidebarBase = styled.div`
   width: 232px;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
   background: ${({ theme }) => theme!.colours["background-100"]};
 
   a {

@@ -32,5 +32,15 @@ declare module "solid-styled-components" {
     transitions: {
       [key in 'fast' | 'medium']: string;
     };
+    effects: {
+      blur: {
+        [key in 'md']: string;
+      }
+    };
+    layout: {
+      height: {
+        [key in 'header' | 'tall-header' | 'message-box']: string;
+      }
+    }
   }
 }

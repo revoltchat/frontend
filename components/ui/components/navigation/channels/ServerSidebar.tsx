@@ -13,6 +13,8 @@ import {
   BiSolidChevronRight,
 } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
+import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
+import { ScrollContainer } from "../../common/ScrollContainers";
 
 interface Props {
   server: () => Server;
@@ -134,13 +136,31 @@ function Category({
 export const ServerSidebar = ({ server, channelId }: Props) => {
   return (
     <SidebarBase>
-      <Column gap="lg">
-        {/*<Typography variant="h2">{server().name}</Typography>*/}
-        <div />
-        <For each={server().orderedChannels}>
-          {(category) => <Category category={category} channelId={channelId} />}
-        </For>
-      </Column>
+      <Switch fallback={<Header palette="secondary">{server().name}</Header>}>
+        <Match when={server().banner}>
+          <HeaderWithImage
+            palette="secondary"
+            style={{
+              background: `url('${server().generateBannerURL({
+                max_side: 256,
+              })}')`,
+            }}
+          >
+            <div>{server().name}</div>
+          </HeaderWithImage>
+        </Match>
+      </Switch>
+      <ScrollContainer>
+        <Column gap="lg">
+          <div />
+          <For each={server().orderedChannels}>
+            {(category) => (
+              <Category category={category} channelId={channelId} />
+            )}
+          </For>
+          <div />
+        </Column>
+      </ScrollContainer>
     </SidebarBase>
   );
 };

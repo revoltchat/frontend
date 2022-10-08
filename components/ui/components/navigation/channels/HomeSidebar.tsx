@@ -9,6 +9,7 @@ import { Column } from "../../design/layout";
 import { OverflowingText } from "../../design/layout/OverflowingText";
 import { SidebarBase } from "./common";
 import { useQuantity } from "@revolt/i18n";
+import { ScrollContainer } from "../../common/ScrollContainers";
 
 interface Props {
   /**
@@ -97,17 +98,23 @@ function Entry({
 export const HomeSidebar = ({ conversations, channelId }: Props) => {
   return (
     <SidebarBase>
-      <Column>
-        <div />
-        <For each={conversations()}>
-          {(channel) => (
-            <Entry
-              channel={channel}
-              active={() => channel._id === channelId()}
-            />
-          )}
-        </For>
-      </Column>
+      <p>
+        <Typography variant="h1">Conversations</Typography>
+      </p>
+      <ScrollContainer>
+        <Column>
+          <div />
+          <For each={conversations()}>
+            {(channel) => (
+              <Entry
+                channel={channel}
+                active={() => channel._id === channelId()}
+              />
+            )}
+          </For>
+          <div />
+        </Column>
+      </ScrollContainer>
     </SidebarBase>
   );
 };

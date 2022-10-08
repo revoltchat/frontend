@@ -16,6 +16,11 @@ export { HomeSidebar } from "./components/navigation/channels/HomeSidebar";
 export { ServerSidebar } from "./components/navigation/channels/ServerSidebar";
 
 export { MessageBox } from "./components/messaging/composition/MessageBox";
+export {
+  Header,
+  HeaderWithImage,
+  HeaderWithTransparency,
+} from "./components/design/atoms/display/Header";
 
 import type { DefaultTheme } from "solid-styled-components";
 export { ThemeProvider, styled } from "solid-styled-components";
@@ -65,5 +70,17 @@ export const darkTheme: DefaultTheme = {
   transitions: {
     fast: ".1s ease-in-out",
     medium: ".2s ease",
+  },
+  effects: {
+    blur: {
+      md: "blur(20px)",
+    },
+  },
+  layout: {
+    height: {
+      header: "48px",
+      "tall-header": "120px",
+      "message-box": "48px",
+    },
   },
 };

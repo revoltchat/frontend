@@ -7,6 +7,9 @@ export const ScrollContainer = styled.div<{
   offsetTop?: number;
   scrollDirection?: "x" | "y";
 }>`
+  flex-grow: 1;
+  min-width: 0;
+  min-height: 0;
   scrollbar-width: thin;
   padding-top: ${(props) => props.offsetTop || 0}px;
   ${(props) => `overflow-${props.scrollDirection ?? "y"}`}: scroll;
