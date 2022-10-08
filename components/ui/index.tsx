@@ -15,6 +15,8 @@ export { ServerList } from "./components/navigation/servers/ServerList";
 export { HomeSidebar } from "./components/navigation/channels/HomeSidebar";
 export { ServerSidebar } from "./components/navigation/channels/ServerSidebar";
 
+export { MessageBox } from "./components/messaging/composition/MessageBox";
+
 import type { DefaultTheme } from "solid-styled-components";
 export { ThemeProvider, styled } from "solid-styled-components";
 

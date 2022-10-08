@@ -39,8 +39,8 @@ function Entry({
     <Link href={`/channel/${channel._id}`}>
       <MenuButton
         size="normal"
+        alert={!active() && channel.unread && (channel.mentions.length || true)}
         attention={active() ? "selected" : channel.unread ? "active" : "normal"}
-        alert={channel.unread && (channel.mentions.length || true)}
         icon={
           <Switch>
             <Match when={channel.channel_type === "Group"}>

@@ -47,7 +47,7 @@ function Entry({
     <Link href={`/server/${channel.server_id}/channel/${channel._id}`}>
       <MenuButton
         size="thin"
-        alert={channel.unread && (channel.mentions.length || true)}
+        alert={!active() && channel.unread && (channel.mentions.length || true)}
         attention={active() ? "selected" : channel.unread ? "active" : "normal"}
         icon={
           <Switch fallback={<BiRegularHash size={24} />}>

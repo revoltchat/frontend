@@ -1,11 +1,10 @@
+import { styled, MessageBox } from "@revolt/ui";
 import { useClient } from "@revolt/client";
 import { useParams } from "@revolt/routing";
-import { styled } from "@revolt/ui";
 import { Channel } from "revolt.js";
 
 import { Accessor, Component, createMemo, Match, Switch } from "solid-js";
 
-import { MessageBox } from "./text/MessageBox";
 import { Messages } from "./text/Messages";
 
 /**
