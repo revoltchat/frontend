@@ -38,6 +38,14 @@ const Base = styled("div")`
     background-image: unset;
     background-color: ${({ theme }) => theme!.colours["background-200"]};
   }
+
+  a,
+  a:link,
+  a:visited,
+  a:active {
+    color: white;
+    text-decoration: none;
+  }
 `;
 
 /**
@@ -122,15 +130,27 @@ export function AuthPage() {
       <Nav>
         <NavItems stack grow>
           <NavItems>
-            <BiLogosGithub size={24} color="white" />
-            <BiLogosTwitter size={24} color="white" />
-            <BiLogosMastodon size={24} color="white" />
+            <a href="https://github.com/revoltchat" target="_blank">
+              <BiLogosGithub size={24} color="white" />
+            </a>
+            <a href="https://twitter.com/revoltchat" target="_blank">
+              <BiLogosTwitter size={24} color="white" />
+            </a>
+            <a href="https://mastodon.social/web/@revoltchat" target="_blank">
+              <BiLogosMastodon size={24} color="white" />
+            </a>
           </NavItems>
           <Bullet />
           <NavItems>
-            <a>{t("general.about")}</a>
-            <a>{t("general.tos")}</a>
-            <a>{t("general.privacy")}</a>
+            <a href="https://revolt.chat/about" target="_blank">
+              {t("general.about")}
+            </a>
+            <a href="https://revolt.chat/terms" target="_blank">
+              {t("general.tos")}
+            </a>
+            <a href="https://revolt.chat/privacy" target="_blank">
+              {t("general.privacy")}
+            </a>
           </NavItems>
         </NavItems>
         <NavItems hide>
