@@ -84,6 +84,8 @@ export const darkTheme: DefaultTheme = {
     blur: {
       md: "blur(20px)",
     },
+    hover: "brightness(0.95)",
+    spoiler: "brightness(0.2) contrast(0.8) blur(24px)",
   },
   layout: {
     height: {

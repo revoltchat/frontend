@@ -24,8 +24,8 @@ export const ScrollContainer = styled.div<{
   }
 
   &::-webkit-scrollbar-thumb {
-    min-width: 30px;
-    min-height: 30px;
+    width: 128px;
+    height: 128px;
 
     background: ${({ theme }) => theme!.colours["accent"]};
     background-clip: content-box;

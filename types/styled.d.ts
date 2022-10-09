@@ -35,7 +35,9 @@ declare module "solid-styled-components" {
     effects: {
       blur: {
         [key in 'md']: string;
-      }
+      };
+      hover: string;
+      spoiler: string;
     };
     layout: {
       height: {

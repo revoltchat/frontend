@@ -105,6 +105,7 @@ export function Messages({ channel }: { channel: Accessor<Channel> }) {
       const next = arr[index + 1];
       let tail = true;
 
+      let date = null;
       if (next) {
         const atime = message.createdAt,
           btime = next.createdAt,
@@ -116,11 +117,7 @@ export function Messages({ channel }: { channel: Accessor<Channel> }) {
           adate.getMonth() !== bdate.getMonth() ||
           adate.getDate() !== bdate.getDate()
         ) {
-          messagesWithTail.push({
-            t: 1,
-            date: dayjs(adate).format("LL"),
-            unread: false,
-          });
+          date = adate;
         }
 
         if (
@@ -139,6 +136,14 @@ export function Messages({ channel }: { channel: Accessor<Channel> }) {
         message,
         tail,
       });
+
+      if (date) {
+        messagesWithTail.push({
+          t: 1,
+          date: dayjs(date).format("LL"),
+          unread: false,
+        });
+      }
     });
 
     return messagesWithTail;

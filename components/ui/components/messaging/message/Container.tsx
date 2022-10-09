@@ -28,6 +28,11 @@ interface Props {
   children: JSX.Element;
 
   /**
+   * Message header
+   */
+  header?: JSX.Element;
+
+  /**
    * Timestamp message was sent at
    */
   timestamp: number;
@@ -46,12 +51,10 @@ interface Props {
 /**
  * Message container layout
  */
-const Base = styled.div<{ tail?: boolean }>`
-  display: flex;
-  margin-top: ${(props) => (props.tail ? 0 : "12px")};
-
+const Base = styled(Column)<{ tail?: boolean }>`
   padding: 2px 0;
   font-size: 14px;
+  margin-top: ${(props) => (props.tail ? 0 : "12px")};
   color: ${(props) => props.theme!.colours.foreground};
 
   .hidden {
@@ -63,7 +66,7 @@ const Base = styled.div<{ tail?: boolean }>`
       display: block;
     }
 
-    background: ${(props) => props.theme!.colours["background-100"]};
+    backdrop-filter: ${(props) => props.theme!.effects.hover};
   }
 `;
 
@@ -104,43 +107,50 @@ export function MessageContainer({
   username,
   colour,
   edited,
+  header,
   children,
   timestamp,
   tail,
 }: Props) {
   return (
     <Base tail={tail}>
-      <Info tail={tail}>
-        {tail ? (
-          <InfoText class={!edited ? "hidden" : undefined}>
-            <Typography variant="small">
-              <Time value={timestamp} format="time" />
-            </Typography>
-          </InfoText>
-        ) : (
-          <Avatar size={36} src={avatar} />
-        )}
-      </Info>
-      <Column gap="none">
-        <Show when={!tail}>
-          <Row align>
-            <Typography variant="username">
-              <ColouredText colour={colour} clip={colour?.includes("gradient")}>
-                {username}
-              </ColouredText>
-            </Typography>
-            <InfoText>
+      {header}
+      <Row gap="none">
+        <Info tail={tail}>
+          {tail ? (
+            <InfoText class={!edited ? "hidden" : undefined}>
               <Typography variant="small">
-                <Time value={timestamp} format="calendar" />{" "}
-                <Show when={edited}>
-                  <span>(edited)</span>
-                </Show>
+                <Time value={timestamp} format="time" />
               </Typography>
             </InfoText>
-          </Row>
-        </Show>
-        {children}
-      </Column>
+          ) : (
+            <Avatar size={36} src={avatar} />
+          )}
+        </Info>
+        <Column gap="none">
+          <Show when={!tail}>
+            <Row align>
+              <Typography variant="username">
+                <ColouredText
+                  colour={colour}
+                  clip={colour?.includes("gradient")}
+                >
+                  {username}
+                </ColouredText>
+              </Typography>
+              <InfoText>
+                <Typography variant="small">
+                  <Time value={timestamp} format="calendar" />{" "}
+                  <Show when={edited}>
+                    <span>(edited)</span>
+                  </Show>
+                </Typography>
+              </InfoText>
+            </Row>
+          </Show>
+          {children}
+        </Column>
+      </Row>
     </Base>
   );
 }
