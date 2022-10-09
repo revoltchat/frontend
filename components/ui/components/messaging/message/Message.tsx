@@ -1,6 +1,9 @@
 import { Message as MessageInterface } from "revolt.js";
 import { MessageContainer } from "./Container";
 
+/**
+ * Render a Message with or without a tail
+ */
 export function Message({
   message,
   tail,
@@ -10,12 +13,9 @@ export function Message({
 }) {
   return (
     <MessageContainer
-      username={message.author?.username}
-      avatar={
-        message.author?.generateAvatarURL({ max_side: 256 }) ??
-        message.author?.defaultAvatarURL
-      }
-      colour={message.member?.roleColour}
+      username={message.username}
+      avatar={message.avatarURL}
+      colour={message.roleColour}
       timestamp={message.createdAt}
       edited={message.edited}
       tail={tail}
