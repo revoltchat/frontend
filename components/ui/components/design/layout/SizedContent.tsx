@@ -26,12 +26,9 @@ const Base = styled("figure")`
 
   > :not(.container),
   .spoiler {
-    object-fit: cover;
-    border-radius: ${(props) => props.theme!.borderRadius.md};
-
-    width: var(--width-px);
-    height: var(--height-px);
+    object-fit: contain;
     aspect-ratio: var(--width) / var(--height);
+    border-radius: ${(props) => props.theme!.borderRadius.md};
   }
 
   video,
@@ -84,7 +81,7 @@ export function SizedContent({ width, height, children }: Props) {
         "--width": width,
         "--height": height,
         "--width-px": width + "px",
-        "--height-px": height + "px",
+        "--height-px": height + "px"
       }}
     >
       {children}
