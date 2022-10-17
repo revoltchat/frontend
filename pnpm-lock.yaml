@@ -86,6 +86,7 @@ importers:
   components/ui:
     specifiers:
       '@fontsource/inter': ^4.5.12
+      '@fontsource/open-sans': ^4.5.11
       '@popperjs/core': ^2.11.6
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
@@ -97,6 +98,7 @@ importers:
       solid-styled-components: ^0.28.4
     dependencies:
       '@fontsource/inter': 4.5.12
+      '@fontsource/open-sans': 4.5.11
       '@popperjs/core': 2.11.6
       '@revolt/i18n': link:../i18n
       '@revolt/routing': link:../routing
@@ -110,8 +112,6 @@ importers:
 
   packages/client:
     specifiers:
-      '@fontsource/inter': ^4.5.12
-      '@fontsource/open-sans': ^4.5.11
       '@revolt/auth': workspace:^1.0.0
       '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
@@ -135,8 +135,6 @@ importers:
       mobx: 6.6.2
       solid-js: 1.5.5
     devDependencies:
-      '@fontsource/inter': 4.5.12
-      '@fontsource/open-sans': 4.5.11
       '@types/lodash.isequal': 4.5.6
       revolt.js: link:../revolt.js
       typescript: 4.8.3
@@ -568,10 +566,11 @@ packages:
 
   /@fontsource/inter/4.5.12:
     resolution: {integrity: sha512-bGKk4/8tube/nCk8hav0ZDBVbzJzc7m0Vt4xF5p15IN4YImwGdtKG38Oq5bU8xHNS+VfvbFFCepgQNj7Pr/Lvg==}
+    dev: false
 
   /@fontsource/open-sans/4.5.11:
     resolution: {integrity: sha512-nG0gmbx4pSr8wltdG/ZdlS6OrsMK40Wt6iyuLTKHEf0TQfzKRMlWaskZHdeuWCwS6WUgqHKMf9KSwGdxPfapOg==}
-    dev: true
+    dev: false
 
   /@hcaptcha/types/1.0.2:
     resolution: {integrity: sha512-0f//oG8XZrqaLZ+ggjcqF99t91w5UEpv61CJWu57WWsN6AZ1PXqqzXmcgTlr3RhlNe2zjymYZTkPeyqiek/DEQ==}

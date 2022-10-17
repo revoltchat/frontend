@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@fontsource/inter": "^4.5.12",
+    "@fontsource/open-sans": "^4.5.11",
     "@popperjs/core": "^2.11.6",
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",

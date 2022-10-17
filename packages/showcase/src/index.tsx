@@ -1,5 +1,5 @@
 /* @refresh reload */
-import "@revolt/ui/styles.css";
+import "@revolt/ui/styles";
 
 /**
  * Configure contexts and render App
