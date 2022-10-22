@@ -73,6 +73,7 @@ export const Input = styled("input")<Props>`
   }
 
   &:-webkit-autofill {
+    caret-color: ${(props) => props.theme!.colours["foreground"]} !important;
     -webkit-text-fill-color: ${(props) =>
       props.theme!.colours["foreground"]} !important;
   }
