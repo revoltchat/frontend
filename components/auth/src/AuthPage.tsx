@@ -85,6 +85,13 @@ const NavItems = styled("div")<{
 `;
 
 /**
+ * Link with an icon inside
+ */
+const LinkWithIcon = styled("a")`
+  height: 24px;
+`;
+
+/**
  * Middot-like bullet
  */
 const Bullet = styled("div")`
@@ -130,15 +137,18 @@ export function AuthPage() {
       <Nav>
         <NavItems stack grow>
           <NavItems>
-            <a href="https://github.com/revoltchat" target="_blank">
+            <LinkWithIcon href="https://github.com/revoltchat" target="_blank">
               <BiLogosGithub size={24} color="white" />
-            </a>
-            <a href="https://twitter.com/revoltchat" target="_blank">
+            </LinkWithIcon>
+            <LinkWithIcon href="https://twitter.com/revoltchat" target="_blank">
               <BiLogosTwitter size={24} color="white" />
-            </a>
-            <a href="https://mastodon.social/web/@revoltchat" target="_blank">
+            </LinkWithIcon>
+            <LinkWithIcon
+              href="https://mastodon.social/web/@revoltchat"
+              target="_blank"
+            >
               <BiLogosMastodon size={24} color="white" />
-            </a>
+            </LinkWithIcon>
           </NavItems>
           <Bullet />
           <NavItems>
