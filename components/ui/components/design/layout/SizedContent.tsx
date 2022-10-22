@@ -81,7 +81,7 @@ export function SizedContent({ width, height, children }: Props) {
         "--width": width,
         "--height": height,
         "--width-px": width + "px",
-        "--height-px": height + "px"
+        "--height-px": height + "px",
       }}
     >
       {children}

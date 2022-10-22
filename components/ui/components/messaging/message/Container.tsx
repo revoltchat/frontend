@@ -1,12 +1,19 @@
 import { Nullable } from "revolt.js";
 import { JSX, Show } from "solid-js";
-import { styled } from "solid-styled-components";
+import { keyframes, styled } from "solid-styled-components";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
 import { Typography } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
 
-interface Props {
+interface CommonProps {
+  /**
+   * Whether this is the tail of another message
+   */
+  tail?: boolean;
+}
+
+type Props = CommonProps & {
   /**
    * Avatar URL
    */
@@ -41,17 +48,12 @@ interface Props {
    * Date message was edited at
    */
   edited?: Nullable<Date>;
-
-  /**
-   * Whether this is the tail of another message
-   */
-  tail?: boolean;
-}
+};
 
 /**
  * Message container layout
  */
-const Base = styled(Column)<{ tail?: boolean }>`
+const Base = styled(Column)<CommonProps>`
   padding: 2px 0;
   font-size: 14px;
   margin-top: ${(props) => (props.tail ? 0 : "12px")};
@@ -73,7 +75,7 @@ const Base = styled(Column)<{ tail?: boolean }>`
 /**
  * Left-side information or avatar
  */
-const Info = styled.div<{ tail?: boolean }>`
+const Info = styled.div<Pick<CommonProps, "tail">>`
   width: 62px;
   display: flex;
   flex-shrink: 0;
@@ -102,53 +104,44 @@ const ColouredText = styled.span<{ colour?: Nullable<string>; clip?: boolean }>`
 /**
  * Component to show avatar, username, timestamp and content
  */
-export function MessageContainer({
-  avatar,
-  username,
-  colour,
-  edited,
-  header,
-  children,
-  timestamp,
-  tail,
-}: Props) {
+export function MessageContainer(props: Props) {
   return (
-    <Base tail={tail}>
-      {header}
+    <Base tail={props.tail}>
+      {props.header}
       <Row gap="none">
-        <Info tail={tail}>
-          {tail ? (
-            <InfoText class={!edited ? "hidden" : undefined}>
+        <Info tail={props.tail}>
+          {props.tail ? (
+            <InfoText class={!props.edited ? "hidden" : undefined}>
               <Typography variant="small">
-                <Time value={timestamp} format="time" />
+                <Time value={props.timestamp} format="time" />
               </Typography>
             </InfoText>
           ) : (
-            <Avatar size={36} src={avatar} />
+            <Avatar size={36} src={props.avatar} />
           )}
         </Info>
         <Column gap="none">
-          <Show when={!tail}>
+          <Show when={!props.tail}>
             <Row align>
               <Typography variant="username">
                 <ColouredText
-                  colour={colour}
-                  clip={colour?.includes("gradient")}
+                  colour={props.colour}
+                  clip={props.colour?.includes("gradient")}
                 >
-                  {username}
+                  {props.username}
                 </ColouredText>
               </Typography>
               <InfoText>
                 <Typography variant="small">
-                  <Time value={timestamp} format="calendar" />{" "}
-                  <Show when={edited}>
+                  <Time value={props.timestamp} format="calendar" />{" "}
+                  <Show when={props.edited}>
                     <span>(edited)</span>
                   </Show>
                 </Typography>
               </InfoText>
             </Row>
           </Show>
-          {children}
+          {props.children}
         </Column>
       </Row>
     </Base>
