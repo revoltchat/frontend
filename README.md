@@ -21,6 +21,8 @@ pnpm --filter revolt.js run build
 pnpm run dev
 ```
 
+Now navigate to http://local.revolt.chat:5173
+
 ## Using `pnpm`
 
 Add a new package to a workspace:
