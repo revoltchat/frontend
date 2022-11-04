@@ -7,13 +7,16 @@
     "test": "cd packages/test-runner && pnpm run test",
     "coverage": "cd packages/test-runner && pnpm run coverage",
     "dev": "cd packages/client && pnpm run dev",
+    "build": "cd packages/client && pnpm run build",
+    "build:deps": "pnpm --filter revolt.js build",
+    "build:all": "pnpm run build:deps && pnpm run build",
     "showcase": "cd packages/showcase && pnpm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=18",
+    "node": ">=16",
     "pnpm": ">=6"
   },
   "private": true,
