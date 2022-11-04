@@ -21,7 +21,7 @@ pnpm --filter revolt.js run build
 pnpm run dev
 ```
 
-Now navigate to http://local.revolt.chat:5173
+Finally, navigate to http://local.revolt.chat:5173.
 
 ## Using `pnpm`
 

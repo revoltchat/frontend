@@ -14,5 +14,6 @@
     "node": ">=18",
     "pnpm": ">=6"
   },
-  "private": true
+  "private": true,
+  "packageManager": "pnpm@7.14.2"
 }

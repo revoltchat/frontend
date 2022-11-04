@@ -10,7 +10,7 @@ const H1 = styled("h1")`
 
   font-weight: 600;
   font-size: 1.2rem;
-  color: ${({ theme }) => theme!.colours.foreground};
+  color: ${({ theme }) => theme!.colours["foreground"]};
 `;
 
 const H2 = styled("h2")`
@@ -19,7 +19,7 @@ const H2 = styled("h2")`
   margin: 0;
   font-weight: 700;
   font-size: 0.9375rem;
-  color: ${({ theme }) => theme!.colours.foreground};
+  color: ${({ theme }) => theme!.colours["foreground"]};
 `;
 
 const H3 = styled("h3")`

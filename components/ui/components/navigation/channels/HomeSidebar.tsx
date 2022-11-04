@@ -10,6 +10,7 @@ import { OverflowingText } from "../../design/layout/OverflowingText";
 import { SidebarBase } from "./common";
 import { useQuantity } from "@revolt/i18n";
 import { ScrollContainer } from "../../common/ScrollContainers";
+import { Button } from "../../design/atoms/inputs";
 
 interface Props {
   /**
@@ -100,6 +101,7 @@ export const HomeSidebar = ({ conversations, channelId }: Props) => {
     <SidebarBase>
       <p>
         <Typography variant="h1">Conversations</Typography>
+        <Button palette="warning">SUSSY 😳</Button>
       </p>
       <ScrollContainer>
         <Column>

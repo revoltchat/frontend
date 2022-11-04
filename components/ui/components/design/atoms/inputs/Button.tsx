@@ -1,6 +1,7 @@
 // ! TODO: this is a direct port of the Button
 // ! this will need to be polished up and rewritten for solid-styled-components
 
+import type { JSX } from "solid-js/jsx-runtime";
 import { styled } from "solid-styled-components";
 
 export interface Props {
@@ -24,9 +25,33 @@ export interface Props {
 }
 
 /**
- * Button element
+ * Determine button sizing based on the provided value
  */
-export const Button = styled("button")<Props>`
+ function buttonSizing(compact: boolean | "icon") {
+  return compact === "icon" ? `
+    height: 38px;
+    width: 38px;
+  `
+  : compact ? `
+    min-width: 96px;
+    font-size: 0.8125rem;
+    height: 32px !important;
+    padding: 2px 12px !important;
+  `
+  : `
+    height: 38px;
+    min-width: 96px;
+    padding: 2px 16px;
+    font-size: 0.8125rem;
+  `
+}
+
+
+/**
+ * Common button styles 
+*/
+function buttonBase (compact: boolean | "icon") {
+  return `
   z-index: 1;
 
   display: flex;
@@ -37,118 +62,122 @@ export const Button = styled("button")<Props>`
   font-weight: 500;
   font-family: inherit;
 
-  transition: ${(props) => props.theme!.transitions.fast} all;
-
   border: none;
   cursor: pointer;
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
 
+  ${buttonSizing(compact)}
+  
   &:disabled {
     cursor: not-allowed;
+  }`}
+
+const PrimaryButton = styled("button")<Props>`
+  ${(props) => (buttonBase(props.compact ?? false))}
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  transition: ${({ theme }) => theme!.transitions.fast} all;
+
+  color: ${({ theme }) => (theme!.colours["foreground"])};
+  background: ${({ theme }) => (theme!.colours["background-100"])};
+
+  &:hover {
+    background: ${({ theme }) => (theme!.colours["background-200"])};
   }
 
-  ${(props) =>
-    props.compact === "icon"
-      ? `
-                  height: 38px;
-                  width: 38px;
-              `
-      : props.compact
-      ? `
-                  min-width: 96px;
-                  font-size: 0.8125rem;
-                  height: 32px !important;
-                  padding: 2px 12px !important;
-              `
-      : `
-                  height: 38px;
-                  min-width: 96px;
-                  padding: 2px 16px;
-                  font-size: 0.8125rem;
-              `}
+  &:disabled {
+    background: ${({ theme }) => (theme!.colours["background-200"])};
+  }
 
-  ${(props) => {
-    switch (props.palette) {
-      case "secondary":
-        return `
-                    font-weight: 500;
-                    color: var(--foreground);
-                    background: var(--secondary-header);
+  &:active {
+    background: ${({ theme }) => (theme!.colours["background-100"])};
+  }`;
 
-                    &:hover {
-                        background: var(--primary-header);
-                    }
+const SecondaryButton = styled("button")<Props>`
+  ${(props) => (buttonBase(props.compact ?? false))}
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  transition: ${({ theme }) => theme!.transitions.fast} all;
 
-                    &:disabled {
-                        background: var(--secondary-header);
-                    }
+  color: ${({ theme }) => (theme!.colours["foreground"])};
+  background: ${({ theme }) => (theme!.colours["background-200"])};
 
-                    &:active {
-                        background: var(--secondary-background);
-                    }
-                `;
-      case "plain":
-      case "plain-secondary":
-        return `
-                    color: ${
-                      props.palette === "plain"
-                        ? "var(--foreground)"
-                        : "var(--secondary-foreground)"
-                    };
-                    background: transparent;
+  &:hover {
+    background: ${({ theme }) => (theme!.colours["background-300"])};
+  }
 
-                    &:hover {
-                        text-decoration: underline;
-                    }
+  &:disabled {
+    background: ${({ theme }) => (theme!.colours["background-200"])}
+  }
 
-                    &:disabled {
-                        opacity: 0.5;
-                    }
+  &:active {
+    background: ${({ theme }) => (theme!.colours["background-100"])};
+  }
+;`
 
-                    &:active {
-                        color: var(--tertiary-foreground);
-                    }
-                `;
-      case "accent":
-      case "success":
-      case "warning":
-      case "error":
-        return `
-                    font-weight: 600;
-                    color: var(--${props.palette}-contrast);
-                    background: var(--${props.palette});
+const PlainButton = styled("button")<Props>`
+  ${(props) => (buttonBase(props.compact ?? false))}
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  transition: ${({ theme }) => theme!.transitions.fast} all;
 
-                    &:hover {
-                        filter: brightness(1.2);
-                    }
+  color: ${( props ) => (
+    props.palette === "plain"
+      ? props.theme!.colours["foreground"]
+      : props.theme!.colours["foreground-200"])
+  };
+  background: transparent;
 
-                    &:active {
-                        filter: brightness(0.8);
-                    }
+  &:hover {
+    text-decoration: underline;
+  }
 
-                    &:disabled {
-                        filter: brightness(0.7);
-                    }
-                `;
-      default:
-      case "primary":
-        return `
-                    font-weight: 500;
-                    color: ${props.theme!.colours["foreground"]};
-                    background: ${props.theme!.colours["background-100"]};
+  &:disabled {
+    opacity: 0.5;
+  }
 
-                    &:hover {
-                        background: var(--secondary-header);
-                    }
+  &:active {
+    color: ${({ theme }) => (theme!.colours["foreground-400"])};
+  }
+`
 
-                    &:disabled {
-                        background: var(--primary-background);
-                    }
+const AccentedButton = styled("button")<Props>`
+  ${(props) => (buttonBase(props.compact ?? false))}
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  transition: ${({ theme }) => theme!.transitions.fast} all;
+  
+  font-weight: 600;
+  background: ${(props) => (props.theme!.colours[props.palette])};
 
-                    &:active {
-                        background: var(--secondary-background);
-                    }
-                `;
-    }
-  }}
-`;
+  &:hover {
+    filter: brightness(1.2);
+  }
+
+  &:active {
+    filter: brightness(0.8);
+  }
+
+  &:disabled {
+    filter: brightness(0.7);
+  }
+  `
+
+type ButtonProps = Props & JSX.HTMLAttributes<any>;
+
+/**
+ * Button element
+ */
+export const Button = (props: ButtonProps) => {
+  const palette = props.palette ?? "primary";
+  switch (palette) {
+    case "secondary":
+      return <SecondaryButton {...props} />
+    case "plain":
+    case "plain-secondary":
+      return <PlainButton {...props} />
+    case "accent":
+    case "success":
+    case "warning":
+    case "error":
+      return <AccentedButton {...props} />
+    default:
+    case "primary":
+      return <PrimaryButton {...props} />
+  }
+};
