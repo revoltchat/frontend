@@ -2,7 +2,7 @@ import { FlowTitle } from "./Flow";
 import { Button } from "@revolt/ui";
 import { Fields, Form } from "./Form";
 import { useNavigate } from "@revolt/routing";
-import { clientController } from "../../../client";
+import { clientController, mapAnyError } from "../../../client";
 import { useTranslation } from "@revolt/i18n";
 
 /**
@@ -16,17 +16,12 @@ export default function FlowLogin() {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
 
-    try {
-      await clientController.login({
-        email,
-        password,
-      });
+    await clientController.login({
+      email,
+      password,
+    });
 
-      navigate("/", { replace: true });
-    } catch (err) {
-      // setError("login failed");
-      console.error("error!");
-    }
+    navigate("/", { replace: true });
   }
 
   return (

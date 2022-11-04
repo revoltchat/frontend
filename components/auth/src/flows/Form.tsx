@@ -1,7 +1,8 @@
+import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Column, FormGroup, Input, Typography } from "@revolt/ui";
+import { createSignal, For, JSX, Show } from "solid-js";
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
-import { createEffect, For, JSX, Show } from "solid-js";
+import { Column, FormGroup, Input, Typography } from "@revolt/ui";
 
 /**
  * Available field types
@@ -14,7 +15,7 @@ type Field = "email" | "password";
 const useFieldConfiguration = () => {
   const t = useTranslation();
 
-  return ({
+  return {
     email: {
       type: "email",
       name: () => t("login.email"),
@@ -26,7 +27,7 @@ const useFieldConfiguration = () => {
       name: () => t("login.password"),
       placeholder: () => t("login.enter.password"),
     },
-  })
+  };
 };
 
 interface FieldProps {
@@ -40,14 +41,15 @@ interface FieldProps {
  * Render a bunch of fields with preset values
  */
 export function Fields(props: FieldProps) {
-
   const fieldConfiguration = useFieldConfiguration();
 
   return (
     <For each={props.fields}>
       {(field) => (
         <FormGroup>
-          <Typography variant="label">{fieldConfiguration[field].name()}</Typography>
+          <Typography variant="label">
+            {fieldConfiguration[field].name()}
+          </Typography>
           <Input
             required
             {...fieldConfiguration[field]}
@@ -74,13 +76,15 @@ interface Props {
   /**
    * Submission handler
    */
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: FormData) => Promise<void> | void;
 }
 
 /**
  * Small wrapper for HTML form
  */
 export function Form(props: Props) {
+  const t = useTranslation();
+  const [error, setError] = createSignal("");
   let hcaptcha: HCaptchaFunctions | undefined;
 
   async function onSubmit(e: Event) {
@@ -94,12 +98,21 @@ export function Form(props: Props) {
       formData.set("captcha", response!.response);
     }
 
-    props.onSubmit(formData);
+    try {
+      await props.onSubmit(formData);
+    } catch (err) {
+      setError(mapAnyError(err));
+    }
   }
 
   return (
     <form onSubmit={onSubmit}>
-      <Column>{props.children}</Column>
+      <Column>
+        {props.children}
+        <Show when={error()}>
+          <Typography variant="subtitle">{t(`error.${error()}`)}</Typography>
+        </Show>
+      </Column>
       <Show when={props.captcha}>
         <HCaptcha
           sitekey={props.captcha!}
