@@ -15,7 +15,10 @@ jobs:
         node-version: [16.x, 18.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: pnpm/action-setup@v2.2.4
         with:
           version: 7
