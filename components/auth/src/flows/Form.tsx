@@ -1,6 +1,8 @@
-import { Column, FormGroup, Input, Typography } from "@revolt/ui";
+import { mapAnyError } from "@revolt/client";
+import { useTranslation } from "@revolt/i18n";
+import { createSignal, For, JSX, Show } from "solid-js";
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
-import { For, JSX, Show } from "solid-js";
+import { Column, FormGroup, Input, Typography } from "@revolt/ui";
 
 /**
  * Available field types
@@ -10,14 +12,22 @@ type Field = "email" | "password";
 /**
  * Properties to apply to fields
  */
-const FieldConfiguration = {
-  email: {
-    type: "email",
-  },
-  password: {
-    minLength: 8,
-    type: "password",
-  },
+const useFieldConfiguration = () => {
+  const t = useTranslation();
+
+  return {
+    email: {
+      type: "email",
+      name: () => t("login.email"),
+      placeholder: () => t("login.enter.email"),
+    },
+    password: {
+      minLength: 8,
+      type: "password",
+      name: () => t("login.password"),
+      placeholder: () => t("login.enter.password"),
+    },
+  };
 };
 
 interface FieldProps {
@@ -31,16 +41,20 @@ interface FieldProps {
  * Render a bunch of fields with preset values
  */
 export function Fields(props: FieldProps) {
+  const fieldConfiguration = useFieldConfiguration();
+
   return (
     <For each={props.fields}>
       {(field) => (
         <FormGroup>
-          <Typography variant="label">{field}</Typography>
+          <Typography variant="label">
+            {fieldConfiguration[field].name()}
+          </Typography>
           <Input
             required
+            {...fieldConfiguration[field]}
             name={field}
-            {...FieldConfiguration[field]}
-            placeholder={`Enter your ${field}.`}
+            placeholder={fieldConfiguration[field].placeholder()}
           />
         </FormGroup>
       )}
@@ -62,13 +76,15 @@ interface Props {
   /**
    * Submission handler
    */
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: FormData) => Promise<void> | void;
 }
 
 /**
  * Small wrapper for HTML form
  */
 export function Form(props: Props) {
+  const t = useTranslation();
+  const [error, setError] = createSignal("");
   let hcaptcha: HCaptchaFunctions | undefined;
 
   async function onSubmit(e: Event) {
@@ -82,12 +98,21 @@ export function Form(props: Props) {
       formData.set("captcha", response!.response);
     }
 
-    props.onSubmit(formData);
+    try {
+      await props.onSubmit(formData);
+    } catch (err) {
+      setError(mapAnyError(err));
+    }
   }
 
   return (
     <form onSubmit={onSubmit}>
-      <Column>{props.children}</Column>
+      <Column>
+        {props.children}
+        <Show when={error()}>
+          <Typography variant="subtitle">{t(`error.${error()}`)}</Typography>
+        </Show>
+      </Column>
       <Show when={props.captcha}>
         <HCaptcha
           sitekey={props.captcha!}

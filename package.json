@@ -4,16 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "cd packages/test-runner && pnpm run test",
+    "coverage": "cd packages/test-runner && pnpm run coverage",
     "dev": "cd packages/client && pnpm run dev",
+    "build": "cd packages/client && pnpm run build",
+    "build:deps": "pnpm --filter revolt.js build",
+    "build:all": "pnpm run build:deps && pnpm run build",
     "showcase": "cd packages/showcase && pnpm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=18",
+    "node": ">=16",
     "pnpm": ">=6"
   },
   "private": true,
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "jsdom": "^20.0.1",
+    "solid-js": "^1.5.1",
+    "solid-testing-library": "^0.3.0",
+    "vite": "^3.0.9",
+    "vite-plugin-solid": "^2.3.0",
+    "vitest": "^0.24.3"
+  },
   "packageManager": "pnpm@7.14.2"
 }

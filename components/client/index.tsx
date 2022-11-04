@@ -1,5 +1,7 @@
 import ClientController from "./Controller";
 
+export { mapAnyError } from "./error";
+
 /**
  * Global client controller
  */
