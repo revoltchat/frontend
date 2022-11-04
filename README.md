@@ -14,14 +14,27 @@ cd client
 # install all packages
 pnpm i
 
-# run whenever revolt.js dependency updates
-pnpm --filter revolt.js run build
+# build deps
+pnpm build:deps
+
+# or build a specific dep: (i.e. revolt.js updates)
+# pnpm --filter revolt.js run build
 
 # run dev server
-pnpm run dev
+pnpm dev
 ```
 
 Now navigate to http://local.revolt.chat:5173
+
+## Build client
+
+```bash
+# install packages
+pnpm i
+
+# build everything
+pnpm build:all
+```
 
 ## Using `pnpm`
 
