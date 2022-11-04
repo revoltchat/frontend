@@ -99,9 +99,8 @@ function Entry({
 export const HomeSidebar = ({ conversations, channelId }: Props) => {
   return (
     <SidebarBase>
-      <p>
+      <p style={"margin-left: 0.5em;"}>
         <Typography variant="h1">Conversations</Typography>
-        <Button palette="warning">SUSSY 😳</Button>
       </p>
       <ScrollContainer>
         <Column>
