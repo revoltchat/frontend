@@ -1,6 +1,7 @@
+import { useTranslation } from "@revolt/i18n";
 import { Column, FormGroup, Input, Typography } from "@revolt/ui";
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
-import { For, JSX, Show } from "solid-js";
+import { createEffect, For, JSX, Show } from "solid-js";
 
 /**
  * Available field types
@@ -10,14 +11,22 @@ type Field = "email" | "password";
 /**
  * Properties to apply to fields
  */
-const FieldConfiguration = {
-  email: {
-    type: "email",
-  },
-  password: {
-    minLength: 8,
-    type: "password",
-  },
+const useFieldConfiguration = () => {
+  const t = useTranslation();
+
+  return ({
+    email: {
+      type: "email",
+      name: () => t("login.email"),
+      placeholder: () => t("login.enter.email"),
+    },
+    password: {
+      minLength: 8,
+      type: "password",
+      name: () => t("login.password"),
+      placeholder: () => t("login.enter.password"),
+    },
+  })
 };
 
 interface FieldProps {
@@ -31,16 +40,19 @@ interface FieldProps {
  * Render a bunch of fields with preset values
  */
 export function Fields(props: FieldProps) {
+
+  const fieldConfiguration = useFieldConfiguration();
+
   return (
     <For each={props.fields}>
       {(field) => (
         <FormGroup>
-          <Typography variant="label">{field}</Typography>
+          <Typography variant="label">{fieldConfiguration[field].name()}</Typography>
           <Input
             required
+            {...fieldConfiguration[field]}
             name={field}
-            {...FieldConfiguration[field]}
-            placeholder={`Enter your ${field}.`}
+            placeholder={fieldConfiguration[field].placeholder()}
           />
         </FormGroup>
       )}
