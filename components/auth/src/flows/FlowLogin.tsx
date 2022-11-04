@@ -15,13 +15,11 @@ export default function FlowLogin() {
   async function login(data: FormData) {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
-    const captcha = data.get("captcha") as string;
 
     try {
       await clientController.login({
         email,
         password,
-        captcha,
       });
 
       navigate("/", { replace: true });
@@ -33,10 +31,10 @@ export default function FlowLogin() {
 
   return (
     <>
-      <FlowTitle subtitle={t('login.subtitle')}>{t('login.welcome')}</FlowTitle>
-      <Form onSubmit={login} captcha={"3daae85e-09ab-4ff6-9f24-e8f4f335e433"}>
+      <FlowTitle subtitle={t("login.subtitle")}>{t("login.welcome")}</FlowTitle>
+      <Form onSubmit={login}>
         <Fields fields={["email", "password"]} />
-        <Button type="submit">{t('login.title')}</Button>
+        <Button type="submit">{t("login.title")}</Button>
       </Form>
     </>
   );
