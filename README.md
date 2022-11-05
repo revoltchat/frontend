@@ -36,6 +36,37 @@ pnpm i
 pnpm build:all
 ```
 
+## Pulling in Revolt's assets
+
+If you want to pull in Revolt brand assets after pulling, run the following:
+
+```bash
+# update the assets
+git -c submodule."assets".update=checkout submodule update packages/client/public/assets
+```
+
+You can switch back to fallback assets by running deinit and continuing as normal:
+
+```bash
+# deinit submodule which clears directory
+git submodule deinit packages/client/public/assets
+```
+
+If you are using fallback assets and want to switch back:
+
+```bash
+# remove symlink
+rm packages/client/public/assets
+
+# create directory
+mkdir packages/client/public/assets
+
+# reinit the submodule if not already
+git submodule init public/assets
+
+# now run the first command
+```
+
 ## Using `pnpm`
 
 Add a new package to a workspace:

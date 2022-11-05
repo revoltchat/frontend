@@ -5,7 +5,6 @@ import { LocaleSelector, useTranslation } from "@revolt/i18n";
 import { BiLogosGithub, BiLogosTwitter, BiLogosMastodon } from "solid-icons/bi";
 
 import background from "./background.jpg";
-import wordmark from "../../../assets/wordmark.svg";
 
 import FlowCreate from "./flows/FlowCreate";
 import FlowLogin from "./flows/FlowLogin";
@@ -121,11 +120,12 @@ export function AuthPage() {
   return (
     <Base>
       <Nav>
-        <Logo src={wordmark} />
+        <Logo src="/assets/wide.svg" />
         <LocaleSelector />
       </Nav>
       <FlowBase>
         <Routes>
+          <Route path="/check" component={FlowCreate} />
           <Route path="/create" component={FlowCreate} />
           <Route path="/resend" component={FlowCreate} />
           <Route path="/reset" component={FlowCreate} />

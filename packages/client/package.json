@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "start": "vite",
-    "dev": "vite --host",
-    "build": "vite build",
+    "setup:assets": "node scripts/copyAssets.mjs",
+    "dev": "npm run setup:assets && vite --host",
+    "build": "npm run setup:assets && vite build",
     "serve": "vite preview"
   },
   "license": "MIT",
