@@ -4,7 +4,7 @@
 [submodule "locales"]
 	path = components/i18n/locales
 	url = https://github.com/revoltchat/translations
-[submodule "packages/client/public/assets"]
+[submodule "assets"]
 	path = packages/client/public/assets
 	url = https://github.com/revoltchat/assets.git
 	update = none
