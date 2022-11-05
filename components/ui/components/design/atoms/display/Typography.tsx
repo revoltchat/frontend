@@ -40,12 +40,12 @@ const H4 = styled("h4")`
   color: ${({ theme }) => theme!.colours["foreground-100"]};
 `;
 
-const Subtitle = styled("h5")`
+const Subtitle = styled("span")`
   /* legacy: SETTINGS DESCRIPTION */
 
   margin: 0;
   font-weight: 500;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 `;
 
 const InputLabel = styled("label")`
