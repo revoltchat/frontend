@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "solid-testing-library";
+import { screen } from "solid-testing-library";
+import { renderWithContext } from "../../../packages/test-runner/middleware";
 
-import context, { I18nContext, useTranslation } from "..";
+import { useTranslation } from "..";
 
 const TranslatedText = () => {
   const t = useTranslation();
@@ -11,11 +12,7 @@ const TranslatedText = () => {
 
 describe("Translation component", () => {
   it("should translate the text", () => {
-    render(() => (
-      <I18nContext.Provider value={context}>
-        <TranslatedText />
-      </I18nContext.Provider>
-    ));
+    renderWithContext(() => <TranslatedText />);
 
     const textElm = screen.getByText("Welcome back!");
     expect(textElm).toBeInTheDocument();

@@ -129,7 +129,10 @@ const PlainButton = styled(ButtonBase)<Props>`
 
 const AccentedButton = styled(ButtonBase)<Props>`
   font-weight: 600;
-  background: ${(props) => props.theme!.colours[props.palette]};
+  background: ${(props) =>
+    props.theme!.colours[
+      props.palette as "accent" | "success" | "warning" | "error"
+    ]};
 
   &:hover {
     filter: brightness(1.2);
@@ -144,7 +147,7 @@ const AccentedButton = styled(ButtonBase)<Props>`
   }
 `;
 
-type ButtonProps = Props & JSX.HTMLAttributes<any>;
+type ButtonProps = Props & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /**
  * Button element

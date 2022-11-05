@@ -13,4 +13,6 @@ export {
   Route,
   useNavigate,
   useParams,
+  useLocation,
+  hashIntegration,
 } from "@solidjs/router";
