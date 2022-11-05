@@ -1,7 +1,7 @@
 import { FlowTitle } from "./Flow";
-import { Button } from "@revolt/ui";
+import { Button, Typography } from "@revolt/ui";
 import { Fields, Form } from "./Form";
-import { useNavigate } from "@revolt/routing";
+import { Link, useNavigate } from "@revolt/routing";
 import { clientController } from "../../../client";
 import { useTranslation } from "@revolt/i18n";
 import { setFlowCheckEmail } from "./FlowCheck";
@@ -44,6 +44,9 @@ export default function FlowCreate() {
         <Fields fields={["email", "password"]} />
         <Button type="submit">{t("login.register")}</Button>
       </Form>
+      <Typography variant="subtitle">
+        {t("login.existing")} <Link href="..">{t("login.remembered")}</Link>
+      </Typography>
     </>
   );
 }

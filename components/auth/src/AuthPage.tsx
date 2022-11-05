@@ -8,6 +8,8 @@ import background from "./background.jpg";
 
 import FlowCreate from "./flows/FlowCreate";
 import FlowLogin from "./flows/FlowLogin";
+import FlowResend from "./flows/FlowResend";
+import FlowReset from "./flows/FlowReset";
 import FlowCheck from "./flows/FlowCheck";
 import { FlowBase } from "./flows/Flow";
 
@@ -128,8 +130,8 @@ export function AuthPage() {
         <Routes>
           <Route path="/check" component={FlowCheck} />
           <Route path="/create" component={FlowCreate} />
-          <Route path="/resend" component={FlowCreate} />
-          <Route path="/reset" component={FlowCreate} />
+          <Route path="/resend" component={FlowResend} />
+          <Route path="/reset" component={FlowReset} />
           <Route path="/verify/:token" component={FlowCreate} />
           <Route path="/reset/:token" component={FlowCreate} />
           <Route path="/*any" component={FlowLogin} />

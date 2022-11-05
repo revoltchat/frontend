@@ -31,9 +31,9 @@ export default function FlowCheck() {
       <Show when={email}>
         <MailProvider email={email} />
       </Show>
-      <Link href="/login">
-        <Typography variant="subtitle">{t("login.remembered")}</Typography>
-      </Link>
+      <Typography variant="subtitle">
+        <Link href="..">{t("login.remembered")}</Link>
+      </Typography>
     </>
   );
 }
