@@ -24,7 +24,7 @@ pnpm build:deps
 pnpm dev
 ```
 
-Now navigate to http://local.revolt.chat:5173
+Finally, navigate to http://local.revolt.chat:5173.
 
 ## Build client
 

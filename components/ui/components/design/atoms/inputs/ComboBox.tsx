@@ -22,6 +22,6 @@ export const ComboBox = styled("select")`
   cursor: pointer;
 
   &:focus-visible {
-    box-shadow: 0 0 0 1.5pt var(--accent);
+    box-shadow: 0 0 0 1.5pt ${({ theme }) => theme!.colours["accent"]};
   }
 `;
