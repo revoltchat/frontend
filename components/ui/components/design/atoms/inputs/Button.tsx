@@ -1,6 +1,3 @@
-// ! TODO: this is a direct port of the Button
-// ! this will need to be polished up and rewritten for solid-styled-components
-
 import type { JSX } from "solid-js/jsx-runtime";
 import { styled } from "solid-styled-components";
 
@@ -50,8 +47,7 @@ export interface Props {
 /**
  * Common button styles 
 */
-function buttonBase (compact: boolean | "icon") {
-  return `
+const ButtonBase = styled("button")<Props>`
   z-index: 1;
 
   display: flex;
@@ -62,20 +58,20 @@ function buttonBase (compact: boolean | "icon") {
   font-weight: 500;
   font-family: inherit;
 
-  border: none;
   cursor: pointer;
 
-  ${buttonSizing(compact)}
+  border: none;
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
+
+  transition: ${({ theme }) => theme!.transitions.fast} all;
+
+  ${(props) => (buttonSizing(props.compact ?? false))}
   
   &:disabled {
     cursor: not-allowed;
-  }`}
+  }`
 
-const PrimaryButton = styled("button")<Props>`
-  ${(props) => (buttonBase(props.compact ?? false))}
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
-  transition: ${({ theme }) => theme!.transitions.fast} all;
-
+const PrimaryButton = styled(ButtonBase)<Props>`
   color: ${({ theme }) => (theme!.colours["foreground"])};
   background: ${({ theme }) => (theme!.colours["background-100"])};
 
@@ -91,11 +87,7 @@ const PrimaryButton = styled("button")<Props>`
     background: ${({ theme }) => (theme!.colours["background-100"])};
   }`;
 
-const SecondaryButton = styled("button")<Props>`
-  ${(props) => (buttonBase(props.compact ?? false))}
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
-  transition: ${({ theme }) => theme!.transitions.fast} all;
-
+const SecondaryButton = styled(ButtonBase)<Props>`
   color: ${({ theme }) => (theme!.colours["foreground"])};
   background: ${({ theme }) => (theme!.colours["background-200"])};
 
@@ -112,11 +104,7 @@ const SecondaryButton = styled("button")<Props>`
   }
 ;`
 
-const PlainButton = styled("button")<Props>`
-  ${(props) => (buttonBase(props.compact ?? false))}
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
-  transition: ${({ theme }) => theme!.transitions.fast} all;
-
+const PlainButton = styled(ButtonBase)<Props>`
   color: ${( props ) => (
     props.palette === "plain"
       ? props.theme!.colours["foreground"]
@@ -137,11 +125,7 @@ const PlainButton = styled("button")<Props>`
   }
 `
 
-const AccentedButton = styled("button")<Props>`
-  ${(props) => (buttonBase(props.compact ?? false))}
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
-  transition: ${({ theme }) => theme!.transitions.fast} all;
-  
+const AccentedButton = styled(ButtonBase)<Props>`
   font-weight: 600;
   background: ${(props) => (props.theme!.colours[props.palette])};
 

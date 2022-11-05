@@ -10,7 +10,6 @@ import { OverflowingText } from "../../design/layout/OverflowingText";
 import { SidebarBase } from "./common";
 import { useQuantity } from "@revolt/i18n";
 import { ScrollContainer } from "../../common/ScrollContainers";
-import { Button } from "../../design/atoms/inputs";
 
 interface Props {
   /**
@@ -99,7 +98,7 @@ function Entry({
 export const HomeSidebar = ({ conversations, channelId }: Props) => {
   return (
     <SidebarBase>
-      <p style={"margin-left: 0.5em;"}>
+      <p>
         <Typography variant="h1">Conversations</Typography>
       </p>
       <ScrollContainer>

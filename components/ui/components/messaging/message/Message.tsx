@@ -14,7 +14,6 @@ export function Message({
   message: MessageInterface;
   tail?: boolean;
 }) {
-  const content = message.system?.type || message.content 
   return (
     <MessageContainer
       username={message.username}
@@ -31,7 +30,7 @@ export function Message({
         </Show>
       }
     >
-      {content}
+      {message.content}
       <Show when={message.attachments}>
         <Attachments
           attachments={() => message.attachments!}
