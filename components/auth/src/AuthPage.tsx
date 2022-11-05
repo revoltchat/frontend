@@ -8,6 +8,7 @@ import background from "./background.jpg";
 
 import FlowCreate from "./flows/FlowCreate";
 import FlowLogin from "./flows/FlowLogin";
+import FlowCheck from "./flows/FlowCheck";
 import { FlowBase } from "./flows/Flow";
 
 /**
@@ -37,14 +38,6 @@ const Base = styled("div")`
     background-image: unset;
     background-color: ${({ theme }) => theme!.colours["background-200"]};
   }
-
-  a,
-  a:link,
-  a:visited,
-  a:active {
-    color: white;
-    text-decoration: none;
-  }
 `;
 
 /**
@@ -56,6 +49,14 @@ const Nav = styled("div")`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+
+  a,
+  a:link,
+  a:visited,
+  a:active {
+    color: white;
+    text-decoration: none;
+  }
 `;
 
 /**
@@ -125,7 +126,7 @@ export function AuthPage() {
       </Nav>
       <FlowBase>
         <Routes>
-          <Route path="/check" component={FlowCreate} />
+          <Route path="/check" component={FlowCheck} />
           <Route path="/create" component={FlowCreate} />
           <Route path="/resend" component={FlowCreate} />
           <Route path="/reset" component={FlowCreate} />

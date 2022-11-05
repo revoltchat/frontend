@@ -2,8 +2,8 @@ import { FlowTitle } from "./Flow";
 import { Button } from "@revolt/ui";
 import { Fields, Form } from "./Form";
 import { useNavigate } from "@revolt/routing";
-import { clientController, mapAnyError } from "../../../client";
 import { useTranslation } from "@revolt/i18n";
+import { clientController } from "../../../client";
 
 /**
  * Flow for logging into an account
@@ -26,7 +26,9 @@ export default function FlowLogin() {
 
   return (
     <>
-      <FlowTitle subtitle={t("login.subtitle")}>{t("login.welcome")}</FlowTitle>
+      <FlowTitle subtitle={t("login.subtitle")} emoji="wave">
+        {t("login.welcome")}
+      </FlowTitle>
       <Form onSubmit={login}>
         <Fields fields={["email", "password"]} />
         <Button type="submit">{t("login.title")}</Button>
