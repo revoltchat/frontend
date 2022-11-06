@@ -24,29 +24,30 @@ export interface Props {
 /**
  * Determine button sizing based on the provided value
  */
- function buttonSizing(compact: boolean | "icon") {
-  return compact === "icon" ? `
+function buttonSizing(compact: boolean | "icon") {
+  return compact === "icon"
+    ? `
     height: 38px;
     width: 38px;
   `
-  : compact ? `
+    : compact
+    ? `
     min-width: 96px;
     font-size: 0.8125rem;
     height: 32px !important;
     padding: 2px 12px !important;
   `
-  : `
+    : `
     height: 38px;
     min-width: 96px;
     padding: 2px 16px;
     font-size: 0.8125rem;
-  `
+  `;
 }
 
-
 /**
- * Common button styles 
-*/
+ * Common button styles
+ */
 const ButtonBase = styled("button")<Props>`
   z-index: 1;
 
@@ -65,51 +66,52 @@ const ButtonBase = styled("button")<Props>`
 
   transition: ${({ theme }) => theme!.transitions.fast} all;
 
-  ${(props) => (buttonSizing(props.compact ?? false))}
-  
+  ${(props) => buttonSizing(props.compact ?? false)}
+
   &:disabled {
     cursor: not-allowed;
-  }`
+  }
+`;
 
 const PrimaryButton = styled(ButtonBase)<Props>`
-  color: ${({ theme }) => (theme!.colours["foreground"])};
-  background: ${({ theme }) => (theme!.colours["background-100"])};
+  color: ${({ theme }) => theme!.colours["foreground"]};
+  background: ${({ theme }) => theme!.colours["background-100"]};
 
   &:hover {
-    background: ${({ theme }) => (theme!.colours["background-200"])};
+    background: ${({ theme }) => theme!.colours["background-200"]};
   }
 
   &:disabled {
-    background: ${({ theme }) => (theme!.colours["background-200"])};
+    background: ${({ theme }) => theme!.colours["background-200"]};
   }
 
   &:active {
-    background: ${({ theme }) => (theme!.colours["background-100"])};
-  }`;
+    background: ${({ theme }) => theme!.colours["background-100"]};
+  }
+`;
 
 const SecondaryButton = styled(ButtonBase)<Props>`
-  color: ${({ theme }) => (theme!.colours["foreground"])};
-  background: ${({ theme }) => (theme!.colours["background-200"])};
+  color: ${({ theme }) => theme!.colours["foreground"]};
+  background: ${({ theme }) => theme!.colours["background-200"]};
 
   &:hover {
-    background: ${({ theme }) => (theme!.colours["background-300"])};
+    background: ${({ theme }) => theme!.colours["background-300"]};
   }
 
   &:disabled {
-    background: ${({ theme }) => (theme!.colours["background-200"])}
+    background: ${({ theme }) => theme!.colours["background-200"]};
   }
 
   &:active {
-    background: ${({ theme }) => (theme!.colours["background-100"])};
+    background: ${({ theme }) => theme!.colours["background-100"]};
   }
-;`
+`;
 
 const PlainButton = styled(ButtonBase)<Props>`
-  color: ${( props ) => (
+  color: ${(props) =>
     props.palette === "plain"
       ? props.theme!.colours["foreground"]
-      : props.theme!.colours["foreground-200"])
-  };
+      : props.theme!.colours["foreground-200"]};
   background: transparent;
 
   &:hover {
@@ -121,13 +123,16 @@ const PlainButton = styled(ButtonBase)<Props>`
   }
 
   &:active {
-    color: ${({ theme }) => (theme!.colours["foreground-400"])};
+    color: ${({ theme }) => theme!.colours["foreground-400"]};
   }
-`
+`;
 
 const AccentedButton = styled(ButtonBase)<Props>`
   font-weight: 600;
-  background: ${(props) => (props.theme!.colours[props.palette])};
+  background: ${(props) =>
+    props.theme!.colours[
+      props.palette as "accent" | "success" | "warning" | "error"
+    ]};
 
   &:hover {
     filter: brightness(1.2);
@@ -140,9 +145,9 @@ const AccentedButton = styled(ButtonBase)<Props>`
   &:disabled {
     filter: brightness(0.7);
   }
-  `
+`;
 
-type ButtonProps = Props & JSX.HTMLAttributes<any>;
+type ButtonProps = Props & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /**
  * Button element
@@ -151,17 +156,17 @@ export const Button = (props: ButtonProps) => {
   const palette = props.palette ?? "primary";
   switch (palette) {
     case "secondary":
-      return <SecondaryButton {...props} />
+      return <SecondaryButton {...props} />;
     case "plain":
     case "plain-secondary":
-      return <PlainButton {...props} />
+      return <PlainButton {...props} />;
     case "accent":
     case "success":
     case "warning":
     case "error":
-      return <AccentedButton {...props} />
+      return <AccentedButton {...props} />;
     default:
     case "primary":
-      return <PrimaryButton {...props} />
+      return <PrimaryButton {...props} />;
   }
 };

@@ -5,10 +5,12 @@ import { LocaleSelector, useTranslation } from "@revolt/i18n";
 import { BiLogosGithub, BiLogosTwitter, BiLogosMastodon } from "solid-icons/bi";
 
 import background from "./background.jpg";
-import wordmark from "../../../assets/wordmark.svg";
 
 import FlowCreate from "./flows/FlowCreate";
 import FlowLogin from "./flows/FlowLogin";
+import FlowResend from "./flows/FlowResend";
+import FlowReset from "./flows/FlowReset";
+import FlowCheck from "./flows/FlowCheck";
 import { FlowBase } from "./flows/Flow";
 
 /**
@@ -38,14 +40,6 @@ const Base = styled("div")`
     background-image: unset;
     background-color: ${({ theme }) => theme!.colours["background-200"]};
   }
-
-  a,
-  a:link,
-  a:visited,
-  a:active {
-    color: white;
-    text-decoration: none;
-  }
 `;
 
 /**
@@ -57,6 +51,14 @@ const Nav = styled("div")`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+
+  a,
+  a:link,
+  a:visited,
+  a:active {
+    color: white;
+    text-decoration: none;
+  }
 `;
 
 /**
@@ -121,14 +123,15 @@ export function AuthPage() {
   return (
     <Base>
       <Nav>
-        <Logo src={wordmark} />
+        <Logo src="/assets/wide.svg" />
         <LocaleSelector />
       </Nav>
       <FlowBase>
         <Routes>
+          <Route path="/check" component={FlowCheck} />
           <Route path="/create" component={FlowCreate} />
-          <Route path="/resend" component={FlowCreate} />
-          <Route path="/reset" component={FlowCreate} />
+          <Route path="/resend" component={FlowResend} />
+          <Route path="/reset" component={FlowReset} />
           <Route path="/verify/:token" component={FlowCreate} />
           <Route path="/reset/:token" component={FlowCreate} />
           <Route path="/*any" component={FlowLogin} />

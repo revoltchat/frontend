@@ -20,5 +20,10 @@
     "vite": "^3.0.9",
     "vite-plugin-solid": "^2.3.0",
     "vitest": "^0.24.3"
+  },
+  "dependencies": {
+    "@revolt/i18n": "workspace:^1.0.0",
+    "@revolt/routing": "workspace:^1.0.0",
+    "@revolt/ui": "workspace:^1.0.0"
   }
 }

@@ -242,6 +242,9 @@ importers:
 
   packages/test-runner:
     specifiers:
+      '@revolt/i18n': workspace:^1.0.0
+      '@revolt/routing': workspace:^1.0.0
+      '@revolt/ui': workspace:^1.0.0
       '@testing-library/jest-dom': ^5.16.5
       '@vitest/coverage-c8': ^0.24.3
       jsdom: ^20.0.1
@@ -250,6 +253,10 @@ importers:
       vite: ^3.0.9
       vite-plugin-solid: ^2.3.0
       vitest: ^0.24.3
+    dependencies:
+      '@revolt/i18n': link:../../components/i18n
+      '@revolt/routing': link:../../components/routing
+      '@revolt/ui': link:../../components/ui
     devDependencies:
       '@testing-library/jest-dom': 5.16.5
       '@vitest/coverage-c8': 0.24.3_jsdom@20.0.1

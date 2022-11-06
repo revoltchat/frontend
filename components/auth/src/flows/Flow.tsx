@@ -3,6 +3,7 @@ import { Column, Row, Typography } from "@revolt/ui";
 import { keyframes, styled } from "solid-styled-components";
 
 import wave from "./wave.svg";
+import envelope from "./envelope.svg";
 
 /**
  * Container for authentication page flows
@@ -21,6 +22,14 @@ export const FlowBase = styled(Column)`
   margin-bottom: 20px;
   margin-inline-start: 50px;
   box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
+
+  a,
+  a:link,
+  a:visited,
+  a:active {
+    text-decoration: none;
+    color: ${({ theme }) => theme!.colours["accent"]};
+  }
 `;
 
 /**
@@ -54,6 +63,20 @@ const WaveAnimation = keyframes`
 `;
 
 /**
+ * Envelope animation
+ */
+const EnvelopeAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+`;
+
+/**
  * Wave emoji
  */
 const Wave = styled.img`
@@ -65,16 +88,35 @@ const Wave = styled.img`
 `;
 
 /**
+ * Mail emoji
+ */
+const Mail = styled.img`
+  height: 1.8em;
+  transform: translateY(-4px);
+
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-name: ${EnvelopeAnimation};
+`;
+
+/**
  * Common flow title component
  */
 export function FlowTitle(props: {
   children: JSX.Element;
   subtitle?: JSX.Element;
+  emoji?: "wave" | "mail";
 }) {
   return (
     <>
       <Row align gap="sm">
-        <Wave src={wave} />
+        <Show when={props.emoji === "wave"}>
+          <Wave src={wave} />
+        </Show>
+        <Show when={props.emoji === "mail"}>
+          <Mail src={envelope} />
+        </Show>
         <Typography variant="h1">{props.children}</Typography>
       </Row>
       <Show when={props.subtitle}>

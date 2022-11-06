@@ -110,7 +110,9 @@ export function Form(props: Props) {
       <Column>
         {props.children}
         <Show when={error()}>
-          <Typography variant="subtitle">{t(`error.${error()}`)}</Typography>
+          <Typography variant="subtitle">
+            {t(`error.${error()}`, undefined, error())}
+          </Typography>
         </Show>
       </Column>
       <Show when={props.captcha}>
