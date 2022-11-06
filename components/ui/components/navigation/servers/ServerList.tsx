@@ -1,13 +1,14 @@
 // ! TODO: #5 implement dnd
 
 import { Server } from "revolt.js/dist/maps/Servers";
-import { For, Show } from "solid-js";
+import { Show } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Link } from "@revolt/routing";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Unreads, UserStatus } from "../../design/atoms/indicators";
 import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 import { User } from "revolt.js";
+import { Draggable } from "../../common/Draggable";
 
 /**
  * Server list container
@@ -53,8 +54,10 @@ export const ServerList = ({ orderedServers, user }: Props) => {
           />
         </Link>
       </EntryContainer>
-      <For each={orderedServers}>
-        {(item) => (
+      <Draggable items={orderedServers} onChange={ids => {
+        // Handle here.
+      }}>
+        {item => (
           <EntryContainer>
             <Link href={`/server/${item._id}`}>
               <Avatar
@@ -73,7 +76,7 @@ export const ServerList = ({ orderedServers, user }: Props) => {
             </Link>
           </EntryContainer>
         )}
-      </For>
+      </Draggable>
     </ServerListBase>
   );
 };
