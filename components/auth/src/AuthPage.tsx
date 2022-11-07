@@ -11,6 +11,8 @@ import FlowLogin from "./flows/FlowLogin";
 import FlowResend from "./flows/FlowResend";
 import FlowReset from "./flows/FlowReset";
 import FlowCheck from "./flows/FlowCheck";
+import FlowVerify from "./flows/FlowVerify";
+import FlowConfirmReset from "./flows/FlowConfirmReset";
 import { FlowBase } from "./flows/Flow";
 
 /**
@@ -132,8 +134,8 @@ export function AuthPage() {
           <Route path="/create" component={FlowCreate} />
           <Route path="/resend" component={FlowResend} />
           <Route path="/reset" component={FlowReset} />
-          <Route path="/verify/:token" component={FlowCreate} />
-          <Route path="/reset/:token" component={FlowCreate} />
+          <Route path="/verify/:token" component={FlowVerify} />
+          <Route path="/reset/:token" component={FlowConfirmReset} />
           <Route path="/*any" component={FlowLogin} />
         </Routes>
       </FlowBase>

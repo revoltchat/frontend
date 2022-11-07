@@ -1,42 +1,40 @@
 import { FlowTitle } from "./Flow";
 import { Button, Typography } from "@revolt/ui";
 import { Fields, Form } from "./Form";
-import { Link, useNavigate } from "@revolt/routing";
+import { Link, useNavigate, useParams } from "@revolt/routing";
 import { clientController } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { setFlowCheckEmail } from "./FlowCheck";
 
 /**
- * Flow for sending password reset
+ * Flow for confirming a new password
  */
-export default function FlowReset() {
+export default function FlowConfirmResend() {
   const t = useTranslation();
+  const { token } = useParams();
   const navigate = useNavigate();
 
   async function reset(data: FormData) {
-    const email = data.get("email") as string;
-    const captcha = data.get("captcha") as string;
+    const password = data.get("password") as string;
 
     await clientController
       .getAnonymousClient()
-      .api.post("/auth/account/reset_password", {
-        email,
-        captcha,
+      .api.patch("/auth/account/reset_password", {
+        password,
+        token
       });
 
-    setFlowCheckEmail(email);
-    navigate("/login/check", { replace: true });
+    navigate("../..", { replace: true });
   }
 
   return (
     <>
       <FlowTitle>{t("login.reset")}</FlowTitle>
-      <Form onSubmit={reset} captcha={import.meta.env.VITE_HCAPTCHA_SITEKEY}>
-        <Fields fields={["email"]} />
+      <Form onSubmit={reset}>
+        <Fields fields={["password"]} />
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
       <Typography variant="subtitle">
-        <Link href="..">{t("login.remembered")}</Link>
+        <Link href="../..">{t("login.remembered")}</Link>
       </Typography>
     </>
   );
