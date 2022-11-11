@@ -17,6 +17,7 @@
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",
     "@thisbeyond/solid-dnd": "^0.7.1",
+    "solid-dnd-directive": "^0.2.0",
     "solid-icons": "^1.0.1",
     "solid-js": "^1.5.1",
     "solid-popper": "^0.2.1",
