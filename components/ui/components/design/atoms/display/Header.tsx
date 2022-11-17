@@ -10,7 +10,7 @@ export interface Props {
 /**
  * Generic header component
  */
-export const Header = styled("div")<Props>`
+export const Header = styled("div", "Header")<Props>`
   gap: 10px;
   flex: 0 auto;
   display: flex;

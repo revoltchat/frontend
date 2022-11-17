@@ -10,7 +10,7 @@ const Base = styled("div")`
   z-index: 1;
   position: relative;
 
-  .spoiler {
+  .Spoiler {
     cursor: pointer;
     position: absolute;
     backdrop-filter: ${(props) => props.theme!.effects.spoiler};
@@ -38,7 +38,7 @@ export function Spoiler({ contentType }: Props) {
   return (
     <Show when={shown()}>
       <Base class="container">
-        <div class={`spoiler ${contentType}`} onClick={() => setShown(false)}>
+        <div class={`Spoiler ${contentType}`} onClick={() => setShown(false)}>
           <span>{t("app.main.channel.misc.spoiler_attachment")}</span>
         </div>
       </Base>

@@ -1,7 +1,7 @@
 import { API } from "revolt.js";
 import { Column } from "../../design/layout";
 import { styled } from "solid-styled-components";
-import { For, Match, Show, Switch } from "solid-js";
+import { Component, For, Match, Show, Switch } from "solid-js";
 import { Spoiler } from "../../design/layout/Spoiler";
 import { SizedContent } from "../../design/layout/SizedContent";
 import { FileInfo } from "./FileInfo";

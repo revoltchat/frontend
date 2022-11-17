@@ -22,7 +22,7 @@ interface Props {
 /**
  * Message box container
  */
-const Base = styled("div")`
+const Base = styled("div", "MessageBox")`
   height: 48px;
   flex-shrink: 0;
 

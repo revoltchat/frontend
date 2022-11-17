@@ -8,3 +8,6 @@
 	path = packages/client/public/assets
 	url = https://github.com/revoltchat/assets.git
 	update = none
+[submodule "packages/solid-styled-components"]
+	path = packages/solid-styled-components
+	url = https://github.com/revoltchat/solid-styled-components

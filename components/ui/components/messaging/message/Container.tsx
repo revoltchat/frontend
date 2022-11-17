@@ -1,6 +1,6 @@
 import { Nullable } from "revolt.js";
-import { JSX, Show } from "solid-js";
-import { keyframes, styled } from "solid-styled-components";
+import { Component, JSX, Show } from "solid-js";
+import { styled } from "solid-styled-components";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
 import { Typography } from "../../design/atoms/display/Typography";
@@ -53,7 +53,7 @@ type Props = CommonProps & {
 /**
  * Message container layout
  */
-const Base = styled(Column)<CommonProps>`
+const Base = styled(Column as Component, "Message")<CommonProps>`
   padding: 2px 0;
   font-size: 14px;
   margin-top: ${(props) => (props.tail ? 0 : "12px")};
@@ -75,7 +75,7 @@ const Base = styled(Column)<CommonProps>`
 /**
  * Left-side information or avatar
  */
-const Info = styled.div<Pick<CommonProps, "tail">>`
+const Info = styled("div", "Info")<Pick<CommonProps, "tail">>`
   width: 62px;
   display: flex;
   flex-shrink: 0;
