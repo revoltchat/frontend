@@ -5,3 +5,4 @@ dist
 *.log
 
 .env*
+!.env.example
