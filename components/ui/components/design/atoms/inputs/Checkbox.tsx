@@ -1,4 +1,4 @@
-import { JSX } from "solid-js";
+import { JSX, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 import { BiRegularCheck } from 'solid-icons/bi'
 
@@ -129,33 +129,30 @@ export type Props = {
 >;
 
 export function Checkbox(props: Props) {
-  const {
-    disabled,
-    title,
-    description,
-    value,
-    onChange,
-    ...otherProps
-  } = props;
+  const [local, others] = splitProps(
+    props,
+    ["disabled", "title", "description", "value", "onChange"]
+  );
+
   return (
-    <Base {...otherProps}>
+    <Base {...others}>
       <Content>
-        {title && (
+        {local.title && (
           <TitleContent>
-            <Title>{title}</Title>
+            <Title>{local.title}</Title>
             {/*<TitleAction className="playSound">
                             <VolumeFull size={16} />
                         </TitleAction>*/}
           </TitleContent>
         )}
-        {description && <Description>{description}</Description>}
+        {local.description && <Description>{local.description}</Description>}
       </Content>
       <input
         type="checkbox"
-        checked={props.value}
-        onChange={() => !disabled && onChange(!props.value)}
+        checked={local.value}
+        onChange={() => !local.disabled && local.onChange(!local.value)}
       />
-      <Checkmark value={props.value} class="checkmark">
+      <Checkmark value={local.value} class="checkmark">
         <BiRegularCheck size={20} class="check" />
       </Checkmark>
     </Base>
