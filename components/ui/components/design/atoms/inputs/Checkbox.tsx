@@ -1,4 +1,4 @@
-import { JSX, splitProps } from "solid-js";
+import { JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 import { BiRegularCheck } from 'solid-icons/bi'
 
@@ -136,15 +136,17 @@ export function Checkbox(props: Props) {
   return (
     <Base {...others}>
       <Content>
-        {local.title && (
+        <Show when={local.title}>
           <TitleContent>
             <Title>{local.title}</Title>
             {/*<TitleAction className="playSound">
                             <VolumeFull size={16} />
                         </TitleAction>*/}
           </TitleContent>
-        )}
-        {local.description && <Description>{local.description}</Description>}
+        </Show>
+        <Show when={local.description}>
+          <Description>{local.description}</Description>
+        </Show>
       </Content>
       <input
         type="checkbox"
