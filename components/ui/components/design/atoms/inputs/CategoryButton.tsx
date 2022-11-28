@@ -119,27 +119,23 @@ export interface Props extends BaseProps {
   readonly action?: "chevron" | "external" | JSX.Element;
 }
 
-export function CategoryButton({
-  icon,
-  children,
-  description,
-  account,
-  disabled,
-  onClick,
-  action,
-}: Props) {
+export function CategoryButton(props: Props) {
   return (
-    <Base onClick={onClick} disabled={disabled} account={account}>
-      {icon}
+    <Base
+      onClick={props.onClick}
+      disabled={props.disabled}
+      account={props.account}
+    >
+      {props.icon}
       <div class="content">
-        <div class="title">{children}</div>
+        <div class="title">{props.children}</div>
 
-        <div class="description">{description}</div>
+        <div class="description">{props.description}</div>
       </div>
       <div class="action">
-        <Show when={typeof action === "string"} fallback={action}>
+        <Show when={typeof props.action === "string"} fallback={props.action}>
           <Show
-            when={action === "chevron"}
+            when={props.action === "chevron"}
             fallback={<BiRegularLinkExternal size={20} />}
           >
             <FiChevronRight size={24} />
