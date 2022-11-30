@@ -29,7 +29,6 @@ const Base = styled("label")`
     opacity: 0.8;
     cursor: not-allowed;
   }
-  //TODO: When value is checked, allow me to add .hover { .checkmark { border-color:  var(--tertiary-foreground);} }
 `;
 
 const Content = styled.div`
@@ -53,25 +52,6 @@ const Title = styled.div`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-`;
-
-const TitleAction = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.1s ease-in-out all;
-  border-radius: ${({ theme }) => theme.borderRadius["md"]};
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-  &:active {
-    background-color: rgba(255, 255, 255, 0.15);
-  }
 `;
 
 const Description = styled.div`
@@ -139,9 +119,6 @@ export function Checkbox(props: Props) {
         <Show when={local.title}>
           <TitleContent>
             <Title>{local.title}</Title>
-            {/*<TitleAction className="playSound">
-                            <VolumeFull size={16} />
-                        </TitleAction>*/}
           </TitleContent>
         </Show>
         <Show when={local.description}>
