@@ -1,6 +1,6 @@
 import { styled, css } from "solid-styled-components";
 import { AiOutlineInfoCircle } from "solid-icons/ai";
-import { JSX } from "solid-js";
+import { JSX, splitProps } from "solid-js";
 interface Props {
   readonly palette?: "primary" | "success" | "warning" | "error";
   readonly children: JSX.Element;
@@ -39,7 +39,8 @@ export const TipBase = styled.div<Omit<Props, "children">>`
 `;
 
 export function Tip(props: Props) {
-  const { children, ...innerProps } = props;
+  const [{ children }, innerProps] = splitProps(props, ["children"]);
+
   return (
     <TipBase {...innerProps}>
       <AiOutlineInfoCircle size={20} />
