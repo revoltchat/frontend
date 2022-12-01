@@ -6,13 +6,45 @@ import "@revolt/ui/styles";
  */
 import { render } from "solid-js/web";
 
-import { ThemeProvider, darkTheme, Masks, TooltipDemo } from "@revolt/ui";
+import {
+  ThemeProvider,
+  darkTheme,
+  Masks,
+  Checkbox,
+  Radio,
+  Tabs,
+} from "@revolt/ui";
+import { createSignal } from "solid-js";
 
-render(
-  () => (
+render(() => {
+  const [v, setV] = createSignal("a");
+
+  return (
     <div style={{ background: "#111", height: "100%" }}>
       <Masks />
       <ThemeProvider theme={darkTheme}>
+        <Tabs
+          tabs={() => ({
+            a: {
+              label: "gfdfd",
+            },
+            b: {
+              label: "ghfdhfg",
+            },
+            c: {
+              label: "fescew",
+            },
+          })}
+          tab={v}
+          onSelect={setV}
+        />
+        <Checkbox
+          title="sus"
+          description="iojhgfiohdjgfhdfg"
+          value={true}
+          onChange={(v) => {}}
+        />
+        <Radio title="sus" description="sussy" />
         {/*<H1>hello!</H1>
         <H2>hello!</H2>
         <H3>hello!</H3>
@@ -34,9 +66,7 @@ render(
           }
           interactive
         />*/}
-        <TooltipDemo />
       </ThemeProvider>
     </div>
-  ),
-  document.getElementById("root") as HTMLElement
-);
+  );
+}, document.getElementById("root") as HTMLElement);
