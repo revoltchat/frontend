@@ -24,7 +24,7 @@ interface Props {
  */
 const Base = styled(Row)`
   flex-wrap: wrap;
-  background: ${(props) => props.theme!.colours["background-100"]};
+  background: ${(props) => props.theme!.colours["background-200"]};
 `;
 
 /**
@@ -34,11 +34,12 @@ const Tab = styled.a<{ active: boolean }>`
   cursor: pointer;
   user-select: none;
   padding: 0.4em 1em;
+  border-top: 4px solid transparent;
   border-bottom: 4px solid
     ${(props) =>
       props.active ? props.theme!.colours["accent"] : "transparent"};
   color: ${(props) => props.theme!.colours["foreground"]};
-  background: ${(props) => props.theme!.colours["background-100"]};
+  background: ${(props) => props.theme!.colours["background-200"]};
   transition: ${(props) => props.theme!.transitions.fast};
 
   &:hover {
