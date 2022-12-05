@@ -10,62 +10,120 @@ import {
   ThemeProvider,
   darkTheme,
   Masks,
-  Checkbox,
-  Radio,
+  Row,
+  styled,
+  ScrollContainer,
   Tabs,
+  Column,
+  Button,
+  MenuButton,
+  Typography,
 } from "@revolt/ui";
-import { createSignal } from "solid-js";
+import { SidebarBase } from "@revolt/ui/components/navigation/channels/common";
+import { Component, ComponentProps, createSignal, For } from "solid-js";
+
+type Story<T extends Component> = {
+  title: string;
+  props?: ComponentProps<T>
+}
+
+type Entry<T extends Component> = {
+  category?: string;
+  component: T;
+  stories?: Story<T>[];
+  props?: ComponentProps<T>;
+  propTypes?: Record<keyof ComponentProps<T>, 'string'>
+}
+
+type Components = Record<string, Entry<Component>>;
+
+const components: Components = {
+  'Button': {
+    category: 'design/atoms/inputs',
+    component: Button,
+    stories: [
+      {
+        title: 'Primary',
+        props: {
+          palette: 'primary'
+        }
+      },
+      {
+        title: 'Secondary',
+        props: {
+          palette: 'secondary'
+        }
+      }
+    ],
+    props: {
+      children: "Hello!"
+    },
+    propTypes: {
+      children: 'string',
+      palette: 'string'
+    }
+  } as Entry<typeof Button>
+}
+
+const Container = styled(Column)`
+  height: 100%;
+`;
+
+const Link = styled.a`
+  cursor: pointer;
+`;
+
+const Sidebar = styled(SidebarBase)`
+  padding: 1em;
+`;
+
+const Content = styled(ScrollContainer)`
+  flex-grow: 1;
+`;
 
 render(() => {
-  const [v, setV] = createSignal("a");
+  const [component, select] = createSignal<keyof typeof components | undefined>();
+
+  const tabs = () => {
+    const obj: Record<string, { label: string }> = {};
+    const key = component();
+
+    if (key) {
+      const component = components[key];
+      if (component.stories) {
+        for (const story of component.stories) {
+          obj[story.title] = {
+            label: story.title
+          };
+        }
+      }
+    }
+
+    return obj;
+  }
 
   return (
     <div style={{ background: "#111", height: "100%" }}>
       <Masks />
       <ThemeProvider theme={darkTheme}>
-        <Tabs
-          tabs={() => ({
-            a: {
-              label: "gfdfd",
-            },
-            b: {
-              label: "ghfdhfg",
-            },
-            c: {
-              label: "fescew",
-            },
-          })}
-          tab={v}
-          onSelect={setV}
-        />
-        <Checkbox
-          title="sus"
-          description="iojhgfiohdjgfhdfg"
-          value={true}
-          onChange={(v) => {}}
-        />
-        <Radio title="sus" description="sussy" />
-        {/*<H1>hello!</H1>
-        <H2>hello!</H2>
-        <H3>hello!</H3>
-        <H4>hello!</H4>
-        <H5>hello!</H5>
-        <Preloader type="spinner" />
-        <Preloader type="ring" />
-        <Turbo />
-        <SaveStatus status="editing" />
-        <Avatar
-          size={64}
-          fallback="deez nuts"
-          holepunch="right"
-          overlay={
-            <>
-              <UserStatus status="Online" />
-              <Unreads count={0} unread />
-            </>
-          }
-          interactive
-        />*/}
+        <Container>
+        <Row gap={0} justify="stretch" grow>
+          <Sidebar>
+            <Column>
+              <Typography variant="h3">COMPONENTS</Typography>
+              <For each={Object.keys(components)}>
+                {entry => <Link onClick={() => select(entry)}><MenuButton attention={component() === entry ? 'selected' : 'normal'}>{entry}</MenuButton></Link>}
+              </For>
+            </Column>
+          </Sidebar>
+          <Column gap={0} grow>
+            <Tabs tabs={tabs} tab={() => "a"} onSelect={() => {}} />
+            <Content>
+              {component()}
+            </Content>
+          </Column>
+        </Row>
+        </Container>
       </ThemeProvider>
     </div>
   );
