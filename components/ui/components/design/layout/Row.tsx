@@ -9,12 +9,12 @@ interface Props {
   /**
    * Item alignment
    */
-  align?: AlignSetting | true;
+  align?: AlignSetting | "stretch" | true;
 
   /**
    * Content justification
    */
-  justify?: AlignSetting | true;
+  justify?: AlignSetting | "stretch" | true;
 
   /**
    * This row should grow to fit parent container.
