@@ -6,12 +6,12 @@ export interface Props {
   /**
    * Button size
    */
-  readonly size: "thin" | "normal";
+  readonly size?: "thin" | "normal";
 
   /**
    * Button attention
    */
-  readonly attention: "muted" | "normal" | "active" | "selected";
+  readonly attention?: "muted" | "normal" | "active" | "selected";
 
   /**
    * Button icon
@@ -40,6 +40,7 @@ export interface Props {
 const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   margin: 0 8px;
   padding: 0 8px;
+  user-select: none;
   height: ${(props) => (props.size === "normal" ? 42 : 32)}px;
   gap: ${(props) => props.theme!.gap[props.size === "normal" ? "md" : "sm"]};
 
