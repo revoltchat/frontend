@@ -42,7 +42,7 @@ If you want to pull in Revolt brand assets after pulling, run the following:
 
 ```bash
 # update the assets
-git -c submodule."assets".update=checkout submodule update packages/client/public/assets
+git -c submodule."packages/client/public/assets".update=checkout submodule update packages/client/public/assets
 ```
 
 You can switch back to fallback assets by running deinit and continuing as normal:
