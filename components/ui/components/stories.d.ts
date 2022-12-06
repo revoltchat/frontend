@@ -10,5 +10,6 @@ declare type ComponentStory<T extends Component> = {
   component: T;
   stories: Story<T>[];
   props?: ComponentProps<T>;
-  propTypes?: Record<keyof ComponentProps<T>, 'string' | (string | boolean)[]>
+  propTypes?: Record<keyof ComponentProps<T>, 'string' | 'boolean' | 'function' | (string | boolean)[]>;
+  effects?: Record<keyof ComponentProps<T>, (props: ComponentProps<T>, ...args: any[]) => Partial<ComponentProps<T>>>;
 }

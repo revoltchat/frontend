@@ -9,22 +9,22 @@ const Base = styled("label")`
   cursor: pointer;
   user-select: none;
   align-items: center;
-  border-radius: ${({ theme }) => theme.borderRadius["md"]};
+  border-radius: ${(props) => props.theme!.borderRadius["md"]};
   transition: 0.1s ease background-color;
+
   input {
     display: none;
   }
+
   &:hover {
-    background: ${({ theme }) => theme.colours["background-100"]};
-    .playSound {
-      visibility: visible;
-      opacity: 1;
-    }
+    background: ${(props) => props.theme!.colours["background-100"]};
+    
     .check {
       visibility: visible;
       opacity: 1;
     }
   }
+
   &[disabled] {
     opacity: 0.8;
     cursor: not-allowed;
@@ -42,7 +42,7 @@ const TitleContent = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  color: ${({ theme }) => theme.colours["foreground"]};
+  color: ${(props) => props.theme!.colours["foreground"]};
 `;
 
 const Title = styled.div`
@@ -57,7 +57,7 @@ const Title = styled.div`
 const Description = styled.div`
   font-size: 0.75rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.colours["foreground-200"]};
+  color: ${(props) => props.theme!.colours["foreground-200"]};
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -70,28 +70,31 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 2px solid ${({ theme }) => theme.colours["foreground-400"]};
-  border-radius: ${({ theme }) => theme.borderRadius["md"]};
-  background: ${({ theme }) => theme.colours["background-100"]};
+  border: 2px solid ${(props) => props.theme!.colours["foreground-400"]};
+  border-radius: ${(props) => props.theme!.borderRadius["md"]};
+  background: ${(props) => props.theme!.colours["background-100"]};
   flex-shrink: 0;
   margin: 4px;
   transition: 0.1s ease-in-out all;
+
   .check {
     transition: inherit;
-    color: ${({ theme }) => theme.colours["foreground-400"]};
+    color: ${(props) => props.theme!.colours["foreground-400"]};
     visibility: hidden;
     opacity: 0;
   }
+
   ${(props) => props.value ?
     `
-    border-color: ${props.theme.colours["accent"]};
-    background: ${props.theme.colours["accent"]};
+    border-color: ${props.theme!.colours["accent"]};
+    background: ${props.theme!.colours["accent"]};
+
     .check {
       visibility: visible;
       opacity: 1;
       color: var(--accent-contrast);
     }
-  `: undefined}
+  `: ''}
 `;
 
 export type Props = {
@@ -100,8 +103,8 @@ export type Props = {
   readonly title?: JSX.Element;
   readonly description?: JSX.Element;
 
-  readonly value: boolean;
-  readonly onChange: (state: boolean) => void;
+  readonly value?: boolean;
+  readonly onChange?: (state: boolean) => void;
 } & Omit<
   JSX.LabelHTMLAttributes<HTMLLabelElement>,
   "value" | "children" | "onChange" | "title"
@@ -128,7 +131,7 @@ export function Checkbox(props: Props) {
       <input
         type="checkbox"
         checked={local.value}
-        onChange={() => !local.disabled && local.onChange(!local.value)}
+        onChange={() => !local.disabled && local.onChange?.(!local.value)}
       />
       <Checkmark value={local.value} class="checkmark">
         <BiRegularCheck size={20} class="check" />

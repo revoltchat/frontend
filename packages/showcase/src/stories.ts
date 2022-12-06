@@ -2,4 +2,5 @@
 import type { ComponentStory } from '@revolt/ui/components/stories';
 import type { Component } from 'solid-js';
 import Button from '@revolt/ui/components/design/atoms/inputs/Button.stories';
-export default {Button} as Record<string, ComponentStory<Component>>;
+import Checkbox from '@revolt/ui/components/design/atoms/inputs/Checkbox.stories';
+export default {Button, Checkbox} as Record<string, ComponentStory<Component>>;

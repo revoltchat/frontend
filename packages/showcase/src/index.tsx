@@ -20,7 +20,7 @@ import {
   Typography,
 } from "@revolt/ui";
 import { SidebarBase } from "@revolt/ui/components/navigation/channels/common";
-import { createSignal, For } from "solid-js";
+import { Accessor, createSignal, For } from "solid-js";
 
 import components from './stories';
 
@@ -44,6 +44,7 @@ const Content = styled(ScrollContainer)`
 render(() => {
   const [component, select] = createSignal<keyof typeof components | undefined>();
   const [tab, selectTab] = createSignal('');
+  const [props, setProps] = createSignal<any>({});
 
   const tabs = () => {
     const obj: Record<string, { label: string }> = {};
@@ -63,14 +64,25 @@ render(() => {
     return obj;
   }
 
-  function render(component: string | undefined, tab: string) {
+  function render(component: string | undefined, tab: string, overwrittenProps: Accessor<any>) {
     const entry = components[component!];
     if (entry) {
-      const { component: Component, props, stories } = entry;
+      const { component: Component, props, stories, effects } = entry;
 
       const story = stories.find(story => story.title === tab);
       if (story) {
-        return <Component {...props} {...story.props} />;
+        const effectProps: Record<string, (...args: any[]) => any> = {};
+        if (effects) {
+          for (const effect of Object.keys(effects)) {
+            effectProps[effect] = (...args) => setProps({...overwrittenProps(), ...(effects as any)[effect]({
+              ...props,
+              ...story.props,
+              ...overwrittenProps()
+            }, ...args)});
+          }
+        }
+
+        return <Component {...props} {...story.props} {...overwrittenProps()} {...effectProps} />;
       }
     }
 
@@ -82,19 +94,25 @@ render(() => {
       <Masks />
       <ThemeProvider theme={darkTheme}>
         <Container>
-        <Row gap={0} justify="stretch" grow>
+        <Row gap="none" justify="stretch" grow>
           <Sidebar>
             <Column>
               <Typography variant="h3">COMPONENTS</Typography>
               <For each={Object.keys(components)}>
-                {entry => <Link onClick={() => select(entry)}><MenuButton attention={component() === entry ? 'selected' : 'normal'}>{entry}</MenuButton></Link>}
+                {entry => <Link onClick={() => {
+                  setProps({});
+                  select(entry)
+                  }}><MenuButton attention={component() === entry ? 'selected' : 'normal'}>{entry}</MenuButton></Link>}
               </For>
             </Column>
           </Sidebar>
-          <Column gap={0} grow>
-            <Tabs tabs={tabs} tab={tab} onSelect={selectTab} />
+          <Column gap="none" grow>
+            <Tabs tabs={tabs} tab={tab} onSelect={tab => {
+              setProps({});
+              selectTab(tab);
+            }} />
             <Content>
-              {render(component(), tab())}
+              {render(component(), tab(), props)}
             </Content>
           </Column>
         </Row>

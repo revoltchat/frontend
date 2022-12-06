@@ -25,7 +25,7 @@ const OUTPUT = [
     "import type { ComponentStory } from '@revolt/ui/components/stories';",
     "import type { Component } from 'solid-js';",
     imports.map(x => x[1]).join('\n'),
-    `export default {${ComponentList.join('\n')}} as Record<string, ComponentStory<Component>>;`]
+    `export default {${ComponentList.join(', ')}} as Record<string, ComponentStory<Component>>;`]
 .join('\n');
 
 const SHOWCASE_DIR = resolve(import.meta.url.substring('file://'.length), '..', '..');

@@ -1,3 +1,5 @@
+/// <reference path="./types/styled.d.ts" />
+
 export * from "./components";
 
 import type { DefaultTheme } from "solid-styled-components";
