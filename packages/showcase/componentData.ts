@@ -1,2 +1,1 @@
-export default ["Button"
-"Checkbox"];
+export default ["Button", "Checkbox"];
