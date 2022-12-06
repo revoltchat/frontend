@@ -10,9 +10,7 @@
     "build": "cd packages/client && pnpm run build",
     "build:deps": "pnpm --filter revolt.js build",
     "build:all": "pnpm run build:deps && pnpm run build",
-    "showcase": "cd packages/showcase && pnpm run dev",
-    "showcase:generate": "cd packages/showcase && pnpm run generate",
-    "showcase:exists": "cd packages/showcase && pnpm run exists"
+    "showcase": "cd packages/showcase && pnpm run dev"
   },
   "keywords": [],
   "author": "",

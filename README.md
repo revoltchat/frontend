@@ -11,6 +11,9 @@ See [code style guidelines here](./GUIDELINES.md)!
 git clone --recursive https://github.com/revoltchat/revoltchat-solid-client-monorepo client
 cd client
 
+# update submodules if you pull new changes
+# git submodule init && git submodule update
+
 # install all packages
 pnpm i
 
