@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
+import { configDefaults } from "vitest/config";
 
 export default defineConfig({
   plugins: [solidPlugin()],
@@ -19,6 +20,7 @@ export default defineConfig({
     coverage: {
       reporter: ["text", "json", "html"],
     },
+    exclude: [...configDefaults.exclude, "**/browser-test-runner/**"],
   },
   resolve: {
     conditions: ["development", "browser"],
