@@ -20,50 +20,9 @@ import {
   Typography,
 } from "@revolt/ui";
 import { SidebarBase } from "@revolt/ui/components/navigation/channels/common";
-import { Component, ComponentProps, createSignal, For } from "solid-js";
+import { createSignal, For } from "solid-js";
 
-type Story<T extends Component> = {
-  title: string;
-  props?: ComponentProps<T>
-}
-
-type Entry<T extends Component> = {
-  category?: string;
-  component: T;
-  stories?: Story<T>[];
-  props?: ComponentProps<T>;
-  propTypes?: Record<keyof ComponentProps<T>, 'string'>
-}
-
-type Components = Record<string, Entry<Component>>;
-
-const components: Components = {
-  'Button': {
-    category: 'design/atoms/inputs',
-    component: Button,
-    stories: [
-      {
-        title: 'Primary',
-        props: {
-          palette: 'primary'
-        }
-      },
-      {
-        title: 'Secondary',
-        props: {
-          palette: 'secondary'
-        }
-      }
-    ],
-    props: {
-      children: "Hello!"
-    },
-    propTypes: {
-      children: 'string',
-      palette: 'string'
-    }
-  } as Entry<typeof Button>
-}
+import components from './stories';
 
 const Container = styled(Column)`
   height: 100%;

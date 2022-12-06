@@ -5,9 +5,11 @@
   "main": "index.tsx",
   "scripts": {
     "start": "vite",
-    "dev": "vite --host --port 5273",
+    "dev": "pnpm generate && vite --host --port 5273",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "generate": "node scripts/generate.mjs",
+    "exists": "node scripts/exists.mjs"
   },
   "keywords": [],
   "author": "",
