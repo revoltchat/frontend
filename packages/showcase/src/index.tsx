@@ -38,10 +38,12 @@ const Sidebar = styled(SidebarBase)`
 
 const Content = styled(ScrollContainer)`
   flex-grow: 1;
+  padding: 1rem;
 `;
 
 render(() => {
   const [component, select] = createSignal<keyof typeof components | undefined>();
+  const [tab, selectTab] = createSignal('');
 
   const tabs = () => {
     const obj: Record<string, { label: string }> = {};
@@ -61,6 +63,20 @@ render(() => {
     return obj;
   }
 
+  function render(component: string | undefined, tab: string) {
+    const entry = components[component!];
+    if (entry) {
+      const { component: Component, props, stories } = entry;
+
+      const story = stories.find(story => story.title === tab);
+      if (story) {
+        return <Component {...props} {...story.props} />;
+      }
+    }
+
+    return null;
+  }
+
   return (
     <div style={{ background: "#111", height: "100%" }}>
       <Masks />
@@ -76,9 +92,9 @@ render(() => {
             </Column>
           </Sidebar>
           <Column gap={0} grow>
-            <Tabs tabs={tabs} tab={() => "a"} onSelect={() => {}} />
+            <Tabs tabs={tabs} tab={tab} onSelect={selectTab} />
             <Content>
-              {component()}
+              {render(component(), tab())}
             </Content>
           </Column>
         </Row>

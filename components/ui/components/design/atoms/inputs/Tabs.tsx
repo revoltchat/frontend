@@ -1,5 +1,5 @@
 import { styled } from "solid-styled-components";
-import { For, JSX } from "solid-js";
+import { Accessor, For, JSX } from "solid-js";
 import { Row } from "../../layout";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   /**
    * Current tab
    */
-  readonly tab: () => string;
+  readonly tab: Accessor<string>;
 
   /**
    * Select a new tab
