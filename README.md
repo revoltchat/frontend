@@ -62,7 +62,7 @@ rm packages/client/public/assets
 mkdir packages/client/public/assets
 
 # reinit the submodule if not already
-git submodule init public/assets
+git submodule init packages/client/public/assets
 
 # now run the first command
 ```

@@ -1,13 +1,13 @@
-[submodule "revolt.js"]
+[submodule "packages/revolt.js"]
 	path = packages/revolt.js
 	url = https://github.com/revoltchat/revolt.js
-[submodule "locales"]
+[submodule "components/i18n/locales"]
 	path = components/i18n/locales
 	url = https://github.com/revoltchat/translations
-[submodule "assets"]
-	path = packages/client/public/assets
-	url = https://github.com/revoltchat/assets.git
-	update = none
+#[submodule "packages/client/public/assets"]
+#	path = packages/client/public/assets
+#	url = https://github.com/revoltchat/assets.git
+#	update = none
 [submodule "packages/solid-styled-components"]
 	path = packages/solid-styled-components
 	url = https://github.com/revoltchat/solid-styled-components
