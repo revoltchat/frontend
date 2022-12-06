@@ -1,5 +1,5 @@
 {
-  "name": "integration-test-runner",
+  "name": "browser-test-runner",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -13,6 +13,7 @@
     "@playwright/test": "^1.28.1"
   },
   "devDependencies": {
-    "@types/node": "^18.11.11"
+    "@types/node": "^18.11.11",
+    "showcase": "workspace:^1.0.0"
   }
 }

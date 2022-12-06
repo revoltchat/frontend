@@ -9,7 +9,11 @@ import { render } from "solid-js/web";
 import { For } from "solid-js";
 
 import components from './stories';
-import { Column, darkTheme, Masks, ThemeProvider } from "@revolt/ui";
+import { Column, darkTheme, Masks, styled, ThemeProvider } from "@revolt/ui";
+
+const ElementContainer = styled.div`
+  width: fit-content;
+`;
 
 render(() => {
   function render(component: string | undefined, tab: string) {
@@ -27,16 +31,20 @@ render(() => {
   }
 
   return (
-    <div style={{ background: "#111", height: "100%" }}>
-    <Masks />
-    <ThemeProvider theme={darkTheme}>
-      <Column>
-        <For each={Object.keys(components)}>
-          {key => <For each={components[key].stories}>
-            {({title}) => <div id={key + '_' + title}>{render(key, title)}</div>}
-          </For>}
-        </For>
-      </Column>
+    <div style="background:black">
+      <Masks />
+      <ThemeProvider theme={darkTheme}>
+        <Column>
+          <For each={Object.keys(components)}>
+            {key => <ElementContainer id={key}>
+              <Column gap="sm">
+                <For each={components[key].stories}>
+                  {({title}) => <ElementContainer>{render(key, title)}</ElementContainer>}
+                </For>
+              </Column>
+            </ElementContainer>}
+          </For>
+        </Column>
       </ThemeProvider>
     </div>
   );

@@ -131,10 +131,12 @@ importers:
     specifiers:
       '@playwright/test': ^1.28.1
       '@types/node': ^18.11.11
+      showcase: workspace:^1.0.0
     dependencies:
       '@playwright/test': 1.28.1
     devDependencies:
       '@types/node': 18.11.11
+      showcase: link:../showcase
 
   packages/client:
     specifiers:
