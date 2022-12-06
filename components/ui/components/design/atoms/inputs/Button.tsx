@@ -68,43 +68,28 @@ const ButtonBase = styled("button")<Props>`
 
   ${(props) => buttonSizing(props.compact ?? false)}
 
+  &:hover {
+    filter: brightness(1.2);
+  }
+
+  &:active {
+    filter: brightness(0.8);
+  }
+
   &:disabled {
     cursor: not-allowed;
+    filter: brightness(0.7);
   }
 `;
 
 const PrimaryButton = styled(ButtonBase)<Props>`
   color: ${({ theme }) => theme!.colours["foreground"]};
   background: ${({ theme }) => theme!.colours["background-100"]};
-
-  &:hover {
-    background: ${({ theme }) => theme!.colours["background-200"]};
-  }
-
-  &:disabled {
-    background: ${({ theme }) => theme!.colours["background-200"]};
-  }
-
-  &:active {
-    background: ${({ theme }) => theme!.colours["background-100"]};
-  }
 `;
 
 const SecondaryButton = styled(ButtonBase)<Props>`
   color: ${({ theme }) => theme!.colours["foreground"]};
   background: ${({ theme }) => theme!.colours["background-200"]};
-
-  &:hover {
-    background: ${({ theme }) => theme!.colours["background-300"]};
-  }
-
-  &:disabled {
-    background: ${({ theme }) => theme!.colours["background-200"]};
-  }
-
-  &:active {
-    background: ${({ theme }) => theme!.colours["background-100"]};
-  }
 `;
 
 const PlainButton = styled(ButtonBase)<Props>`
@@ -119,11 +104,7 @@ const PlainButton = styled(ButtonBase)<Props>`
   }
 
   &:disabled {
-    opacity: 0.5;
-  }
-
-  &:active {
-    color: ${({ theme }) => theme!.colours["foreground-400"]};
+    text-decoration: none;
   }
 `;
 
@@ -133,18 +114,6 @@ const AccentedButton = styled(ButtonBase)<Props>`
     props.theme!.colours[
       props.palette as "accent" | "success" | "warning" | "error"
     ]};
-
-  &:hover {
-    filter: brightness(1.2);
-  }
-
-  &:active {
-    filter: brightness(0.8);
-  }
-
-  &:disabled {
-    filter: brightness(0.7);
-  }
 `;
 
 type ButtonProps = Props & JSX.ButtonHTMLAttributes<HTMLButtonElement>;

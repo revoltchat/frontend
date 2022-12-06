@@ -21,7 +21,7 @@ export interface Props {
   /**
    * Button content
    */
-  readonly children: JSX.Element;
+  readonly children?: JSX.Element;
 
   /**
    * Alert indicator

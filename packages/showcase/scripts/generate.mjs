@@ -31,4 +31,4 @@ const OUTPUT = [
 const SHOWCASE_DIR = resolve(import.meta.url.substring('file://'.length), '..', '..');
 
 writeFile(resolve(SHOWCASE_DIR, 'src', 'stories.ts'), OUTPUT);
-writeFile(resolve(SHOWCASE_DIR, 'componentData.ts'), `export default [${ComponentList.map(x => `"${x}"`).join('\n')}];`);
+writeFile(resolve(SHOWCASE_DIR, 'componentData.ts'), `export default [${ComponentList.map(x => `"${x}"`).join(', ')}];`);

@@ -1,6 +1,6 @@
 import { JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
-import { BiRegularCheck } from 'solid-icons/bi'
+import { BiRegularCheck } from "solid-icons/bi";
 
 const Base = styled("label")`
   gap: 10px;
@@ -18,7 +18,7 @@ const Base = styled("label")`
 
   &:hover {
     background: ${(props) => props.theme!.colours["background-100"]};
-    
+
     .check {
       visibility: visible;
       opacity: 1;
@@ -84,8 +84,9 @@ const Checkmark = styled.div<Pick<Props, "value">>`
     opacity: 0;
   }
 
-  ${(props) => props.value ?
-    `
+  ${(props) =>
+    props.value
+      ? `
     border-color: ${props.theme!.colours["accent"]};
     background: ${props.theme!.colours["accent"]};
 
@@ -94,7 +95,8 @@ const Checkmark = styled.div<Pick<Props, "value">>`
       opacity: 1;
       color: var(--accent-contrast);
     }
-  `: ''}
+  `
+      : ""}
 `;
 
 export type Props = {
@@ -111,10 +113,13 @@ export type Props = {
 >;
 
 export function Checkbox(props: Props) {
-  const [local, others] = splitProps(
-    props,
-    ["disabled", "title", "description", "value", "onChange"]
-  );
+  const [local, others] = splitProps(props, [
+    "disabled",
+    "title",
+    "description",
+    "value",
+    "onChange",
+  ]);
 
   return (
     <Base {...others}>

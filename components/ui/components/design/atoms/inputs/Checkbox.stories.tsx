@@ -1,34 +1,34 @@
-import { Checkbox } from './Checkbox'
-import type { ComponentStory } from '../../../stories';
+import { Checkbox } from "./Checkbox";
+import type { ComponentStory } from "../../../stories";
 
 export default {
-  category: 'Design System/Atoms/Inputs',
+  category: "Design System/Atoms/Inputs",
   component: Checkbox,
   stories: [
     {
-      title: 'Default'
+      title: "Default",
     },
     {
-      title: 'Checked',
+      title: "Checked",
       props: {
-        value: true
-      }
-    }
+        value: true,
+      },
+    },
   ],
   props: {
     title: "Do you want this enabled?",
-    description: "This will enable this specific thing for you."
+    description: "This will enable this specific thing for you.",
   },
   propTypes: {
-    title: 'string',
-    description: 'string',
-    disabled: 'boolean',
-    value: 'boolean',
-    onChange: 'function'
+    title: "string",
+    description: "string",
+    disabled: "boolean",
+    value: "boolean",
+    onChange: "function",
   },
   effects: {
     onChange: (props) => ({
-      value: !props.value
-    })
-  }
+      value: !props.value,
+    }),
+  },
 } as ComponentStory<typeof Checkbox>;

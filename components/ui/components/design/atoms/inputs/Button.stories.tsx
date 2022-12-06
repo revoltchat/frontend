@@ -1,81 +1,91 @@
-import { Button } from './Button'
-import { BiSolidBatteryLow, BiSolidUser } from 'solid-icons/bi';
-import type { ComponentStory } from '../../../stories';
+import { Button } from "./Button";
+import { BiSolidBatteryLow, BiSolidUser } from "solid-icons/bi";
+import type { ComponentStory } from "../../../stories";
 
 export default {
-  category: 'Design System/Atoms/Inputs',
+  category: "Design System/Atoms/Inputs",
   component: Button,
   stories: [
     {
-      title: 'Primary',
+      title: "Primary",
       props: {
-        palette: 'primary'
-      }
+        palette: "primary",
+      },
     },
     {
-      title: 'Secondary',
+      title: "Primary (Disabled)",
       props: {
-        palette: 'secondary'
-      }
+        palette: "primary",
+        disabled: true,
+      },
     },
     {
-      title: 'Accent',
+      title: "Secondary",
       props: {
-        palette: 'accent'
-      }
+        palette: "secondary",
+      },
     },
     {
-      title: 'Plain',
+      title: "Accent",
       props: {
-        palette: 'plain'
-      }
+        palette: "accent",
+      },
     },
     {
-      title: 'Plain (Secondary)',
+      title: "Plain",
       props: {
-        palette: 'plain-secondary'
-      }
+        palette: "plain",
+      },
     },
     {
-      title: 'Success',
+      title: "Plain (Secondary)",
       props: {
-        palette: 'success'
-      }
+        palette: "plain-secondary",
+      },
     },
     {
-      title: 'Warning',
+      title: "Success",
       props: {
-        palette: 'warning'
-      }
+        palette: "success",
+        children: "Continue",
+      },
     },
     {
-      title: 'Error',
+      title: "Warning",
       props: {
-        palette: 'error'
-      }
+        palette: "warning",
+        children: "Apply",
+      },
     },
     {
-      title: 'Icon',
+      title: "Error",
       props: {
-        compact: 'icon',
-        children: <BiSolidUser size={16} />
-      }
+        palette: "error",
+        children: "Delete",
+      },
     },
     {
-      title: 'Icon (Accent)',
+      title: "Icon",
       props: {
-        compact: 'icon',
-        palette: 'accent',
-        children: <BiSolidBatteryLow size={16} />
-      }
-    }
+        compact: "icon",
+        children: <BiSolidUser size={16} />,
+      },
+    },
+    {
+      title: "Icon (Accent)",
+      props: {
+        compact: "icon",
+        palette: "accent",
+        children: <BiSolidBatteryLow size={16} />,
+      },
+    },
   ],
   props: {
-    children: "Hello!"
+    children: "Hello!",
   },
   propTypes: {
-    children: 'string',
-    palette: 'string',
-    compact: [true, false, 'icon']
-  }
+    children: "string",
+    palette: "string",
+    compact: [true, false, "icon"],
+  },
 } as ComponentStory<typeof Button>;
