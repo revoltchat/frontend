@@ -17,8 +17,8 @@ import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { ScrollContainer } from "../../common/ScrollContainers";
 
 interface Props {
-  server: () => Server;
-  channelId: () => string | undefined;
+  server: Server;
+  channelId: string | undefined;
 }
 
 /**
@@ -38,31 +38,28 @@ const ChannelIcon = styled("img")`
 /**
  * Server channel entry
  */
-function Entry({
-  channel,
-  active,
-}: {
+function Entry(props: {
   channel: Channel;
-  active: () => boolean;
+  active: boolean;
 }) {
   return (
-    <Link href={`/server/${channel.server_id}/channel/${channel._id}`}>
+    <Link href={`/server/${props.channel.server_id}/channel/${props.channel._id}`}>
       <MenuButton
         size="thin"
-        alert={!active() && channel.unread && (channel.mentions.length || true)}
-        attention={active() ? "selected" : channel.unread ? "active" : "normal"}
+        alert={!props.active && props.channel.unread && (props.channel.mentions.length || true)}
+        attention={props.active ? "selected" : props.channel.unread ? "active" : "normal"}
         icon={
           <Switch fallback={<BiRegularHash size={24} />}>
-            <Match when={channel.icon}>
-              <ChannelIcon src={channel.generateIconURL({ max_side: 64 })} />
+            <Match when={props.channel.icon}>
+              <ChannelIcon src={props.channel.generateIconURL({ max_side: 64 })} />
             </Match>
-            <Match when={channel.channel_type === "VoiceChannel"}>
+            <Match when={props.channel.channel_type === "VoiceChannel"}>
               <BiRegularPhoneCall size={24} />
             </Match>
           </Switch>
         }
       >
-        {channel.name}
+        {props.channel.name}
       </MenuButton>
     </Link>
   );
@@ -96,17 +93,14 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
 /**
  * Single category entry
  */
-function Category({
-  category,
-  channelId,
-}: {
+function Category(props: {
   category: CategoryData;
-  channelId: () => string | undefined;
+  channelId: string | undefined;
 }) {
   const [shown, setShown] = createSignal(true);
   const channels = createMemo(() =>
-    category.channels.filter(
-      (channel) => shown() || channel.unread || channel._id === channelId()
+    props.category.channels.filter(
+      (channel) => shown() || channel.unread || channel._id === props.channelId
     )
   );
 
@@ -119,11 +113,11 @@ function Category({
         gap="sm"
       >
         <BiSolidChevronRight size={12} />
-        <Typography variant="small">{category.title}</Typography>
+        <Typography variant="small">{props.category.title}</Typography>
       </CategoryBase>
       <For each={channels()}>
         {(channel) => (
-          <Entry channel={channel} active={() => channel._id === channelId()} />
+          <Entry channel={channel} active={channel._id === props.channelId} />
         )}
       </For>
     </Column>
@@ -133,29 +127,29 @@ function Category({
 /**
  * Display server information and channels
  */
-export const ServerSidebar = ({ server, channelId }: Props) => {
+export const ServerSidebar = (props: Props) => {
   return (
     <SidebarBase>
-      <Switch fallback={<Header palette="secondary">{server().name}</Header>}>
-        <Match when={server().banner}>
+      <Switch fallback={<Header palette="secondary">{props.server.name}</Header>}>
+        <Match when={props.server.banner}>
           <HeaderWithImage
             palette="secondary"
             style={{
-              background: `url('${server().generateBannerURL({
+              background: `url('${props.server.generateBannerURL({
                 max_side: 256,
               })}')`,
             }}
           >
-            <div>{server().name}</div>
+            <div>{props.server.name}</div>
           </HeaderWithImage>
         </Match>
       </Switch>
       <ScrollContainer>
         <Column gap="lg">
           <div />
-          <For each={server().orderedChannels}>
+          <For each={props.server.orderedChannels}>
             {(category) => (
-              <Category category={category} channelId={channelId} />
+              <Category category={category} channelId={props.channelId} />
             )}
           </For>
           <div />

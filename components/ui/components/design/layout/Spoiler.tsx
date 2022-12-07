@@ -31,14 +31,14 @@ const Base = styled("div")`
   }
 `;
 
-export function Spoiler({ contentType }: Props) {
+export function Spoiler(props: Props) {
   const t = useTranslation();
   const [shown, setShown] = createSignal(true);
 
   return (
     <Show when={shown()}>
       <Base class="container">
-        <div class={`Spoiler ${contentType}`} onClick={() => setShown(false)}>
+        <div class={`Spoiler ${props.contentType}`} onClick={() => setShown(false)}>
           <span>{t("app.main.channel.misc.spoiler_attachment")}</span>
         </div>
       </Base>

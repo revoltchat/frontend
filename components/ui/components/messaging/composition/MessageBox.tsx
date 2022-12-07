@@ -1,7 +1,7 @@
 import type { Channel } from "revolt.js";
 import { BiRegularBlock, BiRegularPlus } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
-import { Accessor, Match, Setter, Switch } from "solid-js";
+import { Accessor, Match, Setter, Show, Switch } from "solid-js";
 import { useTranslation } from "@revolt/i18n";
 import { Row } from "../../design/layout";
 
@@ -73,7 +73,7 @@ const Spacer = styled("div")<{ size: "short" | "normal" | "wide" }>`
 /**
  * Message box
  */
-export function MessageBox({ channel, content, setContent }: Props) {
+export function MessageBox(props: Props) {
   let input: HTMLTextAreaElement | undefined;
   const t = useTranslation();
 
@@ -81,7 +81,7 @@ export function MessageBox({ channel, content, setContent }: Props) {
     if (event.key === "Enter" && input) {
       event.preventDefault();
 
-      channel().sendMessage({ content: input.value });
+      props.channel().sendMessage({ content: input.value });
 
       input.value = "";
     }
@@ -91,10 +91,10 @@ export function MessageBox({ channel, content, setContent }: Props) {
     <Base>
       <Spacer size="wide">
         <Switch>
-          <Match when={!channel().havePermission("SendMessage")}>
+          <Match when={!props.channel().havePermission("SendMessage")}>
             <BiRegularBlock size={24} />
           </Match>
-          <Match when={channel().havePermission("UploadFiles")}>
+          <Match when={props.channel().havePermission("UploadFiles")}>
             <Button>
               <BiRegularPlus size={24} />
             </Button>
@@ -106,12 +106,12 @@ export function MessageBox({ channel, content, setContent }: Props) {
           <Input
             ref={input}
             onKeyDown={onKeyDown}
-            placeholder={`Message ${channel().name}`}
-            onInput={(e) => setContent(e.currentTarget.value)}
+            placeholder={`Message ${props.channel().name}`}
+            onInput={(e) => props.setContent(e.currentTarget.value)}
           />
         }
       >
-        <Match when={!channel().havePermission("SendMessage")}>
+        <Match when={!props.channel().havePermission("SendMessage")}>
           <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
         </Match>
       </Switch>

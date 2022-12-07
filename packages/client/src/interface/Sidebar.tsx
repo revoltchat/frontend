@@ -9,12 +9,11 @@ import { ServerList, HomeSidebar, ServerSidebar } from "@revolt/ui";
 const Server: Component = () => {
   const params = useParams();
   const client = useClient();
-  const server = createMemo(() => client.servers.get(params.server)!);
-  const channelId = () => params.channel;
+  const server = () => client.servers.get(params.server)!;
 
   // TODO validate server existence
 
-  return <ServerSidebar server={server} channelId={channelId} />;
+  return <ServerSidebar server={server()} channelId={params.channel} />;
 };
 
 /**
@@ -23,7 +22,6 @@ const Server: Component = () => {
 const Home: Component = () => {
   const params = useParams();
   const client = useClient();
-  const channelId = () => params.channel;
 
   // TODO validate channel existence
 
@@ -37,7 +35,7 @@ const Home: Component = () => {
     return arr.slice(0, 20);
   });
 
-  return <HomeSidebar conversations={conversations} channelId={channelId} />;
+  return <HomeSidebar conversations={conversations} channelId={params.channel} />;
 };
 
 /**

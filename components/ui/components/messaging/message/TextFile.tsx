@@ -37,7 +37,7 @@ const AUTO_LOAD_MAX_SIZE_BYTES = 50_000;
 /**
  * Render contents of a text file
  */
-export function TextFile({ file, baseUrl }: Props) {
+export function TextFile(props: Props) {
   const t = useTranslation();
   const [loading, setLoading] = createSignal(false);
   const [contents, setContents] = createSignal<string | undefined>(undefined);
@@ -45,14 +45,14 @@ export function TextFile({ file, baseUrl }: Props) {
   async function load() {
     setLoading(true);
 
-    const res = await fetch(`${baseUrl}/attachments/${file._id}`);
+    const res = await fetch(`${props.baseUrl}/attachments/${props.file._id}`);
     const data = await res.text();
 
     setContents(data);
   }
 
   onMount(() => {
-    if (file.size <= AUTO_LOAD_MAX_SIZE_BYTES) {
+    if (props.file.size <= AUTO_LOAD_MAX_SIZE_BYTES) {
       load();
     }
   });
@@ -62,12 +62,12 @@ export function TextFile({ file, baseUrl }: Props) {
       <Switch fallback={<Preloader type="ring" grow />}>
         <Match
           when={
-            !loading() && !contents() && file.size > AUTO_LOAD_MAX_SIZE_BYTES
+            !loading() && !contents() && props.file.size > AUTO_LOAD_MAX_SIZE_BYTES
           }
         >
           <Row align justify grow>
             <Button palette="primary" onClick={load}>
-              {t("app.main.channel.misc.load_file")} ({humanFileSize(file.size)}
+              {t("app.main.channel.misc.load_file")} ({humanFileSize(props.file.size)}
               )
             </Button>
           </Row>

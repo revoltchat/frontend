@@ -84,20 +84,13 @@ const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive">>`
  *
  * Partially inspired by Adw.Avatar API, we allow users to specify a fallback component (usually just text) to display in case the URL is invalid.
  */
-export function Avatar({
-  size,
-  holepunch,
-  fallback,
-  src,
-  overlay,
-  interactive,
-}: Props) {
+export function Avatar(props: Props) {
   return (
     <ParentBase
-      width={size}
-      height={size}
+      width={props.size}
+      height={props.size}
       viewBox="0 0 32 32"
-      interactive={interactive}
+      interactive={props.interactive}
     >
       <foreignObject
         x="0"
@@ -105,20 +98,20 @@ export function Avatar({
         width="32"
         height="32"
         // @ts-expect-error Solid.js typing issue
-        mask={holepunch ? `url(#holepunch-${holepunch})` : undefined}
+        mask={props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined}
       >
-        {src && <Image src={src} />}
-        {!src && (
+        {props.src && <Image src={props.src} />}
+        {!props.src && (
           <FallbackBase>
-            {typeof fallback === "string" ? (
-              <Initials input={fallback} maxLength={2} />
+            {typeof props.fallback === "string" ? (
+              <Initials input={props.fallback} maxLength={2} />
             ) : (
-              fallback
+              props.fallback
             )}
           </FallbackBase>
         )}
       </foreignObject>
-      {overlay}
+      {props.overlay}
     </ParentBase>
   );
 }

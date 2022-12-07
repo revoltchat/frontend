@@ -20,7 +20,7 @@ interface Props {
   /**
    * Current channel ID
    */
-  channelId: () => string;
+  channelId: string;
 }
 
 /**
@@ -95,7 +95,7 @@ function Entry({
 /**
  * Display home navigation and conversations
  */
-export const HomeSidebar = ({ conversations, channelId }: Props) => {
+export const HomeSidebar = (props: Props) => {
   return (
     <SidebarBase>
       <p>
@@ -104,11 +104,11 @@ export const HomeSidebar = ({ conversations, channelId }: Props) => {
       <ScrollContainer>
         <Column>
           <div />
-          <For each={conversations()}>
+          <For each={props.conversations()}>
             {(channel) => (
               <Entry
                 channel={channel}
-                active={() => channel._id === channelId()}
+                active={() => channel._id === props.channelId}
               />
             )}
           </For>

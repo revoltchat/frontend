@@ -103,10 +103,10 @@ function mapMailProvider(email?: string): [string, string] | undefined {
   }
 }
 
-export function MailProvider({ email }: Props) {
+export function MailProvider(props: Props) {
   const t = useTranslation();
 
-  const provider = mapMailProvider(email);
+  const provider = mapMailProvider(props.email);
   if (!provider) return null;
 
   return (

@@ -73,18 +73,18 @@ const Wide = styled(Base)`
 /**
  * Automatic message content sizing for images, videos and embeds
  */
-export function SizedContent({ width, height, children }: Props) {
-  const Base = height > width ? Tall : Wide;
+export function SizedContent(props: Props) {
+  const Base = props.height > props.width ? Tall : Wide;
   return (
     <Base
       style={{
-        "--width": width,
-        "--height": height,
-        "--width-px": width + "px",
-        "--height-px": height + "px",
+        "--width": props.width,
+        "--height": props.height,
+        "--width-px": props.width + "px",
+        "--height-px": props.height + "px",
       }}
     >
-      {children}
+      {props.children}
     </Base>
   );
 }
