@@ -10,7 +10,7 @@ export default {
     },
   ],
   props: {
-    children: (
+    children: () => (
       <>
         <option>Option A</option>
         <option>Option B</option>

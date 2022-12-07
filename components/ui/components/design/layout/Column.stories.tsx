@@ -58,7 +58,7 @@ export default {
     }
   ],
   props: {
-    children: <>
+    children: () => <>
       <div>Element 1</div>
       <div>Element 2</div>
       <div>Element 3</div>
