@@ -46,6 +46,7 @@ const Subtitle = styled("span")`
   margin: 0;
   font-weight: 500;
   font-size: 0.8rem;
+  color: ${({ theme }) => theme!.colours["foreground"]};
 `;
 
 const InputLabel = styled("label")`

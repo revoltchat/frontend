@@ -84,8 +84,17 @@ export default {
     children: "Hello!",
   },
   propTypes: {
-    children: "string",
-    palette: "string",
+    palette: [
+      "primary",
+      "secondary",
+      "plain",
+      "plain-secondary",
+      "accent",
+      "success",
+      "warning",
+      "error",
+    ],
     compact: [true, false, "icon"],
+    children: "string",
   },
 } as ComponentStory<typeof Button>;
