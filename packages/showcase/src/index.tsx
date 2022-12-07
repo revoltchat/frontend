@@ -104,7 +104,7 @@ render(() => {
   ) {
     const entry = components[component!];
     if (entry) {
-      const { component: Component, stories, effects } = entry;
+      const { component: Component, stories, effects, decorators } = entry;
 
       const story = stories.find((story) => story.title === tab);
       if (story) {
@@ -119,7 +119,21 @@ render(() => {
           }
         }
 
-        return <Component {...currentProps()} {...effectProps} />;
+        let el = <Component {...currentProps()} {...effectProps} />;
+
+        if (story.decorators) {
+          for (const Decorator of story.decorators) {
+            el = <Decorator>{el}</Decorator>
+          }
+        }
+
+        if (decorators) {
+          for (const Decorator of decorators) {
+            el = <Decorator>{el}</Decorator>
+          }
+        }
+
+        return el;
       }
     }
 
