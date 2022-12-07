@@ -78,4 +78,4 @@ render(() => {
       </ThemeProvider>
     </div>
   );
-}, document.getElementById("root") as HTMLElement);
+}, document.getElementById("all") as HTMLElement);
