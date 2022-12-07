@@ -1,6 +1,6 @@
 import { styled } from "solid-styled-components";
 
 /**
- * Some input element grouped with its label
+ * Input element and label grouping
  */
-export const FormGroup = styled("div")``;
+export const FormGroup = styled("label")``;

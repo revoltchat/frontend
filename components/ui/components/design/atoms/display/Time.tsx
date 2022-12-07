@@ -7,7 +7,7 @@ interface Props {
   format: "calendar" | "time";
 }
 
-function format(props: Props) {
+export function formatTime(props: Props) {
   switch (props.format) {
     case "calendar":
       return dayjs(props.value).calendar();
@@ -17,10 +17,10 @@ function format(props: Props) {
 }
 
 export function Time(props: Props) {
-  const [time, setTime] = createSignal(format(props));
+  const [time, setTime] = createSignal(formatTime(props));
 
   const timer = setInterval(() => {
-    const value = format(props);
+    const value = formatTime(props);
     if (value !== time()) {
       setTime(value);
     }
