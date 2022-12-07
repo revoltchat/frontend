@@ -1,3 +1,4 @@
+import type { JSX } from "solid-js";
 import { BiSolidBolt } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
 
@@ -42,10 +43,10 @@ const Base = styled("div")`
 /**
  * Concept icon
  */
-export function Turbo() {
+export function Turbo(props: { children: JSX.Element }) {
   return (
     <Base>
-      <BiSolidBolt size={13} /> Turbo
+      <BiSolidBolt size={13} /> {props.children}
     </Base>
   );
 }

@@ -1,3 +1,4 @@
+import { Show } from "solid-js";
 import { styled } from "solid-styled-components";
 
 /**
@@ -55,11 +56,15 @@ interface Props {
 /**
  * Generic message divider
  */
-export function MessageDivider({ unread, date }: Props) {
+export function MessageDivider(props: Props) {
   return (
-    <Base unread={unread}>
-      {unread && <Unread>NEW</Unread>}
-      {date && <time>{date}</time>}
+    <Base unread={props.unread}>
+      <Show when={props.unread}>
+        <Unread>NEW</Unread>
+      </Show>
+      <Show when={props.date}>
+        <time>{props.date}</time>
+      </Show>
     </Base>
   );
 }

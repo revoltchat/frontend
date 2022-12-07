@@ -3,6 +3,7 @@ import {
   BiRegularCheck,
   BiRegularCloudUpload,
 } from "solid-icons/bi";
+import { Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 /**
@@ -32,18 +33,19 @@ interface Props {
 /**
  * Display a generic auto-save status
  */
-export function SaveStatus({ status }: Props) {
+export function SaveStatus(props: Props) {
   return (
     <Base>
-      {status === "saved" ? (
-        <BiRegularCheck size={20} />
-      ) : status === "editing" ? (
-        <BiSolidPencil size={20} />
-      ) : (
-        <BiRegularCloudUpload size={20} />
-      )}
+      <Switch fallback={<BiRegularCheck size={20} />}>
+        <Match when={props.status === "editing"}>
+          <BiSolidPencil size={20} />
+        </Match>
+        <Match when={props.status === "saving"}>
+          <BiRegularCloudUpload size={20} />
+        </Match>
+      </Switch>
       {/* FIXME: add i18n */}
-      <span>{status}</span>
+      <span>{props.status}</span>
     </Base>
   );
 }

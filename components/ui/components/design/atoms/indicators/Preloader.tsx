@@ -103,10 +103,10 @@ export interface Props {
 /**
  * Generic loading indicator with no progress indicator
  */
-export function Preloader({ type, grow }: Props) {
+export function Preloader(props: Props) {
   return (
-    <PreloaderBase grow={grow}>
-      <div class={type}>
+    <PreloaderBase grow={props.grow}>
+      <div class={props.type}>
         <div />
         <div />
         <div />

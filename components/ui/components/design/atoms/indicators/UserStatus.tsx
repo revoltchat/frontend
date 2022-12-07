@@ -11,8 +11,9 @@ export type Props = {
 /**
  * Overlays user status in current SVG
  */
-export const UserStatus = ({ status }: Props) => {
+export const UserStatus = (props: Props) => {
   const theme = useTheme();
+  const statusLowercase = () => props.status.toLowerCase();
 
   return (
     <circle
@@ -21,7 +22,7 @@ export const UserStatus = ({ status }: Props) => {
       r="5"
       fill={
         theme.colours[
-          `status-${status.toLowerCase()}` as keyof typeof theme.colours
+          `status-${statusLowercase()}` as keyof typeof theme.colours
         ]
       }
     />
