@@ -1,18 +1,18 @@
 import { MessageBox } from "@revolt/ui";
 import { Channel } from "revolt.js";
-import { Accessor, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 
 interface Props {
-  channel: Accessor<Channel>;
+  channel: Channel;
 }
 
 /**
  * Message composition engine
  */
-export function MessageComposition({ channel }: Props) {
+export function MessageComposition(props: Props) {
   const [content, setContent] = createSignal("");
 
   return (
-    <MessageBox channel={channel} content={content} setContent={setContent} />
+    <MessageBox channel={props.channel} content={content} setContent={setContent} />
   );
 }

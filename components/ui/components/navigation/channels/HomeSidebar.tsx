@@ -26,32 +26,29 @@ interface Props {
 /**
  * Single conversation entry
  */
-function Entry({
-  channel,
-  active,
-}: {
+function Entry(props: {
   channel: Channel;
-  active: () => boolean;
+  active: boolean;
 }) {
   const q = useQuantity();
-  const dm = channel.recipient;
+  const dm = props.channel.recipient;
 
   return (
-    <Link href={`/channel/${channel._id}`}>
+    <Link href={`/channel/${props.channel._id}`}>
       <MenuButton
         size="normal"
-        alert={!active() && channel.unread && (channel.mentions.length || true)}
-        attention={active() ? "selected" : channel.unread ? "active" : "normal"}
+        alert={!props.active && props.channel.unread && (props.channel.mentions.length || true)}
+        attention={props.active ? "selected" : props.channel.unread ? "active" : "normal"}
         icon={
           <Switch>
-            <Match when={channel.channel_type === "Group"}>
+            <Match when={props.channel.channel_type === "Group"}>
               <Avatar
                 size={32}
-                fallback={channel.name}
-                src={channel.generateIconURL({ max_side: 256 })}
+                fallback={props.channel.name}
+                src={props.channel.generateIconURL({ max_side: 256 })}
               />
             </Match>
-            <Match when={channel.channel_type === "DirectMessage"}>
+            <Match when={props.channel.channel_type === "DirectMessage"}>
               <Avatar
                 size={32}
                 src={
@@ -69,13 +66,13 @@ function Entry({
       >
         <Column gap="none">
           <Switch>
-            <Match when={channel.channel_type === "Group"}>
-              <OverflowingText>{channel.name}</OverflowingText>
+            <Match when={props.channel.channel_type === "Group"}>
+              <OverflowingText>{props.channel.name}</OverflowingText>
               <Typography variant="subtitle">
-                {q("members", channel.recipient_ids?.length || 0)}
+                {q("members", props.channel.recipient_ids?.length || 0)}
               </Typography>
             </Match>
-            <Match when={channel.channel_type === "DirectMessage"}>
+            <Match when={props.channel.channel_type === "DirectMessage"}>
               <OverflowingText>{dm?.username}</OverflowingText>
               <Show when={dm?.status?.text || dm?.status?.presence === "Focus"}>
                 <Typography variant="subtitle">
@@ -108,7 +105,7 @@ export const HomeSidebar = (props: Props) => {
             {(channel) => (
               <Entry
                 channel={channel}
-                active={() => channel._id === props.channelId}
+                active={channel._id === props.channelId}
               />
             )}
           </For>

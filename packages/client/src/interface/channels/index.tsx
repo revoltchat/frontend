@@ -69,8 +69,8 @@ export const ChannelPage: Component = () => {
       <Switch fallback="Unknown channel type!">
         <Match when={!channel()}>404</Match>
         <Match when={channel()!.channel_type !== "VoiceChannel"}>
-          <Messages channel={channel} />
-          <MessageComposition channel={channel} />
+          <Messages channel={channel()} />
+          <MessageComposition channel={channel()} />
         </Match>
       </Switch>
     </Base>

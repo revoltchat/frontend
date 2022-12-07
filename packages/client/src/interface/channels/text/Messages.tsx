@@ -75,7 +75,7 @@ function Entry(props: ListEntry) {
 /**
  * Render messages in a Channel
  */
-export function Messages({ channel }: { channel: Accessor<Channel> }) {
+export function Messages(props: { channel: Channel }) {
   const client = useClient();
 
   const [messages, setMessages] = createSignal<MessageInterface[]>([]);
@@ -83,13 +83,13 @@ export function Messages({ channel }: { channel: Accessor<Channel> }) {
   createEffect(() => {
     setMessages([]);
 
-    channel()
+    props.channel
       .fetchMessagesWithUsers()
       .then(({ messages }) => setMessages(messages));
   });
 
   function onMessage(msg: MessageInterface) {
-    if (msg.channel_id === channel()._id) {
+    if (msg.channel_id === props.channel._id) {
       setMessages([msg, ...messages()]);
     }
   }

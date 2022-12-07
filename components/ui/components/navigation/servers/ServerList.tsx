@@ -39,7 +39,7 @@ interface Props {
   user: User;
 }
 
-export const ServerList = ({ orderedServers, user }: Props) => {
+export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
       <EntryContainer>
@@ -47,18 +47,18 @@ export const ServerList = ({ orderedServers, user }: Props) => {
           <Avatar
             size={42}
             src={
-              user.generateAvatarURL({ max_side: 256 }) ?? user.defaultAvatarURL
+              props.user.generateAvatarURL({ max_side: 256 }) ?? props.user.defaultAvatarURL
             }
             holepunch={"bottom-right"}
             overlay={
-              <UserStatus status={user.status?.presence ?? "Invisible"} />
+              <UserStatus status={props.user.status?.presence ?? "Invisible"} />
             }
             interactive
           />
         </Link>
       </EntryContainer>
       <Draggable
-        items={orderedServers}
+        items={props.orderedServers}
         onChange={(ids) => {
           // Handle here.
         }}

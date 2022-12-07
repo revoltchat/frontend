@@ -6,7 +6,7 @@ import { useTranslation } from "@revolt/i18n";
 import { Row } from "../../design/layout";
 
 interface Props {
-  channel: Accessor<Channel>;
+  channel: Channel;
   content: Accessor<string>;
   setContent: Setter<string>;
 }
@@ -81,7 +81,7 @@ export function MessageBox(props: Props) {
     if (event.key === "Enter" && input) {
       event.preventDefault();
 
-      props.channel().sendMessage({ content: input.value });
+      props.channel.sendMessage({ content: input.value });
 
       input.value = "";
     }
@@ -91,10 +91,10 @@ export function MessageBox(props: Props) {
     <Base>
       <Spacer size="wide">
         <Switch>
-          <Match when={!props.channel().havePermission("SendMessage")}>
+          <Match when={!props.channel.havePermission("SendMessage")}>
             <BiRegularBlock size={24} />
           </Match>
-          <Match when={props.channel().havePermission("UploadFiles")}>
+          <Match when={props.channel.havePermission("UploadFiles")}>
             <Button>
               <BiRegularPlus size={24} />
             </Button>
@@ -106,12 +106,12 @@ export function MessageBox(props: Props) {
           <Input
             ref={input}
             onKeyDown={onKeyDown}
-            placeholder={`Message ${props.channel().name}`}
+            placeholder={`Message ${props.channel.name}`}
             onInput={(e) => props.setContent(e.currentTarget.value)}
           />
         }
       >
-        <Match when={!props.channel().havePermission("SendMessage")}>
+        <Match when={!props.channel.havePermission("SendMessage")}>
           <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
         </Match>
       </Switch>
