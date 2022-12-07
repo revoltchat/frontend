@@ -1,5 +1,6 @@
 import { MessageDivider } from "./MessageDivider";
 import type { ComponentStory } from "../../../stories";
+import makeContainerDecorator from "../../../../decorators/ContainerDecorator";
 
 export default {
   category: "Design System/Atoms/Indicators",
@@ -18,6 +19,15 @@ export default {
   props: {
     date: "1st December 2022",
   },
+  decorators: [
+    makeContainerDecorator({
+      width: 360,
+      flex: 'col'
+    }),
+    makeContainerDecorator({
+      height: 32
+    })
+  ],
   propTypes: {
     date: 'string',
     unread: 'boolean'
