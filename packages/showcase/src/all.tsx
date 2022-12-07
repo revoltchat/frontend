@@ -27,11 +27,25 @@ render(() => {
   function render(component: string | undefined, tab: string) {
     const entry = components[component!];
     if (entry) {
-      const { component: Component, props, stories } = entry;
+      const { component: Component, props, stories, decorators } = entry;
 
       const story = stories.find((story) => story.title === tab);
       if (story) {
-        return <Component {...props} {...story.props} />;
+        let el = <Component {...props} {...story.props} />;
+
+        if (story.decorators) {
+          for (const Decorator of story.decorators) {
+            el = <Decorator>{el}</Decorator>
+          }
+        }
+
+        if (decorators) {
+          for (const Decorator of decorators) {
+            el = <Decorator>{el}</Decorator>
+          }
+        }
+
+        return el;
       }
     }
 
