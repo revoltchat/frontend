@@ -1,6 +1,6 @@
 import { Message as MessageInterface } from "revolt.js";
 import { For, Show } from "solid-js";
-import { Attachments } from "./Attachments";
+import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embeds } from "./Embeds";
 
@@ -32,10 +32,9 @@ export function Message({
     >
       {message.content}
       <Show when={message.attachments}>
-        <Attachments
-          attachments={() => message.attachments!}
-          baseUrl={message.client.configuration?.features.autumn.url!}
-        />
+        <For each={message.attachments}>
+          {attachment => <Attachment file={attachment} baseUrl={message.client.configuration?.features.autumn.url!} />}
+        </For>
       </Show>
       <Show when={message.embeds}>
         <Embeds

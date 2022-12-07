@@ -5,7 +5,7 @@ import { styled } from "solid-styled-components";
 import { Preloader } from "../../design/atoms/indicators";
 import { Button } from "../../design/atoms/inputs";
 import { Row } from "../../design/layout";
-import { humanFileSize } from "./Attachments";
+import { humanFileSize } from "./Attachment";
 
 interface Props {
   /**

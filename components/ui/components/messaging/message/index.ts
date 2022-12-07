@@ -1,4 +1,4 @@
-export { Attachments, AttachmentContainer } from "./Attachments";
+export { Attachment, AttachmentContainer } from "./Attachment";
 export { MessageContainer } from "./Container";
 export { Embeds } from "./Embeds";
 export { FileInfo } from "./FileInfo";
