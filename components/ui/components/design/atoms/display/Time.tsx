@@ -2,9 +2,9 @@ import { dayjs } from "@revolt/i18n";
 import { createSignal, onCleanup } from "solid-js";
 
 interface Props {
-  value: number | Date;
+  value: number | Date | string;
   format: "calendar" | "time";
-  referenceTime?: number | Date;
+  referenceTime?: number | Date | string;
 }
 
 export function formatTime(props: Props) {

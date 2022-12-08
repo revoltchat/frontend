@@ -7,6 +7,7 @@ declare type Story<T extends Component<P>, P = {}> = {
   title: string;
   props?: ComponentProps<T>;
   decorators?: Decorator[];
+  component?: T;
 };
 
 declare type ComponentStory<T extends Component<P>, P = {}> = {
@@ -17,7 +18,12 @@ declare type ComponentStory<T extends Component<P>, P = {}> = {
   decorators?: Decorator[];
   propTypes?: Record<
     keyof ComponentProps<T>,
-    "string" | "boolean" | "number" | "function" | "component" | (string | boolean)[]
+    | "string"
+    | "boolean"
+    | "number"
+    | "function"
+    | "component"
+    | (string | boolean)[]
   >;
   effects?: Record<
     keyof ComponentProps<T>,

@@ -104,10 +104,14 @@ render(() => {
   ) {
     const entry = components[component!];
     if (entry) {
-      const { component: Component, stories, effects, decorators } = entry;
+      let { component: Component, stories, effects, decorators } = entry;
 
       const story = stories.find((story) => story.title === tab);
       if (story) {
+        if (story.component) {
+          Component = story.component;
+        }
+
         const effectProps: Record<string, (...args: any[]) => any> = {};
         if (effects) {
           for (const effect of Object.keys(effects)) {
@@ -123,13 +127,13 @@ render(() => {
 
         if (story.decorators) {
           for (const Decorator of story.decorators) {
-            el = <Decorator>{el}</Decorator>
+            el = <Decorator>{el}</Decorator>;
           }
         }
 
         if (decorators) {
           for (const Decorator of decorators) {
-            el = <Decorator>{el}</Decorator>
+            el = <Decorator>{el}</Decorator>;
           }
         }
 
@@ -192,14 +196,27 @@ render(() => {
                             </Typography>
                           }
                         >
-                          <Match when={propTypes()[key as never] === "string"}>
+                          <Match
+                            when={
+                              propTypes()[key as never] === "string" ||
+                              propTypes()[key as never] === "number"
+                            }
+                          >
                             <Typography variant="label">{key}</Typography>
                             <Input
                               value={currentProps()[key as never]}
+                              type={
+                                propTypes()[key as never] === "string"
+                                  ? "text"
+                                  : "number"
+                              }
                               onInput={(e) =>
                                 setProps({
                                   ...currentProps(),
-                                  [key]: e.currentTarget.value,
+                                  [key]:
+                                    propTypes()[key as never] === "string"
+                                      ? e.currentTarget.value
+                                      : parseInt(e.currentTarget.value),
                                 })
                               }
                               palette="secondary"
