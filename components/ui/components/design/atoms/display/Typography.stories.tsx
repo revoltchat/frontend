@@ -1,5 +1,7 @@
 import { Typography } from "./Typography";
+import type { ComponentProps } from "solid-js";
 import type { ComponentStory } from "../../../stories";
+import TextColourDecorator from "../../../../decorators/TextColourDecorator";
 
 export default {
   category: "Design System/Atoms/Display",
@@ -8,57 +10,59 @@ export default {
     {
       title: "Heading 1",
       props: {
-        variant: 'h1'
+        variant: "h1",
       },
     },
     {
       title: "Heading 2",
       props: {
-        variant: 'h2'
+        variant: "h2",
       },
     },
     {
       title: "Heading 3",
       props: {
-        variant: 'h3'
+        variant: "h3",
       },
     },
     {
       title: "Heading 4",
       props: {
-        variant: 'h4'
+        variant: "h4",
       },
     },
     {
       title: "Subtitle",
       props: {
-        variant: 'subtitle'
+        variant: "subtitle",
       },
     },
     {
       title: "Label",
       props: {
-        variant: 'label'
+        variant: "label",
       },
     },
     {
       title: "Small",
       props: {
-        variant: 'small'
+        variant: "small",
       },
+      decorators: [TextColourDecorator],
     },
     {
       title: "Username",
       props: {
-        variant: 'username'
+        variant: "username",
       },
-    }
+      decorators: [TextColourDecorator],
+    },
   ],
   props: {
     children: "The quick brown fox jumps over the lazy dog.",
   },
   propTypes: {
-    children: 'string',
-    variant: ['h1', 'h2', 'h3', 'h4', 'subtitle', 'label', 'small', 'username']
-  }
-} as ComponentStory<typeof Typography>;
+    children: "string",
+    variant: ["h1", "h2", "h3", "h4", "subtitle", "label", "small", "username"],
+  },
+} as ComponentStory<typeof Typography, ComponentProps<typeof Typography>>;
