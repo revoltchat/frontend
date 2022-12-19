@@ -1,0 +1,19 @@
+{
+  "name": "@revolt/modal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "@revolt/i18n": "workspace:^1.0.0",
+    "@revolt/ui": "workspace:^1.0.0",
+    "revolt.js": "workspace:^6.0.19",
+    "solid-js": "^1.5.1"
+  }
+}

@@ -29,6 +29,7 @@ import { render } from "solid-js/web";
 
 import { ThemeProvider, darkTheme, Masks } from "@revolt/ui";
 import i18n, { I18nContext } from "@revolt/i18n";
+import { ModalRenderer } from "@revolt/modal";
 import { Router } from "@revolt/routing";
 import App from "./App";
 
@@ -38,6 +39,7 @@ render(
       <I18nContext.Provider value={i18n}>
         <ThemeProvider theme={darkTheme}>
           <App />
+          <ModalRenderer />
         </ThemeProvider>
       </I18nContext.Provider>
       <Masks />

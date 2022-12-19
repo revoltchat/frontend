@@ -4,6 +4,7 @@ import { Fields, Form } from "./Form";
 import { Link, useNavigate } from "@revolt/routing";
 import { useTranslation } from "@revolt/i18n";
 import { clientController } from "../../../client";
+import { modalController, ModalRenderer } from "@revolt/modal";
 
 /**
  * Flow for logging into an account
@@ -43,6 +44,16 @@ export default function FlowLogin() {
         {t("login.missing_verification")}{" "}
         <Link href="resend">{t("login.resend")}</Link>
       </Typography>
+      <Button
+        onClick={() =>
+          modalController.push({
+            type: "clipboard",
+            text: "sussy!",
+          })
+        }
+      >
+        Open Example Modal
+      </Button>
     </>
   );
 }

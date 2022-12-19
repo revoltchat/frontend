@@ -187,7 +187,7 @@ export function Modal(props: Props) {
               initial={{ opacity: 0, scale: 0.6 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.6 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
             >
               <Container
                 actions={showActions()}

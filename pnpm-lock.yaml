@@ -24,6 +24,7 @@ importers:
     specifiers:
       '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
+      '@revolt/modal': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       revolt.js: workspace:^6.0.18
@@ -35,6 +36,7 @@ importers:
     dependencies:
       '@revolt/client': link:../client
       '@revolt/i18n': link:../i18n
+      '@revolt/modal': link:../modal
       '@revolt/routing': link:../routing
       '@revolt/ui': link:../ui
       revolt.js: link:../../packages/revolt.js
@@ -70,6 +72,18 @@ importers:
       '@revolt/ui': link:../ui
       '@solid-primitives/i18n': 1.1.1_solid-js@1.5.5
       dayjs: 1.11.5
+      solid-js: 1.5.5
+
+  components/modal:
+    specifiers:
+      '@revolt/i18n': workspace:^1.0.0
+      '@revolt/ui': workspace:^1.0.0
+      revolt.js: workspace:^6.0.19
+      solid-js: ^1.5.1
+    dependencies:
+      '@revolt/i18n': link:../i18n
+      '@revolt/ui': link:../ui
+      revolt.js: link:../../packages/revolt.js
       solid-js: 1.5.5
 
   components/routing:
@@ -145,6 +159,7 @@ importers:
       '@revolt/auth': workspace:^1.0.0
       '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
+      '@revolt/modal': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       '@types/lodash.isequal': ^4.5.5
@@ -159,6 +174,7 @@ importers:
       '@revolt/auth': link:../../components/auth
       '@revolt/client': link:../../components/client
       '@revolt/i18n': link:../../components/i18n
+      '@revolt/modal': link:../../components/modal
       '@revolt/routing': link:../../components/routing
       '@revolt/ui': link:../../components/ui
       lodash.isequal: 4.5.0
