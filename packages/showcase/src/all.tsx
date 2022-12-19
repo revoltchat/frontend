@@ -6,7 +6,7 @@ import "@revolt/ui/styles";
  */
 import { render } from "solid-js/web";
 
-import { For } from "solid-js";
+import { createSignal, For } from "solid-js";
 
 import components from "./stories";
 import { Column, darkTheme, Masks, styled, ThemeProvider } from "@revolt/ui";
@@ -27,12 +27,16 @@ render(() => {
   function render(component: string | undefined, tab: string) {
     const entry = components[component!];
     if (entry) {
-      let { component: Component, props, stories, decorators } = entry;
+      let { component: Component, props, stories, effects, decorators } = entry;
 
       const story = stories.find((story) => story.title === tab);
       if (story) {
         if (story.component) {
           Component = story.component;
+        }
+
+        if (!Component) {
+          return <h1>Component is null!</h1>;
         }
 
         let el = <Component {...props} {...story.props} />;

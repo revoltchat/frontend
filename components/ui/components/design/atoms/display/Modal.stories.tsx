@@ -3,22 +3,33 @@ import { ComponentProps } from "solid-js";
 import type { ComponentStory } from "../../../stories";
 import { Button } from "../inputs";
 
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+
+function shouldShow(key: "default" | "no-actions") {
+  const show = params["show"];
+  return show ? show === key : false;
+}
+
 export default {
   component: Modal,
   category: "Design System/Atoms/Display",
   stories: [
     {
       title: "Default",
+      props: {
+        show: shouldShow("default"),
+      },
     },
     {
       title: "No Actions",
       props: {
         actions: [],
+        show: shouldShow("no-actions"),
       },
     },
   ],
   props: {
-    show: false,
     title: "Modal Title",
     description: "Optional modal description.",
     children:
