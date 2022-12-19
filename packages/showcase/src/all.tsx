@@ -39,13 +39,21 @@ render(() => {
 
         if (story.decorators) {
           for (const Decorator of story.decorators) {
-            el = <Decorator>{el}</Decorator>;
+            el = (
+              <Decorator childProps={{ ...props, ...story.props }}>
+                {el}
+              </Decorator>
+            );
           }
         }
 
         if (decorators) {
           for (const Decorator of decorators) {
-            el = <Decorator>{el}</Decorator>;
+            el = (
+              <Decorator childProps={{ ...props, ...story.props }}>
+                {el}
+              </Decorator>
+            );
           }
         }
 

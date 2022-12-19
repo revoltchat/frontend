@@ -116,7 +116,7 @@ const AccentedButton = styled(ButtonBase)<Props>`
     ]};
 `;
 
-type ButtonProps = Props & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
+export type ButtonProps = Props & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /**
  * Button element

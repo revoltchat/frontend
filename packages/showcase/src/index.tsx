@@ -123,17 +123,29 @@ render(() => {
           }
         }
 
+        if (!Component) {
+          return <h1>Component is null!</h1>;
+        }
+
         let el = <Component {...currentProps()} {...effectProps} />;
 
         if (story.decorators) {
           for (const Decorator of story.decorators) {
-            el = <Decorator>{el}</Decorator>;
+            el = (
+              <Decorator childProps={{ ...currentProps(), ...effectProps }}>
+                {el}
+              </Decorator>
+            );
           }
         }
 
         if (decorators) {
           for (const Decorator of decorators) {
-            el = <Decorator>{el}</Decorator>;
+            el = (
+              <Decorator childProps={{ ...currentProps(), ...effectProps }}>
+                {el}
+              </Decorator>
+            );
           }
         }
 

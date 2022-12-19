@@ -1,12 +1,15 @@
 import type { Component, ComponentProps } from "solid-js";
 import type { JSX } from "solid-js";
 
-type Decorator = Component<{ children: JSX.Element }>;
+type Decorator<T extends Component<P>, P = {}> = Component<{
+  children: JSX.Element;
+  childProps: ComponentProps<T>;
+}>;
 
 declare type Story<T extends Component<P>, P = {}> = {
   title: string;
   props?: ComponentProps<T>;
-  decorators?: Decorator[];
+  decorators?: Decorator<T, P>[];
   component?: T;
 };
 
@@ -15,7 +18,7 @@ declare type ComponentStory<T extends Component<P>, P = {}> = {
   component: T;
   stories: Story<T, P>[];
   props?: ComponentProps<T>;
-  decorators?: Decorator[];
+  decorators?: Decorator<T, P>[];
   propTypes?: Record<
     keyof ComponentProps<T>,
     | "string"
