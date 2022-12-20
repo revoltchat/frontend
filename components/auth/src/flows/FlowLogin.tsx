@@ -44,17 +44,6 @@ export default function FlowLogin() {
         {t("login.missing_verification")}{" "}
         <Link href="resend">{t("login.resend")}</Link>
       </Typography>
-      <Button
-        onClick={() =>
-          modalController.push({
-            type: "mfa_recovery",
-            client: {} as any,
-            codes: ["ABC-DEF", "GHI-JKL", "MNO-PQR", "STU-VWX"],
-          })
-        }
-      >
-        Open Example Modal
-      </Button>
     </>
   );
 }
