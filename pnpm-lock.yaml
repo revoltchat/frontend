@@ -49,12 +49,14 @@ importers:
 
   components/client:
     specifiers:
+      '@revolt/modal': workspace:^1.0.0
       detect-browser: ^5.3.0
       mobx: ^6.3.2
       revolt.js: workspace:^6.0.18
       solid-js: ^1.5.1
       vite: ^3.0.9
     dependencies:
+      '@revolt/modal': link:../modal
       detect-browser: 5.3.0
       mobx: 6.6.2
       revolt.js: link:../../packages/revolt.js
@@ -76,17 +78,17 @@ importers:
 
   components/modal:
     specifiers:
-      '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       revolt.js: workspace:^6.0.19
+      solid-icons: ^1.0.1
       solid-js: ^1.5.1
       solid-qr-code: ^0.0.8
     dependencies:
-      '@revolt/client': link:../client
       '@revolt/i18n': link:../i18n
       '@revolt/ui': link:../ui
       revolt.js: link:../../packages/revolt.js
+      solid-icons: 1.0.1_solid-js@1.5.5
       solid-js: 1.5.5
       solid-qr-code: 0.0.8_solid-js@1.5.5
 
