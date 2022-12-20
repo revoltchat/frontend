@@ -44,7 +44,7 @@ export interface Props {
   /**
    * Actions to show at the bottom of the modal
    */
-  actions?: Action[];
+  actions?: Action[] | (() => Action[]);
 
   /**
    * Whether to show the modal
@@ -173,7 +173,9 @@ const Actions = styled("div", "Actions")`
  * This component mounts itself to the body.
  */
 export function Modal(props: Props) {
-  const showActions = () => (props.actions ? props.actions.length > 0 : false);
+  const showActions = () =>
+    typeof props.actions === "function" ||
+    (props.actions ? props.actions.length > 0 : false);
 
   return (
     <Portal>
@@ -206,7 +208,13 @@ export function Modal(props: Props) {
                 <Content>{props.children}</Content>
                 <Show when={showActions()}>
                   <Actions>
-                    <For each={props.actions!}>
+                    <For
+                      each={
+                        typeof props.actions === "function"
+                          ? props.actions()
+                          : props.actions
+                      }
+                    >
                       {(action) => (
                         <Button
                           {...action}
