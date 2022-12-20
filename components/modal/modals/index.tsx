@@ -2,16 +2,18 @@ import { Modal } from "@revolt/ui";
 import { ActiveModal, modalController } from "..";
 import type { Modals as AllModals, PropGenerator } from "../types";
 
+import add_friend from "./AddFriend";
 import clipboard from "./Clipboard";
 import mfa_enable_totp from "./MFAEnableTOTP";
-import mfa_recovery from "./MFARecovery";
 import mfa_flow from "./MFAFlow";
+import mfa_recovery from "./MFARecovery";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
+  add_friend,
   clipboard,
   mfa_enable_totp,
-  mfa_recovery,
   mfa_flow,
+  mfa_recovery,
   ...({} as any),
 };
 

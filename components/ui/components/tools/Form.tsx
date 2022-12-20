@@ -122,8 +122,6 @@ export function Form<T extends FormTemplate>(props: Props<T>) {
     setStore = newStore[1];
   }
 
-  console.info(store);
-
   return (
     <form
       onSubmit={(ev) => {

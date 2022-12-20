@@ -4,12 +4,11 @@ import type { Modal } from "@revolt/ui";
 
 export type Modals =
   | {
-      type:
-        | "signed_out"
-        | "create_group"
-        | "create_server"
-        | "custom_status"
-        | "add_friend";
+      type: "add_friend" | "create_group" | "create_server" | "custom_status";
+      client: Client;
+    }
+  | {
+      type: "signed_out";
     }
   | ({
       type: "mfa_flow";
