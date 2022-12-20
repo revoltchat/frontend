@@ -47,10 +47,9 @@ export default function FlowLogin() {
       <Button
         onClick={() =>
           modalController.push({
-            type: "mfa_enable_totp",
-            identifier: "gfdgfds",
-            secret: "SECRET_CODE",
-            callback: (a) => alert("v: " + a),
+            type: "mfa_recovery",
+            client: {} as any,
+            codes: ["ABC-DEF", "GHI-JKL", "MNO-PQR", "STU-VWX"],
           })
         }
       >

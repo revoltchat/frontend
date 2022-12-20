@@ -30,8 +30,8 @@ const Qr = styled("div", "Qr")`
  */
 const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
   const t = useTranslation();
-  const uri = `otpauth://totp/Revolt:${props.identifier}?secret=${props.secret}&issuer=Revolt`;
   const [value, setValue] = createSignal("");
+  const uri = `otpauth://totp/Revolt:${props.identifier}?secret=${props.secret}&issuer=Revolt`;
 
   return {
     title: t("app.special.modals.mfa.enable_totp"),

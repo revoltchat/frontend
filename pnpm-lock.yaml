@@ -76,12 +76,14 @@ importers:
 
   components/modal:
     specifiers:
+      '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       revolt.js: workspace:^6.0.19
       solid-js: ^1.5.1
       solid-qr-code: ^0.0.8
     dependencies:
+      '@revolt/client': link:../client
       '@revolt/i18n': link:../i18n
       '@revolt/ui': link:../ui
       revolt.js: link:../../packages/revolt.js

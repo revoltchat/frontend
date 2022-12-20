@@ -4,10 +4,12 @@ import type { Modals as AllModals, PropGenerator } from "../types";
 
 import clipboard from "./Clipboard";
 import mfa_enable_totp from "./MFAEnableTOTP";
+import mfa_recovery from "./MFARecovery";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   clipboard,
   mfa_enable_totp,
+  mfa_recovery,
   ...({} as any),
 };
 

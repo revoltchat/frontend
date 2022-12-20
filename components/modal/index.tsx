@@ -1,6 +1,7 @@
 import { For } from "solid-js";
 import { Modals } from "./types";
 import { RenderModal } from "./modals";
+import type { API, Client } from "revolt.js";
 import { createStore, SetStoreFunction } from "solid-js/store";
 
 export type ActiveModal = {
@@ -76,7 +77,88 @@ class ModalController {
   }
 }
 
-export const modalController = new ModalController();
+/**
+ * Modal controller with additional helpers.
+ */
+class ModalControllerExtended extends ModalController {
+  /**
+   * Perform MFA flow
+   * @param client Client
+   */
+  mfaFlow(client: Client) {
+    return new Promise((callback: (ticket?: API.MFATicket) => void) =>
+      this.push({
+        type: "mfa_flow",
+        state: "known",
+        client,
+        callback,
+      })
+    );
+  }
+
+  /**
+   * Open TOTP secret modal
+   * @param client Client
+   */
+  mfaEnableTOTP(secret: string, identifier: string) {
+    return new Promise((callback: (value?: string) => void) =>
+      this.push({
+        type: "mfa_enable_totp",
+        identifier,
+        secret,
+        callback,
+      })
+    );
+  }
+
+  /**
+   * Write text to the clipboard
+   * @param text Text to write
+   */
+  writeText(text: string) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    } else {
+      this.push({
+        type: "clipboard",
+        text,
+      });
+    }
+  }
+
+  /**
+   * Safely open external or internal link
+   * @param href Raw URL
+   * @param trusted Whether we trust this link
+   * @returns Whether to cancel default event
+   */
+  openLink(href?: string, trusted?: boolean) {
+    /*const link = determineLink(href);
+    const settings = getApplicationState().settings;
+
+    switch (link.type) {
+      case "navigate": {
+        history.push(link.path);
+        break;
+      }
+      case "external": {
+        if (!trusted && !settings.security.isTrustedOrigin(link.url.hostname)) {
+          modalController.push({
+            type: "link_warning",
+            link: link.href,
+            callback: () => this.openLink(href, true) as true,
+          });
+        } else {
+          window.open(link.href, "_blank", "noreferrer");
+        }
+      }
+    }*/
+
+    return true;
+  }
+}
+
+export const modalController = new ModalControllerExtended();
 
 export function ModalRenderer() {
   return (
