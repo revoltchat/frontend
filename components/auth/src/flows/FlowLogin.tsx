@@ -1,10 +1,10 @@
-import { FlowTitle } from "./Flow";
-import { Button, Typography } from "@revolt/ui";
-import { Fields, Form } from "./Form";
 import { Link, useNavigate } from "@revolt/routing";
-import { useTranslation } from "@revolt/i18n";
 import { clientController } from "../../../client";
-import { modalController, ModalRenderer } from "@revolt/modal";
+import { modalController } from "@revolt/modal";
+import { Button, Typography } from "@revolt/ui";
+import { useTranslation } from "@revolt/i18n";
+import { Fields, Form } from "./Form";
+import { FlowTitle } from "./Flow";
 
 /**
  * Flow for logging into an account
@@ -47,8 +47,10 @@ export default function FlowLogin() {
       <Button
         onClick={() =>
           modalController.push({
-            type: "clipboard",
-            text: "sussy!",
+            type: "mfa_enable_totp",
+            identifier: "gfdgfds",
+            secret: "SECRET_CODE",
+            callback: (a) => alert("v: " + a),
           })
         }
       >

@@ -1,6 +1,9 @@
 import { useTranslation } from "@revolt/i18n";
 import { ModalProps, PropGenerator } from "../types";
 
+/**
+ * Modal to display some text which could not be written to the browser clipboard
+ */
 const Clipboard: PropGenerator<"clipboard"> = (
   props: ModalProps<"clipboard">
 ) => {

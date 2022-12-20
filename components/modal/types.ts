@@ -180,5 +180,6 @@ export type Modals =
 export type ModalProps<T extends Modals["type"]> = Modals & { type: T };
 export type ReturnType = ComponentProps<typeof Modal>;
 export type PropGenerator<T extends Modals["type"]> = (
-  props: ModalProps<T>
+  props: ModalProps<T>,
+  onClose: () => void
 ) => ReturnType;

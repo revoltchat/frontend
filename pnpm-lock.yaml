@@ -80,11 +80,13 @@ importers:
       '@revolt/ui': workspace:^1.0.0
       revolt.js: workspace:^6.0.19
       solid-js: ^1.5.1
+      solid-qr-code: ^0.0.8
     dependencies:
       '@revolt/i18n': link:../i18n
       '@revolt/ui': link:../ui
       revolt.js: link:../../packages/revolt.js
       solid-js: 1.5.5
+      solid-qr-code: 0.0.8_solid-js@1.5.5
 
   components/routing:
     specifiers:
@@ -5529,6 +5531,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /qr.js/0.0.0:
+    resolution: {integrity: sha512-c4iYnWb+k2E+vYpRimHqSu575b1/wKl4XFeJGpFmrJQz5I88v9aY2czh7s0w36srfCM1sXgC/xpoJz5dJfq+OQ==}
+    dev: false
+
   /querystringify/2.2.0:
     resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
     dev: true
@@ -5814,6 +5820,16 @@ packages:
       solid-js: ^1.2.0
     dependencies:
       '@popperjs/core': 2.11.6
+      solid-js: 1.5.5
+    dev: false
+
+  /solid-qr-code/0.0.8_solid-js@1.5.5:
+    resolution: {integrity: sha512-K7LC3IKvyRag6WW7/ijJl32pBmoC3EzZ7AuydyaAVKSmlwukJmqvrFkrxaA1bOWabYJhzP9qwLbjDVlCUP2BwQ==}
+    engines: {node: '>=10', yarn: '>=1.22.5'}
+    peerDependencies:
+      solid-js: ^1.4.8
+    dependencies:
+      qr.js: 0.0.0
       solid-js: 1.5.5
     dev: false
 
