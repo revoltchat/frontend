@@ -1,0 +1,63 @@
+import { PropGenerator } from "../types";
+import { createFormModal } from "../form";
+import { mapAnyError } from "@revolt/client";
+import { useNavigate } from "@revolt/routing";
+import { useTranslation } from "@revolt/i18n";
+
+/**
+ * Modal to create a new server channel
+ */
+const CreateChannel: PropGenerator<"create_channel"> = (props) => {
+  const t = useTranslation();
+  const navigate = useNavigate();
+
+  return createFormModal({
+    modalProps: {
+      title: t("app.context_menu.create_channel"),
+    },
+    schema: {
+      name: "text",
+      type: "radio",
+    },
+    data: {
+      name: {
+        field: t("app.main.servers.channel_name"),
+      },
+      type: {
+        field: t("app.main.servers.channel_type"),
+        choices: [
+          {
+            name: t("app.main.servers.text_channel"),
+            value: "Text",
+          },
+          {
+            name: t("app.main.servers.voice_channel"),
+            value: "Voice",
+          },
+        ],
+      },
+    },
+    defaults: {
+      type: "Text",
+    },
+    callback: async ({ name, type }) => {
+      const channel = await props.server
+        .createChannel({
+          type: type as "Text" | "Voice",
+          name,
+        })
+        .catch(mapAnyError);
+
+      if (props.cb) {
+        props.cb(channel as any);
+      } else {
+        navigate(`/server/${props.server._id}/channel/${channel._id}`);
+      }
+    },
+    submit: {
+      children: t("app.special.modals.actions.create"),
+    },
+  });
+};
+
+export default CreateChannel;

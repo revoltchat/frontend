@@ -1,0 +1,50 @@
+import { mapAnyError } from "@revolt/client";
+import { useTranslation } from "@revolt/i18n";
+import { useNavigate } from "@revolt/routing";
+import { createFormModal } from "../form";
+import { PropGenerator } from "../types";
+
+/**
+ * Modal to create a new server
+ */
+const CreateInvite: PropGenerator<"create_server"> = (props) => {
+  const t = useTranslation();
+  const navigate = useNavigate();
+
+  return createFormModal({
+    modalProps: {
+      title: t("app.main.servers.create"),
+      description: (
+        <>
+          By creating this server, you agree to the{" "}
+          <a href="https://revolt.chat/aup" target="_blank" rel="noreferrer">
+            Acceptable Use Policy
+          </a>
+          .
+        </>
+      ),
+    },
+    schema: {
+      name: "text",
+    },
+    data: {
+      name: {
+        field: t("app.main.servers.name"),
+      },
+    },
+    callback: async ({ name }) => {
+      const server = await props.client.servers
+        .createServer({
+          name,
+        })
+        .catch(mapAnyError);
+
+      navigate(`/server/${server._id}`);
+    },
+    submit: {
+      children: t("app.special.modals.actions.create"),
+    },
+  });
+};
+
+export default CreateInvite;

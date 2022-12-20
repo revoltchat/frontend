@@ -102,6 +102,7 @@ export type Modals =
     }
   | {
       type: "create_bot";
+      client: Client;
       onCreate: (bot: API.Bot) => void;
     }
   | {

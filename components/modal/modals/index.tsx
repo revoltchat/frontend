@@ -5,6 +5,13 @@ import type { Modals as AllModals, PropGenerator } from "../types";
 import add_friend from "./AddFriend";
 import ban_member from "./BanMember";
 import clipboard from "./Clipboard";
+import create_bot from "./CreateBot";
+import create_category from "./CreateCategory";
+import create_channel from "./CreateChannel";
+import create_group from "./CreateGroup";
+import create_invite from "./CreateInvite";
+import create_role from "./CreateRole";
+import create_server from "./CreateServer";
 import delete_message from "./DeleteMessage";
 import kick_member from "./KickMember";
 import mfa_enable_totp from "./MFAEnableTOTP";
@@ -15,6 +22,13 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   add_friend,
   ban_member,
   clipboard,
+  create_bot,
+  create_category,
+  create_channel,
+  create_group,
+  create_invite,
+  create_role,
+  create_server,
   delete_message,
   kick_member,
   mfa_enable_totp,

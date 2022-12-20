@@ -5,8 +5,8 @@ import { Button, Column } from "@revolt/ui";
 export function DevelopmentPage() {
   function open() {
     modalController.push({
-      type: "delete_message",
-      message: [...clientController.getReadyClient()!.messages.values()][0],
+      type: "create_server",
+      client: clientController.getReadyClient()!,
     });
   }
 

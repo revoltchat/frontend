@@ -32,6 +32,12 @@ export function useApi() {
   return clientController.getAnonymousClient().api;
 }
 
+export const IS_REVOLT =
+  import.meta.env.VITE_API_URL === "https://api.revolt.chat" ||
+  // future proofing
+  import.meta.env.VITE_API_URL === "https://app.revolt.chat/api" ||
+  import.meta.env.VITE_API_URL === "https://revolt.chat/api";
+
 if (import.meta.env.VITE_TOKEN) {
   clientController.addSession(
     {

@@ -17,3 +17,7 @@ body {
     height: 100%;
     position: fixed;
 }
+
+a, a:link, a:visited, a:hover {
+    color: inherit;
+}
