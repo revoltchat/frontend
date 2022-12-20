@@ -31,3 +31,15 @@ export function useClient() {
 export function useApi() {
   return clientController.getAnonymousClient().api;
 }
+
+if (import.meta.env.VITE_TOKEN) {
+  clientController.addSession(
+    {
+      session: {
+        token: import.meta.env.VITE_TOKEN!,
+        user_id: import.meta.env.VITE_USER_ID!,
+      },
+    },
+    "existing"
+  );
+}
