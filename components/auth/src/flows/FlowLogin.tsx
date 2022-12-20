@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "@revolt/routing";
 import { clientController } from "../../../client";
-import { modalController } from "@revolt/modal";
 import { Button, Typography } from "@revolt/ui";
 import { useTranslation } from "@revolt/i18n";
 import { Fields, Form } from "./Form";

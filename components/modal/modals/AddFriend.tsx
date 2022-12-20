@@ -1,13 +1,11 @@
 import { useTranslation } from "@revolt/i18n";
 import { createFormModal } from "../form";
-import { ModalProps, PropGenerator } from "../types";
+import { PropGenerator } from "../types";
 
 /**
- * Modal to display some text which could not be written to the browser clipboard
+ * Modal for adding another user as a friend
  */
-const AddFriend: PropGenerator<"add_friend"> = (
-  props: ModalProps<"add_friend">
-) => {
+const AddFriend: PropGenerator<"add_friend"> = (props) => {
   const t = useTranslation();
 
   return createFormModal({

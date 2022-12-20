@@ -115,37 +115,37 @@ export type Modals =
     }
   | {
       type: "leave_group";
-      target: Channel;
+      channel: Channel;
     }
   | {
       type: "close_dm";
-      target: Channel;
+      channel: Channel;
     }
   | {
       type: "delete_channel";
-      target: Channel;
+      channel: Channel;
     }
   | {
       type: "create_invite";
-      target: Channel;
+      channel: Channel;
     }
   | {
       type: "leave_server";
-      target: Server;
+      server: Server;
     }
   | {
       type: "delete_server";
-      target: Server;
+      server: Server;
     }
   | {
       type: "delete_bot";
-      target: string;
+      bot: string;
       name: string;
       cb?: () => void;
     }
   | {
       type: "delete_message";
-      target: Message;
+      message: Message;
     }
   | {
       type: "kick_member";
@@ -157,20 +157,20 @@ export type Modals =
     }
   | {
       type: "unfriend_user";
-      target: User;
+      user: User;
     }
   | {
       type: "block_user";
-      target: User;
+      user: User;
     }
   | {
       type: "create_channel";
-      target: Server;
+      server: Server;
       cb?: (channel: Channel) => void;
     }
   | {
       type: "create_category";
-      target: Server;
+      server: Server;
     }
   | {
       type: "import_theme";
