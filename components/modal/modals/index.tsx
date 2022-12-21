@@ -14,6 +14,7 @@ import create_group from "./CreateGroup";
 import create_invite from "./CreateInvite";
 import create_role from "./CreateRole";
 import create_server from "./CreateServer";
+import custom_status from "./CustomStatus";
 import delete_message from "./DeleteMessage";
 import kick_member from "./KickMember";
 import mfa_enable_totp from "./MFAEnableTOTP";
@@ -34,6 +35,7 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   create_invite,
   create_role,
   create_server,
+  custom_status,
   delete_message,
   kick_member,
   mfa_enable_totp,

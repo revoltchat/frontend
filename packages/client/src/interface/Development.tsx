@@ -5,8 +5,8 @@ import { Button, Column } from "@revolt/ui";
 export function DevelopmentPage() {
   function open() {
     modalController.push({
-      type: "server_info",
-      server: [...clientController.getReadyClient()!.servers.values()][0],
+      type: "custom_status",
+      client: clientController.getReadyClient()!,
     });
   }
 

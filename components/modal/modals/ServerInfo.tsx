@@ -26,6 +26,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
       props.server.description,
     actions: [
       {
+        // TODO: report server
         onClick: () => true, //report(server),
         children: t("app.special.modals.actions.report"),
         palette: "error",
