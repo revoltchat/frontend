@@ -53,9 +53,7 @@ function RenderLog({ post }: { post: ChangelogPost }) {
 /**
  * Modal to display changelog
  */
-const Changelog: PropGenerator<"changelog"> = (
-  props: ModalProps<"changelog">
-) => {
+const Changelog: PropGenerator<"changelog"> = (props) => {
   const t = useTranslation();
   const [log, setLog] = createSignal(props.initial);
   const currentLog = () =>

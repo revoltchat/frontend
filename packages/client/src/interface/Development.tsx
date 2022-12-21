@@ -1,8 +1,16 @@
+import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import { Button, Column } from "@revolt/ui";
 
 export function DevelopmentPage() {
   function open() {
+    modalController.push({
+      type: "server_info",
+      server: [...clientController.getReadyClient()!.servers.values()][0],
+    });
+  }
+
+  function changelog() {
     modalController.push({
       type: "changelog",
       posts: [
@@ -30,6 +38,7 @@ export function DevelopmentPage() {
   return (
     <Column>
       <Button onClick={open}>Open Modal</Button>
+      <Button onClick={changelog}>Changelog Modal</Button>
     </Column>
   );
 }
