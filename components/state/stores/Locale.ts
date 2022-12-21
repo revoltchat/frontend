@@ -3,6 +3,9 @@ import { AbstractStore } from ".";
 import { Language, loadAndSetLanguage } from "@revolt/i18n";
 
 export type TypeLocale = {
+  /**
+   * Current language in use
+   */
   lang: Language;
 };
 
@@ -21,6 +24,10 @@ export class Locale extends AbstractStore<"locale", TypeLocale> {
     };
   }
 
+  /**
+   * Switch to another language
+   * @param language Language
+   */
   switch(language: Language): void {
     this.set("lang", language);
     this.hydrate();

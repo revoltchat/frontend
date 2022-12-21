@@ -5,12 +5,21 @@ import localforage from "localforage";
 import { Locale } from "./stores/Locale";
 import { AbstractStore, Store } from "./stores";
 
+/**
+ * Global application state
+ */
 export class State {
+  // internal data management
   private store: Store;
   private setStore: SetStoreFunction<Store>;
 
+  // define all stores
   locale: Locale = new Locale(this);
 
+  /**
+   * Iterate over all available stores
+   * @returns Array of stores
+   */
   private iterStores() {
     return (
       Object.keys(this).filter(
@@ -19,6 +28,10 @@ export class State {
     ).map((key) => this[key] as AbstractStore<typeof key, Store[typeof key]>);
   }
 
+  /**
+   * Generate all store defaults / initial store
+   * @returns Defaults object
+   */
   private defaults() {
     const defaults: Partial<Store> = {};
 
@@ -29,6 +42,9 @@ export class State {
     return defaults;
   }
 
+  /**
+   * Construct the global application state
+   */
   constructor() {
     const [store, setStore] = createStore(this.defaults() as Store);
 
@@ -36,6 +52,9 @@ export class State {
     this.setStore = setStore;
   }
 
+  /**
+   * Write some data to the store and disk
+   */
   private write: SetStoreFunction<Store> = (...args: any[]) => {
     // pass the data to the store
     (this.setStore as any)(...args);
@@ -47,6 +66,9 @@ export class State {
     );
   };
 
+  /**
+   * Write data to store / disk and then synchronise it
+   */
   set: SetStoreFunction<Store> = (...args: any[]) => {
     // write to store and storage
     (this.write as any)(...args);
@@ -55,10 +77,18 @@ export class State {
     console.info(this.store);
   };
 
+  /**
+   * Get a store's value by its key
+   * @param key Store's key
+   * @returns Store's value
+   */
   get<T extends keyof Store>(key: T): Store[T] {
     return this.store[key];
   }
 
+  /**
+   * Hydrate the state from disk and run side-effects
+   */
   async hydrate() {
     // load all data first
     for (const store of this.iterStores()) {
@@ -81,6 +111,9 @@ export class State {
  */
 export const state = new State();
 
+/**
+ * Component to block rendering until state is hydrated
+ */
 export function Hydrate(props: { children: JSX.Element }) {
   const [hydrated, setHydrated] = createSignal(false);
 
