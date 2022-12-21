@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "private": true,
+  "devDependencies": {
+    "vite": "^3.0.9"
+  },
   "dependencies": {
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",

@@ -1,9 +1,11 @@
 import { SetStoreFunction } from "solid-js/store";
 import { State } from "..";
 
+import { TypeAuth } from "./Auth";
 import { TypeLocale } from "./Locale";
 
 export type Store = {
+  auth: TypeAuth;
   locale: TypeLocale;
 };
 
@@ -71,5 +73,5 @@ export abstract class AbstractStore<T extends keyof Store, D> {
   /**
    * Validate the given data to see if it is compliant and return a compliant object
    */
-  abstract clean(input: D): D;
+  abstract clean(input: Partial<D>): D;
 }

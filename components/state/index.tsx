@@ -3,6 +3,7 @@ import { createSignal, JSX, onMount, Show } from "solid-js";
 import localforage from "localforage";
 import equal from "fast-deep-equal";
 
+import { Auth } from "./stores/Auth";
 import { Locale } from "./stores/Locale";
 import { AbstractStore, Store } from "./stores";
 
@@ -15,6 +16,7 @@ export class State {
   private setStore: SetStoreFunction<Store>;
 
   // define all stores
+  auth: Auth = new Auth(this);
   locale: Locale = new Locale(this);
 
   /**
@@ -37,7 +39,7 @@ export class State {
     const defaults: Partial<Store> = {};
 
     for (const store of this.iterStores()) {
-      defaults[store.getKey()] = store.default();
+      defaults[store.getKey()] = store.default() as any;
     }
 
     return defaults;
