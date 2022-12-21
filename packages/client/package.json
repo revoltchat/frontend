@@ -24,6 +24,7 @@
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/modal": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",
+    "@revolt/state": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
     "lodash.isequal": "^4.5.0",
     "mobx": "^6.3.2",

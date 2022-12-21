@@ -1,5 +1,7 @@
 import { createI18nContext, useI18n } from "@solid-primitives/i18n";
+import { Language, Languages } from "./locales/Languages";
 
+export { Language, Languages } from "./locales/Languages";
 export { I18nContext, useI18n } from "@solid-primitives/i18n";
 export { LocaleSelector } from "./LocaleSelector";
 export * from "./dayjs";
@@ -16,12 +18,22 @@ const dict = {
 /**
  * i18n Context
  */
-export default createI18nContext(dict, "en");
+const context = createI18nContext(dict, "en");
+export default context;
 
 /**
  * Use translation function as a hook
  */
 export const useTranslation = () => useI18n()[0];
+
+/**
+ * Load and set a language by the given key
+ */
+export async function loadAndSetLanguage(key: Language) {
+  const data = await import(`./locales/${Languages[key].i18n}.json`);
+  context[1].add(key, data);
+  context[1].locale(key);
+}
 
 /**
  * Use quantity translation function as a hook

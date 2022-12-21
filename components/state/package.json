@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@revolt/client": "workspace:^1.0.0",
+    "@revolt/i18n": "workspace:^1.0.0",
     "color-rgba": "^2.4.0",
     "json-stringify-deterministic": "^1.0.7",
     "localforage": "^1.10.0",

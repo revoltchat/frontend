@@ -66,11 +66,13 @@ importers:
 
   components/i18n:
     specifiers:
+      '@revolt/state': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       '@solid-primitives/i18n': ^1.1.1
       dayjs: ^1.11.5
       solid-js: ^1.5.1
     dependencies:
+      '@revolt/state': link:../state
       '@revolt/ui': link:../ui
       '@solid-primitives/i18n': 1.1.1_solid-js@1.5.5
       dayjs: 1.11.5
@@ -109,6 +111,7 @@ importers:
   components/state:
     specifiers:
       '@revolt/client': workspace:^1.0.0
+      '@revolt/i18n': workspace:^1.0.0
       color-rgba: ^2.4.0
       json-stringify-deterministic: ^1.0.7
       localforage: ^1.10.0
@@ -117,6 +120,7 @@ importers:
       solid-js: ^1.5.1
     dependencies:
       '@revolt/client': link:../client
+      '@revolt/i18n': link:../i18n
       color-rgba: 2.4.0
       json-stringify-deterministic: 1.0.7
       localforage: 1.10.0
@@ -173,6 +177,7 @@ importers:
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/modal': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
+      '@revolt/state': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       '@types/lodash.isequal': ^4.5.5
       lodash.isequal: ^4.5.0
@@ -188,6 +193,7 @@ importers:
       '@revolt/i18n': link:../../components/i18n
       '@revolt/modal': link:../../components/modal
       '@revolt/routing': link:../../components/routing
+      '@revolt/state': link:../../components/state
       '@revolt/ui': link:../../components/ui
       lodash.isequal: 4.5.0
       mobx: 6.6.2

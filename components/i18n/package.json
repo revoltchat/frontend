@@ -11,6 +11,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
+    "@revolt/state": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
     "@solid-primitives/i18n": "^1.1.1",
     "dayjs": "^1.11.5",
