@@ -4,6 +4,7 @@ import type { Modals as AllModals, PropGenerator } from "../types";
 
 import add_friend from "./AddFriend";
 import ban_member from "./BanMember";
+import changelog from "./Changelog";
 import clipboard from "./Clipboard";
 import create_bot from "./CreateBot";
 import create_category from "./CreateCategory";
@@ -21,6 +22,7 @@ import mfa_recovery from "./MFARecovery";
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   add_friend,
   ban_member,
+  changelog,
   clipboard,
   create_bot,
   create_category,

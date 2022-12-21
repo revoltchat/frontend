@@ -1,4 +1,5 @@
 import { API, Client, User, Member, Channel, Server, Message } from "revolt.js";
+import { ChangelogPost } from "./modals/Changelog";
 import type { ComponentProps } from "solid-js";
 import type { Modal } from "@revolt/ui";
 
@@ -38,6 +39,7 @@ export type Modals =
   | {
       type: "changelog";
       initial?: number;
+      posts: ChangelogPost[];
     }
   | {
       type: "sign_out_sessions";
