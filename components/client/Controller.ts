@@ -51,7 +51,10 @@ export default class ClientController {
     this.logoutCurrent = this.logoutCurrent.bind(this);
 
     // Inject globally
-    // TODO injectController("client", this);
+    (window as any).controllers = {
+      ...(window as any).controllers,
+      client: this,
+    };
   }
 
   pickNextSession() {

@@ -95,7 +95,7 @@ export class State {
   async hydrate() {
     // load all data first
     for (const store of this.iterStores()) {
-      const data = (await localforage.getItem("locale")) as Store["locale"];
+      const data = await localforage.getItem(store.getKey());
 
       if (data) {
         // validate the incoming data
