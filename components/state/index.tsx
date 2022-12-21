@@ -1,6 +1,7 @@
 import { createStore, SetStoreFunction } from "solid-js/store";
 import { createSignal, JSX, onMount, Show } from "solid-js";
 import localforage from "localforage";
+import equal from "fast-deep-equal";
 
 import { Locale } from "./stores/Locale";
 import { AbstractStore, Store } from "./stores";
@@ -95,7 +96,15 @@ export class State {
       const data = (await localforage.getItem("locale")) as Store["locale"];
 
       if (data) {
-        this.setStore(store.getKey(), data);
+        // validate the incoming data
+        const cleanData = store.clean(data);
+
+        if (!equal(data, cleanData)) {
+          // write back to disk if it has changed
+          this.write(store.getKey(), cleanData);
+        } else {
+          this.setStore(store.getKey(), data);
+        }
       }
     }
 

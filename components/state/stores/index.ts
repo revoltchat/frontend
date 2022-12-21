@@ -67,4 +67,9 @@ export abstract class AbstractStore<T extends keyof Store, D> {
    * Generate default values
    */
   abstract default(): D;
+
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
+  abstract clean(input: D): D;
 }
