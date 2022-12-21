@@ -50,6 +50,7 @@ importers:
   components/client:
     specifiers:
       '@revolt/modal': workspace:^1.0.0
+      '@revolt/state': workspace:^1.0.0
       detect-browser: ^5.3.0
       mobx: ^6.3.2
       revolt.js: workspace:^6.0.18
@@ -57,6 +58,7 @@ importers:
       vite: ^3.0.9
     dependencies:
       '@revolt/modal': link:../modal
+      '@revolt/state': link:../state
       detect-browser: 5.3.0
       mobx: 6.6.2
       revolt.js: link:../../packages/revolt.js
@@ -119,6 +121,7 @@ importers:
       mobx: ^6.3.2
       revolt.js: workspace:^6.0.18
       solid-js: ^1.5.1
+      vite: ^3.0.9
     dependencies:
       '@revolt/client': link:../client
       '@revolt/i18n': link:../i18n
@@ -129,6 +132,8 @@ importers:
       mobx: 6.6.2
       revolt.js: link:../../packages/revolt.js
       solid-js: 1.5.5
+    devDependencies:
+      vite: 3.0.9
 
   components/ui:
     specifiers:

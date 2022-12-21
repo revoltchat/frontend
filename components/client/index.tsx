@@ -37,15 +37,3 @@ export const IS_REVOLT =
   // future proofing
   import.meta.env.VITE_API_URL === "https://app.revolt.chat/api" ||
   import.meta.env.VITE_API_URL === "https://revolt.chat/api";
-
-if (import.meta.env.VITE_TOKEN) {
-  clientController.addSession(
-    {
-      session: {
-        token: import.meta.env.VITE_TOKEN!,
-        user_id: import.meta.env.VITE_USER_ID!,
-      },
-    },
-    "existing"
-  );
-}

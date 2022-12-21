@@ -1,19 +1,10 @@
-// ! TODO: this is a direct port of the Controller
-// ! this will need to be polished up and integrated
-
-import { modalController } from "@revolt/modal";
 import { detect } from "detect-browser";
-import { makeAutoObservable, ObservableMap } from "mobx";
 import { API, Client, Nullable } from "revolt.js";
+import { makeAutoObservable, ObservableMap } from "mobx";
 
-// import { injectController } from "../../lib/window";
-
-// import { state } from "../../mobx/State";
-// import Auth from "../../mobx/stores/Auth";
-
-// import { resetMemberSidebarFetched } from "../../components/navigation/right/MemberSidebar";
-// import { modalController } from "../modals/ModalController";
-// import { takeError } from "./jsx/error";
+import { mapAnyError } from "./error";
+import { modalController } from "@revolt/modal";
+import { state } from "@revolt/state";
 
 import Session, { SessionPrivate } from "./Session";
 
@@ -46,7 +37,6 @@ export default class ClientController {
       apiURL: import.meta.env.VITE_API_URL,
     });
 
-    // ! FIXME: loop until success infinitely
     this.apiClient
       .fetchConfiguration()
       .then(() => (this.configuration = this.apiClient.configuration!));
@@ -69,19 +59,6 @@ export default class ClientController {
       this.current ?? this.sessions.keys().next().value ?? null
     );
   }
-
-  /**
-   * Hydrate sessions and start client lifecycles.
-   * @param auth Authentication store
-   */
-  // TODO
-  /* hydrate(auth: Auth) {
-        for (const entry of auth.getAccounts()) {
-            this.addSession(entry, "existing");
-        }
-
-        this.pickNextSession();
-    } */
 
   /**
    * Get the currently selected session
@@ -164,21 +141,20 @@ export default class ClientController {
         knowledge,
       })
       .catch((err) => {
-        // TODO
-        /* const error = takeError(err);
-                if (error === "Forbidden" || error === "Unauthorized") {
-                    this.sessions.delete(user_id);
-                    this.current = null;
-                    this.pickNextSession();
-                    state.auth.removeSession(user_id);
-                    modalController.push({ type: "signed_out" });
-                    session.destroy();
-                } else {
-                    modalController.push({
-                        type: "error",
-                        error,
-                    });
-                } */
+        const error = mapAnyError(err);
+        if (error === "Forbidden" || error === "Unauthorized") {
+          this.sessions.delete(user_id);
+          this.current = null;
+          this.pickNextSession();
+          state.auth.removeSession(user_id);
+          modalController.push({ type: "signed_out" });
+          session.destroy();
+        } else {
+          modalController.push({
+            type: "error",
+            error,
+          });
+        }
       });
   }
 
