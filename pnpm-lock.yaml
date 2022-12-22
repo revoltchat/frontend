@@ -168,11 +168,11 @@ importers:
 
   packages/browser-test-runner:
     specifiers:
-      '@playwright/test': ^1.28.1
+      '@playwright/test': '1.29'
       '@types/node': ^18.11.11
       showcase: workspace:^1.0.0
     dependencies:
-      '@playwright/test': 1.28.1
+      '@playwright/test': 1.29.1
     devDependencies:
       '@types/node': 18.11.11
       showcase: link:../showcase
@@ -2221,13 +2221,13 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@playwright/test/1.28.1:
-    resolution: {integrity: sha512-xN6spdqrNlwSn9KabIhqfZR7IWjPpFK1835tFNgjrlysaSezuX8PYUwaz38V/yI8TJLG9PkAMEXoHRXYXlpTPQ==}
+  /@playwright/test/1.29.1:
+    resolution: {integrity: sha512-iQxk2DX5U9wOGV3+/Jh9OHPsw5H3mleUL2S4BgQuwtlAfK3PnKvn38m4Rg9zIViGHVW24opSm99HQm/UFLEy6w==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@types/node': 18.11.11
-      playwright-core: 1.28.1
+      playwright-core: 1.29.1
     dev: false
 
   /@popperjs/core/2.11.6:
@@ -5457,8 +5457,8 @@ packages:
       find-up: 4.1.0
     dev: true
 
-  /playwright-core/1.28.1:
-    resolution: {integrity: sha512-3PixLnGPno0E8rSBJjtwqTwJe3Yw72QwBBBxNoukIj3lEeBNXwbNiKrNuB1oyQgTBw5QHUhNO3SteEtHaMK6ag==}
+  /playwright-core/1.29.1:
+    resolution: {integrity: sha512-20Ai3d+lMkWpI9YZYlxk8gxatfgax5STW8GaMozAHwigLiyiKQrdkt7gaoT9UQR8FIVDg6qVXs9IoZUQrDjIIg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: false

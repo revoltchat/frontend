@@ -38,7 +38,8 @@ jobs:
       - name: Build all dependencies
         run: pnpm build:deps
       - name: Install Playwright
-        run: npx playwright install --with-deps
+        working-directory: packages/browser-test-runner
+        run: pnpm playwright install --with-deps
       - name: Run showcase in background
         run: |
           pnpm showcase &
