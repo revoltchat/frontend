@@ -24,7 +24,7 @@ export class Locale extends AbstractStore<"locale", TypeLocale> {
     };
   }
 
-  clean(input: Partial<TypeLocale>) {
+  clean(input: Partial<TypeLocale>): TypeLocale {
     let lang: Language = input.lang!;
     if (!(lang in Languages)) {
       lang = this.default().lang;

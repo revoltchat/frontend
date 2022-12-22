@@ -55,20 +55,20 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
     };
   }
 
-  clean(input: Partial<TypeAuth>) {
+  clean(input: Partial<TypeAuth>): TypeAuth {
     const sessions: TypeAuth["sessions"] = {};
     const originalSessions = (input.sessions ?? {}) as TypeAuth["sessions"];
 
-    for (const user_id of Object.keys(originalSessions)) {
-      const entry = originalSessions[user_id];
+    for (const userId of Object.keys(originalSessions)) {
+      const entry = originalSessions[userId];
 
       if (
         typeof entry.session.token === "string" &&
         ["string", "undefined"].includes(typeof entry.apiUrl)
       ) {
-        sessions[user_id] = {
+        sessions[userId] = {
           session: {
-            user_id,
+            user_id: userId,
             token: entry.session.token,
           },
           apiUrl: entry.apiUrl,
@@ -101,10 +101,10 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
 
   /**
    * Remove existing session by user ID.
-   * @param user_id User ID tied to session
+   * @param userId User ID tied to session
    */
-  removeSession(user_id: string) {
-    const { [user_id]: _, ...sessions } = this.get().sessions;
+  removeSession(userId: string) {
+    const { [userId]: _, ...sessions } = this.get().sessions;
     this.set("sessions", sessions);
   }
 }

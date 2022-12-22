@@ -8,7 +8,7 @@ import { Row } from "../../design/layout";
 interface Props {
   channel: Channel;
   content: Accessor<string>;
-  setContent: Setter<string>;
+  setContent: (v: string) => void;
 }
 
 /**
@@ -80,10 +80,9 @@ export function MessageBox(props: Props) {
   function onKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && input) {
       event.preventDefault();
-
       props.channel.sendMessage({ content: input.value });
-
-      input.value = "";
+      props.setContent("");
+      // input.value = "";
     }
   }
 
@@ -106,6 +105,7 @@ export function MessageBox(props: Props) {
           <Input
             ref={input}
             onKeyDown={onKeyDown}
+            value={props.content()}
             placeholder={`Message ${props.channel.name}`}
             onInput={(e) => props.setContent(e.currentTarget.value)}
           />

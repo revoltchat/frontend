@@ -4,6 +4,7 @@ import localforage from "localforage";
 import equal from "fast-deep-equal";
 
 import { Auth } from "./stores/Auth";
+import { Draft } from "./stores/Draft";
 import { Locale } from "./stores/Locale";
 import { AbstractStore, Store } from "./stores";
 
@@ -17,6 +18,7 @@ export class State {
 
   // define all stores
   auth: Auth = new Auth(this);
+  draft: Draft = new Draft(this);
   locale: Locale = new Locale(this);
 
   /**

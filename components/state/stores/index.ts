@@ -2,10 +2,12 @@ import { SetStoreFunction } from "solid-js/store";
 import { State } from "..";
 
 import { TypeAuth } from "./Auth";
+import { TypeDraft } from "./Draft";
 import { TypeLocale } from "./Locale";
 
 export type Store = {
   auth: TypeAuth;
+  draft: TypeDraft;
   locale: TypeLocale;
 };
 
