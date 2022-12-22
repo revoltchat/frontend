@@ -1,7 +1,7 @@
 import type { API, Channel, Server } from "revolt.js";
 
 import { Link } from "@revolt/routing";
-import { createMemo, createSignal, For, Match, Switch } from "solid-js";
+import { createMemo, createSignal, For, Match, Show, Switch } from "solid-js";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, Row } from "../../design/layout";
@@ -38,20 +38,27 @@ const ChannelIcon = styled("img")`
 /**
  * Server channel entry
  */
-function Entry(props: {
-  channel: Channel;
-  active: boolean;
-}) {
+function Entry(props: { channel: Channel; active: boolean }) {
   return (
-    <Link href={`/server/${props.channel.server_id}/channel/${props.channel._id}`}>
+    <Link
+      href={`/server/${props.channel.server_id}/channel/${props.channel._id}`}
+    >
       <MenuButton
         size="thin"
-        alert={!props.active && props.channel.unread && (props.channel.mentions.length || true)}
-        attention={props.active ? "selected" : props.channel.unread ? "active" : "normal"}
+        alert={
+          !props.active &&
+          props.channel.unread &&
+          (props.channel.mentions.length || true)
+        }
+        attention={
+          props.active ? "selected" : props.channel.unread ? "active" : "normal"
+        }
         icon={
           <Switch fallback={<BiRegularHash size={24} />}>
             <Match when={props.channel.icon}>
-              <ChannelIcon src={props.channel.generateIconURL({ max_side: 64 })} />
+              <ChannelIcon
+                src={props.channel.generateIconURL({ max_side: 64 })}
+              />
             </Match>
             <Match when={props.channel.channel_type === "VoiceChannel"}>
               <BiRegularPhoneCall size={24} />
@@ -100,21 +107,27 @@ function Category(props: {
   const [shown, setShown] = createSignal(true);
   const channels = createMemo(() =>
     props.category.channels.filter(
-      (channel) => shown() || channel.unread || channel._id === props.channelId
+      (channel) =>
+        props.category.id === "default" ||
+        shown() ||
+        channel.unread ||
+        channel._id === props.channelId
     )
   );
 
   return (
     <Column gap="sm">
-      <CategoryBase
-        open={shown()}
-        onClick={() => setShown(!shown())}
-        align
-        gap="sm"
-      >
-        <BiSolidChevronRight size={12} />
-        <Typography variant="small">{props.category.title}</Typography>
-      </CategoryBase>
+      <Show when={props.category.id !== "default"}>
+        <CategoryBase
+          open={shown()}
+          onClick={() => setShown(!shown())}
+          align
+          gap="sm"
+        >
+          <BiSolidChevronRight size={12} />
+          <Typography variant="small">{props.category.title}</Typography>
+        </CategoryBase>
+      </Show>
       <For each={channels()}>
         {(channel) => (
           <Entry channel={channel} active={channel._id === props.channelId} />
@@ -130,7 +143,9 @@ function Category(props: {
 export const ServerSidebar = (props: Props) => {
   return (
     <SidebarBase>
-      <Switch fallback={<Header palette="secondary">{props.server.name}</Header>}>
+      <Switch
+        fallback={<Header palette="secondary">{props.server.name}</Header>}
+      >
         <Match when={props.server.banner}>
           <HeaderWithImage
             palette="secondary"
