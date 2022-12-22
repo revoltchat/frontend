@@ -9,7 +9,6 @@ import { SidebarBase } from "./common";
 import {
   BiRegularHash,
   BiRegularPhoneCall,
-  BiSolidChevronDown,
   BiSolidChevronRight,
 } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
@@ -17,7 +16,14 @@ import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { ScrollContainer } from "../../common/ScrollContainers";
 
 interface Props {
+  /**
+   * Server to display sidebar for
+   */
   server: Server;
+
+  /**
+   * Currently selected channel ID
+   */
   channelId: string | undefined;
 }
 

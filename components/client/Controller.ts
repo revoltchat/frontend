@@ -57,6 +57,9 @@ export default class ClientController {
     };
   }
 
+  /**
+   * Select the next available session
+   */
   pickNextSession() {
     this.switchAccount(
       this.current ?? this.sessions.keys().next().value ?? null
@@ -78,6 +81,16 @@ export default class ClientController {
   getReadyClient() {
     const session = this.getActiveSession();
     return session && session.ready ? session.client! : undefined;
+  }
+
+  /**
+   * Get the currently ready client
+   * @returns Ready Client
+   */
+  getReadyClients() {
+    return [...this.sessions.values()]
+      .filter((session) => session.ready)
+      .map((session) => session.client!);
   }
 
   /**

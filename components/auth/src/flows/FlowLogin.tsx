@@ -1,9 +1,24 @@
 import { Link, useNavigate } from "@revolt/routing";
 import { clientController } from "../../../client";
-import { Button, Typography } from "@revolt/ui";
+import {
+  Avatar,
+  Button,
+  CategoryButton,
+  Column,
+  styled,
+  Typography,
+} from "@revolt/ui";
 import { useTranslation } from "@revolt/i18n";
 import { Fields, Form } from "./Form";
 import { FlowTitle } from "./Flow";
+import { For, Show } from "solid-js";
+
+/**
+ * Account switcher UI
+ */
+const AccountSwitcher = styled(Column)`
+  margin-top: 8px;
+`;
 
 /**
  * Flow for logging into an account
@@ -43,6 +58,25 @@ export default function FlowLogin() {
         {t("login.missing_verification")}{" "}
         <Link href="resend">{t("login.resend")}</Link>
       </Typography>
+      <Show when={clientController.getReadyClients().length > 0}>
+        <AccountSwitcher>
+          <FlowTitle>Use existing account</FlowTitle>
+          <For each={clientController.getReadyClients()}>
+            {(client) => (
+              <CategoryButton
+                icon={<Avatar src={client.user!.avatarURL} size={32} />}
+                action="chevron"
+                onClick={() => {
+                  clientController.switchAccount(client.user!._id);
+                  navigate("/");
+                }}
+              >
+                {client.user!.username}
+              </CategoryButton>
+            )}
+          </For>
+        </AccountSwitcher>
+      </Show>
     </>
   );
 }
