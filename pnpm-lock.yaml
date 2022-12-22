@@ -168,7 +168,7 @@ importers:
 
   packages/browser-test-runner:
     specifiers:
-      '@playwright/test': '1.29'
+      '@playwright/test': ^1.29
       '@types/node': ^18.11.11
       showcase: workspace:^1.0.0
     dependencies:
