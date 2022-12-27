@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "01GNA5WCNPF6M6PV8F54AH90TN",
+    "deletion": null,
+    "disabled": false,
+    "email": "user@revolt.chat",
+    "email_normalised": "user@revolt.chat",
+    "lockout": null,
+    "mfa": {},
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$LXpBSm4yLVV2cUltUml0QjdCYlB3NmZF$LRO1TcwfMWSLM0o9JZrY2CavGBWV3gWt48KMTuFp/AQ",
+    "password_reset": null,
+    "verification": {
+      "status": "Verified"
+    }
+  }
+]
