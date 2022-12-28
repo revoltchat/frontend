@@ -47,7 +47,7 @@ type Props = CommonProps & {
   /**
    * Date message was edited at
    */
-  edited?: Nullable<Date>;
+  edited?: number;
 };
 
 /**
@@ -110,15 +110,19 @@ export function MessageContainer(props: Props) {
       {props.header}
       <Row gap="none">
         <Info tail={props.tail}>
-          {props.tail ? (
+          <Show when={props.tail}>
             <InfoText class={!props.edited ? "hidden" : undefined}>
               <Typography variant="small">
-                <Time value={props.timestamp} format="time" />
+                <Show when={props.edited}>(edited)</Show>
+                <Show when={!props.edited}>
+                  <Time value={props.timestamp} format="time" />
+                </Show>
               </Typography>
             </InfoText>
-          ) : (
+          </Show>
+          <Show when={!props.tail}>
             <Avatar size={36} src={props.avatar} />
-          )}
+          </Show>
         </Info>
         <Column gap="none">
           <Show when={!props.tail}>
