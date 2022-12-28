@@ -16,6 +16,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
+    "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
     "solid-js": "^1.5.1"
   },

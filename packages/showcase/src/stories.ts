@@ -23,4 +23,6 @@ import Tabs from '@revolt/ui/components/design/atoms/inputs/Tabs.stories';
 import Column from '@revolt/ui/components/design/layout/Column.stories';
 import OverflowingText from '@revolt/ui/components/design/layout/OverflowingText.stories';
 import Row from '@revolt/ui/components/design/layout/Row.stories';
-export default {Avatar, FormGroup, Header, Initials, Modal, Time, Typography, MessageDivider, Preloader, SaveStatus, Turbo, Unreads, UserStatus, Button, Checkbox, ComboBox, Input, MenuButton, Tabs, Column, OverflowingText, Row} as Record<string, ComponentStory<Component>>;
+import Attachment from '@revolt/ui/components/messaging/message/Attachment.stories';
+import Container from '@revolt/ui/components/messaging/message/Container.stories';
+export default {Avatar, FormGroup, Header, Initials, Modal, Time, Typography, MessageDivider, Preloader, SaveStatus, Turbo, Unreads, UserStatus, Button, Checkbox, ComboBox, Input, MenuButton, Tabs, Column, OverflowingText, Row, Attachment, Container} as Record<string, ComponentStory<Component>>;

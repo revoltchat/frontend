@@ -6,6 +6,7 @@ import "@revolt/ui/styles";
  */
 import { render } from "solid-js/web";
 
+import i18n, { I18nContext } from "@revolt/i18n";
 import {
   ThemeProvider,
   darkTheme,
@@ -159,134 +160,139 @@ render(() => {
   return (
     <div style={{ background: "#111", height: "100%" }}>
       <Masks />
-      <ThemeProvider theme={darkTheme}>
-        <Container>
-          <Row gap="none" justify="stretch" grow>
-            <Sidebar>
-              <Column>
-                <Typography variant="h3">COMPONENTS</Typography>
-                <For each={Object.keys(components)}>
-                  {(entry) => (
-                    <Link
-                      onClick={() => {
-                        setProps({});
-                        select(entry);
-                        selectTab(components[entry].stories[0]?.title);
-                      }}
-                    >
-                      <MenuButton
-                        attention={
-                          component() === entry ? "selected" : "normal"
-                        }
+      <I18nContext.Provider value={i18n}>
+        <ThemeProvider theme={darkTheme}>
+          <Container>
+            <Row gap="none" justify="stretch" grow>
+              <Sidebar>
+                <Column>
+                  <Typography variant="h3">COMPONENTS</Typography>
+                  <For each={Object.keys(components)}>
+                    {(entry) => (
+                      <Link
+                        onClick={() => {
+                          setProps({});
+                          select(entry);
+                          selectTab(components[entry].stories[0]?.title);
+                        }}
                       >
-                        {entry}
-                      </MenuButton>
-                    </Link>
-                  )}
-                </For>
-              </Column>
-            </Sidebar>
-            <Column gap="none" grow>
-              <Show when={() => component()! in components}>
-                <Tabs
-                  tabs={tabs}
-                  tab={tab}
-                  onSelect={(tab) => {
-                    setProps({});
-                    selectTab(tab);
-                  }}
-                />
-                <Content>{render(component(), tab(), props)}</Content>
-                <PropTypesEditor>
-                  <Column>
-                    <For each={Object.keys(propTypes())}>
-                      {(key) => (
-                        <Switch
-                          fallback={
-                            <Typography variant="subtitle">
-                              {key}: {JSON.stringify(propTypes()[key as never])}
-                            </Typography>
+                        <MenuButton
+                          attention={
+                            component() === entry ? "selected" : "normal"
                           }
                         >
-                          <Match
-                            when={
-                              propTypes()[key as never] === "string" ||
-                              propTypes()[key as never] === "number"
+                          {entry}
+                        </MenuButton>
+                      </Link>
+                    )}
+                  </For>
+                </Column>
+              </Sidebar>
+              <Column gap="none" grow>
+                <Show when={() => component()! in components}>
+                  <Tabs
+                    tabs={tabs}
+                    tab={tab}
+                    onSelect={(tab) => {
+                      setProps({});
+                      selectTab(tab);
+                    }}
+                  />
+                  <Content>{render(component(), tab(), props)}</Content>
+                  <PropTypesEditor>
+                    <Column>
+                      <For each={Object.keys(propTypes())}>
+                        {(key) => (
+                          <Switch
+                            fallback={
+                              <Typography variant="subtitle">
+                                {key}:{" "}
+                                {JSON.stringify(propTypes()[key as never])}
+                              </Typography>
                             }
                           >
-                            <Typography variant="label">{key}</Typography>
-                            <Input
-                              value={currentProps()[key as never]}
-                              type={
-                                propTypes()[key as never] === "string"
-                                  ? "text"
-                                  : "number"
-                              }
-                              onInput={(e) =>
-                                setProps({
-                                  ...currentProps(),
-                                  [key]:
-                                    propTypes()[key as never] === "string"
-                                      ? e.currentTarget.value
-                                      : parseInt(e.currentTarget.value),
-                                })
-                              }
-                              palette="secondary"
-                            />
-                          </Match>
-                          <Match when={propTypes()[key as never] === "boolean"}>
-                            <Checkbox
-                              value={currentProps()[key as never]}
-                              onChange={(v) =>
-                                setProps({
-                                  ...currentProps(),
-                                  [key]: v,
-                                })
-                              }
-                              title={key}
-                            />
-                          </Match>
-                          <Match
-                            when={Array.isArray(propTypes()[key as never])}
-                          >
-                            <Typography variant="label">{key}</Typography>
-                            <ComboBox
-                              value={currentProps()[key as never]}
-                              onInput={(e) =>
-                                setProps({
-                                  ...currentProps(),
-                                  [key]:
-                                    e.currentTarget.value === "true"
-                                      ? true
-                                      : e.currentTarget.value === "false"
-                                      ? false
-                                      : e.currentTarget.value,
-                                })
+                            <Match
+                              when={
+                                propTypes()[key as never] === "string" ||
+                                propTypes()[key as never] === "number"
                               }
                             >
-                              <For each={propTypes()[key as never]}>
-                                {(entry: string | boolean) => (
-                                  <option>
-                                    {entry === true
-                                      ? "true"
-                                      : entry === false
-                                      ? "false"
-                                      : entry}
-                                  </option>
-                                )}
-                              </For>
-                            </ComboBox>
-                          </Match>
-                        </Switch>
-                      )}
-                    </For>
-                  </Column>
-                </PropTypesEditor>
-              </Show>
-            </Column>
-          </Row>
-        </Container>
-      </ThemeProvider>
+                              <Typography variant="label">{key}</Typography>
+                              <Input
+                                value={currentProps()[key as never]}
+                                type={
+                                  propTypes()[key as never] === "string"
+                                    ? "text"
+                                    : "number"
+                                }
+                                onInput={(e) =>
+                                  setProps({
+                                    ...currentProps(),
+                                    [key]:
+                                      propTypes()[key as never] === "string"
+                                        ? e.currentTarget.value
+                                        : parseInt(e.currentTarget.value),
+                                  })
+                                }
+                                palette="secondary"
+                              />
+                            </Match>
+                            <Match
+                              when={propTypes()[key as never] === "boolean"}
+                            >
+                              <Checkbox
+                                value={currentProps()[key as never]}
+                                onChange={(v) =>
+                                  setProps({
+                                    ...currentProps(),
+                                    [key]: v,
+                                  })
+                                }
+                                title={key}
+                              />
+                            </Match>
+                            <Match
+                              when={Array.isArray(propTypes()[key as never])}
+                            >
+                              <Typography variant="label">{key}</Typography>
+                              <ComboBox
+                                value={currentProps()[key as never]}
+                                onInput={(e) =>
+                                  setProps({
+                                    ...currentProps(),
+                                    [key]:
+                                      e.currentTarget.value === "true"
+                                        ? true
+                                        : e.currentTarget.value === "false"
+                                        ? false
+                                        : e.currentTarget.value,
+                                  })
+                                }
+                              >
+                                <For each={propTypes()[key as never]}>
+                                  {(entry: string | boolean) => (
+                                    <option>
+                                      {entry === true
+                                        ? "true"
+                                        : entry === false
+                                        ? "false"
+                                        : entry}
+                                    </option>
+                                  )}
+                                </For>
+                              </ComboBox>
+                            </Match>
+                          </Switch>
+                        )}
+                      </For>
+                    </Column>
+                  </PropTypesEditor>
+                </Show>
+              </Column>
+            </Row>
+          </Container>
+        </ThemeProvider>
+      </I18nContext.Provider>
     </div>
   );
 }, document.getElementById("root") as HTMLElement);

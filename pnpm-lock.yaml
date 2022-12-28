@@ -281,12 +281,14 @@ importers:
 
   packages/showcase:
     specifiers:
+      '@revolt/i18n': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       solid-js: ^1.5.1
       typescript: ^4.8.3
       vite: ^3.0.9
       vite-plugin-solid: ^2.3.0
     dependencies:
+      '@revolt/i18n': link:../../components/i18n
       '@revolt/ui': link:../../components/ui
       solid-js: 1.5.5
     devDependencies:

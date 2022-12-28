@@ -6,9 +6,10 @@ import "@revolt/ui/styles";
  */
 import { render } from "solid-js/web";
 
-import { createSignal, For } from "solid-js";
+import { For } from "solid-js";
 
 import components from "./stories";
+import i18n, { I18nContext } from "@revolt/i18n";
 import { Column, darkTheme, Masks, styled, ThemeProvider } from "@revolt/ui";
 
 const ElementContainer = styled.div`
@@ -71,27 +72,29 @@ render(() => {
   return (
     <div style="background:black">
       <Masks />
-      <ThemeProvider theme={darkTheme}>
-        <Column>
-          <For each={Object.keys(components)}>
-            {(key) =>
-              shouldRender(key) ? (
-                <ElementContainer id={key}>
-                  <Column gap="sm">
-                    <For each={components[key].stories}>
-                      {({ title }) => (
-                        <ElementContainer>
-                          {render(key, title)}
-                        </ElementContainer>
-                      )}
-                    </For>
-                  </Column>
-                </ElementContainer>
-              ) : null
-            }
-          </For>
-        </Column>
-      </ThemeProvider>
+      <I18nContext.Provider value={i18n}>
+        <ThemeProvider theme={darkTheme}>
+          <Column>
+            <For each={Object.keys(components)}>
+              {(key) =>
+                shouldRender(key) ? (
+                  <ElementContainer id={key}>
+                    <Column gap="sm">
+                      <For each={components[key].stories}>
+                        {({ title }) => (
+                          <ElementContainer>
+                            {render(key, title)}
+                          </ElementContainer>
+                        )}
+                      </For>
+                    </Column>
+                  </ElementContainer>
+                ) : null
+              }
+            </For>
+          </Column>
+        </ThemeProvider>
+      </I18nContext.Provider>
     </div>
   );
 }, document.getElementById("all") as HTMLElement);
