@@ -1,5 +1,6 @@
 import { Message as MessageInterface } from "revolt.js";
 import { For, Show } from "solid-js";
+import { Column } from "../../design";
 import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";
@@ -24,24 +25,28 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
         </Show>
       }
     >
-      {props.message.content}
-      <Show when={props.message.attachments}>
-        <For each={props.message.attachments}>
-          {(attachment) => (
-            <Attachment
-              file={attachment}
-              baseUrl={props.message.client.configuration?.features.autumn.url!}
-            />
-          )}
-        </For>
-      </Show>
-      <Show when={props.message.embeds}>
-        <For each={props.message.embeds}>
-          {(embed) => (
-            <Embed embed={embed} proxyFile={props.message.client.proxyFile} />
-          )}
-        </For>
-      </Show>
+      <Column gap="sm">
+        {props.message.content}
+        <Show when={props.message.attachments}>
+          <For each={props.message.attachments}>
+            {(attachment) => (
+              <Attachment
+                file={attachment}
+                baseUrl={
+                  props.message.client.configuration?.features.autumn.url!
+                }
+              />
+            )}
+          </For>
+        </Show>
+        <Show when={props.message.embeds}>
+          <For each={props.message.embeds}>
+            {(embed) => (
+              <Embed embed={embed} proxyFile={props.message.client.proxyFile} />
+            )}
+          </For>
+        </Show>
+      </Column>
     </MessageContainer>
   );
 }
