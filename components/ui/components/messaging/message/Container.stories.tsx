@@ -19,7 +19,7 @@ export default {
       title: "Edited Message",
       props: {
         children: "hello this is an edit",
-        edited: +new Date(),
+        edited: +new Date("Thu, 30 Dec 2022 12:33:35 GMT"),
       },
     },
     {
@@ -27,7 +27,7 @@ export default {
       props: {
         tail: true,
         children: "hello this is an edit",
-        edited: +new Date(),
+        edited: +new Date("Thu, 30 Dec 2022 12:33:35 GMT"),
       },
     },
     {
@@ -39,9 +39,10 @@ export default {
   ],
   props: {
     children: "I love rolt!!!!!",
-    timestamp: +new Date(),
+    timestamp: +new Date("Thu, 29 Dec 2022 12:33:35 GMT"),
     avatar: TestImage,
     username: "rolt user",
+    _referenceTime: +new Date("Thu, 29 Dec 2022 13:00:00 GMT"),
   },
   propTypes: {
     children: "string",

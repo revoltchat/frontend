@@ -48,6 +48,11 @@ type Props = CommonProps & {
    * Date message was edited at
    */
   edited?: number;
+
+  /**
+   * Reference time to render timestamps from
+   */
+  _referenceTime?: number;
 };
 
 /**
@@ -115,7 +120,11 @@ export function MessageContainer(props: Props) {
               <Typography variant="small">
                 <Show when={props.edited}>(edited)</Show>
                 <Show when={!props.edited}>
-                  <Time value={props.timestamp} format="time" />
+                  <Time
+                    value={props.timestamp}
+                    format="time"
+                    referenceTime={props._referenceTime}
+                  />
                 </Show>
               </Typography>
             </InfoText>
@@ -137,7 +146,11 @@ export function MessageContainer(props: Props) {
               </Typography>
               <InfoText>
                 <Typography variant="small">
-                  <Time value={props.timestamp} format="calendar" />{" "}
+                  <Time
+                    value={props.timestamp}
+                    format="calendar"
+                    referenceTime={props._referenceTime}
+                  />{" "}
                   <Show when={props.edited}>
                     <span>(edited)</span>
                   </Show>
