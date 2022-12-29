@@ -31,7 +31,7 @@ render(() => {
       let { component: Component, props, stories, effects, decorators } = entry;
 
       const story = stories.find((story) => story.title === tab);
-      if (story) {
+      if (story && !story.skipRegressionTests) {
         if (story.component) {
           Component = story.component;
         }

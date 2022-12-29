@@ -20,6 +20,21 @@ for (const component of components) {
       await CUSTOM_TESTS[component](page);
     } else {
       await page.goto("http://localhost:5273/all.html?filter=" + component);
+
+      // wait for load
+      await page.waitForLoadState("networkidle");
+
+      // reset any videos
+      await page.$$eval("video", (videos) => {
+        for (const video of videos) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+
+      // ensure we are idle again
+      await page.waitForLoadState("networkidle");
+
       await expect(page.locator(`#${component}`)).toHaveScreenshot(
         component + ".png"
       );

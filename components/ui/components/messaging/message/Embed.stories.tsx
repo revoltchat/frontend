@@ -151,6 +151,7 @@ export default {
           },
         },
       },
+      skipRegressionTests: true,
     },
     {
       title: "Twitch",
@@ -164,6 +165,7 @@ export default {
           },
         },
       },
+      skipRegressionTests: true,
     },
     {
       title: "Lightspeed",
@@ -177,6 +179,7 @@ export default {
           },
         },
       },
+      skipRegressionTests: true,
     },
     {
       title: "Spotify",
@@ -190,6 +193,7 @@ export default {
           },
         },
       },
+      skipRegressionTests: true,
     },
     {
       title: "Soundcloud",
@@ -202,6 +206,7 @@ export default {
           },
         },
       },
+      skipRegressionTests: true,
     },
     {
       title: "Bandcamp",
@@ -215,6 +220,7 @@ export default {
           },
         },
       },
+      skipRegressionTests: true,
     },
   ],
   props: {
@@ -223,5 +229,5 @@ export default {
     },
   },
   propTypes: {},
-  decorators: [FitContentDecorator, ResizeContentDecorator],
+  decorators: [FitContentDecorator],
 } as ComponentStory<typeof Embed, ComponentProps<typeof Embed>>;

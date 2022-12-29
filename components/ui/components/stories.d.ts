@@ -11,6 +11,7 @@ declare type Story<T extends Component<P>, P = {}> = {
   props?: ComponentProps<T>;
   decorators?: Decorator<T, P>[];
   component?: T;
+  skipRegressionTests?: boolean;
 };
 
 declare type ComponentStory<T extends Component<P>, P = {}> = {
