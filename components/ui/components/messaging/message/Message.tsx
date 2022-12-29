@@ -1,3 +1,4 @@
+import { Markdown } from "@revolt/markdown";
 import { Message as MessageInterface } from "revolt.js";
 import { For, Show } from "solid-js";
 import { Column } from "../../design";
@@ -26,7 +27,9 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
       }
     >
       <Column gap="sm">
-        {props.message.content}
+        <Show when={props.message.content}>
+          <Markdown content={props.message.content!} />
+        </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>
             {(attachment) => (

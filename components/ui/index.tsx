@@ -35,6 +35,7 @@ export const darkTheme: DefaultTheme = {
     xl: "1280px",
   },
   borderRadius: {
+    sm: "2px",
     md: "6px",
     lg: "12px",
   },
