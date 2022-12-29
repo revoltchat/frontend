@@ -25,4 +25,5 @@ import OverflowingText from '@revolt/ui/components/design/layout/OverflowingText
 import Row from '@revolt/ui/components/design/layout/Row.stories';
 import Attachment from '@revolt/ui/components/messaging/message/Attachment.stories';
 import Container from '@revolt/ui/components/messaging/message/Container.stories';
-export default {Avatar, FormGroup, Header, Initials, Modal, Time, Typography, MessageDivider, Preloader, SaveStatus, Turbo, Unreads, UserStatus, Button, Checkbox, ComboBox, Input, MenuButton, Tabs, Column, OverflowingText, Row, Attachment, Container} as Record<string, ComponentStory<Component>>;
+import Embed from '@revolt/ui/components/messaging/message/Embed.stories';
+export default {Avatar, FormGroup, Header, Initials, Modal, Time, Typography, MessageDivider, Preloader, SaveStatus, Turbo, Unreads, UserStatus, Button, Checkbox, ComboBox, Input, MenuButton, Tabs, Column, OverflowingText, Row, Attachment, Container, Embed} as Record<string, ComponentStory<Component>>;

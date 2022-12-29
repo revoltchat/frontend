@@ -1,9 +1,10 @@
 import type { API } from "revolt.js";
 import type { ComponentProps } from "solid-js";
+import FitContentDecorator from "../../../decorators/FitContentDecorator";
 import type { ComponentStory } from "../../stories";
 import { Attachment } from "./Attachment";
 
-const attachments: {
+export const attachments: {
   [key in
     | "audio"
     | "text"
@@ -185,4 +186,5 @@ export default {
     baseUrl: "http://local.revolt.chat:5273",
   },
   propTypes: {},
+  decorators: [FitContentDecorator],
 } as ComponentStory<typeof Attachment, ComponentProps<typeof Attachment>>;

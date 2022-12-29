@@ -18,7 +18,7 @@ declare type ComponentStory<T extends Component<P>, P = {}> = {
   component: T;
   stories: Story<T, P>[];
   props?: ComponentProps<T>;
-  decorators?: Decorator<T, P>[];
+  decorators?: any[]; //Decorator<T, P>[]; TODO: fix typings here
   propTypes?: Record<
     keyof ComponentProps<T>,
     | "string"
