@@ -44,6 +44,7 @@ const Tab = styled.a<{ active: boolean }>`
 
   &:hover {
     filter: brightness(1.2);
+    color: ${(props) => props.theme!.colours["foreground"]};
   }
 `;
 
