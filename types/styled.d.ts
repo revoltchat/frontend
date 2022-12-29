@@ -27,7 +27,7 @@ declare module "solid-styled-components" {
       [key in "sm" | "md" | "lg" | "xl"]: string;
     };
     borderRadius: {
-      [key in "md" | "lg"]: string;
+      [key in "sm" | "md" | "lg"]: string;
     };
     gap: {
       [key in "none" | "sm" | "md" | "lg"]: string;
