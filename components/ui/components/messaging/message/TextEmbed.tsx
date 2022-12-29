@@ -12,13 +12,14 @@ import { SpecialEmbed } from "./SpecialEmbed";
 
 const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
   display: flex;
+  max-width: 480px; /* TODO: theme this */
   flex-direction: row;
   gap: ${(props) => props.theme!.gap.md};
 
   padding: ${(props) => props.theme!.gap.md};
   color: ${(props) => props.theme!.colours["foreground"]};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-400"]};
+  background: ${(props) => props.theme!.colours["background-300"]};
 
   border-inline-start: 4px solid
     ${(props) => props.borderColour ?? props.theme!.colours["background-200"]};
@@ -48,8 +49,14 @@ const Title = styled("div", "Title")`
   font-size: 16px;
 `;
 
+const Content = styled(Column)`
+  min-width: 0;
+`;
+
 const Description = styled("div", "Description")`
   font-size: 12px;
+  overflow: hidden;
+  word-wrap: break-word;
 `;
 
 export function TextEmbed(
@@ -59,7 +66,7 @@ export function TextEmbed(
 ) {
   return (
     <Base borderColour={props.embed.colour!}>
-      <Column gap="md">
+      <Content gap="md">
         <Show when={props.embed.type === "Website" && props.embed.site_name}>
           <SiteInformation>
             <Show when={props.embed.icon_url}>
@@ -80,7 +87,9 @@ export function TextEmbed(
 
         <Show when={props.embed.title}>
           <Title>
-            <a>{props.embed.title}</a>
+            <a>
+              <OverflowingText>{props.embed.title}</OverflowingText>
+            </a>
           </Title>
         </Show>
 
@@ -140,7 +149,7 @@ export function TextEmbed(
             </Match>
           </Switch>
         </Show>
-      </Column>
+      </Content>
 
       <Show
         when={

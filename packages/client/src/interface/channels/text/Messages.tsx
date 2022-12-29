@@ -20,7 +20,6 @@ const Base = styled(ScrollContainer)`
   flex-grow: 1;
 
   display: flex;
-  overflow: auto;
   flex-direction: column-reverse;
 
   > div {
@@ -150,7 +149,7 @@ export function Messages(props: { channel: Channel }) {
   });
 
   return (
-    <Base offsetTop={48}>
+    <Base offsetTop={48} scrollDirection="y">
       <div>
         <For each={messagesWithTail()}>{(props) => <Entry {...props} />}</For>
       </div>

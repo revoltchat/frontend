@@ -89,6 +89,13 @@ const Info = styled("div", "Info")<Pick<CommonProps, "tail">>`
 `;
 
 /**
+ * Right-side message content
+ */
+const Content = styled(Column)`
+  min-width: 0;
+`;
+
+/**
  * Information text
  */
 const InfoText = styled.div`
@@ -133,7 +140,7 @@ export function MessageContainer(props: Props) {
             <Avatar size={36} src={props.avatar} />
           </Show>
         </Info>
-        <Column gap="none">
+        <Content gap="none">
           <Show when={!props.tail}>
             <Row align>
               <Typography variant="username">
@@ -159,7 +166,7 @@ export function MessageContainer(props: Props) {
             </Row>
           </Show>
           {props.children}
-        </Column>
+        </Content>
       </Row>
     </Base>
   );

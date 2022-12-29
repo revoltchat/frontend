@@ -12,6 +12,7 @@ import { MessageComposition } from "./text/Composition";
  * Channel layout
  */
 const Base = styled("div")`
+  min-width: 0;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
