@@ -25,14 +25,14 @@ const Base = styled("figure")`
   margin: 0;
 
   > :not(.container),
-  .spoiler {
+  .Spoiler {
     object-fit: contain;
     aspect-ratio: var(--width) / var(--height);
     border-radius: ${(props) => props.theme!.borderRadius.md};
   }
 
   video,
-  .spoiler.Video {
+  .Spoiler.Video {
     min-width: 240px;
     max-width: 420px;
 
@@ -46,10 +46,14 @@ const Base = styled("figure")`
  */
 const Tall = styled(Base)`
   img,
-  .spoiler.Image {
+  .Spoiler.Image {
     width: auto;
     min-height: 120px;
     max-height: 420px;
+  }
+
+  .Spoiler.Image {
+    height: var(--height-px);
   }
 `;
 
@@ -58,14 +62,19 @@ const Tall = styled(Base)`
  */
 const Wide = styled(Base)`
   img,
-  .spoiler.Image {
+  .Spoiler.Image {
     height: auto;
     min-width: 240px;
     max-width: 420px;
   }
 
+  .Spoiler.Image,
+  .Spoiler.Video {
+    width: var(--width-px);
+  }
+
   video,
-  .spoiler.Video {
+  .Spoiler.Video {
     height: auto;
   }
 `;
