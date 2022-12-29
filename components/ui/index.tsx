@@ -64,5 +64,11 @@ export const darkTheme: DefaultTheme = {
       "tall-header": "120px",
       "message-box": "48px",
     },
+    attachments: {
+      "min-width": "240px",
+      "max-width": "420px",
+      "min-height": "120px",
+      "max-height": "420px",
+    },
   },
 };

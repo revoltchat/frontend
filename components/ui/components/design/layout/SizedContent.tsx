@@ -33,11 +33,11 @@ const Base = styled("figure")`
 
   video,
   .Spoiler.Video {
-    min-width: 240px;
-    max-width: 420px;
+    min-width: ${(props) => props.theme!.layout.attachments["min-width"]};
+    max-width: ${(props) => props.theme!.layout.attachments["max-width"]};
 
-    min-height: 120px;
-    max-height: 420px;
+    min-height: ${(props) => props.theme!.layout.attachments["min-height"]};
+    max-height: ${(props) => props.theme!.layout.attachments["max-height"]};
   }
 `;
 
@@ -48,8 +48,8 @@ const Tall = styled(Base)`
   img,
   .Spoiler.Image {
     width: auto;
-    min-height: 120px;
-    max-height: 420px;
+    min-height: ${(props) => props.theme!.layout.attachments["min-height"]};
+    max-height: ${(props) => props.theme!.layout.attachments["max-height"]};
   }
 
   .Spoiler.Image {
@@ -64,8 +64,8 @@ const Wide = styled(Base)`
   img,
   .Spoiler.Image {
     height: auto;
-    min-width: 240px;
-    max-width: 420px;
+    min-width: ${(props) => props.theme!.layout.attachments["min-width"]};
+    max-width: ${(props) => props.theme!.layout.attachments["max-width"]};
   }
 
   .Spoiler.Image,

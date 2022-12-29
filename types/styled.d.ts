@@ -7,42 +7,51 @@ declare module "solid-styled-components" {
   export interface DefaultTheme {
     colours: {
       [key in
-        | 'accent'
-        | 'foreground'
+        | "accent"
+        | "foreground"
         | `foreground-${100 | 200 | 300 | 400}`
-        | 'background'
+        | "background"
         | `background-${100 | 200 | 300 | 400}`
-        | 'success'
-        | 'warning'
-        | 'error'
-        | `status-${'online' | 'idle' | 'focus' | 'busy' | 'streaming' | 'invisible'}`]: string;
+        | "success"
+        | "warning"
+        | "error"
+        | `status-${
+            | "online"
+            | "idle"
+            | "focus"
+            | "busy"
+            | "streaming"
+            | "invisible"}`]: string;
     };
     breakpoints: {
-      [key in 'sm' | 'md' | 'lg' | 'xl']: string;
+      [key in "sm" | "md" | "lg" | "xl"]: string;
     };
     borderRadius: {
-      [key in 'md' | 'lg']: string;
+      [key in "md" | "lg"]: string;
     };
     gap: {
-      [key in 'none' | 'sm' | 'md' | 'lg']: string;
+      [key in "none" | "sm" | "md" | "lg"]: string;
     };
     fonts: {
-      [key in 'primary']: string;
+      [key in "primary"]: string;
     };
     transitions: {
-      [key in 'fast' | 'medium']: string;
+      [key in "fast" | "medium"]: string;
     };
     effects: {
       blur: {
-        [key in 'md']: string;
+        [key in "md"]: string;
       };
       hover: string;
       spoiler: string;
     };
     layout: {
       height: {
-        [key in 'header' | 'tall-header' | 'message-box']: string;
-      }
-    }
+        [key in "header" | "tall-header" | "message-box"]: string;
+      };
+      attachments: {
+        [key in `${"min" | "max"}-${"width" | "height"}`]: string;
+      };
+    };
   }
 }
