@@ -15,6 +15,7 @@ import { defaults } from "./solid-markdown/defaults";
 import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 
 import { remarkChannels, RenderChannel } from "./plugins/channels";
+import { remarkMention, RenderMention } from "./plugins/mentions";
 import { remarkSpoiler, RenderSpoiler } from "./plugins/spoiler";
 import { remarkTimestamps } from "./plugins/timestamps";
 import { RenderCodeblock } from "./plugins/Codeblock";
@@ -28,8 +29,8 @@ const Null = () => null;
  * Custom Markdown components
  */
 const components = {
-  /*emoji: RenderEmoji,
-  mention: RenderMention,*/
+  /*emoji: RenderEmoji,*/
+  mention: RenderMention,
   spoiler: RenderSpoiler,
   channel: RenderChannel,
   /*a: RenderAnchor,*/
@@ -127,9 +128,9 @@ const pipeline = unified()
   .use(remarkSpoiler)
   .use(remarkTimestamps)
   .use(remarkChannels)
+  .use(remarkMention)
   /*
     .use(remarkEmoji)
-    .use(remarkMention)
     .use(remarkHtmlToText)*/
   .use(remarkRehype, {
     handlers,

@@ -85,6 +85,7 @@ importers:
       '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
+      '@revolt/ui': workspace:^1.0.0
       '@types/hast': ^2.3.4
       '@types/unist': ^2.0.6
       comma-separated-tokens: ^2.0.3
@@ -99,6 +100,7 @@ importers:
       remark-math: ^5.1.1
       remark-parse: ^10.0.1
       remark-rehype: ^10.1.0
+      revolt.js: workspace:^6.0.19
       solid-js: ^1.5.1
       solid-styled-components: workspace:^0.28.4
       space-separated-tokens: ^2.0.2
@@ -111,6 +113,7 @@ importers:
       '@revolt/client': link:../client
       '@revolt/i18n': link:../i18n
       '@revolt/routing': link:../routing
+      '@revolt/ui': link:../ui
       comma-separated-tokens: 2.0.3
       hast: 1.0.0
       katex: 0.16.4
@@ -123,6 +126,7 @@ importers:
       remark-math: 5.1.1
       remark-parse: 10.0.1
       remark-rehype: 10.1.0
+      revolt.js: link:../../packages/revolt.js
       solid-js: 1.5.5
       solid-styled-components: link:../../packages/solid-styled-components
       space-separated-tokens: 2.0.2

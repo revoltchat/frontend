@@ -1,6 +1,7 @@
 import { Nullable } from "revolt.js";
 import { Component, JSX, Show } from "solid-js";
 import { styled } from "solid-styled-components";
+import { ColouredText } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
 import { Typography } from "../../design/atoms/display/Typography";
@@ -103,17 +104,6 @@ const InfoText = styled.div`
 `;
 
 /**
- * Coloured role text
- */
-const ColouredText = styled.span<{ colour?: Nullable<string>; clip?: boolean }>`
-  color: ${(props) => props.colour ?? props.theme?.colours["foreground-100"]};
-  background: ${(props) => (props.clip ? props.colour! : "none")};
-  -webkit-text-fill-color: ${(props) => (props.clip ? "transparent" : "unset")};
-  background-clip: ${(props) => (props.clip ? "text" : "unset")};
-  -webkit-background-clip: ${(props) => (props.clip ? "text" : "unset")};
-`;
-
-/**
  * Component to show avatar, username, timestamp and content
  */
 export function MessageContainer(props: Props) {
@@ -145,7 +135,7 @@ export function MessageContainer(props: Props) {
             <Row align>
               <Typography variant="username">
                 <ColouredText
-                  colour={props.colour}
+                  colour={props.colour!}
                   clip={props.colour?.includes("gradient")}
                 >
                   {props.username}

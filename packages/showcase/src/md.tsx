@@ -15,6 +15,8 @@ You can use it to **make your text stand out**!
 
 Channel link: <#01F7ZSBSFHCAAJQ92ZGTY67HMN>
 
+User mention: <@01EX2NCWQ0CHS3QJF0FEQS1GR4>
+
 ## Basic Styles
 
 | Style              | Markdown                                             |
