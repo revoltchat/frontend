@@ -26,12 +26,14 @@ const Base = styled("figure")`
 
   > :not(.container),
   .Spoiler {
+    display: block;
     object-fit: contain;
     aspect-ratio: var(--width) / var(--height);
     border-radius: ${(props) => props.theme!.borderRadius.md};
   }
 
   video,
+  iframe,
   .Spoiler.Video {
     min-width: ${(props) => props.theme!.layout.attachments["min-width"]};
     max-width: ${(props) => props.theme!.layout.attachments["max-width"]};
