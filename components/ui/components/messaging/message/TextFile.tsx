@@ -27,6 +27,7 @@ const Container = styled("pre")`
   overflow: auto;
   scrollbar-width: thin;
   flex-direction: column;
+  color: ${(props) => props.theme!.colours["foreground"]};
 `;
 
 /**
@@ -62,13 +63,15 @@ export function TextFile(props: Props) {
       <Switch fallback={<Preloader type="ring" grow />}>
         <Match
           when={
-            !loading() && !contents() && props.file.size > AUTO_LOAD_MAX_SIZE_BYTES
+            !loading() &&
+            !contents() &&
+            props.file.size > AUTO_LOAD_MAX_SIZE_BYTES
           }
         >
           <Row align justify grow>
-            <Button palette="primary" onClick={load}>
-              {t("app.main.channel.misc.load_file")} ({humanFileSize(props.file.size)}
-              )
+            <Button palette="secondary" onClick={load}>
+              {t("app.main.channel.misc.load_file")} (
+              {humanFileSize(props.file.size)})
             </Button>
           </Row>
         </Match>

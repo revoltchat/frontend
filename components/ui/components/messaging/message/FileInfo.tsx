@@ -41,6 +41,13 @@ interface Props {
 }
 
 /**
+ * Base container
+ */
+const Base = styled(Row)`
+  color: ${(props) => props.theme!.colours["foreground"]};
+`;
+
+/**
  * Link action
  */
 const Action = styled("a")`
@@ -55,7 +62,7 @@ const Action = styled("a")`
  */
 export function FileInfo(props: Props) {
   return (
-    <Row align>
+    <Base align>
       <Action>
         <Switch fallback={<BiSolidFile size={24} />}>
           <Match
@@ -98,6 +105,6 @@ export function FileInfo(props: Props) {
           <BiRegularDownload size={24} />
         </Action>
       </Show>
-    </Row>
+    </Base>
   );
 }
