@@ -89,6 +89,7 @@ importers:
       '@types/hast': ^2.3.4
       '@types/unist': ^2.0.6
       comma-separated-tokens: ^2.0.3
+      emoji-regex: ^10.2.1
       hast: ^1.0.0
       katex: ^0.16.4
       mdast-util-to-hast: ^12.2.4
@@ -115,6 +116,7 @@ importers:
       '@revolt/routing': link:../routing
       '@revolt/ui': link:../ui
       comma-separated-tokens: 2.0.3
+      emoji-regex: 10.2.1
       hast: 1.0.0
       katex: 0.16.4
       mdast-util-to-hast: 12.2.4
@@ -3523,6 +3525,10 @@ packages:
     resolution: {integrity: sha512-uDfvUjVrfGJJhymx/kz6prltenw1u7WrCg1oa94zYY8xxVpLLUu045LAT0dhDZdXG58/EpPL/5kA180fQ/qudg==}
     engines: {node: '>=10'}
     dev: true
+
+  /emoji-regex/10.2.1:
+    resolution: {integrity: sha512-97g6QgOk8zlDRdgq1WxwgTMgEWGVAQvB5Fdpgc1MkNy56la5SKP9GsMXKDOdqwn90/41a8yPwIGk1Y6WVbeMQA==}
+    dev: false
 
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}

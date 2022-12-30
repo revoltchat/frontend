@@ -14,6 +14,7 @@ import { html } from "property-information";
 import { defaults } from "./solid-markdown/defaults";
 import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 
+import { remarkUnicodeEmoji, RenderUnicodeEmoji } from "./plugins/unicodeEmoji";
 import { remarkChannels, RenderChannel } from "./plugins/channels";
 import { remarkMention, RenderMention } from "./plugins/mentions";
 import { remarkSpoiler, RenderSpoiler } from "./plugins/spoiler";
@@ -29,7 +30,7 @@ const Null = () => null;
  * Custom Markdown components
  */
 const components = {
-  /*emoji: RenderEmoji,*/
+  uemoji: RenderUnicodeEmoji,
   mention: RenderMention,
   spoiler: RenderSpoiler,
   channel: RenderChannel,
@@ -129,6 +130,7 @@ const pipeline = unified()
   .use(remarkTimestamps)
   .use(remarkChannels)
   .use(remarkMention)
+  .use(remarkUnicodeEmoji)
   /*
     .use(remarkEmoji)
     .use(remarkHtmlToText)*/

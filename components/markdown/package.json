@@ -16,6 +16,7 @@
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
     "comma-separated-tokens": "^2.0.3",
+    "emoji-regex": "^10.2.1",
     "hast": "^1.0.0",
     "katex": "^0.16.4",
     "mdast-util-to-hast": "^12.2.4",
