@@ -9,6 +9,7 @@ import {
 } from "../../design";
 import { Attachment } from "./Attachment";
 import { SpecialEmbed } from "./SpecialEmbed";
+import { Markdown } from "@revolt/markdown";
 
 const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
   display: flex;
@@ -97,7 +98,7 @@ export function TextEmbed(
           <Description>
             <Switch fallback={props.embed.description}>
               <Match when={props.embed.type === "Text"}>
-                {props.embed.description /** TODO: render markdown */}
+                <Markdown content={props.embed.description!} />
               </Match>
             </Switch>
           </Description>
