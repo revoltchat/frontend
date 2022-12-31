@@ -47,7 +47,7 @@ export function sanitise(content: string) {
       // Replace empty lines with non-breaking space
       // because remark renderer is collapsing empty
       // or otherwise whitespace-only lines of text
-      .replace(RE_EMPTY_LINE, "‎")
+      .replace(RE_EMPTY_LINE, "‎\n")
 
       // Ensure empty line after blockquotes for correct rendering
       .replace(RE_BLOCKQUOTE, (match) => `${match}\n`)
