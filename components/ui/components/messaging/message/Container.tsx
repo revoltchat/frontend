@@ -62,8 +62,8 @@ type Props = CommonProps & {
 const Base = styled(Column as Component, "Message")<CommonProps>`
   padding: 2px 0;
   font-size: 14px;
-  margin-top: ${(props) => (props.tail ? 0 : "12px")};
   color: ${(props) => props.theme!.colours.foreground};
+  margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
 
   .hidden {
     display: none;
