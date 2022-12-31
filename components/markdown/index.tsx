@@ -7,12 +7,11 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 
+import { childrenToSolid } from "./solid-markdown/ast-to-solid";
+import { defaults } from "./solid-markdown/defaults";
+import { html } from "property-information";
 import { unified } from "unified";
 import { VFile } from "vfile";
-
-import { html } from "property-information";
-import { defaults } from "./solid-markdown/defaults";
-import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 
 import { remarkUnicodeEmoji, RenderUnicodeEmoji } from "./plugins/unicodeEmoji";
 import { remarkCustomEmoji, RenderCustomEmoji } from "./plugins/customEmoji";
@@ -23,8 +22,10 @@ import { remarkHtmlToText } from "./plugins/htmlToText";
 import { remarkTimestamps } from "./plugins/timestamps";
 import { RenderCodeblock } from "./plugins/Codeblock";
 import { injectEmojiSize } from "./plugins/emoji";
+import { RenderAnchor } from "./plugins/anchors";
 
 import { handlers } from "./hast";
+import { sanitise } from "./sanitise";
 import { styled } from "solid-styled-components";
 
 const Null = () => null;
@@ -38,7 +39,7 @@ const components = {
   mention: RenderMention,
   spoiler: RenderSpoiler,
   channel: RenderChannel,
-  /*a: RenderAnchor,*/
+  a: RenderAnchor,
   p: styled.p<{ ["emoji-size"]?: "small" | "medium" | "large" }>`
     margin: 0;
 
@@ -166,7 +167,7 @@ export interface MarkdownProps {
  */
 export function Markdown(props: MarkdownProps) {
   const file = new VFile();
-  file.value = props.content;
+  file.value = sanitise(props.content);
 
   const hastNode = pipeline.runSync(pipeline.parse(file), file);
 
