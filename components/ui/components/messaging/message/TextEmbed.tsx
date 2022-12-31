@@ -66,7 +66,7 @@ export function TextEmbed(
 ) {
   return (
     <Base borderColour={props.embed.colour!}>
-      <Content gap="md">
+      <Content gap="md" grow>
         <Show when={props.embed.type === "Website" && props.embed.site_name}>
           <SiteInformation>
             <Show when={props.embed.icon_url}>
