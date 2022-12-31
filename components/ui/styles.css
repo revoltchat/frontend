@@ -10,6 +10,9 @@
 body {
     margin: 0;
     font-family: "Open Sans", sans-serif;
+
+    /* TODO: inject this through GlobalTheme */
+    --emoji-size: 1.4em;
 }
 
 #root {

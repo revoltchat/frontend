@@ -14,6 +14,7 @@ import {
 import { styled } from "solid-styled-components";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { ScrollContainer } from "../../common/ScrollContainers";
+import { TextWithEmoji } from "@revolt/markdown";
 
 interface Props {
   /**
@@ -72,7 +73,7 @@ function Entry(props: { channel: Channel; active: boolean }) {
           </Switch>
         }
       >
-        {props.channel.name}
+        <TextWithEmoji content={props.channel.name!} />
       </MenuButton>
     </Link>
   );
@@ -161,7 +162,9 @@ export const ServerSidebar = (props: Props) => {
               })}')`,
             }}
           >
-            <div>{props.server.name}</div>
+            <div>
+              <TextWithEmoji content={props.server.name} />
+            </div>
           </HeaderWithImage>
         </Match>
       </Switch>

@@ -40,7 +40,7 @@ const components = {
   spoiler: RenderSpoiler,
   channel: RenderChannel,
   a: RenderAnchor,
-  p: styled.p<{ ["emoji-size"]?: "small" | "medium" | "large" }>`
+  p: styled.p<{ ["emoji-size"]?: "medium" | "large" }>`
     margin: 0;
 
     > code {
@@ -158,6 +158,8 @@ export interface MarkdownProps {
   content: string;
   disallowBigEmoji?: boolean;
 }
+
+export { TextWithEmoji } from "./plugins/emoji";
 
 /**
  * Remark renderer component

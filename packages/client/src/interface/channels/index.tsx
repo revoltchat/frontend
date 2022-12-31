@@ -1,4 +1,4 @@
-import { styled, MessageBox, HeaderWithTransparency } from "@revolt/ui";
+import { styled, HeaderWithTransparency } from "@revolt/ui";
 import { useClient } from "@revolt/client";
 import { useParams } from "@revolt/routing";
 import { Channel } from "revolt.js";
@@ -7,6 +7,7 @@ import { Accessor, Component, createMemo, Match, Switch } from "solid-js";
 
 import { Messages } from "./text/Messages";
 import { MessageComposition } from "./text/Composition";
+import { TextWithEmoji } from "@revolt/markdown";
 
 /**
  * Channel layout
@@ -28,7 +29,7 @@ const ChannelHeader: Component<{
 }> = ({ channel }) => {
   return (
     <HeaderWithTransparency palette="primary">
-      {channel().name}
+      <TextWithEmoji content={channel().name!} />
     </HeaderWithTransparency>
   );
 
