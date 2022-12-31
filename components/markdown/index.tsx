@@ -92,17 +92,14 @@ const components = {
     }
   `,
   ul: styled.ul`
-    list-style-position: inside;
-    padding-left: 10px;
+    list-style-position: outside;
+    padding-left: 1.5em;
     margin: 0.2em 0;
   `,
   ol: styled.ol`
-    list-style-position: inside;
-    padding-left: 10px;
+    list-style-position: outside;
+    padding-left: 1.5em;
     margin: 0.2em 0;
-  `,
-  li: styled.li`
-    list-style-type: none;
   `,
   blockquote: styled.blockquote`
     margin: 2px 0;
