@@ -8,7 +8,7 @@ import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column } from "../../design/layout";
 import { OverflowingText } from "../../design/layout/OverflowingText";
 import { SidebarBase } from "./common";
-import { useQuantity } from "@revolt/i18n";
+import { useQuantity, useTranslation } from "@revolt/i18n";
 import { ScrollContainer } from "../../common/ScrollContainers";
 import { TextWithEmoji } from "@revolt/markdown";
 
@@ -29,11 +29,12 @@ interface Props {
  */
 function Entry(props: { channel: Channel; active: boolean }) {
   const q = useQuantity();
+  const t = useTranslation();
   const dm = props.channel.recipient;
 
   const status =
     dm?.status?.text ??
-    (dm?.status?.presence === "Focus" ? "Focus" : undefined);
+    (dm?.status?.presence === "Focus" ? t("app.status.focus") : undefined);
 
   return (
     <Link href={`/channel/${props.channel._id}`}>
@@ -103,10 +104,14 @@ function Entry(props: { channel: Channel; active: boolean }) {
  * Display home navigation and conversations
  */
 export const HomeSidebar = (props: Props) => {
+  const t = useTranslation();
+
   return (
     <SidebarBase>
       <p>
-        <Typography variant="h1">Conversations</Typography>
+        <Typography variant="h1">
+          {t("app.main.categories.conversations")}
+        </Typography>
       </p>
       <ScrollContainer>
         <Column>
