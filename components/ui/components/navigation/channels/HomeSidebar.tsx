@@ -10,6 +10,7 @@ import { OverflowingText } from "../../design/layout/OverflowingText";
 import { SidebarBase } from "./common";
 import { useQuantity } from "@revolt/i18n";
 import { ScrollContainer } from "../../common/ScrollContainers";
+import { TextWithEmoji } from "@revolt/markdown";
 
 interface Props {
   /**
@@ -26,19 +27,26 @@ interface Props {
 /**
  * Single conversation entry
  */
-function Entry(props: {
-  channel: Channel;
-  active: boolean;
-}) {
+function Entry(props: { channel: Channel; active: boolean }) {
   const q = useQuantity();
   const dm = props.channel.recipient;
+
+  const status =
+    dm?.status?.text ??
+    (dm?.status?.presence === "Focus" ? "Focus" : undefined);
 
   return (
     <Link href={`/channel/${props.channel._id}`}>
       <MenuButton
         size="normal"
-        alert={!props.active && props.channel.unread && (props.channel.mentions.length || true)}
-        attention={props.active ? "selected" : props.channel.unread ? "active" : "normal"}
+        alert={
+          !props.active &&
+          props.channel.unread &&
+          (props.channel.mentions.length || true)
+        }
+        attention={
+          props.active ? "selected" : props.channel.unread ? "active" : "normal"
+        }
         icon={
           <Switch>
             <Match when={props.channel.channel_type === "Group"}>
@@ -67,17 +75,19 @@ function Entry(props: {
         <Column gap="none">
           <Switch>
             <Match when={props.channel.channel_type === "Group"}>
-              <OverflowingText>{props.channel.name}</OverflowingText>
+              <OverflowingText>
+                <TextWithEmoji content={props.channel.name!} />
+              </OverflowingText>
               <Typography variant="subtitle">
                 {q("members", props.channel.recipient_ids?.length || 0)}
               </Typography>
             </Match>
             <Match when={props.channel.channel_type === "DirectMessage"}>
               <OverflowingText>{dm?.username}</OverflowingText>
-              <Show when={dm?.status?.text || dm?.status?.presence === "Focus"}>
+              <Show when={status}>
                 <Typography variant="subtitle">
                   <OverflowingText>
-                    {dm?.status?.text || dm?.status?.presence === "Focus"}
+                    <TextWithEmoji content={status!} />
                   </OverflowingText>
                 </Typography>
               </Show>

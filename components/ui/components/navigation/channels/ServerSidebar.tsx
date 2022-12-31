@@ -4,7 +4,7 @@ import { Link } from "@revolt/routing";
 import { createMemo, createSignal, For, Match, Show, Switch } from "solid-js";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
-import { Column, Row } from "../../design/layout";
+import { Column, OverflowingText, Row } from "../../design/layout";
 import { SidebarBase } from "./common";
 import {
   BiRegularHash,
@@ -73,7 +73,9 @@ function Entry(props: { channel: Channel; active: boolean }) {
           </Switch>
         }
       >
-        <TextWithEmoji content={props.channel.name!} />
+        <OverflowingText>
+          <TextWithEmoji content={props.channel.name!} />
+        </OverflowingText>
       </MenuButton>
     </Link>
   );

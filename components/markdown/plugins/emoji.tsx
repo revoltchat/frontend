@@ -44,15 +44,17 @@ export function injectEmojiSize(
   }
 }
 
-export function TextWithEmoji(props: { content: string }) {
-  function render(content: string) {
+export function TextWithEmoji(props: { content?: string }) {
+  function render(content?: string) {
+    if (!content) return null;
+
     const components: JSX.Element[] = [];
 
     let lastIndex = 0;
 
     function pushToIndex(index: number) {
       if (lastIndex === index) return;
-      components.push(<>{content.slice(lastIndex, index)}</>);
+      components.push(<>{content!.slice(lastIndex, index)}</>);
     }
 
     RE_ANY_EMOJI.lastIndex = 0;

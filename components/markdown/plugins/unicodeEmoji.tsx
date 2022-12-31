@@ -10,7 +10,7 @@ export const Emoji = styled.img`
   width: var(--emoji-size);
   height: var(--emoji-size);
   margin: 0 0.05em 0 0.1em;
-  vertical-align: -0.4em;
+  vertical-align: -0.3em;
 
   img:before {
     content: " ";
