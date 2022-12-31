@@ -10,6 +10,8 @@ import { Embed } from "./Embed";
  * Render a Message with or without a tail
  */
 export function Message(props: { message: MessageInterface; tail?: boolean }) {
+  const baseUrl = props.message.client.configuration?.features.autumn.url!;
+
   return (
     <MessageContainer
       username={props.message.username}
@@ -32,20 +34,17 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
         </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>
-            {(attachment) => (
-              <Attachment
-                file={attachment}
-                baseUrl={
-                  props.message.client.configuration?.features.autumn.url!
-                }
-              />
-            )}
+            {(attachment) => <Attachment file={attachment} baseUrl={baseUrl} />}
           </For>
         </Show>
         <Show when={props.message.embeds}>
           <For each={props.message.embeds}>
             {(embed) => (
-              <Embed embed={embed} proxyFile={props.message.client.proxyFile} />
+              <Embed
+                embed={embed}
+                proxyFile={props.message.client.proxyFile}
+                baseUrl={baseUrl}
+              />
             )}
           </For>
         </Show>

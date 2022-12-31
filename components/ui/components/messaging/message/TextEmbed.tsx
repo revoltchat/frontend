@@ -105,7 +105,7 @@ export function TextEmbed(
 
         <Show when={props.embed.type === "Text" && props.embed.media}>
           <Attachment
-            baseUrl="http://local.revolt.chat:5273"
+            baseUrl={props.baseUrl}
             file={(props.embed as E<"Text">).media!}
           />
         </Show>

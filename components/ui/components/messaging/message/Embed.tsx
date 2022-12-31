@@ -13,6 +13,7 @@ export type E<T extends API.Embed["type"]> = API.Embed & { type: T };
  */
 export function Embed(props: {
   embed: API.Embed;
+  baseUrl: string;
   proxyFile: (url: string) => string | undefined;
 }) {
   const isGIF =
@@ -53,6 +54,7 @@ export function Embed(props: {
         <TextEmbed
           embed={props.embed as E<"Website" | "Text">}
           proxyFile={props.proxyFile}
+          baseUrl={props.baseUrl}
         />
       </Match>
       <Match when={props.embed.type === "None"}> </Match>
