@@ -71,5 +71,10 @@ export const darkTheme: DefaultTheme = {
       "min-height": "120px",
       "max-height": "420px",
     },
+    emoji: {
+      small: "1.4em",
+      medium: "48px",
+      large: "96px",
+    },
   },
 };

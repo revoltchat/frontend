@@ -52,6 +52,9 @@ declare module "solid-styled-components" {
       attachments: {
         [key in `${"min" | "max"}-${"width" | "height"}`]: string;
       };
+      emoji: {
+        [key in "small" | "medium" | "large"]: string;
+      };
     };
   }
 }

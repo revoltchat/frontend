@@ -15,11 +15,14 @@ import { defaults } from "./solid-markdown/defaults";
 import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 
 import { remarkUnicodeEmoji, RenderUnicodeEmoji } from "./plugins/unicodeEmoji";
+import { remarkCustomEmoji, RenderCustomEmoji } from "./plugins/customEmoji";
 import { remarkChannels, RenderChannel } from "./plugins/channels";
 import { remarkMention, RenderMention } from "./plugins/mentions";
 import { remarkSpoiler, RenderSpoiler } from "./plugins/spoiler";
+import { remarkHtmlToText } from "./plugins/htmlToText";
 import { remarkTimestamps } from "./plugins/timestamps";
 import { RenderCodeblock } from "./plugins/Codeblock";
+import { injectEmojiSize } from "./plugins/emoji";
 
 import { handlers } from "./hast";
 import { styled } from "solid-styled-components";
@@ -31,17 +34,23 @@ const Null = () => null;
  */
 const components = {
   uemoji: RenderUnicodeEmoji,
+  cemoji: RenderCustomEmoji,
   mention: RenderMention,
   spoiler: RenderSpoiler,
   channel: RenderChannel,
   /*a: RenderAnchor,*/
-  p: styled.p`
+  p: styled.p<{ ["emoji-size"]?: "small" | "medium" | "large" }>`
     margin: 0;
 
     > code {
       padding: 1px 4px;
       flex-shrink: 0;
     }
+
+    ${(props) =>
+      props["emoji-size"]
+        ? `--emoji-size:${props.theme!.layout.emoji[props["emoji-size"]]};`
+        : ""}
   `,
   h1: styled.h1`
     margin: 0.2em 0;
@@ -131,9 +140,8 @@ const pipeline = unified()
   .use(remarkChannels)
   .use(remarkMention)
   .use(remarkUnicodeEmoji)
-  /*
-    .use(remarkEmoji)
-    .use(remarkHtmlToText)*/
+  .use(remarkCustomEmoji)
+  .use(remarkHtmlToText)
   .use(remarkRehype, {
     handlers,
   })
@@ -165,6 +173,8 @@ export function Markdown(props: MarkdownProps) {
   if (hastNode.type !== "root") {
     throw new TypeError("Expected a `root` node");
   }
+
+  injectEmojiSize(props, hastNode as any);
 
   return childrenToSolid(
     {
