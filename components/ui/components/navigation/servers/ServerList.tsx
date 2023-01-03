@@ -99,6 +99,7 @@ export const ServerList = (props: Props) => {
                       </>
                     }
                     fallback={item.name}
+                    interactive
                   />
                 </Link>
               </EntryContainer>
