@@ -11,6 +11,9 @@ const TooltipBase = styled("div", "Tooltip")`
   color: white;
   background: black;
 
+  font-size: ${(props) => props.theme!.typography.tooltip.fontSize};
+  font-weight: ${(props) => props.theme!.typography.tooltip.fontWeight};
+
   padding: ${(props) => props.theme!.gap.md};
   border-radius: ${(props) => props.theme!.borderRadius.md};
 `;
@@ -22,8 +25,9 @@ interface Props {
    */
   children: (triggerProps: {
     ref: Ref<any>;
-    onMouseEnter: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent>;
-    onMouseLeave: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent>;
+    onClick: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
+    onMouseEnter: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
+    onMouseLeave: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
   }) => JSX.Element;
 
   /**
@@ -54,13 +58,14 @@ export function Tooltip(props: Props) {
   const position = useFloating(anchor, floating, {
     placement: props.placement,
     whileElementsMounted: autoUpdate,
-    middleware: [offset(10), flip(), shift()],
+    middleware: [offset(5), flip(), shift()],
   });
 
   return (
     <>
       {props.children({
         ref: setAnchor,
+        onClick: () => setShow(false),
         onMouseEnter: () => setShow(true),
         onMouseLeave: () => setShow(false),
       })}
