@@ -35,6 +35,28 @@ declare module "solid-styled-components" {
     fonts: {
       [key in "primary"]: string;
     };
+    typography: {
+      [key in
+        | "label"
+        | "small"
+        | "username"
+        | "tooltip"
+        | "legacy-settings-title"
+        | "legacy-modal-title"
+        | "legacy-settings-section-title"
+        | "legacy-modal-title-2"
+        | "legacy-settings-description"]: {
+        [key in
+          | "margin"
+          | "fontWeight"
+          | "fontSize"
+          | "lineHeight"
+          | "textTransform"]?: number | string;
+      } & {
+        element?: "h1" | "h2" | "h3" | "h4" | "h5" | "span" | "label";
+        colour?: keyof DefaultTheme["colours"];
+      };
+    };
     transitions: {
       [key in "fast" | "medium"]: string;
     };

@@ -14,7 +14,9 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
     title: (
       <Row align="center">
         <Column grow>
-          <Typography variant="h1">{props.server.name}</Typography>
+          <Typography variant="legacy-settings-title">
+            {props.server.name}
+          </Typography>
         </Column>
         <Button compact="icon" palette="plain" onClick={onClose}>
           <BiRegularX size={36} />

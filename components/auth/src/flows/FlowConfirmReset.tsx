@@ -20,7 +20,7 @@ export default function FlowConfirmResend() {
       .getAnonymousClient()
       .api.patch("/auth/account/reset_password", {
         password,
-        token
+        token,
       });
 
     navigate("../..", { replace: true });
@@ -33,7 +33,7 @@ export default function FlowConfirmResend() {
         <Fields fields={["password"]} />
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
-      <Typography variant="subtitle">
+      <Typography variant="legacy-settings-description">
         <Link href="../..">{t("login.remembered")}</Link>
       </Typography>
     </>

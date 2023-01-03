@@ -110,7 +110,7 @@ export function Form(props: Props) {
       <Column>
         {props.children}
         <Show when={error()}>
-          <Typography variant="subtitle">
+          <Typography variant="legacy-settings-description">
             {t(`error.${error()}`, undefined, error())}
           </Typography>
         </Show>

@@ -198,10 +198,14 @@ export function Modal(props: Props) {
                 <Show when={props.title || props.description}>
                   <Title>
                     <Show when={props.title}>
-                      <Typography variant="h2">{props.title}</Typography>
+                      <Typography variant="legacy-modal-title">
+                        {props.title}
+                      </Typography>
                     </Show>
                     <Show when={props.description}>
-                      <Typography variant="h4">{props.description}</Typography>
+                      <Typography variant="legacy-modal-title-2">
+                        {props.description}
+                      </Typography>
                     </Show>
                   </Title>
                 </Show>

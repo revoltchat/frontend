@@ -79,14 +79,14 @@ function Entry(props: { channel: Channel; active: boolean }) {
               <OverflowingText>
                 <TextWithEmoji content={props.channel.name!} />
               </OverflowingText>
-              <Typography variant="subtitle">
+              <Typography variant="legacy-settings-description">
                 {q("members", props.channel.recipient_ids?.length || 0)}
               </Typography>
             </Match>
             <Match when={props.channel.channel_type === "DirectMessage"}>
               <OverflowingText>{dm?.username}</OverflowingText>
               <Show when={status}>
-                <Typography variant="subtitle">
+                <Typography variant="legacy-settings-description">
                   <OverflowingText>
                     <TextWithEmoji content={status!} />
                   </OverflowingText>
@@ -109,7 +109,7 @@ export const HomeSidebar = (props: Props) => {
   return (
     <SidebarBase>
       <p>
-        <Typography variant="h1">
+        <Typography variant="legacy-settings-title">
           {t("app.main.categories.conversations")}
         </Typography>
       </p>

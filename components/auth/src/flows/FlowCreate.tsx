@@ -44,7 +44,7 @@ export default function FlowCreate() {
         <Fields fields={["email", "password"]} />
         <Button type="submit">{t("login.register")}</Button>
       </Form>
-      <Typography variant="subtitle">
+      <Typography variant="legacy-settings-description">
         {t("login.existing")} <Link href="..">{t("login.remembered")}</Link>
       </Typography>
     </>

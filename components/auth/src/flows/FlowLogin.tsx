@@ -48,13 +48,13 @@ export default function FlowLogin() {
         <Fields fields={["email", "password"]} />
         <Button type="submit">{t("login.title")}</Button>
       </Form>
-      <Typography variant="subtitle">
+      <Typography variant="legacy-settings-description">
         {t("login.new")} <Link href="create">{t("login.create")}</Link>
       </Typography>
-      <Typography variant="subtitle">
+      <Typography variant="legacy-settings-description">
         {t("login.forgot")} <Link href="reset">{t("login.reset")}</Link>
       </Typography>
-      <Typography variant="subtitle">
+      <Typography variant="legacy-settings-description">
         {t("login.missing_verification")}{" "}
         <Link href="resend">{t("login.resend")}</Link>
       </Typography>

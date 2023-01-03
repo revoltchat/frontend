@@ -117,10 +117,14 @@ export function FlowTitle(props: {
         <Show when={props.emoji === "mail"}>
           <Mail src={envelope} />
         </Show>
-        <Typography variant="h1">{props.children}</Typography>
+        <Typography variant="legacy-settings-title">
+          {props.children}
+        </Typography>
       </Row>
       <Show when={props.subtitle}>
-        <Typography variant="subtitle">{props.subtitle}</Typography>
+        <Typography variant="legacy-settings-description">
+          {props.subtitle}
+        </Typography>
       </Show>
     </>
   );

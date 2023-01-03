@@ -168,7 +168,9 @@ render(() => {
             <Row gap="none" justify="stretch" grow>
               <Sidebar>
                 <Column>
-                  <Typography variant="h3">COMPONENTS</Typography>
+                  <Typography variant="legacy-settings-section-title">
+                    COMPONENTS
+                  </Typography>
                   <For each={Object.keys(components)}>
                     {(entry) => (
                       <Link
@@ -207,7 +209,7 @@ render(() => {
                         {(key) => (
                           <Switch
                             fallback={
-                              <Typography variant="subtitle">
+                              <Typography variant="legacy-settings-description">
                                 {key}:{" "}
                                 {JSON.stringify(propTypes()[key as never])}
                               </Typography>

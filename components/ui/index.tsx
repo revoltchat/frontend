@@ -49,6 +49,60 @@ export const darkTheme: DefaultTheme = {
   fonts: {
     primary: '"Inter", sans-serif',
   },
+  typography: {
+    label: {
+      fontWeight: 700,
+      fontSize: "0.75rem",
+      textTransform: "uppercase",
+      colour: "foreground",
+    },
+    small: {
+      fontSize: "0.7rem",
+    },
+    username: {
+      fontWeight: 600,
+    },
+    tooltip: {
+      fontWeight: 600,
+      fontSize: "13px",
+    },
+    "legacy-settings-title": {
+      element: "h1",
+      margin: 0,
+      lineHeight: "1rem",
+      fontWeight: 600,
+      fontSize: "1.2rem",
+      colour: "foreground",
+    },
+    "legacy-modal-title": {
+      element: "h2",
+      margin: 0,
+      fontWeight: 700,
+      fontSize: "0.9375rem",
+      colour: "foreground",
+    },
+    "legacy-settings-section-title": {
+      element: "h3",
+      margin: 0,
+      fontWeight: 700,
+      fontSize: "0.75rem",
+      colour: "foreground-100",
+    },
+    "legacy-modal-title-2": {
+      element: "h4",
+      margin: 0,
+      fontWeight: 500,
+      fontSize: "0.8125rem",
+      colour: "foreground-100",
+    },
+    "legacy-settings-description": {
+      element: "span",
+      margin: 0,
+      fontWeight: 500,
+      fontSize: "0.8rem",
+      colour: "foreground",
+    },
+  },
   transitions: {
     fast: ".1s ease-in-out",
     medium: ".2s ease",

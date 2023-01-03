@@ -35,7 +35,7 @@ export default function FlowResend() {
         <Fields fields={["email"]} />
         <Button type="submit">{t("login.resend")}</Button>
       </Form>
-      <Typography variant="subtitle">
+      <Typography variant="legacy-settings-description">
         <Link href="..">{t("login.remembered")}</Link>
       </Typography>
     </>

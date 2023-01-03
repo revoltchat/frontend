@@ -35,7 +35,7 @@ export default function FlowReset() {
         <Fields fields={["email"]} />
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
-      <Typography variant="subtitle">
+      <Typography variant="legacy-settings-description">
         <Link href="..">{t("login.remembered")}</Link>
       </Typography>
     </>
