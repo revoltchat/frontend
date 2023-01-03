@@ -9,6 +9,8 @@ import { Unreads, UserStatus } from "../../design/atoms/indicators";
 import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 import { User } from "revolt.js";
 import { Draggable } from "../../common/Draggable";
+import { Tooltip } from "../../floating";
+import { Column, Typography } from "../../design";
 
 /**
  * Server list container
@@ -42,21 +44,38 @@ interface Props {
 export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
-      <EntryContainer>
-        <Link href="/">
-          <Avatar
-            size={42}
-            src={
-              props.user.generateAvatarURL({ max_side: 256 }) ?? props.user.defaultAvatarURL
-            }
-            holepunch={"bottom-right"}
-            overlay={
-              <UserStatus status={props.user.status?.presence ?? "Invisible"} />
-            }
-            interactive
-          />
-        </Link>
-      </EntryContainer>
+      <Tooltip
+        placement="right"
+        content={
+          <Column gap="none">
+            <span>{props.user.username}</span>
+            <Typography variant="small">
+              {props.user.status?.presence}
+            </Typography>
+          </Column>
+        }
+      >
+        {(triggerProps) => (
+          <EntryContainer {...triggerProps}>
+            <Link href="/">
+              <Avatar
+                size={42}
+                src={
+                  props.user.generateAvatarURL({ max_side: 256 }) ??
+                  props.user.defaultAvatarURL
+                }
+                holepunch={"bottom-right"}
+                overlay={
+                  <UserStatus
+                    status={props.user.status?.presence ?? "Invisible"}
+                  />
+                }
+                interactive
+              />
+            </Link>
+          </EntryContainer>
+        )}
+      </Tooltip>
       <Draggable
         items={props.orderedServers}
         onChange={(ids) => {
@@ -64,23 +83,27 @@ export const ServerList = (props: Props) => {
         }}
       >
         {(item) => (
-          <EntryContainer>
-            <Link href={`/server/${item._id}`}>
-              <Avatar
-                size={42}
-                src={item.generateIconURL({ max_side: 256 })}
-                holepunch={item.isUnread() ? "top-right" : "none"}
-                overlay={
-                  <>
-                    <Show when={item.isUnread()}>
-                      <Unreads count={item.getMentions().length} unread />
-                    </Show>
-                  </>
-                }
-                fallback={item.name}
-              />
-            </Link>
-          </EntryContainer>
+          <Tooltip placement="right" content={item.name}>
+            {(triggerProps) => (
+              <EntryContainer {...triggerProps}>
+                <Link href={`/server/${item._id}`}>
+                  <Avatar
+                    size={42}
+                    src={item.generateIconURL({ max_side: 256 })}
+                    holepunch={item.isUnread() ? "top-right" : "none"}
+                    overlay={
+                      <>
+                        <Show when={item.isUnread()}>
+                          <Unreads count={item.getMentions().length} unread />
+                        </Show>
+                      </>
+                    }
+                    fallback={item.name}
+                  />
+                </Link>
+              </EntryContainer>
+            )}
+          </Tooltip>
         )}
       </Draggable>
     </ServerListBase>
