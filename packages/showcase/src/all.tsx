@@ -10,7 +10,14 @@ import { For } from "solid-js";
 
 import components from "./stories";
 import i18n, { I18nContext } from "@revolt/i18n";
-import { Column, darkTheme, Masks, styled, ThemeProvider } from "@revolt/ui";
+import {
+  ApplyGlobalStyles,
+  Column,
+  darkTheme,
+  Masks,
+  styled,
+  ThemeProvider,
+} from "@revolt/ui";
 
 const ElementContainer = styled.div`
   width: fit-content;
@@ -74,6 +81,7 @@ render(() => {
       <Masks />
       <I18nContext.Provider value={i18n}>
         <ThemeProvider theme={darkTheme}>
+          <ApplyGlobalStyles />
           <Column>
             <For each={Object.keys(components)}>
               {(key) =>

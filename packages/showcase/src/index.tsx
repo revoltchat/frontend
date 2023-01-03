@@ -21,6 +21,7 @@ import {
   Input,
   Checkbox,
   ComboBox,
+  ApplyGlobalStyles,
 } from "@revolt/ui";
 import { SidebarBase } from "@revolt/ui/components/navigation/channels/common";
 import { Accessor, createSignal, For, Match, Show, Switch } from "solid-js";
@@ -162,6 +163,7 @@ render(() => {
       <Masks />
       <I18nContext.Provider value={i18n}>
         <ThemeProvider theme={darkTheme}>
+          <ApplyGlobalStyles />
           <Container>
             <Row gap="none" justify="stretch" grow>
               <Sidebar>

@@ -1,7 +1,7 @@
-@import "@fontsource/open-sans/400";
-@import "@fontsource/open-sans/500";
-@import "@fontsource/open-sans/600";
-@import "@fontsource/open-sans/700";
+@import "@fontsource/inter/400";
+@import "@fontsource/inter/500";
+@import "@fontsource/inter/600";
+@import "@fontsource/inter/700";
 
 * {
     box-sizing: border-box;
@@ -9,10 +9,7 @@
 
 body {
     margin: 0;
-    font-family: "Open Sans", sans-serif;
-
-    /* TODO: inject this through GlobalTheme */
-    --emoji-size: 1.4em;
+    background: #191919;
 }
 
 #root {

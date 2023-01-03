@@ -2,7 +2,8 @@
 
 export * from "./components";
 
-import type { DefaultTheme } from "solid-styled-components";
+import { createEffect } from "solid-js";
+import { DefaultTheme, useTheme } from "solid-styled-components";
 export { ThemeProvider, styled } from "solid-styled-components";
 
 export const darkTheme: DefaultTheme = {
@@ -46,7 +47,7 @@ export const darkTheme: DefaultTheme = {
     lg: "16px",
   },
   fonts: {
-    primary: '"Open Sans", sans-serif',
+    primary: '"Inter", sans-serif',
   },
   transitions: {
     fast: ".1s ease-in-out",
@@ -78,3 +79,21 @@ export const darkTheme: DefaultTheme = {
     },
   },
 };
+
+/**
+ * Apply theme to document body
+ */
+export function ApplyGlobalStyles() {
+  const theme = useTheme();
+
+  createEffect(() => {
+    Object.assign(document.body.style, {
+      "font-family": theme.fonts.primary,
+      background: theme.colours.background,
+    });
+
+    document.body.style.setProperty("--emoji-size", theme.layout.emoji.small);
+  });
+
+  return <></>;
+}
