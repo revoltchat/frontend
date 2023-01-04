@@ -1,9 +1,8 @@
 import { useClient } from "@revolt/client";
 import { dayjs } from "@revolt/i18n";
 import { styled, Message, ScrollContainer, MessageDivider } from "@revolt/ui";
-import { API, Channel, Message as MessageInterface, Nullable } from "revolt.js";
+import { Channel, Message as MessageInterface } from "revolt.js";
 import {
-  Accessor,
   createEffect,
   createMemo,
   createSignal,
