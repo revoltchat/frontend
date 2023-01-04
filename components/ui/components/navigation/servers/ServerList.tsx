@@ -5,7 +5,10 @@ import { Component, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Link } from "@revolt/routing";
 import { Avatar } from "../../design/atoms/display/Avatar";
-import { Unreads, UserStatus } from "../../design/atoms/indicators";
+import {
+  UnreadsGraphic,
+  UserStatusGraphic,
+} from "../../design/atoms/indicators";
 import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 import { User } from "revolt.js";
 import { Draggable } from "../../common/Draggable";
@@ -66,7 +69,7 @@ export const ServerList = (props: Props) => {
                 }
                 holepunch={"bottom-right"}
                 overlay={
-                  <UserStatus
+                  <UserStatusGraphic
                     status={props.user.status?.presence ?? "Invisible"}
                   />
                 }
@@ -94,7 +97,10 @@ export const ServerList = (props: Props) => {
                     overlay={
                       <>
                         <Show when={item.isUnread()}>
-                          <Unreads count={item.getMentions().length} unread />
+                          <UnreadsGraphic
+                            count={item.getMentions().length}
+                            unread
+                          />
                         </Show>
                       </>
                     }

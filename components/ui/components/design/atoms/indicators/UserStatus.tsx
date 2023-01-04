@@ -11,7 +11,7 @@ export type Props = {
 /**
  * Overlays user status in current SVG
  */
-export const UserStatus = (props: Props) => {
+export const UserStatusGraphic = (props: Props) => {
   const theme = useTheme();
   const statusLowercase = () => props.status.toLowerCase();
 

@@ -60,6 +60,10 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 600,
       fontSize: "13px",
     },
+    "menu-button": {
+      fontWeight: 600,
+      fontSize: "0.90625rem",
+    },
     "legacy-settings-title": {
       element: "h1",
       margin: 0,

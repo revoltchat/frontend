@@ -41,6 +41,7 @@ declare module "solid-styled-components" {
         | "small"
         | "username"
         | "tooltip"
+        | "menu-button"
         | "legacy-settings-title"
         | "legacy-modal-title"
         | "legacy-settings-section-title"

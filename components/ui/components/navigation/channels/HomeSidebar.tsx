@@ -3,7 +3,7 @@ import { Channel } from "revolt.js";
 import { For, Match, Show, Switch } from "solid-js";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
-import { UserStatus } from "../../design/atoms/indicators";
+import { UserStatusGraphic } from "../../design/atoms/indicators";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column } from "../../design/layout";
 import { OverflowingText } from "../../design/layout/OverflowingText";
@@ -66,7 +66,9 @@ function Entry(props: { channel: Channel; active: boolean }) {
                 }
                 holepunch="bottom-right"
                 overlay={
-                  <UserStatus status={dm?.status?.presence ?? "Invisible"} />
+                  <UserStatusGraphic
+                    status={dm?.status?.presence ?? "Invisible"}
+                  />
                 }
               />
             </Match>

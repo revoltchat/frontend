@@ -22,7 +22,7 @@ export function generateTypography(
   variant: keyof DefaultTheme["typography"]
 ) {
   const { fontSize, fontWeight, lineHeight, margin, textTransform, colour } =
-    theme.typography[variant];
+    theme.typography[variant] ?? {};
 
   let styles = {
     fontSize,
@@ -49,7 +49,7 @@ export const Typography = (props: TypographyProps) => {
   const theme = useTheme();
   const className = css(generateTypography(theme, local.variant));
 
-  switch (theme.typography[local.variant].element) {
+  switch (theme.typography[local.variant]?.element) {
     case "h1":
       return <h1 class={className} {...others} />;
     case "h2":

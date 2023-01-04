@@ -1,6 +1,8 @@
-import { JSX, Match, Show, splitProps, Switch } from "solid-js";
+import { JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Row } from "../../layout";
+
+import { Unreads } from "../indicators";
 
 export interface Props {
   /**
@@ -40,12 +42,15 @@ export interface Props {
 const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   margin: 0 8px;
   padding: 0 8px;
+  flex-shrink: 0;
   user-select: none;
+
+  border-radius: ${({ theme }) => theme!.borderRadius.md};
   height: ${(props) => (props.size === "normal" ? 42 : 32)}px;
   gap: ${(props) => props.theme!.gap[props.size === "normal" ? "md" : "sm"]};
 
-  flex-shrink: 0;
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  font-size: ${(props) => props.theme!.typography["menu-button"].fontSize};
+  font-weight: ${(props) => props.theme!.typography["menu-button"].fontWeight};
 
   color: ${(props) =>
     props.theme!.colours[
@@ -93,17 +98,16 @@ export function MenuButton(props: Props) {
     "actions",
   ]);
 
-  // TODO: proper alert / unread styling needed
   return (
     <Base {...other} align>
       {local.icon}
       <div class="content">{local.children}</div>
       <Show when={local.alert}>
-        <Switch fallback={"!"}>
-          <Match when={typeof local.alert === "number" && local.alert > 0}>
-            {local.alert}
-          </Match>
-        </Switch>
+        <Unreads
+          count={typeof local.alert === "number" ? local.alert : 0}
+          size="0.85rem"
+          unread
+        />
       </Show>
       {local.actions && <div class="actions">{local.actions}</div>}
     </Base>

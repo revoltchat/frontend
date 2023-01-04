@@ -1,7 +1,7 @@
 import type { ComponentProps } from "solid-js";
 import type { ComponentStory } from "../../../stories";
 import { Avatar } from "./Avatar";
-import { UserStatus } from "../indicators";
+import { UserStatusGraphic } from "../indicators";
 
 import TestImage from "../../../../test-images/the-halal-design-studio-ZrJpH6W-HDs-unsplash.jpg";
 
@@ -15,7 +15,7 @@ export default {
       props: {
         interactive: true,
         holepunch: "bottom-right",
-        overlay: () => <UserStatus status="Online" />,
+        overlay: () => <UserStatusGraphic status="Online" />,
       },
     },
     {
@@ -25,7 +25,7 @@ export default {
         src: undefined,
         interactive: true,
         holepunch: "bottom-right",
-        overlay: () => <UserStatus status="Focus" />,
+        overlay: () => <UserStatusGraphic status="Focus" />,
       },
     },
   ],
