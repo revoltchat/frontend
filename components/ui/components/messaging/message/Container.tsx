@@ -130,7 +130,7 @@ export function MessageContainer(props: Props) {
             <Avatar size={36} src={props.avatar} />
           </Show>
         </Info>
-        <Content gap="none">
+        <Content gap="sm">
           <Show when={!props.tail}>
             <Row align>
               <Typography variant="username">
