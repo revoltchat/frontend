@@ -7,6 +7,7 @@ import {
   createMemo,
   createSignal,
   For,
+  on,
   onCleanup,
   splitProps,
 } from "solid-js";
@@ -76,25 +77,38 @@ function Entry(props: ListEntry) {
 export function Messages(props: { channel: Channel }) {
   const client = useClient();
 
+  // Keep track of rendered messages
   const [messages, setMessages] = createSignal<MessageInterface[]>([]);
 
-  createEffect(() => {
-    setMessages([]);
+  // Fetch messages on channel mount
+  createEffect(
+    on(
+      () => props.channel,
+      (channel) => {
+        setMessages([]);
 
-    props.channel
-      .fetchMessagesWithUsers()
-      .then(({ messages }) => setMessages(messages));
-  });
+        channel
+          .fetchMessagesWithUsers()
+          .then(({ messages }) => setMessages(messages));
+      }
+    )
+  );
 
+  // Handle incoming messages
   function onMessage(msg: MessageInterface) {
     if (msg.channel_id === props.channel._id) {
       setMessages([msg, ...messages()]);
     }
   }
 
+  // Add listener for messages
   client.addListener("message", onMessage);
   onCleanup(() => client.removeListener("message", onMessage));
 
+  // We need to cache created objects to prevent needless re-rendering
+  let objectCache = new Map();
+
+  // Determine which messages have a tail and add message dividers
   const messagesWithTail = createMemo<ListEntry[]>(() => {
     const messagesWithTail: ListEntry[] = [];
 
@@ -129,20 +143,36 @@ export function Messages(props: { channel: Channel }) {
         tail = false;
       }
 
-      messagesWithTail.push({
-        t: 0,
-        message,
-        tail,
-      });
+      messagesWithTail.push(
+        objectCache.get(`${message._id}:${tail}`) ?? {
+          t: 0,
+          message,
+          tail,
+        }
+      );
 
       if (date) {
-        messagesWithTail.push({
-          t: 1,
-          date: dayjs(date).format("LL"),
-          unread: false,
-        });
+        messagesWithTail.push(
+          objectCache.get(date) ?? {
+            t: 1,
+            date: dayjs(date).format("LL"),
+            unread: false,
+          }
+        );
       }
     });
+
+    // Flush cache
+    objectCache.clear();
+
+    // Populate cache with current objects
+    for (const object of messagesWithTail) {
+      if (object.t === 0) {
+        objectCache.set(`${object.message._id}:${object.tail}`, object);
+      } else {
+        objectCache.set(object.date, object);
+      }
+    }
 
     return messagesWithTail;
   });
