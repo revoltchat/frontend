@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import { ChannelPage } from "./channels";
+import { ChannelPage } from "./channels/ChannelPage";
 import { Route, Routes } from "@revolt/routing";
 
 import { DevelopmentPage } from "./Development";
