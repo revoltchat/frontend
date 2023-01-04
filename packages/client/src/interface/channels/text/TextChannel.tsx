@@ -21,8 +21,7 @@ export function TextChannel(props: ChannelPageProps) {
           props.channel.unread
             ? props.channel.client.unreads!.getUnread(_id)?.last_id!
             : undefined
-        ),
-      { defer: true }
+        )
     )
   );
 
@@ -36,8 +35,7 @@ export function TextChannel(props: ChannelPageProps) {
           props.channel._id,
           props.channel.last_message_id!,
           true
-        ),
-      { defer: true }
+        )
     )
   );
 
