@@ -21,14 +21,9 @@ type Props = CommonProps & {
   avatar?: string;
 
   /**
-   * Author's username
+   * Username element
    */
-  username?: string;
-
-  /**
-   * Author's role colour
-   */
-  colour?: Nullable<string>;
+  username: JSX.Element;
 
   /**
    * Message content
@@ -75,6 +70,10 @@ const Base = styled(Column as Component, "Message")<CommonProps>`
     }
 
     backdrop-filter: ${(props) => props.theme!.effects.hover};
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -133,14 +132,7 @@ export function MessageContainer(props: Props) {
         <Content gap="sm">
           <Show when={!props.tail}>
             <Row align>
-              <Typography variant="username">
-                <ColouredText
-                  colour={props.colour!}
-                  clip={props.colour?.includes("gradient")}
-                >
-                  {props.username}
-                </ColouredText>
-              </Typography>
+              {props.username}
               <InfoText>
                 <Typography variant="small">
                   <Time

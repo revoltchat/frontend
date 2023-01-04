@@ -18,6 +18,10 @@ body {
     position: fixed;
 }
 
+a {
+    cursor: pointer;
+}
+
 a, a:link, a:visited, a:hover {
     color: inherit;
 }

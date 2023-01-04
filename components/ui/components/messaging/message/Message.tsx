@@ -2,6 +2,8 @@ import { Markdown } from "@revolt/markdown";
 import { Message as MessageInterface } from "revolt.js";
 import { For, Show } from "solid-js";
 import { Column } from "../../design";
+import { Username } from "../../design/atoms/display/Username";
+import { UserCard } from "../../floating";
 import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";
@@ -14,9 +16,18 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
 
   return (
     <MessageContainer
-      username={props.message.username}
+      username={
+        <UserCard user={props.message.author!} member={props.message.member}>
+          {(triggerProps) => (
+            <Username
+              {...triggerProps}
+              username={props.message.username}
+              colour={props.message.roleColour!}
+            />
+          )}
+        </UserCard>
+      }
       avatar={props.message.avatarURL}
-      colour={props.message.roleColour}
       timestamp={props.message.createdAt}
       edited={props.message.edited ? +props.message.edited : undefined}
       tail={props.tail}
