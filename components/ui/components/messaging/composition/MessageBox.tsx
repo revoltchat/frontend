@@ -1,9 +1,15 @@
 import type { Channel } from "revolt.js";
-import { BiRegularBlock, BiRegularPlus } from "solid-icons/bi";
+import {
+  BiRegularBlock,
+  BiRegularPlus,
+  BiSolidFileGif,
+  BiSolidHappyBeaming,
+} from "solid-icons/bi";
 import { styled } from "solid-styled-components";
-import { Accessor, Match, Setter, Show, Switch } from "solid-js";
+import { Accessor, Match, Switch } from "solid-js";
 import { useTranslation } from "@revolt/i18n";
 import { Row } from "../../design/layout";
+import { CompositionPicker } from "../../floating/CompositionPicker";
 
 interface Props {
   channel: Channel;
@@ -86,20 +92,26 @@ export function MessageBox(props: Props) {
     }
   }
 
+  function sendGIFMessage(content: string) {
+    props.channel.sendMessage({ content });
+  }
+
   return (
     <Base>
-      <Spacer size="wide">
-        <Switch>
-          <Match when={!props.channel.havePermission("SendMessage")}>
+      <Switch fallback={<Spacer size="short" />}>
+        <Match when={!props.channel.havePermission("SendMessage")}>
+          <Spacer size="wide">
             <BiRegularBlock size={24} />
-          </Match>
-          <Match when={props.channel.havePermission("UploadFiles")}>
+          </Spacer>
+        </Match>
+        <Match when={props.channel.havePermission("UploadFiles")}>
+          <Spacer size="wide">
             <Button>
               <BiRegularPlus size={24} />
             </Button>
-          </Match>
-        </Switch>
-      </Spacer>
+          </Spacer>
+        </Match>
+      </Switch>
       <Switch
         fallback={
           <Input
@@ -115,7 +127,25 @@ export function MessageBox(props: Props) {
           <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
         </Match>
       </Switch>
-      <Spacer size="short" />
+      <CompositionPicker initialState sendGIFMessage={sendGIFMessage}>
+        {(triggerProps) => (
+          <>
+            <Spacer size="normal">
+              <Button onClick={triggerProps.onClickGif}>
+                <BiSolidFileGif size={24} />
+              </Button>
+            </Spacer>
+            <Spacer size="normal">
+              <Button
+                ref={triggerProps.ref}
+                onClick={triggerProps.onClickEmoji}
+              >
+                <BiSolidHappyBeaming size={24} />
+              </Button>
+            </Spacer>
+          </>
+        )}
+      </CompositionPicker>
     </Base>
   );
 }
