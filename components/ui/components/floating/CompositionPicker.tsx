@@ -4,7 +4,7 @@ import { createSignal, For, JSX, onMount, Ref, Show } from "solid-js";
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
 import { Portal } from "solid-js/web";
-import { Column } from "../design";
+import { Column, Input } from "../design";
 import { ScrollContainer } from "../common";
 
 /**
@@ -24,6 +24,8 @@ const Container = styled("div", "Picker")`
   flex-grow: 1;
   display: flex;
   height: 400px;
+  flex-direction: column;
+
   color: white;
   background-color: black;
   border-radius: ${(props) => props.theme!.borderRadius.md};
@@ -113,6 +115,17 @@ export function CompositionPicker(props: Props) {
       .then(setData);
   });
 
+  function search(query: string) {
+    fetch(
+      `https://api.gifbox.me/post/search?query=${encodeURIComponent(
+        query
+      )}&limit=25`
+    )
+      .then((x) => x.json())
+      .then((x) => x.hits)
+      .then(setData);
+  }
+
   return (
     <>
       {props.children({
@@ -139,6 +152,15 @@ export function CompositionPicker(props: Props) {
                 role="tooltip"
               >
                 <Container>
+                  <Input
+                    placeholder="search for gifs :)"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        search(e.currentTarget.value);
+                      }
+                    }}
+                  />
                   <GifList>
                     <For each={data()}>
                       {(entry) => (
