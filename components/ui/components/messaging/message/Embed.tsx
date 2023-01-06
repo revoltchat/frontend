@@ -17,7 +17,11 @@ export function Embed(props: {
   proxyFile: (url: string) => string | undefined;
 }) {
   const isGIF =
-    props.embed.type === "Website" && props.embed.special?.type === "GIF";
+    props.embed.type === "Website" &&
+    (props.embed.special?.type === "GIF" ||
+      /* hack in gifbox support */ /gifbox\.me\/view/g.test(
+        props.embed.url ?? ""
+      ));
 
   const video =
     (props.embed.type === "Video"

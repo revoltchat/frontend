@@ -8,11 +8,25 @@ import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";
 
+const RE_URL =
+  /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+
 /**
  * Render a Message with or without a tail
  */
 export function Message(props: { message: MessageInterface; tail?: boolean }) {
   const baseUrl = props.message.client.configuration?.features.autumn.url!;
+
+  const isOnlyGIF =
+    props.message.embeds &&
+    props.message.embeds.length === 1 &&
+    props.message.embeds[0].type === "Website" &&
+    (props.message.embeds[0].special?.type === "GIF" ||
+      /* hack in gifbox support */ /gifbox\.me\/view/g.test(
+        props.message.embeds[0].url ?? ""
+      )) &&
+    props.message.content &&
+    !props.message.content.replace(RE_URL, "").length;
 
   return (
     <MessageContainer
@@ -40,7 +54,7 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
       }
     >
       <Column gap="sm">
-        <Show when={props.message.content}>
+        <Show when={props.message.content && !isOnlyGIF}>
           <Markdown content={props.message.content!} />
         </Show>
         <Show when={props.message.attachments}>
