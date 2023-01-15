@@ -3,6 +3,7 @@ import { styled } from "solid-styled-components";
 import { createSignal, JSX, Ref, Show } from "solid-js";
 import { autoUpdate, flip, offset, Placement, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
+import { generateTypographyCSS } from "../design/atoms/display/Typography";
 
 /**
  * Base element for the tooltip
@@ -10,9 +11,7 @@ import { Motion, Presence } from "@motionone/solid";
 const TooltipBase = styled("div", "Tooltip")`
   color: white;
   background: black;
-
-  font-size: ${(props) => props.theme!.typography.tooltip.fontSize};
-  font-weight: ${(props) => props.theme!.typography.tooltip.fontWeight};
+  ${(props) => generateTypographyCSS(props.theme!, "tooltip")};
 
   padding: ${(props) => props.theme!.gap.md};
   border-radius: ${(props) => props.theme!.borderRadius.md};

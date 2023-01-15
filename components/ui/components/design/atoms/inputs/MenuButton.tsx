@@ -1,6 +1,7 @@
 import { JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Row } from "../../layout";
+import { generateTypographyCSS } from "../display/Typography";
 
 import { Unreads } from "../indicators";
 
@@ -49,8 +50,7 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   height: ${(props) => (props.size === "normal" ? 42 : 32)}px;
   gap: ${(props) => props.theme!.gap[props.size === "normal" ? "md" : "sm"]};
 
-  font-size: ${(props) => props.theme!.typography["menu-button"].fontSize};
-  font-weight: ${(props) => props.theme!.typography["menu-button"].fontWeight};
+  ${(props) => generateTypographyCSS(props.theme!, "menu-button")};
 
   color: ${(props) =>
     props.theme!.colours[

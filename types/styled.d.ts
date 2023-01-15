@@ -38,11 +38,12 @@ declare module "solid-styled-components" {
     typography: {
       [key in
         | "label"
-        | "small"
         | "username"
         | "tooltip"
+        | "category"
         | "menu-button"
         | "legacy-settings-title"
+        | "small"
         | "legacy-modal-title"
         | "legacy-settings-section-title"
         | "legacy-modal-title-2"

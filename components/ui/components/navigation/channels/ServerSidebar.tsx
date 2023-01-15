@@ -89,15 +89,16 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
   cursor: pointer;
   user-select: none;
   text-transform: uppercase;
+  transition: ${(props) => props.theme!.transitions.fast} all;
 
   color: ${(props) => props.theme!.colours["foreground-200"]};
 
   &:hover {
-    color: ${(props) => props.theme!.colours["foreground-100"]};
+    filter: brightness(1.1);
   }
 
   &:active {
-    color: ${(props) => props.theme!.colours["foreground"]};
+    filter: brightness(1.2);
   }
 
   svg {
@@ -134,7 +135,7 @@ function Category(props: {
           gap="sm"
         >
           <BiSolidChevronRight size={12} />
-          <Typography variant="small">{props.category.title}</Typography>
+          <Typography variant="category">{props.category.title}</Typography>
         </CategoryBase>
       </Show>
       <For each={channels()}>

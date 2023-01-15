@@ -50,15 +50,16 @@ export const darkTheme: DefaultTheme = {
       textTransform: "uppercase",
       colour: "foreground",
     },
-    small: {
-      fontSize: "0.7rem",
-    },
     username: {
       fontWeight: 600,
     },
     tooltip: {
       fontWeight: 600,
       fontSize: "13px",
+    },
+    category: {
+      fontWeight: 500,
+      fontSize: "0.7rem",
     },
     "menu-button": {
       fontWeight: 600,
@@ -71,6 +72,9 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 600,
       fontSize: "1.2rem",
       colour: "foreground",
+    },
+    small: {
+      fontSize: "0.7rem",
     },
     "legacy-modal-title": {
       element: "h2",
