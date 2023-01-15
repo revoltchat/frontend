@@ -13,8 +13,6 @@
     "showcase": "cd packages/showcase && pnpm run dev"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "engines": {
     "node": ">=16",
     "pnpm": ">=6"

@@ -1,15 +1,12 @@
 {
   "name": "test-runner",
   "version": "1.0.0",
-  "description": "",
   "main": "index.tsx",
   "scripts": {
     "test": "vitest -c ./packages/test-runner/vitest.config.ts -r ../..",
     "coverage": "vitest -c ./packages/test-runner/vitest.config.ts -r ../.. run --coverage"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "private": true,
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

@@ -1,14 +1,11 @@
 {
   "name": "@revolt/modal",
   "version": "1.0.0",
-  "description": "",
   "main": "index.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "private": true,
   "dependencies": {
     "@revolt/client": "workspace:^1.0.0",

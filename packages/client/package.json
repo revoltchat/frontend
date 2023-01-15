@@ -1,7 +1,6 @@
 {
   "name": "client",
   "version": "0.0.0",
-  "description": "",
   "scripts": {
     "start": "vite",
     "setup:assets": "node scripts/copyAssets.mjs",
@@ -10,7 +9,6 @@
     "typecheck": "tsc --noEmit",
     "serve": "vite preview"
   },
-  "license": "MIT",
   "devDependencies": {
     "@types/lodash.isequal": "^4.5.5",
     "revolt.js": "workspace:^6.0.18",

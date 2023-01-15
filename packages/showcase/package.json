@@ -1,7 +1,6 @@
 {
   "name": "showcase",
   "version": "1.0.0",
-  "description": "",
   "main": "index.tsx",
   "scripts": {
     "start": "vite",
@@ -12,8 +11,6 @@
     "exists": "node scripts/exists.mjs"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "private": true,
   "dependencies": {
     "@revolt/i18n": "workspace:^1.0.0",
