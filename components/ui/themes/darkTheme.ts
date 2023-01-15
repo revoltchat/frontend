@@ -65,6 +65,10 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 600,
       fontSize: "0.90625rem",
     },
+    reply: {
+      fontSize: "0.8rem",
+      colour: "foreground-100",
+    },
     "legacy-settings-title": {
       element: "h1",
       margin: 0,

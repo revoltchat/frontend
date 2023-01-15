@@ -135,7 +135,10 @@ export function Messages(props: { channel: Channel }) {
         if (
           message.author_id !== next.author_id ||
           Math.abs(btime - atime) >= 420000 ||
-          !isEqual(message.masquerade, next.masquerade)
+          !isEqual(message.masquerade, next.masquerade) ||
+          message.system ||
+          next.system ||
+          (message.reply_ids && message.reply_ids.length)
         ) {
           tail = false;
         }

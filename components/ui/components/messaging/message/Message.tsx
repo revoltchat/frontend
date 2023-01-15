@@ -1,12 +1,13 @@
 import { Markdown } from "@revolt/markdown";
 import { Message as MessageInterface } from "revolt.js";
-import { For, Show } from "solid-js";
+import { For, onMount, Show } from "solid-js";
 import { Column } from "../../design";
 import { Username } from "../../design/atoms/display/Username";
 import { UserCard } from "../../floating";
 import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";
+import { MessageReply } from "./MessageReply";
 
 /**
  * Render a Message with or without a tail
@@ -34,7 +35,17 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
       header={
         <Show when={props.message.reply_ids}>
           <For each={props.message.reply_ids}>
-            {(reply_id) => <div>{reply_id}</div>}
+            {(reply_id) => {
+              const message = () => props.message.client.messages.get(reply_id);
+
+              onMount(() => {
+                if (!message()) {
+                  props.message.channel!.fetchMessage(reply_id);
+                }
+              });
+
+              return <MessageReply message={message()} />;
+            }}
           </For>
         </Show>
       }
@@ -42,6 +53,9 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
       <Column gap="sm">
         <Show when={props.message.content}>
           <Markdown content={props.message.content!} />
+        </Show>
+        <Show when={props.message.system}>
+          {props.message.asSystemMessage.type}
         </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>
