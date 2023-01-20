@@ -1,3 +1,4 @@
+import { modalController } from "@revolt/modal";
 import { makeAutoObservable } from "mobx";
 import { API, Client } from "revolt.js";
 
@@ -193,15 +194,14 @@ export default class Session {
                     );
 
                     if (onboarding) {
-                        // TODO
-                        /* modalController.push({
+                        modalController.push({
                             type: "onboarding",
                             callback: async (username: string) =>
                                 this.client!.completeOnboarding(
                                     { username },
                                     false,
                                 ).then(() => this.continueLogin(data)),
-                        }); */
+                        });
 
                         return;
                     }

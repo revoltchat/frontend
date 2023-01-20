@@ -20,6 +20,7 @@ import kick_member from "./KickMember";
 import mfa_enable_totp from "./MFAEnableTOTP";
 import mfa_flow from "./MFAFlow";
 import mfa_recovery from "./MFARecovery";
+import onboarding from "./Onboarding";
 import server_info from "./ServerInfo";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
@@ -41,6 +42,7 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   mfa_enable_totp,
   mfa_flow,
   mfa_recovery,
+  onboarding,
   server_info,
   ...({} as any),
 };
