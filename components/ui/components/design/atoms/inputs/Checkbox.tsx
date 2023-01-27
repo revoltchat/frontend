@@ -1,4 +1,4 @@
-import { JSX, Show, splitProps } from "solid-js";
+import { createSignal, JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 import { BiRegularCheck } from "solid-icons/bi";
 
@@ -105,6 +105,7 @@ export type Props = {
   readonly title?: JSX.Element;
   readonly description?: JSX.Element;
 
+  readonly name?: string;
   readonly value?: boolean;
   readonly onChange?: (state: boolean) => void;
 } & Omit<
@@ -117,9 +118,13 @@ export function Checkbox(props: Props) {
     "disabled",
     "title",
     "description",
+    "name",
     "value",
     "onChange",
   ]);
+
+  const [controlledValue, setControlledValue] = createSignal(false);
+  const checked = () => local.value ?? controlledValue();
 
   return (
     <Base {...others}>
@@ -134,11 +139,16 @@ export function Checkbox(props: Props) {
         </Show>
       </Content>
       <input
+        name={local.name}
         type="checkbox"
-        checked={local.value}
-        onChange={() => !local.disabled && local.onChange?.(!local.value)}
+        checked={checked()}
+        onChange={() =>
+          typeof local.value !== "undefined"
+            ? !local.disabled && local.onChange?.(!local.value)
+            : setControlledValue((v) => !v)
+        }
       />
-      <Checkmark value={local.value} class="checkmark">
+      <Checkmark value={checked()} class="checkmark">
         <BiRegularCheck size={20} class="check" />
       </Checkmark>
     </Base>

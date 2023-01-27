@@ -2,12 +2,12 @@ import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { createSignal, For, JSX, Show } from "solid-js";
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
-import { Column, FormGroup, Input, Typography } from "@revolt/ui";
+import { Checkbox, Column, FormGroup, Input, Typography } from "@revolt/ui";
 
 /**
  * Available field types
  */
-type Field = "email" | "password";
+type Field = "email" | "password" | "new-password" | "log-out";
 
 /**
  * Properties to apply to fields
@@ -26,6 +26,16 @@ const useFieldConfiguration = () => {
       type: "password",
       name: () => t("login.password"),
       placeholder: () => t("login.enter.password"),
+    },
+    "new-password": {
+      minLength: 8,
+      type: "password",
+      autocomplete: "new-password",
+      name: () => t("login.new_password"),
+      placeholder: () => t("login.enter.new_password"),
+    },
+    "log-out": {
+      name: () => t("login.log_out_other"),
     },
   };
 };
@@ -47,15 +57,24 @@ export function Fields(props: FieldProps) {
     <For each={props.fields}>
       {(field) => (
         <FormGroup>
-          <Typography variant="label">
-            {fieldConfiguration[field].name()}
-          </Typography>
-          <Input
-            required
-            {...fieldConfiguration[field]}
-            name={field}
-            placeholder={fieldConfiguration[field].placeholder()}
-          />
+          {field === "log-out" ? (
+            <Checkbox
+              name="log-out"
+              title={fieldConfiguration["log-out"].name()}
+            />
+          ) : (
+            <>
+              <Typography variant="label">
+                {fieldConfiguration[field].name()}
+              </Typography>
+              <Input
+                required
+                {...fieldConfiguration[field]}
+                name={field}
+                placeholder={fieldConfiguration[field].placeholder()}
+              />
+            </>
+          )}
         </FormGroup>
       )}
     </For>

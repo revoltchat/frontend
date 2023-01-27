@@ -14,13 +14,15 @@ export default function FlowConfirmResend() {
   const navigate = useNavigate();
 
   async function reset(data: FormData) {
-    const password = data.get("password") as string;
+    const password = data.get("new-password") as string;
+    const remove_sessions = !!(data.get("log-out") as "on" | undefined);
 
     await clientController
       .getAnonymousClient()
       .api.patch("/auth/account/reset_password", {
         password,
         token,
+        remove_sessions,
       });
 
     navigate("../..", { replace: true });
@@ -30,7 +32,7 @@ export default function FlowConfirmResend() {
     <>
       <FlowTitle>{t("login.reset")}</FlowTitle>
       <Form onSubmit={reset}>
-        <Fields fields={["password"]} />
+        <Fields fields={["new-password", "log-out"]} />
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
       <Typography variant="legacy-settings-description">
