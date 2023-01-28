@@ -4,7 +4,10 @@ import { styled } from "solid-styled-components";
 import { ColouredText } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
-import { Typography } from "../../design/atoms/display/Typography";
+import {
+  generateTypographyCSS,
+  Typography,
+} from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
 
 interface CommonProps {
@@ -34,6 +37,11 @@ type Props = CommonProps & {
    * Message header
    */
   header?: JSX.Element;
+
+  /**
+   * Message info line
+   */
+  info?: JSX.Element;
 
   /**
    * Timestamp message was sent at
@@ -92,14 +100,16 @@ const Info = styled("div", "Info")<Pick<CommonProps, "tail">>`
  * Right-side message content
  */
 const Content = styled(Column)`
+  gap: 3px;
   min-width: 0;
 `;
 
 /**
  * Information text
  */
-const InfoText = styled.div`
+const InfoText = styled(Row)`
   color: ${(props) => props.theme!.colours["foreground-400"]};
+  ${(props) => generateTypographyCSS(props.theme!, "small")}
 `;
 
 /**
@@ -129,21 +139,20 @@ export function MessageContainer(props: Props) {
             <Avatar size={36} src={props.avatar} />
           </Show>
         </Info>
-        <Content gap="sm">
+        <Content>
           <Show when={!props.tail}>
-            <Row align>
+            <Row gap="sm" align>
               {props.username}
-              <InfoText>
-                <Typography variant="small">
-                  <Time
-                    value={props.timestamp}
-                    format="calendar"
-                    referenceTime={props._referenceTime}
-                  />{" "}
-                  <Show when={props.edited}>
-                    <span>(edited)</span>
-                  </Show>
-                </Typography>
+              <InfoText gap="sm" align>
+                <Show when={props.info}>{props.info}</Show>
+                <Time
+                  value={props.timestamp}
+                  format="calendar"
+                  referenceTime={props._referenceTime}
+                />
+                <Show when={props.edited}>
+                  <span>(edited)</span>
+                </Show>
               </InfoText>
             </Row>
           </Show>

@@ -6,3 +6,4 @@ export { Initials } from "./Initials";
 export { Time } from "./Time";
 export { Typography } from "./Typography";
 export { Modal } from "./Modal";
+export { TextBadge } from "./TextBadge";

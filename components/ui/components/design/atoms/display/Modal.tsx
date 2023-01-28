@@ -178,7 +178,7 @@ export function Modal(props: Props) {
     (props.actions ? props.actions.length > 0 : false);
 
   return (
-    <Portal>
+    <Portal mount={document.getElementById("floating")!}>
       <Base
         show={props.show}
         onClick={() => !props.nonDismissable && props.onClose?.()}

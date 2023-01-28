@@ -1,9 +1,12 @@
+import { useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
 import { Message as MessageInterface } from "revolt.js";
-import { For, onMount, Show } from "solid-js";
+import { BiRegularLink, BiSolidBot, BiSolidShield } from "solid-icons/bi";
+import { For, Match, onMount, Show, Switch, useTransition } from "solid-js";
 import { Column } from "../../design";
+import { TextBadge } from "../../design/atoms/display/TextBadge";
 import { Username } from "../../design/atoms/display/Username";
-import { UserCard } from "../../floating";
+import { Tooltip, UserCard } from "../../floating";
 import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";
@@ -14,6 +17,7 @@ import { MessageReply } from "./MessageReply";
  */
 export function Message(props: { message: MessageInterface; tail?: boolean }) {
   const baseUrl = props.message.client.configuration?.features.autumn.url!;
+  const t = useTranslation();
 
   return (
     <MessageContainer
@@ -48,6 +52,39 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
             }}
           </For>
         </Show>
+      }
+      info={
+        <Switch fallback={<div />}>
+          <Match
+            when={
+              props.message.masquerade &&
+              props.message.author_id === "01FHGJ3NPP7XANQQH8C2BE44ZY"
+            }
+          >
+            <Tooltip
+              content={t("app.main.channel.bridged")}
+              placement="top"
+              aria
+            >
+              {(triggerProps) => <BiRegularLink {...triggerProps} size={16} />}
+            </Tooltip>
+          </Match>
+          <Match when={props.message.author?.privileged}>
+            <Tooltip content={t("app.main.channel.team")} placement="top" aria>
+              {(triggerProps) => <BiSolidShield {...triggerProps} size={16} />}
+            </Tooltip>
+          </Match>
+          <Match when={props.message.author?.bot}>
+            <Tooltip content={t("app.main.channel.bot")} placement="top" aria>
+              {(triggerProps) => <BiSolidBot {...triggerProps} size={16} />}
+            </Tooltip>
+          </Match>
+          {/* inline status <Match
+            when={props.message.author_id === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}
+          >
+            revolt &middot;{" "}
+          </Match>*/}
+        </Switch>
       }
     >
       <Column gap="sm">

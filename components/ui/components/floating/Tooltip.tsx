@@ -4,6 +4,7 @@ import { createSignal, JSX, Ref, Show } from "solid-js";
 import { autoUpdate, flip, offset, Placement, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
 import { generateTypographyCSS } from "../design/atoms/display/Typography";
+import { Portal } from "solid-js/web";
 
 /**
  * Base element for the tooltip
@@ -24,9 +25,10 @@ interface Props {
    */
   children: (triggerProps: {
     ref: Ref<any>;
-    onClick: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
-    onMouseEnter: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
-    onMouseLeave: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
+    onClick: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;
+    onMouseEnter: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;
+    onMouseLeave: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;
+    "aria-label"?: string;
   }) => JSX.Element;
 
   /**
@@ -43,6 +45,12 @@ interface Props {
    * Content of the tooltip
    */
   content: JSX.Element;
+
+  /**
+   * Copy content to aria label field
+   * **Must be a string!**
+   */
+  aria?: boolean;
 }
 
 /**
@@ -67,29 +75,32 @@ export function Tooltip(props: Props) {
         onClick: () => setShow(false),
         onMouseEnter: () => setShow(true),
         onMouseLeave: () => setShow(false),
+        "aria-label": props.aria ? (props.content as string) : undefined,
       })}
-      <Presence>
-        <Show when={show()}>
-          <Motion
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1, easing: [0.87, 0, 0.13, 1] }}
-          >
-            <TooltipBase
-              ref={setFloating}
-              style={{
-                position: position.strategy,
-                top: `${position.y ?? 0}px`,
-                left: `${position.x ?? 0}px`,
-              }}
-              role="tooltip"
+      <Portal mount={document.getElementById("floating")!}>
+        <Presence>
+          <Show when={show()}>
+            <Motion
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1, easing: [0.87, 0, 0.13, 1] }}
             >
-              {props.content}
-            </TooltipBase>
-          </Motion>
-        </Show>
-      </Presence>
+              <TooltipBase
+                ref={setFloating}
+                style={{
+                  position: position.strategy,
+                  top: `${position.y ?? 0}px`,
+                  left: `${position.x ?? 0}px`,
+                }}
+                role="tooltip"
+              >
+                {props.content}
+              </TooltipBase>
+            </Motion>
+          </Show>
+        </Presence>
+      </Portal>
     </>
   );
 }
