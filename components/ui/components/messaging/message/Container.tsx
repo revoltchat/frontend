@@ -1,7 +1,5 @@
-import { Nullable } from "revolt.js";
 import { Component, JSX, Show } from "solid-js";
 import { styled } from "solid-styled-components";
-import { ColouredText } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
 import {

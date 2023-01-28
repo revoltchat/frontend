@@ -2,7 +2,7 @@ import { Message } from "revolt.js";
 import { Match, Switch } from "solid-js";
 import { useTranslation } from "@revolt/i18n";
 import { styled } from "solid-styled-components";
-import { Avatar, ColouredText, OverflowingText } from "../../design";
+import { Avatar, ColouredText, OverflowingText, Row } from "../../design";
 import { Show } from "solid-js";
 import { BiSolidFile } from "solid-icons/bi";
 import { TextWithEmoji } from "@revolt/markdown";
@@ -47,12 +47,21 @@ const Attachments = styled.em`
   color: ${(props) => props.theme!.colours["foreground-200"]};
 `;
 
+/**
+ * Information text
+ */
+const InfoText = styled.a`
+  color: ${(props) => props.theme!.colours["foreground-400"]};
+`;
+
 export function MessageReply(props: Props) {
   const t = useTranslation();
 
   return (
     <Base>
-      <Switch fallback={t("app.main.channel.misc.failed_load")}>
+      <Switch
+        fallback={<InfoText>{t("app.main.channel.misc.not_loaded")}</InfoText>}
+      >
         <Match when={props.message?.author?.relationship === "Blocked"}>
           {t("app.main.channel.misc.blocked_user")}
         </Match>
