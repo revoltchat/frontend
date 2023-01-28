@@ -12,6 +12,7 @@ import {
   splitProps,
 } from "solid-js";
 import isEqual from "lodash.isequal";
+import { state } from "@revolt/state";
 
 /**
  * Base list container

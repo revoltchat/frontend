@@ -1,11 +1,17 @@
 import { State } from "..";
 import { AbstractStore } from ".";
+import { API } from "revolt.js";
 
-interface DraftData {
+export interface DraftData {
   /**
    * Message content
    */
-  content: string;
+  content?: string;
+
+  /**
+   * Message IDs being replied to
+   */
+  replies?: API.Reply[];
 }
 
 export type TypeDraft = {
@@ -31,12 +37,32 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   clean(input: Partial<TypeDraft>): TypeDraft {
     let drafts: TypeDraft["drafts"] = {};
 
-    for (const channelId of Object.keys(input)) {
-      const entry = input.drafts?.[channelId];
-      if (typeof entry?.content === "string") {
-        drafts[channelId] = {
-          content: entry!.content,
-        };
+    const messageDrafts = input.drafts;
+    if (messageDrafts) {
+      for (const channelId of Object.keys(messageDrafts)) {
+        const entry = messageDrafts?.[channelId];
+        const draft: DraftData = {};
+
+        if (typeof entry?.content === "string" && entry.content) {
+          draft.content = entry.content;
+        }
+
+        if (
+          Array.isArray(entry?.replies) &&
+          entry!.replies.length &&
+          !entry!.replies.find(
+            (x) =>
+              typeof x !== "object" ||
+              typeof x.id !== "string" ||
+              typeof x.mention !== "boolean"
+          )
+        ) {
+          draft.replies = entry!.replies;
+        }
+
+        if (Object.keys(draft).length) {
+          drafts[channelId] = draft;
+        }
       }
     }
 
@@ -49,8 +75,8 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * Get draft for a channel.
    * @param channelId Channel ID
    */
-  getDraft(channelId: string) {
-    return this.get().drafts[channelId];
+  getDraft(channelId: string): DraftData {
+    return this.get().drafts[channelId] ?? {};
   }
 
   /**
@@ -67,7 +93,14 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param channelId Channel ID
    * @param data Draft content
    */
-  setDraft(channelId: string, data?: DraftData) {
+  setDraft(
+    channelId: string,
+    data?: DraftData | ((data: DraftData) => DraftData)
+  ) {
+    if (typeof data === "function") {
+      data = data(this.getDraft(channelId));
+    }
+
     if (typeof data === "undefined") {
       return this.clearDraft(channelId);
     }
@@ -80,8 +113,10 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param channelId Channel ID
    */
   clearDraft(channelId: string) {
-    const { [channelId]: _, ...drafts } = this.get().drafts;
-    this.set("drafts", drafts);
+    this.setDraft(channelId, {
+      content: "",
+      replies: [],
+    });
   }
 
   /**

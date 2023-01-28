@@ -1,4 +1,4 @@
-import { Message } from "revolt.js";
+import type { Message } from "revolt.js";
 import { Match, Switch } from "solid-js";
 import { useTranslation } from "@revolt/i18n";
 import { styled } from "solid-styled-components";
@@ -9,24 +9,39 @@ import { TextWithEmoji } from "@revolt/markdown";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
 
 interface Props {
+  /**
+   * Message that was replied to
+   */
   message?: Message;
+
+  /**
+   * Whether it was mentioned
+   */
   mention?: boolean;
+
+  /**
+   * Whether to hide the left side reply indicator
+   */
+  noDecorations?: boolean;
 }
 
-export const Base = styled("div", "Reply")`
+export const Base = styled("div", "Reply")<Pick<Props, "noDecorations">>`
   min-width: 0;
+  flex-grow: 1;
   display: flex;
   user-select: none;
   align-items: center;
 
-  margin-inline-end: 12px;
-  margin-inline-start: 30px;
+  margin-inline-end: ${(props) => (props.noDecorations ? "0" : "12px")};
+  margin-inline-start: ${(props) => (props.noDecorations ? "0" : "30px")};
 
   ${(props) => generateTypographyCSS(props.theme!, "reply")}
 
   gap: ${(props) => props.theme!.gap.md};
 
   &::before {
+    display: ${(props) => (props.noDecorations ? "none" : "block")};
+
     content: "";
     width: 22px;
     height: 8px;
@@ -58,7 +73,7 @@ export function MessageReply(props: Props) {
   const t = useTranslation();
 
   return (
-    <Base>
+    <Base noDecorations={props.noDecorations}>
       <Switch
         fallback={<InfoText>{t("app.main.channel.misc.not_loaded")}</InfoText>}
       >
@@ -67,12 +82,14 @@ export function MessageReply(props: Props) {
         </Match>
         <Match when={props.message}>
           <Avatar src={props.message!.avatarURL} size={14} />
-          <ColouredText
-            colour={props.message!.roleColour!}
-            clip={props.message!.roleColour?.includes("gradient")}
-          >
-            {props.message!.username}
-          </ColouredText>
+          <OverflowingText>
+            <ColouredText
+              colour={props.message!.roleColour!}
+              clip={props.message!.roleColour?.includes("gradient")}
+            >
+              {props.message!.username}
+            </ColouredText>
+          </OverflowingText>
           <Show when={props.message!.attachments}>
             <Attachments>
               <BiSolidFile size={16} />
