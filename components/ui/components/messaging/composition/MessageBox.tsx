@@ -6,11 +6,35 @@ import { useTranslation } from "@revolt/i18n";
 import { Row } from "../../design/layout";
 
 interface Props {
+  /**
+   * Ref to the input element
+   */
   ref: HTMLTextAreaElement | undefined;
+
+  /**
+   * Current channel
+   */
   channel: Channel;
+
+  /**
+   * Text content
+   */
   content: Accessor<string>;
+
+  /**
+   * Handle message send
+   */
   sendMessage: () => void;
+
+  /**
+   * Update text content
+   * @param v New content
+   */
   setContent: (v: string) => void;
+
+  /**
+   * Trigger new file button
+   */
   addFile: () => void;
 }
 
@@ -79,6 +103,10 @@ const Spacer = styled("div")<{ size: "short" | "normal" | "wide" }>`
 export function MessageBox(props: Props) {
   const t = useTranslation();
 
+  /**
+   * Handle key presses in input box
+   * @param event Keyboard Event
+   */
   function onKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && props.ref) {
       event.preventDefault();
