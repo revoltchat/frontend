@@ -10,6 +10,7 @@ interface Props {
   content: Accessor<string>;
   sendMessage: () => void;
   setContent: (v: string) => void;
+  addFile: () => void;
 }
 
 /**
@@ -93,7 +94,7 @@ export function MessageBox(props: Props) {
             <BiRegularBlock size={24} />
           </Match>
           <Match when={props.channel.havePermission("UploadFiles")}>
-            <Button>
+            <Button onClick={props.addFile}>
               <BiRegularPlus size={24} />
             </Button>
           </Match>

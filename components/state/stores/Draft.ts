@@ -12,6 +12,11 @@ export interface DraftData {
    * Message IDs being replied to
    */
   replies?: API.Reply[];
+
+  /**
+   * IDs of cached files
+   */
+  files?: string[];
 }
 
 export type TypeDraft = {
@@ -22,8 +27,11 @@ export type TypeDraft = {
 };
 
 export class Draft extends AbstractStore<"draft", TypeDraft> {
+  private fileCache: Record<string, File>;
+
   constructor(state: State) {
     super(state, "draft");
+    this.fileCache = {};
   }
 
   hydrate(): void {}
@@ -113,9 +121,15 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param channelId Channel ID
    */
   clearDraft(channelId: string) {
+    const files = this.getDraft(channelId)?.files ?? [];
+    for (const file of files) {
+      delete this.fileCache[file];
+    }
+
     this.setDraft(channelId, {
       content: "",
       replies: [],
+      files: [],
     });
   }
 
@@ -124,5 +138,39 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   reset() {
     this.set("drafts", {});
+  }
+
+  /**
+   * Add a file to a draft
+   * @param channelId Channel ID
+   * @param file File to add
+   */
+  addFile(channelId: string, file: File) {
+    const id = crypto.randomUUID();
+    this.fileCache[id] = file;
+    this.setDraft(channelId, (data) => ({
+      files: [...(data.files ?? []), id],
+    }));
+  }
+
+  /**
+   * Remove a file from a draft
+   * @param channelId Channel ID
+   * @param fileId File ID
+   */
+  removeFile(channelId: string, fileId: string) {
+    delete this.fileCache[fileId];
+    this.setDraft(channelId, (data) => ({
+      files: data.files?.filter((entry) => entry !== fileId),
+    }));
+  }
+
+  /**
+   * Get cache File by its ID
+   * @param fileId File ID
+   * @returns Cached File
+   */
+  getFile(fileId: string) {
+    return this.fileCache[fileId];
   }
 }
