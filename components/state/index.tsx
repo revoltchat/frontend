@@ -9,12 +9,18 @@ import { Locale } from "./stores/Locale";
 import { AbstractStore, Store } from "./stores";
 
 /**
+ * Introduce some delay before writing state to disk
+ */
+const DISK_WRITE_WAIT_MS = 1200;
+
+/**
  * Global application state
  */
 export class State {
   // internal data management
   private store: Store;
   private setStore: SetStoreFunction<Store>;
+  private writeQueue: Record<string, number>;
 
   // define all stores
   auth: Auth = new Auth(this);
@@ -55,6 +61,7 @@ export class State {
 
     this.store = store;
     this.setStore = setStore;
+    this.writeQueue = {};
   }
 
   /**
@@ -64,11 +71,27 @@ export class State {
     // pass the data to the store
     (this.setStore as any)(...args);
 
-    // write the entire key to storage
-    localforage.setItem(
-      args[0],
-      JSON.parse(JSON.stringify((this.store as any)[args[0]]))
-    );
+    // resolve key
+    const key = args[0];
+
+    // remove existing queued task if it exists
+    if (this.writeQueue[key]) {
+      clearTimeout(this.writeQueue[key]);
+    }
+
+    // queue for writing to disk
+    this.writeQueue[key] = setTimeout(() => {
+      // remove from write queue
+      delete this.writeQueue[key];
+
+      // write the entire key to storage
+      localforage.setItem(
+        args[0],
+        JSON.parse(JSON.stringify((this.store as any)[args[0]]))
+      );
+
+      console.info("Wrote state to disk.");
+    }, DISK_WRITE_WAIT_MS) as unknown as number;
   };
 
   /**
