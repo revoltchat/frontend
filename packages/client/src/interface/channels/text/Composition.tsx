@@ -13,6 +13,12 @@ interface Props {
  * Message composition engine
  */
 export function MessageComposition(props: Props) {
+  /**
+   * Reference to the message input box
+   */
+  let ref: HTMLTextAreaElement | undefined;
+
+  // Resolve the client and current draft
   const client = useClient();
   const draft = () => state.draft.getDraft(props.channel._id);
 
@@ -44,9 +50,12 @@ export function MessageComposition(props: Props) {
           replies: data.replies!.slice(0, data.replies!.length - 1),
         }));
       }
+    } else {
+      ref?.focus();
     }
   }
 
+  // Bind onKeyDown to the document
   document.addEventListener("keydown", onKeyDown);
   onCleanup(() => document.removeEventListener("keydown", onKeyDown));
 
@@ -80,6 +89,7 @@ export function MessageComposition(props: Props) {
         }}
       </For>
       <MessageBox
+        ref={ref}
         channel={props.channel}
         content={() => draft()?.content ?? ""}
         setContent={(content) => set({ content })}

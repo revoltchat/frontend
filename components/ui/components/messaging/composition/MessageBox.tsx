@@ -6,6 +6,7 @@ import { useTranslation } from "@revolt/i18n";
 import { Row } from "../../design/layout";
 
 interface Props {
+  ref: HTMLTextAreaElement | undefined;
   channel: Channel;
   content: Accessor<string>;
   sendMessage: () => void;
@@ -76,11 +77,10 @@ const Spacer = styled("div")<{ size: "short" | "normal" | "wide" }>`
  * Message box
  */
 export function MessageBox(props: Props) {
-  let input: HTMLTextAreaElement | undefined;
   const t = useTranslation();
 
   function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && input) {
+    if (event.key === "Enter" && props.ref) {
       event.preventDefault();
       props.sendMessage();
     }
@@ -103,7 +103,7 @@ export function MessageBox(props: Props) {
       <Switch
         fallback={
           <Input
-            ref={input}
+            ref={props.ref}
             onKeyDown={onKeyDown}
             value={props.content()}
             placeholder={`Message ${props.channel.name}`}
