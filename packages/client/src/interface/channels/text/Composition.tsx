@@ -2,7 +2,7 @@ import { MessageBox, MessageReplyPreview } from "@revolt/ui";
 import type { DraftData } from "@revolt/state/stores/Draft";
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
-import { Channel } from "revolt.js";
+import { API, Channel } from "revolt.js";
 import { For, onCleanup } from "solid-js";
 
 interface Props {
@@ -25,9 +25,42 @@ export function MessageComposition(props: Props) {
   /**
    * Send a message using the current draft
    */
-  function sendMessage() {
-    props.channel.sendMessage(draft());
-    state.draft.clearDraft(props.channel._id);
+  async function sendMessage() {
+    const { content, replies, files } = draft();
+
+    // Construct message object
+    const attachments: string[] = [];
+    const data: API.DataMessageSend = {
+      content,
+      replies,
+      attachments,
+    };
+
+    // Add any files if attached
+    if (files?.length) {
+      for (const fileId of files) {
+        // Prepare for upload
+        const body = new FormData();
+        body.append("file", state.draft.getFile(fileId));
+
+        // Upload to Autumn
+        attachments.push(
+          await fetch(
+            `${client.configuration?.features.autumn.url}/attachments`,
+            {
+              method: "POST",
+              body,
+            }
+          )
+            .then((res) => res.json())
+            .then((res) => res.id)
+        );
+      }
+    }
+
+    // Send the message and clear the draft
+    props.channel.sendMessage(data);
+    state.draft.clearDraft(props.channel._id); // TODO: popDraft to move to queue (w/ file IDs)
   }
 
   /**
