@@ -27,6 +27,7 @@
     "@revolt/ui": "workspace:^1.0.0",
     "lodash.isequal": "^4.5.0",
     "mobx": "^6.3.2",
+    "solid-icons": "^1.0.1",
     "solid-js": "^1.5.1"
   },
   "private": true
