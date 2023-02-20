@@ -105,7 +105,7 @@ export function MenuButton(props: Props) {
       <Show when={local.alert}>
         <Unreads
           count={typeof local.alert === "number" ? local.alert : 0}
-          size="0.85rem"
+          size={typeof local.alert === "number" ? "0.85rem" : "0.4rem"}
           unread
         />
       </Show>
