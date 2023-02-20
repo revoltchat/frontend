@@ -1,5 +1,7 @@
 /// <reference path="../types/styled.d.ts" />
 
+import "./sentry";
+
 /* @refresh reload */
 import "@revolt/ui/styles";
 
@@ -11,7 +13,7 @@ import { enableExternalSource } from "solid-js";
 
 let id = 0;
 enableExternalSource((fn, trigger) => {
-  const reaction = new Reaction(`externalSource@${++id}`, trigger);
+  const reaction = new Reaction(`@${++id}`, trigger);
   return {
     track: (x) => {
       let next;

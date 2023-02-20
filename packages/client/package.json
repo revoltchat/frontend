@@ -25,6 +25,8 @@
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/state": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
+    "@sentry/browser": "^7.38.0",
+    "@sentry/tracing": "^7.38.0",
     "lodash.isequal": "^4.5.0",
     "mobx": "^6.3.2",
     "solid-js": "^1.5.1"
