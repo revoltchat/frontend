@@ -1,6 +1,6 @@
 import { styled, HeaderWithTransparency, Typography, Header } from "@revolt/ui";
 import { useClient } from "@revolt/client";
-import { useParams } from "@revolt/routing";
+import { Navigate, useParams } from "@revolt/routing";
 import { Channel } from "revolt.js";
 
 import {
@@ -52,7 +52,9 @@ export const ChannelPage: Component = () => {
   return (
     <Base>
       <Switch fallback="Unknown channel type!">
-        <Match when={!channel()}>404</Match>
+        <Match when={!channel()}>
+          <Navigate href={"../.."} />
+        </Match>
         <Match when={TEXT_CHANNEL_TYPES.includes(channel()!.channel_type)}>
           <TextChannel channel={channel()} />
         </Match>

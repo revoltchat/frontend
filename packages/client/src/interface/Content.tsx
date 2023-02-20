@@ -1,8 +1,9 @@
 import { Component } from "solid-js";
-import { ChannelPage } from "./channels/ChannelPage";
 import { Route, Routes } from "@revolt/routing";
 
+import { ServerHome } from "./ServerHome";
 import { DevelopmentPage } from "./Development";
+import { ChannelPage } from "./channels/ChannelPage";
 
 /**
  * Render content without sidebars
@@ -15,7 +16,7 @@ export const Content: Component = () => {
         element={
           <Routes>
             <Route path="/channel/:channel" component={ChannelPage} />
-            <Route path="/*" element={<span>server!</span>} />
+            <Route path="/*" component={ServerHome} />
           </Routes>
         }
       />
