@@ -35,7 +35,32 @@ const Home: Component = () => {
     return arr.slice(0, 20);
   });
 
-  return <HomeSidebar conversations={conversations} channelId={params.channel} />;
+  return (
+    <HomeSidebar
+      conversations={conversations}
+      channelId={params.channel}
+      openSavedNotes={(navigate) => {
+        // Check whether the saved messages channel exists already
+        let channelId = [...client.channels.values()].find(
+          (channel) => channel.channel_type === "SavedMessages"
+        )?._id;
+
+        // If not, try to create one but only if navigating
+        if (navigate) {
+          (async () => {
+            if (!channelId) {
+              channelId = (await client.user!.openDM())._id;
+            }
+
+            navigate(`/channel/${channelId}`);
+          })();
+        }
+
+        // Return channel ID if available
+        return channelId;
+      }}
+    />
+  );
 };
 
 /**
