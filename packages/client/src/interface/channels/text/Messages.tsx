@@ -12,7 +12,6 @@ import {
   splitProps,
 } from "solid-js";
 import isEqual from "lodash.isequal";
-import { state } from "@revolt/state";
 
 /**
  * Base list container
@@ -52,6 +51,8 @@ type ListEntry =
  */
 function Entry(props: ListEntry) {
   const [local, other] = splitProps(props, ["t"]);
+
+  // note: we use a switch instead of <Switch /> as we know `t` will never change
   switch (local.t) {
     case 0:
       return <Message {...(other as ListEntry & { t: 0 })} />;
@@ -60,16 +61,6 @@ function Entry(props: ListEntry) {
     default:
       return null;
   }
-  /*return (
-    <Switch>
-      <Match when={local.t === 0}>
-        <Message {...(other as ListEntry & { t: 0 })} />
-      </Match>
-      <Match when={local.t === 1}>
-        <MessageDivider {...(other as ListEntry & { t: 1 })} />
-      </Match>
-    </Switch>
-  );*/
 }
 
 /**
@@ -95,7 +86,10 @@ export function Messages(props: { channel: Channel }) {
     )
   );
 
-  // Handle incoming messages
+  /**
+   * Handle incoming messages
+   * @param msg Message object
+   */
   function onMessage(msg: MessageInterface) {
     if (msg.channel_id === props.channel._id) {
       setMessages([msg, ...messages()]);
