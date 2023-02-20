@@ -56,7 +56,7 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
     props.theme!.colours[
       props.attention === "active" || props.attention === "selected"
         ? "foreground"
-        : "foreground-300"
+        : "foreground-400"
     ]};
 
   background: ${(props) =>
