@@ -38,5 +38,4 @@ export const IS_REVOLT =
   import.meta.env.VITE_API_URL === "https://app.revolt.chat/api" ||
   import.meta.env.VITE_API_URL === "https://revolt.chat/api";
 
-// TODO: should this use an env variable?
-export const IS_DEV = window.location.toString().match(/localhost|local\.revolt\.chat/)?.length;
+export const IS_DEV = import.meta.env.DEV;

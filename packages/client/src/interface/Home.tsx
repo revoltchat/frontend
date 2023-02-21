@@ -34,6 +34,21 @@ const Buttons = styled("div")`
   display: flex;
 `;
 
+/**
+ * Make sure the columns are separated 
+ */
+const SeparatedColumn = styled(Column)`
+  margin-inline: 0.25em;
+`;
+
+/**
+ * Make sure the image is separated from the welcome text
+ */
+const Image = styled("img")`
+  margin-top: 0.5em;
+  height: 80px;
+`
+
 export function HomePage() {
     const t = useTranslation();
     const navigate = useNavigate();
@@ -51,10 +66,10 @@ export function HomePage() {
                     variant="legacy-settings-title">
                     {t("app.special.modals.onboarding.welcome")}
                     <br />
-                    <img style="margin-top: 0.5em;" height={80} src="/assets/wide.svg" />
+                    <Image src="/assets/wide.svg" />
                 </Typography>
                 <Buttons>
-                    <Column style={"margin-right: 0.25em;"}>
+                    <SeparatedColumn>
                         <CategoryButton
                             onClick={() => modalController.push({ type: "create_group", client })}
                             description={t("app.home.group_desc")}
@@ -79,13 +94,13 @@ export function HomePage() {
                             </Match>
                         </Switch>
                         <CategoryButton
-                            onClick={() => window.location.href = "https://insrt.uk/donate?utm_source=revolt_client_v2"} // TODO: probably want to use a different functions for this
+                            onClick={() => window.location.href = "https://insrt.uk/donate?utm_source=revoltapp"}
                             description={t("app.home.donate_desc")}
                             icon={<BiRegularMoney size={24} />}>
                             {t("app.home.donate")}
                         </CategoryButton>
-                    </Column>
-                    <Column style={"margin-left: 0.5em;"}>
+                    </SeparatedColumn>
+                    <SeparatedColumn>
                         <Switch fallback={null}>
                             <Match when={IS_REVOLT}>
                                 <CategoryButton
@@ -98,7 +113,7 @@ export function HomePage() {
                         </Switch>
                         <CategoryButton description={t("app.home.feedback_desc")} icon={<BiSolidMegaphone size={24} />}>{t("app.home.feedback")}</CategoryButton>
                         <CategoryButton description={t("app.home.settings-tooltip")} icon={<BiSolidCog size={24} />}>{t("app.home.settings")}</CategoryButton>
-                    </Column>
+                    </SeparatedColumn>
                 </Buttons>
                 <Switch fallback={null}>
                     <Match when={IS_DEV}>
