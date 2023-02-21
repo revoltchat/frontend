@@ -1,20 +1,10 @@
-import { styled, HeaderWithTransparency, Typography, Header } from "@revolt/ui";
+import { styled, Typography, Header } from "@revolt/ui";
 import { useClient } from "@revolt/client";
-import { useParams } from "@revolt/routing";
+import { Navigate, useParams } from "@revolt/routing";
 import { Channel } from "revolt.js";
 
-import {
-  Accessor,
-  Component,
-  createEffect,
-  createMemo,
-  Match,
-  onMount,
-  Switch,
-} from "solid-js";
+import { Component, createMemo, Match, Switch } from "solid-js";
 
-import { Messages } from "./text/Messages";
-import { MessageComposition } from "./text/Composition";
 import { TextWithEmoji } from "@revolt/markdown";
 import { TextChannel } from "./text/TextChannel";
 
@@ -34,6 +24,13 @@ export interface ChannelPageProps {
   channel: Channel;
 }
 
+const TEXT_CHANNEL_TYPES: Channel["channel_type"][] = [
+  "TextChannel",
+  "DirectMessage",
+  "Group",
+  "SavedMessages",
+];
+
 /**
  * Channel component
  */
@@ -45,8 +42,10 @@ export const ChannelPage: Component = () => {
   return (
     <Base>
       <Switch fallback="Unknown channel type!">
-        <Match when={!channel()}>404</Match>
-        <Match when={channel()!.channel_type === "TextChannel"}>
+        <Match when={!channel()}>
+          <Navigate href={"../.."} />
+        </Match>
+        <Match when={TEXT_CHANNEL_TYPES.includes(channel()!.channel_type)}>
           <TextChannel channel={channel()} />
         </Match>
         <Match when={channel()!.channel_type === "VoiceChannel"}>

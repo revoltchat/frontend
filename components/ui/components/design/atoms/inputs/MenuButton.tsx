@@ -56,7 +56,7 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
     props.theme!.colours[
       props.attention === "active" || props.attention === "selected"
         ? "foreground"
-        : "foreground-300"
+        : "foreground-400"
     ]};
 
   background: ${(props) =>
@@ -105,7 +105,7 @@ export function MenuButton(props: Props) {
       <Show when={local.alert}>
         <Unreads
           count={typeof local.alert === "number" ? local.alert : 0}
-          size="0.85rem"
+          size={typeof local.alert === "number" ? "0.85rem" : "0.4rem"}
           unread
         />
       </Show>

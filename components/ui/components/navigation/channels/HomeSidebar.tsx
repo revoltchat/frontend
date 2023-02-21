@@ -1,4 +1,4 @@
-import { Link } from "@revolt/routing";
+import { Link, useLocation, useNavigate } from "@revolt/routing";
 import { Channel } from "revolt.js";
 import { For, Match, Show, Switch } from "solid-js";
 import { Avatar } from "../../design/atoms/display/Avatar";
@@ -11,6 +11,7 @@ import { SidebarBase } from "./common";
 import { useQuantity, useTranslation } from "@revolt/i18n";
 import { ScrollContainer } from "../../common/ScrollContainers";
 import { TextWithEmoji } from "@revolt/markdown";
+import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 
 interface Props {
   /**
@@ -22,6 +23,13 @@ interface Props {
    * Current channel ID
    */
   channelId: string;
+
+  /**
+   * Open the saved notes channel
+   */
+  openSavedNotes: (
+    navigate?: ReturnType<typeof useNavigate>
+  ) => string | undefined;
 }
 
 /**
@@ -107,6 +115,8 @@ function Entry(props: { channel: Channel; active: boolean }) {
  */
 export const HomeSidebar = (props: Props) => {
   const t = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <SidebarBase>
@@ -115,6 +125,42 @@ export const HomeSidebar = (props: Props) => {
           {t("app.main.categories.conversations")}
         </Typography>
       </p>
+      <Link href="/">
+        <MenuButton
+          size="normal"
+          icon={<BiSolidHome size={24} />}
+          attention={location.pathname === "/" ? "active" : "normal"}
+        >
+          Home
+        </MenuButton>
+      </Link>
+      <Link href="/friends">
+        <MenuButton
+          size="normal"
+          icon={<BiSolidUserDetail size={24} />}
+          attention={location.pathname === "/friends" ? "active" : "normal"}
+        >
+          Friends
+        </MenuButton>
+      </Link>
+      <a
+        // Use normal link by default
+        href={`/channel/${props.openSavedNotes()}`}
+        // Fallback to JavaScript navigation if channel doesn't exist yet
+        onClick={(el) =>
+          !el.currentTarget.href && props.openSavedNotes(navigate)
+        }
+      >
+        <MenuButton
+          size="normal"
+          icon={<BiSolidNotepad size={24} />}
+          attention={
+            props.openSavedNotes() === props.channelId ? "active" : "normal"
+          }
+        >
+          Saved Notes
+        </MenuButton>
+      </a>
       <ScrollContainer>
         <Column>
           <div />
