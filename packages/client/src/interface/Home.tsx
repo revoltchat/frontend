@@ -94,7 +94,7 @@ export function HomePage() {
                             </Match>
                         </Switch>
                         <CategoryButton
-                            onClick={() => window.location.href = "https://insrt.uk/donate?utm_source=revoltapp"}
+                            onClick={() => window.open("https://insrt.uk/donate?utm_source=revoltapp")}
                             description={t("app.home.donate_desc")}
                             icon={<BiRegularMoney size={24} />}>
                             {t("app.home.donate")}
