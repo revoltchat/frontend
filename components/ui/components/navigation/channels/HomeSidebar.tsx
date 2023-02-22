@@ -155,7 +155,9 @@ export const HomeSidebar = (props: Props) => {
           size="normal"
           icon={<BiSolidNotepad size={24} />}
           attention={
-            props.openSavedNotes() === props.channelId ? "active" : "normal"
+            props.channelId && props.openSavedNotes() === props.channelId
+              ? "active"
+              : "normal"
           }
         >
           Saved Notes
