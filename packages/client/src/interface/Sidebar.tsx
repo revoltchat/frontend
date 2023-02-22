@@ -1,6 +1,6 @@
 import { useClient } from "@revolt/client";
-import { Component, createEffect, createMemo, on, Show } from "solid-js";
-import { Route, Routes, useNavigate, useParams } from "@revolt/routing";
+import { Component, createMemo, Show } from "solid-js";
+import { Route, Routes, useParams } from "@revolt/routing";
 import { ServerList, HomeSidebar, ServerSidebar } from "@revolt/ui";
 
 /**
