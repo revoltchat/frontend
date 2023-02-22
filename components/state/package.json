@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@revolt/client": "workspace:^1.0.0",
+    "@revolt/common": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
     "color-rgba": "^2.4.0",
     "fast-deep-equal": "^3.1.3",

@@ -1,6 +1,7 @@
 import { State } from "..";
 import { AbstractStore } from ".";
 import { API } from "revolt.js";
+import { insecureUniqueId } from "@revolt/common";
 
 export interface DraftData {
   /**
@@ -146,7 +147,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param file File to add
    */
   addFile(channelId: string, file: File) {
-    const id = crypto.randomUUID();
+    const id = insecureUniqueId();
     this.fileCache[id] = file;
     this.setDraft(channelId, (data) => ({
       files: [...(data.files ?? []), id],
