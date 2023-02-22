@@ -1,6 +1,7 @@
 import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
-import { Button, Column } from "@revolt/ui";
+import { Button, Column, Message, Typography } from "@revolt/ui";
+import { Show } from "solid-js";
 
 export function DevelopmentPage() {
   function open() {
@@ -35,10 +36,31 @@ export function DevelopmentPage() {
     });
   }
 
+  const latestMessage = () =>
+    [...clientController.getReadyClient()!.messages.values()]
+      .filter((x) => x.author_id !== x.client.user?._id)
+      .pop();
+
+  function report() {
+    clientController.getReadyClient()!.api.post("/safety/report", {
+      content: {
+        type: "Message",
+        id: latestMessage()?._id!,
+        report_reason: "Illegal",
+      },
+      additional_context: "get real",
+    });
+  }
+
   return (
     <Column>
       <Button onClick={open}>Open Modal</Button>
       <Button onClick={changelog}>Changelog Modal</Button>
+      <Typography variant="label">Latest Message</Typography>
+      <Show when={latestMessage()}>
+        <Message message={latestMessage()!} />
+        <Button onClick={report}>Create Report</Button>
+      </Show>
     </Column>
   );
 }
