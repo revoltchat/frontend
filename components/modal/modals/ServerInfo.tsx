@@ -3,6 +3,8 @@ import { Button, Column, Row, Typography } from "@revolt/ui";
 import { BiRegularX } from "solid-icons/bi";
 import { modalController } from "..";
 import { PropGenerator } from "../types";
+import { Markdown } from "@revolt/markdown";
+import { Show } from "solid-js";
 
 /**
  * Modal to display server information
@@ -23,9 +25,11 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
         </Button>
       </Row>
     ),
-    children:
-      // TODO: markdown
-      props.server.description,
+    children: (
+      <Show when={props.server.description}>
+        <Markdown content={props.server.description!} />
+      </Show>
+    ),
     actions: [
       {
         // TODO: report server

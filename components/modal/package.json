@@ -10,6 +10,7 @@
   "dependencies": {
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
+    "@revolt/markdown": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
     "revolt.js": "workspace:^6.0.19",
