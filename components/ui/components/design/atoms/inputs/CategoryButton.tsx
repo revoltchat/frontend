@@ -46,9 +46,9 @@ const Content = styled(Column)`
   font-size: 0.875rem;
 `;
 
-const Description = styled(OverflowingText)`
-  font-size: 0.6875rem;
+const Description = styled.span`
   font-weight: 400;
+  font-size: 0.6875rem;
   color: ${(props) => props.theme!.colours["foreground-200"]};
 
   a:hover {
