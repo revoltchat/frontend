@@ -1,11 +1,25 @@
-import { Button, CategoryButton, Header, styled, Column, Typography } from "@revolt/ui";
+import {
+  Button,
+  CategoryButton,
+  Header,
+  styled,
+  Column,
+  Typography,
+} from "@revolt/ui";
 import { IS_DEV, IS_REVOLT, useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 
-import { Match, Switch } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 
-import { BiRegularMoney, BiSolidCompass, BiSolidCog, BiSolidMegaphone, BiSolidPlusCircle, BiSolidRightArrowCircle } from "solid-icons/bi";
+import {
+  BiRegularMoney,
+  BiSolidCompass,
+  BiSolidCog,
+  BiSolidMegaphone,
+  BiSolidPlusCircle,
+  BiSolidRightArrowCircle,
+} from "solid-icons/bi";
 import { modalController } from "@revolt/modal";
 
 /**
@@ -25,7 +39,7 @@ const Base = styled("div")`
 const Content = styled("div")`
   width: fit-content;
   margin: auto;
-`
+`;
 
 /**
  * Layout of the buttons
@@ -35,10 +49,11 @@ const Buttons = styled("div")`
 `;
 
 /**
- * Make sure the columns are separated 
+ * Make sure the columns are separated
  */
 const SeparatedColumn = styled(Column)`
   margin-inline: 0.25em;
+  width: 260px;
 `;
 
 /**
@@ -47,80 +62,101 @@ const SeparatedColumn = styled(Column)`
 const Image = styled("img")`
   margin-top: 0.5em;
   height: 80px;
-`
+`;
 
 export function HomePage() {
-    const t = useTranslation();
-    const navigate = useNavigate();
-    const client = useClient();
-    // check if we're revolt.chat; if so, check if the user is in the Lounge
-    const showLoungeButton = IS_REVOLT;
-    const isInLounge = client.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
+  const t = useTranslation();
+  const navigate = useNavigate();
+  const client = useClient();
 
-    return (
-        <Base>
-            <Header palette="primary">Home</Header>
-            <Content>
-                <Typography
-                    style={"text-align: center; margin-bottom: 1em; font-size: 200%;"}
-                    variant="legacy-settings-title">
-                    {t("app.special.modals.onboarding.welcome")}
-                    <br />
-                    <Image src="/assets/wide.svg" />
-                </Typography>
-                <Buttons>
-                    <SeparatedColumn>
-                        <CategoryButton
-                            onClick={() => modalController.push({ type: "create_group", client })}
-                            description={t("app.home.group_desc")}
-                            icon={<BiSolidPlusCircle size={24} />}>
-                            {t("app.home.group")}
-                        </CategoryButton>
-                        <Switch fallback={null}>
-                            <Match when={showLoungeButton && isInLounge}>
-                                <CategoryButton
-                                    onClick={() => navigate("/server/01F7ZSBSFHQ8TA81725KQCSDDP")}
-                                    description={t("app.home.goto-testers_desc")}
-                                    icon={<BiSolidRightArrowCircle size={24} />}>
-                                    {t("app.home.goto-testers")}
-                                </CategoryButton>
-                            </Match>
-                            <Match when={showLoungeButton && !isInLounge}>
-                                <CategoryButton
-                                    description={t("app.home.join-testers_desc")}
-                                    icon={<BiSolidRightArrowCircle size={24} />}>
-                                    {t("app.home.join-testers")}
-                                </CategoryButton>
-                            </Match>
-                        </Switch>
-                        <CategoryButton
-                            onClick={() => window.open("https://insrt.uk/donate?utm_source=revoltapp")}
-                            description={t("app.home.donate_desc")}
-                            icon={<BiRegularMoney size={24} />}>
-                            {t("app.home.donate")}
-                        </CategoryButton>
-                    </SeparatedColumn>
-                    <SeparatedColumn>
-                        <Switch fallback={null}>
-                            <Match when={IS_REVOLT}>
-                                <CategoryButton
-                                    onClick={() => navigate("/discover")}
-                                    description={t("app.home.discover_desc")}
-                                    icon={<BiSolidCompass size={24} />}>
-                                    {t("app.home.discover")}
-                                </CategoryButton>
-                            </Match>
-                        </Switch>
-                        <CategoryButton description={t("app.home.feedback_desc")} icon={<BiSolidMegaphone size={24} />}>{t("app.home.feedback")}</CategoryButton>
-                        <CategoryButton description={t("app.home.settings-tooltip")} icon={<BiSolidCog size={24} />}>{t("app.home.settings")}</CategoryButton>
-                    </SeparatedColumn>
-                </Buttons>
-                <Switch fallback={null}>
-                    <Match when={IS_DEV}>
-                        <Button style={"margin: auto;"} onClick={() => navigate("/dev")}>Open Development Page</Button>
-                    </Match>
-                </Switch>
-            </Content>
-        </Base>
-    );
-};
+  // check if we're revolt.chat; if so, check if the user is in the Lounge
+  const showLoungeButton = IS_REVOLT;
+  const isInLounge =
+    client.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
+
+  return (
+    <Base>
+      <Header palette="primary">Home</Header>
+      <Content>
+        <Typography
+          // TODO: create separate typography style for homepage
+          style={"text-align: center; margin-bottom: 1em; font-size: 200%;"}
+          variant="legacy-settings-title"
+        >
+          {t("app.special.modals.onboarding.welcome")}
+          <br />
+          <Image src="/assets/wide.svg" />
+        </Typography>
+        <Buttons>
+          <SeparatedColumn>
+            <CategoryButton
+              onClick={() =>
+                modalController.push({ type: "create_group", client })
+              }
+              description={t("app.home.group_desc")}
+              icon={<BiSolidPlusCircle size={24} />}
+            >
+              {t("app.home.group")}
+            </CategoryButton>
+            <Switch fallback={null}>
+              <Match when={showLoungeButton && isInLounge}>
+                <CategoryButton
+                  onClick={() => navigate("/server/01F7ZSBSFHQ8TA81725KQCSDDP")}
+                  description={t("app.home.goto-testers_desc")}
+                  icon={<BiSolidRightArrowCircle size={24} />}
+                >
+                  {t("app.home.goto-testers")}
+                </CategoryButton>
+              </Match>
+              <Match when={showLoungeButton && !isInLounge}>
+                <CategoryButton
+                  description={t("app.home.join-testers_desc")}
+                  icon={<BiSolidRightArrowCircle size={24} />}
+                >
+                  {t("app.home.join-testers")}
+                </CategoryButton>
+              </Match>
+            </Switch>
+            <CategoryButton
+              onClick={() =>
+                window.open("https://insrt.uk/donate?utm_source=revoltapp")
+              }
+              description={t("app.home.donate_desc")}
+              icon={<BiRegularMoney size={24} />}
+            >
+              {t("app.home.donate")}
+            </CategoryButton>
+          </SeparatedColumn>
+          <SeparatedColumn>
+            <Show when={IS_REVOLT}>
+              <CategoryButton
+                onClick={() => navigate("/discover")}
+                description={t("app.home.discover_desc")}
+                icon={<BiSolidCompass size={24} />}
+              >
+                {t("app.home.discover")}
+              </CategoryButton>
+            </Show>
+            <CategoryButton
+              description={t("app.home.feedback_desc")}
+              icon={<BiSolidMegaphone size={24} />}
+            >
+              {t("app.home.feedback")}
+            </CategoryButton>
+            <CategoryButton
+              description={t("app.home.settings-tooltip")}
+              icon={<BiSolidCog size={24} />}
+            >
+              {t("app.home.settings")}
+            </CategoryButton>
+          </SeparatedColumn>
+        </Buttons>
+        <Show when={IS_DEV}>
+          <Button style={"margin: auto;"} onClick={() => navigate("/dev")}>
+            Open Development Page
+          </Button>
+        </Show>
+      </Content>
+    </Base>
+  );
+}
