@@ -58,6 +58,11 @@ export function MessageComposition(props: Props) {
       }
     }
 
+    // FIXME: bug with backend
+    if (!attachments.length) {
+      delete data.attachments;
+    }
+
     // Send the message and clear the draft
     props.channel.sendMessage(data);
     state.draft.clearDraft(props.channel._id); // TODO: popDraft to move to queue (w/ file IDs)
