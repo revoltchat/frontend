@@ -311,7 +311,7 @@ importers:
       mobx: ^6.3.2
       node-fetch: ^2.6.1
       prettier: ^2.4.1
-      revolt-api: 0.5.7
+      revolt-api: 0.5.8
       rimraf: ^3.0.2
       tsc-watch: ^4.1.0
       typedoc: ^0.21.4
@@ -328,7 +328,7 @@ importers:
       lodash.isequal: 4.5.0
       long: 5.2.0
       mobx: 6.6.2
-      revolt-api: 0.5.7
+      revolt-api: 0.5.8
       ulid: 2.3.0
       ws: 8.8.1
     devDependencies:
@@ -6507,8 +6507,8 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /revolt-api/0.5.7:
-    resolution: {integrity: sha512-4c+TssIwjbnMW3Myg0VGyDdQV3BcoxxlF7hQaa7FeZTXj6qHy31RphGWIPfo+aLKC0AQl0oI+hxeOX1fTVPPqw==}
+  /revolt-api/0.5.8:
+    resolution: {integrity: sha512-D/84TA8H3ssX2aUyu2/RH9NXWYjLTmYKA+26ndqDKAB6B7MdWQEn9sw896kerfNk7KUKMdu7H6LhQ540jUNaew==}
     dependencies:
       '@insertish/oapi': 0.1.18
       axios: 0.26.1
