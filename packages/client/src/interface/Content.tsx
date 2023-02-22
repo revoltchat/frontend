@@ -3,6 +3,7 @@ import { Route, Routes } from "@revolt/routing";
 
 import { ServerHome } from "./ServerHome";
 import { DevelopmentPage } from "./Development";
+import { HomePage } from "./Home";
 import { ChannelPage } from "./channels/ChannelPage";
 
 /**
@@ -22,7 +23,7 @@ export const Content: Component = () => {
       />
       <Route path="/channel/:channel" component={ChannelPage} />
       <Route path="/dev" element={<DevelopmentPage />} />
-      <Route path="/*" element={<span>home page</span>} />
+      <Route path="/*" element={<HomePage />} />
     </Routes>
   );
 };

@@ -37,3 +37,5 @@ export const IS_REVOLT =
   // future proofing
   import.meta.env.VITE_API_URL === "https://app.revolt.chat/api" ||
   import.meta.env.VITE_API_URL === "https://revolt.chat/api";
+
+export const IS_DEV = import.meta.env.DEV;

@@ -260,6 +260,7 @@ importers:
       lodash.isequal: ^4.5.0
       mobx: ^6.3.2
       revolt.js: workspace:^6.0.18
+      solid-icons: ^1.0.1
       solid-js: ^1.5.1
       typescript: ^4.8.2
       vite: ^3.0.9
@@ -277,6 +278,7 @@ importers:
       '@sentry/tracing': 7.38.0
       lodash.isequal: 4.5.0
       mobx: 6.6.2
+      solid-icons: 1.0.1_solid-js@1.5.5
       solid-js: 1.5.5
     devDependencies:
       '@types/lodash.isequal': 4.5.6
