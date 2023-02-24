@@ -13,7 +13,8 @@ import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 import { User } from "revolt.js";
 import { Draggable } from "../../common/Draggable";
 import { Tooltip } from "../../floating";
-import { Column, Typography } from "../../design";
+import { Button, Column, Typography } from "../../design";
+import { BiSolidCheckShield } from "solid-icons/bi";
 
 /**
  * Server list container
@@ -79,6 +80,13 @@ export const ServerList = (props: Props) => {
           </EntryContainer>
         )}
       </Tooltip>
+      <EntryContainer>
+        <Link href="/admin">
+          <Button compact="icon">
+            <BiSolidCheckShield size={32} />
+          </Button>
+        </Link>
+      </EntryContainer>
       <Draggable
         items={props.orderedServers}
         onChange={(ids) => {
