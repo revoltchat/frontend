@@ -1,12 +1,16 @@
 import { styled } from "solid-styled-components";
 import { Accessor, For, JSX } from "solid-js";
 import { Row } from "../../layout";
+import { BiSolidXCircle } from "solid-icons/bi";
 
 interface Props {
   /**
    * Tabs to display in element
    */
-  readonly tabs: () => Record<string, { label: JSX.Element }>;
+  readonly tabs: () => Record<
+    string,
+    { label: JSX.Element; dismissable?: boolean }
+  >;
 
   /**
    * Current tab
@@ -15,8 +19,15 @@ interface Props {
 
   /**
    * Select a new tab
+   * @param tab Tab
    */
   readonly onSelect: (tab: string) => void;
+
+  /**
+   * Dismiss a tab
+   * @param tab Tab
+   */
+  readonly onDismiss?: (tab: string) => void;
 }
 
 /**
@@ -31,6 +42,10 @@ const Base = styled(Row)`
  * Single tab entry
  */
 const Tab = styled.a<{ active: boolean }>`
+  gap: 4px;
+  display: flex;
+  align-items: center;
+
   cursor: pointer;
   user-select: none;
   padding: 0.4em 1em;
@@ -49,6 +64,14 @@ const Tab = styled.a<{ active: boolean }>`
 `;
 
 /**
+ * Dismiss tab button
+ */
+const Dismiss = styled.a`
+  height: 16px;
+  display: block;
+`;
+
+/**
  * Component for displaying an interactive list of tabs
  */
 export function Tabs(props: Props) {
@@ -57,6 +80,7 @@ export function Tabs(props: Props) {
       <For each={Object.keys(props.tabs())}>
         {(tab) => {
           const active = () => props.tab() === tab;
+          const entry = () => props.tabs()[tab];
           return (
             <Tab
               role="tab"
@@ -64,7 +88,17 @@ export function Tabs(props: Props) {
               active={active()}
               onClick={() => props.onSelect(tab)}
             >
-              {props.tabs()[tab].label}
+              {entry().label}
+              {entry().dismissable && (
+                <Dismiss
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    props.onDismiss?.(tab);
+                  }}
+                >
+                  <BiSolidXCircle size={16} />
+                </Dismiss>
+              )}
             </Tab>
           );
         }}

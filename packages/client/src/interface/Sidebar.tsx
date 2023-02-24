@@ -1,12 +1,7 @@
 import { useClient } from "@revolt/client";
 import { Component, createMemo, Show } from "solid-js";
 import { Route, Routes, useParams } from "@revolt/routing";
-import {
-  ServerList,
-  HomeSidebar,
-  ServerSidebar,
-  AdminSidebar,
-} from "@revolt/ui";
+import { ServerList, HomeSidebar, ServerSidebar } from "@revolt/ui";
 
 /**
  * Render sidebar for a server
@@ -84,7 +79,7 @@ export const Sidebar: Component = () => {
         <Route path="/server/:server/channel/:channel/*" component={Server} />
         <Route path="/server/:server/*" component={Server} />
         <Route path="/channel/:channel/*" component={Home} />
-        <Route path="/admin" component={AdminSidebar} />
+        <Route path="/admin" element={() => null} />
         <Route path="/*" component={Home} />
       </Routes>
     </div>

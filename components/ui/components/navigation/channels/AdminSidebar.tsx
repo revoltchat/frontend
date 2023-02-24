@@ -4,10 +4,19 @@ import { SidebarBase } from "./common";
 import { ScrollContainer } from "../../common/ScrollContainers";
 import { MenuButton } from "../../design";
 
+interface Props {
+  /**
+   * Open a new tab of type with title
+   * @param type Tab type
+   * @param title Tab title
+   */
+  readonly openTab: (type: string, title: string) => void;
+}
+
 /**
  * Display home navigation and conversations
  */
-export const AdminSidebar = () => {
+export const AdminSidebar = (props: Props) => {
   return (
     <SidebarBase>
       <ScrollContainer>
@@ -15,7 +24,9 @@ export const AdminSidebar = () => {
           <p>
             <Typography variant="legacy-settings-title">Admin Panel</Typography>
           </p>
-          <MenuButton>Inspector</MenuButton>
+          <a onClick={() => props.openTab("inspector", "Inspector")}>
+            <MenuButton attention="active">Inspector</MenuButton>
+          </a>
         </Column>
       </ScrollContainer>
     </SidebarBase>
