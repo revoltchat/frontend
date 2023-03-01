@@ -16,11 +16,14 @@ import { Report } from "./pages/Report";
 export type TabProps<T extends TabState["type"]> = {
   state: () => NarrowedState<T>;
   setState: NarrowedSetter<T>;
+  openTab: (tab: TabState) => void;
 };
 
 function RenderTab(props: { idx: number }) {
   const data = () => adminStore.tabs[props.idx - 2];
   const setter = (data: TabState) => setAdminStore("tabs", props.idx - 2, data);
+  const openTab = (tab: TabState) =>
+    setAdminStore("tabs", (tabs) => [...tabs, tab]);
 
   return (
     <Switch>
@@ -28,18 +31,20 @@ function RenderTab(props: { idx: number }) {
         <Home />
       </Match>
       <Match when={props.idx === 1}>
-        <Reports />
+        <Reports openTab={openTab} />
       </Match>
       <Match when={data().type === "inspector"}>
         <Inspector
           state={data as () => NarrowedState<"inspector">}
           setState={setter as NarrowedSetter<"inspector">}
+          openTab={openTab}
         />
       </Match>
-      <Match when={data().type === "reports"}>
+      <Match when={data().type === "report"}>
         <Report
-          state={data as () => NarrowedState<"reports">}
-          setState={setter as NarrowedSetter<"reports">}
+          state={data as () => NarrowedState<"report">}
+          setState={setter as NarrowedSetter<"report">}
+          openTab={openTab}
         />
       </Match>
     </Switch>

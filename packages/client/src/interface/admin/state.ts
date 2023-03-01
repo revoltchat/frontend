@@ -14,7 +14,7 @@ export type TabState = { title: string } & (
     }
   | {
       type: "report";
-      id?: string;
+      report: any;
     }
 );
 
