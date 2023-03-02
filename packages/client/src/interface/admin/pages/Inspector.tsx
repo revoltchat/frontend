@@ -1,4 +1,5 @@
 import { useClient } from "@revolt/client";
+import { state } from "@revolt/state";
 import {
   Button,
   Column,
@@ -11,28 +12,27 @@ import {
 } from "@revolt/ui";
 import { Show } from "solid-js";
 import { Messages } from "../../channels/text/Messages";
-import { TabProps } from "../Admin";
-import { NarrowedState } from "../state";
 
 const ChannelPreview = styled(ScrollContainer)`
   height: 320px;
 `;
 
-export function Inspector(props: TabProps<"inspector">) {
+export function Inspector() {
+  const data = state.admin.getActiveTab<"inspector">()!;
+
   const client = useClient();
-  const user = () => client.users.get(props.state().id!);
-  const server = () => client.servers.get(props.state().id!);
-  const channel = () => client.channels.get(props.state().id!);
+  const user = () => client.users.get(data.id!);
+  const server = () => client.servers.get(data.id!);
+  const channel = () => client.channels.get(data.id!);
 
   return (
     <Column>
       <Row align>
         <ComboBox
-          value={props.state().typeHint ?? "any"}
+          value={data.typeHint ?? "any"}
           onInput={(ev) =>
-            props.setState({
-              typeHint: ev.currentTarget
-                .value as NarrowedState<"inspector">["typeHint"],
+            state.admin.setActiveTab<"inspector">({
+              typeHint: ev.currentTarget.value as "any",
             })
           }
         >
@@ -43,8 +43,12 @@ export function Inspector(props: TabProps<"inspector">) {
         </ComboBox>
         <Input
           placeholder="Enter ID"
-          value={props.state().id ?? ""}
-          onInput={(ev) => props.setState({ id: ev.currentTarget.value })}
+          value={data.id ?? ""}
+          onInput={(ev) =>
+            state.admin.setActiveTab<"inspector">({
+              id: ev.currentTarget.value,
+            })
+          }
         />
         <Button palette="accent">Fetch</Button>
       </Row>

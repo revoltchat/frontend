@@ -1,51 +1,30 @@
 import { AdminSidebar, Column, Row, styled, Tabs } from "@revolt/ui";
 import { createSignal, Match, Switch } from "solid-js";
-import {
-  adminStore,
-  NarrowedSetter,
-  NarrowedState,
-  setAdminStore,
-  TabState,
-} from "./state";
 
 import { Home } from "./pages/Home";
 import { Inspector } from "./pages/Inspector";
 import { Reports } from "./pages/Reports";
 import { Report } from "./pages/Report";
+import { DEFAULT_TAB_OFFSET_IDX, TabState } from "@revolt/state/stores/Admin";
+import { state } from "@revolt/state";
 
-export type TabProps<T extends TabState["type"]> = {
-  state: () => NarrowedState<T>;
-  setState: NarrowedSetter<T>;
-  openTab: (tab: TabState) => void;
-};
-
-function RenderTab(props: { idx: number }) {
-  const data = () => adminStore.tabs[props.idx - 2];
-  const setter = (data: TabState) => setAdminStore("tabs", props.idx - 2, data);
-  const openTab = (tab: TabState) =>
-    setAdminStore("tabs", (tabs) => [...tabs, tab]);
+function RenderTab() {
+  const idx = () => state.admin.getActiveTabIndex();
+  const data = () => state.admin.getActiveTab();
 
   return (
     <Switch>
-      <Match when={props.idx === 0}>
+      <Match when={idx() === 0}>
         <Home />
       </Match>
-      <Match when={props.idx === 1}>
-        <Reports openTab={openTab} />
+      <Match when={idx() === 1}>
+        <Reports />
       </Match>
-      <Match when={data().type === "inspector"}>
-        <Inspector
-          state={data as () => NarrowedState<"inspector">}
-          setState={setter as NarrowedSetter<"inspector">}
-          openTab={openTab}
-        />
+      <Match when={data()?.type === "inspector"}>
+        <Inspector />
       </Match>
-      <Match when={data().type === "report"}>
-        <Report
-          state={data as () => NarrowedState<"report">}
-          setState={setter as NarrowedSetter<"report">}
-          openTab={openTab}
-        />
+      <Match when={data()?.type === "report"}>
+        <Report />
       </Match>
     </Switch>
   );
@@ -56,8 +35,6 @@ const Content = styled.div`
 `;
 
 export default function Admin() {
-  const [tab, setTab] = createSignal("0");
-
   const tabs = () => {
     const tabs: Record<string, { label: string; dismissable?: boolean }> = {
       0: {
@@ -68,9 +45,10 @@ export default function Admin() {
       },
     };
 
-    for (let i = 0; i < adminStore.tabs.length; i++) {
-      tabs[i + 2] = {
-        label: adminStore.tabs[i].title,
+    const openTabs = state.admin.getTabs();
+    for (let i = 0; i < openTabs.length; i++) {
+      tabs[i + DEFAULT_TAB_OFFSET_IDX] = {
+        label: openTabs[i].title,
         dismissable: true,
       };
     }
@@ -82,31 +60,26 @@ export default function Admin() {
     <Row gap="none" grow>
       <AdminSidebar
         openTab={(type, title) =>
-          setAdminStore("tabs", (tabs) => [
-            ...tabs,
-            { type, title } as TabState,
-          ])
+          state.admin.addTab({ type, title } as TabState)
         }
       />
       <Column grow gap="none">
         <Tabs
-          tab={tab}
+          tab={() => state.admin.getActiveTabIndex().toString()}
           tabs={tabs}
-          onSelect={setTab}
+          onSelect={(tab) => state.admin.setActiveTabIndex(parseInt(tab))}
           onDismiss={(removedTab) => {
-            const index = parseInt(removedTab) - 2;
+            const index = parseInt(removedTab);
 
-            if (tab() === removedTab) {
-              setTab((parseInt(removedTab) - 1).toString());
+            if (state.admin.getActiveTabIndex() === index) {
+              state.admin.setActiveTabIndex(index - 1);
             }
 
-            setAdminStore("tabs", (tabs) =>
-              tabs.filter((_, idx) => index !== idx)
-            );
+            state.admin.removeTab(index);
           }}
         />
         <Content>
-          <RenderTab idx={parseInt(tab())} />
+          <RenderTab />
         </Content>
       </Column>
     </Row>
