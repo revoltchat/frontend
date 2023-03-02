@@ -2,7 +2,12 @@ import type { Message } from "revolt.js";
 import { Match, Switch } from "solid-js";
 import { useTranslation } from "@revolt/i18n";
 import { styled } from "solid-styled-components";
-import { Avatar, ColouredText, OverflowingText, Row } from "../../design";
+import {
+  Avatar,
+  ColouredText,
+  NonBreakingText,
+  OverflowingText,
+} from "../../design";
 import { Show } from "solid-js";
 import { BiSolidFile } from "solid-icons/bi";
 import { TextWithEmoji } from "@revolt/markdown";
@@ -82,14 +87,14 @@ export function MessageReply(props: Props) {
         </Match>
         <Match when={props.message}>
           <Avatar src={props.message!.avatarURL} size={14} />
-          <OverflowingText>
+          <NonBreakingText>
             <ColouredText
               colour={props.message!.roleColour!}
               clip={props.message!.roleColour?.includes("gradient")}
             >
               {props.message!.username}
             </ColouredText>
-          </OverflowingText>
+          </NonBreakingText>
           <Show when={props.message!.attachments}>
             <Attachments>
               <BiSolidFile size={16} />

@@ -1,6 +1,7 @@
 import { State } from "..";
 import { API } from "revolt.js";
 import { AbstractStore } from ".";
+import type { clientController } from "@revolt/client";
 import { createStore, SetStoreFunction } from "solid-js/store";
 
 export type TabState = { title: string } & (
@@ -124,10 +125,13 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     if (snapshot) return snapshot;
 
     // TODO: need common
-    /*clientController
-      .getReadyClient()!
-      .api.get(`/safety/snapshot/${report_id as ""}`)
-      .then((snapshot) => this.setCache("snapshots", report_id, snapshot));*/
+    if (typeof snapshot === "undefined") {
+      this.setCache("snapshots", report_id, false);
+      ((window as any).controllers.client as typeof clientController)
+        .getReadyClient()!
+        .api.get(`/safety/snapshot/${report_id as ""}`)
+        .then((snapshot) => this.setCache("snapshots", report_id, snapshot));
+    }
   }
 
   /**

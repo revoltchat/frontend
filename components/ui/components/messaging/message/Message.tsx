@@ -78,11 +78,12 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
               {(triggerProps) => <BiSolidBot {...triggerProps} size={16} />}
             </Tooltip>
           </Match>
-          {/* inline status <Match
+          <Match
             when={props.message.author_id === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}
           >
-            revolt &middot;{" "}
-          </Match>*/}
+            <span />
+            <span>he/him &middot; </span>
+          </Match>
         </Switch>
       }
     >
