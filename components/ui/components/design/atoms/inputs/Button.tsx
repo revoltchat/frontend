@@ -5,7 +5,7 @@ export interface Props {
   /**
    * Whether to display a smaller or icon button
    */
-  readonly compact?: boolean | "icon";
+  readonly compact?: boolean | "icon" | "fluid";
 
   /**
    * Colour scheme
@@ -24,8 +24,10 @@ export interface Props {
 /**
  * Determine button sizing based on the provided value
  */
-function buttonSizing(compact: boolean | "icon") {
-  return compact === "icon"
+function buttonSizing(compact: boolean | "icon" | "fluid") {
+  return compact === "fluid"
+    ? ""
+    : compact === "icon"
     ? `
     height: 38px;
     width: 38px;
