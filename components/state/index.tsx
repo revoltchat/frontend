@@ -3,6 +3,7 @@ import { createSignal, JSX, onMount, Show } from "solid-js";
 import localforage from "localforage";
 import equal from "fast-deep-equal";
 
+import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Locale } from "./stores/Locale";
@@ -23,6 +24,7 @@ export class State {
   private writeQueue: Record<string, number>;
 
   // define all stores
+  admin: Admin = new Admin(this);
   auth: Auth = new Auth(this);
   draft: Draft = new Draft(this);
   locale: Locale = new Locale(this);
