@@ -9,7 +9,13 @@ export function Reports() {
   const [reports, setReports] = createSignal<API.Report[]>();
 
   createEffect(() => {
-    client.api.get("/safety/reports").then(setReports);
+    client.api.get("/safety/reports").then((reports) => {
+      for (let report of reports) {
+        state.admin.cacheReport(report);
+      }
+
+      setReports(reports);
+    });
   });
 
   return (
@@ -23,7 +29,6 @@ export function Reports() {
             <span
               style="color: white;"
               onClick={() => {
-                state.admin.cacheReport(report);
                 state.admin.addTab({
                   title: `Report: ${report._id.substring(20, 26)}`,
                   type: "report",

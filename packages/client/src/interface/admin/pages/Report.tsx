@@ -107,7 +107,7 @@ export function Report() {
         <Button
           palette="primary"
           onClick={() =>
-            client.api.patch(`/safety/reports/${data.id as ""}`, {
+            client.api.patch(`/safety/reports/${data().id as ""}`, {
               notes: report()!.notes,
               status: {
                 status: "Created",

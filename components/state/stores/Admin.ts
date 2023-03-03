@@ -14,7 +14,7 @@ export type TabState = { title: string } & (
   | {
       type: "inspector";
       id?: string;
-      typeHint?: "any" | "user" | "server" | "channel";
+      typeHint?: "any" | "user" | "server" | "channel" | "message";
     }
   | {
       type: "report";
@@ -145,11 +145,16 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    * Change the active tab state
    */
   setActiveTab<T extends TabState["type"]>(
-    ...data: Parameters<SetStoreFunction<TabState & { type: T }>>
+    data: Partial<TabState & { type: T }>
   ) {
     let tab = this.get().tab;
-    if (tab) {
-      (this.set as any)("tabs", tab, ...data);
+    let index = tab - DEFAULT_TAB_OFFSET_IDX;
+    let entry = this.get().tabs[index];
+    if (entry) {
+      this.set("tabs", index, {
+        ...entry,
+        ...data,
+      } as any);
     }
   }
 
