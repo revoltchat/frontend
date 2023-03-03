@@ -5,6 +5,7 @@ import {
   Button,
   Column,
   ComboBox,
+  Initials,
   Input,
   Message,
   Row,
@@ -18,25 +19,25 @@ import { createEffect, on, Show } from "solid-js";
 import { Messages } from "../../channels/text/Messages";
 
 const ChannelPreview = styled(ScrollContainer)`
-  height: 320px;
+  height: 640px;
 `;
 
 export function Inspector() {
-  const data = state.admin.getActiveTab<"inspector">()!;
+  const data = () => state.admin.getActiveTab<"inspector">()!;
 
   const client = useClient();
-  const user = () => client.users.get(data.id!);
-  const server = () => client.servers.get(data.id!);
-  const channel = () => client.channels.get(data.id!);
-  const message = () => client.messages.get(data.id!);
+  const user = () => client.users.get(data().id!);
+  const server = () => client.servers.get(data().id!);
+  const channel = () => client.channels.get(data().id!);
+  const message = () => client.messages.get(data().id!);
 
   createEffect(
     on(
       () => user(),
       (user) =>
         !user &&
-        (data.typeHint === "any" || data.typeHint === "user") &&
-        client.users.fetch(data.id!)
+        (data().typeHint === "any" || data().typeHint === "user") &&
+        client.users.fetch(data().id!)
     )
   );
 
@@ -45,8 +46,8 @@ export function Inspector() {
       () => server(),
       (server) =>
         !server &&
-        (data.typeHint === "any" || data.typeHint === "server") &&
-        client.servers.fetch(data.id!)
+        (data().typeHint === "any" || data().typeHint === "server") &&
+        client.servers.fetch(data().id!)
     )
   );
 
@@ -55,8 +56,8 @@ export function Inspector() {
       () => channel(),
       (channel) =>
         !channel &&
-        (data.typeHint === "any" || data.typeHint === "channel") &&
-        client.channels.fetch(data.id!)
+        (data().typeHint === "any" || data().typeHint === "channel") &&
+        client.channels.fetch(data().id!)
     )
   );
 
@@ -65,8 +66,8 @@ export function Inspector() {
       () => message(),
       (message) =>
         !message &&
-        (data.typeHint === "any" || data.typeHint === "message") &&
-        client.messages.fetch(data.id!)
+        (data().typeHint === "any" || data().typeHint === "message") &&
+        client.messages.fetch(data().id!)
     )
   );
 
@@ -74,7 +75,7 @@ export function Inspector() {
     <Column>
       <Row align>
         <ComboBox
-          value={data.typeHint ?? "any"}
+          value={data().typeHint ?? "any"}
           onInput={(ev) =>
             state.admin.setActiveTab<"inspector">({
               typeHint: ev.currentTarget.value as "any",
@@ -89,7 +90,7 @@ export function Inspector() {
         </ComboBox>
         <Input
           placeholder="Enter ID"
-          value={data.id ?? ""}
+          value={data().id ?? ""}
           onInput={(ev) =>
             state.admin.setActiveTab<"inspector">({
               id: ev.currentTarget.value,
@@ -103,7 +104,9 @@ export function Inspector() {
           <summary>
             <Row align>
               <Avatar src={user()!.animatedAvatarURL} size={64} />
-              <span>{user()!.username}</span>
+              <Typography variant="legacy-modal-title">
+                {user()!.username}
+              </Typography>
             </Row>
           </summary>
         </details>
@@ -111,12 +114,21 @@ export function Inspector() {
       <Show when={server()}>
         <details>
           <summary>
-            <Row>
-              <div style="pointer-events: none">
-                <ServerSidebar server={server()!} channelId={undefined} />
-              </div>
+            <Row align>
+              <Avatar
+                src={server()!.generateIconURL()}
+                fallback={<Initials input={server()!.name} />}
+                size={64}
+              />
+              <Typography variant="legacy-modal-title">
+                {server()!.name}
+              </Typography>
             </Row>
           </summary>
+
+          <div style="pointer-events: none">
+            <ServerSidebar server={server()!} channelId={undefined} />
+          </div>
         </details>
       </Show>
       <Show when={channel()}>
@@ -135,7 +147,7 @@ export function Inspector() {
           </summary>
 
           <ChannelPreview>
-            <Messages channel={channel()!} />
+            <Messages channel={channel()!} limit={100} />
           </ChannelPreview>
         </details>
       </Show>

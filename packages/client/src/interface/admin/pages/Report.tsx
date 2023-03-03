@@ -1,4 +1,13 @@
-import { createEffect, createSignal, For, Match, Show, Switch } from "solid-js";
+import {
+  createEffect,
+  createSignal,
+  For,
+  Match,
+  on,
+  onMount,
+  Show,
+  Switch,
+} from "solid-js";
 import { useClient } from "@revolt/client";
 import {
   Avatar,
@@ -11,6 +20,11 @@ import {
 } from "@revolt/ui";
 import { API } from "revolt.js";
 import { state } from "@revolt/state";
+import { BiRegularHash } from "solid-icons/bi";
+
+const FixedColumn = styled(Column)`
+  min-width: 0;
+`;
 
 const MutedList = styled(Column)`
   filter: brightness(0.5);
@@ -26,17 +40,13 @@ function MessageSnapshot(props: {
     <>
       <MutedList>
         <For each={props.content._prior_context}>
-          {(message) => (
-            <Message message={client.messages.createObj(message, false)} />
-          )}
+          {(message) => <Message message={client.messages.get(message._id)!} />}
         </For>
       </MutedList>
-      <Message message={client.messages.createObj(props.content, false)} />
+      <Message message={client.messages.get(props.content._id)!} />
       <MutedList>
         <For each={props.content._leading_context}>
-          {(message) => (
-            <Message message={client.messages.createObj(message, false)} />
-          )}
+          {(message) => <Message message={client.messages.get(message._id)!} />}
         </For>
       </MutedList>
     </>
@@ -46,9 +56,26 @@ function MessageSnapshot(props: {
 function Snapshot(props: { id: string }) {
   const client = useClient();
   const snapshot = () => state.admin.getSnapshot(props.id)!;
+  const server = () => client.servers.get(snapshot()._server?._id!);
+  const author = () =>
+    client.users.get(
+      (
+        snapshot().content as API.SnapshotContent & {
+          _type: "Message";
+        }
+      )?.author
+    )!;
+  const channel = () =>
+    client.channels.get(
+      (
+        snapshot().content as API.SnapshotContent & {
+          _type: "Message";
+        }
+      )?.channel
+    )!;
 
   return (
-    <Column>
+    <FixedColumn>
       <Typography variant="label">Snapshot Context</Typography>
       <Row>
         <Show when={snapshot()._server}>
@@ -68,13 +95,65 @@ function Snapshot(props: { id: string }) {
               }
             >
               <Row align>
+                <Avatar src={server()?.generateIconURL()} size={64} />
+                <span>{snapshot()._server!.name}</span>
+              </Row>
+            </Button>
+          </Column>
+        </Show>
+        <Show when={channel()}>
+          <Column justify>
+            <Typography variant="legacy-settings-description">
+              Channel
+            </Typography>
+            <Button
+              compact="fluid"
+              onClick={() =>
+                state.admin.addTab({
+                  type: "inspector",
+                  title: channel().name ?? channel().channel_type,
+                  id: channel()._id,
+                  typeHint: "channel",
+                })
+              }
+            >
+              <Row align>
                 <Avatar
-                  src={client.servers
-                    .createObj(snapshot()._server!)
-                    .generateIconURL()}
+                  src={channel().generateIconURL()}
+                  fallback={<BiRegularHash size={24} />}
                   size={64}
                 />
-                <span>{snapshot()._server!.name}</span>
+                <span>{channel()!.name ?? channel().channel_type}</span>
+              </Row>
+            </Button>
+          </Column>
+        </Show>
+        <Show when={author()}>
+          <Column justify>
+            <Typography variant="legacy-settings-description">
+              Author
+            </Typography>
+            <Button
+              compact="fluid"
+              onClick={() => {
+                state.admin.addTab({
+                  type: "inspector",
+                  title: `@${author().username}`,
+                  id: author()._id,
+                  typeHint: "user",
+                });
+                /*const message = (snapshot().content as (API.SnapshotContent & { _type: 'Message' }));
+                state.admin.addTab({
+                  type: "inspector",
+                  title: 'Message ' + message._id.substring(20, 26),
+                  id: message._id,
+                  typeHint: "message",
+                })*/
+              }}
+            >
+              <Row align>
+                <Avatar src={author().animatedAvatarURL} size={64} />
+                <span>{author().username}</span>
               </Row>
             </Button>
           </Column>
@@ -86,7 +165,7 @@ function Snapshot(props: { id: string }) {
           <MessageSnapshot content={snapshot().content as any} />
         </Match>
       </Switch>
-    </Column>
+    </FixedColumn>
   );
 }
 
@@ -95,28 +174,15 @@ export function Report() {
   const report = () => state.admin.getReport(data().id);
   const snapshot = () => state.admin.getSnapshot(data().id)!;
 
-  const client = useClient();
+  const [notes, setNotes] = createSignal<string>();
 
   return (
     <Show when={report()}>
       <Column>
         <Typography variant="legacy-settings-title">
-          Report ({report()!.status})
+          Report ({report()!.status}){" "}
+          {report()!.status === "Rejected" && report()!.rejection_reason}
         </Typography>
-        <textarea value={report()!.notes} onInput={(ev) => {}} />
-        <Button
-          palette="primary"
-          onClick={() =>
-            client.api.patch(`/safety/reports/${data().id as ""}`, {
-              notes: report()!.notes,
-              status: {
-                status: "Created",
-              },
-            })
-          }
-        >
-          Save
-        </Button>
         <Row>
           <Typography variant="legacy-modal-title">
             {report()!.content.report_reason}
@@ -125,11 +191,72 @@ export function Report() {
             {report()!.additional_context}
           </Typography>
         </Row>
+        <textarea
+          value={report()!.notes ?? notes() ?? ""}
+          onInput={(ev) => setNotes(ev.currentTarget.value)}
+        />
+        <Button
+          palette="primary"
+          disabled={notes() === report()!.notes}
+          onClick={() =>
+            state.admin.editReport(data().id, {
+              notes: notes(),
+            })
+          }
+        >
+          Save
+        </Button>
+        <Switch
+          fallback={
+            <Button
+              palette="warning"
+              onClick={() =>
+                state.admin.editReport(data().id, {
+                  status: {
+                    status: "Created",
+                  },
+                })
+              }
+            >
+              Mark as created
+            </Button>
+          }
+        >
+          <Match when={report()!.status === "Created"}>
+            <Button
+              palette="success"
+              onClick={() =>
+                state.admin.editReport(data().id, {
+                  status: {
+                    status: "Resolved",
+                  },
+                })
+              }
+            >
+              Mark as resolved
+            </Button>
+            <Button
+              palette="error"
+              onClick={() => {
+                const rejection_reason = prompt("Rejection reason");
+                if (rejection_reason) {
+                  state.admin.editReport(data().id, {
+                    status: {
+                      status: "Rejected",
+                      rejection_reason,
+                    },
+                  });
+                }
+              }}
+            >
+              Mark as rejected
+            </Button>
+          </Match>
+        </Switch>
         <span style="color: white">
           <Show when={snapshot()}>
             <Snapshot id={data().id} />
           </Show>
-          {JSON.stringify(snapshot, undefined, "\t")}
         </span>
       </Column>
     </Show>

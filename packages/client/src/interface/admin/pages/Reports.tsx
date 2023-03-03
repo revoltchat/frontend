@@ -6,7 +6,7 @@ import { createEffect, createSignal, For } from "solid-js";
 
 export function Reports() {
   const client = useClient();
-  const [reports, setReports] = createSignal<API.Report[]>();
+  const [reports, setReports] = createSignal<API.Report[]>([]);
 
   createEffect(() => {
     client.api.get("/safety/reports").then((reports) => {
@@ -18,11 +18,14 @@ export function Reports() {
     });
   });
 
+  const createdReports = () =>
+    reports().filter((report) => report.status === "Created");
+
   return (
     <Column>
       <Typography variant="legacy-settings-title">Reports</Typography>
-      <For each={reports()}>
-        {(report: any) => {
+      <For each={createdReports()}>
+        {(report) => {
           const user = () => client.users.get(report.author_id);
 
           return (

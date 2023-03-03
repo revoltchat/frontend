@@ -66,7 +66,7 @@ function Entry(props: ListEntry) {
 /**
  * Render messages in a Channel
  */
-export function Messages(props: { channel: Channel }) {
+export function Messages(props: { channel: Channel; limit?: number }) {
   const client = useClient();
 
   // Keep track of rendered messages
@@ -80,7 +80,7 @@ export function Messages(props: { channel: Channel }) {
         setMessages([]);
 
         channel
-          .fetchMessagesWithUsers()
+          .fetchMessagesWithUsers({ limit: props.limit })
           .then(({ messages }) => setMessages(messages));
       }
     )

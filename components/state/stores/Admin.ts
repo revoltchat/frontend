@@ -3,6 +3,7 @@ import { API } from "revolt.js";
 import { AbstractStore } from ".";
 import { getController } from "@revolt/common";
 import { createStore, SetStoreFunction } from "solid-js/store";
+import { runInAction } from "mobx";
 
 export type TabState = { title: string } & (
   | {
@@ -134,10 +135,34 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     if (typeof snapshot === "undefined") {
       this.setCache("snapshots", report_id, false);
 
-      getController("client")
-        .getReadyClient()!
-        .api.get(`/safety/snapshot/${report_id as ""}`)
-        .then((snapshot) => this.setCache("snapshots", report_id, snapshot));
+      const client = getController("client").getReadyClient()!;
+
+      client.api.get(`/safety/snapshot/${report_id as ""}`).then((snapshot) => {
+        runInAction(() => {
+          for (const user of snapshot._users) {
+            client.users.createObj(user);
+          }
+
+          for (const channel of snapshot._channels) {
+            client.channels.createObj(channel);
+          }
+
+          if (snapshot._server) {
+            client.servers.createObj(snapshot._server);
+          }
+
+          const content = snapshot.content;
+          if (content._type === "Message") {
+            [
+              ...(content._prior_context ?? []),
+              content,
+              ...(content._leading_context ?? []),
+            ].forEach((msg) => client.messages.createObj(msg));
+          }
+        });
+
+        this.setCache("snapshots", report_id, snapshot);
+      });
     }
   }
 
@@ -201,5 +226,18 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    */
   cacheSnapshot(snapshot: API.SnapshotWithContext) {
     this.setCache("snapshots", snapshot.report_id, snapshot);
+  }
+
+  /**
+   * Edit a report
+   * @param id Report id
+   * @param data Data to apply
+   */
+  async editReport(id: string, data: API.DataEditReport) {
+    const report = await getController("client")
+      .getReadyClient()!
+      .api.patch(`/safety/reports/${id as ""}`, data);
+
+    this.setCache("reports", id, report);
   }
 }

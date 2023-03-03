@@ -30,6 +30,14 @@ function RenderTab() {
   );
 }
 
+const Base = styled(Row)`
+  overflow: hidden;
+`;
+
+const ContentBase = styled(Column)`
+  overflow: hidden;
+`;
+
 const Content = styled.div`
   min-height: 0;
   overflow-y: scroll;
@@ -59,13 +67,13 @@ export default function Admin() {
   };
 
   return (
-    <Row gap="none" grow>
+    <Base gap="none" grow>
       <AdminSidebar
         openTab={(type, title) =>
           state.admin.addTab({ type, title } as TabState)
         }
       />
-      <Column grow gap="none">
+      <ContentBase grow gap="none">
         <Tabs
           tab={() => state.admin.getActiveTabIndex().toString()}
           tabs={tabs}
@@ -83,7 +91,7 @@ export default function Admin() {
         <Content>
           <RenderTab />
         </Content>
-      </Column>
-    </Row>
+      </ContentBase>
+    </Base>
   );
 }
