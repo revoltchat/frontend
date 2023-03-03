@@ -1,5 +1,5 @@
 import { AdminSidebar, Column, Row, styled, Tabs } from "@revolt/ui";
-import { createSignal, Match, Switch } from "solid-js";
+import { Match, Switch } from "solid-js";
 
 import { Home } from "./pages/Home";
 import { Inspector } from "./pages/Inspector";
@@ -31,6 +31,8 @@ function RenderTab() {
 }
 
 const Content = styled.div`
+  min-height: 0;
+  overflow-y: scroll;
   padding: ${(props) => props.theme!.gap.md};
 `;
 
