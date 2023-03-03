@@ -111,7 +111,14 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     const report = this.cache.reports[id];
     if (report) return report;
 
-    // TODO: add report fetch route
+    if (typeof report === "undefined") {
+      this.setCache("reports", id, false);
+
+      getController("client")
+        .getReadyClient()!
+        .api.get(`/safety/report/${id as ""}`)
+        .then((report) => this.setCache("reports", id, report));
+    }
   }
 
   /**
@@ -124,7 +131,6 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     const snapshot = this.cache.snapshots[report_id];
     if (snapshot) return snapshot;
 
-    // TODO: need common
     if (typeof snapshot === "undefined") {
       this.setCache("snapshots", report_id, false);
 
