@@ -7,6 +7,7 @@ import {
   Input,
   Row,
   ScrollContainer,
+  ServerSidebar,
   styled,
   Typography,
 } from "@revolt/ui";
@@ -57,6 +58,11 @@ export function Inspector() {
       </Show>
       <Show when={server()}>
         <Typography variant="label">found server</Typography>
+        <Row>
+          <div style="pointer-events: none">
+            <ServerSidebar server={server()!} channelId={undefined} />
+          </div>
+        </Row>
       </Show>
       <Show when={channel()}>
         <Typography variant="label">found channel</Typography>

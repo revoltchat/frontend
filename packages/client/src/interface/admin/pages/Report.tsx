@@ -17,14 +17,41 @@ const MutedList = styled(Column)`
   flex-direction: column-reverse;
 `;
 
-function Snapshot(props: { snapshot: API.SnapshotWithContext }) {
+function MessageSnapshot(props: {
+  content: API.SnapshotWithContext["content"] & { _type: "Message" };
+}) {
   const client = useClient();
+
+  return (
+    <>
+      <MutedList>
+        <For each={props.content._prior_context}>
+          {(message) => (
+            <Message message={client.messages.createObj(message, false)} />
+          )}
+        </For>
+      </MutedList>
+      <Message message={client.messages.createObj(props.content, false)} />
+      <MutedList>
+        <For each={props.content._leading_context}>
+          {(message) => (
+            <Message message={client.messages.createObj(message, false)} />
+          )}
+        </For>
+      </MutedList>
+    </>
+  );
+}
+
+function Snapshot(props: { id: string }) {
+  const client = useClient();
+  const snapshot = () => state.admin.getSnapshot(props.id)!;
 
   return (
     <Column>
       <Typography variant="label">Snapshot Context</Typography>
       <Row>
-        <Show when={props.snapshot._server}>
+        <Show when={snapshot()._server}>
           <Column justify>
             <Typography variant="legacy-settings-description">
               Server
@@ -34,8 +61,8 @@ function Snapshot(props: { snapshot: API.SnapshotWithContext }) {
               onClick={() =>
                 state.admin.addTab({
                   type: "inspector",
-                  title: props.snapshot._server!.name,
-                  id: props.snapshot._server!._id,
+                  title: snapshot()._server!.name,
+                  id: snapshot()._server!._id,
                   typeHint: "server",
                 })
               }
@@ -43,11 +70,11 @@ function Snapshot(props: { snapshot: API.SnapshotWithContext }) {
               <Row align>
                 <Avatar
                   src={client.servers
-                    .createObj(props.snapshot._server!)
+                    .createObj(snapshot()._server!)
                     .generateIconURL()}
                   size={64}
                 />
-                <span>{props.snapshot._server!.name}</span>
+                <span>{snapshot()._server!.name}</span>
               </Row>
             </Button>
           </Column>
@@ -55,24 +82,8 @@ function Snapshot(props: { snapshot: API.SnapshotWithContext }) {
       </Row>
       <Typography variant="label">Content</Typography>
       <Switch>
-        <Match when={props.snapshot.content._type === "Message"}>
-          <MutedList>
-            <For each={props.snapshot.content._prior_context}>
-              {(message) => (
-                <Message message={client.messages.createObj(message, false)} />
-              )}
-            </For>
-          </MutedList>
-          <Message
-            message={client.messages.createObj(props.snapshot.content, false)}
-          />
-          <MutedList>
-            <For each={props.snapshot.content._leading_context}>
-              {(message) => (
-                <Message message={client.messages.createObj(message, false)} />
-              )}
-            </For>
-          </MutedList>
+        <Match when={snapshot().content._type === "Message"}>
+          <MessageSnapshot content={snapshot().content as any} />
         </Match>
       </Switch>
     </Column>
@@ -80,24 +91,24 @@ function Snapshot(props: { snapshot: API.SnapshotWithContext }) {
 }
 
 export function Report() {
-  const data = state.admin.getActiveTab<"report">()!;
-  const report = state.admin.getReport(data.id);
-  const snapshot = state.admin.getSnapshot(data.id);
+  const data = () => state.admin.getActiveTab<"report">()!;
+  const report = () => state.admin.getReport(data().id);
+  const snapshot = () => state.admin.getSnapshot(data().id)!;
 
   const client = useClient();
 
   return (
-    <Show when={report}>
+    <Show when={report()}>
       <Column>
         <Typography variant="legacy-settings-title">
-          Report ({report!.status})
+          Report ({report()!.status})
         </Typography>
-        <textarea value={report!.notes} onInput={(ev) => {}} />
+        <textarea value={report()!.notes} onInput={(ev) => {}} />
         <Button
           palette="primary"
           onClick={() =>
             client.api.patch(`/safety/reports/${data.id as ""}`, {
-              notes: report!.notes,
+              notes: report()!.notes,
               status: {
                 status: "Created",
               },
@@ -108,15 +119,15 @@ export function Report() {
         </Button>
         <Row>
           <Typography variant="legacy-modal-title">
-            {report!.content.report_reason}
+            {report()!.content.report_reason}
           </Typography>
           <Typography variant="legacy-modal-title-2">
-            {report!.additional_context}
+            {report()!.additional_context}
           </Typography>
         </Row>
         <span style="color: white">
-          <Show when={snapshot}>
-            <Snapshot snapshot={snapshot!} />
+          <Show when={snapshot()}>
+            <Snapshot id={data().id} />
           </Show>
           {JSON.stringify(snapshot, undefined, "\t")}
         </span>
