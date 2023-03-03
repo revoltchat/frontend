@@ -1,4 +1,5 @@
 import ClientController from "./Controller";
+export { default as ClientController } from "./Controller";
 
 export { mapAnyError } from "./error";
 

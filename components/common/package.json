@@ -9,5 +9,8 @@
   "private": true,
   "dependencies": {
     "solid-js": "^1.5.1"
+  },
+  "devDependencies": {
+    "@revolt/client": "workspace:^1.0.0"
   }
 }

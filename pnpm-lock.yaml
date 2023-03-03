@@ -49,6 +49,7 @@ importers:
 
   components/client:
     specifiers:
+      '@revolt/common': workspace:^1.0.0
       '@revolt/modal': workspace:^1.0.0
       '@revolt/state': workspace:^1.0.0
       detect-browser: ^5.3.0
@@ -57,6 +58,7 @@ importers:
       solid-js: ^1.5.1
       vite: ^3.0.9
     dependencies:
+      '@revolt/common': link:../common
       '@revolt/modal': link:../modal
       '@revolt/state': link:../state
       detect-browser: 5.3.0
@@ -68,9 +70,12 @@ importers:
 
   components/common:
     specifiers:
+      '@revolt/client': workspace:^1.0.0
       solid-js: ^1.5.1
     dependencies:
       solid-js: 1.5.5
+    devDependencies:
+      '@revolt/client': link:../client
 
   components/i18n:
     specifiers:

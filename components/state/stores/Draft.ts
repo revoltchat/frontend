@@ -1,6 +1,6 @@
 import { State } from "..";
-import { AbstractStore } from ".";
 import { API } from "revolt.js";
+import { AbstractStore } from ".";
 import { insecureUniqueId } from "@revolt/common";
 
 export interface DraftData {

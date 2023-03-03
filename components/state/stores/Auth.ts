@@ -1,6 +1,6 @@
 import { State } from "..";
 import { AbstractStore } from ".";
-import type ClientController from "@revolt/client/Controller";
+import { getController } from "@revolt/common";
 
 interface Session {
   token: string;
@@ -35,12 +35,7 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
       );
     }
 
-    // have to pull it out of the window because otherwise
-    // we get some weird import errors :(
-    // TODO: could make this into a utility function instead and
-    // pull everything from a single place such as "@revolt/common"
-    const clientController = (window as any).controllers
-      .client as ClientController;
+    const clientController = getController("client");
 
     for (const entry of this.getAccounts()) {
       clientController.addSession(entry, "existing");

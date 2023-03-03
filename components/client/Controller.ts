@@ -7,6 +7,7 @@ import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 
 import Session, { SessionPrivate } from "./Session";
+import { registerController } from "@revolt/common";
 
 /**
  * Controls the lifecycles of clients
@@ -50,11 +51,7 @@ export default class ClientController {
     this.login = this.login.bind(this);
     this.logoutCurrent = this.logoutCurrent.bind(this);
 
-    // Inject globally
-    (window as any).controllers = {
-      ...(window as any).controllers,
-      client: this,
-    };
+    registerController("client", this);
   }
 
   /**
