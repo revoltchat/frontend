@@ -1,14 +1,15 @@
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { Avatar, Column, Typography } from "@revolt/ui";
-import { createEffect, createSignal, For, on } from "solid-js";
+import { API } from "revolt.js";
+import { createEffect, createSignal, For } from "solid-js";
 
 export function Reports() {
   const client = useClient();
-  const [reports, setReports] = createSignal<any>();
+  const [reports, setReports] = createSignal<API.Report[]>();
 
   createEffect(() => {
-    client.api.get("/safety/reports" as any).then(setReports);
+    client.api.get("/safety/reports").then(setReports);
   });
 
   return (
@@ -24,7 +25,7 @@ export function Reports() {
               onClick={() => {
                 state.admin.cacheReport(report);
                 state.admin.addTab({
-                  title: `Report: ${report._id}`,
+                  title: `Report: ${report._id.substring(20, 26)}`,
                   type: "report",
                   id: report._id,
                 });
