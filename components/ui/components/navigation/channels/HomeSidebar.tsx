@@ -12,6 +12,8 @@ import { useQuantity, useTranslation } from "@revolt/i18n";
 import { ScrollContainer } from "../../common/ScrollContainers";
 import { TextWithEmoji } from "@revolt/markdown";
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
+import { styled } from "solid-styled-components";
+import { Tooltip } from "../../floating";
 
 interface Props {
   /**
@@ -31,6 +33,10 @@ interface Props {
     navigate?: ReturnType<typeof useNavigate>
   ) => string | undefined;
 }
+
+const SidebarTitle = styled.p`
+  padding-inline: ${(props) => props.theme!.gap.md};
+`;
 
 /**
  * Single conversation entry
@@ -89,18 +95,22 @@ function Entry(props: { channel: Channel; active: boolean }) {
               <OverflowingText>
                 <TextWithEmoji content={props.channel.name!} />
               </OverflowingText>
-              <Typography variant="legacy-settings-description">
+              <Typography variant="status">
                 {q("members", props.channel.recipient_ids?.length || 0)}
               </Typography>
             </Match>
             <Match when={props.channel.channel_type === "DirectMessage"}>
               <OverflowingText>{dm?.username}</OverflowingText>
               <Show when={status}>
-                <Typography variant="legacy-settings-description">
-                  <OverflowingText>
-                    <TextWithEmoji content={status!} />
-                  </OverflowingText>
-                </Typography>
+                <Tooltip content={status!} placement="top-start">
+                  {(triggerProps) => (
+                    <Typography {...triggerProps} variant="status">
+                      <OverflowingText>
+                        <TextWithEmoji content={status!} />
+                      </OverflowingText>
+                    </Typography>
+                  )}
+                </Tooltip>
               </Show>
             </Match>
           </Switch>
@@ -120,11 +130,11 @@ export const HomeSidebar = (props: Props) => {
 
   return (
     <SidebarBase>
-      <p>
+      <SidebarTitle>
         <Typography variant="legacy-settings-title">
           {t("app.main.categories.conversations")}
         </Typography>
-      </p>
+      </SidebarTitle>
       <Link href="/">
         <MenuButton
           size="normal"

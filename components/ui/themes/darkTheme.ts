@@ -56,6 +56,9 @@ export const darkTheme: DefaultTheme = {
     username: {
       fontWeight: 600,
     },
+    status: {
+      fontSize: "11px",
+    },
     tooltip: {
       fontWeight: 600,
       fontSize: "13px",

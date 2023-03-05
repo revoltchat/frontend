@@ -42,6 +42,7 @@ declare module "solid-styled-components" {
       [key in
         | "label"
         | "username"
+        | "status"
         | "tooltip"
         | "category"
         | "menu-button"
