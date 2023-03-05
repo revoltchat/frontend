@@ -14,11 +14,14 @@ export function ApplyGlobalStyles() {
   const theme = useTheme();
 
   createEffect(() => {
+    // Inject common theme styles
     Object.assign(document.body.style, {
       "font-family": theme.fonts.primary,
       background: theme.colours.background,
+      color: theme.colours.foreground,
     });
 
+    // Set default emoji size
     document.body.style.setProperty("--emoji-size", theme.layout.emoji.small);
   });
 

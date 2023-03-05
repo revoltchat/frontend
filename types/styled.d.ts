@@ -47,6 +47,7 @@ declare module "solid-styled-components" {
         | "category"
         | "menu-button"
         | "reply"
+        | "sidebar-title"
         | "legacy-settings-title"
         | "small"
         | "legacy-modal-title"

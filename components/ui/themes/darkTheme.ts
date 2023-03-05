@@ -47,12 +47,13 @@ export const darkTheme: DefaultTheme = {
     primary: '"Inter", sans-serif',
   },
   typography: {
+    // Form elements
     label: {
       fontWeight: 700,
       fontSize: "0.75rem",
       textTransform: "uppercase",
-      colour: "foreground",
     },
+    // Common UI elements
     username: {
       fontWeight: 600,
     },
@@ -71,17 +72,24 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 600,
       fontSize: "0.90625rem",
     },
+    "sidebar-title": {
+      margin: 0,
+      element: "h1",
+      fontWeight: 600,
+      fontSize: "1.2rem",
+    },
+    // Messaging specific
     reply: {
       fontSize: "0.8rem",
       colour: "foreground-100",
     },
+    // Legacy
     "legacy-settings-title": {
       element: "h1",
       margin: 0,
       lineHeight: "1rem",
       fontWeight: 600,
       fontSize: "1.2rem",
-      colour: "foreground",
     },
     small: {
       fontSize: "0.7rem",
@@ -91,7 +99,6 @@ export const darkTheme: DefaultTheme = {
       margin: 0,
       fontWeight: 700,
       fontSize: "0.9375rem",
-      colour: "foreground",
     },
     "legacy-settings-section-title": {
       element: "h3",
@@ -112,7 +119,6 @@ export const darkTheme: DefaultTheme = {
       margin: 0,
       fontWeight: 500,
       fontSize: "0.8rem",
-      colour: "foreground",
     },
   },
   transitions: {

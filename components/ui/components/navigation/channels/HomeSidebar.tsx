@@ -131,7 +131,7 @@ export const HomeSidebar = (props: Props) => {
   return (
     <SidebarBase>
       <SidebarTitle>
-        <Typography variant="legacy-settings-title">
+        <Typography variant="sidebar-title">
           {t("app.main.categories.conversations")}
         </Typography>
       </SidebarTitle>
