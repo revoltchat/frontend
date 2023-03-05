@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "@revolt/routing";
 import { Channel } from "revolt.js";
-import { For, Match, Show, Switch } from "solid-js";
+import { ComponentProps, Match, Show, splitProps, Switch } from "solid-js";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
@@ -9,11 +9,12 @@ import { Column } from "../../design/layout";
 import { OverflowingText } from "../../design/layout/OverflowingText";
 import { SidebarBase } from "./common";
 import { useQuantity, useTranslation } from "@revolt/i18n";
-import { ScrollContainer } from "../../common/ScrollContainers";
 import { TextWithEmoji } from "@revolt/markdown";
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
 import { Tooltip } from "../../floating";
+import { Deferred } from "../../tools";
+import { VirtualContainer } from "@minht11/solid-virtual-container";
 
 interface Props {
   /**
@@ -34,6 +35,101 @@ interface Props {
   ) => string | undefined;
 }
 
+/**
+ * Display home navigation and conversations
+ */
+export const HomeSidebar = (props: Props) => {
+  const t = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  let scrollTargetElement!: HTMLDivElement;
+  // TODO: need to create use:scrollable directive for styles
+
+  return (
+    <SidebarBase>
+      <div
+        ref={scrollTargetElement}
+        style={{
+          "overflow-y": "auto",
+          "flex-grow": 1,
+          "will-change": "transform",
+        }}
+      >
+        <SidebarTitle>
+          <Typography variant="sidebar-title">
+            {t("app.main.categories.conversations")}
+          </Typography>
+        </SidebarTitle>
+        <Link href="/">
+          <MenuButton
+            size="normal"
+            icon={<BiSolidHome size={24} />}
+            attention={location.pathname === "/" ? "active" : "normal"}
+          >
+            Home
+          </MenuButton>
+        </Link>
+        <Link href="/friends">
+          <MenuButton
+            size="normal"
+            icon={<BiSolidUserDetail size={24} />}
+            attention={location.pathname === "/friends" ? "active" : "normal"}
+          >
+            Friends
+          </MenuButton>
+        </Link>
+        <a
+          // Use normal link by default
+          href={`/channel/${props.openSavedNotes()}`}
+          // Fallback to JavaScript navigation if channel doesn't exist yet
+          onClick={(el) =>
+            !el.currentTarget.href && props.openSavedNotes(navigate)
+          }
+        >
+          <MenuButton
+            size="normal"
+            icon={<BiSolidNotepad size={24} />}
+            attention={
+              props.channelId && props.openSavedNotes() === props.channelId
+                ? "active"
+                : "normal"
+            }
+          >
+            Saved Notes
+          </MenuButton>
+        </a>
+        <Deferred>
+          <VirtualContainer
+            items={props.conversations()}
+            scrollTarget={scrollTargetElement}
+            itemSize={{ height: 48 }}
+          >
+            {(item) => (
+              <div
+                style={{ ...item.style, width: "100%", "padding-block": "3px" }}
+                tabIndex={item.tabIndex}
+                role="listitem"
+              >
+                <Entry
+                  style={item.style}
+                  tabIndex={item.tabIndex}
+                  role="listitem"
+                  channel={item.item}
+                  active={item.item._id === props.channelId}
+                />
+              </div>
+            )}
+          </VirtualContainer>
+        </Deferred>
+      </div>
+    </SidebarBase>
+  );
+};
+
+/**
+ * Sidebar title
+ */
 const SidebarTitle = styled.p`
   padding-inline: ${(props) => props.theme!.gap.md};
 `;
@@ -41,47 +137,54 @@ const SidebarTitle = styled.p`
 /**
  * Single conversation entry
  */
-function Entry(props: { channel: Channel; active: boolean }) {
+function Entry(
+  props: { channel: Channel; active: boolean } & Omit<
+    ComponentProps<typeof Link>,
+    "href"
+  >
+) {
+  const [local, remote] = splitProps(props, ["channel", "active"]);
+
   const q = useQuantity();
   const t = useTranslation();
-  const dm = props.channel.recipient;
+  const dm = () => local.channel.recipient;
 
-  const status =
-    dm?.status?.text ??
-    (dm?.status?.presence === "Focus" ? t("app.status.focus") : undefined);
+  const status = () =>
+    dm()?.status?.text ??
+    (dm()?.status?.presence === "Focus" ? t("app.status.focus") : undefined);
 
   return (
-    <Link href={`/channel/${props.channel._id}`}>
+    <Link {...remote} href={`/channel/${local.channel._id}`}>
       <MenuButton
         size="normal"
         alert={
-          !props.active &&
-          props.channel.unread &&
-          (props.channel.mentions.length || true)
+          !local.active &&
+          local.channel.unread &&
+          (local.channel.mentions.length || true)
         }
         attention={
-          props.active ? "selected" : props.channel.unread ? "active" : "normal"
+          local.active ? "selected" : local.channel.unread ? "active" : "normal"
         }
         icon={
           <Switch>
-            <Match when={props.channel.channel_type === "Group"}>
+            <Match when={local.channel.channel_type === "Group"}>
               <Avatar
                 size={32}
-                fallback={props.channel.name}
-                src={props.channel.generateIconURL({ max_side: 256 })}
+                fallback={local.channel.name}
+                src={local.channel.generateIconURL({ max_side: 256 })}
               />
             </Match>
-            <Match when={props.channel.channel_type === "DirectMessage"}>
+            <Match when={local.channel.channel_type === "DirectMessage"}>
               <Avatar
                 size={32}
                 src={
-                  dm?.generateAvatarURL({ max_side: 256 }) ??
-                  dm?.defaultAvatarURL
+                  dm()?.generateAvatarURL({ max_side: 256 }) ??
+                  dm()?.defaultAvatarURL
                 }
                 holepunch="bottom-right"
                 overlay={
                   <UserStatusGraphic
-                    status={dm?.status?.presence ?? "Invisible"}
+                    status={dm()?.status?.presence ?? "Invisible"}
                   />
                 }
               />
@@ -91,22 +194,22 @@ function Entry(props: { channel: Channel; active: boolean }) {
       >
         <Column gap="none">
           <Switch>
-            <Match when={props.channel.channel_type === "Group"}>
+            <Match when={local.channel.channel_type === "Group"}>
               <OverflowingText>
-                <TextWithEmoji content={props.channel.name!} />
+                <TextWithEmoji content={local.channel.name!} />
               </OverflowingText>
               <Typography variant="status">
-                {q("members", props.channel.recipient_ids?.length || 0)}
+                {q("members", local.channel.recipient_ids?.length || 0)}
               </Typography>
             </Match>
-            <Match when={props.channel.channel_type === "DirectMessage"}>
-              <OverflowingText>{dm?.username}</OverflowingText>
+            <Match when={local.channel.channel_type === "DirectMessage"}>
+              <OverflowingText>{dm()?.username}</OverflowingText>
               <Show when={status}>
                 <Tooltip content={status!} placement="top-start">
                   {(triggerProps) => (
                     <Typography {...triggerProps} variant="status">
                       <OverflowingText>
-                        <TextWithEmoji content={status!} />
+                        <TextWithEmoji content={status()!} />
                       </OverflowingText>
                     </Typography>
                   )}
@@ -119,74 +222,3 @@ function Entry(props: { channel: Channel; active: boolean }) {
     </Link>
   );
 }
-
-/**
- * Display home navigation and conversations
- */
-export const HomeSidebar = (props: Props) => {
-  const t = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  return (
-    <SidebarBase>
-      <SidebarTitle>
-        <Typography variant="sidebar-title">
-          {t("app.main.categories.conversations")}
-        </Typography>
-      </SidebarTitle>
-      <Link href="/">
-        <MenuButton
-          size="normal"
-          icon={<BiSolidHome size={24} />}
-          attention={location.pathname === "/" ? "active" : "normal"}
-        >
-          Home
-        </MenuButton>
-      </Link>
-      <Link href="/friends">
-        <MenuButton
-          size="normal"
-          icon={<BiSolidUserDetail size={24} />}
-          attention={location.pathname === "/friends" ? "active" : "normal"}
-        >
-          Friends
-        </MenuButton>
-      </Link>
-      <a
-        // Use normal link by default
-        href={`/channel/${props.openSavedNotes()}`}
-        // Fallback to JavaScript navigation if channel doesn't exist yet
-        onClick={(el) =>
-          !el.currentTarget.href && props.openSavedNotes(navigate)
-        }
-      >
-        <MenuButton
-          size="normal"
-          icon={<BiSolidNotepad size={24} />}
-          attention={
-            props.channelId && props.openSavedNotes() === props.channelId
-              ? "active"
-              : "normal"
-          }
-        >
-          Saved Notes
-        </MenuButton>
-      </a>
-      <ScrollContainer>
-        <Column>
-          <div />
-          <For each={props.conversations()}>
-            {(channel) => (
-              <Entry
-                channel={channel}
-                active={channel._id === props.channelId}
-              />
-            )}
-          </For>
-          <div />
-        </Column>
-      </ScrollContainer>
-    </SidebarBase>
-  );
-};

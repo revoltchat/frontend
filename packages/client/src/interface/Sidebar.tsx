@@ -32,7 +32,7 @@ const Home: Component = () => {
     );
 
     arr.sort((a, b) => b.updatedAt - a.updatedAt);
-    return arr.slice(0, 20);
+    return arr;
   });
 
   return (
@@ -68,6 +68,8 @@ const Home: Component = () => {
  */
 export const Sidebar: Component = () => {
   const client = useClient();
+
+  // TODO: shouldn't have separate route for sidebars because they re-render
 
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>

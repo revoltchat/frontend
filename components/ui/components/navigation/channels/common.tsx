@@ -5,6 +5,7 @@ export const SidebarBase = styled("div", "Sidebar")`
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
+  /* flex-direction: row; */
   background: ${({ theme }) => theme!.colours["background-100"]};
 
   a {

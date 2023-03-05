@@ -17,6 +17,7 @@
     "vite-plugin-solid": "^2.3.0"
   },
   "dependencies": {
+    "@minht11/solid-virtual-container": "^0.2.1",
     "@revolt/auth": "workspace:^1.0.0",
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
