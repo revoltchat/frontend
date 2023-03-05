@@ -43,10 +43,7 @@ export const Header = styled("div", "Header")<Props>`
  * Header with background transparency
  */
 export const HeaderWithTransparency = styled(Header)`
-  background-color: rgba(
-    ${(props) => props.theme!.rgb["channel-header"]},
-    0.75
-  );
+  background-color: rgba(${(props) => props.theme!.rgb["header"]}, 0.75);
   backdrop-filter: ${(props) => props.theme!.effects.blur.md};
 
   width: 100%;

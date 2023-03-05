@@ -24,7 +24,7 @@ export const darkTheme: DefaultTheme = {
     "status-invisible": "#A5A5A5",
   },
   rgb: {
-    "channel-header": "54,54,54",
+    header: "54,54,54",
   },
   breakpoints: {
     sm: "640px",
