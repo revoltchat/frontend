@@ -80,13 +80,15 @@ export const ServerList = (props: Props) => {
           </EntryContainer>
         )}
       </Tooltip>
-      <EntryContainer>
-        <Link href="/admin">
-          <Button compact="icon">
-            <BiSolidCheckShield size={32} />
-          </Button>
-        </Link>
-      </EntryContainer>
+      <Show when={props.user.privileged}>
+        <EntryContainer>
+          <Link href="/admin">
+            <Button compact="icon">
+              <BiSolidCheckShield size={32} />
+            </Button>
+          </Link>
+        </EntryContainer>
+      </Show>
       <Draggable
         items={props.orderedServers}
         onChange={(ids) => {
