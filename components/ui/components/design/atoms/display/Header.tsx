@@ -39,12 +39,14 @@ export const Header = styled("div", "Header")<Props>`
   border-end-start-radius: ${(props) => (props.bottomBorder ? "8px" : 0)};
 `;
 
-/* TODO: var(--${props.palette}-header-rgb),  */
 /**
  * Header with background transparency
  */
 export const HeaderWithTransparency = styled(Header)`
-  background-color: rgba(0, 0, 0, max(var(--min-opacity), 0.75));
+  background-color: rgba(
+    ${(props) => props.theme!.rgb["channel-header"]},
+    0.75
+  );
   backdrop-filter: ${(props) => props.theme!.effects.blur.md};
 
   width: 100%;

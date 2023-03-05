@@ -23,6 +23,9 @@ declare module "solid-styled-components" {
             | "streaming"
             | "invisible"}`]: string;
     };
+    rgb: {
+      [key in "channel-header"]: string;
+    };
     breakpoints: {
       [key in "sm" | "md" | "lg" | "xl"]: string;
     };
