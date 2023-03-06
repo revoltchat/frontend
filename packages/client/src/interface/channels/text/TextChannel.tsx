@@ -1,6 +1,6 @@
-import { TextWithEmoji } from "@revolt/markdown";
 import { HeaderWithTransparency } from "@revolt/ui";
 import { createEffect, createSignal, on } from "solid-js";
+import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
 import { MessageComposition } from "./Composition";
 import { Messages } from "./Messages";
@@ -42,7 +42,7 @@ export function TextChannel(props: ChannelPageProps) {
   return (
     <>
       <HeaderWithTransparency palette="primary">
-        <TextWithEmoji content={props.channel.name!} />
+        <ChannelHeader channel={props.channel} />
       </HeaderWithTransparency>
       <Messages channel={props.channel} />
       <MessageComposition channel={props.channel} />

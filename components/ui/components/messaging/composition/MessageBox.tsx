@@ -146,7 +146,13 @@ export function MessageBox(props: Props) {
             ref={props.ref}
             onKeyDown={onKeyDown}
             value={props.content()}
-            placeholder={`Message ${props.channel.name}`}
+            placeholder={
+              props.channel.channel_type === "SavedMessages"
+                ? "Send to notes"
+                : `Message ${
+                    props.channel.name ?? props.channel.recipient?.username
+                  }`
+            }
             onInput={(e) => props.setContent(e.currentTarget.value)}
           />
         }
