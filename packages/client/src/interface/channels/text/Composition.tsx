@@ -169,6 +169,9 @@ export function MessageComposition(props: Props) {
           document.body.appendChild(input);
           input.click();
         }}
+        __tempAllowFileUploads={() =>
+          state.experiments.isEnabled("file_uploads")
+        }
       />
     </>
   );

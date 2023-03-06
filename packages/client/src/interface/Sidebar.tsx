@@ -2,6 +2,7 @@ import { useClient } from "@revolt/client";
 import { Component, createMemo, Show } from "solid-js";
 import { Route, Routes, useParams } from "@revolt/routing";
 import { ServerList, HomeSidebar, ServerSidebar } from "@revolt/ui";
+import { state } from "@revolt/state";
 
 /**
  * Render sidebar for a server
@@ -59,6 +60,7 @@ const Home: Component = () => {
         // Return channel ID if available
         return channelId;
       }}
+      __tempDisplayFriends={() => state.experiments.isEnabled("friends")}
     />
   );
 };

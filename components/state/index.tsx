@@ -8,6 +8,7 @@ import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Locale } from "./stores/Locale";
 import { AbstractStore, Store } from "./stores";
+import Experiments from "./stores/Experiments";
 
 /**
  * Introduce some delay before writing state to disk
@@ -24,10 +25,11 @@ export class State {
   private writeQueue: Record<string, number>;
 
   // define all stores
-  admin: Admin = new Admin(this);
-  auth: Auth = new Auth(this);
-  draft: Draft = new Draft(this);
-  locale: Locale = new Locale(this);
+  admin = new Admin(this);
+  auth = new Auth(this);
+  draft = new Draft(this);
+  experiments = new Experiments(this);
+  locale = new Locale(this);
 
   /**
    * Iterate over all available stores

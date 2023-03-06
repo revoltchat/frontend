@@ -36,6 +36,11 @@ interface Props {
    * Trigger new file button
    */
   addFile: () => void;
+
+  /**
+   * Are file uploads enabled?
+   */
+  __tempAllowFileUploads: () => void;
 }
 
 /**
@@ -116,18 +121,25 @@ export function MessageBox(props: Props) {
 
   return (
     <Base>
-      <Spacer size="wide">
-        <Switch>
-          <Match when={!props.channel.havePermission("SendMessage")}>
+      <Switch fallback={<Spacer size="short" />}>
+        <Match when={!props.channel.havePermission("SendMessage")}>
+          <Spacer size="wide">
             <BiRegularBlock size={24} />
-          </Match>
-          <Match when={props.channel.havePermission("UploadFiles")}>
+          </Spacer>
+        </Match>
+        <Match
+          when={
+            props.channel.havePermission("UploadFiles") &&
+            props.__tempAllowFileUploads()
+          }
+        >
+          <Spacer size="wide">
             <Button onClick={props.addFile}>
               <BiRegularPlus size={24} />
             </Button>
-          </Match>
-        </Switch>
-      </Spacer>
+          </Spacer>
+        </Match>
+      </Switch>
       <Switch
         fallback={
           <Input

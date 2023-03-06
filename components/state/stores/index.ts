@@ -4,12 +4,14 @@ import { State } from "..";
 import { TypeAdmin } from "./Admin";
 import { TypeAuth } from "./Auth";
 import { TypeDraft } from "./Draft";
+import { TypeExperiments } from "./Experiments";
 import { TypeLocale } from "./Locale";
 
 export type Store = {
   admin: TypeAdmin;
   auth: TypeAuth;
   draft: TypeDraft;
+  experiments: TypeExperiments;
   locale: TypeLocale;
 };
 
