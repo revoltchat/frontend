@@ -86,7 +86,14 @@ export function Tabs(props: Props) {
               role="tab"
               aria-selected={active()}
               active={active()}
-              onClick={() => props.onSelect(tab)}
+              onMouseDown={(ev) => {
+                if (ev.button === 1) {
+                  ev.preventDefault();
+                  props.onDismiss?.(tab);
+                } else if (ev.button === 0) {
+                  props.onSelect(tab);
+                }
+              }}
             >
               {entry().label}
               {entry().dismissable && (
