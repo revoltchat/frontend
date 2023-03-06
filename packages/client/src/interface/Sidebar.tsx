@@ -46,18 +46,19 @@ const Home: Component = () => {
           (channel) => channel.channel_type === "SavedMessages"
         )?._id;
 
-        // If not, try to create one but only if navigating
         if (navigate) {
-          (async () => {
-            if (!channelId) {
-              channelId = (await client.user!.openDM())._id;
-            }
-
+          if (channelId) {
+            // Navigate if exists
             navigate(`/channel/${channelId}`);
-          })();
+          } else {
+            // If not, try to create one but only if navigating
+            client
+              .user!.openDM()
+              .then((channel) => navigate(`/channel/${channel._id}`));
+          }
         }
 
-        // Return channel ID if available
+        // Otherwise return channel ID if available
         return channelId;
       }}
       __tempDisplayFriends={() => state.experiments.isEnabled("friends")}

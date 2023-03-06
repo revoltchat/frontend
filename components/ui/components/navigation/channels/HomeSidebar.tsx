@@ -1,6 +1,13 @@
 import { Link, useLocation, useNavigate } from "@revolt/routing";
 import { Channel } from "revolt.js";
-import { ComponentProps, Match, Show, splitProps, Switch } from "solid-js";
+import {
+  ComponentProps,
+  createMemo,
+  Match,
+  Show,
+  splitProps,
+  Switch,
+} from "solid-js";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
@@ -48,6 +55,8 @@ export const HomeSidebar = (props: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const savedNotesChannelId = createMemo(() => props.openSavedNotes());
+
   let scrollTargetElement!: HTMLDivElement;
   // TODO: need to create use:scrollable directive for styles
 
@@ -88,17 +97,21 @@ export const HomeSidebar = (props: Props) => {
         </Show>
         <a
           // Use normal link by default
-          href={`/channel/${props.openSavedNotes()}`}
+          href={
+            savedNotesChannelId()
+              ? `/channel/${savedNotesChannelId()}`
+              : undefined
+          }
           // Fallback to JavaScript navigation if channel doesn't exist yet
-          onClick={(el) =>
-            !el.currentTarget.href && props.openSavedNotes(navigate)
+          onClick={(ev) =>
+            !ev.currentTarget.href && props.openSavedNotes(navigate)
           }
         >
           <MenuButton
             size="normal"
             icon={<BiSolidNotepad size={24} />}
             attention={
-              props.channelId && props.openSavedNotes() === props.channelId
+              props.channelId && savedNotesChannelId() === props.channelId
                 ? "active"
                 : "normal"
             }
