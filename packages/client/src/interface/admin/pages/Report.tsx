@@ -18,7 +18,7 @@ import {
   styled,
   Typography,
 } from "@revolt/ui";
-import { API } from "revolt.js";
+import { API, Message as MessageI } from "revolt.js";
 import { state } from "@revolt/state";
 import { BiRegularHash } from "solid-icons/bi";
 
@@ -39,13 +39,15 @@ function MessageSnapshot(props: {
   return (
     <>
       <MutedList>
-        <For each={props.content._prior_context}>
-          {(message) => <Message message={client.messages.get(message._id)!} />}
+        <For each={props.content._prior_context as unknown as MessageI[]}>
+          {(message: MessageI) => (
+            <Message message={client.messages.get(message._id)!} />
+          )}
         </For>
       </MutedList>
       <Message message={client.messages.get(props.content._id)!} />
       <MutedList>
-        <For each={props.content._leading_context}>
+        <For each={props.content._leading_context as unknown as MessageI[]}>
           {(message) => <Message message={client.messages.get(message._id)!} />}
         </For>
       </MutedList>
@@ -56,15 +58,20 @@ function MessageSnapshot(props: {
 function Snapshot(props: { id: string }) {
   const client = useClient();
   const snapshot = () => state.admin.getSnapshot(props.id)!;
-  const server = () => client.servers.get(snapshot()._server?._id!);
+  const server = () =>
+    snapshot().content._type === "Server"
+      ? client.servers.get(snapshot().content._id)
+      : client.servers.get(snapshot()._server?._id!);
   const author = () =>
-    client.users.get(
-      (
-        snapshot().content as API.SnapshotContent & {
-          _type: "Message";
-        }
-      )?.author
-    )!;
+    snapshot().content._type === "User"
+      ? client.users.get(snapshot().content._id)
+      : client.users.get(
+          (
+            snapshot().content as API.SnapshotContent & {
+              _type: "Message";
+            }
+          )?.author
+        )!;
   const channel = () =>
     client.channels.get(
       (
@@ -78,25 +85,29 @@ function Snapshot(props: { id: string }) {
     <FixedColumn>
       <Typography variant="label">Snapshot Context</Typography>
       <Row>
-        <Show when={snapshot()._server}>
+        <Show when={server()}>
           <Column justify>
             <Typography variant="legacy-settings-description">
-              Server
+              <Switch fallback={"Server"}>
+                <Match when={snapshot().content._type === "Server"}>
+                  Reported Server
+                </Match>
+              </Switch>
             </Typography>
             <Button
               compact="fluid"
               onClick={() =>
                 state.admin.addTab({
                   type: "inspector",
-                  title: snapshot()._server!.name,
-                  id: snapshot()._server!._id,
+                  title: server()!.name,
+                  id: server()!._id,
                   typeHint: "server",
                 })
               }
             >
               <Row align>
-                <Avatar src={server()?.generateIconURL()} size={64} />
-                <span>{snapshot()._server!.name}</span>
+                <Avatar src={server()!.generateIconURL()} size={64} />
+                <span>{server()!.name}</span>
               </Row>
             </Button>
           </Column>
@@ -131,15 +142,19 @@ function Snapshot(props: { id: string }) {
         <Show when={author()}>
           <Column justify>
             <Typography variant="legacy-settings-description">
-              Author
+              <Switch fallback={"Author"}>
+                <Match when={snapshot().content._type === "User"}>
+                  Reported User
+                </Match>
+              </Switch>
             </Typography>
             <Button
               compact="fluid"
               onClick={() => {
                 state.admin.addTab({
                   type: "inspector",
-                  title: `@${author().username}`,
-                  id: author()._id,
+                  title: `@${author()!.username}`,
+                  id: author()!._id,
                   typeHint: "user",
                 });
                 /*const message = (snapshot().content as (API.SnapshotContent & { _type: 'Message' }));
@@ -152,16 +167,16 @@ function Snapshot(props: { id: string }) {
               }}
             >
               <Row align>
-                <Avatar src={author().animatedAvatarURL} size={64} />
-                <span>{author().username}</span>
+                <Avatar src={author()!.animatedAvatarURL} size={64} />
+                <span>{author()!.username}</span>
               </Row>
             </Button>
           </Column>
         </Show>
       </Row>
-      <Typography variant="label">Content</Typography>
       <Switch>
         <Match when={snapshot().content._type === "Message"}>
+          <Typography variant="label">Content</Typography>
           <MessageSnapshot content={snapshot().content as any} />
         </Match>
       </Switch>
