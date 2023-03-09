@@ -16,3 +16,49 @@ export {
   useLocation,
   hashIntegration,
 } from "@solidjs/router";
+
+import { useLocation } from "@solidjs/router";
+import { Accessor } from "solid-js";
+
+const RE_SERVER = /\/server\/([A-Z0-9]{26})/;
+const RE_CHANNEL = /\/channel\/([A-Z0-9]{26})/;
+
+/**
+ * Route parameters available globally
+ */
+type GlobalParams = {
+  /**
+   * Server ID
+   */
+  serverId?: string;
+
+  /**
+   * Channel ID
+   */
+  channelId?: string;
+};
+
+/**
+ * Try to resolve route parameters regardless of the current position within component tree
+ */
+export function useSmartParams(): Accessor<GlobalParams> {
+  const location = useLocation();
+
+  return () => {
+    let params: GlobalParams = {};
+
+    // Check for server ID
+    const server = location.pathname.match(RE_SERVER);
+    if (server) {
+      params.serverId = server[1];
+    }
+
+    // Check for channel ID
+    const channel = location.pathname.match(RE_CHANNEL);
+    if (channel) {
+      params.channelId = channel[1];
+    }
+
+    return params;
+  };
+}

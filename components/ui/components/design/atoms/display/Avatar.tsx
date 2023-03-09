@@ -98,7 +98,9 @@ export function Avatar(props: Props) {
         width="32"
         height="32"
         // @ts-expect-error Solid.js typing issue
-        mask={props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined}
+        mask={
+          props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined
+        }
       >
         {props.src && <Image src={props.src} />}
         {!props.src && (

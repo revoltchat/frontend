@@ -1,6 +1,12 @@
 import { useClient } from "@revolt/client";
 import { Component, createMemo, Show } from "solid-js";
-import { Route, Routes, useParams } from "@revolt/routing";
+import {
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+  useSmartParams,
+} from "@revolt/routing";
 import { ServerList, HomeSidebar, ServerSidebar } from "@revolt/ui";
 import { state } from "@revolt/state";
 
@@ -71,6 +77,7 @@ const Home: Component = () => {
  */
 export const Sidebar: Component = () => {
   const client = useClient();
+  const params = useSmartParams();
 
   // TODO: shouldn't have separate route for sidebars because they re-render
 
@@ -79,6 +86,7 @@ export const Sidebar: Component = () => {
       <ServerList
         orderedServers={[...client.servers.values()]}
         user={client.user!}
+        selectedServer={() => params().serverId}
       />
       <Routes>
         <Route path="/server/:server/channel/:channel/*" component={Server} />

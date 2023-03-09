@@ -1,7 +1,5 @@
-// ! TODO: #5 implement dnd
-
 import { Server } from "revolt.js/dist/maps/Servers";
-import { Component, Show } from "solid-js";
+import { Accessor, Component, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 import { Link } from "@revolt/routing";
 import { Avatar } from "../../design/atoms/display/Avatar";
@@ -15,6 +13,7 @@ import { Draggable } from "../../common/Draggable";
 import { Tooltip } from "../../floating";
 import { Button, Column, Typography } from "../../design";
 import { BiSolidCheckShield } from "solid-icons/bi";
+import { Swoosh } from "./Swoosh";
 
 /**
  * Server list container
@@ -38,13 +37,51 @@ const EntryContainer = styled("div", "Entry")`
   display: grid;
   flex-shrink: 0;
   place-items: center;
+
+  a {
+    z-index: 1;
+  }
+`;
+
+/**
+ * Divider line between two lists
+ */
+const LineDivider = styled.div`
+  height: 1px;
+  margin: 6px auto;
+  width: calc(100% - 24px);
+  background: ${({ theme }) => theme!.colours["background-300"]};
+`;
+
+/**
+ * Position the Swoosh correctly
+ */
+const PositionSwoosh = styled.div`
+  user-select: none;
+  position: absolute;
+  pointer-events: none;
 `;
 
 interface Props {
+  /**
+   * Ordered server list
+   */
   orderedServers: Server[];
+
+  /**
+   * Current logged in user
+   */
   user: User;
+
+  /**
+   * Selected server id
+   */
+  selectedServer: Accessor<string | undefined>;
 }
 
+/**
+ * Server list sidebar component
+ */
 export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
@@ -61,6 +98,11 @@ export const ServerList = (props: Props) => {
       >
         {(triggerProps) => (
           <EntryContainer {...triggerProps}>
+            <Show when={!props.selectedServer()}>
+              <PositionSwoosh>
+                <Swoosh />
+              </PositionSwoosh>
+            </Show>
             <Link href="/">
               <Avatar
                 size={42}
@@ -89,6 +131,7 @@ export const ServerList = (props: Props) => {
           </Link>
         </EntryContainer>
       </Show>
+      <LineDivider />
       <Draggable
         items={props.orderedServers}
         onChange={(ids) => {
@@ -99,6 +142,11 @@ export const ServerList = (props: Props) => {
           <Tooltip placement="right" content={item.name}>
             {(triggerProps) => (
               <EntryContainer {...triggerProps}>
+                <Show when={props.selectedServer() === item._id}>
+                  <PositionSwoosh>
+                    <Swoosh />
+                  </PositionSwoosh>
+                </Show>
                 <Link href={`/server/${item._id}`}>
                   <Avatar
                     size={42}
