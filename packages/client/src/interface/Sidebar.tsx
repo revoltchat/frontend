@@ -1,12 +1,6 @@
 import { useClient } from "@revolt/client";
 import { Component, createMemo, Show } from "solid-js";
-import {
-  Route,
-  Routes,
-  useLocation,
-  useParams,
-  useSmartParams,
-} from "@revolt/routing";
+import { Route, Routes, useSmartParams } from "@revolt/routing";
 import { ServerList, HomeSidebar, ServerSidebar } from "@revolt/ui";
 import { state } from "@revolt/state";
 
@@ -14,13 +8,13 @@ import { state } from "@revolt/state";
  * Render sidebar for a server
  */
 const Server: Component = () => {
-  const params = useParams();
+  const params = useSmartParams();
   const client = useClient();
-  const server = () => client.servers.get(params.server)!;
+  const server = () => client.servers.get(params().serverId!)!;
 
   return (
     <Show when={server()}>
-      <ServerSidebar server={server()} channelId={params.channel} />
+      <ServerSidebar server={server()} channelId={params().channelId} />
     </Show>
   );
 };
@@ -29,7 +23,7 @@ const Server: Component = () => {
  * Render sidebar for home
  */
 const Home: Component = () => {
-  const params = useParams();
+  const params = useSmartParams();
   const client = useClient();
 
   const conversations = createMemo(() => {
@@ -45,7 +39,7 @@ const Home: Component = () => {
   return (
     <HomeSidebar
       conversations={conversations}
-      channelId={params.channel}
+      channelId={params().channelId}
       openSavedNotes={(navigate) => {
         // Check whether the saved messages channel exists already
         let channelId = [...client.channels.values()].find(
@@ -79,8 +73,6 @@ export const Sidebar: Component = () => {
   const client = useClient();
   const params = useSmartParams();
 
-  // TODO: shouldn't have separate route for sidebars because they re-render
-
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>
       <ServerList
@@ -89,9 +81,7 @@ export const Sidebar: Component = () => {
         selectedServer={() => params().serverId}
       />
       <Routes>
-        <Route path="/server/:server/channel/:channel/*" component={Server} />
         <Route path="/server/:server/*" component={Server} />
-        <Route path="/channel/:channel/*" component={Home} />
         <Route path="/admin" element={() => null} />
         <Route path="/*" component={Home} />
       </Routes>

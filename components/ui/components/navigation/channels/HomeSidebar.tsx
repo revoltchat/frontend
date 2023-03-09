@@ -32,7 +32,7 @@ interface Props {
   /**
    * Current channel ID
    */
-  channelId: string;
+  channelId?: string;
 
   /**
    * Open the saved notes channel
