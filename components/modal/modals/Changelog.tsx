@@ -1,7 +1,9 @@
-import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
-import { createSignal, For, Match, Switch } from "solid-js";
-import { CategoryButton, Column, styled } from "@revolt/ui";
+import { For, Match, Switch, createSignal } from "solid-js";
+
 import { dayjs, useTranslation } from "@revolt/i18n";
+import { CategoryButton, Column, styled } from "@revolt/ui";
+import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
+
 import { ModalProps, PropGenerator } from "../types";
 
 /**

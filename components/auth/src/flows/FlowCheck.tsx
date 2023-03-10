@@ -1,9 +1,11 @@
-import { FlowTitle } from "./Flow";
-import { Link } from "@revolt/routing";
-import { useTranslation } from "@revolt/i18n";
-import { MailProvider } from "./MailProvider";
 import { Show } from "solid-js";
+
+import { useTranslation } from "@revolt/i18n";
+import { Link } from "@revolt/routing";
 import { Typography } from "@revolt/ui";
+
+import { FlowTitle } from "./Flow";
+import { MailProvider } from "./MailProvider";
 
 /**
  * Keep track of email within the same session

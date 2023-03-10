@@ -1,6 +1,8 @@
-import { MenuButton } from "./MenuButton";
-import type { ComponentStory } from "../../../stories";
 import { BiSolidUser } from "solid-icons/bi";
+
+import type { ComponentStory } from "../../../stories";
+
+import { MenuButton } from "./MenuButton";
 
 export default {
   category: "Design System/Atoms/Inputs",

@@ -1,12 +1,13 @@
-import { AdminSidebar, Column, Row, styled, Tabs } from "@revolt/ui";
 import { Match, Switch } from "solid-js";
+
+import { state } from "@revolt/state";
+import { DEFAULT_TAB_OFFSET_IDX, TabState } from "@revolt/state/stores/Admin";
+import { AdminSidebar, Column, Row, Tabs, styled } from "@revolt/ui";
 
 import { Home } from "./pages/Home";
 import { Inspector } from "./pages/Inspector";
-import { Reports } from "./pages/Reports";
 import { Report } from "./pages/Report";
-import { DEFAULT_TAB_OFFSET_IDX, TabState } from "@revolt/state/stores/Admin";
-import { state } from "@revolt/state";
+import { Reports } from "./pages/Reports";
 
 function RenderTab() {
   const idx = () => state.admin.getActiveTabIndex();

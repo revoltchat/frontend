@@ -1,17 +1,19 @@
-import { useClient } from "@revolt/client";
-import { dayjs } from "@revolt/i18n";
-import { styled, Message, ScrollContainer, MessageDivider } from "@revolt/ui";
-import { Channel, Message as MessageInterface } from "revolt.js";
 import {
+  For,
   createEffect,
   createMemo,
   createSignal,
-  For,
   on,
   onCleanup,
   splitProps,
 } from "solid-js";
+
 import isEqual from "lodash.isequal";
+import { Channel, Message as MessageInterface } from "revolt.js";
+
+import { useClient } from "@revolt/client";
+import { dayjs } from "@revolt/i18n";
+import { Message, MessageDivider, ScrollContainer, styled } from "@revolt/ui";
 
 /**
  * Base list container

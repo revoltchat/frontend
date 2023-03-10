@@ -1,10 +1,12 @@
-import { RE_MENTIONS } from "revolt.js";
-import { useParams } from "@revolt/routing";
 import { styled } from "solid-styled-components";
-import { Avatar, ColouredText } from "@revolt/ui";
-import { clientController } from "@revolt/client";
 
-import { createComponent, CustomComponentProps } from "./remarkRegexComponent";
+import { RE_MENTIONS } from "revolt.js";
+
+import { clientController } from "@revolt/client";
+import { useParams } from "@revolt/routing";
+import { Avatar, ColouredText } from "@revolt/ui";
+
+import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
 const Mention = styled.a`
   gap: 4px;

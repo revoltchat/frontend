@@ -1,12 +1,12 @@
 import { createI18nContext, useI18n } from "@solid-primitives/i18n";
+
 import { Language, Languages } from "./locales/Languages";
+import en from "./locales/en.json";
 
 export { Language, Languages } from "./locales/Languages";
 export { I18nContext, useI18n } from "@solid-primitives/i18n";
 export { LocaleSelector } from "./LocaleSelector";
 export * from "./dayjs";
-
-import en from "./locales/en.json";
 
 /**
  * Default dictionary object

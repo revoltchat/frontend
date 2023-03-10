@@ -1,8 +1,10 @@
+import { ulid } from "ulid";
+
+import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { ulid } from "ulid";
-import { mapAnyError } from "@revolt/client";
 
 /**
  * Modal to create a new category

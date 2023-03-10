@@ -1,18 +1,20 @@
+import { Show, createSignal, splitProps } from "solid-js";
+import { createStore } from "solid-js/store";
+
+import { useTranslation } from "@revolt/i18n";
 import { Form, Typography } from "@revolt/ui";
-import { getInitialValues } from "@revolt/ui/components/tools/Form";
 import type {
   Action,
   Props as ModalProps,
 } from "@revolt/ui/components/design/atoms/display/Modal";
+import { getInitialValues } from "@revolt/ui/components/tools/Form";
 import type {
+  Props as FormProps,
   FormTemplate,
   MapFormToValues,
-  Props as FormProps,
 } from "@revolt/ui/components/tools/Form";
-import { createSignal, Show, splitProps } from "solid-js";
+
 import { Modals, PropGenerator } from "./types";
-import { createStore } from "solid-js/store";
-import { useTranslation } from "@revolt/i18n";
 
 type Props<T extends FormTemplate> = Omit<
   FormProps<T>,

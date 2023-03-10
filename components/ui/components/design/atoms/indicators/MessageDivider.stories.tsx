@@ -1,20 +1,21 @@
-import { MessageDivider } from "./MessageDivider";
-import type { ComponentStory } from "../../../stories";
 import makeContainerDecorator from "../../../../decorators/ContainerDecorator";
+import type { ComponentStory } from "../../../stories";
+
+import { MessageDivider } from "./MessageDivider";
 
 export default {
   category: "Design System/Atoms/Indicators",
   component: MessageDivider,
   stories: [
     {
-      title: "Default"
+      title: "Default",
     },
     {
       title: "Unread",
       props: {
-        unread: true
-      }
-    }
+        unread: true,
+      },
+    },
   ],
   props: {
     date: "1st December 2022",
@@ -22,14 +23,14 @@ export default {
   decorators: [
     makeContainerDecorator({
       width: 360,
-      flex: 'col'
+      flex: "col",
     }),
     makeContainerDecorator({
-      height: 32
-    })
+      height: 32,
+    }),
   ],
   propTypes: {
-    date: 'string',
-    unread: 'boolean'
+    date: "string",
+    unread: "boolean",
   },
 } as ComponentStory<typeof MessageDivider>;

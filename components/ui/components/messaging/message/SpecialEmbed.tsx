@@ -1,5 +1,7 @@
 import type { API } from "revolt.js";
+
 import { SizedContent } from "../../design";
+
 import { E } from "./Embed";
 
 /**

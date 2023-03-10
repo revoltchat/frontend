@@ -1,11 +1,15 @@
+import { BiRegularLink, BiSolidBot, BiSolidShield } from "solid-icons/bi";
+import { For, Match, Show, Switch, onMount } from "solid-js";
+
+import { Message as MessageInterface } from "revolt.js";
+
 import { useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
-import { Message as MessageInterface } from "revolt.js";
-import { BiRegularLink, BiSolidBot, BiSolidShield } from "solid-icons/bi";
-import { For, Match, onMount, Show, Switch } from "solid-js";
+
 import { Column } from "../../design";
 import { Username } from "../../design/atoms/display/Username";
 import { Tooltip, UserCard } from "../../floating";
+
 import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";

@@ -1,5 +1,6 @@
-import { Route, Routes } from "@revolt/routing";
 import { Component, lazy } from "solid-js";
+
+import { Route, Routes } from "@revolt/routing";
 
 const AuthPage = lazy(() => import("./Auth"));
 const Interface = lazy(() => import("./Interface"));

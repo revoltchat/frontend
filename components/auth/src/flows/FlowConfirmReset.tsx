@@ -1,9 +1,10 @@
-import { FlowTitle } from "./Flow";
-import { Button, Typography } from "@revolt/ui";
-import { Fields, Form } from "./Form";
-import { Link, useNavigate, useParams } from "@revolt/routing";
 import { clientController } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
+import { Link, useNavigate, useParams } from "@revolt/routing";
+import { Button, Typography } from "@revolt/ui";
+
+import { FlowTitle } from "./Flow";
+import { Fields, Form } from "./Form";
 
 /**
  * Flow for confirming a new password

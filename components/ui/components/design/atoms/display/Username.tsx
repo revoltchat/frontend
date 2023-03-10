@@ -1,4 +1,5 @@
 import { ComponentProps, splitProps } from "solid-js";
+
 import { ColouredText } from "./ColouredText";
 import { Typography } from "./Typography";
 

@@ -1,5 +1,5 @@
 /* @refresh reload */
-import "@revolt/ui/styles";
+import { Accessor, For, Match, Show, Switch, createSignal } from "solid-js";
 
 /**
  * Configure contexts and render App
@@ -8,23 +8,23 @@ import { render } from "solid-js/web";
 
 import i18n, { I18nContext } from "@revolt/i18n";
 import {
-  ThemeProvider,
-  darkTheme,
+  ApplyGlobalStyles,
+  Checkbox,
+  Column,
+  ComboBox,
+  Input,
   Masks,
+  MenuButton,
   Row,
-  styled,
   ScrollContainer,
   Tabs,
-  Column,
-  MenuButton,
+  ThemeProvider,
   Typography,
-  Input,
-  Checkbox,
-  ComboBox,
-  ApplyGlobalStyles,
+  darkTheme,
+  styled,
 } from "@revolt/ui";
 import { SidebarBase } from "@revolt/ui/components/navigation/channels/common";
-import { Accessor, createSignal, For, Match, Show, Switch } from "solid-js";
+import "@revolt/ui/styles";
 
 import components from "./stories";
 

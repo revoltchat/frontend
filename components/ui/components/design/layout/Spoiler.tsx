@@ -1,6 +1,7 @@
-import { useTranslation } from "@revolt/i18n";
-import { createSignal, Show } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { useTranslation } from "@revolt/i18n";
 
 interface Props {
   contentType?: "Image" | "Video";
@@ -38,7 +39,10 @@ export function Spoiler(props: Props) {
   return (
     <Show when={shown()}>
       <Base class="container">
-        <div class={`Spoiler ${props.contentType}`} onClick={() => setShown(false)}>
+        <div
+          class={`Spoiler ${props.contentType}`}
+          onClick={() => setShown(false)}
+        >
           <span>{t("app.main.channel.misc.spoiler_attachment")}</span>
         </div>
       </Base>

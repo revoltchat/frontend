@@ -1,5 +1,6 @@
-import { Input } from "./Input";
 import type { ComponentStory } from "../../../stories";
+
+import { Input } from "./Input";
 
 export default {
   category: "Design System/Atoms/Inputs",

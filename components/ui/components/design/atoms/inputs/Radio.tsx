@@ -1,6 +1,6 @@
+import { FaSolidCircle as CircleIcon } from "solid-icons/fa";
 import { JSX, Show } from "solid-js";
 import { styled } from "solid-styled-components";
-import { FaSolidCircle as CircleIcon } from "solid-icons/fa";
 
 interface Props {
   title?: JSX.Element;

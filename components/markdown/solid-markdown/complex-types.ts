@@ -3,10 +3,10 @@
  * Copyright (c) 2015 Espen Hovlandsdal
  * https://github.com/andi23rosca/solid-markdown/blob/master/license
  */
-
 import { Component, JSX } from "solid-js";
-import type { Position } from "unist";
+
 import type { Element } from "hast";
+import type { Position } from "unist";
 
 /* File for types which are not handled correctly in JSDoc mode */
 

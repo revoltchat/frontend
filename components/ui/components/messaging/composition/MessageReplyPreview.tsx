@@ -1,10 +1,13 @@
-import { useTranslation } from "@revolt/i18n";
-import type { Message } from "revolt.js";
 import { BiRegularAt, BiSolidXCircle } from "solid-icons/bi";
-import { styled } from "solid-styled-components";
-import { MessageReply } from "../message/MessageReply";
-import { Row } from "../../design";
 import { Show } from "solid-js";
+import { styled } from "solid-styled-components";
+
+import type { Message } from "revolt.js";
+
+import { useTranslation } from "@revolt/i18n";
+
+import { Row } from "../../design";
+import { MessageReply } from "../message/MessageReply";
 
 interface Props {
   /**

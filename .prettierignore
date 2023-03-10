@@ -1,2 +1,10 @@
+# external libraries
 **/revolt.js/**
-**/i18n/locales/*.ts
+**/solid-styled-components/**
+
+# minified files
+**/i18n/locales/**
+
+# auto-generated files
+packages/showcase/componentData.ts
+packages/showcase/src/stories.ts

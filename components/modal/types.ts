@@ -1,7 +1,10 @@
-import { API, Client, User, Member, Channel, Server, Message } from "revolt.js";
-import { ChangelogPost } from "./modals/Changelog";
 import type { ComponentProps } from "solid-js";
+
+import { API, Channel, Client, Member, Message, Server, User } from "revolt.js";
+
 import type { Modal } from "@revolt/ui";
+
+import { ChangelogPost } from "./modals/Changelog";
 
 export type Modals =
   | {

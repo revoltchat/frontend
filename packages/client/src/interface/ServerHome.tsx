@@ -1,6 +1,7 @@
+import { Component, Match, Switch, createMemo } from "solid-js";
+
 import { useClient } from "@revolt/client";
 import { Navigate, useParams } from "@revolt/routing";
-import { Component, createMemo, Match, Switch } from "solid-js";
 
 /**
  * Server home component

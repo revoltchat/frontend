@@ -1,27 +1,31 @@
-import { Link, useLocation, useNavigate } from "@revolt/routing";
-import { Channel } from "revolt.js";
+import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 import {
   ComponentProps,
-  createMemo,
   Match,
   Show,
-  splitProps,
   Switch,
+  createMemo,
+  splitProps,
 } from "solid-js";
+import { styled } from "solid-styled-components";
+
+import { VirtualContainer } from "@minht11/solid-virtual-container";
+import { Channel } from "revolt.js";
+
+import { useQuantity, useTranslation } from "@revolt/i18n";
+import { TextWithEmoji } from "@revolt/markdown";
+import { Link, useLocation, useNavigate } from "@revolt/routing";
+
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column } from "../../design/layout";
 import { OverflowingText } from "../../design/layout/OverflowingText";
-import { SidebarBase } from "./common";
-import { useQuantity, useTranslation } from "@revolt/i18n";
-import { TextWithEmoji } from "@revolt/markdown";
-import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
-import { styled } from "solid-styled-components";
 import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
-import { VirtualContainer } from "@minht11/solid-virtual-container";
+
+import { SidebarBase } from "./common";
 
 interface Props {
   /**

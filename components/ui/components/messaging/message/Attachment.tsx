@@ -1,9 +1,12 @@
-import { API } from "revolt.js";
-import { Column } from "../../design/layout";
-import { styled } from "solid-styled-components";
 import { Match, Show, Switch } from "solid-js";
-import { Spoiler } from "../../design/layout/Spoiler";
+import { styled } from "solid-styled-components";
+
+import { API } from "revolt.js";
+
+import { Column } from "../../design/layout";
 import { SizedContent } from "../../design/layout/SizedContent";
+import { Spoiler } from "../../design/layout/Spoiler";
+
 import { FileInfo } from "./FileInfo";
 import { TextFile } from "./TextFile";
 
@@ -39,10 +42,7 @@ export function humanFileSize(size: number) {
 /**
  * Render a given list of files
  */
-export function Attachment(props: {
-  file: API.File;
-  baseUrl: string;
-}) {
+export function Attachment(props: { file: API.File; baseUrl: string }) {
   const link = `${props.baseUrl}/attachments/${props.file._id}`;
   const download = `${props.baseUrl}/attachments/download/${props.file._id}`;
   const size = humanFileSize(props.file.size);

@@ -1,15 +1,27 @@
 /// <reference path="../types/styled.d.ts" />
+import { enableExternalSource } from "solid-js";
 
-import "./sentry";
-
-/* @refresh reload */
-import "@revolt/ui/styles";
+/**
+ * Configure contexts and render App
+ */
+import { render } from "solid-js/web";
 
 /**
  * Configure MobX
  */
 import { Reaction } from "mobx";
-import { enableExternalSource } from "solid-js";
+
+import i18n, { I18nContext } from "@revolt/i18n";
+import { ModalRenderer } from "@revolt/modal";
+import { Router } from "@revolt/routing";
+import { Hydrate } from "@revolt/state";
+import { ApplyGlobalStyles, Masks, ThemeProvider, darkTheme } from "@revolt/ui";
+
+/* @refresh reload */
+import "@revolt/ui/styles";
+
+import App from "./App";
+import "./sentry";
 
 let id = 0;
 enableExternalSource((fn, trigger) => {
@@ -23,18 +35,6 @@ enableExternalSource((fn, trigger) => {
     dispose: () => reaction.dispose(),
   };
 });
-
-/**
- * Configure contexts and render App
- */
-import { render } from "solid-js/web";
-
-import { ThemeProvider, darkTheme, Masks, ApplyGlobalStyles } from "@revolt/ui";
-import i18n, { I18nContext } from "@revolt/i18n";
-import { ModalRenderer } from "@revolt/modal";
-import { Router } from "@revolt/routing";
-import { Hydrate } from "@revolt/state";
-import App from "./App";
 
 render(
   () => (

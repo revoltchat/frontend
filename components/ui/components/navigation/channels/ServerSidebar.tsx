@@ -1,20 +1,23 @@
-import type { API, Channel, Server } from "revolt.js";
-
-import { Link } from "@revolt/routing";
-import { createMemo, createSignal, For, Match, Show, Switch } from "solid-js";
-import { Typography } from "../../design/atoms/display/Typography";
-import { MenuButton } from "../../design/atoms/inputs/MenuButton";
-import { Column, OverflowingText, Row } from "../../design/layout";
-import { SidebarBase } from "./common";
 import {
   BiRegularHash,
   BiRegularPhoneCall,
   BiSolidChevronRight,
 } from "solid-icons/bi";
+import { For, Match, Show, Switch, createMemo, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
-import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
-import { ScrollContainer } from "../../common/ScrollContainers";
+
+import type { API, Channel, Server } from "revolt.js";
+
 import { TextWithEmoji } from "@revolt/markdown";
+import { Link } from "@revolt/routing";
+
+import { ScrollContainer } from "../../common/ScrollContainers";
+import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
+import { Typography } from "../../design/atoms/display/Typography";
+import { MenuButton } from "../../design/atoms/inputs/MenuButton";
+import { Column, OverflowingText, Row } from "../../design/layout";
+
+import { SidebarBase } from "./common";
 
 interface Props {
   /**

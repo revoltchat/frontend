@@ -1,5 +1,6 @@
-import { dayjs } from "@revolt/i18n";
 import { createSignal, onCleanup } from "solid-js";
+
+import { dayjs } from "@revolt/i18n";
 
 interface Props {
   value: number | Date | string;

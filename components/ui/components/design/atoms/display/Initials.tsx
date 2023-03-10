@@ -30,7 +30,5 @@ export function toInitials(input: string, maxLength: number = 100) {
  * Takes some string and displays the first letter of each word
  */
 export function Initials(props: Props) {
-  return (
-    <>{toInitials(props.input, props.maxLength).join('')}</>
-  );
+  return <>{toInitials(props.input, props.maxLength).join("")}</>;
 }

@@ -1,9 +1,9 @@
 import type { JSX } from "solid-js";
 import { render } from "solid-testing-library";
 
-import { ThemeProvider, darkTheme, Masks } from "@revolt/ui";
-import { Router, hashIntegration } from "@revolt/routing";
 import i18n, { I18nContext } from "@revolt/i18n";
+import { Router, hashIntegration } from "@revolt/routing";
+import { Masks, ThemeProvider, darkTheme } from "@revolt/ui";
 
 /**
  * Inject Context above children

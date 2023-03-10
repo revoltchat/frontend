@@ -1,10 +1,12 @@
-import { FlowTitle } from "./Flow";
-import { Button, Typography } from "@revolt/ui";
-import { Fields, Form } from "./Form";
-import { Link, useNavigate } from "@revolt/routing";
-import { clientController } from "../../../client";
 import { useTranslation } from "@revolt/i18n";
+import { Link, useNavigate } from "@revolt/routing";
+import { Button, Typography } from "@revolt/ui";
+
+import { clientController } from "../../../client";
+
+import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
+import { Fields, Form } from "./Form";
 
 /**
  * Flow for creating a new account

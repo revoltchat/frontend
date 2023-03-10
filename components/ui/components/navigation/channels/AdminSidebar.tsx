@@ -1,8 +1,9 @@
-import { Typography } from "../../design/atoms/display/Typography";
-import { Column } from "../../design/layout";
-import { SidebarBase } from "./common";
 import { ScrollContainer } from "../../common/ScrollContainers";
 import { MenuButton } from "../../design";
+import { Typography } from "../../design/atoms/display/Typography";
+import { Column } from "../../design/layout";
+
+import { SidebarBase } from "./common";
 
 interface Props {
   /**

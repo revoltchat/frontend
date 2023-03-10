@@ -10,7 +10,9 @@
     "build": "cd packages/client && pnpm run build",
     "build:deps": "pnpm --filter revolt.js build",
     "build:all": "pnpm run build:deps && pnpm run build",
-    "showcase": "cd packages/showcase && pnpm run dev"
+    "showcase": "cd packages/showcase && pnpm run dev",
+    "fmt": "prettier --write '**/*.{ts,tsx,json}'",
+    "fmt:check": "prettier --check '**/*.{ts,tsx,json}'"
   },
   "keywords": [],
   "engines": {

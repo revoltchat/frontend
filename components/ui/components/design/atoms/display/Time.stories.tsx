@@ -1,7 +1,9 @@
-import { Time } from "./Time";
 import type { ComponentProps } from "solid-js";
-import type { ComponentStory } from "../../../stories";
+
 import TextColourDecorator from "../../../../decorators/TextColourDecorator";
+import type { ComponentStory } from "../../../stories";
+
+import { Time } from "./Time";
 
 const REFERENCE_TIME = "2022-12-07T20:27:50.000Z";
 

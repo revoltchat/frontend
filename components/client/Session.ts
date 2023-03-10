@@ -1,6 +1,7 @@
-import { modalController } from "@revolt/modal";
 import { makeAutoObservable } from "mobx";
 import { API, Client } from "revolt.js";
+
+import { modalController } from "@revolt/modal";
 
 /**
  * Session authentication

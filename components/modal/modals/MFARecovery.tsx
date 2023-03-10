@@ -1,8 +1,10 @@
-import { useTranslation } from "@revolt/i18n";
-import { PropGenerator } from "../types";
 import { createSignal } from "solid-js";
+
+import { useTranslation } from "@revolt/i18n";
 import { styled } from "@revolt/ui";
+
 import { modalController } from "..";
+import { PropGenerator } from "../types";
 
 /**
  * List of recovery codes

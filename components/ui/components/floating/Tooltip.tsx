@@ -1,10 +1,12 @@
 import { useFloating } from "solid-floating-ui";
-import { styled } from "solid-styled-components";
-import { createSignal, JSX, Ref, Show } from "solid-js";
-import { autoUpdate, flip, offset, Placement, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "@motionone/solid";
-import { generateTypographyCSS } from "../design/atoms/display/Typography";
+import { JSX, Ref, Show, createSignal } from "solid-js";
 import { Portal } from "solid-js/web";
+import { styled } from "solid-styled-components";
+
+import { Placement, autoUpdate, flip, offset, shift } from "@floating-ui/dom";
+import { Motion, Presence } from "@motionone/solid";
+
+import { generateTypographyCSS } from "../design/atoms/display/Typography";
 
 /**
  * Base element for the tooltip

@@ -1,15 +1,18 @@
-import type { Embed, E } from "./Embed";
 import { ComponentProps, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { Markdown } from "@revolt/markdown";
+
 import {
   Column,
   OverflowingText,
   SizedContent,
   Typography,
 } from "../../design";
+
 import { Attachment } from "./Attachment";
+import type { E, Embed } from "./Embed";
 import { SpecialEmbed } from "./SpecialEmbed";
-import { Markdown } from "@revolt/markdown";
 
 const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
   display: flex;

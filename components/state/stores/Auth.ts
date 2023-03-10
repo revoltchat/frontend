@@ -1,6 +1,8 @@
-import { State } from "..";
-import { AbstractStore } from ".";
 import { getController } from "@revolt/common";
+
+import { State } from "..";
+
+import { AbstractStore } from ".";
 
 interface Session {
   token: string;

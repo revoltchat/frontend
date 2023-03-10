@@ -1,7 +1,8 @@
 import { useTranslation } from "@revolt/i18n";
+import { Message } from "@revolt/ui";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { Message } from "@revolt/ui";
 
 /**
  * Modal to delete a message

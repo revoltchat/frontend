@@ -3,19 +3,25 @@
  * Copyright (c) 2015 Espen Hovlandsdal
  * https://github.com/andi23rosca/solid-markdown/blob/master/license
  */
+import { Component, JSX } from "solid-js";
+import { Dynamic } from "solid-js/web";
 
-import type { Position } from "unist";
+import { stringify as commas } from "comma-separated-tokens";
 import type {
+  Comment,
+  DocType,
   Element,
   ElementContent,
   Root,
   Text,
-  Comment,
-  DocType,
 } from "hast";
 import type { Schema } from "property-information";
+import { find, hastToReact, svg } from "property-information";
+import { stringify as spaces } from "space-separated-tokens";
+import style from "style-to-object";
+import type { Position } from "unist";
+
 import type { NormalComponents, SolidMarkdownProps } from "./complex-types";
-import { Dynamic } from "solid-js/web";
 
 type Raw = {
   type: "raw";
@@ -106,12 +112,6 @@ export type Options = {
   linkTarget: TransformLinkTargetType | TransformLinkTarget;
   components: Components;
 };
-
-import { svg, find, hastToReact } from "property-information";
-import { stringify as spaces } from "space-separated-tokens";
-import { stringify as commas } from "comma-separated-tokens";
-import style from "style-to-object";
-import { Component, JSX } from "solid-js";
 
 const own = {}.hasOwnProperty;
 

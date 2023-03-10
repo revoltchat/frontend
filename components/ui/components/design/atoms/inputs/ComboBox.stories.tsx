@@ -1,5 +1,6 @@
-import { ComboBox } from "./ComboBox";
 import type { ComponentStory } from "../../../stories";
+
+import { ComboBox } from "./ComboBox";
 
 export default {
   category: "Design System/Atoms/Inputs",

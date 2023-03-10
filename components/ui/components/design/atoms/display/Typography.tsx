@@ -1,9 +1,9 @@
 import { splitProps } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
 import {
-  css,
   DefaultTheme,
   StylesArg,
+  css,
   useTheme,
 } from "solid-styled-components";
 

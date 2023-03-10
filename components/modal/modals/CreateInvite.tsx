@@ -1,10 +1,12 @@
-import { createSignal, Match, onMount, Switch } from "solid-js";
-import { Column, styled } from "@revolt/ui";
-import { useTranslation } from "@revolt/i18n";
+import { Match, Switch, createSignal, onMount } from "solid-js";
+
 import { IS_REVOLT, mapAnyError } from "@revolt/client";
+import { useTranslation } from "@revolt/i18n";
+import { Column, styled } from "@revolt/ui";
+
+import { modalController } from "..";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { modalController } from "..";
 
 /**
  * Code block which displays invite

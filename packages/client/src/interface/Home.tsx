@@ -1,26 +1,25 @@
 import {
-  Button,
-  CategoryButton,
-  Header,
-  styled,
-  Column,
-  Typography,
-} from "@revolt/ui";
-import { IS_DEV, IS_REVOLT, useClient } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
-import { useNavigate } from "@revolt/routing";
-
-import { Match, Show, Switch } from "solid-js";
-
-import {
   BiRegularMoney,
-  BiSolidCompass,
   BiSolidCog,
+  BiSolidCompass,
   BiSolidMegaphone,
   BiSolidPlusCircle,
   BiSolidRightArrowCircle,
 } from "solid-icons/bi";
+import { Match, Show, Switch } from "solid-js";
+
+import { IS_DEV, IS_REVOLT, useClient } from "@revolt/client";
+import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
+import { useNavigate } from "@revolt/routing";
+import {
+  Button,
+  CategoryButton,
+  Column,
+  Header,
+  Typography,
+  styled,
+} from "@revolt/ui";
 
 /**
  * Base layout of the home page (i.e. the header/background)

@@ -1,4 +1,3 @@
-import { API } from "revolt.js";
 import {
   BiRegularDownload,
   BiRegularHeadphone,
@@ -10,6 +9,9 @@ import {
 } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { API } from "revolt.js";
+
 import { Typography } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
 

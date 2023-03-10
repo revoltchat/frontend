@@ -1,5 +1,6 @@
 import { Match } from "solid-js";
-import { createSignal, JSX, onMount, Switch } from "solid-js";
+import { JSX, Switch, createSignal, onMount } from "solid-js";
+
 import { Preloader } from "../design";
 
 /**

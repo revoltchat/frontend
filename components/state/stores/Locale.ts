@@ -1,6 +1,8 @@
+import { Language, Languages, loadAndSetLanguage } from "@revolt/i18n";
+
 import { State } from "..";
+
 import { AbstractStore } from ".";
-import { Language, loadAndSetLanguage, Languages } from "@revolt/i18n";
 
 export type TypeLocale = {
   /**

@@ -1,7 +1,8 @@
 import { styled } from "solid-styled-components";
+
 import emojiRegex from "emoji-regex";
 
-import { createComponent, CustomComponentProps } from "./remarkRegexComponent";
+import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
 export const Emoji = styled.img`
   object-fit: contain;

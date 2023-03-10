@@ -5,18 +5,18 @@ import {
   JSX,
   Match,
   Show,
-  splitProps,
   Switch,
+  splitProps,
 } from "solid-js";
+
 import {
-  Typography,
-  Checkbox,
-  // ColourSwatches,
+  Checkbox, // ColourSwatches,
   Column,
   ComboBox,
+  FormGroup,
   Input,
   Radio,
-  FormGroup,
+  Typography,
 } from "../design";
 
 // inputs:

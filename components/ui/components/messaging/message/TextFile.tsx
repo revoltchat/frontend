@@ -1,10 +1,14 @@
-import { useTranslation } from "@revolt/i18n";
-import { API } from "revolt.js";
-import { createSignal, Match, onMount, Switch } from "solid-js";
+import { Match, Switch, createSignal, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { API } from "revolt.js";
+
+import { useTranslation } from "@revolt/i18n";
+
 import { Preloader } from "../../design/atoms/indicators";
 import { Button } from "../../design/atoms/inputs";
 import { Row } from "../../design/layout";
+
 import { humanFileSize } from "./Attachment";
 
 interface Props {

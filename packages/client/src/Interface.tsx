@@ -1,9 +1,10 @@
+import { Component, Show } from "solid-js";
+
 import { clientController } from "@revolt/client";
 import { Navigate } from "@revolt/routing";
 
-import { Component, Show } from "solid-js";
-import { Sidebar } from "./interface/Sidebar";
 import { Content } from "./interface/Content";
+import { Sidebar } from "./interface/Sidebar";
 
 /**
  * Application layout

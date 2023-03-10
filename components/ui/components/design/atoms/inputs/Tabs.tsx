@@ -1,7 +1,8 @@
-import { styled } from "solid-styled-components";
-import { Accessor, For, JSX } from "solid-js";
-import { Row } from "../../layout";
 import { BiSolidXCircle } from "solid-icons/bi";
+import { Accessor, For, JSX } from "solid-js";
+import { styled } from "solid-styled-components";
+
+import { Row } from "../../layout";
 
 interface Props {
   /**

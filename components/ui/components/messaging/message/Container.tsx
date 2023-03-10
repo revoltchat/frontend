@@ -1,10 +1,11 @@
 import { Component, JSX, Show } from "solid-js";
 import { styled } from "solid-styled-components";
+
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
 import {
-  generateTypographyCSS,
   Typography,
+  generateTypographyCSS,
 } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
 

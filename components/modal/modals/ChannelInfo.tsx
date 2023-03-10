@@ -1,5 +1,7 @@
-import { Button, Column, Row, Typography } from "@revolt/ui";
 import { BiRegularX } from "solid-icons/bi";
+
+import { Button, Column, Row, Typography } from "@revolt/ui";
+
 import { PropGenerator } from "../types";
 
 /**

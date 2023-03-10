@@ -1,16 +1,19 @@
-import type { Message } from "revolt.js";
+import { BiSolidFile } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
-import { useTranslation } from "@revolt/i18n";
+import { Show } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import type { Message } from "revolt.js";
+
+import { useTranslation } from "@revolt/i18n";
+import { TextWithEmoji } from "@revolt/markdown";
+
 import {
   Avatar,
   ColouredText,
   NonBreakingText,
   OverflowingText,
 } from "../../design";
-import { Show } from "solid-js";
-import { BiSolidFile } from "solid-icons/bi";
-import { TextWithEmoji } from "@revolt/markdown";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
 
 interface Props {

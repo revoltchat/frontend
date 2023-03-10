@@ -1,8 +1,10 @@
-import { useTranslation } from "@revolt/i18n";
-import { TextWithEmoji } from "@revolt/markdown";
-import { Channel } from "revolt.js";
 import { BiRegularAt } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
+
+import { Channel } from "revolt.js";
+
+import { useTranslation } from "@revolt/i18n";
+import { TextWithEmoji } from "@revolt/markdown";
 
 /**
  * Common channel header component

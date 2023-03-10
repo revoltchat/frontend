@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { screen, render } from "solid-testing-library";
+import { render, screen } from "solid-testing-library";
+
+import { describe, expect, it } from "vitest";
 
 import { Time, formatTime } from "../Time";
 import { TIME_TEST_DATA } from "../Time.stories";

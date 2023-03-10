@@ -1,7 +1,8 @@
-import { describe, it, expect } from "vitest";
 import { screen } from "solid-testing-library";
-import { renderWithContext } from "../../../../packages/test-runner/middleware";
 
+import { describe, expect, it } from "vitest";
+
+import { renderWithContext } from "../../../../packages/test-runner/middleware";
 import { AuthPage } from "../AuthPage";
 
 describe("AuthPage", () => {

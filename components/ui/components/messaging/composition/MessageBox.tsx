@@ -1,10 +1,13 @@
-import type { Channel } from "revolt.js";
 import { BiRegularBlock, BiRegularPlus } from "solid-icons/bi";
-import { styled } from "solid-styled-components";
 import { Accessor, Match, Switch } from "solid-js";
+import { styled } from "solid-styled-components";
+
+import type { Channel } from "revolt.js";
+
 import { useTranslation } from "@revolt/i18n";
-import { Row } from "../../design/layout";
+
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { Row } from "../../design/layout";
 
 interface Props {
   /**

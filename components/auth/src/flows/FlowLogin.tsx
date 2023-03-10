@@ -1,17 +1,20 @@
+import { For, Show } from "solid-js";
+
+import { useTranslation } from "@revolt/i18n";
 import { Link, useNavigate } from "@revolt/routing";
-import { clientController } from "../../../client";
 import {
   Avatar,
   Button,
   CategoryButton,
   Column,
-  styled,
   Typography,
+  styled,
 } from "@revolt/ui";
-import { useTranslation } from "@revolt/i18n";
-import { Fields, Form } from "./Form";
+
+import { clientController } from "../../../client";
+
 import { FlowTitle } from "./Flow";
-import { For, Show } from "solid-js";
+import { Fields, Form } from "./Form";
 
 /**
  * Account switcher UI

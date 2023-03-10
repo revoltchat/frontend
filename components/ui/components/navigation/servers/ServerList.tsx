@@ -1,20 +1,22 @@
 // ! TODO: #5 implement dnd
-
-import { Server } from "revolt.js/dist/maps/Servers";
+import { BiSolidCheckShield } from "solid-icons/bi";
 import { Component, Show } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { User } from "revolt.js";
+import { Server } from "revolt.js/dist/maps/Servers";
+
 import { Link } from "@revolt/routing";
+
+import { Draggable } from "../../common/Draggable";
+import { InvisibleScrollContainer } from "../../common/ScrollContainers";
+import { Button, Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
   UnreadsGraphic,
   UserStatusGraphic,
 } from "../../design/atoms/indicators";
-import { InvisibleScrollContainer } from "../../common/ScrollContainers";
-import { User } from "revolt.js";
-import { Draggable } from "../../common/Draggable";
 import { Tooltip } from "../../floating";
-import { Button, Column, Typography } from "../../design";
-import { BiSolidCheckShield } from "solid-icons/bi";
 
 /**
  * Server list container

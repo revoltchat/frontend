@@ -1,4 +1,5 @@
 import { Modal } from "@revolt/ui";
+
 import { ActiveModal, modalController } from "..";
 import type { Modals as AllModals, PropGenerator } from "../types";
 

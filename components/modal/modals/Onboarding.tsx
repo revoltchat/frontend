@@ -1,4 +1,5 @@
 import { useTranslation } from "@revolt/i18n";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -19,13 +20,12 @@ const Onboarding: PropGenerator<"onboarding"> = (props) => {
     },
     data: {
       username: {
-        field: "Username"
+        field: "Username",
       },
     },
-    callback: async ({ username }) =>
-      await props.callback(username),
+    callback: async ({ username }) => await props.callback(username),
     submit: {
-      children: "Good"
+      children: "Good",
     },
   });
 };

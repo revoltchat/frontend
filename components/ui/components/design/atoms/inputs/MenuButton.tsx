@@ -1,8 +1,8 @@
 import { JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
+
 import { Row } from "../../layout";
 import { generateTypographyCSS } from "../display/Typography";
-
 import { Unreads } from "../indicators";
 
 export interface Props {

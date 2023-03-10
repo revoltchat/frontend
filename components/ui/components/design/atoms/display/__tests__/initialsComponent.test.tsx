@@ -1,30 +1,32 @@
-import { describe, it, expect } from "vitest";
-import { screen, render } from "solid-testing-library";
+import { render, screen } from "solid-testing-library";
 
-import { toInitials, Initials } from "../Initials";
+import { describe, expect, it } from "vitest";
+
+import { Initials, toInitials } from "../Initials";
 
 const TEST_DATA = [
-    {
-        input: "test string",
-        output: "ts"
-    },
-    {
-        input: "test string",
-        maxLength: 1,
-        output: "t"
-    },
-    {
-        input: "some other test string which is quite long",
-        maxLength: 3,
-        output: "sot"
-    }
+  {
+    input: "test string",
+    output: "ts",
+  },
+  {
+    input: "test string",
+    maxLength: 1,
+    output: "t",
+  },
+  {
+    input: "some other test string which is quite long",
+    maxLength: 3,
+    output: "sot",
+  },
 ];
 
 describe("Initials component", () => {
   it("should have correct output", () => {
     for (const entry of TEST_DATA) {
-      expect(toInitials(entry.input, entry.maxLength))
-        .toStrictEqual(entry.output.split(''));
+      expect(toInitials(entry.input, entry.maxLength)).toStrictEqual(
+        entry.output.split("")
+      );
     }
   });
 

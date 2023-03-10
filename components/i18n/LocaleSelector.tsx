@@ -1,7 +1,9 @@
-import { Language, Languages } from "./locales/Languages";
-import { ComboBox } from "@revolt/ui";
-import { state } from "@revolt/state";
 import { For } from "solid-js";
+
+import { state } from "@revolt/state";
+import { ComboBox } from "@revolt/ui";
+
+import { Language, Languages } from "./locales/Languages";
 
 /**
  * Dropdown box for selecting the current language
