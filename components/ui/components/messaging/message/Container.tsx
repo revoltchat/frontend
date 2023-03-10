@@ -61,8 +61,9 @@ type Props = CommonProps & {
  * Message container layout
  */
 const Base = styled(Column as Component, "Message")<CommonProps>`
+  ${(props) => generateTypographyCSS(props.theme!, "messages")}
+
   padding: 2px 0;
-  font-size: 14px;
   color: ${(props) => props.theme!.colours.foreground};
   margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
 

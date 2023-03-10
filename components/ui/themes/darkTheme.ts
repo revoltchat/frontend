@@ -79,6 +79,9 @@ export const darkTheme: DefaultTheme = {
       fontSize: "1.2rem",
     },
     // Messaging specific
+    messages: {
+      fontSize: "14px",
+    },
     reply: {
       fontSize: "0.8rem",
       colour: "foreground-100",

@@ -46,6 +46,7 @@ declare module "solid-styled-components" {
         | "tooltip"
         | "category"
         | "menu-button"
+        | "messages"
         | "reply"
         | "sidebar-title"
         | "legacy-settings-title"
