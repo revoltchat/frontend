@@ -1,12 +1,13 @@
 /* @refresh reload */
-import { darkTheme, styled, ThemeProvider } from "@revolt/ui";
-import { Markdown } from "@revolt/markdown";
-import "@revolt/ui/styles";
 
 /**
  * Configure contexts and render App
  */
 import { render } from "solid-js/web";
+
+import { Markdown } from "@revolt/markdown";
+import { ThemeProvider, darkTheme, styled } from "@revolt/ui";
+import "@revolt/ui/styles";
 
 const MdArticle = `Revolt uses a simple, plain-text based, and super easy text formatting system called [**Markdown**](https://en.wikipedia.org/wiki/Markdown).  
 You can use it to **make your text stand out**!

@@ -1,7 +1,9 @@
-import { Modal } from "./Modal";
 import { ComponentProps } from "solid-js";
+
 import type { ComponentStory } from "../../../stories";
 import { Button } from "../inputs";
+
+import { Modal } from "./Modal";
 
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());

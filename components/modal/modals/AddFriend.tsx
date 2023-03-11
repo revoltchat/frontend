@@ -1,4 +1,5 @@
 import { useTranslation } from "@revolt/i18n";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 

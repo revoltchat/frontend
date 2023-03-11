@@ -1,6 +1,7 @@
 import { BiRegularLinkExternal, BiSolidChevronRight } from "solid-icons/bi";
 import { JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
+
 import { Column, OverflowingText } from "../../layout";
 
 export interface Props {

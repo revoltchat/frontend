@@ -1,7 +1,10 @@
-import { HeaderWithTransparency } from "@revolt/ui";
 import { createEffect, createSignal, on } from "solid-js";
+
+import { HeaderWithTransparency } from "@revolt/ui";
+
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
+
 import { MessageComposition } from "./Composition";
 import { Messages } from "./Messages";
 

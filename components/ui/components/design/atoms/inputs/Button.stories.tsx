@@ -1,6 +1,8 @@
-import { Button } from "./Button";
 import { BiSolidBatteryLow, BiSolidUser } from "solid-icons/bi";
+
 import type { ComponentStory } from "../../../stories";
+
+import { Button } from "./Button";
 
 export default {
   category: "Design System/Atoms/Inputs",

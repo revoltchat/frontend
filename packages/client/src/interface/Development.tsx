@@ -1,7 +1,8 @@
+import { Show } from "solid-js";
+
 import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import { Button, Column, Message, Typography } from "@revolt/ui";
-import { Show } from "solid-js";
 
 export function DevelopmentPage() {
   function open() {

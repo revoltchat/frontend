@@ -1,8 +1,9 @@
-import { PropGenerator } from "../types";
-import { createFormModal } from "../form";
 import { mapAnyError } from "@revolt/client";
-import { useNavigate } from "@revolt/routing";
 import { useTranslation } from "@revolt/i18n";
+import { useNavigate } from "@revolt/routing";
+
+import { createFormModal } from "../form";
+import { PropGenerator } from "../types";
 
 /**
  * Modal to create a new server channel

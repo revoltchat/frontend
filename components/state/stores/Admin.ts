@@ -1,9 +1,13 @@
-import { State } from "..";
-import { API } from "revolt.js";
-import { AbstractStore } from ".";
-import { getController } from "@revolt/common";
-import { createStore, SetStoreFunction } from "solid-js/store";
+import { SetStoreFunction, createStore } from "solid-js/store";
+
 import { runInAction } from "mobx";
+import { API } from "revolt.js";
+
+import { getController } from "@revolt/common";
+
+import { State } from "..";
+
+import { AbstractStore } from ".";
 
 export type TabState = { title: string } & (
   | {

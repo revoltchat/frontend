@@ -1,23 +1,23 @@
 /* @refresh reload */
-import "@revolt/ui/styles";
+import { For } from "solid-js";
 
 /**
  * Configure contexts and render App
  */
 import { render } from "solid-js/web";
 
-import { For } from "solid-js";
-
-import components from "./stories";
 import i18n, { I18nContext } from "@revolt/i18n";
 import {
   ApplyGlobalStyles,
   Column,
-  darkTheme,
   Masks,
-  styled,
   ThemeProvider,
+  darkTheme,
+  styled,
 } from "@revolt/ui";
+import "@revolt/ui/styles";
+
+import components from "./stories";
 
 const ElementContainer = styled.div`
   width: fit-content;

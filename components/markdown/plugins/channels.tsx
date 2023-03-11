@@ -1,7 +1,7 @@
-import { Link } from "@revolt/routing";
 import { clientController } from "@revolt/client";
+import { Link } from "@revolt/routing";
 
-import { createComponent, CustomComponentProps } from "./remarkRegexComponent";
+import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
 export function RenderChannel({ match }: CustomComponentProps) {
   const channel = clientController.getAvailableClient().channels.get(match)!;

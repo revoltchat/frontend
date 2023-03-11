@@ -1,5 +1,4 @@
-import { test, expect, Page } from "@playwright/test";
-
+import { Page, expect, test } from "@playwright/test";
 import components from "showcase/componentData";
 
 const CUSTOM_TESTS: Record<string, (page: Page) => Promise<void>> = {

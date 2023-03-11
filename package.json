@@ -10,7 +10,9 @@
     "build": "cd packages/client && pnpm run build",
     "build:deps": "pnpm --filter revolt.js build",
     "build:all": "pnpm run build:deps && pnpm run build",
-    "showcase": "cd packages/showcase && pnpm run dev"
+    "showcase": "cd packages/showcase && pnpm run dev",
+    "fmt": "prettier --write '**/*.{ts,tsx,json}'",
+    "fmt:check": "prettier --check '**/*.{ts,tsx,json}'"
   },
   "keywords": [],
   "engines": {
@@ -20,7 +22,9 @@
   "private": true,
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "jsdom": "^20.0.1",
+    "prettier": "^2.4.1",
     "solid-js": "^1.5.1",
     "solid-testing-library": "^0.3.0",
     "vite": "^3.0.9",

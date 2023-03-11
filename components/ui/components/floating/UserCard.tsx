@@ -1,10 +1,12 @@
 import { useFloating } from "solid-floating-ui";
+import { For, JSX, Ref, Show, createSignal } from "solid-js";
+import { Portal } from "solid-js/web";
 import { styled } from "solid-styled-components";
-import { createSignal, For, JSX, Ref, Show } from "solid-js";
+
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
 import { Member, User } from "revolt.js";
-import { Portal } from "solid-js/web";
+
 import { ColouredText } from "../design";
 
 /**

@@ -1,5 +1,5 @@
-import { createEffect, createSignal, For, JSX } from "solid-js";
 import { dndzone } from "solid-dnd-directive";
+import { For, JSX, createEffect, createSignal } from "solid-js";
 
 interface Props<T> {
   items: Item<T>[];

@@ -1,7 +1,7 @@
 import {
-  BiSolidPencil,
   BiRegularCheck,
   BiRegularCloudUpload,
+  BiSolidPencil,
 } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";

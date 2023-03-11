@@ -1,4 +1,7 @@
+import { styled } from "solid-styled-components";
+
 import "katex/dist/katex.min.css";
+import { html } from "property-information";
 import rehypeKatex from "rehype-katex";
 import rehypePrism from "rehype-prism";
 import remarkBreaks from "remark-breaks";
@@ -6,27 +9,23 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-
-import { childrenToSolid } from "./solid-markdown/ast-to-solid";
-import { defaults } from "./solid-markdown/defaults";
-import { html } from "property-information";
 import { unified } from "unified";
 import { VFile } from "vfile";
 
-import { remarkUnicodeEmoji, RenderUnicodeEmoji } from "./plugins/unicodeEmoji";
-import { remarkCustomEmoji, RenderCustomEmoji } from "./plugins/customEmoji";
-import { remarkChannels, RenderChannel } from "./plugins/channels";
-import { remarkMention, RenderMention } from "./plugins/mentions";
-import { remarkSpoiler, RenderSpoiler } from "./plugins/spoiler";
-import { remarkHtmlToText } from "./plugins/htmlToText";
-import { remarkTimestamps } from "./plugins/timestamps";
-import { RenderCodeblock } from "./plugins/Codeblock";
-import { injectEmojiSize } from "./plugins/emoji";
-import { RenderAnchor } from "./plugins/anchors";
-
 import { handlers } from "./hast";
+import { RenderCodeblock } from "./plugins/Codeblock";
+import { RenderAnchor } from "./plugins/anchors";
+import { RenderChannel, remarkChannels } from "./plugins/channels";
+import { RenderCustomEmoji, remarkCustomEmoji } from "./plugins/customEmoji";
+import { injectEmojiSize } from "./plugins/emoji";
+import { remarkHtmlToText } from "./plugins/htmlToText";
+import { RenderMention, remarkMention } from "./plugins/mentions";
+import { RenderSpoiler, remarkSpoiler } from "./plugins/spoiler";
+import { remarkTimestamps } from "./plugins/timestamps";
+import { RenderUnicodeEmoji, remarkUnicodeEmoji } from "./plugins/unicodeEmoji";
 import { sanitise } from "./sanitise";
-import { styled } from "solid-styled-components";
+import { childrenToSolid } from "./solid-markdown/ast-to-solid";
+import { defaults } from "./solid-markdown/defaults";
 
 const Null = () => null;
 

@@ -1,19 +1,18 @@
-import { Route, Routes } from "@revolt/routing";
+import { BiLogosGithub, BiLogosMastodon, BiLogosTwitter } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
-import { LocaleSelector, useTranslation } from "@revolt/i18n";
 
-import { BiLogosGithub, BiLogosTwitter, BiLogosMastodon } from "solid-icons/bi";
+import { LocaleSelector, useTranslation } from "@revolt/i18n";
+import { Route, Routes } from "@revolt/routing";
 
 import background from "./background.jpg";
-
+import { FlowBase } from "./flows/Flow";
+import FlowCheck from "./flows/FlowCheck";
+import FlowConfirmReset from "./flows/FlowConfirmReset";
 import FlowCreate from "./flows/FlowCreate";
 import FlowLogin from "./flows/FlowLogin";
 import FlowResend from "./flows/FlowResend";
 import FlowReset from "./flows/FlowReset";
-import FlowCheck from "./flows/FlowCheck";
 import FlowVerify from "./flows/FlowVerify";
-import FlowConfirmReset from "./flows/FlowConfirmReset";
-import { FlowBase } from "./flows/Flow";
 
 /**
  * Authentication page layout

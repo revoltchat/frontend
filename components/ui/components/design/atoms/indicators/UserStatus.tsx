@@ -1,5 +1,6 @@
-import type { API } from "revolt.js";
 import { useTheme } from "solid-styled-components";
+
+import type { API } from "revolt.js";
 
 export type Props = {
   /**

@@ -1,26 +1,28 @@
+import { BiRegularHash } from "solid-icons/bi";
 import {
-  createEffect,
-  createSignal,
   For,
   Match,
-  on,
-  onMount,
   Show,
   Switch,
+  createEffect,
+  createSignal,
+  on,
+  onMount,
 } from "solid-js";
+
+import { API, Message as MessageI } from "revolt.js";
+
 import { useClient } from "@revolt/client";
+import { state } from "@revolt/state";
 import {
   Avatar,
   Button,
   Column,
   Message,
   Row,
-  styled,
   Typography,
+  styled,
 } from "@revolt/ui";
-import { API, Message as MessageI } from "revolt.js";
-import { state } from "@revolt/state";
-import { BiRegularHash } from "solid-icons/bi";
 
 const FixedColumn = styled(Column)`
   min-width: 0;

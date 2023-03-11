@@ -1,8 +1,9 @@
 import type { ComponentProps } from "solid-js";
-import type { ComponentStory } from "../../stories";
-import { MessageContainer } from "./Container";
 
 import TestImage from "../../../test-images/the-halal-design-studio-ZrJpH6W-HDs-unsplash.jpg";
+import type { ComponentStory } from "../../stories";
+
+import { MessageContainer } from "./Container";
 
 export default {
   category: "Messaging/Message/Container",

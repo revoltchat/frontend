@@ -1,6 +1,8 @@
-import { Turbo } from "./Turbo";
 import type { ComponentProps } from "solid-js";
+
 import type { ComponentStory } from "../../../stories";
+
+import { Turbo } from "./Turbo";
 
 export default {
   category: "Design System/Atoms/Indicators",
@@ -9,17 +11,17 @@ export default {
     {
       title: "Concept 1",
       props: {
-        children: "Turbo"
-      }
+        children: "Turbo",
+      },
     },
     {
       title: "Concept 2",
       props: {
-        children: "Revolt+"
-      }
-    }
+        children: "Revolt+",
+      },
+    },
   ],
   propTypes: {
-    children: 'string'
-  }
+    children: "string",
+  },
 } as ComponentStory<typeof Turbo, ComponentProps<typeof Turbo>>;

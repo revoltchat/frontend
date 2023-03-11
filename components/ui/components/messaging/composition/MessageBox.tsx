@@ -1,8 +1,12 @@
-import type { Channel } from "revolt.js";
 import { BiRegularBlock, BiRegularPlus } from "solid-icons/bi";
+import { Accessor, Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
-import { Accessor, Match, Setter, Show, Switch } from "solid-js";
+
+import type { Channel } from "revolt.js";
+
 import { useTranslation } from "@revolt/i18n";
+
+import { generateTypographyCSS } from "../../design/atoms/display/Typography";
 import { Row } from "../../design/layout";
 
 interface Props {
@@ -68,8 +72,9 @@ const Input = styled("textarea")`
   flex-grow: 1;
   padding: 14px 0;
 
-  font-family: ${({ theme }) => theme!.fonts.primary};
-  color: ${({ theme }) => theme!.colours.foreground};
+  font-family: ${(props) => props.theme!.fonts.primary};
+  color: ${(props) => props.theme!.colours.foreground};
+  ${(props) => generateTypographyCSS(props.theme!, "messages")}
 `;
 
 /**

@@ -1,19 +1,20 @@
-import { Server } from "revolt.js/dist/maps/Servers";
+import { BiSolidCheckShield } from "solid-icons/bi";
 import { Accessor, Component, Show } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { User } from "revolt.js";
+import { Server } from "revolt.js/dist/maps/Servers";
+
 import { Link } from "@revolt/routing";
+
+import { Draggable } from "../../common/Draggable";
+import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
   UnreadsGraphic,
   UserStatusGraphic,
 } from "../../design/atoms/indicators";
-import { InvisibleScrollContainer } from "../../common/ScrollContainers";
-import { User } from "revolt.js";
-import { Draggable } from "../../common/Draggable";
 import { Tooltip } from "../../floating";
-import { Button, Column, Typography } from "../../design";
-import { BiSolidCheckShield } from "solid-icons/bi";
-import { Swoosh } from "./Swoosh";
 
 /**
  * Server list container

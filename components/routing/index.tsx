@@ -1,3 +1,7 @@
+import { Accessor } from "solid-js";
+
+import { useLocation } from "@solidjs/router";
+
 /**
  * We re-export everything to prevent us importing @solidjs/router
  * more than once in the project, this can cause some weird behaviour
@@ -16,9 +20,6 @@ export {
   useLocation,
   hashIntegration,
 } from "@solidjs/router";
-
-import { useLocation } from "@solidjs/router";
-import { Accessor } from "solid-js";
 
 const RE_SERVER = /\/server\/([A-Z0-9]{26})/;
 const RE_CHANNEL = /\/channel\/([A-Z0-9]{26})/;

@@ -1,5 +1,5 @@
-import type { JSX } from "solid-js";
 import { BiSolidBolt } from "solid-icons/bi";
+import type { JSX } from "solid-js";
 import { styled } from "solid-styled-components";
 
 const Base = styled("div")`

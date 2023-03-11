@@ -1,7 +1,9 @@
-import { UnreadsGraphic } from "./Unreads";
 import type { ComponentProps } from "solid-js";
-import type { ComponentStory } from "../../../stories";
+
 import makeSvgDecorator from "../../../../decorators/SvgDecorator";
+import type { ComponentStory } from "../../../stories";
+
+import { UnreadsGraphic } from "./Unreads";
 
 export default {
   category: "Design System/Atoms/Indicators",

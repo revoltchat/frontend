@@ -1,6 +1,8 @@
-import { Tabs } from "./Tabs";
 import { ComponentProps, createSignal } from "solid-js";
+
 import type { ComponentStory } from "../../../stories";
+
+import { Tabs } from "./Tabs";
 
 const [tab, onSelect] = createSignal("a");
 

@@ -1,9 +1,10 @@
-import { useClient } from "@revolt/client";
+import { Match, Switch, createSignal } from "solid-js";
 
-import { Emoji } from "./unicodeEmoji";
-import { createSignal, Match, Switch } from "solid-js";
-import { createComponent, CustomComponentProps } from "./remarkRegexComponent";
+import { useClient } from "@revolt/client";
 import { Avatar, Column, Row, Tooltip } from "@revolt/ui";
+
+import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
+import { Emoji } from "./unicodeEmoji";
 
 export const RE_CUSTOM_EMOJI = /:([0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}):/g;
 

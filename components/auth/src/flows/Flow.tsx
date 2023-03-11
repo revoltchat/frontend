@@ -1,9 +1,10 @@
 import { JSX, Show } from "solid-js";
-import { Column, Row, Typography } from "@revolt/ui";
 import { keyframes, styled } from "solid-styled-components";
 
-import wave from "./wave.svg";
+import { Column, Row, Typography } from "@revolt/ui";
+
 import envelope from "./envelope.svg";
+import wave from "./wave.svg";
 
 /**
  * Container for authentication page flows

@@ -1,8 +1,10 @@
-import { Header, HeaderWithTransparency } from "./Header";
 import type { ComponentProps } from "solid-js";
-import type { ComponentStory } from "../../../stories";
+
 import TextColourDecorator from "../../../../decorators/TextColourDecorator";
+import type { ComponentStory } from "../../../stories";
 import { Column } from "../../layout";
+
+import { Header, HeaderWithTransparency } from "./Header";
 
 export default {
   category: "Design System/Atoms/Display",

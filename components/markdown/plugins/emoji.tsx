@@ -1,9 +1,11 @@
+import { JSX } from "solid-js";
+
+import emojiRegex from "emoji-regex";
+
 import { MarkdownProps } from "..";
 
-import { JSX } from "solid-js";
-import emojiRegex from "emoji-regex";
-import { RenderUnicodeEmoji } from "./unicodeEmoji";
 import { RE_CUSTOM_EMOJI, RenderCustomEmoji } from "./customEmoji";
+import { RenderUnicodeEmoji } from "./unicodeEmoji";
 
 const RE_ANY_EMOJI = new RegExp(
   RE_CUSTOM_EMOJI.source + "|" + emojiRegex().source,

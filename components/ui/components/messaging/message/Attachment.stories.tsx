@@ -1,7 +1,10 @@
-import type { API } from "revolt.js";
 import type { ComponentProps } from "solid-js";
+
+import type { API } from "revolt.js";
+
 import FitContentDecorator from "../../../decorators/FitContentDecorator";
 import type { ComponentStory } from "../../stories";
+
 import { Attachment } from "./Attachment";
 
 export const attachments: {

@@ -1,12 +1,14 @@
-import { Embed } from "./Embed";
-import type { API } from "revolt.js";
 import type { ComponentProps } from "solid-js";
-import { attachments } from "./Attachment.stories";
-import type { ComponentStory } from "../../stories";
-import FitContentDecorator from "../../../decorators/FitContentDecorator";
 
-import MotherboardIcon from "../../../test-images/icons8-motherboard-48.png";
+import type { API } from "revolt.js";
+
+import FitContentDecorator from "../../../decorators/FitContentDecorator";
 import ResizeContentDecorator from "../../../decorators/ResizeContainerDecorator";
+import MotherboardIcon from "../../../test-images/icons8-motherboard-48.png";
+import type { ComponentStory } from "../../stories";
+
+import { attachments } from "./Attachment.stories";
+import { Embed } from "./Embed";
 
 const embeds: {
   [key in "text" | "website" | "image" | "video"]: API.Embed;

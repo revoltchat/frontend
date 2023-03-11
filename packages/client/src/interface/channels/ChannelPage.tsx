@@ -1,11 +1,12 @@
-import { styled, Typography, Header } from "@revolt/ui";
-import { useClient } from "@revolt/client";
-import { Navigate, useParams } from "@revolt/routing";
+import { Component, Match, Switch, createMemo } from "solid-js";
+
 import { Channel } from "revolt.js";
 
-import { Component, createMemo, Match, Switch } from "solid-js";
-
+import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
+import { Navigate, useParams } from "@revolt/routing";
+import { Header, Typography, styled } from "@revolt/ui";
+
 import { TextChannel } from "./text/TextChannel";
 
 /**

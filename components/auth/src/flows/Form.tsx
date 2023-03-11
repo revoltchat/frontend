@@ -1,7 +1,8 @@
+import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
+import { For, JSX, Show, createSignal } from "solid-js";
+
 import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { createSignal, For, JSX, Show } from "solid-js";
-import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
 import { Checkbox, Column, FormGroup, Input, Typography } from "@revolt/ui";
 
 /**

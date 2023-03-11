@@ -1,6 +1,9 @@
-import { API } from "revolt.js";
 import { Match, Switch } from "solid-js";
+
+import { API } from "revolt.js";
+
 import { SizedContent } from "../../design/layout/SizedContent";
+
 import { TextEmbed } from "./TextEmbed";
 
 /**

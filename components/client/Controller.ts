@@ -1,13 +1,13 @@
 import { detect } from "detect-browser";
+import { ObservableMap, makeAutoObservable } from "mobx";
 import { API, Client, Nullable } from "revolt.js";
-import { makeAutoObservable, ObservableMap } from "mobx";
 
-import { mapAnyError } from "./error";
+import { registerController } from "@revolt/common";
 import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 
 import Session, { SessionPrivate } from "./Session";
-import { registerController } from "@revolt/common";
+import { mapAnyError } from "./error";
 
 /**
  * Controls the lifecycles of clients

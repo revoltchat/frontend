@@ -1,7 +1,9 @@
-import type { ComponentStory } from "../stories";
 import type { ComponentProps } from "solid-js";
-import { Tooltip } from "./Tooltip";
+
 import { Button } from "../design";
+import type { ComponentStory } from "../stories";
+
+import { Tooltip } from "./Tooltip";
 
 export default {
   category: "Floating/Tooltip",

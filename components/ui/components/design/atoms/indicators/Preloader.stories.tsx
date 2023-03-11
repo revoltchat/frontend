@@ -1,6 +1,8 @@
-import { Preloader } from "./Preloader";
 import type { ComponentProps } from "solid-js";
+
 import type { ComponentStory } from "../../../stories";
+
+import { Preloader } from "./Preloader";
 
 export default {
   category: "Design System/Atoms/Indicators",
@@ -9,18 +11,18 @@ export default {
     {
       title: "Ring",
       props: {
-        type: 'ring'
-      }
+        type: "ring",
+      },
     },
     {
       title: "Spinner",
       props: {
-        type: 'spinner'
-      }
-    }
+        type: "spinner",
+      },
+    },
   ],
   propTypes: {
-    type: ['ring', 'spinner'],
-    grow: 'boolean'
+    type: ["ring", "spinner"],
+    grow: "boolean",
   },
 } as ComponentStory<typeof Preloader, ComponentProps<typeof Preloader>>;

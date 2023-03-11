@@ -1,6 +1,8 @@
-import { SaveStatus } from "./SaveStatus";
 import type { ComponentProps } from "solid-js";
+
 import type { ComponentStory } from "../../../stories";
+
+import { SaveStatus } from "./SaveStatus";
 
 export default {
   category: "Design System/Atoms/Indicators",
@@ -9,23 +11,23 @@ export default {
     {
       title: "Saved",
       props: {
-        status: "saved"
-      }
+        status: "saved",
+      },
     },
     {
       title: "Editing",
       props: {
-        status: "editing"
-      }
+        status: "editing",
+      },
     },
     {
       title: "Saving",
       props: {
-        status: "saving"
-      }
-    }
+        status: "saving",
+      },
+    },
   ],
   propTypes: {
-    status: ["saved", "saving", "editing"]
+    status: ["saved", "saving", "editing"],
   },
 } as ComponentStory<typeof SaveStatus, ComponentProps<typeof SaveStatus>>;

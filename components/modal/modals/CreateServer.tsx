@@ -1,6 +1,7 @@
 import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 

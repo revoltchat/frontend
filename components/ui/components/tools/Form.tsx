@@ -1,12 +1,14 @@
 import { ComponentProps, For, JSX, Match, Show, Switch } from "solid-js";
-import { createStore, SetStoreFunction } from "solid-js/store";
+import { SetStoreFunction, createStore } from "solid-js/store";
+
 import { Button, Column } from "../design";
+
 import {
-  emptyValue,
   InputElement,
   Type,
   TypeProps,
   Value,
+  emptyValue,
 } from "./InputElement";
 
 /**

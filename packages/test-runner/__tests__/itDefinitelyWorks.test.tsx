@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest";
 import { render, screen } from "solid-testing-library";
+
+import { describe, expect, it } from "vitest";
 
 const Timer = () => {
   return <div>5:30</div>;

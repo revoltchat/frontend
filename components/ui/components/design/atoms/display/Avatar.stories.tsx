@@ -1,9 +1,10 @@
 import type { ComponentProps } from "solid-js";
-import type { ComponentStory } from "../../../stories";
-import { Avatar } from "./Avatar";
-import { UserStatusGraphic } from "../indicators";
 
 import TestImage from "../../../../test-images/the-halal-design-studio-ZrJpH6W-HDs-unsplash.jpg";
+import type { ComponentStory } from "../../../stories";
+import { UserStatusGraphic } from "../indicators";
+
+import { Avatar } from "./Avatar";
 
 export default {
   category: "Design System/Atoms/Avatar",

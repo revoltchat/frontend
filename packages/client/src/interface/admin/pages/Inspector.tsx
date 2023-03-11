@@ -1,3 +1,6 @@
+import { BiRegularHash } from "solid-icons/bi";
+import { Show, createEffect, on } from "solid-js";
+
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import {
@@ -11,11 +14,10 @@ import {
   Row,
   ScrollContainer,
   ServerSidebar,
-  styled,
   Typography,
+  styled,
 } from "@revolt/ui";
-import { BiRegularHash } from "solid-icons/bi";
-import { createEffect, on, Show } from "solid-js";
+
 import { Messages } from "../../channels/text/Messages";
 
 const ChannelPreview = styled(ScrollContainer)`

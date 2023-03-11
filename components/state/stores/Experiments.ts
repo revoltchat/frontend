@@ -1,6 +1,8 @@
 import { action, computed } from "mobx";
-import { AbstractStore } from ".";
+
 import { State } from "..";
+
+import { AbstractStore } from ".";
 
 /**
  * Union type of available experiments.

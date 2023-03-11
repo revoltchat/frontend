@@ -1,9 +1,10 @@
 import { Component, lazy } from "solid-js";
+
 import { Route, Routes } from "@revolt/routing";
 
-import { ServerHome } from "./ServerHome";
 import { DevelopmentPage } from "./Development";
 import { HomePage } from "./Home";
+import { ServerHome } from "./ServerHome";
 import { ChannelPage } from "./channels/ChannelPage";
 
 const Admin = lazy(() => import("./admin/Admin"));

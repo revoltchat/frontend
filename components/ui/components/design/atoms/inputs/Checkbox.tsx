@@ -1,6 +1,6 @@
-import { createSignal, JSX, Show, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
 import { BiRegularCheck } from "solid-icons/bi";
+import { JSX, Show, createSignal, splitProps } from "solid-js";
+import { styled } from "solid-styled-components";
 
 const Base = styled("label")`
   gap: 10px;

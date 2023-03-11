@@ -1,9 +1,11 @@
-import { MessageBox, MessageReplyPreview } from "@revolt/ui";
-import type { DraftData } from "@revolt/state/stores/Draft";
+import { For, onCleanup } from "solid-js";
+
+import { API, Channel } from "revolt.js";
+
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
-import { API, Channel } from "revolt.js";
-import { For, onCleanup } from "solid-js";
+import type { DraftData } from "@revolt/state/stores/Draft";
+import { MessageBox, MessageReplyPreview } from "@revolt/ui";
 
 interface Props {
   channel: Channel;

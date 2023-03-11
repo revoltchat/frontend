@@ -1,5 +1,6 @@
-import { Checkbox } from "./Checkbox";
 import type { ComponentStory } from "../../../stories";
+
+import { Checkbox } from "./Checkbox";
 
 export default {
   category: "Design System/Atoms/Inputs",

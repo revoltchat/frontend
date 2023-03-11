@@ -1,16 +1,19 @@
-import type { API } from "revolt.js";
-import { PropGenerator } from "../types";
-import { useTranslation } from "@revolt/i18n";
+import { BiRegularArchive, BiSolidKey, BiSolidKeyboard } from "solid-icons/bi";
 import {
-  createEffect,
-  createSignal,
   For,
   Match,
-  onMount,
   Switch,
+  createEffect,
+  createSignal,
+  onMount,
 } from "solid-js";
+
+import type { API } from "revolt.js";
+
+import { useTranslation } from "@revolt/i18n";
 import { CategoryButton, Input, Preloader, Typography } from "@revolt/ui";
-import { BiSolidKeyboard, BiSolidKey, BiRegularArchive } from "solid-icons/bi";
+
+import { PropGenerator } from "../types";
 
 /**
  * Modal to create an MFA ticket

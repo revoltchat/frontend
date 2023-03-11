@@ -1,7 +1,9 @@
-import { Typography } from "./Typography";
 import type { ComponentProps } from "solid-js";
-import type { ComponentStory } from "../../../stories";
+
 import TextColourDecorator from "../../../../decorators/TextColourDecorator";
+import type { ComponentStory } from "../../../stories";
+
+import { Typography } from "./Typography";
 
 export default {
   category: "Design System/Atoms/Display",

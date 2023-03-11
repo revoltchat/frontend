@@ -1,7 +1,9 @@
-import { UserStatusGraphic } from "./UserStatus";
 import type { ComponentProps } from "solid-js";
-import type { ComponentStory } from "../../../stories";
+
 import makeSvgDecorator from "../../../../decorators/SvgDecorator";
+import type { ComponentStory } from "../../../stories";
+
+import { UserStatusGraphic } from "./UserStatus";
 
 export default {
   category: "Design System/Atoms/Indicators",

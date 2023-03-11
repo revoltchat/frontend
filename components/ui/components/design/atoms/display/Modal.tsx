@@ -1,8 +1,11 @@
-import { Motion, Presence } from "@motionone/solid";
 import { For, JSX, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 import { styled } from "solid-styled-components";
+
+import { Motion, Presence } from "@motionone/solid";
+
 import { Button, ButtonProps } from "../inputs/Button";
+
 import { Typography } from "./Typography";
 
 export type Action = Omit<ButtonProps, "onClick"> & {

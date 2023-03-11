@@ -1,10 +1,11 @@
 import { Component, JSX, Show } from "solid-js";
 import { styled } from "solid-styled-components";
+
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
 import {
-  generateTypographyCSS,
   Typography,
+  generateTypographyCSS,
 } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
 
@@ -61,8 +62,9 @@ type Props = CommonProps & {
  * Message container layout
  */
 const Base = styled(Column as Component, "Message")<CommonProps>`
+  ${(props) => generateTypographyCSS(props.theme!, "messages")}
+
   padding: 2px 0;
-  font-size: 14px;
   color: ${(props) => props.theme!.colours.foreground};
   margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
 

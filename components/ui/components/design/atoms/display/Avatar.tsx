@@ -1,5 +1,6 @@
 import { JSXElement } from "solid-js";
 import { styled } from "solid-styled-components";
+
 import { Initials } from "./Initials";
 
 export type Props = {

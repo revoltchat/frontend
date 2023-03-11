@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { createComponent, CustomComponentProps } from "./remarkRegexComponent";
+import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
 const Spoiler = styled("span", "Spoiler")<{ shown: boolean }>`
   padding: 0 2px;

@@ -1,14 +1,15 @@
-import { createStore, SetStoreFunction } from "solid-js/store";
-import { createSignal, JSX, onMount, Show } from "solid-js";
-import localforage from "localforage";
-import equal from "fast-deep-equal";
+import { JSX, Show, createSignal, onMount } from "solid-js";
+import { SetStoreFunction, createStore } from "solid-js/store";
 
+import equal from "fast-deep-equal";
+import localforage from "localforage";
+
+import { AbstractStore, Store } from "./stores";
 import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
-import { Locale } from "./stores/Locale";
-import { AbstractStore, Store } from "./stores";
 import Experiments from "./stores/Experiments";
+import { Locale } from "./stores/Locale";
 
 /**
  * Introduce some delay before writing state to disk

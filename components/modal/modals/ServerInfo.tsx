@@ -1,10 +1,12 @@
-import { useTranslation } from "@revolt/i18n";
-import { Button, Column, Row, Typography } from "@revolt/ui";
 import { BiRegularX } from "solid-icons/bi";
+import { Show } from "solid-js";
+
+import { useTranslation } from "@revolt/i18n";
+import { Markdown } from "@revolt/markdown";
+import { Button, Column, Row, Typography } from "@revolt/ui";
+
 import { modalController } from "..";
 import { PropGenerator } from "../types";
-import { Markdown } from "@revolt/markdown";
-import { Show } from "solid-js";
 
 /**
  * Modal to display server information

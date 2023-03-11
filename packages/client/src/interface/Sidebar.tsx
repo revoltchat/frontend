@@ -1,8 +1,9 @@
+import { Component, Show, createMemo } from "solid-js";
+
 import { useClient } from "@revolt/client";
-import { Component, createMemo, Show } from "solid-js";
 import { Route, Routes, useSmartParams } from "@revolt/routing";
-import { ServerList, HomeSidebar, ServerSidebar } from "@revolt/ui";
 import { state } from "@revolt/state";
+import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 
 /**
  * Render sidebar for a server

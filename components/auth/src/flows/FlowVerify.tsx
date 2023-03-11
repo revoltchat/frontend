@@ -1,9 +1,11 @@
-import { FlowTitle } from "./Flow";
-import { Button, Preloader, Typography } from "@revolt/ui";
-import { Link, useNavigate, useParams } from "@revolt/routing";
-import { useTranslation } from "@revolt/i18n";
-import { createSignal, Match, onMount, Show, Switch } from "solid-js";
+import { Match, Show, Switch, createSignal, onMount } from "solid-js";
+
 import { clientController, mapAnyError } from "@revolt/client";
+import { useTranslation } from "@revolt/i18n";
+import { Link, useNavigate, useParams } from "@revolt/routing";
+import { Button, Preloader, Typography } from "@revolt/ui";
+
+import { FlowTitle } from "./Flow";
 
 type State =
   | {

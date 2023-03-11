@@ -1,8 +1,10 @@
 import { For } from "solid-js";
-import { Modals } from "./types";
-import { RenderModal } from "./modals";
+import { SetStoreFunction, createStore } from "solid-js/store";
+
 import type { API, Client } from "revolt.js";
-import { createStore, SetStoreFunction } from "solid-js/store";
+
+import { RenderModal } from "./modals";
+import { Modals } from "./types";
 
 export type ActiveModal = {
   /**
