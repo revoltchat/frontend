@@ -24,6 +24,10 @@ import {
   styled,
 } from "@revolt/ui";
 
+import { InspectorLink } from "../previews/InspectorLink";
+import { PreviewMessage } from "../previews/PreviewMessage";
+import { PreviewUser } from "../previews/PreviewUser";
+
 const FixedColumn = styled(Column)`
   min-width: 0;
 `;
@@ -42,15 +46,13 @@ function MessageSnapshot(props: {
     <>
       <MutedList>
         <For each={props.content._prior_context as unknown as MessageI[]}>
-          {(message: MessageI) => (
-            <Message message={client.messages.get(message._id)!} />
-          )}
+          {(message: MessageI) => <PreviewMessage message_id={message._id!} />}
         </For>
       </MutedList>
-      <Message message={client.messages.get(props.content._id)!} />
+      <PreviewMessage message_id={props.content._id!} />
       <MutedList>
         <For each={props.content._leading_context as unknown as MessageI[]}>
-          {(message) => <Message message={client.messages.get(message._id)!} />}
+          {(message) => <PreviewMessage message_id={message._id!} />}
         </For>
       </MutedList>
     </>
@@ -58,30 +60,25 @@ function MessageSnapshot(props: {
 }
 
 function Snapshot(props: { id: string }) {
-  const client = useClient();
   const snapshot = () => state.admin.getSnapshot(props.id)!;
   const server = () =>
     snapshot().content._type === "Server"
-      ? client.servers.get(snapshot().content._id)
-      : client.servers.get(snapshot()._server?._id!);
-  const author = () =>
+      ? snapshot().content._id
+      : snapshot()._server?._id!;
+  const user = () =>
     snapshot().content._type === "User"
-      ? client.users.get(snapshot().content._id)
-      : client.users.get(
-          (
-            snapshot().content as API.SnapshotContent & {
-              _type: "Message";
-            }
-          )?.author
-        )!;
+      ? snapshot().content._id
+      : (
+          snapshot().content as API.SnapshotContent & {
+            _type: "Message";
+          }
+        )?.author!;
   const channel = () =>
-    client.channels.get(
-      (
-        snapshot().content as API.SnapshotContent & {
-          _type: "Message";
-        }
-      )?.channel
-    )!;
+    (
+      snapshot().content as API.SnapshotContent & {
+        _type: "Message";
+      }
+    )?.channel;
 
   return (
     <FixedColumn>
@@ -96,22 +93,7 @@ function Snapshot(props: { id: string }) {
                 </Match>
               </Switch>
             </Typography>
-            <Button
-              compact="fluid"
-              onClick={() =>
-                state.admin.addTab({
-                  type: "inspector",
-                  title: server()!.name,
-                  id: server()!._id,
-                  typeHint: "server",
-                })
-              }
-            >
-              <Row align>
-                <Avatar src={server()!.generateIconURL()} size={64} />
-                <span>{server()!.name}</span>
-              </Row>
-            </Button>
+            <InspectorLink type="server" id={server()} />
           </Column>
         </Show>
         <Show when={channel()}>
@@ -119,29 +101,10 @@ function Snapshot(props: { id: string }) {
             <Typography variant="legacy-settings-description">
               Channel
             </Typography>
-            <Button
-              compact="fluid"
-              onClick={() =>
-                state.admin.addTab({
-                  type: "inspector",
-                  title: channel().name ?? channel().channel_type,
-                  id: channel()._id,
-                  typeHint: "channel",
-                })
-              }
-            >
-              <Row align>
-                <Avatar
-                  src={channel().generateIconURL()}
-                  fallback={<BiRegularHash size={24} />}
-                  size={64}
-                />
-                <span>{channel()!.name ?? channel().channel_type}</span>
-              </Row>
-            </Button>
+            <InspectorLink type="channel" id={channel()} />
           </Column>
         </Show>
-        <Show when={author()}>
+        <Show when={user()}>
           <Column justify>
             <Typography variant="legacy-settings-description">
               <Switch fallback={"Author"}>
@@ -150,29 +113,7 @@ function Snapshot(props: { id: string }) {
                 </Match>
               </Switch>
             </Typography>
-            <Button
-              compact="fluid"
-              onClick={() => {
-                state.admin.addTab({
-                  type: "inspector",
-                  title: `@${author()!.username}`,
-                  id: author()!._id,
-                  typeHint: "user",
-                });
-                /*const message = (snapshot().content as (API.SnapshotContent & { _type: 'Message' }));
-                state.admin.addTab({
-                  type: "inspector",
-                  title: 'Message ' + message._id.substring(20, 26),
-                  id: message._id,
-                  typeHint: "message",
-                })*/
-              }}
-            >
-              <Row align>
-                <Avatar src={author()!.animatedAvatarURL} size={64} />
-                <span>{author()!.username}</span>
-              </Row>
-            </Button>
+            <InspectorLink type="user" id={user()} />
           </Column>
         </Show>
       </Row>
@@ -182,6 +123,10 @@ function Snapshot(props: { id: string }) {
           <MessageSnapshot content={snapshot().content as any} />
         </Match>
       </Switch>
+      <Typography variant="label">JSON Dump</Typography>
+      <pre>
+        <code>{JSON.stringify(snapshot(), null, "\t")}</code>
+      </pre>
     </FixedColumn>
   );
 }
@@ -193,13 +138,26 @@ export function Report() {
 
   const [notes, setNotes] = createSignal<string>();
 
+  function status() {
+    const value = report()!;
+    if (value.status === "Rejected") {
+      return `Rejected: ${value.rejection_reason}`;
+    } else {
+      return value.status;
+    }
+  }
+
   return (
     <Show when={report()}>
       <Column>
         <Typography variant="legacy-settings-title">
-          Report ({report()!.status}){" "}
-          {report()!.status === "Rejected" && report()!.rejection_reason}
+          Report ({status()})
         </Typography>
+        <Typography variant="legacy-settings-subtitle">
+          ID: {report()!._id}
+        </Typography>
+        <Typography variant="label">Author ({report()!.author_id})</Typography>
+        <InspectorLink type="user" id={report()!.author_id} />
         <Row>
           <Typography variant="legacy-modal-title">
             {report()!.content.report_reason}

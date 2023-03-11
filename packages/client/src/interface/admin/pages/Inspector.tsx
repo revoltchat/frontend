@@ -1,7 +1,11 @@
 import { BiRegularHash } from "solid-icons/bi";
-import { Show, createEffect, on } from "solid-js";
+import { For, Show, createEffect, createSignal, on, onMount } from "solid-js";
+import { Accessor } from "solid-js";
+
+import { API, Message as MessageI, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
 import {
   Avatar,
@@ -19,10 +23,47 @@ import {
 } from "@revolt/ui";
 
 import { Messages } from "../../channels/text/Messages";
+import { MessageQuery } from "../MessageQuery";
+import { InspectorLink } from "../previews/InspectorLink";
+import { PreviewChannel } from "../previews/PreviewChannel";
+import { PreviewServer } from "../previews/PreviewServer";
 
-const ChannelPreview = styled(ScrollContainer)`
+export const ChannelPreview = styled(ScrollContainer)`
   height: 640px;
+  border: 2px solid ${(props) => props.theme!.colours["background-400"]};
 `;
+
+function UserInfo(props: { user: Accessor<User> }) {
+  const [profile, setProfile] = createSignal<API.UserProfile>();
+
+  createEffect(
+    on(
+      () => props.user(),
+      (user) => {
+        if (user) {
+          user.fetchProfile().then(setProfile);
+        }
+      }
+    )
+  );
+
+  const query: Accessor<API.MessageQuery | undefined> = () =>
+    props.user()
+      ? {
+          author: props.user()!._id,
+          limit: 150,
+        }
+      : undefined;
+
+  return (
+    <Column>
+      <Typography variant="label">Profile</Typography>
+      <Markdown content={profile()?.content ?? "Description is empty"} />
+      <Typography variant="label">Recent Messages</Typography>
+      <MessageQuery query={query()} preview />
+    </Column>
+  );
+}
 
 export function Inspector() {
   const data = () => state.admin.getActiveTab<"inspector">()!;
@@ -102,7 +143,7 @@ export function Inspector() {
         <Button palette="accent">Fetch</Button>
       </Row>
       <Show when={user()}>
-        <details>
+        <details open>
           <summary>
             <Row align>
               <Avatar src={user()!.animatedAvatarURL} size={64} />
@@ -111,10 +152,12 @@ export function Inspector() {
               </Typography>
             </Row>
           </summary>
+
+          <UserInfo user={user} />
         </details>
       </Show>
       <Show when={server()}>
-        <details>
+        <details open>
           <summary>
             <Row align>
               <Avatar
@@ -134,27 +177,22 @@ export function Inspector() {
         </details>
       </Show>
       <Show when={channel()}>
-        <details>
+        <details open>
           <summary>
-            <Row align>
-              <Avatar
-                src={channel()!.generateIconURL()}
-                fallback={<BiRegularHash size={24} />}
-                size={32}
-              />
-              <Typography variant="legacy-modal-title">
-                {channel()!.name}
-              </Typography>
-            </Row>
+            <PreviewChannel channel_id={data()!.id} />
           </summary>
 
+          <Typography variant="label">Server</Typography>
+          <InspectorLink type="server" id={channel()!.server_id!} />
+
+          <Typography variant="label">Messages</Typography>
           <ChannelPreview>
             <Messages channel={channel()!} limit={100} />
           </ChannelPreview>
         </details>
       </Show>
       <Show when={message()}>
-        <details>
+        <details open>
           <summary>
             <Row align>
               <Avatar src={message()!.avatarURL} size={32} />
@@ -166,6 +204,11 @@ export function Inspector() {
               </Typography>
             </Row>
           </summary>
+
+          <Typography variant="label">Author</Typography>
+          <InspectorLink type="user" id={message()!.author_id} />
+          <Typography variant="label">Channel</Typography>
+          <InspectorLink type="channel" id={message()!.channel_id} />
 
           <Message message={message()!} />
         </details>
