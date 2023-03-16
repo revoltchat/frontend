@@ -1,5 +1,3 @@
-import { action, computed } from "mobx";
-
 import { State } from "..";
 
 import { AbstractStore } from ".";
@@ -37,10 +35,7 @@ export interface TypeExperiments {
 /**
  * Handles enabling and disabling client experiments.
  */
-export default class Experiments extends AbstractStore<
-  "experiments",
-  TypeExperiments
-> {
+export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
   constructor(state: State) {
     super(state, "experiments");
   }

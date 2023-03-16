@@ -44,7 +44,7 @@ interface Props {
   /**
    * Are file uploads enabled?
    */
-  __tempAllowFileUploads: () => void;
+  __tempAllowFileUploads: () => boolean;
 }
 
 /**
@@ -132,6 +132,7 @@ export function MessageBox(props: Props) {
             <BiRegularBlock size={24} />
           </Spacer>
         </Match>
+        {props.__tempAllowFileUploads() ? "y" : "n"}
         <Match
           when={
             props.channel.havePermission("UploadFiles") &&

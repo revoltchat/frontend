@@ -8,7 +8,7 @@ import { AbstractStore, Store } from "./stores";
 import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
-import Experiments from "./stores/Experiments";
+import { Experiments } from "./stores/Experiments";
 import { Locale } from "./stores/Locale";
 
 /**
