@@ -9,13 +9,14 @@ import { Link } from "@revolt/routing";
 
 import { Draggable } from "../../common/Draggable";
 import { InvisibleScrollContainer } from "../../common/ScrollContainers";
+import { Button, Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
   UnreadsGraphic,
   UserStatusGraphic,
 } from "../../design/atoms/indicators";
 import { Tooltip } from "../../floating";
-import { Button, Column, Typography } from "../../design";
+
 import { Swoosh } from "./Swoosh";
 
 /**
@@ -35,8 +36,8 @@ const ServerListBase = styled(
  * Server entries
  */
 const EntryContainer = styled("div", "Entry")`
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   display: grid;
   flex-shrink: 0;
   place-items: center;
