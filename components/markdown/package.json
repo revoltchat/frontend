@@ -31,7 +31,6 @@
     "space-separated-tokens": "^2.0.2",
     "style-to-object": "^0.4.0",
     "unified": "^10.1.2",
-    "unist": "^8.0.11",
     "unist-util-visit": "^4.1.1",
     "vfile": "^5.3.6"
   },

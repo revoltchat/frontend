@@ -122,7 +122,6 @@ importers:
       space-separated-tokens: ^2.0.2
       style-to-object: ^0.4.0
       unified: ^10.1.2
-      unist: ^8.0.11
       unist-util-visit: ^4.1.1
       vfile: ^5.3.6
     dependencies:
@@ -149,7 +148,6 @@ importers:
       space-separated-tokens: 2.0.2
       style-to-object: 0.4.0
       unified: 10.1.2
-      unist: 8.0.11
       unist-util-visit: 4.1.1
       vfile: 5.3.6
     devDependencies:
@@ -7281,10 +7279,6 @@ packages:
       '@types/unist': 2.0.6
       unist-util-is: 5.1.1
       unist-util-visit-parents: 5.1.1
-    dev: false
-
-  /unist/8.0.11:
-    resolution: {integrity: sha512-qnWJT2X2zv8UVrAFAxz83rRek9NBdzNLEM5+EKSP0kbZeEGVWuxwKbVwoi2GvgBoIrQLsZ0xLok6+q7VEv4ERw==}
     dev: false
 
   /universalify/0.2.0:
