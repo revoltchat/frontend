@@ -1,4 +1,3 @@
-/// <reference path="../types/styled.d.ts" />
 import { enableExternalSource } from "solid-js";
 
 /**
