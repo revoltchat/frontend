@@ -1,5 +1,6 @@
 import type { JSX } from "solid-js";
-import { render } from "solid-testing-library";
+
+import { render } from "@solidjs/testing-library";
 
 import i18n, { I18nContext } from "@revolt/i18n";
 import { Router, hashIntegration } from "@revolt/routing";

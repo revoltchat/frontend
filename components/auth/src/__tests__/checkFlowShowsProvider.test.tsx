@@ -1,5 +1,4 @@
-import { screen } from "solid-testing-library";
-
+import { screen } from "@solidjs/testing-library";
 import { describe, expect, it } from "vitest";
 
 import { renderWithContext } from "../../../../packages/test-runner/middleware";

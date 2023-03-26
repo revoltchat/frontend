@@ -15,7 +15,7 @@ export default defineConfig({
     },
     setupFiles: "./packages/test-runner/setupVitest.js",
     deps: {
-      inline: [/solid-js/, /solid-testing-library/],
+      inline: [/solid-js/, /@solidjs\/testing-library/],
     },
     coverage: {
       reporter: ["text", "json", "html"],

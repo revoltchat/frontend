@@ -1,8 +1,6 @@
 import { createEffect } from "solid-js";
 import { useTheme } from "solid-styled-components";
 
-/// <reference path="./types/styled.d.ts" />
-
 export * from "./components";
 export { darkTheme } from "./themes/darkTheme";
 

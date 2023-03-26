@@ -1,5 +1,4 @@
-import { render, screen } from "solid-testing-library";
-
+import { render, screen } from "@solidjs/testing-library";
 import { describe, expect, it } from "vitest";
 
 const Timer = () => {
