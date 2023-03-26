@@ -7,9 +7,7 @@
 To get ready to use Playwright, run the following:
 
 ```bash
-pushd packages/browser-test-runner
-pnpm exec playwright install
-popd
+pnpm run test:browser:install
 ```
 
 ## Run UI regression tests
@@ -23,11 +21,9 @@ pnpm showcase &
 Now run the tests:
 
 ```bash
-pushd packages/browser-test-runner
 # run regression tests
-pnpm exec playwright test regression
+pnpm run test:browser:regression
 
 # show the HTML report
-pnpm exec playwright show-report
-popd
+pnpm run test:browser:report
 ```

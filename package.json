@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "cd packages/test-runner && pnpm run test",
-    "coverage": "cd packages/test-runner && pnpm run coverage",
+    "test:coverage": "cd packages/test-runner && pnpm run coverage",
+    "test:browser:install": "cd packages/browser-test-runner && pnpm exec playwright install",
+    "test:browser:regression": "cd packages/browser-test-runner && pnpm exec playwright test regression",
+    "test:browser:report": "cd packages/browser-test-runner && pnpm exec playwright show-report",
     "dev": "cd packages/client && pnpm run dev",
     "build": "cd packages/client && pnpm run build",
     "build:deps": "pnpm --filter revolt.js build",
