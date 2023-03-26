@@ -22,7 +22,6 @@ import {
   styled,
 } from "@revolt/ui";
 
-import { Messages } from "../../channels/text/Messages";
 import { MessageQuery } from "../MessageQuery";
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewChannel } from "../previews/PreviewChannel";
@@ -221,7 +220,8 @@ export function Inspector() {
 
           <Typography variant="label">Messages</Typography>
           <ChannelPreview>
-            <Messages channel={channel()!} limit={100} />
+            {/*<Messages channel={channel()!} limit={100} />*/}
+            disabled
           </ChannelPreview>
         </details>
       </Show>
