@@ -10,12 +10,7 @@
   "private": true,
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
-    "@vitest/coverage-c8": "^0.24.3",
-    "jsdom": "^20.0.1",
-    "solid-js": "^1.5.5",
-    "vite": "^3.0.9",
-    "vite-plugin-solid": "^2.3.0",
-    "vitest": "^0.24.3"
+    "@vitest/coverage-c8": "^0.24.3"
   },
   "dependencies": {
     "@revolt/i18n": "workspace:^1.0.0",

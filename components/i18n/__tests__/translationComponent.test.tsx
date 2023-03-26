@@ -14,7 +14,7 @@ describe("Translation component", () => {
   it("should translate the text", () => {
     renderWithContext(() => <TranslatedText />);
 
-    const textElm = screen.getByText("Welcome back!");
+    const textElm = screen.getByText("Welcome!");
     expect(textElm).toBeInTheDocument();
   });
 });
