@@ -81,11 +81,11 @@ export function TextEmbed(
                 onError={(e) => (e.currentTarget.style.display = "none")}
               />
             </Show>
-            <Typography variant="small">
-              <OverflowingText>
+            <OverflowingText>
+              <Typography variant="small">
                 {(props.embed as E<"Website">).site_name}
-              </OverflowingText>
-            </Typography>
+              </Typography>
+            </OverflowingText>
           </SiteInformation>
         </Show>
 

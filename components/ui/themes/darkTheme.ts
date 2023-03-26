@@ -78,6 +78,11 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 600,
       fontSize: "1.2rem",
     },
+    "channel-topic": {
+      fontWeight: 400,
+      fontSize: "0.8em",
+      colour: "foreground-100",
+    },
     // Messaging specific
     messages: {
       fontSize: "14px",

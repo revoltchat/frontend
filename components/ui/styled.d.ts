@@ -49,6 +49,7 @@ declare module "solid-styled-components" {
         | "messages"
         | "reply"
         | "sidebar-title"
+        | "channel-topic"
         | "legacy-settings-title"
         | "small"
         | "legacy-modal-title"

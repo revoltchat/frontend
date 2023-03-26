@@ -1,13 +1,23 @@
 import { BiRegularAt, BiRegularHash, BiSolidNotepad } from "solid-icons/bi";
-import { Match, Switch } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 
 import { Channel } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
-import { TextWithEmoji } from "@revolt/markdown";
-import { UserStatus } from "@revolt/ui";
+import { Markdown, TextWithEmoji } from "@revolt/markdown";
+import { OverflowingText, Typography, UserStatus, styled } from "@revolt/ui";
 
 import { HeaderIcon } from "../common/CommonHeader";
+
+/**
+ * Vertical divider between name and topic
+ */
+const Divider = styled("div", "Divider")`
+  height: 20px;
+  margin: 0px 5px;
+  padding-left: 1px;
+  background-color: ${(props) => props.theme!.colours["background-400"]};
+`;
 
 /**
  * Common channel header component
@@ -28,6 +38,14 @@ export function ChannelHeader(props: { channel: Channel }) {
           <BiRegularHash size={24} />
         </HeaderIcon>
         <TextWithEmoji content={props.channel.name!} />
+        <Show when={props.channel.description}>
+          <Divider />
+          <OverflowingText>
+            <Typography variant="channel-topic">
+              <Markdown content={props.channel.description!} disallowBigEmoji />
+            </Typography>
+          </OverflowingText>
+        </Show>
       </Match>
       <Match when={props.channel.channel_type === "DirectMessage"}>
         <HeaderIcon>

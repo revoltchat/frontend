@@ -154,7 +154,14 @@ const pipeline = unified()
   .use(rehypePrism);
 
 export interface MarkdownProps {
+  /**
+   * Content to render
+   */
   content: string;
+
+  /**
+   * Whether to prevent big emoji from rendering
+   */
   disallowBigEmoji?: boolean;
 }
 
