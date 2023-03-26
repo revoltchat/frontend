@@ -29,3 +29,14 @@ export const UserStatusGraphic = (props: Props) => {
     />
   );
 };
+
+/**
+ * Standalone user status element
+ */
+export function UserStatus(props: Props & { size: string }) {
+  return (
+    <svg viewBox="22 22 10 10" height={props.size}>
+      <UserStatusGraphic {...props} />
+    </svg>
+  );
+}

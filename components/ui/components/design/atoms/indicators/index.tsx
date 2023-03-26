@@ -3,4 +3,4 @@ export { Preloader } from "./Preloader";
 export { SaveStatus } from "./SaveStatus";
 export { Turbo } from "./Turbo";
 export { UnreadsGraphic, Unreads } from "./Unreads";
-export { UserStatusGraphic } from "./UserStatus";
+export { UserStatusGraphic, UserStatus } from "./UserStatus";
