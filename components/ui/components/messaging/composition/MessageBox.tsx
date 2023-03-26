@@ -1,4 +1,11 @@
-import { BiRegularBlock, BiRegularPlus } from "solid-icons/bi";
+import {
+  BiRegularBlock,
+  BiRegularHappyBeaming,
+  BiRegularPlus,
+  BiSolidFileGif,
+  BiSolidHappyBeaming,
+  BiSolidSend,
+} from "solid-icons/bi";
 import { Accessor, Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
@@ -6,8 +13,9 @@ import type { Channel } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 
+import { IconButton } from "../../design";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
-import { Row } from "../../design/layout";
+import { InlineIcon, Row } from "../../design/layout";
 
 interface Props {
   /**
@@ -55,8 +63,6 @@ const Base = styled("div", "MessageBox")`
   flex-shrink: 0;
 
   display: flex;
-
-  color: ${({ theme }) => theme!.colours["foreground-200"]};
   background: ${({ theme }) => theme!.colours["background-300"]};
 `;
 
@@ -86,28 +92,6 @@ const Blocked = styled(Row)`
 `;
 
 /**
- * Action buttons
- */
-const Button = styled("a")`
-  grid: 1/1;
-  display: grid;
-  cursor: pointer;
-  place-self: normal;
-  place-items: center;
-`;
-
-/**
- * Specific-width containers
- */
-const Spacer = styled("div")<{ size: "short" | "normal" | "wide" }>`
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: ${({ size }) =>
-    size === "wide" ? 62 : size === "normal" ? 42 : 14}px;
-`;
-
-/**
  * Message box
  */
 export function MessageBox(props: Props) {
@@ -126,11 +110,11 @@ export function MessageBox(props: Props) {
 
   return (
     <Base>
-      <Switch fallback={<Spacer size="short" />}>
+      <Switch fallback={<InlineIcon size="short" />}>
         <Match when={!props.channel.havePermission("SendMessage")}>
-          <Spacer size="wide">
+          <InlineIcon size="wide">
             <BiRegularBlock size={24} />
-          </Spacer>
+          </InlineIcon>
         </Match>
         {props.__tempAllowFileUploads() ? "y" : "n"}
         <Match
@@ -139,11 +123,11 @@ export function MessageBox(props: Props) {
             props.__tempAllowFileUploads()
           }
         >
-          <Spacer size="wide">
-            <Button onClick={props.addFile}>
+          <InlineIcon size="wide">
+            <IconButton onClick={props.addFile}>
               <BiRegularPlus size={24} />
-            </Button>
-          </Spacer>
+            </IconButton>
+          </InlineIcon>
         </Match>
       </Switch>
       <Switch
@@ -167,7 +151,21 @@ export function MessageBox(props: Props) {
           <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
         </Match>
       </Switch>
-      <Spacer size="short" />
+      <InlineIcon size="normal">
+        <IconButton>
+          <BiSolidFileGif size={24} />
+        </IconButton>
+      </InlineIcon>
+      <InlineIcon size="normal">
+        <IconButton>
+          <BiSolidHappyBeaming size={24} />
+        </IconButton>
+      </InlineIcon>
+      <InlineIcon size="normal">
+        <IconButton>
+          <BiSolidSend size={24} onClick={props.sendMessage} />
+        </IconButton>
+      </InlineIcon>
     </Base>
   );
 }

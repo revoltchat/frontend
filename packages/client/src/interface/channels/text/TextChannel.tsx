@@ -1,6 +1,6 @@
-import { createEffect, createSignal, on } from "solid-js";
+import { For, createEffect, createSignal, on, onMount } from "solid-js";
 
-import { HeaderWithTransparency } from "@revolt/ui";
+import { HeaderWithTransparency, styled } from "@revolt/ui";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -42,13 +42,54 @@ export function TextChannel(props: ChannelPageProps) {
     )
   );
 
+  onMount(() => {
+    props.channel.server?.fetchMembers();
+  });
+
   return (
     <>
       <HeaderWithTransparency palette="primary">
         <ChannelHeader channel={props.channel} />
       </HeaderWithTransparency>
-      <Messages channel={props.channel} />
-      <MessageComposition channel={props.channel} />
+      <Content>
+        <MessagingStack>
+          <Messages channel={props.channel} />
+          <MessageComposition channel={props.channel} />
+        </MessagingStack>
+        <div
+          style={{
+            "flex-shrink": 0,
+            width: "232px",
+            background: "#222",
+          }}
+        >
+          test
+        </div>
+      </Content>
     </>
   );
 }
+
+/**
+ * Main content row layout
+ */
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  flex-grow: 1;
+  min-width: 0;
+  min-height: 0;
+`;
+
+/**
+ * Component housing messages and composition
+ */
+const MessagingStack = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+  min-width: 0;
+  min-height: 0;
+`;
