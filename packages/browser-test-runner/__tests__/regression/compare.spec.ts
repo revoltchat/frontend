@@ -26,8 +26,12 @@ for (const component of components) {
       // reset any videos
       await page.$$eval("video", (videos) => {
         for (const video of videos) {
+          // pause everything at start
           video.pause();
           video.currentTime = 0;
+
+          // disable the controls because of platform differences
+          video.controls = false;
         }
       });
 
