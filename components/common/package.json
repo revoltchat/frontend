@@ -11,6 +11,7 @@
     "solid-js": "^1.5.1"
   },
   "devDependencies": {
-    "@revolt/client": "workspace:^1.0.0"
+    "@revolt/client": "workspace:^1.0.0",
+    "@revolt/modal": "workspace:^1.0.0"
   }
 }

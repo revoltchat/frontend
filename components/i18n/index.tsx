@@ -5,7 +5,6 @@ import en from "./locales/en.json";
 
 export { Language, Languages } from "./locales/Languages";
 export { I18nContext, useI18n } from "@solid-primitives/i18n";
-export { LocaleSelector } from "./LocaleSelector";
 export * from "./dayjs";
 
 /**

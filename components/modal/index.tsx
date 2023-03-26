@@ -3,6 +3,8 @@ import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { API, Client } from "revolt.js";
 
+import { registerController } from "@revolt/common";
+
 import { RenderModal } from "./modals";
 import { Modals } from "./types";
 
@@ -26,7 +28,7 @@ export type ActiveModal = {
 /**
  * Global modal controller for layering and displaying modals to the user
  */
-class ModalController {
+export class ModalController {
   modals: ActiveModal[];
   setModals: SetStoreFunction<ActiveModal[]>;
 
@@ -36,6 +38,8 @@ class ModalController {
     this.setModals = setModals;
 
     this.pop = this.pop.bind(this);
+
+    registerController("modal", this);
   }
 
   /**

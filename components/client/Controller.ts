@@ -2,8 +2,7 @@ import { detect } from "detect-browser";
 import { ObservableMap, makeAutoObservable } from "mobx";
 import { API, Client, Nullable } from "revolt.js";
 
-import { registerController } from "@revolt/common";
-import { modalController } from "@revolt/modal";
+import { getController, registerController } from "@revolt/common";
 import { state } from "@revolt/state";
 
 import Session, { SessionPrivate } from "./Session";
@@ -160,10 +159,10 @@ export default class ClientController {
           this.current = null;
           this.pickNextSession();
           state.auth.removeSession(user_id);
-          modalController.push({ type: "signed_out" });
+          getController("modal").push({ type: "signed_out" });
           session.destroy();
         } else {
-          modalController.push({
+          getController("modal").push({
             type: "error",
             error,
           });
@@ -214,7 +213,7 @@ export default class ClientController {
       while (session.result === "MFA") {
         const mfa_response: API.MFAResponse | undefined = await new Promise(
           (callback) =>
-            modalController.push({
+            getController("modal").push({
               type: "mfa_flow",
               state: "unknown",
               available_methods: allowed_methods,

@@ -1,9 +1,10 @@
 import { BiLogosGithub, BiLogosMastodon, BiLogosTwitter } from "solid-icons/bi";
 import { styled } from "solid-styled-components";
 
-import { LocaleSelector, useTranslation } from "@revolt/i18n";
+import { useTranslation } from "@revolt/i18n";
 import { Route, Routes } from "@revolt/routing";
 
+import { LocaleSelector } from "./LocaleSelector";
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
 import FlowCheck from "./flows/FlowCheck";

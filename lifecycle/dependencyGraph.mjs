@@ -4,15 +4,7 @@ exec("pnpm list -r", (err, stdout) => {
   const lines = stdout.split("\n");
 
   // prepare a filter
-  const pkgFilter = (name) => name.startsWith("@revolt"); /*||
-    [
-      "browser-test-runner",
-      "client",
-      "revolt.js",
-      "showcase",
-      "solid-styled-components",
-      "test-runner",
-    ].includes(name)*/
+  const pkgFilter = (name) => name.startsWith("@revolt");
 
   // skip first two lines
   for (let i = 0; i < 2; i++) lines.shift();

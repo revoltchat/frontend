@@ -1,4 +1,5 @@
 import type { ClientController } from "@revolt/client";
+import type { ModalController } from "@revolt/modal";
 
 /**
  * Single source of truth for global state controllers
@@ -8,6 +9,8 @@ import type { ClientController } from "@revolt/client";
 class Controllers {
   // @ts-expect-error
   client: ClientController;
+  // @ts-expect-error
+  modal: ModalController;
 
   constructor() {
     (window as any).controllers = this;
@@ -26,7 +29,7 @@ const controllers = new Controllers();
  */
 export function registerController<K extends keyof typeof controllers>(
   key: K,
-  value: typeof controllers[K]
+  value: (typeof controllers)[K]
 ) {
   controllers[key] = value;
 }
@@ -38,6 +41,6 @@ export function registerController<K extends keyof typeof controllers>(
  */
 export function getController<K extends keyof typeof controllers>(
   key: K
-): typeof controllers[K] {
+): (typeof controllers)[K] {
   return controllers[key];
 }
