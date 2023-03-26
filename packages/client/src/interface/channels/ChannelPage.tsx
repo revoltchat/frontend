@@ -16,6 +16,7 @@ const Base = styled("div")`
   min-width: 0;
   flex-grow: 1;
   display: flex;
+  position: relative;
   flex-direction: column;
 
   background: ${({ theme }) => theme!.colours["background-200"]};
