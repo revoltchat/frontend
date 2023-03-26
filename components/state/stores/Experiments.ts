@@ -69,7 +69,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    * @param experiment Experiment
    */
   isEnabled(experiment: Experiment) {
-    return this.get().enabled.includes(experiment);
+    return import.meta.env.DEV || this.get().enabled.includes(experiment);
   }
 
   /**
