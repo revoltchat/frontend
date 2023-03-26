@@ -7,7 +7,7 @@ import { HomePage } from "./Home";
 import { ServerHome } from "./ServerHome";
 import { ChannelPage } from "./channels/ChannelPage";
 
-const Admin = lazy(() => import("./admin/Admin"));
+const Admin = lazy(() => import("@revolt/admin"));
 
 /**
  * Render content without sidebars

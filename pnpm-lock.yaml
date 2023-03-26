@@ -24,6 +24,24 @@ importers:
       vite-plugin-solid: 2.3.0_solid-js@1.5.5+vite@3.0.9
       vitest: 0.24.3_jsdom@20.0.1
 
+  components/admin:
+    specifiers:
+      '@revolt/client': workspace:^1.0.0
+      '@revolt/markdown': workspace:^1.0.0
+      '@revolt/state': workspace:^1.0.0
+      '@revolt/ui': workspace:^1.0.0
+      revolt.js: workspace:^6.0.20
+      solid-icons: ^1.0.1
+      solid-js: ^1.5.1
+    dependencies:
+      '@revolt/client': link:../client
+      '@revolt/markdown': link:../markdown
+      '@revolt/state': link:../state
+      '@revolt/ui': link:../ui
+      revolt.js: link:../../packages/revolt.js
+      solid-icons: 1.0.1_solid-js@1.5.5
+      solid-js: 1.5.5
+
   components/auth:
     specifiers:
       '@revolt/client': workspace:^1.0.0
@@ -262,6 +280,7 @@ importers:
   packages/client:
     specifiers:
       '@minht11/solid-virtual-container': ^0.2.1
+      '@revolt/admin': workspace:^1.0.0
       '@revolt/auth': workspace:^1.0.0
       '@revolt/client': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
@@ -283,6 +302,7 @@ importers:
       vite-plugin-solid: ^2.3.0
     dependencies:
       '@minht11/solid-virtual-container': 0.2.1_solid-js@1.5.5
+      '@revolt/admin': link:../../components/admin
       '@revolt/auth': link:../../components/auth
       '@revolt/client': link:../../components/client
       '@revolt/i18n': link:../../components/i18n
