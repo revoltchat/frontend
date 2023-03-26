@@ -18,6 +18,7 @@ import {
   Avatar,
   Button,
   Column,
+  Input,
   Message,
   Row,
   Typography,
@@ -136,6 +137,7 @@ export function Report() {
   const report = () => state.admin.getReport(data().id);
   const snapshot = () => state.admin.getSnapshot(data().id)!;
 
+  const client = useClient();
   const [notes, setNotes] = createSignal<string>();
 
   function status() {
@@ -145,6 +147,47 @@ export function Report() {
     } else {
       return value.status;
     }
+  }
+
+  function reason() {
+    const value = report()!;
+    if (value.status === "Rejected") {
+      return value.rejection_reason;
+    }
+  }
+
+  function reject(rejection_reason: string) {
+    state.admin.editReport(data().id, {
+      status: {
+        status: "Rejected",
+        rejection_reason,
+      },
+    });
+  }
+
+  function ref() {
+    let info = "<unknown object>";
+    const snapshot = state.admin.getSnapshot(report()!._id)!;
+    switch (snapshot.content._type) {
+      case "Message": {
+        info = "@" + client.users.get(snapshot.content.author)?.username;
+        break;
+      }
+      case "User": {
+        info = "@" + snapshot.content.username;
+        break;
+      }
+      case "Server": {
+        info = snapshot.content.name;
+        break;
+      }
+    }
+
+    return `${report()!._id.substring(20, 26)}, ${info}, ${
+      report()!.content.report_reason
+    }${
+      report()!.additional_context ? `, "${report()!.additional_context}"` : ""
+    }`;
   }
 
   return (
@@ -215,12 +258,7 @@ export function Report() {
               onClick={() => {
                 const rejection_reason = prompt("Rejection reason");
                 if (rejection_reason) {
-                  state.admin.editReport(data().id, {
-                    status: {
-                      status: "Rejected",
-                      rejection_reason,
-                    },
-                  });
+                  reject(rejection_reason);
                 }
               }}
             >
@@ -228,6 +266,53 @@ export function Report() {
             </Button>
           </Match>
         </Switch>
+        <Show when={report()!.status === "Created"}>
+          <Typography variant="label">Quick Close</Typography>
+          <Row>
+            <Button onClick={() => reject("invalid")}>Invalid</Button>
+            <Button onClick={() => reject("false")}>False or Spam</Button>
+            <Button onClick={() => reject("duplicate")}>Duplicate</Button>
+            <Button onClick={() => reject("not enough evidence")}>
+              Not Enough Evidence
+            </Button>
+            <Button onClick={() => reject("ignore")}>Ignore</Button>
+          </Row>
+        </Show>
+        <Show when={report()!.status !== "Created"}>
+          <Typography variant="label">Quick Respond</Typography>
+          <Switch fallback={"No template available for report info."}>
+            <Match when={reason() === "invalid"}>
+              <TemplateReponse
+                id={report()!.author_id}
+                message={`Your report (${ref()}) has been marked as invalid.`}
+              />
+            </Match>
+            <Match when={reason() === "false"}>
+              <TemplateReponse
+                id={report()!.author_id}
+                message={`Your report (${ref()}) has been marked as false or spam. False reports may lead to additional action against your account.`}
+              />
+            </Match>
+            <Match when={reason() === "duplicate"}>
+              <TemplateReponse
+                id={report()!.author_id}
+                message={`Your report (${ref()}) has been marked as a duplicate.`}
+              />
+            </Match>
+            <Match when={reason() === "not enough evidence"}>
+              <TemplateReponse
+                id={report()!.author_id}
+                message={`Your report (${ref()}) has not been actioned at this time due to a lack of supporting evidence, if you have additional information to support your report, please either report individual relevant messages or send an email to contact@revolt.chat.`}
+              />
+            </Match>
+            <Match when={report()!.status === "Resolved"}>
+              <TemplateReponse
+                id={report()!.author_id}
+                message={`Your report (${ref()}) has been actioned and appropriate action has been taken.`}
+              />
+            </Match>
+          </Switch>
+        </Show>
         <span style="color: white">
           <Show when={snapshot()}>
             <Snapshot id={data().id} />
@@ -235,5 +320,24 @@ export function Report() {
         </span>
       </Column>
     </Show>
+  );
+}
+
+function TemplateReponse(props: { id: string; message: string }) {
+  const cmd = () => `/global notify ${props.id} ${props.message}`;
+  const client = useClient();
+  function runCommand() {
+    if (confirm("Confirm Message")) {
+      client.channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd());
+    }
+  }
+
+  return (
+    <Row align>
+      <Input value={cmd()} disabled />
+      <Button palette="accent" onClick={runCommand}>
+        Send
+      </Button>
+    </Row>
   );
 }

@@ -114,6 +114,15 @@ export function Inspector() {
     )
   );
 
+  let last: any = undefined;
+  function runCommand(cmd: string) {
+    client.channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd);
+    if (cmd !== last) {
+      alert("You must click again to confirm.");
+      last = cmd;
+    }
+  }
+
   return (
     <Column>
       <Row align>
@@ -152,6 +161,31 @@ export function Inspector() {
               </Typography>
             </Row>
           </summary>
+
+          <Typography variant="label">Action</Typography>
+          <Row>
+            <Button palette="warning" onClick={() => {}}>
+              Create Strike
+            </Button>
+            <Button
+              palette="accent"
+              onClick={() => runCommand(`/global spam ${user()!._id}`)}
+            >
+              Spam
+            </Button>
+            <Button
+              palette="error"
+              onClick={() => runCommand(`/global term ${user()!._id}`)}
+            >
+              Term
+            </Button>
+            <Button
+              palette="error"
+              onClick={() => runCommand(`/global ban ${user()!._id}`)}
+            >
+              Ban
+            </Button>
+          </Row>
 
           <UserInfo user={user} />
         </details>
