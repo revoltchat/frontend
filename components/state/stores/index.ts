@@ -6,6 +6,7 @@ import { TypeAdmin } from "./Admin";
 import { TypeAuth } from "./Auth";
 import { TypeDraft } from "./Draft";
 import { TypeExperiments } from "./Experiments";
+import { TypeLayout } from "./Layout";
 import { TypeLocale } from "./Locale";
 
 export type Store = {
@@ -13,6 +14,7 @@ export type Store = {
   auth: TypeAuth;
   draft: TypeDraft;
   experiments: TypeExperiments;
+  layout: TypeLayout;
   locale: TypeLocale;
 };
 

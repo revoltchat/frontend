@@ -9,6 +9,7 @@ import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
+import { Layout } from "./stores/Layout";
 import { Locale } from "./stores/Locale";
 
 /**
@@ -30,6 +31,7 @@ export class State {
   auth = new Auth(this);
   draft = new Draft(this);
   experiments = new Experiments(this);
+  layout = new Layout(this);
   locale = new Locale(this);
 
   /**

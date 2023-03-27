@@ -12,6 +12,8 @@ import { Channel } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 import { Markdown, TextWithEmoji } from "@revolt/markdown";
+import { state } from "@revolt/state";
+import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   IconButton,
   InlineIcon,
@@ -89,7 +91,11 @@ export function ChannelHeader(props: { channel: Channel }) {
       <IconButton>
         <BiSolidMagicWand size={24} />
       </IconButton>
-      <IconButton>
+      <IconButton
+        onClick={() =>
+          state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)
+        }
+      >
         <BiSolidGroup size={24} />
       </IconButton>
     </>

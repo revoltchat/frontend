@@ -29,6 +29,9 @@ export const EXPERIMENTS: {
 };
 
 export interface TypeExperiments {
+  /**
+   * List of enabled experiments
+   */
   enabled: Experiment[];
 }
 

@@ -1,5 +1,7 @@
-import { For, createEffect, createSignal, on, onMount } from "solid-js";
+import { Show, createEffect, createSignal, on, onMount } from "solid-js";
 
+import { state } from "@revolt/state";
+import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { HeaderWithTransparency, styled } from "@revolt/ui";
 
 import { ChannelHeader } from "../ChannelHeader";
@@ -56,15 +58,22 @@ export function TextChannel(props: ChannelPageProps) {
           <Messages channel={props.channel} />
           <MessageComposition channel={props.channel} />
         </MessagingStack>
-        <div
-          style={{
-            "flex-shrink": 0,
-            width: "232px",
-            background: "#222",
-          }}
+        <Show
+          when={state.layout.getSectionState(
+            LAYOUT_SECTIONS.MEMBER_SIDEBAR,
+            true
+          )}
         >
-          test
-        </div>
+          <div
+            style={{
+              "flex-shrink": 0,
+              width: "232px",
+              background: "#222",
+            }}
+          >
+            test
+          </div>
+        </Show>
       </Content>
     </>
   );
