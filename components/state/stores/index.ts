@@ -8,6 +8,7 @@ import { TypeDraft } from "./Draft";
 import { TypeExperiments } from "./Experiments";
 import { TypeLayout } from "./Layout";
 import { TypeLocale } from "./Locale";
+import { TypeOrdering } from "./Ordering";
 
 export type Store = {
   admin: TypeAdmin;
@@ -16,6 +17,7 @@ export type Store = {
   experiments: TypeExperiments;
   layout: TypeLayout;
   locale: TypeLocale;
+  ordering: TypeOrdering;
 };
 
 /**

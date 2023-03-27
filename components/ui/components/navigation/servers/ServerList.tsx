@@ -73,6 +73,12 @@ interface Props {
   orderedServers: Server[];
 
   /**
+   * Set server ordering
+   * @param ids List of IDs
+   */
+  setServerOrder: (ids: string[]) => void;
+
+  /**
    * Current logged in user
    */
   user: User;
@@ -136,12 +142,7 @@ export const ServerList = (props: Props) => {
         </EntryContainer>
       </Show>
       <LineDivider />
-      <Draggable
-        items={props.orderedServers}
-        onChange={(ids) => {
-          // Handle here.
-        }}
-      >
+      <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
         {(item) => (
           <Tooltip placement="right" content={item.name}>
             {(triggerProps) => (

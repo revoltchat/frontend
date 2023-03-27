@@ -77,7 +77,8 @@ export const Sidebar: Component = () => {
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>
       <ServerList
-        orderedServers={[...client.servers.values()]}
+        orderedServers={state.ordering.orderedServers}
+        setServerOrder={state.ordering.setServerOrder}
         user={client.user!}
         selectedServer={() => params().serverId}
       />
