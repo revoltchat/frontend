@@ -5,12 +5,24 @@ import { AbstractStore } from ".";
 /**
  * Union type of available experiments.
  */
-export type Experiment = "file_uploads" | "friends";
+export type Experiment = "file_uploads" | "friends" | "account_switcher";
 
 /**
  * Currently active experiments.
  */
-export const AVAILABLE_EXPERIMENTS: Experiment[] = ["file_uploads", "friends"];
+export const AVAILABLE_EXPERIMENTS: Experiment[] = [
+  "file_uploads",
+  "friends",
+  "account_switcher",
+];
+
+/**
+ * Always-on development-mode experiments.
+ */
+export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [
+  "file_uploads",
+  "friends",
+];
 
 /**
  * Definitions for experiments listed by {@link Experiment}.
@@ -25,6 +37,10 @@ export const EXPERIMENTS: {
   friends: {
     title: "Friends Menu",
     description: "Enable the friends menu in home.",
+  },
+  account_switcher: {
+    title: "Account Switcher",
+    description: "Enable the account switcher on the login page.",
   },
 };
 
@@ -72,7 +88,11 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    * @param experiment Experiment
    */
   isEnabled(experiment: Experiment) {
-    return import.meta.env.DEV || this.get().enabled.includes(experiment);
+    return (
+      (import.meta.env.DEV &&
+        ALWAYS_ON_DEVELOPMENT_EXPERIMENTS.includes(experiment)) ||
+      this.get().enabled.includes(experiment)
+    );
   }
 
   /**

@@ -1,7 +1,8 @@
-import { For, Show } from "solid-js";
+import { For, Match, Show, Switch, onMount } from "solid-js";
 
 import { useTranslation } from "@revolt/i18n";
-import { Link, useNavigate } from "@revolt/routing";
+import { Link, Navigate, useNavigate } from "@revolt/routing";
+import { state } from "@revolt/state";
 import {
   Avatar,
   Button,
@@ -61,24 +62,29 @@ export default function FlowLogin() {
         {t("login.missing_verification")}{" "}
         <Link href="resend">{t("login.resend")}</Link>
       </Typography>
+
       <Show when={clientController.getReadyClients().length > 0}>
-        <AccountSwitcher>
-          <FlowTitle>Use existing account</FlowTitle>
-          <For each={clientController.getReadyClients()}>
-            {(client) => (
-              <CategoryButton
-                icon={<Avatar src={client.user!.avatarURL} size={32} />}
-                action="chevron"
-                onClick={() => {
-                  clientController.switchAccount(client.user!._id);
-                  navigate("/");
-                }}
-              >
-                {client.user!.username}
-              </CategoryButton>
-            )}
-          </For>
-        </AccountSwitcher>
+        <Switch fallback={<Navigate href="/" />}>
+          <Match when={state.experiments.isEnabled("account_switcher")}>
+            <AccountSwitcher>
+              <FlowTitle>Use existing account</FlowTitle>
+              <For each={clientController.getReadyClients()}>
+                {(client) => (
+                  <CategoryButton
+                    icon={<Avatar src={client.user!.avatarURL} size={32} />}
+                    action="chevron"
+                    onClick={() => {
+                      clientController.switchAccount(client.user!._id);
+                      navigate("/");
+                    }}
+                  >
+                    {client.user!.username}
+                  </CategoryButton>
+                )}
+              </For>
+            </AccountSwitcher>
+          </Match>
+        </Switch>
       </Show>
     </>
   );
