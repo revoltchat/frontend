@@ -1,10 +1,11 @@
+import { BiRegularBlock } from "solid-icons/bi";
 import { Accessor, JSX, Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
 
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
-import { Row } from "../../design/layout";
+import { InlineIcon, Row } from "../../design/layout";
 
 interface Props {
   /**
@@ -83,6 +84,7 @@ const Input = styled("textarea")`
 const Blocked = styled(Row)`
   flex-grow: 1;
   user-select: none;
+  color: ${(props) => props.theme!.colours["foreground-300"]};
 `;
 
 /**
@@ -104,7 +106,15 @@ export function MessageBox(props: Props) {
 
   return (
     <Base>
-      {props.actionsStart}
+      <Switch fallback={props.actionsStart}>
+        <Match when={!props.sendingAllowed}>
+          <InlineIcon size="wide">
+            <Blocked>
+              <BiRegularBlock size={24} />
+            </Blocked>
+          </InlineIcon>
+        </Match>
+      </Switch>
       <Switch
         fallback={
           <Input

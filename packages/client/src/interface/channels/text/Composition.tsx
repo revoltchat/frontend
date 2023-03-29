@@ -188,11 +188,6 @@ export function MessageComposition(props: Props) {
         sendMessage={sendMessage}
         actionsStart={
           <Switch fallback={<InlineIcon size="short" />}>
-            <Match when={!props.channel.havePermission("SendMessage")}>
-              <InlineIcon size="wide">
-                <BiRegularBlock size={24} />
-              </InlineIcon>
-            </Match>
             <Match
               when={
                 props.channel.havePermission("UploadFiles") &&
