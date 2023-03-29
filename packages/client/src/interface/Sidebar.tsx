@@ -26,16 +26,7 @@ const Server: Component = () => {
 const Home: Component = () => {
   const params = useSmartParams();
   const client = useClient();
-
-  const conversations = createMemo(() => {
-    const arr = [...client.channels.values()].filter(
-      ({ channel_type }) =>
-        channel_type === "DirectMessage" || channel_type === "Group"
-    );
-
-    arr.sort((a, b) => b.updatedAt - a.updatedAt);
-    return arr;
-  });
+  const conversations = createMemo(() => state.ordering.orderedConversations);
 
   return (
     <HomeSidebar
@@ -79,6 +70,10 @@ export const Sidebar: Component = () => {
       <ServerList
         orderedServers={state.ordering.orderedServers}
         setServerOrder={state.ordering.setServerOrder}
+        unreadConversations={state.ordering.orderedConversations.filter(
+          // TODO: muting channels
+          (channel) => channel.unread
+        )}
         user={client.user!}
         selectedServer={() => params().serverId}
       />

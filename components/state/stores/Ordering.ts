@@ -72,4 +72,20 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
   setServerOrder(ids: string[]) {
     this.set("servers", ids);
   }
+
+  /**
+   * All known active DM conversations ordered by last updated
+   * @returns List of Channel objects
+   */
+  get orderedConversations() {
+    const client = getController("client").getReadyClient();
+    const arr = [...(client?.channels.values() ?? [])].filter(
+      (channel) =>
+        (channel.channel_type === "DirectMessage" && channel.active) ||
+        channel.channel_type === "Group"
+    );
+
+    arr.sort((a, b) => b.updatedAt - a.updatedAt);
+    return arr;
+  }
 }

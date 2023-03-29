@@ -1,8 +1,8 @@
 import { BiSolidCheckShield } from "solid-icons/bi";
-import { Accessor, Component, Show } from "solid-js";
+import { Accessor, Component, For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { User } from "revolt.js";
+import { Channel, User } from "revolt.js";
 import { Server } from "revolt.js/dist/maps/Servers";
 
 import { Link } from "@revolt/routing";
@@ -52,6 +52,7 @@ const EntryContainer = styled("div", "Entry")`
  */
 const LineDivider = styled.div`
   height: 1px;
+  flex-shrink: 0;
   margin: 6px auto;
   width: calc(100% - 24px);
   background: ${({ theme }) => theme!.colours["background-300"]};
@@ -77,6 +78,11 @@ interface Props {
    * @param ids List of IDs
    */
   setServerOrder: (ids: string[]) => void;
+
+  /**
+   * Unread conversations list
+   */
+  unreadConversations: Channel[];
 
   /**
    * Current logged in user
@@ -141,6 +147,46 @@ export const ServerList = (props: Props) => {
           </Link>
         </EntryContainer>
       </Show>
+      <For each={props.unreadConversations}>
+        {(conversation) => (
+          // TODO: displayname on channels
+          <Tooltip
+            placement="right"
+            content={conversation.name ?? conversation.recipient?.username}
+          >
+            {(triggerProps) => (
+              <EntryContainer {...triggerProps}>
+                <Link href={`/channel/${conversation._id}`}>
+                  <Avatar
+                    size={42}
+                    // TODO: fix this
+                    src={conversation.generateIconURL({ max_side: 256 })}
+                    holepunch={conversation.unread ? "top-right" : "none"}
+                    overlay={
+                      <>
+                        <Show when={conversation.unread}>
+                          <UnreadsGraphic
+                            count={
+                              conversation.getMentions({
+                                isMuted() {
+                                  return false;
+                                },
+                              }).length
+                            }
+                            unread
+                          />
+                        </Show>
+                      </>
+                    }
+                    fallback={conversation.name}
+                    interactive
+                  />
+                </Link>
+              </EntryContainer>
+            )}
+          </Tooltip>
+        )}
+      </For>
       <LineDivider />
       <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
         {(item) => (
@@ -155,6 +201,7 @@ export const ServerList = (props: Props) => {
                 <Link href={`/server/${item._id}`}>
                   <Avatar
                     size={42}
+                    // TODO: fix this
                     src={item.generateIconURL({ max_side: 256 })}
                     holepunch={item.isUnread() ? "top-right" : "none"}
                     overlay={
