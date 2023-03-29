@@ -1,32 +1,16 @@
-import {
-  BiRegularBlock,
-  BiRegularHappyBeaming,
-  BiRegularPlus,
-  BiSolidFileGif,
-  BiSolidHappyBeaming,
-  BiSolidSend,
-} from "solid-icons/bi";
-import { Accessor, Match, Switch } from "solid-js";
+import { Accessor, JSX, Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
-
-import type { Channel } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 
-import { IconButton } from "../../design";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
-import { InlineIcon, Row } from "../../design/layout";
+import { Row } from "../../design/layout";
 
 interface Props {
   /**
    * Ref to the input element
    */
   ref: HTMLTextAreaElement | undefined;
-
-  /**
-   * Current channel
-   */
-  channel: Channel;
 
   /**
    * Text content
@@ -45,14 +29,24 @@ interface Props {
   setContent: (v: string) => void;
 
   /**
-   * Trigger new file button
+   * Actions to the left of the message box
    */
-  addFile: () => void;
+  actionsStart: JSX.Element;
 
   /**
-   * Are file uploads enabled?
+   * Actions to the right of the message box
    */
-  __tempAllowFileUploads: () => boolean;
+  actionsEnd: JSX.Element;
+
+  /**
+   * Placeholder in message box
+   */
+  placeholder: string;
+
+  /**
+   * Whether sending messages is allowed
+   */
+  sendingAllowed: boolean;
 }
 
 /**
@@ -110,62 +104,23 @@ export function MessageBox(props: Props) {
 
   return (
     <Base>
-      <Switch fallback={<InlineIcon size="short" />}>
-        <Match when={!props.channel.havePermission("SendMessage")}>
-          <InlineIcon size="wide">
-            <BiRegularBlock size={24} />
-          </InlineIcon>
-        </Match>
-        {props.__tempAllowFileUploads() ? "y" : "n"}
-        <Match
-          when={
-            props.channel.havePermission("UploadFiles") &&
-            props.__tempAllowFileUploads()
-          }
-        >
-          <InlineIcon size="wide">
-            <IconButton onClick={props.addFile}>
-              <BiRegularPlus size={24} />
-            </IconButton>
-          </InlineIcon>
-        </Match>
-      </Switch>
+      {props.actionsStart}
       <Switch
         fallback={
           <Input
             ref={props.ref}
             onKeyDown={onKeyDown}
             value={props.content()}
-            placeholder={
-              props.channel.channel_type === "SavedMessages"
-                ? "Send to notes"
-                : `Message ${
-                    props.channel.name ?? props.channel.recipient?.username
-                  }`
-            }
+            placeholder={props.placeholder}
             onInput={(e) => props.setContent(e.currentTarget.value)}
           />
         }
       >
-        <Match when={!props.channel.havePermission("SendMessage")}>
+        <Match when={!props.sendingAllowed}>
           <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
         </Match>
       </Switch>
-      <InlineIcon size="normal">
-        <IconButton>
-          <BiSolidFileGif size={24} />
-        </IconButton>
-      </InlineIcon>
-      <InlineIcon size="normal">
-        <IconButton>
-          <BiSolidHappyBeaming size={24} />
-        </IconButton>
-      </InlineIcon>
-      <InlineIcon size="normal">
-        <IconButton>
-          <BiSolidSend size={24} onClick={props.sendMessage} />
-        </IconButton>
-      </InlineIcon>
+      {props.actionsEnd}
     </Base>
   );
 }
