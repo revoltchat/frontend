@@ -12,6 +12,7 @@ import { Experiments } from "./stores/Experiments";
 import { Layout } from "./stores/Layout";
 import { Locale } from "./stores/Locale";
 import { Ordering } from "./stores/Ordering";
+import { Settings } from "./stores/Settings";
 
 /**
  * Introduce some delay before writing state to disk
@@ -35,6 +36,7 @@ export class State {
   layout = new Layout(this);
   locale = new Locale(this);
   ordering = new Ordering(this);
+  settings = new Settings(this);
 
   /**
    * Iterate over all available stores
