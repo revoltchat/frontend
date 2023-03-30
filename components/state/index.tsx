@@ -101,7 +101,9 @@ export class State {
         JSON.parse(JSON.stringify((this.store as any)[args[0]]))
       );
 
-      console.info("Wrote state to disk.");
+      if (import.meta.env.DEV) {
+        console.info("Wrote state to disk.");
+      }
     }, DISK_WRITE_WAIT_MS) as unknown as number;
   };
 
@@ -113,7 +115,9 @@ export class State {
     (this.write as any)(...args);
 
     // run side-effects
-    console.info(this.store);
+    if (import.meta.env.DEV) {
+      console.info("[store]", this.store);
+    }
   };
 
   /**

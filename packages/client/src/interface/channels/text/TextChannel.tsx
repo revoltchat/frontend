@@ -44,9 +44,9 @@ export function TextChannel(props: ChannelPageProps) {
     )
   );
 
-  onMount(() => {
+  /*onMount(() => {
     props.channel.server?.fetchMembers();
-  });
+  });*/
 
   return (
     <>

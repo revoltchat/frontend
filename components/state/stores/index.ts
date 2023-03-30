@@ -34,7 +34,7 @@ export abstract class AbstractStore<T extends keyof Store, D> {
   /**
    * Reference to the current state
    */
-  private readonly state: State;
+  protected readonly state: State;
 
   /**
    * This store's key

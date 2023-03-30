@@ -156,25 +156,17 @@ export function MessageComposition(props: Props) {
     <>
       <For each={draft().files ?? []}>{(file) => <span>a file</span>}</For>
       <For each={draft().replies ?? []}>
-        {(reply, index) => {
+        {(reply) => {
           const message = client.messages.get(reply.id);
           return (
             <MessageReplyPreview
               message={message}
               mention={reply.mention}
               toggle={() =>
-                set({
-                  replies: draft().replies!.map((reply, idx) =>
-                    index() === idx
-                      ? { ...reply, mention: !reply.mention }
-                      : reply
-                  ),
-                })
+                state.draft.toggleReplyMention(props.channel._id, reply.id)
               }
               dismiss={() =>
-                set({
-                  replies: draft().replies!.filter((_, idx) => index() !== idx),
-                })
+                state.draft.removeReply(props.channel._id, reply.id)
               }
               self={message?.author_id === client.user?._id}
             />

@@ -1,10 +1,11 @@
-import { API } from "revolt.js";
+import { API, Message } from "revolt.js";
 
 import { insecureUniqueId } from "@revolt/common";
 
 import { State } from "..";
 
 import { AbstractStore } from ".";
+import { LAYOUT_SECTIONS } from "./Layout";
 
 export interface DraftData {
   /**
@@ -142,6 +143,72 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   reset() {
     this.set("drafts", {});
+  }
+
+  /**
+   * Add a reply to the given message
+   * @param message Message
+   */
+  addReply(message: Message) {
+    // Ignore if reply already exists
+    if (
+      this.getDraft(message.channel_id).replies?.find(
+        (reply) => reply.id === message._id
+      )
+    )
+      return;
+
+    // We should not mention ourselves, otherwise use previous mention state
+    const shouldMention =
+      message.author_id !== message.client.user?._id &&
+      this.state.layout.getSectionState(LAYOUT_SECTIONS.MENTION_REPLY);
+
+    // Update the draft with new reply
+    this.setDraft(message.channel_id, (data) => ({
+      replies: [
+        ...(data.replies ?? []),
+        {
+          id: message._id,
+          mention: shouldMention,
+        },
+      ],
+    }));
+  }
+
+  /**
+   * Toggle reply mention
+   *
+   * This has a side-effect of updating the MENTION_REPLY section state!
+   * @param channelId Channel ID
+   * @param messageId Message ID
+   */
+  toggleReplyMention(channelId: string, messageId: string) {
+    this.setDraft(channelId, (data) => ({
+      replies: data.replies?.map((reply) => {
+        if (reply.id === messageId) {
+          // Save current mention reply state as new default
+          this.state.layout.setSectionState(
+            LAYOUT_SECTIONS.MENTION_REPLY,
+            !reply.mention
+          );
+
+          return { ...reply, mention: !reply.mention };
+        }
+
+        return reply;
+      }),
+    }));
+  }
+
+  /**
+   * Remove a reply by message ID from a channel draft
+   * @param channelId Channel ID
+   * @param messageId Message ID
+   */
+  removeReply(channelId: string, messageId: string) {
+    this.setDraft(channelId, (data) => ({
+      replies: data.replies?.filter((reply) => reply.id !== messageId),
+    }));
   }
 
   /**

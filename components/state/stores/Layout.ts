@@ -7,6 +7,7 @@ import { AbstractStore } from ".";
  */
 export enum LAYOUT_SECTIONS {
   MEMBER_SIDEBAR = "MEMBER_SIDEBAR",
+  MENTION_REPLY = "MENTION_REPLY",
 }
 
 export interface TypeLayout {
@@ -86,8 +87,8 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
    * @param defaultValue Default state value
    * @returns Whether the section is open
    */
-  getSectionState(id: string, defaultValue?: boolean) {
-    return this.get().openSections[id] ?? defaultValue ?? false;
+  getSectionState(id: string, defaultValue: boolean = false) {
+    return this.get().openSections[id] ?? defaultValue;
   }
 
   /**
@@ -96,7 +97,7 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
    * @param value New state value
    * @param defaultValue Default state value
    */
-  setSectionState(id: string, value: boolean, defaultValue?: boolean) {
+  setSectionState(id: string, value: boolean, defaultValue: boolean = false) {
     this.set("openSections", id, value === defaultValue ? undefined! : value);
   }
 
