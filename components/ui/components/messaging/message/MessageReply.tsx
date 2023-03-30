@@ -14,7 +14,10 @@ import {
   NonBreakingText,
   OverflowingText,
 } from "../../design";
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import {
+  Typography,
+  generateTypographyCSS,
+} from "../../design/atoms/display/Typography";
 
 interface Props {
   /**
@@ -95,7 +98,9 @@ export function MessageReply(props: Props) {
               colour={props.message!.roleColour!}
               clip={props.message!.roleColour?.includes("gradient")}
             >
-              {props.message!.username}
+              <Typography variant="username">
+                {props.message!.username}
+              </Typography>
             </ColouredText>
           </NonBreakingText>
           <Show when={props.message!.attachments}>
