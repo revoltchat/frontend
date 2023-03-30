@@ -350,7 +350,7 @@ importers:
       mobx: ^6.3.2
       node-fetch: ^2.6.1
       prettier: ^2.4.1
-      revolt-api: 0.5.16
+      revolt-api: 0.5.17
       rimraf: ^3.0.2
       tsc-watch: ^4.1.0
       typedoc: ^0.21.4
@@ -367,7 +367,7 @@ importers:
       lodash.isequal: 4.5.0
       long: 5.2.0
       mobx: 6.6.2
-      revolt-api: 0.5.16
+      revolt-api: 0.5.17
       ulid: 2.3.0
       ws: 8.8.1
     devDependencies:
@@ -6978,7 +6978,7 @@ packages:
     dependencies:
       js-yaml: 4.1.0
       mime: 3.0.0
-      prettier: 2.7.1
+      prettier: 2.8.7
       tiny-glob: 0.2.9
       undici: 5.10.0
       yargs-parser: 21.1.1
@@ -7161,12 +7161,12 @@ packages:
     resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+    dev: true
 
   /prettier/2.8.7:
     resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: true
 
   /pretty-format/27.5.1:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
@@ -7472,8 +7472,8 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /revolt-api/0.5.16:
-    resolution: {integrity: sha512-LrEU6WuazwZIwWHPQr7kpFQpzxBDg6chTKuvAuLIyzmILUDdDp6ALlA/AvlqBR1YcvT8rjbgcV0hHEIC8pkM2A==}
+  /revolt-api/0.5.17:
+    resolution: {integrity: sha512-AkceDCK+6c8Ie+psmG8KA1VTx+DJJRk99jsve9SIBCeCxZ7CizdgBdG3fJ4KM/UA4H+IvPa3PdFzgrBeBuTOWQ==}
     dependencies:
       '@insertish/oapi': 0.1.18
       axios: 0.26.1
