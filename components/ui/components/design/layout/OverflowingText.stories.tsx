@@ -18,7 +18,7 @@ export default {
     children: "string",
   },
   decorators: [
-    ({ children }) => (
+    (props) => (
       <div
         style={{
           display: "flex",
@@ -26,7 +26,7 @@ export default {
           width: "120px",
         }}
       >
-        {children}
+        {props.children}
       </div>
     ),
     TextColourDecorator,

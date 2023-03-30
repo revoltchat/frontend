@@ -40,9 +40,9 @@ const Mention = styled.a`
   }
 `;
 
-export function RenderMention({ match }: CustomComponentProps) {
+export function RenderMention(props: CustomComponentProps) {
   const client = clientController.getAvailableClient();
-  const user = client.users.get(match)!;
+  const user = client.users.get(props.match)!;
   const { server } = useParams<{ server: string }>();
 
   let colour: string | undefined;

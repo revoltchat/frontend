@@ -9,7 +9,7 @@ export default function makeContainerDecorator({
   height?: number;
   flex?: "col" | "row";
 }) {
-  return ({ children }: { children: JSX.Element }) => (
+  return (props: { children: JSX.Element }) => (
     <div
       style={{
         "min-width": width ? `${width}px` : undefined,
@@ -18,7 +18,7 @@ export default function makeContainerDecorator({
         "flex-direction": flex === "col" ? "column" : undefined,
       }}
     >
-      {children}
+      {props.children}
     </div>
   );
 }

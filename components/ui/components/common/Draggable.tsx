@@ -31,13 +31,13 @@ interface DragHandleEvent<T> {
  */
 0 && dndzone;
 
-export function Draggable<T>({ items, children, onChange }: Props<T>) {
+export function Draggable<T>(props: Props<T>) {
   const [containerItems, setContainerItems] = createSignal<ContainerItem<T>[]>(
     []
   );
 
   createEffect(() => {
-    const newContainerItems = items.map((item) => ({ id: item._id, item }));
+    const newContainerItems = props.items.map((item) => ({ id: item._id, item }));
     setContainerItems(newContainerItems);
   });
 
@@ -45,7 +45,7 @@ export function Draggable<T>({ items, children, onChange }: Props<T>) {
     const { items: newContainerItems } = e.detail;
     setContainerItems(newContainerItems);
     if (e.type === "finalize")
-      onChange(newContainerItems.map((containerItems) => containerItems.id));
+      props.onChange(newContainerItems.map((containerItems) => containerItems.id));
   }
 
   /**
@@ -59,7 +59,7 @@ export function Draggable<T>({ items, children, onChange }: Props<T>) {
       on:finalize={handleDndEvent}
     >
       <For each={containerItems()}>
-        {(containerItem) => children(containerItem.item)}
+        {(containerItem) => props.children(containerItem.item)}
       </For>
     </div>
   );

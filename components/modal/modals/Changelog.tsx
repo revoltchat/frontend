@@ -35,10 +35,10 @@ const Image = styled.img`
 /**
  * Render a single changelog post
  */
-function RenderLog({ post }: { post: ChangelogPost }) {
+function RenderLog(props: { post: ChangelogPost }) {
   return (
     <Column>
-      <For each={post.content}>
+      <For each={props.post.content}>
         {(entry) => (
           <Switch>
             <Match when={typeof entry === "string"}>{entry as string}</Match>

@@ -17,14 +17,14 @@ export default {
       title: "With Transparency",
       component: HeaderWithTransparency,
       decorators: [
-        ({ children }) => (
+        (props) => (
           <Column>
             <Column>
               {new Array(5).fill(0).map(() => (
                 <span>background content</span>
               ))}
             </Column>
-            {children}
+            {props.children}
           </Column>
         ),
       ],

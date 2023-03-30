@@ -32,7 +32,7 @@ export function Reports() {
 
           return (
             <span
-              style="color: white;"
+              style={{"color":"white"}}
               onClick={() => {
                 state.admin.addTab({
                   title: `Report: ${report._id.substring(20, 26)}`,

@@ -204,7 +204,7 @@ export function Inspector() {
             </Row>
           </summary>
 
-          <div style="pointer-events: none">
+          <div style={{ "pointer-events": "none" }}>
             <ServerSidebar server={server()!} channelId={undefined} />
           </div>
         </details>

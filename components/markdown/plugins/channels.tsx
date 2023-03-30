@@ -3,14 +3,14 @@ import { Link } from "@revolt/routing";
 
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
-export function RenderChannel({ match }: CustomComponentProps) {
-  const channel = clientController.getAvailableClient().channels.get(match)!;
+export function RenderChannel(props: CustomComponentProps) {
+  const channel = clientController.getAvailableClient().channels.get(props.match)!;
 
   return (
     <Link
       href={`${
         channel.server_id ? `/server/${channel.server_id}` : ""
-      }/channel/${match}`}
+      }/channel/${props.match}`}
     >{`#${channel.name}`}</Link>
   );
 }

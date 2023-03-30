@@ -1,8 +1,6 @@
 import type { JSX } from "solid-js";
 
-export default function ResizeContentDecorator({
-  children,
-}: {
+export default function ResizeContentDecorator(props: {
   children: JSX.Element;
 }) {
   return (
@@ -16,7 +14,7 @@ export default function ResizeContentDecorator({
         overflow: "hidden",
       }}
     >
-      {children}
+      {props.children}
     </div>
   );
 }

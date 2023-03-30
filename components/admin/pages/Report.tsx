@@ -313,7 +313,7 @@ export function Report() {
             </Match>
           </Switch>
         </Show>
-        <span style="color: white">
+        <span style={{ color: "white" }}>
           <Show when={snapshot()}>
             <Snapshot id={data().id} />
           </Show>

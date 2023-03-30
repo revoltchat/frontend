@@ -20,12 +20,12 @@ const Spoiler = styled("span", "Spoiler")<{ shown: boolean }>`
   }
 `;
 
-export function RenderSpoiler({ match }: CustomComponentProps) {
+export function RenderSpoiler(props: CustomComponentProps) {
   const [shown, setShown] = createSignal(false);
 
   return (
     <Spoiler shown={shown()} onClick={() => setShown(true)}>
-      {match}
+      {props.match}
     </Spoiler>
   );
 }

@@ -8,18 +8,18 @@ import { Emoji } from "./unicodeEmoji";
 
 export const RE_CUSTOM_EMOJI = /:([0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}):/g;
 
-export function RenderCustomEmoji({ match }: CustomComponentProps) {
+export function RenderCustomEmoji(props: CustomComponentProps) {
   const [exists, setExists] = createSignal(true);
 
   const client = useClient();
-  const url = `${client.configuration?.features.autumn.url}/emojis/${match}`;
+  const url = `${client.configuration?.features.autumn.url}/emojis/${props.match}`;
 
-  const emoji = () => client.emojis.get(match);
+  const emoji = () => client.emojis.get(props.match);
   const server = () =>
     client.servers.get((emoji()!.parent as { type: "Server"; id: string }).id)!;
 
   return (
-    <Switch fallback={<span>{`:${emoji()?.name ?? match}:`}</span>}>
+    <Switch fallback={<span>{`:${emoji()?.name ?? props.match}:`}</span>}>
       <Match when={exists()}>
         <Tooltip
           placement="top"

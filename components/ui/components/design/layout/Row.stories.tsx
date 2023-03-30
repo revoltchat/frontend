@@ -52,8 +52,8 @@ export default {
         grow: true,
       },
       decorators: [
-        ({ children }) => (
-          <div style={{ width: "360px", display: "flex" }}>{children}</div>
+        (props) => (
+          <div style={{ width: "360px", display: "flex" }}>{props.children}</div>
         ),
       ],
     },

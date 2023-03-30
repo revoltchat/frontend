@@ -77,7 +77,7 @@ render(() => {
   }
 
   return (
-    <div style="background:black">
+    <div style={{"background":"black"}}>
       <Masks />
       <I18nContext.Provider value={i18n}>
         <ThemeProvider theme={darkTheme}>
