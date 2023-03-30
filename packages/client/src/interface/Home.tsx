@@ -2,6 +2,7 @@ import {
   BiRegularMoney,
   BiSolidCog,
   BiSolidCompass,
+  BiSolidHome,
   BiSolidMegaphone,
   BiSolidPlusCircle,
   BiSolidRightArrowCircle,
@@ -20,6 +21,8 @@ import {
   Typography,
   styled,
 } from "@revolt/ui";
+
+import { HeaderIcon } from "./common/CommonHeader";
 
 /**
  * Base layout of the home page (i.e. the header/background)
@@ -75,7 +78,12 @@ export function HomePage() {
 
   return (
     <Base>
-      <Header palette="primary">Home</Header>
+      <Header palette="primary">
+        <HeaderIcon>
+          <BiSolidHome size={24} />
+        </HeaderIcon>
+        Home
+      </Header>
       <Content>
         <Typography
           // TODO: create separate typography style for homepage
