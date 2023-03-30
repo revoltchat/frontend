@@ -5,4 +5,8 @@ import { styled } from "solid-styled-components";
  */
 export const NonBreakingText = styled("div")`
   white-space: nowrap;
+
+  * {
+    white-space: nowrap;
+  }
 `;
