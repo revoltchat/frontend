@@ -21,7 +21,10 @@ export const Header = styled("div", "Header")<Props>`
   font-weight: 600;
   user-select: none;
 
-  color: ${(props) => props.theme!.colours.foreground};
+  color: ${(props) =>
+    props.theme!.colours[
+      props.palette === "primary" ? "foreground-200" : "foreground"
+    ]};
   height: ${(props) => props.theme!.layout.height.header};
 
   svg {
