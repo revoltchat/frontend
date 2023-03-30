@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { API, Client } from "revolt.js";
 
-import { getController } from "@revolt/common";
+import { CONFIGURATION, getController } from "@revolt/common";
 
 /**
  * Session authentication
@@ -118,7 +118,7 @@ export default class Session {
       unreads: true,
       autoReconnect: false,
       onPongTimeout: "EXIT",
-      apiURL: apiUrl ?? import.meta.env.VITE_API_URL,
+      apiURL: apiUrl ?? CONFIGURATION.DEFAULT_API_URL,
     });
 
     this.client.addListener("dropped", this.onDropped);

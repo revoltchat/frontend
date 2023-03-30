@@ -1,4 +1,5 @@
 import { clientController } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { Link, useNavigate } from "@revolt/routing";
 import { Button, Typography } from "@revolt/ui";
@@ -32,7 +33,7 @@ export default function FlowResend() {
   return (
     <>
       <FlowTitle>{t("login.resend")}</FlowTitle>
-      <Form onSubmit={resend} captcha={import.meta.env.VITE_HCAPTCHA_SITEKEY}>
+      <Form onSubmit={resend} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email"]} />
         <Button type="submit">{t("login.resend")}</Button>
       </Form>

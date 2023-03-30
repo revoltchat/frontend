@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@revolt/client": "workspace:^1.0.0",
+    "@revolt/common": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/modal": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",

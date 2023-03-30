@@ -2,7 +2,11 @@ import { detect } from "detect-browser";
 import { ObservableMap, makeAutoObservable } from "mobx";
 import { API, Client, Nullable } from "revolt.js";
 
-import { getController, registerController } from "@revolt/common";
+import {
+  CONFIGURATION,
+  getController,
+  registerController,
+} from "@revolt/common";
 import { state } from "@revolt/state";
 
 import Session, { SessionPrivate } from "./Session";
@@ -34,7 +38,7 @@ export default class ClientController {
 
   constructor() {
     this.apiClient = new Client({
-      apiURL: import.meta.env.VITE_API_URL,
+      apiURL: CONFIGURATION.DEFAULT_API_URL,
     });
 
     this.apiClient

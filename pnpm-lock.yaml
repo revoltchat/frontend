@@ -45,6 +45,7 @@ importers:
   components/auth:
     specifiers:
       '@revolt/client': workspace:^1.0.0
+      '@revolt/common': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/modal': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
@@ -58,6 +59,7 @@ importers:
       vite: ^3.0.9
     dependencies:
       '@revolt/client': link:../client
+      '@revolt/common': link:../common
       '@revolt/i18n': link:../i18n
       '@revolt/modal': link:../modal
       '@revolt/routing': link:../routing

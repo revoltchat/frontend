@@ -1,3 +1,4 @@
+import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { Link, useNavigate } from "@revolt/routing";
 import { Button, Typography } from "@revolt/ui";
@@ -42,7 +43,7 @@ export default function FlowCreate() {
       <FlowTitle subtitle={t("login.subtitle2")} emoji="wave">
         {t("login.welcome2")}
       </FlowTitle>
-      <Form onSubmit={login} captcha={import.meta.env.VITE_HCAPTCHA_SITEKEY}>
+      <Form onSubmit={login} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email", "password"]} />
         <Button type="submit">{t("login.register")}</Button>
       </Form>

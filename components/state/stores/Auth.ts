@@ -1,4 +1,4 @@
-import { getController } from "@revolt/common";
+import { CONFIGURATION, getController } from "@revolt/common";
 
 import { State } from "..";
 
@@ -33,7 +33,7 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
           token: import.meta.env.VITE_TOKEN!,
           user_id: import.meta.env.VITE_USER_ID!,
         },
-        import.meta.env.VITE_API_URL!
+        CONFIGURATION.DEFAULT_API_URL!
       );
     }
 
