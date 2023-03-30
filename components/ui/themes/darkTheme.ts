@@ -65,7 +65,7 @@ export const darkTheme: DefaultTheme = {
       fontSize: "13px",
     },
     category: {
-      fontWeight: 500,
+      fontWeight: 600,
       fontSize: "0.7rem",
     },
     "menu-button": {
