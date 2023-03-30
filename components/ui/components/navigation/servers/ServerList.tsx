@@ -147,7 +147,7 @@ export const ServerList = (props: Props) => {
           </Link>
         </EntryContainer>
       </Show>
-      <For each={props.unreadConversations}>
+      <For each={props.unreadConversations.slice(0, 9)}>
         {(conversation) => (
           // TODO: displayname on channels
           <Tooltip
@@ -160,7 +160,10 @@ export const ServerList = (props: Props) => {
                   <Avatar
                     size={42}
                     // TODO: fix this
-                    src={conversation.generateIconURL({ max_side: 256 })}
+                    src={
+                      conversation.generateIconURL({ max_side: 256 }) ??
+                      conversation.recipient?.defaultAvatarURL
+                    }
                     holepunch={conversation.unread ? "top-right" : "none"}
                     overlay={
                       <>
@@ -178,7 +181,9 @@ export const ServerList = (props: Props) => {
                         </Show>
                       </>
                     }
-                    fallback={conversation.name}
+                    fallback={
+                      conversation.name ?? conversation.recipient?.username
+                    }
                     interactive
                   />
                 </Link>
@@ -187,6 +192,16 @@ export const ServerList = (props: Props) => {
           </Tooltip>
         )}
       </For>
+      <Show when={props.unreadConversations.length > 9}>
+        <EntryContainer>
+          <Link href={`/`}>
+            <Avatar
+              size={42}
+              fallback={<>+{props.unreadConversations.length - 9}</>}
+            />
+          </Link>
+        </EntryContainer>
+      </Show>
       <LineDivider />
       <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
         {(item) => (
