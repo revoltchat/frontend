@@ -17,12 +17,14 @@ import create_role from "./CreateRole";
 import create_server from "./CreateServer";
 import custom_status from "./CustomStatus";
 import delete_message from "./DeleteMessage";
+import error from "./Error";
 import kick_member from "./KickMember";
 import mfa_enable_totp from "./MFAEnableTOTP";
 import mfa_flow from "./MFAFlow";
 import mfa_recovery from "./MFARecovery";
 import onboarding from "./Onboarding";
 import server_info from "./ServerInfo";
+import signed_out from "./SignedOut";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   add_friend,
@@ -39,17 +41,24 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   create_server,
   custom_status,
   delete_message,
+  error,
   kick_member,
   mfa_enable_totp,
   mfa_flow,
   mfa_recovery,
   onboarding,
   server_info,
+  signed_out,
   ...({} as any),
 };
 
 export function RenderModal(props: ActiveModal) {
   const onClose = () => modalController.remove(props.id);
+
+  if (import.meta.env.DEV) {
+    console.info("[modal]", props.props.type);
+  }
+
   const modalProps = Modals[props.props.type](props.props, onClose);
   return <Modal show={props.show} onClose={onClose} {...modalProps} />;
 }
