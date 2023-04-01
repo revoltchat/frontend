@@ -3,7 +3,7 @@ import { Match, Switch } from "solid-js";
 import { Show } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import type { Message } from "revolt.js";
+import { Message } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
@@ -99,6 +99,7 @@ export function MessageReply(props: Props) {
               clip={props.message!.roleColour?.includes("gradient")}
             >
               <Typography variant="username">
+                {props.mention && "@"}
                 {props.message!.username}
               </Typography>
             </ColouredText>
