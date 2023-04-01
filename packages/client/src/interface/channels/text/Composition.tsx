@@ -13,6 +13,7 @@ import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import type { DraftData } from "@revolt/state/stores/Draft";
 import {
+  FilePasteCollector,
   IconButton,
   InlineIcon,
   MessageBox,
@@ -72,7 +73,7 @@ export function MessageComposition(props: Props) {
       }
     }
 
-    // FIXME: bug with backend
+    // TODO: fix bug with backend
     if (!attachments.length) {
       delete data.attachments;
     }
@@ -223,6 +224,11 @@ export function MessageComposition(props: Props) {
               }`
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
+      />
+      <FilePasteCollector
+        onFiles={(files) =>
+          files.forEach((file) => state.draft.addFile(props.channel._id, file))
+        }
       />
     </>
   );
