@@ -99,6 +99,7 @@ export function MessageReply(props: Props) {
               clip={props.message!.roleColour?.includes("gradient")}
             >
               <Typography variant="username">
+                {props.mention && "@"}
                 {props.message!.username}
               </Typography>
             </ColouredText>
