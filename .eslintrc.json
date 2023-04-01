@@ -1,5 +1,23 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["solid"],
-  "extends": ["eslint:recommended", "plugin:solid/typescript", "prettier"]
+  "plugins": ["solid", "spellcheck"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:solid/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "spellcheck/spell-checker": [
+      "warn",
+      {
+        "lang": "en_GB",
+        "strings": false,
+        "identifiers": false,
+        "templates": false,
+        "skipWords": ["dismissable"]
+      }
+    ]
+  }
 }

@@ -32,6 +32,7 @@
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-solid": "^0.12.0",
+    "eslint-plugin-spellcheck": "^0.0.20",
     "jsdom": "^20.0.3",
     "prettier": "^2.8.7",
     "solid-js": "^1.6.15",

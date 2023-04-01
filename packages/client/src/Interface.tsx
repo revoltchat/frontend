@@ -23,6 +23,10 @@ const Interface: Component = () => {
           "overflow-x": "auto",
           "scroll-snap-type": "x mandatory",
         }}
+        onDragOver={(e) => {
+          if (e.dataTransfer) e.dataTransfer.dropEffect = "none";
+        }}
+        onDrop={(e) => e.preventDefault()}
       >
         <Sidebar />
         <Content />
