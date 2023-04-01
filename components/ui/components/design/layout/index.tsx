@@ -6,3 +6,4 @@ export { Spoiler } from "./Spoiler";
 export { NonBreakingText } from "./NonBreakingText";
 export { Spacer } from "./Spacer";
 export { InlineIcon } from "./InlineIcon";
+export { PreviewStack } from "./PreviewStack";
