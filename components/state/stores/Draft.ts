@@ -143,6 +143,32 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   }
 
   /**
+   * Remove required objects for sending a new message
+   * @param channelId Channel ID
+   * @returns Object with all required data
+   */
+  popDraft(channelId: string) {
+    const { content, replies, files } = this.getDraft(channelId);
+
+    this.setDraft(channelId, {
+      content: "",
+      replies: [],
+      files: files?.splice(5),
+    });
+
+    return {
+      content,
+      replies,
+      files: files?.map((id) => {
+        const { file, dataUri } = this.fileCache[id];
+        URL.revokeObjectURL(dataUri);
+        delete this.fileCache[id];
+        return file;
+      }),
+    };
+  }
+
+  /**
    * Reset and clear all drafts.
    */
   reset() {

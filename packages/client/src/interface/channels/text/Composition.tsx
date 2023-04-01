@@ -4,7 +4,7 @@ import {
   BiSolidHappyBeaming,
   BiSolidSend,
 } from "solid-icons/bi";
-import { For, Match, Show, Switch, onCleanup } from "solid-js";
+import { For, Match, Show, Switch, onCleanup, onMount } from "solid-js";
 
 import { API, Channel } from "revolt.js";
 
@@ -41,7 +41,7 @@ export function MessageComposition(props: Props) {
    * Send a message using the current draft
    */
   async function sendMessage() {
-    const { content, replies, files } = draft();
+    const { content, replies, files } = state.draft.popDraft(props.channel._id);
 
     // Construct message object
     const attachments: string[] = [];
@@ -53,10 +53,10 @@ export function MessageComposition(props: Props) {
 
     // Add any files if attached
     if (files?.length) {
-      for (const fileId of files) {
+      for (const file of files) {
         // Prepare for upload
         const body = new FormData();
-        body.append("file", state.draft.getFile(fileId).file);
+        body.append("file", file);
 
         // Upload to Autumn
         attachments.push(
@@ -80,7 +80,6 @@ export function MessageComposition(props: Props) {
 
     // Send the message and clear the draft
     props.channel.sendMessage(data);
-    state.draft.clearDraft(props.channel._id); // TODO: popDraft to move to queue (w/ file IDs)
   }
 
   /**
@@ -96,9 +95,8 @@ export function MessageComposition(props: Props) {
    */
   function onKeyDown(ev: KeyboardEvent) {
     if (ev.key === "Escape") {
-      if (draft().replies?.length) {
+      if (state.draft.popFromDraft(props.channel._id)) {
         ev.preventDefault();
-        state.draft.popFromDraft(props.channel._id);
       }
     } else {
       ref?.focus();
@@ -106,7 +104,7 @@ export function MessageComposition(props: Props) {
   }
 
   // Bind onKeyDown to the document
-  document.addEventListener("keydown", onKeyDown);
+  onMount(() => document.addEventListener("keydown", onKeyDown));
   onCleanup(() => document.removeEventListener("keydown", onKeyDown));
 
   /**
