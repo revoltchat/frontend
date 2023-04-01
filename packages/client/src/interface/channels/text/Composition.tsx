@@ -10,8 +10,8 @@ import { API, Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
-import type { DraftData } from "@revolt/state/stores/Draft";
 import {
+  FileCarousel,
   FileDropAnywhereCollector,
   FilePasteCollector,
   IconButton,
@@ -56,7 +56,7 @@ export function MessageComposition(props: Props) {
       for (const fileId of files) {
         // Prepare for upload
         const body = new FormData();
-        body.append("file", state.draft.getFile(fileId));
+        body.append("file", state.draft.getFile(fileId).file);
 
         // Upload to Autumn
         attachments.push(
@@ -86,8 +86,8 @@ export function MessageComposition(props: Props) {
   /**
    * Shorthand for updating the draft
    */
-  function set(data: DraftData | ((data: DraftData) => DraftData)) {
-    state.draft.setDraft(props.channel._id, data);
+  function setContent(content: string) {
+    state.draft.setDraft(props.channel._id, { content });
   }
 
   /**
@@ -98,10 +98,7 @@ export function MessageComposition(props: Props) {
     if (ev.key === "Escape") {
       if (draft().replies?.length) {
         ev.preventDefault();
-
-        set((data) => ({
-          replies: data.replies!.slice(0, data.replies!.length - 1),
-        }));
+        state.draft.popFromDraft(props.channel._id);
       }
     } else {
       ref?.focus();
@@ -160,9 +157,22 @@ export function MessageComposition(props: Props) {
     input.click();
   }
 
+  /**
+   * Remove a file by its ID
+   * @param fileId File ID
+   */
+  function removeFile(fileId: string) {
+    state.draft.removeFile(props.channel._id, fileId);
+  }
+
   return (
     <>
-      <For each={draft().files ?? []}>{(file) => <span>a file</span>}</For>
+      <FileCarousel
+        files={draft().files ?? []}
+        getFile={state.draft.getFile}
+        addFile={addFile}
+        removeFile={removeFile}
+      />
       <For each={draft().replies ?? []}>
         {(reply) => {
           const message = client.messages.get(reply.id);
@@ -184,7 +194,7 @@ export function MessageComposition(props: Props) {
       <MessageBox
         ref={ref}
         content={() => draft()?.content ?? ""}
-        setContent={(content) => set({ content })}
+        setContent={setContent}
         sendMessage={sendMessage}
         actionsStart={
           <Switch fallback={<InlineIcon size="short" />}>

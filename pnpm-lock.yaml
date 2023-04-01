@@ -246,6 +246,7 @@ importers:
       '@fontsource/open-sans': ^4.5.11
       '@minht11/solid-virtual-container': ^0.2.1
       '@motionone/solid': ^10.15.4
+      '@revolt/common': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
@@ -262,6 +263,7 @@ importers:
       '@fontsource/open-sans': 4.5.11
       '@minht11/solid-virtual-container': 0.2.1_solid-js@1.5.5
       '@motionone/solid': 10.15.4_solid-js@1.5.5
+      '@revolt/common': link:../common
       '@revolt/i18n': link:../i18n
       '@revolt/markdown': link:../markdown
       '@revolt/routing': link:../routing

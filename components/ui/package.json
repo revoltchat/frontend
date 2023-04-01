@@ -13,6 +13,7 @@
     "@fontsource/open-sans": "^4.5.11",
     "@minht11/solid-virtual-container": "^0.2.1",
     "@motionone/solid": "^10.15.4",
+    "@revolt/common": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/markdown": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",

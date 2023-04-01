@@ -7,7 +7,7 @@ export default {
     (import.meta.env.VITE_API_URL as string) ??
     "https://api.revolt.chat",
   /**
-   * hCaptcha sitekey to use if enabled
+   * hCaptcha site key to use if enabled
    */
   HCAPTCHA_SITEKEY: import.meta.env.VITE_HCAPTCHA_SITEKEY as string,
   /**
@@ -17,7 +17,7 @@ export default {
   /**
    * Maximum number of attachments a message can have
    */
-  MAX_ATTACHMENTS: (import.meta.env.VITE_CFG_MAX_ATTACHMENTS as number) ?? 10,
+  MAX_ATTACHMENTS: (import.meta.env.VITE_CFG_MAX_ATTACHMENTS as number) ?? 5,
   /**
    * Token to set during development.
    */

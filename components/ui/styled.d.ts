@@ -48,6 +48,8 @@ declare module "solid-styled-components" {
         | "menu-button"
         | "messages"
         | "reply"
+        | "composition-file-upload-name"
+        | "composition-file-upload-size"
         | "sidebar-title"
         | "channel-topic"
         | "legacy-settings-title"
@@ -79,7 +81,11 @@ declare module "solid-styled-components" {
     };
     layout: {
       height: {
-        [key in "header" | "tall-header" | "message-box"]: string;
+        [key in
+          | "header"
+          | "tall-header"
+          | "message-box"
+          | "attachment-preview"]: string;
       };
       attachments: {
         [key in `${"min" | "max"}-${"width" | "height"}`]: string;

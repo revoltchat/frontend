@@ -92,6 +92,12 @@ export const darkTheme: DefaultTheme = {
       fontSize: "0.8rem",
       colour: "foreground-100",
     },
+    "composition-file-upload-name": {
+      fontSize: "0.8em",
+    },
+    "composition-file-upload-size": {
+      fontSize: "0.6em",
+    },
     // Legacy
     "legacy-settings-title": {
       element: "h1",
@@ -146,6 +152,7 @@ export const darkTheme: DefaultTheme = {
       header: "48px",
       "tall-header": "120px",
       "message-box": "48px",
+      "attachment-preview": "100px",
     },
     attachments: {
       "min-width": "240px",

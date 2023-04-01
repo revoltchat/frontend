@@ -32,11 +32,13 @@ export type TypeDraft = {
 };
 
 export class Draft extends AbstractStore<"draft", TypeDraft> {
-  private fileCache: Record<string, File>;
+  private fileCache: Record<string, { file: File; dataUri: string }>;
 
   constructor(state: State) {
     super(state, "draft");
     this.fileCache = {};
+
+    this.getFile = this.getFile.bind(this);
   }
 
   hydrate(): void {
@@ -220,7 +222,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   addFile(channelId: string, file: File) {
     const id = insecureUniqueId();
-    this.fileCache[id] = file;
+    this.fileCache[id] = { file, dataUri: URL.createObjectURL(file) };
     this.setDraft(channelId, (data) => ({
       files: [...(data.files ?? []), id],
     }));
@@ -232,6 +234,10 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param fileId File ID
    */
   removeFile(channelId: string, fileId: string) {
+    if (this.fileCache[fileId]) {
+      URL.revokeObjectURL(this.fileCache[fileId].dataUri);
+    }
+
     delete this.fileCache[fileId];
     this.setDraft(channelId, (data) => ({
       files: data.files?.filter((entry) => entry !== fileId),
@@ -245,5 +251,32 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   getFile(fileId: string) {
     return this.fileCache[fileId];
+  }
+
+  /**
+   * Remove additional information from a draft (file or reply)
+   * @param channelId Channel ID
+   * @returns Whether information was removed
+   */
+  popFromDraft(channelId: string): boolean {
+    const draft = this.getDraft(channelId);
+
+    if (draft.replies?.length) {
+      this.setDraft(channelId, {
+        replies: draft.replies.slice(0, draft.replies.length - 1),
+      });
+
+      return true;
+    }
+
+    if (draft.files?.length) {
+      this.setDraft(channelId, {
+        files: draft.files.slice(0, draft.files.length - 1),
+      });
+
+      return true;
+    }
+
+    return false;
   }
 }
