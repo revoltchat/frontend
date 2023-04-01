@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["solid"],
+  "plugins": ["solid", "spellcheck"],
   "extends": [
     "eslint:recommended",
     "plugin:solid/typescript",
@@ -8,6 +8,14 @@
     "prettier"
   ],
   "rules": {
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "spellcheck/spell-checker": [
+      "warn",
+      {
+        "lang": "en_GB",
+        "strings": false,
+        "identifiers": false
+      }
+    ]
   }
 }

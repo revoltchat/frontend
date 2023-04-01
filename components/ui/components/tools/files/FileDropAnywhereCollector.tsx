@@ -13,7 +13,7 @@ export function FileDropAnywhereCollector(props: Props) {
   const [showIndicator, setShowIndicator] = createSignal(false);
 
   /**
-   * Hamdle item drag event
+   * Handle item drag event
    * @param event Drag event
    */
   function onDragOver(event: DragEvent) {

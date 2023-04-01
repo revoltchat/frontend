@@ -10,6 +10,7 @@ importers:
       eslint: ^8.2.0
       eslint-config-prettier: ^8.8.0
       eslint-plugin-solid: ^0.12.0
+      eslint-plugin-spellcheck: ^0.0.20
       jsdom: ^20.0.3
       prettier: ^2.8.7
       solid-js: ^1.6.15
@@ -23,6 +24,7 @@ importers:
       eslint: 8.23.1
       eslint-config-prettier: 8.8.0_eslint@8.23.1
       eslint-plugin-solid: 0.12.0_eslint@8.23.1
+      eslint-plugin-spellcheck: 0.0.20_eslint@8.23.1
       jsdom: 20.0.3
       prettier: 2.8.7
       solid-js: 1.6.15
@@ -4759,6 +4761,17 @@ packages:
       - typescript
     dev: true
 
+  /eslint-plugin-spellcheck/0.0.20_eslint@8.23.1:
+    resolution: {integrity: sha512-GJa6vgzWAYqe0elKADAsiBRrhvqBnKyt7tpFSqlCZJsK2W9+K80oMyHhKolA7vJ13H5RCGs5/KCN+mKUyKoAiA==}
+    peerDependencies:
+      eslint: '>=0.8.0'
+    dependencies:
+      eslint: 8.23.1
+      globals: 13.17.0
+      hunspell-spellchecker: 1.0.2
+      lodash: 4.17.21
+    dev: true
+
   /eslint-scope/5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
     engines: {node: '>=8.0.0'}
@@ -5412,6 +5425,11 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  /hunspell-spellchecker/1.0.2:
+    resolution: {integrity: sha512-4DwmFAvlz+ChsqLDsZT2cwBsYNXh+oWboemxXtafwKIyItq52xfR4e4kr017sLAoPaSYVofSOvPUfmOAhXyYvw==}
+    hasBin: true
     dev: true
 
   /iconv-lite/0.4.24:
