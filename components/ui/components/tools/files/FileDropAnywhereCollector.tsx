@@ -114,6 +114,8 @@ export function FileDropAnywhereCollector(props: Props) {
    * @param event Drag event
    */
   function onDrop(event: DragEvent) {
+    event.preventDefault();
+
     const files = event.dataTransfer?.files;
     if (files) {
       props.onFiles([...files]);
