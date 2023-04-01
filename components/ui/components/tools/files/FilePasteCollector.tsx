@@ -8,6 +8,9 @@ interface Props {
   onFiles: (files: File[]) => void;
 }
 
+/**
+ * Utility for capturing pasted files
+ */
 export function FilePasteCollector(props: Props) {
   /**
    * Handle document paste event
@@ -15,11 +18,11 @@ export function FilePasteCollector(props: Props) {
    */
   function onPaste(event: ClipboardEvent) {
     const items = event.clipboardData?.items;
-    if (!items) return;
+    if (typeof items === "undefined") return;
 
     // Filter for files
     const files: File[] = [...items]
-      .filter((item) => item.type.startsWith("text/"))
+      .filter((item) => !item.type.startsWith("text/"))
       .map((item) => item.getAsFile()!)
       .filter((item) => item);
 
@@ -31,13 +34,6 @@ export function FilePasteCollector(props: Props) {
 
   onMount(() => document.addEventListener("paste", onPaste));
   onCleanup(() => document.removeEventListener("paste", onPaste));
-
-  function onDragOver(event: DragEvent) {
-    if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
-  }
-
-  onMount(() => document.addEventListener("dragover", onDragOver));
-  onCleanup(() => document.removeEventListener("dragover", onDragOver));
 
   return <></>;
 }

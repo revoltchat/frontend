@@ -1,5 +1,4 @@
 import {
-  BiRegularBlock,
   BiRegularPlus,
   BiSolidFileGif,
   BiSolidHappyBeaming,
@@ -13,6 +12,7 @@ import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import type { DraftData } from "@revolt/state/stores/Draft";
 import {
+  FileDropAnywhereCollector,
   FilePasteCollector,
   IconButton,
   InlineIcon,
@@ -113,6 +113,26 @@ export function MessageComposition(props: Props) {
   onCleanup(() => document.removeEventListener("keydown", onKeyDown));
 
   /**
+   * Handle files being added to the draft.
+   * @param files List of files
+   */
+  function onFiles(files: File[]) {
+    for (const file of files) {
+      if (file.size > 20_000_000) {
+        alert("file too large");
+      }
+    }
+
+    const validFiles = Array.from(files).filter(
+      (file) => file.size <= 20_000_000
+    );
+
+    for (const file of validFiles) {
+      state.draft.addFile(props.channel._id, file);
+    }
+  }
+
+  /**
    * Add a file to the message
    */
   function addFile() {
@@ -131,20 +151,7 @@ export function MessageComposition(props: Props) {
 
       // Skip execution if no files specified
       if (!files) return;
-
-      for (const file of files) {
-        if (file.size > 20_000_000) {
-          alert("file too large");
-        }
-      }
-
-      const validFiles = Array.from(files).filter(
-        (file) => file.size <= 20_000_000
-      );
-
-      for (const file of validFiles) {
-        state.draft.addFile(props.channel._id, file);
-      }
+      onFiles([...files]);
     });
 
     // iOS requires us to append the file input
@@ -225,11 +232,8 @@ export function MessageComposition(props: Props) {
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
       />
-      <FilePasteCollector
-        onFiles={(files) =>
-          files.forEach((file) => state.draft.addFile(props.channel._id, file))
-        }
-      />
+      <FilePasteCollector onFiles={onFiles} />
+      <FileDropAnywhereCollector onFiles={onFiles} />
     </>
   );
 }
