@@ -84,14 +84,16 @@ export class Settings extends AbstractStore<"settings", TypeSettings> {
     super(state, "settings");
   }
 
-  hydrate(): void {}
+  hydrate(): void {
+    /** nothing needs to be done */
+  }
 
   default(): TypeSettings {
     return {};
   }
 
   clean(input: Partial<TypeSettings>): TypeSettings {
-    let settings: TypeSettings = this.default();
+    const settings: TypeSettings = this.default();
 
     for (const key of Object.keys(input) as (keyof TypeSettings)[]) {
       const expectedType = EXPECTED_TYPES[key];

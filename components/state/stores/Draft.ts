@@ -39,7 +39,9 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     this.fileCache = {};
   }
 
-  hydrate(): void {}
+  hydrate(): void {
+    /** nothing needs to be done */
+  }
 
   default(): TypeDraft {
     return {
@@ -48,7 +50,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   }
 
   clean(input: Partial<TypeDraft>): TypeDraft {
-    let drafts: TypeDraft["drafts"] = {};
+    const drafts: TypeDraft["drafts"] = {};
 
     const messageDrafts = input.drafts;
     if (messageDrafts) {

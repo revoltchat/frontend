@@ -42,7 +42,9 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
     super(state, "layout");
   }
 
-  hydrate(): void {}
+  hydrate(): void {
+    /** nothing needs to be done */
+  }
 
   default(): TypeLayout {
     return {
@@ -56,7 +58,7 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
   }
 
   clean(input: Partial<TypeLayout>): TypeLayout {
-    let layout: TypeLayout = this.default();
+    const layout: TypeLayout = this.default();
 
     if (typeof input.activeInterface === "string") {
       layout.activeInterface = input.activeInterface;
@@ -87,7 +89,7 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
    * @param defaultValue Default state value
    * @returns Whether the section is open
    */
-  getSectionState(id: string, defaultValue: boolean = false) {
+  getSectionState(id: string, defaultValue = false) {
     return this.get().openSections[id] ?? defaultValue;
   }
 
@@ -97,7 +99,7 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
    * @param value New state value
    * @param defaultValue Default state value
    */
-  setSectionState(id: string, value: boolean, defaultValue: boolean = false) {
+  setSectionState(id: string, value: boolean, defaultValue = false) {
     this.set("openSections", id, value === defaultValue ? undefined! : value);
   }
 

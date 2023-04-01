@@ -20,7 +20,9 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
     this.setServerOrder = this.setServerOrder.bind(this);
   }
 
-  hydrate(): void {}
+  hydrate(): void {
+    /** nothing needs to be done */
+  }
 
   default(): TypeOrdering {
     return {
@@ -29,7 +31,7 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
   }
 
   clean(input: Partial<TypeOrdering>): TypeOrdering {
-    let ordering: TypeOrdering = this.default();
+    const ordering: TypeOrdering = this.default();
 
     if (Array.isArray(input.servers)) {
       for (const serverId of input.servers) {

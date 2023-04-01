@@ -16,7 +16,7 @@
         "strings": false,
         "identifiers": false,
         "templates": false,
-        "skipWords": ["dismissable"]
+        "skipWords": ["dismissable", "Ds"]
       }
     ]
   }

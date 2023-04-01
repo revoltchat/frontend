@@ -67,7 +67,9 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     this.fetchingUsers = new Set();
   }
 
-  hydrate(): void {}
+  hydrate(): void {
+    /** nothing needs to be done */
+  }
 
   default(): TypeAdmin {
     return {
@@ -156,14 +158,15 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
   setActiveTab<T extends TabState["type"]>(
     data: Partial<TabState & { type: T }>
   ) {
-    let tab = this.get().tab;
-    let index = tab - DEFAULT_TAB_OFFSET_IDX;
-    let entry = this.get().tabs[index];
+    const tab = this.get().tab;
+    const index = tab - DEFAULT_TAB_OFFSET_IDX;
+    const entry = this.get().tabs[index];
+
     if (entry) {
       this.set("tabs", index, {
         ...entry,
         ...data,
-      } as any);
+      } as never);
     }
   }
 

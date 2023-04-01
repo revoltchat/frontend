@@ -59,7 +59,9 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
     super(state, "experiments");
   }
 
-  hydrate(): void {}
+  hydrate(): void {
+    /** nothing needs to be done */
+  }
 
   default(): TypeExperiments {
     return {
@@ -68,7 +70,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
   }
 
   clean(input: Partial<TypeExperiments>): TypeExperiments {
-    let enabled: Set<Experiment> = new Set();
+    const enabled: Set<Experiment> = new Set();
 
     if (input.enabled) {
       for (const entry of input.enabled) {
