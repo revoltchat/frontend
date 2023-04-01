@@ -1,0 +1,1 @@
+export { FilePasteCollector } from "./FilePasteCollector";
