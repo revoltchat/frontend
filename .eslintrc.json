@@ -14,7 +14,9 @@
       {
         "lang": "en_GB",
         "strings": false,
-        "identifiers": false
+        "identifiers": false,
+        "templates": false,
+        "skipWords": ["dismissable"]
       }
     ]
   }
