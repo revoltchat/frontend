@@ -104,6 +104,14 @@ export function MessageBox(props: Props) {
     }
   }
 
+  /**
+   * Handle changes to input
+   * @param event Event
+   */
+  function onInput(event: InputEvent & { currentTarget: HTMLTextAreaElement }) {
+    props.setContent(event.currentTarget!.value);
+  }
+
   return (
     <Base>
       <Switch fallback={props.actionsStart}>
@@ -122,7 +130,7 @@ export function MessageBox(props: Props) {
             onKeyDown={onKeyDown}
             value={props.content()}
             placeholder={props.placeholder}
-            onInput={(e) => props.setContent(e.currentTarget.value)}
+            onInput={onInput}
           />
         }
       >
