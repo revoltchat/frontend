@@ -42,8 +42,8 @@ export function MessageComposition(props: Props) {
    * Send a message using the current draft
    * @param useContent Content to send
    */
-  async function sendMessage(useContent?: string) {
-    if (useContent) {
+  async function sendMessage(useContent?: unknown) {
+    if (typeof useContent === "string") {
       return props.channel.sendMessage(useContent);
     }
 
