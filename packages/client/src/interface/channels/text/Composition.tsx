@@ -104,7 +104,7 @@ export function MessageComposition(props: Props) {
       if (state.draft.popFromDraft(props.channel._id)) {
         ev.preventDefault();
       }
-    } else {
+    } else if (!(ev.target instanceof HTMLInputElement)) {
       ref?.focus();
     }
   }
