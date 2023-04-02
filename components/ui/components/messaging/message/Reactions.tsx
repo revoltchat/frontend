@@ -1,0 +1,213 @@
+import { For, Show, createMemo } from "solid-js";
+import { styled } from "solid-styled-components";
+
+import { API } from "revolt.js";
+
+import { Emoji } from "@revolt/markdown";
+
+interface Props {
+  /**
+   * Reactions data
+   */
+  reactions: Map<string, Set<string>>;
+
+  /**
+   * Interactions
+   */
+  interactions: API.Message["interactions"];
+
+  /**
+   * ID of current user
+   */
+  userId?: string;
+
+  /**
+   * Add a reaction
+   * @param reaction ID
+   */
+  addReaction(reaction: string): void;
+
+  /**
+   * Remove a reaction
+   * @param reaction ID
+   */
+  removeReaction(reaction: string): void;
+}
+
+export function Reactions(props: Props) {
+  /**
+   * Determine two lists of 'required' and 'optional' reactions
+   */
+  const lists = createMemo(() => {
+    const required = new Set<string>();
+    const optional = new Set<string>();
+
+    if (props.interactions?.reactions) {
+      for (const reaction of props.interactions.reactions) {
+        required.add(reaction);
+      }
+    }
+
+    if (props.reactions) {
+      for (const key of props.reactions.keys()) {
+        if (!required.has(key)) {
+          optional.add(key);
+        }
+      }
+    }
+
+    return {
+      required: Array.from(required),
+      optional: Array.from(optional),
+    };
+  });
+
+  /**
+   * Determine whether we are showing any reactions
+   * @param both Whether to check if both are present
+   * @returns Number of either required or optional if present
+   */
+  const hasReactions = (both?: boolean) => {
+    const { required, optional } = lists();
+    return both
+      ? required.length && optional.length
+      : required.length || optional.length;
+  };
+
+  return (
+    <Show when={hasReactions()}>
+      <List>
+        <For each={lists().required}>
+          {(entry) => (
+            <Reaction
+              reaction={entry}
+              active={props.reactions.get(entry)?.has(props.userId!)}
+              count={props.reactions.get(entry)?.size}
+              addReaction={props.addReaction}
+              removeReaction={props.removeReaction}
+            />
+          )}
+        </For>
+        <Show when={hasReactions(true)}>
+          <Divider />
+        </Show>
+        <For each={lists().optional}>
+          {(entry) => (
+            <Reaction
+              reaction={entry}
+              active={props.reactions.get(entry)?.has(props.userId!)}
+              count={props.reactions.get(entry)?.size}
+              addReaction={props.addReaction}
+              removeReaction={props.removeReaction}
+            />
+          )}
+        </For>
+        <AddReaction class="add">{"+"}</AddReaction>
+      </List>
+    </Show>
+  );
+}
+
+/**
+ * Render the reaction
+ */
+function Reaction(props: {
+  reaction: string;
+  active?: boolean;
+  count?: number;
+  addReaction(id: string): void;
+  removeReaction(id: string): void;
+}) {
+  function onClick() {
+    if (props.active) {
+      props.removeReaction(props.reaction);
+    } else {
+      props.addReaction(props.reaction);
+    }
+  }
+
+  return (
+    <ReactionBase active={props.active} onClick={onClick}>
+      <Emoji emoji={props.reaction} /> {props.count || 0}
+    </ReactionBase>
+  );
+}
+
+/**
+ * Reaction styling
+ */
+const ReactionBase = styled("div", "Reaction")<{ active?: boolean }>`
+  display: flex;
+  flex-direction: row;
+  gap: ${(props) => props.theme!.gap.md};
+
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+
+  padding: ${(props) => props.theme!.gap.md};
+  border-radius: ${(props) => props.theme!.borderRadius.md};
+  color: ${(props) =>
+    props.theme!.colours[props.active ? "accent" : "foreground-200"]};
+  background: ${(props) =>
+    props.active
+      ? "rgb(253 102 113 / 0.27)"
+      : props.theme!.colours["background-100"]};
+  transition: ${(props) => props.theme!.transitions.fast} all;
+
+  font-weight: 600;
+  font-feature-settings: "tnum" 1;
+
+  img {
+    width: 1.2em;
+    height: 1.2em;
+    object-fit: contain;
+  }
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+
+  &:active {
+    filter: brightness(0.75);
+  }
+`;
+
+/**
+ * Add reaction button styling
+ */
+const AddReaction = styled(ReactionBase)`
+  opacity: 0;
+  justify-content: center;
+
+  font-size: var(--emoji-size);
+  background: ${(props) => props.theme!.colours["background-300"]};
+
+  height: 33px;
+  aspect-ratio: 1/1;
+  padding: ${(props) => props.theme!.gap.sm};
+`;
+
+/**
+ * List divider
+ */
+const Divider = styled.div`
+  width: 1px;
+  height: 14px;
+  background: ${(props) => props.theme!.colours["background-300"]};
+`;
+
+/**
+ * Base component for the reactions list
+ */
+const List = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${(props) => props.theme!.gap.sm};
+
+  &:hover .add {
+    opacity: 1;
+  }
+`;

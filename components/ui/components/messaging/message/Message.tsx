@@ -14,6 +14,7 @@ import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";
 import { MessageReply } from "./MessageReply";
+import { Reactions } from "./Reactions";
 
 const RE_URL =
   /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
@@ -132,6 +133,13 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
             )}
           </For>
         </Show>
+        <Reactions
+          reactions={props.message.reactions}
+          interactions={props.message.interactions!}
+          userId={props.message.client.user?._id}
+          addReaction={(id) => props.message.react(id)}
+          removeReaction={(id) => props.message.unreact(id)}
+        />
       </Column>
     </MessageContainer>
   );
