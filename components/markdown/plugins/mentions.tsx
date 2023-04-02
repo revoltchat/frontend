@@ -3,8 +3,9 @@ import { styled } from "solid-styled-components";
 import { RE_MENTIONS } from "revolt.js";
 
 import { clientController } from "@revolt/client";
-import { useParams } from "@revolt/routing";
 import { Avatar, ColouredText } from "@revolt/ui";
+
+import { useUser } from "../users";
 
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
@@ -41,20 +42,16 @@ const Mention = styled.a`
 `;
 
 export function RenderMention(props: CustomComponentProps) {
-  const client = clientController.getAvailableClient();
-  const user = client.users.get(props.match)!;
-  const { server } = useParams<{ server: string }>();
-
-  let colour: string | undefined;
-  if (server) {
-    colour = client.members.getKey({ server, user: user._id })?.roleColour!;
-  }
+  const user = useUser(props.match);
 
   return (
     <Mention>
-      <Avatar size={16} src={user.avatarURL} />
-      <ColouredText colour={colour} clip={colour?.includes("gradient")}>
-        {user.username}
+      <Avatar size={16} src={user().avatar} />
+      <ColouredText
+        colour={user().colour!}
+        clip={user().colour?.includes("gradient")}
+      >
+        {user().username}
       </ColouredText>
     </Mention>
   );
