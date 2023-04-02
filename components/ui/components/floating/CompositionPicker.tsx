@@ -1,11 +1,13 @@
 import { useFloating } from "solid-floating-ui";
+import { For, JSX, Ref, Show, createEffect, createSignal, on } from "solid-js";
+import { Portal } from "solid-js/web";
 import { styled } from "solid-styled-components";
-import { createSignal, For, JSX, onMount, Ref, Show } from "solid-js";
+
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
-import { Portal } from "solid-js/web";
-import { Column, Input } from "../design";
+
 import { ScrollContainer } from "../common";
+import { Column, Input } from "../design";
 
 /**
  * Base element
@@ -48,11 +50,6 @@ interface Props {
     onClickGif: () => void;
     onClickEmoji: () => void;
   }) => JSX.Element;
-
-  /**
-   * Initial show state (used for debugging)
-   */
-  initialState?: boolean;
 
   /**
    * Send a message
@@ -99,7 +96,7 @@ type Gif = {
 export function CompositionPicker(props: Props) {
   const [anchor, setAnchor] = createSignal<HTMLElement>();
   const [floating, setFloating] = createSignal<HTMLDivElement>();
-  const [show, setShow] = createSignal(props.initialState ?? false);
+  const [show, setShow] = createSignal(false);
 
   const position = useFloating(anchor, floating, {
     placement: "top-end",
@@ -109,11 +106,22 @@ export function CompositionPicker(props: Props) {
 
   const [data, setData] = createSignal<Gif[]>([]);
 
-  onMount(() => {
-    fetch("https://api.gifbox.me/post/popular")
-      .then((x) => x.json())
-      .then(setData);
-  });
+  let fetched = false;
+
+  createEffect(
+    on(
+      () => show(),
+      (show) => {
+        if (show && !fetched) {
+          fetch("https://api.gifbox.me/post/popular")
+            .then((x) => x.json())
+            .then(setData);
+
+          fetched = true;
+        }
+      }
+    )
+  );
 
   function search(query: string) {
     fetch(

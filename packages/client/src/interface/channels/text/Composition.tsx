@@ -11,6 +11,7 @@ import { API, Channel } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import {
+  CompositionPicker,
   FileCarousel,
   FileDropAnywhereCollector,
   FilePasteCollector,
@@ -39,8 +40,13 @@ export function MessageComposition(props: Props) {
 
   /**
    * Send a message using the current draft
+   * @param useContent Content to send
    */
-  async function sendMessage() {
+  async function sendMessage(useContent?: string) {
+    if (useContent) {
+      return props.channel.sendMessage(useContent);
+    }
+
     const { content, replies, files } = state.draft.popDraft(props.channel._id);
 
     // Construct message object
@@ -211,25 +217,34 @@ export function MessageComposition(props: Props) {
           </Switch>
         }
         actionsEnd={
-          <>
-            <InlineIcon size="normal">
-              <IconButton>
-                <BiSolidFileGif size={24} />
-              </IconButton>
-            </InlineIcon>
-            <InlineIcon size="normal">
-              <IconButton>
-                <BiSolidHappyBeaming size={24} />
-              </IconButton>
-            </InlineIcon>
-            <Show when={state.settings.getValue("appearance:show_send_button")}>
-              <InlineIcon size="normal">
-                <IconButton>
-                  <BiSolidSend size={24} onClick={sendMessage} />
-                </IconButton>
-              </InlineIcon>
-            </Show>
-          </>
+          <CompositionPicker sendGIFMessage={sendMessage}>
+            {(triggerProps) => (
+              <>
+                <InlineIcon size="normal">
+                  <IconButton onClick={triggerProps.onClickGif}>
+                    <BiSolidFileGif size={24} />
+                  </IconButton>
+                </InlineIcon>
+                <InlineIcon size="normal">
+                  <IconButton
+                    ref={triggerProps.ref}
+                    onClick={triggerProps.onClickEmoji}
+                  >
+                    <BiSolidHappyBeaming size={24} />
+                  </IconButton>
+                </InlineIcon>
+                <Show
+                  when={state.settings.getValue("appearance:show_send_button")}
+                >
+                  <InlineIcon size="normal">
+                    <IconButton>
+                      <BiSolidSend size={24} onClick={sendMessage} />
+                    </IconButton>
+                  </InlineIcon>
+                </Show>
+              </>
+            )}
+          </CompositionPicker>
         }
         placeholder={
           props.channel.channel_type === "SavedMessages"

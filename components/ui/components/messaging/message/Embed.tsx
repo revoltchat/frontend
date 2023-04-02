@@ -19,40 +19,36 @@ export function Embed(props: {
   baseUrl: string;
   proxyFile: (url: string) => string | undefined;
 }) {
-  const isGIF =
-    props.embed.type === "Website" &&
-    (props.embed.special?.type === "GIF" ||
-      /* hack in gifbox support */ /gifbox\.me\/view/g.test(
-        props.embed.url ?? ""
-      ));
+  const isGIF = () =>
+    props.embed.type === "Website" && props.embed.special?.type === "GIF";
 
-  const video =
+  const video = () =>
     (props.embed.type === "Video"
       ? props.embed
-      : isGIF && (props.embed as E<"Website">).video) || undefined;
+      : isGIF() && (props.embed as E<"Website">).video) || undefined;
 
-  const image =
+  const image = () =>
     (props.embed.type === "Image"
       ? props.embed
-      : isGIF && (props.embed as E<"Website">).image) || undefined;
+      : isGIF() && (props.embed as E<"Website">).image) || undefined;
 
   return (
     <Switch fallback={`Could not render ${props.embed.type}!`}>
-      <Match when={video}>
-        <SizedContent width={video!.width} height={video!.height}>
+      <Match when={video()}>
+        <SizedContent width={video()!.width} height={video()!.height}>
           <video
-            loop={isGIF}
-            muted={isGIF}
-            autoplay={isGIF}
-            controls={!isGIF}
+            loop={isGIF()}
+            muted={isGIF()}
+            autoplay={isGIF()}
+            controls={!isGIF()}
             preload="metadata"
-            src={props.proxyFile(video!.url)}
+            src={props.proxyFile(video()!.url)}
           />
         </SizedContent>
       </Match>
-      <Match when={image}>
-        <SizedContent width={image!.width} height={image!.height}>
-          <img src={props.proxyFile(image!.url)} loading="lazy" />
+      <Match when={image()}>
+        <SizedContent width={image()!.width} height={image()!.height}>
+          <img src={props.proxyFile(image()!.url)} loading="lazy" />
         </SizedContent>
       </Match>
       <Match
