@@ -12,12 +12,12 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { VFile } from "vfile";
 
+import { injectEmojiSize } from "./emoji/util";
 import { handlers } from "./hast";
 import { RenderCodeblock } from "./plugins/Codeblock";
 import { RenderAnchor } from "./plugins/anchors";
 import { RenderChannel, remarkChannels } from "./plugins/channels";
 import { RenderCustomEmoji, remarkCustomEmoji } from "./plugins/customEmoji";
-import { injectEmojiSize } from "./plugins/emoji";
 import { remarkHtmlToText } from "./plugins/htmlToText";
 import { RenderMention, remarkMention } from "./plugins/mentions";
 import { RenderSpoiler, remarkSpoiler } from "./plugins/spoiler";
@@ -165,7 +165,8 @@ export interface MarkdownProps {
   disallowBigEmoji?: boolean;
 }
 
-export { TextWithEmoji } from "./plugins/emoji";
+export { TextWithEmoji } from "./emoji/TextWithEmoji";
+export { Emoji } from "./emoji/Emoji";
 
 /**
  * Remark renderer component

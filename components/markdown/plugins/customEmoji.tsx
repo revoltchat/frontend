@@ -3,16 +3,21 @@ import { Match, Switch, createSignal } from "solid-js";
 import { useClient } from "@revolt/client";
 import { Avatar, Column, Row, Tooltip } from "@revolt/ui";
 
+import { CustomEmoji, EmojiBase, RE_CUSTOM_EMOJI } from "../emoji";
+
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
-import { Emoji } from "./unicodeEmoji";
 
-export const RE_CUSTOM_EMOJI = /:([0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}):/g;
-
+/**
+ * Render a custom emoji
+ *
+ * This will also display a tooltip and fallback to text if the emoji doesn't exist.
+ */
 export function RenderCustomEmoji(props: CustomComponentProps) {
   const [exists, setExists] = createSignal(true);
 
   const client = useClient();
-  const url = `${client.configuration?.features.autumn.url}/emojis/${props.match}`;
+  const url = () =>
+    `${client.configuration?.features.autumn.url}/emojis/${props.match}`;
 
   const emoji = () => client.emojis.get(props.match);
   const server = () =>
@@ -26,7 +31,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
           content={
             <Row align gap="lg">
               <span style={{ "--emoji-size": "3em" }}>
-                <Emoji src={url} />
+                <EmojiBase src={url()} />
               </span>
               <Switch fallback="Unknown emote">
                 <Match when={emoji()?.parent.type === "Server"}>
@@ -43,12 +48,9 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
           }
         >
           {(triggerProps) => (
-            <Emoji
+            <CustomEmoji
               {...triggerProps}
-              loading="lazy"
-              class="emoji"
-              draggable={false}
-              src={url}
+              id={props.match}
               onError={() => setExists(false)}
             />
           )}
