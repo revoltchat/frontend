@@ -104,12 +104,14 @@ importers:
     specifiers:
       '@revolt/client': workspace:^1.0.0
       '@revolt/modal': workspace:^1.0.0
+      '@revolt/state': workspace:^1.0.0
       solid-js: ^1.5.1
     dependencies:
       solid-js: 1.5.5
     devDependencies:
       '@revolt/client': link:../client
       '@revolt/modal': link:../modal
+      '@revolt/state': link:../state
 
   components/i18n:
     specifiers:

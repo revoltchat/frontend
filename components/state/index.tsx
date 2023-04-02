@@ -4,6 +4,8 @@ import { SetStoreFunction, createStore } from "solid-js/store";
 import equal from "fast-deep-equal";
 import localforage from "localforage";
 
+import { registerController } from "@revolt/common";
+
 import { AbstractStore, Store } from "./stores";
 import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
@@ -45,7 +47,9 @@ export class State {
   private iterStores() {
     return (
       Object.keys(this).filter(
-        (key) => (this[key as keyof State] as any)._storeHint
+        (key) =>
+          (this[key as keyof State] as unknown as { _storeHint: boolean })
+            ._storeHint
       ) as (keyof Store)[]
     ).map((key) => this[key] as AbstractStore<typeof key, Store[typeof key]>);
   }
@@ -58,7 +62,7 @@ export class State {
     const defaults: Partial<Store> = {};
 
     for (const store of this.iterStores()) {
-      defaults[store.getKey()] = store.default() as any;
+      defaults[store.getKey()] = store.default() as never;
     }
 
     return defaults;
@@ -70,20 +74,22 @@ export class State {
   constructor() {
     const [store, setStore] = createStore(this.defaults() as Store);
 
-    this.store = store;
+    this.store = store as never;
     this.setStore = setStore;
     this.writeQueue = {};
+
+    registerController("state", this);
   }
 
   /**
    * Write some data to the store and disk
    */
-  private write: SetStoreFunction<Store> = (...args: any[]) => {
+  private write: SetStoreFunction<Store> = (...args: unknown[]) => {
     // pass the data to the store
-    (this.setStore as any)(...args);
+    (this.setStore as (...args: unknown[]) => void)(...args);
 
     // resolve key
-    const key = args[0];
+    const key = args[0] as string;
 
     // remove existing queued task if it exists
     if (this.writeQueue[key]) {
@@ -97,8 +103,8 @@ export class State {
 
       // write the entire key to storage
       localforage.setItem(
-        args[0],
-        JSON.parse(JSON.stringify((this.store as any)[args[0]]))
+        key,
+        JSON.parse(JSON.stringify((this.store as Record<string, unknown>)[key]))
       );
 
       if (import.meta.env.DEV) {
@@ -110,9 +116,9 @@ export class State {
   /**
    * Write data to store / disk and then synchronise it
    */
-  set: SetStoreFunction<Store> = (...args: any[]) => {
+  set: SetStoreFunction<Store> = (...args: unknown[]) => {
     // write to store and storage
-    (this.write as any)(...args);
+    (this.write as (...args: unknown[]) => void)(...args);
 
     // run side-effects
     if (import.meta.env.DEV) {

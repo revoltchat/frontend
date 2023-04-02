@@ -1,5 +1,6 @@
 import type { ClientController } from "@revolt/client";
 import type { ModalController } from "@revolt/modal";
+import type { State } from "@revolt/state";
 
 /**
  * Single source of truth for global state controllers
@@ -7,13 +8,15 @@ import type { ModalController } from "@revolt/modal";
  * This is used to avoid circular dependency issues
  */
 class Controllers {
-  // @ts-expect-error
+  // @ts-expect-error dynamic initialisation
   client: ClientController;
-  // @ts-expect-error
+  // @ts-expect-error dynamic initialisation
   modal: ModalController;
+  // @ts-expect-error dynamic initialisation
+  state: State;
 
   constructor() {
-    (window as any).controllers = this;
+    (window as unknown as { controllers: Controllers }).controllers = this;
   }
 }
 

@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@revolt/client": "workspace:^1.0.0",
-    "@revolt/modal": "workspace:^1.0.0"
+    "@revolt/modal": "workspace:^1.0.0",
+    "@revolt/state": "workspace:^1.0.0"
   }
 }
