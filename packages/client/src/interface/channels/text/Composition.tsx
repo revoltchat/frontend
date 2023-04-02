@@ -226,10 +226,7 @@ export function MessageComposition(props: Props) {
                   </IconButton>
                 </InlineIcon>
                 <InlineIcon size="normal">
-                  <IconButton
-                    ref={triggerProps.ref}
-                    onClick={triggerProps.onClickEmoji}
-                  >
+                  <IconButton onClick={triggerProps.onClickEmoji}>
                     <BiSolidHappyBeaming size={24} />
                   </IconButton>
                 </InlineIcon>
@@ -242,6 +239,8 @@ export function MessageComposition(props: Props) {
                     </IconButton>
                   </InlineIcon>
                 </Show>
+
+                <div ref={triggerProps.ref} />
               </>
             )}
           </CompositionPicker>
