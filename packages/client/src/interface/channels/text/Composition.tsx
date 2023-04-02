@@ -220,16 +220,20 @@ export function MessageComposition(props: Props) {
           <CompositionPicker sendGIFMessage={sendMessage}>
             {(triggerProps) => (
               <>
-                <InlineIcon size="normal">
-                  <IconButton onClick={triggerProps.onClickGif}>
-                    <BiSolidFileGif size={24} />
-                  </IconButton>
-                </InlineIcon>
-                <InlineIcon size="normal">
-                  <IconButton onClick={triggerProps.onClickEmoji}>
-                    <BiSolidHappyBeaming size={24} />
-                  </IconButton>
-                </InlineIcon>
+                <Show when={state.experiments.isEnabled("gif_picker")}>
+                  <InlineIcon size="normal">
+                    <IconButton onClick={triggerProps.onClickGif}>
+                      <BiSolidFileGif size={24} />
+                    </IconButton>
+                  </InlineIcon>
+                </Show>
+                <Show when={state.experiments.isEnabled("emoji_picker")}>
+                  <InlineIcon size="normal">
+                    <IconButton onClick={triggerProps.onClickEmoji}>
+                      <BiSolidHappyBeaming size={24} />
+                    </IconButton>
+                  </InlineIcon>
+                </Show>
                 <Show
                   when={state.settings.getValue("appearance:show_send_button")}
                 >

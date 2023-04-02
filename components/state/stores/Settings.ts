@@ -1,5 +1,3 @@
-import { getController } from "@revolt/common";
-
 import { State } from "..";
 
 import { AbstractStore } from ".";
@@ -99,9 +97,11 @@ export class Settings extends AbstractStore<"settings", TypeSettings> {
       const expectedType = EXPECTED_TYPES[key];
 
       if (typeof expectedType === "function") {
-        const cleanedValue = (expectedType as Function)(input[key]);
+        const cleanedValue = (expectedType as (value: unknown) => unknown)(
+          input[key]
+        );
         if (cleanedValue) {
-          settings[key] = cleanedValue;
+          settings[key] = cleanedValue as never;
         }
       } else if (typeof input[key] === expectedType) {
         settings[key] = input[key];

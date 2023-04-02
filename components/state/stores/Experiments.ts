@@ -5,7 +5,12 @@ import { AbstractStore } from ".";
 /**
  * Union type of available experiments.
  */
-export type Experiment = "file_uploads" | "friends" | "account_switcher";
+export type Experiment =
+  | "file_uploads"
+  | "friends"
+  | "account_switcher"
+  | "gif_picker"
+  | "emoji_picker";
 
 /**
  * Currently active experiments.
@@ -14,6 +19,8 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
   "file_uploads",
   "friends",
   "account_switcher",
+  "gif_picker",
+  "emoji_picker",
 ];
 
 /**
@@ -22,6 +29,7 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
 export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [
   "file_uploads",
   "friends",
+  "gif_picker",
 ];
 
 /**
@@ -41,6 +49,14 @@ export const EXPERIMENTS: {
   account_switcher: {
     title: "Account Switcher",
     description: "Enable the account switcher on the login page.",
+  },
+  gif_picker: {
+    title: "GIF Picker",
+    description: "Search and send GIFs from GIFBox!",
+  },
+  emoji_picker: {
+    title: "Emoji Picker",
+    description: "Search and add emoji to your messages.",
   },
 };
 
