@@ -77,6 +77,7 @@ export function HomePage() {
     client.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
 
   return (
+    // TODO: i18n
     <Base>
       <Header palette="primary">
         <HeaderIcon>
@@ -87,7 +88,11 @@ export function HomePage() {
       <Content>
         <Typography
           // TODO: create separate typography style for homepage
-          style={{"text-align":"center","margin-bottom":"1em","font-size":"200%"}}
+          style={{
+            "text-align": "center",
+            "margin-bottom": "1em",
+            "font-size": "200%",
+          }}
           variant="legacy-settings-title"
         >
           {t("app.special.modals.onboarding.welcome")}
@@ -159,7 +164,7 @@ export function HomePage() {
           </SeparatedColumn>
         </Buttons>
         <Show when={IS_DEV}>
-          <Button style={{"margin":"auto"}} onClick={() => navigate("/dev")}>
+          <Button style={{ margin: "auto" }} onClick={() => navigate("/dev")}>
             Open Development Page
           </Button>
         </Show>

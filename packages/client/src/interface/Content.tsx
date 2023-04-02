@@ -3,6 +3,7 @@ import { Component, lazy } from "solid-js";
 import { Route, Routes } from "@revolt/routing";
 
 import { DevelopmentPage } from "./Development";
+import { Friends } from "./Friends";
 import { HomePage } from "./Home";
 import { ServerHome } from "./ServerHome";
 import { ChannelPage } from "./channels/ChannelPage";
@@ -25,6 +26,7 @@ export const Content: Component = () => {
         }
       />
       <Route path="/channel/:channel" component={ChannelPage} />
+      <Route path="/friends" component={Friends} />
       <Route path="/dev" element={<DevelopmentPage />} />
       <Route path="/admin" component={Admin} />
       <Route path="/*" element={<HomePage />} />
