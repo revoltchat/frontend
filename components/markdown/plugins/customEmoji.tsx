@@ -3,7 +3,7 @@ import { Match, Switch, createSignal } from "solid-js";
 import { useClient } from "@revolt/client";
 import { Avatar, Column, Row, Tooltip } from "@revolt/ui";
 
-import { CustomEmoji, EmojiBase, RE_CUSTOM_EMOJI } from "../emoji";
+import { CustomEmoji, Emoji, RE_CUSTOM_EMOJI } from "../emoji";
 
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
@@ -16,9 +16,6 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
   const [exists, setExists] = createSignal(true);
 
   const client = useClient();
-  const url = () =>
-    `${client.configuration?.features.autumn.url}/emojis/${props.match}`;
-
   const emoji = () => client.emojis.get(props.match);
   const server = () =>
     client.servers.get((emoji()!.parent as { type: "Server"; id: string }).id)!;
@@ -31,7 +28,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
           content={
             <Row align gap="lg">
               <span style={{ "--emoji-size": "3em" }}>
-                <EmojiBase src={url()} />
+                <Emoji emoji={props.match} />
               </span>
               <Switch fallback="Unknown emote">
                 <Match when={emoji()?.parent.type === "Server"}>
