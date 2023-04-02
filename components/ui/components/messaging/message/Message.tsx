@@ -51,7 +51,14 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
                 }
               });
 
-              return <MessageReply message={message()} />;
+              return (
+                <MessageReply
+                  mention={props.message.mention_ids?.includes(
+                    message()!.author_id
+                  )}
+                  message={message()}
+                />
+              );
             }}
           </For>
         </Show>
