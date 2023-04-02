@@ -2,22 +2,26 @@ import { JSX } from "solid-js";
 import { styled } from "solid-styled-components";
 
 /**
- * Base codeblock styles
+ * Base code block styles
  */
 const Base = styled.pre`
   padding: 1em;
   overflow-x: scroll;
   border-radius: ${(props) => props.theme!.borderRadius.md};
   background: ${(props) => props.theme!.colours["background-300"]};
+
+  code {
+    background: transparent;
+  }
 `;
 
 /**
- * Copy codeblock contents button styles
+ * Copy code block contents button styles
  */
 const Lang = styled.div`
   width: fit-content;
   padding-bottom: 8px;
-  font-family: var(--monospace-font);
+  font-family: ${(props) => props.theme!.fonts.monospace};
 
   a {
     color: #111;
@@ -41,17 +45,13 @@ const Lang = styled.div`
 `;
 
 /**
- * Render a codeblock with copy text button
+ * Render a code block with copy text button
  */
 export function RenderCodeblock(props: {
   children: JSX.Element;
   class?: string;
 }) {
-  let lang = "text";
-  if (props.class) {
-    lang = props.class.split("-")[1];
-  }
-
+  const lang = () => (props.class ? props.class.split("-")[1] : "text");
   let ref: HTMLPreElement | undefined;
 
   return (
@@ -64,40 +64,10 @@ export function RenderCodeblock(props: {
             alert(text);
           }}
         >
-          {lang}
+          {lang()}
         </a>
       </Lang>
       {props.children}
     </Base>
   );
 }
-
-/* export const RenderCodeblock: React.FC<{ class: string }> = ({
-    children,
-    ...props
-}) => {
-    const ref = useRef<HTMLPreElement>(null);
-
-    let text = "text";
-    if (props.class) {
-        text = props.class.split("-")[1];
-    }
-
-    const onCopy = useCallback(() => {
-        const text = ref.current?.querySelector("code")?.innerText;
-        text && modalController.writeText(text);
-    }, [ref]);
-
-    return (
-        <Base ref={ref}>
-            <Lang>
-                <Tooltip content="Copy to Clipboard" placement="top">
-                    
-                    // @ts-expect-error Preact-React
-                    <a onClick={onCopy}>{text}</a>
-                </Tooltip>
-            </Lang>
-            {children}
-        </Base>
-    );
-}; */
