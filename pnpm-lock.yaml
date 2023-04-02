@@ -245,6 +245,7 @@ importers:
     specifiers:
       '@floating-ui/dom': ^1.1.0
       '@fontsource/inter': ^4.5.12
+      '@fontsource/jetbrains-mono': ^4.5.12
       '@fontsource/open-sans': ^4.5.11
       '@minht11/solid-virtual-container': ^0.2.1
       '@motionone/solid': ^10.15.4
@@ -262,6 +263,7 @@ importers:
     dependencies:
       '@floating-ui/dom': 1.1.0
       '@fontsource/inter': 4.5.12
+      '@fontsource/jetbrains-mono': 4.5.12
       '@fontsource/open-sans': 4.5.11
       '@minht11/solid-virtual-container': 0.2.1_solid-js@1.5.5
       '@motionone/solid': 10.15.4_solid-js@1.5.5
@@ -2216,6 +2218,10 @@ packages:
 
   /@fontsource/inter/4.5.12:
     resolution: {integrity: sha512-bGKk4/8tube/nCk8hav0ZDBVbzJzc7m0Vt4xF5p15IN4YImwGdtKG38Oq5bU8xHNS+VfvbFFCepgQNj7Pr/Lvg==}
+    dev: false
+
+  /@fontsource/jetbrains-mono/4.5.12:
+    resolution: {integrity: sha512-LJF1ala1/u+wXZmESFqIk08FA9yGX4/uAAleCHmXUMgEjvNAYFHUQQ7eK5hQQoBOwh99cU5suTrqYqEkgzwzPA==}
     dev: false
 
   /@fontsource/open-sans/4.5.11:

@@ -76,7 +76,7 @@ const components = {
     background: ${(props) => props.theme!.colours["background-100"]};
 
     font-size: 90%;
-    font-family: var(--monospace-font), monospace;
+    font-family: ${(props) => props.theme!.fonts.monospace};
 
     border-radius: 3px;
     box-decoration-break: clone;

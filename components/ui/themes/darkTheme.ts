@@ -45,6 +45,7 @@ export const darkTheme: DefaultTheme = {
   },
   fonts: {
     primary: '"Inter", sans-serif',
+    monospace: '"JetBrains Mono", monospace',
   },
   typography: {
     // Form elements

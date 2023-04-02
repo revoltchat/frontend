@@ -36,7 +36,7 @@ declare module "solid-styled-components" {
       [key in "none" | "sm" | "md" | "lg"]: string;
     };
     fonts: {
-      [key in "primary"]: string;
+      [key in "primary" | "monospace"]: string;
     };
     typography: {
       [key in
