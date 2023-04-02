@@ -4,6 +4,10 @@ import { styled } from "solid-styled-components";
 import { API } from "revolt.js";
 
 import { Emoji } from "@revolt/markdown";
+import { useUsers } from "@revolt/markdown/users";
+
+import { OverflowingText, Row, Typography } from "../../design";
+import { Tooltip } from "../../floating";
 
 interface Props {
   /**
@@ -82,7 +86,7 @@ export function Reactions(props: Props) {
             <Reaction
               reaction={entry}
               active={props.reactions.get(entry)?.has(props.userId!)}
-              count={props.reactions.get(entry)?.size}
+              users={props.reactions.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />
@@ -96,7 +100,7 @@ export function Reactions(props: Props) {
             <Reaction
               reaction={entry}
               active={props.reactions.get(entry)?.has(props.userId!)}
-              count={props.reactions.get(entry)?.size}
+              users={props.reactions.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />
@@ -114,10 +118,15 @@ export function Reactions(props: Props) {
 function Reaction(props: {
   reaction: string;
   active?: boolean;
-  count?: number;
+  users?: Set<string>;
   addReaction(id: string): void;
   removeReaction(id: string): void;
 }) {
+  const users = useUsers([...(props.users?.values() ?? [])]);
+
+  /**
+   * Handle toggling reaction
+   */
   function onClick() {
     if (props.active) {
       props.removeReaction(props.reaction);
@@ -126,10 +135,44 @@ function Reaction(props: {
     }
   }
 
+  /**
+   * Generate list of users
+   */
+  const peopleList = () => {
+    const all = users();
+    const list = all.filter((user) => user);
+    const unknown =
+      all.filter((user) => !user).length + Math.max(0, list.length - 3);
+
+    const usernames = list
+      .slice(0, 3)
+      .map((user) => user?.username)
+      .join(", ");
+
+    // TODO: i18n
+    return usernames + " and " + unknown + " others";
+  };
+
   return (
-    <ReactionBase active={props.active} onClick={onClick}>
-      <Emoji emoji={props.reaction} /> {props.count || 0}
-    </ReactionBase>
+    <Tooltip
+      placement="top"
+      content={
+        <Row align gap="lg">
+          <span style={{ "--emoji-size": "3em" }}>
+            <Emoji emoji={props.reaction} />
+          </span>
+          <Typography variant="messages">
+            <PeopleList>{peopleList()}</PeopleList>
+          </Typography>
+        </Row>
+      }
+    >
+      {(triggerProps) => (
+        <ReactionBase {...triggerProps} active={props.active} onClick={onClick}>
+          <Emoji emoji={props.reaction} /> {props.users?.size || 0}
+        </ReactionBase>
+      )}
+    </Tooltip>
   );
 }
 
@@ -210,4 +253,17 @@ const List = styled.div`
   &:hover .add {
     opacity: 1;
   }
+`;
+
+/**
+ * List of people who have reacted
+ */
+const PeopleList = styled(OverflowingText)`
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  max-width: 200px;
+  white-space: pre-wrap;
 `;
