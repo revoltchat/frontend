@@ -34,12 +34,12 @@ const Container = styled("div", "Picker")`
   display: flex;
   height: 400px;
   flex-direction: column;
-
+‎
   color: white;
   background-color: #242424;
-  border-radius: 2px;
+  border-radius: ${(props) => props.theme!.borderRadius.md};
   padding: 10px;
-  
+‎
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 `;
 
