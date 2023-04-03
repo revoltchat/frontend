@@ -173,7 +173,7 @@ export function AuthPage() {
         <NavItems hide>
           {t("general.image_by")} @fakurian
           <Bullet />
-          <a>unsplash.com</a>
+          <a href="https://unsplash.com/" target="_blank" rel="noreferrer">unsplash.com</a>
         </NavItems>
       </Nav>
     </Base>
