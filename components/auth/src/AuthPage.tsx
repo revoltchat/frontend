@@ -4,6 +4,8 @@ import { styled } from "solid-styled-components";
 import { useTranslation } from "@revolt/i18n";
 import { Route, Routes } from "@revolt/routing";
 
+import wideSvg from "../../../packages/client/public/assets/wide.svg";
+
 import { LocaleSelector } from "./LocaleSelector";
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
@@ -125,7 +127,7 @@ export function AuthPage() {
   return (
     <Base>
       <Nav>
-        <Logo src="/assets/wide.svg" />
+        <Logo src={wideSvg} />
         <LocaleSelector />
       </Nav>
       <FlowBase>
