@@ -26,7 +26,7 @@ export function TextWithEmoji(props: { content?: string }) {
 
       components.push(
         match[0].length === 28 ? (
-          <CustomEmoji id={match[0]} />
+          <CustomEmoji id={match[1]} />
         ) : (
           <UnicodeEmoji emoji={match[0]} />
         )
