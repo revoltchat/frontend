@@ -22,6 +22,13 @@ const Base = styled(Column)`
 /**
  * Container element for the picker
  */
+const SearchBar = styled(Input)`
+  border-radius: 3px;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  padding: 12px;
+`;
+
 const Container = styled("div", "Picker")`
   flex-grow: 1;
   display: flex;
@@ -29,15 +36,28 @@ const Container = styled("div", "Picker")`
   flex-direction: column;
 
   color: white;
-  background-color: black;
-  border-radius: ${(props) => props.theme!.borderRadius.md};
+  background-color: #242424;
+  border-radius: 2px;
+  padding: 10px;
+  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 `;
 
 const GifList = styled(ScrollContainer)`
   display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  grid-template-rows: masonry;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  grid-auto-rows: 200px; /* Set a fixed height */
+  overflow: auto;
+  padding: 4px;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
 
 interface Props {
@@ -160,8 +180,8 @@ export function CompositionPicker(props: Props) {
                 role="tooltip"
               >
                 <Container>
-                  <Input
-                    placeholder="search for gifs :)"
+                  <SearchBar
+                    placeholder="Type to search..."
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         e.preventDefault();
