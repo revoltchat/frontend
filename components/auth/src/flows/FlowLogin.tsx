@@ -40,7 +40,7 @@ export default function FlowLogin() {
       password,
     });
 
-    navigate("/", { replace: true });
+    navigate("/app", { replace: true });
   }
 
   return (
@@ -75,7 +75,7 @@ export default function FlowLogin() {
                     action="chevron"
                     onClick={() => {
                       clientController.switchAccount(client.user!._id);
-                      navigate("/");
+                      navigate("/app");
                     }}
                   >
                     {client.user!.username}
