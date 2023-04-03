@@ -77,3 +77,13 @@ Add a new package to a workspace:
 ```bash
 pnpm add solid-hcaptcha --filter @revolt/auth
 ```
+
+# Deployment Information
+
+The app currently needs the following routes:
+
+- `/server`
+- `/channel`
+- `/friends`
+- `/admin`
+- `/app`
