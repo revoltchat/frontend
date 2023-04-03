@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch, onMount } from "solid-js";
+import { For, Match, Show, Switch } from "solid-js";
 
 import { useTranslation } from "@revolt/i18n";
 import { Link, Navigate, useNavigate } from "@revolt/routing";
