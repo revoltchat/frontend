@@ -84,6 +84,14 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
   }
 
   /**
+   * Get the last active path in the app
+   */
+  getLastActivePath() {
+    const section = this.get().activeInterface;
+    return this.get().activePath[section] ?? "/";
+  }
+
+  /**
    * Get state of a section
    * @param id Section ID
    * @param defaultValue Default state value
