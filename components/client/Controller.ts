@@ -188,19 +188,15 @@ export default class ClientController {
       const { os } = browser;
       let isiPad;
       // TODO window.isNative
-      if (false) {
-        friendly_name = `Revolt Desktop on ${os}`;
-      } else {
-        if (name === "ios") {
-          name = "safari";
-        } else if (name === "fxios") {
-          name = "firefox";
-        } else if (name === "crios") {
-          name = "chrome";
-        }
-        if (os === "Mac OS" && navigator.maxTouchPoints > 0) isiPad = true;
-        friendly_name = `${name} on ${isiPad ? "iPadOS" : os}`;
+      if (name === "ios") {
+        name = "safari";
+      } else if (name === "fxios") {
+        name = "firefox";
+      } else if (name === "crios") {
+        name = "chrome";
       }
+      if (os === "Mac OS" && navigator.maxTouchPoints > 0) isiPad = true;
+      friendly_name = `${name} on ${isiPad ? "iPadOS" : os}`;
     } else {
       friendly_name = "Unknown Device";
     }
@@ -211,7 +207,7 @@ export default class ClientController {
       friendly_name,
     });
 
-    // Prompt for MFA verificaiton if necessary
+    // Prompt for MFA verification if necessary
     if (session.result === "MFA") {
       const { allowed_methods } = session;
       while (session.result === "MFA") {
@@ -245,13 +241,17 @@ export default class ClientController {
       }
     }
 
-    // Start client lifecycle
-    this.addSession(
-      {
-        session,
-      },
-      "new"
-    );
+    if (session.result !== "Disabled") {
+      // Start client lifecycle
+      this.addSession(
+        {
+          session,
+        },
+        "new"
+      );
+
+      getController("state").auth.setSession(session);
+    }
   }
 
   /**
