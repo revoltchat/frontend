@@ -101,7 +101,6 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
    * @param userId User ID tied to session
    */
   removeSession(userId: string) {
-    const { [userId]: _, ...sessions } = this.get().sessions;
-    this.set("sessions", sessions);
+    this.set("sessions", userId, undefined!);
   }
 }

@@ -250,7 +250,7 @@ export default class ClientController {
         "new"
       );
 
-      getController("state").auth.setSession(session);
+      state.auth.setSession(session);
     }
   }
 
