@@ -98,7 +98,7 @@ export function MessageBox(props: Props) {
    * @param event Keyboard Event
    */
   function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && props.ref) {
+    if (event.key === "Enter" && !event.shiftKey && props.ref) {
       event.preventDefault();
       props.sendMessage();
     }
