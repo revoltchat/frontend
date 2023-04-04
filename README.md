@@ -87,3 +87,4 @@ The app currently needs the following routes:
 - `/friends`
 - `/admin`
 - `/app`
+- `/pwa`
