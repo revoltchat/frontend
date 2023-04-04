@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "@revolt/routing";
 import { state } from "@revolt/state";
 
 import { DevelopmentPage } from "./Development";
+import { Friends } from "./Friends";
 import { HomePage } from "./Home";
 import { ServerHome } from "./ServerHome";
 import { ChannelPage } from "./channels/ChannelPage";
@@ -34,6 +35,7 @@ export const Content: Component = () => {
       />
       <Route path="/channel/:channel" component={ChannelPage} />
       <Route path="/dev" component={DevelopmentPage} />
+      <Route path="/friends" component={Friends} />
       <Route path="/admin" component={Admin} />
       <Route path="/app" component={HomePage} />
       <Route path="/pwa" component={PWARedirect} />

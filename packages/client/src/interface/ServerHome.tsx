@@ -12,6 +12,7 @@ export const ServerHome: Component = () => {
   const server = createMemo(() => client.servers.get(params.server)!);
 
   return (
+    // TODO: port the nice fallback
     <Switch fallback="No channels!">
       <Match when={!server()}>
         <Navigate href={"/"} />

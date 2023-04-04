@@ -79,6 +79,7 @@ export function HomePage() {
     client.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
 
   return (
+    // TODO: i18n
     <Base>
       <Header palette="primary">
         <HeaderIcon>
