@@ -132,13 +132,11 @@ export const HomeSidebar = (props: Props) => {
             {(item) => (
               <div
                 style={{ ...item.style, width: "100%", "padding-block": "3px" }}
-                tabIndex={item.tabIndex}
-                role="listitem"
               >
                 <Entry
-                  style={item.style}
-                  tabIndex={item.tabIndex}
                   role="listitem"
+                  tabIndex={item.tabIndex}
+                  style={item.style}
                   channel={item.item}
                   active={item.item._id === props.channelId}
                 />

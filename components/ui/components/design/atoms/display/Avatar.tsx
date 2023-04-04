@@ -22,7 +22,13 @@ export type Props = {
   /**
    * Punch a hole through the avatar
    */
-  holepunch?: "bottom-right" | "top-right" | "right" | "none" | false;
+  holepunch?:
+    | "bottom-right"
+    | "top-right"
+    | "right"
+    | "overlap"
+    | "none"
+    | false;
 
   /**
    * Specify overlay component
