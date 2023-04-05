@@ -10,6 +10,7 @@ import { API, Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
+import { useTranslation } from "@revolt/i18n";
 import { state } from "@revolt/state";
 import {
   CompositionPicker,
@@ -30,6 +31,8 @@ interface Props {
  * Message composition engine
  */
 export function MessageComposition(props: Props) {
+  const t = useTranslation();
+
   /**
    * Reference to the message input box
    */
@@ -308,12 +311,15 @@ export function MessageComposition(props: Props) {
           </CompositionPicker>
         }
         placeholder={
-          // TODO: i18n
           props.channel.channel_type === "SavedMessages"
-            ? "Send to notes"
-            : `Message ${
-                props.channel.name ?? props.channel.recipient?.username
-              }`
+            ? t("app.main.channel.message_saved")
+            : props.channel.channel_type === "DirectMessage"
+            ? t("app.main.channel.message_who", {
+                person: props.channel.recipient?.username as string,
+              })
+            : t("app.main.channel.message_where", {
+                channel_name: props.channel.name as string,
+              })
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
       />
