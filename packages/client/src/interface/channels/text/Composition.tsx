@@ -202,7 +202,12 @@ export function MessageComposition(props: Props) {
       if (state.draft.popFromDraft(props.channel._id)) {
         event.preventDefault();
       }
-    } else if (!(event.target instanceof HTMLInputElement)) {
+    } else if (
+      // Don't take focus from other input elements
+      !(event.target instanceof HTMLInputElement) &&
+      // Only focus if pasting to allow copying of text elsewhere
+      (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() === "v")
+    ) {
       ref?.focus();
     }
   }
