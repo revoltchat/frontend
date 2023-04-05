@@ -9,6 +9,7 @@ import { For, Match, Show, Switch, onCleanup, onMount } from "solid-js";
 import { API, Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { debounce } from "@revolt/common";
 import { state } from "@revolt/state";
 import {
   CompositionPicker,
@@ -37,6 +38,48 @@ export function MessageComposition(props: Props) {
   // Resolve the client and current draft
   const client = useClient();
   const draft = () => state.draft.getDraft(props.channel._id);
+
+  /**
+   * Keep track of last time we sent a typing packet
+   */
+  let isTyping: number | undefined = undefined;
+
+  /**
+   * Send typing packet
+   */
+  function startTyping() {
+    if (typeof isTyping === "number" && +new Date() < isTyping) return;
+
+    const ws = client.websocket;
+    if (ws.connected) {
+      isTyping = +new Date() + 2500;
+      ws.send({
+        type: "BeginTyping",
+        channel: props.channel._id,
+      });
+    }
+  }
+
+  /**
+   * Send stop typing packet
+   */
+  function stopTyping() {
+    if (isTyping) {
+      const ws = client.websocket;
+      if (ws.connected) {
+        isTyping = undefined;
+        ws.send({
+          type: "EndTyping",
+          channel: props.channel._id,
+        });
+      }
+    }
+  }
+
+  /**
+   * Stop typing after some time
+   */
+  const delayedStopTyping = debounce(stopTyping, 1000);
 
   /**
    * Send a message using the current draft
@@ -93,18 +136,33 @@ export function MessageComposition(props: Props) {
    */
   function setContent(content: string) {
     state.draft.setDraft(props.channel._id, { content });
+    startTyping();
+  }
+
+  /**
+   * Handle key presses in input box
+   * @param event Keyboard Event
+   */
+  function onKeyDownMessageBox(event: KeyboardEvent) {
+    if (event.key === "Enter" && !event.shiftKey /*&& props.ref*/) {
+      event.preventDefault();
+      sendMessage();
+      stopTyping();
+    } else {
+      delayedStopTyping();
+    }
   }
 
   /**
    * Handle ESC key being pressed
-   * @param ev Keyboard Event
+   * @param event Keyboard Event
    */
-  function onKeyDown(ev: KeyboardEvent) {
-    if (ev.key === "Escape") {
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key === "Escape") {
       if (state.draft.popFromDraft(props.channel._id)) {
-        ev.preventDefault();
+        event.preventDefault();
       }
-    } else if (!(ev.target instanceof HTMLInputElement)) {
+    } else if (!(event.target instanceof HTMLInputElement)) {
       ref?.focus();
     }
   }
@@ -199,7 +257,7 @@ export function MessageComposition(props: Props) {
         ref={ref}
         content={() => draft()?.content ?? ""}
         setContent={setContent}
-        sendMessage={sendMessage}
+        onKeyDown={onKeyDownMessageBox}
         actionsStart={
           <Switch fallback={<InlineIcon size="short" />}>
             <Match
@@ -250,6 +308,7 @@ export function MessageComposition(props: Props) {
           </CompositionPicker>
         }
         placeholder={
+          // TODO: i18n
           props.channel.channel_type === "SavedMessages"
             ? "Send to notes"
             : `Message ${

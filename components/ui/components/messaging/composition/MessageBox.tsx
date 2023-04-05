@@ -19,9 +19,9 @@ interface Props {
   content: Accessor<string>;
 
   /**
-   * Handle message send
+   * Handle key presses
    */
-  sendMessage: () => void;
+  onKeyDown: (event: KeyboardEvent) => void;
 
   /**
    * Update text content
@@ -94,17 +94,6 @@ export function MessageBox(props: Props) {
   const t = useTranslation();
 
   /**
-   * Handle key presses in input box
-   * @param event Keyboard Event
-   */
-  function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && !event.shiftKey && props.ref) {
-      event.preventDefault();
-      props.sendMessage();
-    }
-  }
-
-  /**
    * Handle changes to input
    * @param event Event
    */
@@ -127,7 +116,7 @@ export function MessageBox(props: Props) {
         fallback={
           <Input
             ref={props.ref}
-            onKeyDown={onKeyDown}
+            onKeyDown={props.onKeyDown}
             value={props.content()}
             placeholder={props.placeholder}
             onInput={onInput}

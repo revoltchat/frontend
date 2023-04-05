@@ -297,6 +297,7 @@ importers:
       '@revolt/admin': workspace:^1.0.0
       '@revolt/auth': workspace:^1.0.0
       '@revolt/client': workspace:^1.0.0
+      '@revolt/common': workspace:^1.0.0
       '@revolt/i18n': workspace:^1.0.0
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/modal': workspace:^1.0.0
@@ -321,6 +322,7 @@ importers:
       '@revolt/admin': link:../../components/admin
       '@revolt/auth': link:../../components/auth
       '@revolt/client': link:../../components/client
+      '@revolt/common': link:../../components/common
       '@revolt/i18n': link:../../components/i18n
       '@revolt/markdown': link:../../components/markdown
       '@revolt/modal': link:../../components/modal
