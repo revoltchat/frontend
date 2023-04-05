@@ -24,8 +24,16 @@ import {
 } from "@revolt/ui";
 
 interface Props {
+  /**
+   * Channel to compose for
+   */
   channel: Channel;
 }
+
+/**
+ * Tests for code block delimiters (``` at start of line)
+ */
+const RE_CODE_DELIMITER = new RegExp("^```", "gm");
 
 /**
  * Message composition engine
@@ -143,11 +151,35 @@ export function MessageComposition(props: Props) {
   }
 
   /**
+   * Determine whether we are in a code block
+   * @param cursor Cursor position
+   * @returns Whether we are in a code block
+   */
+  function isInCodeBlock(cursor: number): boolean {
+    const contentBeforeCursor = (draft().content ?? "").substring(0, cursor);
+
+    let delimiterCount = 0;
+    for (const delimiter of contentBeforeCursor.matchAll(RE_CODE_DELIMITER)) {
+      delimiterCount++;
+    }
+
+    // Odd number of ``` delimiters before cursor => we are in code block
+    return delimiterCount % 2 === 1;
+  }
+
+  /**
    * Handle key presses in input box
    * @param event Keyboard Event
    */
-  function onKeyDownMessageBox(event: KeyboardEvent) {
-    if (event.key === "Enter" && !event.shiftKey /*&& props.ref*/) {
+  function onKeyDownMessageBox(
+    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+  ) {
+    if (
+      event.key === "Enter" &&
+      !event.shiftKey &&
+      !event.isComposing &&
+      !isInCodeBlock(event.currentTarget.selectionStart) /*&& props.ref*/
+    ) {
       event.preventDefault();
       sendMessage();
       stopTyping();
