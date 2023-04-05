@@ -80,6 +80,9 @@ const InfoText = styled.a`
   color: ${(props) => props.theme!.colours["foreground-400"]};
 `;
 
+/**
+ * Message being replied to
+ */
 export function MessageReply(props: Props) {
   const t = useTranslation();
 
@@ -105,12 +108,14 @@ export function MessageReply(props: Props) {
             </ColouredText>
           </NonBreakingText>
           <Show when={props.message!.attachments}>
-            <Attachments>
-              <BiSolidFile size={16} />
-              {props.message!.attachments!.length > 1
-                ? t("app.main.channel.misc.sent_multiple_files")
-                : t("app.main.channel.misc.sent_file")}
-            </Attachments>
+            <NonBreakingText>
+              <Attachments>
+                <BiSolidFile size={16} />
+                {props.message!.attachments!.length > 1
+                  ? t("app.main.channel.misc.sent_multiple_files")
+                  : t("app.main.channel.misc.sent_file")}
+              </Attachments>
+            </NonBreakingText>
           </Show>
           <Show when={props.message!.content}>
             <OverflowingText>
