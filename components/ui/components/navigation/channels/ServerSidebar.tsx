@@ -37,78 +37,43 @@ interface Props {
 type CategoryData = Omit<API.Category, "channels"> & { channels: Channel[] };
 
 /**
- * Channel icon styling
+ * Display server information and channels
  */
-const ChannelIcon = styled("img")`
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-`;
-
-/**
- * Server channel entry
- */
-function Entry(props: { channel: Channel; active: boolean }) {
+export const ServerSidebar = (props: Props) => {
   return (
-    <Link
-      href={`/server/${props.channel.server_id}/channel/${props.channel._id}`}
-    >
-      <MenuButton
-        size="thin"
-        alert={
-          !props.active &&
-          props.channel.unread &&
-          (props.channel.mentions.length || true)
-        }
-        attention={
-          props.active ? "selected" : props.channel.unread ? "active" : "normal"
-        }
-        icon={
-          <Switch fallback={<BiRegularHash size={24} />}>
-            <Match when={props.channel.icon}>
-              <ChannelIcon
-                src={props.channel.generateIconURL({ max_side: 64 })}
-              />
-            </Match>
-            <Match when={props.channel.channel_type === "VoiceChannel"}>
-              <BiRegularPhoneCall size={24} />
-            </Match>
-          </Switch>
-        }
+    <SidebarBase>
+      <Switch
+        fallback={<Header palette="secondary">{props.server.name}</Header>}
       >
-        <OverflowingText>
-          <TextWithEmoji content={props.channel.name!} />
-        </OverflowingText>
-      </MenuButton>
-    </Link>
+        <Match when={props.server.banner}>
+          <HeaderWithImage
+            palette="secondary"
+            style={{
+              background: `url('${props.server.generateBannerURL({
+                max_side: 256,
+              })}')`,
+            }}
+          >
+            <div>
+              <TextWithEmoji content={props.server.name} />
+            </div>
+          </HeaderWithImage>
+        </Match>
+      </Switch>
+      <ScrollContainer>
+        <Column gap="lg">
+          <div />
+          <For each={props.server.orderedChannels}>
+            {(category) => (
+              <Category category={category} channelId={props.channelId} />
+            )}
+          </For>
+          <div />
+        </Column>
+      </ScrollContainer>
+    </SidebarBase>
   );
-}
-
-/**
- * Category title styling
- */
-const CategoryBase = styled(Row)<{ open: boolean }>`
-  padding: 0 4px;
-  cursor: pointer;
-  user-select: none;
-  text-transform: uppercase;
-  transition: ${(props) => props.theme!.transitions.fast} all;
-
-  color: ${(props) => props.theme!.colours["foreground-200"]};
-
-  &:hover {
-    filter: brightness(1.1);
-  }
-
-  &:active {
-    filter: brightness(1.2);
-  }
-
-  svg {
-    transition: ${(props) => props.theme!.transitions.fast} transform;
-    transform: rotateZ(${(props) => (props.open ? 90 : 0)}deg);
-  }
-`;
+};
 
 /**
  * Single category entry
@@ -151,40 +116,75 @@ function Category(props: {
 }
 
 /**
- * Display server information and channels
+ * Category title styling
  */
-export const ServerSidebar = (props: Props) => {
+const CategoryBase = styled(Row)<{ open: boolean }>`
+  padding: 0 4px;
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  transition: ${(props) => props.theme!.transitions.fast} all;
+
+  color: ${(props) => props.theme!.colours["foreground-200"]};
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    filter: brightness(1.2);
+  }
+
+  svg {
+    transition: ${(props) => props.theme!.transitions.fast} transform;
+    transform: rotateZ(${(props) => (props.open ? 90 : 0)}deg);
+  }
+`;
+
+/**
+ * Server channel entry
+ */
+function Entry(props: { channel: Channel; active: boolean }) {
   return (
-    <SidebarBase>
-      <Switch
-        fallback={<Header palette="secondary">{props.server.name}</Header>}
+    <Link
+      href={`/server/${props.channel.server_id}/channel/${props.channel._id}`}
+    >
+      <MenuButton
+        size="thin"
+        alert={
+          !props.active &&
+          props.channel.unread &&
+          (props.channel.mentions.length || true)
+        }
+        attention={
+          props.active ? "selected" : props.channel.unread ? "active" : "normal"
+        }
+        icon={
+          <Switch fallback={<BiRegularHash size={24} />}>
+            <Match when={props.channel.icon}>
+              <ChannelIcon
+                src={props.channel.generateIconURL({ max_side: 64 })}
+              />
+            </Match>
+            <Match when={props.channel.channel_type === "VoiceChannel"}>
+              <BiRegularPhoneCall size={24} />
+            </Match>
+          </Switch>
+        }
       >
-        <Match when={props.server.banner}>
-          <HeaderWithImage
-            palette="secondary"
-            style={{
-              background: `url('${props.server.generateBannerURL({
-                max_side: 256,
-              })}')`,
-            }}
-          >
-            <div>
-              <TextWithEmoji content={props.server.name} />
-            </div>
-          </HeaderWithImage>
-        </Match>
-      </Switch>
-      <ScrollContainer>
-        <Column gap="lg">
-          <div />
-          <For each={props.server.orderedChannels}>
-            {(category) => (
-              <Category category={category} channelId={props.channelId} />
-            )}
-          </For>
-          <div />
-        </Column>
-      </ScrollContainer>
-    </SidebarBase>
+        <OverflowingText>
+          <TextWithEmoji content={props.channel.name!} />
+        </OverflowingText>
+      </MenuButton>
+    </Link>
   );
-};
+}
+
+/**
+ * Channel icon styling
+ */
+const ChannelIcon = styled("img")`
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+`;
