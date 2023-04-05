@@ -178,13 +178,15 @@ export function Messages(props: { channel: Channel; limit?: number }) {
       }
     }
 
-    return messagesWithTail;
+    return messagesWithTail.reverse();
   });
 
   return (
     <Base offsetTop={48} scrollDirection="y">
       <div>
-        <For each={messagesWithTail()}>{(props) => <Entry {...props} />}</For>
+        <div>
+          <For each={messagesWithTail()}>{(props) => <Entry {...props} />}</For>
+        </div>
       </div>
     </Base>
   );
