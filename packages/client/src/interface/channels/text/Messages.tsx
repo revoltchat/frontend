@@ -17,7 +17,12 @@ import { Channel, Message as MessageInterface } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { dayjs } from "@revolt/i18n";
-import { ListView, Message, MessageDivider } from "@revolt/ui";
+import {
+  ConversationStart,
+  ListView,
+  Message,
+  MessageDivider,
+} from "@revolt/ui";
 
 /**
  * Default fetch limit
@@ -270,7 +275,9 @@ export function Messages(props: Props) {
       <ListView offsetTop={48} fetchTop={fetchTop} fetchBottom={fetchBottom}>
         <div>
           <div>
-            <Show when={atStart()}>start!</Show>
+            <Show when={atStart()}>
+              <ConversationStart channel={props.channel} />
+            </Show>
             <For each={messagesWithTail()}>
               {(props) => <Entry {...props} />}
             </For>

@@ -51,6 +51,8 @@ declare module "solid-styled-components" {
         | "composition-file-upload-name"
         | "composition-file-upload-size"
         | "composition-typing-indicator"
+        | "conversation-channel-name"
+        | "conversation-start"
         | "sidebar-title"
         | "channel-topic"
         | "legacy-settings-title"

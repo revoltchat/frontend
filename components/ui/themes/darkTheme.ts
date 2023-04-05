@@ -103,6 +103,17 @@ export const darkTheme: DefaultTheme = {
       element: "div",
       fontSize: "13px",
     },
+    "conversation-channel-name": {
+      element: "h1",
+      fontSize: "23px",
+      margin: "0 0 8px 0",
+    },
+    "conversation-start": {
+      element: "h4",
+      fontWeight: 400,
+      margin: 0,
+      fontSize: "14px",
+    },
     // Legacy
     "legacy-settings-title": {
       element: "h1",
