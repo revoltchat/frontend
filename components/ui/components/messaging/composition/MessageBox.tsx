@@ -1,5 +1,5 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { Accessor, JSX, Match, Switch } from "solid-js";
+import { JSX, Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
@@ -16,7 +16,7 @@ interface Props {
   /**
    * Text content
    */
-  content: Accessor<string>;
+  content: string;
 
   /**
    * Handle key presses
@@ -119,7 +119,7 @@ export function MessageBox(props: Props) {
           <Input
             ref={props.ref}
             onKeyDown={props.onKeyDown}
-            value={props.content()}
+            value={props.content}
             placeholder={props.placeholder}
             onInput={onInput}
           />

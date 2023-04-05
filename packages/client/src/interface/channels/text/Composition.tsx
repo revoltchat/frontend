@@ -90,7 +90,7 @@ export function MessageComposition(props: Props) {
   /**
    * Stop typing after some time
    */
-  const delayedStopTyping = debounce(stopTyping, 1000);
+  const delayedStopTyping = debounce(stopTyping, 1000); // eslint-disable-line solid/reactivity
 
   /**
    * Send a message using the current draft
@@ -273,16 +273,27 @@ export function MessageComposition(props: Props) {
       <For each={draft().replies ?? []}>
         {(reply) => {
           const message = client.messages.get(reply.id);
+
+          /**
+           * Toggle mention on reply
+           */
+          function toggle() {
+            state.draft.toggleReplyMention(props.channel._id, reply.id);
+          }
+
+          /**
+           * Dismiss a reply
+           */
+          function dismiss() {
+            state.draft.removeReply(props.channel._id, reply.id);
+          }
+
           return (
             <MessageReplyPreview
               message={message}
               mention={reply.mention}
-              toggle={() =>
-                state.draft.toggleReplyMention(props.channel._id, reply.id)
-              }
-              dismiss={() =>
-                state.draft.removeReply(props.channel._id, reply.id)
-              }
+              toggle={toggle}
+              dismiss={dismiss}
               self={message?.author_id === client.user?._id}
             />
           );
@@ -290,7 +301,7 @@ export function MessageComposition(props: Props) {
       </For>
       <MessageBox
         ref={ref}
-        content={() => draft()?.content ?? ""}
+        content={draft()?.content ?? ""}
         setContent={setContent}
         onKeyDown={onKeyDownMessageBox}
         actionsStart={
