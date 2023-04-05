@@ -68,7 +68,7 @@ export function ChannelHeader(props: Props) {
               <OverflowingText>
                 <Typography variant="channel-topic">
                   <Markdown
-                    content={props.channel.description!}
+                    content={props.channel.description?.split("\n").shift()}
                     disallowBigEmoji
                   />
                 </Typography>
