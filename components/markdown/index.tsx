@@ -1,3 +1,4 @@
+import { createEffect, createSignal, on } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import "katex/dist/katex.min.css";
@@ -157,7 +158,7 @@ export interface MarkdownProps {
   /**
    * Content to render
    */
-  content: string;
+  content?: string;
 
   /**
    * Whether to prevent big emoji from rendering
@@ -172,27 +173,48 @@ export { Emoji } from "./emoji/Emoji";
  * Remark renderer component
  */
 export function Markdown(props: MarkdownProps) {
-  const file = new VFile();
-  file.value = sanitise(props.content);
+  /**
+   * Render some given Markdown content
+   * @param content content
+   */
+  function render(content = "") {
+    const file = new VFile();
+    file.value = sanitise(content);
 
-  const hastNode = pipeline.runSync(pipeline.parse(file), file);
+    const hastNode = pipeline.runSync(pipeline.parse(file), file);
 
-  if (hastNode.type !== "root") {
-    throw new TypeError("Expected a `root` node");
+    if (hastNode.type !== "root") {
+      throw new TypeError("Expected a `root` node");
+    }
+
+    injectEmojiSize(props, hastNode as any);
+
+    return childrenToSolid(
+      {
+        options: {
+          ...defaults,
+          components,
+        },
+        schema: html,
+        listDepth: 0,
+      },
+      // @ts-expect-error this is the correct type
+      hastNode
+    );
   }
 
-  injectEmojiSize(props, hastNode as any);
+  // Render once immediately
+  const [children, setChildren] = createSignal(render(props.content));
 
-  return childrenToSolid(
-    {
-      options: {
-        ...defaults,
-        components,
-      },
-      schema: html,
-      listDepth: 0,
-    },
-    // @ts-expect-error this is the correct type
-    hastNode
+  // If it ever updates, re-render the whole tree:
+  createEffect(
+    on(
+      () => props.content,
+      (content) => setChildren(render(content)),
+      { defer: true }
+    )
   );
+
+  // Give it to Solid:
+  return <>{children()}</>;
 }
