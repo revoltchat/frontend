@@ -29,6 +29,11 @@ interface Props {
    * Currently selected channel ID
    */
   channelId: string | undefined;
+
+  /**
+   * Open server information modal
+   */
+  openServerInfo: () => void;
 }
 
 /**
@@ -43,7 +48,13 @@ export const ServerSidebar = (props: Props) => {
   return (
     <SidebarBase>
       <Switch
-        fallback={<Header palette="secondary">{props.server.name}</Header>}
+        fallback={
+          <Header palette="secondary">
+            <a onClick={props.openServerInfo}>
+              <TextWithEmoji content={props.server.name} />
+            </a>
+          </Header>
+        }
       >
         <Match when={props.server.banner}>
           <HeaderWithImage
@@ -54,9 +65,9 @@ export const ServerSidebar = (props: Props) => {
               })}')`,
             }}
           >
-            <div>
+            <a onClick={props.openServerInfo}>
               <TextWithEmoji content={props.server.name} />
-            </div>
+            </a>
           </HeaderWithImage>
         </Match>
       </Switch>
