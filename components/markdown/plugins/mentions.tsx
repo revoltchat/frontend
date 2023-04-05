@@ -1,3 +1,4 @@
+import { Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { RE_MENTIONS } from "revolt.js";
@@ -46,12 +47,12 @@ export function RenderMention(props: CustomComponentProps) {
 
   return (
     <Mention>
-      <Avatar size={16} src={user().avatar} />
+      <Avatar size={16} src={user()!.avatar} />
       <ColouredText
-        colour={user().colour!}
-        clip={user().colour?.includes("gradient")}
+        colour={user()!.colour!}
+        clip={user()!.colour?.includes("gradient")}
       >
-        {user().username}
+        {user()!.username}
       </ColouredText>
     </Mention>
   );
