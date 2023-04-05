@@ -64,7 +64,7 @@ export const HeaderWithImage = styled(Header)`
   text-shadow: 0px 0px 1px black;
   height: ${(props) => props.theme!.layout.height["tall-header"]};
 
-  > div {
+  > * {
     flex-grow: 1;
     padding: 6px 14px;
     background: linear-gradient(
