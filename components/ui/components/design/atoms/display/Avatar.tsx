@@ -27,6 +27,7 @@ export type Props = {
     | "top-right"
     | "right"
     | "overlap"
+    | "overlap-subtle"
     | "none"
     | false;
 

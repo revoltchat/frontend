@@ -26,6 +26,10 @@ export function Masks() {
           <rect x="0" y="0" width="32" height="32" fill="white" />
           <circle cx="32" cy="16" r="18" fill="black" />
         </mask>
+        <mask id="holepunch-overlap-subtle">
+          <rect x="0" y="0" width="32" height="32" fill="white" />
+          <circle cx="33" cy="16" r="18" fill="black" />
+        </mask>
       </defs>
     </svg>
   );
