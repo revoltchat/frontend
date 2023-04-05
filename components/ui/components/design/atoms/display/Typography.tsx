@@ -24,7 +24,7 @@ export function generateTypography(
   const { fontSize, fontWeight, lineHeight, margin, textTransform, colour } =
     theme.typography[variant] ?? {};
 
-  let styles = {
+  const styles = {
     fontSize,
     fontWeight,
     lineHeight,
@@ -52,7 +52,7 @@ export function generateTypographyCSS(
   const { fontSize, fontWeight, lineHeight, margin, textTransform, colour } =
     theme.typography[variant] ?? {};
 
-  let styles = {
+  const styles = {
     "font-size": fontSize,
     "font-weight": fontWeight,
     "line-height": lineHeight,
@@ -91,6 +91,8 @@ export const Typography = (props: TypographyProps) => {
       return <h4 class={className} {...others} />;
     case "label":
       return <label class={className} {...others} />;
+    case "div":
+      return <div class={className} {...others} />;
     default:
       return <span class={className} {...others} />;
   }

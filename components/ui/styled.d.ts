@@ -66,7 +66,7 @@ declare module "solid-styled-components" {
           | "lineHeight"
           | "textTransform"]?: number | string;
       } & {
-        element?: "h1" | "h2" | "h3" | "h4" | "h5" | "span" | "label";
+        element?: "h1" | "h2" | "h3" | "h4" | "h5" | "span" | "div" | "label";
         colour?: keyof DefaultTheme["colours"];
       };
     };

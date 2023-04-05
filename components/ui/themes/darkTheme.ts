@@ -100,6 +100,7 @@ export const darkTheme: DefaultTheme = {
       fontSize: "0.6em",
     },
     "composition-typing-indicator": {
+      element: "div",
       fontSize: "13px",
     },
     // Legacy

@@ -20,6 +20,11 @@ interface Props {
  */
 export function TypingIndicator(props: Props) {
   const t = useTranslation();
+
+  /**
+   * Generate list of user IDs
+   * @returns User IDs
+   */
   const userIds = () =>
     (
       props.users.filter(
@@ -43,7 +48,7 @@ export function TypingIndicator(props: Props) {
               {(user, index) => (
                 <Avatar
                   src={user!.avatar}
-                  size={16}
+                  size={15}
                   holepunch={
                     index() + 1 < users().length ? "overlap-subtle" : "none"
                   }
@@ -82,6 +87,7 @@ export function TypingIndicator(props: Props) {
  */
 const Avatars = styled.div`
   display: flex;
+  height: fit-content;
 
   :not(:first-child) {
     margin-left: -6px;
@@ -97,9 +103,9 @@ const Bar = styled.div`
   height: 26px;
   position: absolute;
 
-  gap: 8px;
+  gap: ${(props) => props.theme!.gap.md};
   display: flex;
-  padding: 0 10px;
+  padding: 0 ${(props) => props.theme!.gap.lg};
 
   user-select: none;
   align-items: center;
