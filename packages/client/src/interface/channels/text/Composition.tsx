@@ -159,7 +159,7 @@ export function MessageComposition(props: Props) {
     const contentBeforeCursor = (draft().content ?? "").substring(0, cursor);
 
     let delimiterCount = 0;
-    for (const delimiter of contentBeforeCursor.matchAll(RE_CODE_DELIMITER)) {
+    for (const _delimiter of contentBeforeCursor.matchAll(RE_CODE_DELIMITER)) {
       delimiterCount++;
     }
 

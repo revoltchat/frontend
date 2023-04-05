@@ -19,6 +19,18 @@
         "skipWords": ["dismissable", "regex", "accessor"],
         "minLength": 3
       }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_"
+      }
     ]
   }
 }
