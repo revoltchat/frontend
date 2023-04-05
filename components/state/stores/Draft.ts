@@ -1,6 +1,6 @@
 import { API, Message } from "revolt.js";
 
-import { insecureUniqueId } from "@revolt/common";
+import { CONFIGURATION, insecureUniqueId } from "@revolt/common";
 
 import { State } from "..";
 
@@ -153,7 +153,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     this.setDraft(channelId, {
       content: "",
       replies: [],
-      files: files?.splice(5),
+      files: files?.splice(CONFIGURATION.MAX_ATTACHMENTS),
     });
 
     return {
