@@ -40,15 +40,20 @@ const RE_CODE_DELIMITER = new RegExp("^```", "gm");
  */
 export function MessageComposition(props: Props) {
   const t = useTranslation();
+  const client = useClient();
 
   /**
    * Reference to the message input box
    */
   let ref: HTMLTextAreaElement | undefined;
 
-  // Resolve the client and current draft
-  const client = useClient();
-  const draft = () => state.draft.getDraft(props.channel._id);
+  /**
+   * Get the draft for the current channel
+   * @returns Draft
+   */
+  function draft() {
+    return state.draft.getDraft(props.channel._id);
+  }
 
   /**
    * Keep track of last time we sent a typing packet

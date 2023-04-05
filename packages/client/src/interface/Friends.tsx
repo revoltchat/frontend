@@ -19,7 +19,6 @@ import {
   CategoryButton,
   Deferred,
   Header,
-  Row,
   Typography,
   UserStatusGraphic,
   styled,
@@ -48,12 +47,22 @@ type FriendLists = Accessor<{
   [key in "online" | "offline" | "incoming" | "outgoing" | "blocked"]: User[];
 }>;
 
+/**
+ * Friends menu
+ */
 export function Friends() {
   const client = useClient();
 
+  /**
+   * Reference to the parent scroll container
+   */
   let scrollTargetElement!: HTMLDivElement;
-  const targetSignal = () => scrollTargetElement;
   // TODO: need to create use:scrollable directive for styles
+
+  /**
+   * Signal required for reacting to ref changes
+   */
+  const targetSignal = () => scrollTargetElement;
 
   /**
    * Generate lists of all users
@@ -240,7 +249,16 @@ const Avatars = styled("div", "Avatars")`
 function PendingRequests(props: { lists: FriendLists }) {
   const t = useTranslation();
 
+  /**
+   * Shorthand for generating incoming list
+   * @returns List of users
+   */
   const incoming = () => props.lists().incoming;
+
+  /**
+   * Generate pending requests description
+   * @returns Localised string
+   */
   const description = () => {
     const list = incoming();
     const length = list.length;

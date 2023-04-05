@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Show } from "solid-js";
 
 import { clientController } from "@revolt/client";

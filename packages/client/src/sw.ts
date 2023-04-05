@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 /// <reference lib="webworker" />
 import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching";
 

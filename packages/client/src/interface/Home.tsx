@@ -68,6 +68,9 @@ const Image = styled("img")`
   height: 80px;
 `;
 
+/**
+ * Home page
+ */
 export function HomePage() {
   const t = useTranslation();
   const navigate = useNavigate();

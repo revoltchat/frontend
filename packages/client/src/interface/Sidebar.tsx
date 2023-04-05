@@ -78,6 +78,11 @@ const Home: Component = () => {
 const Server: Component = () => {
   const params = useSmartParams();
   const client = useClient();
+
+  /**
+   * Resolve the server
+   * @returns Server
+   */
   const server = () => client.servers.get(params().serverId!)!;
 
   /**

@@ -10,28 +10,29 @@ import { Sidebar } from "./interface/Sidebar";
  * Application layout
  */
 const Interface: Component = () => {
-  if (!clientController.isLoggedIn()) {
-    return <Navigate href="/login" />;
-  }
-
   return (
-    <Show when={clientController.isReady()}>
-      <div
-        style={{
-          display: "flex",
-          height: "100%",
-          "overflow-x": "auto",
-          "scroll-snap-type": "x mandatory",
-        }}
-        onDragOver={(e) => {
-          if (e.dataTransfer) e.dataTransfer.dropEffect = "none";
-        }}
-        onDrop={(e) => e.preventDefault()}
-      >
-        <Sidebar />
-        <Content />
-      </div>
-    </Show>
+    <>
+      <Show when={!clientController.isLoggedIn()}>
+        <Navigate href="/login" />
+      </Show>
+      <Show when={clientController.isReady()}>
+        <div
+          style={{
+            display: "flex",
+            height: "100%",
+            "overflow-x": "auto",
+            "scroll-snap-type": "x mandatory",
+          }}
+          onDragOver={(e) => {
+            if (e.dataTransfer) e.dataTransfer.dropEffect = "none";
+          }}
+          onDrop={(e) => e.preventDefault()}
+        >
+          <Sidebar />
+          <Content />
+        </div>
+      </Show>
+    </>
   );
 };
 

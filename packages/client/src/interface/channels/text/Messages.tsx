@@ -1,10 +1,13 @@
 import {
   For,
+  Match,
+  Switch,
   createEffect,
   createMemo,
   createSignal,
   on,
   onCleanup,
+  onMount,
   splitProps,
 } from "solid-js";
 
@@ -54,15 +57,16 @@ type ListEntry =
 function Entry(props: ListEntry) {
   const [local, other] = splitProps(props, ["t"]);
 
-  // note: we use a switch instead of <Switch /> as we know `t` will never change
-  switch (local.t) {
-    case 0:
-      return <Message {...(other as ListEntry & { t: 0 })} />;
-    case 1:
-      return <MessageDivider {...(other as ListEntry & { t: 1 })} />;
-    default:
-      return null;
-  }
+  return (
+    <Switch>
+      <Match when={local.t === 0}>
+        <Message {...(other as ListEntry & { t: 0 })} />
+      </Match>
+      <Match when={local.t === 1}>
+        <MessageDivider {...(other as ListEntry & { t: 1 })} />
+      </Match>
+    </Switch>
+  );
 }
 
 /**
@@ -90,20 +94,20 @@ export function Messages(props: { channel: Channel; limit?: number }) {
 
   /**
    * Handle incoming messages
-   * @param msg Message object
+   * @param message Message object
    */
-  function onMessage(msg: MessageInterface) {
-    if (msg.channel_id === props.channel._id) {
-      setMessages([msg, ...messages()]);
+  function onMessage(message: MessageInterface) {
+    if (message.channel_id === props.channel._id) {
+      setMessages([message, ...messages()]);
     }
   }
 
   // Add listener for messages
-  client.addListener("message", onMessage);
+  onMount(() => client.addListener("message", onMessage));
   onCleanup(() => client.removeListener("message", onMessage));
 
   // We need to cache created objects to prevent needless re-rendering
-  let objectCache = new Map();
+  const objectCache = new Map();
 
   // Determine which messages have a tail and add message dividers
   const messagesWithTail = createMemo<ListEntry[]>(() => {

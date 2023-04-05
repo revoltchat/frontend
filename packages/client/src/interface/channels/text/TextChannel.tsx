@@ -1,4 +1,4 @@
-import { Show, createEffect, createSignal, on, onMount } from "solid-js";
+import { Show, createEffect, createSignal, on } from "solid-js";
 
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -15,7 +15,7 @@ import { Messages } from "./Messages";
  */
 export function TextChannel(props: ChannelPageProps) {
   // Last unread message ID
-  const [lastId, setLastId] = createSignal<string | undefined>(undefined);
+  const [_lastId, setLastId] = createSignal<string | undefined>(undefined);
 
   // Store last unread message ID
   createEffect(
