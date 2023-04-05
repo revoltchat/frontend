@@ -28,18 +28,20 @@ interface UserInformation {
 /**
  * Resolve multiple users by their ID within the current context
  * @param ids User IDs
+ * @param filterNull Filter out null values
  * @returns User information
  */
 export function useUsers(
-  ids: string[]
+  ids: string[] | Accessor<string[]>,
+  filterNull?: boolean
 ): Accessor<(UserInformation | undefined)[]> {
   const client = useClient();
 
   // TODO: use a context here for when we do multi view :)
   const { server } = useParams<{ server: string }>();
 
-  return createMemo(() =>
-    ids.map((id) => {
+  return createMemo(() => {
+    const list = (typeof ids === "function" ? ids() : ids).map((id) => {
       const user = client.users.get(id)!;
 
       if (user) {
@@ -59,8 +61,10 @@ export function useUsers(
           avatar: user.animatedAvatarURL,
         };
       }
-    })
-  );
+    });
+
+    return filterNull ? list.filter((x) => x) : list;
+  });
 }
 
 export function useUser(id: string): Accessor<UserInformation | undefined> {
