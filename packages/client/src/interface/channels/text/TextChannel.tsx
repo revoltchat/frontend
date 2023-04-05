@@ -2,7 +2,7 @@ import { Show, createEffect, createSignal, on, onMount } from "solid-js";
 
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { HeaderWithTransparency, styled } from "@revolt/ui";
+import { HeaderWithTransparency, TypingIndicator, styled } from "@revolt/ui";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -24,7 +24,7 @@ export function TextChannel(props: ChannelPageProps) {
       (_id) =>
         setLastId(
           props.channel.unread
-            ? props.channel.client.unreads!.getUnread(_id)?.last_id!
+            ? (props.channel.client.unreads!.getUnread(_id)?.last_id as string)
             : undefined
         )
     )
@@ -56,6 +56,7 @@ export function TextChannel(props: ChannelPageProps) {
       <Content>
         <MessagingStack>
           <Messages channel={props.channel} />
+          <TypingIndicator users={props.channel.typing} />
           <MessageComposition channel={props.channel} />
         </MessagingStack>
         <Show

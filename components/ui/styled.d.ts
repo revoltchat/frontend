@@ -50,6 +50,7 @@ declare module "solid-styled-components" {
         | "reply"
         | "composition-file-upload-name"
         | "composition-file-upload-size"
+        | "composition-typing-indicator"
         | "sidebar-title"
         | "channel-topic"
         | "legacy-settings-title"

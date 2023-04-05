@@ -99,6 +99,9 @@ export const darkTheme: DefaultTheme = {
     "composition-file-upload-size": {
       fontSize: "0.6em",
     },
+    "composition-typing-indicator": {
+      fontSize: "13px",
+    },
     // Legacy
     "legacy-settings-title": {
       element: "h1",
