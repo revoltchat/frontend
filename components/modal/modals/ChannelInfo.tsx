@@ -1,5 +1,6 @@
 import { BiRegularX } from "solid-icons/bi";
 
+import { Markdown } from "@revolt/markdown";
 import { Button, Column, Row, Typography } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
@@ -19,9 +20,7 @@ const ChannelInfo: PropGenerator<"channel_info"> = (props, onClose) => {
         </Button>
       </Row>
     ),
-    children:
-      // TODO: markdown
-      props.channel.description,
+    children: <Markdown content={props.channel.description!} />,
   };
 };
 

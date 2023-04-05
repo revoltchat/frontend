@@ -1,6 +1,5 @@
 import {
   BiRegularAt,
-  BiRegularGroup,
   BiRegularHash,
   BiSolidGroup,
   BiSolidMagicWand,
@@ -12,11 +11,11 @@ import { Channel } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 import { Markdown, TextWithEmoji } from "@revolt/markdown";
+import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   IconButton,
-  InlineIcon,
   OverflowingText,
   Spacer,
   Typography,
@@ -26,21 +25,28 @@ import {
 
 import { HeaderIcon } from "../common/CommonHeader";
 
-/**
- * Vertical divider between name and topic
- */
-const Divider = styled("div", "Divider")`
-  height: 20px;
-  margin: 0px 5px;
-  padding-left: 1px;
-  background-color: ${(props) => props.theme!.colours["background-400"]};
-`;
+interface Props {
+  /**
+   * Channel to render header for
+   */
+  channel: Channel;
+}
 
 /**
  * Common channel header component
  */
-export function ChannelHeader(props: { channel: Channel }) {
+export function ChannelHeader(props: Props) {
   const t = useTranslation();
+
+  /**
+   * Open channel information modal
+   */
+  function openChannelInfo() {
+    modalController.push({
+      type: "channel_info",
+      channel: props.channel,
+    });
+  }
 
   return (
     <>
@@ -58,14 +64,16 @@ export function ChannelHeader(props: { channel: Channel }) {
           <TextWithEmoji content={props.channel.name!} />
           <Show when={props.channel.description}>
             <Divider />
-            <OverflowingText>
-              <Typography variant="channel-topic">
-                <Markdown
-                  content={props.channel.description!}
-                  disallowBigEmoji
-                />
-              </Typography>
-            </OverflowingText>
+            <a onClick={openChannelInfo}>
+              <OverflowingText>
+                <Typography variant="channel-topic">
+                  <Markdown
+                    content={props.channel.description!}
+                    disallowBigEmoji
+                  />
+                </Typography>
+              </OverflowingText>
+            </a>
           </Show>
         </Match>
         <Match when={props.channel.channel_type === "DirectMessage"}>
@@ -101,3 +109,13 @@ export function ChannelHeader(props: { channel: Channel }) {
     </>
   );
 }
+
+/**
+ * Vertical divider between name and topic
+ */
+const Divider = styled("div", "Divider")`
+  height: 20px;
+  margin: 0px 5px;
+  padding-left: 1px;
+  background-color: ${(props) => props.theme!.colours["background-400"]};
+`;
