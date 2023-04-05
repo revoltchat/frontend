@@ -16,6 +16,7 @@ import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   IconButton,
+  NonBreakingText,
   OverflowingText,
   Spacer,
   Typography,
@@ -61,7 +62,9 @@ export function ChannelHeader(props: Props) {
           <HeaderIcon>
             <BiRegularHash size={24} />
           </HeaderIcon>
-          <TextWithEmoji content={props.channel.name!} />
+          <NonBreakingText>
+            <TextWithEmoji content={props.channel.name!} />
+          </NonBreakingText>
           <Show when={props.channel.description}>
             <Divider />
             <a onClick={openChannelInfo}>
