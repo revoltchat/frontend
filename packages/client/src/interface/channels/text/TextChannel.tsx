@@ -55,7 +55,7 @@ export function TextChannel(props: ChannelPageProps) {
       </HeaderWithTransparency>
       <Content>
         <MessagingStack>
-          <Messages channel={props.channel} />
+          <Messages channel={props.channel} limit={150} />
           <TypingIndicator users={props.channel.typing} />
           <MessageComposition channel={props.channel} />
         </MessagingStack>
