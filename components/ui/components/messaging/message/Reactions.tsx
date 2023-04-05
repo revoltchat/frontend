@@ -3,6 +3,7 @@ import { styled } from "solid-styled-components";
 
 import { API } from "revolt.js";
 
+import { useTranslation } from "@revolt/i18n";
 import { Emoji } from "@revolt/markdown";
 import { useUsers } from "@revolt/markdown/users";
 
@@ -122,6 +123,7 @@ function Reaction(props: {
   addReaction(id: string): void;
   removeReaction(id: string): void;
 }) {
+  const t = useTranslation();
   const users = useUsers([...(props.users?.values() ?? [])]);
 
   /**
@@ -145,12 +147,28 @@ function Reaction(props: {
       all.filter((user) => !user).length + Math.max(0, list.length - 3);
 
     const usernames = list
-      .slice(0, 3)
+      .slice(0, 2)
       .map((user) => user?.username)
       .join(", ");
 
-    // TODO: i18n
-    return usernames + " and " + unknown + " others";
+    if (unknown) {
+      if (usernames) {
+        return t("app.main.channel.reactions.others_reacted", {
+          userlist: usernames,
+          count: unknown.toString(),
+        });
+      } else if (unknown === 1) {
+        return t("app.main.channel.reactions.single_reacted");
+      } else {
+        return t("app.main.channel.reactions.unknown_reacted", {
+          count: unknown.toString(),
+        });
+      }
+    } else {
+      return t("app.main.channel.reactions.people_reacted", {
+        people: usernames,
+      });
+    }
   };
 
   return (
