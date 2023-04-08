@@ -1,30 +1,33 @@
 import { BiRegularLink, BiSolidBot, BiSolidShield } from "solid-icons/bi";
-import { For, Match, Show, Switch } from "solid-js";
+import { For, Match, Show, Switch, onMount } from "solid-js";
 
 import { Message as MessageInterface } from "revolt.js";
 
+import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
-
-import { Column } from "../../design";
-import { Username } from "../../design/atoms/display/Username";
-import { Tooltip, UserCard } from "../../floating";
-
-import { Attachment } from "./Attachment";
-import { MessageContainer } from "./Container";
-import { Embed } from "./Embed";
-import { Reactions } from "./Reactions";
+import {
+  Attachment,
+  Column,
+  Embed,
+  MessageContainer,
+  Reactions,
+  Tooltip,
+  UserCard,
+  Username,
+} from "@revolt/ui";
+import { MessageReply } from "@revolt/ui/components/messaging/message/MessageReply";
 
 const RE_URL =
-  /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+  /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
 
 /**
  * Render a Message with or without a tail
  */
 export function Message(props: { message: MessageInterface; tail?: boolean }) {
-  // const baseUrl = props.message.client.configuration!.features.autumn.url!;
-  const baseUrl = "https://autumn.revolt.chat";
   const t = useTranslation();
+  const client = useClient();
+  const baseUrl = () => client().configuration!.features.autumn.url;
 
   /**
    * Determine whether this message only contains a GIF
@@ -58,7 +61,7 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
         <Show when={props.message.replyIds}>
           <For each={props.message.replyIds}>
             {(reply_id) => {
-              /*const message = () => props.message.client.messages.get(reply_id);
+              const message = () => client().messages.get(reply_id);
 
               onMount(() => {
                 if (!message()) {
@@ -68,13 +71,12 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
 
               return (
                 <MessageReply
-                  mention={props.message.mention_ids?.includes(
-                    message()!.author_id
+                  mention={props.message.mentionIds?.includes(
+                    message()!.authorId!
                   )}
                   message={message()}
                 />
-              );*/
-              return "reply";
+              );
             }}
           </For>
         </Show>
@@ -121,7 +123,9 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
         </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>
-            {(attachment) => <Attachment file={attachment} baseUrl={baseUrl} />}
+            {(attachment) => (
+              <Attachment file={attachment} baseUrl={baseUrl()} />
+            )}
           </For>
         </Show>
         <Show when={props.message.embeds}>
@@ -129,17 +133,16 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
             {(embed) => (
               <Embed
                 embed={embed}
-                proxyFile={/*props.message.client.proxyFile*/ (a) => a}
-                baseUrl={baseUrl}
+                proxyFile={(file) => client().proxyFile(file)}
+                baseUrl={baseUrl()}
               />
             )}
           </For>
         </Show>
         <Reactions
           reactions={props.message.reactions}
-          interactions={props.message.interactions!}
-          /*userId={props.message.client.user?._id}*/
-          userId=""
+          interactions={props.message.interactions}
+          userId={client().user!.id}
           addReaction={(id) => props.message.react(id)}
           removeReaction={(id) => props.message.unreact(id)}
         />

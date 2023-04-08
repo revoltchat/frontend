@@ -14,7 +14,7 @@ interface Props {
   /**
    * Reactions data
    */
-  reactions: Map<string, Set<string>>;
+  reactions?: Map<string, Set<string>>;
 
   /**
    * Interactions
@@ -89,8 +89,8 @@ export function Reactions(props: Props) {
           {(entry) => (
             <Reaction
               reaction={entry}
-              active={props.reactions.get(entry)?.has(props.userId!)}
-              users={props.reactions.get(entry)}
+              active={props.reactions?.get(entry)?.has(props.userId!)}
+              users={props.reactions?.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />
@@ -103,8 +103,8 @@ export function Reactions(props: Props) {
           {(entry) => (
             <Reaction
               reaction={entry}
-              active={props.reactions.get(entry)?.has(props.userId!)}
-              users={props.reactions.get(entry)}
+              active={props.reactions?.get(entry)?.has(props.userId!)}
+              users={props.reactions?.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />

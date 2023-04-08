@@ -17,12 +17,9 @@ import { Channel, Message as MessageInterface } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { dayjs } from "@revolt/i18n";
-import {
-  ConversationStart,
-  ListView,
-  Message,
-  MessageDivider,
-} from "@revolt/ui";
+import { ConversationStart, ListView, MessageDivider } from "@revolt/ui";
+
+import { Message } from "./Message";
 
 /**
  * Default fetch limit
@@ -98,8 +95,8 @@ export function Messages(props: Props) {
   }
 
   // Add listener for messages
-  // onMount(() => client.addListener("message", onMessage));
-  // onCleanup(() => client.removeListener("message", onMessage));
+  onMount(() => client().addListener("messageCreate", onMessage));
+  onCleanup(() => client().removeListener("messageCreate", onMessage));
 
   // We need to cache created objects to prevent needless re-rendering
   const objectCache = new Map();
