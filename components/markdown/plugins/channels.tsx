@@ -5,12 +5,12 @@ import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
 export function RenderChannel(props: CustomComponentProps) {
   const client = useClient();
-  const channel = client.channels.get(props.match)!;
+  const channel = () => client().channels.get(props.match)!;
 
   return (
     <Link
       href={`${
-        channel.server_id ? `/server/${channel.server_id}` : ""
+        channel().serverId ? `/server/${channel().serverId}` : ""
       }/channel/${props.match}`}
     >{`#${channel.name}`}</Link>
   );

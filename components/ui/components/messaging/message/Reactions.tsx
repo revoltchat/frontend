@@ -39,6 +39,9 @@ interface Props {
   removeReaction(reaction: string): void;
 }
 
+/**
+ * Message reactions
+ */
 export function Reactions(props: Props) {
   /**
    * Determine two lists of 'required' and 'optional' reactions

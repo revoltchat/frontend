@@ -24,7 +24,7 @@ export function PreviewMessage(props: {
   channel_id?: string;
 }) {
   const client = useClient();
-  const message = () => client.messages.get(props.message_id!);
+  const message = () => client().messages.get(props.message_id!);
   const [context, setContext] = createSignal(false);
 
   createEffect(
@@ -33,8 +33,8 @@ export function PreviewMessage(props: {
       (message) =>
         !message &&
         props.channel_id &&
-        client.channels
-          .fetch(props.channel_id!)
+        client()
+          .channels.fetch(props.channel_id!)
           .then((channel) => channel.fetchMessage(props.message_id!))
     )
   );
@@ -51,12 +51,12 @@ export function PreviewMessage(props: {
                   state.admin.addTab({
                     title: "Inspect Channel",
                     type: "inspector",
-                    id: message()!.channel_id,
+                    id: message()!.channelId,
                     typeHint: "channel",
                   })
                 }
               >
-                <PreviewChannel channel_id={message()!.channel_id} />
+                <PreviewChannel channel_id={message()!.channelId} />
               </Button>
               <Button palette="secondary" onClick={() => setContext(true)}>
                 Fetch Context
@@ -70,8 +70,8 @@ export function PreviewMessage(props: {
             <ChannelPreview>
               <MessageQuery
                 query={{
-                  nearby: message()!._id,
-                  channel: message()!.channel_id,
+                  nearby: message()!.id,
+                  channel: message()!.channelId,
                 }}
               />
             </ChannelPreview>

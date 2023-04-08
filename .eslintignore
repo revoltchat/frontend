@@ -7,3 +7,6 @@ i18n/locales
 # auto-generated files
 packages/showcase/componentData.ts
 packages/showcase/src/stories.ts
+
+# wip
+**/admin/**

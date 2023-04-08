@@ -41,19 +41,17 @@ const MutedList = styled(Column)`
 function MessageSnapshot(props: {
   content: API.SnapshotWithContext["content"] & { _type: "Message" };
 }) {
-  const client = useClient();
-
   return (
     <>
       <MutedList>
         <For each={props.content._prior_context as unknown as MessageI[]}>
-          {(message: MessageI) => <PreviewMessage message_id={message._id!} />}
+          {(message: MessageI) => <PreviewMessage message_id={message.id!} />}
         </For>
       </MutedList>
       <PreviewMessage message_id={props.content._id!} />
       <MutedList>
         <For each={props.content._leading_context as unknown as MessageI[]}>
-          {(message) => <PreviewMessage message_id={message._id!} />}
+          {(message) => <PreviewMessage message_id={message.id!} />}
         </For>
       </MutedList>
     </>
@@ -170,7 +168,7 @@ export function Report() {
     const snapshot = state.admin.getSnapshot(report()!._id)!;
     switch (snapshot.content._type) {
       case "Message": {
-        info = "@" + client.users.get(snapshot.content.author)?.username;
+        info = "@" + client().users.get(snapshot.content.author)?.username;
         break;
       }
       case "User": {
@@ -328,7 +326,7 @@ function TemplateReponse(props: { id: string; message: string }) {
   const client = useClient();
   function runCommand() {
     if (confirm("Confirm Message")) {
-      client.channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd());
+      client().channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd());
     }
   }
 

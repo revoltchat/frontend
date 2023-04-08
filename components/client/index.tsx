@@ -17,8 +17,8 @@ export const clientController = new ClientController();
  * Get the currently active client if one is available
  * @returns Revolt.js Client
  */
-export function useClient(): Accessor<Client | undefined> {
-  return () => clientController.getCurrentClient();
+export function useClient(): Accessor<Client> {
+  return () => clientController.getCurrentClient()!;
 }
 
 /**

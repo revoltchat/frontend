@@ -32,7 +32,7 @@ export const ChannelPreview = styled(ScrollContainer)`
   border: 2px solid ${(props) => props.theme!.colours["background-400"]};
 `;
 
-function UserInfo(props: { user: Accessor<User> }) {
+function UserInfo(props: { user: Accessor<User | undefined> }) {
   const [profile, setProfile] = createSignal<API.UserProfile>();
 
   createEffect(
@@ -49,7 +49,7 @@ function UserInfo(props: { user: Accessor<User> }) {
   const query: Accessor<API.MessageQuery | undefined> = () =>
     props.user()
       ? {
-          author: props.user()!._id,
+          author: props.user()!.id,
           limit: 150,
         }
       : undefined;
@@ -68,10 +68,10 @@ export function Inspector() {
   const data = () => state.admin.getActiveTab<"inspector">()!;
 
   const client = useClient();
-  const user = () => client.users.get(data().id!);
-  const server = () => client.servers.get(data().id!);
-  const channel = () => client.channels.get(data().id!);
-  const message = () => client.messages.get(data().id!);
+  const user = () => client().users.get(data().id!);
+  const server = () => client().servers.get(data().id!);
+  const channel = () => client().channels.get(data().id!);
+  const message = () => client().messages.get(data().id!);
 
   createEffect(
     on(
@@ -79,7 +79,7 @@ export function Inspector() {
       (user) =>
         !user &&
         (data().typeHint === "any" || data().typeHint === "user") &&
-        client.users.fetch(data().id!)
+        client().users.fetch(data().id!)
     )
   );
 
@@ -89,7 +89,7 @@ export function Inspector() {
       (server) =>
         !server &&
         (data().typeHint === "any" || data().typeHint === "server") &&
-        client.servers.fetch(data().id!)
+        client().servers.fetch(data().id!)
     )
   );
 
@@ -99,7 +99,7 @@ export function Inspector() {
       (channel) =>
         !channel &&
         (data().typeHint === "any" || data().typeHint === "channel") &&
-        client.channels.fetch(data().id!)
+        client().channels.fetch(data().id!)
     )
   );
 
@@ -109,13 +109,13 @@ export function Inspector() {
       (message) =>
         !message &&
         (data().typeHint === "any" || data().typeHint === "message") &&
-        client.messages.fetch(data().id!)
+        client().messages.fetch(data().id!)
     )
   );
 
   let last: any = undefined;
   function runCommand(cmd: string) {
-    client.channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd);
+    client().channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd);
     if (cmd !== last) {
       alert("You must click again to confirm.");
       last = cmd;
@@ -168,19 +168,19 @@ export function Inspector() {
             </Button>
             <Button
               palette="accent"
-              onClick={() => runCommand(`/global spam ${user()!._id}`)}
+              onClick={() => runCommand(`/global spam ${user()!.id}`)}
             >
               Spam
             </Button>
             <Button
               palette="error"
-              onClick={() => runCommand(`/global term ${user()!._id}`)}
+              onClick={() => runCommand(`/global term ${user()!.id}`)}
             >
               Term
             </Button>
             <Button
               palette="error"
-              onClick={() => runCommand(`/global ban ${user()!._id}`)}
+              onClick={() => runCommand(`/global ban ${user()!.id}`)}
             >
               Ban
             </Button>
@@ -240,9 +240,9 @@ export function Inspector() {
           </summary>
 
           <Typography variant="label">Author</Typography>
-          <InspectorLink type="user" id={message()!.author_id} />
+          <InspectorLink type="user" id={message()!.authorId!} />
           <Typography variant="label">Channel</Typography>
-          <InspectorLink type="channel" id={message()!.channel_id} />
+          <InspectorLink type="channel" id={message()!.channelId} />
 
           <Message message={message()!} />
         </details>

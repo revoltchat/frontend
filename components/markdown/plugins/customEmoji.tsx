@@ -16,9 +16,11 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
   const [exists, setExists] = createSignal(true);
 
   const client = useClient();
-  const emoji = () => client.emojis.get(props.match);
+  const emoji = () => client()!.emojis.get(props.match);
   const server = () =>
-    client.servers.get((emoji()!.parent as { type: "Server"; id: string }).id)!;
+    client()!.servers.get(
+      (emoji()!.parent as { type: "Server"; id: string }).id
+    )!;
 
   return (
     <Switch fallback={<span>{`:${emoji()?.name ?? props.match}:`}</span>}>
@@ -35,7 +37,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
                   <Column align>
                     <span>{`:${emoji()!.name}:`}</span>
                     <Row align>
-                      <Avatar size={14} src={server().generateIconURL()} />
+                      <Avatar size={14} src={server().animatedIconURL} />
                       {server().name}
                     </Row>
                   </Column>
