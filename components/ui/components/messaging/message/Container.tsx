@@ -45,12 +45,12 @@ type Props = CommonProps & {
   /**
    * Timestamp message was sent at
    */
-  timestamp: number;
+  timestamp: Date;
 
   /**
    * Date message was edited at
    */
-  edited?: number;
+  edited?: Date;
 
   /**
    * Reference time to render timestamps from

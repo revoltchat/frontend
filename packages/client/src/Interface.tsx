@@ -29,7 +29,7 @@ const Interface: Component = () => {
           onDrop={(e) => e.preventDefault()}
         >
           <Sidebar />
-          {/*<Content />*/}
+          <Content />
         </div>
       </Show>
     </>

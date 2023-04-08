@@ -19,5 +19,5 @@ export function RenderChannel(props: CustomComponentProps) {
 export const remarkChannels = createComponent(
   "channel",
   /<#([A-z0-9]{26})>/g,
-  (match) => clientController.getCurrentClient()?.channels.has(match)
+  (match) => clientController.getCurrentClient()!.channels.has(match)
 );

@@ -92,14 +92,14 @@ export function Messages(props: Props) {
    * @param message Message object
    */
   function onMessage(message: MessageInterface) {
-    if (message.channel_id === props.channel._id && atEnd()) {
+    if (message.channelId === props.channel.id && atEnd()) {
       setMessages([message, ...messages()]);
     }
   }
 
   // Add listener for messages
-  onMount(() => client.addListener("message", onMessage));
-  onCleanup(() => client.removeListener("message", onMessage));
+  // onMount(() => client.addListener("message", onMessage));
+  // onCleanup(() => client.removeListener("message", onMessage));
 
   // We need to cache created objects to prevent needless re-rendering
   const objectCache = new Map();
@@ -117,10 +117,10 @@ export function Messages(props: Props) {
       let date = null;
       if (next) {
         // Compare dates between messages
-        const atime = message.createdAt,
-          btime = next.createdAt,
-          adate = new Date(atime),
-          bdate = new Date(btime);
+        const adate = message.createdAt,
+          bdate = next.createdAt,
+          atime = +adate,
+          btime = +bdate;
 
         if (
           adate.getFullYear() !== bdate.getFullYear() ||
@@ -132,12 +132,12 @@ export function Messages(props: Props) {
 
         // Compare time and properties of messages
         if (
-          message.author_id !== next.author_id ||
+          message.authorId !== next.authorId ||
           Math.abs(btime - atime) >= 420000 ||
           !isEqual(message.masquerade, next.masquerade) ||
-          message.system ||
-          next.system ||
-          (message.reply_ids && message.reply_ids.length)
+          message.systemMessage ||
+          next.systemMessage ||
+          message.replyIds?.length
         ) {
           tail = false;
         }
@@ -147,7 +147,7 @@ export function Messages(props: Props) {
 
       // Add message to list, retrieve if it exists in the cache
       messagesWithTail.push(
-        objectCache.get(`${message._id}:${tail}`) ?? {
+        objectCache.get(`${message.id}:${tail}`) ?? {
           t: 0,
           message,
           tail,
@@ -172,7 +172,7 @@ export function Messages(props: Props) {
     // Populate cache with current objects
     for (const object of messagesWithTail) {
       if (object.t === 0) {
-        objectCache.set(`${object.message._id}:${object.tail}`, object);
+        objectCache.set(`${object.message.id}:${object.tail}`, object);
       } else {
         objectCache.set(object.date, object);
       }
@@ -191,7 +191,7 @@ export function Messages(props: Props) {
     // Fetch messages before the oldest message we have
     const result = await props.channel.fetchMessagesWithUsers({
       limit: props.fetchLimit,
-      before: messages().slice(-1)[0]._id,
+      before: messages().slice(-1)[0].id,
     });
 
     // If it's less than we expected, we are at the start
@@ -236,7 +236,7 @@ export function Messages(props: Props) {
     // Fetch messages after the newest message we have
     const result = await props.channel.fetchMessagesWithUsers({
       limit: props.fetchLimit,
-      after: messages()[0]._id,
+      after: messages()[0].id,
       sort: "Oldest",
     });
 

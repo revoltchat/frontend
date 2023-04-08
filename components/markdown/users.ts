@@ -35,18 +35,22 @@ export function useUsers(
   ids: string[] | Accessor<string[]>,
   filterNull?: boolean
 ): Accessor<(UserInformation | undefined)[]> {
-  const client = useClient();
+  const clientAccessor = useClient();
 
   // TODO: use a context here for when we do multi view :)
   const { server } = useParams<{ server: string }>();
 
   return createMemo(() => {
+    const client = clientAccessor()!;
     const list = (typeof ids === "function" ? ids() : ids).map((id) => {
       const user = client.users.get(id)!;
 
       if (user) {
         if (server) {
-          const member = client.members.getKey({ server, user: user._id });
+          const member = client.serverMembers.getByKey({
+            server,
+            user: user._id,
+          });
           if (member) {
             return {
               username: member.nickname ?? user.username,

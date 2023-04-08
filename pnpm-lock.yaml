@@ -362,6 +362,7 @@ importers:
       eslint-plugin-spellcheck: ^0.0.20
       eventemitter3: ^5.0.0
       isomorphic-ws: ^5.0.0
+      long: ^5.2.1
       prettier: ^2.8.7
       revolt-api: ^0.5.17
       solid-js: ^1.7.2
@@ -375,6 +376,7 @@ importers:
       '@solid-primitives/set': 0.4.3_solid-js@1.7.3
       eventemitter3: 5.0.0
       isomorphic-ws: 5.0.0_ws@8.13.0
+      long: 5.2.1
       revolt-api: 0.5.17
       solid-js: 1.7.3
       ulid: 2.3.0
@@ -8006,6 +8008,10 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  /long/5.2.1:
+    resolution: {integrity: sha512-GKSNGeNAtw8IryjjkhZxuKB3JzlcLTwjtiQCHKvqQet81I93kXslhDQruGI/QsddO83mcDToBVy7GqGS/zYf/A==}
+    dev: false
 
   /longest-streak/3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}

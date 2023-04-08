@@ -59,5 +59,5 @@ export function RenderMention(props: CustomComponentProps) {
 }
 
 export const remarkMention = createComponent("mention", RE_MENTIONS, (match) =>
-  clientController.getCurrentClient()?.users.has(match)
+  clientController.getCurrentClient()!.users.has(match)
 );

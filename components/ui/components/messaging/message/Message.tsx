@@ -1,5 +1,5 @@
 import { BiRegularLink, BiSolidBot, BiSolidShield } from "solid-icons/bi";
-import { For, Match, Show, Switch, onMount } from "solid-js";
+import { For, Match, Show, Switch } from "solid-js";
 
 import { Message as MessageInterface } from "revolt.js";
 
@@ -13,7 +13,6 @@ import { Tooltip, UserCard } from "../../floating";
 import { Attachment } from "./Attachment";
 import { MessageContainer } from "./Container";
 import { Embed } from "./Embed";
-import { MessageReply } from "./MessageReply";
 import { Reactions } from "./Reactions";
 
 const RE_URL =
@@ -23,9 +22,13 @@ const RE_URL =
  * Render a Message with or without a tail
  */
 export function Message(props: { message: MessageInterface; tail?: boolean }) {
-  const baseUrl = props.message.client.configuration!.features.autumn.url!;
+  // const baseUrl = props.message.client.configuration!.features.autumn.url!;
+  const baseUrl = "https://autumn.revolt.chat";
   const t = useTranslation();
 
+  /**
+   * Determine whether this message only contains a GIF
+   */
   const isOnlyGIF = () =>
     props.message.embeds &&
     props.message.embeds.length === 1 &&
@@ -49,13 +52,13 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
       }
       avatar={props.message.avatarURL}
       timestamp={props.message.createdAt}
-      edited={props.message.edited ? +props.message.edited : undefined}
+      edited={props.message.editedAt}
       tail={props.tail}
       header={
-        <Show when={props.message.reply_ids}>
-          <For each={props.message.reply_ids}>
+        <Show when={props.message.replyIds}>
+          <For each={props.message.replyIds}>
             {(reply_id) => {
-              const message = () => props.message.client.messages.get(reply_id);
+              /*const message = () => props.message.client.messages.get(reply_id);
 
               onMount(() => {
                 if (!message()) {
@@ -70,7 +73,8 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
                   )}
                   message={message()}
                 />
-              );
+              );*/
+              return "reply";
             }}
           </For>
         </Show>
@@ -80,7 +84,7 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
           <Match
             when={
               props.message.masquerade &&
-              props.message.author_id === "01FHGJ3NPP7XANQQH8C2BE44ZY"
+              props.message.authorId === "01FHGJ3NPP7XANQQH8C2BE44ZY"
             }
           >
             <Tooltip
@@ -101,9 +105,7 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
               {(triggerProps) => <BiSolidBot {...triggerProps} size={16} />}
             </Tooltip>
           </Match>
-          <Match
-            when={props.message.author_id === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}
-          >
+          <Match when={props.message.authorId === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}>
             <span />
             <span>he/him &middot; </span>
           </Match>
@@ -114,8 +116,8 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
         <Show when={props.message.content && !isOnlyGIF()}>
           <Markdown content={props.message.content!} />
         </Show>
-        <Show when={props.message.system}>
-          {props.message.asSystemMessage.type}
+        <Show when={props.message.systemMessage}>
+          {props.message.systemMessage!.type}
         </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>
@@ -127,7 +129,7 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
             {(embed) => (
               <Embed
                 embed={embed}
-                proxyFile={props.message.client.proxyFile}
+                proxyFile={/*props.message.client.proxyFile*/ (a) => a}
                 baseUrl={baseUrl}
               />
             )}
@@ -136,7 +138,8 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
         <Reactions
           reactions={props.message.reactions}
           interactions={props.message.interactions!}
-          userId={props.message.client.user?._id}
+          /*userId={props.message.client.user?._id}*/
+          userId=""
           addReaction={(id) => props.message.react(id)}
           removeReaction={(id) => props.message.unreact(id)}
         />
