@@ -1,4 +1,3 @@
-import { makeAutoObservable } from "mobx";
 import { API, Client } from "revolt.js";
 
 import { CONFIGURATION, getController } from "@revolt/common";
@@ -51,8 +50,6 @@ export default class Session {
    * Create a new Session
    */
   constructor() {
-    makeAutoObservable(this);
-
     this.onDropped = this.onDropped.bind(this);
     this.onReady = this.onReady.bind(this);
     this.onOnline = this.onOnline.bind(this);
@@ -121,8 +118,8 @@ export default class Session {
       apiURL: apiUrl ?? CONFIGURATION.DEFAULT_API_URL,
     });
 
-    this.client.addListener("dropped", this.onDropped);
-    this.client.addListener("ready", this.onReady);
+    // this.client.addListener("dropped", this.onDropped);
+    // this.client.addListener("ready", this.onReady);
   }
 
   /**

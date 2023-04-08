@@ -68,7 +68,7 @@ export function Friends() {
    * Generate lists of all users
    */
   const lists = createMemo(() => {
-    const list = [...client.users.values()];
+    const list = client()!.users.toList();
 
     const friends = list
       .filter((user) => user.relationship === "Friend")

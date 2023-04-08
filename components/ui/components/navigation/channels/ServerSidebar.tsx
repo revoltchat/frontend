@@ -60,9 +60,7 @@ export const ServerSidebar = (props: Props) => {
           <HeaderWithImage
             palette="secondary"
             style={{
-              background: `url('${props.server.generateBannerURL({
-                max_side: 256,
-              })}')`,
+              background: `url('${props.server.bannerURL}')`,
             }}
           >
             <a onClick={props.openServerInfo}>
@@ -100,7 +98,7 @@ function Category(props: {
         props.category.id === "default" ||
         shown() ||
         channel.unread ||
-        channel._id === props.channelId
+        channel.id === props.channelId
     )
   );
 
@@ -119,7 +117,7 @@ function Category(props: {
       </Show>
       <For each={channels()}>
         {(channel) => (
-          <Entry channel={channel} active={channel._id === props.channelId} />
+          <Entry channel={channel} active={channel.id === props.channelId} />
         )}
       </For>
     </Column>
@@ -158,7 +156,7 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
 function Entry(props: { channel: Channel; active: boolean }) {
   return (
     <Link
-      href={`/server/${props.channel.server_id}/channel/${props.channel._id}`}
+      href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}
     >
       <MenuButton
         size="thin"
@@ -173,11 +171,9 @@ function Entry(props: { channel: Channel; active: boolean }) {
         icon={
           <Switch fallback={<BiRegularHash size={24} />}>
             <Match when={props.channel.icon}>
-              <ChannelIcon
-                src={props.channel.generateIconURL({ max_side: 64 })}
-              />
+              <ChannelIcon src={props.channel.smallIconURL} />
             </Match>
-            <Match when={props.channel.channel_type === "VoiceChannel"}>
+            <Match when={props.channel.type === "VoiceChannel"}>
               <BiRegularPhoneCall size={24} />
             </Match>
           </Switch>

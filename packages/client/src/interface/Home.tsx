@@ -79,7 +79,7 @@ export function HomePage() {
   // check if we're revolt.chat; if so, check if the user is in the Lounge
   const showLoungeButton = IS_REVOLT;
   const isInLounge =
-    client.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
+    client()!.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
 
   return (
     // TODO: i18n
@@ -108,7 +108,10 @@ export function HomePage() {
           <SeparatedColumn>
             <CategoryButton
               onClick={() =>
-                modalController.push({ type: "create_group", client })
+                modalController.push({
+                  type: "create_group",
+                  client: client()!,
+                })
               }
               description={t("app.home.group_desc")}
               icon={<BiSolidPlusCircle size={24} />}

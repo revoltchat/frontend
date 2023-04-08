@@ -18,9 +18,9 @@ export function TextChannel(props: ChannelPageProps) {
   const [_lastId, setLastId] = createSignal<string | undefined>(undefined);
 
   // Store last unread message ID
-  createEffect(
+  /*createEffect(
     on(
-      () => props.channel._id,
+      () => props.channel.id,
       (_id) =>
         setLastId(
           props.channel.unread
@@ -28,10 +28,10 @@ export function TextChannel(props: ChannelPageProps) {
             : undefined
         )
     )
-  );
+  );*/
 
   // Mark channel as read whenever it is marked as unread
-  createEffect(
+  /*createEffect(
     on(
       () => props.channel.unread,
       (unread) =>
@@ -42,7 +42,8 @@ export function TextChannel(props: ChannelPageProps) {
           true
         )
     )
-  );
+    REWRITE_TODO
+  );*/
 
   /*onMount(() => {
     props.channel.server?.fetchMembers();
@@ -56,7 +57,7 @@ export function TextChannel(props: ChannelPageProps) {
       <Content>
         <MessagingStack>
           <Messages channel={props.channel} limit={150} />
-          <TypingIndicator users={props.channel.typing} />
+          {/*<TypingIndicator users={props.channel.typing} /> REWRITE_TODO */}
           <MessageComposition channel={props.channel} />
         </MessagingStack>
         <Show

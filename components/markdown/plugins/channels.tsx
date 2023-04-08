@@ -1,10 +1,11 @@
-import { clientController } from "@revolt/client";
+import { clientController, useClient } from "@revolt/client";
 import { Link } from "@revolt/routing";
 
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
 export function RenderChannel(props: CustomComponentProps) {
-  const channel = clientController.getAvailableClient().channels.get(props.match)!;
+  const client = useClient();
+  const channel = client.channels.get(props.match)!;
 
   return (
     <Link
@@ -18,5 +19,5 @@ export function RenderChannel(props: CustomComponentProps) {
 export const remarkChannels = createComponent(
   "channel",
   /<#([A-z0-9]{26})>/g,
-  (match) => clientController.getAvailableClient()?.channels.has(match)
+  (match) => clientController.getCurrentClient()?.channels.has(match)
 );

@@ -1,6 +1,5 @@
 import { SetStoreFunction, createStore } from "solid-js/store";
 
-import { runInAction } from "mobx";
 import { API } from "revolt.js";
 
 import { getController } from "@revolt/common";

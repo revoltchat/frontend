@@ -9,7 +9,7 @@ import { Navigate, useParams } from "@revolt/routing";
 export const ServerHome: Component = () => {
   const params = useParams();
   const client = useClient();
-  const server = createMemo(() => client.servers.get(params.server)!);
+  const server = createMemo(() => client()!.servers.get(params.server)!);
 
   return (
     // TODO: port the nice fallback
@@ -18,7 +18,7 @@ export const ServerHome: Component = () => {
         <Navigate href={"/"} />
       </Match>
       <Match when={server().defaultChannel}>
-        <Navigate href={`channel/${server().defaultChannel!._id}`} />
+        <Navigate href={`channel/${server().defaultChannel!.id}`} />
       </Match>
     </Switch>
   );

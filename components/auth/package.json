@@ -18,7 +18,7 @@
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/state": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
-    "revolt.js": "workspace:^6.0.18",
+    "revolt.js": "workspace:7.0.0-beta.0",
     "solid-hcaptcha": "^0.2.5",
     "solid-icons": "^1.0.1",
     "solid-js": "^1.5.1",

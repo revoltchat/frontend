@@ -52,7 +52,7 @@ export function MessageComposition(props: Props) {
    * @returns Draft
    */
   function draft() {
-    return state.draft.getDraft(props.channel._id);
+    return state.draft.getDraft(props.channel.id);
   }
 
   /**
@@ -66,12 +66,12 @@ export function MessageComposition(props: Props) {
   function startTyping() {
     if (typeof isTyping === "number" && +new Date() < isTyping) return;
 
-    const ws = client.websocket;
-    if (ws.connected) {
+    const ws = client()!.events;
+    if (ws.state() === 2) {
       isTyping = +new Date() + 2500;
       ws.send({
         type: "BeginTyping",
-        channel: props.channel._id,
+        channel: props.channel.id,
       });
     }
   }
@@ -81,12 +81,12 @@ export function MessageComposition(props: Props) {
    */
   function stopTyping() {
     if (isTyping) {
-      const ws = client.websocket;
-      if (ws.connected) {
+      const ws = client()!.events;
+      if (ws.state() === 2) {
         isTyping = undefined;
         ws.send({
           type: "EndTyping",
-          channel: props.channel._id,
+          channel: props.channel.id,
         });
       }
     }
@@ -106,7 +106,7 @@ export function MessageComposition(props: Props) {
       return props.channel.sendMessage(useContent);
     }
 
-    const { content, replies, files } = state.draft.popDraft(props.channel._id);
+    const { content, replies, files } = state.draft.popDraft(props.channel.id);
 
     // Construct message object
     const attachments: string[] = [];
@@ -126,7 +126,7 @@ export function MessageComposition(props: Props) {
         // Upload to Autumn
         attachments.push(
           await fetch(
-            `${client.configuration?.features.autumn.url}/attachments`,
+            `${client()?.configuration?.features.autumn.url}/attachments`,
             {
               method: "POST",
               body,
@@ -151,7 +151,7 @@ export function MessageComposition(props: Props) {
    * Shorthand for updating the draft
    */
   function setContent(content: string) {
-    state.draft.setDraft(props.channel._id, { content });
+    state.draft.setDraft(props.channel.id, { content });
     startTyping();
   }
 
@@ -199,7 +199,7 @@ export function MessageComposition(props: Props) {
    */
   function onKeyDown(event: KeyboardEvent) {
     if (event.key === "Escape") {
-      if (state.draft.popFromDraft(props.channel._id)) {
+      if (state.draft.popFromDraft(props.channel.id)) {
         event.preventDefault();
       }
     } else if (
@@ -232,7 +232,7 @@ export function MessageComposition(props: Props) {
     );
 
     for (const file of validFiles) {
-      state.draft.addFile(props.channel._id, file);
+      state.draft.addFile(props.channel.id, file);
     }
   }
 
@@ -269,7 +269,7 @@ export function MessageComposition(props: Props) {
    * @param fileId File ID
    */
   function removeFile(fileId: string) {
-    state.draft.removeFile(props.channel._id, fileId);
+    state.draft.removeFile(props.channel.id, fileId);
   }
 
   return (
@@ -282,20 +282,20 @@ export function MessageComposition(props: Props) {
       />
       <For each={draft().replies ?? []}>
         {(reply) => {
-          const message = client.messages.get(reply.id);
+          const message = client()!.messages.get(reply.id);
 
           /**
            * Toggle mention on reply
            */
           function toggle() {
-            state.draft.toggleReplyMention(props.channel._id, reply.id);
+            state.draft.toggleReplyMention(props.channel.id, reply.id);
           }
 
           /**
            * Dismiss a reply
            */
           function dismiss() {
-            state.draft.removeReply(props.channel._id, reply.id);
+            state.draft.removeReply(props.channel.id, reply.id);
           }
 
           return (
@@ -304,7 +304,7 @@ export function MessageComposition(props: Props) {
               mention={reply.mention}
               toggle={toggle}
               dismiss={dismiss}
-              self={message?.author_id === client.user?._id}
+              self={message?.authorId === client()!.user!.id}
             />
           );
         }}
@@ -364,9 +364,9 @@ export function MessageComposition(props: Props) {
           </CompositionPicker>
         }
         placeholder={
-          props.channel.channel_type === "SavedMessages"
+          props.channel.type === "SavedMessages"
             ? t("app.main.channel.message_saved")
-            : props.channel.channel_type === "DirectMessage"
+            : props.channel.type === "DirectMessage"
             ? t("app.main.channel.message_who", {
                 person: props.channel.recipient?.username as string,
               })

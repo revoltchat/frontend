@@ -49,7 +49,7 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
    * @returns List of Server objects
    */
   get orderedServers() {
-    const client = getController("client").getReadyClient();
+    const client = getController("client").getCurrentClient();
     const known = new Set(client?.servers.keys() ?? []);
     const ordered = [...this.get().servers];
 
@@ -80,14 +80,17 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
    * @returns List of Channel objects
    */
   get orderedConversations() {
-    const client = getController("client").getReadyClient();
-    const arr = [...(client?.channels.values() ?? [])].filter(
-      (channel) =>
-        (channel.channel_type === "DirectMessage" && channel.active) ||
-        channel.channel_type === "Group"
-    );
+    const client = getController("client").getCurrentClient();
 
-    arr.sort((a, b) => b.updatedAt - a.updatedAt);
-    return arr;
+    return (
+      client?.channels
+        .toList()
+        .filter(
+          (channel) =>
+            (channel.type === "DirectMessage" && channel.active) ||
+            channel.type === "Group"
+        )
+        .sort((a, b) => +b.updatedAt - +a.updatedAt) ?? []
+    );
   }
 }

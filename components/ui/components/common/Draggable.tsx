@@ -7,10 +7,10 @@ interface Props<T> {
   onChange: (ids: string[]) => void;
 }
 
-type Item<T> = { _id: string } & T;
+type Item<T> = { id: string } & T;
 
 /**
- * The dndzone library requires you to have an id key.
+ * The dndzone library requires you to have an id key
  */
 interface ContainerItem<T> {
   id: string;
@@ -37,7 +37,10 @@ export function Draggable<T>(props: Props<T>) {
   );
 
   createEffect(() => {
-    const newContainerItems = props.items.map((item) => ({ id: item._id, item }));
+    const newContainerItems = props.items.map((item) => ({
+      id: item.id,
+      item,
+    }));
     setContainerItems(newContainerItems);
   });
 
@@ -45,7 +48,9 @@ export function Draggable<T>(props: Props<T>) {
     const { items: newContainerItems } = e.detail;
     setContainerItems(newContainerItems);
     if (e.type === "finalize")
-      props.onChange(newContainerItems.map((containerItems) => containerItems.id));
+      props.onChange(
+        newContainerItems.map((containerItems) => containerItems.id)
+      );
   }
 
   /**

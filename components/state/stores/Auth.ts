@@ -21,11 +21,21 @@ export type TypeAuth = {
   sessions: Record<string, Account>;
 };
 
+/**
+ * Authentication details store
+ */
 export class Auth extends AbstractStore<"auth", TypeAuth> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "auth");
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     if (import.meta.env.VITE_TOKEN && import.meta.env.VITE_USER_ID) {
       this.setSession(
@@ -40,18 +50,25 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
     const clientController = getController("client");
 
     for (const entry of this.getAccounts()) {
-      clientController.addSession(entry, "existing");
+      // clientController.addSession(entry, "existing");
+      clientController.createClient(entry.session);
     }
 
-    clientController.pickNextSession();
+    /*clientController.pickNextSession();*/
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeAuth {
     return {
       sessions: {},
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeAuth>): TypeAuth {
     const sessions: TypeAuth["sessions"] = {};
     const originalSessions = (input.sessions ?? {}) as TypeAuth["sessions"];
