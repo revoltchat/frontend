@@ -14,7 +14,6 @@ import {
   ComboBox,
   Initials,
   Input,
-  Message,
   Row,
   ScrollContainer,
   ServerSidebar,
@@ -25,7 +24,6 @@ import {
 import { MessageQuery } from "../MessageQuery";
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewChannel } from "../previews/PreviewChannel";
-import { PreviewServer } from "../previews/PreviewServer";
 
 export const ChannelPreview = styled(ScrollContainer)`
   height: 640px;

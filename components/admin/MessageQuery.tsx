@@ -3,7 +3,6 @@ import { For, Match, Switch, createEffect, createSignal, on } from "solid-js";
 import { API, Message as MessageI } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { Message } from "@revolt/ui";
 
 import { PreviewMessage } from "./previews/PreviewMessage";
 
@@ -24,12 +23,12 @@ export function MessageQuery(props: {
             .then((res) => {
               if (!Array.isArray(res)) {
                 for (const user of res.users) {
-                  client().User.new(user._id, user);
+                  client().users.getOrCreate(user._id, user);
                 }
 
                 setData(
                   res.messages.map((message) =>
-                    client().Message.new(message._id, message)
+                    client().messages.getOrCreate(message._id, message)
                   )
                 );
               }
@@ -42,7 +41,7 @@ export function MessageQuery(props: {
   return (
     <For each={data()}>
       {(message) => (
-        <Switch fallback={<Message message={message} />}>
+        <Switch fallback={"TODO" /*<Message message={message} />*/}>
           <Match when={props.preview}>
             <PreviewMessage message_id={message.id} />
           </Match>
