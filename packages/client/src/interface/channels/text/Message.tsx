@@ -1,7 +1,7 @@
 import { BiRegularLink, BiSolidBot, BiSolidShield } from "solid-icons/bi";
 import { For, Match, Show, Switch, onMount } from "solid-js";
 
-import { Message as MessageInterface } from "revolt.js";
+import { Message as MessageInterface, WebsiteEmbed } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
@@ -36,7 +36,7 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
     props.message.embeds &&
     props.message.embeds.length === 1 &&
     props.message.embeds[0].type === "Website" &&
-    props.message.embeds[0].special?.type === "GIF" &&
+    (props.message.embeds[0] as WebsiteEmbed).specialContent?.type === "GIF" &&
     props.message.content &&
     !props.message.content.replace(RE_URL, "").length;
 
@@ -123,20 +123,12 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
         </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>
-            {(attachment) => (
-              <Attachment file={attachment} baseUrl={baseUrl()} />
-            )}
+            {(attachment) => <Attachment file={attachment} />}
           </For>
         </Show>
         <Show when={props.message.embeds}>
           <For each={props.message.embeds}>
-            {(embed) => (
-              <Embed
-                embed={embed}
-                proxyFile={(file) => client().proxyFile(file)}
-                baseUrl={baseUrl()}
-              />
-            )}
+            {(embed) => <Embed embed={embed} />}
           </For>
         </Show>
         <Reactions
