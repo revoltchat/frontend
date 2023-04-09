@@ -1,8 +1,9 @@
 import { Show, createEffect, createSignal, on } from "solid-js";
 
+import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { HeaderWithTransparency, TypingIndicator, styled } from "@revolt/ui";
+import { HeaderWithTransparency, styled } from "@revolt/ui";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -14,36 +15,31 @@ import { Messages } from "./Messages";
  * Channel component
  */
 export function TextChannel(props: ChannelPageProps) {
+  const client = useClient();
+
   // Last unread message ID
   const [_lastId, setLastId] = createSignal<string | undefined>(undefined);
 
   // Store last unread message ID
-  /*createEffect(
+  createEffect(
     on(
       () => props.channel.id,
-      (_id) =>
+      (id) =>
         setLastId(
           props.channel.unread
-            ? (props.channel.client.unreads!.getUnread(_id)?.last_id as string)
+            ? (client().channelUnreads.get(id)?.lastMessageId as string)
             : undefined
         )
     )
-  );*/
+  );
 
   // Mark channel as read whenever it is marked as unread
-  /*createEffect(
+  createEffect(
     on(
       () => props.channel.unread,
-      (unread) =>
-        unread &&
-        props.channel.client.unreads!.markRead(
-          props.channel._id,
-          props.channel.last_message_id!,
-          true
-        )
+      (unread) => unread && props.channel.ack()
     )
-    REWRITE_TODO
-  );*/
+  );
 
   /*onMount(() => {
     props.channel.server?.fetchMembers();

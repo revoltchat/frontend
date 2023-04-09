@@ -55,7 +55,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     const drafts: TypeDraft["drafts"] = {};
 
     const messageDrafts = input.drafts;
-    if (messageDrafts) {
+    if (typeof messageDrafts === "object") {
       for (const channelId of Object.keys(messageDrafts)) {
         const entry = messageDrafts?.[channelId];
         const draft: DraftData = {};

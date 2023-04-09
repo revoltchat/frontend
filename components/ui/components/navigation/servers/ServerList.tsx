@@ -162,13 +162,7 @@ export const ServerList = (props: Props) => {
                       <>
                         <Show when={conversation.unread}>
                           <UnreadsGraphic
-                            count={
-                              conversation.getMentions({
-                                isMuted() {
-                                  return false;
-                                },
-                              }).length
-                            }
+                            count={conversation.mentions?.size ?? 0}
                             unread
                           />
                         </Show>

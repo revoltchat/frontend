@@ -13,6 +13,7 @@ import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
 import { Layout } from "./stores/Layout";
 import { Locale } from "./stores/Locale";
+import { NotificationOptions } from "./stores/NotificationOptions";
 import { Ordering } from "./stores/Ordering";
 import { Settings } from "./stores/Settings";
 
@@ -37,6 +38,7 @@ export class State {
   experiments = new Experiments(this);
   layout = new Layout(this);
   locale = new Locale(this);
+  notifications = new NotificationOptions(this);
   ordering = new Ordering(this);
   settings = new Settings(this);
 

@@ -3,7 +3,11 @@ import { Accessor, Setter, createSignal } from "solid-js";
 import { ReactiveMap } from "@solid-primitives/map";
 import { API, Client, Session } from "revolt.js";
 
-import { CONFIGURATION, registerController } from "@revolt/common";
+import {
+  CONFIGURATION,
+  getController,
+  registerController,
+} from "@revolt/common";
 
 /**
  * Controls lifecycle of clients
@@ -80,7 +84,20 @@ export default class ClientController {
     if (typeof session === "string") throw "Bot login not supported";
     if (this.#clients.get(session.user_id)) throw "User client already exists";
 
-    const client = new Client(CONFIGURATION.DEFAULT_API_URL);
+    const client = new Client({
+      baseURL: CONFIGURATION.DEFAULT_API_URL,
+      debug: import.meta.env.DEV,
+      syncUnreads: true,
+      /**
+       * Check whether a channel is muted
+       * @param channel Channel
+       * @returns Whether it is muted
+       */
+      channelIsMuted(channel) {
+        return getController("state").notifications.isMuted(channel);
+      },
+    });
+
     client.useExistingSession(session);
 
     this.#clients.set(session.user_id, client);
