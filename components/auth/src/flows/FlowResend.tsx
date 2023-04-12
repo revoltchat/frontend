@@ -19,12 +19,10 @@ export default function FlowResend() {
     const email = data.get("email") as string;
     const captcha = data.get("captcha") as string;
 
-    await clientController
-      .getAnonymousClient()
-      .api.post("/auth/account/reverify", {
-        email,
-        captcha,
-      });
+    await clientController.api.post("/auth/account/reverify", {
+      email,
+      captcha,
+    });
 
     setFlowCheckEmail(email);
     navigate("/login/check", { replace: true });

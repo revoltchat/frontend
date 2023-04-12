@@ -21,13 +21,11 @@ export default function FlowCreate() {
     const password = data.get("password") as string;
     const captcha = data.get("captcha") as string;
 
-    await clientController
-      .getAnonymousClient()
-      .api.post("/auth/account/create", {
-        email,
-        password,
-        captcha,
-      });
+    await clientController.api.post("/auth/account/create", {
+      email,
+      password,
+      captcha,
+    });
 
     // FIXME: should tell client if email was sent
     // or if email even needs to be confirmed
