@@ -117,6 +117,10 @@ const Bar = styled.div`
   flex-direction: row;
 
   color: ${(props) => props.theme!.colours["foreground-200"]};
+  background-color: rgba(
+    ${(props) => props.theme!.rgb["typing-indicator"]},
+    0.75
+  );
 `;
 
 /**

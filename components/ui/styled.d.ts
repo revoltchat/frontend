@@ -24,7 +24,7 @@ declare module "solid-styled-components" {
             | "invisible"}`]: string;
     };
     rgb: {
-      [key in "header"]: string;
+      [key in "header" | "typing-indicator"]: string;
     };
     breakpoints: {
       [key in "sm" | "md" | "lg" | "xl"]: string;

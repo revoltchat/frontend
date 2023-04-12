@@ -25,6 +25,7 @@ export const darkTheme: DefaultTheme = {
   },
   rgb: {
     header: "54,54,54",
+    "typing-indicator": "30,30,30",
   },
   breakpoints: {
     sm: "640px",
