@@ -35,10 +35,12 @@ export default function FlowLogin() {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
 
-    await clientController.login({
+    // TODO: reimplement login
+
+    /*await clientController.login({
       email,
       password,
-    });
+    });*/
 
     navigate("/app", { replace: true });
   }
@@ -63,7 +65,7 @@ export default function FlowLogin() {
         <Link href="resend">{t("login.resend")}</Link>
       </Typography>
 
-      <Show when={clientController.getReadyClients().length > 0}>
+      {/*<Show when={clientController.getReadyClients().length > 0}>
         <Switch fallback={<Navigate href="/" />}>
           <Match when={state.experiments.isEnabled("account_switcher")}>
             <AccountSwitcher>
@@ -85,7 +87,7 @@ export default function FlowLogin() {
             </AccountSwitcher>
           </Match>
         </Switch>
-      </Show>
+                  </Show>*/}
     </>
   );
 }
