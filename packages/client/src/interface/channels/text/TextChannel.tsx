@@ -3,7 +3,7 @@ import { Show, createEffect, createSignal, on } from "solid-js";
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { HeaderWithTransparency, styled } from "@revolt/ui";
+import { HeaderWithTransparency, TypingIndicator, styled } from "@revolt/ui";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -53,7 +53,10 @@ export function TextChannel(props: ChannelPageProps) {
       <Content>
         <MessagingStack>
           <Messages channel={props.channel} limit={150} />
-          {/*<TypingIndicator users={props.channel.typing} /> REWRITE_TODO */}
+          <TypingIndicator
+            users={props.channel.typing}
+            ownId={client().user!.id}
+          />
           <MessageComposition channel={props.channel} />
         </MessagingStack>
         <Show

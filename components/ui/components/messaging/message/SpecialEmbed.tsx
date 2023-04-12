@@ -1,66 +1,39 @@
-import type { API } from "revolt.js";
+import type { WebsiteEmbed } from "revolt.js";
 
 import { SizedContent } from "../../design";
 
-import { E } from "./Embed";
-
 /**
- * Type assertion for special embeds
+ * Special Embed
  */
-export type S<T extends API.Special["type"]> = API.Special & { type: T };
+export function SpecialEmbed(props: { embed: WebsiteEmbed }) {
+  const special = props.embed.specialContent!;
 
-export function SpecialEmbed(props: { embed: E<"Website"> }) {
-  const special = props.embed.special!;
-
-  let width, height, src;
+  let width, height;
   switch (special.type) {
     case "YouTube": {
       width = props.embed.video?.width ?? 1280;
       height = props.embed.video?.height ?? 720;
-
-      let timestamp = "";
-      if (special.timestamp) {
-        timestamp = `&start=${special.timestamp}`;
-      }
-
-      src = `https://www.youtube-nocookie.com/embed/${special.id}?modestbranding=1${timestamp}`;
       break;
     }
     case "Twitch": {
-      (width = 1280),
-        (height = 720),
-        (src = `https://player.twitch.tv/?${special.content_type.toLowerCase()}=${
-          special.id
-        }&parent=${window.location.hostname}&autoplay=false`);
+      (width = 1280), (height = 720);
       break;
     }
     case "Lightspeed": {
-      (width = 1280),
-        (height = 720),
-        (src = `https://new.lightspeed.tv/embed/${special.id}/stream`);
+      (width = 1280), (height = 720);
       break;
     }
     case "Spotify": {
-      (width = 420),
-        (height = 355),
-        (src = `https://open.spotify.com/embed/${special.content_type}/${special.id}`);
+      (width = 420), (height = 355);
       break;
     }
     case "Soundcloud": {
-      (width = 480),
-        (height = 460),
-        (src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(
-          props.embed.url!
-        )}&color=%23FF7F50&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`);
+      (width = 480), (height = 460);
       break;
     }
     case "Bandcamp": {
       width = props.embed.video?.width ?? 1280;
       height = props.embed.video?.height ?? 720;
-
-      src = `https://bandcamp.com/EmbeddedPlayer/${special.content_type.toLowerCase()}=${
-        special.id
-      }/size=large/bgcol=181a1b/linkcol=056cc4/tracklist=false/transparent=true/`;
       break;
     }
     default:
@@ -77,7 +50,7 @@ export function SpecialEmbed(props: { embed: E<"Website"> }) {
         allowTransparency
         frameBorder={0}
         style={{ width: width + "px" }}
-        src={src}
+        src={props.embed.embedURL}
       />
     </SizedContent>
   );

@@ -26,13 +26,12 @@ const CreateGroup: PropGenerator<"create_group"> = (props) => {
     },
     callback: async ({ name }) => {
       const group = await props.client.channels
-        .createGroup({
-          name,
-          users: [],
-        })
-        .catch(mapAnyError);
+        .createGroup(name, [])
+        .catch((err) => {
+          throw mapAnyError(err);
+        });
 
-      navigate(`/channel/${group._id}`);
+      navigate(`/channel/${group.id}`);
     },
     submit: {
       children: t("app.special.modals.actions.create"),
