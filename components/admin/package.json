@@ -12,7 +12,7 @@
     "@revolt/markdown": "workspace:^1.0.0",
     "@revolt/state": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
-    "revolt.js": "workspace:7.0.0-beta.0",
+    "revolt.js": "workspace:7.0.0-beta.1",
     "solid-icons": "^1.0.1",
     "solid-js": "^1.5.1"
   }
