@@ -8,6 +8,7 @@ import { useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
 import {
   Attachment,
+  BreakText,
   Column,
   Embed,
   MessageContainer,
@@ -116,7 +117,9 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
     >
       <Column gap="sm">
         <Show when={props.message.content && !isOnlyGIF()}>
-          <Markdown content={props.message.content!} />
+          <BreakText>
+            <Markdown content={props.message.content!} />
+          </BreakText>
         </Show>
         <Show when={props.message.systemMessage}>
           {props.message.systemMessage!.type}
