@@ -163,7 +163,7 @@ function Entry(props: { channel: Channel; active: boolean }) {
         alert={
           !props.active &&
           props.channel.unread &&
-          (props.channel.mentions.length || true)
+          (props.channel.mentions?.size || true)
         }
         attention={
           props.active ? "selected" : props.channel.unread ? "active" : "normal"

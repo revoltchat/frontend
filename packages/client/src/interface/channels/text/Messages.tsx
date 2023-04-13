@@ -41,6 +41,12 @@ interface Props {
    * Limit to number of messages to display at one time
    */
   limit?: number;
+
+  /**
+   * Bind the initial messages function to the parent component
+   * @param fn Function
+   */
+  loadInitialMessagesRef?: (fn: (nearby?: string) => void) => void;
 }
 
 /**
@@ -55,32 +61,47 @@ export function Messages(props: Props) {
   const [atEnd, setEnd] = createSignal(true);
 
   /**
+   * Load latest messages or at a specific point in history
+   * @param nearby Target message to fetch around
+   */
+  function loadInitialMessages(nearby?: string, initial?: boolean) {
+    if (!nearby && !initial && atEnd()) return;
+
+    setMessages([]);
+    setStart(false);
+    setEnd(true);
+
+    /**
+     * Handle result from request
+     */
+    function handleResult({ messages }: { messages: MessageInterface[] }) {
+      // If it's less than we expected, we are at the start already
+      if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+        setStart(true);
+      }
+
+      setMessages((latest) => {
+        // Try to account for any messages sent while we are loading the channel
+        const knownIds = new Set(latest.map((x) => x.id));
+        return [...latest, ...messages.filter((x) => !knownIds.has(x.id))];
+      });
+    }
+
+    props.channel
+      .fetchMessagesWithUsers({ limit: props.fetchLimit })
+      .then(handleResult);
+  }
+
+  // Setup ref if it exists
+  onMount(() => props.loadInitialMessagesRef?.(loadInitialMessages));
+
+  /**
    * Fetch messages on channel mount
    */
   createEffect(
     on(
       () => props.channel,
-      (channel) => {
-        setMessages([]);
-        setStart(false);
-        setEnd(true);
-
-        /**
-         * Handle result from request
-         */
-        function handleResult({ messages }: { messages: MessageInterface[] }) {
-          // If it's less than we expected, we are at the start already
-          if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-            setStart(true);
-          }
-
-          setMessages(messages);
-        }
-
-        channel
-          .fetchMessagesWithUsers({ limit: props.fetchLimit })
-          .then(handleResult);
-      }
+      () => loadInitialMessages(undefined, true)
     )
   );
 
@@ -283,7 +304,9 @@ export function Messages(props: Props) {
       </ListView>
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute" }}>
-          <Show when={!atEnd()}>in past</Show>
+          <Show when={!atEnd()}>
+            <span onClick={() => loadInitialMessages()}>in past</span>
+          </Show>
         </div>
       </div>
     </>

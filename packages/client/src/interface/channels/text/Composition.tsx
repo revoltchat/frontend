@@ -28,6 +28,11 @@ interface Props {
    * Channel to compose for
    */
   channel: Channel;
+
+  /**
+   * Notify parent component when a message is sent
+   */
+  onMessageSend?: () => void;
 }
 
 /**
@@ -102,6 +107,8 @@ export function MessageComposition(props: Props) {
    * @param useContent Content to send
    */
   async function sendMessage(useContent?: unknown) {
+    props.onMessageSend?.();
+
     if (typeof useContent === "string") {
       return props.channel.sendMessage(useContent);
     }

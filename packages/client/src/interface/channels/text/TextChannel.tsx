@@ -45,6 +45,9 @@ export function TextChannel(props: ChannelPageProps) {
     props.channel.server?.fetchMembers();
   });*/
 
+  // Get a reference to the message box's load latest function
+  let loadLatestRef: ((nearby?: string) => void) | undefined;
+
   return (
     <>
       <HeaderWithTransparency palette="primary">
@@ -52,12 +55,19 @@ export function TextChannel(props: ChannelPageProps) {
       </HeaderWithTransparency>
       <Content>
         <MessagingStack>
-          <Messages channel={props.channel} limit={150} />
+          <Messages
+            channel={props.channel}
+            limit={150}
+            loadInitialMessagesRef={(ref) => (loadLatestRef = ref)}
+          />
           <TypingIndicator
             users={props.channel.typing}
             ownId={client().user!.id}
           />
-          <MessageComposition channel={props.channel} />
+          <MessageComposition
+            channel={props.channel}
+            onMessageSend={() => loadLatestRef?.()}
+          />
         </MessagingStack>
         <Show
           when={state.layout.getSectionState(
