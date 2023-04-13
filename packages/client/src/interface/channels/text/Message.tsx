@@ -6,6 +6,7 @@ import { Message as MessageInterface, WebsiteEmbed } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
+import { state } from "@revolt/state";
 import {
   Attachment,
   BreakText,
@@ -22,10 +23,22 @@ import { MessageReply } from "@revolt/ui/components/messaging/message/MessageRep
 const RE_URL =
   /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
 
+interface Props {
+  /**
+   * Message
+   */
+  message: MessageInterface;
+
+  /**
+   * Whether this is the tail of another message
+   */
+  tail?: boolean;
+}
+
 /**
  * Render a Message with or without a tail
  */
-export function Message(props: { message: MessageInterface; tail?: boolean }) {
+export function Message(props: Props) {
   const t = useTranslation();
   const client = useClient();
   const baseUrl = () => client().configuration!.features.autumn.url;
@@ -114,6 +127,11 @@ export function Message(props: { message: MessageInterface; tail?: boolean }) {
           </Match>
         </Switch>
       }
+      compact={
+        !!props.message.systemMessage ||
+        state.settings.getValue("appearance:compact_mode")
+      }
+      infoMatch={<Match when={props.message.systemMessage}>system</Match>}
     >
       <Column gap="sm">
         <Show when={props.message.content && !isOnlyGIF()}>

@@ -40,6 +40,11 @@ interface SettingsDefinition {
   "appearance:show_send_button": boolean;
 
   /**
+   * Whether to render messages in compact mode
+   */
+  "appearance:compact_mode": boolean;
+
+  /**
    * Indicate new users to Revolt
    * TODO: implement
    */
