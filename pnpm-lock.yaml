@@ -311,10 +311,11 @@ importers:
       '@types/lodash.isequal': ^4.5.5
       lodash.isequal: ^4.5.0
       mobx: ^6.3.2
-      revolt.js: workspace:7.0.0-beta.0
+      revolt.js: workspace:7.0.0-beta.1
       solid-icons: ^1.0.1
       solid-js: ^1.5.1
       typescript: ^4.8.2
+      ulid: ^2.3.0
       vite: ^4.2.1
       vite-plugin-pwa: ^0.14.7
       vite-plugin-solid: ^2.3.0
@@ -337,6 +338,7 @@ importers:
       mobx: 6.6.2
       solid-icons: 1.0.1_solid-js@1.5.5
       solid-js: 1.5.5
+      ulid: 2.3.0
       vite-plugin-pwa: 0.14.7_vite@4.2.1
       workbox-precaching: 6.5.4
     devDependencies:

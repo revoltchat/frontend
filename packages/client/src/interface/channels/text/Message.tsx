@@ -1,10 +1,16 @@
-import { BiRegularLink, BiSolidBot, BiSolidShield } from "solid-icons/bi";
+import {
+  BiRegularLink,
+  BiSolidBot,
+  BiSolidLeaf,
+  BiSolidShield,
+} from "solid-icons/bi";
 import { For, Match, Show, Switch, onMount } from "solid-js";
 
 import { Message as MessageInterface, WebsiteEmbed } from "revolt.js";
+import { decodeTime } from "ulid";
 
 import { useClient } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
+import { dayjs, useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
 import {
@@ -14,12 +20,17 @@ import {
   Embed,
   MessageContainer,
   Reactions,
+  Row,
   Tooltip,
   UserCard,
   Username,
+  styled,
 } from "@revolt/ui";
 import { MessageReply } from "@revolt/ui/components/messaging/message/MessageReply";
 
+/**
+ * Regex for matching URLs
+ */
 const RE_URL =
   /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
 
@@ -41,7 +52,6 @@ interface Props {
 export function Message(props: Props) {
   const t = useTranslation();
   const client = useClient();
-  const baseUrl = () => client().configuration!.features.autumn.url;
 
   /**
    * Determine whether this message only contains a GIF
@@ -53,6 +63,18 @@ export function Message(props: Props) {
     (props.message.embeds[0] as WebsiteEmbed).specialContent?.type === "GIF" &&
     props.message.content &&
     !props.message.content.replace(RE_URL, "").length;
+
+  /**
+   * React with an emoji
+   * @param emoji Emoji
+   */
+  const react = (emoji: string) => props.message.react(emoji);
+
+  /**
+   * Remove emoji reaction
+   * @param emoji Emoji
+   */
+  const unreact = (emoji: string) => props.message.unreact(emoji);
 
   return (
     <MessageContainer
@@ -75,6 +97,9 @@ export function Message(props: Props) {
         <Show when={props.message.replyIds}>
           <For each={props.message.replyIds}>
             {(reply_id) => {
+              /**
+               * Signal the actual message
+               */
               const message = () => client().messages.get(reply_id);
 
               onMount(() => {
@@ -97,6 +122,30 @@ export function Message(props: Props) {
       }
       info={
         <Switch fallback={<div />}>
+          <Match
+            when={
+              props.message.authorId &&
+              dayjs().diff(decodeTime(props.message.authorId), "day") < 1
+            }
+          >
+            <NewUser>
+              <Tooltip content={"New to Revolt"} placement="top" aria>
+                {(triggerProps) => <BiSolidLeaf {...triggerProps} size={16} />}
+              </Tooltip>
+            </NewUser>
+          </Match>
+          <Match
+            when={
+              props.message.member &&
+              dayjs().diff(props.message.member.joinedAt, "day") < 1
+            }
+          >
+            <NewUser>
+              <Tooltip content={"New to the server"} placement="top" aria>
+                {(triggerProps) => <BiSolidLeaf {...triggerProps} size={16} />}
+              </Tooltip>
+            </NewUser>
+          </Match>
           <Match
             when={
               props.message.masquerade &&
@@ -140,7 +189,7 @@ export function Message(props: Props) {
           </BreakText>
         </Show>
         <Show when={props.message.systemMessage}>
-          {props.message.systemMessage!.type}
+          <Row gap="lg">{props.message.systemMessage!.type}</Row>
         </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>
@@ -156,10 +205,19 @@ export function Message(props: Props) {
           reactions={props.message.reactions}
           interactions={props.message.interactions}
           userId={client().user!.id}
-          addReaction={(id) => props.message.react(id)}
-          removeReaction={(id) => props.message.unreact(id)}
+          addReaction={react}
+          removeReaction={unreact}
         />
       </Column>
     </MessageContainer>
   );
 }
+
+/**
+ * New user indicator
+ *
+ * TODO: move this somewhere else?
+ */
+const NewUser = styled.div`
+  color: ${(props) => props.theme!.colours["success-100"]};
+`;
