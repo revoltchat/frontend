@@ -102,6 +102,8 @@ const Info = styled("div", "Info")<Pick<CommonProps, "tail">>`
 const Content = styled(Column)`
   gap: 3px;
   min-width: 0;
+  overflow: hidden;
+  max-height: 200vh;
   padding-inline-end: ${(props) => props.theme!.gap.lg};
 `;
 

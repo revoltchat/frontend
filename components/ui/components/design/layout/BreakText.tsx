@@ -9,6 +9,6 @@ export const BreakText = styled("div")`
   word-break: break-all;
 
   .math {
-    overflow-y: auto;
+    overflow-x: auto;
   }
 `;
