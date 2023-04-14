@@ -1,5 +1,5 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Switch } from "solid-js";
+import { JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
@@ -129,7 +129,7 @@ export function MessageBox(props: Props) {
           <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
         </Match>
       </Switch>
-      {props.actionsEnd}
+      <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
     </Base>
   );
 }
