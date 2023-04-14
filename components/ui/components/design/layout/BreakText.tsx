@@ -10,5 +10,7 @@ export const BreakText = styled("div")`
 
   .math {
     overflow-x: auto;
+    overflow-y: hidden;
+    max-height: 100vh;
   }
 `;
