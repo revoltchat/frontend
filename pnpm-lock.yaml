@@ -38,7 +38,7 @@ importers:
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/state': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      revolt.js: workspace:7.0.0-beta.0
+      revolt.js: workspace:7.0.0-beta.1
       solid-icons: ^1.0.1
       solid-js: ^1.5.1
     dependencies:
@@ -59,7 +59,7 @@ importers:
       '@revolt/routing': workspace:^1.0.0
       '@revolt/state': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      revolt.js: workspace:7.0.0-beta.0
+      revolt.js: workspace:7.0.0-beta.1
       solid-hcaptcha: ^0.2.5
       solid-icons: ^1.0.1
       solid-js: ^1.5.1
@@ -88,7 +88,7 @@ importers:
       '@solid-primitives/map': ^0.4.3
       detect-browser: ^5.3.0
       mobx: ^6.3.2
-      revolt.js: workspace:7.0.0-beta.0
+      revolt.js: workspace:7.0.0-beta.1
       solid-js: ^1.5.1
       vite: ^4.2.1
     dependencies:
@@ -146,7 +146,7 @@ importers:
       remark-math: ^5.1.1
       remark-parse: ^10.0.1
       remark-rehype: ^10.1.0
-      revolt.js: workspace:7.0.0-beta.0
+      revolt.js: workspace:7.0.0-beta.1
       solid-js: ^1.5.1
       solid-styled-components: workspace:^0.28.4
       space-separated-tokens: ^2.0.2
@@ -192,7 +192,7 @@ importers:
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      revolt.js: workspace:7.0.0-beta.0
+      revolt.js: workspace:7.0.0-beta.1
       solid-icons: ^1.0.1
       solid-js: ^1.5.1
       solid-qr-code: ^0.0.8
@@ -227,7 +227,7 @@ importers:
       json-stringify-deterministic: ^1.0.7
       localforage: ^1.10.0
       mobx: ^6.3.2
-      revolt.js: workspace:7.0.0-beta.0
+      revolt.js: workspace:7.0.0-beta.1
       solid-js: ^1.5.1
       vite: ^4.2.1
     dependencies:
@@ -256,7 +256,7 @@ importers:
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@thisbeyond/solid-dnd': ^0.7.1
-      revolt.js: workspace:^7.0.0-beta.0
+      revolt.js: workspace:^7.0.0-beta.1
       solid-dnd-directive: ^0.2.0
       solid-floating-ui: ^0.2.0
       solid-icons: ^1.0.1
@@ -350,6 +350,7 @@ importers:
 
   packages/revolt.js:
     specifiers:
+      '@mxssfd/typedoc-theme': ^1.1.1
       '@solid-primitives/map': ^0.4.3
       '@solid-primitives/set': ^0.4.3
       '@trivago/prettier-plugin-sort-imports': ^4.1.1
@@ -370,10 +371,12 @@ importers:
       solid-js: ^1.7.2
       tsc-watch: ^6.0.0
       typed-emitter: ^2.1.0
+      typedoc: ^0.24.1
       typescript: ^5.0.3
       ulid: ^2.3.0
       ws: ^8.13.0
     dependencies:
+      '@mxssfd/typedoc-theme': 1.1.1_typedoc@0.24.1
       '@solid-primitives/map': 0.4.3_solid-js@1.7.3
       '@solid-primitives/set': 0.4.3_solid-js@1.7.3
       eventemitter3: 5.0.0
@@ -381,6 +384,7 @@ importers:
       long: 5.2.1
       revolt-api: 0.5.17
       solid-js: 1.7.3
+      typedoc: 0.24.1_typescript@5.0.4
       ulid: 2.3.0
       ws: 8.13.0
     devDependencies:
@@ -3665,6 +3669,15 @@ packages:
       tslib: 2.4.1
     dev: false
 
+  /@mxssfd/typedoc-theme/1.1.1_typedoc@0.24.1:
+    resolution: {integrity: sha512-XhXy2MDoMJFeHgbE0cTxpB3K8AizQMJcm6gvf9lqNwfN6+ZfDnmIZub6lCuDgpL0O0fvckKTq7fGSP6XIU/17Q==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      typedoc: ^0.24.1
+    dependencies:
+      typedoc: 0.24.1_typescript@5.0.4
+    dev: false
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -4579,6 +4592,10 @@ packages:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
     dev: true
+
+  /ansi-sequence-parser/1.1.0:
+    resolution: {integrity: sha512-lEm8mt52to2fT8GhciPCGeCXACSz2UwIN4X2e2LJSnZ5uAbn2/dsYdOmUXq0AtWS5cpAupysIneExOgH0Vd2TQ==}
+    dev: false
 
   /ansi-styles/3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
@@ -7869,6 +7886,10 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  /jsonc-parser/3.2.0:
+    resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
+    dev: false
+
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
     dependencies:
@@ -8043,6 +8064,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /lunr/2.3.9:
+    resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
+    dev: false
+
   /lz-string/1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -8080,6 +8105,12 @@ packages:
 
   /markdown-table/3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
+    dev: false
+
+  /marked/4.3.0:
+    resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
+    engines: {node: '>= 12'}
+    hasBin: true
     dev: false
 
   /mdast-util-definitions/5.1.1:
@@ -8545,6 +8576,13 @@ packages:
 
   /minimatch/5.1.6:
     resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
+    engines: {node: '>=10'}
+    dependencies:
+      brace-expansion: 2.0.1
+    dev: false
+
+  /minimatch/7.4.6:
+    resolution: {integrity: sha512-sBz8G/YjVniEz6lKPNpKxXwazJe4c19fEfV2GDMX6AjFz+MX9uDWIZW8XreVhkFW3fkIdTv/gxWr/Kks5FFAVw==}
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
@@ -9274,6 +9312,15 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /shiki/0.14.1:
+    resolution: {integrity: sha512-+Jz4nBkCBe0mEDqo1eKRcCdjRtrCjozmcbTUjbPTX7OOJfEbTZzlUWlZtGe3Gb5oV1/jnojhG//YZc3rs9zSEw==}
+    dependencies:
+      ansi-sequence-parser: 1.1.0
+      jsonc-parser: 3.2.0
+      vscode-oniguruma: 1.7.0
+      vscode-textmate: 8.0.0
+    dev: false
+
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
@@ -9883,6 +9930,20 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
+  /typedoc/0.24.1_typescript@5.0.4:
+    resolution: {integrity: sha512-u4HwjZcSQhQSkkhLjgcs0ooAf6HrFVLDHHrwU2xZW8WxH0KnGZlNkaWxiOcK5Gagj7mxJSgwWx0dv8ACDAOXAQ==}
+    engines: {node: '>= 14.14'}
+    hasBin: true
+    peerDependencies:
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x
+    dependencies:
+      lunr: 2.3.9
+      marked: 4.3.0
+      minimatch: 7.4.6
+      shiki: 0.14.1
+      typescript: 5.0.4
+    dev: false
+
   /typescript/4.8.3:
     resolution: {integrity: sha512-goMHfm00nWPa8UvR/CPSvykqf6dVV8x/dp0c5mFTMTIu0u0FlGWRioyy7Nn0PGAdHxpJZnuO/ut+PpQ8UiHAig==}
     engines: {node: '>=4.2.0'}
@@ -9892,7 +9953,6 @@ packages:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
     hasBin: true
-    dev: true
 
   /ulid/2.3.0:
     resolution: {integrity: sha512-keqHubrlpvT6G2wH0OEfSW4mquYRcbe/J8NMmveoQOjUqmo+hXtO+ORCpWhdbZ7k72UtY61BL7haGxW6enBnjw==}
@@ -10364,6 +10424,14 @@ packages:
       - supports-color
       - terser
     dev: true
+
+  /vscode-oniguruma/1.7.0:
+    resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}
+    dev: false
+
+  /vscode-textmate/8.0.0:
+    resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
+    dev: false
 
   /w3c-hr-time/1.0.2:
     resolution: {integrity: sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==}
