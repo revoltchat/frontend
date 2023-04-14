@@ -92,6 +92,7 @@ export function TypingIndicator(props: Props) {
  */
 const Avatars = styled.div`
   display: flex;
+  flex-shrink: 0;
   height: fit-content;
 
   :not(:first-child) {

@@ -237,6 +237,8 @@ function Entry(
  * Overlapping avatars
  */
 const Avatars = styled("div", "Avatars")`
+  flex-shrink: 0;
+
   svg:not(:first-child) {
     position: relative;
     margin-left: -32px;
