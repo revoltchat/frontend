@@ -54,9 +54,9 @@ export function ChannelHeader(props: Props) {
       <Switch>
         <Match
           when={
-            props.channel.channel_type === "TextChannel" ||
-            props.channel.channel_type === "VoiceChannel" ||
-            props.channel.channel_type === "Group"
+            props.channel.type === "TextChannel" ||
+            props.channel.type === "VoiceChannel" ||
+            props.channel.type === "Group"
           }
         >
           <HeaderIcon>
@@ -79,7 +79,7 @@ export function ChannelHeader(props: Props) {
             </a>
           </Show>
         </Match>
-        <Match when={props.channel.channel_type === "DirectMessage"}>
+        <Match when={props.channel.type === "DirectMessage"}>
           <HeaderIcon>
             <BiRegularAt size={24} />
           </HeaderIcon>
@@ -89,7 +89,7 @@ export function ChannelHeader(props: Props) {
             size="8px"
           />
         </Match>
-        <Match when={props.channel.channel_type === "SavedMessages"}>
+        <Match when={props.channel.type === "SavedMessages"}>
           <HeaderIcon>
             <BiSolidNotepad size={24} />
           </HeaderIcon>
