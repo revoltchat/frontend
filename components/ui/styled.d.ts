@@ -54,6 +54,7 @@ declare module "solid-styled-components" {
         | "composition-typing-indicator"
         | "conversation-channel-name"
         | "conversation-start"
+        | "system-message"
         | "sidebar-title"
         | "channel-topic"
         | "legacy-settings-title"

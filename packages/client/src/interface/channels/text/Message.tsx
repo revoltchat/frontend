@@ -21,6 +21,8 @@ import {
   MessageContainer,
   Reactions,
   Row,
+  SystemMessage,
+  SystemMessageIcon,
   Tooltip,
   UserCard,
   Username,
@@ -180,16 +182,27 @@ export function Message(props: Props) {
         !!props.message.systemMessage ||
         state.settings.getValue("appearance:compact_mode")
       }
-      infoMatch={<Match when={props.message.systemMessage}>system</Match>}
+      infoMatch={
+        <Match when={props.message.systemMessage}>
+          <SystemMessageIcon
+            systemMessage={props.message.systemMessage!}
+            createdAt={props.message.createdAt}
+            isServer={!!props.message.server}
+          />
+        </Match>
+      }
     >
       <Column gap="sm">
+        <Show when={props.message.systemMessage}>
+          <SystemMessage
+            systemMessage={props.message.systemMessage!}
+            isServer={!!props.message.server}
+          />
+        </Show>
         <Show when={props.message.content && !isOnlyGIF()}>
           <BreakText>
             <Markdown content={props.message.content!} />
           </BreakText>
-        </Show>
-        <Show when={props.message.systemMessage}>
-          <Row gap="lg">{props.message.systemMessage!.type}</Row>
         </Show>
         <Show when={props.message.attachments}>
           <For each={props.message.attachments}>

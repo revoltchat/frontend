@@ -116,6 +116,9 @@ export const darkTheme: DefaultTheme = {
       margin: 0,
       fontSize: "14px",
     },
+    "system-message": {
+      fontWeight: 700,
+    },
     // Legacy
     "legacy-settings-title": {
       element: "h1",
