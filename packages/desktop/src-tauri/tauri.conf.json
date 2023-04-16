@@ -74,7 +74,14 @@
         "height": 720,
         "resizable": true,
         "title": "Revolt",
-        "width": 1280
+        "width": 1280,
+        "visible": true,
+        "center": true,
+        "focus": true,
+        "decorations": false,
+        "titleBarStyle": "Overlay",
+        "minWidth": 940,
+        "minHeight": 500
       }
     ],
     "systemTray": {
