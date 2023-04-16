@@ -11,5 +11,9 @@
   // Force to follow the `GUIDELINES.md`
   "editor.detectIndentation": false,
   "editor.insertSpaces": true,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  // Tell `rust-analyzer` where the Tauri project is.
+  "rust-analyzer.linkedProjects": [
+    "./packages/desktop/src-tauri/Cargo.toml"
+  ]
 }
