@@ -7,5 +7,9 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll": true
-  }
+  },
+  // Force to follow the `GUIDELINES.md`
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2
 }
