@@ -7,36 +7,47 @@ See [code style guidelines here](./GUIDELINES.md)!
 ## Setup locally
 
 ```bash
-# clone the repository
-git clone --recursive https://github.com/revoltchat/revoltchat-solid-client-monorepo client
+# Clone the repository and `cd` into it.
+git clone --recursive https://github.com/revoltchat/frontend client
 cd client
 
-# update submodules if you pull new changes
+# Update submodules if you pull new changes.
 # git submodule init && git submodule update
 
-# install all packages
+# Install all packages.
 pnpm i
 
-# build deps
+# Build dependencies.
 pnpm build:deps
-
-# or build a specific dep: (i.e. revolt.js updates)
+# Or build a specific dependency: (i.e. revolt.js updates)
 # pnpm --filter revolt.js run build
 
-# run dev server
-pnpm dev
+# Run dev server for web client on http://local.revolt.chat:5173.
+pnpm dev:web
+
+# Run dev for desktop client.
+pnpm dev:desktop
 ```
 
-Finally, navigate to http://local.revolt.chat:5173.
+## Build
 
-## Build client
+Check you've installed packages using `pnpm i`.
+
+### Only web client
 
 ```bash
-# install packages
-pnpm i
+pnpm build:web # Will also run `build:deps`
 
-# build everything
-pnpm build:all
+# Or, for production, where assets are relative to `/app`.
+pnpm build:web:prod
+```
+
+Build can be found under `/packages/client/dist`.
+
+### Only desktop client
+
+```bash
+pnpm build:desktop
 ```
 
 ## Pulling in Revolt's assets
