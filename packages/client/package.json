@@ -31,6 +31,7 @@
     "@revolt/ui": "workspace:^1.0.0",
     "@sentry/browser": "^7.38.0",
     "@sentry/tracing": "^7.38.0",
+    "@tauri-apps/api": "^1.2.0",
     "lodash.isequal": "^4.5.0",
     "mobx": "^6.3.2",
     "solid-icons": "^1.0.1",
