@@ -1,4 +1,4 @@
-import { enableExternalSource } from "solid-js";
+import { enableExternalSource, Show } from "solid-js";
 
 /**
  * Configure contexts and render App
@@ -14,7 +14,8 @@ import i18n, { I18nContext } from "@revolt/i18n";
 import { ModalRenderer } from "@revolt/modal";
 import { Router } from "@revolt/routing";
 import { Hydrate } from "@revolt/state";
-import { ApplyGlobalStyles, Masks, ThemeProvider, darkTheme } from "@revolt/ui";
+import { ApplyGlobalStyles, Masks, ThemeProvider, darkTheme, Titlebar, Column } from "@revolt/ui";
+import { appWindow } from "@tauri-apps/api/window";
 
 /* @refresh reload */
 import "@revolt/ui/styles";
@@ -42,7 +43,21 @@ render(
       <Router>
         <I18nContext.Provider value={i18n}>
           <ThemeProvider theme={darkTheme}>
-            <App />
+            <Column gap="none" style={{
+              "min-height": "100vh",
+              height: "100%"
+            }}>
+              <Show when={window.__TAURI__}>
+                <Titlebar
+                  isBuildDev={import.meta.env.DEV}
+                  onMinimize={() => appWindow.minimize()}
+                  onMaximize={() => appWindow.toggleMaximize()}
+                  onClose={() => appWindow.hide()}
+                />
+              </Show>
+              <App />
+            </Column>
+
             <ModalRenderer />
             <ApplyGlobalStyles />
           </ThemeProvider>

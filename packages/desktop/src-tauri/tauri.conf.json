@@ -1,0 +1,86 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "build": {
+    "beforeDevCommand": "pnpm --filter client dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../client/dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "Revolt",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "category": "SocialNetworking",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
+      "icon": [
+        "icons/16x16.png",
+        "icons/512x512.png",
+        "icons/icon.icns",
+        "icons/icon.png",
+        "icons/icon.ico"
+      ],
+      "identifier": "chat.revolt.app",
+      "longDescription": "User-first, privacy focused chat platform.",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [],
+      "shortDescription": "User-first, privacy focused chat platform.",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 720,
+        "resizable": true,
+        "title": "Revolt",
+        "width": 1280
+      }
+    ],
+    "systemTray": {
+      "iconPath": "icons/trayIcon.png",
+      "iconAsTemplate": true,
+      "title": "Revolt"
+    }
+  }
+}
