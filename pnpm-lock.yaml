@@ -437,6 +437,9 @@ importers:
       '@sentry/tracing':
         specifier: ^7.38.0
         version: 7.38.0
+      '@tauri-apps/api':
+        specifier: ^1.2.0
+        version: 1.2.0
       lodash.isequal:
         specifier: ^4.5.0
         version: 4.5.0
@@ -3179,6 +3182,11 @@ packages:
       json5: 2.2.3
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.8
+    dev: false
+
+  /@tauri-apps/api@1.2.0:
+    resolution: {integrity: sha512-lsI54KI6HGf7VImuf/T9pnoejfgkNoXveP14pVV7XarrQ46rOejIVJLFqHI9sRReJMGdh2YuCoI3cc/yCWCsrw==}
+    engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
     dev: false
 
   /@tauri-apps/cli-darwin-arm64@1.2.3:
