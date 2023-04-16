@@ -42,6 +42,8 @@ const EntryContainer = styled("div", "Entry")`
   flex-shrink: 0;
   place-items: center;
 
+  position: relative;
+
   a {
     z-index: 1;
   }
