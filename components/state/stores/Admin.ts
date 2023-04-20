@@ -51,25 +51,39 @@ interface Cache {
   snapshots: Record<string, API.SnapshotWithContext | false>;
 }
 
+/**
+ * Manage currently open tabs in admin panel
+ */
 export class Admin extends AbstractStore<"admin", TypeAdmin> {
   private cache: Cache;
   private setCache: SetStoreFunction<Cache>;
   private fetchingUsers: Set<string>;
 
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "admin");
 
     const [cache, setCache] = createStore({ reports: {}, snapshots: {} });
+    // eslint-disable-next-line solid/reactivity
     this.cache = cache;
     this.setCache = setCache;
 
     this.fetchingUsers = new Set();
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeAdmin {
     return {
       tabs: [],
@@ -77,6 +91,9 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeAdmin>): TypeAdmin {
     // TODO: write clean function
     return input as TypeAdmin;
@@ -191,10 +208,10 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
 
   /**
    * Remove tab at index
-   * @param idx Absolute index
+   * @param absoluteIndex Absolute index
    */
-  removeTab(idx: number) {
-    const index = idx - DEFAULT_TAB_OFFSET_IDX;
+  removeTab(absoluteIndex: number) {
+    const index = absoluteIndex - DEFAULT_TAB_OFFSET_IDX;
     this.set("tabs", (tabs) => tabs.filter((_, idx) => index !== idx));
   }
 

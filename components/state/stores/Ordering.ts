@@ -15,21 +15,34 @@ export interface TypeOrdering {
  * Handles ordering of items in the app interface.
  */
 export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "ordering");
     this.setServerOrder = this.setServerOrder.bind(this);
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeOrdering {
     return {
       servers: [],
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeOrdering>): TypeOrdering {
     const ordering: TypeOrdering = this.default();
 

@@ -38,14 +38,24 @@ export interface TypeLayout {
  * Handles layout and navigation of the app.
  */
 export class Layout extends AbstractStore<"layout", TypeLayout> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "layout");
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeLayout {
     return {
       activeInterface: "home",
@@ -57,6 +67,9 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeLayout>): TypeLayout {
     const layout: TypeLayout = this.default();
 

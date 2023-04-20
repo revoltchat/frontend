@@ -84,18 +84,31 @@ const DEFAULT_VALUES: TypeSettings = {};
  * Settings store
  */
 export class Settings extends AbstractStore<"settings", TypeSettings> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "settings");
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeSettings {
     return {};
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeSettings>): TypeSettings {
     const settings: TypeSettings = this.default();
 
