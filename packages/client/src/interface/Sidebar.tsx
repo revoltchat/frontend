@@ -1,6 +1,6 @@
 import { Component, Show, createMemo } from "solid-js";
 
-import { useClient } from "@revolt/client";
+import { useClient, useUser } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import { Route, Routes, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
@@ -10,7 +10,7 @@ import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
  * Left-most channel navigation sidebar
  */
 export const Sidebar: Component = () => {
-  const client = useClient();
+  const user = useUser();
   const params = useSmartParams();
 
   return (
@@ -22,7 +22,7 @@ export const Sidebar: Component = () => {
           // TODO: muting channels
           (channel) => channel.unread
         )}
-        user={client.user!}
+        user={user()!}
         selectedServer={() => params().serverId}
       />
       <Routes>
@@ -48,9 +48,9 @@ const Home: Component = () => {
       channelId={params().channelId}
       openSavedNotes={(navigate) => {
         // Check whether the saved messages channel exists already
-        const channelId = [...client.channels.values()].find(
-          (channel) => channel.channel_type === "SavedMessages"
-        )?._id;
+        const channelId = [...client()!.channels.values()].find(
+          (channel) => channel.type === "SavedMessages"
+        )?.id;
 
         if (navigate) {
           if (channelId) {
@@ -58,9 +58,9 @@ const Home: Component = () => {
             navigate(`/channel/${channelId}`);
           } else {
             // If not, try to create one but only if navigating
-            client
+            client()!
               .user!.openDM()
-              .then((channel) => navigate(`/channel/${channel._id}`));
+              .then((channel) => navigate(`/channel/${channel.id}`));
           }
         }
 
@@ -83,7 +83,7 @@ const Server: Component = () => {
    * Resolve the server
    * @returns Server
    */
-  const server = () => client.servers.get(params().serverId!)!;
+  const server = () => client()!.servers.get(params().serverId!)!;
 
   /**
    * Open the server information modal

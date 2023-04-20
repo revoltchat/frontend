@@ -5,6 +5,11 @@ export interface Props {
    * Colour scheme
    */
   readonly palette?: "primary" | "secondary";
+
+  /**
+   * Whether a submission has been tried and errors should display on the input
+   */
+  readonly submissionTried?: boolean;
 }
 
 /**
@@ -50,9 +55,10 @@ export const Input = styled("input")<Props>`
       ]};
   }
 
-  &:invalid {
-    border-color: ${(props) => props.theme!.colours["status-busy"]};
-  }
+  ${(props) =>
+    props.submissionTried
+      ? `&:invalid { border-color: ${props.theme!.colours["status-busy"]}; }`
+      : ""}
 
   &:focus {
     outline-offset: 4px;

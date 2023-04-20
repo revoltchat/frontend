@@ -14,17 +14,19 @@ export default function FlowConfirmResend() {
   const { token } = useParams();
   const navigate = useNavigate();
 
+  /**
+   * Confirm new password
+   * @param data Form Data
+   */
   async function reset(data: FormData) {
     const password = data.get("new-password") as string;
     const remove_sessions = !!(data.get("log-out") as "on" | undefined);
 
-    await clientController
-      .getAnonymousClient()
-      .api.patch("/auth/account/reset_password", {
-        password,
-        token,
-        remove_sessions,
-      });
+    await clientController.api.patch("/auth/account/reset_password", {
+      password,
+      token,
+      remove_sessions,
+    });
 
     navigate("../..", { replace: true });
   }

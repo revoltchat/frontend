@@ -1,3 +1,5 @@
+/* eslint-disable */
+// TODO: finish implementation; then remove eslint-disable
 import {
   Accessor,
   ComponentProps,

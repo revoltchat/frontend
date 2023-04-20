@@ -19,7 +19,8 @@
     "start": "cd packages/client && pnpm run start",
     "showcase": "cd packages/showcase && pnpm run dev",
     "fmt": "prettier --write '**/*.{ts,tsx,json}'",
-    "fmt:check": "prettier --check '**/*.{ts,tsx,json}'"
+    "fmt:check": "prettier --check '**/*.{ts,tsx,json}'",
+    "typecheck": "cd packages/client && pnpm run typecheck"
   },
   "keywords": [],
   "engines": {

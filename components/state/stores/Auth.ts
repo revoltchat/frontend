@@ -1,16 +1,13 @@
+import type { Session } from "revolt.js";
+
 import { CONFIGURATION, getController } from "@revolt/common";
 
 import { State } from "..";
 
 import { AbstractStore } from ".";
 
-interface Session {
-  token: string;
-  user_id: string;
-}
-
 interface Account {
-  session: Session;
+  session: Session & object;
   apiUrl?: string;
 }
 
@@ -21,17 +18,28 @@ export type TypeAuth = {
   sessions: Record<string, Account>;
 };
 
+/**
+ * Authentication details store
+ */
 export class Auth extends AbstractStore<"auth", TypeAuth> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "auth");
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
-    if (import.meta.env.VITE_TOKEN && import.meta.env.VITE_USER_ID) {
+    if (CONFIGURATION.DEVELOPMENT_TOKEN && CONFIGURATION.DEVELOPMENT_USER_ID) {
       this.setSession(
         {
-          token: import.meta.env.VITE_TOKEN!,
-          user_id: import.meta.env.VITE_USER_ID!,
+          _id: CONFIGURATION.DEVELOPMENT_SESSION_ID ?? "0",
+          token: CONFIGURATION.DEVELOPMENT_TOKEN,
+          user_id: CONFIGURATION.DEVELOPMENT_USER_ID,
         },
         CONFIGURATION.DEFAULT_API_URL!
       );
@@ -40,18 +48,25 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
     const clientController = getController("client");
 
     for (const entry of this.getAccounts()) {
-      clientController.addSession(entry, "existing");
+      // clientController.addSession(entry, "existing");
+      clientController.createClient(entry.session);
     }
 
-    clientController.pickNextSession();
+    /*clientController.pickNextSession();*/
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeAuth {
     return {
       sessions: {},
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeAuth>): TypeAuth {
     const sessions: TypeAuth["sessions"] = {};
     const originalSessions = (input.sessions ?? {}) as TypeAuth["sessions"];
@@ -60,12 +75,14 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
       const entry = originalSessions[userId];
 
       if (
+        typeof entry.session._id === "string" &&
         typeof entry.session.token === "string" &&
         ["string", "undefined"].includes(typeof entry.apiUrl)
       ) {
         sessions[userId] = {
           session: {
             user_id: userId,
+            _id: entry.session._id,
             token: entry.session.token,
           },
           apiUrl: entry.apiUrl,
@@ -92,7 +109,7 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
    * @param session Session
    * @param apiUrl Custom API URL
    */
-  setSession(session: Session, apiUrl?: string) {
+  setSession(session: Session & object, apiUrl?: string) {
     this.set("sessions", session.user_id, { session, apiUrl });
   }
 

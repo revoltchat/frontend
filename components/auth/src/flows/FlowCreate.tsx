@@ -16,18 +16,20 @@ export default function FlowCreate() {
   const t = useTranslation();
   const navigate = useNavigate();
 
-  async function login(data: FormData) {
+  /**
+   * Create an account
+   * @param data Form Data
+   */
+  async function create(data: FormData) {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
     const captcha = data.get("captcha") as string;
 
-    await clientController
-      .getAnonymousClient()
-      .api.post("/auth/account/create", {
-        email,
-        password,
-        captcha,
-      });
+    await clientController.api.post("/auth/account/create", {
+      email,
+      password,
+      captcha,
+    });
 
     // FIXME: should tell client if email was sent
     // or if email even needs to be confirmed
@@ -43,7 +45,7 @@ export default function FlowCreate() {
       <FlowTitle subtitle={t("login.subtitle2")} emoji="wave">
         {t("login.welcome2")}
       </FlowTitle>
-      <Form onSubmit={login} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
+      <Form onSubmit={create} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email", "password"]} />
         <Button type="submit">{t("login.register")}</Button>
       </Form>

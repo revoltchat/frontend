@@ -53,7 +53,9 @@ export default {
       },
       decorators: [
         (props) => (
-          <div style={{ width: "360px", display: "flex" }}>{props.children}</div>
+          <div style={{ width: "360px", display: "flex" }}>
+            {props.children}
+          </div>
         ),
       ],
     },

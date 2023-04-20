@@ -34,9 +34,9 @@ export default function FlowVerify() {
 
   onMount(async () => {
     try {
-      const data: any = await clientController
-        .getAnonymousClient()
-        .api.post(`/auth/account/verify/${params.token}`);
+      const data = (await clientController.api.post(
+        `/auth/account/verify/${params.token}`
+      )) as { ticket?: { token: string } };
 
       setState({ state: "success", mfa_ticket: data.ticket?.token });
     } catch (err) {
@@ -44,6 +44,9 @@ export default function FlowVerify() {
     }
   });
 
+  /**
+   * Use MFA ticket to log into Revolt
+   */
   async function login() {
     const v = state();
     if (v.state === "success" && v.mfa_ticket) {

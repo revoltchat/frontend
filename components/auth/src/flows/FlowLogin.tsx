@@ -1,16 +1,6 @@
-import { For, Match, Show, Switch } from "solid-js";
-
 import { useTranslation } from "@revolt/i18n";
-import { Link, Navigate, useNavigate } from "@revolt/routing";
-import { state } from "@revolt/state";
-import {
-  Avatar,
-  Button,
-  CategoryButton,
-  Column,
-  Typography,
-  styled,
-} from "@revolt/ui";
+import { Link, useNavigate } from "@revolt/routing";
+import { Button, Column, Typography, styled } from "@revolt/ui";
 
 import { clientController } from "../../../client";
 
@@ -20,6 +10,7 @@ import { Fields, Form } from "./Form";
 /**
  * Account switcher UI
  */
+// eslint-disable-next-line
 const AccountSwitcher = styled(Column)`
   margin-top: 8px;
 `;
@@ -31,6 +22,10 @@ export default function FlowLogin() {
   const t = useTranslation();
   const navigate = useNavigate();
 
+  /**
+   * Log into account
+   * @param data Form Data
+   */
   async function login(data: FormData) {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
@@ -63,7 +58,7 @@ export default function FlowLogin() {
         <Link href="resend">{t("login.resend")}</Link>
       </Typography>
 
-      <Show when={clientController.getReadyClients().length > 0}>
+      {/*<Show when={clientController.getReadyClients().length > 0}>
         <Switch fallback={<Navigate href="/" />}>
           <Match when={state.experiments.isEnabled("account_switcher")}>
             <AccountSwitcher>
@@ -85,7 +80,7 @@ export default function FlowLogin() {
             </AccountSwitcher>
           </Match>
         </Switch>
-      </Show>
+                  </Show>*/}
     </>
   );
 }

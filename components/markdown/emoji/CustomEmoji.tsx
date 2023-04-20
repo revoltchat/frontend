@@ -16,7 +16,7 @@ export function CustomEmoji(
   const [local, remote] = splitProps(props, ["id"]);
   const client = useClient();
   const url = () =>
-    `${client.configuration?.features.autumn.url}/emojis/${local.id}`;
+    `${client()?.configuration?.features.autumn.url}/emojis/${local.id}`;
 
   return (
     <EmojiBase

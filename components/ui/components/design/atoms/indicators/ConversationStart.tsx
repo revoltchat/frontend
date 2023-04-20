@@ -22,7 +22,7 @@ export function ConversationStart(props: Props) {
 
   return (
     <Base>
-      <Show when={props.channel.channel_type !== "SavedMessages"}>
+      <Show when={props.channel.type !== "SavedMessages"}>
         <Typography variant="conversation-channel-name">
           {props.channel.name ?? props.channel.recipient?.username}
         </Typography>
@@ -30,7 +30,7 @@ export function ConversationStart(props: Props) {
       <Typography variant="conversation-start">
         {t(
           `app.main.channel.start.${
-            props.channel.channel_type === "SavedMessages" ? "saved" : "group"
+            props.channel.type === "SavedMessages" ? "saved" : "group"
           }`
         )}
       </Typography>

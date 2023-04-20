@@ -26,6 +26,7 @@ interface Props {
    * @param triggerProps Props that need to be applied to the trigger area
    */
   children: (triggerProps: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ref: Ref<any>;
     onClick: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;
     onMouseEnter: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;

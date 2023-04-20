@@ -2,8 +2,7 @@ import { BiSolidCheckShield } from "solid-icons/bi";
 import { Accessor, Component, For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { Channel, User } from "revolt.js";
-import { Server } from "revolt.js/dist/maps/Servers";
+import { Channel, Server, User } from "revolt.js";
 
 import { Link } from "@revolt/routing";
 
@@ -122,10 +121,7 @@ export const ServerList = (props: Props) => {
             <Link href="/">
               <Avatar
                 size={42}
-                src={
-                  props.user.generateAvatarURL({ max_side: 256 }) ??
-                  props.user.defaultAvatarURL
-                }
+                src={props.user.avatarURL}
                 holepunch={"bottom-right"}
                 overlay={
                   <UserStatusGraphic
@@ -149,33 +145,20 @@ export const ServerList = (props: Props) => {
       </Show>
       <For each={props.unreadConversations.slice(0, 9)}>
         {(conversation) => (
-          // TODO: displayname on channels
-          <Tooltip
-            placement="right"
-            content={conversation.name ?? conversation.recipient?.username}
-          >
+          <Tooltip placement="right" content={conversation.displayName}>
             {(triggerProps) => (
               <EntryContainer {...triggerProps}>
-                <Link href={`/channel/${conversation._id}`}>
+                <Link href={`/channel/${conversation.id}`}>
                   <Avatar
                     size={42}
                     // TODO: fix this
-                    src={
-                      conversation.generateIconURL({ max_side: 256 }) ??
-                      conversation.recipient?.defaultAvatarURL
-                    }
+                    src={conversation.iconURL}
                     holepunch={conversation.unread ? "top-right" : "none"}
                     overlay={
                       <>
                         <Show when={conversation.unread}>
                           <UnreadsGraphic
-                            count={
-                              conversation.getMentions({
-                                isMuted() {
-                                  return false;
-                                },
-                              }).length
-                            }
+                            count={conversation.mentions?.size ?? 0}
                             unread
                           />
                         </Show>
@@ -208,24 +191,20 @@ export const ServerList = (props: Props) => {
           <Tooltip placement="right" content={item.name}>
             {(triggerProps) => (
               <EntryContainer {...triggerProps}>
-                <Show when={props.selectedServer() === item._id}>
+                <Show when={props.selectedServer() === item.id}>
                   <PositionSwoosh>
                     <Swoosh />
                   </PositionSwoosh>
                 </Show>
-                <Link href={`/server/${item._id}`}>
+                <Link href={`/server/${item.id}`}>
                   <Avatar
                     size={42}
-                    // TODO: fix this
-                    src={item.generateIconURL({ max_side: 256 })}
-                    holepunch={item.isUnread() ? "top-right" : "none"}
+                    src={item.iconURL}
+                    holepunch={item.unread ? "top-right" : "none"}
                     overlay={
                       <>
-                        <Show when={item.isUnread()}>
-                          <UnreadsGraphic
-                            count={item.getMentions().length}
-                            unread
-                          />
+                        <Show when={item.unread}>
+                          <UnreadsGraphic count={item.mentions.length} unread />
                         </Show>
                       </>
                     }

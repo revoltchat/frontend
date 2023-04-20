@@ -53,6 +53,14 @@ interface FieldProps {
  */
 export function Fields(props: FieldProps) {
   const fieldConfiguration = useFieldConfiguration();
+  const [failedValidation, setFailedValidation] = createSignal(false);
+
+  /**
+   * If an input element notifies us it was invalid, enable live input validation.
+   */
+  function onInvalid() {
+    setFailedValidation(true);
+  }
 
   return (
     <For each={props.fields}>
@@ -73,6 +81,8 @@ export function Fields(props: FieldProps) {
                 {...fieldConfiguration[field]}
                 name={field}
                 placeholder={fieldConfiguration[field].placeholder()}
+                submissionTried={failedValidation()}
+                onInvalid={onInvalid}
               />
             </>
           )}
@@ -107,10 +117,14 @@ export function Form(props: Props) {
   const [error, setError] = createSignal("");
   let hcaptcha: HCaptchaFunctions | undefined;
 
-  async function onSubmit(e: Event) {
-    e.preventDefault();
+  /**
+   * Handle submission
+   * @param event Form Event
+   */
+  async function onSubmit(event: Event) {
+    event.preventDefault();
 
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
 
     if (props.captcha) {
       if (!hcaptcha) return alert("hCaptcha not loaded!");

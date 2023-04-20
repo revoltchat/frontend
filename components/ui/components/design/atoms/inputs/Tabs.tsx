@@ -80,30 +80,48 @@ export function Tabs(props: Props) {
     <Base role="tablist" gap="none">
       <For each={Object.keys(props.tabs())}>
         {(tab) => {
+          /**
+           * Whether this tab is active
+           */
           const active = () => props.tab() === tab;
+
+          /**
+           * The corresponding tab entry
+           */
           const entry = () => props.tabs()[tab];
+
+          /**
+           * Handle mouse down event
+           * @param event Event
+           */
+          function onMouseDown(event: MouseEvent) {
+            if (event.button === 1) {
+              event.preventDefault();
+              props.onDismiss?.(tab);
+            } else if (event.button === 0) {
+              props.onSelect(tab);
+            }
+          }
+
+          /**
+           * Dismiss the tab
+           * @param event Event
+           */
+          function dismiss(event: MouseEvent) {
+            event.stopPropagation();
+            props.onDismiss?.(tab);
+          }
+
           return (
             <Tab
               role="tab"
               aria-selected={active()}
               active={active()}
-              onMouseDown={(ev) => {
-                if (ev.button === 1) {
-                  ev.preventDefault();
-                  props.onDismiss?.(tab);
-                } else if (ev.button === 0) {
-                  props.onSelect(tab);
-                }
-              }}
+              onMouseDown={onMouseDown}
             >
               {entry().label}
               {entry().dismissable && (
-                <Dismiss
-                  onClick={(ev) => {
-                    ev.stopPropagation();
-                    props.onDismiss?.(tab);
-                  }}
-                >
+                <Dismiss onClick={dismiss}>
                   <BiSolidXCircle size={16} />
                 </Dismiss>
               )}

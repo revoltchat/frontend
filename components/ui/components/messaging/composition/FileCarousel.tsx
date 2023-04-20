@@ -69,7 +69,14 @@ export function FileCarousel(props: Props) {
         <Carousel>
           <For each={props.files}>
             {(id, index) => {
+              /**
+               * Get the actual file
+               */
               const file = () => props.getFile(id);
+
+              /**
+               * Handler for removing the file
+               */
               const onClick = () => props.removeFile(id);
 
               return (

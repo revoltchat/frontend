@@ -8,6 +8,7 @@ import { TypeDraft } from "./Draft";
 import { TypeExperiments } from "./Experiments";
 import { TypeLayout } from "./Layout";
 import { TypeLocale } from "./Locale";
+import { TypeNotificationOptions } from "./NotificationOptions";
 import { TypeOrdering } from "./Ordering";
 import { TypeSettings } from "./Settings";
 
@@ -18,6 +19,7 @@ export type Store = {
   experiments: TypeExperiments;
   layout: TypeLayout;
   locale: TypeLocale;
+  notifications: TypeNotificationOptions;
   ordering: TypeOrdering;
   settings: TypeSettings;
 };

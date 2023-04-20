@@ -19,6 +19,12 @@ export default {
    */
   MAX_ATTACHMENTS: (import.meta.env.VITE_CFG_MAX_ATTACHMENTS as number) ?? 5,
   /**
+   * Session ID to set during development.
+   */
+  DEVELOPMENT_SESSION_ID: import.meta.env.DEV
+    ? (import.meta.env.VITE_SESSION_ID as string)
+    : undefined,
+  /**
    * Token to set during development.
    */
   DEVELOPMENT_TOKEN: import.meta.env.DEV

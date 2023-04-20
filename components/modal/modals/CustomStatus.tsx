@@ -25,7 +25,7 @@ const CustomStatus: PropGenerator<"custom_status"> = (props) => {
       },
     },
     callback: ({ text }) =>
-      props.client.users.edit({
+      props.client.user!.edit({
         status: {
           ...props.client.user?.status,
           text: text.trim().length > 0 ? text : undefined,

@@ -13,6 +13,11 @@ interface Props {
    * Users who are typing
    */
   users: (User | undefined)[];
+
+  /**
+   * Own user ID
+   */
+  ownId: string;
 }
 
 /**
@@ -30,12 +35,12 @@ export function TypingIndicator(props: Props) {
       props.users.filter(
         (user) =>
           typeof user !== "undefined" &&
-          user._id !== user.client.user!._id &&
+          user.id !== props.ownId &&
           user.relationship !== "Blocked"
       ) as User[]
     )
-      .sort((a, b) => a!._id.toUpperCase().localeCompare(b!._id.toUpperCase()))
-      .map((user) => user._id);
+      .sort((a, b) => a!.id.toUpperCase().localeCompare(b!.id.toUpperCase()))
+      .map((user) => user.id);
 
   const users = useUsers(userIds, true);
 
@@ -87,6 +92,7 @@ export function TypingIndicator(props: Props) {
  */
 const Avatars = styled.div`
   display: flex;
+  flex-shrink: 0;
   height: fit-content;
 
   :not(:first-child) {
@@ -112,6 +118,10 @@ const Bar = styled.div`
   flex-direction: row;
 
   color: ${(props) => props.theme!.colours["foreground-200"]};
+  background-color: rgba(
+    ${(props) => props.theme!.rgb["typing-indicator"]},
+    0.75
+  );
 `;
 
 /**

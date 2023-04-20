@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * This file is provided under the MIT License
  * Copyright (c) 2015 Espen Hovlandsdal
@@ -6,6 +8,7 @@
 import { Component, JSX } from "solid-js";
 
 import type { Element } from "hast";
+
 import { Position } from "./ast-to-solid";
 
 /* File for types which are not handled correctly in JSDoc mode */

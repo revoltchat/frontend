@@ -10,6 +10,9 @@ export default {
   component: Tooltip,
   stories: [{ title: "Default" }],
   props: {
+    /**
+     * Render the children
+     */
     children(fn) {
       return (
         <Button {...fn} type="button">
