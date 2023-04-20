@@ -1,4 +1,4 @@
-import { Component, Match, Switch } from "solid-js";
+import { Component, Match, Switch, createSignal } from "solid-js";
 
 import { clientController } from "@revolt/client";
 import { Navigate } from "@revolt/routing";
@@ -16,6 +16,8 @@ const Interface: Component = () => {
    */
   const ready = () => clientController.isReady();
 
+  const [yes, doIt] = createSignal(false);
+
   return (
     <Switch
       fallback={
@@ -27,6 +29,8 @@ const Interface: Component = () => {
           {"" + clientController.getCurrentClient()}; direct call(
           {"" + clientController.getCurrentClient()?.ready}) ={" "}
           {"" + clientController.getCurrentClient()?.ready()}
+          <br />
+          <button onClick={() => doIt(true)}>open sesame</button>
         </h1>
       }
     >
@@ -34,7 +38,7 @@ const Interface: Component = () => {
         <h1>Redirecting...</h1>
         <Navigate href="/login" />
       </Match>
-      <Match when={ready()}>
+      <Match when={yes() || ready()}>
         <div
           style={{
             display: "flex",
