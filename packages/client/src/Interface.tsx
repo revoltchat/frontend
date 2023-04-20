@@ -23,8 +23,10 @@ const Interface: Component = () => {
           we appear to be loading; ready:{" "}
           {clientController.isReady() ? "yes" : "no"}; ready:{" "}
           {ready() ? "yes" : "no"}; logged in:{" "}
-          {clientController.isLoggedIn() ? "yes" : "no"} do we have a client?{" "}
-          {"" + clientController.getCurrentClient()}
+          {clientController.isLoggedIn() ? "yes" : "no"}; do we have a client?{" "}
+          {"" + clientController.getCurrentClient()}; direct call(
+          {"" + clientController.getCurrentClient()?.ready}) ={" "}
+          {"" + clientController.getCurrentClient()?.ready()}
         </h1>
       }
     >
