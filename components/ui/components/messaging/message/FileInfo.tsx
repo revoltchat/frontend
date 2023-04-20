@@ -15,6 +15,8 @@ import { File, MessageEmbed } from "revolt.js";
 import { Typography } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
 
+import { humanFileSize } from "./Attachment";
+
 interface Props {
   /**
    * File information
@@ -79,7 +81,9 @@ export function FileInfo(props: Props) {
       <Column grow gap="none">
         <span>{props.file?.filename}</span>
         <Show when={props.file?.size}>
-          <Typography variant="small">{props.file?.size}</Typography>
+          <Typography variant="small">
+            {humanFileSize(props.file!.size)}
+          </Typography>
         </Show>
       </Column>
       <Show when={props.file?.url}>

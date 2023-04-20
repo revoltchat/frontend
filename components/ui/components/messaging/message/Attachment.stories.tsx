@@ -1,11 +1,22 @@
 import type { ComponentProps } from "solid-js";
 
-import type { API } from "revolt.js";
+import { API, Client, File } from "revolt.js";
 
 import FitContentDecorator from "../../../decorators/FitContentDecorator";
 import type { ComponentStory } from "../../stories";
 
 import { Attachment } from "./Attachment";
+
+const client = new Client();
+
+client.configuration = {
+  features: {
+    autumn: {
+      enabled: true,
+      url: "http://local.revolt.chat:5273",
+    },
+  },
+} as never;
 
 export const attachments: {
   [key in
@@ -102,92 +113,94 @@ export default {
     {
       title: "Image (Tall)",
       props: {
-        file: attachments.tall_image,
+        file: new File(client, attachments.tall_image),
       },
     },
     {
       title: "Image (Wide)",
       props: {
-        file: attachments.wide_image,
+        file: new File(client, attachments.wide_image),
       },
     },
     {
       title: "Image (Tall Spoiler)",
       props: {
-        file: {
+        file: new File(client, {
           ...attachments.tall_image,
           filename: "SPOILER_tall.jpg",
-        },
+        }),
       },
     },
 
     {
       title: "Image (Wide Spoiler)",
       props: {
-        file: {
+        file: new File(client, {
           ...attachments.wide_image,
           filename: "SPOILER_wide.jpg",
-        },
+        }),
       },
     },
     {
       title: "Video (Tall)",
       props: {
-        file: attachments.tall_video,
+        file: new File(client, attachments.tall_video),
       },
     },
     {
       title: "Video (Wide)",
       props: {
-        file: attachments.wide_video,
+        file: new File(client, attachments.wide_video),
       },
     },
     {
       title: "Video (Tall Spoiler)",
       props: {
-        file: {
+        file: new File(client, {
           ...attachments.tall_video,
           filename: "SPOILER_tall.mp4",
-        },
+        }),
       },
     },
     {
       title: "Video (Wide Spoiler)",
       props: {
-        file: { ...attachments.wide_video, filename: "SPOILER_wide.mp4" },
+        file: new File(client, {
+          ...attachments.wide_video,
+          filename: "SPOILER_wide.mp4",
+        }),
       },
     },
     {
       title: "Audio",
       props: {
-        file: attachments.audio,
+        file: new File(client, attachments.audio),
       },
     },
     {
       title: "Text",
       props: {
-        file: attachments.text,
+        file: new File(client, attachments.text),
       },
     },
     {
       title: "Text (Large)",
       props: {
-        file: {
+        file: new File(client, {
           ...attachments.text,
           size: 1_000_000,
-        },
+        }),
       },
     },
     {
       title: "File",
       props: {
-        file: attachments.file,
+        file: new File(client, attachments.file),
       },
     },
   ],
-  props: {
-    baseUrl: "http://local.revolt.chat:5273",
+  propTypes: {
+    file: "component",
   },
-  propTypes: {},
   decorators: [FitContentDecorator],
 } as ComponentStory<typeof Attachment, ComponentProps<typeof Attachment>>;
