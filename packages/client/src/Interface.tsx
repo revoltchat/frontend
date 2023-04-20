@@ -17,7 +17,16 @@ const Interface: Component = () => {
   const ready = () => clientController.isReady();
 
   return (
-    <Switch fallback={<h1>we appear to be loading; ready:</h1>}>
+    <Switch
+      fallback={
+        <h1>
+          we appear to be loading; ready:{" "}
+          {clientController.isReady() ? "yes" : "no"}; ready:{" "}
+          {ready() ? "yes" : "no"}; logged in:{" "}
+          {clientController.isLoggedIn() ? "yes" : "no"}
+        </h1>
+      }
+    >
       <Match when={!clientController.isLoggedIn()}>
         <h1>Redirecting...</h1>
         <Navigate href="/login" />

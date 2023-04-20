@@ -73,7 +73,7 @@ export default class ClientController {
    * @returns Whether we are ready to render
    */
   isReady() {
-    return this.#clients.get(this.activeId()!)!.ready();
+    return this.#clients.get(this.activeId()!)?.ready();
   }
 
   /**
