@@ -21,15 +21,14 @@ import FlowVerify from "./flows/FlowVerify";
  * Authentication page layout
  */
 const Base = styled("div")`
-  color: white;
-
   width: 100%;
   height: 100%;
-  display: flex;
   padding: 40px 35px;
 
   user-select: none;
+  overflow-y: scroll;
 
+  color: white;
   background: url(${background});
   background-position: center;
   background-repeat: no-repeat;

@@ -31,6 +31,11 @@ export const FlowBase = styled(Column)`
     text-decoration: none;
     color: ${({ theme }) => theme!.colours["accent"]};
   }
+
+  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
+    justify-self: center;
+    margin-inline: auto;
+  }
 `;
 
 /**
