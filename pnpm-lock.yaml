@@ -435,7 +435,7 @@ importers:
       goober: ^2.1.10
       jest: ^27.4.7
       solid-jest: ^0.2.0
-      solid-js: ^1.4.4
+      solid-js: ^1.7.2
       typescript: ^4.5.4
     dependencies:
       csstype: 3.1.1
@@ -446,7 +446,7 @@ importers:
       babel-preset-solid: 1.5.5
       jest: 27.5.1
       solid-jest: 0.2.0_babel-preset-solid@1.5.5
-      solid-js: 1.5.5
+      solid-js: 1.7.2
       typescript: 4.8.3
 
   packages/test-runner:
@@ -9396,12 +9396,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
-    dev: true
-
-  /solid-js/1.5.5:
-    resolution: {integrity: sha512-5gXszD7ekhe59IyMa3+AvREJnBWVjwaeC7afL8C3UNPj5gQQCrsMs/cXwI3JRpj6D+3TESTyuQ2sY++m4cYiTg==}
-    dependencies:
-      csstype: 3.1.1
     dev: true
 
   /solid-js/1.7.2:
