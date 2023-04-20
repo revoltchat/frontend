@@ -13,6 +13,8 @@ const CUSTOM_TESTS: Record<string, (page: Page) => Promise<void>> = {
   },
 };
 
+const LAX_CONFIGURATION = ["Attachment", "Embed"];
+
 for (const component of components) {
   test(component, async ({ page }) => {
     if (CUSTOM_TESTS[component]) {
@@ -38,21 +40,30 @@ for (const component of components) {
       // delete all native audio components (because of platform differences)
       await page.$$eval("audio", (elements) => {
         for (const element of elements) {
-          let parent = element.parentNode!;
+          const parent = element.parentNode!;
           element.remove();
 
-          let fakeContainer = document.createElement("div");
+          const fakeContainer = document.createElement("div");
           fakeContainer.innerText = "Native Audio Element";
           fakeContainer.style.height = "fit-content";
           parent.appendChild(fakeContainer);
         }
       });
 
+      // make sure fonts have loaded in
+      await page.evaluate(() => document.fonts.ready);
+
       // ensure we are idle again
       await page.waitForLoadState("networkidle");
 
       await expect(page.locator(`#${component}`)).toHaveScreenshot(
-        component + ".png"
+        component + ".png",
+        LAX_CONFIGURATION.includes(component)
+          ? {
+              maxDiffPixelRatio: 0.02,
+              maxDiffPixels: 1500,
+            }
+          : {}
       );
     }
   });

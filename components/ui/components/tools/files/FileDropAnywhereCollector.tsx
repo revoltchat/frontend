@@ -64,6 +64,9 @@ const DropText = styled(Motion.div)`
   white-space: nowrap;
 `;
 
+/**
+ * Collect files that are dropped anywhere in the page
+ */
 export function FileDropAnywhereCollector(props: Props) {
   const [showIndicator, setShowIndicator] = createSignal(false);
   const [hideIndicator, setHideIndicator] = createSignal(false);

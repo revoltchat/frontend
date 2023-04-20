@@ -3,8 +3,8 @@ import { For, Match, Switch, createEffect, createSignal, on } from "solid-js";
 import { API, Message as MessageI } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { Message } from "@revolt/ui";
 
+import { Message } from "./MessageTemp";
 import { PreviewMessage } from "./previews/PreviewMessage";
 
 export function MessageQuery(props: {
@@ -19,19 +19,21 @@ export function MessageQuery(props: {
       () => props.query,
       (query) => {
         if (query) {
-          client.api.post("/admin/messages", query).then((res) => {
-            if (!Array.isArray(res)) {
-              for (const user of res.users) {
-                client.users.createObj(user);
-              }
+          client()
+            .api.post("/admin/messages", query)
+            .then((res) => {
+              if (!Array.isArray(res)) {
+                for (const user of res.users) {
+                  client().users.getOrCreate(user._id, user);
+                }
 
-              setData(
-                res.messages.map((message) =>
-                  client.messages.createObj(message)
-                )
-              );
-            }
-          });
+                setData(
+                  res.messages.map((message) =>
+                    client().messages.getOrCreate(message._id, message)
+                  )
+                );
+              }
+            });
         }
       }
     )
@@ -42,7 +44,7 @@ export function MessageQuery(props: {
       {(message) => (
         <Switch fallback={<Message message={message} />}>
           <Match when={props.preview}>
-            <PreviewMessage message_id={message._id} />
+            <PreviewMessage message_id={message.id} />
           </Match>
         </Switch>
       )}

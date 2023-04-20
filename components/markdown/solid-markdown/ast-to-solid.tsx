@@ -1,3 +1,6 @@
+/* eslint-disable */
+// @ts-nocheck
+
 /**
  * This file is provided under the MIT License
  * Copyright (c) 2015 Espen Hovlandsdal
@@ -23,9 +26,9 @@ import style from "style-to-object";
 import type { NormalComponents, SolidMarkdownProps } from "./complex-types";
 
 export type Position = {
-  start: { line: number | null, column: number | null, offset: number | null },
-  end: { line: number | null, column: number | null, offset: number | null },
-}
+  start: { line: number | null; column: number | null; offset: number | null };
+  end: { line: number | null; column: number | null; offset: number | null };
+};
 
 type Raw = {
   type: "raw";

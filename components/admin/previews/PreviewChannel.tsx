@@ -6,12 +6,12 @@ import { Avatar, Row, Typography } from "@revolt/ui";
 
 export function PreviewChannel(props: { channel_id?: string }) {
   const client = useClient();
-  const channel = () => client.channels.get(props.channel_id!);
+  const channel = () => client().channels.get(props.channel_id!);
 
   createEffect(
     on(
       () => channel(),
-      (channel) => !channel && client.channels.fetch(props.channel_id!)
+      (channel) => !channel && client().channels.fetch(props.channel_id!)
     )
   );
 
@@ -20,12 +20,12 @@ export function PreviewChannel(props: { channel_id?: string }) {
       <Match when={channel()}>
         <Row align>
           <Avatar
-            src={channel()!.generateIconURL()}
+            src={channel()!.animatedIconURL}
             fallback={<BiRegularHash size={24} />}
             size={32}
           />
           <Typography variant="legacy-modal-title">
-            {channel()!.name} ({channel()!.channel_type})
+            {channel()!.name} ({channel()!.type})
           </Typography>
         </Row>
       </Match>

@@ -11,13 +11,15 @@ export function Reports() {
   const [reports, setReports] = createSignal<API.Report[]>([]);
 
   createEffect(() => {
-    client.api.get("/safety/reports").then((reports) => {
-      for (let report of reports) {
-        state.admin.cacheReport(report);
-      }
+    client()
+      .api.get("/safety/reports")
+      .then((reports) => {
+        for (let report of reports) {
+          state.admin.cacheReport(report);
+        }
 
-      setReports(reports);
-    });
+        setReports(reports);
+      });
   });
 
   const createdReports = () =>
@@ -28,11 +30,11 @@ export function Reports() {
       <Typography variant="legacy-settings-title">Reports</Typography>
       <For each={createdReports()}>
         {(report) => {
-          const user = () => client.users.get(report.author_id);
+          const user = () => client().users.get(report.author_id);
 
           return (
             <span
-              style={{"color":"white"}}
+              style={{ color: "white" }}
               onClick={() => {
                 state.admin.addTab({
                   title: `Report: ${report._id.substring(20, 26)}`,

@@ -19,7 +19,8 @@
     "start": "cd packages/client && pnpm run start",
     "showcase": "cd packages/showcase && pnpm run dev",
     "fmt": "prettier --write '**/*.{ts,tsx,json}'",
-    "fmt:check": "prettier --check '**/*.{ts,tsx,json}'"
+    "fmt:check": "prettier --check '**/*.{ts,tsx,json}'",
+    "typecheck": "cd packages/client && pnpm run typecheck"
   },
   "keywords": [],
   "engines": {
@@ -37,7 +38,7 @@
     "eslint-plugin-spellcheck": "^0.0.20",
     "jsdom": "^20.0.3",
     "prettier": "^2.8.7",
-    "solid-js": "^1.6.15",
+    "solid-js": "^1.7.3",
     "vite": "^4.2.1",
     "vite-plugin-solid": "^2.6.1",
     "vitest": "^0.24.5"

@@ -1,3 +1,5 @@
+import { Show } from "solid-js";
+
 import { useTranslation } from "@revolt/i18n";
 import { Button } from "@revolt/ui";
 
@@ -5,6 +7,11 @@ interface Props {
   email?: string;
 }
 
+/**
+ * Convert email to provider
+ * @param email Email
+ * @returns Provider
+ */
 function mapMailProvider(email?: string): [string, string] | undefined {
   if (!email) return;
 
@@ -103,17 +110,25 @@ function mapMailProvider(email?: string): [string, string] | undefined {
   }
 }
 
+/**
+ * Provide button to navigate to email provider
+ */
 export function MailProvider(props: Props) {
   const t = useTranslation();
 
-  const provider = mapMailProvider(props.email);
-  if (!provider) return null;
+  /**
+   * Convert email to provider
+   * @returns Provider
+   */
+  const provider = () => mapMailProvider(props.email);
 
   return (
-    <a href={provider[1]} target="_blank" rel="noreferrer">
-      <Button>
-        {t("login.open_mail_provider", { provider: provider[0] })}
-      </Button>
-    </a>
+    <Show when={provider()}>
+      <a href={provider()![1]} target="_blank" rel="noreferrer">
+        <Button>
+          {t("login.open_mail_provider", { provider: provider()![0] })}
+        </Button>
+      </a>
+    </Show>
   );
 }

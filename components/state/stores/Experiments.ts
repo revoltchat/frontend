@@ -71,20 +71,33 @@ export interface TypeExperiments {
  * Handles enabling and disabling client experiments.
  */
 export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "experiments");
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeExperiments {
     return {
       enabled: [],
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeExperiments>): TypeExperiments {
     const enabled: Set<Experiment> = new Set();
 

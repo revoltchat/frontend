@@ -138,7 +138,7 @@ export const HomeSidebar = (props: Props) => {
                   tabIndex={item.tabIndex}
                   style={item.style}
                   channel={item.item}
-                  active={item.item._id === props.channelId}
+                  active={item.item.id === props.channelId}
                 />
               </div>
             )}
@@ -169,44 +169,49 @@ function Entry(
 
   const q = useQuantity();
   const t = useTranslation();
-  const dm = () => local.channel.recipient;
 
+  /**
+   * Determine user status if present
+   */
   const status = () =>
-    dm()?.status?.text ??
-    (dm()?.status?.presence === "Focus" ? t("app.status.focus") : undefined);
+    local.channel?.recipient
+      ? local.channel.recipient?.status?.text ??
+        local.channel.recipient?.status?.presence === "Focus"
+        ? t("app.status.focus")
+        : undefined
+      : undefined;
 
   return (
-    <Link {...remote} href={`/channel/${local.channel._id}`}>
+    <Link {...remote} href={`/channel/${local.channel.id}`}>
       <MenuButton
         size="normal"
         alert={
           !local.active &&
           local.channel.unread &&
-          (local.channel.mentions.length || true)
+          (local.channel.mentions?.size || true)
         }
         attention={
           local.active ? "selected" : local.channel.unread ? "active" : "normal"
         }
         icon={
           <Switch>
-            <Match when={local.channel.channel_type === "Group"}>
+            <Match when={local.channel.type === "Group"}>
               <Avatar
                 size={32}
                 fallback={local.channel.name}
-                src={local.channel.generateIconURL({ max_side: 256 })}
+                src={local.channel.iconURL}
               />
             </Match>
-            <Match when={local.channel.channel_type === "DirectMessage"}>
+            <Match when={local.channel.type === "DirectMessage"}>
               <Avatar
                 size={32}
-                src={
-                  dm()?.generateAvatarURL({ max_side: 256 }) ??
-                  dm()?.defaultAvatarURL
-                }
+                src={local.channel.iconURL}
                 holepunch="bottom-right"
                 overlay={
                   <UserStatusGraphic
-                    status={dm()?.status?.presence ?? "Invisible"}
+                    status={
+                      local.channel?.recipient?.status?.presence ?? "Invisible"
+                    }
                   />
                 }
               />
@@ -216,16 +221,18 @@ function Entry(
       >
         <Column gap="none">
           <Switch>
-            <Match when={local.channel.channel_type === "Group"}>
+            <Match when={local.channel.type === "Group"}>
               <OverflowingText>
                 <TextWithEmoji content={local.channel.name!} />
               </OverflowingText>
               <Typography variant="status">
-                {q("members", local.channel.recipient_ids?.length || 0)}
+                {q("members", local.channel.recipients.length || 0)}
               </Typography>
             </Match>
-            <Match when={local.channel.channel_type === "DirectMessage"}>
-              <OverflowingText>{dm()?.username}</OverflowingText>
+            <Match when={local.channel.type === "DirectMessage"}>
+              <OverflowingText>
+                {local.channel?.recipient?.username}
+              </OverflowingText>
               <Show when={status}>
                 <Tooltip content={status!} placement="top-start">
                   {(triggerProps) => (

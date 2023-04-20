@@ -1,6 +1,8 @@
+import { Accessor, Setter, createSignal } from "solid-js";
+
+import { ReactiveMap } from "@solid-primitives/map";
 import { detect } from "detect-browser";
-import { ObservableMap, makeAutoObservable } from "mobx";
-import { API, Client, Nullable } from "revolt.js";
+import { API, Client, Session } from "revolt.js";
 
 import {
   CONFIGURATION,
@@ -9,112 +11,53 @@ import {
 } from "@revolt/common";
 import { state } from "@revolt/state";
 
-import Session, { SessionPrivate } from "./Session";
-import { mapAnyError } from "./error";
-
 /**
- * Controls the lifecycles of clients
+ * Controls lifecycle of clients
  */
 export default class ClientController {
   /**
-   * API client
+   * API Client
    */
-  private apiClient: Client;
+  readonly api: API.API;
 
   /**
-   * Server configuration
+   * Clients
    */
-  private configuration: API.RevoltConfig | null;
+  #clients: ReactiveMap<string, Client>;
 
   /**
-   * Map of user IDs to sessions
+   * Currently active user ID
    */
-  private sessions: ObservableMap<string, Session>;
+  readonly activeId: Accessor<string | undefined>;
 
   /**
-   * User ID of active session
+   * Set the currently active user ID
    */
-  private current: Nullable<string>;
+  #setActiveId: Setter<string>;
 
+  /**
+   * Construct new client controller
+   */
   constructor() {
-    this.apiClient = new Client({
-      apiURL: CONFIGURATION.DEFAULT_API_URL,
+    this.api = new API.API({
+      baseURL: CONFIGURATION.DEFAULT_API_URL,
     });
 
-    this.apiClient
-      .fetchConfiguration()
-      .then(() => (this.configuration = this.apiClient.configuration!));
+    this.#clients = new ReactiveMap();
 
-    this.configuration = null;
-    this.sessions = new ObservableMap();
-    this.current = null;
-
-    makeAutoObservable(this);
-
-    this.login = this.login.bind(this);
-    this.logoutCurrent = this.logoutCurrent.bind(this);
+    const [active, setActive] = createSignal<string>();
+    this.activeId = active;
+    this.#setActiveId = setActive;
 
     registerController("client", this);
   }
 
   /**
-   * Select the next available session
+   * Get the currently in-use client
+   * @returns Client
    */
-  pickNextSession() {
-    this.switchAccount(
-      this.current ?? this.sessions.keys().next().value ?? null
-    );
-  }
-
-  /**
-   * Get the currently selected session
-   * @returns Active Session
-   */
-  getActiveSession() {
-    return this.sessions.get(this.current!);
-  }
-
-  /**
-   * Get the currently ready client
-   * @returns Ready Client
-   */
-  getReadyClient() {
-    const session = this.getActiveSession();
-    return session && session.ready ? session.client! : undefined;
-  }
-
-  /**
-   * Get the currently ready client
-   * @returns Ready Client
-   */
-  getReadyClients() {
-    return [...this.sessions.values()]
-      .filter((session) => session.ready)
-      .map((session) => session.client!);
-  }
-
-  /**
-   * Get an unauthenticated instance of the Revolt.js Client
-   * @returns API Client
-   */
-  getAnonymousClient() {
-    return this.apiClient;
-  }
-
-  /**
-   * Get the next available client (either from session or API)
-   * @returns Revolt.js Client
-   */
-  getAvailableClient() {
-    return this.getActiveSession()?.client ?? this.apiClient;
-  }
-
-  /**
-   * Fetch server configuration
-   * @returns Server Configuration
-   */
-  getServerConfig() {
-    return this.configuration;
+  getCurrentClient() {
+    return this.activeId() ? this.#clients.get(this.activeId()!) : undefined;
   }
 
   /**
@@ -122,7 +65,7 @@ export default class ClientController {
    * @returns Whether we are logged in
    */
   isLoggedIn() {
-    return this.current !== null;
+    return typeof this.activeId() === "string";
   }
 
   /**
@@ -130,48 +73,44 @@ export default class ClientController {
    * @returns Whether we are ready to render
    */
   isReady() {
-    return this.getActiveSession()?.ready;
+    return this.#clients.get(this.activeId()!)?.ready();
   }
 
   /**
-   * Start a new client lifecycle
-   * @param entry Session Information
-   * @param knowledge Whether the session is new or existing
+   * Create a new client with the given credentials
+   * @param session Session
    */
-  async addSession(
-    entry: { session: SessionPrivate; apiUrl?: string },
-    knowledge: "new" | "existing"
-  ) {
-    const user_id = entry.session.user_id!;
+  createClient(session: Session) {
+    if (typeof session === "string") throw "Bot login not supported";
+    if (this.#clients.get(session.user_id)) throw "User client already exists";
 
-    const session = new Session();
-    this.sessions.set(user_id, session);
-    this.pickNextSession();
+    const client = new Client({
+      baseURL: CONFIGURATION.DEFAULT_API_URL,
+      debug: import.meta.env.DEV || true,
+      syncUnreads: true,
+      /**
+       * Check whether a channel is muted
+       * @param channel Channel
+       * @returns Whether it is muted
+       */
+      channelIsMuted(channel) {
+        return getController("state").notifications.isMuted(channel);
+      },
+    });
 
-    await session
-      .emit({
-        action: "LOGIN",
-        session: entry.session,
-        apiUrl: entry.apiUrl,
-        configuration: this.configuration!,
-        knowledge,
-      })
-      .catch((err) => {
-        const error = mapAnyError(err);
-        if (error === "Forbidden" || error === "Unauthorized") {
-          this.sessions.delete(user_id);
-          this.current = null;
-          this.pickNextSession();
-          state.auth.removeSession(user_id);
-          getController("modal").push({ type: "signed_out" });
-          session.destroy();
-        } else {
-          getController("modal").push({
-            type: "error",
-            error,
-          });
-        }
-      });
+    client.useExistingSession(session);
+
+    this.#clients.set(session.user_id, client);
+    this.#setActiveId(session.user_id);
+  }
+
+  /**
+   * Switch to another user session
+   * @param userId Target User ID
+   */
+  switchAccount(userId: string) {
+    if (!this.#clients.has(userId)) throw "Invalid session.";
+    this.#setActiveId(userId);
   }
 
   /**
@@ -184,25 +123,24 @@ export default class ClientController {
     // Generate a friendly name for this browser
     let friendly_name;
     if (browser) {
-      let { name } = browser;
-      const { os } = browser;
-      let isiPad;
-      // TODO window.isNative
+      let { name, os } = browser as { name: string; os: string };
       if (name === "ios") {
         name = "safari";
       } else if (name === "fxios") {
         name = "firefox";
       } else if (name === "crios") {
         name = "chrome";
+      } else if (os === "Mac OS" && navigator.maxTouchPoints > 0) {
+        os = "iPadOS";
       }
-      if (os === "Mac OS" && navigator.maxTouchPoints > 0) isiPad = true;
-      friendly_name = `${name} on ${isiPad ? "iPadOS" : os}`;
+
+      friendly_name = `Revolt Web (${name} on ${os})`;
     } else {
-      friendly_name = "Unknown Device";
+      friendly_name = "Revolt Web (Unknown Device)";
     }
 
     // Try to login with given credentials
-    let session = await this.apiClient.api.post("/auth/session/login", {
+    let session = await this.api.post("/auth/session/login", {
       ...credentials,
       friendly_name,
     });
@@ -226,7 +164,7 @@ export default class ClientController {
         }
 
         try {
-          session = await this.apiClient.api.post("/auth/session/login", {
+          session = await this.api.post("/auth/session/login", {
             mfa_response,
             mfa_ticket: session.ticket,
             friendly_name,
@@ -241,54 +179,13 @@ export default class ClientController {
       }
     }
 
-    if (session.result !== "Disabled") {
-      // Start client lifecycle
-      this.addSession(
-        {
-          session,
-        },
-        "new"
-      );
-
-      state.auth.setSession(session);
+    if (session.result === "Disabled") {
+      // TODO
+      alert("Account is disabled, run special logic here.");
+      return;
     }
-  }
 
-  /**
-   * Log out of a specific user session
-   * @param user_id Target User ID
-   */
-  logout(user_id: string) {
-    const session = this.sessions.get(user_id);
-    if (session) {
-      if (user_id === this.current) {
-        this.current = null;
-      }
-
-      this.sessions.delete(user_id);
-      this.pickNextSession();
-      session.destroy();
-    }
-  }
-
-  /**
-   * Logout of the current session
-   */
-  logoutCurrent() {
-    if (this.current) {
-      this.logout(this.current);
-    }
-  }
-
-  /**
-   * Switch to another user session
-   * @param user_id Target User ID
-   */
-  switchAccount(user_id: string) {
-    this.current = user_id;
-
-    // This will allow account switching to work more seamlessly,
-    // maybe it'll be properly / fully implemented at some point.
-    // TODO resetMemberSidebarFetched();
+    state.auth.setSession(session);
+    this.createClient(session);
   }
 }

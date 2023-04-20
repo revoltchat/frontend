@@ -7,10 +7,10 @@ interface Props<T> {
   onChange: (ids: string[]) => void;
 }
 
-type Item<T> = { _id: string } & T;
+type Item<T> = { id: string } & T;
 
 /**
- * The dndzone library requires you to have an id key.
+ * The dnd zone library requires you to have an id key
  */
 interface ContainerItem<T> {
   id: string;
@@ -31,21 +31,33 @@ interface DragHandleEvent<T> {
  */
 0 && dndzone;
 
+/**
+ * Draggable list container
+ */
 export function Draggable<T>(props: Props<T>) {
   const [containerItems, setContainerItems] = createSignal<ContainerItem<T>[]>(
     []
   );
 
   createEffect(() => {
-    const newContainerItems = props.items.map((item) => ({ id: item._id, item }));
+    const newContainerItems = props.items.map((item) => ({
+      id: item.id,
+      item,
+    }));
     setContainerItems(newContainerItems);
   });
 
+  /**
+   * Handle DND event from solid-dnd-directive
+   * @param e
+   */
   function handleDndEvent(e: DragHandleEvent<T>) {
     const { items: newContainerItems } = e.detail;
     setContainerItems(newContainerItems);
     if (e.type === "finalize")
-      props.onChange(newContainerItems.map((containerItems) => containerItems.id));
+      props.onChange(
+        newContainerItems.map((containerItems) => containerItems.id)
+      );
   }
 
   /**
@@ -54,6 +66,7 @@ export function Draggable<T>(props: Props<T>) {
    */
   return (
     <div
+      // @ts-expect-error Typescript doesn't support directives
       use:dndzone={{ items: containerItems }}
       on:consider={handleDndEvent}
       on:finalize={handleDndEvent}

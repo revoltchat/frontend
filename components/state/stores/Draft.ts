@@ -31,9 +31,19 @@ export type TypeDraft = {
   drafts: Record<string, DraftData>;
 };
 
+/**
+ * Message drafts store
+ */
 export class Draft extends AbstractStore<"draft", TypeDraft> {
+  /**
+   * Keep track of cached files
+   */
   private fileCache: Record<string, { file: File; dataUri: string }>;
 
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "draft");
     this.fileCache = {};
@@ -41,21 +51,30 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     this.getFile = this.getFile.bind(this);
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeDraft {
     return {
       drafts: {},
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeDraft>): TypeDraft {
     const drafts: TypeDraft["drafts"] = {};
 
     const messageDrafts = input.drafts;
-    if (messageDrafts) {
+    if (typeof messageDrafts === "object") {
       for (const channelId of Object.keys(messageDrafts)) {
         const entry = messageDrafts?.[channelId];
         const draft: DraftData = {};
@@ -178,27 +197,28 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   /**
    * Add a reply to the given message
    * @param message Message
+   * @param selfId Own user ID
    */
-  addReply(message: Message) {
+  addReply(message: Message, selfId: string) {
     // Ignore if reply already exists
     if (
-      this.getDraft(message.channel_id).replies?.find(
-        (reply) => reply.id === message._id
+      this.getDraft(message.channelId).replies?.find(
+        (reply) => reply.id === message.id
       )
     )
       return;
 
     // We should not mention ourselves, otherwise use previous mention state
     const shouldMention =
-      message.author_id !== message.client.user?._id &&
+      message.authorId !== selfId &&
       this.state.layout.getSectionState(LAYOUT_SECTIONS.MENTION_REPLY);
 
     // Update the draft with new reply
-    this.setDraft(message.channel_id, (data) => ({
+    this.setDraft(message.channelId, (data) => ({
       replies: [
         ...(data.replies ?? []),
         {
-          id: message._id,
+          id: message.id,
           mention: shouldMention,
         },
       ],

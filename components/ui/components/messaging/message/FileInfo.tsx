@@ -10,36 +10,23 @@ import {
 import { Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { API } from "revolt.js";
+import { File, MessageEmbed } from "revolt.js";
 
 import { Typography } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
+
+import { humanFileSize } from "./Attachment";
 
 interface Props {
   /**
    * File information
    */
-  file?: API.File;
+  file?: File;
 
   /**
    * Embed information
    */
-  embed?: API.Embed;
-
-  /**
-   * File size
-   */
-  size?: string;
-
-  /**
-   * Direct link to the file
-   */
-  link?: string;
-
-  /**
-   * Download link for the file
-   */
-  download?: string;
+  embed?: MessageEmbed;
 }
 
 /**
@@ -93,17 +80,19 @@ export function FileInfo(props: Props) {
       </Action>
       <Column grow gap="none">
         <span>{props.file?.filename}</span>
-        <Show when={props.size}>
-          <Typography variant="small">{props.size}</Typography>
+        <Show when={props.file?.size}>
+          <Typography variant="small">
+            {humanFileSize(props.file!.size)}
+          </Typography>
         </Show>
       </Column>
-      <Show when={props.link}>
-        <Action href={props.link} target="_blank" rel="noreferrer">
+      <Show when={props.file?.url}>
+        <Action href={props.file?.url} target="_blank" rel="noreferrer">
           <BiRegularLinkExternal size={24} />
         </Action>
       </Show>
-      <Show when={props.download}>
-        <Action href={props.download}>
+      <Show when={props.file?.downloadURL}>
+        <Action href={props.file?.downloadURL}>
           <BiRegularDownload size={24} />
         </Action>
       </Show>

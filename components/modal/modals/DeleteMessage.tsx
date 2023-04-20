@@ -1,5 +1,4 @@
 import { useTranslation } from "@revolt/i18n";
-import { Message } from "@revolt/ui";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
@@ -20,7 +19,8 @@ const DeleteMessage: PropGenerator<"delete_message"> = (props) => {
     },
     data: {
       message: {
-        element: <Message message={props.message} />,
+        // TODO: find a fix or render part of it?
+        element: "MESSAGE",
       },
     },
     callback: () => props.message.delete(),

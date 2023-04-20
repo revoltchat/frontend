@@ -17,12 +17,9 @@ import { Channel, Message as MessageInterface } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { dayjs } from "@revolt/i18n";
-import {
-  ConversationStart,
-  ListView,
-  Message,
-  MessageDivider,
-} from "@revolt/ui";
+import { ConversationStart, ListView, MessageDivider } from "@revolt/ui";
+
+import { Message } from "./Message";
 
 /**
  * Default fetch limit
@@ -44,6 +41,12 @@ interface Props {
    * Limit to number of messages to display at one time
    */
   limit?: number;
+
+  /**
+   * Bind the initial messages function to the parent component
+   * @param fn Function
+   */
+  loadInitialMessagesRef?: (fn: (nearby?: string) => void) => void;
 }
 
 /**
@@ -58,32 +61,47 @@ export function Messages(props: Props) {
   const [atEnd, setEnd] = createSignal(true);
 
   /**
+   * Load latest messages or at a specific point in history
+   * @param nearby Target message to fetch around
+   */
+  function loadInitialMessages(nearby?: string, initial?: boolean) {
+    if (!nearby && !initial && atEnd()) return;
+
+    setMessages([]);
+    setStart(false);
+    setEnd(true);
+
+    /**
+     * Handle result from request
+     */
+    function handleResult({ messages }: { messages: MessageInterface[] }) {
+      // If it's less than we expected, we are at the start already
+      if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+        setStart(true);
+      }
+
+      setMessages((latest) => {
+        // Try to account for any messages sent while we are loading the channel
+        const knownIds = new Set(latest.map((x) => x.id));
+        return [...latest, ...messages.filter((x) => !knownIds.has(x.id))];
+      });
+    }
+
+    props.channel
+      .fetchMessagesWithUsers({ limit: props.fetchLimit })
+      .then(handleResult);
+  }
+
+  // Setup ref if it exists
+  onMount(() => props.loadInitialMessagesRef?.(loadInitialMessages));
+
+  /**
    * Fetch messages on channel mount
    */
   createEffect(
     on(
       () => props.channel,
-      (channel) => {
-        setMessages([]);
-        setStart(false);
-        setEnd(true);
-
-        /**
-         * Handle result from request
-         */
-        function handleResult({ messages }: { messages: MessageInterface[] }) {
-          // If it's less than we expected, we are at the start already
-          if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-            setStart(true);
-          }
-
-          setMessages(messages);
-        }
-
-        channel
-          .fetchMessagesWithUsers({ limit: props.fetchLimit })
-          .then(handleResult);
-      }
+      () => loadInitialMessages(undefined, true)
     )
   );
 
@@ -92,14 +110,14 @@ export function Messages(props: Props) {
    * @param message Message object
    */
   function onMessage(message: MessageInterface) {
-    if (message.channel_id === props.channel._id && atEnd()) {
+    if (message.channelId === props.channel.id && atEnd()) {
       setMessages([message, ...messages()]);
     }
   }
 
   // Add listener for messages
-  onMount(() => client.addListener("message", onMessage));
-  onCleanup(() => client.removeListener("message", onMessage));
+  onMount(() => client().addListener("messageCreate", onMessage));
+  onCleanup(() => client().removeListener("messageCreate", onMessage));
 
   // We need to cache created objects to prevent needless re-rendering
   const objectCache = new Map();
@@ -117,10 +135,10 @@ export function Messages(props: Props) {
       let date = null;
       if (next) {
         // Compare dates between messages
-        const atime = message.createdAt,
-          btime = next.createdAt,
-          adate = new Date(atime),
-          bdate = new Date(btime);
+        const adate = message.createdAt,
+          bdate = next.createdAt,
+          atime = +adate,
+          btime = +bdate;
 
         if (
           adate.getFullYear() !== bdate.getFullYear() ||
@@ -132,12 +150,12 @@ export function Messages(props: Props) {
 
         // Compare time and properties of messages
         if (
-          message.author_id !== next.author_id ||
+          message.authorId !== next.authorId ||
           Math.abs(btime - atime) >= 420000 ||
           !isEqual(message.masquerade, next.masquerade) ||
-          message.system ||
-          next.system ||
-          (message.reply_ids && message.reply_ids.length)
+          message.systemMessage ||
+          next.systemMessage ||
+          message.replyIds?.length
         ) {
           tail = false;
         }
@@ -147,7 +165,7 @@ export function Messages(props: Props) {
 
       // Add message to list, retrieve if it exists in the cache
       messagesWithTail.push(
-        objectCache.get(`${message._id}:${tail}`) ?? {
+        objectCache.get(`${message.id}:${tail}`) ?? {
           t: 0,
           message,
           tail,
@@ -172,7 +190,7 @@ export function Messages(props: Props) {
     // Populate cache with current objects
     for (const object of messagesWithTail) {
       if (object.t === 0) {
-        objectCache.set(`${object.message._id}:${object.tail}`, object);
+        objectCache.set(`${object.message.id}:${object.tail}`, object);
       } else {
         objectCache.set(object.date, object);
       }
@@ -191,7 +209,7 @@ export function Messages(props: Props) {
     // Fetch messages before the oldest message we have
     const result = await props.channel.fetchMessagesWithUsers({
       limit: props.fetchLimit,
-      before: messages().slice(-1)[0]._id,
+      before: messages().slice(-1)[0].id,
     });
 
     // If it's less than we expected, we are at the start
@@ -236,7 +254,7 @@ export function Messages(props: Props) {
     // Fetch messages after the newest message we have
     const result = await props.channel.fetchMessagesWithUsers({
       limit: props.fetchLimit,
-      after: messages()[0]._id,
+      after: messages()[0].id,
       sort: "Oldest",
     });
 
@@ -286,7 +304,9 @@ export function Messages(props: Props) {
       </ListView>
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute" }}>
-          <Show when={!atEnd()}>in past</Show>
+          <Show when={!atEnd()}>
+            <span onClick={() => loadInitialMessages()}>in past</span>
+          </Show>
         </div>
       </div>
     </>

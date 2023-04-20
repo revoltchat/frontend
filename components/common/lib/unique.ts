@@ -1,7 +1,7 @@
 /**
  * Generation counter
  */
-var counter = 0;
+let counter = 0;
 
 /**
  * Generates a guaranteed unique ID for use within the client.

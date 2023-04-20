@@ -1,4 +1,5 @@
 {
+  "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": ["solid", "spellcheck"],
   "extends": [
@@ -16,7 +17,7 @@
         "strings": false,
         "identifiers": false,
         "templates": false,
-        "skipWords": ["dismissable", "regex", "accessor"],
+        "skipWords": ["dismissable", "regex", "accessor", "dnd"],
         "minLength": 3
       }
     ],

@@ -21,11 +21,11 @@
     "@thisbeyond/solid-dnd": "^0.7.1",
     "solid-dnd-directive": "^0.2.0",
     "solid-floating-ui": "^0.2.0",
-    "solid-icons": "^1.0.1",
-    "solid-js": "^1.5.1",
+    "solid-icons": "^1.0.4",
+    "solid-js": "^1.7.3",
     "solid-styled-components": "^0.28.4"
   },
   "devDependencies": {
-    "revolt.js": "workspace:^6.0.18"
+    "revolt.js": "workspace:^7.0.0-beta.1"
   }
 }

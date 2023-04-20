@@ -103,15 +103,11 @@ const components = {
   `,
   blockquote: styled.blockquote`
     margin: 2px 0;
-    padding: 2px 0;
+    padding: 2px 8px;
     border-radius: ${(props) => props.theme!.borderRadius.md};
     background: ${(props) => props.theme!.colours["background-300"]};
-    border-inline-start: 4px solid
-      ${(props) => props.theme!.colours["background-200"]};
-
-    > * {
-      margin: 0 8px;
-    }
+    border-inline-start: 3px solid
+      ${(props) => props.theme!.colours["background-400"]};
   `,
   // Block image elements
   img: Null,

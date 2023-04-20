@@ -1,7 +1,7 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { API } from "revolt.js";
+import { File } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 
@@ -15,12 +15,7 @@ interface Props {
   /**
    * Relevant file
    */
-  file: API.File;
-
-  /**
-   * Autumn base URL
-   */
-  baseUrl: string;
+  file: File;
 }
 
 /**
@@ -47,10 +42,13 @@ export function TextFile(props: Props) {
   const [loading, setLoading] = createSignal(false);
   const [contents, setContents] = createSignal<string | undefined>(undefined);
 
+  /**
+   * Load the file data
+   */
   async function load() {
     setLoading(true);
 
-    const res = await fetch(`${props.baseUrl}/attachments/${props.file._id}`);
+    const res = await fetch(props.file.url);
     const data = await res.text();
 
     setContents(data);

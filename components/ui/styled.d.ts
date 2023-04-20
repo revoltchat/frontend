@@ -13,6 +13,7 @@ declare module "solid-styled-components" {
         | "background"
         | `background-${100 | 200 | 300 | 400}`
         | "success"
+        | `success-${100}`
         | "warning"
         | "error"
         | `status-${
@@ -24,7 +25,7 @@ declare module "solid-styled-components" {
             | "invisible"}`]: string;
     };
     rgb: {
-      [key in "header"]: string;
+      [key in "header" | "typing-indicator"]: string;
     };
     breakpoints: {
       [key in "sm" | "md" | "lg" | "xl"]: string;
@@ -53,6 +54,7 @@ declare module "solid-styled-components" {
         | "composition-typing-indicator"
         | "conversation-channel-name"
         | "conversation-start"
+        | "system-message"
         | "sidebar-title"
         | "channel-topic"
         | "legacy-settings-title"

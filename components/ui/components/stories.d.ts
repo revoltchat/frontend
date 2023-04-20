@@ -1,12 +1,12 @@
 import type { Component, ComponentProps } from "solid-js";
 import type { JSX } from "solid-js";
 
-type Decorator<T extends Component<P>, P = {}> = Component<{
+type Decorator<T extends Component<P>, P = object> = Component<{
   children: JSX.Element;
   childProps: ComponentProps<T>;
 }>;
 
-declare type Story<T extends Component<P>, P = {}> = {
+declare type Story<T extends Component<P>, P = object> = {
   title: string;
   props?: ComponentProps<T>;
   decorators?: Decorator<T, P>[];
@@ -14,12 +14,12 @@ declare type Story<T extends Component<P>, P = {}> = {
   skipRegressionTests?: boolean;
 };
 
-declare type ComponentStory<T extends Component<P>, P = {}> = {
+declare type ComponentStory<T extends Component<P>, P = object> = {
   category?: string;
   component: T;
   stories: Story<T, P>[];
   props?: ComponentProps<T>;
-  decorators?: any[]; //Decorator<T, P>[]; TODO: fix typings here
+  decorators?: Decorator<T, P>[];
   propTypes?: Record<
     keyof ComponentProps<T>,
     | "string"
@@ -31,6 +31,6 @@ declare type ComponentStory<T extends Component<P>, P = {}> = {
   >;
   effects?: Record<
     keyof ComponentProps<T>,
-    (props: ComponentProps<T>, ...args: any[]) => Partial<ComponentProps<T>>
+    (props: ComponentProps<T>, ...args: unknown[]) => Partial<ComponentProps<T>>
   >;
 };

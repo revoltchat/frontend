@@ -3,7 +3,7 @@ import { styled } from "solid-styled-components";
 
 import { RE_MENTIONS } from "revolt.js";
 
-import { clientController } from "@revolt/client";
+import { clientController, useClient } from "@revolt/client";
 import { Avatar, ColouredText } from "@revolt/ui";
 
 import { useUser } from "../users";
@@ -59,5 +59,5 @@ export function RenderMention(props: CustomComponentProps) {
 }
 
 export const remarkMention = createComponent("mention", RE_MENTIONS, (match) =>
-  clientController.getAvailableClient()?.users.has(match)
+  clientController.getCurrentClient()!.users.has(match)
 );

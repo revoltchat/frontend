@@ -14,6 +14,7 @@ export const darkTheme: DefaultTheme = {
     "background-300": "#363636",
     "background-400": "#4D4D4D",
     success: "#65E572",
+    "success-100": "#3f9247",
     warning: "#FAA352",
     error: "#ED4245",
     "status-online": "#3ABF7E",
@@ -25,6 +26,7 @@ export const darkTheme: DefaultTheme = {
   },
   rgb: {
     header: "54,54,54",
+    "typing-indicator": "30,30,30",
   },
   breakpoints: {
     sm: "640px",
@@ -113,6 +115,9 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 400,
       margin: 0,
       fontSize: "14px",
+    },
+    "system-message": {
+      fontWeight: 700,
     },
     // Legacy
     "legacy-settings-title": {

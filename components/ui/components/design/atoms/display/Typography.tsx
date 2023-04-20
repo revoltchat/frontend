@@ -8,7 +8,11 @@ import {
 } from "solid-styled-components";
 
 type TypographyProps = {
-  variant: keyof DefaultTheme["typography"];
+  /**
+   * Which variant to use
+   */
+  readonly variant: keyof DefaultTheme["typography"];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } & JSX.HTMLAttributes<any>;
 
 /**
@@ -36,7 +40,7 @@ export function generateTypography(
     styles.color = theme.colours[colour];
   }
 
-  return styles as StylesArg<{}>;
+  return styles as StylesArg<object>;
 }
 
 /**
@@ -75,6 +79,7 @@ export function generateTypographyCSS(
  * @param props Text rendering options
  */
 export const Typography = (props: TypographyProps) => {
+  /* eslint-disable solid/reactivity, solid/components-return-once */
   const [local, others] = splitProps(props, ["variant"]);
 
   const theme = useTheme();
@@ -96,4 +101,5 @@ export const Typography = (props: TypographyProps) => {
     default:
       return <span class={className} {...others} />;
   }
+  /* eslint-enable solid/reactivity, solid/components-return-once */
 };

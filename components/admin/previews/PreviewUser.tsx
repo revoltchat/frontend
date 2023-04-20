@@ -5,12 +5,12 @@ import { Avatar, Row, Typography } from "@revolt/ui";
 
 export function PreviewUser(props: { user_id?: string }) {
   const client = useClient();
-  const user = () => client.users.get(props.user_id!);
+  const user = () => client().users.get(props.user_id!);
 
   createEffect(
     on(
       () => user(),
-      (user) => !user && client.channels.fetch(props.user_id!)
+      (user) => !user && client().channels.fetch(props.user_id!)
     )
   );
 

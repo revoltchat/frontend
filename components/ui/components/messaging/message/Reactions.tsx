@@ -14,7 +14,7 @@ interface Props {
   /**
    * Reactions data
    */
-  reactions: Map<string, Set<string>>;
+  reactions?: Map<string, Set<string>>;
 
   /**
    * Interactions
@@ -39,6 +39,9 @@ interface Props {
   removeReaction(reaction: string): void;
 }
 
+/**
+ * Message reactions
+ */
 export function Reactions(props: Props) {
   /**
    * Determine two lists of 'required' and 'optional' reactions
@@ -86,8 +89,8 @@ export function Reactions(props: Props) {
           {(entry) => (
             <Reaction
               reaction={entry}
-              active={props.reactions.get(entry)?.has(props.userId!)}
-              users={props.reactions.get(entry)}
+              active={props.reactions?.get(entry)?.has(props.userId!)}
+              users={props.reactions?.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />
@@ -100,8 +103,8 @@ export function Reactions(props: Props) {
           {(entry) => (
             <Reaction
               reaction={entry}
-              active={props.reactions.get(entry)?.has(props.userId!)}
-              users={props.reactions.get(entry)}
+              active={props.reactions?.get(entry)?.has(props.userId!)}
+              users={props.reactions?.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />

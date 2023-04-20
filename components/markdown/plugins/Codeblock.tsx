@@ -5,8 +5,9 @@ import { styled } from "solid-styled-components";
  * Base code block styles
  */
 const Base = styled.pre`
-  padding: 1em;
-  overflow-x: scroll;
+  margin: 0;
+  overflow-x: auto;
+  padding: ${(props) => props.theme!.gap.md};
   border-radius: ${(props) => props.theme!.borderRadius.md};
   background: ${(props) => props.theme!.colours["background-300"]};
 

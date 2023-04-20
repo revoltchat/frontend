@@ -15,21 +15,34 @@ export interface TypeOrdering {
  * Handles ordering of items in the app interface.
  */
 export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "ordering");
     this.setServerOrder = this.setServerOrder.bind(this);
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeOrdering {
     return {
       servers: [],
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeOrdering>): TypeOrdering {
     const ordering: TypeOrdering = this.default();
 
@@ -49,7 +62,7 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
    * @returns List of Server objects
    */
   get orderedServers() {
-    const client = getController("client").getReadyClient();
+    const client = getController("client").getCurrentClient();
     const known = new Set(client?.servers.keys() ?? []);
     const ordered = [...this.get().servers];
 
@@ -80,14 +93,17 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
    * @returns List of Channel objects
    */
   get orderedConversations() {
-    const client = getController("client").getReadyClient();
-    const arr = [...(client?.channels.values() ?? [])].filter(
-      (channel) =>
-        (channel.channel_type === "DirectMessage" && channel.active) ||
-        channel.channel_type === "Group"
-    );
+    const client = getController("client").getCurrentClient();
 
-    arr.sort((a, b) => b.updatedAt - a.updatedAt);
-    return arr;
+    return (
+      client?.channels
+        .toList()
+        .filter(
+          (channel) =>
+            (channel.type === "DirectMessage" && channel.active) ||
+            channel.type === "Group"
+        )
+        .sort((a, b) => +b.updatedAt - +a.updatedAt) ?? []
+    );
   }
 }

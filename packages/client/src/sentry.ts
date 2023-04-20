@@ -3,7 +3,7 @@ import { BrowserTracing } from "@sentry/tracing";
 
 if (import.meta.env.PROD) {
   Sentry.init({
-    dsn: "https://d03b3660658f45e4be733282d2d5fd9d@sentry.insert.moe/9",
+    dsn: "https://033319adfcef4bd28a679ae05ed1cf8d@glitchtip.insert.moe/1",
     integrations: [new BrowserTracing()],
     tracesSampleRate: 1.0,
   });

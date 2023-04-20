@@ -1,8 +1,7 @@
-import { BiRegularHash } from "solid-icons/bi";
-import { For, Show, createEffect, createSignal, on, onMount } from "solid-js";
+import { Show, createEffect, createSignal, on } from "solid-js";
 import { Accessor } from "solid-js";
 
-import { API, Message as MessageI, User } from "revolt.js";
+import { API, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { Markdown } from "@revolt/markdown";
@@ -14,7 +13,6 @@ import {
   ComboBox,
   Initials,
   Input,
-  Message,
   Row,
   ScrollContainer,
   ServerSidebar,
@@ -23,16 +21,16 @@ import {
 } from "@revolt/ui";
 
 import { MessageQuery } from "../MessageQuery";
+import { Message } from "../MessageTemp";
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewChannel } from "../previews/PreviewChannel";
-import { PreviewServer } from "../previews/PreviewServer";
 
 export const ChannelPreview = styled(ScrollContainer)`
   height: 640px;
   border: 2px solid ${(props) => props.theme!.colours["background-400"]};
 `;
 
-function UserInfo(props: { user: Accessor<User> }) {
+function UserInfo(props: { user: Accessor<User | undefined> }) {
   const [profile, setProfile] = createSignal<API.UserProfile>();
 
   createEffect(
@@ -49,7 +47,7 @@ function UserInfo(props: { user: Accessor<User> }) {
   const query: Accessor<API.MessageQuery | undefined> = () =>
     props.user()
       ? {
-          author: props.user()!._id,
+          author: props.user()!.id,
           limit: 150,
         }
       : undefined;
@@ -68,10 +66,10 @@ export function Inspector() {
   const data = () => state.admin.getActiveTab<"inspector">()!;
 
   const client = useClient();
-  const user = () => client.users.get(data().id!);
-  const server = () => client.servers.get(data().id!);
-  const channel = () => client.channels.get(data().id!);
-  const message = () => client.messages.get(data().id!);
+  const user = () => client().users.get(data().id!);
+  const server = () => client().servers.get(data().id!);
+  const channel = () => client().channels.get(data().id!);
+  const message = () => client().messages.get(data().id!);
 
   createEffect(
     on(
@@ -79,7 +77,7 @@ export function Inspector() {
       (user) =>
         !user &&
         (data().typeHint === "any" || data().typeHint === "user") &&
-        client.users.fetch(data().id!)
+        client().users.fetch(data().id!)
     )
   );
 
@@ -89,7 +87,13 @@ export function Inspector() {
       (server) =>
         !server &&
         (data().typeHint === "any" || data().typeHint === "server") &&
-        client.servers.fetch(data().id!)
+        client()
+          .servers.fetch(data().id!)
+          .then((server) => {
+            for (const id of server.channelIds) {
+              client().channels.fetch(id);
+            }
+          })
     )
   );
 
@@ -99,7 +103,7 @@ export function Inspector() {
       (channel) =>
         !channel &&
         (data().typeHint === "any" || data().typeHint === "channel") &&
-        client.channels.fetch(data().id!)
+        client().channels.fetch(data().id!)
     )
   );
 
@@ -109,13 +113,13 @@ export function Inspector() {
       (message) =>
         !message &&
         (data().typeHint === "any" || data().typeHint === "message") &&
-        client.messages.fetch(data().id!)
+        client().messages.fetch("", data().id!) // TODO: this does not work currently
     )
   );
 
   let last: any = undefined;
   function runCommand(cmd: string) {
-    client.channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd);
+    client().channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd);
     if (cmd !== last) {
       alert("You must click again to confirm.");
       last = cmd;
@@ -168,19 +172,19 @@ export function Inspector() {
             </Button>
             <Button
               palette="accent"
-              onClick={() => runCommand(`/global spam ${user()!._id}`)}
+              onClick={() => runCommand(`/global spam ${user()!.id}`)}
             >
               Spam
             </Button>
             <Button
               palette="error"
-              onClick={() => runCommand(`/global term ${user()!._id}`)}
+              onClick={() => runCommand(`/global term ${user()!.id}`)}
             >
               Term
             </Button>
             <Button
               palette="error"
-              onClick={() => runCommand(`/global ban ${user()!._id}`)}
+              onClick={() => runCommand(`/global ban ${user()!.id}`)}
             >
               Ban
             </Button>
@@ -194,7 +198,7 @@ export function Inspector() {
           <summary>
             <Row align>
               <Avatar
-                src={server()!.generateIconURL()}
+                src={server()!.animatedIconURL}
                 fallback={<Initials input={server()!.name} />}
                 size={64}
               />
@@ -205,7 +209,11 @@ export function Inspector() {
           </summary>
 
           <div style={{ "pointer-events": "none" }}>
-            <ServerSidebar server={server()!} channelId={undefined} />
+            <ServerSidebar
+              server={server()!}
+              channelId={undefined}
+              openServerInfo={() => void 0}
+            />
           </div>
         </details>
       </Show>
@@ -216,7 +224,7 @@ export function Inspector() {
           </summary>
 
           <Typography variant="label">Server</Typography>
-          <InspectorLink type="server" id={channel()!.server_id!} />
+          <InspectorLink type="server" id={channel()!.serverId!} />
 
           <Typography variant="label">Messages</Typography>
           <ChannelPreview>
@@ -240,9 +248,9 @@ export function Inspector() {
           </summary>
 
           <Typography variant="label">Author</Typography>
-          <InspectorLink type="user" id={message()!.author_id} />
+          <InspectorLink type="user" id={message()!.authorId!} />
           <Typography variant="label">Channel</Typography>
-          <InspectorLink type="channel" id={message()!.channel_id} />
+          <InspectorLink type="channel" id={message()!.channelId} />
 
           <Message message={message()!} />
         </details>

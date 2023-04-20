@@ -1,6 +1,14 @@
 import type { ComponentProps } from "solid-js";
 
-import { API, Channel, Client, Member, Message, Server, User } from "revolt.js";
+import {
+  API,
+  Channel,
+  Client,
+  Message,
+  Server,
+  ServerMember,
+  User,
+} from "revolt.js";
 
 import type { Modal } from "@revolt/ui";
 
@@ -79,7 +87,7 @@ export type Modals =
     }
   | {
       type: "server_identity";
-      member: Member;
+      member: ServerMember;
     }
   | {
       type: "channel_info";
@@ -155,11 +163,11 @@ export type Modals =
     }
   | {
       type: "kick_member";
-      member: Member;
+      member: ServerMember;
     }
   | {
       type: "ban_member";
-      member: Member;
+      member: ServerMember;
     }
   | {
       type: "unfriend_user";

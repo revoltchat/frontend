@@ -8,3 +8,4 @@ export { Spacer } from "./Spacer";
 export { InlineIcon } from "./InlineIcon";
 export { PreviewStack } from "./PreviewStack";
 export { ListView } from "./ListView";
+export { BreakText } from "./BreakText";

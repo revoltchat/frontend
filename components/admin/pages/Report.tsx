@@ -1,33 +1,13 @@
-import { BiRegularHash } from "solid-icons/bi";
-import {
-  For,
-  Match,
-  Show,
-  Switch,
-  createEffect,
-  createSignal,
-  on,
-  onMount,
-} from "solid-js";
+import { For, Match, Show, Switch, createSignal } from "solid-js";
 
 import { API, Message as MessageI } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
-import {
-  Avatar,
-  Button,
-  Column,
-  Input,
-  Message,
-  Row,
-  Typography,
-  styled,
-} from "@revolt/ui";
+import { Button, Column, Input, Row, Typography, styled } from "@revolt/ui";
 
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewMessage } from "../previews/PreviewMessage";
-import { PreviewUser } from "../previews/PreviewUser";
 
 const FixedColumn = styled(Column)`
   min-width: 0;
@@ -41,19 +21,17 @@ const MutedList = styled(Column)`
 function MessageSnapshot(props: {
   content: API.SnapshotWithContext["content"] & { _type: "Message" };
 }) {
-  const client = useClient();
-
   return (
     <>
       <MutedList>
         <For each={props.content._prior_context as unknown as MessageI[]}>
-          {(message: MessageI) => <PreviewMessage message_id={message._id!} />}
+          {(message: MessageI) => <PreviewMessage message_id={message.id!} />}
         </For>
       </MutedList>
       <PreviewMessage message_id={props.content._id!} />
       <MutedList>
         <For each={props.content._leading_context as unknown as MessageI[]}>
-          {(message) => <PreviewMessage message_id={message._id!} />}
+          {(message) => <PreviewMessage message_id={message.id!} />}
         </For>
       </MutedList>
     </>
@@ -170,7 +148,7 @@ export function Report() {
     const snapshot = state.admin.getSnapshot(report()!._id)!;
     switch (snapshot.content._type) {
       case "Message": {
-        info = "@" + client.users.get(snapshot.content.author)?.username;
+        info = "@" + client().users.get(snapshot.content.author)?.username;
         break;
       }
       case "User": {
@@ -196,7 +174,7 @@ export function Report() {
         <Typography variant="legacy-settings-title">
           Report ({status()})
         </Typography>
-        <Typography variant="legacy-settings-subtitle">
+        <Typography variant="legacy-settings-title">
           ID: {report()!._id}
         </Typography>
         <Typography variant="label">Author ({report()!.author_id})</Typography>
@@ -328,7 +306,7 @@ function TemplateReponse(props: { id: string; message: string }) {
   const client = useClient();
   function runCommand() {
     if (confirm("Confirm Message")) {
-      client.channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd());
+      client().channels.get("01G3E05SSC1EQC0M10YHJQKCP4")!.sendMessage(cmd());
     }
   }
 

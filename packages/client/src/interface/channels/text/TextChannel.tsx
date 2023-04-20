@@ -1,5 +1,6 @@
 import { Show, createEffect, createSignal, on } from "solid-js";
 
+import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { HeaderWithTransparency, TypingIndicator, styled } from "@revolt/ui";
@@ -14,17 +15,19 @@ import { Messages } from "./Messages";
  * Channel component
  */
 export function TextChannel(props: ChannelPageProps) {
+  const client = useClient();
+
   // Last unread message ID
   const [_lastId, setLastId] = createSignal<string | undefined>(undefined);
 
   // Store last unread message ID
   createEffect(
     on(
-      () => props.channel._id,
-      (_id) =>
+      () => props.channel.id,
+      (id) =>
         setLastId(
           props.channel.unread
-            ? (props.channel.client.unreads!.getUnread(_id)?.last_id as string)
+            ? (client().channelUnreads.get(id)?.lastMessageId as string)
             : undefined
         )
     )
@@ -34,19 +37,16 @@ export function TextChannel(props: ChannelPageProps) {
   createEffect(
     on(
       () => props.channel.unread,
-      (unread) =>
-        unread &&
-        props.channel.client.unreads!.markRead(
-          props.channel._id,
-          props.channel.last_message_id!,
-          true
-        )
+      (unread) => unread && props.channel.ack()
     )
   );
 
   /*onMount(() => {
     props.channel.server?.fetchMembers();
   });*/
+
+  // Get a reference to the message box's load latest function
+  let loadLatestRef: ((nearby?: string) => void) | undefined;
 
   return (
     <>
@@ -55,9 +55,19 @@ export function TextChannel(props: ChannelPageProps) {
       </HeaderWithTransparency>
       <Content>
         <MessagingStack>
-          <Messages channel={props.channel} limit={150} />
-          <TypingIndicator users={props.channel.typing} />
-          <MessageComposition channel={props.channel} />
+          <Messages
+            channel={props.channel}
+            limit={150}
+            loadInitialMessagesRef={(ref) => (loadLatestRef = ref)}
+          />
+          <TypingIndicator
+            users={props.channel.typing}
+            ownId={client().user!.id}
+          />
+          <MessageComposition
+            channel={props.channel}
+            onMessageSend={() => loadLatestRef?.()}
+          />
         </MessagingStack>
         <Show
           when={state.layout.getSectionState(
