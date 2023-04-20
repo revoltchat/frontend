@@ -12,6 +12,16 @@ import { Sidebar } from "./interface/Sidebar";
 const Interface: Component = () => {
   return (
     <>
+      <h1>interface</h1>
+      <Show when={clientController.isLoggedIn()}>
+        <h1>logged in</h1>
+      </Show>
+      <Show when={!clientController.isLoggedIn()}>
+        <h1>logged out</h1>
+      </Show>
+      <Show when={!clientController.isReady()}>
+        <h1>ready</h1>
+      </Show>
       <Show when={!clientController.isLoggedIn()}>
         <Navigate href="/login" />
       </Show>
