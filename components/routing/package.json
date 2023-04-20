@@ -8,7 +8,7 @@
   "keywords": [],
   "private": true,
   "dependencies": {
-    "@solidjs/router": "^0.4.3",
+    "@solidjs/router": "^0.8.2",
     "solid-js": "^1.7.2"
   }
 }

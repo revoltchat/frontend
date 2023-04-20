@@ -216,10 +216,10 @@ importers:
 
   components/routing:
     specifiers:
-      '@solidjs/router': ^0.4.3
+      '@solidjs/router': ^0.8.2
       solid-js: ^1.7.2
     dependencies:
-      '@solidjs/router': 0.4.3_solid-js@1.7.2
+      '@solidjs/router': 0.8.2_solid-js@1.7.2
       solid-js: 1.7.2
 
   components/state:
@@ -3954,10 +3954,10 @@ packages:
       solid-js: 1.7.3
     dev: false
 
-  /@solidjs/router/0.4.3_solid-js@1.7.2:
-    resolution: {integrity: sha512-mYpd4HxpH/3UZjHGTr2dhvPGXu034Ktxd05CJGA6nRjRGYCgUfhCQHRdEivyqJyb4LhHyDht4ny5xmwEOkUTaQ==}
+  /@solidjs/router/0.8.2_solid-js@1.7.2:
+    resolution: {integrity: sha512-gUKW+LZqxtX6y/Aw6JKyy4gQ9E7dLqp513oB9pSYJR1HM5c56Pf7eijzyXX+b3WuXig18Cxqah4tMtF0YGu80w==}
     peerDependencies:
-      solid-js: ^1.3.5
+      solid-js: ^1.5.3
     dependencies:
       solid-js: 1.7.2
     dev: false
