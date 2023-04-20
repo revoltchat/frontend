@@ -33,8 +33,8 @@
     "@sentry/tracing": "^7.38.0",
     "lodash.isequal": "^4.5.0",
     "mobx": "^6.3.2",
-    "solid-icons": "^1.0.1",
-    "solid-js": "^1.7.2",
+    "solid-icons": "^1.0.4",
+    "solid-js": "^1.7.3",
     "ulid": "^2.3.0",
     "vite-plugin-pwa": "^0.14.7",
     "workbox-precaching": "^6.5.4"

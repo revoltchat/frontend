@@ -10,6 +10,6 @@
   "dependencies": {
     "@solid-primitives/i18n": "^1.1.1",
     "dayjs": "^1.11.5",
-    "solid-js": "^1.7.2"
+    "solid-js": "^1.7.3"
   }
 }

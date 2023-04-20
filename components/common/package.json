@@ -8,7 +8,7 @@
   "keywords": [],
   "private": true,
   "dependencies": {
-    "solid-js": "^1.7.2"
+    "solid-js": "^1.7.3"
   },
   "devDependencies": {
     "@revolt/client": "workspace:^1.0.0",

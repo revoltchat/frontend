@@ -26,7 +26,7 @@
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
     "revolt.js": "workspace:7.0.0-beta.1",
-    "solid-js": "^1.7.2",
+    "solid-js": "^1.7.3",
     "solid-styled-components": "workspace:^0.28.4",
     "space-separated-tokens": "^2.0.2",
     "style-to-object": "^0.4.0",
