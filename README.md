@@ -45,7 +45,7 @@ If you want to pull in Revolt brand assets after pulling, run the following:
 
 ```bash
 # update the assets
-git -c submodule."packages/client/assets".update=checkout submodule update packages/client/assets
+git -c submodule."packages/client/assets".update=checkout submodule update --init packages/client/assets
 ```
 
 You can switch back to fallback assets by running deinit and continuing as normal:
@@ -53,15 +53,6 @@ You can switch back to fallback assets by running deinit and continuing as norma
 ```bash
 # deinit submodule which clears directory
 git submodule deinit packages/client/assets
-```
-
-If you are using fallback assets and want to switch back:
-
-```bash
-# reinit the submodule
-git submodule init packages/client/assets
-
-# now run the first command
 ```
 
 ## Faster iteration with Revolt.js
