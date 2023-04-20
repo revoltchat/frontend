@@ -1,4 +1,4 @@
-import { Component, Show } from "solid-js";
+import { Component, Match, Switch } from "solid-js";
 
 import { clientController } from "@revolt/client";
 import { Navigate } from "@revolt/routing";
@@ -11,21 +11,12 @@ import { Sidebar } from "./interface/Sidebar";
  */
 const Interface: Component = () => {
   return (
-    <>
-      <h1>interface</h1>
-      <Show when={clientController.isLoggedIn()}>
-        <h1>logged in</h1>
-      </Show>
-      <Show when={!clientController.isLoggedIn()}>
-        <h1>logged out</h1>
-      </Show>
-      <Show when={!clientController.isReady()}>
-        <h1>ready</h1>
-      </Show>
-      <Show when={!clientController.isLoggedIn()}>
+    <Switch fallback={<h1>we appear to be loading</h1>}>
+      <Match when={!clientController.isLoggedIn()}>
+        <h1>Redirecting...</h1>
         <Navigate href="/login" />
-      </Show>
-      <Show when={clientController.isReady()}>
+      </Match>
+      <Match when={clientController.isReady()}>
         <div
           style={{
             display: "flex",
@@ -41,8 +32,8 @@ const Interface: Component = () => {
           <Sidebar />
           <Content />
         </div>
-      </Show>
-    </>
+      </Match>
+    </Switch>
   );
 };
 
