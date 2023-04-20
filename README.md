@@ -58,13 +58,7 @@ git submodule deinit packages/client/assets
 If you are using fallback assets and want to switch back:
 
 ```bash
-# remove symlink
-rm packages/client/assets
-
-# create directory
-mkdir packages/client/assets
-
-# reinit the submodule if not already
+# reinit the submodule
 git submodule init packages/client/assets
 
 # now run the first command

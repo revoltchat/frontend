@@ -1,5 +1,5 @@
 import { resolve } from 'node:path';
-import { symlink, readdir, lstat, readlink } from 'node:fs/promises';
+import { symlink, readdir, lstat, readlink, unlink } from 'node:fs/promises';
 
 const path = resolve('public', 'assets');
 const revoltAssets = resolve('assets');
@@ -24,8 +24,9 @@ async function createSymlink() {
 
 try {
     await lstat(path);
-    const link = await readlink(path);
-    console.info(`Currently using ${path === revoltAssets ? 'Revolt' : 'fallback'} assets.`);
+    await readlink(path);
+    await unlink(path);
+    createSymlink();
 } catch (error) {
     if (error.code === 'ENOENT') {
         createSymlink();
