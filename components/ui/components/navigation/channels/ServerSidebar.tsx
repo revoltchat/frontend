@@ -63,7 +63,7 @@ export const ServerSidebar = (props: Props) => {
               background: `url('${props.server.bannerURL}')`,
             }}
           >
-            <a onClick={props.openServerInfo}>
+            <a onClick={() => props.openServerInfo()}>
               <TextWithEmoji content={props.server.name} />
             </a>
           </HeaderWithImage>
@@ -107,7 +107,7 @@ function Category(props: {
       <Show when={props.category.id !== "default"}>
         <CategoryBase
           open={shown()}
-          onClick={() => setShown(!shown())}
+          onClick={() => setShown((shown) => !shown)}
           align
           gap="sm"
         >

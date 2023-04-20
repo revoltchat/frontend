@@ -145,11 +145,7 @@ export const ServerList = (props: Props) => {
       </Show>
       <For each={props.unreadConversations.slice(0, 9)}>
         {(conversation) => (
-          // TODO: displayname on channels
-          <Tooltip
-            placement="right"
-            content={conversation.name ?? conversation.recipient?.username}
-          >
+          <Tooltip placement="right" content={conversation.displayName}>
             {(triggerProps) => (
               <EntryContainer {...triggerProps}>
                 <Link href={`/channel/${conversation.id}`}>

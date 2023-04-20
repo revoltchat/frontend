@@ -170,11 +170,16 @@ function Entry(
   const q = useQuantity();
   const t = useTranslation();
 
+  /**
+   * Determine user status if present
+   */
   const status = () =>
-    local.channel.recipient?.status?.text ??
-    (local.channel.recipient?.status?.presence === "Focus"
-      ? t("app.status.focus")
-      : undefined);
+    local.channel?.recipient
+      ? local.channel.recipient?.status?.text ??
+        local.channel.recipient?.status?.presence === "Focus"
+        ? t("app.status.focus")
+        : undefined
+      : undefined;
 
   return (
     <Link {...remote} href={`/channel/${local.channel.id}`}>
@@ -183,7 +188,7 @@ function Entry(
         alert={
           !local.active &&
           local.channel.unread &&
-          (local.channel.mentions.length || true)
+          (local.channel.mentions?.size || true)
         }
         attention={
           local.active ? "selected" : local.channel.unread ? "active" : "normal"
@@ -205,7 +210,7 @@ function Entry(
                 overlay={
                   <UserStatusGraphic
                     status={
-                      local.channel.recipient?.status?.presence ?? "Invisible"
+                      local.channel?.recipient?.status?.presence ?? "Invisible"
                     }
                   />
                 }
@@ -226,7 +231,7 @@ function Entry(
             </Match>
             <Match when={local.channel.type === "DirectMessage"}>
               <OverflowingText>
-                {local.channel.recipient!.username}
+                {local.channel?.recipient?.username}
               </OverflowingText>
               <Show when={status}>
                 <Tooltip content={status!} placement="top-start">

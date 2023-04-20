@@ -3,7 +3,6 @@ import {
   BiRegularLeftArrowAlt,
   BiRegularMinus,
   BiRegularPlus,
-  BiRegularRightArrow,
   BiRegularRightArrowAlt,
   BiRegularX,
   BiSolidImage,

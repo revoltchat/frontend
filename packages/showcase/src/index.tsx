@@ -1,3 +1,5 @@
+/* eslint-disable solid/reactivity */
+
 /* @refresh reload */
 import { Accessor, For, Match, Show, Switch, createSignal } from "solid-js";
 
@@ -57,10 +59,16 @@ render(() => {
     keyof typeof components | undefined
   >();
   const [tab, selectTab] = createSignal("");
-  const [props, setProps] = createSignal<any>({});
+  const [props, setProps] = createSignal<object>({});
 
+  /**
+   * Signal prop types
+   */
   const propTypes = () => components[component()!]?.propTypes ?? {};
 
+  /**
+   * Signal tabs
+   */
   const tabs = () => {
     const obj: Record<string, { label: string }> = {};
     const key = component();
@@ -79,6 +87,9 @@ render(() => {
     return obj;
   };
 
+  /**
+   * Signal current props
+   */
   const currentProps = () => {
     const entry = components[component()!];
     if (entry) {
@@ -99,14 +110,22 @@ render(() => {
     }
   };
 
+  /**
+   * Render a given component
+   * @param component Component
+   * @param tab Tab
+   * @param overwrittenProps Overwritten props
+   * @returns Component
+   */
   function render(
     component: string | undefined,
     tab: string,
-    overwrittenProps: Accessor<any>
+    overwrittenProps: Accessor<object>
   ) {
     const entry = components[component!];
     if (entry) {
-      let { component: Component, stories, effects, decorators } = entry;
+      let { component: Component } = entry;
+      const { stories, effects, decorators } = entry;
 
       const story = stories.find((story) => story.title === tab);
       if (story) {
@@ -114,13 +133,15 @@ render(() => {
           Component = story.component;
         }
 
-        const effectProps: Record<string, (...args: any[]) => any> = {};
+        const effectProps: Record<string, (...args: object[]) => object> = {};
         if (effects) {
           for (const effect of Object.keys(effects)) {
             effectProps[effect] = (...args) =>
               setProps({
                 ...overwrittenProps(),
-                ...(effects as any)[effect](currentProps(), ...args),
+                ...(effects as Record<string, (...args: unknown[]) => object>)[
+                  effect
+                ](currentProps(), ...args),
               });
           }
         }

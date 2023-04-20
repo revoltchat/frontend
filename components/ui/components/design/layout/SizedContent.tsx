@@ -85,6 +85,8 @@ const Wide = styled(Base)`
  * Automatic message content sizing for images, videos and embeds
  */
 export function SizedContent(props: Props) {
+  // Height and width should never update? (maybe if we add removable attachments)
+  // eslint-disable-next-line solid/reactivity
   const Base = props.height > props.width ? Tall : Wide;
   return (
     <Base

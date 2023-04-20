@@ -1,12 +1,19 @@
 # external libraries
-solid-styled-components
+**/solid-styled-components/**
 
 # minified files
-i18n/locales
+**/i18n/locales/**
 
 # auto-generated files
 packages/showcase/componentData.ts
 packages/showcase/src/stories.ts
+
+# configuration
+.vercel/**
+
+# built files
+**/lib/cjs/**
+coverage/**
 
 # wip
 **/admin/**

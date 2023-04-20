@@ -35,20 +35,24 @@ importers:
   components/admin:
     specifiers:
       '@revolt/client': workspace:^1.0.0
+      '@revolt/i18n': workspace:^1.0.0
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/state': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
       revolt.js: workspace:7.0.0-beta.1
       solid-icons: ^1.0.1
       solid-js: ^1.5.1
+      ulid: ^2.3.0
     dependencies:
       '@revolt/client': link:../client
+      '@revolt/i18n': link:../i18n
       '@revolt/markdown': link:../markdown
       '@revolt/state': link:../state
       '@revolt/ui': link:../ui
       revolt.js: link:../../packages/revolt.js
       solid-icons: 1.0.1_solid-js@1.5.5
       solid-js: 1.5.5
+      ulid: 2.3.0
 
   components/auth:
     specifiers:

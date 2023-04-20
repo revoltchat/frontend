@@ -105,7 +105,7 @@ export function Message(props: Props) {
 
               onMount(() => {
                 if (!message()) {
-                  props.message.channel!.fetchMessage(reply_id);
+                  props.message.channel?.fetchMessage(reply_id);
                 }
               });
 

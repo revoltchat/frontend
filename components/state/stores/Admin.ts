@@ -124,7 +124,7 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
       this.setCache("reports", id, false);
 
       getController("client")
-        .getReadyClient()!
+        .getCurrentClient()!
         .api.get(`/safety/report/${id as ""}`)
         .then((report) => this.cacheReport(report));
     }
@@ -143,7 +143,7 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     if (typeof snapshot === "undefined") {
       this.setCache("snapshots", report_id, false);
 
-      const client = getController("client").getReadyClient()!;
+      const client = getController("client").getCurrentClient()!;
 
       client.api
         .get(`/safety/snapshot/${report_id as ""}`)
@@ -203,17 +203,15 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    * @param report Report
    */
   cacheReport(report: API.Report) {
-    runInAction(() => {
-      const client = getController("client").getReadyClient()!;
+    const client = getController("client").getCurrentClient()!;
 
-      if (
-        report.status === "Created" &&
-        !this.fetchingUsers.has(report.author_id)
-      ) {
-        this.fetchingUsers.add(report.author_id);
-        client.users.fetch(report.author_id);
-      }
-    });
+    if (
+      report.status === "Created" &&
+      !this.fetchingUsers.has(report.author_id)
+    ) {
+      this.fetchingUsers.add(report.author_id);
+      client.users.fetch(report.author_id);
+    }
 
     this.setCache("reports", report._id, report);
   }
@@ -223,34 +221,32 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    * @param snapshot Snapshot
    */
   cacheSnapshot(snapshot: API.SnapshotWithContext) {
-    runInAction(() => {
-      const client = getController("client").getReadyClient()!;
+    const client = getController("client").getCurrentClient()!;
 
-      if (snapshot._users) {
-        for (const user of snapshot._users) {
-          client.users.createObj(user);
-        }
+    if (snapshot._users) {
+      for (const user of snapshot._users) {
+        client.users.getOrCreate(user._id, user);
       }
+    }
 
-      if (snapshot._channels) {
-        for (const channel of snapshot._channels) {
-          client.channels.createObj(channel);
-        }
+    if (snapshot._channels) {
+      for (const channel of snapshot._channels) {
+        client.channels.getOrCreate(channel._id, channel);
       }
+    }
 
-      if (snapshot._server) {
-        client.servers.createObj(snapshot._server);
-      }
+    if (snapshot._server) {
+      client.servers.getOrCreate(snapshot._server._id, snapshot._server);
+    }
 
-      const content = snapshot.content;
-      if (content._type === "Message") {
-        [
-          ...(content._prior_context ?? []),
-          content,
-          ...(content._leading_context ?? []),
-        ].forEach((msg) => client.messages.createObj(msg));
-      }
-    });
+    const content = snapshot.content;
+    if (content._type === "Message") {
+      [
+        ...(content._prior_context ?? []),
+        content,
+        ...(content._leading_context ?? []),
+      ].forEach((msg) => client.messages.getOrCreate(msg._id, msg));
+    }
 
     this.setCache("snapshots", snapshot.report_id, snapshot);
   }
@@ -262,7 +258,7 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    */
   async editReport(id: string, data: API.DataEditReport) {
     const report = await getController("client")
-      .getReadyClient()!
+      .getCurrentClient()!
       .api.patch(`/safety/reports/${id as ""}`, data);
 
     this.setCache("reports", id, report);

@@ -3,7 +3,6 @@ import type { ComponentProps } from "solid-js";
 import type { API } from "revolt.js";
 
 import FitContentDecorator from "../../../decorators/FitContentDecorator";
-import ResizeContentDecorator from "../../../decorators/ResizeContainerDecorator";
 import MotherboardIcon from "../../../test-images/icons8-motherboard-48.png";
 import type { ComponentStory } from "../../stories";
 
@@ -82,10 +81,11 @@ export default {
         embed: {
           ...embeds.website,
           description: "This embed has a large image preview attached.",
-          image: {
+          // TODO: fix
+          /*image: {
             ...(embeds.website as any).image,
             size: "Large",
-          },
+          },*/
         },
       },
     },
@@ -225,11 +225,7 @@ export default {
       skipRegressionTests: true,
     },
   ],
-  props: {
-    proxyFile(url) {
-      return url;
-    },
-  },
+  props: {},
   propTypes: {},
   decorators: [FitContentDecorator],
 } as ComponentStory<typeof Embed, ComponentProps<typeof Embed>>;

@@ -46,7 +46,7 @@ export function useSmartParams(): Accessor<GlobalParams> {
   const location = useLocation();
 
   return () => {
-    let params: GlobalParams = {};
+    const params: GlobalParams = {};
 
     // Check for server ID
     const server = location.pathname.match(RE_SERVER);

@@ -38,10 +38,10 @@ for (const component of components) {
       // delete all native audio components (because of platform differences)
       await page.$$eval("audio", (elements) => {
         for (const element of elements) {
-          let parent = element.parentNode!;
+          const parent = element.parentNode!;
           element.remove();
 
-          let fakeContainer = document.createElement("div");
+          const fakeContainer = document.createElement("div");
           fakeContainer.innerText = "Native Audio Element";
           fakeContainer.style.height = "fit-content";
           parent.appendChild(fakeContainer);

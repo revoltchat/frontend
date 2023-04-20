@@ -4,6 +4,7 @@ import { API, Message as MessageI } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 
+import { Message } from "./MessageTemp";
 import { PreviewMessage } from "./previews/PreviewMessage";
 
 export function MessageQuery(props: {
@@ -41,7 +42,7 @@ export function MessageQuery(props: {
   return (
     <For each={data()}>
       {(message) => (
-        <Switch fallback={"TODO" /*<Message message={message} />*/}>
+        <Switch fallback={<Message message={message} />}>
           <Match when={props.preview}>
             <PreviewMessage message_id={message.id} />
           </Match>

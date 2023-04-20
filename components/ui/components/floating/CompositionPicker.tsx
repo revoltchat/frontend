@@ -46,7 +46,7 @@ interface Props {
    * @param triggerProps Props that need to be applied to the trigger area
    */
   children: (triggerProps: {
-    ref: Ref<any>;
+    ref: Ref<unknown>;
     onClickGif: () => void;
     onClickEmoji: () => void;
   }) => JSX.Element;
@@ -123,6 +123,10 @@ export function CompositionPicker(props: Props) {
     )
   );
 
+  /**
+   * Execute search query
+   * @param query Query
+   */
   function search(query: string) {
     fetch(
       `https://api.gifbox.me/post/search?query=${encodeURIComponent(

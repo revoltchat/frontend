@@ -22,6 +22,7 @@ import {
 } from "@revolt/ui";
 
 import { MessageQuery } from "../MessageQuery";
+import { Message } from "../MessageTemp";
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewChannel } from "../previews/PreviewChannel";
 
@@ -87,7 +88,13 @@ export function Inspector() {
       (server) =>
         !server &&
         (data().typeHint === "any" || data().typeHint === "server") &&
-        client().servers.fetch(data().id!)
+        client()
+          .servers.fetch(data().id!)
+          .then((server) => {
+            for (const id of server.channelIds) {
+              client().channels.fetch(id);
+            }
+          })
     )
   );
 
@@ -192,7 +199,7 @@ export function Inspector() {
           <summary>
             <Row align>
               <Avatar
-                src={server()!.generateIconURL()}
+                src={server()!.animatedIconURL}
                 fallback={<Initials input={server()!.name} />}
                 size={64}
               />
@@ -203,7 +210,11 @@ export function Inspector() {
           </summary>
 
           <div style={{ "pointer-events": "none" }}>
-            <ServerSidebar server={server()!} channelId={undefined} />
+            <ServerSidebar
+              server={server()!}
+              channelId={undefined}
+              openServerInfo={() => void 0}
+            />
           </div>
         </details>
       </Show>
@@ -214,7 +225,7 @@ export function Inspector() {
           </summary>
 
           <Typography variant="label">Server</Typography>
-          <InspectorLink type="server" id={channel()!.server_id!} />
+          <InspectorLink type="server" id={channel()!.serverId!} />
 
           <Typography variant="label">Messages</Typography>
           <ChannelPreview>

@@ -5,7 +5,7 @@ import { styled } from "solid-styled-components";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
-import { Member, User } from "revolt.js";
+import { ServerMember, User } from "revolt.js";
 
 import { ColouredText } from "../design";
 
@@ -25,7 +25,7 @@ interface Props {
    * @param triggerProps Props that need to be applied to the trigger area
    */
   children: (triggerProps: {
-    ref: Ref<any>;
+    ref: Ref<unknown>;
     onClick: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
   }) => JSX.Element;
 
@@ -42,7 +42,7 @@ interface Props {
   /**
    * Member to show
    */
-  member?: Member;
+  member?: ServerMember;
 }
 
 /**
@@ -87,7 +87,7 @@ export function UserCard(props: Props) {
                 <br />
                 <Show when={props.member}>
                   <For each={props.member!.orderedRoles}>
-                    {([, role]) => (
+                    {(role) => (
                       <div>
                         <ColouredText
                           colour={role.colour!}

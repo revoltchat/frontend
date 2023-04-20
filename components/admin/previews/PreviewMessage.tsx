@@ -15,6 +15,7 @@ import { state } from "@revolt/state";
 import { Button, Column, Row } from "@revolt/ui";
 
 import { MessageQuery } from "../MessageQuery";
+import { Message } from "../MessageTemp";
 import { ChannelPreview } from "../pages/Inspector";
 
 import { PreviewChannel } from "./PreviewChannel";
@@ -62,7 +63,9 @@ export function PreviewMessage(props: {
                 Fetch Context
               </Button>
             </Column>
-            <div>{/*<Message message={message()!} />*/}</div>
+            <div>
+              <Message message={message()!} />
+            </div>
           </Row>
           <Show when={context()}>
             <ChannelPreview>

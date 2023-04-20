@@ -1,6 +1,9 @@
 import { render, screen } from "@solidjs/testing-library";
 import { describe, expect, it } from "vitest";
 
+/**
+ * Example component
+ */
 const Timer = () => {
   return <div>5:30</div>;
 };
