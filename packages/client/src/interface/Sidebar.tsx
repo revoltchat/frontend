@@ -60,7 +60,7 @@ const Home: Component = () => {
             // If not, try to create one but only if navigating
             client()!
               .user!.openDM()
-              .then((channel) => navigate(`/channel/${channel._id}`));
+              .then((channel) => navigate(`/channel/${channel.id}`));
           }
         }
 

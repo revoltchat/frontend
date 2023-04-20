@@ -1,8 +1,7 @@
-import { BiRegularHash } from "solid-icons/bi";
-import { For, Show, createEffect, createSignal, on, onMount } from "solid-js";
+import { Show, createEffect, createSignal, on } from "solid-js";
 import { Accessor } from "solid-js";
 
-import { API, Message as MessageI, User } from "revolt.js";
+import { API, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { Markdown } from "@revolt/markdown";
@@ -114,7 +113,7 @@ export function Inspector() {
       (message) =>
         !message &&
         (data().typeHint === "any" || data().typeHint === "message") &&
-        client().messages.fetch(data().id!)
+        client().messages.fetch("", data().id!) // TODO: this does not work currently
     )
   );
 

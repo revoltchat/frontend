@@ -47,12 +47,14 @@ const CreateChannel: PropGenerator<"create_channel"> = (props) => {
           type: type as "Text" | "Voice",
           name,
         })
-        .catch(mapAnyError);
+        .catch((err) => {
+          throw mapAnyError(err);
+        });
 
       if (props.cb) {
-        props.cb(channel as any);
+        props.cb(channel);
       } else {
-        navigate(`/server/${props.server._id}/channel/${channel._id}`);
+        navigate(`/server/${props.server.id}/channel/${channel.id}`);
       }
     },
     submit: {

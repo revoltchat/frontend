@@ -1,33 +1,13 @@
-import { BiRegularHash } from "solid-icons/bi";
-import {
-  For,
-  Match,
-  Show,
-  Switch,
-  createEffect,
-  createSignal,
-  on,
-  onMount,
-} from "solid-js";
+import { For, Match, Show, Switch, createSignal } from "solid-js";
 
 import { API, Message as MessageI } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
-import {
-  Avatar,
-  Button,
-  Column,
-  Input,
-  Message,
-  Row,
-  Typography,
-  styled,
-} from "@revolt/ui";
+import { Button, Column, Input, Row, Typography, styled } from "@revolt/ui";
 
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewMessage } from "../previews/PreviewMessage";
-import { PreviewUser } from "../previews/PreviewUser";
 
 const FixedColumn = styled(Column)`
   min-width: 0;
@@ -194,7 +174,7 @@ export function Report() {
         <Typography variant="legacy-settings-title">
           Report ({status()})
         </Typography>
-        <Typography variant="legacy-settings-subtitle">
+        <Typography variant="legacy-settings-title">
           ID: {report()!._id}
         </Typography>
         <Typography variant="label">Author ({report()!.author_id})</Typography>

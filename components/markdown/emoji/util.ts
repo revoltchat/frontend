@@ -33,6 +33,8 @@ export function injectEmojiSize(
   props: MarkdownProps,
   hastNode: { children?: { properties: Record<string, string> }[] }
 ) {
+  const content = props.content ?? "";
+
   // inject emoji size information
   const properties = (
     hastNode as { children?: { properties: Record<string, string> }[] }
@@ -40,17 +42,17 @@ export function injectEmojiSize(
 
   // inject custom property
   if (properties) {
-    if (!props.disallowBigEmoji && isOnlyEmoji(props.content)) {
+    if (!props.disallowBigEmoji && isOnlyEmoji(content)) {
       // will always match at least one
       RE_ANY_EMOJI.lastIndex = 0;
-      RE_ANY_EMOJI.exec(props.content);
+      RE_ANY_EMOJI.exec(content);
 
       // large by default
       let size = "large";
 
       // check if we match more than one
       // if so, make it slightly smaller
-      if (RE_ANY_EMOJI.exec(props.content)) {
+      if (RE_ANY_EMOJI.exec(content)) {
         size = "medium";
       }
 

@@ -40,6 +40,7 @@ export function useUsers(
   // TODO: use a context here for when we do multi view :)
   const { server } = useParams<{ server: string }>();
 
+  // eslint-disable-next-line solid/reactivity
   return createMemo(() => {
     const client = clientAccessor()!;
     const list = (typeof ids === "function" ? ids() : ids).map((id) => {
@@ -49,8 +50,9 @@ export function useUsers(
         if (server) {
           const member = client.serverMembers.getByKey({
             server,
-            user: user._id,
+            user: user.id,
           });
+
           if (member) {
             return {
               username: member.nickname ?? user.username,
@@ -71,6 +73,11 @@ export function useUsers(
   });
 }
 
+/**
+ * Use a specific user by their ID
+ * @param id ID
+ * @returns User information
+ */
 export function useUser(id: string): Accessor<UserInformation | undefined> {
   const users = useUsers([id]);
   return () => users()[0];

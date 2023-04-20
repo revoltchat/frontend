@@ -67,6 +67,7 @@ type ValueType<T extends keyof SettingsDefinition> =
  */
 const EXPECTED_TYPES: { [K in keyof SettingsDefinition]: ValueType<K> } = {
   "appearance:show_send_button": "boolean",
+  "appearance:compact_mode": "boolean",
 };
 
 /**
