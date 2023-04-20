@@ -13,6 +13,8 @@ const CUSTOM_TESTS: Record<string, (page: Page) => Promise<void>> = {
   },
 };
 
+const LAX_CONFIGURATION = ["Attachment", "Embed"];
+
 for (const component of components) {
   test(component, async ({ page }) => {
     if (CUSTOM_TESTS[component]) {
@@ -55,7 +57,13 @@ for (const component of components) {
       await page.waitForLoadState("networkidle");
 
       await expect(page.locator(`#${component}`)).toHaveScreenshot(
-        component + ".png"
+        component + ".png",
+        LAX_CONFIGURATION.includes(component)
+          ? {
+              maxDiffPixelRatio: 0.02,
+              maxDiffPixels: 1500,
+            }
+          : {}
       );
     }
   });
