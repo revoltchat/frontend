@@ -48,6 +48,9 @@ for (const component of components) {
         }
       });
 
+      // make sure fonts have loaded in
+      await page.evaluate(() => document.fonts.ready);
+
       // ensure we are idle again
       await page.waitForLoadState("networkidle");
 
