@@ -123,7 +123,7 @@ const Description = styled.div<BaseProps>`
   ${(props) =>
     props.selected
       ? `
-          color: var(--accent-contrast);
+          color: ${props.theme?.colours["background-100"]};
         `
       : undefined}
 `;
