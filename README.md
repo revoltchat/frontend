@@ -64,6 +64,18 @@ git submodule init packages/client/assets
 # now run the first command
 ```
 
+## Faster iteration with Revolt.js
+
+To make it easier to work with `revolt.js`, you may want to temporarily make this change:
+
+```diff
+# packages/revolt.js/package.json
+-  "module": "lib/esm/index.js",
++  "module": "src/index.ts",
+```
+
+Any edits to the revolt.js codebase will immediately reflect while developing.
+
 ## Using `pnpm`
 
 Add a new package to a workspace:
