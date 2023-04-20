@@ -21,7 +21,7 @@
     "revolt.js": "workspace:7.0.0-beta.1",
     "solid-hcaptcha": "^0.2.5",
     "solid-icons": "^1.0.1",
-    "solid-js": "^1.5.1",
+    "solid-js": "^1.7.2",
     "solid-styled-components": "^0.28.4"
   }
 }

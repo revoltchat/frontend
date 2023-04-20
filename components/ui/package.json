@@ -22,7 +22,7 @@
     "solid-dnd-directive": "^0.2.0",
     "solid-floating-ui": "^0.2.0",
     "solid-icons": "^1.0.1",
-    "solid-js": "^1.5.1",
+    "solid-js": "^1.7.2",
     "solid-styled-components": "^0.28.4"
   },
   "devDependencies": {

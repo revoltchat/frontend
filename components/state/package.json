@@ -19,6 +19,6 @@
     "localforage": "^1.10.0",
     "mobx": "^6.3.2",
     "revolt.js": "workspace:7.0.0-beta.1",
-    "solid-js": "^1.5.1"
+    "solid-js": "^1.7.2"
   }
 }

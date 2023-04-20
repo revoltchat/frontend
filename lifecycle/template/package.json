@@ -8,6 +8,6 @@
   "keywords": [],
   "private": true,
   "dependencies": {
-    "solid-js": "^1.5.1"
+    "solid-js": "^1.7.2"
   }
 }
