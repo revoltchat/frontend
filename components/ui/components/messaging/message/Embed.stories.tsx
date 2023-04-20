@@ -1,6 +1,7 @@
 import type { ComponentProps } from "solid-js";
 
-import type { API } from "revolt.js";
+import { API, Client, WebsiteEmbed } from "revolt.js";
+import { MessageEmbed } from "revolt.js";
 
 import FitContentDecorator from "../../../decorators/FitContentDecorator";
 import MotherboardIcon from "../../../test-images/icons8-motherboard-48.png";
@@ -8,6 +9,20 @@ import type { ComponentStory } from "../../stories";
 
 import { attachments } from "./Attachment.stories";
 import { Embed } from "./Embed";
+
+const client = new Client();
+
+client.configuration = {
+  features: {
+    autumn: {
+      enabled: true,
+      url: "http://local.revolt.chat:5273",
+    },
+    january: {
+      enabled: false,
+    },
+  },
+} as never;
 
 const embeds: {
   [key in "text" | "website" | "image" | "video"]: API.Embed;
@@ -66,33 +81,32 @@ export default {
     {
       title: "Text",
       props: {
-        embed: embeds.text,
+        embed: MessageEmbed.from(client, embeds.text),
       },
     },
     {
       title: "Website",
       props: {
-        embed: embeds.website,
+        embed: MessageEmbed.from(client, embeds.website),
       },
     },
     {
       title: "Website (Large Preview)",
       props: {
-        embed: {
+        embed: new WebsiteEmbed(client, {
           ...embeds.website,
           description: "This embed has a large image preview attached.",
-          // TODO: fix
-          /*image: {
-            ...(embeds.website as any).image,
+          image: {
+            ...(embeds.website as API.Embed & { type: "Website" }).image!,
             size: "Large",
-          },*/
-        },
+          },
+        }),
       },
     },
     {
       title: "Website (With Video)",
       props: {
-        embed: {
+        embed: new WebsiteEmbed(client, {
           ...embeds.website,
           description: "This embed has a video attached.",
           video: {
@@ -100,25 +114,25 @@ export default {
             width: 640,
             height: 360,
           },
-        },
+        }),
       },
     },
     {
       title: "Image",
       props: {
-        embed: embeds.image,
+        embed: MessageEmbed.from(client, embeds.image),
       },
     },
     {
       title: "Video",
       props: {
-        embed: embeds.video,
+        embed: MessageEmbed.from(client, embeds.video),
       },
     },
     {
       title: "GIF (Video)",
       props: {
-        embed: {
+        embed: new WebsiteEmbed(client, {
           ...embeds.website,
           video: {
             url: "http://local.revolt.chat:5273/attachments/pexels-lachlan-ross-8775687.mp4",
@@ -128,104 +142,102 @@ export default {
           special: {
             type: "GIF",
           },
-        },
+        }),
       },
     },
     {
       title: "GIF (Image)",
       props: {
-        embed: {
+        embed: new WebsiteEmbed(client, {
           ...embeds.website,
           special: {
             type: "GIF",
           },
-        },
+        }),
       },
     },
     {
       title: "YouTube",
       props: {
-        embed: {
+        embed: MessageEmbed.from(client, {
           type: "Website",
           special: {
             type: "YouTube",
             id: "LXb3EKWsInQ",
           },
-        },
+        }),
       },
       skipRegressionTests: true,
     },
     {
       title: "Twitch",
       props: {
-        embed: {
+        embed: MessageEmbed.from(client, {
           type: "Website",
           special: {
             type: "Twitch",
             content_type: "Channel",
             id: "insertpaulhere",
           },
-        },
+        }),
       },
       skipRegressionTests: true,
     },
     {
       title: "Lightspeed",
       props: {
-        embed: {
+        embed: MessageEmbed.from(client, {
           type: "Website",
           special: {
             type: "Lightspeed",
             content_type: "Channel",
             id: "insert",
           },
-        },
+        }),
       },
       skipRegressionTests: true,
     },
     {
       title: "Spotify",
       props: {
-        embed: {
+        embed: MessageEmbed.from(client, {
           type: "Website",
           special: {
             type: "Spotify",
             content_type: "track",
             id: "4NsPgRYUdHu2Q5JRNgXYU5",
           },
-        },
+        }),
       },
       skipRegressionTests: true,
     },
     {
       title: "Soundcloud",
       props: {
-        embed: {
+        embed: MessageEmbed.from(client, {
           type: "Website",
           url: "https://soundcloud.com/minecraftwizards/18-c418-sweden",
           special: {
             type: "Soundcloud",
           },
-        },
+        }),
       },
       skipRegressionTests: true,
     },
     {
       title: "Bandcamp",
       props: {
-        embed: {
+        embed: MessageEmbed.from(client, {
           type: "Website",
           special: {
             type: "Bandcamp",
             content_type: "Album",
             id: "1349219244",
           },
-        },
+        }),
       },
       skipRegressionTests: true,
     },
   ],
-  props: {},
-  propTypes: {},
   decorators: [FitContentDecorator],
 } as ComponentStory<typeof Embed, ComponentProps<typeof Embed>>;

@@ -199,8 +199,5 @@ export default {
       },
     },
   ],
-  propTypes: {
-    file: "component",
-  },
   decorators: [FitContentDecorator],
 } as ComponentStory<typeof Attachment, ComponentProps<typeof Attachment>>;
