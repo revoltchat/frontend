@@ -23,7 +23,8 @@ const Interface: Component = () => {
           we appear to be loading; ready:{" "}
           {clientController.isReady() ? "yes" : "no"}; ready:{" "}
           {ready() ? "yes" : "no"}; logged in:{" "}
-          {clientController.isLoggedIn() ? "yes" : "no"}
+          {clientController.isLoggedIn() ? "yes" : "no"} do we have a client?{" "}
+          {"" + clientController.getCurrentClient()}
         </h1>
       }
     >
