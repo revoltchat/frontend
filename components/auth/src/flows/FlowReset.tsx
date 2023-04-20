@@ -15,6 +15,10 @@ export default function FlowReset() {
   const t = useTranslation();
   const navigate = useNavigate();
 
+  /**
+   * Send password reset
+   * @param data Form Data
+   */
   async function reset(data: FormData) {
     const email = data.get("email") as string;
     const captcha = data.get("captcha") as string;

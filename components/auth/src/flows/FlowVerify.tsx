@@ -50,10 +50,9 @@ export default function FlowVerify() {
   async function login() {
     const v = state();
     if (v.state === "success" && v.mfa_ticket) {
-      // TODO: login
-      /*await clientController.login({
+      await clientController.login({
         mfa_ticket: v.mfa_ticket,
-      });*/
+      });
 
       navigate("/", { replace: true });
     }

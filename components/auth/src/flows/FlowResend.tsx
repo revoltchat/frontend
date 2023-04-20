@@ -15,6 +15,10 @@ export default function FlowResend() {
   const t = useTranslation();
   const navigate = useNavigate();
 
+  /**
+   * Resend email verification
+   * @param data Form Data
+   */
   async function resend(data: FormData) {
     const email = data.get("email") as string;
     const captcha = data.get("captcha") as string;

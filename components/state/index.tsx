@@ -23,6 +23,11 @@ import { Settings } from "./stores/Settings";
 const DISK_WRITE_WAIT_MS = 1200;
 
 /**
+ * Stores for which we don't want to wait to write to
+ */
+const IGNORE_WRITE_DELAY = ["auth"];
+
+/**
  * Global application state
  */
 export class State {
@@ -99,20 +104,25 @@ export class State {
     }
 
     // queue for writing to disk
-    this.writeQueue[key] = setTimeout(() => {
-      // remove from write queue
-      delete this.writeQueue[key];
+    this.writeQueue[key] = setTimeout(
+      () => {
+        // remove from write queue
+        delete this.writeQueue[key];
 
-      // write the entire key to storage
-      localforage.setItem(
-        key,
-        JSON.parse(JSON.stringify((this.store as Record<string, unknown>)[key]))
-      );
+        // write the entire key to storage
+        localforage.setItem(
+          key,
+          JSON.parse(
+            JSON.stringify((this.store as Record<string, unknown>)[key])
+          )
+        );
 
-      if (import.meta.env.DEV) {
-        console.info("Wrote state to disk.");
-      }
-    }, DISK_WRITE_WAIT_MS) as unknown as number;
+        if (import.meta.env.DEV) {
+          console.info("Wrote state to disk.");
+        }
+      },
+      IGNORE_WRITE_DELAY.includes(key) ? 0 : DISK_WRITE_WAIT_MS
+    ) as unknown as number;
   };
 
   /**
