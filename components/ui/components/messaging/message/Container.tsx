@@ -147,7 +147,7 @@ export function MessageContainer(props: Props) {
       <Row gap="none">
         <Info tail={props.tail} compact={props.compact}>
           <Switch fallback={<Avatar size={36} src={props.avatar} />}>
-            {props.infoMatch}
+            {props.infoMatch ?? <Match when={false} children={null} />}
             <Match when={props.compact}>
               <CompactInfo gap="sm" align>
                 <InfoText gap="sm">
