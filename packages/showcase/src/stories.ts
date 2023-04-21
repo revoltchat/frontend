@@ -16,6 +16,7 @@ import Unreads from '@revolt/ui/components/design/atoms/indicators/Unreads.stori
 import UserStatus from '@revolt/ui/components/design/atoms/indicators/UserStatus.stories';
 import Button from '@revolt/ui/components/design/atoms/inputs/Button.stories';
 import Checkbox from '@revolt/ui/components/design/atoms/inputs/Checkbox.stories';
+import ColourSwatches from '@revolt/ui/components/design/atoms/inputs/ColourSwatches.stories';
 import ComboBox from '@revolt/ui/components/design/atoms/inputs/ComboBox.stories';
 import Input from '@revolt/ui/components/design/atoms/inputs/Input.stories';
 import MenuButton from '@revolt/ui/components/design/atoms/inputs/MenuButton.stories';
@@ -28,4 +29,4 @@ import Tooltip from '@revolt/ui/components/floating/Tooltip.stories';
 import Attachment from '@revolt/ui/components/messaging/message/Attachment.stories';
 import Container from '@revolt/ui/components/messaging/message/Container.stories';
 import Embed from '@revolt/ui/components/messaging/message/Embed.stories';
-export default {Avatar, FormGroup, Header, Initials, Modal, Time, Typography, MessageDivider, Preloader, SaveStatus, Turbo, Unreads, UserStatus, Button, Checkbox, ComboBox, Input, MenuButton, Radio, Tabs, Column, OverflowingText, Row, Tooltip, Attachment, Container, Embed} as Record<string, ComponentStory<Component>>;
+export default {Avatar, FormGroup, Header, Initials, Modal, Time, Typography, MessageDivider, Preloader, SaveStatus, Turbo, Unreads, UserStatus, Button, Checkbox, ColourSwatches, ComboBox, Input, MenuButton, Radio, Tabs, Column, OverflowingText, Row, Tooltip, Attachment, Container, Embed} as Record<string, ComponentStory<Component>>;
