@@ -13,16 +13,8 @@ export default {
       },
     },
   ],
-  props: {
-    value: "#FD6671",
-  },
   propTypes: {
     value: "string",
     onChange: "function",
-  },
-  effects: {
-    onChange: (props) => ({
-      value: props.value,
-    }),
   },
 } as ComponentStory<typeof ColourSwatches>;
