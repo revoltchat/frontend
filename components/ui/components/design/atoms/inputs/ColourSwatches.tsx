@@ -1,6 +1,6 @@
 import { BiRegularCheck, BiSolidPalette } from "solid-icons/bi";
 import { For, Show, createSignal, splitProps } from "solid-js";
-import { css, styled } from "solid-styled-components";
+import { styled } from "solid-styled-components";
 
 interface Props {
   readonly presets?: string[][];
