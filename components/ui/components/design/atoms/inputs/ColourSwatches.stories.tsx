@@ -15,6 +15,7 @@ export default {
     {
       title: "Default (Different Palette)",
       props: {
+        value: "#cc6",
         presets: [
           ["#cc6", "#000", "#f55", "#a88"],
           ["#bc2", "#aa5", "#fb8", "#16d"],
