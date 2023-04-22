@@ -4,8 +4,8 @@ import { styled } from "solid-styled-components";
 
 interface Props {
   readonly presets?: string[][];
-  readonly value: string;
-  readonly onChange: (value: string) => void;
+  readonly value?: string;
+  readonly onChange?: (state: string) => void;
 }
 
 interface SwatchProps {
@@ -165,5 +165,3 @@ export function ColourSwatches(props: Props) {
     </Base>
   );
 }
-
-export default ColourSwatches;
