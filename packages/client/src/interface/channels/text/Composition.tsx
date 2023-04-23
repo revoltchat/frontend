@@ -196,8 +196,6 @@ export function MessageComposition(props: Props) {
     ) {
       event.preventDefault();
 
-      const content = draft().content ?? "";
-
       const indent = "  "; // 2 spaces
 
       const selectStart = event.currentTarget.selectionStart;
@@ -206,7 +204,7 @@ export function MessageComposition(props: Props) {
       const selectEnd = event.currentTarget.selectionEnd;
       let selectionEndColumn = 0;
 
-      const lines = content.split("\n");
+      const lines = (draft().content ?? "").split("\n");
       const selectLines = [];
 
       let selectionBegun = false;
@@ -233,7 +231,7 @@ export function MessageComposition(props: Props) {
 
       if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
         // Remove indentation
-        const whitespaceRegex = new RegExp(" {1,2}(?=\\S)");
+        const whitespaceRegex = new RegExp(`(?<=^ *) {1,${indent.length}}`);
 
         let charsRemoved = 0;
         let charsRemovedFirstLine = 0;
@@ -242,8 +240,6 @@ export function MessageComposition(props: Props) {
           const selectedLineIndex = selectLines[i];
           const currentLine = lines[selectedLineIndex];
           const result = whitespaceRegex.exec(currentLine);
-
-          console.debug(currentLine, result);
 
           if (result != null) {
             lines[selectedLineIndex] = currentLine.substring(result[0].length);
