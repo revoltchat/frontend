@@ -39,7 +39,7 @@ importers:
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/state': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      revolt.js: workspace:7.0.0-beta.1
+      revolt.js: workspace:7.0.0-beta.3
       solid-icons: ^1.0.4
       solid-js: ^1.7.3
       ulid: ^2.3.0
@@ -63,7 +63,7 @@ importers:
       '@revolt/routing': workspace:^1.0.0
       '@revolt/state': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      revolt.js: workspace:7.0.0-beta.1
+      revolt.js: workspace:7.0.0-beta.3
       solid-hcaptcha: ^0.2.5
       solid-icons: ^1.0.4
       solid-js: ^1.7.3
@@ -92,7 +92,7 @@ importers:
       '@solid-primitives/map': ^0.4.3
       detect-browser: ^5.3.0
       mobx: ^6.3.2
-      revolt.js: workspace:7.0.0-beta.1
+      revolt.js: workspace:7.0.0-beta.3
       solid-js: ^1.7.3
       vite: ^4.2.1
     dependencies:
@@ -150,7 +150,7 @@ importers:
       remark-math: ^5.1.1
       remark-parse: ^10.0.1
       remark-rehype: ^10.1.0
-      revolt.js: workspace:7.0.0-beta.1
+      revolt.js: workspace:7.0.0-beta.3
       solid-js: ^1.7.3
       solid-styled-components: workspace:^0.28.4
       space-separated-tokens: ^2.0.2
@@ -196,7 +196,7 @@ importers:
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@revolt/ui': workspace:^1.0.0
-      revolt.js: workspace:7.0.0-beta.1
+      revolt.js: workspace:7.0.0-beta.3
       solid-icons: ^1.0.4
       solid-js: ^1.7.3
       solid-qr-code: ^0.0.8
@@ -231,7 +231,7 @@ importers:
       json-stringify-deterministic: ^1.0.7
       localforage: ^1.10.0
       mobx: ^6.3.2
-      revolt.js: workspace:7.0.0-beta.1
+      revolt.js: workspace:7.0.0-beta.3
       solid-js: ^1.7.3
       vite: ^4.2.1
     dependencies:
@@ -260,7 +260,7 @@ importers:
       '@revolt/markdown': workspace:^1.0.0
       '@revolt/routing': workspace:^1.0.0
       '@thisbeyond/solid-dnd': ^0.7.1
-      revolt.js: workspace:^7.0.0-beta.1
+      revolt.js: workspace:^7.0.0-beta.3
       solid-dnd-directive: ^0.2.0
       solid-floating-ui: ^0.2.0
       solid-icons: ^1.0.4
@@ -373,7 +373,7 @@ importers:
       isomorphic-ws: ^5.0.0
       long: ^5.2.1
       prettier: ^2.8.7
-      revolt-api: ^0.5.17
+      revolt-api: ^0.5.19
       solid-js: ^1.7.3
       tsc-watch: ^6.0.0
       typed-emitter: ^2.1.0
@@ -388,7 +388,7 @@ importers:
       eventemitter3: 5.0.0
       isomorphic-ws: 5.0.0_ws@8.13.0
       long: 5.2.1
-      revolt-api: 0.5.17
+      revolt-api: 0.5.19
       solid-js: 1.7.3
       typedoc: 0.24.1_typescript@5.0.4
       ulid: 2.3.0
@@ -9192,8 +9192,8 @@ packages:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  /revolt-api/0.5.17:
-    resolution: {integrity: sha512-AkceDCK+6c8Ie+psmG8KA1VTx+DJJRk99jsve9SIBCeCxZ7CizdgBdG3fJ4KM/UA4H+IvPa3PdFzgrBeBuTOWQ==}
+  /revolt-api/0.5.19:
+    resolution: {integrity: sha512-RJzArPUlu6XOUGQl/z8Sg7aFyN8rizYBICor/3REvyzjaVjeIQr9P0gICyQ5HztT+mNoM9wgZIw4mA2dWdVuYQ==}
     dependencies:
       '@insertish/oapi': 0.1.18
       axios: 0.26.1

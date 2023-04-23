@@ -186,11 +186,66 @@ export function MessageComposition(props: Props) {
   function onKeyDownMessageBox(
     event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
   ) {
+    const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
+
+    if (
+      event.key === "Tab" &&
+      !event.isComposing &&
+      insideCodeBlock
+    ) {
+      event.preventDefault();
+
+      const content = draft().content ?? "";
+      let newDraft = content;
+
+      const indent = "  "; // 2 spaces
+
+      const selectStart = event.currentTarget.selectionStart;
+      const selectEnd = event.currentTarget.selectionEnd;
+
+      const lineStart = content.lastIndexOf("\n", selectStart);
+      const lineEnd = content.lastIndexOf("\n", selectEnd);
+
+      const newlineIndexes = [];
+      for (let i = lineStart; i <= lineEnd; i++) {
+        if (content[i] === "\n") newlineIndexes.push(i);
+      }
+
+      if (event.shiftKey) {
+        // Remove indentation, where possible
+        // TODO
+      } else {
+        // Add indentation
+        let indentsAdded = 0;
+
+        if (selectStart === selectEnd) {
+          // Insert spacing at current position instead of line start
+          newDraft = newDraft.slice(0, selectStart) + indent + newDraft.slice(selectStart);
+          indentsAdded++;
+        } else {
+          // Insert spacing at beginning of all selected lines
+          for (const lineIndex of newlineIndexes) {
+            // Add one to skip the newline, then add the product of the number of added indents and the indent length.
+            // Since we're modifying the string in this same loop, we need to know how the indexes have changed as we go.
+            const insertPos = lineIndex + 1 + (indentsAdded * indent.length);
+            newDraft = newDraft.slice(0, insertPos) + indent + newDraft.slice(insertPos);
+            indentsAdded++;
+          }
+        }
+
+        setContent(newDraft);
+
+        // Update selection positions, so we can keep them relatively the same after indentation, and also because changing the contents of the TextAreaElement will reset both.
+        event.currentTarget.selectionStart = selectStart + indent.length;
+        event.currentTarget.selectionEnd = selectEnd + (indent.length * indentsAdded);
+      }
+    }
+
     if (
       event.key === "Enter" &&
       !event.shiftKey &&
       !event.isComposing &&
-      !isInCodeBlock(event.currentTarget.selectionStart) /*&& props.ref*/
+      !insideCodeBlock /*&& props.ref*/
     ) {
       event.preventDefault();
       sendMessage();
