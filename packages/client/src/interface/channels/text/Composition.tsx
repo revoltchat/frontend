@@ -187,7 +187,7 @@ export function MessageComposition(props: Props) {
     event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
   ) {
     const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
-    const usingBracketIndent = (event.ctrlKey && (event.key === "[" || event.key === "]"));
+    const usingBracketIndent = (event.ctrlKey || event.metaKey) && (event.key === "[" || event.key === "]");
 
     if (
       (event.key === "Tab" || usingBracketIndent) &&
