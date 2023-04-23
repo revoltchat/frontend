@@ -14,7 +14,7 @@
     "@revolt/markdown": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
-    "revolt.js": "workspace:7.0.0-beta.3",
+    "revolt.js": "workspace:^7.0.0-beta.3",
     "solid-icons": "^1.0.4",
     "solid-js": "^1.7.3",
     "solid-qr-code": "^0.0.8",
