@@ -187,9 +187,10 @@ export function MessageComposition(props: Props) {
     event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
   ) {
     const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
+    const usingBracketIndent = (event.ctrlKey && (event.key === "[" || event.key === "]"));
 
     if (
-      event.key === "Tab" &&
+      (event.key === "Tab" || usingBracketIndent) &&
       !event.isComposing &&
       insideCodeBlock
     ) {
@@ -211,14 +212,14 @@ export function MessageComposition(props: Props) {
         if (content[i] === "\n") newlineIndexes.push(i);
       }
 
-      if (event.shiftKey) {
+      if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
         // Remove indentation, where possible
         // TODO
       } else {
         // Add indentation
         let indentsAdded = 0;
 
-        if (selectStart === selectEnd) {
+        if (selectStart === selectEnd && event.key === "Tab") {
           // Insert spacing at current position instead of line start
           newDraft = newDraft.slice(0, selectStart) + indent + newDraft.slice(selectStart);
           indentsAdded++;
