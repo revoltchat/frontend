@@ -194,19 +194,20 @@ export function MessageComposition(props: Props) {
       !event.isComposing &&
       insideCodeBlock
     ) {
+      // Handle code block indentation.
       event.preventDefault();
 
       const indent = "  "; // 2 spaces
 
       const selectStart = event.currentTarget.selectionStart;
-      let selectionStartColumn = 0;
-
       const selectEnd = event.currentTarget.selectionEnd;
+      let selectionStartColumn = 0;
       let selectionEndColumn = 0;
 
       const lines = (draft().content ?? "").split("\n");
       const selectLines = [];
 
+      // Get indexes of selected lines
       let selectionBegun = false;
       let lineIndex = 0;
       for (let i = 0; i < lines.length; i++) {
@@ -215,7 +216,6 @@ export function MessageComposition(props: Props) {
 
         if (selectStart >= lineIndex && selectStart <= endOfLine) {
           selectionBegun = true;
-
           selectionStartColumn = selectStart - lineIndex;
         }
 
@@ -230,17 +230,19 @@ export function MessageComposition(props: Props) {
       }
 
       if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
-        // Remove indentation
         const whitespaceRegex = new RegExp(`(?<=^ *) {1,${indent.length}}`);
 
+        // Used to ensure selection remains the same after indentation changes
         let charsRemoved = 0;
         let charsRemovedFirstLine = 0;
 
+        // Remove indentation on selected lines, where possible.
         for (let i = 0; i < selectLines.length; i++) {
           const selectedLineIndex = selectLines[i];
           const currentLine = lines[selectedLineIndex];
           const result = whitespaceRegex.exec(currentLine);
 
+          // If result == null, there's no more spacing to remove on this line.
           if (result != null) {
             lines[selectedLineIndex] = currentLine.substring(result[0].length);
             charsRemoved += result[0].length;
@@ -250,12 +252,14 @@ export function MessageComposition(props: Props) {
 
         setContent(lines.join("\n"));
 
+        // Update selection positions.
         event.currentTarget.selectionStart = selectStart - charsRemovedFirstLine;
         event.currentTarget.selectionEnd = selectEnd - charsRemoved;
       } else {
-        // Add indentation
-        let indentsAdded = 0;
+        // Used to ensure selection remains the same after indentation changes
+        let indentsAdded = 0; 
 
+        // Add indentation to selected lines.
         for (const selectedLineIndex of selectLines) {
           const currentLine = lines[selectedLineIndex];
 
@@ -275,7 +279,7 @@ export function MessageComposition(props: Props) {
 
         setContent(lines.join("\n"));
 
-        // Update selection positions, so we can keep them relatively the same after indentation, and also because changing the contents of the TextAreaElement will reset both.
+        // Update selection positions.
         event.currentTarget.selectionStart = selectStart + indent.length;
         event.currentTarget.selectionEnd = selectEnd + (indent.length * indentsAdded);
       }
