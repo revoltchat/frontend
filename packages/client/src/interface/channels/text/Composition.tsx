@@ -197,46 +197,62 @@ export function MessageComposition(props: Props) {
       event.preventDefault();
 
       const content = draft().content ?? "";
-      let newDraft = content;
 
       const indent = "  "; // 2 spaces
 
       const selectStart = event.currentTarget.selectionStart;
+      let selectionStartColumn = 0;
+
       const selectEnd = event.currentTarget.selectionEnd;
+      let selectionEndColumn = 0;
 
-      // Fix for removing indentation when cursor is at very end of line
-      const modifier = (selectStart === selectEnd) ? -1 : 0;
+      const lines = content.split("\n");
+      const selectLines = [];
 
-      const lineStart = content.lastIndexOf("\n", selectStart + modifier);
-      const lineEnd = content.lastIndexOf("\n", selectEnd + modifier);
+      let selectionBegun = false;
+      let lineIndex = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const currentLine = lines[i];
+        const endOfLine = lineIndex + currentLine.length;
 
-      const newlineIndexes = [];
-      for (let i = lineStart; i <= lineEnd; i++) {
-        if (content[i] === "\n") newlineIndexes.push(i);
+        if (selectStart >= lineIndex && selectStart <= endOfLine) {
+          selectionBegun = true;
+
+          selectionStartColumn = selectStart - lineIndex;
+        }
+
+        if (selectionBegun) selectLines.push(i);
+        
+        if (selectEnd <= endOfLine) {
+          selectionEndColumn = selectEnd - lineIndex;
+          break;
+        }
+
+        lineIndex += currentLine.length + 1; // add 1 to account for missing newline char
       }
 
       if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
-        // Remove indentation, where possible
-        const whitespaceRegex = new RegExp(" {1,2}(?=\\S)", "g");
+        // Remove indentation
+        const whitespaceRegex = new RegExp(" {1,2}(?=\\S)");
 
         let charsRemoved = 0;
         let charsRemovedFirstLine = 0;
 
-        for (let i = 0; i < newlineIndexes.length; i++) {
-          const index = newlineIndexes[i];
-          whitespaceRegex.lastIndex = index-1;
-          const result = whitespaceRegex.exec(newDraft);
+        for (let i = 0; i < selectLines.length; i++) {
+          const selectedLineIndex = selectLines[i];
+          const currentLine = lines[selectedLineIndex];
+          const result = whitespaceRegex.exec(currentLine);
 
-          console.debug(newlineIndexes, result);
+          console.debug(currentLine, result);
 
           if (result != null) {
-            newDraft = newDraft.slice(0, result.index) + newDraft.slice(result.index + result[0].length);
+            lines[selectedLineIndex] = currentLine.substring(result[0].length);
             charsRemoved += result[0].length;
             if (i === 0) charsRemovedFirstLine = result[0].length;
           }
         }
 
-        setContent(newDraft);
+        setContent(lines.join("\n"));
 
         event.currentTarget.selectionStart = selectStart - charsRemovedFirstLine;
         event.currentTarget.selectionEnd = selectEnd - charsRemoved;
@@ -244,22 +260,24 @@ export function MessageComposition(props: Props) {
         // Add indentation
         let indentsAdded = 0;
 
-        if (selectStart === selectEnd && event.key === "Tab") {
-          // Insert spacing at current position instead of line start
-          newDraft = newDraft.slice(0, selectStart) + indent + newDraft.slice(selectStart);
-          indentsAdded++;
-        } else {
-          // Insert spacing at beginning of all selected lines
-          for (const lineIndex of newlineIndexes) {
-            // Add one to skip the newline, then add the product of the number of added indents and the indent length.
-            // Since we're modifying the string in this same loop, we need to know how the indexes have changed as we go.
-            const insertPos = lineIndex + 1 + (indentsAdded * indent.length);
-            newDraft = newDraft.slice(0, insertPos) + indent + newDraft.slice(insertPos);
-            indentsAdded++;
+        for (const selectedLineIndex of selectLines) {
+          const currentLine = lines[selectedLineIndex];
+
+          if (selectStart === selectEnd && event.key === "Tab") {
+            // Insert spacing at current position instead of line start
+            const beforeIndent = currentLine.slice(0, selectionStartColumn);
+            const afterIndent = currentLine.slice(selectionEndColumn);
+
+            lines[selectedLineIndex] = beforeIndent + indent + afterIndent;
+          } else {
+            // Insert spacing at beginning of selected line
+            lines[selectedLineIndex] = indent + currentLine;
           }
+
+          indentsAdded++;
         }
 
-        setContent(newDraft);
+        setContent(lines.join("\n"));
 
         // Update selection positions, so we can keep them relatively the same after indentation, and also because changing the contents of the TextAreaElement will reset both.
         event.currentTarget.selectionStart = selectStart + indent.length;
