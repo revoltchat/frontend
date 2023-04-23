@@ -204,8 +204,11 @@ export function MessageComposition(props: Props) {
       const selectStart = event.currentTarget.selectionStart;
       const selectEnd = event.currentTarget.selectionEnd;
 
-      const lineStart = content.lastIndexOf("\n", selectStart);
-      const lineEnd = content.lastIndexOf("\n", selectEnd);
+      // Fix for removing indentation when cursor is at very end of line
+      const modifier = (selectStart === selectEnd) ? -1 : 0;
+
+      const lineStart = content.lastIndexOf("\n", selectStart + modifier);
+      const lineEnd = content.lastIndexOf("\n", selectEnd + modifier);
 
       const newlineIndexes = [];
       for (let i = lineStart; i <= lineEnd; i++) {
@@ -214,7 +217,29 @@ export function MessageComposition(props: Props) {
 
       if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
         // Remove indentation, where possible
-        // TODO
+        const whitespaceRegex = new RegExp(" {1,2}(?=\\S)", "g");
+
+        let charsRemoved = 0;
+        let charsRemovedFirstLine = 0;
+
+        for (let i = 0; i < newlineIndexes.length; i++) {
+          const index = newlineIndexes[i];
+          whitespaceRegex.lastIndex = index-1;
+          const result = whitespaceRegex.exec(newDraft);
+
+          console.debug(newlineIndexes, result);
+
+          if (result != null) {
+            newDraft = newDraft.slice(0, result.index) + newDraft.slice(result.index + result[0].length);
+            charsRemoved += result[0].length;
+            if (i === 0) charsRemovedFirstLine = result[0].length;
+          }
+        }
+
+        setContent(newDraft);
+
+        event.currentTarget.selectionStart = selectStart - charsRemovedFirstLine;
+        event.currentTarget.selectionEnd = selectEnd - charsRemoved;
       } else {
         // Add indentation
         let indentsAdded = 0;
