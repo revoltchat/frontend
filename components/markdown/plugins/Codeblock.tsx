@@ -12,6 +12,7 @@ const Base = styled.pre`
   background: ${(props) => props.theme!.colours["background-300"]};
 
   code {
+    font-size: 90%;
     background: transparent;
   }
 `;

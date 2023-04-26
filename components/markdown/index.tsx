@@ -28,6 +28,9 @@ import { sanitise } from "./sanitise";
 import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 import { defaults } from "./solid-markdown/defaults";
 
+/**
+ * Empty component
+ */
 const Null = () => null;
 
 /**
