@@ -99,30 +99,35 @@ export const HomeSidebar = (props: Props) => {
             </MenuButton>
           </Link>
         </Show>
-        <a
-          // Use normal link by default
-          href={
-            savedNotesChannelId()
-              ? `/channel/${savedNotesChannelId()}`
-              : undefined
-          }
-          // Fallback to JavaScript navigation if channel doesn't exist yet
-          onClick={(ev) =>
-            !ev.currentTarget.href && props.openSavedNotes(navigate)
+        <Switch
+          fallback={
+            <MenuButton
+              size="normal"
+              attention={"normal"}
+              icon={<BiSolidNotepad size={24} />}
+              // eslint-disable-next-line solid/reactivity
+              onClick={() => props.openSavedNotes(navigate)}
+            >
+              Saved Notes
+            </MenuButton>
           }
         >
-          <MenuButton
-            size="normal"
-            icon={<BiSolidNotepad size={24} />}
-            attention={
-              props.channelId && savedNotesChannelId() === props.channelId
-                ? "active"
-                : "normal"
-            }
-          >
-            Saved Notes
-          </MenuButton>
-        </a>
+          <Match when={savedNotesChannelId()}>
+            <Link href={`/channel/${savedNotesChannelId()}`}>
+              <MenuButton
+                size="normal"
+                icon={<BiSolidNotepad size={24} />}
+                attention={
+                  props.channelId && savedNotesChannelId() === props.channelId
+                    ? "active"
+                    : "normal"
+                }
+              >
+                Saved Notes
+              </MenuButton>
+            </Link>
+          </Match>
+        </Switch>
         <Deferred>
           <VirtualContainer
             items={props.conversations()}

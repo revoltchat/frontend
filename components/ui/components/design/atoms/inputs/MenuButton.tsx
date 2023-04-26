@@ -1,4 +1,4 @@
-import { JSX, Show, splitProps } from "solid-js";
+import { ComponentProps, JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Row } from "../../layout";
@@ -90,7 +90,7 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
 /**
  * Menu button element
  */
-export function MenuButton(props: Props) {
+export function MenuButton(props: Props & ComponentProps<typeof Row>) {
   const [local, other] = splitProps(props, [
     "icon",
     "children",
