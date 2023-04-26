@@ -85,7 +85,7 @@ export const HomeSidebar = (props: Props) => {
             icon={<BiSolidHome size={24} />}
             attention={location.pathname === "/" ? "active" : "normal"}
           >
-            Home
+            {t("app.navigation.tabs.home")}
           </MenuButton>
         </Link>
         <Show when={props.__tempDisplayFriends()}>
@@ -95,7 +95,7 @@ export const HomeSidebar = (props: Props) => {
               icon={<BiSolidUserDetail size={24} />}
               attention={location.pathname === "/friends" ? "active" : "normal"}
             >
-              Friends
+              {t("app.navigation.tabs.friends")}
             </MenuButton>
           </Link>
         </Show>
@@ -108,7 +108,7 @@ export const HomeSidebar = (props: Props) => {
               // eslint-disable-next-line solid/reactivity
               onClick={() => props.openSavedNotes(navigate)}
             >
-              Saved Notes
+              {t("app.navigation.tabs.saved")}
             </MenuButton>
           }
         >
@@ -123,7 +123,7 @@ export const HomeSidebar = (props: Props) => {
                     : "normal"
                 }
               >
-                Saved Notes
+                {t("app.navigation.tabs.saved")}
               </MenuButton>
             </Link>
           </Match>
@@ -239,7 +239,7 @@ function Entry(
                 {local.channel?.recipient?.username}
               </OverflowingText>
               <Show when={status}>
-                <Tooltip content={status!} placement="top-start">
+                <Tooltip content={status()!} placement="top-start">
                   {(triggerProps) => (
                     <OverflowingText>
                       <Typography {...triggerProps} variant="status">
