@@ -180,15 +180,56 @@ export function MessageComposition(props: Props) {
   }
 
   /**
+   * TODO: JSDoc
+   */
+  function getMessageBoxSelectionOffset(container: Node, startNode?: Node, startOffset?: number): number {
+    // realistically, this should never happen
+    if (startNode == null || startOffset == null) return 0;
+
+    let offset = startOffset;
+    let curNode: Node | null = startNode;
+
+    if (startNode === container) {
+      // fixes start or end of selection being a <br>
+      curNode = container.childNodes[startOffset];
+      offset = 0;
+    }
+
+    // work our way backwards, counting number of characters
+    while (curNode != null && curNode.parentNode == container) {
+      const prev: Node | null = curNode.previousSibling;
+
+      if (prev != null) {
+        if (prev instanceof Element && prev.tagName === `BR`) {
+          // this is a line break character in plain text, so just add 1
+          offset += 1;
+        } else if (prev.textContent != null) {
+          offset += prev.textContent.length;
+        } 
+      }
+
+      curNode = prev;
+    }
+
+    return offset;
+  }
+
+  /**
    * Handle key presses in input box
    * @param event Keyboard Event
    */
   function onKeyDownMessageBox(
     event: KeyboardEvent & { currentTarget: HTMLDivElement }
   ) {
-    console.log(event.currentTarget.innerText.trim());
+    // contenteditable divs dont have a normal selectionStart and selectionEnd properties
+    // so we have to do this terribleness.
+    const selection = window.getSelection();
+    const selectionRange = selection?.getRangeAt(0);
 
-    const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
+    const selectStart = getMessageBoxSelectionOffset(event.currentTarget, selectionRange?.startContainer, selectionRange?.startOffset);
+    const selectEnd = getMessageBoxSelectionOffset(event.currentTarget, selectionRange?.endContainer, selectionRange?.endOffset);
+
+    const insideCodeBlock = isInCodeBlock(selectStart);
     const usingBracketIndent = (event.ctrlKey || event.metaKey) && (event.key === "[" || event.key === "]");
 
     if (
@@ -197,12 +238,11 @@ export function MessageComposition(props: Props) {
       insideCodeBlock
     ) {
       // Handle code block indentation.
+      // FIXME: no longer works with contenteditable div messagebox!!!
       event.preventDefault();
 
       const indent = "  "; // 2 spaces
 
-      const selectStart = event.currentTarget.selectionStart;
-      const selectEnd = event.currentTarget.selectionEnd;
       let selectionStartColumn = 0;
       let selectionEndColumn = 0;
 
@@ -254,9 +294,16 @@ export function MessageComposition(props: Props) {
 
         setContent(lines.join("\n"));
 
+        console.log(charsRemoved, charsRemovedFirstLine)
+
         // Update selection positions.
-        event.currentTarget.selectionStart = selectStart - charsRemovedFirstLine;
-        event.currentTarget.selectionEnd = selectEnd - charsRemoved;
+        // const newSelection = document.createRange();
+        // newSelection.setStart(event.currentTarget)
+
+        // selection?.removeAllRanges();
+        // selection?.addRange();
+        //event.currentTarget.selectionStart = selectStart - charsRemovedFirstLine;
+        //event.currentTarget.selectionEnd = selectEnd - charsRemoved;
       } else {
         // Used to ensure selection remains the same after indentation changes
         let indentsAdded = 0; 
@@ -281,9 +328,11 @@ export function MessageComposition(props: Props) {
 
         setContent(lines.join("\n"));
 
+        console.log(indentsAdded);
+
         // Update selection positions.
-        event.currentTarget.selectionStart = selectStart + indent.length;
-        event.currentTarget.selectionEnd = selectEnd + (indent.length * indentsAdded);
+        // event.currentTarget.selectionStart = selectStart + indent.length;
+        // event.currentTarget.selectionEnd = selectEnd + (indent.length * indentsAdded);
       }
     }
 

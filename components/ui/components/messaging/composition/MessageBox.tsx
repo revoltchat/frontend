@@ -1,5 +1,5 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Show, Switch, onMount } from "solid-js";
+import { JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
@@ -105,12 +105,6 @@ export function MessageBox(props: Props) {
     props.setContent(event.currentTarget!.innerText.trim());
   }
 
-  onMount(() => {
-    if (props.ref) {
-      props.ref.innerText = props.content;
-    }
-  });
-
   return (
     <Base>
       <Switch fallback={props.actionsStart}>
@@ -126,6 +120,7 @@ export function MessageBox(props: Props) {
         fallback={
           <Input
             contenteditable={true}
+            role="textbox"
             ref={props.ref}
             onKeyDown={props.onKeyDown}
             //placeholder={props.placeholder}
