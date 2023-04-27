@@ -50,7 +50,7 @@ export function MessageComposition(props: Props) {
   /**
    * Reference to the message input box
    */
-  let ref: HTMLTextAreaElement | undefined;
+  let ref: HTMLDivElement | undefined;
 
   /**
    * Get the draft for the current channel
@@ -184,8 +184,10 @@ export function MessageComposition(props: Props) {
    * @param event Keyboard Event
    */
   function onKeyDownMessageBox(
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+    event: KeyboardEvent & { currentTarget: HTMLDivElement }
   ) {
+    console.log(event.currentTarget.innerText.trim());
+
     const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
     const usingBracketIndent = (event.ctrlKey || event.metaKey) && (event.key === "[" || event.key === "]");
 

@@ -1,5 +1,5 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Show, Switch } from "solid-js";
+import { JSX, Match, Show, Switch, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
@@ -11,7 +11,7 @@ interface Props {
   /**
    * Ref to the input element
    */
-  ref: HTMLTextAreaElement | undefined;
+  ref: HTMLDivElement | undefined;
 
   /**
    * Text content
@@ -22,7 +22,7 @@ interface Props {
    * Handle key presses
    */
   onKeyDown: (
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+    event: KeyboardEvent & { currentTarget: HTMLDivElement }
   ) => void;
 
   /**
@@ -56,7 +56,7 @@ interface Props {
  * Message box container
  */
 const Base = styled("div", "MessageBox")`
-  height: 48px;
+  min-height: 48px;
   flex-shrink: 0;
 
   display: flex;
@@ -66,14 +66,16 @@ const Base = styled("div", "MessageBox")`
 /**
  * Input area
  */
-const Input = styled("textarea")`
+const Input = styled("div")`
   border: none;
   resize: none;
   outline: none;
   background: transparent;
 
+  max-height: 300px;
   flex-grow: 1;
   padding: 14px 0;
+  overflow-y: auto;
 
   font-family: ${(props) => props.theme!.fonts.primary};
   color: ${(props) => props.theme!.colours.foreground};
@@ -99,9 +101,15 @@ export function MessageBox(props: Props) {
    * Handle changes to input
    * @param event Event
    */
-  function onInput(event: InputEvent & { currentTarget: HTMLTextAreaElement }) {
-    props.setContent(event.currentTarget!.value);
+  function onInput(event: InputEvent & { currentTarget: HTMLDivElement }) {
+    props.setContent(event.currentTarget!.innerText.trim());
   }
+
+  onMount(() => {
+    if (props.ref) {
+      props.ref.innerText = props.content;
+    }
+  });
 
   return (
     <Base>
@@ -117,10 +125,10 @@ export function MessageBox(props: Props) {
       <Switch
         fallback={
           <Input
+            contenteditable={true}
             ref={props.ref}
             onKeyDown={props.onKeyDown}
-            value={props.content}
-            placeholder={props.placeholder}
+            //placeholder={props.placeholder}
             onInput={onInput}
           />
         }
