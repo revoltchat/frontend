@@ -210,6 +210,7 @@ const ServerListBase = styled("div", "ServerList")`
 const EntryContainer = styled("div", "Entry")`
   width: 56px;
   height: 56px;
+  position: relative;
   display: grid;
   flex-shrink: 0;
   place-items: center;
