@@ -28,7 +28,6 @@ import {
   styled,
 } from "@revolt/ui";
 import { MessageReply } from "@revolt/ui/components/messaging/message/MessageReply";
-import { MessageReplyCopyHelper } from "@revolt/ui/components/messaging/message/MessageReplyCopyHelper";
 
 /**
  * Regex for matching URLs
@@ -80,25 +79,6 @@ export function Message(props: Props) {
 
   return (
     <>
-      <Show when={props.message.replyIds}>
-        {/* {props.message.replyIds} */}
-        <For each={props.message.replyIds}>
-          {(reply_id) => {
-            /**
-             * Signal the actual message
-             */
-            const message = () => client().messages.get(reply_id);
-
-            onMount(() => {
-              if (!message()) {
-                props.message.channel!.fetchMessage(reply_id);
-              }
-            });
-
-            return <MessageReplyCopyHelper message={message()!} />;
-          }}
-        </For>
-      </Show>
       <MessageContainer
         username={
           <UserCard user={props.message.author!} member={props.message.member}>

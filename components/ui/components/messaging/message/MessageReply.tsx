@@ -19,6 +19,8 @@ import {
   generateTypographyCSS,
 } from "../../design/atoms/display/Typography";
 
+import { MessageReplyCopyHelper } from "./MessageReplyCopyHelper";
+
 interface Props {
   /**
    * Message that was replied to
@@ -87,43 +89,48 @@ export function MessageReply(props: Props) {
   const t = useTranslation();
 
   return (
-    <Base noDecorations={props.noDecorations}>
-      <Switch
-        fallback={<InfoText>{t("app.main.channel.misc.not_loaded")}</InfoText>}
-      >
-        <Match when={props.message?.author?.relationship === "Blocked"}>
-          {t("app.main.channel.misc.blocked_user")}
-        </Match>
-        <Match when={props.message}>
-          <Avatar src={props.message!.avatarURL} size={14} />
-          <NonBreakingText>
-            <ColouredText
-              colour={props.message!.roleColour!}
-              clip={props.message!.roleColour?.includes("gradient")}
-            >
-              <Typography variant="username">
-                {props.mention && "@"}
-                {props.message!.username}
-              </Typography>
-            </ColouredText>
-          </NonBreakingText>
-          <Show when={props.message!.attachments}>
+    <>
+      <MessageReplyCopyHelper message={props.message!} />
+      <Base noDecorations={props.noDecorations}>
+        <Switch
+          fallback={
+            <InfoText>{t("app.main.channel.misc.not_loaded")}</InfoText>
+          }
+        >
+          <Match when={props.message?.author?.relationship === "Blocked"}>
+            {t("app.main.channel.misc.blocked_user")}
+          </Match>
+          <Match when={props.message}>
+            <Avatar src={props.message!.avatarURL} size={14} />
             <NonBreakingText>
-              <Attachments>
-                <BiSolidFile size={16} />
-                {props.message!.attachments!.length > 1
-                  ? t("app.main.channel.misc.sent_multiple_files")
-                  : t("app.main.channel.misc.sent_file")}
-              </Attachments>
+              <ColouredText
+                colour={props.message!.roleColour!}
+                clip={props.message!.roleColour?.includes("gradient")}
+              >
+                <Typography variant="username">
+                  {props.mention && "@"}
+                  {props.message!.username}
+                </Typography>
+              </ColouredText>
             </NonBreakingText>
-          </Show>
-          <Show when={props.message!.content}>
-            <OverflowingText>
-              <TextWithEmoji content={props.message!.content!} />
-            </OverflowingText>
-          </Show>
-        </Match>
-      </Switch>
-    </Base>
+            <Show when={props.message!.attachments}>
+              <NonBreakingText>
+                <Attachments>
+                  <BiSolidFile size={16} />
+                  {props.message!.attachments!.length > 1
+                    ? t("app.main.channel.misc.sent_multiple_files")
+                    : t("app.main.channel.misc.sent_file")}
+                </Attachments>
+              </NonBreakingText>
+            </Show>
+            <Show when={props.message!.content}>
+              <OverflowingText>
+                <TextWithEmoji content={props.message!.content!} />
+              </OverflowingText>
+            </Show>
+          </Match>
+        </Switch>
+      </Base>
+    </>
   );
 }
