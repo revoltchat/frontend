@@ -13,12 +13,13 @@
   "dependencies": {
     "@revolt/common": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
+    "@revolt/routing": "workspace:^",
     "color-rgba": "^2.4.0",
     "fast-deep-equal": "^3.1.3",
     "json-stringify-deterministic": "^1.0.7",
     "localforage": "^1.10.0",
     "mobx": "^6.3.2",
-    "revolt.js": "workspace:^7.0.0-beta.3",
+    "revolt.js": "workspace:^7.0.0-beta.4",
     "solid-js": "^1.7.3"
   }
 }
