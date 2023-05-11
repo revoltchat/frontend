@@ -20,6 +20,22 @@ const Base = styled("div", "Tooltip")`
   background: ${({ theme }) => theme!.colours["background-300"]};
 `;
 
+const Container = styled.div`
+  position: relative;
+  width: 24px;
+  height: 24px;
+`;
+
+const Dots = styled.svg`
+  fill: white;
+  width: 100%;
+  height: 100%;
+`;
+
+const Dot = styled.circle`
+  fill: currentColor;
+`;
+
 const ProfilePictureContainer = styled.div`
   position: relative;
   width: 85px;
@@ -35,7 +51,20 @@ const profiletopcontainerStyle = {
   marginBottom: '20px'
 };
 
-
+function getStatusColor(status: string | null | undefined) {
+  switch (status) {
+    case "Online":
+      return "#23a15a";
+    case "Busy":
+      return "#f03b43";
+    case "Focus":
+      return "#439af1";
+    case "Idle":
+      return "#f0b232";
+    default:
+      return "#80848e";
+  }
+}
 
 const profileimageStyle = {
   position: 'absolute',
@@ -140,15 +169,23 @@ export function UserCard(props: Props) {
                   <div style={{width: '100%', height: '30%', overflow: "hidden"}}>
                     <img src={props.user.animatedAvatarURL} style={{ width: '100%', height: '100%'}} ></img>
                     <GrayOverlay style={{width:'100%', height: '30%'}} />
+                    <Container>
+                      <Dots viewBox="0 0 24 24">
+                        <Dot cx="12" cy="12" r="2"></Dot>
+                        <Dot cx="6" cy="12" r="2"></Dot>
+                        <Dot cx="18" cy="12" r="2"></Dot>
+                      </Dots>
+                    </Container>
                   </div>
                   
                   
                   <img src={props.user.animatedAvatarURL} style={profileimageStyle}></img>
-                  <StatusIndicator style={{"background-color": "#ffffff", transform: 'translate(-1540%, -1100%)'}}/>
-                  <h2 style={{transform: 'translate(3.5%, 30%)'}}>@{props.user.username}</h2>
-                  {props.member?.nickname ? <p style={{"padding-left": "9%", "padding-top": "0.5%", margin: "0px", transform: 'translate(0%, -60%)'}}>AKA: {props.member?.nickname}</p> : null}
+                  <StatusIndicator style={{"background-color": getStatusColor(props.user.status?.presence), transform: 'translate(-1540%, -1100%)'}}/>
+                  
+                  {props.member?.nickname ? <h2 style={{transform: 'translate(25.5%, -275%)'}}>@{props.user.username}</h2> : <h2 style={{transform: 'translate(25.5%, -180%)'}}>@{props.user.username}</h2>}
+                  {props.member?.nickname ? <p style={{"padding-left": "9%", "padding-top": "0.5%", margin: "0px", transform: 'translate(20%, -450%)'}}>AKA: {props.member?.nickname}</p> : null}
             
-                  ID: {props.user.id}<br />Badges: {props.user.badges}<br />Status: {props.user.status?.presence}<br />Flags?: {props.user.flags} <br /> Privalledge???: {props.user.privileged} <br /> created at: {props.user.fetchProfile()} <br /> {props.user.relationship} <br /> {props.user.permission}
+                  ID: {props.user.id}<br />Badges: {props.user.badges}<br />Flags?: {props.user.flags} <br /> Privalledge???: {props.user.privileged} <br /> created at: {props.user.fetchProfile()} <br /> {props.user.relationship} <br /> {props.user.permission}
                   <br />
                 </div>
 
