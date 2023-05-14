@@ -35,7 +35,7 @@ declare module "solid-js" {
   // eslint-disable-next-line
   namespace JSX {
     interface Directives {
-      scrollable: true | { direction?: "x" | "y"; offsetTop: number };
+      scrollable: true | { direction?: "x" | "y"; offsetTop?: number };
       invisibleScrollable: true;
     }
   }
