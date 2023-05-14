@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
 
 import { createI18nContext, useI18n } from "@solid-primitives/i18n";
-import defaultsDeep from "lodash.defaultsDeep";
+import defaultsDeep from "lodash.defaultsdeep";
 
 import { Language, Languages } from "./locales/Languages";
 import en from "./locales/en.json";
