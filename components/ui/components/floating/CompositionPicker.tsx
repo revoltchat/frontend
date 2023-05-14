@@ -174,7 +174,7 @@ export function CompositionPicker(props: Props) {
                       }
                     }}
                   />
-                  <GifList ref={scrollable}>
+                  <GifList>
                     <For each={data()}>
                       {(entry) => (
                         <div>
