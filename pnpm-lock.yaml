@@ -46,6 +46,9 @@ importers:
 
   components/admin:
     dependencies:
+      '@revolt/app':
+        specifier: workspace:^
+        version: link:../app
       '@revolt/client':
         specifier: workspace:^1.0.0
         version: link:../client
@@ -63,6 +66,39 @@ importers:
         version: link:../ui
       revolt.js:
         specifier: workspace:^7.0.0-beta.3
+        version: link:../../packages/revolt.js
+      solid-icons:
+        specifier: ^1.0.4
+        version: 1.0.4(solid-js@1.7.3)
+      solid-js:
+        specifier: ^1.7.3
+        version: 1.7.3
+      ulid:
+        specifier: ^2.3.0
+        version: 2.3.0
+
+  components/app:
+    dependencies:
+      '@revolt/client':
+        specifier: workspace:^
+        version: link:../client
+      '@revolt/i18n':
+        specifier: workspace:^
+        version: link:../i18n
+      '@revolt/markdown':
+        specifier: workspace:^
+        version: link:../markdown
+      '@revolt/state':
+        specifier: workspace:^
+        version: link:../state
+      '@revolt/ui':
+        specifier: workspace:^
+        version: link:../ui
+      lodash.isequal:
+        specifier: ^4.5.0
+        version: 4.5.0
+      revolt.js:
+        specifier: workspace:7.0.0-beta.4
         version: link:../../packages/revolt.js
       solid-icons:
         specifier: ^1.0.4
@@ -260,6 +296,9 @@ importers:
 
   components/modal:
     dependencies:
+      '@motionone/solid':
+        specifier: ^10.15.4
+        version: 10.15.4(solid-js@1.7.3)
       '@revolt/client':
         specifier: workspace:^1.0.0
         version: link:../client
@@ -311,6 +350,9 @@ importers:
       '@revolt/i18n':
         specifier: workspace:^1.0.0
         version: link:../i18n
+      '@revolt/routing':
+        specifier: workspace:^
+        version: link:../routing
       color-rgba:
         specifier: ^2.4.0
         version: 2.4.0
@@ -411,34 +453,37 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(solid-js@1.7.3)
       '@revolt/admin':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/admin
+      '@revolt/app':
+        specifier: workspace:^
+        version: link:../../components/app
       '@revolt/auth':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/auth
       '@revolt/client':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/client
       '@revolt/common':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/common
       '@revolt/i18n':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/i18n
       '@revolt/markdown':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/markdown
       '@revolt/modal':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/modal
       '@revolt/routing':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/routing
       '@revolt/state':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/state
       '@revolt/ui':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../../components/ui
       '@sentry/browser':
         specifier: ^7.38.0

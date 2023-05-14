@@ -19,6 +19,7 @@ import {
   Column,
   Embed,
   MessageContainer,
+  MessageReply,
   Reactions,
   SystemMessage,
   SystemMessageIcon,
@@ -27,7 +28,6 @@ import {
   Username,
   styled,
 } from "@revolt/ui";
-import { MessageReply } from "@revolt/ui/components/messaging/message/MessageReply";
 
 /**
  * Regex for matching URLs

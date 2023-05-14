@@ -8,6 +8,7 @@
   "keywords": [],
   "private": true,
   "dependencies": {
+    "@revolt/app": "workspace:^",
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/markdown": "workspace:^1.0.0",

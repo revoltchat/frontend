@@ -3,6 +3,7 @@ import { Accessor } from "solid-js";
 
 import { API, User } from "revolt.js";
 
+import { Message, Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
@@ -21,7 +22,6 @@ import {
 } from "@revolt/ui";
 
 import { MessageQuery } from "../MessageQuery";
-import { Message } from "../MessageTemp";
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewChannel } from "../previews/PreviewChannel";
 
@@ -228,8 +228,7 @@ export function Inspector() {
 
           <Typography variant="label">Messages</Typography>
           <ChannelPreview>
-            {/*<Messages channel={channel()!} limit={100} />*/}
-            disabled
+            <Messages channel={channel()!} limit={100} />
           </ChannelPreview>
         </details>
       </Show>

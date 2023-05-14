@@ -2,9 +2,9 @@ import { For, Match, Switch, createEffect, createSignal, on } from "solid-js";
 
 import { API, Message as MessageI } from "revolt.js";
 
+import { Message } from "@revolt/app";
 import { useClient } from "@revolt/client";
 
-import { Message } from "./MessageTemp";
 import { PreviewMessage } from "./previews/PreviewMessage";
 
 export function MessageQuery(props: {

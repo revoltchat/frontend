@@ -1,5 +1,6 @@
 import { Show, createEffect, createSignal, on } from "solid-js";
 
+import { Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -9,7 +10,6 @@ import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
 
 import { MessageComposition } from "./Composition";
-import { Messages } from "./Messages";
 
 /**
  * Channel component
