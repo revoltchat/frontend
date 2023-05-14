@@ -16,11 +16,11 @@ export interface Props {
 const Base = styled("a", "CategoryButton")`
   gap: 12px;
   padding: 10px 12px;
-  margin-bottom: 10px;
 
+  user-select: none;
   color: ${(props) => props.theme!.colours["foreground"]};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-200"]};
+  background: ${(props) => props.theme!.colours["background-300"]};
 
   cursor: pointer;
   transition: ${(props) => props.theme!.transitions.fast} all;
@@ -61,7 +61,7 @@ export function CategoryButton(props: Props) {
   return (
     <Base onClick={props.onClick}>
       {props.icon}
-      <Content grow>
+      <Content grow gap="sm">
         <Show when={props.children}>
           <OverflowingText>{props.children}</OverflowingText>
         </Show>

@@ -10,7 +10,8 @@ export type Experiment =
   | "friends"
   | "account_switcher"
   | "gif_picker"
-  | "emoji_picker";
+  | "emoji_picker"
+  | "plugins";
 
 /**
  * Currently active experiments.
@@ -21,6 +22,7 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
   "account_switcher",
   "gif_picker",
   "emoji_picker",
+  "plugins",
 ];
 
 /**
@@ -57,6 +59,10 @@ export const EXPERIMENTS: {
   emoji_picker: {
     title: "Emoji Picker",
     description: "Search and add emoji to your messages.",
+  },
+  plugins: {
+    title: "Plugins v2",
+    description: "Not available yet.",
   },
 };
 

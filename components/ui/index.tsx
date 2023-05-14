@@ -5,7 +5,8 @@ export * from "./components";
 export * from "./directives";
 export { darkTheme } from "./themes/darkTheme";
 
-export { ThemeProvider, styled } from "solid-styled-components";
+export { ThemeProvider, styled, useTheme } from "solid-styled-components";
+export type { DefaultTheme } from "solid-styled-components";
 
 /**
  * Apply theme to document body

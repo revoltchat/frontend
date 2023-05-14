@@ -82,6 +82,9 @@ importers:
       '@revolt/client':
         specifier: workspace:^
         version: link:../client
+      '@revolt/common':
+        specifier: workspace:^
+        version: link:../common
       '@revolt/i18n':
         specifier: workspace:^
         version: link:../i18n
@@ -205,9 +208,16 @@ importers:
       dayjs:
         specifier: ^1.11.5
         version: 1.11.5
+      lodash.defaultsdeep:
+        specifier: ^4.6.1
+        version: 4.6.1
       solid-js:
         specifier: ^1.7.3
         version: 1.7.3
+    devDependencies:
+      '@types/lodash.defaultsdeep':
+        specifier: ^4.6.7
+        version: 4.6.7
 
   components/markdown:
     dependencies:
@@ -299,6 +309,9 @@ importers:
       '@motionone/solid':
         specifier: ^10.15.4
         version: 10.15.4(solid-js@1.7.3)
+      '@revolt/app':
+        specifier: workspace:^
+        version: link:../app
       '@revolt/client':
         specifier: workspace:^1.0.0
         version: link:../client
@@ -3489,6 +3502,12 @@ packages:
   /@types/katex@0.11.1:
     resolution: {integrity: sha512-DUlIj2nk0YnJdlWgsFuVKcX27MLW0KbKmGVoUHmFr+74FYYNUDAaj9ZqTADvsbE8rfxuVmSFc7KczYn5Y09ozg==}
     dev: false
+
+  /@types/lodash.defaultsdeep@4.6.7:
+    resolution: {integrity: sha512-D+AUxs64qehDMkbfFoskG0XsIOh2CHBGqYfcQcubLbZSFCGKJKS885su3a97huqBNHj+p9of9UZ/uUIP46wUGQ==}
+    dependencies:
+      '@types/lodash': 4.14.185
+    dev: true
 
   /@types/lodash.isequal@4.5.6:
     resolution: {integrity: sha512-Ww4UGSe3DmtvLLJm2F16hDwEQSv7U0Rr8SujLUA2wHI2D2dm8kPu6Et+/y303LfjTIwSBKXB/YTUcAKpem/XEg==}

@@ -120,6 +120,13 @@ export const darkTheme: DefaultTheme = {
     "system-message": {
       fontWeight: 700,
     },
+    // Settings
+    "settings-title": {
+      element: "h1",
+      margin: 0,
+      fontWeight: 600,
+      fontSize: "2rem",
+    },
     // Legacy
     "legacy-settings-title": {
       element: "h1",

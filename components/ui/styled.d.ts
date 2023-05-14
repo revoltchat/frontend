@@ -57,6 +57,7 @@ declare module "solid-styled-components" {
         | "system-message"
         | "sidebar-title"
         | "channel-topic"
+        | "settings-title"
         | "legacy-settings-title"
         | "small"
         | "legacy-modal-title"
