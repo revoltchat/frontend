@@ -27,3 +27,16 @@ export function ApplyGlobalStyles() {
 
   return <></>;
 }
+
+/**
+ * Export directive typing
+ */
+declare module "solid-js" {
+  // eslint-disable-next-line
+  namespace JSX {
+    interface Directives {
+      scrollable: true | { direction?: "x" | "y"; offsetTop: number };
+      invisibleScrollable: true;
+    }
+  }
+}
