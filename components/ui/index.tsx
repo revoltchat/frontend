@@ -2,6 +2,7 @@ import { createEffect } from "solid-js";
 import { useTheme } from "solid-styled-components";
 
 export * from "./components";
+export * from "./directives";
 export { darkTheme } from "./themes/darkTheme";
 
 export { ThemeProvider, styled } from "solid-styled-components";

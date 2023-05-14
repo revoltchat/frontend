@@ -11,13 +11,15 @@ import type { API, Channel, Server } from "revolt.js";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link } from "@revolt/routing";
 
-import { ScrollContainer } from "../../common/ScrollContainers";
+import { scrollable } from "../../../directives";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
 
 import { SidebarBase } from "./common";
+
+scrollable;
 
 interface Props {
   /**
@@ -69,7 +71,7 @@ export const ServerSidebar = (props: Props) => {
           </HeaderWithImage>
         </Match>
       </Switch>
-      <ScrollContainer>
+      <div use:scrollable>
         <Column gap="lg">
           <div />
           <For each={props.server.orderedChannels}>
@@ -79,7 +81,7 @@ export const ServerSidebar = (props: Props) => {
           </For>
           <div />
         </Column>
-      </ScrollContainer>
+      </div>
     </SidebarBase>
   );
 };

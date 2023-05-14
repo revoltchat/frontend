@@ -6,8 +6,8 @@ import { Channel, Server, User } from "revolt.js";
 
 import { Link } from "@revolt/routing";
 
+import { invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
-import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 import { Button, Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
@@ -17,6 +17,8 @@ import {
 import { Tooltip } from "../../floating";
 
 import { Swoosh } from "./Swoosh";
+
+invisibleScrollable;
 
 interface Props {
   /**
@@ -52,7 +54,7 @@ interface Props {
 export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
-      <InvisibleScrollContainer>
+      <div use:invisibleScrollable={{ direction: "y" }}>
         <Tooltip
           placement="right"
           content={
@@ -173,7 +175,7 @@ export const ServerList = (props: Props) => {
             </Tooltip>
           )}
         </Draggable>
-      </InvisibleScrollContainer>
+      </div>
       <Shadow>
         <div />
       </Shadow>

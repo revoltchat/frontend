@@ -11,4 +11,8 @@ export const SidebarBase = styled("div", "Sidebar")`
   a {
     text-decoration: none;
   }
+
+  > div {
+    flex-grow: 1;
+  }
 `;

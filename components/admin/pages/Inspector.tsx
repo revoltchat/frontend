@@ -15,7 +15,6 @@ import {
   Initials,
   Input,
   Row,
-  ScrollContainer,
   ServerSidebar,
   Typography,
   styled,
@@ -25,7 +24,7 @@ import { MessageQuery } from "../MessageQuery";
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewChannel } from "../previews/PreviewChannel";
 
-export const ChannelPreview = styled(ScrollContainer)`
+export const ChannelPreview = styled.div`
   height: 640px;
   border: 2px solid ${(props) => props.theme!.colours["background-400"]};
 `;

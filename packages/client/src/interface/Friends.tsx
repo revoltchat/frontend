@@ -21,10 +21,13 @@ import {
   Header,
   Typography,
   UserStatusGraphic,
+  scrollable,
   styled,
 } from "@revolt/ui";
 
 import { HeaderIcon } from "./common/CommonHeader";
+
+scrollable;
 
 /**
  * Base layout of the friends page
@@ -57,7 +60,6 @@ export function Friends() {
    * Reference to the parent scroll container
    */
   let scrollTargetElement!: HTMLDivElement;
-  // TODO: need to create use:scrollable directive for styles
 
   /**
    * Signal required for reacting to ref changes
@@ -98,15 +100,7 @@ export function Friends() {
         </HeaderIcon>
         Friends
       </Header>
-      <div
-        class="FriendsList"
-        ref={scrollTargetElement}
-        style={{
-          "overflow-y": "auto",
-          "flex-grow": 1,
-          "will-change": "transform",
-        }}
-      >
+      <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
         <PendingRequests lists={lists} />
         <List
           title="Outgoing"

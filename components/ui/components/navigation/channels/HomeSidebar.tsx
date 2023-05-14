@@ -16,6 +16,7 @@ import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useLocation, useNavigate } from "@revolt/routing";
 
+import { scrollable } from "../../../directives";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
@@ -26,6 +27,8 @@ import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
+
+scrollable;
 
 interface Props {
   /**
@@ -62,18 +65,10 @@ export const HomeSidebar = (props: Props) => {
   const savedNotesChannelId = createMemo(() => props.openSavedNotes());
 
   let scrollTargetElement!: HTMLDivElement;
-  // TODO: need to create use:scrollable directive for styles
 
   return (
     <SidebarBase>
-      <div
-        ref={scrollTargetElement}
-        style={{
-          "overflow-y": "auto",
-          "flex-grow": 1,
-          "will-change": "transform",
-        }}
-      >
+      <div ref={scrollTargetElement} use:scrollable={{ direction: "y" }}>
         <SidebarTitle>
           <Typography variant="sidebar-title">
             {t("app.main.categories.conversations")}
