@@ -1,7 +1,9 @@
 import { Component, Match, Switch } from "solid-js";
 
 import { clientController } from "@revolt/client";
-import { Navigate } from "@revolt/routing";
+import { modalController } from "@revolt/modal";
+import { Navigate, useBeforeLeave } from "@revolt/routing";
+import { state } from "@revolt/state";
 import { Preloader } from "@revolt/ui";
 
 import { Content } from "./interface/Content";
@@ -11,6 +13,19 @@ import { Sidebar } from "./interface/Sidebar";
  * Application layout
  */
 const Interface: Component = () => {
+  useBeforeLeave((e) => {
+    if (!e.defaultPrevented) {
+      if (e.to === "/settings") {
+        e.preventDefault();
+        modalController.push({
+          type: "settings",
+        });
+      } else if (typeof e.to === "string") {
+        state.layout.setLastActivePath(e.to);
+      }
+    }
+  });
+
   return (
     <Switch fallback={<Preloader grow type="spinner" />}>
       <Match when={!clientController.isLoggedIn()}>
