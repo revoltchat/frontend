@@ -35,6 +35,11 @@ import {
   useTranslation,
 } from "@revolt/i18n";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
+import { state } from "@revolt/state";
+import {
+  AVAILABLE_EXPERIMENTS,
+  EXPERIMENTS,
+} from "@revolt/state/stores/Experiments";
 import {
   Avatar,
   CategoryButton,
@@ -339,5 +344,20 @@ export const ClientSettingsRouting: Record<string, Component> = {
   },
   sync: () => null,
   native: () => null,
-  experiments: () => null,
+  experiments: () => {
+    return (
+      <Column>
+        <For each={AVAILABLE_EXPERIMENTS}>
+          {(key) => (
+            <Checkbox
+              value={state.experiments.isEnabled(key)}
+              onChange={(enabled) => state.experiments.setEnabled(key, enabled)}
+              title={EXPERIMENTS[key].title}
+              description={EXPERIMENTS[key].description}
+            />
+          )}
+        </For>
+      </Column>
+    );
+  },
 };

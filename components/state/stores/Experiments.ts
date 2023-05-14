@@ -147,7 +147,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    * @param experiment Experiment
    */
   disable(experiment: Experiment) {
-    if (!this.isEnabled(experiment)) {
+    if (this.isEnabled(experiment)) {
       this.set("enabled", (enabled) =>
         enabled.filter((entry) => entry !== experiment)
       );
