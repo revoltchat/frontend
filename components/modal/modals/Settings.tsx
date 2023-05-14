@@ -147,7 +147,7 @@ const Content = styled.div`
 
   display: flex;
   overflow-y: auto;
-  background: ${(props) => props.theme!.colours["background-300"]};
+  background: ${(props) => props.theme!.colours["background-200"]};
 `;
 
 const InnerContent = styled.div`
@@ -168,7 +168,7 @@ const CloseAnchor = styled.a`
   align-items: center;
   justify-content: center;
 
-  transition: ${(props) => props.theme.transitions.fast} background-color;
+  transition: ${(props) => props.theme!.transitions.fast} background-color;
 
   border-radius: ${(props) => props.theme!.borderRadius.full};
   border: 3px solid ${(props) => props.theme!.colours["background-400"]};

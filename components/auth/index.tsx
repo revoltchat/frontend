@@ -1,3 +1,3 @@
-/// <reference path="../ui/styled.d.ts" />
+import "../ui/styled.d.ts";
 
 export { AuthPage } from "./src/AuthPage";

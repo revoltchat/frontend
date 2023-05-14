@@ -5,6 +5,8 @@ import type { API, Client } from "revolt.js";
 
 import { registerController } from "@revolt/common";
 
+import "../ui/styled.d.ts";
+
 import { RenderModal } from "./modals";
 import { Modals } from "./types";
 
