@@ -78,7 +78,7 @@ export const HomeSidebar = (props: Props) => {
           <MenuButton
             size="normal"
             icon={<BiSolidHome size={24} />}
-            attention={location.pathname === "/" ? "active" : "normal"}
+            attention={location.pathname === "/app" ? "active" : "normal"}
           >
             {t("app.navigation.tabs.home")}
           </MenuButton>
