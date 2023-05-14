@@ -1,4 +1,4 @@
-import type { ComponentProps } from "solid-js";
+import type { ComponentProps, JSX } from "solid-js";
 
 import {
   API,
@@ -188,10 +188,17 @@ export type Modals =
     }
   | {
       type: "import_theme";
+    }
+  | {
+      type: "settings";
     };
 
 export type ModalProps<T extends Modals["type"]> = Modals & { type: T };
-export type ReturnType = ComponentProps<typeof Modal>;
+export type ReturnType =
+  | ComponentProps<typeof Modal>
+  | {
+      _children: (props: { show: boolean; onClose: () => void }) => JSX.Element;
+    };
 export type PropGenerator<T extends Modals["type"]> = (
   props: ModalProps<T>,
   onClose: () => void

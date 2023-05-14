@@ -8,11 +8,13 @@ import { Unreads } from "../indicators";
 export interface Props {
   /**
    * Button size
+   * @default thin
    */
   readonly size?: "thin" | "normal";
 
   /**
    * Button attention
+   * @default normal
    */
   readonly attention?: "muted" | "normal" | "active" | "selected";
 

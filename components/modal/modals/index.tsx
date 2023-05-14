@@ -1,3 +1,5 @@
+import { JSX } from "solid-js";
+
 import { Modal } from "@revolt/ui";
 
 import { ActiveModal, modalController } from "..";
@@ -24,6 +26,7 @@ import mfa_flow from "./MFAFlow";
 import mfa_recovery from "./MFARecovery";
 import onboarding from "./Onboarding";
 import server_info from "./ServerInfo";
+import settings from "./Settings";
 import signed_out from "./SignedOut";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
@@ -48,17 +51,37 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   mfa_recovery,
   onboarding,
   server_info,
+  settings,
   signed_out,
   ...({} as any),
 };
 
+/**
+ * Render the modal
+ */
 export function RenderModal(props: ActiveModal) {
+  /**
+   * Handle modal close
+   */
   const onClose = () => modalController.remove(props.id);
 
   if (import.meta.env.DEV) {
-    console.info("[modal]", props.props.type);
+    // eslint-disable-next-line solid/reactivity
+    console.info("modal:", props.props.type);
   }
 
+  // eslint-disable-next-line solid/reactivity
   const modalProps = Modals[props.props.type](props.props, onClose);
-  return <Modal show={props.show} onClose={onClose} {...modalProps} />;
+  const Component = (
+    modalProps as {
+      _children: (props: { show: boolean; onClose: () => void }) => JSX.Element;
+    }
+  )._children;
+  const element = Component ? (
+    <Component show={props.show} onClose={onClose} />
+  ) : (
+    <Modal show={props.show} onClose={onClose} {...modalProps} />
+  );
+
+  return element;
 }
