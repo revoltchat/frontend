@@ -16,6 +16,7 @@ import { Motion, Presence } from "@motionone/solid";
 import { Rerun } from "@solid-primitives/keyed";
 
 import {
+  Breadcrumbs,
   Column,
   MenuButton,
   OverflowingText,
@@ -90,24 +91,32 @@ export function Settings(props: Props) {
   /**
    * Navigate to a certain page
    */
-  function navigate(
-    entry: string | SettingsEntry,
-    newTransition: SettingsTransition
-  ) {
-    if (transition() !== newTransition) setTransition(newTransition);
-
-    if (typeof entry === "string") {
-      setPage(entry);
-      return;
+  function navigate(entry: string | SettingsEntry) {
+    let id;
+    if (typeof entry === "object") {
+      if (entry.onClick) {
+        entry.onClick();
+      } else if (entry.href) {
+        window.open(entry.href, "_blank");
+      } else if (entry.id) {
+        id = entry.id;
+      }
+    } else {
+      id = entry;
     }
 
-    if (entry.onClick) {
-      entry.onClick();
-    } else if (entry.href) {
-      window.open(entry.href, "_blank");
-    } else if (entry.id) {
-      setPage(entry.id);
+    if (!id) return;
+
+    const current = page();
+    if (current?.startsWith(id)) {
+      setTransition("to-parent");
+    } else if (current && id.startsWith(current)) {
+      setTransition("to-child");
+    } else {
+      setTransition("normal");
     }
+
+    setPage(id);
   }
 
   /**
@@ -147,7 +156,7 @@ export function Settings(props: Props) {
                         <For each={category.entries}>
                           {(entry) => (
                             <Show when={!entry.hidden}>
-                              <a onClick={() => navigate(entry, "normal")}>
+                              <a onClick={() => navigate(entry)}>
                                 <MenuButton
                                   icon={entry.icon}
                                   attention={
@@ -176,52 +185,60 @@ export function Settings(props: Props) {
         </div>
       </Sidebar>
       <Content>
-        <InnerContent>
-          <InnerColumn>
-            <Typography variant="settings-title">{page()}</Typography>
-            <Presence exitBeforeEnter>
-              <Rerun on={page}>
-                <Motion.div
-                  style={
-                    untrack(transition) === "normal"
-                      ? {}
-                      : { visibility: "hidden" }
-                  }
-                  ref={(el) =>
-                    untrack(transition) !== "normal" &&
-                    setTimeout(() => (el.style.visibility = "visible"), 250)
-                  }
-                  initial={
-                    transition() === "normal"
-                      ? { opacity: 0, y: 100 }
-                      : transition() === "to-child"
-                      ? {
-                          x: "100vw",
-                        }
-                      : { x: "-100vw" }
-                  }
-                  animate={{
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
-                  }}
-                  exit={
-                    transition() === "normal"
-                      ? undefined
-                      : transition() === "to-child"
-                      ? {
-                          x: "-100vw",
-                        }
-                      : { x: "100vw" }
-                  }
-                  transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
-                >
-                  {props.render({ page })}
-                </Motion.div>
-              </Rerun>
-            </Presence>
-          </InnerColumn>
-        </InnerContent>
+        <Show when={page()}>
+          <InnerContent>
+            <InnerColumn>
+              <Typography variant="settings-title">
+                <Breadcrumbs
+                  elements={page()!.split("/")}
+                  renderElement={(key) => key}
+                  navigate={(keys) => navigate(keys.join("/"))}
+                />
+              </Typography>
+              <Presence exitBeforeEnter>
+                <Rerun on={page}>
+                  <Motion.div
+                    style={
+                      untrack(transition) === "normal"
+                        ? {}
+                        : { visibility: "hidden" }
+                    }
+                    ref={(el) =>
+                      untrack(transition) !== "normal" &&
+                      setTimeout(() => (el.style.visibility = "visible"), 250)
+                    }
+                    initial={
+                      transition() === "normal"
+                        ? { opacity: 0, y: 100 }
+                        : transition() === "to-child"
+                        ? {
+                            x: "100vw",
+                          }
+                        : { x: "-100vw" }
+                    }
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      y: 0,
+                    }}
+                    exit={
+                      transition() === "normal"
+                        ? undefined
+                        : transition() === "to-child"
+                        ? {
+                            x: "-100vw",
+                          }
+                        : { x: "100vw" }
+                    }
+                    transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
+                  >
+                    {props.render({ page })}
+                  </Motion.div>
+                </Rerun>
+              </Presence>
+            </InnerColumn>
+          </InnerContent>
+        </Show>
         <CloseAction>
           <CloseAnchor onClick={props.onClose}>
             <BiRegularX size={28} color="unset" />
@@ -332,7 +349,7 @@ const CloseAction = styled.div`
 `;
 
 const SettingsNavigationContext = createContext<{
-  navigate: (path: string, transition: SettingsTransition) => void;
+  navigate: (path: string) => void;
 }>();
 
 export const useSettingsNavigation = () =>

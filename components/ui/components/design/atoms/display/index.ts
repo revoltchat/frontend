@@ -1,4 +1,5 @@
 export { Avatar } from "./Avatar";
+export { Breadcrumbs } from "./Breadcrumbs";
 export { ColouredText } from "./ColouredText";
 export { FormGroup } from "./FormGroup";
 export { Header, HeaderWithImage, HeaderWithTransparency } from "./Header";

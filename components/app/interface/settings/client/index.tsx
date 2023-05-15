@@ -219,7 +219,7 @@ export const ClientSettingsRouting: Record<string, Component> = {
         <CategoryButton
           action="chevron"
           icon={<BiSolidPalette size={32} />}
-          onClick={() => navigate("appearance/colours", "to-child")}
+          onClick={() => navigate("appearance/colours")}
           description="Customise accent colour, additional colours, and transparency"
         >
           Colours
