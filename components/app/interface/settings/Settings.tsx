@@ -1,7 +1,20 @@
 import { BiRegularX } from "solid-icons/bi";
-import { For, JSX, Show, createMemo, createSignal, onMount } from "solid-js";
+import {
+  Accessor,
+  For,
+  JSX,
+  Show,
+  createContext,
+  createMemo,
+  createSignal,
+  onMount,
+  untrack,
+  useContext,
+} from "solid-js";
 
-import { useTranslation } from "@revolt/i18n";
+import { Motion, Presence } from "@motionone/solid";
+import { Rerun } from "@solid-primitives/keyed";
+
 import {
   Column,
   MenuButton,
@@ -10,17 +23,39 @@ import {
   invisibleScrollable,
   styled,
 } from "@revolt/ui";
-import { useTheme } from "@revolt/ui";
-
-import { ClientSettingsRouting, clientSettingsList } from "./client";
 
 invisibleScrollable;
 
+interface Props {
+  /**
+   * Close settings
+   */
+  onClose: () => void;
+
+  /**
+   * Generate list of categories and entries
+   * @returns List
+   */
+  listGenerator: () => SettingsList;
+
+  /**
+   * Render the current settings page
+   * @param props State information
+   */
+  render: (props: { page: Accessor<undefined | string> }) => JSX.Element;
+}
+
+/**
+ * List of categories and entries
+ */
 export type SettingsList = {
   title?: JSX.Element;
   entries: SettingsEntry[];
 }[];
 
+/**
+ * Individual settings entry
+ */
 export type SettingsEntry = {
   id?: string;
   href?: string;
@@ -33,25 +68,39 @@ export type SettingsEntry = {
 };
 
 /**
- * HOT
+ * Transition animation
+ */
+type SettingsTransition = "normal" | "to-child" | "to-parent";
+
+/**
+ * Generic Settings component
  * @param props
  * @returns
  */
-export function Settings(props: { onClose: () => void }) {
-  const t = useTranslation();
-  const theme = useTheme();
-
+export function Settings(props: Props) {
   const [page, setPage] = createSignal<undefined | string>();
+  const [transition, setTransition] =
+    createSignal<SettingsTransition>("normal");
 
   /**
    * Generate list of categories / links
    */
-  const list = createMemo(() => clientSettingsList(t, theme));
+  const list = createMemo(() => props.listGenerator());
 
   /**
    * Navigate to a certain page
    */
-  function navigate(entry: SettingsEntry) {
+  function navigate(
+    entry: string | SettingsEntry,
+    newTransition: SettingsTransition
+  ) {
+    if (transition() !== newTransition) setTransition(newTransition);
+
+    if (typeof entry === "string") {
+      setPage(entry);
+      return;
+    }
+
     if (entry.onClick) {
       entry.onClick();
     } else if (entry.href) {
@@ -61,13 +110,9 @@ export function Settings(props: { onClose: () => void }) {
     }
   }
 
-  function render() {
-    const id = page();
-    if (!id) return null;
-    const Component = ClientSettingsRouting[id];
-    return Component ? <Component /> : null;
-  }
-
+  /**
+   * Select first page on load
+   */
   onMount(() => {
     if (!page()) {
       setPage(list()[0].entries[0].id);
@@ -75,7 +120,11 @@ export function Settings(props: { onClose: () => void }) {
   });
 
   return (
-    <>
+    <SettingsNavigationContext.Provider
+      value={{
+        navigate,
+      }}
+    >
       <Sidebar>
         <div use:invisibleScrollable>
           <SidebarContent>
@@ -98,7 +147,7 @@ export function Settings(props: { onClose: () => void }) {
                         <For each={category.entries}>
                           {(entry) => (
                             <Show when={!entry.hidden}>
-                              <a onClick={() => navigate(entry)}>
+                              <a onClick={() => navigate(entry, "normal")}>
                                 <MenuButton
                                   icon={entry.icon}
                                   attention={
@@ -128,8 +177,50 @@ export function Settings(props: { onClose: () => void }) {
       </Sidebar>
       <Content>
         <InnerContent>
-          <Typography variant="settings-title">{page()}</Typography>
-          {render()}
+          <InnerColumn>
+            <Typography variant="settings-title">{page()}</Typography>
+            <Presence exitBeforeEnter>
+              <Rerun on={page}>
+                <Motion.div
+                  style={
+                    untrack(transition) === "normal"
+                      ? {}
+                      : { visibility: "hidden" }
+                  }
+                  ref={(el) =>
+                    untrack(transition) !== "normal" &&
+                    setTimeout(() => (el.style.visibility = "visible"), 250)
+                  }
+                  initial={
+                    transition() === "normal"
+                      ? { opacity: 0, y: 100 }
+                      : transition() === "to-child"
+                      ? {
+                          x: "100vw",
+                        }
+                      : { x: "-100vw" }
+                  }
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                  }}
+                  exit={
+                    transition() === "normal"
+                      ? undefined
+                      : transition() === "to-child"
+                      ? {
+                          x: "-100vw",
+                        }
+                      : { x: "100vw" }
+                  }
+                  transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
+                >
+                  {props.render({ page })}
+                </Motion.div>
+              </Rerun>
+            </Presence>
+          </InnerColumn>
         </InnerContent>
         <CloseAction>
           <CloseAnchor onClick={props.onClose}>
@@ -137,7 +228,7 @@ export function Settings(props: { onClose: () => void }) {
           </CloseAnchor>
         </CloseAction>
       </Content>
-    </>
+    </SettingsNavigationContext.Provider>
   );
 }
 
@@ -177,17 +268,22 @@ const Content = styled.div`
   flex-direction: row;
 
   display: flex;
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background: ${(props) => props.theme!.colours["background-200"]};
 `;
 
 const InnerContent = styled.div`
-  display: flex;
   gap: 13px;
+  width: 100%;
+  display: flex;
   max-width: 740px;
   padding: 80px 32px;
+  justify-content: stretch;
+`;
+
+const InnerColumn = styled(Column)`
   width: 100%;
-  flex-direction: column;
 `;
 
 const CloseAnchor = styled.a`
@@ -234,3 +330,10 @@ const CloseAction = styled.div`
     font-size: 0.75rem;
   }
 `;
+
+const SettingsNavigationContext = createContext<{
+  navigate: (path: string, transition: SettingsTransition) => void;
+}>();
+
+export const useSettingsNavigation = () =>
+  useContext(SettingsNavigationContext)!;

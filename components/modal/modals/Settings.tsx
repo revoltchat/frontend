@@ -3,7 +3,7 @@ import { Portal } from "solid-js/web";
 
 import { Motion, Presence } from "@motionone/solid";
 
-import { Settings } from "@revolt/app";
+import { Settings, SettingsConfigurations } from "@revolt/app";
 
 import { PropGenerator } from "../types";
 
@@ -11,6 +11,8 @@ import { PropGenerator } from "../types";
  * Modal to display server information
  */
 const SettingsModal: PropGenerator<"settings"> = () => {
+  const config = SettingsConfigurations["client"];
+
   return {
     _children: (props) => {
       return (
@@ -38,7 +40,11 @@ const SettingsModal: PropGenerator<"settings"> = () => {
                   exit={{ opacity: 0, scale: 1.4 }}
                   transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
                 >
-                  <Settings onClose={props.onClose} />
+                  <Settings
+                    onClose={props.onClose}
+                    listGenerator={config.listing}
+                    render={config.render}
+                  />
                 </Motion.div>
               </Show>
             </Presence>

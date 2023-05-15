@@ -23,7 +23,7 @@ import {
   BiSolidSpeaker,
   BiSolidUser,
 } from "solid-icons/bi";
-import { Component, For, createMemo } from "solid-js";
+import { Accessor, Component, For, Show, createMemo } from "solid-js";
 
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
@@ -48,22 +48,20 @@ import {
   Column,
   Row,
   Typography,
+  useTheme,
 } from "@revolt/ui";
-import type { DefaultTheme } from "@revolt/ui";
 
-import type { SettingsList } from "../Settings";
+import { SettingsList, useSettingsNavigation } from "../Settings";
 
 /**
  * Generate list of categories / entries for client settings
- * @param t Translation function
- * @param theme Theme data
  * @returns List
  */
-export const clientSettingsList = (
-  t: (id: string) => string,
-  theme: DefaultTheme
-) =>
-  [
+export const clientSettingsList = () => {
+  const t = useTranslation();
+  const theme = useTheme();
+
+  return [
     {
       title: t("app.settings.categories.user_settings"),
       entries: [
@@ -183,7 +181,11 @@ export const clientSettingsList = (
       ],
     },
   ] as SettingsList;
+};
 
+/**
+ * All the available routes for client settings
+ */
 export const ClientSettingsRouting: Record<string, Component> = {
   account: () => {
     const client = useClient();
@@ -207,6 +209,7 @@ export const ClientSettingsRouting: Record<string, Component> = {
   feedback: () => null,
   audio: () => null,
   appearance: () => {
+    const { navigate } = useSettingsNavigation();
     return (
       <Column>
         <img
@@ -216,6 +219,7 @@ export const ClientSettingsRouting: Record<string, Component> = {
         <CategoryButton
           action="chevron"
           icon={<BiSolidPalette size={32} />}
+          onClick={() => navigate("appearance/colours", "to-child")}
           description="Customise accent colour, additional colours, and transparency"
         >
           Colours
@@ -251,6 +255,7 @@ export const ClientSettingsRouting: Record<string, Component> = {
       </Column>
     );
   },
+  "appearance/colours": () => <h1>hi</h1>,
   notifications: () => null,
   language: () => {
     const t = useTranslation();
@@ -361,3 +366,22 @@ export const ClientSettingsRouting: Record<string, Component> = {
     );
   },
 };
+
+/**
+ * Render the current client settings page
+ */
+export function RenderClientSettings(props: {
+  page: Accessor<string | undefined>;
+}) {
+  // eslint-disable-next-line solid/reactivity
+  const id = props.page();
+  // eslint-disable-next-line solid/components-return-once
+  if (!id) return null;
+
+  const Component = ClientSettingsRouting[id];
+  return (
+    <Show when={Component}>
+      <Component />
+    </Show>
+  );
+}

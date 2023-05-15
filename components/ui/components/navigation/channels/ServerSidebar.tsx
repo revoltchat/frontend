@@ -2,6 +2,7 @@ import {
   BiRegularHash,
   BiRegularPhoneCall,
   BiSolidChevronRight,
+  BiSolidCog,
 } from "solid-icons/bi";
 import { For, Match, Show, Switch, createMemo, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
@@ -52,9 +53,10 @@ export const ServerSidebar = (props: Props) => {
       <Switch
         fallback={
           <Header palette="secondary">
-            <a onClick={props.openServerInfo}>
-              <TextWithEmoji content={props.server.name} />
-            </a>
+            <ServerInfo
+              server={props.server}
+              openServerInfo={props.openServerInfo}
+            />
           </Header>
         }
       >
@@ -65,9 +67,10 @@ export const ServerSidebar = (props: Props) => {
               background: `url('${props.server.bannerURL}')`,
             }}
           >
-            <a onClick={() => props.openServerInfo()}>
-              <TextWithEmoji content={props.server.name} />
-            </a>
+            <ServerInfo
+              server={props.server}
+              openServerInfo={props.openServerInfo}
+            />
           </HeaderWithImage>
         </Match>
       </Switch>
@@ -85,6 +88,27 @@ export const ServerSidebar = (props: Props) => {
     </SidebarBase>
   );
 };
+
+/**
+ * Server Information
+ */
+function ServerInfo(props: Pick<Props, "server" | "openServerInfo">) {
+  return (
+    <Row align grow>
+      <ServerName onClick={() => props.openServerInfo()}>
+        <TextWithEmoji content={props.server.name} />
+      </ServerName>
+      <BiSolidCog size={18} />
+    </Row>
+  );
+}
+
+/**
+ * Server name
+ */
+const ServerName = styled.a`
+  flex-grow: 1;
+`;
 
 /**
  * Single category entry

@@ -100,6 +100,9 @@ importers:
       '@revolt/ui':
         specifier: workspace:^
         version: link:../ui
+      '@solid-primitives/keyed':
+        specifier: ^1.2.0
+        version: 1.2.0(solid-js@1.7.3)
       lodash.isequal:
         specifier: ^4.5.0
         version: 4.5.0
@@ -3222,6 +3225,14 @@ packages:
     resolution: {integrity: sha512-ywIJ4MADZ25of6X/hgPTd6UNWbgM6X/ZNJStIexAlaLi9fFWw1yFRP/cllSBabEfMoCWgOETgoT16JQzxZlphg==}
     peerDependencies:
       solid-js: ^1.3.1
+    dependencies:
+      solid-js: 1.7.3
+    dev: false
+
+  /@solid-primitives/keyed@1.2.0(solid-js@1.7.3):
+    resolution: {integrity: sha512-0DuTeJdxWjCTu73XnDZs24JzfXckBnpvCfQ6Mf/kTPKkMZJh7tjkBnZEk48ckrE9xmwat9stIdfrBmZctsepIw==}
+    peerDependencies:
+      solid-js: ^1.6.12
     dependencies:
       solid-js: 1.7.3
     dev: false
