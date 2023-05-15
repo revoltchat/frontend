@@ -17,6 +17,7 @@ export function scrollable(
     will-change: transform;
     padding-top: ${(props?.offsetTop || 0).toString()}px;
     ${"overflow-" + (props?.direction ?? "y")}: scroll;
+    ${"overflow-" + ((props?.direction ?? "y") === "y" ? "x" : "y")}: hidden;
 
     scrollbar-width: ${props?.showOnHover ? "none" : "thin"};
     scrollbar-color: ${theme!.colours["background-400"]} transparent;
