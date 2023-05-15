@@ -28,12 +28,15 @@ export type ActiveModal = {
 };
 
 /**
- * Global modal controller for layering and displaying modals to the user
+ * Global modal controller for layering and displaying one or more modal to the user
  */
 export class ModalController {
   modals: ActiveModal[];
   setModals: SetStoreFunction<ActiveModal[]>;
 
+  /**
+   * Construct controller
+   */
   constructor() {
     const [modals, setModals] = createStore<ActiveModal[]>([]);
     this.modals = modals;
@@ -42,6 +45,23 @@ export class ModalController {
     this.pop = this.pop.bind(this);
 
     registerController("modal", this);
+
+    // TODO: this should instead work using some sort of priority queue system from a dedicated keybind handler
+    // so that, for example, popping draft does not conflict with closing the current modal
+    // example API: registerKeybind(key = 'Escape', priority = 20, fn = () => void)
+    // => event.stopPropagation
+
+    /**
+     * Handle key press
+     * @param event Event
+     */
+    function keyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        modalController.pop();
+      }
+    }
+
+    document.addEventListener("keydown", keyDown);
   }
 
   /**
@@ -64,9 +84,7 @@ export class ModalController {
    * Remove the top modal
    */
   pop() {
-    const modal = this.modals.find(
-      (_, index) => index === this.modals.length - 1
-    );
+    const modal = [...this.modals].reverse().find((modal) => modal.show);
 
     if (modal) {
       this.remove(modal.id);
