@@ -33,6 +33,8 @@ import bots from "./Bots";
 import experiments from "./Experiments";
 import feedback from "./Feedback";
 import language from "./Language";
+import native from "./Native";
+import sync from "./Sync";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -208,7 +210,7 @@ const ClientSettingsRouting: Record<string, Component> = {
   "appearance/colours": () => <h1>hi</h1>,
   notifications: () => null,
   language,
-  sync: () => null,
-  native: () => null,
+  sync,
+  native,
   experiments,
 };

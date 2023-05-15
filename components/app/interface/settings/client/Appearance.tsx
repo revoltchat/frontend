@@ -22,7 +22,6 @@ export default function Appearance() {
         width="360px"
       />
       <Column>
-        {" "}
         <CategoryButton
           action="chevron"
           icon={<BiSolidPalette size={24} />}
