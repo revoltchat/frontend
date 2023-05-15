@@ -86,6 +86,9 @@ declare module "solid-styled-components" {
       spoiler: string;
     };
     layout: {
+      width: {
+        [key in "channel-sidebar"]: string;
+      };
       height: {
         [key in
           | "header"

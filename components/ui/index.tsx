@@ -36,8 +36,32 @@ declare module "solid-js" {
   // eslint-disable-next-line
   namespace JSX {
     interface Directives {
-      scrollable: true | { direction?: "x" | "y"; offsetTop?: number };
-      invisibleScrollable: true;
+      scrollable:
+        | true
+        | {
+            /**
+             * Scroll direction
+             */
+            direction?: "x" | "y";
+
+            /**
+             * Offset to apply to top of scroll container
+             */
+            offsetTop?: number;
+
+            /**
+             * Whether to only show scrollbar on hover
+             */
+            showOnHover?: boolean;
+          };
+      invisibleScrollable:
+        | true
+        | {
+            /**
+             * Scroll direction
+             */
+            direction?: "x" | "y";
+          };
     }
   }
 }

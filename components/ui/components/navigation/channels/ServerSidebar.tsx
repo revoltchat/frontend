@@ -71,8 +71,8 @@ export const ServerSidebar = (props: Props) => {
           </HeaderWithImage>
         </Match>
       </Switch>
-      <div use:scrollable>
-        <Column gap="lg">
+      <div use:scrollable={{ showOnHover: true }}>
+        <List gap="lg">
           <div />
           <For each={props.server.orderedChannels}>
             {(category) => (
@@ -80,7 +80,7 @@ export const ServerSidebar = (props: Props) => {
             )}
           </For>
           <div />
-        </Column>
+        </List>
       </div>
     </SidebarBase>
   );
@@ -196,4 +196,12 @@ const ChannelIcon = styled("img")`
   width: 24px;
   height: 24px;
   object-fit: contain;
+`;
+
+/**
+ * Inner scrollable list
+ * We fix the width in order to prevent scrollbar from moving stuff around
+ */
+const List = styled(Column)`
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;

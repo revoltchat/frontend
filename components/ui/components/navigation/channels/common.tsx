@@ -1,11 +1,11 @@
 import { styled } from "solid-styled-components";
 
 export const SidebarBase = styled("div", "Sidebar")`
-  width: 232px;
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  /* flex-direction: row; */
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
+
   background: ${({ theme }) => theme!.colours["background-100"]};
 
   a {

@@ -177,6 +177,9 @@ export const darkTheme: DefaultTheme = {
     spoiler: "brightness(0.2) contrast(0.8) blur(24px)",
   },
   layout: {
+    width: {
+      "channel-sidebar": "232px",
+    },
     height: {
       header: "48px",
       "tall-header": "120px",

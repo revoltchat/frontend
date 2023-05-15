@@ -68,7 +68,10 @@ export const HomeSidebar = (props: Props) => {
 
   return (
     <SidebarBase>
-      <div ref={scrollTargetElement} use:scrollable={{ direction: "y" }}>
+      <div
+        ref={scrollTargetElement}
+        use:scrollable={{ direction: "y", showOnHover: true }}
+      >
         <SidebarTitle>
           <Typography variant="sidebar-title">
             {t("app.main.categories.conversations")}
