@@ -4,7 +4,7 @@ import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { state } from "@revolt/state";
-import { Preloader } from "@revolt/ui";
+import { Preloader, styled } from "@revolt/ui";
 
 import { Content } from "./interface/Content";
 import { Sidebar } from "./interface/Sidebar";
@@ -32,13 +32,7 @@ const Interface: Component = () => {
         <Navigate href="/login" />
       </Match>
       <Match when={clientController.isReady()}>
-        <div
-          style={{
-            display: "flex",
-            height: "100%",
-            "overflow-x": "auto",
-            "scroll-snap-type": "x mandatory",
-          }}
+        <Layout
           onDragOver={(e) => {
             if (e.dataTransfer) e.dataTransfer.dropEffect = "none";
           }}
@@ -46,10 +40,18 @@ const Interface: Component = () => {
         >
           <Sidebar />
           <Content />
-        </div>
+        </Layout>
       </Match>
     </Switch>
   );
 };
+
+/**
+ * Parent container
+ */
+const Layout = styled("div", "Layout")`
+  display: flex;
+  height: 100%;
+`;
 
 export default Interface;
