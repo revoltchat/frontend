@@ -29,7 +29,9 @@ import { SettingsConfiguration } from "..";
 
 import account from "./Account";
 import appearance from "./Appearance";
+import bots from "./Bots";
 import experiments from "./Experiments";
+import feedback from "./Feedback";
 import language from "./Language";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
@@ -199,8 +201,8 @@ const ClientSettingsRouting: Record<string, Component> = {
   account,
   profile: () => null,
   sessions: () => null,
-  bots: () => null,
-  feedback: () => null,
+  bots,
+  feedback,
   audio: () => null,
   appearance,
   "appearance/colours": () => <h1>hi</h1>,
