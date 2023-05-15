@@ -35,6 +35,7 @@ import {
  */
 export type Type =
   | "text"
+  | "password"
   | "checkbox"
   // | "colour"
   | "combo"
@@ -72,6 +73,7 @@ type Choice = {
  */
 type Metadata = {
   text: { value: string; props: ComponentProps<typeof Input> };
+  password: { value: string; props: ComponentProps<typeof Input> };
   checkbox: { value: boolean; props: ComponentProps<typeof Checkbox> };
   /*colour: {
         value: string;
@@ -127,6 +129,16 @@ export function InputElement<T extends Type>(props: Props<T>) {
       <Switch>
         <Match when={localProps.type === "text"}>
           <Input
+            value={localProps.value() as string}
+            onChange={(ev) =>
+              localProps.onChange(ev.currentTarget.value as Value<T>)
+            }
+            {...innerProps}
+          />
+        </Match>
+        <Match when={localProps.type === "password"}>
+          <Input
+            type="password"
             value={localProps.value() as string}
             onChange={(ev) =>
               localProps.onChange(ev.currentTarget.value as Value<T>)

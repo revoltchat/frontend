@@ -19,6 +19,9 @@ import create_role from "./CreateRole";
 import create_server from "./CreateServer";
 import custom_status from "./CustomStatus";
 import delete_message from "./DeleteMessage";
+import edit_email from "./EditEmail";
+import edit_password from "./EditPassword";
+import edit_username from "./EditUsername";
 import error from "./Error";
 import kick_member from "./KickMember";
 import mfa_enable_totp from "./MFAEnableTOTP";
@@ -44,6 +47,9 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   create_server,
   custom_status,
   delete_message,
+  edit_email,
+  edit_password,
+  edit_username,
   error,
   kick_member,
   mfa_enable_totp,

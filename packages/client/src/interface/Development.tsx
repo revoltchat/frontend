@@ -14,7 +14,7 @@ import {
 export function DevelopmentPage() {
   function open() {
     modalController.push({
-      type: "custom_status",
+      type: "edit_username",
       client: clientController.getCurrentClient()!,
     });
   }

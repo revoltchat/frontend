@@ -8,8 +8,10 @@ import {
   BiSolidShield,
   BiSolidTrash,
 } from "solid-icons/bi";
+import { Show, createSignal } from "solid-js";
 
 import { useClient } from "@revolt/client";
+import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import {
   Avatar,
@@ -29,6 +31,7 @@ export default function MyAccount() {
   const client = useClient();
   const t = useTranslation();
   const theme = useTheme();
+  const [email, setEmail] = createSignal("•••••••••••@••••••.•••");
 
   return (
     <Column gap="xl">
@@ -46,31 +49,64 @@ export default function MyAccount() {
       <Column>
         <CategoryButton
           action="edit"
-          onClick={() => void 0}
+          onClick={() =>
+            getController("modal").push({
+              type: "edit_username",
+              client: client(),
+            })
+          }
           icon={<BiRegularAt size={24} />}
           description={client().user?.username}
         >
-          <Typography variant="label">Username</Typography>
+          <Typography variant="label">{t("login.username")}</Typography>
         </CategoryButton>
         <CategoryButton
           action="edit"
-          onClick={() => void 0}
+          onClick={() =>
+            getController("modal").push({
+              type: "edit_email",
+              client: client(),
+            })
+          }
           icon={<BiRegularMailSend size={24} />}
-          description={"•••••••••••@••••••.•••"}
+          description={
+            <Row>
+              {email()}{" "}
+              <Show when={email().startsWith("•")}>
+                <a
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    client()
+                      .api.get("/auth/account/")
+                      .then((account) => setEmail(account.email));
+                  }}
+                >
+                  Reveal
+                </a>
+              </Show>
+            </Row>
+          }
         >
-          <Typography variant="label">Email</Typography>
+          <Typography variant="label">{t("login.email")}</Typography>
         </CategoryButton>
         <CategoryButton
           action="edit"
-          onClick={() => void 0}
+          onClick={() =>
+            getController("modal").push({
+              type: "edit_password",
+              client: client(),
+            })
+          }
           icon={<BiRegularKey size={24} />}
           description={"•••••••••"}
         >
-          <Typography variant="label">Password</Typography>
+          <Typography variant="label">{t("login.password")}</Typography>
         </CategoryButton>
       </Column>
       <Column>
-        <Typography variant="label">Two-Factor Authentication</Typography>
+        <Typography variant="label">
+          {t("app.settings.pages.account.2fa.title")}
+        </Typography>
         <CategoryCollapse
           icon={<BiSolidShield size={24} />}
           title="Recovery Codes"
@@ -97,7 +133,9 @@ export default function MyAccount() {
         </CategoryCollapse>
       </Column>
       <Column>
-        <Typography variant="label">Account Management</Typography>
+        <Typography variant="label">
+          {t("app.settings.pages.account.manage.title")}
+        </Typography>
         <CategoryButton
           action="chevron"
           onClick={() => void 0}

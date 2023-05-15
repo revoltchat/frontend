@@ -17,7 +17,14 @@ import { ChangelogPost } from "./modals/Changelog";
 
 export type Modals =
   | {
-      type: "add_friend" | "create_group" | "create_server" | "custom_status";
+      type:
+        | "add_friend"
+        | "create_group"
+        | "create_server"
+        | "custom_status"
+        | "edit_username"
+        | "edit_email"
+        | "edit_password";
       client: Client;
     }
   | {
