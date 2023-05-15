@@ -42,6 +42,8 @@ export const darkTheme: DefaultTheme = {
   },
   gap: {
     none: "0",
+    xxs: "1px",
+    xs: "2px",
     sm: "4px",
     md: "8px",
     lg: "16px",
@@ -173,7 +175,8 @@ export const darkTheme: DefaultTheme = {
     blur: {
       md: "blur(20px)",
     },
-    hover: "brightness(0.95)",
+    hover: "brightness(1.1)",
+    active: "brightness(0.9)",
     spoiler: "brightness(0.2) contrast(0.8) blur(24px)",
   },
   layout: {

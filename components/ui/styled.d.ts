@@ -34,7 +34,7 @@ declare module "solid-styled-components" {
       [key in "sm" | "md" | "lg" | "full"]: string;
     };
     gap: {
-      [key in "none" | "sm" | "md" | "lg"]: string;
+      [key in "none" | "xxs" | "xs" | "sm" | "md" | "lg"]: string;
     };
     fonts: {
       [key in "primary" | "monospace"]: string;
@@ -83,6 +83,7 @@ declare module "solid-styled-components" {
         [key in "md"]: string;
       };
       hover: string;
+      active: string;
       spoiler: string;
     };
     layout: {

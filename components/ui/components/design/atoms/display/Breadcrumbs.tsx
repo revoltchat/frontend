@@ -70,11 +70,11 @@ const Unselected = styled.div`
   transition: ${(props) => props.theme!.transitions.fast} filter;
 
   &:hover {
-    filter: brightness(1.1);
+    filter: ${(props) => props.theme!.effects.hover};
   }
 
   &:active {
-    filter: brightness(1.2);
+    filter: ${(props) => props.theme!.effects.active};
   }
 `;
 

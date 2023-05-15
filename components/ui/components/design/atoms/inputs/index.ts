@@ -6,4 +6,5 @@ export { MenuButton } from "./MenuButton";
 export { Radio } from "./Radio";
 export { Tabs } from "./Tabs";
 export { CategoryButton } from "./CategoryButton";
+export { CategoryCollapse } from "./CategoryCollapse";
 export { IconButton } from "./IconButton";
