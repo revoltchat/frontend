@@ -25,6 +25,8 @@ import {
   styled,
 } from "@revolt/ui";
 
+import { SettingsConfiguration, SettingsEntry } from ".";
+
 invisibleScrollable;
 
 interface Props {
@@ -32,47 +34,7 @@ interface Props {
    * Close settings
    */
   onClose: () => void;
-
-  /**
-   * Generate list of categories and entries
-   * @returns List
-   */
-  listGenerator: () => SettingsList;
-
-  /**
-   * Render the title of the current breadcrumb key
-   * @param key Key
-   */
-  titleRender: (key: string) => string;
-
-  /**
-   * Render the current settings page
-   * @param props State information
-   */
-  render: (props: { page: Accessor<undefined | string> }) => JSX.Element;
 }
-
-/**
- * List of categories and entries
- */
-export type SettingsList = {
-  title?: JSX.Element;
-  entries: SettingsEntry[];
-}[];
-
-/**
- * Individual settings entry
- */
-export type SettingsEntry = {
-  id?: string;
-  href?: string;
-  onClick?: () => void;
-
-  hidden?: boolean;
-
-  icon: JSX.Element;
-  title: JSX.Element;
-};
 
 /**
  * Transition animation
@@ -84,7 +46,7 @@ type SettingsTransition = "normal" | "to-child" | "to-parent";
  * @param props
  * @returns
  */
-export function Settings(props: Props) {
+export function Settings(props: Props & SettingsConfiguration) {
   const [page, setPage] = createSignal<undefined | string>();
   const [transition, setTransition] =
     createSignal<SettingsTransition>("normal");
@@ -92,7 +54,7 @@ export function Settings(props: Props) {
   /**
    * Generate list of categories / links
    */
-  const list = createMemo(() => props.listGenerator());
+  const list = createMemo(() => props.list());
 
   /**
    * Navigate to a certain page
@@ -197,7 +159,7 @@ export function Settings(props: Props) {
               <Typography variant="settings-title">
                 <Breadcrumbs
                   elements={page()!.split("/")}
-                  renderElement={(key) => props.titleRender(key)}
+                  renderElement={(key) => props.title(key)}
                   navigate={(keys) => navigate(keys.join("/"))}
                 />
               </Typography>

@@ -43,8 +43,8 @@ const SettingsModal: PropGenerator<"settings"> = () => {
                   <Settings
                     onClose={props.onClose}
                     render={config.render}
-                    titleRender={config.title}
-                    listGenerator={config.listing}
+                    title={config.title}
+                    list={config.list}
                   />
                 </Motion.div>
               </Show>
