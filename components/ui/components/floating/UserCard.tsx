@@ -2,11 +2,9 @@ import { useFloating } from "solid-floating-ui";
 import { For, JSX, Ref, Show, createSignal } from "solid-js";
 import { Portal } from "solid-js/web";
 import { ThemeProvider, styled } from "solid-styled-components";
-
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
 import { ServerMember, User } from "revolt.js";
-
 import { ColouredText } from "../design";
 
 /**
@@ -14,7 +12,6 @@ import { ColouredText } from "../design";
  */
 const Base = styled("div", "Tooltip")`
   color: white;
-  background: black;
   width: 400px;
   height: 400px;
   background: ${({ theme }) => theme!.colours["background-300"]};
@@ -36,11 +33,6 @@ const Dot = styled.circle`
   fill: currentColor;
 `;
 
-const ProfilePictureContainer = styled.div`
-  position: relative;
-  width: 85px;
-  height: 85px;
-`;
 
 const profiletopcontainerStyle = {
   position: 'relative',
@@ -66,11 +58,12 @@ function getStatusColor(status: string | null | undefined) {
   }
 }
 
+
+
 const profileimageStyle = {
   position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-220%, -150%)',
+  top: '25%',
+  left: '3%',
   "border-radius": '50%',
   width: '85px',
   height: '85px',
@@ -98,7 +91,6 @@ const GrayOverlay = styled.div`
   content: "";
   background-color: rgba(0, 0, 0, 0.5);
 `;
-//{'border-radius': '50%', width: '85px', height: '85px', "object-fit": "cover", overflow: "hidden"}
 interface Props {
   /**
    * User card trigger area
@@ -129,16 +121,65 @@ interface Props {
 /**
  * UserCard component
  */
+const canvas = document.createElement('canvas');
+canvas.width = 200; // Replace with desired width
+canvas.height = 200; // Replace with desired height
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = '#AAAAAA'; // Replace with desired gray color
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+function fetchUserbackground(props) {
+  new Promise((resolve, reject) => {
+    // Make API call to fetch user profile
+    const profile = props.user.fetchProfile();
+    // If successful, resolve with the profile
+    if (profile) {
+      resolve(profile);
+    } else {
+      reject("Could not fetch user profile");
+    }
+  }).then((profile) => {
+    console.log(profile)
+    if (typeof profile.background !== 'undefined') {
+      document.getElementById("userprofilebanner").src = "https://autumn.revolt.chat/backgrounds/" + profile.background._id + "?width=1000";
+    } else {
+      document.getElementById("userprofilebanner").src = canvas.toDataURL();
+    }
+  })
+}
+
+
+function fetchUserProfile(props) {
+  new Promise((resolve, reject) => {
+    // Make API call to fetch user profile
+    const profile = props.user.fetchProfile();
+    
+    // If successful, resolve with the profile
+    if (profile) {
+      resolve(profile);
+    } else {
+      reject("Could not fetch user profile");
+    }
+  }).then((profile) => {document.getElementById("userdescription").textContent = profile.content})
+}
+
+
+const fetchprofile = async (props) => {
+  let profile =  await props.user.fetchProfile()
+  console.log(profile)
+}
+
 export function UserCard(props: Props) {
   const [anchor, setAnchor] = createSignal<HTMLElement>();
   const [floating, setFloating] = createSignal<HTMLDivElement>();
   const [show, setShow] = createSignal(props.initialState ?? false);
-
+  //const  profile = props.user.fetchprofile()
   const position = useFloating(anchor, floating, {
     placement: "right-start",
     whileElementsMounted: autoUpdate,
     middleware: [offset(5), flip(), shift()],
   });
+
 
   return (
     <>
@@ -166,30 +207,29 @@ export function UserCard(props: Props) {
                 }}
                 role="tooltip">
                 <div style={profiletopcontainerStyle}>
-                  <div style={{width: '100%', height: '30%', overflow: "hidden"}}>
-                    <img src={props.user.animatedAvatarURL} style={{ width: '100%', height: '100%'}} ></img>
-                    <GrayOverlay style={{width:'100%', height: '30%'}} />
-                    <Container>
+                  <div style={{width: '100%', height: '40%'}}>
+                    <img  style={{ width: '100%', height: '100%' }} id="userprofilebanner"></img>
+                    {fetchUserbackground(props)}
+                    <GrayOverlay style={{width:'100%', height: '40%'}} />
+                    <Container style={{position: "absolute", top: "3%", right: "5%"}}>
                       <Dots viewBox="0 0 24 24">
                         <Dot cx="12" cy="12" r="2"></Dot>
                         <Dot cx="6" cy="12" r="2"></Dot>
                         <Dot cx="18" cy="12" r="2"></Dot>
                       </Dots>
                     </Container>
+                    {props.member?.nickname ? <h2 style={{position: "absolute", top: "18%", bottom: "40%", left: "25%"}}>@{props.user.username}</h2> : <h2 style={{position: "absolute", top: "25%", bottom: "40%", left: "25%"}}>@{props.user.username}</h2>}
+                    {props.member?.nickname ? <p style={{position: "absolute", top: "28%", bottom: "20%", left: "25%"}}>AKA: {props.member?.nickname}</p> : null}
+                    <img src={props.user.animatedAvatarURL} style={profileimageStyle}></img>
+                    <StatusIndicator style={{"background-color": getStatusColor(props.user.status?.presence), position: 'absolute', top: "42%", left: "19%"}}/>
                   </div>
                   
                   
-                  <img src={props.user.animatedAvatarURL} style={profileimageStyle}></img>
-                  <StatusIndicator style={{"background-color": getStatusColor(props.user.status?.presence), transform: 'translate(-1540%, -1100%)'}}/>
                   
-                  {props.member?.nickname ? <h2 style={{transform: 'translate(25.5%, -275%)'}}>@{props.user.username}</h2> : <h2 style={{transform: 'translate(25.5%, -180%)'}}>@{props.user.username}</h2>}
-                  {props.member?.nickname ? <p style={{"padding-left": "9%", "padding-top": "0.5%", margin: "0px", transform: 'translate(20%, -450%)'}}>AKA: {props.member?.nickname}</p> : null}
-            
-                  ID: {props.user.id}<br />Badges: {props.user.badges}<br />Flags?: {props.user.flags} <br /> Privalledge???: {props.user.privileged} <br /> created at: {props.user.fetchProfile()} <br /> {props.user.relationship} <br /> {props.user.permission}
-                  <br />
-                </div>
+                  
 
-                <Show when={props.member}>
+                  <div style={{"background-color": "#000000", "border-radius": "10%", width: "95%", "min-height": "10%", "top-margin": "2%", "bottom-margin": "2%", position: "absolute", bottom: "39%", left: "2.5%"}}>
+                  <Show when={props.member}>
                   <For each={props.member!.orderedRoles}>
                     {(role) => (
                       <div>
@@ -203,6 +243,14 @@ export function UserCard(props: Props) {
                     )}
                   </For>
                 </Show>
+                  </div>
+                  <div style={{"background-color": "#000000", "border-radius": "10%", width: "95%", "min-height": "10%", "top-margin": "2%", "bottom-margin": "2%", position: "absolute", left: "2.5%", top: "63.5%", "max-height": "47.5%"}}>
+                  <p style={{color: "#ffffff"}} id="userdescription">Loading... {fetchUserProfile(props)}</p> 
+                  </div>
+
+                </div>
+
+                
               </Base>
             </Motion>
           </Show>

@@ -13,6 +13,7 @@ export const darkTheme: DefaultTheme = {
     "background-200": "#242424",
     "background-300": "#363636",
     "background-400": "#4D4D4D",
+    
     success: "#65E572",
     "success-100": "#3f9247",
     warning: "#FAA352",
