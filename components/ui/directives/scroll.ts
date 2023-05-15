@@ -17,7 +17,7 @@ export function scrollable(
     ${"overflow-" + (props?.direction ?? "y")}: scroll;
 
     scrollbar-width: thin;
-    scrollbar-color: ${theme!.colours["accent"]} transparent;
+    scrollbar-color: ${theme!.colours["background-400"]} transparent;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -29,7 +29,7 @@ export function scrollable(
     }
 
     &::-webkit-scrollbar-thumb {
-      background: ${theme!.colours["accent"]};
+      background: ${theme!.colours["background-400"]};
       background-clip: content-box;
 
       border: 1px solid transparent;
