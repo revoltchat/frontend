@@ -85,14 +85,21 @@ export function Inspector() {
       () => server(),
       (server) =>
         !server &&
-        (data().typeHint === "any" || data().typeHint === "server") &&
-        client()
-          .servers.fetch(data().id!)
-          .then((server) => {
-            for (const id of server.channelIds) {
-              client().channels.fetch(id);
-            }
-          })
+        (data().typeHint === "any" ||
+        (data().typeHint === "server" && data().id?.length === 8)
+          ? client()
+              .api.get(`/invites/${data().id! as ""}`)
+              .then((invite) => {
+                invite.type === "Server" &&
+                  state.admin.setActiveTab({ id: invite.server_id });
+              })
+          : client()
+              .servers.fetch(data().id!)
+              .then((server) => {
+                for (const id of server.channelIds) {
+                  client().channels.fetch(id);
+                }
+              }))
     )
   );
 

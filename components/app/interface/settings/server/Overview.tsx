@@ -1,36 +1,62 @@
-import { Match, Switch } from "solid-js";
+import { BiRegularAbacus, BiRegularGlobe } from "solid-icons/bi";
+import { Show } from "solid-js";
 
-import { CategoryButton } from "@revolt/ui";
+import { useClient } from "@revolt/client";
+import { CategoryButton, Checkbox, Column, Typography } from "@revolt/ui";
 
 import { ServerSettingsProps } from ".";
 
 /**
- * Overview
+ * Server overview
  */
-export default function (props: ServerSettingsProps) {
+export default function ServerOverview(props: ServerSettingsProps) {
+  const user = useClient();
+
   return (
-    <>
-      <Switch
-        fallback={
-          <CategoryButton
-            description="Enroll the server into showing on Revolt Discover"
-            onClick={() =>
-              props.server.edit({ discoverable: true, analytics: true })
-            }
-          >
-            Show on Discover
-          </CategoryButton>
-        }
-      >
-        <Match when={props.server.discoverable}>
-          <CategoryButton
-            description="Remove the server from Discover"
-            onClick={() => props.server.edit({ discoverable: false })}
-          >
-            Show on Discover
-          </CategoryButton>
-        </Match>
-      </Switch>
-    </>
+    <Column gap="xl">
+      <Show when={user().user?.privileged}>
+        <Column>
+          <Typography variant="label">Platform</Typography>
+          <label>
+            <CategoryButton
+              description="Message counts will be collected for server"
+              icon={<BiRegularAbacus size={24} />}
+              action={
+                <Checkbox
+                  value={props.server.analytics}
+                  onChange={(analytics) =>
+                    props.server.edit({
+                      analytics,
+                    })
+                  }
+                />
+              }
+              onClick={() => void 0}
+            >
+              Analytics
+            </CategoryButton>
+          </label>
+          <label>
+            <CategoryButton
+              description="Server can be joined from Discover"
+              icon={<BiRegularGlobe size={24} />}
+              action={
+                <Checkbox
+                  value={props.server.discoverable}
+                  onChange={(discoverable) =>
+                    props.server.edit({
+                      discoverable,
+                    })
+                  }
+                />
+              }
+              onClick={() => void 0}
+            >
+              Public Server
+            </CategoryButton>
+          </label>
+        </Column>
+      </Show>
+    </Column>
   );
 }
