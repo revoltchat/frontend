@@ -26,6 +26,6 @@
     "solid-styled-components": "^0.28.4"
   },
   "devDependencies": {
-    "revolt.js": "workspace:^7.0.0-beta.3"
+    "revolt.js": "workspace:^"
   }
 }

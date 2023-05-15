@@ -65,7 +65,7 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../ui
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../../packages/revolt.js
       solid-icons:
         specifier: ^1.0.4
@@ -79,6 +79,9 @@ importers:
 
   components/app:
     dependencies:
+      '@motionone/solid':
+        specifier: ^10.15.4
+        version: 10.15.4(solid-js@1.7.3)
       '@revolt/client':
         specifier: workspace:^
         version: link:../client
@@ -101,7 +104,7 @@ importers:
         specifier: ^4.5.0
         version: 4.5.0
       revolt.js:
-        specifier: workspace:7.0.0-beta.4
+        specifier: workspace:^
         version: link:../../packages/revolt.js
       solid-icons:
         specifier: ^1.0.4
@@ -137,7 +140,7 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../ui
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../../packages/revolt.js
       solid-hcaptcha:
         specifier: ^0.2.5
@@ -174,7 +177,7 @@ importers:
         specifier: ^6.3.2
         version: 6.6.2
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../../packages/revolt.js
       solid-js:
         specifier: ^1.7.3
@@ -273,7 +276,7 @@ importers:
         specifier: ^10.1.0
         version: 10.1.0
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../../packages/revolt.js
       solid-js:
         specifier: ^1.7.3
@@ -331,7 +334,7 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../ui
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../../packages/revolt.js
       solid-icons:
         specifier: ^1.0.4
@@ -382,7 +385,7 @@ importers:
         specifier: ^6.3.2
         version: 6.6.2
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../../packages/revolt.js
       solid-js:
         specifier: ^1.7.3
@@ -444,7 +447,7 @@ importers:
         version: link:../../packages/solid-styled-components
     devDependencies:
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../../packages/revolt.js
 
   packages/browser-test-runner:
@@ -533,7 +536,7 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       revolt.js:
-        specifier: workspace:^7.0.0-beta.3
+        specifier: workspace:^
         version: link:../revolt.js
       typescript:
         specifier: ^4.8.2
