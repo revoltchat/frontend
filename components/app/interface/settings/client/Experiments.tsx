@@ -5,22 +5,32 @@ import {
   AVAILABLE_EXPERIMENTS,
   EXPERIMENTS,
 } from "@revolt/state/stores/Experiments";
-import { Column, LegacyCheckbox } from "@revolt/ui";
+import { CategoryButton, Checkbox, Column, FormGroup } from "@revolt/ui";
 
 /**
  * Experiments
  */
-export default function () {
+export default function Experiments() {
   return (
     <Column>
       <For each={AVAILABLE_EXPERIMENTS}>
         {(key) => (
-          <LegacyCheckbox
-            value={state.experiments.isEnabled(key)}
-            onChange={(enabled) => state.experiments.setEnabled(key, enabled)}
-            title={EXPERIMENTS[key].title}
-            description={EXPERIMENTS[key].description}
-          />
+          <FormGroup>
+            <CategoryButton
+              action={
+                <Checkbox
+                  value={state.experiments.isEnabled(key)}
+                  onChange={(enabled) =>
+                    state.experiments.setEnabled(key, enabled)
+                  }
+                />
+              }
+              description={EXPERIMENTS[key].description}
+              onClick={() => void 0}
+            >
+              {EXPERIMENTS[key].title}
+            </CategoryButton>
+          </FormGroup>
         )}
       </For>
     </Column>

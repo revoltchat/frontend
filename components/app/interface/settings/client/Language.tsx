@@ -1,5 +1,13 @@
-import { BiRegularCheck, BiSolidError } from "solid-icons/bi";
-import { For, createMemo } from "solid-js";
+import {
+  BiRegularAlignLeft,
+  BiRegularAlignRight,
+  BiRegularCheck,
+  BiRegularGlobeAlt,
+  BiRegularTime,
+  BiSolidError,
+  BiSolidTime,
+} from "solid-icons/bi";
+import { For, Match, Show, Switch, createMemo } from "solid-js";
 
 import {
   Languages,
@@ -10,13 +18,27 @@ import {
 } from "@revolt/i18n";
 import { LanguageEntry } from "@revolt/i18n/locales/Languages";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
-import { Column, LegacyCheckbox, Row, Typography } from "@revolt/ui";
+import {
+  CategoryButton,
+  CategoryCollapse,
+  Checkbox,
+  Column,
+  FormGroup,
+  LegacyCheckbox,
+  Row,
+  Time,
+} from "@revolt/ui";
 
 /**
  * Language
  */
-export default function () {
+export default function Language() {
   const t = useTranslation();
+
+  /**
+   * Determine the current language
+   */
+  const currentLanguage = () => Languages[language()];
 
   // Generate languages array.
   const languages = createMemo(() => {
@@ -46,24 +68,75 @@ export default function () {
 
   return (
     <Column>
-      <Typography variant="legacy-modal-title-2">
-        {t("app.settings.pages.language.select")}
-      </Typography>
-      <LanguageList list={languages().filter(([, lang]) => !lang.cat)} />
-
-      <Typography variant="legacy-modal-title-2">
-        {t("app.settings.pages.language.const")}
-      </Typography>
-      <LanguageList
-        list={languages().filter(([, lang]) => lang.cat === "const")}
-      />
-
-      <Typography variant="legacy-modal-title-2">
-        {t("app.settings.pages.language.other")}
-      </Typography>
-      <LanguageList
-        list={languages().filter(([, lang]) => lang.cat === "alt")}
-      />
+      <CategoryCollapse
+        icon={<BiRegularGlobeAlt size={24} />}
+        title={t("app.settings.pages.language.select")}
+        description={currentLanguage().display}
+      >
+        <For each={languages()}>
+          {([id, lang]) => (
+            <CategoryButton
+              icon={<UnicodeEmoji emoji={lang.emoji} />}
+              action={<Checkbox value={id === language()} />}
+              onClick={() => loadAndSetLanguage(id as never)}
+            >
+              <Row>
+                {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
+                {lang.incomplete && <BiSolidError size={16} />}
+              </Row>
+            </CategoryButton>
+          )}
+        </For>
+      </CategoryCollapse>
+      <CategoryCollapse
+        icon={<BiRegularTime size={24} />}
+        title="Select time format"
+        description={`24h`}
+      >
+        <FormGroup>
+          <CategoryButton
+            icon={"blank"}
+            onClick={() => void 0}
+            action={<Checkbox value />}
+            description={<Time format="time24" value={new Date()} />}
+          >
+            24 hours
+          </CategoryButton>
+        </FormGroup>
+        <FormGroup>
+          <CategoryButton
+            icon={"blank"}
+            onClick={() => void 0}
+            action={<Checkbox />}
+            description={<Time format="time12" value={new Date()} />}
+          >
+            12 hours
+          </CategoryButton>
+        </FormGroup>
+      </CategoryCollapse>
+      <Switch
+        fallback={
+          <CategoryButton
+            icon={<BiRegularAlignRight size={24} />}
+            description="Flip the user interface right to left"
+            action={<Checkbox />}
+            onClick={() => void 0}
+          >
+            Enable RTL layout
+          </CategoryButton>
+        }
+      >
+        <Match when={currentLanguage().rtl}>
+          <CategoryButton
+            icon={<BiRegularAlignLeft size={24} />}
+            description="Keep the user interface left to right"
+            action={<Checkbox />}
+            onClick={() => void 0}
+          >
+            Force LTR layout
+          </CategoryButton>
+        </Match>
+      </Switch>
     </Column>
   );
 }

@@ -52,17 +52,22 @@ const Details = styled.details`
     display: none;
   }
 
-  &[open] > summary > * {
+  &[open] > summary .CategoryButton {
     border-end-end-radius: 0;
     border-end-start-radius: 0;
   }
 
-  > :not(summary) > * {
+  > :not(summary) .CategoryButton {
     border-start-start-radius: 0;
     border-start-end-radius: 0;
   }
 
-  > :not(summary) > :not(:last-child) {
+  > :not(summary) > :not(:last-child) .CategoryButton {
+    border-end-end-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  > :not(summary) > :not(:last-child).CategoryButton {
     border-end-end-radius: 0;
     border-end-start-radius: 0;
   }

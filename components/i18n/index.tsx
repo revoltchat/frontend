@@ -20,7 +20,7 @@ const dict = {
 /**
  * Currently set language
  */
-const [language, setLanguage] = createSignal("en");
+const [language, setLanguage] = createSignal<Language>("en" as Language);
 export { language };
 
 /**
