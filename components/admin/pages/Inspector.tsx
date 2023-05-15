@@ -3,7 +3,7 @@ import { Accessor } from "solid-js";
 
 import { API, User } from "revolt.js";
 
-import { Message, Messages } from "@revolt/app";
+import { Message, Messages, SettingsUsingConfiguration } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
@@ -207,13 +207,19 @@ export function Inspector() {
             </Row>
           </summary>
 
-          <div style={{ "pointer-events": "none" }}>
-            <ServerSidebar
-              server={server()!}
-              channelId={undefined}
-              openServerInfo={() => void 0}
+          <Row>
+            <div style={{ "pointer-events": "none" }}>
+              <ServerSidebar
+                server={server()!}
+                channelId={undefined}
+                openServerInfo={() => void 0}
+              />
+            </div>
+            <SettingsUsingConfiguration
+              configKey="server"
+              context={server() as never}
             />
-          </div>
+          </Row>
         </details>
       </Show>
       <Show when={channel()}>
@@ -224,6 +230,12 @@ export function Inspector() {
 
           <Typography variant="label">Server</Typography>
           <InspectorLink type="server" id={channel()!.serverId!} />
+
+          <Typography variant="label">Settings</Typography>
+          <SettingsUsingConfiguration
+            configKey="channel"
+            context={channel() as never}
+          />
 
           <Typography variant="label">Messages</Typography>
           <ChannelPreview>

@@ -9,6 +9,7 @@ import { styled } from "solid-styled-components";
 
 import type { API, Channel, Server } from "revolt.js";
 
+import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link } from "@revolt/routing";
 
@@ -96,9 +97,21 @@ function ServerInfo(props: Pick<Props, "server" | "openServerInfo">) {
   return (
     <Row align grow>
       <ServerName onClick={() => props.openServerInfo()}>
-        <TextWithEmoji content={props.server.name} />
+        <OverflowingText>
+          <TextWithEmoji content={props.server.name} />
+        </OverflowingText>
       </ServerName>
-      <BiSolidCog size={18} />
+      <SettingsLink
+        onClick={() =>
+          getController("modal").push({
+            type: "settings",
+            config: "server",
+            context: props.server,
+          })
+        }
+      >
+        <BiSolidCog size={18} />
+      </SettingsLink>
     </Row>
   );
 }
@@ -108,6 +121,17 @@ function ServerInfo(props: Pick<Props, "server" | "openServerInfo">) {
  */
 const ServerName = styled.a`
   flex-grow: 1;
+`;
+
+/**
+ * Settings link
+ */
+const SettingsLink = styled.a`
+  cursor: pointer;
+
+  > * {
+    display: block;
+  }
 `;
 
 /**

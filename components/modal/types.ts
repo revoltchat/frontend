@@ -10,6 +10,7 @@ import {
   User,
 } from "revolt.js";
 
+import { SettingsConfigurations } from "@revolt/app";
 import type { Modal } from "@revolt/ui";
 
 import { ChangelogPost } from "./modals/Changelog";
@@ -191,6 +192,9 @@ export type Modals =
     }
   | {
       type: "settings";
+      config: keyof typeof SettingsConfigurations;
+      // eslint-disable-next-line
+      context?: any;
     };
 
 export type ModalProps<T extends Modals["type"]> = Modals & { type: T };

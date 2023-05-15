@@ -19,6 +19,8 @@ import {
 } from "solid-icons/bi";
 import { Component, Show } from "solid-js";
 
+import { Server } from "revolt.js";
+
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { ColouredText, useTheme } from "@revolt/ui";
@@ -30,7 +32,7 @@ import appearance from "./Appearance";
 import experiments from "./Experiments";
 import language from "./Language";
 
-const Config: SettingsConfiguration = {
+const Config: SettingsConfiguration<{ server: Server }> = {
   /**
    * Page titles
    * @param key
@@ -193,7 +195,7 @@ export default Config;
 /**
  * All the available routes for client settings
  */
-export const ClientSettingsRouting: Record<string, Component> = {
+const ClientSettingsRouting: Record<string, Component> = {
   account,
   profile: () => null,
   sessions: () => null,

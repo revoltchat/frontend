@@ -1,6 +1,7 @@
 import {
   BiRegularAt,
   BiRegularHash,
+  BiSolidCog,
   BiSolidGroup,
   BiSolidMagicWand,
   BiSolidNotepad,
@@ -99,9 +100,25 @@ export function ChannelHeader(props: Props) {
 
       <Spacer />
 
-      <IconButton>
-        <BiSolidMagicWand size={24} />
-      </IconButton>
+      <Show
+        when={
+          props.channel.type === "Group" &&
+          props.channel.orPermission("ManageChannel", "ManagePermissions")
+        }
+      >
+        <IconButton
+          onClick={() =>
+            modalController.push({
+              type: "settings",
+              config: "channel",
+              context: props.channel,
+            })
+          }
+        >
+          <BiSolidCog size={24} />
+        </IconButton>
+      </Show>
+
       <IconButton
         onClick={() =>
           state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)

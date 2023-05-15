@@ -40,12 +40,26 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
         palette: "error",
       },
       {
-        onClick: () =>
+        onClick: () => {
           modalController.push({
             type: "server_identity",
             member: props.server.member!,
-          }),
+          });
+          return true;
+        },
         children: "Edit Identity",
+        palette: "secondary",
+      },
+      {
+        onClick: () => {
+          modalController.push({
+            type: "settings",
+            config: "server",
+            context: props.server,
+          });
+          return true;
+        },
+        children: "Settings",
         palette: "secondary",
       },
     ],

@@ -1,8 +1,6 @@
 import { BiRegularX } from "solid-icons/bi";
 import {
-  Accessor,
   For,
-  JSX,
   Show,
   createContext,
   createMemo,
@@ -29,11 +27,16 @@ import { SettingsConfiguration, SettingsEntry } from ".";
 
 invisibleScrollable;
 
-interface Props {
+export interface SettingsProps {
   /**
    * Close settings
    */
-  onClose: () => void;
+  onClose?: () => void;
+
+  /**
+   * Settings context
+   */
+  context: never;
 }
 
 /**
@@ -43,10 +46,8 @@ type SettingsTransition = "normal" | "to-child" | "to-parent";
 
 /**
  * Generic Settings component
- * @param props
- * @returns
  */
-export function Settings(props: Props & SettingsConfiguration) {
+export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
   const [page, setPage] = createSignal<undefined | string>();
   const [transition, setTransition] =
     createSignal<SettingsTransition>("normal");
@@ -54,7 +55,7 @@ export function Settings(props: Props & SettingsConfiguration) {
   /**
    * Generate list of categories / links
    */
-  const list = createMemo(() => props.list());
+  const list = createMemo(() => props.list(props.context));
 
   /**
    * Navigate to a certain page
@@ -108,7 +109,7 @@ export function Settings(props: Props & SettingsConfiguration) {
             <Column gap="lg">
               <For each={list()}>
                 {(category, index) => (
-                  <>
+                  <Show when={!category.hidden}>
                     <Show when={index()}>
                       <LineDivider />
                     </Show>
@@ -145,7 +146,7 @@ export function Settings(props: Props & SettingsConfiguration) {
                         </For>
                       </Column>
                     </Column>
-                  </>
+                  </Show>
                 )}
               </For>
             </Column>
@@ -200,18 +201,20 @@ export function Settings(props: Props & SettingsConfiguration) {
                     }
                     transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
                   >
-                    {props.render({ page })}
+                    {props.render({ page }, props.context)}
                   </Motion.div>
                 </Rerun>
               </Presence>
             </InnerColumn>
           </InnerContent>
         </Show>
-        <CloseAction>
-          <CloseAnchor onClick={props.onClose}>
-            <BiRegularX size={28} color="unset" />
-          </CloseAnchor>
-        </CloseAction>
+        <Show when={props.onClose}>
+          <CloseAction>
+            <CloseAnchor onClick={props.onClose}>
+              <BiRegularX size={28} color="unset" />
+            </CloseAnchor>
+          </CloseAction>
+        </Show>
       </Content>
     </SettingsNavigationContext.Provider>
   );

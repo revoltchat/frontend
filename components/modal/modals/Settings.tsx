@@ -10,8 +10,11 @@ import { PropGenerator } from "../types";
 /**
  * Modal to display server information
  */
-const SettingsModal: PropGenerator<"settings"> = () => {
-  const config = SettingsConfigurations["client"];
+const SettingsModal: PropGenerator<"settings"> = ({
+  config: configKey,
+  context,
+}) => {
+  const config = SettingsConfigurations[configKey ?? "client"];
 
   return {
     _children: (props) => {
@@ -45,6 +48,7 @@ const SettingsModal: PropGenerator<"settings"> = () => {
                     render={config.render}
                     title={config.title}
                     list={config.list}
+                    context={context as never}
                   />
                 </Motion.div>
               </Show>
