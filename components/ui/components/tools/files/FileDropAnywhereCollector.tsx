@@ -17,6 +17,7 @@ import { styled } from "solid-styled-components";
 
 import { Motion } from "@motionone/solid";
 
+import { getController } from "@revolt/common";
 import { useQuantity } from "@revolt/i18n";
 
 import { PreviewStack } from "../../design";
@@ -28,6 +29,11 @@ interface Props {
    * @param files List of files
    */
   onFiles: (files: File[]) => void;
+
+  /**
+   * Whether to allow dropping files while in a modal
+   */
+  allowInModal: boolean;
 }
 
 /**
@@ -85,6 +91,8 @@ export function FileDropAnywhereCollector(props: Props) {
    * @param event Drag event
    */
   function onDragOver(event: DragEvent) {
+    if (getController("modal").isOpen()) return;
+
     event.preventDefault();
     clearTimeout(deferredHide);
 

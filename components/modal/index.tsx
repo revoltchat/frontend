@@ -83,6 +83,14 @@ export class ModalController {
       this.setModals(this.modals.filter((entry) => entry.id !== id));
     }, 500); /** FIXME / TODO: set to motion anim time + 100ms */
   }
+
+  /**
+   * Whether a modal is currently open
+   * @returns Boolean
+   */
+  isOpen() {
+    return !!this.modals.find((x) => x.show);
+  }
 }
 
 /**
