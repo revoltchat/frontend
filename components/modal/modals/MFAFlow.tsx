@@ -40,8 +40,8 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
   // Always select first available method if only one available.
   createEffect(() => {
     const list = methods();
-    if (list && list.length === 1) {
-      setSelected(list[0]);
+    if (list) {
+      setSelected(list.find((entry) => entry !== "Recovery"));
     }
   });
 
