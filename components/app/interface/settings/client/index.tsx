@@ -227,6 +227,7 @@ export const ClientSettingsRouting: Record<string, Component> = {
         <CategoryButton
           action="chevron"
           icon={<BiSolidHappyBeaming size={32} />}
+          onClick={() => navigate("appearance/emoji")}
           description="Change how your emojis look"
         >
           Emoji
@@ -234,6 +235,7 @@ export const ClientSettingsRouting: Record<string, Component> = {
         <CategoryButton
           action="chevron"
           icon={<BiRegularText size={32} />}
+          onClick={() => navigate("appearance/fonts")}
           description="Customise font and text display"
         >
           Fonts
@@ -241,6 +243,7 @@ export const ClientSettingsRouting: Record<string, Component> = {
         <CategoryButton
           action="chevron"
           icon={<BiRegularCodeCurly size={32} />}
+          onClick={() => navigate("appearance/advanced_options")}
           description="Customise theme variables and apply custom CSS"
         >
           Advanced Options
@@ -365,6 +368,15 @@ export const ClientSettingsRouting: Record<string, Component> = {
       </Column>
     );
   },
+};
+
+/**
+ * Page titles
+ * @param key
+ */
+export const clientSettingsTitle = (key: string) => {
+  const t = useTranslation();
+  return t(`app.settings.pages.${key.replaceAll("/", ".")}.title`);
 };
 
 /**

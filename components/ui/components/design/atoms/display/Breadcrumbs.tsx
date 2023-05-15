@@ -17,28 +17,38 @@ export function Breadcrumbs(props: Props) {
   return (
     <Base wrap align>
       <For each={props.elements}>
-        {(element, index) => (
-          <>
-            <Show when={index() !== 0}>
-              <BiSolidChevronRight size="0.8em" />
-            </Show>
-            <Switch
-              fallback={
-                <Unselected
-                  onClick={() =>
-                    props.navigate(props.elements.slice(0, index() + 1))
-                  }
-                >
-                  {props.renderElement(element)}
-                </Unselected>
-              }
-            >
-              <Match when={index() === props.elements.length - 1}>
-                <Selected>{props.renderElement(element)}</Selected>
-              </Match>
-            </Switch>
-          </>
-        )}
+        {(element, index) => {
+          /**
+           * Segments of path
+           */
+          const segments = () => props.elements.slice(0, index() + 1);
+
+          /**
+           * Navigate to page
+           */
+          const navigate = () => props.navigate(segments());
+
+          return (
+            <>
+              <Show when={index() !== 0}>
+                <BiSolidChevronRight size="0.8em" />
+              </Show>
+              <Switch
+                fallback={
+                  <Unselected onClick={navigate}>
+                    {props.renderElement(segments().join("/"))}
+                  </Unselected>
+                }
+              >
+                <Match when={index() === props.elements.length - 1}>
+                  <Selected>
+                    {props.renderElement(segments().join("/"))}
+                  </Selected>
+                </Match>
+              </Switch>
+            </>
+          );
+        }}
       </For>
     </Base>
   );

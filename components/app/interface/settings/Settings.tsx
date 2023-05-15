@@ -40,6 +40,12 @@ interface Props {
   listGenerator: () => SettingsList;
 
   /**
+   * Render the title of the current breadcrumb key
+   * @param key Key
+   */
+  titleRender: (key: string) => string;
+
+  /**
    * Render the current settings page
    * @param props State information
    */
@@ -191,7 +197,7 @@ export function Settings(props: Props) {
               <Typography variant="settings-title">
                 <Breadcrumbs
                   elements={page()!.split("/")}
-                  renderElement={(key) => key}
+                  renderElement={(key) => props.titleRender(key)}
                   navigate={(keys) => navigate(keys.join("/"))}
                 />
               </Typography>
@@ -352,5 +358,8 @@ const SettingsNavigationContext = createContext<{
   navigate: (path: string) => void;
 }>();
 
+/**
+ * Use settings navigation context
+ */
 export const useSettingsNavigation = () =>
   useContext(SettingsNavigationContext)!;
