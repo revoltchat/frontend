@@ -34,7 +34,15 @@ declare module "solid-styled-components" {
       [key in "sm" | "md" | "lg" | "full"]: string;
     };
     gap: {
-      [key in "none" | "xxs" | "xs" | "sm" | "md" | "lg"]: string;
+      [key in
+        | "none"
+        | "xxs"
+        | "xs"
+        | "sm"
+        | "md"
+        | "lg"
+        | "xl"
+        | "xxl"]: string;
     };
     fonts: {
       [key in "primary" | "monospace"]: string;

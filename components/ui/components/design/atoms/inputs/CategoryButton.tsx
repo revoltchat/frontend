@@ -2,6 +2,7 @@ import {
   BiRegularLinkExternal,
   BiSolidChevronDown,
   BiSolidChevronRight,
+  BiSolidPencil,
 } from "solid-icons/bi";
 import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
@@ -11,7 +12,7 @@ import { Column, OverflowingText } from "../../layout";
 /**
  * Permissible actions
  */
-type Action = "chevron" | "collapse" | "external" | JSX.Element;
+type Action = "chevron" | "collapse" | "external" | "edit" | JSX.Element;
 
 export interface Props {
   readonly icon?: JSX.Element | "blank";
@@ -49,6 +50,9 @@ export function CategoryButton(props: Props) {
             </Match>
             <Match when={action === "collapse"}>
               <BiSolidChevronDown size={24} />
+            </Match>
+            <Match when={action === "edit"}>
+              <BiSolidPencil size={20} />
             </Match>
             <Match when={action === "external"}>
               <BiRegularLinkExternal size={20} />

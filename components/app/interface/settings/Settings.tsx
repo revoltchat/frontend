@@ -156,7 +156,7 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
       <Content>
         <Show when={page()}>
           <InnerContent>
-            <InnerColumn>
+            <InnerColumn gap="xl">
               <Typography variant="settings-title">
                 <Breadcrumbs
                   elements={page()!.split("/")}
@@ -205,6 +205,7 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
                   </Motion.div>
                 </Rerun>
               </Presence>
+              <BottomPadding />
             </InnerColumn>
           </InnerContent>
         </Show>
@@ -272,6 +273,11 @@ const InnerContent = styled.div`
 
 const InnerColumn = styled(Column)`
   width: 100%;
+`;
+
+const BottomPadding = styled.div`
+  height: 80px;
+  flex-shrink: 0;
 `;
 
 const CloseAnchor = styled.a`

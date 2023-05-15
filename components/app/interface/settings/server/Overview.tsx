@@ -1,7 +1,6 @@
-import { BiSolidCheckCircle, BiSolidCircle } from "solid-icons/bi";
-import { Match, Show, Switch } from "solid-js";
+import { Match, Switch } from "solid-js";
 
-import { CategoryButton, Checkbox } from "@revolt/ui";
+import { CategoryButton } from "@revolt/ui";
 
 import { ServerSettingsProps } from ".";
 
