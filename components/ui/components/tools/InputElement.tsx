@@ -12,11 +12,12 @@ import {
 } from "solid-js";
 
 import {
-  Checkbox, // ColourSwatches,
+  // ColourSwatches,
   Column,
   ComboBox,
   FormGroup,
   Input,
+  LegacyCheckbox,
   Radio,
   Typography,
 } from "../design";
@@ -74,7 +75,7 @@ type Choice = {
 type Metadata = {
   text: { value: string; props: ComponentProps<typeof Input> };
   password: { value: string; props: ComponentProps<typeof Input> };
-  checkbox: { value: boolean; props: ComponentProps<typeof Checkbox> };
+  checkbox: { value: boolean; props: ComponentProps<typeof LegacyCheckbox> };
   /*colour: {
         value: string;
         props: ComponentProps<typeof ColourSwatches>;
@@ -147,7 +148,7 @@ export function InputElement<T extends Type>(props: Props<T>) {
           />
         </Match>
         <Match when={localProps.type === "checkbox"}>
-          <Checkbox
+          <LegacyCheckbox
             value={localProps.value() as boolean}
             onChange={(value) => localProps.onChange(value as Value<T>)}
             {...innerProps}

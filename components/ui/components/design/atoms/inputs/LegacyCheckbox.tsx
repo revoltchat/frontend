@@ -113,7 +113,7 @@ export type Props = {
   "value" | "children" | "onChange" | "title"
 >;
 
-export function Checkbox(props: Props) {
+export function LegacyCheckbox(props: Props) {
   const [local, others] = splitProps(props, [
     "disabled",
     "title",

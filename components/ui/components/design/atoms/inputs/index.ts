@@ -1,5 +1,5 @@
 export { ComboBox } from "./ComboBox";
-export { Checkbox } from "./Checkbox";
+export { LegacyCheckbox } from "./LegacyCheckbox";
 export { Input } from "./Input";
 export { Button } from "./Button";
 export { MenuButton } from "./MenuButton";

@@ -10,7 +10,7 @@ import {
 } from "@revolt/i18n";
 import { LanguageEntry } from "@revolt/i18n/locales/Languages";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
-import { Checkbox, Column, Row, Typography } from "@revolt/ui";
+import { Column, LegacyCheckbox, Row, Typography } from "@revolt/ui";
 
 /**
  * Language
@@ -75,7 +75,7 @@ function LanguageList(props: { list: (readonly [string, LanguageEntry])[] }) {
   return (
     <For each={props.list}>
       {([id, lang]) => (
-        <Checkbox
+        <LegacyCheckbox
           value={id === language()}
           onClick={() => loadAndSetLanguage(id as never)}
           title={
