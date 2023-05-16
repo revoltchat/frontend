@@ -1,8 +1,6 @@
 import {
   BiSolidBell,
-  BiSolidMessage,
   BiSolidNotification,
-  BiSolidPalette,
   BiSolidSpeaker,
 } from "solid-icons/bi";
 
@@ -13,7 +11,6 @@ import {
   Checkbox,
   Column,
   FormGroup,
-  Typography,
 } from "@revolt/ui";
 
 /**

@@ -23,6 +23,7 @@ import { Server } from "revolt.js";
 
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
+import { useUser } from "@revolt/markdown/users";
 import { ColouredText, useTheme } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
@@ -44,7 +45,17 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    */
   title(key) {
     const t = useTranslation();
-    return t(`app.settings.pages.${key.replaceAll("/", ".")}.title`);
+
+    if (key.startsWith("bots/")) {
+      const user = useUser(key.substring(5));
+      return user()!.username;
+    }
+
+    return t(
+      `app.settings.pages.${key.replaceAll("/", ".")}.title`,
+      undefined,
+      key
+    );
   },
 
   /**

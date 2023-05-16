@@ -1,11 +1,35 @@
 import { BiSolidBot } from "solid-icons/bi";
+import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
-import { CategoryButton, Column, Preloader, Typography } from "@revolt/ui";
+import { Bot } from "revolt.js";
+
+import { useClient } from "@revolt/client";
+import {
+  Avatar,
+  CategoryButton,
+  Column,
+  Preloader,
+  Typography,
+} from "@revolt/ui";
+
+import { useSettingsNavigation } from "../Settings";
 
 /**
  * Bots
  */
 export default function Bots() {
+  const client = useClient();
+  const { navigate } = useSettingsNavigation();
+  const [bots, setBots] = createSignal<Bot[]>();
+
+  onMount(() => {
+    if (client().bots.size()) {
+      setBots(client().bots.toList());
+    } else {
+      client().bots.fetchOwned().then(setBots);
+    }
+  });
+
   return (
     <Column gap="xl">
       <CategoryButton
@@ -16,10 +40,29 @@ export default function Bots() {
       >
         Create Bot
       </CategoryButton>
-      <Column>
-        <Typography variant="label">My Bots</Typography>
-        <Preloader type="ring" />
-      </Column>
+      <Show when={!bots() || bots()!.length !== 0}>
+        <Column>
+          <Typography variant="label">My Bots</Typography>
+          <Switch fallback={<Preloader type="ring" />}>
+            <Match when={bots()?.length}>
+              <For each={bots()}>
+                {(bot) => (
+                  <CategoryButton
+                    icon={
+                      <Avatar src={bot.user!.animatedAvatarURL} size={24} />
+                    }
+                    description={bot.id}
+                    onClick={() => navigate(`bots/${bot.id}`)}
+                    action="chevron"
+                  >
+                    {bot.user!.username}
+                  </CategoryButton>
+                )}
+              </For>
+            </Match>
+          </Switch>
+        </Column>
+      </Show>
     </Column>
   );
 }

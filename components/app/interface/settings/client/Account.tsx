@@ -46,6 +46,7 @@ export default function MyAccount() {
           </Typography>
         </Column>
       </Row>
+
       <Column>
         <CategoryButton
           action="edit"
@@ -103,6 +104,7 @@ export default function MyAccount() {
           <Typography variant="label">{t("login.password")}</Typography>
         </CategoryButton>
       </Column>
+
       <Column>
         <Typography variant="label">
           {t("app.settings.pages.account.2fa.title")}
@@ -114,7 +116,15 @@ export default function MyAccount() {
         >
           <CategoryButton
             icon="blank"
+            description="Get active recovery codes"
+            onClick={() => void 0}
+          >
+            View Recovery Codes
+          </CategoryButton>
+          <CategoryButton
+            icon="blank"
             description="Get a new set of recovery codes"
+            onClick={() => void 0}
           >
             Reset Recovery Codes
           </CategoryButton>
@@ -127,11 +137,13 @@ export default function MyAccount() {
           <CategoryButton
             icon="blank"
             description="Disable one-time password authenticator"
+            onClick={() => void 0}
           >
             Remove Authenticator
           </CategoryButton>
         </CategoryCollapse>
       </Column>
+
       <Column>
         <Typography variant="label">
           {t("app.settings.pages.account.manage.title")}

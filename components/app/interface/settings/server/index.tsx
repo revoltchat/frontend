@@ -26,7 +26,11 @@ const Config: SettingsConfiguration<Server> = {
    */
   title(key) {
     const t = useTranslation();
-    return t(`app.settings.server_pages.${key.replaceAll("/", ".")}.title`);
+    return t(
+      `app.settings.server_pages.${key.replaceAll("/", ".")}.title`,
+      undefined,
+      key
+    );
   },
 
   /**
