@@ -77,9 +77,7 @@ export default function MyAccount() {
                 <a
                   onClick={(event) => {
                     event.stopPropagation();
-                    client()
-                      .api.get("/auth/account/")
-                      .then((account) => setEmail(account.email));
+                    client().account.fetchEmail().then(setEmail);
                   }}
                 >
                   Reveal

@@ -15,23 +15,23 @@ const EditPassword: PropGenerator<"edit_password"> = (props) => {
     },
     schema: {
       password: "password",
-      current_password: "password",
+      currentPassword: "password",
     },
     data: {
       password: {
         field: t("login.password"),
         placeholder: t("login.enter.password"),
       },
-      current_password: {
+      currentPassword: {
         field: t("login.current_password"),
         placeholder: t("login.enter.current_password"),
       },
     },
-    callback: async ({ password, current_password }) =>
-      void (await props.client.api.patch("/auth/account/change/password", {
+    callback: async ({ password, currentPassword }) =>
+      void (await props.client.account.changePassword(
         password,
-        current_password,
-      })),
+        currentPassword
+      )),
     submit: {
       children: t("app.special.modals.actions.update"),
     },

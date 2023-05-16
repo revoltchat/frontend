@@ -15,23 +15,20 @@ const EditEmail: PropGenerator<"edit_email"> = (props) => {
     },
     schema: {
       email: "text",
-      current_password: "password",
+      currentPassword: "password",
     },
     data: {
       email: {
         field: t("login.email"),
         placeholder: t("login.enter.username"),
       },
-      current_password: {
+      currentPassword: {
         field: t("login.current_password"),
         placeholder: t("login.enter.current_password"),
       },
     },
-    callback: async ({ email, current_password }) =>
-      void (await props.client.api.patch("/auth/account/change/email", {
-        email,
-        current_password,
-      })),
+    callback: async ({ email, currentPassword }) =>
+      void (await props.client.account.changeEmail(email, currentPassword)),
     submit: {
       children: t("app.special.modals.actions.update"),
     },

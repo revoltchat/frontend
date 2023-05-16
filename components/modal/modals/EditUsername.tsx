@@ -28,10 +28,7 @@ const EditUsername: PropGenerator<"edit_username"> = (props) => {
       },
     },
     callback: async ({ username, password }) =>
-      void (await props.client.api.patch("/users/@me/username", {
-        username,
-        password,
-      })),
+      void (await props.client.user!.changeUsername(username, password)),
     submit: {
       children: t("app.special.modals.actions.update"),
     },
