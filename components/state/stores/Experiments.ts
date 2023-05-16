@@ -11,7 +11,8 @@ export type Experiment =
   | "account_switcher"
   | "gif_picker"
   | "emoji_picker"
-  | "plugins";
+  | "plugins"
+  | "voice_chat";
 
 /**
  * Currently active experiments.
@@ -23,6 +24,7 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
   "gif_picker",
   "emoji_picker",
   "plugins",
+  "voice_chat",
 ];
 
 /**
@@ -57,11 +59,15 @@ export const EXPERIMENTS: {
     description: "Search and send GIFs from GIFBox!",
   },
   emoji_picker: {
-    title: "Emoji Picker",
+    title: "Emoji Picker Placeholder",
     description: "Search and add emoji to your messages.",
   },
   plugins: {
-    title: "Plugins v2",
+    title: "Plugins v2 Placeholder",
+    description: "Not available yet.",
+  },
+  voice_chat: {
+    title: "Voice Chat Placeholder",
     description: "Not available yet.",
   },
 };

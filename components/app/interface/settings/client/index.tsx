@@ -34,6 +34,7 @@ import experiments from "./Experiments";
 import feedback from "./Feedback";
 import language from "./Language";
 import native from "./Native";
+import notifications from "./Notifications";
 import sync from "./Sync";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
@@ -126,6 +127,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             id: "audio",
             icon: <BiSolidSpeaker size={20} />,
             title: t("app.settings.pages.audio.title"),
+            hidden: !getController("state").experiments.isEnabled("voice_chat"),
           },
           {
             id: "appearance",
@@ -208,7 +210,7 @@ const ClientSettingsRouting: Record<string, Component> = {
   audio: () => null,
   appearance,
   "appearance/colours": () => <h1>hi</h1>,
-  notifications: () => null,
+  notifications,
   language,
   sync,
   native,
