@@ -4,7 +4,16 @@ import { dayjs } from "@revolt/i18n";
 
 interface Props {
   value: number | Date | string;
-  format: "calendar" | "relative" | "time" | "time24" | "time12";
+  format:
+    | "calendar"
+    | "date"
+    | "dateNormal"
+    | "dateAmerican"
+    | "iso8601"
+    | "relative"
+    | "time"
+    | "time24"
+    | "time12";
   referenceTime?: number | Date | string;
 }
 
@@ -12,6 +21,13 @@ export function formatTime(props: Props) {
   switch (props.format) {
     case "calendar":
       return dayjs(props.value).calendar(props.referenceTime);
+    case "date":
+    case "dateNormal":
+      return dayjs(props.value).format("DD/MM/YYYY");
+    case "dateAmerican":
+      return dayjs(props.value).format("MM/DD/YYYY");
+    case "iso8601":
+      return dayjs(props.value).format("YYYY-MM-DD");
     case "relative":
       return dayjs(props.value).fromNow();
     case "time12":

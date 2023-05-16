@@ -66,6 +66,9 @@ export default function Language() {
     return languages;
   });
 
+  const LastWeek = new Date();
+  LastWeek.setDate(LastWeek.getDate() - 7);
+
   return (
     <Column>
       <CategoryCollapse
@@ -90,8 +93,44 @@ export default function Language() {
       </CategoryCollapse>
       <CategoryCollapse
         icon={<BiRegularTime size={24} />}
+        title="Select date format"
+        description={`Traditional`}
+      >
+        <FormGroup>
+          <CategoryButton
+            icon={"blank"}
+            onClick={() => void 0}
+            action={<Checkbox value />}
+            description={<Time format="date" value={LastWeek} />}
+          >
+            Traditional
+          </CategoryButton>
+        </FormGroup>
+        <FormGroup>
+          <CategoryButton
+            icon={"blank"}
+            onClick={() => void 0}
+            action={<Checkbox />}
+            description={<Time format="dateAmerican" value={LastWeek} />}
+          >
+            American (Month-Day)
+          </CategoryButton>
+        </FormGroup>
+        <FormGroup>
+          <CategoryButton
+            icon={"blank"}
+            onClick={() => void 0}
+            action={<Checkbox />}
+            description={<Time format="iso8601" value={LastWeek} />}
+          >
+            ISO8601
+          </CategoryButton>
+        </FormGroup>
+      </CategoryCollapse>
+      <CategoryCollapse
+        icon={<BiRegularTime size={24} />}
         title="Select time format"
-        description={`24h`}
+        description={`24 hours`}
       >
         <FormGroup>
           <CategoryButton
