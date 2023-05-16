@@ -8,6 +8,7 @@ import {
   Avatar,
   CategoryButton,
   Column,
+  Disabled,
   Preloader,
   Typography,
 } from "@revolt/ui";
@@ -32,14 +33,17 @@ export default function Bots() {
 
   return (
     <Column gap="xl">
-      <CategoryButton
-        action="chevron"
-        icon={<BiSolidBot size={24} />}
-        onClick={() => void 0}
-        description="You agree that your bot is subject to the Acceptable Usage Policy."
-      >
-        Create Bot
-      </CategoryButton>
+      <Disabled>
+        <CategoryButton
+          action="chevron"
+          icon={<BiSolidBot size={24} />}
+          onClick={() => void 0}
+          description="You agree that your bot is subject to the Acceptable Usage Policy."
+        >
+          Create Bot
+        </CategoryButton>
+      </Disabled>
+
       <Show when={!bots() || bots()!.length !== 0}>
         <Column>
           <Typography variant="label">My Bots</Typography>

@@ -23,6 +23,7 @@ import {
   CategoryCollapse,
   Checkbox,
   Column,
+  Disabled,
   FormGroup,
   LegacyCheckbox,
   Row,
@@ -91,91 +92,98 @@ export default function Language() {
           )}
         </For>
       </CategoryCollapse>
-      <CategoryCollapse
-        icon={<BiRegularTime size={24} />}
-        title="Select date format"
-        description={`Traditional`}
-      >
-        <FormGroup>
-          <CategoryButton
-            icon={"blank"}
-            onClick={() => void 0}
-            action={<Checkbox value />}
-            description={<Time format="date" value={LastWeek} />}
+
+      <Disabled>
+        <Column>
+          <CategoryCollapse
+            icon={<BiRegularTime size={24} />}
+            title="Select date format"
+            description={`Traditional`}
           >
-            Traditional
-          </CategoryButton>
-        </FormGroup>
-        <FormGroup>
-          <CategoryButton
-            icon={"blank"}
-            onClick={() => void 0}
-            action={<Checkbox />}
-            description={<Time format="dateAmerican" value={LastWeek} />}
+            <FormGroup>
+              <CategoryButton
+                icon={"blank"}
+                onClick={() => void 0}
+                action={<Checkbox value />}
+                description={<Time format="date" value={LastWeek} />}
+              >
+                Traditional
+              </CategoryButton>
+            </FormGroup>
+            <FormGroup>
+              <CategoryButton
+                icon={"blank"}
+                onClick={() => void 0}
+                action={<Checkbox />}
+                description={<Time format="dateAmerican" value={LastWeek} />}
+              >
+                American (Month-Day)
+              </CategoryButton>
+            </FormGroup>
+            <FormGroup>
+              <CategoryButton
+                icon={"blank"}
+                onClick={() => void 0}
+                action={<Checkbox />}
+                description={<Time format="iso8601" value={LastWeek} />}
+              >
+                ISO8601
+              </CategoryButton>
+            </FormGroup>
+          </CategoryCollapse>
+
+          <CategoryCollapse
+            icon={<BiRegularTime size={24} />}
+            title="Select time format"
+            description={`24 hours`}
           >
-            American (Month-Day)
-          </CategoryButton>
-        </FormGroup>
-        <FormGroup>
-          <CategoryButton
-            icon={"blank"}
-            onClick={() => void 0}
-            action={<Checkbox />}
-            description={<Time format="iso8601" value={LastWeek} />}
+            <FormGroup>
+              <CategoryButton
+                icon={"blank"}
+                onClick={() => void 0}
+                action={<Checkbox value />}
+                description={<Time format="time24" value={new Date()} />}
+              >
+                24 hours
+              </CategoryButton>
+            </FormGroup>
+            <FormGroup>
+              <CategoryButton
+                icon={"blank"}
+                onClick={() => void 0}
+                action={<Checkbox />}
+                description={<Time format="time12" value={new Date()} />}
+              >
+                12 hours
+              </CategoryButton>
+            </FormGroup>
+          </CategoryCollapse>
+
+          <Switch
+            fallback={
+              <CategoryButton
+                icon={<BiRegularAlignRight size={24} />}
+                description="Flip the user interface right to left"
+                action={<Checkbox />}
+                onClick={() => void 0}
+              >
+                Enable RTL layout
+              </CategoryButton>
+            }
           >
-            ISO8601
-          </CategoryButton>
-        </FormGroup>
-      </CategoryCollapse>
-      <CategoryCollapse
-        icon={<BiRegularTime size={24} />}
-        title="Select time format"
-        description={`24 hours`}
-      >
-        <FormGroup>
-          <CategoryButton
-            icon={"blank"}
-            onClick={() => void 0}
-            action={<Checkbox value />}
-            description={<Time format="time24" value={new Date()} />}
-          >
-            24 hours
-          </CategoryButton>
-        </FormGroup>
-        <FormGroup>
-          <CategoryButton
-            icon={"blank"}
-            onClick={() => void 0}
-            action={<Checkbox />}
-            description={<Time format="time12" value={new Date()} />}
-          >
-            12 hours
-          </CategoryButton>
-        </FormGroup>
-      </CategoryCollapse>
-      <Switch
-        fallback={
-          <CategoryButton
-            icon={<BiRegularAlignRight size={24} />}
-            description="Flip the user interface right to left"
-            action={<Checkbox />}
-            onClick={() => void 0}
-          >
-            Enable RTL layout
-          </CategoryButton>
-        }
-      >
-        <Match when={currentLanguage().rtl}>
-          <CategoryButton
-            icon={<BiRegularAlignLeft size={24} />}
-            description="Keep the user interface left to right"
-            action={<Checkbox />}
-            onClick={() => void 0}
-          >
-            Force LTR layout
-          </CategoryButton>
-        </Match>
-      </Switch>
+            <Match when={currentLanguage().rtl}>
+              <CategoryButton
+                icon={<BiRegularAlignLeft size={24} />}
+                description="Keep the user interface left to right"
+                action={<Checkbox />}
+                onClick={() => void 0}
+              >
+                Force LTR layout
+              </CategoryButton>
+            </Match>
+          </Switch>
+        </Column>
+      </Disabled>
     </Column>
   );
 }

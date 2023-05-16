@@ -6,7 +6,7 @@ import {
   BiSolidPalette,
 } from "solid-icons/bi";
 
-import { CategoryButton, Column } from "@revolt/ui";
+import { CategoryButton, Column, Disabled } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
 
@@ -54,13 +54,15 @@ export default function Appearance() {
         >
           Advanced Options
         </CategoryButton>
-        <CategoryButton
-          action="external"
-          icon={<BiSolidBrush size={24} />}
-          description="Browse themes made by the community"
-        >
-          Discover themes
-        </CategoryButton>{" "}
+        <Disabled>
+          <CategoryButton
+            action="external"
+            icon={<BiSolidBrush size={24} />}
+            description="Browse themes made by the community"
+          >
+            Discover themes
+          </CategoryButton>
+        </Disabled>
       </Column>
     </Column>
   );
