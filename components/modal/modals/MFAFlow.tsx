@@ -23,6 +23,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
 
   // Keep track of available methods
   const [methods, setMethods] = createSignal<API.MFAMethod[] | undefined>(
+    // eslint-disable-next-line solid/reactivity
     props.state === "unknown" ? props.available_methods : undefined
   );
 
@@ -33,7 +34,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
   // Fetch available methods if they have not been provided.
   onMount(() => {
     if (!methods() && props.state === "known") {
-      props.client.api.get("/auth/mfa/methods").then(setMethods);
+      setMethods(props.mfa.availableMethods);
     }
   });
 
@@ -45,17 +46,15 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
     }
   });
 
-  // Callback to generate a new ticket or send response back up the chain
+  /**
+   * Callback to generate a new ticket or send response back up the chain
+   */
   const generateTicket = async () => {
     const mfa_response = response();
     if (!mfa_response) return false;
 
     if (props.state === "known") {
-      const ticket = await props.client.api.put(
-        "/auth/mfa/ticket",
-        mfa_response
-      );
-
+      const ticket = await props.mfa.createTicket(mfa_response);
       props.callback(ticket);
     } else {
       props.callback(mfa_response);
@@ -115,6 +114,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
     // where you accidentally close the modal while logging in
     // or when switching to your password manager.
     nonDismissable:
+      // eslint-disable-next-line solid/reactivity
       props.state === "unknown" || typeof selectedMethod !== "undefined",
     children: (
       <Switch fallback={<Preloader type="ring" />}>

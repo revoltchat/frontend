@@ -10,6 +10,7 @@ import {
   Session,
   User,
 } from "revolt.js";
+import { MFA, MFATicket } from "revolt.js/src/classes/MFA";
 
 import { SettingsConfigurations } from "@revolt/app";
 import type { Modal } from "@revolt/ui";
@@ -39,9 +40,9 @@ export type Modals =
       type: "mfa_flow";
     } & (
       | {
+          mfa: MFA;
           state: "known";
-          client: Client;
-          callback: (ticket?: API.MFATicket) => void;
+          callback: (ticket?: MFATicket) => void;
         }
       | {
           state: "unknown";
@@ -49,7 +50,7 @@ export type Modals =
           callback: (response?: API.MFAResponse) => void;
         }
     ))
-  | { type: "mfa_recovery"; codes: string[]; client: Client }
+  | { type: "mfa_recovery"; codes: string[]; mfa: MFA }
   | {
       type: "mfa_enable_totp";
       identifier: string;

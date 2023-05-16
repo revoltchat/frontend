@@ -2,6 +2,7 @@ import { For } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { API, Client } from "revolt.js";
+import { MFA, MFATicket } from "revolt.js/src/classes/MFA.js";
 
 import { registerController } from "@revolt/common";
 
@@ -114,17 +115,17 @@ export class ModalController {
 /**
  * Modal controller with additional helpers.
  */
-class ModalControllerExtended extends ModalController {
+export class ModalControllerExtended extends ModalController {
   /**
    * Perform MFA flow
-   * @param client Client
+   * @param mfa MFA helper
    */
-  mfaFlow(client: Client) {
-    return new Promise((callback: (ticket?: API.MFATicket) => void) =>
+  mfaFlow(mfa: MFA) {
+    return new Promise((callback: (ticket?: MFATicket) => void) =>
       this.push({
         type: "mfa_flow",
         state: "known",
-        client,
+        mfa,
         callback,
       })
     );
