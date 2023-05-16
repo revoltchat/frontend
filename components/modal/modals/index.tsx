@@ -28,8 +28,10 @@ import mfa_enable_totp from "./MFAEnableTOTP";
 import mfa_flow from "./MFAFlow";
 import mfa_recovery from "./MFARecovery";
 import onboarding from "./Onboarding";
+import rename_session from "./RenameSession";
 import server_info from "./ServerInfo";
 import settings from "./Settings";
+import sign_out_sessions from "./SignOutSessions";
 import signed_out from "./SignedOut";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
@@ -56,9 +58,11 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   mfa_flow,
   mfa_recovery,
   onboarding,
+  rename_session,
   server_info,
   settings,
   signed_out,
+  sign_out_sessions,
   ...({} as any),
 };
 

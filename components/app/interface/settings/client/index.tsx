@@ -36,6 +36,7 @@ import feedback from "./Feedback";
 import language from "./Language";
 import native from "./Native";
 import notifications from "./Notifications";
+import sessions from "./Sessions";
 import sync from "./Sync";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
@@ -215,7 +216,7 @@ export default Config;
 const ClientSettingsRouting: Record<string, Component> = {
   account,
   profile: () => null,
-  sessions: () => null,
+  sessions,
   bots,
   feedback,
   audio: () => null,

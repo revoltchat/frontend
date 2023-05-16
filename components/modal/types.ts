@@ -7,6 +7,7 @@ import {
   Message,
   Server,
   ServerMember,
+  Session,
   User,
 } from "revolt.js";
 
@@ -26,6 +27,10 @@ export type Modals =
         | "edit_email"
         | "edit_password";
       client: Client;
+    }
+  | {
+      type: "rename_session";
+      session: Session;
     }
   | {
       type: "signed_out";
@@ -63,8 +68,6 @@ export type Modals =
   | {
       type: "sign_out_sessions";
       client: Client;
-      onDelete: () => void;
-      onDeleting: () => void;
     }
   | {
       type: "show_token";
