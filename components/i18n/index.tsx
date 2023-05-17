@@ -58,13 +58,13 @@ export function browserPreferredLanguage() {
   // Get the user's system language. Check for exact
   // matches first, otherwise check for partial matches
   return (
-    navigator.languages.filter((lang) =>
-      languages.find((l) => l[0].replace(/_/g, "-") == lang)
-    )?.[0] ??
     navigator.languages
-      ?.map((x) => x.split("-")[0])
-      ?.filter((lang) => languages.find((l) => l[0] == lang))?.[0]
-      ?.split("-")[0] ??
+      .map((lang) => languages.find((l) => l[0].replace(/_/g, "-") == lang))
+      .filter((lang) => lang)[0]?.[0] ??
+    navigator.languages
+      .map((x) => x.split("-")[0])
+      .map((lang) => languages.find((l) => l[0] == lang))
+      .filter((lang) => lang)[0]?.[0] ??
     Language.ENGLISH
   );
 }
