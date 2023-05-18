@@ -1,6 +1,8 @@
 import { createEffect } from "solid-js";
 import { useTheme } from "solid-styled-components";
 
+import { Placement } from "@floating-ui/dom";
+
 export * from "./components";
 export * from "./directives";
 export { darkTheme } from "./themes/darkTheme";
@@ -62,6 +64,17 @@ declare module "solid-js" {
              */
             direction?: "x" | "y";
           };
+      floating: {
+        tooltip?: {
+          placement: Placement;
+        } & (
+          | { content: JSX.Element; aria?: false }
+          | {
+              content: string;
+              aria?: boolean;
+            }
+        );
+      };
     }
   }
 }

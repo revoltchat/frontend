@@ -26,8 +26,11 @@ import {
   Tooltip,
   UserCard,
   Username,
+  floating,
   styled,
 } from "@revolt/ui";
+
+floating;
 
 /**
  * Regex for matching URLs
@@ -80,15 +83,17 @@ export function Message(props: Props) {
   return (
     <MessageContainer
       username={
-        <UserCard user={props.message.author!} member={props.message.member}>
-          {(triggerProps) => (
-            <Username
-              {...triggerProps}
-              username={props.message.username}
-              colour={props.message.roleColour!}
-            />
-          )}
-        </UserCard>
+        <div use:floating={{ tooltip: {} }}>
+          <UserCard user={props.message.author!} member={props.message.member}>
+            {(triggerProps) => (
+              <Username
+                {...triggerProps}
+                username={props.message.username}
+                colour={props.message.roleColour!}
+              />
+            )}
+          </UserCard>
+        </div>
       }
       avatar={props.message.avatarURL}
       timestamp={props.message.createdAt}
