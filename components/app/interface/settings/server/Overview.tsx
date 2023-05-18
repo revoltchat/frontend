@@ -92,7 +92,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
               icon={<BiRegularAbacus size={24} />}
               action={
                 <Checkbox
-                  value={props.server.analytics}
+                  value={!!props.server.analytics}
                   onChange={(analytics) =>
                     props.server.edit({
                       analytics,
@@ -111,7 +111,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
               icon={<BiRegularGlobe size={24} />}
               action={
                 <Checkbox
-                  value={props.server.discoverable}
+                  value={!!props.server.discoverable}
                   onChange={(discoverable) =>
                     props.server.edit({
                       discoverable,
