@@ -1,4 +1,4 @@
-import { Accessor, JSX } from "solid-js";
+import { Accessor, JSX, onCleanup } from "solid-js";
 import { css, useTheme } from "solid-styled-components";
 
 /**
@@ -68,10 +68,10 @@ export function scrollable(
     el.addEventListener("mouseenter", onMouseEnter);
     el.addEventListener("mouseleave", onMouseLeave);
 
-    return () => {
+    onCleanup(() => {
       el.removeEventListener("mouseenter", onMouseEnter);
       el.removeEventListener("mouseleave", onMouseLeave);
-    };
+    });
   }
 }
 
