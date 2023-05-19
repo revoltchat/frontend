@@ -66,23 +66,38 @@ export function ServerMemberSidebar(props: Props) {
     )
   );
 
-  const roles = createMemo(() => {
+  // Stage 1: Find roles and members
+  const stage1 = createMemo(() => {
     const hoistedRoles = props.channel.server!.orderedRoles.filter(
       (role) => role.hoist
     );
-
-    const byRole: Record<string, ServerMember[]> = { default: [], offline: [] };
-    hoistedRoles.forEach((role) => (byRole[role.id] = []));
 
     const members = client().serverMembers.filter(
       (member) => member.id.server === props.channel.serverId
     );
 
-    for (const member of members) {
-      if (!member.hasPermission(props.channel, "ViewChannel")) {
-        continue;
-      }
+    return [members, hoistedRoles] as const;
+  });
 
+  // Stage 2: Filter members by permissions (if necessary)
+  const stage2 = createMemo(() => {
+    const [members] = stage1();
+    if (props.channel.potentiallyRestrictedChannel) {
+      return members.filter((member) => member.hasPermission(props.channel));
+    } else {
+      return members;
+    }
+  });
+
+  // Stage 3: Categorise each member entry into role lists
+  const stage3 = createMemo(() => {
+    const [, hoistedRoles] = stage1();
+    const members = stage2();
+
+    const byRole: Record<string, ServerMember[]> = { default: [], offline: [] };
+    hoistedRoles.forEach((role) => (byRole[role.id] = []));
+
+    for (const member of members) {
       if (!member.user?.online) {
         byRole["offline"].push(member);
         continue;
@@ -104,7 +119,7 @@ export function ServerMemberSidebar(props: Props) {
       byRole["default"].push(member);
     }
 
-    const result = [
+    return [
       ...hoistedRoles.map((role) => ({
         ...role,
         members: byRole[role.id],
@@ -120,8 +135,12 @@ export function ServerMemberSidebar(props: Props) {
         members: byRole["offline"],
       },
     ].filter((role) => role.members.length);
+  });
 
-    result.forEach((role) =>
+  // Stage 4: Perform sorting on role lists
+  const roles = createMemo(() => {
+    const roles = stage3();
+    roles.forEach((role) =>
       role.members.sort(
         (a, b) =>
           (a.nickname ?? a.user?.username)?.localeCompare(
@@ -130,7 +149,7 @@ export function ServerMemberSidebar(props: Props) {
       )
     );
 
-    return result;
+    return roles;
   });
 
   return (
