@@ -178,6 +178,7 @@ export function ServerMemberSidebar(props: Props) {
  */
 const Base = styled.div`
   flex-shrink: 0;
+  background: ${(props) => props.theme!.colours["background-100"]};
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;
 
