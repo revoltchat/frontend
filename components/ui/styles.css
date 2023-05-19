@@ -6,26 +6,29 @@
 @import "@fontsource/jetbrains-mono";
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    background: #191919;
+  margin: 0;
+  background: #191919;
 }
 
 #root {
-    position: fixed;
-    top: env(safe-area-inset-top);
-    left: env(safe-area-inset-left);
-    right: env(safe-area-inset-right);
-    bottom: env(safe-area-inset-bottom);
+  position: fixed;
+  top: env(safe-area-inset-top);
+  left: env(safe-area-inset-left);
+  right: env(safe-area-inset-right);
+  bottom: env(safe-area-inset-bottom);
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-a, a:link, a:visited, a:hover {
-    color: inherit;
+a,
+a:link,
+a:visited,
+a:hover {
+  color: inherit;
 }

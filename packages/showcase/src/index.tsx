@@ -18,7 +18,6 @@ import {
   Masks,
   MenuButton,
   Row,
-  ScrollContainer,
   Tabs,
   ThemeProvider,
   Typography,
@@ -42,12 +41,12 @@ const Sidebar = styled(SidebarBase)`
   padding: 1em;
 `;
 
-const Content = styled(ScrollContainer)`
+const Content = styled.div`
   flex-grow: 1;
   padding: 1rem;
 `;
 
-const PropTypesEditor = styled(ScrollContainer)`
+const PropTypesEditor = styled.div`
   flex-grow: 0;
   padding: 1rem;
   max-height: 360px;

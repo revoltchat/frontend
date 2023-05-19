@@ -25,6 +25,7 @@ export function CustomEmoji(
       class="emoji"
       draggable={false}
       src={url()}
+      alt={`:${local.id}:`}
     />
   );
 }

@@ -1,4 +1,4 @@
-import type { ComponentProps } from "solid-js";
+import type { ComponentProps, JSX } from "solid-js";
 
 import {
   API,
@@ -7,17 +7,31 @@ import {
   Message,
   Server,
   ServerMember,
+  Session,
   User,
 } from "revolt.js";
+import { MFA, MFATicket } from "revolt.js/src/classes/MFA";
 
+import { SettingsConfigurations } from "@revolt/app";
 import type { Modal } from "@revolt/ui";
 
 import { ChangelogPost } from "./modals/Changelog";
 
 export type Modals =
   | {
-      type: "add_friend" | "create_group" | "create_server" | "custom_status";
+      type:
+        | "add_friend"
+        | "create_group"
+        | "create_server"
+        | "custom_status"
+        | "edit_username"
+        | "edit_email"
+        | "edit_password";
       client: Client;
+    }
+  | {
+      type: "rename_session";
+      session: Session;
     }
   | {
       type: "signed_out";
@@ -26,9 +40,9 @@ export type Modals =
       type: "mfa_flow";
     } & (
       | {
+          mfa: MFA;
           state: "known";
-          client: Client;
-          callback: (ticket?: API.MFATicket) => void;
+          callback: (ticket?: MFATicket) => void;
         }
       | {
           state: "unknown";
@@ -36,7 +50,7 @@ export type Modals =
           callback: (response?: API.MFAResponse) => void;
         }
     ))
-  | { type: "mfa_recovery"; codes: string[]; client: Client }
+  | { type: "mfa_recovery"; codes: string[]; mfa: MFA }
   | {
       type: "mfa_enable_totp";
       identifier: string;
@@ -55,8 +69,6 @@ export type Modals =
   | {
       type: "sign_out_sessions";
       client: Client;
-      onDelete: () => void;
-      onDeleting: () => void;
     }
   | {
       type: "show_token";
@@ -188,10 +200,20 @@ export type Modals =
     }
   | {
       type: "import_theme";
+    }
+  | {
+      type: "settings";
+      config: keyof typeof SettingsConfigurations;
+      // eslint-disable-next-line
+      context?: any;
     };
 
 export type ModalProps<T extends Modals["type"]> = Modals & { type: T };
-export type ReturnType = ComponentProps<typeof Modal>;
+export type ReturnType =
+  | ComponentProps<typeof Modal>
+  | {
+      _children: (props: { show: boolean; onClose: () => void }) => JSX.Element;
+    };
 export type PropGenerator<T extends Modals["type"]> = (
   props: ModalProps<T>,
   onClose: () => void

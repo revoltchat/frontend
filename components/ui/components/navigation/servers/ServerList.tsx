@@ -6,8 +6,8 @@ import { Channel, Server, User } from "revolt.js";
 
 import { Link } from "@revolt/routing";
 
+import { invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
-import { InvisibleScrollContainer } from "../../common/ScrollContainers";
 import { Button, Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
@@ -17,6 +17,8 @@ import {
 import { Tooltip } from "../../floating";
 
 import { Swoosh } from "./Swoosh";
+
+invisibleScrollable;
 
 interface Props {
   /**
@@ -52,7 +54,7 @@ interface Props {
 export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
-      <InvisibleScrollContainer>
+      <div use:invisibleScrollable={{ direction: "y" }}>
         <Tooltip
           placement="right"
           content={
@@ -63,29 +65,28 @@ export const ServerList = (props: Props) => {
               </Typography>
             </Column>
           }
+          aria={props.user.username}
         >
-          {(triggerProps) => (
-            <EntryContainer {...triggerProps}>
-              <Show when={!props.selectedServer()}>
-                <PositionSwoosh>
-                  <Swoosh />
-                </PositionSwoosh>
-              </Show>
-              <Link href="/">
-                <Avatar
-                  size={42}
-                  src={props.user.avatarURL}
-                  holepunch={"bottom-right"}
-                  overlay={
-                    <UserStatusGraphic
-                      status={props.user.status?.presence ?? "Invisible"}
-                    />
-                  }
-                  interactive
-                />
-              </Link>
-            </EntryContainer>
-          )}
+          <EntryContainer>
+            <Show when={!props.selectedServer()}>
+              <PositionSwoosh>
+                <Swoosh />
+              </PositionSwoosh>
+            </Show>
+            <Link href="/">
+              <Avatar
+                size={42}
+                src={props.user.avatarURL}
+                holepunch={"bottom-right"}
+                overlay={
+                  <UserStatusGraphic
+                    status={props.user.status?.presence ?? "Invisible"}
+                  />
+                }
+                interactive
+              />
+            </Link>
+          </EntryContainer>
         </Tooltip>
         <Show when={props.user.privileged}>
           <EntryContainer>
@@ -99,32 +100,30 @@ export const ServerList = (props: Props) => {
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
-              {(triggerProps) => (
-                <EntryContainer {...triggerProps}>
-                  <Link href={`/channel/${conversation.id}`}>
-                    <Avatar
-                      size={42}
-                      // TODO: fix this
-                      src={conversation.iconURL}
-                      holepunch={conversation.unread ? "top-right" : "none"}
-                      overlay={
-                        <>
-                          <Show when={conversation.unread}>
-                            <UnreadsGraphic
-                              count={conversation.mentions?.size ?? 0}
-                              unread
-                            />
-                          </Show>
-                        </>
-                      }
-                      fallback={
-                        conversation.name ?? conversation.recipient?.username
-                      }
-                      interactive
-                    />
-                  </Link>
-                </EntryContainer>
-              )}
+              <EntryContainer>
+                <Link href={`/channel/${conversation.id}`}>
+                  <Avatar
+                    size={42}
+                    // TODO: fix this
+                    src={conversation.iconURL}
+                    holepunch={conversation.unread ? "top-right" : "none"}
+                    overlay={
+                      <>
+                        <Show when={conversation.unread}>
+                          <UnreadsGraphic
+                            count={conversation.mentions?.size ?? 0}
+                            unread
+                          />
+                        </Show>
+                      </>
+                    }
+                    fallback={
+                      conversation.name ?? conversation.recipient?.username
+                    }
+                    interactive
+                  />
+                </Link>
+              </EntryContainer>
             </Tooltip>
           )}
         </For>
@@ -142,53 +141,42 @@ export const ServerList = (props: Props) => {
         <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
           {(item) => (
             <Tooltip placement="right" content={item.name}>
-              {(triggerProps) => (
-                <EntryContainer {...triggerProps}>
-                  <Show when={props.selectedServer() === item.id}>
-                    <PositionSwoosh>
-                      <Swoosh />
-                    </PositionSwoosh>
-                  </Show>
-                  <Link href={`/server/${item.id}`}>
-                    <Avatar
-                      size={42}
-                      src={item.iconURL}
-                      holepunch={item.unread ? "top-right" : "none"}
-                      overlay={
-                        <>
-                          <Show when={item.unread}>
-                            <UnreadsGraphic
-                              count={item.mentions.length}
-                              unread
-                            />
-                          </Show>
-                        </>
-                      }
-                      fallback={item.name}
-                      interactive
-                    />
-                  </Link>
-                </EntryContainer>
-              )}
+              <EntryContainer>
+                <Show when={props.selectedServer() === item.id}>
+                  <PositionSwoosh>
+                    <Swoosh />
+                  </PositionSwoosh>
+                </Show>
+                <Link href={`/server/${item.id}`}>
+                  <Avatar
+                    size={42}
+                    src={item.iconURL}
+                    holepunch={item.unread ? "top-right" : "none"}
+                    overlay={
+                      <>
+                        <Show when={item.unread}>
+                          <UnreadsGraphic count={item.mentions.length} unread />
+                        </Show>
+                      </>
+                    }
+                    fallback={item.name}
+                    interactive
+                  />
+                </Link>
+              </EntryContainer>
             </Tooltip>
           )}
         </Draggable>
-      </InvisibleScrollContainer>
+      </div>
       <Shadow>
         <div />
       </Shadow>
       <Tooltip placement="right" content="Settings">
-        {(triggerProps) => (
-          <EntryContainer {...triggerProps}>
-            <Link href="/settings">
-              <Avatar
-                size={42}
-                fallback={<BiSolidCog size={18} />}
-                interactive
-              />
-            </Link>
-          </EntryContainer>
-        )}
+        <EntryContainer>
+          <Link href="/settings">
+            <Avatar size={42} fallback={<BiSolidCog size={18} />} interactive />
+          </Link>
+        </EntryContainer>
       </Tooltip>
     </ServerListBase>
   );

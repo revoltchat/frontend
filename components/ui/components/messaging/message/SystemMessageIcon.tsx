@@ -18,6 +18,7 @@ import { styled } from "solid-styled-components";
 import { SystemMessage } from "revolt.js";
 
 import { Time } from "../../design";
+import { formatTime } from "../../design/atoms/display/Time";
 import { Tooltip } from "../../floating";
 
 /**
@@ -32,61 +33,52 @@ export function SystemMessageIcon(props: {
     <Base type={props.systemMessage.type}>
       <Tooltip
         content={<Time format="relative" value={props.createdAt} />}
+        aria={formatTime({ format: "relative", value: props.createdAt })}
         placement="top"
       >
-        {(triggerProps) => (
-          <div {...triggerProps}>
-            <Switch fallback={<BiSolidInfoCircle size={16} />}>
-              <Match when={props.systemMessage.type === "user_added"}>
-                <BiRegularPlus size={16} />
-              </Match>
-              <Match
-                when={
-                  props.systemMessage.type === "user_left" && !props.isServer
-                }
-              >
-                <BiRegularMinus size={16} />
-              </Match>
-              <Match when={props.systemMessage.type === "user_remove"}>
-                <BiRegularX size={16} />
-              </Match>
-              <Match when={props.systemMessage.type === "user_kicked"}>
-                <BiSolidXCircle size={16} />
-              </Match>
-              <Match when={props.systemMessage.type === "user_banned"}>
-                <BiSolidShieldX size={16} />
-              </Match>
-              <Match when={props.systemMessage.type === "user_joined"}>
-                <BiRegularRightArrowAlt size={16} />
-              </Match>
-              <Match
-                when={
-                  props.systemMessage.type === "user_left" && props.isServer
-                }
-              >
-                <BiRegularLeftArrowAlt size={16} />
-              </Match>
-              <Match when={props.systemMessage.type === "channel_renamed"}>
-                <BiSolidPurchaseTag size={16} />
-              </Match>
-              <Match
-                when={
-                  props.systemMessage.type === "channel_description_changed"
-                }
-              >
-                <BiRegularAlignLeft size={16} />
-              </Match>
-              <Match when={props.systemMessage.type === "channel_icon_changed"}>
-                <BiSolidImage size={16} />
-              </Match>
-              <Match
-                when={props.systemMessage.type === "channel_ownership_changed"}
-              >
-                <BiSolidKey size={16} />
-              </Match>
-            </Switch>
-          </div>
-        )}
+        <Switch fallback={<BiSolidInfoCircle size={16} />}>
+          <Match when={props.systemMessage.type === "user_added"}>
+            <BiRegularPlus size={16} />
+          </Match>
+          <Match
+            when={props.systemMessage.type === "user_left" && !props.isServer}
+          >
+            <BiRegularMinus size={16} />
+          </Match>
+          <Match when={props.systemMessage.type === "user_remove"}>
+            <BiRegularX size={16} />
+          </Match>
+          <Match when={props.systemMessage.type === "user_kicked"}>
+            <BiSolidXCircle size={16} />
+          </Match>
+          <Match when={props.systemMessage.type === "user_banned"}>
+            <BiSolidShieldX size={16} />
+          </Match>
+          <Match when={props.systemMessage.type === "user_joined"}>
+            <BiRegularRightArrowAlt size={16} />
+          </Match>
+          <Match
+            when={props.systemMessage.type === "user_left" && props.isServer}
+          >
+            <BiRegularLeftArrowAlt size={16} />
+          </Match>
+          <Match when={props.systemMessage.type === "channel_renamed"}>
+            <BiSolidPurchaseTag size={16} />
+          </Match>
+          <Match
+            when={props.systemMessage.type === "channel_description_changed"}
+          >
+            <BiRegularAlignLeft size={16} />
+          </Match>
+          <Match when={props.systemMessage.type === "channel_icon_changed"}>
+            <BiSolidImage size={16} />
+          </Match>
+          <Match
+            when={props.systemMessage.type === "channel_ownership_changed"}
+          >
+            <BiSolidKey size={16} />
+          </Match>
+        </Switch>
       </Tooltip>
     </Base>
   );

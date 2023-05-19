@@ -164,6 +164,7 @@ export function HomePage() {
               {t("app.home.feedback")}
             </CategoryButton>
             <CategoryButton
+              onClick={() => modalController.push({ type: "settings" })}
               description={t("app.home.settings-tooltip")}
               icon={<BiSolidCog size={24} />}
             >

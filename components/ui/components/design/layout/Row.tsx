@@ -20,6 +20,11 @@ interface Props {
    * This row should grow to fit parent container.
    */
   grow?: boolean;
+
+  /**
+   * This row should wrap.
+   */
+  wrap?: boolean;
 }
 
 /**
@@ -29,6 +34,7 @@ export const Row = styled("div")<Props>`
   display: flex;
   flex-direction: row;
   flex-grow: ${(props) => (props.grow ? 1 : "initial")};
+  flex-wrap: ${(props) => (props.wrap ? "wrap" : "initial")};
   gap: ${(props) => props.theme!.gap[props.gap ?? "md"]};
 
   align-items: ${(props) =>

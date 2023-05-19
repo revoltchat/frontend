@@ -31,10 +31,18 @@ declare module "solid-styled-components" {
       [key in "sm" | "md" | "lg" | "xl"]: string;
     };
     borderRadius: {
-      [key in "sm" | "md" | "lg"]: string;
+      [key in "sm" | "md" | "lg" | "full"]: string;
     };
     gap: {
-      [key in "none" | "sm" | "md" | "lg"]: string;
+      [key in
+        | "none"
+        | "xxs"
+        | "xs"
+        | "sm"
+        | "md"
+        | "lg"
+        | "xl"
+        | "xxl"]: string;
     };
     fonts: {
       [key in "primary" | "monospace"]: string;
@@ -57,6 +65,7 @@ declare module "solid-styled-components" {
         | "system-message"
         | "sidebar-title"
         | "channel-topic"
+        | "settings-title"
         | "legacy-settings-title"
         | "small"
         | "legacy-modal-title"
@@ -82,9 +91,13 @@ declare module "solid-styled-components" {
         [key in "md"]: string;
       };
       hover: string;
+      active: string;
       spoiler: string;
     };
     layout: {
+      width: {
+        [key in "channel-sidebar"]: string;
+      };
       height: {
         [key in
           | "header"

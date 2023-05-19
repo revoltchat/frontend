@@ -187,12 +187,11 @@ function Reaction(props: {
           </Typography>
         </Row>
       }
+      aria={peopleList()}
     >
-      {(triggerProps) => (
-        <ReactionBase {...triggerProps} active={props.active} onClick={onClick}>
-          <Emoji emoji={props.reaction} /> {props.users?.size || 0}
-        </ReactionBase>
-      )}
+      <ReactionBase active={props.active} onClick={onClick}>
+        <Emoji emoji={props.reaction} /> {props.users?.size || 0}
+      </ReactionBase>
     </Tooltip>
   );
 }

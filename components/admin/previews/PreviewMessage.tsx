@@ -8,14 +8,12 @@ import {
   on,
 } from "solid-js";
 
-import { Message as MessageI } from "revolt.js";
-
+import { Message } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { Button, Column, Row } from "@revolt/ui";
 
 import { MessageQuery } from "../MessageQuery";
-import { Message } from "../MessageTemp";
 import { ChannelPreview } from "../pages/Inspector";
 
 import { PreviewChannel } from "./PreviewChannel";

@@ -6,7 +6,7 @@ import { styled } from "solid-styled-components";
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
 
-import { ScrollContainer } from "../common";
+import { scrollable } from "../../directives";
 import { Column, Input } from "../design";
 
 /**
@@ -33,7 +33,7 @@ const Container = styled("div", "Picker")`
   border-radius: ${(props) => props.theme!.borderRadius.md};
 `;
 
-const GifList = styled(ScrollContainer)`
+const GifList = styled.div`
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));

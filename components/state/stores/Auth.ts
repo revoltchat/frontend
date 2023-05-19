@@ -1,4 +1,4 @@
-import type { Session } from "revolt.js";
+import type { PrivateSession } from "revolt.js";
 
 import { CONFIGURATION, getController } from "@revolt/common";
 
@@ -7,7 +7,7 @@ import { State } from "..";
 import { AbstractStore } from ".";
 
 interface Account {
-  session: Session & object;
+  session: PrivateSession & object;
   apiUrl?: string;
 }
 
@@ -109,7 +109,7 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
    * @param session Session
    * @param apiUrl Custom API URL
    */
-  setSession(session: Session & object, apiUrl?: string) {
+  setSession(session: PrivateSession & object, apiUrl?: string) {
     this.set("sessions", session.user_id, { session, apiUrl });
   }
 

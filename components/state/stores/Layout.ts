@@ -1,3 +1,5 @@
+import { paramsFromPathname } from "@revolt/routing";
+
 import { State } from "..";
 
 import { AbstractStore } from ".";
@@ -102,6 +104,16 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
   getLastActivePath() {
     const section = this.get().activeInterface;
     return this.get().activePath[section] ?? "/";
+  }
+
+  /**
+   * Set the last active path in the app
+   */
+  setLastActivePath(pathname: string) {
+    const params = paramsFromPathname(pathname);
+    const section = params.serverId ?? "home";
+    this.set("activeInterface", section);
+    this.set("activePath", section, pathname);
   }
 
   /**

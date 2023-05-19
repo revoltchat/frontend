@@ -16,6 +16,7 @@ import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useLocation, useNavigate } from "@revolt/routing";
 
+import { scrollable } from "../../../directives";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
@@ -26,6 +27,8 @@ import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
+
+scrollable;
 
 interface Props {
   /**
@@ -62,93 +65,96 @@ export const HomeSidebar = (props: Props) => {
   const savedNotesChannelId = createMemo(() => props.openSavedNotes());
 
   let scrollTargetElement!: HTMLDivElement;
-  // TODO: need to create use:scrollable directive for styles
 
   return (
     <SidebarBase>
       <div
         ref={scrollTargetElement}
-        style={{
-          "overflow-y": "auto",
-          "flex-grow": 1,
-          "will-change": "transform",
-        }}
+        use:scrollable={{ direction: "y", showOnHover: true }}
       >
-        <SidebarTitle>
-          <Typography variant="sidebar-title">
-            {t("app.main.categories.conversations")}
-          </Typography>
-        </SidebarTitle>
-        <Link href="/">
-          <MenuButton
-            size="normal"
-            icon={<BiSolidHome size={24} />}
-            attention={location.pathname === "/" ? "active" : "normal"}
-          >
-            {t("app.navigation.tabs.home")}
-          </MenuButton>
-        </Link>
-        <Show when={props.__tempDisplayFriends()}>
-          <Link href="/friends">
+        <List>
+          <SidebarTitle>
+            <Typography variant="sidebar-title">
+              {t("app.main.categories.conversations")}
+            </Typography>
+          </SidebarTitle>
+          <Link href="/">
             <MenuButton
               size="normal"
-              icon={<BiSolidUserDetail size={24} />}
-              attention={location.pathname === "/friends" ? "active" : "normal"}
+              icon={<BiSolidHome size={24} />}
+              attention={location.pathname === "/app" ? "active" : "normal"}
             >
-              {t("app.navigation.tabs.friends")}
+              {t("app.navigation.tabs.home")}
             </MenuButton>
           </Link>
-        </Show>
-        <Switch
-          fallback={
-            <MenuButton
-              size="normal"
-              attention={"normal"}
-              icon={<BiSolidNotepad size={24} />}
-              // eslint-disable-next-line solid/reactivity
-              onClick={() => props.openSavedNotes(navigate)}
-            >
-              {t("app.navigation.tabs.saved")}
-            </MenuButton>
-          }
-        >
-          <Match when={savedNotesChannelId()}>
-            <Link href={`/channel/${savedNotesChannelId()}`}>
+          <Show when={props.__tempDisplayFriends()}>
+            <Link href="/friends">
               <MenuButton
                 size="normal"
-                icon={<BiSolidNotepad size={24} />}
+                icon={<BiSolidUserDetail size={24} />}
                 attention={
-                  props.channelId && savedNotesChannelId() === props.channelId
-                    ? "active"
-                    : "normal"
+                  location.pathname === "/friends" ? "active" : "normal"
                 }
+              >
+                {t("app.navigation.tabs.friends")}
+              </MenuButton>
+            </Link>
+          </Show>
+          <Switch
+            fallback={
+              <MenuButton
+                size="normal"
+                attention={"normal"}
+                icon={<BiSolidNotepad size={24} />}
+                // eslint-disable-next-line solid/reactivity
+                onClick={() => props.openSavedNotes(navigate)}
               >
                 {t("app.navigation.tabs.saved")}
               </MenuButton>
-            </Link>
-          </Match>
-        </Switch>
-        <Deferred>
-          <VirtualContainer
-            items={props.conversations()}
-            scrollTarget={scrollTargetElement}
-            itemSize={{ height: 48 }}
+            }
           >
-            {(item) => (
-              <div
-                style={{ ...item.style, width: "100%", "padding-block": "3px" }}
-              >
-                <Entry
-                  role="listitem"
-                  tabIndex={item.tabIndex}
-                  style={item.style}
-                  channel={item.item}
-                  active={item.item.id === props.channelId}
-                />
-              </div>
-            )}
-          </VirtualContainer>
-        </Deferred>
+            <Match when={savedNotesChannelId()}>
+              <Link href={`/channel/${savedNotesChannelId()}`}>
+                <MenuButton
+                  size="normal"
+                  icon={<BiSolidNotepad size={24} />}
+                  attention={
+                    props.channelId && savedNotesChannelId() === props.channelId
+                      ? "active"
+                      : "normal"
+                  }
+                >
+                  {t("app.navigation.tabs.saved")}
+                </MenuButton>
+              </Link>
+            </Match>
+          </Switch>
+          <Deferred>
+            <VirtualContainer
+              items={props.conversations()}
+              scrollTarget={scrollTargetElement}
+              itemSize={{ height: 48 }}
+            >
+              {(item) => (
+                <div
+                  style={{
+                    ...item.style,
+                    width: "100%",
+                    "padding-block": "3px",
+                  }}
+                >
+                  <Entry
+                    role="listitem"
+                    tabIndex={item.tabIndex}
+                    style={item.style}
+                    channel={item.item}
+                    active={item.item.id === props.channelId}
+                  />
+                </div>
+              )}
+            </VirtualContainer>
+          </Deferred>
+        </List>
       </div>
     </SidebarBase>
   );
@@ -240,13 +246,11 @@ function Entry(
               </OverflowingText>
               <Show when={status}>
                 <Tooltip content={status()!} placement="top-start">
-                  {(triggerProps) => (
-                    <OverflowingText>
-                      <Typography {...triggerProps} variant="status">
-                        <TextWithEmoji content={status()!} />
-                      </Typography>
-                    </OverflowingText>
-                  )}
+                  <OverflowingText>
+                    <Typography variant="status">
+                      <TextWithEmoji content={status()!} />
+                    </Typography>
+                  </OverflowingText>
                 </Tooltip>
               </Show>
             </Match>
@@ -256,3 +260,11 @@ function Entry(
     </Link>
   );
 }
+
+/**
+ * Inner scrollable list
+ * We fix the width in order to prevent scrollbar from moving stuff around
+ */
+const List = styled.div`
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
+`;

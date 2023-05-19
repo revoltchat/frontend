@@ -11,6 +11,7 @@ import { API, Channel } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
+import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import {
   CompositionPicker,
@@ -187,7 +188,9 @@ export function MessageComposition(props: Props) {
     event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
   ) {
     const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
-    const usingBracketIndent = (event.ctrlKey || event.metaKey) && (event.key === "[" || event.key === "]");
+    const usingBracketIndent =
+      (event.ctrlKey || event.metaKey) &&
+      (event.key === "[" || event.key === "]");
 
     if (
       (event.key === "Tab" || usingBracketIndent) &&
@@ -220,7 +223,7 @@ export function MessageComposition(props: Props) {
         }
 
         if (selectionBegun) selectLines.push(i);
-        
+
         if (selectEnd <= endOfLine) {
           selectionEndColumn = selectEnd - lineIndex;
           break;
@@ -253,11 +256,12 @@ export function MessageComposition(props: Props) {
         setContent(lines.join("\n"));
 
         // Update selection positions.
-        event.currentTarget.selectionStart = selectStart - charsRemovedFirstLine;
+        event.currentTarget.selectionStart =
+          selectStart - charsRemovedFirstLine;
         event.currentTarget.selectionEnd = selectEnd - charsRemoved;
       } else {
         // Used to ensure selection remains the same after indentation changes
-        let indentsAdded = 0; 
+        let indentsAdded = 0;
 
         // Add indentation to selected lines.
         for (const selectedLineIndex of selectLines) {
@@ -281,7 +285,8 @@ export function MessageComposition(props: Props) {
 
         // Update selection positions.
         event.currentTarget.selectionStart = selectStart + indent.length;
-        event.currentTarget.selectionEnd = selectEnd + (indent.length * indentsAdded);
+        event.currentTarget.selectionEnd =
+          selectEnd + indent.length * indentsAdded;
       }
     }
 
@@ -311,6 +316,8 @@ export function MessageComposition(props: Props) {
     } else if (
       // Don't take focus from other input elements
       !(event.target instanceof HTMLInputElement) &&
+      // Don't take focus from modals
+      !modalController.isOpen() &&
       // Only focus if pasting to allow copying of text elsewhere
       (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() === "v")
     ) {

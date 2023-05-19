@@ -1,12 +1,26 @@
 /* eslint-disable */
+import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
+
 import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
-import { Button, Column } from "@revolt/ui";
+import {
+  Button,
+  CategoryButton,
+  CategoryCollapse,
+  Column,
+  ComboBox,
+  floating,
+  styled,
+} from "@revolt/ui";
+
+const SomeComponent = styled.div`
+  background: red;
+`;
 
 export function DevelopmentPage() {
   function open() {
     modalController.push({
-      type: "custom_status",
+      type: "edit_username",
       client: clientController.getCurrentClient()!,
     });
   }
@@ -38,8 +52,59 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <SomeComponent
+        use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
+      >
+        hi
+      </SomeComponent>
       <Button onClick={open}>Open Modal</Button>
       <Button onClick={changelog}>Changelog Modal</Button>
+      <div style={{ padding: "1em", width: "400px" }}>
+        <Column>
+          <CategoryButton
+            icon={<BiSolidPalette size={24} />}
+            description="description!"
+            onClick={() => void 0}
+          >
+            I am a button
+          </CategoryButton>
+          <CategoryCollapse
+            icon={<BiSolidSpeaker size={24} />}
+            description="description!"
+            title="Choose output device tbh"
+          >
+            <CategoryButton
+              description="Active device"
+              onClick={() => void 0}
+              icon={<div style={{ width: "24px" }} />}
+            >
+              Realtek Audio
+            </CategoryButton>
+            <CategoryButton
+              onClick={() => void 0}
+              icon={<div style={{ width: "24px" }} />}
+            >
+              Line-Out Speaker
+            </CategoryButton>
+            <CategoryButton
+              onClick={() => void 0}
+              icon={<div style={{ width: "24px" }} />}
+            >
+              Airpods 3
+            </CategoryButton>
+            <CategoryButton
+              icon={<div style={{ width: "24px" }} />}
+              action={
+                <ComboBox>
+                  <option>deez</option>
+                </ComboBox>
+              }
+            >
+              combo box
+            </CategoryButton>
+          </CategoryCollapse>
+        </Column>
+      </div>
     </Column>
   );
 }

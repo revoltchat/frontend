@@ -1,5 +1,5 @@
 import type { ClientController } from "@revolt/client";
-import type { ModalController } from "@revolt/modal";
+import type { ModalControllerExtended } from "@revolt/modal";
 import type { State } from "@revolt/state";
 
 /**
@@ -11,7 +11,7 @@ class Controllers {
   // @ts-expect-error dynamic initialisation
   client: ClientController;
   // @ts-expect-error dynamic initialisation
-  modal: ModalController;
+  modal: ModalControllerExtended;
   // @ts-expect-error dynamic initialisation
   state: State;
 

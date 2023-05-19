@@ -38,12 +38,17 @@ export const darkTheme: DefaultTheme = {
     sm: "2px",
     md: "6px",
     lg: "12px",
+    full: "100%",
   },
   gap: {
     none: "0",
+    xxs: "1px",
+    xs: "2px",
     sm: "4px",
     md: "8px",
     lg: "16px",
+    xl: "32px",
+    xxl: "64px",
   },
   fonts: {
     primary: '"Inter", sans-serif',
@@ -119,6 +124,13 @@ export const darkTheme: DefaultTheme = {
     "system-message": {
       fontWeight: 700,
     },
+    // Settings
+    "settings-title": {
+      element: "h1",
+      margin: 0,
+      fontWeight: 600,
+      fontSize: "2rem",
+    },
     // Legacy
     "legacy-settings-title": {
       element: "h1",
@@ -165,10 +177,14 @@ export const darkTheme: DefaultTheme = {
     blur: {
       md: "blur(20px)",
     },
-    hover: "brightness(0.95)",
+    hover: "brightness(1.1)",
+    active: "brightness(0.9)",
     spoiler: "brightness(0.2) contrast(0.8) blur(24px)",
   },
   layout: {
+    width: {
+      "channel-sidebar": "232px",
+    },
     height: {
       header: "48px",
       "tall-header": "120px",

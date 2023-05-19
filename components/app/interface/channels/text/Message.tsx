@@ -15,19 +15,22 @@ import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
 import {
   Attachment,
+  Avatar,
   BreakText,
   Column,
   Embed,
   MessageContainer,
+  MessageReply,
   Reactions,
   SystemMessage,
   SystemMessageIcon,
   Tooltip,
-  UserCard,
   Username,
+  floating,
   styled,
 } from "@revolt/ui";
-import { MessageReply } from "@revolt/ui/components/messaging/message/MessageReply";
+
+floating;
 
 /**
  * Regex for matching URLs
@@ -80,17 +83,38 @@ export function Message(props: Props) {
   return (
     <MessageContainer
       username={
-        <UserCard user={props.message.author!} member={props.message.member}>
-          {(triggerProps) => (
-            <Username
-              {...triggerProps}
-              username={props.message.username}
-              colour={props.message.roleColour!}
-            />
-          )}
-        </UserCard>
+        <div
+          use:floating={{
+            userCard: {
+              user: props.message.author!,
+              member: props.message.member,
+            },
+            contextMenu() {
+              return <h1>hello!</h1>;
+            },
+          }}
+        >
+          <Username
+            username={props.message.username}
+            colour={props.message.roleColour!}
+          />
+        </div>
       }
-      avatar={props.message.avatarURL}
+      avatar={
+        <AvatarContainer
+          use:floating={{
+            userCard: {
+              user: props.message.author!,
+              member: props.message.member,
+            },
+            contextMenu() {
+              return <h1>hello!</h1>;
+            },
+          }}
+        >
+          <Avatar size={36} src={props.message.avatarURL} />
+        </AvatarContainer>
+      }
       timestamp={props.message.createdAt}
       edited={props.message.editedAt}
       tail={props.tail}
@@ -130,8 +154,8 @@ export function Message(props: Props) {
             }
           >
             <NewUser>
-              <Tooltip content={"New to Revolt"} placement="top" aria>
-                {(triggerProps) => <BiSolidLeaf {...triggerProps} size={16} />}
+              <Tooltip content="New to Revolt" placement="top">
+                <BiSolidLeaf size={16} />
               </Tooltip>
             </NewUser>
           </Match>
@@ -142,8 +166,8 @@ export function Message(props: Props) {
             }
           >
             <NewUser>
-              <Tooltip content={"New to the server"} placement="top" aria>
-                {(triggerProps) => <BiSolidLeaf {...triggerProps} size={16} />}
+              <Tooltip content="New to the server" placement="top">
+                <BiSolidLeaf size={16} />
               </Tooltip>
             </NewUser>
           </Match>
@@ -153,22 +177,18 @@ export function Message(props: Props) {
               props.message.authorId === "01FHGJ3NPP7XANQQH8C2BE44ZY"
             }
           >
-            <Tooltip
-              content={t("app.main.channel.bridged")}
-              placement="top"
-              aria
-            >
-              {(triggerProps) => <BiRegularLink {...triggerProps} size={16} />}
+            <Tooltip content={t("app.main.channel.bridged")} placement="top">
+              <BiRegularLink size={16} />
             </Tooltip>
           </Match>
           <Match when={props.message.author?.privileged}>
-            <Tooltip content={t("app.main.channel.team")} placement="top" aria>
-              {(triggerProps) => <BiSolidShield {...triggerProps} size={16} />}
+            <Tooltip content={t("app.main.channel.team")} placement="top">
+              <BiSolidShield size={16} />
             </Tooltip>
           </Match>
           <Match when={props.message.author?.bot}>
-            <Tooltip content={t("app.main.channel.bot")} placement="top" aria>
-              {(triggerProps) => <BiSolidBot {...triggerProps} size={16} />}
+            <Tooltip content={t("app.main.channel.bot")} placement="top">
+              <BiSolidBot size={16} />
             </Tooltip>
           </Match>
           <Match when={props.message.authorId === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}>
@@ -227,9 +247,15 @@ export function Message(props: Props) {
 
 /**
  * New user indicator
- *
- * TODO: move this somewhere else?
  */
 const NewUser = styled.div`
   color: ${(props) => props.theme!.colours["success-100"]};
+`;
+
+/**
+ * Avatar container
+ */
+const AvatarContainer = styled.div`
+  height: fit-content;
+  border-radius: ${(props) => props.theme!.borderRadius.full};
 `;

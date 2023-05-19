@@ -3,6 +3,7 @@ import { Accessor } from "solid-js";
 
 import { API, User } from "revolt.js";
 
+import { Message, Messages, SettingsUsingConfiguration } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
@@ -14,18 +15,16 @@ import {
   Initials,
   Input,
   Row,
-  ScrollContainer,
   ServerSidebar,
   Typography,
   styled,
 } from "@revolt/ui";
 
 import { MessageQuery } from "../MessageQuery";
-import { Message } from "../MessageTemp";
 import { InspectorLink } from "../previews/InspectorLink";
 import { PreviewChannel } from "../previews/PreviewChannel";
 
-export const ChannelPreview = styled(ScrollContainer)`
+export const ChannelPreview = styled.div`
   height: 640px;
   border: 2px solid ${(props) => props.theme!.colours["background-400"]};
 `;
@@ -86,14 +85,21 @@ export function Inspector() {
       () => server(),
       (server) =>
         !server &&
-        (data().typeHint === "any" || data().typeHint === "server") &&
-        client()
-          .servers.fetch(data().id!)
-          .then((server) => {
-            for (const id of server.channelIds) {
-              client().channels.fetch(id);
-            }
-          })
+        (data().typeHint === "any" ||
+        (data().typeHint === "server" && data().id?.length === 8)
+          ? client()
+              .api.get(`/invites/${data().id! as ""}`)
+              .then((invite) => {
+                invite.type === "Server" &&
+                  state.admin.setActiveTab({ id: invite.server_id });
+              })
+          : client()
+              .servers.fetch(data().id!)
+              .then((server) => {
+                for (const id of server.channelIds) {
+                  client().channels.fetch(id);
+                }
+              }))
     )
   );
 
@@ -208,13 +214,20 @@ export function Inspector() {
             </Row>
           </summary>
 
-          <div style={{ "pointer-events": "none" }}>
-            <ServerSidebar
-              server={server()!}
-              channelId={undefined}
-              openServerInfo={() => void 0}
+          <Row>
+            <div style={{ "pointer-events": "none" }}>
+              <ServerSidebar
+                server={server()!}
+                channelId={undefined}
+                openServerInfo={() => void 0}
+                openServerSettings={() => void 0}
+              />
+            </div>
+            <SettingsUsingConfiguration
+              configKey="server"
+              context={server() as never}
             />
-          </div>
+          </Row>
         </details>
       </Show>
       <Show when={channel()}>
@@ -226,10 +239,15 @@ export function Inspector() {
           <Typography variant="label">Server</Typography>
           <InspectorLink type="server" id={channel()!.serverId!} />
 
+          <Typography variant="label">Settings</Typography>
+          <SettingsUsingConfiguration
+            configKey="channel"
+            context={channel() as never}
+          />
+
           <Typography variant="label">Messages</Typography>
           <ChannelPreview>
-            {/*<Messages channel={channel()!} limit={100} />*/}
-            disabled
+            <Messages channel={channel()!} limit={100} />
           </ChannelPreview>
         </details>
       </Show>

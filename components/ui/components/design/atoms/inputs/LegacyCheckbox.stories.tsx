@@ -1,10 +1,10 @@
 import type { ComponentStory } from "../../../stories";
 
-import { Checkbox } from "./Checkbox";
+import { LegacyCheckbox } from "./LegacyCheckbox";
 
 export default {
   category: "Design System/Atoms/Inputs",
-  component: Checkbox,
+  component: LegacyCheckbox,
   stories: [
     {
       title: "Default",
@@ -32,4 +32,4 @@ export default {
       value: !props.value,
     }),
   },
-} as ComponentStory<typeof Checkbox>;
+} as ComponentStory<typeof LegacyCheckbox>;

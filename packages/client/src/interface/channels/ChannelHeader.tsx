@@ -1,6 +1,7 @@
 import {
   BiRegularAt,
   BiRegularHash,
+  BiSolidCog,
   BiSolidGroup,
   BiSolidMagicWand,
   BiSolidNotepad,
@@ -67,7 +68,7 @@ export function ChannelHeader(props: Props) {
           </NonBreakingText>
           <Show when={props.channel.description}>
             <Divider />
-            <a onClick={openChannelInfo}>
+            <DescriptionLink onClick={openChannelInfo}>
               <OverflowingText>
                 <Typography variant="channel-topic">
                   <Markdown
@@ -76,7 +77,7 @@ export function ChannelHeader(props: Props) {
                   />
                 </Typography>
               </OverflowingText>
-            </a>
+            </DescriptionLink>
           </Show>
         </Match>
         <Match when={props.channel.type === "DirectMessage"}>
@@ -99,9 +100,25 @@ export function ChannelHeader(props: Props) {
 
       <Spacer />
 
-      <IconButton>
-        <BiSolidMagicWand size={24} />
-      </IconButton>
+      <Show
+        when={
+          props.channel.type === "Group" &&
+          props.channel.orPermission("ManageChannel", "ManagePermissions")
+        }
+      >
+        <IconButton
+          onClick={() =>
+            modalController.push({
+              type: "settings",
+              config: "channel",
+              context: props.channel,
+            })
+          }
+        >
+          <BiSolidCog size={24} />
+        </IconButton>
+      </Show>
+
       <IconButton
         onClick={() =>
           state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)
@@ -121,4 +138,11 @@ const Divider = styled("div", "Divider")`
   margin: 0px 5px;
   padding-left: 1px;
   background-color: ${(props) => props.theme!.colours["background-400"]};
+`;
+
+/**
+ * Link for the description
+ */
+const DescriptionLink = styled.a`
+  min-width: 0;
 `;

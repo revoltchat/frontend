@@ -1,5 +1,6 @@
-import { Component, lazy } from "solid-js";
+import { Component, lazy, onMount } from "solid-js";
 
+import { modalController } from "@revolt/modal";
 import { Navigate, Route, Routes } from "@revolt/routing";
 import { state } from "@revolt/state";
 
@@ -16,6 +17,14 @@ const Admin = lazy(() => import("@revolt/admin"));
  */
 function PWARedirect() {
   return <Navigate href={state.layout.getLastActivePath()} />;
+}
+
+/**
+ * Open settings and redirect to last active path
+ */
+function SettingsRedirect() {
+  onMount(() => modalController.push({ type: "settings" }));
+  return <PWARedirect />;
 }
 
 /**
@@ -39,6 +48,7 @@ export const Content: Component = () => {
       <Route path="/admin" component={Admin} />
       <Route path="/app" component={HomePage} />
       <Route path="/pwa" component={PWARedirect} />
+      <Route path="/settings" component={SettingsRedirect} />
       <Route path="/" element={<Navigate href="/app" />} />
     </Routes>
   );

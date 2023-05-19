@@ -10,7 +10,9 @@ export type Experiment =
   | "friends"
   | "account_switcher"
   | "gif_picker"
-  | "emoji_picker";
+  | "emoji_picker"
+  | "plugins"
+  | "voice_chat";
 
 /**
  * Currently active experiments.
@@ -21,6 +23,8 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
   "account_switcher",
   "gif_picker",
   "emoji_picker",
+  "plugins",
+  "voice_chat",
 ];
 
 /**
@@ -55,8 +59,16 @@ export const EXPERIMENTS: {
     description: "Search and send GIFs from GIFBox!",
   },
   emoji_picker: {
-    title: "Emoji Picker",
+    title: "Emoji Picker Placeholder",
     description: "Search and add emoji to your messages.",
+  },
+  plugins: {
+    title: "Plugins v2 Placeholder",
+    description: "Not available yet.",
+  },
+  voice_chat: {
+    title: "Voice Chat Placeholder",
+    description: "Not available yet.",
   },
 };
 
@@ -141,7 +153,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    * @param experiment Experiment
    */
   disable(experiment: Experiment) {
-    if (!this.isEnabled(experiment)) {
+    if (this.isEnabled(experiment)) {
       this.set("enabled", (enabled) =>
         enabled.filter((entry) => entry !== experiment)
       );

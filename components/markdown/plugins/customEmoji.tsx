@@ -46,13 +46,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
             </Row>
           }
         >
-          {(triggerProps) => (
-            <CustomEmoji
-              {...triggerProps}
-              id={props.match}
-              onError={() => setExists(false)}
-            />
-          )}
+          <CustomEmoji id={props.match} onError={() => setExists(false)} />
         </Tooltip>
       </Match>
     </Switch>

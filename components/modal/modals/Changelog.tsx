@@ -4,7 +4,7 @@ import { dayjs, useTranslation } from "@revolt/i18n";
 import { CategoryButton, Column, styled } from "@revolt/ui";
 import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
 
-import { ModalProps, PropGenerator } from "../types";
+import { PropGenerator } from "../types";
 
 /**
  * Changelog element
@@ -26,38 +26,18 @@ export interface ChangelogPost {
 }
 
 /**
- * Image wrapper
- */
-const Image = styled.img`
-  border-radius: var(--border-radius);
-`;
-
-/**
- * Render a single changelog post
- */
-function RenderLog(props: { post: ChangelogPost }) {
-  return (
-    <Column>
-      <For each={props.post.content}>
-        {(entry) => (
-          <Switch>
-            <Match when={typeof entry === "string"}>{entry as string}</Match>
-            <Match when={typeof entry === "object" && entry.type === "image"}>
-              <Image src={(entry as { src: string }).src} />
-            </Match>
-          </Switch>
-        )}
-      </For>
-    </Column>
-  );
-}
-
-/**
  * Modal to display changelog
  */
 const Changelog: PropGenerator<"changelog"> = (props) => {
   const t = useTranslation();
+
+  // eslint-disable-next-line solid/reactivity
   const [log, setLog] = createSignal(props.initial);
+
+  /**
+   * Get the currently selected log
+   * @returns Log
+   */
   const currentLog = () =>
     typeof log() !== "undefined" ? props.posts[log()!] : undefined;
 
@@ -101,11 +81,18 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
         fallback={
           <Column>
             <For each={props.posts}>
-              {(entry, index) => (
-                <CategoryButton onClick={() => setLog(index)}>
-                  {entry.title}
-                </CategoryButton>
-              )}
+              {(entry, index) => {
+                /**
+                 * Handle changing post
+                 */
+                const onClick = () => setLog(index());
+
+                return (
+                  <CategoryButton onClick={onClick}>
+                    {entry.title}
+                  </CategoryButton>
+                );
+              }}
             </For>
           </Column>
         }
@@ -117,5 +104,32 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
     ),
   };
 };
+
+/**
+ * Render a single changelog post
+ */
+function RenderLog(props: { post: ChangelogPost }) {
+  return (
+    <Column>
+      <For each={props.post.content}>
+        {(entry) => (
+          <Switch>
+            <Match when={typeof entry === "string"}>{entry as string}</Match>
+            <Match when={typeof entry === "object" && entry.type === "image"}>
+              <Image src={(entry as { src: string }).src} />
+            </Match>
+          </Switch>
+        )}
+      </For>
+    </Column>
+  );
+}
+
+/**
+ * Image wrapper
+ */
+const Image = styled.img`
+  border-radius: var(--border-radius);
+`;
 
 export default Changelog;

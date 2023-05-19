@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { For, createSignal } from "solid-js";
 
 import { useTranslation } from "@revolt/i18n";
 import { styled } from "@revolt/ui";
@@ -32,22 +32,16 @@ const MFARecovery: PropGenerator<"mfa_recovery"> = (props) => {
   const t = useTranslation();
 
   // Keep track of changes to recovery codes
+  // eslint-disable-next-line solid/reactivity
   const [known, setCodes] = createSignal(props.codes);
 
-  // Subroutine to reset recovery codes
+  /**
+   * Reset recovery codes
+   */
   const reset = async () => {
-    const ticket = await modalController.mfaFlow(props.client);
+    const ticket = await modalController.mfaFlow(props.mfa);
     if (ticket) {
-      const codes = await props.client.api.patch(
-        "/auth/mfa/recovery",
-        undefined,
-        {
-          headers: {
-            "X-MFA-Ticket": ticket.token,
-          },
-        }
-      );
-
+      const codes = await ticket.generateRecoveryCodes();
       setCodes(codes);
     }
 
@@ -72,11 +66,13 @@ const MFARecovery: PropGenerator<"mfa_recovery"> = (props) => {
     ],
     children: (
       <List>
-        {known().map((code, index) => (
-          <span>
-            {code} {index !== known.length && <i>{","}</i>}
-          </span>
-        ))}
+        <For each={known()}>
+          {(code, index) => (
+            <span>
+              {code} {index() !== known.length && <i>{","}</i>}
+            </span>
+          )}
+        </For>
       </List>
     ),
   };

@@ -5,7 +5,7 @@ export default {
   DEFAULT_API_URL:
     (import.meta.env.DEV ? import.meta.env.VITE_DEV_API_URL : undefined) ??
     (import.meta.env.VITE_API_URL as string) ??
-    "https://api.revolt.chat",
+    "https://revolt.chat/api",
   /**
    * hCaptcha site key to use if enabled
    */

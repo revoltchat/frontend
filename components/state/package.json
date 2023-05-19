@@ -19,7 +19,7 @@
     "json-stringify-deterministic": "^1.0.7",
     "localforage": "^1.10.0",
     "mobx": "^6.3.2",
-    "revolt.js": "workspace:^7.0.0-beta.4",
+    "revolt.js": "workspace:^",
     "solid-js": "^1.7.3"
   }
 }

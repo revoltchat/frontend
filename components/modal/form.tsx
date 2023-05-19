@@ -1,8 +1,9 @@
 import { Show, createSignal, splitProps } from "solid-js";
 import { createStore } from "solid-js/store";
 
+import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Form, Typography } from "@revolt/ui";
+import { Column, Form, Typography, styled } from "@revolt/ui";
 import type {
   Action,
   Props as ModalProps,
@@ -69,8 +70,7 @@ export function createFormModal<
       await localProps.callback(store);
       return true;
     } catch (err) {
-      // ! FIXME: map error
-      setError("" + err);
+      setError(mapAnyError(err));
       setProcessing(false);
       return false;
     }
@@ -95,7 +95,7 @@ export function createFormModal<
       ]),
     ],
     children: (
-      <>
+      <Column>
         <Form
           {...formProps}
           store={store}
@@ -103,11 +103,20 @@ export function createFormModal<
           onSubmit={onSubmit}
         />
         <Show when={error()}>
-          <Typography variant="label">
-            {t(`error.${error()}`, undefined, error())}
-          </Typography>
+          <Error>
+            <Typography variant="label">
+              {t(`error.${error()}`, undefined, error())}
+            </Typography>
+          </Error>
         </Show>
-      </>
+      </Column>
     ),
   };
 }
+
+/**
+ * Error text
+ */
+const Error = styled.div`
+  color: ${(props) => props.theme!.colours.error};
+`;

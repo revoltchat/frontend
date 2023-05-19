@@ -2,6 +2,7 @@ import {
   BiRegularHash,
   BiRegularPhoneCall,
   BiSolidChevronRight,
+  BiSolidCog,
 } from "solid-icons/bi";
 import { For, Match, Show, Switch, createMemo, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
@@ -11,13 +12,15 @@ import type { API, Channel, Server } from "revolt.js";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link } from "@revolt/routing";
 
-import { ScrollContainer } from "../../common/ScrollContainers";
+import { scrollable } from "../../../directives";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
 
 import { SidebarBase } from "./common";
+
+scrollable;
 
 interface Props {
   /**
@@ -34,6 +37,11 @@ interface Props {
    * Open server information modal
    */
   openServerInfo: () => void;
+
+  /**
+   * Open server settings modal
+   */
+  openServerSettings: () => void;
 }
 
 /**
@@ -50,9 +58,11 @@ export const ServerSidebar = (props: Props) => {
       <Switch
         fallback={
           <Header palette="secondary">
-            <a onClick={props.openServerInfo}>
-              <TextWithEmoji content={props.server.name} />
-            </a>
+            <ServerInfo
+              server={props.server}
+              openServerInfo={props.openServerInfo}
+              openServerSettings={props.openServerSettings}
+            />
           </Header>
         }
       >
@@ -63,14 +73,16 @@ export const ServerSidebar = (props: Props) => {
               background: `url('${props.server.bannerURL}')`,
             }}
           >
-            <a onClick={() => props.openServerInfo()}>
-              <TextWithEmoji content={props.server.name} />
-            </a>
+            <ServerInfo
+              server={props.server}
+              openServerInfo={props.openServerInfo}
+              openServerSettings={props.openServerSettings}
+            />
           </HeaderWithImage>
         </Match>
       </Switch>
-      <ScrollContainer>
-        <Column gap="lg">
+      <div use:scrollable={{ showOnHover: true }}>
+        <List gap="lg">
           <div />
           <For each={props.server.orderedChannels}>
             {(category) => (
@@ -78,11 +90,49 @@ export const ServerSidebar = (props: Props) => {
             )}
           </For>
           <div />
-        </Column>
-      </ScrollContainer>
+        </List>
+      </div>
     </SidebarBase>
   );
 };
+
+/**
+ * Server Information
+ */
+function ServerInfo(
+  props: Pick<Props, "server" | "openServerInfo" | "openServerSettings">
+) {
+  return (
+    <Row align grow>
+      <ServerName onClick={props.openServerInfo}>
+        <OverflowingText>
+          <TextWithEmoji content={props.server.name} />
+        </OverflowingText>
+      </ServerName>
+      <SettingsLink onClick={props.openServerSettings}>
+        <BiSolidCog size={18} />
+      </SettingsLink>
+    </Row>
+  );
+}
+
+/**
+ * Server name
+ */
+const ServerName = styled.a`
+  flex-grow: 1;
+`;
+
+/**
+ * Settings link
+ */
+const SettingsLink = styled.a`
+  cursor: pointer;
+
+  > * {
+    display: block;
+  }
+`;
 
 /**
  * Single category entry
@@ -194,4 +244,12 @@ const ChannelIcon = styled("img")`
   width: 24px;
   height: 24px;
   object-fit: contain;
+`;
+
+/**
+ * Inner scrollable list
+ * We fix the width in order to prevent scrollbar from moving stuff around
+ */
+const List = styled(Column)`
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;

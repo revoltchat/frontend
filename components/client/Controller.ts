@@ -2,7 +2,8 @@ import { Accessor, Setter, createSignal } from "solid-js";
 
 import { ReactiveMap } from "@solid-primitives/map";
 import { detect } from "detect-browser";
-import { API, Client, Session } from "revolt.js";
+import { API, Client } from "revolt.js";
+import type { PrivateSession } from "revolt.js";
 
 import {
   CONFIGURATION,
@@ -80,13 +81,13 @@ export default class ClientController {
    * Create a new client with the given credentials
    * @param session Session
    */
-  createClient(session: Session) {
+  createClient(session: PrivateSession) {
     if (typeof session === "string") throw "Bot login not supported";
     if (this.#clients.get(session.user_id)) throw "User client already exists";
 
     const client = new Client({
       baseURL: CONFIGURATION.DEFAULT_API_URL,
-      debug: import.meta.env.DEV || true,
+      debug: false,
       syncUnreads: true,
       /**
        * Check whether a channel is muted

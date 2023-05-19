@@ -1,4 +1,9 @@
-import { Language, Languages, loadAndSetLanguage } from "@revolt/i18n";
+import {
+  Language,
+  Languages,
+  browserPreferredLanguage,
+  loadAndSetLanguage,
+} from "@revolt/i18n";
 
 import { State } from "..";
 
@@ -35,7 +40,7 @@ export class Locale extends AbstractStore<"locale", TypeLocale> {
    */
   default(): TypeLocale {
     return {
-      lang: Language.ENGLISH,
+      lang: browserPreferredLanguage() as Language,
     };
   }
 

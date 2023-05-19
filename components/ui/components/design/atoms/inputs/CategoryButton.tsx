@@ -1,28 +1,89 @@
-import { BiRegularLinkExternal, BiSolidChevronRight } from "solid-icons/bi";
-import { JSX, Match, Show, Switch } from "solid-js";
+import {
+  BiRegularLinkExternal,
+  BiSolidChevronDown,
+  BiSolidChevronRight,
+  BiSolidPencil,
+} from "solid-icons/bi";
+import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Column, OverflowingText } from "../../layout";
 
+/**
+ * Permissible actions
+ */
+type Action = "chevron" | "collapse" | "external" | "edit" | JSX.Element;
+
 export interface Props {
-  readonly icon?: JSX.Element;
+  readonly icon?: JSX.Element | "blank";
   readonly children?: JSX.Element;
   readonly description?: JSX.Element;
 
   readonly onClick?: () => void;
-  readonly action?: "chevron" | "external" | JSX.Element;
+  readonly action?: Action | Action[];
 }
 
-const Base = styled("a", "CategoryButton")`
+/**
+ * Category Button
+ */
+export function CategoryButton(props: Props) {
+  return (
+    <Base isLink={!!props.onClick} onClick={props.onClick}>
+      <Switch fallback={props.icon}>
+        <Match when={props.icon === "blank"}>
+          <Blank />
+        </Match>
+      </Switch>
+      <Content grow gap="sm">
+        <Show when={props.children}>
+          <OverflowingText>{props.children}</OverflowingText>
+        </Show>
+        <Show when={props.description}>
+          <Description>{props.description}</Description>
+        </Show>
+      </Content>
+      <For each={Array.isArray(props.action) ? props.action : [props.action]}>
+        {(action) => (
+          <Switch fallback={action}>
+            <Match when={action === "chevron"}>
+              <BiSolidChevronRight size={24} />
+            </Match>
+            <Match when={action === "collapse"}>
+              <BiSolidChevronDown size={24} />
+            </Match>
+            <Match when={action === "edit"}>
+              <BiSolidPencil size={20} />
+            </Match>
+            <Match when={action === "external"}>
+              <BiRegularLinkExternal size={20} />
+            </Match>
+          </Switch>
+        )}
+      </For>
+    </Base>
+  );
+}
+
+/**
+ * Blank icon
+ */
+const Blank = styled.div`
+  width: 24px;
+`;
+
+/**
+ * Base container for button
+ */
+const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
   gap: 12px;
   padding: 10px 12px;
-  margin-bottom: 10px;
 
   color: ${(props) => props.theme!.colours["foreground"]};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-200"]};
+  background: ${(props) => props.theme!.colours["background-300"]};
 
-  cursor: pointer;
+  user-select: none;
+  cursor: ${(props) => (props.isLink ? "pointer" : "initial")};
   transition: ${(props) => props.theme!.transitions.fast} all;
 
   display: flex;
@@ -34,19 +95,26 @@ const Base = styled("a", "CategoryButton")`
   }
 
   &:hover {
-    filter: brightness(0.8);
+    filter: ${(props) => (props.isLink ? props.theme!.effects.hover : "unset")};
   }
 
   &:active {
-    filter: brightness(0.9);
+    filter: ${(props) =>
+      props.isLink ? props.theme!.effects.active : "unset"};
   }
 `;
 
+/**
+ * Title and description styles
+ */
 const Content = styled(Column)`
   font-weight: 600;
   font-size: 0.875rem;
 `;
 
+/**
+ * Description shown below title
+ */
 const Description = styled.span`
   font-weight: 400;
   font-size: 0.6875rem;
@@ -56,27 +124,3 @@ const Description = styled.span`
     text-decoration: underline;
   }
 `;
-
-export function CategoryButton(props: Props) {
-  return (
-    <Base onClick={props.onClick}>
-      {props.icon}
-      <Content grow>
-        <Show when={props.children}>
-          <OverflowingText>{props.children}</OverflowingText>
-        </Show>
-        <Show when={props.description}>
-          <Description>{props.description}</Description>
-        </Show>
-      </Content>
-      <Switch fallback={props.action}>
-        <Match when={props.action === "chevron"}>
-          <BiSolidChevronRight size={24} />
-        </Match>
-        <Match when={props.action === "external"}>
-          <BiRegularLinkExternal size={20} />
-        </Match>
-      </Switch>
-    </Base>
-  );
-}
