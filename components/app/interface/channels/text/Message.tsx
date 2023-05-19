@@ -118,7 +118,7 @@ export function Message(props: Props) {
       contextMenu={() => <h1>epic</h1>}
       timestamp={props.message.createdAt}
       edited={props.message.editedAt}
-      tail={props.tail}
+      tail={props.tail || state.settings.getValue("appearance:compact_mode")}
       header={
         <Show when={props.message.replyIds}>
           <For each={props.message.replyIds}>
