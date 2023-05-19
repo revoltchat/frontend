@@ -680,7 +680,7 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0(@babel/core@7.21.3)(babel-preset-solid@1.5.5)
       solid-js:
-        specifier: ^1.7.2
+        specifier: ^1.4.4
         version: 1.7.3
       typescript:
         specifier: ^4.5.4
