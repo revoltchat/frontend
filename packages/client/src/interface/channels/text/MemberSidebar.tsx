@@ -49,20 +49,29 @@ export function MemberSidebar(props: Props) {
 }
 
 /**
+ * Servers to not fetch all members for
+ */
+const IGNORE_ALL = ["01F7ZSBSFHQ8TA81725KQCSDDP", "01F80118K1F2EYD9XAMCPQ0BCT"];
+
+/**
  * Server Member Sidebar
  */
 export function ServerMemberSidebar(props: Props) {
   const client = useClient();
   let scrollTargetElement!: HTMLDivElement;
 
-  onMount(() => props.channel.server?.syncMembers(true));
+  onMount(() =>
+    props.channel.server?.syncMembers(
+      IGNORE_ALL.includes(props.channel.serverId) ? true : false
+    )
+  );
 
   const roles = createMemo(() => {
     const hoistedRoles = props.channel.server!.orderedRoles.filter(
       (role) => role.hoist
     );
 
-    const byRole: Record<string, ServerMember[]> = { default: [] };
+    const byRole: Record<string, ServerMember[]> = { default: [], offline: [] };
     hoistedRoles.forEach((role) => (byRole[role.id] = []));
 
     const members = client().serverMembers.filter(
@@ -70,6 +79,11 @@ export function ServerMemberSidebar(props: Props) {
     );
 
     for (const member of members) {
+      if (!member.user?.online) {
+        byRole["offline"].push(member);
+        continue;
+      }
+
       if (member.roles.length) {
         let assigned;
         for (const hoistedRole of hoistedRoles) {
@@ -95,6 +109,11 @@ export function ServerMemberSidebar(props: Props) {
         id: "default",
         name: "Default",
         members: byRole["default"],
+      },
+      {
+        id: "offline",
+        name: "Offline",
+        members: byRole["offline"],
       },
     ].filter((role) => role.members.length);
 
@@ -221,6 +240,7 @@ function Member(props: { member: ServerMember }) {
     >
       <MenuButton
         size="normal"
+        attention={props.member.user?.online ? "active" : "muted"}
         icon={
           <Avatar
             src={user().avatar}
