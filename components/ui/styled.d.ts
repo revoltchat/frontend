@@ -62,6 +62,7 @@ declare module "solid-styled-components" {
         | "composition-typing-indicator"
         | "conversation-channel-name"
         | "conversation-start"
+        | "jump-to-bottom"
         | "system-message"
         | "sidebar-title"
         | "channel-topic"

@@ -67,6 +67,7 @@ export const darkTheme: DefaultTheme = {
     },
     status: {
       fontSize: "11px",
+      fontWeight: 400,
     },
     tooltip: {
       fontWeight: 600,
@@ -120,6 +121,10 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 400,
       margin: 0,
       fontSize: "14px",
+    },
+    "jump-to-bottom": {
+      fontSize: "12px",
+      fontWeight: 600,
     },
     "system-message": {
       fontWeight: 700,
