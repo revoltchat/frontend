@@ -9,6 +9,7 @@ import {
   CategoryCollapse,
   Column,
   ComboBox,
+  OverrideSwitch,
   floating,
   styled,
 } from "@revolt/ui";
@@ -52,6 +53,7 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <OverrideSwitch />
       <SomeComponent
         use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
       >

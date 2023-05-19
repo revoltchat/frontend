@@ -13,9 +13,10 @@ declare module "solid-styled-components" {
         | "background"
         | `background-${100 | 200 | 300 | 400}`
         | "success"
-        | `success-${100}`
+        | `success-${100 | 200}`
         | "warning"
         | "error"
+        | `error-${200}`
         | `status-${
             | "online"
             | "idle"
