@@ -79,6 +79,10 @@ export function ServerMemberSidebar(props: Props) {
     );
 
     for (const member of members) {
+      if (!member.hasPermission(props.channel, "ViewChannel")) {
+        continue;
+      }
+
       if (!member.user?.online) {
         byRole["offline"].push(member);
         continue;
