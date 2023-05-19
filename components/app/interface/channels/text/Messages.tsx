@@ -1,3 +1,4 @@
+import { BiSolidDownArrowAlt } from "solid-icons/bi";
 import {
   For,
   Match,
@@ -17,7 +18,14 @@ import { Channel, Message as MessageInterface } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { dayjs } from "@revolt/i18n";
-import { ConversationStart, ListView, MessageDivider } from "@revolt/ui";
+import {
+  ConversationStart,
+  ListView,
+  MessageDivider,
+  Row,
+  styled,
+} from "@revolt/ui";
+import { generateTypographyCSS } from "@revolt/ui/components/design/atoms/display/Typography";
 
 import { Message } from "./Message";
 
@@ -302,16 +310,64 @@ export function Messages(props: Props) {
           </div>
         </div>
       </ListView>
-      <div style={{ position: "relative" }}>
-        <div style={{ position: "absolute" }}>
-          <Show when={!atEnd()}>
-            <span onClick={() => loadInitialMessages()}>in past</span>
-          </Show>
-        </div>
-      </div>
+      <Show when={!atEnd()}>
+        <JumpToBottom onClick={() => loadInitialMessages()}>
+          <Row align>
+            <span>Viewing older messages</span>
+            <span>Jump to present</span>
+            <BiSolidDownArrowAlt size={18} />
+          </Row>
+        </JumpToBottom>
+      </Show>
     </>
   );
 }
+
+const JumpToBottom = styled.div`
+  z-index: 30;
+  display: absolute;
+
+  div {
+    cursor: pointer;
+    display: relative;
+    padding: ${(props) => props.theme!.gap.md};
+
+    backdrop-filter: blur(20px);
+    border-radius: ${(props) => props.theme!.borderRadius.md}
+      ${(props) => props.theme!.borderRadius.md} 0 0;
+    color: ${(props) => props.theme!.colours["foreground-300"]};
+    background-color: rgba(
+      ${(props) => props.theme!.rgb["typing-indicator"]},
+      0.9
+    );
+
+    ${(props) => generateTypographyCSS(props.theme!, "jump-to-bottom")}
+
+    :first-child {
+      flex-grow: 1;
+    }
+
+    &:hover {
+      filter: ${(props) => props.theme!.effects.hover};
+    }
+
+    &:active {
+      transform: translateY(1px);
+      filter: ${(props) => props.theme!.effects.active};
+    }
+
+    @keyframes bottomBounce {
+      0% {
+        transform: translateY(33px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    animation: bottomBounce 340ms cubic-bezier(0.2, 0.9, 0.5, 1.16) forwards;
+  }
+`;
 
 /**
  * List entries
