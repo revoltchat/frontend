@@ -10,6 +10,7 @@ import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
 
 import { MessageComposition } from "./Composition";
+import { MemberSidebar } from "./MemberSidebar";
 
 /**
  * Channel component
@@ -41,10 +42,6 @@ export function TextChannel(props: ChannelPageProps) {
     )
   );
 
-  /*onMount(() => {
-    props.channel.server?.fetchMembers();
-  });*/
-
   // Get a reference to the message box's load latest function
   let loadLatestRef: ((nearby?: string) => void) | undefined;
 
@@ -75,15 +72,7 @@ export function TextChannel(props: ChannelPageProps) {
             true
           )}
         >
-          <div
-            style={{
-              "flex-shrink": 0,
-              width: "232px",
-              background: "#222",
-            }}
-          >
-            test
-          </div>
+          <MemberSidebar channel={props.channel} />
         </Show>
       </Content>
     </>
