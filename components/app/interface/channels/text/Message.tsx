@@ -115,6 +115,7 @@ export function Message(props: Props) {
           <Avatar size={36} src={props.message.avatarURL} />
         </AvatarContainer>
       }
+      contextMenu={() => <h1>epic</h1>}
       timestamp={props.message.createdAt}
       edited={props.message.editedAt}
       tail={props.tail}

@@ -1,12 +1,15 @@
 import { Component, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { floating } from "../../../directives";
 import { Time } from "../../design/atoms/display/Time";
 import {
   Typography,
   generateTypographyCSS,
 } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";
+
+floating;
 
 interface CommonProps {
   /**
@@ -57,6 +60,11 @@ type Props = CommonProps & {
    * Date message was edited at
    */
   edited?: Date;
+
+  /**
+   * Component to render message context menu
+   */
+  contextMenu?: () => JSX.Element;
 
   /**
    * Additional match cases for the inline-start information element
@@ -141,7 +149,7 @@ const CompactInfo = styled(Row)`
  */
 export function MessageContainer(props: Props) {
   return (
-    <Base tail={props.tail}>
+    <Base tail={props.tail} use:floating={{ contextMenu: props.contextMenu }}>
       {props.header}
       <Row gap="none">
         <Info tail={props.tail} compact={props.compact}>

@@ -92,6 +92,7 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
    */
   function onContextMenu(event: MouseEvent) {
     event.preventDefault();
+    event.stopPropagation();
     trigger("contextMenu");
   }
 
