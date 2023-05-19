@@ -33,7 +33,7 @@ interface Props {
   /**
    * Whether to allow dropping files while in a modal
    */
-  allowInModal: boolean;
+  allowInModal?: boolean;
 }
 
 /**
