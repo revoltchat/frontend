@@ -185,12 +185,9 @@ function Entry(
    * Determine user status if present
    */
   const status = () =>
-    local.channel?.recipient
-      ? local.channel.recipient?.status?.text ??
-        local.channel.recipient?.status?.presence === "Focus"
-        ? t("app.status.focus")
-        : undefined
-      : undefined;
+    local.channel.recipient?.statusMessage((presence) =>
+      t(`app.status.${presence.toLowerCase()}`)
+    );
 
   return (
     <Link {...remote} href={`/channel/${local.channel.id}`}>
@@ -244,8 +241,12 @@ function Entry(
               <OverflowingText>
                 {local.channel?.recipient?.username}
               </OverflowingText>
-              <Show when={status}>
-                <Tooltip content={status()!} placement="top-start">
+              <Show when={status()}>
+                <Tooltip
+                  content={<TextWithEmoji content={status()!} />}
+                  placement="top-start"
+                  aria={status()!}
+                >
                   <OverflowingText>
                     <Typography variant="status">
                       <TextWithEmoji content={status()!} />

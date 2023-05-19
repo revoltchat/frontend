@@ -7,7 +7,12 @@ import {
   Typography,
   generateTypographyCSS,
 } from "../../design/atoms/display/Typography";
-import { Column, Row } from "../../design/layout";
+import {
+  Column,
+  NonBreakingText,
+  OverflowingText,
+  Row,
+} from "../../design/layout";
 
 floating;
 
@@ -187,18 +192,20 @@ export function MessageContainer(props: Props) {
         <Content>
           <Show when={!props.tail && !props.compact}>
             <Row gap="sm" align>
-              {props.username}
-              <InfoText gap="sm" align>
-                {props.info}
-                <Time
-                  value={props.timestamp}
-                  format="calendar"
-                  referenceTime={props._referenceTime}
-                />
-                <Show when={props.edited}>
-                  <span>(edited)</span>
-                </Show>
-              </InfoText>
+              <OverflowingText>{props.username}</OverflowingText>
+              <NonBreakingText>
+                <InfoText gap="sm" align>
+                  {props.info}
+                  <Time
+                    value={props.timestamp}
+                    format="calendar"
+                    referenceTime={props._referenceTime}
+                  />
+                  <Show when={props.edited}>
+                    <span>(edited)</span>
+                  </Show>
+                </InfoText>
+              </NonBreakingText>
             </Row>
           </Show>
           {props.children}
