@@ -95,14 +95,7 @@ declare module "solid-js" {
               /**
                * Tooltip content
                */
-              content:
-                | number
-                | boolean
-                | Node
-                | ArrayElement
-                | Element
-                | null
-                | undefined;
+              content: number | boolean | Node | ArrayElement | Element | null;
 
               /**
                * Aria label fallback
@@ -113,7 +106,7 @@ declare module "solid-js" {
               /**
                * Tooltip content
                */
-              content: string;
+              content: string | undefined;
 
               /**
                * Content is used as aria fallback
