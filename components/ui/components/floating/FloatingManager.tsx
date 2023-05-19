@@ -10,7 +10,7 @@ import {
 } from "solid-js";
 import { Portal } from "solid-js/web";
 
-import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
+import { flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
 
 import { FloatingElement, floatingElements } from "../../directives";
@@ -105,7 +105,6 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
 
   const position = useFloating(element, floating, {
     placement: placement(),
-    whileElementsMounted: autoUpdate,
     middleware: [offset(5), flip(), shift()],
   });
 
