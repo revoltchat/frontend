@@ -44,10 +44,10 @@ export function scrollable(
 
   if (props?.showOnHover) {
     const showClass = css`
-      scrollbar-width: thin;
+      scrollbar-width: thin !important;
 
       &::-webkit-scrollbar {
-        display: unset;
+        display: unset !important;
       }
     `;
 

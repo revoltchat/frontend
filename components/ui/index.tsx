@@ -6,7 +6,7 @@ import { DirectiveProvider } from "solid-styled-components";
 import { Placement } from "@floating-ui/dom";
 import { ServerMember, User } from "revolt.js";
 
-import { floating } from "./directives";
+import { floating, scrollable } from "./directives";
 
 export * from "./components";
 export * from "./directives";
@@ -23,6 +23,7 @@ export function ProvideDirectives(props: { children: JSX.Element }) {
     <DirectiveProvider
       directives={{
         "use:floating": floating,
+        "use:scrollable": scrollable,
       }}
     >
       {props.children}
