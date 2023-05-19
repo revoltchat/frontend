@@ -83,7 +83,9 @@ export function ServerMemberSidebar(props: Props) {
   const stage2 = createMemo(() => {
     const [members] = stage1();
     if (props.channel.potentiallyRestrictedChannel) {
-      return members.filter((member) => member.hasPermission(props.channel));
+      return members.filter((member) =>
+        member.hasPermission(props.channel, "ViewChannel")
+      );
     } else {
       return members;
     }
