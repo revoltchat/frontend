@@ -6,7 +6,7 @@ import { styled } from "solid-styled-components";
  * Use this to wrap Markdown
  */
 export const BreakText = styled("div")`
-  word-break: break-all;
+  word-break: break-word;
 
   .math {
     overflow-x: auto;
