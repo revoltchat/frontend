@@ -72,81 +72,89 @@ export const HomeSidebar = (props: Props) => {
         ref={scrollTargetElement}
         use:scrollable={{ direction: "y", showOnHover: true }}
       >
-        <SidebarTitle>
-          <Typography variant="sidebar-title">
-            {t("app.main.categories.conversations")}
-          </Typography>
-        </SidebarTitle>
-        <Link href="/">
-          <MenuButton
-            size="normal"
-            icon={<BiSolidHome size={24} />}
-            attention={location.pathname === "/app" ? "active" : "normal"}
-          >
-            {t("app.navigation.tabs.home")}
-          </MenuButton>
-        </Link>
-        <Show when={props.__tempDisplayFriends()}>
-          <Link href="/friends">
+        <List>
+          <SidebarTitle>
+            <Typography variant="sidebar-title">
+              {t("app.main.categories.conversations")}
+            </Typography>
+          </SidebarTitle>
+          <Link href="/">
             <MenuButton
               size="normal"
-              icon={<BiSolidUserDetail size={24} />}
-              attention={location.pathname === "/friends" ? "active" : "normal"}
+              icon={<BiSolidHome size={24} />}
+              attention={location.pathname === "/app" ? "active" : "normal"}
             >
-              {t("app.navigation.tabs.friends")}
+              {t("app.navigation.tabs.home")}
             </MenuButton>
           </Link>
-        </Show>
-        <Switch
-          fallback={
-            <MenuButton
-              size="normal"
-              attention={"normal"}
-              icon={<BiSolidNotepad size={24} />}
-              // eslint-disable-next-line solid/reactivity
-              onClick={() => props.openSavedNotes(navigate)}
-            >
-              {t("app.navigation.tabs.saved")}
-            </MenuButton>
-          }
-        >
-          <Match when={savedNotesChannelId()}>
-            <Link href={`/channel/${savedNotesChannelId()}`}>
+          <Show when={props.__tempDisplayFriends()}>
+            <Link href="/friends">
               <MenuButton
                 size="normal"
-                icon={<BiSolidNotepad size={24} />}
+                icon={<BiSolidUserDetail size={24} />}
                 attention={
-                  props.channelId && savedNotesChannelId() === props.channelId
-                    ? "active"
-                    : "normal"
+                  location.pathname === "/friends" ? "active" : "normal"
                 }
+              >
+                {t("app.navigation.tabs.friends")}
+              </MenuButton>
+            </Link>
+          </Show>
+          <Switch
+            fallback={
+              <MenuButton
+                size="normal"
+                attention={"normal"}
+                icon={<BiSolidNotepad size={24} />}
+                // eslint-disable-next-line solid/reactivity
+                onClick={() => props.openSavedNotes(navigate)}
               >
                 {t("app.navigation.tabs.saved")}
               </MenuButton>
-            </Link>
-          </Match>
-        </Switch>
-        <Deferred>
-          <VirtualContainer
-            items={props.conversations()}
-            scrollTarget={scrollTargetElement}
-            itemSize={{ height: 48 }}
+            }
           >
-            {(item) => (
-              <div
-                style={{ ...item.style, width: "100%", "padding-block": "3px" }}
-              >
-                <Entry
-                  role="listitem"
-                  tabIndex={item.tabIndex}
-                  style={item.style}
-                  channel={item.item}
-                  active={item.item.id === props.channelId}
-                />
-              </div>
-            )}
-          </VirtualContainer>
-        </Deferred>
+            <Match when={savedNotesChannelId()}>
+              <Link href={`/channel/${savedNotesChannelId()}`}>
+                <MenuButton
+                  size="normal"
+                  icon={<BiSolidNotepad size={24} />}
+                  attention={
+                    props.channelId && savedNotesChannelId() === props.channelId
+                      ? "active"
+                      : "normal"
+                  }
+                >
+                  {t("app.navigation.tabs.saved")}
+                </MenuButton>
+              </Link>
+            </Match>
+          </Switch>
+          <Deferred>
+            <VirtualContainer
+              items={props.conversations()}
+              scrollTarget={scrollTargetElement}
+              itemSize={{ height: 48 }}
+            >
+              {(item) => (
+                <div
+                  style={{
+                    ...item.style,
+                    width: "100%",
+                    "padding-block": "3px",
+                  }}
+                >
+                  <Entry
+                    role="listitem"
+                    tabIndex={item.tabIndex}
+                    style={item.style}
+                    channel={item.item}
+                    active={item.item.id === props.channelId}
+                  />
+                </div>
+              )}
+            </VirtualContainer>
+          </Deferred>
+        </List>
       </div>
     </SidebarBase>
   );
@@ -252,3 +260,11 @@ function Entry(
     </Link>
   );
 }
+
+/**
+ * Inner scrollable list
+ * We fix the width in order to prevent scrollbar from moving stuff around
+ */
+const List = styled.div`
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
+`;
