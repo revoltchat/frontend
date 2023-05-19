@@ -3,7 +3,6 @@ import {
   BiRegularHash,
   BiSolidCog,
   BiSolidGroup,
-  BiSolidMagicWand,
   BiSolidNotepad,
 } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
@@ -11,7 +10,7 @@ import { Match, Show, Switch } from "solid-js";
 import { Channel } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
-import { Markdown, TextWithEmoji } from "@revolt/markdown";
+import { TextWithEmoji } from "@revolt/markdown";
 import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -50,6 +49,17 @@ export function ChannelHeader(props: Props) {
     });
   }
 
+  /**
+   * Open channel settings
+   */
+  function openChannelSettings() {
+    modalController.push({
+      type: "settings",
+      config: "channel",
+      context: props.channel,
+    });
+  }
+
   return (
     <>
       <Switch>
@@ -71,9 +81,8 @@ export function ChannelHeader(props: Props) {
             <DescriptionLink onClick={openChannelInfo}>
               <OverflowingText>
                 <Typography variant="channel-topic">
-                  <Markdown
+                  <TextWithEmoji
                     content={props.channel.description?.split("\n").shift()}
-                    disallowBigEmoji
                   />
                 </Typography>
               </OverflowingText>
@@ -85,10 +94,7 @@ export function ChannelHeader(props: Props) {
             <BiRegularAt size={24} />
           </HeaderIcon>
           <TextWithEmoji content={props.channel.recipient?.username} />
-          <UserStatus
-            status={props.channel.recipient?.status?.presence ?? "Invisible"}
-            size="8px"
-          />
+          <UserStatus status={props.channel.recipient?.presence} size="8px" />
         </Match>
         <Match when={props.channel.type === "SavedMessages"}>
           <HeaderIcon>
@@ -106,15 +112,7 @@ export function ChannelHeader(props: Props) {
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
-        <IconButton
-          onClick={() =>
-            modalController.push({
-              type: "settings",
-              config: "channel",
-              context: props.channel,
-            })
-          }
-        >
+        <IconButton onClick={openChannelSettings}>
           <BiSolidCog size={24} />
         </IconButton>
       </Show>
