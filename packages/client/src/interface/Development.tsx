@@ -9,7 +9,13 @@ import {
   CategoryCollapse,
   Column,
   ComboBox,
+  floating,
+  styled,
 } from "@revolt/ui";
+
+const SomeComponent = styled.div`
+  background: red;
+`;
 
 export function DevelopmentPage() {
   function open() {
@@ -46,6 +52,11 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <SomeComponent
+        use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
+      >
+        hi
+      </SomeComponent>
       <Button onClick={open}>Open Modal</Button>
       <Button onClick={changelog}>Changelog Modal</Button>
       <div style={{ padding: "1em", width: "400px" }}>

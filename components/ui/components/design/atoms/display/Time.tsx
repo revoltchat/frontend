@@ -17,24 +17,27 @@ interface Props {
   referenceTime?: number | Date | string;
 }
 
-export function formatTime(props: Props) {
-  switch (props.format) {
+/**
+ * Format a given date
+ */
+export function formatTime(options: Props) {
+  switch (options.format) {
     case "calendar":
-      return dayjs(props.value).calendar(props.referenceTime);
+      return dayjs(options.value).calendar(options.referenceTime);
     case "date":
     case "dateNormal":
-      return dayjs(props.value).format("DD/MM/YYYY");
+      return dayjs(options.value).format("DD/MM/YYYY");
     case "dateAmerican":
-      return dayjs(props.value).format("MM/DD/YYYY");
+      return dayjs(options.value).format("MM/DD/YYYY");
     case "iso8601":
-      return dayjs(props.value).format("YYYY-MM-DD");
+      return dayjs(options.value).format("YYYY-MM-DD");
     case "relative":
-      return dayjs(props.value).fromNow();
+      return dayjs(options.value).fromNow();
     case "time12":
-      return dayjs(props.value).format("h:mm A");
+      return dayjs(options.value).format("h:mm A");
     case "time24":
     default:
-      return dayjs(props.value).format("HH:mm");
+      return dayjs(options.value).format("HH:mm");
   }
 }
 

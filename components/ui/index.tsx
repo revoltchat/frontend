@@ -1,7 +1,12 @@
 import { createEffect } from "solid-js";
+import type { JSX } from "solid-js";
 import { useTheme } from "solid-styled-components";
+import { DirectiveProvider } from "solid-styled-components";
 
 import { Placement } from "@floating-ui/dom";
+import { ServerMember, User } from "revolt.js";
+
+import { floating } from "./directives";
 
 export * from "./components";
 export * from "./directives";
@@ -9,6 +14,21 @@ export { darkTheme } from "./themes/darkTheme";
 
 export { ThemeProvider, styled, useTheme } from "solid-styled-components";
 export type { DefaultTheme } from "solid-styled-components";
+
+/**
+ * Provide directives
+ */
+export function ProvideDirectives(props: { children: JSX.Element }) {
+  return (
+    <DirectiveProvider
+      directives={{
+        "use:floating": floating,
+      }}
+    >
+      {props.children}
+    </DirectiveProvider>
+  );
+}
 
 /**
  * Apply theme to document body
@@ -66,14 +86,52 @@ declare module "solid-js" {
           };
       floating: {
         tooltip?: {
+          /**
+           * Where the tooltip should be placed
+           */
           placement: Placement;
         } & (
-          | { content: JSX.Element; aria?: false }
           | {
+              /**
+               * Tooltip content
+               */
+              content:
+                | number
+                | boolean
+                | Node
+                | ArrayElement
+                | Element
+                | null
+                | undefined;
+
+              /**
+               * Aria label fallback
+               */
+              aria: string;
+            }
+          | {
+              /**
+               * Tooltip content
+               */
               content: string;
-              aria?: boolean;
+
+              /**
+               * Content is used as aria fallback
+               */
+              aria?: undefined;
             }
         );
+        userCard?: {
+          /**
+           * User to display
+           */
+          user: User;
+
+          /**
+           * Member to display
+           */
+          member?: ServerMember;
+        };
       };
     }
   }

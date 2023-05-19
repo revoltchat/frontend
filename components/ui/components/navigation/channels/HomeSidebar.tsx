@@ -238,13 +238,11 @@ function Entry(
               </OverflowingText>
               <Show when={status}>
                 <Tooltip content={status()!} placement="top-start">
-                  {(triggerProps) => (
-                    <OverflowingText>
-                      <Typography {...triggerProps} variant="status">
-                        <TextWithEmoji content={status()!} />
-                      </Typography>
-                    </OverflowingText>
-                  )}
+                  <OverflowingText>
+                    <Typography variant="status">
+                      <TextWithEmoji content={status()!} />
+                    </Typography>
+                  </OverflowingText>
                 </Tooltip>
               </Show>
             </Match>

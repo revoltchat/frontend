@@ -1,11 +1,6 @@
-import { useFloating } from "solid-floating-ui";
-import { For, JSX, Ref, Show, createSignal } from "solid-js";
-import { Portal } from "solid-js/web";
+import type { JSX } from "solid-js";
+import { For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
-
-import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "@motionone/solid";
-import { ServerMember, User } from "revolt.js";
 
 import { ColouredText } from "../design";
 
@@ -19,92 +14,30 @@ const Base = styled("div", "Tooltip")`
   height: 400px;
 `;
 
-interface Props {
-  /**
-   * User card trigger area
-   * @param triggerProps Props that need to be applied to the trigger area
-   */
-  children: (triggerProps: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ref: Ref<any>;
-    onClick: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
-  }) => JSX.Element;
-
-  /**
-   * Initial show state (used for debugging)
-   */
-  initialState?: boolean;
-
-  /**
-   * User to show
-   */
-  user: User;
-
-  /**
-   * Member to show
-   */
-  member?: ServerMember;
-}
-
 /**
- * UserCard component
+ * User Card
  */
-export function UserCard(props: Props) {
-  const [anchor, setAnchor] = createSignal<HTMLElement>();
-  const [floating, setFloating] = createSignal<HTMLDivElement>();
-  const [show, setShow] = createSignal(props.initialState ?? false);
-
-  const position = useFloating(anchor, floating, {
-    placement: "right-start",
-    whileElementsMounted: autoUpdate,
-    middleware: [offset(5), flip(), shift()],
-  });
-
+export function UserCard(
+  props: JSX.Directives["floating"]["userCard"] & object
+) {
   return (
-    <>
-      {props.children({
-        ref: setAnchor,
-        onClick: () => setShow(!show()),
-      })}
-      <Portal mount={document.getElementById("floating")!}>
-        <Presence>
-          <Show when={show()}>
-            <Motion
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
-            >
-              <Base
-                ref={setFloating}
-                style={{
-                  position: position.strategy,
-                  top: `${position.y ?? 0}px`,
-                  left: `${position.x ?? 0}px`,
-                }}
-                role="tooltip"
+    <Base>
+      {props.user.username}
+      <br />
+      <Show when={props.member}>
+        <For each={props.member!.orderedRoles}>
+          {(role) => (
+            <div>
+              <ColouredText
+                colour={role.colour!}
+                clip={role.colour?.includes("gradient")}
               >
-                {props.user.username}
-                <br />
-                <Show when={props.member}>
-                  <For each={props.member!.orderedRoles}>
-                    {(role) => (
-                      <div>
-                        <ColouredText
-                          colour={role.colour!}
-                          clip={role.colour?.includes("gradient")}
-                        >
-                          {role.name}
-                        </ColouredText>
-                      </div>
-                    )}
-                  </For>
-                </Show>
-              </Base>
-            </Motion>
-          </Show>
-        </Presence>
-      </Portal>
-    </>
+                {role.name}
+              </ColouredText>
+            </div>
+          )}
+        </For>
+      </Show>
+    </Base>
   );
 }

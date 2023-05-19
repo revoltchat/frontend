@@ -1,14 +1,11 @@
-import { useFloating } from "solid-floating-ui";
 import { Accessor, JSX, createSignal, onCleanup } from "solid-js";
-import { Portal } from "solid-js/web";
-
-import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 
 type Props = JSX.Directives["floating"] & object;
 
 export type FloatingElement = {
   config: Props;
   element: HTMLElement;
+  hide: () => void;
   show: Accessor<keyof Props | undefined>;
 };
 
@@ -33,18 +30,78 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
       config,
       element,
       show,
+      /**
+       * Hide the element
+       */
+      hide() {
+        setShow(undefined);
+      },
     },
   ]);
 
-  function onMouseEnter() {
-    setShow("tooltip");
+  /**
+   * Trigger a floating element
+   */
+  function trigger(target: keyof Props, desiredState?: boolean) {
+    const current = show();
+
+    if (target === "userCard" && config.userCard) {
+      if (current === "userCard") {
+        setShow(undefined);
+      } else if (!current) {
+        setShow("userCard");
+      } else {
+        setShow(undefined);
+        setShow("userCard");
+      }
+    }
+
+    if (target === "tooltip" && config.tooltip) {
+      if (current === "tooltip") {
+        if (desiredState !== true) {
+          setShow(undefined);
+        }
+      } else if (!current) {
+        if (desiredState !== false) {
+          setShow("tooltip");
+        }
+      }
+    }
   }
 
+  /**
+   * Handle click events
+   */
+  function onClick() {
+    trigger("userCard");
+  }
+
+  /**
+   * Handle mouse entering
+   */
+  function onMouseEnter() {
+    trigger("tooltip", true);
+  }
+
+  /**
+   * Handle mouse leaving
+   */
   function onMouseLeave() {
-    setShow(undefined);
+    trigger("tooltip", false);
+  }
+
+  if (config.userCard) {
+    element.style.cursor = "pointer";
+    element.style.userSelect = "none";
+    element.addEventListener("click", onClick);
   }
 
   if (config.tooltip) {
+    element.ariaLabel =
+      typeof config.tooltip.content === "string"
+        ? config.tooltip.content
+        : config.tooltip!.aria!;
+
     element.addEventListener("mouseenter", onMouseEnter);
     element.addEventListener("mouseleave", onMouseLeave);
   }
@@ -53,6 +110,10 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
     setFloatingElements((elements) =>
       elements.filter((entry) => entry.element !== element)
     );
+
+    if (config.userCard) {
+      element.removeEventListener("click", onClick);
+    }
 
     if (config.tooltip) {
       element.removeEventListener("mouseenter", onMouseEnter);

@@ -11,6 +11,7 @@ import {
   ApplyGlobalStyles,
   FloatingManager,
   Masks,
+  ProvideDirectives,
   ThemeProvider,
   darkTheme,
 } from "@revolt/ui";
@@ -28,10 +29,12 @@ render(
       <Router>
         <I18nContext.Provider value={i18n}>
           <ThemeProvider theme={darkTheme}>
-            <App />
-            <ModalRenderer />
-            <FloatingManager />
-            <ApplyGlobalStyles />
+            <ProvideDirectives>
+              <App />
+              <ModalRenderer />
+              <FloatingManager />
+              <ApplyGlobalStyles />
+            </ProvideDirectives>
           </ThemeProvider>
         </I18nContext.Provider>
       </Router>

@@ -1,7 +1,6 @@
 import { Component, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { Avatar } from "../../design/atoms/display/Avatar";
 import { Time } from "../../design/atoms/display/Time";
 import {
   Typography,
@@ -27,7 +26,7 @@ type Props = CommonProps & {
   /**
    * Avatar URL
    */
-  avatar?: string;
+  avatar: JSX.Element;
 
   /**
    * Username element
@@ -146,7 +145,7 @@ export function MessageContainer(props: Props) {
       {props.header}
       <Row gap="none">
         <Info tail={props.tail} compact={props.compact}>
-          <Switch fallback={<Avatar size={36} src={props.avatar} />}>
+          <Switch fallback={props.avatar}>
             {props.infoMatch ?? <Match when={false} children={null} />}
             <Match when={props.compact}>
               <CompactInfo gap="sm" align>
