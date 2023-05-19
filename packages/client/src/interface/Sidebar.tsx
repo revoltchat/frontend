@@ -27,7 +27,7 @@ export const Sidebar: Component = () => {
       />
       <Routes>
         <Route path="/server/:server/*" component={Server} />
-        <Route path="/admin" element={() => null} />
+        <Route path="/admin" element={null} />
         <Route path="/*" component={Home} />
       </Routes>
     </div>
@@ -95,12 +95,24 @@ const Server: Component = () => {
     });
   }
 
+  /**
+   * Open the server settings modal
+   */
+  function openServerSettings() {
+    modalController.push({
+      type: "settings",
+      config: "server",
+      context: server(),
+    });
+  }
+
   return (
     <Show when={server()}>
       <ServerSidebar
         server={server()}
         channelId={params().channelId}
         openServerInfo={openServerInfo}
+        openServerSettings={openServerSettings}
       />
     </Show>
   );

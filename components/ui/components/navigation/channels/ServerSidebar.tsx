@@ -9,7 +9,6 @@ import { styled } from "solid-styled-components";
 
 import type { API, Channel, Server } from "revolt.js";
 
-import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link } from "@revolt/routing";
 
@@ -38,6 +37,11 @@ interface Props {
    * Open server information modal
    */
   openServerInfo: () => void;
+
+  /**
+   * Open server settings modal
+   */
+  openServerSettings: () => void;
 }
 
 /**
@@ -57,6 +61,7 @@ export const ServerSidebar = (props: Props) => {
             <ServerInfo
               server={props.server}
               openServerInfo={props.openServerInfo}
+              openServerSettings={props.openServerSettings}
             />
           </Header>
         }
@@ -71,6 +76,7 @@ export const ServerSidebar = (props: Props) => {
             <ServerInfo
               server={props.server}
               openServerInfo={props.openServerInfo}
+              openServerSettings={props.openServerSettings}
             />
           </HeaderWithImage>
         </Match>
@@ -93,23 +99,17 @@ export const ServerSidebar = (props: Props) => {
 /**
  * Server Information
  */
-function ServerInfo(props: Pick<Props, "server" | "openServerInfo">) {
+function ServerInfo(
+  props: Pick<Props, "server" | "openServerInfo" | "openServerSettings">
+) {
   return (
     <Row align grow>
-      <ServerName onClick={() => props.openServerInfo()}>
+      <ServerName onClick={props.openServerInfo}>
         <OverflowingText>
           <TextWithEmoji content={props.server.name} />
         </OverflowingText>
       </ServerName>
-      <SettingsLink
-        onClick={() =>
-          getController("modal").push({
-            type: "settings",
-            config: "server",
-            context: props.server,
-          })
-        }
-      >
+      <SettingsLink onClick={props.openServerSettings}>
         <BiSolidCog size={18} />
       </SettingsLink>
     </Row>

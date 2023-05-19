@@ -220,6 +220,7 @@ export function Inspector() {
                 server={server()!}
                 channelId={undefined}
                 openServerInfo={() => void 0}
+                openServerSettings={() => void 0}
               />
             </div>
             <SettingsUsingConfiguration

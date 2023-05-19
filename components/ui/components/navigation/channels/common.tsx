@@ -1,5 +1,8 @@
 import { styled } from "solid-styled-components";
 
+/**
+ * Common styles for sidebar
+ */
 export const SidebarBase = styled("div", "Sidebar")`
   display: flex;
   flex-shrink: 0;
