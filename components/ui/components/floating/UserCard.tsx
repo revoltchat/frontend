@@ -2,7 +2,7 @@ import type { JSX } from "solid-js";
 import { For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { ColouredText } from "../design";
+import { ColouredText, Username } from "../design";
 
 /**
  * Base element for the card
@@ -22,9 +22,17 @@ export function UserCard(
 ) {
   return (
     <Base>
-      {props.user.username}
-      <br />
       <Show when={props.member}>
+        <Username
+          username={props.member!.nickname ?? props.user.username}
+          colour={props.member!.roleColour!}
+        />
+        <br />
+      </Show>
+      {props.user.username}
+      <Show when={props.member}>
+        <br />
+        <br />
         <For each={props.member!.orderedRoles}>
           {(role) => (
             <div>
