@@ -1,5 +1,7 @@
 import { Accessor, createMemo } from "solid-js";
 
+import { ServerMember, User } from "revolt.js";
+
 import { useClient } from "@revolt/client";
 import { useParams } from "@revolt/routing";
 
@@ -12,7 +14,7 @@ interface UserInformation {
   /**
    * Username or nickname
    */
-  username: string;
+  username?: string;
 
   /**
    * Avatar or server profile avatar
@@ -23,6 +25,22 @@ interface UserInformation {
    * Role colour
    */
   colour?: string | null;
+}
+
+const DEFAULT_COLOUR = "#848484";
+
+/**
+ * Create user information from given objects
+ * @param user User
+ * @param member Member
+ * @returns Information
+ */
+export function userInformation(user?: User, member?: ServerMember) {
+  return {
+    username: member?.nickname ?? user?.username,
+    avatar: member?.animatedAvatarURL ?? user?.animatedAvatarURL,
+    colour: member?.roleColour ?? DEFAULT_COLOUR,
+  };
 }
 
 /**
@@ -47,25 +65,15 @@ export function useUsers(
       const user = client.users.get(id)!;
 
       if (user) {
-        if (server) {
-          const member = client.serverMembers.getByKey({
-            server,
-            user: user.id,
-          });
-
-          if (member) {
-            return {
-              username: member.nickname ?? user.username,
-              avatar: member.animatedAvatarURL ?? user.animatedAvatarURL,
-              colour: member.roleColour,
-            };
-          }
-        }
-
-        return {
-          username: user.username,
-          avatar: user.animatedAvatarURL,
-        };
+        return userInformation(
+          user,
+          server
+            ? client.serverMembers.getByKey({
+                server,
+                user: user.id,
+              })
+            : undefined
+        );
       }
     });
 
