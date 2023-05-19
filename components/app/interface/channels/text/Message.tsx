@@ -89,6 +89,9 @@ export function Message(props: Props) {
               user: props.message.author!,
               member: props.message.member,
             },
+            contextMenu() {
+              return <h1>hello!</h1>;
+            },
           }}
         >
           <Username
@@ -103,6 +106,9 @@ export function Message(props: Props) {
             userCard: {
               user: props.message.author!,
               member: props.message.member,
+            },
+            contextMenu() {
+              return <h1>hello!</h1>;
             },
           }}
         >

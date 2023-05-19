@@ -125,6 +125,7 @@ declare module "solid-js" {
            */
           member?: ServerMember;
         };
+        contextMenu?: () => JSX.Element;
       };
     }
   }

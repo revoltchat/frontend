@@ -1,5 +1,13 @@
 import { useFloating } from "solid-floating-ui";
-import { For, Match, Show, Switch, createSignal, onCleanup } from "solid-js";
+import {
+  For,
+  Match,
+  Show,
+  Switch,
+  createSignal,
+  onCleanup,
+  onMount,
+} from "solid-js";
 import { Portal } from "solid-js/web";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
@@ -14,13 +22,27 @@ import { UserCard } from "./UserCard";
  * Render the actual floating elements
  */
 export function FloatingManager() {
+  let mouseX = 0,
+    mouseY = 0;
+
+  /**
+   * Keep track of last mouse position at all times
+   */
+  function onMouseMove({ clientX, clientY }: MouseEvent) {
+    mouseX = clientX;
+    mouseY = clientY;
+  }
+
+  onMount(() => document.addEventListener("mousemove", onMouseMove));
+  onCleanup(() => document.addEventListener("mousemove", onMouseMove));
+
   return (
     <Portal mount={document.getElementById("floating")!}>
       <For each={floatingElements()}>
         {(element) => (
           <Presence>
             <Show when={element.show()}>
-              <Floating {...element} />
+              <Floating {...element} mouseX={mouseX} mouseY={mouseY} />
             </Show>
           </Presence>
         )}
@@ -32,7 +54,7 @@ export function FloatingManager() {
 /**
  * Render a floating element
  */
-function Floating(props: FloatingElement) {
+function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
   const [floating, setFloating] = createSignal<HTMLDivElement>();
 
   /**
@@ -46,10 +68,42 @@ function Floating(props: FloatingElement) {
         return props.config.tooltip!.placement;
       case "userCard":
         return "right-start";
+      case "contextMenu":
+        return "right-start";
     }
   };
 
-  const position = useFloating(() => props.element, floating, {
+  /**
+   * Determine element to provide
+   */
+  const element = () => {
+    const current = props.show();
+
+    switch (current) {
+      case "contextMenu":
+        return {
+          /**
+           * Determine client rectangle for virtual element
+           */
+          getBoundingClientRect() {
+            return {
+              width: 0,
+              height: 0,
+              x: props.mouseX,
+              y: props.mouseY,
+              left: props.mouseX,
+              right: props.mouseX,
+              top: props.mouseY,
+              bottom: props.mouseY,
+            };
+          },
+        };
+      default:
+        return props.element;
+    }
+  };
+
+  const position = useFloating(element, floating, {
     placement: placement(),
     whileElementsMounted: autoUpdate,
     middleware: [offset(5), flip(), shift()],
@@ -59,7 +113,7 @@ function Floating(props: FloatingElement) {
    * Handle page clicks outside of floating element
    * @param event Event
    */
-  function onClickPage(event: MouseEvent) {
+  function onMouseDown(event: MouseEvent) {
     const parentEl = floating();
 
     let currentEl = event.target as HTMLElement | null;
@@ -74,9 +128,9 @@ function Floating(props: FloatingElement) {
 
   // We know what we're doing here...
   // eslint-disable-next-line solid/reactivity
-  if (props.config.userCard) {
-    setTimeout(() => document.addEventListener("click", onClickPage));
-    onCleanup(() => document.removeEventListener("click", onClickPage));
+  if (props.config.userCard || props.config.contextMenu) {
+    onMount(() => document.addEventListener("mousedown", onMouseDown));
+    onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
   }
 
   return (
@@ -103,6 +157,9 @@ function Floating(props: FloatingElement) {
               user={props.config.userCard!.user}
               member={props.config.userCard!.member}
             />
+          </Match>
+          <Match when={props.show() === "contextMenu"}>
+            {props.config.contextMenu!()}
           </Match>
         </Switch>
       </div>

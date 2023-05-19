@@ -67,6 +67,17 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
         }
       }
     }
+
+    if (target === "contextMenu" && config.contextMenu) {
+      if (current === "contextMenu") {
+        setShow(undefined);
+      } else if (!current) {
+        setShow("contextMenu");
+      } else {
+        setShow(undefined);
+        setShow("contextMenu");
+      }
+    }
   }
 
   /**
@@ -74,6 +85,14 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
    */
   function onClick() {
     trigger("userCard");
+  }
+
+  /**
+   * Handle context menu click
+   */
+  function onContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    trigger("contextMenu");
   }
 
   /**
@@ -106,6 +125,11 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
     element.addEventListener("mouseleave", onMouseLeave);
   }
 
+  if (config.contextMenu) {
+    element.addEventListener("contextmenu", onContextMenu);
+    // TODO: iOS events for touch
+  }
+
   onCleanup(() => {
     setFloatingElements((elements) =>
       elements.filter((entry) => entry.element !== element)
@@ -118,6 +142,10 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
     if (config.tooltip) {
       element.removeEventListener("mouseenter", onMouseEnter);
       element.removeEventListener("mouseleave", onMouseLeave);
+    }
+
+    if (config.contextMenu) {
+      element.removeEventListener("contextmenu", onContextMenu);
     }
   });
 }
