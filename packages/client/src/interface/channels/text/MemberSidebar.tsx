@@ -285,11 +285,11 @@ function Member(props: { member: ServerMember }) {
               placement="top-start"
               aria={status()!}
             >
-              <OverflowingText>
+              <Status>
                 <Typography variant="status">
                   <TextWithEmoji content={status()!} />
                 </Typography>
-              </OverflowingText>
+              </Status>
             </Tooltip>
           </Show>
         </Column>
@@ -297,3 +297,10 @@ function Member(props: { member: ServerMember }) {
     </div>
   );
 }
+
+/**
+ * Status text
+ */
+const Status = styled(OverflowingText)`
+  color: ${(props) => props.theme!.colours["foreground-400"]};
+`;
