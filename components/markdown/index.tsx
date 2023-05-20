@@ -24,7 +24,7 @@ import { RenderMention, remarkMention } from "./plugins/mentions";
 import { RenderSpoiler, remarkSpoiler } from "./plugins/spoiler";
 import { remarkTimestamps } from "./plugins/timestamps";
 import { RenderUnicodeEmoji, remarkUnicodeEmoji } from "./plugins/unicodeEmoji";
-import { sanitise } from "./sanitise";
+import { remarkInsertBreaks, sanitise } from "./sanitise";
 import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 import { defaults } from "./solid-markdown/defaults";
 
@@ -142,6 +142,7 @@ const pipeline = unified()
   .use(remarkRehype, {
     handlers,
   })
+  .use(remarkInsertBreaks)
   .use(rehypeKatex, {
     maxSize: 10,
     maxExpand: 0,
