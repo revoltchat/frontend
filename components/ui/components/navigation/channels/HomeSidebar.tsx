@@ -217,9 +217,7 @@ function Entry(
                 holepunch="bottom-right"
                 overlay={
                   <UserStatusGraphic
-                    status={
-                      local.channel?.recipient?.status?.presence ?? "Invisible"
-                    }
+                    status={local.channel?.recipient?.presence}
                   />
                 }
               />

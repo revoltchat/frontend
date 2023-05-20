@@ -60,9 +60,7 @@ export const ServerList = (props: Props) => {
           content={() => (
             <Column gap="none">
               <span>{props.user.username}</span>
-              <Typography variant="small">
-                {props.user.status?.presence}
-              </Typography>
+              <Typography variant="small">{props.user.presence}</Typography>
             </Column>
           )}
           aria={props.user.username}
@@ -78,11 +76,7 @@ export const ServerList = (props: Props) => {
                 size={42}
                 src={props.user.avatarURL}
                 holepunch={"bottom-right"}
-                overlay={
-                  <UserStatusGraphic
-                    status={props.user.status?.presence ?? "Invisible"}
-                  />
-                }
+                overlay={<UserStatusGraphic status={props.user.presence} />}
                 interactive
               />
             </Link>
