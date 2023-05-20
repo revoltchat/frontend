@@ -57,14 +57,14 @@ export const ServerList = (props: Props) => {
       <div use:invisibleScrollable={{ direction: "y" }}>
         <Tooltip
           placement="right"
-          content={
+          content={() => (
             <Column gap="none">
               <span>{props.user.username}</span>
               <Typography variant="small">
                 {props.user.status?.presence}
               </Typography>
             </Column>
-          }
+          )}
           aria={props.user.username}
         >
           <EntryContainer>

@@ -39,7 +39,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
           use:floating={{
             tooltip: {
               placement: "top",
-              content: (
+              content: () => (
                 <Row align gap="lg">
                   <span style={{ "--emoji-size": "3em" }}>
                     <Emoji emoji={props.match} />
@@ -71,7 +71,6 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
                   </Switch>
                 </Row>
               ),
-
               aria:
                 emoji()?.parent.type === "Server"
                   ? `:${emoji()!.name}: from ${

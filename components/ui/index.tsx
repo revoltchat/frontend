@@ -1,4 +1,4 @@
-import { createEffect } from "solid-js";
+import { Component, createEffect } from "solid-js";
 import type { JSX } from "solid-js";
 import { useTheme } from "solid-styled-components";
 import { DirectiveProvider } from "solid-styled-components";
@@ -96,7 +96,7 @@ declare module "solid-js" {
               /**
                * Tooltip content
                */
-              content: number | boolean | Node | ArrayElement | Element | null;
+              content: Component;
 
               /**
                * Aria label fallback
@@ -126,7 +126,7 @@ declare module "solid-js" {
            */
           member?: ServerMember;
         };
-        contextMenu?: () => JSX.Element;
+        contextMenu?: Component;
       };
     }
   }

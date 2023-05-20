@@ -243,7 +243,7 @@ function Entry(
               </OverflowingText>
               <Show when={status()}>
                 <Tooltip
-                  content={<TextWithEmoji content={status()!} />}
+                  content={() => <TextWithEmoji content={status()!} />}
                   placement="top-start"
                   aria={status()!}
                 >

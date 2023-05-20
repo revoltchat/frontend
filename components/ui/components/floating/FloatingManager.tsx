@@ -150,7 +150,11 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
       >
         <Switch>
           <Match when={props.show() === "tooltip"}>
-            <TooltipBase>{props.config.tooltip!.content}</TooltipBase>
+            <TooltipBase>
+              {typeof props.config.tooltip!.content === "function"
+                ? props.config.tooltip!.content({})
+                : props.config.tooltip!.content}
+            </TooltipBase>
           </Match>
           <Match when={props.show() === "userCard"}>
             <UserCard
@@ -159,7 +163,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
             />
           </Match>
           <Match when={props.show() === "contextMenu"}>
-            {props.config.contextMenu!()}
+            {props.config.contextMenu!({})}
           </Match>
         </Switch>
       </div>

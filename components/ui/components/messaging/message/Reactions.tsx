@@ -177,7 +177,7 @@ function Reaction(props: {
   return (
     <Tooltip
       placement="top"
-      content={
+      content={() => (
         <Row align gap="lg">
           <span style={{ "--emoji-size": "3em" }}>
             <Emoji emoji={props.reaction} />
@@ -186,7 +186,7 @@ function Reaction(props: {
             <PeopleList>{peopleList()}</PeopleList>
           </Typography>
         </Row>
-      }
+      )}
       aria={peopleList()}
     >
       <ReactionBase active={props.active} onClick={onClick}>
