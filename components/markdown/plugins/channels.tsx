@@ -12,7 +12,7 @@ export function RenderChannel(props: CustomComponentProps) {
       href={`${
         channel().serverId ? `/server/${channel().serverId}` : ""
       }/channel/${props.match}`}
-    >{`#${channel.name}`}</Link>
+    >{`#${channel().name}`}</Link>
   );
 }
 
