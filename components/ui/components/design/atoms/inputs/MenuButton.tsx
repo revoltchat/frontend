@@ -67,7 +67,7 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
       : "transparent"};
 
   filter: ${(props) =>
-    props.attention === "muted" ? "brightness(0.5)" : "none"};
+    props.attention === "muted" ? props.theme!.effects.muted : "none"};
 
   transition: ${(props) => props.theme!.transitions.fast} all;
 

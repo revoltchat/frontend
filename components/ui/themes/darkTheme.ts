@@ -184,6 +184,7 @@ export const darkTheme: DefaultTheme = {
     blur: {
       md: "blur(20px)",
     },
+    muted: "brightness(0.5) saturate(0.75)",
     hover: "brightness(1.1)",
     active: "brightness(0.9)",
     spoiler: "brightness(0.2) contrast(0.8) blur(24px)",

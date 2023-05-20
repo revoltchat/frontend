@@ -92,6 +92,7 @@ declare module "solid-styled-components" {
       blur: {
         [key in "md"]: string;
       };
+      muted: string;
       hover: string;
       active: string;
       spoiler: string;
