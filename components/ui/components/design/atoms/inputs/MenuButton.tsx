@@ -66,10 +66,12 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
       ? props.theme!.colours["background-200"]
       : "transparent"};
 
-  filter: ${(props) =>
-    props.attention === "muted" ? props.theme!.effects.muted : "none"};
-
   transition: ${(props) => props.theme!.transitions.fast} all;
+
+  > * {
+    filter: ${(props) =>
+      props.attention === "muted" ? props.theme!.effects.muted : "none"};
+  }
 
   .content {
     flex-grow: 1;
@@ -86,6 +88,10 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
     .actions {
       display: block;
     }
+  }
+
+  &:active {
+    filter: ${(props) => props.theme!.effects.active};
   }
 `;
 
