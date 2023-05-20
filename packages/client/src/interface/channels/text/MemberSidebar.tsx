@@ -1,7 +1,7 @@
 import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
-import { Channel, ServerMember } from "revolt.js";
+import { API, Channel, ServerMember } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
@@ -91,6 +91,14 @@ export function ServerMemberSidebar(props: Props) {
     }
   });
 
+  let roleObjectCache: Record<
+    string,
+    {
+      role: API.Role & { id: string };
+      members: ServerMember[];
+    }
+  > = {};
+
   // Stage 3: Categorise each member entry into role lists
   const stage3 = createMemo(() => {
     const [, hoistedRoles] = stage1();
@@ -121,29 +129,50 @@ export function ServerMemberSidebar(props: Props) {
       byRole["default"].push(member);
     }
 
-    return [
-      ...hoistedRoles.map((role) => ({
-        ...role,
-        members: byRole[role.id],
-      })),
-      {
-        id: "default",
-        name: "Default",
-        members: byRole["default"],
-      },
-      {
-        id: "offline",
-        name: "Offline",
-        members: byRole["offline"],
-      },
-    ].filter((role) => role.members.length);
+    const cacheCopy = roleObjectCache;
+    roleObjectCache = {};
+
+    for (const role of hoistedRoles) {
+      if (role.id in cacheCopy) {
+        roleObjectCache[role.id] = cacheCopy[role.id];
+        roleObjectCache[role.id].role = role;
+        roleObjectCache[role.id].members = byRole[role.id];
+      } else {
+        roleObjectCache[role.id] = {
+          role,
+          members: byRole[role.id],
+        };
+      }
+    }
+
+    for (const [id, name] of [
+      ["default", "Online"],
+      ["offline", "Offline"],
+    ]) {
+      if (id in cacheCopy) {
+        roleObjectCache[id] = cacheCopy[id];
+        roleObjectCache[id].members = byRole[id];
+      } else {
+        roleObjectCache[id] = {
+          role: {
+            id,
+            name,
+          } as API.Role & { id: string },
+          members: byRole[id],
+        };
+      }
+    }
+
+    return [...hoistedRoles.map((role) => role.id), "default", "offline"]
+      .map((role) => roleObjectCache[role])
+      .filter((entry) => entry.members.length);
   });
 
   // Stage 4: Perform sorting on role lists
   const roles = createMemo(() => {
     const roles = stage3();
-    roles.forEach((role) =>
-      role.members.sort(
+    roles.forEach((entry) =>
+      entry.members.sort(
         (a, b) =>
           (a.nickname ?? a.user?.username)?.localeCompare(
             b.nickname ?? b.user?.username ?? ""
@@ -185,14 +214,14 @@ export function ServerMemberSidebar(props: Props) {
 
         <Deferred>
           <For each={roles()}>
-            {(role) => (
+            {(entry) => (
               <div>
                 <CategoryTitle>
-                  {role.name} {"–"} {role.members.length}
+                  {entry.role.name} {"–"} {entry.members.length}
                 </CategoryTitle>
 
                 <VirtualContainer
-                  items={role.members}
+                  items={entry.members}
                   scrollTarget={scrollTargetElement}
                   itemSize={{ height: 48 }}
                 >
