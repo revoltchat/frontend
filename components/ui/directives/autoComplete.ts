@@ -25,15 +25,22 @@ export type AutoCompleteState =
  * Configure auto complete for an input
  * @param element Input element
  */
-export function autoComplete(element: HTMLInputElement) {
+export function autoComplete(element: HTMLDivElement) {
   const [state, setState] = createSignal<AutoCompleteState>({
     matched: "none",
   });
 
+  const [rect, setRect] = createSignal<DOMRect>(null!);
+
   // TODO: use a virtual element on the caret
   // THIS IS NOT POSSIBLE WITH HTML INPUT ELEMENT!
   registerFloatingElement({
-    element,
+    element: {
+      getBoundingClientRect() {
+        return rect();
+      },
+      ...({} as any),
+    },
     config: {
       autoComplete: state,
     },
@@ -57,9 +64,9 @@ export function autoComplete(element: HTMLInputElement) {
    * Update state as input changes
    */
   function onKeyUp() {
-    const cursor = element.selectionStart;
-    if (cursor && cursor === element.selectionEnd) {
-      const content = element.value.slice(0, cursor);
+    const selection = window.getSelection();
+    if (selection && selection.anchorOffset === selection.focusOffset) {
+      const content = element.innerText.trim().slice(0, selection.anchorOffset);
 
       // Try to figure out what we're matching
       const current = (["@", ":", "#"] as Operator[])
@@ -82,6 +89,7 @@ export function autoComplete(element: HTMLInputElement) {
         )[0];
 
       if (current) {
+        setRect(selection!.getRangeAt(0).getBoundingClientRect());
         setState(searchMatches(...current));
         return;
       }
@@ -120,14 +128,16 @@ function searchMatches(operator: Operator, query: string): AutoCompleteState {
       i++;
     }
 
-    return {
-      matched: "emoji",
-      matches: matches.map((shortcode) => ({
-        type: "unicode",
-        shortcode,
-        codepoint: emojiMapping[shortcode],
-      })),
-    };
+    if (matches.length) {
+      return {
+        matched: "emoji",
+        matches: matches.map((shortcode) => ({
+          type: "unicode",
+          shortcode,
+          codepoint: emojiMapping[shortcode],
+        })),
+      };
+    }
   }
 
   return {

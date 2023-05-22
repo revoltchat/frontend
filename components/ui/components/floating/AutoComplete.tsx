@@ -4,7 +4,7 @@ import { styled } from "solid-styled-components";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
 
 import { AutoCompleteState } from "../../directives";
-import { Column, Row } from "../design";
+import { Column, OverflowingText, Row } from "../design";
 
 interface Props {
   state: Accessor<AutoCompleteState>;
@@ -32,7 +32,7 @@ export function AutoComplete(props: Props) {
   );
 }
 
-const Shortcode = styled.div`
+const Shortcode = styled(OverflowingText)`
   font-size: 0.9em;
   color: ${(props) => props.theme!.colours["foreground-200"]};
 `;
@@ -40,6 +40,7 @@ const Shortcode = styled.div`
 const Base = styled(Column)`
   --emoji-size: 1.4em;
 
+  width: 340px;
   padding: ${(props) => props.theme!.gap.md};
   border-radius: ${(props) => props.theme!.borderRadius.md};
   background: ${(props) => props.theme!.colours["background-100"]};

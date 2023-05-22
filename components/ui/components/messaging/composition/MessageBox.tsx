@@ -1,5 +1,5 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Show, Switch } from "solid-js";
+import { JSX, Match, Show, Switch, untrack } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
@@ -69,7 +69,7 @@ const Base = styled("div", "MessageBox")`
 /**
  * Input area
  */
-const Input = styled("textarea")`
+const Input = styled.div`
   border: none;
   resize: none;
   outline: none;
@@ -102,8 +102,8 @@ export function MessageBox(props: Props) {
    * Handle changes to input
    * @param event Event
    */
-  function onInput(event: InputEvent & { currentTarget: HTMLTextAreaElement }) {
-    props.setContent(event.currentTarget!.value);
+  function onInput(event: InputEvent & { currentTarget: HTMLDivElement }) {
+    props.setContent(event.currentTarget!.innerText.trim());
   }
 
   return (
@@ -120,13 +120,17 @@ export function MessageBox(props: Props) {
       <Switch
         fallback={
           <Input
-            ref={props.ref}
-            onKeyDown={props.onKeyDown}
-            value={props.content}
-            placeholder={props.placeholder}
+            // ref={props.ref}
+            // onKeyDown={props.onKeyDown}
+            // value={props.content}
+            // placeholder={props.placeholder}
+            role="textbox"
+            contentEditable={true}
             onInput={onInput}
             use:autoComplete
-          />
+          >
+            {untrack(() => props.content)}
+          </Input>
         }
       >
         <Match when={!props.sendingAllowed}>

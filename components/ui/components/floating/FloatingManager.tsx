@@ -72,7 +72,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
       case "contextMenu":
         return "right-start";
       case "autoComplete":
-        return "top";
+        return "top-start";
     }
   };
 
