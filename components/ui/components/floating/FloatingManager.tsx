@@ -15,6 +15,7 @@ import { Motion, Presence } from "@motionone/solid";
 
 import { FloatingElement, floatingElements } from "../../directives";
 
+import { AutoComplete } from "./AutoComplete";
 import { TooltipBase } from "./Tooltip";
 import { UserCard } from "./UserCard";
 
@@ -70,6 +71,8 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
         return "right-start";
       case "contextMenu":
         return "right-start";
+      case "autoComplete":
+        return "top";
     }
   };
 
@@ -106,7 +109,10 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
   const position = useFloating(element, floating, {
     placement: placement(),
     middleware: [offset(5), flip(), shift()],
-    whileElementsMounted: props.show() === "tooltip" ? autoUpdate : undefined,
+    whileElementsMounted:
+      props.show() === "tooltip" || props.show() === "autoComplete"
+        ? autoUpdate
+        : undefined,
   });
 
   /**
@@ -164,6 +170,9 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
           </Match>
           <Match when={props.show() === "contextMenu"}>
             {props.config.contextMenu!({})}
+          </Match>
+          <Match when={props.show() === "autoComplete"}>
+            <AutoComplete state={props.config.autoComplete!} />
           </Match>
         </Switch>
       </div>

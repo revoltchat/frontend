@@ -4,8 +4,11 @@ import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
 
+import { autoComplete } from "../../../directives";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
 import { InlineIcon, Row } from "../../design/layout";
+
+autoComplete;
 
 interface Props {
   /**
@@ -122,6 +125,7 @@ export function MessageBox(props: Props) {
             value={props.content}
             placeholder={props.placeholder}
             onInput={onInput}
+            use:autoComplete
           />
         }
       >

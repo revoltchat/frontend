@@ -16,6 +16,24 @@ const [floatingElements, setFloatingElements] = createSignal<FloatingElement[]>(
 export { floatingElements };
 
 /**
+ * Register a new floating element
+ * @param element element
+ */
+export function registerFloatingElement(element: FloatingElement) {
+  setFloatingElements((elements) => [...elements, element]);
+}
+
+/**
+ * Un register floating element
+ * @param element DOM Element
+ */
+export function unregisterFloatingElement(element: HTMLElement) {
+  setFloatingElements((elements) =>
+    elements.filter((entry) => entry.element !== element)
+  );
+}
+
+/**
  * Add floating elements
  * @param element Element
  * @param accessor Parameters
@@ -24,20 +42,17 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
   const config = accessor();
   const [show, setShow] = createSignal<keyof Props | undefined>();
 
-  setFloatingElements((elements) => [
-    ...elements,
-    {
-      config,
-      element,
-      show,
-      /**
-       * Hide the element
-       */
-      hide() {
-        setShow(undefined);
-      },
+  registerFloatingElement({
+    config,
+    element,
+    show,
+    /**
+     * Hide the element
+     */
+    hide() {
+      setShow(undefined);
     },
-  ]);
+  });
 
   /**
    * Trigger a floating element
@@ -132,9 +147,7 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
   }
 
   onCleanup(() => {
-    setFloatingElements((elements) =>
-      elements.filter((entry) => entry.element !== element)
-    );
+    unregisterFloatingElement(element);
 
     if (config.userCard) {
       element.removeEventListener("click", onClick);
