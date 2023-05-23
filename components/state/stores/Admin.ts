@@ -164,7 +164,11 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
 
       client.api
         .get(`/safety/snapshot/${report_id as ""}`)
-        .then((snapshot) => this.cacheSnapshot(snapshot));
+        .then((snapshots) =>
+          (snapshots as never as API.SnapshotWithContext[]).forEach(
+            (snapshot) => this.cacheSnapshot(snapshot)
+          )
+        );
     }
   }
 
