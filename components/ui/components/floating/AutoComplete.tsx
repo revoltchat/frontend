@@ -1,10 +1,12 @@
-import { For, JSX, Match, Switch } from "solid-js";
+import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { ServerMember } from "revolt.js";
 
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
 
 import { AutoCompleteState } from "../../directives";
-import { Column, Row } from "../design";
+import { Avatar, Column, Row } from "../design";
 
 /**
  * Auto complete popup
@@ -14,31 +16,75 @@ export function AutoComplete(
 ) {
   return (
     <Base>
-      <For
-        each={
-          (props.state() as AutoCompleteState & { matched: "emoji" }).matches
-        }
-      >
-        {(match, index) => (
-          <Entry align selected={index() === props.selection()}>
-            <Switch
-              fallback={
-                <>
-                  <UnicodeEmoji
-                    emoji={(match as { codepoint: string }).codepoint}
-                  />{" "}
-                  <Name>:{match.shortcode}:</Name>
-                </>
-              }
-            >
-              <Match when={match.type === "custom"}>
-                <CustomEmoji id={(match as { id: string }).id} />{" "}
-                <Name>:{match.shortcode}:</Name>
-              </Match>
-            </Switch>
-          </Entry>
-        )}
-      </For>
+      <Switch>
+        <Match when={props.state().matched === "emoji"}>
+          <For
+            each={
+              (props.state() as AutoCompleteState & { matched: "emoji" })
+                .matches
+            }
+          >
+            {(match, index) => (
+              <Entry align selected={index() === props.selection()}>
+                <Switch
+                  fallback={
+                    <>
+                      <UnicodeEmoji
+                        emoji={(match as { codepoint: string }).codepoint}
+                      />{" "}
+                      <Name>:{match.shortcode}:</Name>
+                    </>
+                  }
+                >
+                  <Match when={match.type === "custom"}>
+                    <CustomEmoji id={(match as { id: string }).id} />{" "}
+                    <Name>:{match.shortcode}:</Name>
+                  </Match>
+                </Switch>
+              </Entry>
+            )}
+          </For>
+        </Match>
+        <Match when={props.state().matched === "user"}>
+          <For
+            each={
+              (
+                props.state() as AutoCompleteState & {
+                  matched: "user";
+                }
+              ).matches
+            }
+          >
+            {(match, index) => (
+              <Entry align selected={index() === props.selection()}>
+                <Avatar src={match.user.animatedAvatarURL} size={24} />{" "}
+                <Name>{match.user.username}</Name>
+                {match.user instanceof ServerMember &&
+                  match.user.username !== match.user.user?.username && (
+                    <> @{match.user.user?.username}</>
+                  )}
+              </Entry>
+            )}
+          </For>
+        </Match>
+        <Match when={props.state().matched === "channel"}>
+          <For
+            each={
+              (
+                props.state() as AutoCompleteState & {
+                  matched: "channel";
+                }
+              ).matches
+            }
+          >
+            {(match, index) => (
+              <Entry align selected={index() === props.selection()}>
+                <Name>#{match.channel.name}</Name>
+              </Entry>
+            )}
+          </For>
+        </Match>
+      </Switch>
     </Base>
   );
 }

@@ -4,7 +4,7 @@ import { useTheme } from "solid-styled-components";
 import { DirectiveProvider } from "solid-styled-components";
 
 import { Placement } from "@floating-ui/dom";
-import { Client, ServerMember, User } from "revolt.js";
+import { Channel, Client, ServerMember, User } from "revolt.js";
 
 import {
   AutoCompleteState,
@@ -146,6 +146,11 @@ declare module "solid-js" {
             onKeyDown?: (
               event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
             ) => void;
+            searchSpace?: {
+              users?: User[];
+              members?: ServerMember[];
+              channels?: Channel[];
+            };
           };
     }
   }

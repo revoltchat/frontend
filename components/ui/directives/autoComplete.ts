@@ -1,6 +1,6 @@
 import { Accessor, JSX, createSignal, onCleanup } from "solid-js";
 
-import { Client } from "revolt.js";
+import { Channel, Client, ServerMember, User } from "revolt.js";
 
 import emojiMapping from "../emojiMapping.json";
 
@@ -15,20 +15,37 @@ export type AutoCompleteState =
   | {
       matched: "none";
     }
-  | {
-      matched: "emoji";
+  | ({
       length: number;
-      matches: ((
-        | {
-            type: "unicode";
-            codepoint: string;
-          }
-        | {
-            type: "custom";
-            id: string;
-          }
-      ) & { replacement: string; shortcode: string })[];
-    };
+    } & (
+      | {
+          matched: "emoji";
+          matches: ((
+            | {
+                type: "unicode";
+                codepoint: string;
+              }
+            | {
+                type: "custom";
+                id: string;
+              }
+          ) & { replacement: string; shortcode: string })[];
+        }
+      | {
+          matched: "user";
+          matches: {
+            user: User | ServerMember;
+            replacement: string;
+          }[];
+        }
+      | {
+          matched: "channel";
+          matches: {
+            channel: Channel;
+            replacement: string;
+          }[];
+        }
+    ));
 
 /**
  * Configure auto complete for an input
@@ -50,7 +67,9 @@ export function autoComplete(
    * @param index Entry
    */
   function select(index: number) {
-    const info = state() as AutoCompleteState & { matched: "emoji" };
+    const info = state() as AutoCompleteState & {
+      matched: "emoji" | "user" | "member";
+    };
     const currentPosition = element.selectionStart;
     if (!currentPosition) return;
 
@@ -165,15 +184,8 @@ export function autoComplete(
         )[0];
 
       if (current) {
-        const value = config();
-
         setSelection(0);
-        setState(
-          searchMatches(
-            ...current,
-            typeof value === "object" ? value.client : undefined
-          )
-        );
+        setState(searchMatches(...current, config()));
         return;
       }
     }
@@ -215,15 +227,15 @@ export function autoComplete(
 function searchMatches(
   operator: Operator,
   query: string,
-  client?: Client
+  config: JSX.Directives["autoComplete"]
 ): AutoCompleteState {
   if (operator === ":") {
     const matches: string[] = [];
 
-    if (client) {
+    if (typeof config === "object" && config.client) {
       const searchSpace = [
         ...MAPPED_EMOJI_KEYS,
-        ...client.emojis.toList(),
+        ...config.client.emojis.toList(),
       ].sort((a, b) => a.name.localeCompare(b.name));
 
       let i = 0;
@@ -259,7 +271,8 @@ function searchMatches(
           ? {
               type: "custom",
               id,
-              shortcode: client?.emojis.get(id)?.name ?? "",
+              shortcode: (config as { client: Client }).client!.emojis.get(id)!
+                .name,
               replacement: ":" + id + ":",
             }
           : {
@@ -270,6 +283,71 @@ function searchMatches(
             }
       ),
     };
+  }
+
+  if (typeof config === "object" && config.client) {
+    if (operator === "@") {
+      const matches: (User | ServerMember)[] = [];
+      const searchSpace = (
+        config.searchSpace?.members ??
+        config.searchSpace?.users ??
+        config.client.users.toList()
+      ).sort((a, b) => a.username!.localeCompare(b.username!));
+
+      let i = 0;
+      while (matches.length < 10 && i < searchSpace.length) {
+        const user = searchSpace[i];
+        if (
+          user.username?.toLowerCase().includes(query) ||
+          (user instanceof ServerMember &&
+            user.user?.username.toLowerCase().includes(query))
+        ) {
+          matches.push(searchSpace[i]);
+        }
+
+        i++;
+      }
+
+      if (matches.length) {
+        return {
+          matched: "user",
+          length: query.length + 1,
+          matches: matches.map((user) => ({
+            user,
+            replacement: user.toString(),
+          })),
+        };
+      }
+    }
+
+    if (operator === "#") {
+      const matches: Channel[] = [];
+      const searchSpace = (
+        config.searchSpace?.channels ?? config.client.channels.toList()
+      )
+        .filter((channel) => channel.name)
+        .sort((a, b) => a.name!.localeCompare(b.name!));
+
+      let i = 0;
+      while (matches.length < 10 && i < searchSpace.length) {
+        if (searchSpace[i].name!.toLowerCase().includes(query)) {
+          matches.push(searchSpace[i]);
+        }
+
+        i++;
+      }
+
+      if (matches.length) {
+        return {
+          matched: "channel",
+          length: query.length + 1,
+          matches: matches.map((channel) => ({
+            channel,
+            replacement: channel.toString(),
+          })),
+        };
+      }
+    }
   }
 
   return {

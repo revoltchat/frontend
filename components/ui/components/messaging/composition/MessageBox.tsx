@@ -57,9 +57,9 @@ interface Props {
   sendingAllowed: boolean;
 
   /**
-   * Client
+   * Auto complete config
    */
-  client: Client;
+  autoCompleteConfig?: JSX.Directives["autoComplete"];
 }
 
 /**
@@ -131,10 +131,7 @@ export function MessageBox(props: Props) {
             value={props.content}
             placeholder={props.placeholder}
             onInput={onInput}
-            use:autoComplete={{
-              client: props.client,
-              onKeyDown: props.onKeyDown,
-            }}
+            use:autoComplete={props.autoCompleteConfig ?? true}
           />
         }
       >

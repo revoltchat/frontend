@@ -424,7 +424,6 @@ export function MessageComposition(props: Props) {
       </For>
       <MessageBox
         ref={ref}
-        client={client()}
         content={draft()?.content ?? ""}
         setContent={setContent}
         onKeyDown={onKeyDownMessageBox}
@@ -489,6 +488,19 @@ export function MessageComposition(props: Props) {
               })
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
+        autoCompleteConfig={{
+          client: client(),
+          searchSpace: props.channel.server
+            ? {
+                members: client().serverMembers.filter(
+                  (member) => member.id.server === props.channel.serverId
+                ),
+                channels: props.channel.server.channels,
+              }
+            : props.channel.type === "Group"
+            ? { users: props.channel.recipients, channels: [] }
+            : { channels: [] },
+        }}
       />
       <FilePasteCollector onFiles={onFiles} />
       <FileDropAnywhereCollector onFiles={onFiles} />
