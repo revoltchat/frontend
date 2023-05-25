@@ -426,7 +426,6 @@ export function MessageComposition(props: Props) {
         ref={ref}
         content={draft()?.content ?? ""}
         setContent={setContent}
-        onKeyDown={onKeyDownMessageBox}
         actionsStart={
           <Switch fallback={<InlineIcon size="short" />}>
             <Match
@@ -489,6 +488,7 @@ export function MessageComposition(props: Props) {
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
         autoCompleteConfig={{
+          onKeyDown: onKeyDownMessageBox,
           client: client(),
           searchSpace: props.channel.server
             ? {
