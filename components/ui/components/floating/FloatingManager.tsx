@@ -72,7 +72,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
       case "contextMenu":
         return "right-start";
       case "autoComplete":
-        return "top";
+        return "top-start";
     }
   };
 
@@ -172,7 +172,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
             {props.config.contextMenu!({})}
           </Match>
           <Match when={props.show() === "autoComplete"}>
-            <AutoComplete state={props.config.autoComplete!} />
+            <AutoComplete {...props.config.autoComplete!} />
           </Match>
         </Switch>
       </div>

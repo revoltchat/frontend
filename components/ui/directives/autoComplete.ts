@@ -1,4 +1,4 @@
-import { createSignal, onCleanup } from "solid-js";
+import { Accessor, JSX, createSignal, onCleanup } from "solid-js";
 
 import emojiMapping from "../emojiMapping.json";
 
@@ -14,28 +14,69 @@ export type AutoCompleteState =
     }
   | {
       matched: "emoji";
+      length: number;
       matches: {
         type: "unicode";
         shortcode: string;
         codepoint: string;
+        replacement: string;
       }[];
     };
 
 /**
  * Configure auto complete for an input
  * @param element Input element
+ * @param configuration Configuration
  */
-export function autoComplete(element: HTMLInputElement) {
+export function autoComplete(
+  element: HTMLInputElement,
+  config: Accessor<JSX.Directives["autoComplete"]>
+) {
   const [state, setState] = createSignal<AutoCompleteState>({
     matched: "none",
   });
+
+  const [selection, setSelection] = createSignal(0);
+
+  /**
+   * Select a given auto complete entry
+   * @param index Entry
+   */
+  function select(index: number) {
+    const info = state() as AutoCompleteState & { matched: "emoji" };
+    const currentPosition = element.selectionStart;
+    if (!currentPosition) return;
+
+    const match = info.matches[index];
+    if (!match) return;
+
+    const replacement = match.replacement;
+    const originalValue = element.value;
+
+    element.value =
+      originalValue.slice(0, currentPosition - info.length) +
+      replacement +
+      originalValue.slice(currentPosition);
+
+    const newPosition = currentPosition - info.length + replacement.length;
+    element.setSelectionRange(newPosition, newPosition, "none");
+
+    // Bubble up this change to the rest of the application,
+    // we should do this directly through state in the future
+    // but for now this will do.
+    element.dispatchEvent(new Event("input", { bubbles: true }));
+  }
 
   // TODO: use a virtual element on the caret
   // THIS IS NOT POSSIBLE WITH HTML INPUT ELEMENT!
   registerFloatingElement({
     element,
     config: {
-      autoComplete: state,
+      autoComplete: {
+        state,
+        selection,
+        select,
+      },
     },
     show: () => (state().matched === "none" ? undefined : "autoComplete"),
     hide: () => void 0,
@@ -44,19 +85,53 @@ export function autoComplete(element: HTMLInputElement) {
   /**
    * Intercept selection
    */
-  function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter") {
-      event.preventDefault();
+  function onKeyDown(
+    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+  ) {
+    const current = state();
+    if (current.matched !== "none") {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        select(selection());
+        return;
+      }
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setSelection(
+          (prev) => (prev === 0 ? current.matches.length : prev) - 1
+        );
+        return;
+      }
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setSelection(
+          (prev) => (prev + 1 === current.matches.length ? -1 : prev) + 1
+        );
+        return;
+      }
     }
 
-    // compute changes
-    // console.info(element.value);
+    const value = config();
+    if (typeof value === "object") {
+      value.onKeyDown?.(event);
+    }
   }
 
   /**
    * Update state as input changes
    */
-  function onKeyUp() {
+  function onKeyUp(event: unknown) {
+    if (event instanceof KeyboardEvent) {
+      const current = state();
+      if (current.matched !== "none") {
+        if (["ArrowUp", "ArrowDown"].includes(event.key)) {
+          return;
+        }
+      }
+    }
+
     const cursor = element.selectionStart;
     if (cursor && cursor === element.selectionEnd) {
       const content = element.value.slice(0, cursor);
@@ -82,6 +157,7 @@ export function autoComplete(element: HTMLInputElement) {
         )[0];
 
       if (current) {
+        setSelection(0);
         setState(searchMatches(...current));
         return;
       }
@@ -93,14 +169,28 @@ export function autoComplete(element: HTMLInputElement) {
       });
   }
 
-  element.addEventListener("keydown", onKeyDown);
+  /**
+   * Hide if currently showing if input loses focus
+   */
+  function onBlur() {
+    if (state().matched !== "none")
+      setState({
+        matched: "none",
+      });
+  }
+
+  element.addEventListener("keydown", onKeyDown as never);
   element.addEventListener("keyup", onKeyUp);
+  element.addEventListener("focus", onKeyUp);
+  element.addEventListener("blur", onBlur);
 
   onCleanup(() => {
     unregisterFloatingElement(element);
 
-    element.addEventListener("keydown", onKeyDown);
-    element.addEventListener("keyup", onKeyUp);
+    element.removeEventListener("keydown", onKeyDown as never);
+    element.removeEventListener("keyup", onKeyUp);
+    element.removeEventListener("focus", onKeyUp);
+    element.removeEventListener("blur", onBlur);
   });
 }
 
@@ -120,12 +210,20 @@ function searchMatches(operator: Operator, query: string): AutoCompleteState {
       i++;
     }
 
+    if (!matches.length) {
+      return {
+        matched: "none",
+      };
+    }
+
     return {
       matched: "emoji",
+      length: query.length + 1,
       matches: matches.map((shortcode) => ({
         type: "unicode",
         shortcode,
         codepoint: emojiMapping[shortcode],
+        replacement: emojiMapping[shortcode],
       })),
     };
   }

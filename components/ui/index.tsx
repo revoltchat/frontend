@@ -133,9 +133,19 @@ declare module "solid-js" {
           member?: ServerMember;
         };
         contextMenu?: Component;
-        autoComplete?: Accessor<AutoCompleteState>;
+        autoComplete?: {
+          state: Accessor<AutoCompleteState>;
+          selection: Accessor<number>;
+          select: (index: number) => void;
+        };
       };
-      autoComplete: true;
+      autoComplete:
+        | true
+        | {
+            onKeyDown?: (
+              event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+            ) => void;
+          };
     }
   }
 }

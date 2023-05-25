@@ -121,11 +121,12 @@ export function MessageBox(props: Props) {
         fallback={
           <Input
             ref={props.ref}
-            onKeyDown={props.onKeyDown}
             value={props.content}
             placeholder={props.placeholder}
             onInput={onInput}
-            use:autoComplete
+            use:autoComplete={{
+              onKeyDown: props.onKeyDown,
+            }}
           />
         }
       >
