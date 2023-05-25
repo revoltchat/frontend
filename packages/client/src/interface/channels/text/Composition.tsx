@@ -424,6 +424,7 @@ export function MessageComposition(props: Props) {
       </For>
       <MessageBox
         ref={ref}
+        client={client()}
         content={draft()?.content ?? ""}
         setContent={setContent}
         onKeyDown={onKeyDownMessageBox}

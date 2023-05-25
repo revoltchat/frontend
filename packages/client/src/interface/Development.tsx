@@ -21,7 +21,7 @@ const SomeComponent = styled.div`
 export function DevelopmentPage() {
   function open() {
     modalController.push({
-      type: "edit_username",
+      type: "custom_status",
       client: clientController.getCurrentClient()!,
     });
   }

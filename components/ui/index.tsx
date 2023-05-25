@@ -4,7 +4,7 @@ import { useTheme } from "solid-styled-components";
 import { DirectiveProvider } from "solid-styled-components";
 
 import { Placement } from "@floating-ui/dom";
-import { ServerMember, User } from "revolt.js";
+import { Client, ServerMember, User } from "revolt.js";
 
 import {
   AutoCompleteState,
@@ -142,6 +142,7 @@ declare module "solid-js" {
       autoComplete:
         | true
         | {
+            client?: Client;
             onKeyDown?: (
               event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
             ) => void;

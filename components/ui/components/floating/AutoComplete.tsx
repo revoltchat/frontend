@@ -1,7 +1,7 @@
-import { For, JSX } from "solid-js";
+import { For, JSX, Match, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { UnicodeEmoji } from "@revolt/markdown/emoji";
+import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
 
 import { AutoCompleteState } from "../../directives";
 import { Column, Row } from "../design";
@@ -21,8 +21,21 @@ export function AutoComplete(
       >
         {(match, index) => (
           <Entry align selected={index() === props.selection()}>
-            <UnicodeEmoji emoji={match.codepoint} />{" "}
-            <Name>:{match.shortcode}:</Name>
+            <Switch
+              fallback={
+                <>
+                  <UnicodeEmoji
+                    emoji={(match as { codepoint: string }).codepoint}
+                  />{" "}
+                  <Name>:{match.shortcode}:</Name>
+                </>
+              }
+            >
+              <Match when={match.type === "custom"}>
+                <CustomEmoji id={(match as { id: string }).id} />{" "}
+                <Name>:{match.shortcode}:</Name>
+              </Match>
+            </Switch>
           </Entry>
         )}
       </For>

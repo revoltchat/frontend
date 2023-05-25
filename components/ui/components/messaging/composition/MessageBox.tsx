@@ -2,6 +2,8 @@ import { BiRegularBlock } from "solid-icons/bi";
 import { JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { Client } from "revolt.js";
+
 import { useTranslation } from "@revolt/i18n";
 
 import { autoComplete } from "../../../directives";
@@ -53,6 +55,11 @@ interface Props {
    * Whether sending messages is allowed
    */
   sendingAllowed: boolean;
+
+  /**
+   * Client
+   */
+  client: Client;
 }
 
 /**
@@ -125,6 +132,7 @@ export function MessageBox(props: Props) {
             placeholder={props.placeholder}
             onInput={onInput}
             use:autoComplete={{
+              client: props.client,
               onKeyDown: props.onKeyDown,
             }}
           />

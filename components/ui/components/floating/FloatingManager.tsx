@@ -152,6 +152,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
           position: position.strategy,
           top: `${position.y ?? 0}px`,
           left: `${position.x ?? 0}px`,
+          "z-index": 10000,
         }}
       >
         <Switch>

@@ -22,6 +22,7 @@ const CustomStatus: PropGenerator<"custom_status"> = (props) => {
     data: {
       text: {
         field: t("app.context_menu.custom_status"),
+        "use:autoComplete": true,
       },
     },
     callback: ({ text }) =>

@@ -1,10 +1,13 @@
 import { Accessor, JSX, createSignal, onCleanup } from "solid-js";
 
+import { Client } from "revolt.js";
+
 import emojiMapping from "../emojiMapping.json";
 
 import { registerFloatingElement, unregisterFloatingElement } from "./floating";
 
 const EMOJI_KEYS = Object.keys(emojiMapping).sort();
+const MAPPED_EMOJI_KEYS = EMOJI_KEYS.map((id) => ({ id, name: id }));
 
 type Operator = "@" | ":" | "#";
 
@@ -15,12 +18,16 @@ export type AutoCompleteState =
   | {
       matched: "emoji";
       length: number;
-      matches: {
-        type: "unicode";
-        shortcode: string;
-        codepoint: string;
-        replacement: string;
-      }[];
+      matches: ((
+        | {
+            type: "unicode";
+            codepoint: string;
+          }
+        | {
+            type: "custom";
+            id: string;
+          }
+      ) & { replacement: string; shortcode: string })[];
     };
 
 /**
@@ -56,9 +63,10 @@ export function autoComplete(
     element.value =
       originalValue.slice(0, currentPosition - info.length) +
       replacement +
+      " " +
       originalValue.slice(currentPosition);
 
-    const newPosition = currentPosition - info.length + replacement.length;
+    const newPosition = currentPosition - info.length + replacement.length + 1;
     element.setSelectionRange(newPosition, newPosition, "none");
 
     // Bubble up this change to the rest of the application,
@@ -157,8 +165,15 @@ export function autoComplete(
         )[0];
 
       if (current) {
+        const value = config();
+
         setSelection(0);
-        setState(searchMatches(...current));
+        setState(
+          searchMatches(
+            ...current,
+            typeof value === "object" ? value.client : undefined
+          )
+        );
         return;
       }
     }
@@ -197,17 +212,37 @@ export function autoComplete(
 /**
  * Search for matches given operator and query
  */
-function searchMatches(operator: Operator, query: string): AutoCompleteState {
+function searchMatches(
+  operator: Operator,
+  query: string,
+  client?: Client
+): AutoCompleteState {
   if (operator === ":") {
     const matches: string[] = [];
 
-    let i = 0;
-    while (matches.length < 10 && i < EMOJI_KEYS.length) {
-      if (EMOJI_KEYS[i].includes(query)) {
-        matches.push(EMOJI_KEYS[i]);
-      }
+    if (client) {
+      const searchSpace = [
+        ...MAPPED_EMOJI_KEYS,
+        ...client.emojis.toList(),
+      ].sort((a, b) => a.name.localeCompare(b.name));
 
-      i++;
+      let i = 0;
+      while (matches.length < 10 && i < searchSpace.length) {
+        if (searchSpace[i].name.includes(query)) {
+          matches.push(searchSpace[i].id);
+        }
+
+        i++;
+      }
+    } else {
+      let i = 0;
+      while (matches.length < 10 && i < EMOJI_KEYS.length) {
+        if (EMOJI_KEYS[i].includes(query)) {
+          matches.push(EMOJI_KEYS[i]);
+        }
+
+        i++;
+      }
     }
 
     if (!matches.length) {
@@ -219,12 +254,21 @@ function searchMatches(operator: Operator, query: string): AutoCompleteState {
     return {
       matched: "emoji",
       length: query.length + 1,
-      matches: matches.map((shortcode) => ({
-        type: "unicode",
-        shortcode,
-        codepoint: emojiMapping[shortcode],
-        replacement: emojiMapping[shortcode],
-      })),
+      matches: matches.map((id) =>
+        id.length === 26
+          ? {
+              type: "custom",
+              id,
+              shortcode: client?.emojis.get(id)?.name ?? "",
+              replacement: ":" + id + ":",
+            }
+          : {
+              type: "unicode",
+              shortcode: id,
+              codepoint: emojiMapping[id],
+              replacement: emojiMapping[id],
+            }
+      ),
     };
   }
 
