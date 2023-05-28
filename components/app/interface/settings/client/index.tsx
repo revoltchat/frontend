@@ -34,6 +34,7 @@ import bots from "./Bots";
 import experiments from "./Experiments";
 import feedback from "./Feedback";
 import language from "./Language";
+import logout from "./Logout";
 import native from "./Native";
 import notifications from "./Notifications";
 import sessions from "./Sessions";
@@ -196,6 +197,14 @@ const Config: SettingsConfiguration<{ server: Server }> = {
           {
             id: "logout",
             icon: <BiSolidExit size={20} color={theme!.colours.error} />,
+            href: "/login",
+            onClick: () => {
+              const acli = getController("state");
+              const cli = getController("client").getCurrentClient();
+              console.log(cli);
+              acli.auth.removeSession(cli?.user?.id as string);
+              window.location.href = "/login";
+            },
             title: (
               <ColouredText colour={theme!.colours.error}>
                 {t("app.settings.pages.logOut")}
@@ -227,4 +236,5 @@ const ClientSettingsRouting: Record<string, Component> = {
   sync,
   native,
   experiments,
+  logout,
 };
