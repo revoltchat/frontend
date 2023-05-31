@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch, createSignal } from "solid-js";
+import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
 import { API, Message as MessageI } from "revolt.js";
 
@@ -38,23 +38,22 @@ function MessageSnapshot(props: {
   );
 }
 
-function Snapshot(props: { id: string }) {
-  const snapshot = () => state.admin.getSnapshot(props.id)!;
+function Snapshot(props: { snapshot: API.SnapshotWithContext }) {
   const server = () =>
-    snapshot().content._type === "Server"
-      ? snapshot().content._id
-      : snapshot()._server?._id!;
+    props.snapshot.content._type === "Server"
+      ? props.snapshot.content._id
+      : props.snapshot._server?._id!;
   const user = () =>
-    snapshot().content._type === "User"
-      ? snapshot().content._id
+    props.snapshot.content._type === "User"
+      ? props.snapshot.content._id
       : (
-          snapshot().content as API.SnapshotContent & {
+          props.snapshot.content as API.SnapshotContent & {
             _type: "Message";
           }
         )?.author!;
   const channel = () =>
     (
-      snapshot().content as API.SnapshotContent & {
+      props.snapshot.content as API.SnapshotContent & {
         _type: "Message";
       }
     )?.channel;
@@ -67,7 +66,7 @@ function Snapshot(props: { id: string }) {
           <Column justify>
             <Typography variant="legacy-settings-description">
               <Switch fallback={"Server"}>
-                <Match when={snapshot().content._type === "Server"}>
+                <Match when={props.snapshot.content._type === "Server"}>
                   Reported Server
                 </Match>
               </Switch>
@@ -87,7 +86,7 @@ function Snapshot(props: { id: string }) {
           <Column justify>
             <Typography variant="legacy-settings-description">
               <Switch fallback={"Author"}>
-                <Match when={snapshot().content._type === "User"}>
+                <Match when={props.snapshot.content._type === "User"}>
                   Reported User
                 </Match>
               </Switch>
@@ -97,14 +96,14 @@ function Snapshot(props: { id: string }) {
         </Show>
       </Row>
       <Switch>
-        <Match when={snapshot().content._type === "Message"}>
+        <Match when={props.snapshot.content._type === "Message"}>
           <Typography variant="label">Content</Typography>
-          <MessageSnapshot content={snapshot().content as any} />
+          <MessageSnapshot content={props.snapshot.content as any} />
         </Match>
       </Switch>
       <Typography variant="label">JSON Dump</Typography>
-      <pre>
-        <code>{JSON.stringify(snapshot(), null, "\t")}</code>
+      <pre style={{ overflow: "scroll", height: "360px", width: "75vw" }}>
+        <code>{JSON.stringify(props.snapshot, null, "\t")}</code>
       </pre>
     </FixedColumn>
   );
@@ -112,11 +111,12 @@ function Snapshot(props: { id: string }) {
 
 export function Report() {
   const data = () => state.admin.getActiveTab<"report">()!;
-  const report = () => state.admin.getReport(data().id);
-  const snapshot = () => state.admin.getSnapshot(data().id)!;
+  const report = () => state.admin.getReport(data()?.id);
 
   const client = useClient();
   const [notes, setNotes] = createSignal<string>();
+
+  onMount(() => state.admin.fetchSnapshots(data()?.id));
 
   function status() {
     const value = report()!;
@@ -145,7 +145,7 @@ export function Report() {
 
   function ref() {
     let info = "<unknown object>";
-    const snapshot = state.admin.getSnapshot(report()!._id)!;
+    const snapshot = state.admin.getSnapshots(report()!._id)![0];
     switch (snapshot.content._type) {
       case "Message": {
         info = "@" + client().users.get(snapshot.content.author)?.username;
@@ -292,9 +292,9 @@ export function Report() {
           </Switch>
         </Show>
         <span style={{ color: "white" }}>
-          <Show when={snapshot()}>
-            <Snapshot id={data().id} />
-          </Show>
+          <For each={state.admin.getSnapshots(data().id)}>
+            {(snapshot) => <Snapshot snapshot={snapshot} />}
+          </For>
         </span>
       </Column>
     </Show>

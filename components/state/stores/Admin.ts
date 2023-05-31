@@ -48,7 +48,7 @@ export const DEFAULT_TAB_OFFSET_IDX = 2;
  */
 interface Cache {
   reports: Record<string, API.Report | false>;
-  snapshots: Record<string, API.SnapshotWithContext | false>;
+  snapshots: Record<string, API.SnapshotWithContext>;
 }
 
 /**
@@ -148,28 +148,31 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
   }
 
   /**
-   * Get snapshot by id
-   *
-   * Will be fetched in background if not yet available
-   * @param report_id Report id
+   * Get snapshot for report
+   * @param reportId Report ID
    */
-  getSnapshot(report_id: string) {
-    const snapshot = this.cache.snapshots[report_id];
-    if (snapshot) return snapshot;
+  getSnapshots(reportId: string) {
+    return Object.keys(this.cache.snapshots)
+      .map((id) => this.cache.snapshots[id])
+      .filter((snapshot) => snapshot.report_id === reportId);
+  }
 
-    if (typeof snapshot === "undefined") {
-      this.setCache("snapshots", report_id, false);
+  /**
+   * Fetch snapshots for a report
+   * @param reportId Report ID
+   */
+  fetchSnapshots(reportId: string) {
+    if (this.getSnapshots(reportId).length) return;
 
-      const client = getController("client").getCurrentClient()!;
+    const client = getController("client").getCurrentClient()!;
 
-      client.api
-        .get(`/safety/snapshot/${report_id as ""}`)
-        .then((snapshots) =>
-          (snapshots as never as API.SnapshotWithContext[]).forEach(
-            (snapshot) => this.cacheSnapshot(snapshot)
-          )
-        );
-    }
+    client.api
+      .get(`/safety/snapshot/${reportId as ""}`)
+      .then((snapshots) =>
+        (snapshots as never as API.SnapshotWithContext[]).forEach((snapshot) =>
+          this.cacheSnapshot(snapshot)
+        )
+      );
   }
 
   /**
@@ -269,7 +272,7 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
       ].forEach((msg) => client.messages.getOrCreate(msg._id, msg));
     }
 
-    this.setCache("snapshots", snapshot.report_id, snapshot);
+    this.setCache("snapshots", snapshot._id, snapshot);
   }
 
   /**
