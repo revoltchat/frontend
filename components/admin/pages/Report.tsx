@@ -146,7 +146,7 @@ export function Report() {
   function ref() {
     let info = "<unknown object>";
     const snapshot = state.admin.getSnapshots(report()!._id)![0];
-    switch (snapshot.content._type) {
+    switch (snapshot?.content._type) {
       case "Message": {
         info = "@" + client().users.get(snapshot.content.author)?.username;
         break;
