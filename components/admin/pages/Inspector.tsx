@@ -1,4 +1,4 @@
-import { Show, createEffect, createSignal, on } from "solid-js";
+import { For, Show, createEffect, createSignal, on } from "solid-js";
 import { Accessor } from "solid-js";
 
 import { API, User } from "revolt.js";
@@ -12,6 +12,7 @@ import {
   Button,
   Column,
   ComboBox,
+  FormGroup,
   Initials,
   Input,
   Row,
@@ -30,7 +31,11 @@ export const ChannelPreview = styled.div`
 `;
 
 function UserInfo(props: { user: Accessor<User | undefined> }) {
+  const client = useClient();
   const [profile, setProfile] = createSignal<API.UserProfile>();
+  const [strikes, setStrikes] = createSignal<API.AccountStrike[]>([]);
+
+  const [reason, setReason] = createSignal("");
 
   createEffect(
     on(
@@ -38,6 +43,10 @@ function UserInfo(props: { user: Accessor<User | undefined> }) {
       (user) => {
         if (user) {
           user.fetchProfile().then(setProfile);
+
+          client()
+            .api.get(`/safety/strikes/${user.id}` as any)
+            .then((strikes) => setStrikes(strikes as never));
         }
       }
     )
@@ -55,6 +64,55 @@ function UserInfo(props: { user: Accessor<User | undefined> }) {
     <Column>
       <Typography variant="label">Profile</Typography>
       <Markdown content={profile()?.content ?? "Description is empty"} />
+      <Typography variant="label">Strikes</Typography>
+      <Show when={!strikes().length}>No strikes.</Show>
+      <ol>
+        <For each={strikes()}>
+          {(strike) => (
+            <li>
+              {strike.reason}{" "}
+              <Button
+                onClick={() =>
+                  client()
+                    .api.delete(`/safety/strikes/${strike._id}`)
+                    .then(() =>
+                      setStrikes((strikes) =>
+                        strikes.filter((entry) => entry._id !== strike._id)
+                      )
+                    )
+                }
+              >
+                remove
+              </Button>
+            </li>
+          )}
+        </For>
+      </ol>
+      <FormGroup>
+        <Row align>
+          <Input
+            value={reason()}
+            onInput={(event) => setReason(event.currentTarget.value)}
+          />
+          <Button
+            disabled={!reason()}
+            onClick={() => {
+              client()
+                .api.post("/safety/strikes", {
+                  user_id: props.user()!.id,
+                  reason: reason(),
+                })
+                .then((strike) =>
+                  setStrikes((strikes) => [...strikes, strike])
+                );
+
+              setReason("");
+            }}
+          >
+            Create
+          </Button>
+        </Row>
+      </FormGroup>
       <Typography variant="label">Recent Messages</Typography>
       <MessageQuery query={query()} preview />
     </Column>
