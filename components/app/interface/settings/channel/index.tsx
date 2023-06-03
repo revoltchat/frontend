@@ -1,22 +1,19 @@
 import {
   BiRegularListUl,
-  BiSolidEnvelope,
-  BiSolidFlagAlt,
-  BiSolidGroup,
-  BiSolidHappyBeaming,
+  BiSolidCloud,
   BiSolidInfoCircle,
   BiSolidTrash,
-  BiSolidUserX,
 } from "solid-icons/bi";
 
-import { Channel, Server } from "revolt.js";
+import { Channel } from "revolt.js";
 
-import { useUser } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText, useTheme } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
+
+import Webhooks from "./Webhooks";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -36,6 +33,8 @@ const Config: SettingsConfiguration<Channel> = {
     const id = props.page();
 
     switch (id) {
+      case "webhooks":
+        return <Webhooks channel={channel} />;
       default:
         return null;
     }
@@ -63,6 +62,12 @@ const Config: SettingsConfiguration<Channel> = {
             id: "permissions",
             icon: <BiRegularListUl size={20} />,
             title: t("app.settings.channel_pages.permissions.title"),
+          },
+          {
+            hidden: !channel.havePermission("ManageWebhooks"),
+            id: "webhooks",
+            icon: <BiSolidCloud size={20} />,
+            title: t("app.settings.channel_pages.webhooks.title"),
           },
         ],
       },

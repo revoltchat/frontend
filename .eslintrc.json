@@ -17,7 +17,7 @@
         "strings": false,
         "identifiers": false,
         "templates": false,
-        "skipWords": ["dismissable", "regex", "accessor", "dnd"],
+        "skipWords": ["dismissable", "regex", "accessor", "dnd", "webhooks"],
         "minLength": 3
       }
     ],
