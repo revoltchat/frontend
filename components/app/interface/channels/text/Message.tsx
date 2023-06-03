@@ -1,6 +1,7 @@
 import {
   BiRegularLink,
   BiSolidBot,
+  BiSolidCloud,
   BiSolidLeaf,
   BiSolidShield,
 } from "solid-icons/bi";
@@ -150,6 +151,31 @@ export function Message(props: Props) {
         <Switch fallback={<div />}>
           <Match
             when={
+              props.message.masquerade &&
+              props.message.authorId === "01FHGJ3NPP7XANQQH8C2BE44ZY"
+            }
+          >
+            <Tooltip content={t("app.main.channel.bridged")} placement="top">
+              <BiRegularLink size={16} />
+            </Tooltip>
+          </Match>
+          <Match when={props.message.author?.privileged}>
+            <Tooltip content={t("app.main.channel.team")} placement="top">
+              <BiSolidShield size={16} />
+            </Tooltip>
+          </Match>
+          <Match when={props.message.author?.bot}>
+            <Tooltip content={t("app.main.channel.bot")} placement="top">
+              <BiSolidBot size={16} />
+            </Tooltip>
+          </Match>
+          <Match when={props.message.webhook}>
+            <Tooltip content={t("app.main.channel.webhook")} placement="top">
+              <BiSolidCloud size={16} />
+            </Tooltip>
+          </Match>
+          <Match
+            when={
               props.message.authorId &&
               dayjs().diff(decodeTime(props.message.authorId), "day") < 1
             }
@@ -171,26 +197,6 @@ export function Message(props: Props) {
                 <BiSolidLeaf size={16} />
               </Tooltip>
             </NewUser>
-          </Match>
-          <Match
-            when={
-              props.message.masquerade &&
-              props.message.authorId === "01FHGJ3NPP7XANQQH8C2BE44ZY"
-            }
-          >
-            <Tooltip content={t("app.main.channel.bridged")} placement="top">
-              <BiRegularLink size={16} />
-            </Tooltip>
-          </Match>
-          <Match when={props.message.author?.privileged}>
-            <Tooltip content={t("app.main.channel.team")} placement="top">
-              <BiSolidShield size={16} />
-            </Tooltip>
-          </Match>
-          <Match when={props.message.author?.bot}>
-            <Tooltip content={t("app.main.channel.bot")} placement="top">
-              <BiSolidBot size={16} />
-            </Tooltip>
           </Match>
           <Match when={props.message.authorId === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}>
             <span />
