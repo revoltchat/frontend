@@ -30,7 +30,7 @@ export function CategoryCollapse(props: Props) {
           {props.title}
         </CategoryButton>
       </Summary>
-      <Column gap="xxs">{props.children}</Column>
+      <Column gap="xs">{props.children}</Column>
     </Details>
   );
 }
@@ -39,10 +39,17 @@ export function CategoryCollapse(props: Props) {
  * Parent base component
  */
 const Details = styled.details`
+  /* rotate chevron when it is open */
   &[open] summary svg:last-child {
     transform: rotate(180deg);
   }
 
+  /* add additional padding between top button and children when it is open */
+  &[open] summary {
+    margin-bottom: ${(props) => props.theme!.gap.xs};
+  }
+
+  /* hide the default details component marker */
   summary {
     list-style: none;
   }
@@ -52,11 +59,13 @@ const Details = styled.details`
     display: none;
   }
 
+  /* remove bottom padding when open */
   &[open] > summary .CategoryButton {
     border-end-end-radius: 0;
     border-end-start-radius: 0;
   }
 
+  /* connect elements vertically */
   > :not(summary) .CategoryButton {
     border-start-start-radius: 0;
     border-start-end-radius: 0;
@@ -77,8 +86,6 @@ const Details = styled.details`
  * Top button wrapper
  */
 const Summary = styled.summary`
-  margin-bottom: ${(props) => props.theme!.gap.xxs};
-
   > * {
     outline-width: 0;
     outline-style: solid;

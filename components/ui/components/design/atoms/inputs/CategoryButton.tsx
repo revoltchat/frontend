@@ -46,16 +46,19 @@ export function CategoryButton(props: Props) {
         {(action) => (
           <Switch fallback={action}>
             <Match when={action === "chevron"}>
-              <BiSolidChevronRight size={24} />
+              <Action>
+                <BiSolidChevronRight size={20} />
+              </Action>
             </Match>
             <Match when={action === "collapse"}>
-              <BiSolidChevronDown size={24} />
-            </Match>
-            <Match when={action === "edit"}>
-              <BiSolidPencil size={20} />
+              <Action>
+                <BiSolidChevronDown size={20} />
+              </Action>
             </Match>
             <Match when={action === "external"}>
-              <BiRegularLinkExternal size={20} />
+              <Action>
+                <BiRegularLinkExternal size={20} />
+              </Action>
             </Match>
           </Switch>
         )}
@@ -76,10 +79,10 @@ const Blank = styled.div`
  */
 const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
   gap: 12px;
-  padding: 10px 12px;
+  padding: 14px 16px;
 
   color: ${(props) => props.theme!.colours["foreground"]};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
+  border-radius: ${(props) => props.theme!.borderRadius.xl};
   background: ${(props) => props.theme!.colours["background-300"]};
 
   user-select: none;
@@ -123,4 +126,17 @@ const Description = styled.span`
   a:hover {
     text-decoration: underline;
   }
+`;
+
+/**
+ * Container for action icons
+ */
+const Action = styled.div`
+  width: 24px;
+  height: 24px;
+  background: ${(props) => props.theme!.colours["accent"]};
+  border-radius: ${(props) => props.theme!.borderRadius.full};
+
+  display: grid;
+  place-items: center;
 `;

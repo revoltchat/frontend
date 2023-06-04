@@ -40,6 +40,8 @@ export const darkTheme: DefaultTheme = {
     sm: "2px",
     md: "6px",
     lg: "12px",
+    xl: "16px",
+    xxl: "28px",
     full: "100%",
   },
   gap: {

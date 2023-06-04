@@ -18,6 +18,7 @@ import { useTranslation } from "@revolt/i18n";
 import {
   Avatar,
   CategoryButton,
+  CategoryButtonGroup,
   CategoryCollapse,
   Column,
   Disabled,
@@ -152,9 +153,9 @@ export default function MyAccount() {
         </Column>
       </Row>
 
-      <Column>
+      <CategoryButtonGroup>
         <CategoryButton
-          action="edit"
+          action="chevron"
           onClick={() =>
             getController("modal").push({
               type: "edit_username",
@@ -167,7 +168,7 @@ export default function MyAccount() {
           <Typography variant="label">{t("login.username")}</Typography>
         </CategoryButton>
         <CategoryButton
-          action="edit"
+          action="chevron"
           onClick={() =>
             getController("modal").push({
               type: "edit_email",
@@ -194,7 +195,7 @@ export default function MyAccount() {
           <Typography variant="label">{t("login.email")}</Typography>
         </CategoryButton>
         <CategoryButton
-          action="edit"
+          action="chevron"
           onClick={() =>
             getController("modal").push({
               type: "edit_password",
@@ -206,13 +207,10 @@ export default function MyAccount() {
         >
           <Typography variant="label">{t("login.password")}</Typography>
         </CategoryButton>
-      </Column>
+      </CategoryButtonGroup>
 
       <Disabled enabled={!!mfaHelper()}>
-        <Column>
-          <Typography variant="label">
-            {t("app.settings.pages.account.2fa.title")}
-          </Typography>
+        <CategoryButtonGroup>
           <CategoryCollapse
             icon={<BiSolidShield size={24} />}
             title="Recovery Codes"
@@ -274,14 +272,11 @@ export default function MyAccount() {
               </Match>
             </Switch>
           </CategoryCollapse>
-        </Column>
+        </CategoryButtonGroup>
       </Disabled>
 
       <Disabled enabled={!!mfaHelper()}>
-        <Column>
-          <Typography variant="label">
-            {t("app.settings.pages.account.manage.title")}
-          </Typography>
+        <CategoryButtonGroup>
           <CategoryButton
             action="chevron"
             onClick={disableAccount}
@@ -298,7 +293,7 @@ export default function MyAccount() {
           >
             {t("app.settings.pages.account.manage.delete")}
           </CategoryButton>
-        </Column>
+        </CategoryButtonGroup>
       </Disabled>
     </Column>
   );

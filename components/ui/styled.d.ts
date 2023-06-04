@@ -32,7 +32,7 @@ declare module "solid-styled-components" {
       [key in "sm" | "md" | "lg" | "xl"]: string;
     };
     borderRadius: {
-      [key in "sm" | "md" | "lg" | "full"]: string;
+      [key in "sm" | "md" | "lg" | "xl" | "xxl" | "full"]: string;
     };
     gap: {
       [key in
