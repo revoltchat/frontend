@@ -1,4 +1,4 @@
-import { BiSolidCloud } from "solid-icons/bi";
+import { BiSolidCloud, BiSolidTrash } from "solid-icons/bi";
 import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
 import { ChannelWebhook } from "revolt.js/src/classes/ChannelWebhook";
@@ -69,6 +69,23 @@ export default function Webhooks(props: ChannelSettingsProps) {
           </Switch>
         </Column>
       </Show>
+    </Column>
+  );
+}
+
+/**
+ * Webhook
+ */
+export function Webhook(props: { webhook: ChannelWebhook }) {
+  return (
+    <Column gap="xl">
+      <CategoryButton
+        action="chevron"
+        icon={<BiSolidTrash size={24} />}
+        onClick={() => void 0}
+      >
+        Delete
+      </CategoryButton>
     </Column>
   );
 }
