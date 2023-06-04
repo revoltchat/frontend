@@ -34,7 +34,7 @@ const Base = styled("div")`
   display: flex;
   flex-direction: column;
 
-  background: ${({ theme }) => theme!.colours["background-200"]};
+  background: ${({ theme }) => theme!.colours.please_set_me};
 `;
 
 /**

@@ -1,31 +1,111 @@
 import { DefaultTheme } from "solid-styled-components";
 
-export const darkTheme: DefaultTheme = {
-  colours: {
-    accent: "#FD6671",
-    foreground: "#FFF",
-    "foreground-100": "#EEE",
-    "foreground-200": "#CCC",
-    "foreground-300": "#AAA",
-    "foreground-400": "#848484",
-    background: "#191919",
-    "background-100": "#1E1E1E",
-    "background-200": "#242424",
-    "background-300": "#363636",
-    "background-400": "#4D4D4D",
-    success: "#65E572",
-    "success-100": "#3f9247",
-    "success-200": "#3b483b",
-    warning: "#FAA352",
-    error: "#ED4245",
-    "error-200": "#483b3b",
-    "status-online": "#3ABF7E",
-    "status-idle": "#F39F00",
-    "status-focus": "#4799F0",
-    "status-busy": "#F84848",
-    "status-streaming": "#977EFF",
-    "status-invisible": "#A5A5A5",
+import {
+  ColorGroup,
+  CustomColorGroup,
+  Hct,
+  Scheme,
+  TonalPalette,
+  argbFromHex,
+  hexFromArgb,
+  themeFromSourceColor,
+} from "@material/material-color-utilities";
+
+// const hex = '#d59ff5';
+// const hex = "#FF7F50";
+const hex = "#8C5FD3";
+const darkMode = false;
+const theme = themeFromSourceColor(argbFromHex(hex), [
+  {
+    name: "status-online",
+    value: argbFromHex("#3ABF7E"),
+    blend: true,
   },
+  {
+    name: "status-idle",
+    value: argbFromHex("#F39F00"),
+    blend: true,
+  },
+  {
+    name: "status-focus",
+    value: argbFromHex("#4799F0"),
+    blend: true,
+  },
+  {
+    name: "status-busy",
+    value: argbFromHex("#F84848"),
+    blend: true,
+  },
+  {
+    name: "status-invisible",
+    value: argbFromHex("#A5A5A5"),
+    blend: true,
+  },
+]);
+
+const customColours = {} as Record<
+  `status-${"online" | "idle" | "focus" | "busy" | "streaming" | "invisible"}`,
+  Record<keyof ColorGroup, string>
+>;
+
+for (const c of theme.customColors) {
+  const output: Record<string, string> = {};
+  const source = c[darkMode ? "dark" : "light"] as unknown as Record<
+    string,
+    number
+  >;
+
+  Object.keys(source).forEach(
+    (key) => (output[key] = hexFromArgb(source[key]))
+  );
+
+  (customColours as Record<string, Record<keyof ColorGroup, string>>)[
+    c.color.name
+  ] = output as Record<keyof ColorGroup, string>;
+}
+
+/**
+ * Convert a scheme to usable hex colours
+ * @param scheme Scheme
+ * @returns Hex Scheme
+ */
+function schemeToHex(scheme: Scheme) {
+  const hexScheme = {} as Record<keyof Scheme, string>;
+  const toneScheme = {} as Record<keyof Scheme, TonalPalette>;
+
+  (
+    Object.keys(
+      Object.getOwnPropertyDescriptors(Object.getPrototypeOf(scheme))
+    ) as (keyof Scheme)[]
+  )
+    .filter((key) => typeof scheme[key] === "number")
+    .forEach((key) => {
+      const colour = Hct.fromInt(scheme[key] as number);
+      hexScheme[key] = hexFromArgb(colour.toInt());
+      toneScheme[key] = TonalPalette.fromInt(colour.toInt());
+    });
+
+  return {
+    scheme: hexScheme,
+    tones: toneScheme,
+  };
+}
+
+export const darkTheme: DefaultTheme = {
+  /**
+   * Colour time
+   * todo
+   */
+  colour(base: keyof Scheme, tone?: number): string {
+    return tone
+      ? hexFromArgb(
+          darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
+        )
+      : darkTheme.scheme[base];
+  },
+  ...schemeToHex(theme.schemes[darkMode ? "dark" : "light"]),
+  customColours,
+  colours: {},
   rgb: {
     header: "54,54,54",
     "typing-indicator": "30,30,30",
@@ -94,7 +174,6 @@ export const darkTheme: DefaultTheme = {
     "channel-topic": {
       fontWeight: 400,
       fontSize: "0.8em",
-      colour: "foreground-100",
     },
     // Messaging specific
     messages: {
@@ -103,7 +182,6 @@ export const darkTheme: DefaultTheme = {
     },
     reply: {
       fontSize: "0.8rem",
-      colour: "foreground-100",
     },
     "composition-file-upload-name": {
       fontSize: "0.8em",
@@ -162,14 +240,12 @@ export const darkTheme: DefaultTheme = {
       margin: 0,
       fontWeight: 700,
       fontSize: "0.75rem",
-      colour: "foreground-100",
     },
     "legacy-modal-title-2": {
       element: "h4",
       margin: 0,
       fontWeight: 500,
       fontSize: "0.8125rem",
-      colour: "foreground-100",
     },
     "legacy-settings-description": {
       element: "span",
@@ -214,3 +290,5 @@ export const darkTheme: DefaultTheme = {
     },
   },
 };
+
+console.info(darkTheme);

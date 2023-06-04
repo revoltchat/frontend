@@ -280,7 +280,7 @@ export default function MyAccount() {
           <CategoryButton
             action="chevron"
             onClick={disableAccount}
-            icon={<BiRegularBlock size={24} color={theme.colours.error} />}
+            icon={<BiRegularBlock size={24} color={theme.scheme.error} />}
             description="Disable your account. You won't be able to access it unless you contact support."
           >
             {t("app.settings.pages.account.manage.disable")}
@@ -288,7 +288,7 @@ export default function MyAccount() {
           <CategoryButton
             action="chevron"
             onClick={deleteAccount}
-            icon={<BiSolidTrash size={24} color={theme.colours.error} />}
+            icon={<BiSolidTrash size={24} color={theme.scheme.error} />}
             description="Your account will be queued for deletion, a confirmation email will be sent."
           >
             {t("app.settings.pages.account.manage.delete")}

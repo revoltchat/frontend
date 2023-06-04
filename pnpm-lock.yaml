@@ -412,6 +412,9 @@ importers:
       '@fontsource/open-sans':
         specifier: ^4.5.11
         version: 4.5.11
+      '@material/material-color-utilities':
+        specifier: ^0.2.6
+        version: 0.2.6
       '@minht11/solid-virtual-container':
         specifier: ^0.2.1
         version: 0.2.1(solid-js@1.7.3)
@@ -2966,6 +2969,10 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+
+  /@material/material-color-utilities@0.2.6:
+    resolution: {integrity: sha512-pMdkH7PvuJQS1q9igiPFfrS04Zu1feDXOVV69uWe2kr+RcK+7v3OylIYMwJDIwip1pFdGyTY4KkMy6vPIA/uSw==}
+    dev: false
 
   /@minht11/solid-virtual-container@0.2.1(solid-js@1.7.3):
     resolution: {integrity: sha512-HvQWx1uE5NWwx9WsN4waFtmyOjhZKMA/3vBf+j3zGsRfi556LCUk4oOmqZcOvIB5nEpHezvuZ8oUlwxigdO3Xg==}

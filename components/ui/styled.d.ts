@@ -1,22 +1,32 @@
 import "solid-styled-components";
 
+import type {
+  ColorGroup,
+  CustomColorGroup,
+  Scheme,
+  TonalPalette,
+} from "@material/material-color-utilities";
+
 /**
  * Declare our custom theme options
  */
 declare module "solid-styled-components" {
   export interface DefaultTheme {
+    colour(base: keyof Scheme, tone?: number): string;
+    scheme: Record<keyof Scheme, string>;
+    tones: Record<keyof Scheme, TonalPalette>;
+    customColours: Record<
+      `status-${
+        | "online"
+        | "idle"
+        | "focus"
+        | "busy"
+        | "streaming"
+        | "invisible"}`,
+      Record<keyof ColorGroup, string>
+    >;
     colours: {
       [key in
-        | "accent"
-        | "foreground"
-        | `foreground-${100 | 200 | 300 | 400}`
-        | "background"
-        | `background-${100 | 200 | 300 | 400}`
-        | "success"
-        | `success-${100 | 200}`
-        | "warning"
-        | "error"
-        | `error-${200}`
         | `status-${
             | "online"
             | "idle"

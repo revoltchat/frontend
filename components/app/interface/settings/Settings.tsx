@@ -248,8 +248,8 @@ const Sidebar = styled.div`
   display: flex;
   flex: 1 0 218px;
   justify-content: flex-end;
-  color: ${(props) => props.theme!.colours["foreground-200"]};
-  background: ${(props) => props.theme!.colours["background-100"]};
+  color: ${(props) => props.theme!.colour("onSecondaryContainer")};
+  background: ${(props) => props.theme!.colour("secondary", 96)};
 `;
 
 const Content = styled.div`
@@ -259,7 +259,7 @@ const Content = styled.div`
   display: flex;
   overflow-y: scroll;
   overflow-x: hidden;
-  background: ${(props) => props.theme!.colours["background-200"]};
+  background: ${(props) => props.theme!.colour("secondary", 90)};
 `;
 
 const InnerContent = styled.div`

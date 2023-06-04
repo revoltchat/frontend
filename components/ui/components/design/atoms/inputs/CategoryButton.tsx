@@ -2,7 +2,6 @@ import {
   BiRegularLinkExternal,
   BiSolidChevronDown,
   BiSolidChevronRight,
-  BiSolidPencil,
 } from "solid-icons/bi";
 import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
@@ -81,9 +80,9 @@ const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
   gap: 12px;
   padding: 14px 16px;
 
-  color: ${(props) => props.theme!.colours["foreground"]};
+  color: ${(props) => props.theme!.scheme.onBackground};
   border-radius: ${(props) => props.theme!.borderRadius.xl};
-  background: ${(props) => props.theme!.colours["background-300"]};
+  background: ${(props) => props.theme!.scheme.background};
 
   user-select: none;
   cursor: ${(props) => (props.isLink ? "pointer" : "initial")};
@@ -134,7 +133,8 @@ const Description = styled.span`
 const Action = styled.div`
   width: 24px;
   height: 24px;
-  background: ${(props) => props.theme!.colours["accent"]};
+  color: ${(props) => props.theme!.scheme.onPrimary};
+  background: ${(props) => props.theme!.scheme.primary};
   border-radius: ${(props) => props.theme!.borderRadius.full};
 
   display: grid;
