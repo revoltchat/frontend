@@ -97,7 +97,7 @@ const Base = styled("div", "Sidebar")`
 const Content = styled("div", "Content")`
   min-width: 230px;
   max-width: 300px;
-  padding: 80px 0 8px;
+  padding: 74px 0 8px;
   display: flex;
   gap: 2px;
 
