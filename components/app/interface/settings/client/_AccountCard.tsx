@@ -17,7 +17,7 @@ export function AccountCard() {
     <SidebarButton onClick={() => navigate("account")}>
       <Row align gap="md">
         <Avatar src={client().user!.animatedAvatarURL} size={40} />
-        <Column gap="sm">
+        <Column gap="xs">
           <Typography variant="settings-account-card-title">
             {client().user!.username}
           </Typography>
