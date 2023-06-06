@@ -15,18 +15,19 @@ import {
   BiSolidPalette,
   BiSolidPlug,
   BiSolidSpeaker,
-  BiSolidUser,
 } from "solid-icons/bi";
 import { Component, Show } from "solid-js";
 
 import { Server } from "revolt.js";
 
+import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
-import { ColouredText, useTheme } from "@revolt/ui";
+import { Avatar, ColouredText, Column, Row, useTheme } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
+import { SidebarButton } from "../_layout/SidebarButton";
 
 import account from "./Account";
 import appearance from "./Appearance";
@@ -82,129 +83,145 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    */
   list() {
     const t = useTranslation();
+    const client = useClient();
     const theme = useTheme();
 
-    return [
-      {
-        title: t("app.settings.categories.user_settings"),
-        entries: [
-          {
-            id: "account",
-            icon: <BiSolidUser size={20} />,
-            title: t("app.settings.pages.account.title"),
-          },
-          {
-            id: "profile",
-            icon: <BiSolidIdCard size={20} />,
-            title: t("app.settings.pages.profile.title"),
-          },
-          {
-            id: "sessions",
-            icon: <BiSolidCheckShield size={20} />,
-            title: t("app.settings.pages.sessions.title"),
-          },
-        ],
-      },
-      {
-        title: <div>Revolt</div>,
-        entries: [
-          {
-            id: "bots",
-            icon: <BiSolidBot size={20} />,
-            title: t("app.settings.pages.bots.title"),
-          },
-          {
-            id: "feedback",
-            icon: <BiSolidMegaphone size={20} />,
-            title: t("app.settings.pages.feedback.title"),
-          },
-          {
-            href: "https://insrt.uk/donate",
-            icon: <BiSolidCoffee size={20} color="rgba(255,155,0,1)" />,
-            title: (
-              <ColouredText
-                clip
-                colour="linear-gradient(-132deg, rgba(233,189,173,1) 1%, rgba(232,196,180,1) 3%, rgba(255,155,0,1) 100%)"
-              >
-                {t("app.settings.pages.donate.title")}
-              </ColouredText>
-            ),
-          },
-        ],
-      },
-      {
-        title: t("app.settings.categories.client_settings"),
-        entries: [
-          {
-            id: "audio",
-            icon: <BiSolidSpeaker size={20} />,
-            title: t("app.settings.pages.audio.title"),
-            hidden: !getController("state").experiments.isEnabled("voice_chat"),
-          },
-          {
-            id: "appearance",
-            icon: <BiSolidPalette size={20} />,
-            title: t("app.settings.pages.appearance.title"),
-          },
-          {
-            id: "plugins",
-            icon: <BiSolidPlug size={20} />,
-            title: t("app.settings.pages.plugins.title"),
-            hidden: !getController("state").experiments.isEnabled("plugins"),
-          },
-          {
-            id: "notifications",
-            icon: <BiSolidBell size={20} />,
-            title: t("app.settings.pages.notifications.title"),
-          },
-          {
-            id: "language",
-            icon: <BiRegularGlobe size={20} />,
-            title: t("app.settings.pages.language.title"),
-          },
-          {
-            id: "sync",
-            icon: <BiRegularSync size={20} />,
-            title: t("app.settings.pages.sync.title"),
-          },
-          {
-            id: "native",
-            hidden: false,
-            icon: <BiRegularDesktop size={20} />,
-            title: t("app.settings.pages.native.title"),
-          },
-          {
-            id: "experiments",
-            icon: <BiSolidFlask size={20} />,
-            title: t("app.settings.pages.experiments.title"),
-          },
-        ],
-      },
-      {
-        entries: [
-          {
-            onClick: () =>
-              getController("modal").push({ type: "changelog", posts: [] }),
-            icon: <BiRegularListUl size={20} />,
-            title: t("app.special.modals.changelogs.title"),
-          },
-          {
-            href: "https://github.com/revoltchat",
-            icon: <BiLogosGithub size={20} />,
-            title: t("app.settings.pages.source_code"),
-          },
-          {
-            id: "logout",
-            icon: <BiSolidExit size={20} color={theme!.colours.error} />,
-            title: (
-              <ColouredText colour={theme!.colours.error}>
-                {t("app.settings.pages.logOut")}
-              </ColouredText>
-            ),
-          },
-        ],
-      },
-    ];
+    return {
+      prepend: (
+        <SidebarButton>
+          <Row>
+            <Avatar src={client().user!.animatedAvatarURL} size={64} />
+            <Column>
+              <span>{client().user!.username}</span>
+              <span>{t("app.settings.pages.account.title")}</span>
+            </Column>
+          </Row>
+        </SidebarButton>
+      ),
+      entries: [
+        {
+          title: t("app.settings.categories.user_settings"),
+          entries: [
+            {
+              id: "account",
+              icon: <></>,
+              title: <></>,
+              hidden: true,
+            },
+            {
+              id: "profile",
+              icon: <BiSolidIdCard size={20} />,
+              title: t("app.settings.pages.profile.title"),
+            },
+            {
+              id: "sessions",
+              icon: <BiSolidCheckShield size={20} />,
+              title: t("app.settings.pages.sessions.title"),
+            },
+          ],
+        },
+        {
+          title: <div>Revolt</div>,
+          entries: [
+            {
+              id: "bots",
+              icon: <BiSolidBot size={20} />,
+              title: t("app.settings.pages.bots.title"),
+            },
+            {
+              id: "feedback",
+              icon: <BiSolidMegaphone size={20} />,
+              title: t("app.settings.pages.feedback.title"),
+            },
+            {
+              href: "https://insrt.uk/donate",
+              icon: <BiSolidCoffee size={20} color="rgba(255,155,0,1)" />,
+              title: (
+                <ColouredText
+                  clip
+                  colour="linear-gradient(-132deg, rgba(233,189,173,1) 1%, rgba(232,196,180,1) 3%, rgba(255,155,0,1) 100%)"
+                >
+                  {t("app.settings.pages.donate.title")}
+                </ColouredText>
+              ),
+            },
+          ],
+        },
+        {
+          title: t("app.settings.categories.client_settings"),
+          entries: [
+            {
+              id: "audio",
+              icon: <BiSolidSpeaker size={20} />,
+              title: t("app.settings.pages.audio.title"),
+              hidden:
+                !getController("state").experiments.isEnabled("voice_chat"),
+            },
+            {
+              id: "appearance",
+              icon: <BiSolidPalette size={20} />,
+              title: t("app.settings.pages.appearance.title"),
+            },
+            {
+              id: "plugins",
+              icon: <BiSolidPlug size={20} />,
+              title: t("app.settings.pages.plugins.title"),
+              hidden: !getController("state").experiments.isEnabled("plugins"),
+            },
+            {
+              id: "notifications",
+              icon: <BiSolidBell size={20} />,
+              title: t("app.settings.pages.notifications.title"),
+            },
+            {
+              id: "language",
+              icon: <BiRegularGlobe size={20} />,
+              title: t("app.settings.pages.language.title"),
+            },
+            {
+              id: "sync",
+              icon: <BiRegularSync size={20} />,
+              title: t("app.settings.pages.sync.title"),
+            },
+            {
+              id: "native",
+              hidden: false,
+              icon: <BiRegularDesktop size={20} />,
+              title: t("app.settings.pages.native.title"),
+            },
+            {
+              id: "experiments",
+              icon: <BiSolidFlask size={20} />,
+              title: t("app.settings.pages.experiments.title"),
+            },
+          ],
+        },
+        {
+          entries: [
+            {
+              onClick: () =>
+                getController("modal").push({ type: "changelog", posts: [] }),
+              icon: <BiRegularListUl size={20} />,
+              title: t("app.special.modals.changelogs.title"),
+            },
+            {
+              href: "https://github.com/revoltchat",
+              icon: <BiLogosGithub size={20} />,
+              title: t("app.settings.pages.source_code"),
+            },
+            {
+              id: "logout",
+              icon: <BiSolidExit size={20} color={theme!.scheme.error} />,
+              title: (
+                <ColouredText colour={theme!.scheme.error}>
+                  {t("app.settings.pages.logOut")}
+                </ColouredText>
+              ),
+            },
+          ],
+        },
+      ],
+    };
   },
 };
 
