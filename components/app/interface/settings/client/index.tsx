@@ -20,14 +20,12 @@ import { Component, Show } from "solid-js";
 
 import { Server } from "revolt.js";
 
-import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
-import { Avatar, ColouredText, Column, Row, useTheme } from "@revolt/ui";
+import { ColouredText, useTheme } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
-import { SidebarButton } from "../_layout/SidebarButton";
 
 import account from "./Account";
 import appearance from "./Appearance";
@@ -39,6 +37,7 @@ import native from "./Native";
 import notifications from "./Notifications";
 import sessions from "./Sessions";
 import sync from "./Sync";
+import { AccountCard } from "./_AccountCard";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -83,21 +82,10 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    */
   list() {
     const t = useTranslation();
-    const client = useClient();
     const theme = useTheme();
 
     return {
-      prepend: (
-        <SidebarButton>
-          <Row>
-            <Avatar src={client().user!.animatedAvatarURL} size={64} />
-            <Column>
-              <span>{client().user!.username}</span>
-              <span>{t("app.settings.pages.account.title")}</span>
-            </Column>
-          </Row>
-        </SidebarButton>
-      ),
+      prepend: <AccountCard />,
       entries: [
         {
           title: t("app.settings.categories.user_settings"),

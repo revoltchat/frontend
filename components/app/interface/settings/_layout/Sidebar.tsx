@@ -1,4 +1,4 @@
-import { Accessor, For, Show } from "solid-js";
+import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 
 import {
   Column,
@@ -19,18 +19,35 @@ invisibleScrollable;
  * Settings Sidebar Layout
  */
 export function SettingsSidebar(props: {
-  list: Accessor<SettingsList>;
+  context: never;
+  list: (context: never) => SettingsList;
+
+  setPage: Setter<string | undefined>;
   page: Accessor<string | undefined>;
 }) {
   const { navigate } = useSettingsNavigation();
+
+  /**
+   * Generate list of categories / links
+   */
+  const list = createMemo(() => props.list(props.context));
+
+  /**
+   * Select first page on load
+   */
+  onMount(() => {
+    if (!props.page()) {
+      props.setPage(list().entries[0].entries[0].id);
+    }
+  });
 
   return (
     <Base>
       <div use:invisibleScrollable>
         <Content>
           <Column gap="lg">
-            {props.list().prepend}
-            <For each={props.list().entries}>
+            {list().prepend}
+            <For each={list().entries}>
               {(category) => (
                 <Show when={!category.hidden}>
                   <Column>
@@ -56,7 +73,7 @@ export function SettingsSidebar(props: {
                 </Show>
               )}
             </For>
-            {props.list().append}
+            {list().append}
           </Column>
         </Content>
       </div>

@@ -51,11 +51,6 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
     createSignal<SettingsTransition>("normal");
 
   /**
-   * Generate list of categories / links
-   */
-  const list = createMemo(() => props.list(props.context));
-
-  /**
    * Navigate to a certain page
    */
   function navigate(entry: string | SettingsEntry) {
@@ -86,22 +81,18 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
     setPage(id);
   }
 
-  /**
-   * Select first page on load
-   */
-  onMount(() => {
-    if (!page()) {
-      setPage(list().entries[0].entries[0].id);
-    }
-  });
-
   return (
     <SettingsNavigationContext.Provider
       value={{
         navigate,
       }}
     >
-      <SettingsSidebar list={list} page={page} />
+      <SettingsSidebar
+        context={props.context}
+        list={props.list}
+        page={page}
+        setPage={setPage}
+      />
       <SettingsContent page={page} title={props.title} onClose={props.onClose}>
         <Presence exitBeforeEnter>
           <Rerun on={page}>
