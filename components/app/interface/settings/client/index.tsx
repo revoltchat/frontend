@@ -115,7 +115,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
           ],
         },
         {
-          title: <div>Revolt</div>,
+          title: "Revolt",
           entries: [
             {
               id: "bots",
@@ -129,15 +129,8 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             },
             {
               href: "https://insrt.uk/donate",
-              icon: <BiSolidCoffee size={20} color="rgba(255,155,0,1)" />,
-              title: (
-                <ColouredText
-                  clip
-                  colour="linear-gradient(-132deg, rgba(233,189,173,1) 1%, rgba(232,196,180,1) 3%, rgba(255,155,0,1) 100%)"
-                >
-                  {t("app.settings.pages.donate.title")}
-                </ColouredText>
-              ),
+              icon: <BiSolidCoffee size={20} />,
+              title: t("app.settings.pages.donate.title"),
             },
           ],
         },
@@ -205,9 +198,9 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             },
             {
               id: "logout",
-              icon: <BiSolidExit size={20} color={theme!.colour("onError")} />,
+              icon: <BiSolidExit size={20} color={theme!.colour("error")} />,
               title: (
-                <ColouredText colour={theme!.colour("onError")}>
+                <ColouredText colour={theme!.colour("error")}>
                   {t("app.settings.pages.logOut")}
                 </ColouredText>
               ),
