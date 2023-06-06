@@ -1,13 +1,3 @@
-import {
-  BiRegularAt,
-  BiRegularBlock,
-  BiRegularKey,
-  BiRegularMailSend,
-  BiSolidCake,
-  BiSolidLock,
-  BiSolidShield,
-  BiSolidTrash,
-} from "solid-icons/bi";
 import { Accessor, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
 import { MFA } from "revolt.js/src/classes/MFA";
@@ -28,8 +18,18 @@ import {
   Typography,
   styled,
   useTheme,
+  iconSize,
 } from "@revolt/ui";
 import { formatTime } from "@revolt/ui/components/design/atoms/display/Time";
+
+import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
+import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
+import MdMail from "@material-design-icons/svg/outlined/mail.svg?component-solid";
+import MdPassword from "@material-design-icons/svg/outlined/password.svg?component-solid";
+import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.svg?component-solid";
+import MdLock from "@material-design-icons/svg/outlined/lock.svg?component-solid";
+import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
+import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 
 /**
  * Account Page
@@ -59,23 +59,28 @@ function UserInformation() {
   return (
     <AccountBox align gap="lg">
       <Avatar src={client().user!.animatedAvatarURL} size={64} />
-      <Column gap="sm">
+      <div class="column">
         <Typography variant="settings-account-username">
-          {client().user!.username}
+          {client().user!.username}#0000
         </Typography>
-        <Tooltip
-          content={formatTime({
-            format: "datetime",
-            value: client().user!.createdAt,
-          })}
-          placement="top"
-        >
-          <Chip>
-            <BiSolidCake size={14} /> Account created{" "}
-            <Time format="relative" value={client().user!.createdAt} />
-          </Chip>
-        </Tooltip>
-      </Column>
+        <div class="flex">
+          <Tooltip
+            content={formatTime({
+              format: "datetime",
+              value: client().user!.createdAt,
+            })}
+            placement="top"
+          >
+            <Chip>
+              <MdCakeFill {...iconSize(14)} /> Account created{" "}
+              <Time format="relative" value={client().user!.createdAt} />
+            </Chip>
+          </Tooltip>
+        </div>
+      </div>
+      <div class='button'>
+        Edit Profile
+      </div>
     </AccountBox>
   );
 }
@@ -87,6 +92,26 @@ const AccountBox = styled(Row)`
   padding: ${(props) => props.theme!.gap.lg};
   border-radius: ${(props) => props.theme!.borderRadius.xl};
   background: ${(props) => props.theme!.colour("background")};
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+  }
+
+  .flex {
+    display: flex;
+  }
+  
+  .button {
+    color: ${(props) => props.theme!.colour("onSecondary")};
+    padding: 10px 16px;
+    border-radius: 60px;
+    font-size: 14px;
+    font-weight: 500;
+    background: ${(props) => props.theme!.colour("primary")};
+  }
 `;
 
 /**
@@ -107,7 +132,7 @@ function EditAccount() {
             client: client(),
           })
         }
-        icon={<BiRegularAt size={24} />}
+        icon={<MdAlternateEmail {...iconSize(24)} />}
         description={client().user?.username}
       >
         <Typography variant="label">{t("login.username")}</Typography>
@@ -120,7 +145,7 @@ function EditAccount() {
             client: client(),
           })
         }
-        icon={<BiRegularMailSend size={24} />}
+        icon={<MdMail {...iconSize(24)} />}
         description={
           <Row>
             {email()}{" "}
@@ -147,7 +172,7 @@ function EditAccount() {
             client: client(),
           })
         }
-        icon={<BiRegularKey size={24} />}
+        icon={<MdPassword {...iconSize(24)} />}
         description={"•••••••••"}
       >
         <Typography variant="label">{t("login.password")}</Typography>
@@ -235,7 +260,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
   return (
     <CategoryButtonGroup>
       <CategoryCollapse
-        icon={<BiSolidShield size={24} />}
+        icon={<MdVerifiedUser {...iconSize(24)} />}
         title="Recovery Codes"
         description="Configure a way to get back into your account in case your 2FA is lost"
       >
@@ -270,7 +295,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
         </Switch>
       </CategoryCollapse>
       <CategoryCollapse
-        icon={<BiSolidLock size={24} />}
+        icon={<MdLock {...iconSize(24)} />}
         title="Authenticator App"
         description="Configure one-time password authentication"
       >
@@ -342,7 +367,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
         action="chevron"
         disabled={!props.mfa()}
         onClick={disableAccount}
-        icon={<BiRegularBlock size={24} color={theme.scheme.error} />}
+        icon={<MdBlock {...iconSize(24)} fill={theme!.colour("error")} />}
         description="Disable your account. You won't be able to access it unless you contact support."
       >
         {t("app.settings.pages.account.manage.disable")}
@@ -351,7 +376,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
         action="chevron"
         disabled={!props.mfa()}
         onClick={deleteAccount}
-        icon={<BiSolidTrash size={24} color={theme.scheme.error} />}
+        icon={<MdDelete {...iconSize(24)} fill={theme!.colour("error")} />}
         description="Your account will be queued for deletion, a confirmation email will be sent."
       >
         {t("app.settings.pages.account.manage.delete")}
