@@ -8,6 +8,7 @@ import { generateTypographyCSS } from "../display/Typography";
  */
 export const Chip = styled(Row)`
   align-items: center;
+  flex-shrink: 0;
   ${(props) => generateTypographyCSS(props.theme!, "chip")}
 
   gap: ${(props) => props.theme!.gap.s};

@@ -24,6 +24,7 @@ import {
   FormGroup,
   Row,
   Time,
+  styled,
 } from "@revolt/ui";
 
 /**
@@ -83,23 +84,31 @@ function PickLanguage() {
       title={t("app.settings.pages.language.select")}
       description={currentLanguage().display}
     >
-      <For each={languages()}>
-        {([id, lang]) => (
-          <CategoryButton
-            icon={<UnicodeEmoji emoji={lang.emoji} />}
-            action={<Checkbox value={id === language()} />}
-            onClick={() => loadAndSetLanguage(id as never)}
-          >
-            <Row>
-              {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
-              {lang.incomplete && <BiSolidError size={16} />}
-            </Row>
-          </CategoryButton>
-        )}
-      </For>
+      <Scrollable>
+        <For each={languages()}>
+          {([id, lang]) => (
+            <CategoryButton
+              icon={<UnicodeEmoji emoji={lang.emoji} />}
+              action={<Checkbox value={id === language()} />}
+              onClick={() => loadAndSetLanguage(id as never)}
+            >
+              <Row>
+                {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
+                {lang.incomplete && <BiSolidError size={16} />}
+              </Row>
+            </CategoryButton>
+          )}
+        </For>
+      </Scrollable>
+
     </CategoryCollapse>
   );
 }
+
+const Scrollable = styled("div")`
+  max-height: 340px;
+  overflow: auto;
+`;
 
 /**
  * Pick user's preferred date format

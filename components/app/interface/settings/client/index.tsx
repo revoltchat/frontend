@@ -233,7 +233,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             },
             {
               id: "logout",
-              icon: <MdLogout {...iconSize(20)} color={theme!.colour("error")} />,
+              icon: <MdLogout {...iconSize(20)} fill={theme!.colour("error")} />,
               title: (
                 <ColouredText colour={theme!.colour("error")}>
                   {t("app.settings.pages.logOut")}
