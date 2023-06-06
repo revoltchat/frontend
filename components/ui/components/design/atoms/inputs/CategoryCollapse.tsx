@@ -69,6 +69,9 @@ const Details = styled.details`
   > :not(summary) .CategoryButton {
     border-start-start-radius: 0;
     border-start-end-radius: 0;
+
+    /* and set child backgrounds */
+    background: ${(props) => props.theme!.colour("background", 97)};
   }
 
   > :not(summary) > :not(:last-child) .CategoryButton {

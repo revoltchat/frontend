@@ -8,7 +8,6 @@ import {
   Avatar,
   CategoryButton,
   Column,
-  Disabled,
   Preloader,
   Typography,
 } from "@revolt/ui";
@@ -38,15 +37,13 @@ export default function Webhooks(props: ChannelSettingsProps) {
 
   return (
     <Column gap="xl">
-      <Disabled>
-        <CategoryButton
-          action="chevron"
-          icon={<BiSolidCloud size={24} />}
-          onClick={() => void 0}
-        >
-          Create Webhook
-        </CategoryButton>
-      </Disabled>
+      <CategoryButton
+        action="chevron"
+        icon={<BiSolidCloud size={24} />}
+        onClick={() => void 0}
+      >
+        Create Webhook
+      </CategoryButton>
 
       <Show when={!webhooks() || webhooks()!.length !== 0}>
         <Column>

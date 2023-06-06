@@ -7,8 +7,8 @@ import { useClient } from "@revolt/client";
 import {
   Avatar,
   CategoryButton,
+  CategoryButtonGroup,
   Column,
-  Disabled,
   Preloader,
   Typography,
 } from "@revolt/ui";
@@ -19,6 +19,34 @@ import { useSettingsNavigation } from "../Settings";
  * Bots
  */
 export default function Bots() {
+  return (
+    <Column gap="xl">
+      <CreateBot />
+      <ListBots />
+    </Column>
+  );
+}
+
+/**
+ * Prompt to create a new bot
+ */
+function CreateBot() {
+  return (
+    <CategoryButton
+      action="chevron"
+      icon={<BiSolidBot size={24} />}
+      onClick={() => void 0}
+      description="You agree that your bot is subject to the Acceptable Usage Policy."
+    >
+      Create Bot
+    </CategoryButton>
+  );
+}
+
+/**
+ * List owned bots by current user
+ */
+function ListBots() {
   const client = useClient();
   const { navigate } = useSettingsNavigation();
   const [bots, setBots] = createSignal<Bot[]>();
@@ -32,23 +60,12 @@ export default function Bots() {
   });
 
   return (
-    <Column gap="xl">
-      <Disabled>
-        <CategoryButton
-          action="chevron"
-          icon={<BiSolidBot size={24} />}
-          onClick={() => void 0}
-          description="You agree that your bot is subject to the Acceptable Usage Policy."
-        >
-          Create Bot
-        </CategoryButton>
-      </Disabled>
-
-      <Show when={!bots() || bots()!.length !== 0}>
-        <Column>
-          <Typography variant="label">My Bots</Typography>
-          <Switch fallback={<Preloader type="ring" />}>
-            <Match when={bots()?.length}>
+    <Show when={!bots() || bots()!.length !== 0}>
+      <Column>
+        <Typography variant="label">My Bots</Typography>
+        <Switch fallback={<Preloader type="ring" />}>
+          <Match when={bots()?.length}>
+            <CategoryButtonGroup>
               <For each={bots()}>
                 {(bot) => (
                   <CategoryButton
@@ -63,10 +80,10 @@ export default function Bots() {
                   </CategoryButton>
                 )}
               </For>
-            </Match>
-          </Switch>
-        </Column>
-      </Show>
-    </Column>
+            </CategoryButtonGroup>
+          </Match>
+        </Switch>
+      </Column>
+    </Show>
   );
 }

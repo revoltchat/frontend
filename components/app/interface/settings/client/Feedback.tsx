@@ -6,7 +6,7 @@ import {
 } from "solid-icons/bi";
 
 import { useTranslation } from "@revolt/i18n";
-import { CategoryButton, Column, styled } from "@revolt/ui";
+import { CategoryButton, CategoryButtonGroup, styled } from "@revolt/ui";
 
 /**
  * Feedback
@@ -15,7 +15,7 @@ export default function Feedback() {
   const t = useTranslation();
 
   return (
-    <Column>
+    <CategoryButtonGroup>
       <Link href="https://trello.com/b/4e2O7tge/roadmap" target="_blank">
         <CategoryButton
           action="external"
@@ -73,7 +73,7 @@ export default function Feedback() {
       >
         Join the Revolt Lounge
       </CategoryButton>
-    </Column>
+    </CategoryButtonGroup>
   );
 }
 

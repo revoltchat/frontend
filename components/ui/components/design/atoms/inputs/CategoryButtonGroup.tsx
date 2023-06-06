@@ -14,7 +14,7 @@ export const CategoryButtonGroup = styled.div`
     border-start-end-radius: 0px;
   }
 
-  > :not(:first-child) summary .CategoryButton {
+  > :not(:first-child) .CategoryButton {
     border-start-start-radius: 0px;
     border-start-end-radius: 0px;
   }
@@ -25,7 +25,7 @@ export const CategoryButtonGroup = styled.div`
     border-end-end-radius: 0px;
   }
 
-  > :not(:last-child) summary .CategoryButton {
+  > :not(:last-child) .CategoryButton {
     border-end-start-radius: 0px;
     border-end-end-radius: 0px;
   }

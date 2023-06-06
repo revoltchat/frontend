@@ -7,9 +7,9 @@ import {
 
 import {
   CategoryButton,
+  CategoryButtonGroup,
   Checkbox,
   Column,
-  Disabled,
   FormGroup,
   Typography,
 } from "@revolt/ui";
@@ -27,9 +27,9 @@ export default function Native() {
         Revolt Desktop
       </CategoryButton>
 
-      <Disabled>
-        <Column>
-          <Typography variant="label">App Behaviour</Typography>
+      <Column>
+        <Typography variant="label">App Behaviour</Typography>
+        <CategoryButtonGroup>
           <FormGroup>
             <CategoryButton
               action={<Checkbox value onChange={(value) => void value} />}
@@ -50,24 +50,22 @@ export default function Native() {
               Minimise to Tray
             </CategoryButton>
           </FormGroup>
-        </Column>
-      </Disabled>
+        </CategoryButtonGroup>
+      </Column>
 
-      <Disabled>
-        <Column>
-          <Typography variant="label">Appearance</Typography>
-          <FormGroup>
-            <CategoryButton
-              action={<Checkbox value onChange={(value) => void value} />}
-              onClick={() => void 0}
-              icon={<BiSolidWindowAlt size={24} />}
-              description="Let Revolt use its own custom titlebar."
-            >
-              Custom window frame
-            </CategoryButton>
-          </FormGroup>
-        </Column>
-      </Disabled>
+      <Column>
+        <Typography variant="label">Appearance</Typography>
+        <FormGroup>
+          <CategoryButton
+            action={<Checkbox value onChange={(value) => void value} />}
+            onClick={() => void 0}
+            icon={<BiSolidWindowAlt size={24} />}
+            description="Let Revolt use its own custom titlebar."
+          >
+            Custom window frame
+          </CategoryButton>
+        </FormGroup>
+      </Column>
     </Column>
   );
 }

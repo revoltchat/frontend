@@ -18,6 +18,7 @@ export interface Props {
   readonly children?: JSX.Element;
   readonly description?: JSX.Element;
 
+  readonly disabled?: boolean;
   readonly onClick?: () => void;
   readonly action?: Action | Action[];
 }
@@ -27,7 +28,12 @@ export interface Props {
  */
 export function CategoryButton(props: Props) {
   return (
-    <Base isLink={!!props.onClick} onClick={props.onClick}>
+    <Base
+      isLink={!!props.onClick}
+      disabled={props.disabled}
+      aria-disabled={props.disabled}
+      onClick={props.disabled ? undefined : props.onClick}
+    >
       <Switch fallback={props.icon}>
         <Match when={props.icon === "blank"}>
           <Blank />
@@ -56,7 +62,7 @@ export function CategoryButton(props: Props) {
             </Match>
             <Match when={action === "external"}>
               <Action>
-                <BiRegularLinkExternal size={20} />
+                <BiRegularLinkExternal size={16} />
               </Action>
             </Match>
           </Switch>
@@ -76,7 +82,10 @@ const Blank = styled.div`
 /**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
+const Base = styled("a", "CategoryButton")<{
+  isLink: boolean;
+  disabled?: boolean;
+}>`
   gap: 12px;
   padding: 14px 16px;
 
@@ -85,7 +94,8 @@ const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
   background: ${(props) => props.theme!.scheme.background};
 
   user-select: none;
-  cursor: ${(props) => (props.isLink ? "pointer" : "initial")};
+  cursor: ${(props) =>
+    props.disabled ? "not-allowed" : props.isLink ? "pointer" : "initial"};
   transition: ${(props) => props.theme!.transitions.fast} all;
 
   display: flex;
