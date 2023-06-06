@@ -96,7 +96,7 @@ const Avatars = styled.div`
   height: fit-content;
 
   :not(:first-child) {
-    margin-left: -6px;
+    margin-inline-start: -6px;
   }
 `;
 
