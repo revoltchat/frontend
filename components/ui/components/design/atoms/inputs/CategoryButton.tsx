@@ -39,7 +39,7 @@ export function CategoryButton(props: Props) {
           <Blank />
         </Match>
       </Switch>
-      <Content grow gap="sm">
+      <Content grow>
         <Show when={props.children}>
           <OverflowingText>{props.children}</OverflowingText>
         </Show>
@@ -82,15 +82,15 @@ const Blank = styled.div`
 /**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton")<{
+const Base = styled("a", "CategoryButton") <{
   isLink: boolean;
   disabled?: boolean;
 }>`
   gap: 12px;
-  padding: 14px 16px;
-
+  padding: 15px;
+  border-radius: 6px;
   color: ${(props) => props.theme!.colour("onBackground")};
-  border-radius: ${(props) => props.theme!.borderRadius.xl};
+  /*border-radius: ${(props) => props.theme!.borderRadius.xl};*/
   background: ${(props) => props.theme!.colour("background")};
 
   user-select: none;
@@ -112,7 +112,7 @@ const Base = styled("a", "CategoryButton")<{
 
   &:active {
     filter: ${(props) =>
-      props.isLink ? props.theme!.effects.active : "unset"};
+    props.isLink ? props.theme!.effects.active : "unset"};
   }
 `;
 
@@ -120,17 +120,19 @@ const Base = styled("a", "CategoryButton")<{
  * Title and description styles
  */
 const Content = styled(Column)`
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: 500;
+  font-size: 14px;
+  gap: 2px;
+  color: ${(props) => props.theme!.colour("primary")};
 `;
 
 /**
  * Description shown below title
  */
 const Description = styled.span`
-  font-weight: 400;
-  font-size: 0.6875rem;
-  color: ${(props) => props.theme!.colours["foreground-200"]};
+  font-weight: 500;
+  font-size: 12px;
+  color: ${(props) => props.theme!.colour("onBackground")};
 
   a:hover {
     text-decoration: underline;
@@ -143,9 +145,7 @@ const Description = styled.span`
 const Action = styled.div`
   width: 24px;
   height: 24px;
-  color: ${(props) => props.theme!.colour("onPrimary")};
-  background: ${(props) => props.theme!.colour("primary")};
-  border-radius: ${(props) => props.theme!.borderRadius.full};
+  color: ${(props) => props.theme!.colour("onBackground")};
 
   display: grid;
   place-items: center;

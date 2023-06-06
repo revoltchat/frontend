@@ -54,7 +54,7 @@ const Base = styled("div", "Content")`
   display: flex;
   overflow-y: scroll;
   overflow-x: hidden;
-  background: ${(props) => props.theme!.colour("secondary", 90)};
+  background: ${(props) => props.theme!.colour("secondary", 96)};
 `;
 
 /**
@@ -67,6 +67,8 @@ const InnerContent = styled("div", "Pane")`
   max-width: 740px;
   padding: 80px 32px;
   justify-content: stretch;
+  background: ${(props) => props.theme!.colour("secondary", 92)};
+  border-radius: 30px 0 0 30px;
 `;
 
 /**
@@ -91,7 +93,6 @@ const CloseAnchor = styled.a`
   width: 40px;
   height: 40px;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,6 +128,7 @@ const CloseAction = styled.div`
   visibility: visible;
   position: sticky;
   top: 0;
+  background: ${(props) => props.theme!.colour("secondary", 92)};
 
   &:after {
     content: "ESC";
@@ -134,7 +136,8 @@ const CloseAction = styled.div`
     display: flex;
     justify-content: center;
     width: 40px;
-    opacity: 0.5;
+    font-weight: 600;
+    color: ${(props) => props.theme!.colour("primary")};
     font-size: 0.75rem;
   }
 `;

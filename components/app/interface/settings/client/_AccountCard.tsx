@@ -1,6 +1,7 @@
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Avatar, Column, Row } from "@revolt/ui";
+import { Avatar, Column, Row, styled } from "@revolt/ui";
+
 
 import { useSettingsNavigation } from "../Settings";
 import { SidebarButton } from "../_layout/SidebarButton";
@@ -16,12 +17,28 @@ export function AccountCard() {
   return (
     <SidebarButton onClick={() => navigate("account")}>
       <Row>
-        <Avatar src={client().user!.animatedAvatarURL} size={64} />
-        <Column>
-          <span>{client().user!.username}</span>
-          <span>{t("app.settings.pages.account.title")}</span>
-        </Column>
+        <Card>
+          <Avatar src={client().user!.animatedAvatarURL} size={40} />
+          <div class="details">
+            <div>{client().user!.username}</div>
+            <span>{t("app.settings.pages.account.title")}</span>
+          </div>
+        </Card>
       </Row>
     </SidebarButton>
   );
 }
+
+export const Card = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .details div {
+    font-weight: 600;
+  }
+
+  > div span {
+    font-size: 12px;
+  }
+`;

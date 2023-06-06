@@ -7,6 +7,7 @@ import {
   BiSolidLock,
   BiSolidShield,
   BiSolidTrash,
+  BiSolidCake,
 } from "solid-icons/bi";
 import { Accessor, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
@@ -37,7 +38,7 @@ export default function MyAccount() {
   onMount(() => client().account.mfa().then(setMfa));
 
   return (
-    <Column gap="xl">
+    <Column gap="lg">
       <UserInformation />
       <EditAccount />
       <MultiFactorAuth mfa={mfa} />
@@ -54,18 +55,43 @@ function UserInformation() {
 
   return (
     <Row align>
-      <Avatar src={client().user?.animatedAvatarURL} size={64} />
-      <Column gap="xs">
-        <Typography variant="username">{client().user?.username}</Typography>
-        <Typography variant="label">
-          <UserId align gap="xs">
-            <BiSolidInfoCircle /> {client().user?.id}
-          </UserId>
-        </Typography>
-      </Column>
+      <AccountBox>
+        <Avatar src={client().user?.animatedAvatarURL} size={64} />
+        <Column gap="sm">
+          <div class="username">{client().user?.username}</div>
+          <div class="age"><BiSolidCake size={14} /> Account created [date here]</div>
+        </Column>
+      </AccountBox>
+
     </Row>
   );
 }
+
+const AccountBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: white;
+  padding: 15px;
+  gap: 16px;
+  border-radius: ${(props) => props.theme!.borderRadius.xl};
+
+  .username {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .age {
+    background: ${(props) => props.theme!.colour("secondary", 96)};
+    padding: 4px 6px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    gap: 6px;
+    font-size: 12px;
+  }
+`;
 
 /**
  * User ID styling

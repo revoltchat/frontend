@@ -53,12 +53,10 @@ export function SettingsSidebar(props: {
                   <Column>
                     <Show when={category.title}>
                       <CategoryTitle>
-                        <Typography variant="label">
-                          {category.title}
-                        </Typography>
+                        {category.title}
                       </CategoryTitle>
                     </Show>
-                    <Column gap="sm">
+                    <Column gap="s">
                       <For each={category.entries}>
                         {(entry) => (
                           <Show when={!entry.hidden}>
@@ -97,9 +95,9 @@ const Base = styled("div", "Sidebar")`
  * Aligned content within the sidebar
  */
 const Content = styled("div", "Content")`
-  min-width: 218px;
-  max-width: 260px;
-  padding: 80px 8px;
+  min-width: 230px;
+  max-width: 300px;
+  padding: 80px 0 8px;
   display: flex;
   gap: 2px;
 
@@ -114,6 +112,9 @@ const Content = styled("div", "Content")`
  * Titles for each category
  */
 const CategoryTitle = styled(OverflowingText)`
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
   margin: 0 8px;
   color: ${(props) => props.theme!.colour("primary")};
 `;

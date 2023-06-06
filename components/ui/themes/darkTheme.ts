@@ -12,7 +12,8 @@ import {
 } from "@material/material-color-utilities";
 
 // const hex = '#d59ff5';
-// const hex = "#FF7F50";
+//const hex = "#FF7F50";
+//const hex = "#B4CBAF";
 const hex = "#8C5FD3";
 const darkMode = false;
 const theme = themeFromSourceColor(argbFromHex(hex), [
@@ -99,8 +100,8 @@ export const darkTheme: DefaultTheme = {
   colour(base: keyof Scheme, tone?: number): string {
     return tone
       ? hexFromArgb(
-          darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
-        )
+        darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
+      )
       : darkTheme.scheme[base];
   },
   ...schemeToHex(theme.schemes[darkMode ? "dark" : "light"]),
@@ -128,6 +129,7 @@ export const darkTheme: DefaultTheme = {
     none: "0",
     xxs: "1px",
     xs: "2px",
+    s: "6px",
     sm: "4px",
     md: "8px",
     lg: "16px",
@@ -215,7 +217,7 @@ export const darkTheme: DefaultTheme = {
     "settings-title": {
       element: "h1",
       margin: 0,
-      fontWeight: 600,
+      fontWeight: 500,
       fontSize: "2rem",
     },
     // Legacy

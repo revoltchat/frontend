@@ -83,6 +83,10 @@ const Details = styled.details`
     border-end-end-radius: 0;
     border-end-start-radius: 0;
   }
+
+  /*> :not(summary) > :last-child.CategoryButton {
+    margin-bottom: 8px;
+  }*/
 `;
 
 /**
