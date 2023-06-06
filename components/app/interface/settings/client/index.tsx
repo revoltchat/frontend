@@ -24,7 +24,42 @@ import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
 import { ColouredText, Column, iconSize, useTheme } from "@revolt/ui";
 
+
+// Outlined Icons
 import MdAccountCircle from "@material-design-icons/svg/outlined/account_circle.svg?component-solid";
+import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.svg?component-solid";
+import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?component-solid";
+import MdRateReview from "@material-design-icons/svg/outlined/rate_review.svg?component-solid";
+import MdLocalCafe from "@material-design-icons/svg/outlined/local_cafe.svg?component-solid";
+import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
+import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
+import MdExtension from "@material-design-icons/svg/outlined/extension.svg?component-solid";
+import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
+import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
+import MdSync from "@material-design-icons/svg/outlined/sync.svg?component-solid";
+import MdDesktopWindows from "@material-design-icons/svg/outlined/desktop_windows.svg?component-solid";
+import MdScience from "@material-design-icons/svg/outlined/science.svg?component-solid";
+import MdFormatListBulleted from "@material-design-icons/svg/outlined/format_list_bulleted.svg?component-solid";
+import MdMemory from "@material-design-icons/svg/outlined/memory.svg?component-solid";
+import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
+
+// Filled Icons
+import MdAccountCircleFill from "@material-design-icons/svg/filled/account_circle.svg?component-solid";
+import MdVerifiedUserFill from "@material-design-icons/svg/filled/verified_user.svg?component-solid";
+import MdSmartToyFill from "@material-design-icons/svg/filled/smart_toy.svg?component-solid";
+import MdRateReviewFill from "@material-design-icons/svg/filled/rate_review.svg?component-solid";
+import MdLocalCafeFill from "@material-design-icons/svg/filled/local_cafe.svg?component-solid";
+import MdSpeakerFill from "@material-design-icons/svg/filled/speaker.svg?component-solid";
+import MdPaletteFill from "@material-design-icons/svg/filled/palette.svg?component-solid";
+import MdExtensionFill from "@material-design-icons/svg/filled/extension.svg?component-solid";
+import MdNotificationsFill from "@material-design-icons/svg/filled/notifications.svg?component-solid";
+import MdLanguageFill from "@material-design-icons/svg/filled/language.svg?component-solid";
+import MdSyncFill from "@material-design-icons/svg/filled/sync.svg?component-solid";
+import MdDesktopWindowsFill from "@material-design-icons/svg/filled/desktop_windows.svg?component-solid";
+import MdScienceFill from "@material-design-icons/svg/filled/science.svg?component-solid";
+import MdFormatListBulletedFill from "@material-design-icons/svg/filled/format_list_bulleted.svg?component-solid";
+import MdMemoryFill from "@material-design-icons/svg/filled/memory.svg?component-solid";
+import MdLogoutFill from "@material-design-icons/svg/filled/logout.svg?component-solid";
 
 import { SettingsConfiguration } from "..";
 
@@ -109,7 +144,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             },
             {
               id: "sessions",
-              icon: <BiSolidCheckShield size={20} />,
+              icon: <MdVerifiedUser {...iconSize(20)} />,
               title: t("app.settings.pages.sessions.title"),
             },
           ],
@@ -119,17 +154,17 @@ const Config: SettingsConfiguration<{ server: Server }> = {
           entries: [
             {
               id: "bots",
-              icon: <BiSolidBot size={20} />,
+              icon: <MdSmartToy {...iconSize(20)} />,
               title: t("app.settings.pages.bots.title"),
             },
             {
               id: "feedback",
-              icon: <BiSolidMegaphone size={20} />,
+              icon: <MdRateReview {...iconSize(20)} />,
               title: t("app.settings.pages.feedback.title"),
             },
             {
               href: "https://insrt.uk/donate",
-              icon: <BiSolidCoffee size={20} />,
+              icon: <MdLocalCafe {...iconSize(20)} />,
               title: t("app.settings.pages.donate.title"),
             },
           ],
@@ -139,46 +174,46 @@ const Config: SettingsConfiguration<{ server: Server }> = {
           entries: [
             {
               id: "audio",
-              icon: <BiSolidSpeaker size={20} />,
+              icon: <MdSpeaker {...iconSize(20)} />,
               title: t("app.settings.pages.audio.title"),
               hidden:
                 !getController("state").experiments.isEnabled("voice_chat"),
             },
             {
               id: "appearance",
-              icon: <BiSolidPalette size={20} />,
+              icon: <MdPalette {...iconSize(20)} />,
               title: t("app.settings.pages.appearance.title"),
             },
             {
               id: "plugins",
-              icon: <BiSolidPlug size={20} />,
+              icon: <MdExtension {...iconSize(20)} />,
               title: t("app.settings.pages.plugins.title"),
               hidden: !getController("state").experiments.isEnabled("plugins"),
             },
             {
               id: "notifications",
-              icon: <BiSolidBell size={20} />,
+              icon: <MdNotifications {...iconSize(20)} />,
               title: t("app.settings.pages.notifications.title"),
             },
             {
               id: "language",
-              icon: <BiRegularGlobe size={20} />,
+              icon: <MdLanguage {...iconSize(20)} />,
               title: t("app.settings.pages.language.title"),
             },
             {
               id: "sync",
-              icon: <BiRegularSync size={20} />,
+              icon: <MdSync {...iconSize(20)} />,
               title: t("app.settings.pages.sync.title"),
             },
             {
               id: "native",
               hidden: false,
-              icon: <BiRegularDesktop size={20} />,
+              icon: <MdDesktopWindows {...iconSize(20)} />,
               title: t("app.settings.pages.native.title"),
             },
             {
               id: "experiments",
-              icon: <BiSolidFlask size={20} />,
+              icon: <MdScience {...iconSize(20)} />,
               title: t("app.settings.pages.experiments.title"),
             },
           ],
@@ -188,17 +223,17 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               onClick: () =>
                 getController("modal").push({ type: "changelog", posts: [] }),
-              icon: <BiRegularListUl size={20} />,
+              icon: <MdFormatListBulleted {...iconSize(20)} />,
               title: t("app.special.modals.changelogs.title"),
             },
             {
               href: "https://github.com/revoltchat",
-              icon: <BiLogosGithub size={20} />,
+              icon: <MdMemory {...iconSize(20)} />,
               title: t("app.settings.pages.source_code"),
             },
             {
               id: "logout",
-              icon: <BiSolidExit size={20} color={theme!.colour("error")} />,
+              icon: <MdLogout {...iconSize(20)} color={theme!.colour("error")} />,
               title: (
                 <ColouredText colour={theme!.colour("error")}>
                   {t("app.settings.pages.logOut")}
