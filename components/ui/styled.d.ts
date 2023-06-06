@@ -50,6 +50,7 @@ declare module "solid-styled-components" {
       | "s"
       | "sm"
       | "md"
+      | "l"
       | "lg"
       | "xl"
       | "xxl"]: string;
@@ -60,6 +61,7 @@ declare module "solid-styled-components" {
     typography: {
       [key in
       | "label"
+      | "chip"
       | "username"
       | "status"
       | "tooltip"
@@ -77,6 +79,9 @@ declare module "solid-styled-components" {
       | "sidebar-title"
       | "channel-topic"
       | "settings-title"
+      | "settings-account-username"
+      | "settings-account-card-title"
+      | "settings-account-card-subtitle"
       | "legacy-settings-title"
       | "small"
       | "legacy-modal-title"

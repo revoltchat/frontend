@@ -22,7 +22,7 @@ import { Server } from "revolt.js";
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
-import { ColouredText, iconSize, useTheme } from "@revolt/ui";
+import { ColouredText, Column, iconSize, useTheme } from "@revolt/ui";
 
 import MdAccountCircle from "@material-design-icons/svg/outlined/account_circle.svg?component-solid";
 
@@ -86,7 +86,12 @@ const Config: SettingsConfiguration<{ server: Server }> = {
     const theme = useTheme();
 
     return {
-      prepend: <AccountCard />,
+      prepend: (
+        <Column gap="s">
+          <AccountCard />
+          <div />
+        </Column>
+      ),
       entries: [
         {
           title: t("app.settings.categories.user_settings"),

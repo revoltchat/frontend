@@ -100,8 +100,8 @@ export const darkTheme: DefaultTheme = {
   colour(base: keyof Scheme, tone?: number): string {
     return tone
       ? hexFromArgb(
-        darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
-      )
+          darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
+        )
       : darkTheme.scheme[base];
   },
   ...schemeToHex(theme.schemes[darkMode ? "dark" : "light"]),
@@ -132,7 +132,8 @@ export const darkTheme: DefaultTheme = {
     s: "6px",
     sm: "4px",
     md: "8px",
-    lg: "16px",
+    l: "12px",
+    lg: "15px",
     xl: "32px",
     xxl: "64px",
   },
@@ -148,6 +149,10 @@ export const darkTheme: DefaultTheme = {
       textTransform: "uppercase",
     },
     // Common UI elements
+    chip: {
+      fontWeight: 500,
+      fontSize: "12px",
+    },
     username: {
       fontWeight: 600,
     },
@@ -219,6 +224,16 @@ export const darkTheme: DefaultTheme = {
       margin: 0,
       fontWeight: 500,
       fontSize: "2rem",
+    },
+    "settings-account-username": {
+      fontSize: "20px",
+      fontWeight: 600,
+    },
+    "settings-account-card-title": {
+      fontWeight: 600,
+    },
+    "settings-account-card-subtitle": {
+      fontSize: "12px",
     },
     // Legacy
     "legacy-settings-title": {

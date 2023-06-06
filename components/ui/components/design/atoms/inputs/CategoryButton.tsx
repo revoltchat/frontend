@@ -24,7 +24,7 @@ export interface Props {
 }
 
 /**
- * Category Button
+ * Category Button (Fluent)
  */
 export function CategoryButton(props: Props) {
   return (
@@ -82,15 +82,14 @@ const Blank = styled.div`
 /**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton") <{
+const Base = styled("a", "CategoryButton")<{
   isLink: boolean;
   disabled?: boolean;
 }>`
-  gap: 12px;
-  padding: 15px;
-  border-radius: 6px;
+  gap: ${(props) => props.theme!.gap.l};
+  padding: ${(props) => props.theme!.gap.lg};
   color: ${(props) => props.theme!.colour("onBackground")};
-  /*border-radius: ${(props) => props.theme!.borderRadius.xl};*/
+  border-radius: ${(props) => props.theme!.borderRadius.md};
   background: ${(props) => props.theme!.colour("background")};
 
   user-select: none;
@@ -112,7 +111,7 @@ const Base = styled("a", "CategoryButton") <{
 
   &:active {
     filter: ${(props) =>
-    props.isLink ? props.theme!.effects.active : "unset"};
+      props.isLink ? props.theme!.effects.active : "unset"};
   }
 `;
 

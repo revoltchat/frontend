@@ -14,7 +14,7 @@ type Props = Omit<
 };
 
 /**
- * Category button with collapsed children
+ * Category button with collapsed children (Fluent)
  */
 export function CategoryCollapse(props: Props) {
   const [local, remote] = splitProps(props, ["action", "children"]);

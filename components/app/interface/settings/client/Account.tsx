@@ -3,11 +3,10 @@ import {
   BiRegularBlock,
   BiRegularKey,
   BiRegularMailSend,
-  BiSolidInfoCircle,
+  BiSolidCake,
   BiSolidLock,
   BiSolidShield,
   BiSolidTrash,
-  BiSolidCake,
 } from "solid-icons/bi";
 import { Accessor, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
@@ -21,12 +20,16 @@ import {
   CategoryButton,
   CategoryButtonGroup,
   CategoryCollapse,
+  Chip,
   Column,
   Row,
+  Time,
+  Tooltip,
   Typography,
   styled,
   useTheme,
 } from "@revolt/ui";
+import { formatTime } from "@revolt/ui/components/design/atoms/display/Time";
 
 /**
  * Account Page
@@ -54,50 +57,36 @@ function UserInformation() {
   const client = useClient();
 
   return (
-    <Row align>
-      <AccountBox>
-        <Avatar src={client().user?.animatedAvatarURL} size={64} />
-        <Column gap="sm">
-          <div class="username">{client().user?.username}</div>
-          <div class="age"><BiSolidCake size={14} /> Account created [date here]</div>
-        </Column>
-      </AccountBox>
-
-    </Row>
+    <AccountBox align gap="lg">
+      <Avatar src={client().user!.animatedAvatarURL} size={64} />
+      <Column gap="sm">
+        <Typography variant="settings-account-username">
+          {client().user!.username}
+        </Typography>
+        <Tooltip
+          content={formatTime({
+            format: "datetime",
+            value: client().user!.createdAt,
+          })}
+          placement="top"
+        >
+          <Chip>
+            <BiSolidCake size={14} /> Account created{" "}
+            <Time format="relative" value={client().user!.createdAt} />
+          </Chip>
+        </Tooltip>
+      </Column>
+    </AccountBox>
   );
 }
 
-const AccountBox = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background: white;
-  padding: 15px;
-  gap: 16px;
-  border-radius: ${(props) => props.theme!.borderRadius.xl};
-
-  .username {
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  .age {
-    background: ${(props) => props.theme!.colour("secondary", 96)};
-    padding: 4px 6px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    gap: 6px;
-    font-size: 12px;
-  }
-`;
-
 /**
- * User ID styling
+ * Styles for the account box
  */
-const UserId = styled(Row)`
-  color: ${(props) => props.theme!.colour("onBackground")};
+const AccountBox = styled(Row)`
+  padding: ${(props) => props.theme!.gap.lg};
+  border-radius: ${(props) => props.theme!.borderRadius.xl};
+  background: ${(props) => props.theme!.colour("background")};
 `;
 
 /**

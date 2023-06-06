@@ -1,7 +1,7 @@
 import { styled } from "solid-styled-components";
 
 /**
- * Group a set of category buttons
+ * Group a set of category buttons (M3+Fluent)
  */
 export const CategoryButtonGroup = styled.div`
   display: flex;
