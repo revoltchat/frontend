@@ -16,9 +16,12 @@
     "revolt.js": "workspace:^",
     "typescript": "^4.8.2",
     "vite": "^4.2.1",
-    "vite-plugin-solid": "^2.3.0"
+    "vite-plugin-solid": "^2.3.0",
+    "vite-plugin-pwa": "^0.14.7",
+    "vite-plugin-solid-svg": "^0.6.1"
   },
   "dependencies": {
+    "@material-design-icons/svg": "^0.14.8",
     "@minht11/solid-virtual-container": "^0.2.1",
     "@revolt/admin": "workspace:^",
     "@revolt/app": "workspace:^",
@@ -38,7 +41,6 @@
     "solid-icons": "^1.0.4",
     "solid-js": "^1.7.3",
     "ulid": "^2.3.0",
-    "vite-plugin-pwa": "^0.14.7",
     "workbox-precaching": "^6.5.4"
   },
   "private": true

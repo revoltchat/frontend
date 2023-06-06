@@ -7,7 +7,11 @@
   },
   "keywords": [],
   "private": true,
+  "devDependencies": {
+    "vite-plugin-solid-svg": "^0.6.1"
+  },
   "dependencies": {
+    "@material-design-icons/svg": "^0.14.8",
     "@revolt/app": "workspace:^",
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
