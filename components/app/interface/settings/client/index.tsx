@@ -211,9 +211,9 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             },
             {
               id: "logout",
-              icon: <BiSolidExit size={20} color={theme!.colour("error")} />,
+              icon: <BiSolidExit size={20} color={theme!.colour("onError")} />,
               title: (
-                <ColouredText colour={theme!.colour("error")}>
+                <ColouredText colour={theme!.colour("onError")}>
                   {t("app.settings.pages.logOut")}
                 </ColouredText>
               ),
