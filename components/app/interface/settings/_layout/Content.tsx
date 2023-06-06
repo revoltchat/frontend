@@ -97,20 +97,20 @@ const CloseAnchor = styled.a`
   justify-content: center;
 
   border-radius: ${(props) => props.theme!.borderRadius.full};
-  border: 3px solid ${(props) => props.theme!.scheme.primary};
+  border: 3px solid ${(props) => props.theme!.colour("primary")};
   transition: ${(props) => props.theme!.transitions.fast} background-color;
 
   svg {
     transition: ${(props) => props.theme!.transitions.fast} background-color;
-    color: ${(props) => props.theme!.scheme.primary} !important;
+    color: ${(props) => props.theme!.colour("primary")} !important;
   }
 
   &:hover {
-    background: ${(props) => props.theme!.scheme.primary};
+    background: ${(props) => props.theme!.colour("primary")};
   }
 
   &:hover svg {
-    color: ${(props) => props.theme!.scheme.onPrimary} !important;
+    color: ${(props) => props.theme!.colour("onPrimary")} !important;
   }
 
   &:active {

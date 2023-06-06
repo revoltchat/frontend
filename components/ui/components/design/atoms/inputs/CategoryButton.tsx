@@ -89,9 +89,9 @@ const Base = styled("a", "CategoryButton")<{
   gap: 12px;
   padding: 14px 16px;
 
-  color: ${(props) => props.theme!.scheme.onBackground};
+  color: ${(props) => props.theme!.colour("onBackground")};
   border-radius: ${(props) => props.theme!.borderRadius.xl};
-  background: ${(props) => props.theme!.scheme.background};
+  background: ${(props) => props.theme!.colour("background")};
 
   user-select: none;
   cursor: ${(props) =>
@@ -143,8 +143,8 @@ const Description = styled.span`
 const Action = styled.div`
   width: 24px;
   height: 24px;
-  color: ${(props) => props.theme!.scheme.onPrimary};
-  background: ${(props) => props.theme!.scheme.primary};
+  color: ${(props) => props.theme!.colour("onPrimary")};
+  background: ${(props) => props.theme!.colour("primary")};
   border-radius: ${(props) => props.theme!.borderRadius.full};
 
   display: grid;

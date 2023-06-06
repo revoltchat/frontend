@@ -71,7 +71,7 @@ function UserInformation() {
  * User ID styling
  */
 const UserId = styled(Row)`
-  color: ${(props) => props.theme!.scheme.onBackground};
+  color: ${(props) => props.theme!.colour("onBackground")};
 `;
 
 /**

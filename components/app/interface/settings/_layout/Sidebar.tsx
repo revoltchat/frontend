@@ -98,5 +98,5 @@ const Content = styled("div", "Content")`
  */
 const CategoryTitle = styled(OverflowingText)`
   margin: 0 8px;
-  color: ${(props) => props.theme!.scheme.primary};
+  color: ${(props) => props.theme!.colour("primary")};
 `;
