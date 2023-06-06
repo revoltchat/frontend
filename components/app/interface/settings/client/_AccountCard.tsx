@@ -33,6 +33,7 @@ export const Card = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 6px;
 
   .details div {
     font-weight: 600;
