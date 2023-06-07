@@ -3,6 +3,9 @@ import {
   BiSolidNotification,
   BiSolidSpeaker,
 } from "solid-icons/bi";
+import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
+import MdMarkUnreadChatAlt from "@material-design-icons/svg/outlined/mark_unread_chat_alt.svg?component-solid";
+import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
 
 import { useTranslation } from "@revolt/i18n";
 import {
@@ -11,6 +14,7 @@ import {
   CategoryCollapse,
   Checkbox,
   FormGroup,
+  iconSize,
 } from "@revolt/ui";
 
 /**
@@ -25,7 +29,7 @@ export default function Notifications() {
         <CategoryButton
           action={<Checkbox value onChange={(value) => void value} />}
           onClick={() => void 0}
-          icon={<BiSolidBell size={24} />}
+          icon={<MdNotifications {...iconSize(24)} />}
           description={t(
             "app.settings.pages.notifications.descriptions.enable_desktop"
           )}
@@ -37,7 +41,7 @@ export default function Notifications() {
         <CategoryButton
           action={<Checkbox value onChange={(value) => void value} />}
           onClick={() => void 0}
-          icon={<BiSolidNotification size={24} />}
+          icon={<MdMarkUnreadChatAlt {...iconSize(24)} />}
           description={t(
             "app.settings.pages.notifications.descriptions.enable_push"
           )}
@@ -47,7 +51,7 @@ export default function Notifications() {
       </FormGroup>
       <CategoryCollapse
         title={t("app.settings.pages.notifications.sounds")}
-        icon={<BiSolidSpeaker size={24} />}
+        icon={<MdSpeaker {...iconSize(24)} />}
       >
         <FormGroup>
           <CategoryButton
