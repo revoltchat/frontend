@@ -49,7 +49,7 @@ export default function Sessions() {
   );
 
   return (
-    <Column gap="xl">
+    <Column gap="lg">
       <Switch fallback={<Preloader type="ring" />}>
         <Match when={client().sessions.size()}>
           <ManageCurrentSession otherSessions={otherSessions} />
@@ -120,7 +120,6 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
   return (
     <Show when={props.otherSessions().length}>
       <Column>
-        <Typography variant="label">Other Sessions</Typography>
         <CategoryButtonGroup>
           <For each={props.otherSessions()}>
             {(session) => (
