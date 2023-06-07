@@ -52,6 +52,7 @@ declare module "solid-styled-components" {
       | "md"
       | "l"
       | "lg"
+      | "x"
       | "xl"
       | "xxl"]: string;
     };

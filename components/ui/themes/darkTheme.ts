@@ -134,6 +134,7 @@ export const darkTheme: DefaultTheme = {
     md: "8px",
     l: "12px",
     lg: "15px",
+    x: "28px",
     xl: "32px",
     xxl: "64px",
   },

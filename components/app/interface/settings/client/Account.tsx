@@ -23,6 +23,7 @@ import {
 import { formatTime } from "@revolt/ui/components/design/atoms/display/Time";
 
 import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
+import MdDraw from "@material-design-icons/svg/outlined/draw.svg?component-solid";
 import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
 import MdMail from "@material-design-icons/svg/outlined/mail.svg?component-solid";
 import MdPassword from "@material-design-icons/svg/outlined/password.svg?component-solid";
@@ -57,31 +58,38 @@ function UserInformation() {
   const client = useClient();
 
   return (
-    <AccountBox align gap="lg">
-      <Avatar src={client().user!.animatedAvatarURL} size={64} />
-      <div class="column">
-        <Typography variant="settings-account-username">
-          {client().user!.username}#0000
-        </Typography>
-        <div class="flex">
-          <Tooltip
-            content={formatTime({
-              format: "datetime",
-              value: client().user!.createdAt,
-            })}
-            placement="top"
-          >
-            <Chip>
-              <MdCakeFill {...iconSize(14)} /> Account created{" "}
-              <Time format="relative" value={client().user!.createdAt} />
-            </Chip>
-          </Tooltip>
+    <CategoryButtonGroup>
+      <AccountBox align gap="lg">
+        <Avatar src={client().user!.animatedAvatarURL} size={58} />
+        <div class="column">
+          <div class="username">
+            {client().user!.username}#0000
+          </div>
+          <div class="flex">
+            <Tooltip
+              content={formatTime({
+                format: "datetime",
+                value: client().user!.createdAt,
+              })}
+              placement="top"
+            >
+              <Chip>
+                <MdCakeFill {...iconSize(14)} /> Account created{" "}
+                <Time format="relative" value={client().user!.createdAt} />
+              </Chip>
+            </Tooltip>
+          </div>
         </div>
-      </div>
-      <div class='button'>
-        Edit Profile
-      </div>
-    </AccountBox>
+      </AccountBox>
+      <CategoryButton
+        action="chevron"
+        icon={<MdDraw {...iconSize(24)} />}
+        description="Customise how people can see your profile"
+      >
+        Customise Profile
+      </CategoryButton>
+    </CategoryButtonGroup>
+
   );
 }
 
@@ -90,7 +98,7 @@ function UserInformation() {
  */
 const AccountBox = styled(Row)`
   padding: ${(props) => props.theme!.gap.lg};
-  border-radius: ${(props) => props.theme!.borderRadius.xl};
+  border-radius: 6px;
   background: ${(props) => props.theme!.colour("background")};
 
   .column {
@@ -98,6 +106,11 @@ const AccountBox = styled(Row)`
     flex-direction: column;
     gap: 4px;
     flex-grow: 1;
+
+    .username {
+      font-size: 18px;
+      font-weight: 600;
+    }
   }
 
   .flex {

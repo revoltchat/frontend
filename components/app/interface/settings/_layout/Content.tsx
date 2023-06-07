@@ -20,7 +20,7 @@ export function SettingsContent(props: {
     <Base>
       <Show when={props.page()}>
         <InnerContent>
-          <InnerColumn gap="xl">
+          <InnerColumn gap="x">
             <Typography variant="settings-title">
               <Breadcrumbs
                 elements={props.page()!.split("/")}
@@ -95,8 +95,8 @@ const BottomPadding = styled.div`
  * Button for closing settings page
  */
 const CloseAnchor = styled.a`
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -140,7 +140,7 @@ const CloseAction = styled.div`
     margin-top: 4px;
     display: flex;
     justify-content: center;
-    width: 40px;
+    width: 36px;
     font-weight: 600;
     color: ${(props) => props.theme!.colour("primary")};
     font-size: 0.75rem;
