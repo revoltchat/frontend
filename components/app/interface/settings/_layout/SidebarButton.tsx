@@ -18,6 +18,10 @@ export const SidebarButton = styled.a<Props>`
   font-size: 15px;
   transition: background-color .1s ease-in-out;
 
+  svg {
+    flex-shrink: 0;
+  }
+
   &:hover {
     background-color: ${(props) => props.theme!.colour("secondary", 90)};
   }
