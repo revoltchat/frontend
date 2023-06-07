@@ -1,12 +1,13 @@
 import {
   BiLogosGithub,
   BiLogosTrello,
-  BiRegularBug,
-  BiRegularListOl,
 } from "solid-icons/bi";
+import MdFormatListNumbered from "@material-design-icons/svg/outlined/format_list_numbered.svg?component-solid";
+import MdBugReport from "@material-design-icons/svg/outlined/bug_report.svg?component-solid";
+import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
 
 import { useTranslation } from "@revolt/i18n";
-import { CategoryButton, CategoryButtonGroup, styled } from "@revolt/ui";
+import { CategoryButton, CategoryButtonGroup, styled, iconSize, } from "@revolt/ui";
 
 /**
  * Feedback
@@ -45,7 +46,7 @@ export default function Feedback() {
       >
         <CategoryButton
           action="external"
-          icon={<BiRegularListOl size={24} />}
+          icon={<MdFormatListNumbered {...iconSize(24)} />}
           onClick={() => void 0}
           description={t("app.settings.pages.feedback.issue_desc")}
         >
@@ -58,7 +59,7 @@ export default function Feedback() {
       >
         <CategoryButton
           action="external"
-          icon={<BiRegularBug size={24} />}
+          icon={<MdBugReport {...iconSize(24)} />}
           onClick={() => void 0}
           description={t("app.settings.pages.feedback.bug_desc")}
         >
@@ -67,7 +68,7 @@ export default function Feedback() {
       </Link>
       <CategoryButton
         action="chevron"
-        icon={<BiLogosGithub size={24} />}
+        icon={<MdExitToApp {...iconSize(24)} />}
         onClick={() => void 0}
         description="You can report issues and discuss improvements with us directly here."
       >
