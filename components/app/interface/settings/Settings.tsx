@@ -1,11 +1,4 @@
-import {
-  createContext,
-  createMemo,
-  createSignal,
-  onMount,
-  untrack,
-  useContext,
-} from "solid-js";
+import { createContext, createSignal, untrack, useContext } from "solid-js";
 
 import { Motion, Presence } from "@motionone/solid";
 import { Rerun } from "@solid-primitives/keyed";

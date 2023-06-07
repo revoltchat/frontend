@@ -1,6 +1,7 @@
-import { ComponentProps, JSX, splitProps } from "solid-js";
+import { ComponentProps, JSX, Match, Switch, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import type { scrollable } from "../../../../directives";
 import { Column } from "../../layout";
 
 import { CategoryButton } from "./CategoryButton";
@@ -11,6 +12,8 @@ type Props = Omit<
 > & {
   children?: JSX.Element;
   title?: JSX.Element;
+
+  scrollable?: boolean;
 };
 
 /**
@@ -21,7 +24,7 @@ export function CategoryCollapse(props: Props) {
 
   return (
     <Details>
-      <Summary>
+      <summary>
         <CategoryButton
           {...remote}
           action={[local.action, "collapse"].flat()}
@@ -29,8 +32,14 @@ export function CategoryCollapse(props: Props) {
         >
           {props.title}
         </CategoryButton>
-      </Summary>
-      <Column gap="xs">{props.children}</Column>
+      </summary>
+      <Switch fallback={<Column gap="xs">{props.children}</Column>}>
+        <Match when={props.scrollable}>
+          <HeightLimitedColumn gap="xs" use:scrollable>
+            {props.children}
+          </HeightLimitedColumn>
+        </Match>
+      </Switch>
     </Details>
   );
 }
@@ -61,7 +70,6 @@ const Details = styled.details`
 
   /* connect elements vertically */
   > :not(summary) .CategoryButton {
-
     /* and set child backgrounds */
     background: ${(props) => props.theme!.colour("background", 97)};
   }
@@ -72,12 +80,8 @@ const Details = styled.details`
 `;
 
 /**
- * Top button wrapper
+ * Height-limited column
  */
-const Summary = styled.summary`
-  > * {
-    outline-width: 0;
-    outline-style: solid;
-    outline-color: ${(props) => props.theme!.colours["background-300"]};
-  }
+const HeightLimitedColumn = styled(Column)`
+  max-height: 340px;
 `;

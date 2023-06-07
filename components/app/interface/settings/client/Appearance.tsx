@@ -1,10 +1,16 @@
+import {
+  CategoryButton,
+  CategoryButtonGroup,
+  Column,
+  iconSize,
+  styled,
+} from "@revolt/ui";
+
+import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
+import MdDataObject from "@material-design-icons/svg/outlined/data_object.svg?component-solid";
+import MdFormatSize from "@material-design-icons/svg/outlined/format_size.svg?component-solid";
 import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
 import MdSentimentVerySatisfied from "@material-design-icons/svg/outlined/sentiment_very_satisfied.svg?component-solid";
-import MdFormatSize from "@material-design-icons/svg/outlined/format_size.svg?component-solid";
-import MdDataObject from "@material-design-icons/svg/outlined/data_object.svg?component-solid";
-import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
-
-import { CategoryButton, CategoryButtonGroup, Column, styled, iconSize } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
 
@@ -15,9 +21,10 @@ export default function Appearance() {
   const { navigate } = useSettingsNavigation();
   return (
     <Column gap="lg">
-      <ThemePreview>
-        <img src="https://app.revolt.chat/assets/dark.f38e16a0.svg" draggable={false} />
-      </ThemePreview>
+      <ThemePreview
+        src="https://app.revolt.chat/assets/dark.f38e16a0.svg"
+        draggable={false}
+      />
       <CategoryButtonGroup>
         <CategoryButton
           action="chevron"
@@ -68,9 +75,8 @@ export default function Appearance() {
 /**
  * Theme preview styling
  */
-const ThemePreview = styled.div`
-  img {
-    height: 200px;
-    border-radius: ${(props) => props.theme!.borderRadius.xl};
-  }
+const ThemePreview = styled.img`
+  height: 200px;
+  width: fit-content;
+  border-radius: ${(props) => props.theme!.borderRadius.xl};
 `;

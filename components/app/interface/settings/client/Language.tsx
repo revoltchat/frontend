@@ -1,7 +1,4 @@
-import {
-  BiRegularCheck,
-  BiSolidError,
-} from "solid-icons/bi";
+import { BiRegularCheck, BiSolidError } from "solid-icons/bi";
 import { For, Match, Switch, createMemo } from "solid-js";
 
 import {
@@ -17,19 +14,19 @@ import {
   CategoryButtonGroup,
   CategoryCollapse,
   Checkbox,
+  Column,
   FormGroup,
   Row,
-  Column,
   Time,
-  styled,
   iconSize,
+  styled,
 } from "@revolt/ui";
 
-import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
+import MdCalendarMonth from "@material-design-icons/svg/outlined/calendar_month.svg?component-solid";
 import MdKeyboardTab from "@material-design-icons/svg/outlined/keyboard_tab.svg?component-solid";
 import MdKeyboardTabRtl from "@material-design-icons/svg/outlined/keyboard_tab.svg?component-solid";
+import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?component-solid";
-import MdCalendarMonth from "@material-design-icons/svg/outlined/calendar_month.svg?component-solid";
 
 /**
  * Language
@@ -94,34 +91,25 @@ function PickLanguage() {
       icon={<MdLanguage {...iconSize(24)} />}
       title={t("app.settings.pages.language.select")}
       description={currentLanguage().display}
+      scrollable
     >
-      <Scrollable>
-        <Column gap="xs">
-          <For each={languages()}>
-            {([id, lang]) => (
-              <CategoryButton
-                icon={<UnicodeEmoji emoji={lang.emoji} />}
-                action={<Checkbox value={id === language()} />}
-                onClick={() => loadAndSetLanguage(id as never)}
-              >
-                <Row>
-                  {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
-                  {lang.incomplete && <BiSolidError size={16} />}
-                </Row>
-              </CategoryButton>
-            )}
-          </For>
-        </Column>
-      </Scrollable>
-
+      <For each={languages()}>
+        {([id, lang]) => (
+          <CategoryButton
+            icon={<UnicodeEmoji emoji={lang.emoji} />}
+            action={<Checkbox value={id === language()} />}
+            onClick={() => loadAndSetLanguage(id as never)}
+          >
+            <Row>
+              {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
+              {lang.incomplete && <BiSolidError size={16} />}
+            </Row>
+          </CategoryButton>
+        )}
+      </For>
     </CategoryCollapse>
   );
 }
-
-const Scrollable = styled("div")`
-  max-height: 340px;
-  overflow: auto;
-`;
 
 /**
  * Pick user's preferred date format
@@ -240,19 +228,12 @@ function ConfigureRTL() {
   );
 }
 
-const Link = styled.a`
-  text-decoration: none;
-`;
-
 /**
  * Language contribution link
  */
 function ContributeLanguageLink() {
   return (
-    <Link
-      href="https://weblate.insrt.uk/projects/revolt/web-app/"
-      target="_blank"
-    >
+    <a href="https://weblate.insrt.uk/projects/revolt/web-app/" target="_blank">
       <CategoryButton
         action="external"
         icon={<MdLanguage {...iconSize(24)} />}
@@ -261,6 +242,6 @@ function ContributeLanguageLink() {
       >
         Contribute a language
       </CategoryButton>
-    </Link>
+    </a>
   );
 }

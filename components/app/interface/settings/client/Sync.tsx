@@ -1,16 +1,17 @@
-import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
-import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
-import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
-
 import { useTranslation } from "@revolt/i18n";
 import {
   CategoryButton,
   CategoryButtonGroup,
   Checkbox,
-  FormGroup,
   Column,
+  FormGroup,
+  Time,
   iconSize,
 } from "@revolt/ui";
+
+import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
+import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
+import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
 
 /**
  * Sync Configuration Page
@@ -18,7 +19,6 @@ import {
 export default function Sync() {
   const t = useTranslation();
 
-  //TODO: replace "Last sync" with Notice component once available
   return (
     <Column gap="lg">
       <CategoryButtonGroup>
@@ -55,7 +55,7 @@ export default function Sync() {
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton>
-          Last sync at (time here)
+          Last sync <Time format="relative" value={0} />
         </CategoryButton>
       </CategoryButtonGroup>
     </Column>

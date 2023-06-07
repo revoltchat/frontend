@@ -55,6 +55,11 @@ const Base = styled("div", "Content")`
   overflow-y: scroll;
   overflow-x: hidden;
   background: ${(props) => props.theme!.colour("secondary", 96)};
+
+  /* just to avoid headaches with styling individual links */
+  a {
+    text-decoration: none;
+  }
 `;
 
 /**
