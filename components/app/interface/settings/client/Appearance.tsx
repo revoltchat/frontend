@@ -16,7 +16,7 @@ export default function Appearance() {
   return (
     <Column gap="lg">
       <ThemePreview>
-        <img src="https://app.revolt.chat/assets/dark.f38e16a0.svg" />
+        <img src="https://app.revolt.chat/assets/dark.f38e16a0.svg" draggable={false} />
       </ThemePreview>
       <CategoryButtonGroup>
         <CategoryButton
