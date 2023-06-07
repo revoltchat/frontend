@@ -1,12 +1,10 @@
-import {
-  BiRegularCodeCurly,
-  BiRegularText,
-  BiSolidBrush,
-  BiSolidHappyBeaming,
-  BiSolidPalette,
-} from "solid-icons/bi";
+import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
+import MdSentimentVerySatisfied from "@material-design-icons/svg/outlined/sentiment_very_satisfied.svg?component-solid";
+import MdFormatSize from "@material-design-icons/svg/outlined/format_size.svg?component-solid";
+import MdDataObject from "@material-design-icons/svg/outlined/data_object.svg?component-solid";
+import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
 
-import { CategoryButton, CategoryButtonGroup, Column } from "@revolt/ui";
+import { CategoryButton, CategoryButtonGroup, Column, styled, iconSize } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
 
@@ -16,15 +14,14 @@ import { useSettingsNavigation } from "../Settings";
 export default function Appearance() {
   const { navigate } = useSettingsNavigation();
   return (
-    <Column gap="xl">
-      <img
-        src="https://app.revolt.chat/assets/dark.f38e16a0.svg"
-        width="360px"
-      />
+    <Column gap="lg">
+      <ThemePreview>
+        <img src="https://app.revolt.chat/assets/dark.f38e16a0.svg" />
+      </ThemePreview>
       <CategoryButtonGroup>
         <CategoryButton
           action="chevron"
-          icon={<BiSolidPalette size={24} />}
+          icon={<MdPalette {...iconSize(24)} />}
           onClick={() => navigate("appearance/colours")}
           description="Customise accent colour, additional colours, and transparency"
         >
@@ -32,7 +29,7 @@ export default function Appearance() {
         </CategoryButton>
         <CategoryButton
           action="chevron"
-          icon={<BiSolidHappyBeaming size={24} />}
+          icon={<MdSentimentVerySatisfied {...iconSize(24)} />}
           onClick={() => navigate("appearance/emoji")}
           description="Change how your emojis look"
         >
@@ -40,7 +37,7 @@ export default function Appearance() {
         </CategoryButton>
         <CategoryButton
           action="chevron"
-          icon={<BiRegularText size={24} />}
+          icon={<MdFormatSize {...iconSize(24)} />}
           onClick={() => navigate("appearance/fonts")}
           description="Customise font and text display"
         >
@@ -48,15 +45,17 @@ export default function Appearance() {
         </CategoryButton>
         <CategoryButton
           action="chevron"
-          icon={<BiRegularCodeCurly size={24} />}
+          icon={<MdDataObject {...iconSize(24)} />}
           onClick={() => navigate("appearance/advanced_options")}
           description="Customise theme variables and apply custom CSS"
         >
           Advanced Options
         </CategoryButton>
+      </CategoryButtonGroup>
+      <CategoryButtonGroup>
         <CategoryButton
           action="external"
-          icon={<BiSolidBrush size={24} />}
+          icon={<MdBrush {...iconSize(24)} />}
           description="Browse themes made by the community"
         >
           Discover themes
@@ -65,3 +64,13 @@ export default function Appearance() {
     </Column>
   );
 }
+
+/**
+ * Theme preview styling
+ */
+const ThemePreview = styled.div`
+  img {
+    height: 200px;
+    border-radius: ${(props) => props.theme!.borderRadius.xl};
+  }
+`;
