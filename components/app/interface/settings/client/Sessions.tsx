@@ -3,8 +3,8 @@ import {
   BiLogosApple,
   BiLogosWindows,
   BiRegularQuestionMark,
-  BiSolidExit,
 } from "solid-icons/bi";
+import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
 import { FaBrandsLinux } from "solid-icons/fa";
 import {
   Accessor,
@@ -29,6 +29,7 @@ import {
   Time,
   styled,
   useTheme,
+  iconSize,
 } from "@revolt/ui";
 
 /**
@@ -102,7 +103,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
               client: client(),
             })
           }
-          icon={<BiSolidExit size={24} color={theme.scheme.error} />}
+          icon={<MdLogout {...iconSize(24)} fill={theme.scheme.error} />}
           description="Logs you out of all sessions except this device."
         >
           Log Out Other Sessions
