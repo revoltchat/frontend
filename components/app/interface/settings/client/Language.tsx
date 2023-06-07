@@ -1,9 +1,5 @@
 import {
-  BiRegularAlignLeft,
-  BiRegularAlignRight,
   BiRegularCheck,
-  BiRegularGlobeAlt,
-  BiRegularTime,
   BiSolidError,
 } from "solid-icons/bi";
 import { For, Match, Switch, createMemo } from "solid-js";
@@ -244,18 +240,27 @@ function ConfigureRTL() {
   );
 }
 
+const Link = styled.a`
+  text-decoration: none;
+`;
+
 /**
  * Language contribution link
  */
 function ContributeLanguageLink() {
   return (
-    <CategoryButton
-      action="external"
-      icon={<MdLanguage {...iconSize(24)} />}
-      description="Help contribute to an existing or new language"
+    <Link
+      href="https://weblate.insrt.uk/projects/revolt/web-app/"
+      target="_blank"
     >
-      Contribute a language
-    </CategoryButton>
-
+      <CategoryButton
+        action="external"
+        icon={<MdLanguage {...iconSize(24)} />}
+        onClick={() => void 0}
+        description="Help contribute to an existing or new language"
+      >
+        Contribute a language
+      </CategoryButton>
+    </Link>
   );
 }
