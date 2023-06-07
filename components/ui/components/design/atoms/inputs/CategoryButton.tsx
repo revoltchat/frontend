@@ -62,7 +62,7 @@ export function CategoryButton(props: Props) {
             </Match>
             <Match when={action === "external"}>
               <Action>
-                <BiRegularLinkExternal size={16} />
+                <BiRegularLinkExternal size={20} />
               </Action>
             </Match>
           </Switch>
@@ -82,7 +82,7 @@ const Blank = styled.div`
 /**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton")<{
+const Base = styled("a", "CategoryButton") <{
   isLink: boolean;
   disabled?: boolean;
 }>`
@@ -111,7 +111,7 @@ const Base = styled("a", "CategoryButton")<{
 
   &:active {
     filter: ${(props) =>
-      props.isLink ? props.theme!.effects.active : "unset"};
+    props.isLink ? props.theme!.effects.active : "unset"};
   }
 `;
 

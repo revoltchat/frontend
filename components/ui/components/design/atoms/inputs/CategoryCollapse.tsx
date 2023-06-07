@@ -59,29 +59,11 @@ const Details = styled.details`
     display: none;
   }
 
-  /* remove bottom padding when open */
-  &[open] > summary .CategoryButton {
-    border-end-end-radius: 0;
-    border-end-start-radius: 0;
-  }
-
   /* connect elements vertically */
   > :not(summary) .CategoryButton {
-    border-start-start-radius: 0;
-    border-start-end-radius: 0;
 
     /* and set child backgrounds */
     background: ${(props) => props.theme!.colour("background", 97)};
-  }
-
-  > :not(summary) > :not(:last-child) .CategoryButton {
-    border-end-end-radius: 0;
-    border-end-start-radius: 0;
-  }
-
-  > :not(summary) > :not(:last-child).CategoryButton {
-    border-end-end-radius: 0;
-    border-end-start-radius: 0;
   }
 
   /*> :not(summary) > :last-child.CategoryButton {
@@ -97,11 +79,5 @@ const Summary = styled.summary`
     outline-width: 0;
     outline-style: solid;
     outline-color: ${(props) => props.theme!.colours["background-300"]};
-  }
-
-  &:hover {
-    > * {
-      outline-width: 1px;
-    }
   }
 `;

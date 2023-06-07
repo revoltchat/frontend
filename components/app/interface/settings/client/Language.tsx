@@ -23,21 +23,36 @@ import {
   Checkbox,
   FormGroup,
   Row,
+  Column,
   Time,
   styled,
+  iconSize,
 } from "@revolt/ui";
+
+import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
+import MdKeyboardTab from "@material-design-icons/svg/outlined/keyboard_tab.svg?component-solid";
+import MdKeyboardTabRtl from "@material-design-icons/svg/outlined/keyboard_tab.svg?component-solid";
+import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?component-solid";
+import MdCalendarMonth from "@material-design-icons/svg/outlined/calendar_month.svg?component-solid";
 
 /**
  * Language
  */
 export default function Language() {
   return (
-    <CategoryButtonGroup>
-      <PickLanguage />
-      <PickDateFormat />
-      <PickTimeFormat />
-      <ConfigureRTL />
-    </CategoryButtonGroup>
+    <Column gap="lg">
+      <CategoryButtonGroup>
+        <PickLanguage />
+        <ConfigureRTL />
+      </CategoryButtonGroup>
+      <CategoryButtonGroup>
+        <PickDateFormat />
+        <PickTimeFormat />
+      </CategoryButtonGroup>
+      <CategoryButtonGroup>
+        <ContributeLanguageLink />
+      </CategoryButtonGroup>
+    </Column>
   );
 }
 
@@ -80,25 +95,27 @@ function PickLanguage() {
 
   return (
     <CategoryCollapse
-      icon={<BiRegularGlobeAlt size={24} />}
+      icon={<MdLanguage {...iconSize(24)} />}
       title={t("app.settings.pages.language.select")}
       description={currentLanguage().display}
     >
       <Scrollable>
-        <For each={languages()}>
-          {([id, lang]) => (
-            <CategoryButton
-              icon={<UnicodeEmoji emoji={lang.emoji} />}
-              action={<Checkbox value={id === language()} />}
-              onClick={() => loadAndSetLanguage(id as never)}
-            >
-              <Row>
-                {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
-                {lang.incomplete && <BiSolidError size={16} />}
-              </Row>
-            </CategoryButton>
-          )}
-        </For>
+        <Column gap="xs">
+          <For each={languages()}>
+            {([id, lang]) => (
+              <CategoryButton
+                icon={<UnicodeEmoji emoji={lang.emoji} />}
+                action={<Checkbox value={id === language()} />}
+                onClick={() => loadAndSetLanguage(id as never)}
+              >
+                <Row>
+                  {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
+                  {lang.incomplete && <BiSolidError size={16} />}
+                </Row>
+              </CategoryButton>
+            )}
+          </For>
+        </Column>
       </Scrollable>
 
     </CategoryCollapse>
@@ -119,7 +136,7 @@ function PickDateFormat() {
 
   return (
     <CategoryCollapse
-      icon={<BiRegularTime size={24} />}
+      icon={<MdCalendarMonth {...iconSize(24)} />}
       title="Select date format"
       description={`Traditional`}
     >
@@ -163,7 +180,7 @@ function PickDateFormat() {
 function PickTimeFormat() {
   return (
     <CategoryCollapse
-      icon={<BiRegularTime size={24} />}
+      icon={<MdSchedule {...iconSize(24)} />}
       title="Select time format"
       description={`24 hours`}
     >
@@ -204,7 +221,7 @@ function ConfigureRTL() {
     <Switch
       fallback={
         <CategoryButton
-          icon={<BiRegularAlignRight size={24} />}
+          icon={<MdKeyboardTabRtl {...iconSize(24)} />}
           description="Flip the user interface right to left"
           action={<Checkbox />}
           onClick={() => void 0}
@@ -215,7 +232,7 @@ function ConfigureRTL() {
     >
       <Match when={currentLanguage().rtl}>
         <CategoryButton
-          icon={<BiRegularAlignLeft size={24} />}
+          icon={<MdKeyboardTab {...iconSize(24)} />}
           description="Keep the user interface left to right"
           action={<Checkbox />}
           onClick={() => void 0}
@@ -224,5 +241,21 @@ function ConfigureRTL() {
         </CategoryButton>
       </Match>
     </Switch>
+  );
+}
+
+/**
+ * Language contribution link
+ */
+function ContributeLanguageLink() {
+  return (
+    <CategoryButton
+      action="external"
+      icon={<MdLanguage {...iconSize(24)} />}
+      description="Help contribute to an existing or new language"
+    >
+      Contribute a language
+    </CategoryButton>
+
   );
 }
