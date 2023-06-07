@@ -97,14 +97,14 @@ function UserInformation() {
  * Styles for the account box
  */
 const AccountBox = styled(Row)`
-  padding: ${(props) => props.theme!.gap.lg};
+  padding: 13px 15px;
   border-radius: 6px;
   background: ${(props) => props.theme!.colour("background")};
 
   .column {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
     flex-grow: 1;
 
     .username {
