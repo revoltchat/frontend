@@ -1,8 +1,3 @@
-import {
-  BiSolidBell,
-  BiSolidNotification,
-  BiSolidSpeaker,
-} from "solid-icons/bi";
 import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
 import MdMarkUnreadChatAlt from "@material-design-icons/svg/outlined/mark_unread_chat_alt.svg?component-solid";
 import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
