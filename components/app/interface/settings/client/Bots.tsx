@@ -20,7 +20,7 @@ import { useSettingsNavigation } from "../Settings";
  */
 export default function Bots() {
   return (
-    <Column gap="xl">
+    <Column gap="lg">
       <CreateBot />
       <ListBots />
     </Column>
@@ -32,14 +32,16 @@ export default function Bots() {
  */
 function CreateBot() {
   return (
-    <CategoryButton
-      action="chevron"
-      icon={<BiSolidBot size={24} />}
-      onClick={() => void 0}
-      description="You agree that your bot is subject to the Acceptable Usage Policy."
-    >
-      Create Bot
-    </CategoryButton>
+    <CategoryButtonGroup>
+      <CategoryButton
+        action="chevron"
+        icon={<BiSolidBot size={24} />}
+        onClick={() => void 0}
+        description="You agree that your bot is subject to the Acceptable Usage Policy."
+      >
+        Create Bot
+      </CategoryButton>
+    </CategoryButtonGroup>
   );
 }
 
@@ -62,7 +64,6 @@ function ListBots() {
   return (
     <Show when={!bots() || bots()!.length !== 0}>
       <Column>
-        <Typography variant="label">My Bots</Typography>
         <Switch fallback={<Preloader type="ring" />}>
           <Match when={bots()?.length}>
             <CategoryButtonGroup>
