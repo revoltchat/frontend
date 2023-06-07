@@ -1,10 +1,3 @@
-import {
-  BiRegularAtom,
-  BiRegularWindowClose,
-  BiRegularWindowOpen,
-  BiSolidWindowAlt,
-} from "solid-icons/bi";
-
 import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
 import MdCancelPresentation from "@material-design-icons/svg/outlined/cancel_presentation.svg?component-solid";
 import MdWebAsset from "@material-design-icons/svg/outlined/web_asset.svg?component-solid";

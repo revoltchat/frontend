@@ -27,7 +27,6 @@ import {
   Column,
   Preloader,
   Time,
-  Typography,
   styled,
   useTheme,
 } from "@revolt/ui";

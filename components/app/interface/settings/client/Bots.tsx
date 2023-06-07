@@ -1,4 +1,4 @@
-import { BiSolidBot } from "solid-icons/bi";
+import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?component-solid";
 import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
 import { Bot } from "revolt.js";
@@ -10,7 +10,7 @@ import {
   CategoryButtonGroup,
   Column,
   Preloader,
-  Typography,
+  iconSize,
 } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
@@ -35,7 +35,7 @@ function CreateBot() {
     <CategoryButtonGroup>
       <CategoryButton
         action="chevron"
-        icon={<BiSolidBot size={24} />}
+        icon={<MdSmartToy {...iconSize(24)} />}
         onClick={() => void 0}
         description="You agree that your bot is subject to the Acceptable Usage Policy."
       >
