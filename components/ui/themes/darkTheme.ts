@@ -100,8 +100,8 @@ export const darkTheme: DefaultTheme = {
   colour(base: keyof Scheme, tone?: number): string {
     return tone
       ? hexFromArgb(
-          darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
-        )
+        darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
+      )
       : darkTheme.scheme[base];
   },
   ...schemeToHex(theme.schemes[darkMode ? "dark" : "light"]),
@@ -223,7 +223,7 @@ export const darkTheme: DefaultTheme = {
       element: "h1",
       margin: 0,
       fontWeight: 500,
-      fontSize: "2rem",
+      fontSize: "1.75rem",
     },
     "settings-account-username": {
       fontSize: "20px",
