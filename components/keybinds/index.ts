@@ -11,10 +11,6 @@ export type KeyCombo = string[];
 
 export type KeySequence = KeyCombo[];
 
-export type Keybinding = {
-  sequence: KeySequence;
-};
-
 export const KeyCombo = {
   fromKeyboardEvent(event: KeyboardEvent): KeyCombo {
     const pressed = KEYBINDING_MODIFIER_KEYS.filter((key) =>
@@ -66,8 +62,12 @@ export class KeybindEvent<T> extends KeyboardEvent {
 }
 
 export class KeybindState<KeybindAction extends string> extends EventTarget {
-  keybinds = new Map<KeybindAction, Keybinding[]>();
-  possibleSequences = new Map<Keybinding, KeyCombo[]>();
+  possibleSequences = new Map<KeySequence, KeyCombo[]>();
+
+  // todo: measure memory and performance between this and manually setting a `keybinds` property
+  constructor(public getKeybinds: () => Record<KeybindAction, KeySequence[]>) {
+    super();
+  }
 
   resetPossibleSequences = () =>
     debounce(() => this.possibleSequences.clear(), 1000);
@@ -78,25 +78,29 @@ export class KeybindState<KeybindAction extends string> extends EventTarget {
 
     const combo = KeyCombo.fromKeyboardEvent(event);
 
-    this.keybinds.forEach((keybindings, action) => {
-      keybindings.forEach((keybinding) => {
+    const keybinds = this.getKeybinds();
+    Object.keys(keybinds).forEach((action) => {
+      const keybindings = keybinds[action as KeybindAction];
+      keybindings.forEach((sequence) => {
         // skip unassigned keybinds
-        if (keybinding.sequence.length === 0) return;
+        if (sequence.length === 0) return;
 
         const expectedSequence =
-          this.possibleSequences.get(keybinding) ?? keybinding.sequence;
+          this.possibleSequences.get(sequence) ?? sequence;
 
         const matched = KeyCombo.matches(expectedSequence[0], combo);
 
         if (matched) {
           if (expectedSequence.length > 1) {
-            this.possibleSequences.set(keybinding, expectedSequence.slice(1));
+            this.possibleSequences.set(sequence, expectedSequence.slice(1));
           } else {
-            this.possibleSequences.delete(keybinding);
-            this.dispatchEvent(new KeybindEvent(action, event));
+            this.possibleSequences.delete(sequence);
+            this.dispatchEvent(
+              new KeybindEvent(action as KeybindAction, event)
+            );
           }
         } else if (KEYBINDING_MODIFIER_KEYS.includes(event.key)) {
-          this.possibleSequences.delete(keybinding);
+          this.possibleSequences.delete(sequence);
         }
       });
     });

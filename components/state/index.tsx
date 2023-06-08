@@ -11,6 +11,7 @@ import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
+import { Keybinds } from "./stores/Keybinds";
 import { Layout } from "./stores/Layout";
 import { Locale } from "./stores/Locale";
 import { NotificationOptions } from "./stores/NotificationOptions";
@@ -41,6 +42,7 @@ export class State {
   auth = new Auth(this);
   draft = new Draft(this);
   experiments = new Experiments(this);
+  keybinds = new Keybinds(this)
   layout = new Layout(this);
   locale = new Locale(this);
   notifications = new NotificationOptions(this);
