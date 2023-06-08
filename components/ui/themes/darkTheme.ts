@@ -14,7 +14,8 @@ import {
 // const hex = '#d59ff5';
 //const hex = "#FF7F50";
 //const hex = "#B4CBAF";
-const hex = "#8C5FD3";
+// const hex = "#8C5FD3";
+const hex = "#FF5733"; //Coral Orange
 const darkMode = false;
 const theme = themeFromSourceColor(argbFromHex(hex), [
   {
