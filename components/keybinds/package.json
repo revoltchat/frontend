@@ -1,0 +1,18 @@
+{
+  "name": "@revolt/keybinds",
+  "version": "1.0.0",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "private": true,
+  "dependencies": {
+    "@revolt/common": "workspace:^"
+  },
+  "devDependencies": {
+    "@revolt/client": "workspace:^1.0.0",
+    "@revolt/modal": "workspace:^1.0.0",
+    "@revolt/state": "workspace:^1.0.0"
+  }
+}
