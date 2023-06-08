@@ -244,6 +244,22 @@ importers:
         specifier: ^16.3.1
         version: 16.3.1
 
+  components/keybinds:
+    dependencies:
+      '@revolt/common':
+        specifier: workspace:^
+        version: link:../common
+    devDependencies:
+      '@revolt/client':
+        specifier: workspace:^1.0.0
+        version: link:../client
+      '@revolt/modal':
+        specifier: workspace:^1.0.0
+        version: link:../modal
+      '@revolt/state':
+        specifier: workspace:^1.0.0
+        version: link:../state
+
   components/markdown:
     dependencies:
       '@revolt/client':
