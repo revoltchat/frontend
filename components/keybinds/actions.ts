@@ -1,4 +1,4 @@
-import { KeySequence } from ".";
+import { KeyComboSequence } from ".";
 
 export enum KeybindAction {
   NavigateChannelUp = "navigate_channel_up",
@@ -7,4 +7,4 @@ export enum KeybindAction {
   NavigateServerDown = "navigate_server_down",
 }
 
-export type KeybindActions = Record<KeybindAction, KeySequence[]>;
+export type KeybindActions = Record<KeybindAction, KeyComboSequence[]>;

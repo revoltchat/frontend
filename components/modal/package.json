@@ -16,6 +16,7 @@
     "@revolt/markdown": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
+    "@revolt/keybinds": "workspace:^",
     "revolt.js": "workspace:^",
     "solid-icons": "^1.0.4",
     "solid-js": "^1.7.3",
