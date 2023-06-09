@@ -1,6 +1,6 @@
 import {
   KeyCombo,
-  KeySequence,
+  KeyComboSequence,
   KeybindAction,
   KeybindActions,
   KeybindSequence,
@@ -13,7 +13,7 @@ import { AbstractStore } from ".";
 /** utility to make writing the default keybinds easier, requires all `KeybindAction` values to be filled out */
 function keybindMap(
   obj: Record<KeybindAction, string[]>
-): Record<KeybindAction, KeySequence[]> {
+): Record<KeybindAction, KeyComboSequence[]> {
   const entries = Object.entries(obj) as [KeybindAction, string[]][];
   const parsed = entries.map(([act, seqs]) => [
     act,
@@ -66,8 +66,9 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
    */
   clean(input: Partial<TypeKeybinds>): TypeKeybinds {
     const actions = this.default();
-    // todo: implement this
-    throw new Error(`clean is not implemented for Keybinds yet`);
+    // TODO: implement this
+    // throw new Error(`clean is not implemented for Keybinds yet`);
+    return { ...actions, ...input };
   }
 
   getKeybinds() {
@@ -85,8 +86,8 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
    * @param index index to bind to
    * @param sequence the keybind sequence
    */
-  setKeybind(action: KeybindAction, index: number, sequence: string) {
-    this.set("keybinds", action, index, KeybindSequence.parse(sequence));
+  setKeybind(action: KeybindAction, index: number, sequence: KeyComboSequence) {
+    this.set("keybinds", action, index, sequence);
   }
 
   /**
@@ -94,11 +95,8 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
    * @param action the action to add a keybind to
    * @param sequence the keybind sequence to add
    */
-  addKeybind(action: KeybindAction, sequence: string) {
-    this.set("keybinds", action, (keybinds) => [
-      ...keybinds,
-      KeybindSequence.parse(sequence),
-    ]);
+  addKeybind(action: KeybindAction, sequence: KeyComboSequence) {
+    this.set("keybinds", action, (keybinds) => [...keybinds, sequence]);
   }
 
   /**
@@ -131,5 +129,9 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
     const keybindSequence = this.getKeybinds()[action][index];
     const defaultSequence = DEFAULT_VALUES[action][index];
     return KeybindSequence.matches(keybindSequence, defaultSequence);
+  }
+
+  isDefaultIndex(action: KeybindAction, index: number) {
+    return index < DEFAULT_VALUES[action].length;
   }
 }

@@ -1,12 +1,16 @@
-import { BiSolidPencil, BiSolidPlusCircle } from "solid-icons/bi";
+import {
+  BiSolidPencil,
+  BiSolidPlusCircle,
+  BiSolidXCircle,
+} from "solid-icons/bi";
 import { BiRegularReset } from "solid-icons/bi";
-import { Component, For, Show } from "solid-js";
+import { For, Match, Switch } from "solid-js";
 
+import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { KeybindAction } from "@revolt/keybinds";
 import { state } from "@revolt/state";
 import {
-  Button,
   CategoryButton,
   CategoryCollapse,
   Column,
@@ -24,50 +28,99 @@ const categories: Record<string, KeybindAction[]> = {
   ],
 };
 
-const ActionSection = styled("details")``;
-
-// const KeybindEntries: Component = () => {};
-
 /**
  * Keybinds
  */
 export default function Keybinds() {
+  // TODO: use translation strings
   const t = useTranslation();
+
+  const editKeybind = (action: KeybindAction, index: number) =>
+    getController("modal").push({
+      type: "edit_keybind",
+      action,
+      onSubmit: (sequence) => {
+        state.keybinds.setKeybind(action, index, sequence);
+      },
+    });
+
+  const addKeybind = (action: KeybindAction) =>
+    getController("modal").push({
+      type: "edit_keybind",
+      action,
+      onSubmit: (sequence) => {
+        state.keybinds.addKeybind(action, sequence);
+      },
+    });
+
+  const resetKeybind = (action: KeybindAction, index: number) =>
+    state.keybinds.resetKeybindToDefault(action, index);
 
   // TODO: Tooltips for buttons
   // TODO: a11y pass
+  // TODO: separate parts out
   return (
     <For each={Object.entries(categories)}>
       {([category, actions]) => (
-        <CategoryCollapse title={category} open={true}>
+        <CategoryCollapse
+          title={t(`app.settings.pages.keybinds.category.${category}`)}
+          open={true}
+        >
           <Column group={true}>
             <For each={actions}>
               {(action) => (
                 <>
                   <CategoryButton
-                    description={action}
+                    description={t(
+                      `app.settings.pages.keybinds.action.${action}.description`
+                    )}
                     action={<BiSolidPlusCircle size={24} />}
+                    onClick={() => addKeybind(action)}
                   >
-                    {action}
+                    {t(`app.settings.pages.keybinds.action.${action}.title`)}
                   </CategoryButton>
                   <For each={state.keybinds.getKeybinds()[action]}>
-                    {(sequence, i) => {
+                    {(sequence, index) => {
                       const keybindIsDefault = state.keybinds.isDefaultKeybind(
                         action,
-                        i()
+                        index()
+                      );
+
+                      const indexIsDefault = state.keybinds.isDefaultIndex(
+                        action,
+                        index()
                       );
 
                       return (
                         <KeybindEntry>
                           <KeySequence sequence={sequence} short />
-                          <IconButton>
+                          <IconButton
+                            onClick={() => editKeybind(action, index())}
+                          >
                             <BiSolidPencil size={24}></BiSolidPencil>
                           </IconButton>
-                          <Show when={!keybindIsDefault}>
-                            <IconButton>
-                              <BiRegularReset size={24}></BiRegularReset>
-                            </IconButton>
-                          </Show>
+                          <Switch>
+                            <Match when={!keybindIsDefault && indexIsDefault}>
+                              <IconButton
+                                title={t(
+                                  "app.settings.pages.keybinds.remove_keybind"
+                                )}
+                                onclick={() => resetKeybind(action, index())}
+                              >
+                                <BiRegularReset size={24}></BiRegularReset>
+                              </IconButton>
+                            </Match>
+                            <Match when={!keybindIsDefault}>
+                              <IconButton
+                                title={t(
+                                  "app.settings.pages.keybinds.remove_keybind"
+                                )}
+                                onclick={() => resetKeybind(action, index())}
+                              >
+                                <BiSolidXCircle size={24}></BiSolidXCircle>
+                              </IconButton>
+                            </Match>
+                          </Switch>
                         </KeybindEntry>
                       );
                     }}

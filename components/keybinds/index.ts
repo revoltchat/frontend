@@ -8,8 +8,7 @@ export const KEYBINDING_MODIFIER_KEYS = ["Control", "Alt", "Meta", "Shift"];
  * Should only be include modifiers and one key at the moment.
  */
 export type KeyCombo = string[];
-
-export type KeySequence = KeyCombo[];
+export type KeyComboSequence = KeyCombo[];
 
 export const KeyCombo = {
   fromKeyboardEvent(event: KeyboardEvent): KeyCombo {
@@ -44,17 +43,17 @@ export const KeybindSequence = {
    * parse('Control+k b')
    * ```
    */
-  parse(sequence: string): KeySequence {
+  parse(sequence: string): KeyComboSequence {
     return sequence.split(" ").map((expr) => expr.split("+"));
   },
 
   /** Stringify a keybind sequence */
-  stringify(sequence: KeySequence) {
+  stringify(sequence: KeyComboSequence) {
     return sequence.map((combo) => combo.join("+")).join(" ");
   },
 
   /** Checks to see if two key sequences match */
-  matches(keySequenceA?: KeySequence, keySequenceB?: KeySequence) {
+  matches(keySequenceA?: KeyComboSequence, keySequenceB?: KeyComboSequence) {
     return (
       keySequenceA?.length == keySequenceB?.length &&
       keySequenceA?.every((key, i) => KeyCombo.matches(key, keySequenceB?.[i]))
@@ -72,10 +71,12 @@ export class KeybindEvent<T extends string> extends KeyboardEvent {
 export class KeybindEventHandler<
   KeybindAction extends string
 > extends EventTarget {
-  possibleSequences = new Map<KeySequence, KeyCombo[]>();
+  possibleSequences = new Map<KeyComboSequence, KeyCombo[]>();
 
   // todo: measure memory and performance between this and manually setting a `keybinds` property
-  constructor(public getKeybinds: () => Record<KeybindAction, KeySequence[]>) {
+  constructor(
+    public getKeybinds: () => Record<KeybindAction, KeyComboSequence[]>
+  ) {
     super();
   }
 

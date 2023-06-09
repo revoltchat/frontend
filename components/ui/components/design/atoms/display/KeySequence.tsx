@@ -3,7 +3,7 @@ import { styled } from "solid-styled-components";
 
 import {
   KeybindSequence,
-  type KeySequence as TKeySequence,
+  type KeyComboSequence as TKeySequence,
 } from "@revolt/keybinds";
 
 import { Key } from "./Key";
