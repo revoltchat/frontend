@@ -44,13 +44,21 @@ export const KeybindSequence = {
    * parse('Control+k b')
    * ```
    */
-  parse(sequence: string): KeyCombo[] {
+  parse(sequence: string): KeySequence {
     return sequence.split(" ").map((expr) => expr.split("+"));
   },
 
   /** Stringify a keybind sequence */
-  stringify(sequence: KeyCombo[]) {
+  stringify(sequence: KeySequence) {
     return sequence.map((combo) => combo.join("+")).join(" ");
+  },
+
+  /** Checks to see if two key sequences match */
+  matches(keySequenceA?: KeySequence, keySequenceB?: KeySequence) {
+    return (
+      keySequenceA?.length == keySequenceB?.length &&
+      keySequenceA?.every((key, i) => KeyCombo.matches(key, keySequenceB?.[i]))
+    );
   },
 };
 

@@ -1,9 +1,9 @@
 import {
-  BiSolidDownArrowAlt,
-  BiSolidLeftArrowAlt,
-  BiSolidRightArrowAlt,
-  BiSolidUpArrowAlt,
-} from "solid-icons/bi";
+  FaSolidArrowDown,
+  FaSolidArrowLeft,
+  FaSolidArrowRight,
+  FaSolidArrowUp,
+} from "solid-icons/fa";
 import { Component, JSXElement, createMemo } from "solid-js";
 import { styled } from "solid-styled-components";
 
@@ -18,7 +18,7 @@ export interface Props {
 
 const Base = styled("kbd", "Key")<Pick<Props, "simple">>`
   display: inline-flex;
-  background-color: ${(props) => props.theme?.colours["background-300"]};
+  background-color: ${(props) => props.theme?.colours["background-400"]};
 
   padding: 0.5ch 1ch 0.35ch;
 
@@ -52,10 +52,10 @@ const Base = styled("kbd", "Key")<Pick<Props, "simple">>`
 `;
 
 const REPLACEMENTS: Record<string, () => JSXElement> = {
-  ArrowUp: () => <BiSolidUpArrowAlt size="1em" />,
-  ArrowDown: () => <BiSolidDownArrowAlt size="1em" />,
-  ArrowLeft: () => <BiSolidLeftArrowAlt size="1em" />,
-  ArrowRight: () => <BiSolidRightArrowAlt size="1em" />,
+  ArrowUp: () => <FaSolidArrowUp size="1em" />,
+  ArrowDown: () => <FaSolidArrowDown size="1em" />,
+  ArrowLeft: () => <FaSolidArrowLeft size="1em" />,
+  ArrowRight: () => <FaSolidArrowRight size="1em" />,
 };
 
 export const Key: Component<Props> = (props) => {

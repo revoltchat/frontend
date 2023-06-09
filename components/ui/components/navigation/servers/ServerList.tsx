@@ -1,13 +1,15 @@
 import { BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
-import { Accessor, For, Show } from "solid-js";
+import { Accessor, For, Show, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Channel, Server, User } from "revolt.js";
 
-import { Link } from "@revolt/routing";
+import { KeybindAction } from "@revolt/keybinds";
+import { Link, useNavigate } from "@revolt/routing";
 
 import { invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
+import { useKeybinds } from "../../context/Keybinds";
 import { Button, Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
@@ -52,6 +54,42 @@ interface Props {
  * Server list sidebar component
  */
 export const ServerList = (props: Props) => {
+  const navigate = useNavigate();
+  const keybinds = useKeybinds();
+
+  const navigateServer = (byOffset: number) => {
+    let serverId = props.selectedServer();
+    if (serverId == null) {
+      return;
+    }
+
+    const currentServerIndex = props.orderedServers.findIndex(
+      (server) => server.id === serverId
+    );
+
+    let nextIndex = currentServerIndex + byOffset;
+    console.log(nextIndex, currentServerIndex);
+
+    if (nextIndex === -1) {
+      return navigate("/app");
+    }
+
+    // this will wrap the index around
+    const nextChannel = props.orderedServers.at(
+      nextIndex % props.orderedServers.length
+    );
+
+    if (nextChannel) {
+      navigate(`/server/${serverId}`);
+    }
+  };
+
+  onMount(() => {
+    keybinds.addEventListener(KeybindAction.NavigateServerUp, (e) => {
+      navigateServer(-1);
+    });
+  });
+
   return (
     <ServerListBase>
       <div use:invisibleScrollable={{ direction: "y" }}>
