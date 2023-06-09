@@ -97,7 +97,7 @@ function UserInformation() {
  * Styles for the account box
  */
 const AccountBox = styled(Row)`
-  padding: 13px 15px;
+  padding: 13px 14px;
   border-radius: 6px;
   background: ${(props) => props.theme!.colour("background")};
 

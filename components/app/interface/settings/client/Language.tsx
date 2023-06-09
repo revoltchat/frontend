@@ -1,4 +1,3 @@
-import { BiRegularCheck, BiSolidError } from "solid-icons/bi";
 import { For, Match, Switch, createMemo } from "solid-js";
 
 import {
@@ -19,7 +18,7 @@ import {
   Row,
   Time,
   iconSize,
-  styled,
+  useTheme,
 } from "@revolt/ui";
 
 import MdCalendarMonth from "@material-design-icons/svg/outlined/calendar_month.svg?component-solid";
@@ -27,6 +26,10 @@ import MdKeyboardTab from "@material-design-icons/svg/outlined/keyboard_tab.svg?
 import MdKeyboardTabRtl from "@material-design-icons/svg/outlined/keyboard_tab.svg?component-solid";
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?component-solid";
+
+import MdVerifiedFill from "@material-design-icons/svg/filled/verified.svg?component-solid";
+import MdErrorFill from "@material-design-icons/svg/filled/error.svg?component-solid";
+
 
 /**
  * Language
@@ -53,6 +56,7 @@ export default function Language() {
  * Pick user's preferred language
  */
 function PickLanguage() {
+  const theme = useTheme();
   const t = useTranslation();
 
   /**
@@ -101,8 +105,8 @@ function PickLanguage() {
             onClick={() => loadAndSetLanguage(id as never)}
           >
             <Row>
-              {lang.display} {lang.verified && <BiRegularCheck size={16} />}{" "}
-              {lang.incomplete && <BiSolidError size={16} />}
+              {lang.display} {lang.verified && <MdVerifiedFill {...iconSize(18)} fill={theme!.colour("primary")} />}{" "}
+              {lang.incomplete && <MdErrorFill {...iconSize(18)} fill={theme!.colour("primary")} />}
             </Row>
           </CategoryButton>
         )}
@@ -131,7 +135,7 @@ function PickDateFormat() {
           action={<Checkbox value />}
           description={<Time format="date" value={LastWeek} />}
         >
-          Traditional
+          Traditional (DD/MM/YYYY)
         </CategoryButton>
       </FormGroup>
       <FormGroup>
@@ -141,7 +145,7 @@ function PickDateFormat() {
           action={<Checkbox />}
           description={<Time format="dateAmerican" value={LastWeek} />}
         >
-          American (Month-Day)
+          American (MM/DD/YYYY)
         </CategoryButton>
       </FormGroup>
       <FormGroup>
@@ -151,7 +155,7 @@ function PickDateFormat() {
           action={<Checkbox />}
           description={<Time format="iso8601" value={LastWeek} />}
         >
-          ISO8601
+          ISO8601 (YYYY/MM/DD)
         </CategoryButton>
       </FormGroup>
     </CategoryCollapse>

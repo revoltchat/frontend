@@ -17,6 +17,7 @@ export const SidebarButton = styled.a<Props>`
   margin-inline-end: 12px;
   font-size: 15px;
   transition: background-color .1s ease-in-out;
+  color: ${(props) => props.theme!.colour("onSecondary", 20)};
 
   svg {
     flex-shrink: 0;
@@ -24,5 +25,9 @@ export const SidebarButton = styled.a<Props>`
 
   &:hover {
     background-color: ${(props) => props.theme!.colour("secondary", 90)};
+  }
+
+  &:active {
+    background-color: ${(props) => props.theme!.colour("secondary", 82)};
   }
 `;

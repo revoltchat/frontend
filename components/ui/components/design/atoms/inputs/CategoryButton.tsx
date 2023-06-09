@@ -52,17 +52,17 @@ export function CategoryButton(props: Props) {
           <Switch fallback={action}>
             <Match when={action === "chevron"}>
               <Action>
-                <BiSolidChevronRight size={20} />
+                <BiSolidChevronRight size={18} />
               </Action>
             </Match>
             <Match when={action === "collapse"}>
               <Action>
-                <BiSolidChevronDown size={20} />
+                <BiSolidChevronDown size={18} />
               </Action>
             </Match>
             <Match when={action === "external"}>
               <Action>
-                <BiRegularLinkExternal size={20} />
+                <BiRegularLinkExternal size={18} />
               </Action>
             </Match>
           </Switch>
@@ -87,15 +87,17 @@ const Base = styled("a", "CategoryButton") <{
   disabled?: boolean;
 }>`
   gap: ${(props) => props.theme!.gap.l};
-  padding: ${(props) => props.theme!.gap.lg};
+  padding: 14px; /*TODO: make this a prop*/
   color: ${(props) => props.theme!.colour("onBackground")};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colour("background")};
+  /*background: ${(props) => props.theme!.colour("background")};*/
+
+  background: ${(props) => props.theme!.colour("background", 99)};
 
   user-select: none;
   cursor: ${(props) =>
     props.disabled ? "not-allowed" : props.isLink ? "pointer" : "initial"};
-  transition: ${(props) => props.theme!.transitions.fast} all;
+  transition: background-color .1s ease-in-out;
 
   display: flex;
   align-items: center;
@@ -106,12 +108,11 @@ const Base = styled("a", "CategoryButton") <{
   }
 
   &:hover {
-    filter: ${(props) => (props.isLink ? props.theme!.effects.hover : "unset")};
+    background-color: ${(props) => props.theme!.colour("background", 100)};
   }
 
   &:active {
-    filter: ${(props) =>
-    props.isLink ? props.theme!.effects.active : "unset"};
+    background-color: ${(props) => props.theme!.colour("background", 94)};
   }
 `;
 
@@ -122,7 +123,8 @@ const Content = styled(Column)`
   font-weight: 500;
   font-size: 14px;
   gap: 2px;
-  color: ${(props) => props.theme!.colour("primary")};
+  /*color: ${(props) => props.theme!.colour("primary")};*/
+  color: ${(props) => props.theme!.colour("onBackground", 10)}
 `;
 
 /**
@@ -131,7 +133,7 @@ const Content = styled(Column)`
 const Description = styled.span`
   font-weight: 500;
   font-size: 12px;
-  color: ${(props) => props.theme!.colour("onBackground")};
+  color: ${(props) => props.theme!.colour("onBackground", 30)};
 
   a:hover {
     text-decoration: underline;
