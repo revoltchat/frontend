@@ -1,4 +1,5 @@
 import {
+  KeyCombo,
   KeySequence,
   KeybindAction,
   KeybindActions,
@@ -119,5 +120,16 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
         return keybinds;
       });
     }
+  }
+
+  /**
+   * Checks to see if a keybind is the default value
+   * @param action The action to check
+   * @param index The index to check
+   */
+  isDefaultKeybind(action: KeybindAction, index: number) {
+    const keybindSequence = this.getKeybinds()[action][index];
+    const defaultSequence = DEFAULT_VALUES[action][index];
+    return KeybindSequence.matches(keybindSequence, defaultSequence);
   }
 }

@@ -91,6 +91,9 @@ importers:
       '@revolt/i18n':
         specifier: workspace:^
         version: link:../i18n
+      '@revolt/keybinds':
+        specifier: workspace:^
+        version: link:../keybinds
       '@revolt/markdown':
         specifier: workspace:^
         version: link:../markdown

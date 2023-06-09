@@ -11,6 +11,7 @@ import {
   BiSolidExit,
   BiSolidFlask,
   BiSolidIdCard,
+  BiSolidKeyboard,
   BiSolidMegaphone,
   BiSolidPalette,
   BiSolidPlug,
@@ -33,6 +34,7 @@ import appearance from "./Appearance";
 import bots from "./Bots";
 import experiments from "./Experiments";
 import feedback from "./Feedback";
+import keybinds from "./Keybinds";
 import language from "./Language";
 import native from "./Native";
 import notifications from "./Notifications";
@@ -158,6 +160,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             title: t("app.settings.pages.notifications.title"),
           },
           {
+            id: "keybinds",
+            icon: <BiSolidKeyboard size={20} />,
+            title: t("app.settings.pages.keybinds.title"),
+          },
+          {
             id: "language",
             icon: <BiRegularGlobe size={20} />,
             title: t("app.settings.pages.language.title"),
@@ -227,4 +234,5 @@ const ClientSettingsRouting: Record<string, Component> = {
   sync,
   native,
   experiments,
+  keybinds,
 };
