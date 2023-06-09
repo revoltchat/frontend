@@ -40,7 +40,10 @@ export const KeybindHandler: Component = () => {
       (channel) => channel.id === channelId
     );
 
-    const nextChannel = channels.at(currentChannelIndex + byOffset);
+    // this will wrap the index around
+    const nextChannel = channels.at(
+      (currentChannelIndex + byOffset) % channels.length
+    );
 
     if (nextChannel) {
       navigate(`/server/${serverId}/channel/${nextChannel?.id}`);
