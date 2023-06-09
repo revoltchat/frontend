@@ -84,7 +84,7 @@ function UserInformation() {
       <CategoryButton
         action="chevron"
         icon={<MdDraw {...iconSize(24)} />}
-        description="Customise how people can see your profile"
+        description="Customise your display name and other profile options"
       >
         Customise Profile
       </CategoryButton>
