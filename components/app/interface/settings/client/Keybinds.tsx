@@ -32,7 +32,6 @@ const categories: Record<string, KeybindAction[]> = {
  * Keybinds
  */
 export default function Keybinds() {
-  // TODO: use translation strings
   const t = useTranslation();
 
   const editKeybind = (action: KeybindAction, index: number) =>
@@ -69,7 +68,7 @@ export default function Keybinds() {
           <Column group={true}>
             <For each={actions}>
               {(action) => (
-                <>
+                <ActionCategory>
                   <CategoryButton
                     description={t(
                       `app.settings.pages.keybinds.action.${action}.description`
@@ -92,40 +91,43 @@ export default function Keybinds() {
                       );
 
                       return (
-                        <KeybindEntry>
+                        <CategoryButton
+                          action={[
+                            <IconButton
+                              onClick={() => editKeybind(action, index())}
+                            >
+                              <BiSolidPencil size={24}></BiSolidPencil>
+                            </IconButton>,
+                            <Switch>
+                              <Match when={!keybindIsDefault && indexIsDefault}>
+                                <IconButton
+                                  title={t(
+                                    "app.settings.pages.keybinds.remove_keybind"
+                                  )}
+                                  onclick={() => resetKeybind(action, index())}
+                                >
+                                  <BiRegularReset size={24}></BiRegularReset>
+                                </IconButton>
+                              </Match>
+                              <Match when={!keybindIsDefault}>
+                                <IconButton
+                                  title={t(
+                                    "app.settings.pages.keybinds.remove_keybind"
+                                  )}
+                                  onclick={() => resetKeybind(action, index())}
+                                >
+                                  <BiSolidXCircle size={24}></BiSolidXCircle>
+                                </IconButton>
+                              </Match>
+                            </Switch>,
+                          ]}
+                        >
                           <KeySequence sequence={sequence} short />
-                          <IconButton
-                            onClick={() => editKeybind(action, index())}
-                          >
-                            <BiSolidPencil size={24}></BiSolidPencil>
-                          </IconButton>
-                          <Switch>
-                            <Match when={!keybindIsDefault && indexIsDefault}>
-                              <IconButton
-                                title={t(
-                                  "app.settings.pages.keybinds.remove_keybind"
-                                )}
-                                onclick={() => resetKeybind(action, index())}
-                              >
-                                <BiRegularReset size={24}></BiRegularReset>
-                              </IconButton>
-                            </Match>
-                            <Match when={!keybindIsDefault}>
-                              <IconButton
-                                title={t(
-                                  "app.settings.pages.keybinds.remove_keybind"
-                                )}
-                                onclick={() => resetKeybind(action, index())}
-                              >
-                                <BiSolidXCircle size={24}></BiSolidXCircle>
-                              </IconButton>
-                            </Match>
-                          </Switch>
-                        </KeybindEntry>
+                        </CategoryButton>
                       );
                     }}
                   </For>
-                </>
+                </ActionCategory>
               )}
             </For>
           </Column>
@@ -135,6 +137,27 @@ export default function Keybinds() {
   );
 }
 
+// TODO: theming
+const ActionCategory = styled("section", "ActionCategory")`
+  display: grid;
+  gap: 1px;
+
+  > .CategoryButton .KeySequence {
+    height: 2rem;
+    padding-inline: 2px;
+    width: 100%;
+  }
+
+  > .CategoryButton:first-child {
+    border-start-start-radius: ${({ theme }) => theme?.borderRadius.md};
+    border-start-end-radius: ${({ theme }) => theme?.borderRadius.md};
+  }
+
+  > .CategoryButton:not(:last-child) {
+    border-end-end-radius: 0;
+    border-end-start-radius: 0;
+  }
+`;
 const KeybindEntry = styled("article", "KeybindEntry")`
   display: flex;
   gap: ${({ theme }) => theme?.gap.lg};
