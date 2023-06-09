@@ -24,8 +24,9 @@ function keybindMap(
 export const DEFAULT_VALUES: KeybindActions = keybindMap({
   [KeybindAction.NavigateChannelUp]: ["Alt+ArrowUp"],
   [KeybindAction.NavigateChannelDown]: ["Alt+ArrowDown"],
-  [KeybindAction.NavigateServerUp]: ["Control+Alt+ArrowUp"],
-  [KeybindAction.NavigateServerDown]: ["Control+Alt+ArrowDown"],
+  // temporary, Control+Alt+ArrowUp does not seem to work on chrome or firefox at the moment
+  [KeybindAction.NavigateServerUp]: ["Control+ArrowUp"],
+  [KeybindAction.NavigateServerDown]: ["Control+ArrowDown"],
 });
 
 export type TypeKeybinds = {
