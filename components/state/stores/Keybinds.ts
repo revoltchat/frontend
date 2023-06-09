@@ -28,6 +28,22 @@ export const DEFAULT_VALUES: KeybindActions = keybindMap({
   // temporary, Control+Alt+ArrowUp does not seem to work on chrome or firefox at the moment
   [KeybindAction.NavigateServerUp]: ["Control+ArrowUp"],
   [KeybindAction.NavigateServerDown]: ["Control+ArrowDown"],
+
+  [KeybindAction.AutoCompleteUp]: ["ArrowUp"],
+  [KeybindAction.AutoCompleteDown]: ["ArrowDown"],
+  [KeybindAction.AutoCompleteSelect]: ["Enter", "Tab"],
+
+  [KeybindAction.NavigatePreviousContext]: ["Escape"],
+  [KeybindAction.NavigatePreviousContextModal]: [],
+  [KeybindAction.NavigatePreviousContextSettings]: [],
+
+  [KeybindAction.InputForceSubmit]: ["Control+Enter"],
+  [KeybindAction.InputSubmit]: ["Enter"],
+  [KeybindAction.InputCancel]: ["Escape"],
+
+  [KeybindAction.MessagingMarkChannelRead]: ["Escape"],
+  [KeybindAction.MessagingScrollToBottom]: ["Escape"],
+  [KeybindAction.MessagingEditPreviousMessage]: ["ArrowUp"],
 });
 
 export type TypeKeybinds = {
@@ -68,7 +84,7 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
     const actions = this.default();
     // TODO: implement this
     // throw new Error(`clean is not implemented for Keybinds yet`);
-    return { ...actions, ...input };
+    return { keybinds: { ...actions.keybinds, ...input.keybinds } };
   }
 
   getKeybinds() {
@@ -126,7 +142,7 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
    * @param index The index to check
    */
   isDefaultKeybind(action: KeybindAction, index: number) {
-    const keybindSequence = this.getKeybinds()[action][index];
+    const keybindSequence = this.getKeybinds()?.[action]?.[index];
     const defaultSequence = DEFAULT_VALUES[action][index];
     return KeybindSequence.matches(keybindSequence, defaultSequence);
   }

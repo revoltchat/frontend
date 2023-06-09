@@ -68,7 +68,6 @@ export const ServerList = (props: Props) => {
     );
 
     let nextIndex = currentServerIndex + byOffset;
-    console.log(nextIndex, currentServerIndex);
 
     if (nextIndex === -1) {
       return navigate("/app");
