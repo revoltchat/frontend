@@ -18,7 +18,6 @@ import {
   Column,
   IconButton,
   Input,
-  InputElement,
   KeySequence,
   styled,
 } from "@revolt/ui";
@@ -29,6 +28,26 @@ const categories: Record<string, KeybindAction[]> = {
     KeybindAction.NavigateChannelDown,
     KeybindAction.NavigateServerUp,
     KeybindAction.NavigateServerDown,
+  ],
+  messaging: [KeybindAction.MessagingEditPreviousMessage],
+  // todo: advanced subsections?
+  advanced: [
+    // autocomplete
+    KeybindAction.AutoCompleteSelect,
+    KeybindAction.AutoCompleteUp,
+    KeybindAction.AutoCompleteDown,
+
+    // input / form
+    KeybindAction.InputSubmit,
+    KeybindAction.InputCancel,
+    KeybindAction.InputForceSubmit,
+
+    // messaging / channel
+    KeybindAction.MessagingScrollToBottom,
+    KeybindAction.MessagingMarkChannelRead,
+
+    // probably won't be displayed unless under an advanced section.
+    KeybindAction.NavigatePreviousContext,
   ],
 };
 
@@ -85,9 +104,7 @@ export default function Keybinds() {
 
   const [searchText, setSearchText] = createSignal("");
 
-  console.log(searchData());
   const filteredData = createMemo(() => {
-    console.log(searchText());
     const foundActions = searchData()
       .filter((data) =>
         data.some((text) =>
@@ -116,7 +133,7 @@ export default function Keybinds() {
         {([category, actions]) => (
           <CategoryCollapse
             title={t(`app.settings.pages.keybinds.category.${category}`)}
-            open={true}
+            open={category !== "advanced"}
           >
             <Column group="6px">
               <For each={actions}>
