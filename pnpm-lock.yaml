@@ -527,6 +527,9 @@ importers:
       '@revolt/i18n':
         specifier: workspace:^
         version: link:../../components/i18n
+      '@revolt/keybinds':
+        specifier: workspace:^
+        version: link:../../components/keybinds
       '@revolt/markdown':
         specifier: workspace:^
         version: link:../../components/markdown

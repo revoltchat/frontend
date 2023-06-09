@@ -16,11 +16,15 @@ import {
   darkTheme,
 } from "@revolt/ui";
 
+
 /* @refresh reload */
 import "@revolt/ui/styles";
 
 import App from "./App";
 import "./sentry";
+
+// TODO: move this somewhere more fitting
+import { KeybindHandler } from "./Keybinds";
 
 render(
   () => (
@@ -34,6 +38,7 @@ render(
               <ModalRenderer />
               <FloatingManager />
               <ApplyGlobalStyles />
+              <KeybindHandler />
             </ProvideDirectives>
           </ThemeProvider>
         </I18nContext.Provider>

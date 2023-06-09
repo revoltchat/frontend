@@ -4,14 +4,14 @@ import { State } from "..";
 
 import { AbstractStore } from ".";
 
-enum KeybindAction {
+export enum KeybindAction {
   NavigateChannelUp = "navigate_channel_up",
   NavigateChannelDown = "navigate_channel_down",
   NavigateServerUp = "navigate_server_up",
   NavigateServerDown = "navigate_server_down",
 }
 
-type KeybindActions = Record<KeybindAction, KeySequence[]>;
+export type KeybindActions = Record<KeybindAction, KeySequence[]>;
 
 /** utility to make writing the default keybinds easier, requires all `KeybindAction` values to be filled out */
 function keybindMap(
@@ -20,7 +20,7 @@ function keybindMap(
   const entries = Object.entries(obj) as [KeybindAction, string[]][];
   const parsed = entries.map(([act, seqs]) => [
     act,
-    seqs.map((seq) => ({ sequence: KeybindSequence.parse(seq) })),
+    seqs.map((seq) => KeybindSequence.parse(seq)),
   ]);
   return Object.fromEntries(parsed);
 }
