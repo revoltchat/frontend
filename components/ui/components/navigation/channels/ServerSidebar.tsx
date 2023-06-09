@@ -4,15 +4,26 @@ import {
   BiSolidChevronRight,
   BiSolidCog,
 } from "solid-icons/bi";
-import { For, Match, Show, Switch, createMemo, createSignal } from "solid-js";
+import {
+  For,
+  Match,
+  Show,
+  Switch,
+  createMemo,
+  createSignal,
+  onCleanup,
+  onMount,
+} from "solid-js";
 import { styled } from "solid-styled-components";
 
 import type { API, Channel, Server } from "revolt.js";
 
+import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
-import { Link } from "@revolt/routing";
+import { Link, useNavigate } from "@revolt/routing";
 
 import { scrollable } from "../../../directives";
+import { useKeybinds } from "../../context/Keybinds";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
@@ -53,6 +64,65 @@ type CategoryData = Omit<API.Category, "channels"> & { channels: Channel[] };
  * Display server information and channels
  */
 export const ServerSidebar = (props: Props) => {
+  const navigate = useNavigate();
+  const keybinds = useKeybinds();
+
+  // TODO: this does not filter visible channels at the moment because the state for categories is not stored anywhere
+  /** Gets a list of channels that are currently not hidden inside a closed category */
+  const visibleChannels = () =>
+    props.server.orderedChannels.flatMap((category) => category.channels);
+
+  // TODO: when navigating channels, we want to add aria-keyshortcuts={localized-shortcut} to the next/previous channels
+  // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts
+  // TODO: issue warning if nothing is found somehow? warnings can be nicer than flat out not working
+  // TODO: we want it to feel smooth when navigating through channels, so we'll want to select channels immediately but not actually navigate until we're done moving through them
+  /** Navigates to the channel offset from the current one, wrapping around if needed */
+  const navigateChannel = (byOffset: number) => {
+    if (props.channelId == null) {
+      return;
+    }
+
+    const channels = visibleChannels();
+
+    const currentChannelIndex = channels.findIndex(
+      (channel) => channel.id === props.channelId
+    );
+
+    // this will wrap the index around
+    const nextChannel = channels.at(
+      (currentChannelIndex + byOffset) % channels.length
+    );
+
+    if (nextChannel) {
+      navigate(`/server/${props.server.id}/channel/${nextChannel.id}`);
+    }
+  };
+
+  const navigateChannelUp = () => navigateChannel(-1);
+  const navigateChannelDown = () => navigateChannel(1);
+
+  onMount(() => {
+    keybinds.addEventListener(
+      KeybindAction.NavigateChannelUp,
+      navigateChannelUp
+    );
+    keybinds.addEventListener(
+      KeybindAction.NavigateChannelDown,
+      navigateChannelDown
+    );
+  });
+
+  onCleanup(() => {
+    keybinds.removeEventListener(
+      KeybindAction.NavigateChannelUp,
+      navigateChannelUp
+    );
+    keybinds.removeEventListener(
+      KeybindAction.NavigateChannelDown,
+      navigateChannelDown
+    );
+  });
+
   return (
     <SidebarBase>
       <Switch
