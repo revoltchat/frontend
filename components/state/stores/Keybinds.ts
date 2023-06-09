@@ -1,17 +1,13 @@
-import { KeySequence, KeybindSequence } from "@revolt/keybinds";
+import {
+  KeySequence,
+  KeybindAction,
+  KeybindActions,
+  KeybindSequence,
+} from "@revolt/keybinds";
 
 import { State } from "..";
 
 import { AbstractStore } from ".";
-
-export enum KeybindAction {
-  NavigateChannelUp = "navigate_channel_up",
-  NavigateChannelDown = "navigate_channel_down",
-  NavigateServerUp = "navigate_server_up",
-  NavigateServerDown = "navigate_server_down",
-}
-
-export type KeybindActions = Record<KeybindAction, KeySequence[]>;
 
 /** utility to make writing the default keybinds easier, requires all `KeybindAction` values to be filled out */
 function keybindMap(

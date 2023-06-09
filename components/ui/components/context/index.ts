@@ -1,0 +1,1 @@
+export { KeybindsProvider } from "./Keybinds";

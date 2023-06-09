@@ -134,3 +134,5 @@ export class KeybindEventHandler<
     options?: EventListenerOptions | boolean
   ) => void;
 }
+
+export * from "./actions";
