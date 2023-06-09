@@ -53,7 +53,7 @@ export default function Appearance() {
         <CategoryButton
           action="chevron"
           icon={<MdWallpaper {...iconSize(24)} />}
-          onClick={() => navigate("appearance/background")}
+          onClick={() => navigate("appearance/wallpaper")}
           description="Set a wallpaper for your chats"
         >
           Wallpaper
