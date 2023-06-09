@@ -10,7 +10,6 @@ type Props = Record<never, never>;
 export const SidebarButton = styled.a<Props>`
   display: flex;
   align-items: center;
-  gap: 8px;
   padding: 6px 8px;
   border-radius: 8px;
   font-weight: 500;
@@ -20,6 +19,29 @@ export const SidebarButton = styled.a<Props>`
   color: ${(props) => props.theme!.colour("onSecondary", 20)};
 
   svg {
+    flex-shrink: 0;
+  }
+
+  .eltest1 {
+    display: flex;
+    gap: 8px;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    .text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .eltest2 {
+    display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     flex-shrink: 0;
   }
 

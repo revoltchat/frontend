@@ -3,10 +3,13 @@ import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 import {
   Column,
   OverflowingText,
-  Typography,
   invisibleScrollable,
   styled,
+  iconSize,
+  useTheme,
 } from "@revolt/ui";
+
+import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 
 import { SettingsList } from "..";
 import { useSettingsNavigation } from "../Settings";
@@ -26,6 +29,7 @@ export function SettingsSidebar(props: {
   page: Accessor<string | undefined>;
 }) {
   const { navigate } = useSettingsNavigation();
+  const theme = useTheme();
 
   /**
    * Generate list of categories / links
@@ -43,7 +47,7 @@ export function SettingsSidebar(props: {
 
   return (
     <Base>
-      <div use:invisibleScrollable>
+      <div use: invisibleScrollable>
         <Content>
           <Column gap="lg">
             {list().prepend}
@@ -61,7 +65,13 @@ export function SettingsSidebar(props: {
                         {(entry) => (
                           <Show when={!entry.hidden}>
                             <SidebarButton onClick={() => navigate(entry)}>
-                              {entry.icon} {entry.title}
+                              <div class="eltest1">
+                                {entry.icon}
+                                <div class="text">{entry.title}</div>
+                              </div>
+                              <div class="eltest2">
+                                <MdError {...iconSize(20)} fill={theme!.colour("primary")} />
+                              </div>
                             </SidebarButton>
                           </Show>
                         )}
