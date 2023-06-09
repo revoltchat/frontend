@@ -26,6 +26,7 @@ export const SidebarButton = styled.a<Props>`
     display: flex;
     gap: 8px;
     flex-grow: 1;
+    padding-inline-end: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
