@@ -25,10 +25,11 @@ export const KeyCombo = {
   },
 
   // todo: add matches function to better handle browser inconsistencies
-  matches(keyComboA: KeyCombo, keyComboB: KeyCombo) {
+  // todo: handle undefines better
+  matches(keyComboA?: KeyCombo, keyComboB?: KeyCombo) {
     return (
-      keyComboA.length == keyComboB.length &&
-      keyComboA.every((key, i) => key == keyComboB[i])
+      keyComboA?.length == keyComboB?.length &&
+      keyComboA?.every((key, i) => key == keyComboB?.[i])
     );
   },
 };
@@ -53,15 +54,16 @@ export const KeybindSequence = {
   },
 };
 
-// type KeybindEvent = KeyboardEvent & { readonly action: string }
-
-export class KeybindEvent<T> extends KeyboardEvent {
+// having the type be 'keybind' would be more idiomatic but this works better as an api
+export class KeybindEvent<T extends string> extends KeyboardEvent {
   constructor(public action: T, eventInitDict?: KeyboardEventInit | undefined) {
-    super("keybind", eventInitDict);
+    super(action, eventInitDict);
   }
 }
 
-export class KeybindState<KeybindAction extends string> extends EventTarget {
+export class KeybindEventHandler<
+  KeybindAction extends string
+> extends EventTarget {
   possibleSequences = new Map<KeySequence, KeyCombo[]>();
 
   // todo: measure memory and performance between this and manually setting a `keybinds` property
@@ -79,11 +81,11 @@ export class KeybindState<KeybindAction extends string> extends EventTarget {
     const combo = KeyCombo.fromKeyboardEvent(event);
 
     const keybinds = this.getKeybinds();
-    Object.keys(keybinds).forEach((action) => {
+    actionLoop: for (const action in keybinds) {
       const keybindings = keybinds[action as KeybindAction];
-      keybindings.forEach((sequence) => {
+      for (const sequence of keybindings) {
         // skip unassigned keybinds
-        if (sequence.length === 0) return;
+        if (sequence.length === 0) continue;
 
         const expectedSequence =
           this.possibleSequences.get(sequence) ?? sequence;
@@ -98,12 +100,13 @@ export class KeybindState<KeybindAction extends string> extends EventTarget {
             this.dispatchEvent(
               new KeybindEvent(action as KeybindAction, event)
             );
+            break actionLoop;
           }
         } else if (KEYBINDING_MODIFIER_KEYS.includes(event.key)) {
           this.possibleSequences.delete(sequence);
         }
-      });
-    });
+      }
+    }
 
     this.resetPossibleSequences();
   }

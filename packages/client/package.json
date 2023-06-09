@@ -25,6 +25,7 @@
     "@revolt/client": "workspace:^",
     "@revolt/common": "workspace:^",
     "@revolt/i18n": "workspace:^",
+    "@revolt/keybinds": "workspace:^",
     "@revolt/markdown": "workspace:^",
     "@revolt/modal": "workspace:^",
     "@revolt/routing": "workspace:^",
