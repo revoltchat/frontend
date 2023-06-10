@@ -23,7 +23,7 @@ import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useNavigate } from "@revolt/routing";
 
 import { scrollable } from "../../../directives";
-import { useKeybinds } from "../../context/Keybinds";
+import { useKeybindActions } from "../../context/Keybinds";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
@@ -65,7 +65,7 @@ type CategoryData = Omit<API.Category, "channels"> & { channels: Channel[] };
  */
 export const ServerSidebar = (props: Props) => {
   const navigate = useNavigate();
-  const keybinds = useKeybinds();
+  const keybinds = useKeybindActions();
 
   // TODO: this does not filter visible channels at the moment because the state for categories is not stored anywhere
   /** Gets a list of channels that are currently not hidden inside a closed category */

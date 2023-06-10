@@ -9,7 +9,7 @@ import { Link, useNavigate } from "@revolt/routing";
 
 import { invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
-import { useKeybinds } from "../../context/Keybinds";
+import { useKeybindActions } from "../../context/Keybinds";
 import { Button, Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
@@ -55,7 +55,7 @@ interface Props {
  */
 export const ServerList = (props: Props) => {
   const navigate = useNavigate();
-  const keybinds = useKeybinds();
+  const keybinds = useKeybindActions();
 
   const navigateServer = (byOffset: number) => {
     let serverId = props.selectedServer();
