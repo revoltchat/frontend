@@ -43,4 +43,4 @@ export const KeybindsProvider: ParentComponent<Props> = (props) => {
  * Use the keybinds context
  * @note for getting keybind data you may be looking for {@link @revolt/state}
  **/
-export const useKeybinds = () => useContext(KeybindsContext)!;
+export const useKeybindActions = () => useContext(KeybindsContext)!;
