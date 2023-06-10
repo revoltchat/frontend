@@ -83,6 +83,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
       event.getModifierState(mod)
     );
 
+    console.log(mods, event.key);
     if (KEYBINDING_MODIFIER_KEYS.includes(event.key)) {
       setMods(mods);
     } else {
@@ -151,7 +152,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
         >
-          {<KeySequence sequence={sequence()} short />}
+          {<KeySequence sequence={[mods()].concat(sequence())} short />}
         </KeybindInput>
         <IconButton title="clear input" onClick={reset}>
           <BiRegularReset size={20}></BiRegularReset>
