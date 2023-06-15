@@ -29,6 +29,7 @@ import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?compone
 
 import MdVerifiedFill from "@material-design-icons/svg/filled/verified.svg?component-solid";
 import MdErrorFill from "@material-design-icons/svg/filled/error.svg?component-solid";
+import MdTranslate from "@material-design-icons/svg/outlined/translate.svg?component-solid";
 
 
 /**
@@ -92,7 +93,7 @@ function PickLanguage() {
 
   return (
     <CategoryCollapse
-      icon={<MdLanguage {...iconSize(24)} />}
+      icon={<MdLanguage {...iconSize(22)} />}
       title={t("app.settings.pages.language.select")}
       description={currentLanguage().display}
       scrollable
@@ -124,7 +125,7 @@ function PickDateFormat() {
 
   return (
     <CategoryCollapse
-      icon={<MdCalendarMonth {...iconSize(24)} />}
+      icon={<MdCalendarMonth {...iconSize(22)} />}
       title="Select date format"
       description={`Traditional`}
     >
@@ -168,7 +169,7 @@ function PickDateFormat() {
 function PickTimeFormat() {
   return (
     <CategoryCollapse
-      icon={<MdSchedule {...iconSize(24)} />}
+      icon={<MdSchedule {...iconSize(22)} />}
       title="Select time format"
       description={`24 hours`}
     >
@@ -209,7 +210,7 @@ function ConfigureRTL() {
     <Switch
       fallback={
         <CategoryButton
-          icon={<MdKeyboardTabRtl {...iconSize(24)} />}
+          icon={<MdKeyboardTabRtl {...iconSize(22)} />}
           description="Flip the user interface right to left"
           action={<Checkbox />}
           onClick={() => void 0}
@@ -220,7 +221,7 @@ function ConfigureRTL() {
     >
       <Match when={currentLanguage().rtl}>
         <CategoryButton
-          icon={<MdKeyboardTab {...iconSize(24)} />}
+          icon={<MdKeyboardTab {...iconSize(22)} />}
           description="Keep the user interface left to right"
           action={<Checkbox />}
           onClick={() => void 0}
@@ -237,10 +238,10 @@ function ConfigureRTL() {
  */
 function ContributeLanguageLink() {
   return (
-    <a href="https://weblate.insrt.uk/projects/revolt/web-app/" target="_blank">
+    <a href="https://weblate.insrt.uk/engage/revolt/" target="_blank">
       <CategoryButton
         action="external"
-        icon={<MdLanguage {...iconSize(24)} />}
+        icon={<MdTranslate {...iconSize(22)} />}
         onClick={() => void 0}
         description="Help contribute to an existing or new language"
       >

@@ -1,9 +1,10 @@
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Avatar, Column, Row, Typography } from "@revolt/ui";
-
+import { Avatar, Column, Row, Typography, useTheme, iconSize } from "@revolt/ui";
 import { useSettingsNavigation } from "../Settings";
 import { SidebarButton } from "../_layout/SidebarButton";
+
+import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 
 /**
  * Account Card
@@ -12,6 +13,7 @@ export function AccountCard() {
   const client = useClient();
   const t = useTranslation();
   const { navigate } = useSettingsNavigation();
+  const theme = useTheme();
 
   return (
     <SidebarButton onClick={() => navigate("account")}>
@@ -25,6 +27,7 @@ export function AccountCard() {
             {t("app.settings.pages.account.title")}
           </Typography>
         </Column>
+        <MdError {...iconSize(20)} fill={theme!.colour("primary")} />
       </Row>
     </SidebarButton>
   );

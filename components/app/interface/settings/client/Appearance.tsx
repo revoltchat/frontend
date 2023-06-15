@@ -36,7 +36,7 @@ export default function Appearance() {
       <CategoryButtonGroup>
         <CategoryButton
           action="chevron"
-          icon={<MdPalette {...iconSize(24)} />}
+          icon={<MdPalette {...iconSize(22)} />}
           onClick={() => navigate("appearance/colours")}
           description="Customise accent colour, additional colours, and transparency"
         >
@@ -44,7 +44,7 @@ export default function Appearance() {
         </CategoryButton>
         <CategoryButton
           action="chevron"
-          icon={<MdFormatSize {...iconSize(24)} />}
+          icon={<MdFormatSize {...iconSize(22)} />}
           onClick={() => navigate("appearance/fonts")}
           description="Customise display and text options"
         >
@@ -52,7 +52,7 @@ export default function Appearance() {
         </CategoryButton>
         <CategoryButton
           action="chevron"
-          icon={<MdWallpaper {...iconSize(24)} />}
+          icon={<MdWallpaper {...iconSize(22)} />}
           onClick={() => navigate("appearance/wallpaper")}
           description="Set a wallpaper for your chats"
         >
@@ -60,7 +60,7 @@ export default function Appearance() {
         </CategoryButton>
         <CategoryButton
           action="chevron"
-          icon={<MdSentimentVerySatisfied {...iconSize(24)} />}
+          icon={<MdSentimentVerySatisfied {...iconSize(22)} />}
           onClick={() => navigate("appearance/emoji")}
           description="Change how your emojis look"
         >
@@ -68,7 +68,7 @@ export default function Appearance() {
         </CategoryButton>
         <CategoryButton
           action="chevron"
-          icon={<MdDataObject {...iconSize(24)} />}
+          icon={<MdDataObject {...iconSize(22)} />}
           onClick={() => navigate("appearance/advanced_options")}
           description="Customise theme variables and apply custom CSS"
         >
@@ -78,7 +78,7 @@ export default function Appearance() {
       <CategoryButtonGroup>
         <CategoryButton
           action="external"
-          icon={<MdBrush {...iconSize(24)} />}
+          icon={<MdBrush {...iconSize(22)} />}
           description="Browse themes made by the community"
         >
           Discover themes

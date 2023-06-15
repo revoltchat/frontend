@@ -34,11 +34,14 @@ export function CategoryButton(props: Props) {
       aria-disabled={props.disabled}
       onClick={props.disabled ? undefined : props.onClick}
     >
-      <Switch fallback={props.icon}>
-        <Match when={props.icon === "blank"}>
-          <Blank />
-        </Match>
-      </Switch>
+      <IconWrapper>
+        <Switch fallback={props.icon}>
+          <Match when={props.icon === "blank"}>
+            <Blank />
+          </Match>
+        </Switch>
+      </IconWrapper>
+
       <Content grow>
         <Show when={props.children}>
           <OverflowingText>{props.children}</OverflowingText>
@@ -76,7 +79,7 @@ export function CategoryButton(props: Props) {
  * Blank icon
  */
 const Blank = styled.div`
-  width: 24px;
+  width: 36px;
 `;
 
 /**
@@ -86,8 +89,8 @@ const Base = styled("a", "CategoryButton") <{
   isLink: boolean;
   disabled?: boolean;
 }>`
-  gap: ${(props) => props.theme!.gap.l};
-  padding: 14px; /*TODO: make this a prop*/
+  gap: 16px;
+  padding: 13px; /*TODO: make this a prop*/
   color: ${(props) => props.theme!.colour("onBackground")};
   border-radius: ${(props) => props.theme!.borderRadius.md};
   /*background: ${(props) => props.theme!.colour("background")};*/
@@ -125,6 +128,23 @@ const Content = styled(Column)`
   gap: 2px;
   /*color: ${(props) => props.theme!.colour("primary")};*/
   color: ${(props) => props.theme!.colour("onBackground", 10)}
+`;
+
+/**
+ * Accented wrapper for the category button icons
+ */
+const IconWrapper = styled.div`
+  background: ${(props) => props.theme!.colour("primary", 90)};
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  svg {
+    fill: ${(props) => props.theme!.colour("primary", 30)};
+  }
 `;
 
 /**

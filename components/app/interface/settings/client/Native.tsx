@@ -23,7 +23,7 @@ export default function Native() {
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
-            icon={<MdExitToApp {...iconSize(24)} />}
+            icon={<MdExitToApp {...iconSize(22)} />}
             description="Launch Revolt when you log into your computer."
           >
             Start with Computer
@@ -33,7 +33,7 @@ export default function Native() {
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
-            icon={<MdCancelPresentation {...iconSize(24)} />}
+            icon={<MdCancelPresentation {...iconSize(22)} />}
             description="Instead of closing, Revolt will hide in your tray."
           >
             Minimise to Tray
@@ -45,7 +45,7 @@ export default function Native() {
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
-            icon={<MdWebAsset {...iconSize(24)} />}
+            icon={<MdWebAsset {...iconSize(22)} />}
             description="Let Revolt use its own custom titlebar."
           >
             Custom window frame
@@ -54,7 +54,7 @@ export default function Native() {
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton
-          icon={<MdDesktopWindows {...iconSize(24)} />}
+          icon={<MdDesktopWindows {...iconSize(22)} />}
           description="Version 1.0.0"
         >
           Revolt Desktop

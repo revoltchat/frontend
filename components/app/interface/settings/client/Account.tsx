@@ -62,10 +62,18 @@ function UserInformation() {
       <AccountBox align gap="lg">
         <Avatar src={client().user!.animatedAvatarURL} size={58} />
         <div class="column">
-          <div class="username">
-            {client().user!.username}#0000
+          <div class="usernameDetail">
+            <div class="displayName">
+              {client().user!.username}
+            </div>
+            <div class="username">
+              {client().user!.username}#0000
+            </div>
           </div>
           <div class="flex">
+            <div class="badges">
+              badge 1
+            </div>
             <Tooltip
               content={formatTime({
                 format: "datetime",
@@ -73,17 +81,18 @@ function UserInformation() {
               })}
               placement="top"
             >
-              <Chip>
+              {/*<Chip>
                 <MdCakeFill {...iconSize(14)} /> Account created{" "}
+                badges
                 <Time format="relative" value={client().user!.createdAt} />
-              </Chip>
+            </Chip>*/}
             </Tooltip>
           </div>
         </div>
       </AccountBox>
       <CategoryButton
         action="chevron"
-        icon={<MdDraw {...iconSize(24)} />}
+        icon={<MdDraw {...iconSize(22)} />}
         description="Customise your display name and other profile options"
       >
         Customise Profile
@@ -97,9 +106,11 @@ function UserInformation() {
  * Styles for the account box
  */
 const AccountBox = styled(Row)`
-  padding: 13px 14px;
+/* padding: 13px 14px;*/
+  padding: 20px 13px;
   border-radius: 6px;
-  background: ${(props) => props.theme!.colour("background")};
+  /*background: ${(props) => props.theme!.colour("background")};*/
+    background-image: linear-gradient(transparent, ${(props) => props.theme!.colour("background")}), url('https://i.imgur.com/ngIWnE9.jpeg');
 
   .column {
     display: flex;
@@ -108,6 +119,10 @@ const AccountBox = styled(Row)`
     flex-grow: 1;
 
     .username {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .displayName {
       font-size: 18px;
       font-weight: 600;
     }
@@ -115,6 +130,10 @@ const AccountBox = styled(Row)`
 
   .flex {
     display: flex;
+
+    .badges {
+      background: ${(props) => props.theme!.colour("background")};
+    }
   }
   
   .button {
@@ -145,7 +164,7 @@ function EditAccount() {
             client: client(),
           })
         }
-        icon={<MdAlternateEmail {...iconSize(24)} />}
+        icon={<MdAlternateEmail {...iconSize(22)} />}
         description={client().user?.username}
       >
         <Typography variant="label">{t("login.username")}</Typography>
@@ -158,7 +177,7 @@ function EditAccount() {
             client: client(),
           })
         }
-        icon={<MdMail {...iconSize(24)} />}
+        icon={<MdMail {...iconSize(22)} />}
         description={
           <Row>
             {email()}{" "}
@@ -185,7 +204,7 @@ function EditAccount() {
             client: client(),
           })
         }
-        icon={<MdPassword {...iconSize(24)} />}
+        icon={<MdPassword {...iconSize(22)} />}
         description={"•••••••••"}
       >
         <Typography variant="label">{t("login.password")}</Typography>
@@ -273,7 +292,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
   return (
     <CategoryButtonGroup>
       <CategoryCollapse
-        icon={<MdVerifiedUser {...iconSize(24)} />}
+        icon={<MdVerifiedUser {...iconSize(22)} />}
         title="Recovery Codes"
         description="Configure a way to get back into your account in case your 2FA is lost"
       >
@@ -308,7 +327,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
         </Switch>
       </CategoryCollapse>
       <CategoryCollapse
-        icon={<MdLock {...iconSize(24)} />}
+        icon={<MdLock {...iconSize(22)} />}
         title="Authenticator App"
         description="Configure one-time password authentication"
       >
@@ -380,7 +399,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
         action="chevron"
         disabled={!props.mfa()}
         onClick={disableAccount}
-        icon={<MdBlock {...iconSize(24)} fill={theme!.colour("error")} />}
+        icon={<MdBlock {...iconSize(22)} fill={theme!.colour("error")} />}
         description="Disable your account. You won't be able to access it unless you contact support."
       >
         {t("app.settings.pages.account.manage.disable")}
@@ -389,7 +408,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
         action="chevron"
         disabled={!props.mfa()}
         onClick={deleteAccount}
-        icon={<MdDelete {...iconSize(24)} fill={theme!.colour("error")} />}
+        icon={<MdDelete {...iconSize(22)} fill={theme!.colour("error")} />}
         description="Your account will be queued for deletion, a confirmation email will be sent."
       >
         {t("app.settings.pages.account.manage.delete")}

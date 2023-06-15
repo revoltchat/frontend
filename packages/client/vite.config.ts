@@ -23,7 +23,7 @@ export default defineConfig({
         categories: ["communication", "chat", "messaging"],
         start_url: "/pwa",
         orientation: "portrait",
-        /* TOOD: support display_override: ["window-controls-overlay"], */
+        display_override: ["window-controls-overlay"],
         display: "standalone",
         background_color: "#101823",
         theme_color: "#101823",

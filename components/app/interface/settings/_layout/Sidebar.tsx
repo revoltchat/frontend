@@ -126,5 +126,6 @@ const CategoryTitle = styled(OverflowingText)`
   font-size: 0.75rem;
   font-weight: 700;
   margin: 0 8px;
+  margin-inline-end: 20px;
   color: ${(props) => props.theme!.colour("primary")};
 `;

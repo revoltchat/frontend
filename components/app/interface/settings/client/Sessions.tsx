@@ -172,18 +172,18 @@ const Capitalise = styled.div`
  */
 function SessionIcon(props: { session?: Session }) {
   return (
-    <Switch fallback={<BiRegularQuestionMark size={24} />}>
+    <Switch fallback={<BiRegularQuestionMark size={22} />}>
       <Match when={/linux/i.test(props.session?.name ?? "")}>
-        <FaBrandsLinux size={24} />
+        <FaBrandsLinux size={22} />
       </Match>
       <Match when={/windows/i.test(props.session?.name ?? "")}>
-        <BiLogosWindows size={24} />
+        <BiLogosWindows size={22} />
       </Match>
       <Match when={/android/i.test(props.session?.name ?? "")}>
-        <BiLogosAndroid size={24} />
+        <BiLogosAndroid size={22} />
       </Match>
       <Match when={/mac.*os|i(Pad)?os/i.test(props.session?.name ?? "")}>
-        <BiLogosApple size={24} />
+        <BiLogosApple size={22} />
       </Match>
     </Switch>
   );

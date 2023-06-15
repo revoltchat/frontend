@@ -35,7 +35,7 @@ function CreateBot() {
     <CategoryButtonGroup>
       <CategoryButton
         action="chevron"
-        icon={<MdSmartToy {...iconSize(24)} />}
+        icon={<MdSmartToy {...iconSize(22)} />}
         onClick={() => void 0}
         description="You agree that your bot is subject to the Acceptable Usage Policy."
       >

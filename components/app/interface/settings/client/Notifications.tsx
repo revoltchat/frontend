@@ -24,7 +24,7 @@ export default function Notifications() {
         <CategoryButton
           action={<Checkbox value onChange={(value) => void value} />}
           onClick={() => void 0}
-          icon={<MdNotifications {...iconSize(24)} />}
+          icon={<MdNotifications {...iconSize(22)} />}
           description={t(
             "app.settings.pages.notifications.descriptions.enable_desktop"
           )}
@@ -36,7 +36,7 @@ export default function Notifications() {
         <CategoryButton
           action={<Checkbox value onChange={(value) => void value} />}
           onClick={() => void 0}
-          icon={<MdMarkUnreadChatAlt {...iconSize(24)} />}
+          icon={<MdMarkUnreadChatAlt {...iconSize(22)} />}
           description={t(
             "app.settings.pages.notifications.descriptions.enable_push"
           )}
@@ -46,7 +46,7 @@ export default function Notifications() {
       </FormGroup>
       <CategoryCollapse
         title={t("app.settings.pages.notifications.sounds")}
-        icon={<MdSpeaker {...iconSize(24)} />}
+        icon={<MdSpeaker {...iconSize(22)} />}
       >
         <FormGroup>
           <CategoryButton
