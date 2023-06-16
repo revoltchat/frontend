@@ -24,6 +24,7 @@ export const SidebarButton = styled.a<Props>`
 
   .eltest1 {
     display: flex;
+    align-items: center;
     gap: 8px;
     flex-grow: 1;
     padding-inline-end: 8px;

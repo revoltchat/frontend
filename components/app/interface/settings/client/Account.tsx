@@ -31,6 +31,8 @@ import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.sv
 import MdLock from "@material-design-icons/svg/outlined/lock.svg?component-solid";
 import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
+import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
+
 
 /**
  * Account Page
@@ -60,89 +62,102 @@ function UserInformation() {
   return (
     <CategoryButtonGroup>
       <AccountBox align gap="lg">
-        <Avatar src={client().user!.animatedAvatarURL} size={58} />
         <div class="column">
-          <div class="usernameDetail">
-            <div class="displayName">
-              {client().user!.username}
-            </div>
-            <div class="username">
-              {client().user!.username}#0000
+          <div class="row">
+            <ProfileDetails>
+              <Avatar src={client().user!.animatedAvatarURL} size={58} />
+              <div class="usernameDetails">
+                {client().user!.username}
+                <div class="username">
+                  {client().user!.username}#0000
+                </div>
+              </div>
+            </ProfileDetails>
+            <div class="button">
+              <MdEdit {...iconSize(22)} />
             </div>
           </div>
-          <div class="flex">
-            <div class="badges">
-              badge 1
-            </div>
-            <Tooltip
-              content={formatTime({
-                format: "datetime",
-                value: client().user!.createdAt,
-              })}
-              placement="top"
-            >
-              {/*<Chip>
-                <MdCakeFill {...iconSize(14)} /> Account created{" "}
-                badges
-                <Time format="relative" value={client().user!.createdAt} />
-            </Chip>*/}
-            </Tooltip>
-          </div>
+          <BadgeContainer>
+            <ProfileBadges>
+              <MdDraw {...iconSize(20)} />
+              <MdDraw {...iconSize(20)} />
+              <MdDraw {...iconSize(20)} />
+            </ProfileBadges>
+            <ProfileBadges>
+              <MdCakeFill {...iconSize(18)} />
+            </ProfileBadges>
+          </BadgeContainer>
         </div>
       </AccountBox>
-      <CategoryButton
-        action="chevron"
-        icon={<MdDraw {...iconSize(22)} />}
-        description="Customise your display name and other profile options"
-      >
-        Customise Profile
-      </CategoryButton>
     </CategoryButtonGroup>
 
   );
 }
 
+const ProfileDetails = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+
+  .usernameDetails {
+    font-size: 18px;
+    font-weight: 600;
+
+    .username {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+`;
+
+const BadgeContainer = styled.div`
+  display: flex;
+  margin-inline-start: 73px;
+  gap: 8px;
+`;
+
+const ProfileBadges = styled.div`
+  background: red;
+  padding: 5px;
+  border-radius: 8px;
+  width: fit-content;
+  gap: 5px;
+  display: flex;
+
+  background: ${(props) => props.theme!.colour("secondary", 96)};
+  padding: 4px 5px;
+`;
+
 /**
  * Styles for the account box
  */
 const AccountBox = styled(Row)`
-/* padding: 13px 14px;*/
-  padding: 20px 13px;
-  border-radius: 6px;
-  /*background: ${(props) => props.theme!.colour("background")};*/
-    background-image: linear-gradient(transparent, ${(props) => props.theme!.colour("background")}), url('https://i.imgur.com/ngIWnE9.jpeg');
+  padding: 13px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://autumn.revolt.chat/backgrounds/PA-U1R3u-iw72V-WH0C9aDN1rBTbnm-sKNR8YN4RL8?width=1000");
+  color: ${(props) => props.theme!.colour("onBackground")};
 
   .column {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    flex-grow: 1;
-
-    .username {
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .displayName {
-      font-size: 18px;
-      font-weight: 600;
-    }
+    width: 100%;
   }
 
-  .flex {
+  .row {
     display: flex;
-
-    .badges {
-      background: ${(props) => props.theme!.colour("background")};
-    }
+    align-items: center;
   }
-  
+
   .button {
-    color: ${(props) => props.theme!.colour("onSecondary")};
-    padding: 10px 16px;
-    border-radius: 60px;
-    font-size: 14px;
-    font-weight: 500;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
     background: ${(props) => props.theme!.colour("primary")};
+    fill: ${(props) => props.theme!.colour("primary", 90)};
+
   }
 `;
 
