@@ -73,7 +73,9 @@ const InnerContent = styled("div", "Pane")`
   padding: 80px 32px;
   justify-content: stretch;
   background: ${(props) => props.theme!.colour("secondary", 92)};
-  border-radius: 30px 0 0 30px;
+
+  border-start-start-radius: 30px;
+  border-end-start-radius: 30px;
 `;
 
 /**
