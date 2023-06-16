@@ -10,6 +10,7 @@ import {
 } from "@revolt/ui";
 
 import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
+import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?component-solid";
 
 import { SettingsList } from "..";
 import { useSettingsNavigation } from "../Settings";
@@ -65,11 +66,12 @@ export function SettingsSidebar(props: {
                         {(entry) => (
                           <Show when={!entry.hidden}>
                             <SidebarButton onClick={() => navigate(entry)}>
-                              <div class="eltest1">
+                              <div class="title">
                                 {entry.icon}
                                 <div class="text">{entry.title}</div>
                               </div>
-                              <div class="eltest2">
+                              <div class="icon">
+                                <MdOpenInNew {...iconSize(20)} fill={theme!.colour("primary")} />
                                 <MdError {...iconSize(20)} fill={theme!.colour("primary")} />
                               </div>
                             </SidebarButton>

@@ -22,7 +22,7 @@ export const SidebarButton = styled.a<Props>`
     flex-shrink: 0;
   }
 
-  .eltest1 {
+  .title {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -39,12 +39,13 @@ export const SidebarButton = styled.a<Props>`
     }
   }
 
-  .eltest2 {
+  .icon {
     display: flex;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     flex-shrink: 0;
+    gap: 2px;
   }
 
   &:hover {

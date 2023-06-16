@@ -29,7 +29,6 @@ export function SettingsContent(props: {
               />
             </Typography>
             {props.children}
-            <BottomPadding />
           </InnerColumn>
         </InnerContent>
       </Show>
@@ -83,14 +82,6 @@ const InnerContent = styled("div", "Pane")`
  */
 const InnerColumn = styled(Column)`
   width: 100%;
-`;
-
-/**
- * Additional padding for bottom of page column
- */
-const BottomPadding = styled.div`
-  height: 80px;
-  flex-shrink: 0;
 `;
 
 /**
