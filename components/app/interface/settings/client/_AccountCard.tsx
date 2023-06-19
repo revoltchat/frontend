@@ -1,6 +1,6 @@
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Avatar, Column, Row, Typography, styled, useTheme, iconSize } from "@revolt/ui";
+import { Avatar, Typography, styled, useTheme, iconSize } from "@revolt/ui";
 import { useSettingsNavigation } from "../Settings";
 import { SidebarButton } from "../_layout/SidebarButton";
 
