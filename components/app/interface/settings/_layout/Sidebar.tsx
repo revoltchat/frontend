@@ -109,9 +109,8 @@ const Base = styled("div", "Sidebar")`
  * Aligned content within the sidebar
  */
 const Content = styled("div", "Content")`
-  /*min-width: 230px;
-  max-width: 300px;*/
-  width: 140px;
+  min-width: 230px;
+  max-width: 300px;
   padding: 74px 0 8px;
   display: flex;
   gap: 2px;
