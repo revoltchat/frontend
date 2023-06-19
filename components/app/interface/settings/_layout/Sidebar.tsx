@@ -68,7 +68,9 @@ export function SettingsSidebar(props: {
                             <SidebarButton onClick={() => navigate(entry)}>
                               <div class="title">
                                 {entry.icon}
-                                <div class="text">{entry.title}</div>
+                                <div class="text">
+                                  <span>{entry.title}</span>
+                                </div>
                               </div>
                               <div class="icon">
                                 <MdOpenInNew {...iconSize(20)} fill={theme!.colour("primary")} />
@@ -107,8 +109,9 @@ const Base = styled("div", "Sidebar")`
  * Aligned content within the sidebar
  */
 const Content = styled("div", "Content")`
-  min-width: 230px;
-  max-width: 300px;
+  /*min-width: 230px;
+  max-width: 300px;*/
+  width: 140px;
   padding: 74px 0 8px;
   display: flex;
   gap: 2px;
