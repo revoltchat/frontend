@@ -68,7 +68,9 @@ export function SettingsSidebar(props: {
                             <SidebarButton onClick={() => navigate(entry)}>
                               <div class="title">
                                 {entry.icon}
-                                <div class="text">{entry.title}</div>
+                                <div class="text">
+                                  <span>{entry.title}</span>
+                                </div>
                               </div>
                               <div class="icon">
                                 <MdOpenInNew {...iconSize(20)} fill={theme!.colour("primary")} />

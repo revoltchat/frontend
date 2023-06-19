@@ -33,9 +33,17 @@ export const SidebarButton = styled.a<Props>`
     white-space: nowrap;
     
     .text {
+      display: flex;
+      flex-direction: column;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 

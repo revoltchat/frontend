@@ -5,6 +5,7 @@ import {
   BiRegularQuestionMark,
 } from "solid-icons/bi";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
+import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
 import { FaBrandsLinux } from "solid-icons/fa";
 import {
   Accessor,
@@ -93,7 +94,13 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
           Rename
         </CategoryButton>
       </CategoryCollapse>
-
+      <CategoryButton
+        action="chevron"
+        icon={<MdAutoMode {...iconSize(24)} fill={theme.scheme.error} />}
+        description="Keeps your last sessions active and automatically logs you out of other ones"
+      >
+        Keep Last Active Sessions
+      </CategoryButton>
       <Show when={props.otherSessions().length}>
         <CategoryButton
           action="chevron"
