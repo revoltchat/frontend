@@ -35,7 +35,7 @@ export function CategoryCollapse(props: Props) {
       </summary>
       <Switch fallback={<Column gap="xs">{props.children}</Column>}>
         <Match when={props.scrollable}>
-          <HeightLimitedColumn gap="xs" use:scrollable>
+          <HeightLimitedColumn gap="xs" use: scrollable>
             {props.children}
           </HeightLimitedColumn>
         </Match>
@@ -48,8 +48,13 @@ export function CategoryCollapse(props: Props) {
  * Parent base component
  */
 const Details = styled.details`
+  /* add transition to the icon */
+  summary div:last-child svg {
+    transition: 0.3s;
+  }
+
   /* rotate chevron when it is open */
-  &[open] summary svg:last-child {
+  &[open] summary div:last-child svg {
     transform: rotate(180deg);
   }
 
