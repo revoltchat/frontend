@@ -78,7 +78,7 @@ export interface Props {
 /**
  * Fixed position container to centre the modal
  */
-const Base = styled("div", "Modal")<{ show?: boolean }>`
+const Base = styled("div", "Modal") <{ show?: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
@@ -98,9 +98,9 @@ const Base = styled("div", "Modal")<{ show?: boolean }>`
   place-items: center;
 
   color: ${(props) => props.theme!.colours.foreground};
-  transition: ${(props) => props.theme!.transitions.fast} all;
+  transition: ${(props) => props.theme!.transitions.medium} all;
   pointer-events: ${(props) => (props.show ? "all" : "none")};
-  background: ${(props) => (props.show ? "rgba(0, 0, 0, 0.8)" : "transparent")};
+  background: ${(props) => (props.show ? "rgba(0, 0, 0, 0.6)" : "transparent")};
 `;
 
 type ContainerProps = Pick<Props, "transparent" | "maxWidth" | "maxHeight"> & {
@@ -121,7 +121,7 @@ const Container = styled.div<ContainerProps>`
   flex-direction: column;
 
   background: ${(props) =>
-    props.transparent ? "transparent" : props.theme!.colours["background-300"]};
+    props.transparent ? "transparent" : props.theme!.colour("secondary", 96)};
   border-radius: ${(props) =>
     props.transparent ? "none" : props.theme!.borderRadius.md};
   overflow: ${(props) => (props.transparent ? "unset" : "hidden")};
@@ -165,7 +165,7 @@ const Actions = styled("div", "Actions")`
   padding: 1rem;
   flex-direction: row-reverse;
 
-  background: ${(props) => props.theme!.colours["background-200"]};
+  background: ${(props) => props.theme!.colour("secondary", 92)};
   border-radius: 0 0
     ${(props) => (props.theme!.borderRadius.md + " ").repeat(2)};
 `;
@@ -189,10 +189,10 @@ export function Modal(props: Props) {
         <Presence>
           <Show when={props.show}>
             <Motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.6 }}
-              transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3, easing: [0.22, 0.54, 0.41, 1.46] }}
             >
               <Container
                 actions={showActions()}
