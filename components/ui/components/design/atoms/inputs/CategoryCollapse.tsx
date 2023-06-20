@@ -25,20 +25,17 @@ export function CategoryCollapse(props: Props) {
   const [opened, setOpened] = createSignal(false);
   const toggleOpened = () => setOpened(!opened());
 
-
   let details: HTMLDivElement;
   let column: HTMLDivElement;
 
   /* recalculate the column height for transition */
-  const updateHeight = () => {
+  const updatedHeight = () => {
     const calculatedHeight = opened()
       ? Math.min(column.scrollHeight, 340)
       : 0
 
-    column.style.height = `${calculatedHeight}px`;
+    return `${calculatedHeight}px`;
   }
-
-  createEffect(updateHeight);
 
   return (
     <Details ref={details!} onClick={toggleOpened} class={opened() ? "open" : undefined}>
@@ -51,11 +48,11 @@ export function CategoryCollapse(props: Props) {
           {props.title}
         </CategoryButton>
       </summary>
-      <Switch fallback={<InnerColumn gap="xs" ref={column!}>{props.children}</InnerColumn>}>
+      <Switch fallback={<StaticInnerColumn gap="xs" ref={column!} style={{ height: updatedHeight() }}>{props.children}</StaticInnerColumn>}>
         <Match when={props.scrollable}>
-          <StaticInnerColumn gap="xs" ref={column!} use: scrollable>
+          <InnerColumn gap="xs" ref={column!} style={{ height: updatedHeight() }} use: scrollable>
             {props.children}
-          </StaticInnerColumn>
+          </InnerColumn>
         </Match>
       </Switch>
     </Details>
