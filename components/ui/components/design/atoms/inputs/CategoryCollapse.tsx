@@ -1,4 +1,4 @@
-import { ComponentProps, JSX, Match, Switch, createEffect, createSignal, onMount, splitProps } from "solid-js";
+import { ComponentProps, JSX, Match, Switch, createSignal, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import type { scrollable } from "../../../../directives";
@@ -28,7 +28,9 @@ export function CategoryCollapse(props: Props) {
   let details: HTMLDivElement;
   let column: HTMLDivElement;
 
-  /* recalculate the column height for transition */
+  /**
+   * recalculate the column height for transition
+   */
   const updatedHeight = () => {
     const calculatedHeight = opened()
       ? Math.min(column.scrollHeight, 340)
@@ -50,7 +52,7 @@ export function CategoryCollapse(props: Props) {
       </summary>
       <Switch fallback={<StaticInnerColumn gap="xs" ref={column!} style={{ height: updatedHeight() }}>{props.children}</StaticInnerColumn>}>
         <Match when={props.scrollable}>
-          <InnerColumn gap="xs" ref={column!} style={{ height: updatedHeight() }} use: scrollable>
+          <InnerColumn gap="xs" ref={column!} style={{ height: updatedHeight() }} use:scrollable>
             {props.children}
           </InnerColumn>
         </Match>

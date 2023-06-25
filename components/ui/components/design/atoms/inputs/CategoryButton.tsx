@@ -34,13 +34,15 @@ export function CategoryButton(props: Props) {
       aria-disabled={props.disabled}
       onClick={props.disabled ? undefined : props.onClick}
     >
-      <IconWrapper>
-        <Switch fallback={props.icon}>
-          <Match when={props.icon === "blank"}>
-            <Blank />
-          </Match>
-        </Switch>
-      </IconWrapper>
+      <Show when={props.icon !== "blank"}>
+        <IconWrapper>
+          {props.icon}
+        </IconWrapper>
+      </Show>
+      
+      <Show when={props.icon === "blank"}>
+        <BlankIconWrapper />
+      </Show>
 
       <Content grow>
         <Show when={props.children}>
@@ -74,13 +76,6 @@ export function CategoryButton(props: Props) {
     </Base>
   );
 }
-
-/**
- * Blank icon
- */
-const Blank = styled.div`
-  width: 36px;
-`;
 
 /**
  * Base container for button
@@ -146,6 +141,13 @@ const IconWrapper = styled.div`
     fill: ${(props) => props.theme!.colour("primary", 30)};
   }
 `;
+
+/**
+ * Category button icon wrapper for the blank state
+ */
+const BlankIconWrapper = styled(IconWrapper)`
+  background: transparent;
+`
 
 /**
  * Description shown below title
