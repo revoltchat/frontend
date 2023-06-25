@@ -23,13 +23,25 @@ export function CategoryCollapse(props: Props) {
   const [local, remote] = splitProps(props, ["action", "children"]);
 
   const [opened, setOpened] = createSignal(false);
-  const toggleOpened = () => setOpened(!opened());
+
+  /**
+   * Toggle the opened state and scroll to the beginning of contents
+   */
+  const toggleOpened = () => {
+    const openedState = opened();
+
+    if (!openedState) {
+      column.scroll({ top: 0 });
+    }
+
+    setOpened(!openedState);
+  }
 
   let details: HTMLDivElement;
   let column: HTMLDivElement;
 
   /**
-   * recalculate the column height for transition
+   * Recalculate the column height for transition
    */
   const updatedHeight = () => {
     const calculatedHeight = opened()
