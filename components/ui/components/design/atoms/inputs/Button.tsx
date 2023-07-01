@@ -75,7 +75,7 @@ const ButtonBase = styled("button")<Props>`
   }
 
   &:active {
-    filter: brightness(0.8);
+    filter: brightness(0.9);
   }
 
   &:disabled {
@@ -85,8 +85,8 @@ const ButtonBase = styled("button")<Props>`
 `;
 
 const PrimaryButton = styled(ButtonBase)<Props>`
-  color: ${({ theme }) => theme!.colours["foreground"]};
-  background: ${({ theme }) => theme!.colours["background-100"]};
+  color: ${({ theme }) => theme!.colour("primary")};
+  background: ${({ theme }) => theme!.colour("background")};
 `;
 
 const SecondaryButton = styled(ButtonBase)<Props>`
@@ -97,8 +97,8 @@ const SecondaryButton = styled(ButtonBase)<Props>`
 const PlainButton = styled(ButtonBase)<Props>`
   color: ${(props) =>
     props.palette === "plain"
-      ? props.theme!.colours["foreground"]
-      : props.theme!.colours["foreground-200"]};
+      ? props.theme!.colour("onBackground")
+      : props.theme!.colour("onBackground", 92)};
   background: transparent;
 
   &:hover {

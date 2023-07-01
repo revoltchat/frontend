@@ -97,7 +97,7 @@ const Base = styled("div", "Modal") <{ show?: boolean }>`
   overflow-y: auto;
   place-items: center;
 
-  color: ${(props) => props.theme!.colours.foreground};
+  color: ${(props) => props.theme!.colour("onBackground")};
   transition: ${(props) => props.theme!.transitions.medium} all;
   pointer-events: ${(props) => (props.show ? "all" : "none")};
   background: ${(props) => (props.show ? "rgba(0, 0, 0, 0.6)" : "transparent")};
@@ -123,7 +123,7 @@ const Container = styled.div<ContainerProps>`
   background: ${(props) =>
     props.transparent ? "transparent" : props.theme!.colour("secondary", 96)};
   border-radius: ${(props) =>
-    props.transparent ? "none" : props.theme!.borderRadius.md};
+    props.transparent ? "none" : props.theme!.borderRadius.lg};
   overflow: ${(props) => (props.transparent ? "unset" : "hidden")};
 `;
 
@@ -201,12 +201,12 @@ export function Modal(props: Props) {
                 <Show when={props.title || props.description}>
                   <Title>
                     <Show when={props.title}>
-                      <Typography variant="legacy-modal-title">
+                      <Typography variant="modal-title">
                         {props.title}
                       </Typography>
                     </Show>
                     <Show when={props.description}>
-                      <Typography variant="legacy-modal-title-2">
+                      <Typography variant="modal-description">
                         {props.description}
                       </Typography>
                     </Show>

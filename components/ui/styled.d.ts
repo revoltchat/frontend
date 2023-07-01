@@ -83,6 +83,8 @@ declare module "solid-styled-components" {
       | "settings-account-username"
       | "settings-account-card-title"
       | "settings-account-card-subtitle"
+      | "modal-title"
+      | "modal-description"
       | "legacy-settings-title"
       | "small"
       | "legacy-modal-title"

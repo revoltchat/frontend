@@ -43,16 +43,16 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 2px solid ${(props) => props.theme!.colours["foreground-400"]};
+  border: 2px solid ${(props) => props.theme!.colour("primary")};
   border-radius: ${(props) => props.theme!.borderRadius["md"]};
-  background: ${(props) => props.theme!.colours["background-100"]};
+  background: ${(props) => props.theme!.colour("primary", 92)};
   flex-shrink: 0;
   margin: 4px;
   transition: 0.1s ease-in-out all;
 
   .check {
     transition: inherit;
-    color: ${(props) => props.theme!.colours["foreground-400"]};
+    color: ${(props) => props.theme!.colour("onPrimary")};
     visibility: hidden;
     opacity: 0;
   }
@@ -60,13 +60,13 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   ${(props) =>
     props.value
       ? `
-    border-color: ${props.theme!.colours["accent"]};
-    background: ${props.theme!.colours["accent"]};
+    border-color: ${props.theme!.colour("primary")};
+    background: ${props.theme!.colour("primary")};
 
     .check {
       visibility: visible;
       opacity: 1;
-      color: var(--accent-contrast);
+      color: ${props.theme!.colour("onPrimary")};
     }
   `
       : ""}
