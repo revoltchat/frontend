@@ -52,7 +52,7 @@ const Checkmark = styled.div<Pick<Props, "value">>`
 
   .check {
     transition: inherit;
-    color: ${(props) => props.theme!.colour("onPrimary")};
+    fill: ${(props) => props.theme!.colour("onPrimary")};
     visibility: hidden;
     opacity: 0;
   }

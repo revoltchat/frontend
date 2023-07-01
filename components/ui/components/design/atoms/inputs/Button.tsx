@@ -86,12 +86,12 @@ const ButtonBase = styled("button")<Props>`
 
 const PrimaryButton = styled(ButtonBase)<Props>`
   color: ${({ theme }) => theme!.colour("primary")};
-  background: ${({ theme }) => theme!.colour("background")};
+  background: ${({ theme }) => theme!.colour("background", 98)};
 `;
 
 const SecondaryButton = styled(ButtonBase)<Props>`
-  color: ${({ theme }) => theme!.colours["foreground"]};
-  background: ${({ theme }) => theme!.colours["background-200"]};
+  color: ${({ theme }) => theme!.colour("primary")};
+  background: ${({ theme }) => theme!.colour("background", 96)};
 `;
 
 const PlainButton = styled(ButtonBase)<Props>`
