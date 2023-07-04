@@ -13,6 +13,7 @@ import type { API, Channel, Server, ServerFlags } from "revolt.js";
 
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link } from "@revolt/routing";
+import { useTranslation } from "@revolt/i18n";
 
 import { scrollable } from "../../../directives";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
@@ -142,9 +143,11 @@ const SettingsLink = styled.a`
  * Server badge
  */
 function ServerBadge(props: { flags: ServerFlags }) {
+  const t = useTranslation();
+
   return (
     <Show when={props.flags}>
-      <Tooltip content={props.flags === 1 ? "Official server" : "Verified server"} placement="top">
+      <Tooltip content={props.flags === 1 ? t("app.special.server-badges.official") : t("app.special.server-badges.verified")} placement="top">
         {props.flags === 1 ? (<BiSolidCheckCircle size={12} />) : (<BiRegularCheckCircle size={12} />)}
       </Tooltip>
     </Show>
