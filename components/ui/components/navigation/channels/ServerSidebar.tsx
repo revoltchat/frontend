@@ -3,11 +3,13 @@ import {
   BiRegularPhoneCall,
   BiSolidChevronRight,
   BiSolidCog,
+  BiSolidCheckCircle,
+  BiRegularCheckCircle
 } from "solid-icons/bi";
 import { For, Match, Show, Switch, createMemo, createSignal } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import type { API, Channel, Server } from "revolt.js";
+import type { API, Channel, Server, ServerFlags } from "revolt.js";
 
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link } from "@revolt/routing";
@@ -19,6 +21,7 @@ import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
 
 import { SidebarBase } from "./common";
+import { Tooltip } from "../../floating";
 
 scrollable;
 
@@ -104,6 +107,7 @@ function ServerInfo(
 ) {
   return (
     <Row align grow>
+      <ServerBadge flags={props.server.flags} />
       <ServerName onClick={props.openServerInfo}>
         <OverflowingText>
           <TextWithEmoji content={props.server.name} />
@@ -133,6 +137,19 @@ const SettingsLink = styled.a`
     display: block;
   }
 `;
+
+/**
+ * Server badge
+ */
+function ServerBadge(props: { flags: ServerFlags }) {
+  return (
+    <Show when={props.flags}>
+      <Tooltip content={props.flags === 1 ? "Official server" : "Verified server"} placement="top">
+        {props.flags === 1 ? (<BiSolidCheckCircle size={12} />) : (<BiRegularCheckCircle size={12} />)}
+      </Tooltip>
+    </Show>
+  );
+}
 
 /**
  * Single category entry
