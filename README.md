@@ -1,6 +1,8 @@
-# Solid App (name TBD)
+# ‼️ READ: Please **do not create any issues** and clear any PRs with me ahead of time (some PRs may be rejected at this stage).
 
-This is still a work in progress, please **do not create any issues** and clear any PRs with me ahead of time.
+This is still in very heavy development, and we are currently overhauling a lot of the UI on our own private downstream branch, as such we may be limiting PRs to purely functional changes in certain cases (i.e. which don't have to touch UI) so it is best that you liase with someone on the team first to ask about whether a certain part of the project may be worked on.
+
+# Revolt Frontend
 
 See [code style guidelines here](./GUIDELINES.md)!
 

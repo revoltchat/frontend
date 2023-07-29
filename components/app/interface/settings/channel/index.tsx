@@ -7,13 +7,14 @@ import {
 
 import { Channel } from "revolt.js";
 
+import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText, useTheme } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
 
-import Webhooks from "./Webhooks";
+import Webhooks, { Webhook } from "./Webhooks";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -22,6 +23,13 @@ const Config: SettingsConfiguration<Channel> = {
    */
   title(key) {
     const t = useTranslation();
+    const client = useClient();
+
+    if (key.startsWith("webhooks/")) {
+      const webhook = client().channelWebhooks.get(key.substring(9));
+      return webhook!.name;
+    }
+
     return t(`app.settings.channel_pages.${key.replaceAll("/", ".")}.title`);
   },
 
@@ -31,6 +39,12 @@ const Config: SettingsConfiguration<Channel> = {
   render(props, channel) {
     // eslint-disable-next-line solid/reactivity
     const id = props.page();
+    const client = useClient();
+
+    if (id?.startsWith("webhooks/")) {
+      const webhook = client().channelWebhooks.get(id.substring(9));
+      return <Webhook webhook={webhook!} />;
+    }
 
     switch (id) {
       case "webhooks":

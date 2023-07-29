@@ -108,7 +108,7 @@ export function ChannelHeader(props: Props) {
 
       <Show
         when={
-          props.channel.type === "Group" &&
+          props.channel.type === "Group" ||
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
