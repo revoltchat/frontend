@@ -3,22 +3,18 @@ import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 import {
   Column,
   OverflowingText,
-  iconSize,
   invisibleScrollable,
   styled,
-  useTheme,
 } from "@revolt/ui";
 
-import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
-import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?component-solid";
-
+// import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
+// import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?component-solid";
 import { SettingsList } from "..";
 import { useSettingsNavigation } from "../Settings";
 
 import {
   SidebarButton,
   SidebarButtonContent,
-  SidebarButtonIcon,
   SidebarButtonTitle,
 } from "./SidebarButton";
 
@@ -35,7 +31,7 @@ export function SettingsSidebar(props: {
   page: Accessor<string | undefined>;
 }) {
   const { navigate } = useSettingsNavigation();
-  const theme = useTheme();
+  // const theme = useTheme();
 
   /**
    * Generate list of categories / links
@@ -77,7 +73,7 @@ export function SettingsSidebar(props: {
                                   </OverflowingText>
                                 </SidebarButtonContent>
                               </SidebarButtonTitle>
-                              <SidebarButtonIcon>
+                              {/*<SidebarButtonIcon>
                                 <MdOpenInNew
                                   {...iconSize(20)}
                                   fill={theme!.colour("primary")}
@@ -86,7 +82,7 @@ export function SettingsSidebar(props: {
                                   {...iconSize(20)}
                                   fill={theme!.colour("primary")}
                                 />
-                              </SidebarButtonIcon>
+                              </SidebarButtonIcon>*/}
                             </SidebarButton>
                           </Show>
                         )}
@@ -110,6 +106,7 @@ export function SettingsSidebar(props: {
 const Base = styled("div", "Sidebar")`
   display: flex;
   flex: 1 0 218px;
+  padding-left: 8px;
   justify-content: flex-end;
 
   color: ${(props) => props.theme!.colour("onSecondaryContainer")};

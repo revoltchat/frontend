@@ -64,7 +64,7 @@ const ButtonBase = styled("button")<Props>`
   cursor: pointer;
 
   border: none;
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  border-radius: ${({ theme }) => theme!.borderRadius.xxl};
 
   transition: ${({ theme }) => theme!.transitions.fast} all;
 

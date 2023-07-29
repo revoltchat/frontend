@@ -78,7 +78,7 @@ export interface Props {
 /**
  * Fixed position container to centre the modal
  */
-const Base = styled("div", "Modal") <{ show?: boolean }>`
+const Base = styled("div", "Modal")<{ show?: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
@@ -142,10 +142,10 @@ const Title = styled.div`
 /**
  * Container for the given content
  */
-const Content = styled.div<Pick<Props, "transparent" | "padding">>`
+const Content = styled.div<Props>`
   flex-grow: 1;
   padding-top: 0;
-  padding: ${(props) => props.padding ?? "0 1rem 1rem"};
+  padding: 0 1rem 1rem;
 
   overflow-y: auto;
   font-size: 0.9375rem; /** FIXME */
@@ -162,12 +162,8 @@ const Actions = styled("div", "Actions")`
 
   gap: 8px;
   display: flex;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   flex-direction: row-reverse;
-
-  background: ${(props) => props.theme!.colour("secondary", 92)};
-  border-radius: 0 0
-    ${(props) => (props.theme!.borderRadius.md + " ").repeat(2)};
 `;
 
 /**

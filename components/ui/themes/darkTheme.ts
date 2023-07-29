@@ -52,11 +52,13 @@ const theme = themeFromSourceColor(argbFromHex(hex), [
     name: "warning",
     value: argbFromHex("#FAA352"),
     blend: true,
-  }
+  },
 ]);
 
 const customColours = {} as Record<
-  `status-${"online" | "idle" | "focus" | "busy" | "streaming" | "invisible"}` | "success" | "warning",
+  | `status-${"online" | "idle" | "focus" | "busy" | "streaming" | "invisible"}`
+  | "success"
+  | "warning",
   Record<keyof ColorGroup, string>
 >;
 
@@ -111,8 +113,8 @@ export const darkTheme: DefaultTheme = {
   colour(base: keyof Scheme, tone?: number): string {
     return tone
       ? hexFromArgb(
-        darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
-      )
+          darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
+        )
       : darkTheme.scheme[base];
   },
   ...schemeToHex(theme.schemes[darkMode ? "dark" : "light"]),
@@ -156,9 +158,7 @@ export const darkTheme: DefaultTheme = {
   typography: {
     // Form elements
     label: {
-      fontWeight: 700,
-      fontSize: "0.75rem",
-      textTransform: "uppercase",
+      textTransform: "capitalize",
     },
     // Common UI elements
     chip: {

@@ -48,6 +48,7 @@ export function SettingsContent(props: {
  * Base styles
  */
 const Base = styled("div", "Content")`
+  min-width: 0;
   flex: 1 1 800px;
   flex-direction: row;
 
@@ -67,6 +68,7 @@ const Base = styled("div", "Content")`
  */
 const InnerContent = styled("div", "Pane")`
   gap: 13px;
+  min-width: 0;
   width: 100%;
   display: flex;
   max-width: 740px;
@@ -86,7 +88,7 @@ const InnerContentBackground = styled("div", "PaneBackground")`
 
   border-start-start-radius: 30px;
   border-end-start-radius: 30px;
-`
+`;
 
 /**
  * Pane content column
@@ -133,6 +135,7 @@ const CloseAnchor = styled.a`
  */
 const CloseAction = styled.div`
   flex-grow: 1;
+  flex-shrink: 0;
   padding: 80px 8px;
   visibility: visible;
   position: sticky;
