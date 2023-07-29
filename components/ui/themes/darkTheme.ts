@@ -43,10 +43,20 @@ const theme = themeFromSourceColor(argbFromHex(hex), [
     value: argbFromHex("#A5A5A5"),
     blend: true,
   },
+  {
+    name: "success",
+    value: argbFromHex("#65E572"),
+    blend: true,
+  },
+  {
+    name: "warning",
+    value: argbFromHex("#FAA352"),
+    blend: true,
+  }
 ]);
 
 const customColours = {} as Record<
-  `status-${"online" | "idle" | "focus" | "busy" | "streaming" | "invisible"}`,
+  `status-${"online" | "idle" | "focus" | "busy" | "streaming" | "invisible"}` | "success" | "warning",
   Record<keyof ColorGroup, string>
 >;
 
@@ -187,7 +197,7 @@ export const darkTheme: DefaultTheme = {
     // Messaging specific
     messages: {
       fontSize: "14px",
-      fontWeight: 300,
+      fontWeight: 400,
     },
     reply: {
       fontSize: "0.8rem",
@@ -236,6 +246,19 @@ export const darkTheme: DefaultTheme = {
     },
     "settings-account-card-subtitle": {
       fontSize: "12px",
+    },
+    // Modal
+    "modal-title": {
+      element: "h2",
+      margin: 0,
+      fontWeight: 700,
+      fontSize: "1.2rem",
+    },
+    "modal-description": {
+      element: "h2",
+      margin: 0,
+      fontWeight: 500,
+      fontSize: "0.9rem",
     },
     // Legacy
     "legacy-settings-title": {

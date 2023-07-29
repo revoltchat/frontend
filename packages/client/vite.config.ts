@@ -2,12 +2,14 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
 import solidSvg from "vite-plugin-solid-svg";
+import devtools from "@solid-devtools/transform";
 
 const base = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
   base,
   plugins: [
+    devtools(),
     solidPlugin(),
     solidSvg({
       defaultAsComponent: false,

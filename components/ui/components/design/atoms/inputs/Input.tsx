@@ -35,24 +35,18 @@ export const Input = styled("input")<Props>`
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 1.5pt ${({ theme }) => theme!.colours.accent};
+    box-shadow: 0 0 0 1.5pt ${({ theme }) => theme!.colour("primary")};
   }
 
   color: ${(props) =>
-    props.theme!.colours[
-      props.palette === "primary" ? "foreground" : "foreground-100"
-    ]};
+    props.theme!.colour("onBackground")};
 
   background: ${(props) =>
-    props.theme!.colours[
-      props.palette === "primary" ? "background-200" : "background-100"
-    ]};
+    props.theme!.colour("background", props.palette === "primary" ? 100 : 98)};
 
   &:hover {
     background: ${(props) =>
-      props.theme!.colours[
-        props.palette === "primary" ? "background-100" : "background-200"
-      ]};
+      props.theme!.colour("background", props.palette === "primary" ? 98 : 100)};
   }
 
   ${(props) =>
@@ -75,12 +69,12 @@ export const Input = styled("input")<Props>`
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px
-      ${(props) => props.theme!.colours["background-100"]} inset !important;
+      ${(props) => props.theme!.colour("background", 98)} inset !important;
   }
 
   &:-webkit-autofill {
-    caret-color: ${(props) => props.theme!.colours["foreground"]} !important;
+    caret-color: ${(props) => props.theme!.colour("onBackground")} !important;
     -webkit-text-fill-color: ${(props) =>
-      props.theme!.colours["foreground"]} !important;
+      props.theme!.colour("onBackground")} !important;
   }
 `;

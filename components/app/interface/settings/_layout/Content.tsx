@@ -19,6 +19,7 @@ export function SettingsContent(props: {
   return (
     <Base>
       <Show when={props.page()}>
+        <InnerContentBackground />
         <InnerContent>
           <InnerColumn gap="x">
             <Typography variant="settings-title">
@@ -71,11 +72,21 @@ const InnerContent = styled("div", "Pane")`
   max-width: 740px;
   padding: 80px 32px;
   justify-content: stretch;
+  z-index: 1;
+`;
+
+/**
+ * Settings styled background
+ */
+const InnerContentBackground = styled("div", "PaneBackground")`
+  width: 100%;
+  height: 100vh;
+  position: fixed;
   background: ${(props) => props.theme!.colour("secondary", 92)};
 
   border-start-start-radius: 30px;
   border-end-start-radius: 30px;
-`;
+`
 
 /**
  * Pane content column

@@ -34,13 +34,15 @@ export function CategoryButton(props: Props) {
       aria-disabled={props.disabled}
       onClick={props.disabled ? undefined : props.onClick}
     >
-      <IconWrapper>
-        <Switch fallback={props.icon}>
-          <Match when={props.icon === "blank"}>
-            <Blank />
-          </Match>
-        </Switch>
-      </IconWrapper>
+      <Show when={props.icon !== "blank"}>
+        <IconWrapper>
+          {props.icon}
+        </IconWrapper>
+      </Show>
+      
+      <Show when={props.icon === "blank"}>
+        <BlankIconWrapper />
+      </Show>
 
       <Content grow>
         <Show when={props.children}>
@@ -74,13 +76,6 @@ export function CategoryButton(props: Props) {
     </Base>
   );
 }
-
-/**
- * Blank icon
- */
-const Blank = styled.div`
-  width: 36px;
-`;
 
 /**
  * Base container for button
@@ -126,6 +121,9 @@ const Content = styled(Column)`
   font-weight: 500;
   font-size: 14px;
   gap: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   /*color: ${(props) => props.theme!.colour("primary")};*/
   color: ${(props) => props.theme!.colour("onBackground", 10)}
 `;
@@ -138,6 +136,7 @@ const IconWrapper = styled.div`
   width: 36px;
   height: 36px;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -146,6 +145,13 @@ const IconWrapper = styled.div`
     fill: ${(props) => props.theme!.colour("primary", 30)};
   }
 `;
+
+/**
+ * Category button icon wrapper for the blank state
+ */
+const BlankIconWrapper = styled(IconWrapper)`
+  background: transparent;
+`
 
 /**
  * Description shown below title
@@ -167,6 +173,7 @@ const Action = styled.div`
   width: 24px;
   height: 24px;
   color: ${(props) => props.theme!.colour("onBackground")};
+  flex-shrink: 0;
 
   display: grid;
   place-items: center;

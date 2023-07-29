@@ -1,4 +1,4 @@
-import { ComponentProps, JSX, Match, Switch, splitProps } from "solid-js";
+import { ComponentProps, JSX, Match, Switch, createSignal, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import type { scrollable } from "../../../../directives";
@@ -22,8 +22,37 @@ type Props = Omit<
 export function CategoryCollapse(props: Props) {
   const [local, remote] = splitProps(props, ["action", "children"]);
 
+  const [opened, setOpened] = createSignal(false);
+
+  /**
+   * Toggle the opened state and scroll to the beginning of contents
+   */
+  const toggleOpened = () => {
+    const openedState = opened();
+
+    if (!openedState) {
+      column.scroll({ top: 0 });
+    }
+
+    setOpened(!openedState);
+  }
+
+  let details: HTMLDivElement;
+  let column: HTMLDivElement;
+
+  /**
+   * Recalculate the column height for transition
+   */
+  const updatedHeight = () => {
+    const calculatedHeight = opened()
+      ? Math.min(column.scrollHeight, 340)
+      : 0
+
+    return `${calculatedHeight}px`;
+  }
+
   return (
-    <Details>
+    <Details ref={details!} onClick={toggleOpened} class={opened() ? "open" : undefined}>
       <summary>
         <CategoryButton
           {...remote}
@@ -33,11 +62,11 @@ export function CategoryCollapse(props: Props) {
           {props.title}
         </CategoryButton>
       </summary>
-      <Switch fallback={<Column gap="xs">{props.children}</Column>}>
+      <Switch fallback={<StaticInnerColumn gap="xs" ref={column!} style={{ height: updatedHeight() }}>{props.children}</StaticInnerColumn>}>
         <Match when={props.scrollable}>
-          <HeightLimitedColumn gap="xs" use:scrollable>
+          <InnerColumn gap="xs" ref={column!} style={{ height: updatedHeight() }} use:scrollable>
             {props.children}
-          </HeightLimitedColumn>
+          </InnerColumn>
         </Match>
       </Switch>
     </Details>
@@ -45,16 +74,50 @@ export function CategoryCollapse(props: Props) {
 }
 
 /**
+ * Column with inner content
+ */
+const InnerColumn = styled(Column)`
+  border-radius: ${(props) => props.theme!.borderRadius.md};
+  transition: 0.3s;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
+/**
+ * Non-scrollable inner column
+ */
+const StaticInnerColumn = styled(InnerColumn)`
+  overflow: hidden;
+`
+
+/**
  * Parent base component
  */
-const Details = styled.details`
+const Details = styled.div`
+  summary {
+    transition: 0.3s;
+  }
+
+  &:not(.open) ${InnerColumn.class} {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* add transition to the icon */
+  summary div:last-child svg {
+    transition: 0.3s;
+  }
+
   /* rotate chevron when it is open */
-  &[open] summary svg:last-child {
+  &.open summary div:last-child svg {
     transform: rotate(180deg);
   }
 
   /* add additional padding between top button and children when it is open */
-  &[open] summary {
+  &.open summary {
     margin-bottom: ${(props) => props.theme!.gap.xs};
   }
 
@@ -79,9 +142,3 @@ const Details = styled.details`
   }*/
 `;
 
-/**
- * Height-limited column
- */
-const HeightLimitedColumn = styled(Column)`
-  max-height: 340px;
-`;
