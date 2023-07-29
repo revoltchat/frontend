@@ -24,7 +24,6 @@
   "dependencies": {
     "@material-design-icons/svg": "^0.14.8",
     "@minht11/solid-virtual-container": "^0.2.1",
-    "@revolt/admin": "workspace:^",
     "@revolt/app": "workspace:^",
     "@revolt/auth": "workspace:^",
     "@revolt/client": "workspace:^",
