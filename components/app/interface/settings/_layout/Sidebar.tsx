@@ -3,9 +3,9 @@ import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 import {
   Column,
   OverflowingText,
+  iconSize,
   invisibleScrollable,
   styled,
-  iconSize,
   useTheme,
 } from "@revolt/ui";
 
@@ -15,7 +15,12 @@ import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?compo
 import { SettingsList } from "..";
 import { useSettingsNavigation } from "../Settings";
 
-import { SidebarButton } from "./SidebarButton";
+import {
+  SidebarButton,
+  SidebarButtonContent,
+  SidebarButtonIcon,
+  SidebarButtonTitle,
+} from "./SidebarButton";
 
 invisibleScrollable;
 
@@ -48,7 +53,7 @@ export function SettingsSidebar(props: {
 
   return (
     <Base>
-      <div use: invisibleScrollable>
+      <div use:invisibleScrollable>
         <Content>
           <Column gap="lg">
             {list().prepend}
@@ -57,25 +62,31 @@ export function SettingsSidebar(props: {
                 <Show when={!category.hidden}>
                   <Column>
                     <Show when={category.title}>
-                      <CategoryTitle>
-                        {category.title}
-                      </CategoryTitle>
+                      <CategoryTitle>{category.title}</CategoryTitle>
                     </Show>
                     <Column gap="s">
                       <For each={category.entries}>
                         {(entry) => (
                           <Show when={!entry.hidden}>
                             <SidebarButton onClick={() => navigate(entry)}>
-                              <div class="title">
+                              <SidebarButtonTitle>
                                 {entry.icon}
-                                <div class="text">
-                                  <span>{entry.title}</span>
-                                </div>
-                              </div>
-                              <div class="icon">
-                                <MdOpenInNew {...iconSize(20)} fill={theme!.colour("primary")} />
-                                <MdError {...iconSize(20)} fill={theme!.colour("primary")} />
-                              </div>
+                                <SidebarButtonContent>
+                                  <OverflowingText>
+                                    {entry.title}
+                                  </OverflowingText>
+                                </SidebarButtonContent>
+                              </SidebarButtonTitle>
+                              <SidebarButtonIcon>
+                                <MdOpenInNew
+                                  {...iconSize(20)}
+                                  fill={theme!.colour("primary")}
+                                />
+                                <MdError
+                                  {...iconSize(20)}
+                                  fill={theme!.colour("primary")}
+                                />
+                              </SidebarButtonIcon>
                             </SidebarButton>
                           </Show>
                         )}

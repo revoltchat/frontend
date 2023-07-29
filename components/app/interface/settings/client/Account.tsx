@@ -10,29 +10,24 @@ import {
   CategoryButton,
   CategoryButtonGroup,
   CategoryCollapse,
-  Chip,
   Column,
   Row,
-  Time,
-  Tooltip,
   Typography,
+  iconSize,
   styled,
   useTheme,
-  iconSize,
 } from "@revolt/ui";
-import { formatTime } from "@revolt/ui/components/design/atoms/display/Time";
 
 import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
-import MdDraw from "@material-design-icons/svg/outlined/draw.svg?component-solid";
 import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
+import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
+import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
+import MdDraw from "@material-design-icons/svg/outlined/draw.svg?component-solid";
+import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
+import MdLock from "@material-design-icons/svg/outlined/lock.svg?component-solid";
 import MdMail from "@material-design-icons/svg/outlined/mail.svg?component-solid";
 import MdPassword from "@material-design-icons/svg/outlined/password.svg?component-solid";
 import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.svg?component-solid";
-import MdLock from "@material-design-icons/svg/outlined/lock.svg?component-solid";
-import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
-import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
-import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
-
 
 /**
  * Account Page
@@ -67,9 +62,9 @@ function UserInformation() {
             <ProfileDetails>
               <Avatar src={client().user!.animatedAvatarURL} size={58} />
               <div class="usernameDetails">
-                {client().user!.username}
+                {client().user!.displayName}
                 <div class="username">
-                  {client().user!.username}#0000
+                  {client().user!.username}#{client().user!.discriminator}
                 </div>
               </div>
             </ProfileDetails>
@@ -90,7 +85,6 @@ function UserInformation() {
         </div>
       </AccountBox>
     </CategoryButtonGroup>
-
   );
 }
 
@@ -134,7 +128,12 @@ const ProfileBadges = styled.div`
  */
 const AccountBox = styled(Row)`
   padding: 13px;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://autumn.revolt.chat/backgrounds/PA-U1R3u-iw72V-WH0C9aDN1rBTbnm-sKNR8YN4RL8?width=1000");
+  /* TODO: fetch profile for account page? or load profile eagerly */
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.7)
+    ),
+    url("https://autumn.revolt.chat/backgrounds/PA-U1R3u-iw72V-WH0C9aDN1rBTbnm-sKNR8YN4RL8?width=1000");
   color: ${(props) => props.theme!.colour("onBackground")};
 
   .column {
@@ -157,7 +156,6 @@ const AccountBox = styled(Row)`
     border-radius: 16px;
     background: ${(props) => props.theme!.colour("primary")};
     fill: ${(props) => props.theme!.colour("primary", 90)};
-
   }
 `;
 
