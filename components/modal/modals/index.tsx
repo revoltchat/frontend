@@ -29,6 +29,7 @@ import mfa_flow from "./MFAFlow";
 import mfa_recovery from "./MFARecovery";
 import onboarding from "./Onboarding";
 import rename_session from "./RenameSession";
+import server_identity from "./ServerIdentity";
 import server_info from "./ServerInfo";
 import settings from "./Settings";
 import sign_out_sessions from "./SignOutSessions";
@@ -60,6 +61,7 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   onboarding,
   rename_session,
   server_info,
+  server_identity,
   settings,
   signed_out,
   sign_out_sessions,

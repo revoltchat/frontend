@@ -47,7 +47,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
           });
           return true;
         },
-        children: "Edit Identity",
+        children: t("app.context_menu.edit_identity"),
         palette: "secondary",
       },
       {
