@@ -94,6 +94,7 @@ const Input = styled("textarea")`
  * Blocked message
  */
 const Blocked = styled(Row)`
+  font-size: 14px;
   flex-grow: 1;
   user-select: none;
   color: ${(props) => props.theme!.colours["foreground-300"]};

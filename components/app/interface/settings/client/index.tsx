@@ -33,6 +33,7 @@ import MdRateReview from "@material-design-icons/svg/outlined/rate_review.svg?co
 import MdLocalCafe from "@material-design-icons/svg/outlined/local_cafe.svg?component-solid";
 import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
 import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
+import MdAccessibility from "@material-design-icons/svg/outlined/accessibility.svg?component-solid";
 import MdExtension from "@material-design-icons/svg/outlined/extension.svg?component-solid";
 import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
@@ -64,6 +65,7 @@ import MdLogoutFill from "@material-design-icons/svg/filled/logout.svg?component
 import { SettingsConfiguration } from "..";
 
 import account from "./Account";
+import accessibility from "./Accessibility";
 import appearance from "./Appearance";
 import bots from "./Bots";
 import experiments from "./Experiments";
@@ -185,6 +187,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               title: t("app.settings.pages.appearance.title"),
             },
             {
+              id: "accessibility",
+              icon: <MdAccessibility {...iconSize(20)} />,
+              title: t("app.settings.pages.accessibility.title"),
+            },
+            {
               id: "plugins",
               icon: <MdExtension {...iconSize(20)} />,
               title: t("app.settings.pages.plugins.title"),
@@ -261,6 +268,7 @@ const ClientSettingsRouting: Record<string, Component> = {
   audio: () => null,
   appearance,
   "appearance/colours": () => <h1>hi</h1>,
+  accessibility,
   notifications,
   language,
   sync,
