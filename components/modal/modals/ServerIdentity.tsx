@@ -137,10 +137,10 @@ const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
             <Column align="center">
               <AvatarEdit member={props.member}></AvatarEdit>
 
-              <Show
-                when={props.member.avatarURL === props.member.user?.avatarURL}
-              >
-                <div onclick={openFilePicker} style={{ cursor: "pointer" }}>
+              <div onclick={openFilePicker} style={{ cursor: "pointer" }}>
+                <Show
+                  when={props.member.avatarURL === props.member.user?.avatarURL}
+                >
                   <CategoryButton onClick={() => {}}>
                     {t("app.settings.actions.upload")}
                     <input
@@ -153,20 +153,20 @@ const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
                       max={4_000_000}
                     />
                   </CategoryButton>
-                </div>
-              </Show>
+                </Show>
 
-              <Show
-                when={props.member.avatarURL != props.member.user?.avatarURL}
-              >
-                <CategoryButton
-                  onClick={() => {
-                    props.member.edit({ remove: ["Avatar"] });
-                  }}
+                <Show
+                  when={props.member.avatarURL != props.member.user?.avatarURL}
                 >
-                  <label>{t("app.settings.actions.remove")}</label>
-                </CategoryButton>
-              </Show>
+                  <CategoryButton
+                    onClick={() => {
+                      props.member.edit({ remove: ["Avatar"] });
+                    }}
+                  >
+                    {t("app.settings.actions.remove")}
+                  </CategoryButton>
+                </Show>
+              </div>
 
               <Typography variant="small">
                 {t("app.settings.actions.max_filesize", {
