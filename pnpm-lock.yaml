@@ -44,39 +44,6 @@ importers:
         specifier: ^0.24.5
         version: 0.24.5(jsdom@20.0.3)
 
-  components/admin:
-    dependencies:
-      '@revolt/app':
-        specifier: workspace:^
-        version: link:../app
-      '@revolt/client':
-        specifier: workspace:^1.0.0
-        version: link:../client
-      '@revolt/i18n':
-        specifier: workspace:^1.0.0
-        version: link:../i18n
-      '@revolt/markdown':
-        specifier: workspace:^1.0.0
-        version: link:../markdown
-      '@revolt/state':
-        specifier: workspace:^1.0.0
-        version: link:../state
-      '@revolt/ui':
-        specifier: workspace:^1.0.0
-        version: link:../ui
-      revolt.js:
-        specifier: workspace:^
-        version: link:../../packages/revolt.js
-      solid-icons:
-        specifier: ^1.0.4
-        version: 1.0.4(solid-js@1.7.3)
-      solid-js:
-        specifier: ^1.7.3
-        version: 1.7.3
-      ulid:
-        specifier: ^2.3.0
-        version: 2.3.0
-
   components/app:
     dependencies:
       '@motionone/solid':
@@ -490,9 +457,6 @@ importers:
       '@minht11/solid-virtual-container':
         specifier: ^0.2.1
         version: 0.2.1(solid-js@1.7.3)
-      '@revolt/admin':
-        specifier: workspace:^
-        version: link:../../components/admin
       '@revolt/app':
         specifier: workspace:^
         version: link:../../components/app

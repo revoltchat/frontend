@@ -25,6 +25,13 @@ interface UserInformation {
    * Role colour
    */
   colour?: string | null;
+  relationship: | "None"
+      | "User"
+      | "Friend"
+      | "Outgoing"
+      | "Incoming"
+      | "Blocked"
+      | "BlockedOther";
 }
 
 const DEFAULT_COLOUR = "#848484";
@@ -40,6 +47,7 @@ export function userInformation(user?: User, member?: ServerMember) {
     username: member?.nickname ?? user?.username,
     avatar: member?.animatedAvatarURL ?? user?.animatedAvatarURL,
     colour: member?.roleColour ?? DEFAULT_COLOUR,
+    relationship: user?.relationship
   };
 }
 

@@ -128,6 +128,7 @@ function Reaction(props: {
 }) {
   const t = useTranslation();
   const users = useUsers([...(props.users?.values() ?? [])]);
+  const blocked = users().filter(u => u?.relationship === "Blocked");
 
   /**
    * Handle toggling reaction
@@ -151,7 +152,7 @@ function Reaction(props: {
 
     const usernames = list
       .slice(0, 2)
-      .map((user) => user?.username)
+      .map((user) => user?.relationship === "Blocked" ? t("app.main.channel.misc.blocked_user") : user?.username)
       .join(", ");
 
     if (unknown) {
@@ -190,7 +191,7 @@ function Reaction(props: {
       aria={peopleList()}
     >
       <ReactionBase active={props.active} onClick={onClick}>
-        <Emoji emoji={props.reaction} /> {props.users?.size || 0}
+        <Emoji emoji={props.reaction} /> {props.users?.size ? props.users?.size - blocked.length : 0}
       </ReactionBase>
     </Tooltip>
   );
