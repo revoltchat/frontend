@@ -56,6 +56,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
   let timer: NodeJS.Timeout;
 
   const submit = () => {
+    // TODO: warning about this instead of silently failing
     if (sequence().length > 0) {
       props.onSubmit(sequence());
     }
@@ -83,7 +84,6 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
       event.getModifierState(mod)
     );
 
-    console.log(mods, event.key);
     if (KEYBINDING_MODIFIER_KEYS.includes(event.key)) {
       setMods(mods);
     } else {
