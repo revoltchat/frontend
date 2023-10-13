@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -43,39 +47,6 @@ importers:
       vitest:
         specifier: ^0.24.5
         version: 0.24.5(jsdom@20.0.3)
-
-  components/admin:
-    dependencies:
-      '@revolt/app':
-        specifier: workspace:^
-        version: link:../app
-      '@revolt/client':
-        specifier: workspace:^1.0.0
-        version: link:../client
-      '@revolt/i18n':
-        specifier: workspace:^1.0.0
-        version: link:../i18n
-      '@revolt/markdown':
-        specifier: workspace:^1.0.0
-        version: link:../markdown
-      '@revolt/state':
-        specifier: workspace:^1.0.0
-        version: link:../state
-      '@revolt/ui':
-        specifier: workspace:^1.0.0
-        version: link:../ui
-      revolt.js:
-        specifier: workspace:^
-        version: link:../../packages/revolt.js
-      solid-icons:
-        specifier: ^1.0.4
-        version: 1.0.4(solid-js@1.7.3)
-      solid-js:
-        specifier: ^1.7.3
-        version: 1.7.3
-      ulid:
-        specifier: ^2.3.0
-        version: 2.3.0
 
   components/app:
     dependencies:
@@ -518,9 +489,6 @@ importers:
       '@minht11/solid-virtual-container':
         specifier: ^0.2.1
         version: 0.2.1(solid-js@1.7.3)
-      '@revolt/admin':
-        specifier: workspace:^
-        version: link:../../components/admin
       '@revolt/app':
         specifier: workspace:^
         version: link:../../components/app
@@ -6368,6 +6336,7 @@ packages:
 
   /globalyzer@0.1.0:
     resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -6385,6 +6354,7 @@ packages:
 
   /globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -8314,6 +8284,7 @@ packages:
     resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
     engines: {node: '>=10.0.0'}
     hasBin: true
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -9554,6 +9525,7 @@ packages:
 
   /tiny-glob@0.2.9:
     resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}
+    requiresBuild: true
     dependencies:
       globalyzer: 0.1.0
       globrex: 0.1.2
@@ -9787,6 +9759,7 @@ packages:
   /undici@5.10.0:
     resolution: {integrity: sha512-c8HsD3IbwmjjbLvoZuRI26TZic+TSEe8FPMLLOkN1AfYRhdjnKBU6yL+IwcSCbdZiX4e5t0lfMDLDCqj4Sq70g==}
     engines: {node: '>=12.18'}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -10637,6 +10610,7 @@ packages:
   /yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
+    requiresBuild: true
     dev: false
     optional: true
 
