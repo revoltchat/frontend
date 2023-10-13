@@ -7,5 +7,6 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll": true
-  }
+  },
+  "nixEnvSelector.nixFile": "${workspaceRoot}/default.nix"
 }
