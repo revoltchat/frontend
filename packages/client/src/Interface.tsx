@@ -1,10 +1,12 @@
-import { Component, Match, Switch } from "solid-js";
+import { Component, Match, Switch, onCleanup, onMount } from "solid-js";
 
 import { clientController } from "@revolt/client";
+import { KeybindAction } from "@revolt/keybinds";
 import { modalController } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { Preloader, styled } from "@revolt/ui";
+import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
 import { Content } from "./interface/Content";
 import { Sidebar } from "./interface/Sidebar";
@@ -13,6 +15,8 @@ import { Sidebar } from "./interface/Sidebar";
  * Application layout
  */
 const Interface: Component = () => {
+  const keybinds = useKeybindActions();
+
   useBeforeLeave((e) => {
     if (!e.defaultPrevented) {
       if (e.to === "/settings") {
@@ -24,6 +28,20 @@ const Interface: Component = () => {
         state.layout.setLastActivePath(e.to);
       }
     }
+  });
+
+  onMount(() => {
+    keybinds.addEventListener(
+      KeybindAction.DeveloperToggleAllExperiments,
+      state.experiments.toggleSafeMode
+    );
+  });
+
+  onCleanup(() => {
+    keybinds.removeEventListener(
+      KeybindAction.DeveloperToggleAllExperiments,
+      state.experiments.toggleSafeMode
+    );
   });
 
   return (

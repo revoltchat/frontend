@@ -20,6 +20,7 @@ import create_server from "./CreateServer";
 import custom_status from "./CustomStatus";
 import delete_message from "./DeleteMessage";
 import edit_email from "./EditEmail";
+import edit_keybind from "./EditKeybind";
 import edit_password from "./EditPassword";
 import edit_username from "./EditUsername";
 import error from "./Error";
@@ -53,6 +54,7 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   edit_password,
   edit_username,
   error,
+  edit_keybind,
   kick_member,
   mfa_enable_totp,
   mfa_flow,

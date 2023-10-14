@@ -6,10 +6,11 @@ import { render } from "solid-js/web";
 import i18n, { I18nContext } from "@revolt/i18n";
 import { ModalRenderer } from "@revolt/modal";
 import { Router } from "@revolt/routing";
-import { Hydrate } from "@revolt/state";
+import { Hydrate, state } from "@revolt/state";
 import {
   ApplyGlobalStyles,
   FloatingManager,
+  KeybindsProvider,
   Masks,
   ProvideDirectives,
   ThemeProvider,
@@ -30,7 +31,9 @@ render(
         <I18nContext.Provider value={i18n}>
           <ThemeProvider theme={darkTheme}>
             <ProvideDirectives>
-              <App />
+              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+                <App />
+              </KeybindsProvider>
               <ModalRenderer />
               <FloatingManager />
               <ApplyGlobalStyles />

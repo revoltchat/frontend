@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "@minht11/solid-virtual-container": "^0.2.1",
-    "@revolt/admin": "workspace:^",
     "@revolt/app": "workspace:^",
     "@revolt/auth": "workspace:^",
     "@revolt/client": "workspace:^",
     "@revolt/common": "workspace:^",
     "@revolt/i18n": "workspace:^",
+    "@revolt/keybinds": "workspace:^",
     "@revolt/markdown": "workspace:^",
     "@revolt/modal": "workspace:^",
     "@revolt/routing": "workspace:^",

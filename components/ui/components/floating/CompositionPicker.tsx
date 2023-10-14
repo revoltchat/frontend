@@ -38,6 +38,7 @@ const GifList = styled.div`
   gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-template-rows: masonry;
+  overflow-y: scroll;
 `;
 
 interface Props {

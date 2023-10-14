@@ -15,6 +15,7 @@
     "@revolt/markdown": "workspace:^",
     "@revolt/state": "workspace:^",
     "@revolt/ui": "workspace:^",
+    "@revolt/keybinds": "workspace:^",
     "@solid-primitives/keyed": "^1.2.0",
     "lodash.isequal": "^4.5.0",
     "revolt.js": "workspace:^",

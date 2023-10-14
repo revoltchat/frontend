@@ -1,4 +1,4 @@
-import { Component, lazy, onMount } from "solid-js";
+import { Component, onMount } from "solid-js";
 
 import { modalController } from "@revolt/modal";
 import { Navigate, Route, Routes } from "@revolt/routing";
@@ -9,8 +9,6 @@ import { Friends } from "./Friends";
 import { HomePage } from "./Home";
 import { ServerHome } from "./ServerHome";
 import { ChannelPage } from "./channels/ChannelPage";
-
-const Admin = lazy(() => import("@revolt/admin"));
 
 /**
  * Redirect PWA start to the last active path
@@ -45,7 +43,6 @@ export const Content: Component = () => {
       <Route path="/channel/:channel" component={ChannelPage} />
       <Route path="/dev" component={DevelopmentPage} />
       <Route path="/friends" component={Friends} />
-      <Route path="/admin" component={Admin} />
       <Route path="/app" component={HomePage} />
       <Route path="/pwa" component={PWARedirect} />
       <Route path="/settings" component={SettingsRedirect} />

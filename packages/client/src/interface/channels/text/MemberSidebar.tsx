@@ -91,14 +91,6 @@ export function ServerMemberSidebar(props: Props) {
     }
   });
 
-  let roleObjectCache: Record<
-    string,
-    {
-      role: API.Role & { id: string };
-      members: ServerMember[];
-    }
-  > = {};
-
   // Stage 3: Categorise each member entry into role lists
   const stage3 = createMemo(() => {
     const [, hoistedRoles] = stage1();
@@ -129,43 +121,26 @@ export function ServerMemberSidebar(props: Props) {
       byRole["default"].push(member);
     }
 
-    const cacheCopy = roleObjectCache;
-    roleObjectCache = {};
-
-    for (const role of hoistedRoles) {
-      if (role.id in cacheCopy) {
-        roleObjectCache[role.id] = cacheCopy[role.id];
-        roleObjectCache[role.id].role = role;
-        roleObjectCache[role.id].members = byRole[role.id];
-      } else {
-        roleObjectCache[role.id] = {
-          role,
-          members: byRole[role.id],
-        };
-      }
-    }
-
-    for (const [id, name] of [
-      ["default", "Online"],
-      ["offline", "Offline"],
-    ]) {
-      if (id in cacheCopy) {
-        roleObjectCache[id] = cacheCopy[id];
-        roleObjectCache[id].members = byRole[id];
-      } else {
-        roleObjectCache[id] = {
-          role: {
-            id,
-            name,
-          } as API.Role & { id: string },
-          members: byRole[id],
-        };
-      }
-    }
-
-    return [...hoistedRoles.map((role) => role.id), "default", "offline"]
-      .map((role) => roleObjectCache[role])
-      .filter((entry) => entry.members.length);
+    return [
+      ...hoistedRoles.map((role) => ({
+        role,
+        members: byRole[role.id],
+      })),
+      {
+        role: {
+          id: "default",
+          name: "Online",
+        },
+        members: byRole["default"],
+      },
+      {
+        role: {
+          id: "offline",
+          name: "Offline",
+        },
+        members: byRole["offline"],
+      },
+    ].filter((entry) => entry.members.length);
   });
 
   // Stage 4: Perform sorting on role lists

@@ -11,6 +11,7 @@ type Props = Omit<
 > & {
   children?: JSX.Element;
   title?: JSX.Element;
+  open?: boolean;
 };
 
 /**
@@ -20,7 +21,7 @@ export function CategoryCollapse(props: Props) {
   const [local, remote] = splitProps(props, ["action", "children"]);
 
   return (
-    <Details>
+    <Details open={props.open}>
       <Summary>
         <CategoryButton
           {...remote}

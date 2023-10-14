@@ -13,6 +13,7 @@ import {
 import { MFA, MFATicket } from "revolt.js/src/classes/MFA";
 
 import { SettingsConfigurations } from "@revolt/app";
+import type { KeyComboSequence, KeybindAction } from "@revolt/keybinds";
 import type { Modal } from "@revolt/ui";
 
 import { ChangelogPost } from "./modals/Changelog";
@@ -206,6 +207,11 @@ export type Modals =
       config: keyof typeof SettingsConfigurations;
       // eslint-disable-next-line
       context?: any;
+    }
+  | {
+      type: "edit_keybind";
+      action: KeybindAction;
+      onSubmit: (sequence: KeyComboSequence) => void;
     };
 
 export type ModalProps<T extends Modals["type"]> = Modals & { type: T };
