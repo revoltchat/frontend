@@ -77,6 +77,11 @@ export interface TypeExperiments {
    * List of enabled experiments
    */
   enabled: Experiment[];
+
+  /**
+   * Safe mode
+   */
+  safeMode: boolean;
 }
 
 /**
@@ -89,6 +94,8 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    */
   constructor(state: State) {
     super(state, "experiments");
+
+    this.toggleSafeMode = this.toggleSafeMode.bind(this);
   }
 
   /**
@@ -104,6 +111,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
   default(): TypeExperiments {
     return {
       enabled: [],
+      safeMode: false,
     };
   }
 
@@ -123,6 +131,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
 
     return {
       enabled: [...enabled],
+      safeMode: false,
     };
   }
 
@@ -132,9 +141,10 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    */
   isEnabled(experiment: Experiment) {
     return (
-      (import.meta.env.DEV &&
+      !this.get().safeMode &&
+      ((import.meta.env.DEV &&
         ALWAYS_ON_DEVELOPMENT_EXPERIMENTS.includes(experiment)) ||
-      this.get().enabled.includes(experiment)
+        this.get().enabled.includes(experiment))
     );
   }
 
@@ -171,6 +181,13 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
     } else {
       this.disable(key);
     }
+  }
+
+  /**
+   * Toggle safe mode.
+   */
+  toggleSafeMode() {
+    this.set("safeMode", (safeMode) => !safeMode);
   }
 
   /**

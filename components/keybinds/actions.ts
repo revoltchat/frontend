@@ -22,6 +22,9 @@ export enum KeybindAction {
   MessagingMarkChannelRead = "messaging_mark_channel_read",
   MessagingScrollToBottom = "messaging_scroll_to_bottom",
   MessagingEditPreviousMessage = "messaging_edit_previous_message",
+
+  // Developer
+  DeveloperToggleAllExperiments = "developer_toggle_all_experiments",
 }
 
 export type KeybindActions = Record<KeybindAction, KeyComboSequence[]>;

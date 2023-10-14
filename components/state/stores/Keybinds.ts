@@ -44,6 +44,8 @@ export const DEFAULT_VALUES: KeybindActions = keybindMap({
   [KeybindAction.MessagingMarkChannelRead]: ["Escape"],
   [KeybindAction.MessagingScrollToBottom]: ["Escape"],
   [KeybindAction.MessagingEditPreviousMessage]: ["ArrowUp"],
+
+  [KeybindAction.DeveloperToggleAllExperiments]: [],
 });
 
 export type TypeKeybinds = {

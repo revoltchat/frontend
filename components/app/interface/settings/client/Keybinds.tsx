@@ -48,6 +48,9 @@ const categories: Record<string, KeybindAction[]> = {
 
     // probably won't be displayed unless under an advanced section.
     KeybindAction.NavigatePreviousContext,
+
+    // development
+    KeybindAction.DeveloperToggleAllExperiments,
   ],
 };
 
@@ -164,7 +167,7 @@ export default function Keybinds() {
                               <IconButton
                                 onClick={() => editKeybind(action, index())}
                               >
-                                <BiSolidPencil size={24}></BiSolidPencil>
+                                <BiSolidPencil size={24} />
                               </IconButton>,
                               <Switch>
                                 <Match
@@ -178,7 +181,7 @@ export default function Keybinds() {
                                       resetKeybind(action, index())
                                     }
                                   >
-                                    <BiRegularReset size={24}></BiRegularReset>
+                                    <BiRegularReset size={24} />
                                   </IconButton>
                                 </Match>
                                 <Match when={!keybindIsDefault}>
@@ -190,7 +193,7 @@ export default function Keybinds() {
                                       resetKeybind(action, index())
                                     }
                                   >
-                                    <BiSolidXCircle size={24}></BiSolidXCircle>
+                                    <BiSolidXCircle size={24} />
                                   </IconButton>
                                 </Match>
                               </Switch>,
