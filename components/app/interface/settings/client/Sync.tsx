@@ -1,13 +1,17 @@
-import { BiRegularGlobe, BiSolidBrush, BiSolidPalette } from "solid-icons/bi";
-
 import { useTranslation } from "@revolt/i18n";
 import {
   CategoryButton,
+  CategoryButtonGroup,
   Checkbox,
   Column,
-  Disabled,
   FormGroup,
+  Time,
+  iconSize,
 } from "@revolt/ui";
+
+import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
+import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
+import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
 
 /**
  * Sync Configuration Page
@@ -16,13 +20,13 @@ export default function Sync() {
   const t = useTranslation();
 
   return (
-    <Disabled>
-      <Column>
+    <Column gap="lg">
+      <CategoryButtonGroup>
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
-            icon={<BiSolidPalette size={24} />}
+            icon={<MdPalette {...iconSize(22)} />}
             description={t("app.settings.pages.sync.descriptions.appearance")}
           >
             {t("app.settings.pages.appearance.title")}
@@ -32,7 +36,7 @@ export default function Sync() {
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
-            icon={<BiSolidBrush size={24} />}
+            icon={<MdBrush {...iconSize(22)} />}
             description={t("app.settings.pages.sync.descriptions.theme")}
           >
             {t("app.settings.pages.appearance.theme")}
@@ -42,13 +46,18 @@ export default function Sync() {
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
-            icon={<BiRegularGlobe size={24} />}
+            icon={<MdLanguage {...iconSize(22)} />}
             description={t("app.settings.pages.sync.descriptions.locale")}
           >
             {t("app.settings.pages.language.title")}
           </CategoryButton>
         </FormGroup>
-      </Column>
-    </Disabled>
+      </CategoryButtonGroup>
+      <CategoryButtonGroup>
+        <CategoryButton>
+          Last sync <Time format="relative" value={0} />
+        </CategoryButton>
+      </CategoryButtonGroup>
+    </Column>
   );
 }

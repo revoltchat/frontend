@@ -23,13 +23,13 @@ export type Props = {
    * Punch a hole through the avatar
    */
   holepunch?:
-    | "bottom-right"
-    | "top-right"
-    | "right"
-    | "overlap"
-    | "overlap-subtle"
-    | "none"
-    | false;
+  | "bottom-right"
+  | "top-right"
+  | "right"
+  | "overlap"
+  | "overlap-subtle"
+  | "none"
+  | false;
 
   /**
    * Specify overlay component
@@ -73,7 +73,7 @@ const FallbackBase = styled("div")`
 /**
  * Avatar parent container
  */
-const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive">>`
+const ParentBase = styled("svg", "Avatar") <Pick<Props, "interactive">>`
   flex-shrink: 0;
   user-select: none;
   cursor: ${(props) => (props.interactive ? "cursor" : "inherit")};
@@ -110,7 +110,7 @@ export function Avatar(props: Props) {
           props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined
         }
       >
-        {props.src && <Image src={props.src} />}
+        {props.src && <Image src={props.src} draggable={false} />}
         {!props.src && (
           <FallbackBase>
             {typeof props.fallback === "string" ? (

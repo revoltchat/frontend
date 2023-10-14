@@ -5,14 +5,19 @@ import {
   AVAILABLE_EXPERIMENTS,
   EXPERIMENTS,
 } from "@revolt/state/stores/Experiments";
-import { CategoryButton, Checkbox, Column, FormGroup } from "@revolt/ui";
+import {
+  CategoryButton,
+  CategoryButtonGroup,
+  Checkbox,
+  FormGroup,
+} from "@revolt/ui";
 
 /**
  * Experiments
  */
 export default function Experiments() {
   return (
-    <Column>
+    <CategoryButtonGroup>
       <For each={AVAILABLE_EXPERIMENTS}>
         {(key) => (
           <FormGroup>
@@ -33,6 +38,6 @@ export default function Experiments() {
           </FormGroup>
         )}
       </For>
-    </Column>
+    </CategoryButtonGroup>
   );
 }

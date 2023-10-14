@@ -21,6 +21,20 @@ export { ThemeProvider, styled, useTheme } from "solid-styled-components";
 export type { DefaultTheme } from "solid-styled-components";
 
 /**
+ * Generate SVG props to configure icon size
+ * @param size Target size
+ * @param viewBox Custom view box if necessary
+ * @returns Props
+ */
+export function iconSize(size: number, viewBox?: string) {
+  return {
+    width: size,
+    height: size,
+    viewBox: viewBox ?? "0 0 24 24",
+  };
+}
+
+/**
  * Provide directives
  */
 export function ProvideDirectives(props: { children: JSX.Element }) {
@@ -47,8 +61,8 @@ export function ApplyGlobalStyles() {
     // Inject common theme styles
     Object.assign(document.body.style, {
       "font-family": theme.fonts.primary,
-      background: theme.colours.background,
-      color: theme.colours.foreground,
+      background: theme.scheme.background,
+      color: theme.scheme.onBackground,
     });
 
     // Set default emoji size

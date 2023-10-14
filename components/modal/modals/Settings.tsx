@@ -38,10 +38,10 @@ const SettingsModal: PropGenerator<"settings"> = ({
                     "pointer-events": "all",
                     display: "flex",
                   }}
-                  initial={{ opacity: 0, scale: 1.4 }}
+                  initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.4 }}
-                  transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
+                  exit={{ opacity: 0, scale: 1.1 }}
+                  transition={{ duration: 0.3, easing: [0.17, 0.67, 0.58, 0.98] }}
                 >
                   <Settings
                     onClose={props.onClose}

@@ -6,6 +6,7 @@ interface Props {
   value: number | Date | string;
   format:
     | "calendar"
+    | "datetime"
     | "date"
     | "dateNormal"
     | "dateAmerican"
@@ -24,6 +25,11 @@ export function formatTime(options: Props) {
   switch (options.format) {
     case "calendar":
       return dayjs(options.value).calendar(options.referenceTime);
+    case "datetime":
+      return `${formatTime({
+        format: "date",
+        value: options.value,
+      })} ${formatTime({ format: "time", value: options.value })}`;
     case "date":
     case "dateNormal":
       return dayjs(options.value).format("DD/MM/YYYY");

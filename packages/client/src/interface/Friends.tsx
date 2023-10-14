@@ -235,7 +235,7 @@ const Avatars = styled("div", "Avatars")`
 
   svg:not(:first-child) {
     position: relative;
-    margin-left: -32px;
+    margin-inline-start: -32px;
   }
 `;
 

@@ -23,6 +23,10 @@ import "@revolt/ui/styles";
 import App from "./App";
 import "./sentry";
 
+import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
+
+attachDevtoolsOverlay();
+
 render(
   () => (
     <Hydrate>

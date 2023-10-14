@@ -34,10 +34,14 @@ export type SettingsConfiguration<T> = {
  * List of categories and entries
  */
 export type SettingsList = {
-  hidden?: boolean;
-  title?: JSX.Element;
-  entries: SettingsEntry[];
-}[];
+  prepend?: JSX.Element;
+  append?: JSX.Element;
+  entries: {
+    hidden?: boolean;
+    title?: JSX.Element;
+    entries: SettingsEntry[];
+  }[];
+};
 
 /**
  * Individual settings entry

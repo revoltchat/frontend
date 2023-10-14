@@ -1,6 +1,14 @@
-import { ComponentProps, JSX, splitProps } from "solid-js";
+import {
+  ComponentProps,
+  JSX,
+  Match,
+  Switch,
+  createSignal,
+  splitProps,
+} from "solid-js";
 import { styled } from "solid-styled-components";
 
+import type { scrollable } from "../../../../directives";
 import { Column } from "../../layout";
 
 import { CategoryButton } from "./CategoryButton";
@@ -11,18 +19,50 @@ type Props = Omit<
 > & {
   children?: JSX.Element;
   title?: JSX.Element;
-  open?: boolean;
+
+  scrollable?: boolean;
 };
 
 /**
- * Category button with collapsed children
+ * Category button with collapsed children (Fluent)
  */
 export function CategoryCollapse(props: Props) {
   const [local, remote] = splitProps(props, ["action", "children"]);
 
+  const [opened, setOpened] = createSignal(false);
+
+  /**
+   * Toggle the opened state and scroll to the beginning of contents
+   */
+  const toggleOpened = () => {
+    const openedState = opened();
+
+    if (!openedState) {
+      column.scroll({ top: 0 });
+    }
+
+    setOpened(!openedState);
+  };
+
+  let details: HTMLDivElement;
+  let column: HTMLDivElement;
+
+  /**
+   * Recalculate the column height for transition
+   */
+  const updatedHeight = () => {
+    const calculatedHeight = opened() ? Math.min(column.scrollHeight, 340) : 0;
+
+    return `${calculatedHeight}px`;
+  };
+
   return (
-    <Details open={props.open}>
-      <Summary>
+    <Details
+      ref={details!}
+      onClick={toggleOpened}
+      class={opened() ? "open" : undefined}
+    >
+      <summary>
         <CategoryButton
           {...remote}
           action={[local.action, "collapse"].flat()}
@@ -30,20 +70,82 @@ export function CategoryCollapse(props: Props) {
         >
           {props.title}
         </CategoryButton>
-      </Summary>
-      <Column gap="xxs">{props.children}</Column>
+      </summary>
+      <Switch
+        fallback={
+          <StaticInnerColumn
+            gap="xs"
+            ref={column!}
+            style={{ height: updatedHeight() }}
+          >
+            {props.children}
+          </StaticInnerColumn>
+        }
+      >
+        <Match when={props.scrollable}>
+          <InnerColumn
+            gap="xs"
+            ref={column!}
+            style={{ height: updatedHeight() }}
+            use:scrollable
+          >
+            {props.children}
+          </InnerColumn>
+        </Match>
+      </Switch>
     </Details>
   );
 }
 
 /**
+ * Column with inner content
+ */
+const InnerColumn = styled(Column)`
+  border-radius: ${(props) => props.theme!.borderRadius.md};
+  transition: 0.3s;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+/**
+ * Non-scrollable inner column
+ */
+const StaticInnerColumn = styled(InnerColumn)`
+  overflow: hidden;
+`;
+
+/**
  * Parent base component
  */
-const Details = styled.details`
-  &[open] summary svg:last-child {
+const Details = styled.div`
+  summary {
+    transition: 0.3s;
+  }
+
+  &:not(.open) ${InnerColumn.class} {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* add transition to the icon */
+  summary div:last-child svg {
+    transition: 0.3s;
+  }
+
+  /* rotate chevron when it is open */
+  &.open summary div:last-child svg {
     transform: rotate(180deg);
   }
 
+  /* add additional padding between top button and children when it is open */
+  &.open summary {
+    margin-bottom: ${(props) => props.theme!.gap.xs};
+  }
+
+  /* hide the default details component marker */
   summary {
     list-style: none;
   }
@@ -53,42 +155,13 @@ const Details = styled.details`
     display: none;
   }
 
-  &[open] > summary .CategoryButton {
-    border-end-end-radius: 0;
-    border-end-start-radius: 0;
-  }
-
+  /* connect elements vertically */
   > :not(summary) .CategoryButton {
-    border-start-start-radius: 0;
-    border-start-end-radius: 0;
+    /* and set child backgrounds */
+    background: ${(props) => props.theme!.colour("background", 97)};
   }
 
-  > :not(summary) > :not(:last-child) .CategoryButton {
-    border-end-end-radius: 0;
-    border-end-start-radius: 0;
-  }
-
-  > :not(summary) > :not(:last-child).CategoryButton {
-    border-end-end-radius: 0;
-    border-end-start-radius: 0;
-  }
-`;
-
-/**
- * Top button wrapper
- */
-const Summary = styled.summary`
-  margin-bottom: ${(props) => props.theme!.gap.xxs};
-
-  > * {
-    outline-width: 0;
-    outline-style: solid;
-    outline-color: ${(props) => props.theme!.colours["background-300"]};
-  }
-
-  &:hover {
-    > * {
-      outline-width: 1px;
-    }
-  }
+  /*> :not(summary) > :last-child.CategoryButton {
+    margin-bottom: 8px;
+  }*/
 `;
