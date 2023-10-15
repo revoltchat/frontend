@@ -21,7 +21,7 @@ export function UserCard(
   props: JSX.Directives["floating"]["userCard"] & object
 ) {
   const roleIds = createMemo(
-    () => new Set(props.member!.orderedRoles.map((role) => role.id))
+    () => new Set(props.member?.orderedRoles.map((role) => role.id))
   );
 
   return (
