@@ -120,6 +120,14 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
    * @param event Event
    */
   function onMouseDown(event: MouseEvent) {
+    // Context menu should always dismiss on click
+    // (for now...)
+    if (props.show() === "contextMenu") {
+      props.hide();
+      return;
+    }
+
+    // Otherwise figure out if we clicked within element
     const parentEl = floating();
 
     let currentEl = event.target as HTMLElement | null;
