@@ -1,5 +1,5 @@
 import { BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
-import { Accessor, For, Show, onMount } from "solid-js";
+import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Channel, Server, User } from "revolt.js";
@@ -57,9 +57,18 @@ export const ServerList = (props: Props) => {
   const navigate = useNavigate();
   const keybinds = useKeybindActions();
 
-  const navigateServer = (byOffset: number) => {
-    let serverId = props.selectedServer();
-    if (serverId == null) {
+  const navigateServer = (ev: KeyboardEvent, byOffset: number) => {
+    ev.preventDefault();
+
+    const serverId = props.selectedServer();
+    if (serverId == null && props.orderedServers.length) {
+      if (byOffset === 1) {
+        navigate(`/server/${props.orderedServers[0].id}`);
+      } else {
+        navigate(
+          `/server/${props.orderedServers[props.orderedServers.length - 1].id}`
+        );
+      }
       return;
     }
 
@@ -67,26 +76,42 @@ export const ServerList = (props: Props) => {
       (server) => server.id === serverId
     );
 
-    let nextIndex = currentServerIndex + byOffset;
+    const nextIndex = currentServerIndex + byOffset;
 
     if (nextIndex === -1) {
       return navigate("/app");
     }
 
     // this will wrap the index around
-    const nextChannel = props.orderedServers.at(
+    const nextServer = props.orderedServers.at(
       nextIndex % props.orderedServers.length
     );
 
-    if (nextChannel) {
-      navigate(`/server/${serverId}`);
+    if (nextServer) {
+      navigate(`/server/${nextServer.id}`);
     }
   };
 
+  const navigateServerUp = (ev: KeyboardEvent) => navigateServer(ev, -1);
+  const navigateServerDown = (ev: KeyboardEvent) => navigateServer(ev, 1);
+
   onMount(() => {
-    keybinds.addEventListener(KeybindAction.NavigateServerUp, (e) => {
-      navigateServer(-1);
-    });
+    keybinds.addEventListener(KeybindAction.NavigateServerUp, navigateServerUp);
+    keybinds.addEventListener(
+      KeybindAction.NavigateServerDown,
+      navigateServerDown
+    );
+  });
+
+  onCleanup(() => {
+    keybinds.removeEventListener(
+      KeybindAction.NavigateServerUp,
+      navigateServerUp
+    );
+    keybinds.removeEventListener(
+      KeybindAction.NavigateServerDown,
+      navigateServerDown
+    );
   });
 
   return (
