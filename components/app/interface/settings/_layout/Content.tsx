@@ -55,7 +55,7 @@ const Base = styled("div", "Content")`
   display: flex;
   overflow-y: scroll;
   overflow-x: hidden;
-  background: ${(props) => props.theme!.colour("secondary", 96)};
+  background: ${(props) => props.theme!.colours["settings-background"]};
 
   /* just to avoid headaches with styling individual links */
   a {
@@ -84,7 +84,7 @@ const InnerContentBackground = styled("div", "PaneBackground")`
   width: 100%;
   height: 100vh;
   position: fixed;
-  background: ${(props) => props.theme!.colour("secondary", 92)};
+  background: ${(props) => props.theme!.colours["settings-content-background"]};
 
   border-start-start-radius: 30px;
   border-end-start-radius: 30px;
@@ -109,20 +109,22 @@ const CloseAnchor = styled.a`
   justify-content: center;
 
   border-radius: ${(props) => props.theme!.borderRadius.full};
-  border: 3px solid ${(props) => props.theme!.colour("primary")};
+  border: 3px solid ${(props) => props.theme!.colours["settings-close-anchor"]};
   transition: ${(props) => props.theme!.transitions.fast} background-color;
 
   svg {
     transition: ${(props) => props.theme!.transitions.fast} background-color;
-    color: ${(props) => props.theme!.colour("primary")} !important;
+    color: ${(props) =>
+      props.theme!.colours["settings-close-anchor"]} !important;
   }
 
   &:hover {
-    background: ${(props) => props.theme!.colour("primary")};
+    background: ${(props) => props.theme!.colours["settings-close-anchor"]};
   }
 
   &:hover svg {
-    color: ${(props) => props.theme!.colour("onPrimary")} !important;
+    color: ${(props) =>
+      props.theme!.colours["settings-close-anchor-hover"]} !important;
   }
 
   &:active {
@@ -140,7 +142,7 @@ const CloseAction = styled.div`
   visibility: visible;
   position: sticky;
   top: 0;
-  background: ${(props) => props.theme!.colour("secondary", 92)};
+  background: ${(props) => props.theme!.colours["settings-content-background"]};
 
   &:after {
     content: "ESC";
@@ -149,7 +151,7 @@ const CloseAction = styled.div`
     justify-content: center;
     width: 36px;
     font-weight: 600;
-    color: ${(props) => props.theme!.colour("primary")};
+    color: ${(props) => props.theme!.colours["settings-content-foreground"]};
     font-size: 0.75rem;
   }
 `;

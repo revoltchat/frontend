@@ -17,19 +17,22 @@ export const SidebarButton = styled.a<Props>`
   font-weight: 500;
   margin-inline-end: 12px;
   font-size: 15px;
+  user-select: none;
   transition: background-color 0.1s ease-in-out;
-  color: ${(props) => props.theme!.colour("onSecondary", 20)};
+  color: ${(props) => props.theme!.colours["settings-sidebar-foreground"]};
 
   svg {
     flex-shrink: 0;
   }
 
   &:hover {
-    background-color: ${(props) => props.theme!.colour("secondary", 90)};
+    background-color: ${(props) =>
+      props.theme!.colours["settings-sidebar-button-hover"]};
   }
 
   &:active {
-    background-color: ${(props) => props.theme!.colour("secondary", 82)};
+    background-color: ${(props) =>
+      props.theme!.colours["settings-sidebar-button-active"]};
   }
 `;
 

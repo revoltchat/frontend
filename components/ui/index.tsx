@@ -61,8 +61,8 @@ export function ApplyGlobalStyles() {
     // Inject common theme styles
     Object.assign(document.body.style, {
       "font-family": theme.fonts.primary,
-      background: theme.scheme.background,
-      color: theme.scheme.onBackground,
+      background: theme.colours.background,
+      color: theme.colours.foreground,
     });
 
     // Set default emoji size

@@ -35,11 +35,9 @@ export function CategoryButton(props: Props) {
       onClick={props.disabled ? undefined : props.onClick}
     >
       <Show when={props.icon !== "blank"}>
-        <IconWrapper>
-          {props.icon}
-        </IconWrapper>
+        <IconWrapper>{props.icon}</IconWrapper>
       </Show>
-      
+
       <Show when={props.icon === "blank"}>
         <BlankIconWrapper />
       </Show>
@@ -80,22 +78,22 @@ export function CategoryButton(props: Props) {
 /**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton") <{
+const Base = styled("a", "CategoryButton")<{
   isLink: boolean;
   disabled?: boolean;
 }>`
   gap: 16px;
   padding: 13px; /*TODO: make this a prop*/
-  color: ${(props) => props.theme!.colour("onBackground")};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  /*background: ${(props) => props.theme!.colour("background")};*/
 
-  background: ${(props) => props.theme!.colour("background", 99)};
+  color: ${(props) => props.theme!.colours["component-categorybtn-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["component-categorybtn-background"]};
 
   user-select: none;
   cursor: ${(props) =>
     props.disabled ? "not-allowed" : props.isLink ? "pointer" : "initial"};
-  transition: background-color .1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
 
   display: flex;
   align-items: center;
@@ -125,7 +123,7 @@ const Content = styled(Column)`
   overflow: hidden;
   text-overflow: ellipsis;
   /*color: ${(props) => props.theme!.colour("primary")};*/
-  color: ${(props) => props.theme!.colour("onBackground", 10)}
+  color: ${(props) => props.theme!.colour("onBackground", 10)};
 `;
 
 /**
@@ -151,7 +149,7 @@ const IconWrapper = styled.div`
  */
 const BlankIconWrapper = styled(IconWrapper)`
   background: transparent;
-`
+`;
 
 /**
  * Description shown below title

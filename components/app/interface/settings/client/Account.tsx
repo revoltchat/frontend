@@ -112,19 +112,18 @@ const BadgeContainer = styled.div`
 `;
 
 const ProfileBadges = styled.div`
-  background: red;
-  padding: 5px;
   border-radius: 8px;
   width: fit-content;
+  padding: 4px 5px;
   gap: 5px;
   display: flex;
 
-  background: ${(props) => props.theme!.colour("secondary", 96)};
-  padding: 4px 5px;
+  background: ${(props) => props.theme!.colours["settings-background"]};
 `;
 
 /**
  * Styles for the account box
+ * TODO: classes need to be refactored out
  */
 const AccountBox = styled(Row)`
   padding: 13px;
@@ -134,7 +133,7 @@ const AccountBox = styled(Row)`
       rgba(255, 255, 255, 0.7)
     ),
     url("https://autumn.revolt.chat/backgrounds/PA-U1R3u-iw72V-WH0C9aDN1rBTbnm-sKNR8YN4RL8?width=1000");
-  color: ${(props) => props.theme!.colour("onBackground")};
+  color: ${(props) => props.theme!.colours["foreground"]};
 
   .column {
     display: flex;
@@ -147,6 +146,7 @@ const AccountBox = styled(Row)`
     align-items: center;
   }
 
+  /** this should be its own thing */
   .button {
     width: 42px;
     height: 42px;
@@ -154,8 +154,8 @@ const AccountBox = styled(Row)`
     align-items: center;
     justify-content: center;
     border-radius: 16px;
-    background: ${(props) => props.theme!.colour("primary")};
-    fill: ${(props) => props.theme!.colour("primary", 90)};
+    background: ${(props) => props.theme!.colours["component-fab-background"]};
+    fill: ${(props) => props.theme!.colours["component-fab-foreground"]};
   }
 `;
 
@@ -412,7 +412,9 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
         action="chevron"
         disabled={!props.mfa()}
         onClick={disableAccount}
-        icon={<MdBlock {...iconSize(22)} fill={theme!.colour("error")} />}
+        icon={
+          <MdBlock {...iconSize(22)} fill={theme!.customColours.error.color} />
+        }
         description="Disable your account. You won't be able to access it unless you contact support."
       >
         {t("app.settings.pages.account.manage.disable")}
@@ -421,7 +423,9 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
         action="chevron"
         disabled={!props.mfa()}
         onClick={deleteAccount}
-        icon={<MdDelete {...iconSize(22)} fill={theme!.colour("error")} />}
+        icon={
+          <MdDelete {...iconSize(22)} fill={theme!.customColours.error.color} />
+        }
         description="Your account will be queued for deletion, a confirmation email will be sent."
       >
         {t("app.settings.pages.account.manage.delete")}

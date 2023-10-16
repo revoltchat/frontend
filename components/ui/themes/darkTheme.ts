@@ -53,12 +53,18 @@ const theme = themeFromSourceColor(argbFromHex(hex), [
     value: argbFromHex("#FAA352"),
     blend: true,
   },
+  {
+    name: "error",
+    value: argbFromHex("#FF3322"),
+    blend: true,
+  },
 ]);
 
 const customColours = {} as Record<
   | `status-${"online" | "idle" | "focus" | "busy" | "streaming" | "invisible"}`
   | "success"
-  | "warning",
+  | "warning"
+  | "error",
   Record<keyof ColorGroup, string>
 >;
 
@@ -105,21 +111,46 @@ function schemeToHex(scheme: Scheme) {
   };
 }
 
+const materialTheme = schemeToHex(theme.schemes[darkMode ? "dark" : "light"]);
+
+function materialColour(base: keyof Scheme, tone?: number) {
+  return tone
+    ? hexFromArgb(
+        materialTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
+      )
+    : materialTheme.scheme[base];
+}
+
 export const darkTheme: DefaultTheme = {
-  /**
-   * Colour time
-   * todo
-   */
-  colour(base: keyof Scheme, tone?: number): string {
-    return tone
-      ? hexFromArgb(
-          darkTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
-        )
-      : darkTheme.scheme[base];
+  colour() {
+    return "blue";
   },
-  ...schemeToHex(theme.schemes[darkMode ? "dark" : "light"]),
+  colours: {
+    // Global
+    background: materialColour("background"),
+    foreground: materialColour("onBackground"),
+    // Component: FAB
+    "component-fab-background": materialColour("primary"),
+    "component-fab-foreground": materialColour("primary", 90),
+    // Component: Category Button
+    "component-categorybtn-background": materialColour("background", 99),
+    "component-categorybtn-foreground": materialColour("onBackground"),
+    // Settings
+    "settings-background": materialColour("secondary", 96),
+    "settings-foreground": materialColour("onSecondaryContainer"),
+    "settings-content-background": materialColour("secondary", 92),
+    "settings-content-foreground": materialColour("onSecondary"),
+    "settings-close-anchor": materialColour("primary"),
+    "settings-close-anchor-hover": materialColour("onPrimary"),
+    "settings-sidebar-category": materialColour("primary"),
+    "settings-sidebar-foreground": materialColour("onSecondary", 20),
+    "settings-sidebar-button-hover": materialColour("secondary", 90),
+    "settings-sidebar-button-active": materialColour("secondary", 82),
+    // Temporary Colours
+    "temp-1": materialColour("secondary", 85),
+  },
   customColours,
-  colours: {},
+  // TODO: deprecate, provide hexToRgb utility instead
   rgb: {
     header: "54,54,54",
     "typing-indicator": "30,30,30",

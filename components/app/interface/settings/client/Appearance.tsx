@@ -11,9 +11,8 @@ import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-sol
 import MdDataObject from "@material-design-icons/svg/outlined/data_object.svg?component-solid";
 import MdFormatSize from "@material-design-icons/svg/outlined/format_size.svg?component-solid";
 import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
-import MdWallpaper from "@material-design-icons/svg/outlined/wallpaper.svg?component-solid";
-
 import MdSentimentVerySatisfied from "@material-design-icons/svg/outlined/sentiment_very_satisfied.svg?component-solid";
+import MdWallpaper from "@material-design-icons/svg/outlined/wallpaper.svg?component-solid";
 
 import { useSettingsNavigation } from "../Settings";
 
@@ -29,9 +28,7 @@ export default function Appearance() {
           src="https://app.revolt.chat/assets/dark.f38e16a0.svg"
           draggable={false}
         />
-        <ThemeProperties>
-          hello
-        </ThemeProperties>
+        <ThemeProperties>hello</ThemeProperties>
       </Row>
       <CategoryButtonGroup>
         <CategoryButton
@@ -104,7 +101,6 @@ const ThemeProperties = styled.div`
   display: flex;
   width: 100%;
   padding: 20px;
-  background: ${(props) => props.theme!.colour("secondary", 85)};
+  background: ${(props) => props.theme!.colours["temp-1"]};
   border-radius: ${(props) => props.theme!.borderRadius.xl};
 `;
-

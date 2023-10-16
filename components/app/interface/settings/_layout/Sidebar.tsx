@@ -109,8 +109,8 @@ const Base = styled("div", "Sidebar")`
   padding-left: 8px;
   justify-content: flex-end;
 
-  color: ${(props) => props.theme!.colour("onSecondaryContainer")};
-  background: ${(props) => props.theme!.colour("secondary", 96)};
+  color: ${(props) => props.theme!.colours["settings-foreground"]};
+  background: ${(props) => props.theme!.colours["settings-background"]};
 `;
 
 /**
@@ -139,5 +139,5 @@ const CategoryTitle = styled(OverflowingText)`
   font-weight: 700;
   margin: 0 8px;
   margin-inline-end: 20px;
-  color: ${(props) => props.theme!.colour("primary")};
+  color: ${(props) => props.theme!.colours["settings-sidebar-category"]};
 `;

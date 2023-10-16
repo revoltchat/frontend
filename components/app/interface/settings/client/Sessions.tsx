@@ -4,8 +4,6 @@ import {
   BiLogosWindows,
   BiRegularQuestionMark,
 } from "solid-icons/bi";
-import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
-import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
 import { FaBrandsLinux } from "solid-icons/fa";
 import {
   Accessor,
@@ -28,10 +26,13 @@ import {
   Column,
   Preloader,
   Time,
+  iconSize,
   styled,
   useTheme,
-  iconSize,
 } from "@revolt/ui";
+
+import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
+import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
 
 /**
  * Sessions
@@ -96,7 +97,12 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
       </CategoryCollapse>
       <CategoryButton
         action="chevron"
-        icon={<MdAutoMode {...iconSize(24)} fill={theme.scheme.error} />}
+        icon={
+          <MdAutoMode
+            {...iconSize(24)}
+            fill={theme.customColours.error.color}
+          />
+        }
         description="Keeps your last sessions active and automatically logs you out of other ones"
       >
         Keep Last Active Sessions
@@ -110,7 +116,12 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
               client: client(),
             })
           }
-          icon={<MdLogout {...iconSize(24)} fill={theme.scheme.error} />}
+          icon={
+            <MdLogout
+              {...iconSize(24)}
+              fill={theme.customColours.error.color}
+            />
+          }
           description="Logs you out of all sessions except this device."
         >
           Log Out Other Sessions
