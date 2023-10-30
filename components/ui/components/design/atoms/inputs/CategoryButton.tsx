@@ -104,11 +104,13 @@ const Base = styled("a", "CategoryButton")<{
   }
 
   &:hover {
-    background-color: ${(props) => props.theme!.colour("background", 100)};
+    background-color: ${(props) =>
+      props.theme!.colours["component-categorybtn-background-hover"]};
   }
 
   &:active {
-    background-color: ${(props) => props.theme!.colour("background", 94)};
+    background-color: ${(props) =>
+      props.theme!.colours["component-categorybtn-background-active"]};
   }
 `;
 
@@ -122,15 +124,15 @@ const Content = styled(Column)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  /*color: ${(props) => props.theme!.colour("primary")};*/
-  color: ${(props) => props.theme!.colour("onBackground", 10)};
 `;
 
 /**
  * Accented wrapper for the category button icons
  */
 const IconWrapper = styled.div`
-  background: ${(props) => props.theme!.colour("primary", 90)};
+  background: ${(props) =>
+    props.theme!.colours["component-categorybtn-background-icon"]};
+
   width: 36px;
   height: 36px;
   display: flex;
@@ -140,7 +142,8 @@ const IconWrapper = styled.div`
   border-radius: 50%;
 
   svg {
-    fill: ${(props) => props.theme!.colour("primary", 30)};
+    color: ${(props) =>
+      props.theme!.colours["component-categorybtn-foreground-description"]};
   }
 `;
 
@@ -157,7 +160,8 @@ const BlankIconWrapper = styled(IconWrapper)`
 const Description = styled.span`
   font-weight: 500;
   font-size: 12px;
-  color: ${(props) => props.theme!.colour("onBackground", 30)};
+  color: ${(props) =>
+    props.theme!.colours["component-categorybtn-foreground-description"]};
 
   a:hover {
     text-decoration: underline;
@@ -170,7 +174,6 @@ const Description = styled.span`
 const Action = styled.div`
   width: 24px;
   height: 24px;
-  color: ${(props) => props.theme!.colour("onBackground")};
   flex-shrink: 0;
 
   display: grid;

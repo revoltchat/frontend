@@ -129,12 +129,49 @@ export const darkTheme: DefaultTheme = {
     // Global
     background: materialColour("background"),
     foreground: materialColour("onBackground"),
+    // Component: Button
+    "component-btn-background-primary": materialColour("primary"),
+    "component-btn-foreground-primary": materialColour("onBackground", 98),
+    "component-btn-background-secondary": materialColour("primary"),
+    "component-btn-foreground-secondary": materialColour("onBackground", 96),
+    "component-btn-foreground-plain": materialColour("onBackground"),
+    "component-btn-foreground-plain-secondary": materialColour(
+      "onBackground",
+      40
+    ),
+    // Component: Input
+    "component-input-focus": materialColour("primary"),
+    "component-input-foreground": materialColour("onBackground"),
+    "component-input-background-primary": materialColour("background", 100),
+    "component-input-background-secondary": materialColour("background", 98),
+    "component-input-hover-primary": materialColour("background", 98),
+    "component-input-hover-secondary": materialColour("background", 100),
+    // Component: Chip
+    "component-chip-background": materialColour("secondary", 96),
+    // Component: Checkbox
+    "component-checkbox-background": materialColour("primary", 92),
+    "component-checkbox-foreground": materialColour("primary"),
+    "component-checkbox-foreground-check": materialColour("onPrimary"),
     // Component: FAB
     "component-fab-background": materialColour("primary"),
     "component-fab-foreground": materialColour("primary", 90),
     // Component: Category Button
     "component-categorybtn-background": materialColour("background", 99),
-    "component-categorybtn-foreground": materialColour("onBackground"),
+    "component-categorybtn-background-icon": materialColour("primary", 90),
+    "component-categorybtn-background-collapse": materialColour(
+      "background",
+      97
+    ),
+    "component-categorybtn-background-hover": materialColour("background", 100),
+    "component-categorybtn-background-active": materialColour("background", 94),
+    "component-categorybtn-foreground": materialColour("onBackground", 10),
+    "component-categorybtn-foreground-description": materialColour(
+      "onBackground",
+      30
+    ),
+    // Component: Modal
+    "component-modal-background": materialColour("secondary", 96),
+    "component-modal-foreground": materialColour("onBackground"),
     // Settings
     "settings-background": materialColour("secondary", 96),
     "settings-foreground": materialColour("onSecondaryContainer"),

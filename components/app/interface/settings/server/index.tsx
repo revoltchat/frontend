@@ -123,9 +123,14 @@ const Config: SettingsConfiguration<Server> = {
           hidden: !(server.ownerId === user()?.id),
           entries: [
             {
-              icon: <BiSolidTrash size={20} color={theme!.colour("onError")} />,
+              icon: (
+                <BiSolidTrash
+                  size={20}
+                  color={theme!.customColours.error.color}
+                />
+              ),
               title: (
-                <ColouredText colour={theme!.colour("onError")}>
+                <ColouredText colour={theme!.customColours.error.color}>
                   {t("app.context_menu.delete_server")}
                 </ColouredText>
               ),

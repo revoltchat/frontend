@@ -35,6 +35,7 @@ const CreateGroup: PropGenerator<"create_group"> = (props) => {
     },
     submit: {
       children: t("app.special.modals.actions.create"),
+      palette: "plain-secondary",
     },
   });
 };

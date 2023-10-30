@@ -97,9 +97,10 @@ const Base = styled("div", "Modal")<{ show?: boolean }>`
   overflow-y: auto;
   place-items: center;
 
-  color: ${(props) => props.theme!.colour("onBackground")};
   transition: ${(props) => props.theme!.transitions.medium} all;
   pointer-events: ${(props) => (props.show ? "all" : "none")};
+
+  /** TODO: rgb value here */
   background: ${(props) => (props.show ? "rgba(0, 0, 0, 0.6)" : "transparent")};
 `;
 
@@ -120,8 +121,11 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
 
+  color: ${(props) => props.theme!.colours["component-modal-foreground"]};
   background: ${(props) =>
-    props.transparent ? "transparent" : props.theme!.colour("secondary", 96)};
+    props.transparent
+      ? "transparent"
+      : props.theme!.colours["component-modal-background"]};
   border-radius: ${(props) =>
     props.transparent ? "none" : props.theme!.borderRadius.lg};
   overflow: ${(props) => (props.transparent ? "unset" : "hidden")};

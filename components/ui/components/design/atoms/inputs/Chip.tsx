@@ -13,6 +13,6 @@ export const Chip = styled(Row)`
 
   gap: ${(props) => props.theme!.gap.s};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colour("secondary", 96)};
+  background: ${(props) => props.theme!.colours["component-chip-background"]};
   padding: ${(props) => props.theme!.gap.sm} ${(props) => props.theme!.gap.s};
 `;

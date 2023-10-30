@@ -33,8 +33,19 @@ declare module "solid-styled-components" {
         | "background"
         | "foreground"
         | `component-${
-            | `fab-${"background" | "foreground"}`
-            | `categorybtn-${"background" | "foreground"}`}`
+            | `${"fab" | "checkbox"}-${"background" | "foreground"}`
+            | "checkbox-foreground-check"
+            | "chip-background"
+            | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`
+            | `btn-foreground-${"plain" | "plain-secondary"}`
+            | `input-${"foreground" | "focus"}`
+            | `input-${"background" | "hover"}-${"primary" | "secondary"}`
+            | `categorybtn-${
+                | "background"
+                | "foreground"
+                | "foreground-description"
+                | `background-${"icon" | "collapse" | "hover" | "active"}`}`
+            | `modal-${"background" | "foreground"}`}`
         | `settings-${
             | "background"
             | "foreground"

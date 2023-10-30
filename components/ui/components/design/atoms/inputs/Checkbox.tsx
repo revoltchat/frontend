@@ -43,16 +43,19 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 2px solid ${(props) => props.theme!.colour("primary")};
+  border: 2px solid
+    ${(props) => props.theme!.colours["component-checkbox-foreground"]};
   border-radius: ${(props) => props.theme!.borderRadius["md"]};
-  background: ${(props) => props.theme!.colour("primary", 92)};
+  background: ${(props) =>
+    props.theme!.colours["component-checkbox-background"]};
   flex-shrink: 0;
   margin: 4px;
   transition: 0.1s ease-in-out all;
 
   .check {
     transition: inherit;
-    fill: ${(props) => props.theme!.colour("onPrimary")};
+    fill: ${(props) =>
+      props.theme!.colours["component-checkbox-foreground-check"]};
     visibility: hidden;
     opacity: 0;
   }
@@ -60,13 +63,13 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   ${(props) =>
     props.value
       ? `
-    border-color: ${props.theme!.colour("primary")};
-    background: ${props.theme!.colour("primary")};
+    border-color: ${props.theme!.colours["component-checkbox-foreground"]};
+    background: ${props.theme!.colours["component-checkbox-foreground"]};
 
     .check {
       visibility: visible;
       opacity: 1;
-      color: ${props.theme!.colour("onPrimary")};
+      color: ${props.theme!.colours["component-checkbox-foreground-check"]};
     }
   `
       : ""}

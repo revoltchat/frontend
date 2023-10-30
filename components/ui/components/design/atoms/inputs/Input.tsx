@@ -35,28 +35,32 @@ export const Input = styled("input")<Props>`
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 1.5pt ${({ theme }) => theme!.colour("primary")};
+    box-shadow: 0 0 0 1.5pt
+      ${({ theme }) => theme!.colours["component-input-focus"]};
   }
 
-  color: ${(props) =>
-    props.theme!.colour("onBackground")};
+  color: ${(props) => props.theme!.colours["component-input-foreground"]};
 
   background: ${(props) =>
-    props.theme!.colour("background", props.palette === "primary" ? 100 : 98)};
+    props.theme!.colours[
+      `component-input-background-${props.palette ?? "primary"}`
+    ]};
 
   &:hover {
     background: ${(props) =>
-      props.theme!.colour("background", props.palette === "primary" ? 98 : 100)};
+      props.theme!.colours[
+        `component-input-hover-${props.palette ?? "primary"}`
+      ]};
   }
 
   ${(props) =>
     props.submissionTried
-      ? `&:invalid { border-color: ${props.theme!.colours["status-busy"]}; }`
+      ? `&:invalid { border-color: ${props.theme!.customColours.error.color}; }`
       : ""}
 
   &:focus {
     outline-offset: 4px;
-    border-color: ${(props) => props.theme!.colours["status-idle"]};
+    border-color: ${(props) => props.theme!.customColours.warning.color};
   }
 
   &:valid {
@@ -69,12 +73,17 @@ export const Input = styled("input")<Props>`
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px
-      ${(props) => props.theme!.colour("background", 98)} inset !important;
+      ${(props) =>
+        props.theme!.colours[
+          `component-input-background-${props.palette ?? "primary"}`
+        ]}
+      inset !important;
   }
 
   &:-webkit-autofill {
-    caret-color: ${(props) => props.theme!.colour("onBackground")} !important;
+    caret-color: ${(props) =>
+      props.theme!.colours["component-input-foreground"]} !important;
     -webkit-text-fill-color: ${(props) =>
-      props.theme!.colour("onBackground")} !important;
+      props.theme!.colours["component-input-foreground"]} !important;
   }
 `;

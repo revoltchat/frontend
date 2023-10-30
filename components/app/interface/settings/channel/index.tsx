@@ -92,9 +92,14 @@ const Config: SettingsConfiguration<Channel> = {
           ),
           entries: [
             {
-              icon: <BiSolidTrash size={20} color={theme!.colours.error} />,
+              icon: (
+                <BiSolidTrash
+                  size={20}
+                  color={theme!.customColours.error.color}
+                />
+              ),
               title: (
-                <ColouredText colour={theme!.colours.error}>
+                <ColouredText colour={theme!.customColours.error.color}>
                   {t("app.context_menu.delete_channel")}
                 </ColouredText>
               ),

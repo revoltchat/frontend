@@ -158,7 +158,8 @@ const Details = styled.div`
   /* connect elements vertically */
   > :not(summary) .CategoryButton {
     /* and set child backgrounds */
-    background: ${(props) => props.theme!.colour("background", 97)};
+    background: ${(props) =>
+      props.theme!.colours["component-categorybtn-background-collapse"]};
   }
 
   /*> :not(summary) > :last-child.CategoryButton {
