@@ -9,7 +9,11 @@ export const SidebarBase = styled("div", "Sidebar")`
   flex-direction: column;
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 
-  background: ${({ theme }) => theme!.colours["background-100"]};
+  margin: ${(props) => (props.theme!.gap.md + " ").repeat(3)}0;
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+  color: ${({ theme }) => theme!.colours["sidebar-channels-foreground"]};
+  background: ${({ theme }) => theme!.colours["sidebar-channels-background"]};
 
   a {
     text-decoration: none;

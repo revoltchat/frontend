@@ -9,7 +9,10 @@ const Base = styled.pre`
   overflow-x: auto;
   padding: ${(props) => props.theme!.gap.md};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-300"]};
+  color: ${(props) =>
+    props.theme!.colours["messaging-component-code-block-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-code-block-background"]};
 
   code {
     font-size: 90%;
@@ -26,23 +29,40 @@ const Lang = styled.div`
   font-family: ${(props) => props.theme!.fonts.monospace};
 
   a {
-    color: #111;
     cursor: pointer;
     padding: 2px 6px;
     font-weight: 600;
     user-select: none;
     display: inline-block;
-    background: ${(props) => props.theme!.colours.accent};
+    background: ${(props) =>
+      props.theme!.colours[
+        "messaging-component-code-block-language-background"
+      ]};
 
     font-size: 10px;
     text-transform: uppercase;
-    box-shadow: 0 2px #787676;
-    border-radius: ${(props) => props.theme!.borderRadius.sm};
+    box-shadow: 0 2px
+      ${(props) =>
+        props.theme!.colours["messaging-component-code-block-background"]};
+    border-radius: ${(props) => props.theme!.borderRadius.md};
 
     &:active {
       transform: translateY(1px);
-      box-shadow: 0 1px #787676;
+      box-shadow: 0 1px
+        ${(props) =>
+          props.theme!.colours["messaging-component-code-block-background"]};
     }
+  }
+
+  a,
+  a:link,
+  a:active,
+  a:hover {
+    text-decoration: none;
+    color: ${(props) =>
+      props.theme!.colours[
+        "messaging-component-code-block-language-foreground"
+      ]};
   }
 `;
 
@@ -62,8 +82,8 @@ export function RenderCodeblock(props: {
         <a
           onClick={() => {
             const text = ref?.querySelector("code")?.innerText;
-            //text && modalController.writeText(text);
-            alert(text);
+            navigator.clipboard.writeText(text!);
+            // TODO: modal fallback
           }}
         >
           {lang()}

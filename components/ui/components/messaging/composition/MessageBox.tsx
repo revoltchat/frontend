@@ -69,8 +69,13 @@ const Base = styled("div", "MessageBox")`
   height: 48px;
   flex-shrink: 0;
 
+  margin: ${(props) => props.theme!.gap.md};
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
   display: flex;
-  background: ${({ theme }) => theme!.colours["background-300"]};
+  background: ${({ theme }) =>
+    theme!.colours["messaging-message-box-background"]};
+  color: ${({ theme }) => theme!.colours["messaging-message-box-foreground"]};
 `;
 
 /**
@@ -86,7 +91,7 @@ const Input = styled("textarea")`
   padding: 14px 0;
 
   font-family: ${(props) => props.theme!.fonts.primary};
-  color: ${(props) => props.theme!.colours.foreground};
+  color: ${({ theme }) => theme!.colours["messaging-message-box-foreground"]};
   ${(props) => generateTypographyCSS(props.theme!, "messages")}
 `;
 

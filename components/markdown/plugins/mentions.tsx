@@ -24,7 +24,10 @@ const Mention = styled.a`
   font-weight: 600;
   text-decoration: none !important;
   border-radius: ${(props) => props.theme!.borderRadius.lg};
-  background: ${(props) => props.theme!.colours["background-100"]};
+  color: ${(props) =>
+    props.theme!.colours["messaging-component-mention-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-mention-background"]};
 
   transition: 0.1s ease filter;
 

@@ -256,7 +256,7 @@ export function Message(props: Props) {
  * New user indicator
  */
 const NewUser = styled.div`
-  color: ${(props) => props.theme!.colours["success-100"]};
+  color: ${(props) => props.theme!.customColours.success.color};
 `;
 
 /**

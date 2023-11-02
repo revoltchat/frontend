@@ -18,13 +18,21 @@ const Base = styled("div")<{ unread?: boolean }>`
     font-weight: 600;
     padding-inline: 5px 5px;
 
-    color: ${({ theme }) => theme!.colours["foreground-400"]};
-    background: ${({ theme }) => theme!.colours["background-200"]};
+    border-radius: ${(props) => props.theme!.borderRadius.md};
+
+    color: ${({ theme }) =>
+      theme!.colours["messaging-component-message-divider-foreground"]};
+    background: ${({ theme }) =>
+      theme!.colours["messaging-component-message-divider-background"]};
   }
 
   border-top: thin solid
     ${({ unread, theme }) =>
-      theme!.colours[unread ? "accent" : "foreground-400"]};
+      theme!.colours[
+        `messaging-component-message-divider${
+          unread ? "-unread" : ""
+        }-background`
+      ]};
 `;
 
 /**
@@ -33,8 +41,10 @@ const Base = styled("div")<{ unread?: boolean }>`
 const Unread = styled("div")`
   font-size: 0.625rem;
   font-weight: 600;
-  background: ${({ theme }) => theme!.colours.accent};
-  color: var(--accent-contrast); /* TODO */
+  color: ${({ theme }) =>
+    theme!.colours["messaging-component-message-divider-unread-foreground"]};
+  background: ${({ theme }) =>
+    theme!.colours["messaging-component-message-divider-unread-background"]};
 
   padding: 2px 6px;
   margin-top: -1px;
@@ -58,11 +68,11 @@ interface Props {
  */
 export function MessageDivider(props: Props) {
   return (
-    <Base unread={props.unread}>
-      <Show when={props.unread}>
+    <Base unread={props.unread || true}>
+      <Show when={props.unread || true}>
         <Unread>NEW</Unread>
       </Show>
-      <Show when={props.date}>
+      <Show when={props.date && false}>
         <time>{props.date}</time>
       </Show>
     </Base>

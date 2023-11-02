@@ -441,8 +441,8 @@ importers:
         specifier: ^4.5.11
         version: 4.5.11
       '@material/material-color-utilities':
-        specifier: ^0.2.6
-        version: 0.2.6
+        specifier: ^0.2.7
+        version: 0.2.7
       '@minht11/solid-virtual-container':
         specifier: ^0.2.1
         version: 0.2.1(solid-js@1.7.3)
@@ -2945,8 +2945,8 @@ packages:
     resolution: {integrity: sha512-2Y7ERLQ+dgxZUPhDSxHSXnPKxSh3c0rC7zAK5404DkmoKq0j8ftSoKv21/3yVUH04+eUquojHC5DZ+t4dQdOBg==}
     dev: false
 
-  /@material/material-color-utilities@0.2.6:
-    resolution: {integrity: sha512-pMdkH7PvuJQS1q9igiPFfrS04Zu1feDXOVV69uWe2kr+RcK+7v3OylIYMwJDIwip1pFdGyTY4KkMy6vPIA/uSw==}
+  /@material/material-color-utilities@0.2.7:
+    resolution: {integrity: sha512-0FCeqG6WvK4/Cc06F/xXMd/pv4FeisI0c1tUpBbfhA2n9Y8eZEv4Karjbmf2ZqQCPUWMrGp8A571tCjizxoTiQ==}
     dev: false
 
   /@minht11/solid-virtual-container@0.2.1(solid-js@1.7.3):

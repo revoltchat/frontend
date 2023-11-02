@@ -335,11 +335,9 @@ const JumpToBottom = styled.div`
     backdrop-filter: blur(20px);
     border-radius: ${(props) => props.theme!.borderRadius.md}
       ${(props) => props.theme!.borderRadius.md} 0 0;
-    color: ${(props) => props.theme!.colours["foreground-300"]};
-    background-color: rgba(
-      ${(props) => props.theme!.rgb["typing-indicator"]},
-      0.9
-    );
+    color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
+    background-color: ${(props) =>
+      props.theme!.colours["messaging-indicator-background"]};
 
     ${(props) => generateTypographyCSS(props.theme!, "jump-to-bottom")}
 

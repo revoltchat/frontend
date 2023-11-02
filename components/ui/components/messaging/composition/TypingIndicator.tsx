@@ -117,11 +117,9 @@ const Bar = styled.div`
   align-items: center;
   flex-direction: row;
 
-  color: ${(props) => props.theme!.colours["foreground-200"]};
-  background-color: rgba(
-    ${(props) => props.theme!.rgb["typing-indicator"]},
-    0.75
-  );
+  color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-indicator-background"]};
 `;
 
 /**

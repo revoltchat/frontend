@@ -46,6 +46,16 @@ declare module "solid-styled-components" {
                 | "foreground-description"
                 | `background-${"icon" | "collapse" | "hover" | "active"}`}`
             | `modal-${"background" | "foreground"}`}`
+        | `sidebar-${`channels-${"background" | "foreground"}`}`
+        | `messaging-${
+            | `indicator-${"background" | "foreground"}`
+            | `message-box-${"background" | "foreground"}`
+            | `component-${`${
+                | "code-block"
+                | "code-block-language"
+                | "message-divider"
+                | "message-divider-unread"
+                | "mention"}-${"background" | "foreground"}`}`}`
         | `settings-${
             | "background"
             | "foreground"

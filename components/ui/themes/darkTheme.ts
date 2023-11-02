@@ -2,7 +2,6 @@ import { DefaultTheme } from "solid-styled-components";
 
 import {
   ColorGroup,
-  CustomColorGroup,
   Hct,
   Scheme,
   TonalPalette,
@@ -121,10 +120,15 @@ function materialColour(base: keyof Scheme, tone?: number) {
     : materialTheme.scheme[base];
 }
 
+function hexToRgb(v: string) {
+  const [_, r, g, b] = /#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})/i.exec(v)!;
+  return `${parseInt(r, 16)}, ${parseInt(g, 16)}, ${parseInt(b, 16)}`;
+}
+
+/**
+ * Create dark theme
+ */
 export const darkTheme: DefaultTheme = {
-  colour() {
-    return "blue";
-  },
   colours: {
     // Global
     background: materialColour("background"),
@@ -172,6 +176,40 @@ export const darkTheme: DefaultTheme = {
     // Component: Modal
     "component-modal-background": materialColour("secondary", 96),
     "component-modal-foreground": materialColour("onBackground"),
+
+    // Sidebar
+    "sidebar-channels-background": materialColour("background", 94),
+    "sidebar-channels-foreground": materialColour("onBackground"),
+
+    // Messaging: Interface
+    "messaging-indicator-background": `rgba(${hexToRgb(
+      materialColour("background", 94)
+    )}, 0.75)`,
+    "messaging-indicator-foreground": materialColour("onBackground"),
+    "messaging-message-box-background": materialColour("primaryContainer"),
+    "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
+
+    // Messaging: Components
+    "messaging-component-code-block-background":
+      materialColour("surfaceVariant"),
+    "messaging-component-code-block-foreground":
+      materialColour("onSurfaceVariant"),
+    "messaging-component-code-block-language-background":
+      materialColour("primary"),
+    "messaging-component-code-block-language-foreground":
+      materialColour("onPrimary"),
+    "messaging-component-message-divider-background":
+      materialColour("background"),
+    "messaging-component-message-divider-foreground":
+      materialColour("onBackground"),
+    "messaging-component-message-divider-unread-background":
+      materialColour("primary"),
+    "messaging-component-message-divider-unread-foreground":
+      materialColour("onPrimary"),
+    "messaging-component-mention-background": materialColour("surfaceVariant"),
+    "messaging-component-mention-foreground":
+      materialColour("onSurfaceVariant"),
+
     // Settings
     "settings-background": materialColour("secondary", 96),
     "settings-foreground": materialColour("onSecondaryContainer"),
@@ -400,5 +438,3 @@ export const darkTheme: DefaultTheme = {
     },
   },
 };
-
-console.info(darkTheme);
