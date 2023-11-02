@@ -149,8 +149,8 @@ export function ServerMemberSidebar(props: Props) {
     roles.forEach((entry) =>
       entry.members.sort(
         (a, b) =>
-          (a.nickname ?? a.user?.username)?.localeCompare(
-            b.nickname ?? b.user?.username ?? ""
+          (a.nickname ?? a.user?.displayName)?.localeCompare(
+            b.nickname ?? b.user?.displayName ?? ""
           ) || 0
       )
     );

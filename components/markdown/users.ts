@@ -37,7 +37,7 @@ const DEFAULT_COLOUR = "#848484";
  */
 export function userInformation(user?: User, member?: ServerMember) {
   return {
-    username: member?.nickname ?? user?.username,
+    username: member?.nickname ?? user?.displayName,
     avatar: member?.animatedAvatarURL ?? user?.animatedAvatarURL,
     colour: member?.roleColour ?? DEFAULT_COLOUR,
   };
