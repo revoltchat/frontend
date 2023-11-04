@@ -16,7 +16,11 @@ import { TextFile } from "./TextFile";
 export const AttachmentContainer = styled(Column)`
   padding: ${(props) => props.theme!.gap.md};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-100"]};
+
+  color: ${(props) =>
+    props.theme!.colours["messaging-component-attachment-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-attachment-background"]};
 `;
 
 /**

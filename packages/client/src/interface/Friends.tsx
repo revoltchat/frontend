@@ -94,7 +94,7 @@ export function Friends() {
   return (
     // TODO: i18n
     <Base>
-      <Header palette="primary">
+      <Header placement="primary">
         <HeaderIcon>
           <BiSolidUserDetail size={24} />
         </HeaderIcon>

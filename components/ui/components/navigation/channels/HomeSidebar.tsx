@@ -206,8 +206,10 @@ function Entry(
             <Match when={local.channel.type === "Group"}>
               <Avatar
                 size={32}
+                shape="rounded-square"
                 fallback={local.channel.name}
                 src={local.channel.iconURL}
+                primaryContrast
               />
             </Match>
             <Match when={local.channel.type === "DirectMessage"}>

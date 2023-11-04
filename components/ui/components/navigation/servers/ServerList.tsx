@@ -58,7 +58,7 @@ export const ServerList = (props: Props) => {
   const keybinds = useKeybindActions();
 
   const navigateServer = (byOffset: number) => {
-    let serverId = props.selectedServer();
+    const serverId = props.selectedServer();
     if (serverId == null) {
       return;
     }
@@ -67,7 +67,7 @@ export const ServerList = (props: Props) => {
       (server) => server.id === serverId
     );
 
-    let nextIndex = currentServerIndex + byOffset;
+    const nextIndex = currentServerIndex + byOffset;
 
     if (nextIndex === -1) {
       return navigate("/app");
@@ -247,7 +247,8 @@ const LineDivider = styled.div`
   flex-shrink: 0;
   margin: 6px auto;
   width: calc(100% - 24px);
-  background: ${({ theme }) => theme!.colours["background-300"]};
+  background: ${({ theme }) =>
+    theme!.colours["sidebar-server-list-foreground"]};
 `;
 
 /**

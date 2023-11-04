@@ -76,8 +76,10 @@ const components = {
   `,
   pre: RenderCodeblock,
   code: styled.code`
-    color: ${(props) => props.theme!.colours.foreground};
-    background: ${(props) => props.theme!.colours["background-100"]};
+    color: ${(props) =>
+      props.theme!.colours["messaging-component-code-block-foreground"]};
+    background: ${(props) =>
+      props.theme!.colours["messaging-component-code-block-background"]};
 
     font-size: 90%;
     font-family: ${(props) => props.theme!.fonts.monospace};
@@ -91,7 +93,7 @@ const components = {
     th,
     td {
       padding: 6px;
-      border: 1px solid ${(props) => props.theme!.colours["foreground-200"]};
+      border: 1px solid ${(props) => props.theme!.colours.foreground};
     }
   `,
   ul: styled.ul`
@@ -108,9 +110,13 @@ const components = {
     margin: 2px 0;
     padding: 2px 8px;
     border-radius: ${(props) => props.theme!.borderRadius.md};
-    background: ${(props) => props.theme!.colours["background-300"]};
+    color: ${(props) =>
+      props.theme!.colours["messaging-component-blockquote-foreground"]};
+    background: ${(props) =>
+      props.theme!.colours["messaging-component-blockquote-background"]};
     border-inline-start: 3px solid
-      ${(props) => props.theme!.colours["background-400"]};
+      ${(props) =>
+        props.theme!.colours["messaging-component-blockquote-foreground"]};
   `,
   // Block image elements
   img: Null,

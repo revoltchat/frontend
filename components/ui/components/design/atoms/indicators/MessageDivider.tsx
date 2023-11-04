@@ -22,8 +22,7 @@ const Base = styled("div")<{ unread?: boolean }>`
 
     color: ${({ theme }) =>
       theme!.colours["messaging-component-message-divider-foreground"]};
-    background: ${({ theme }) =>
-      theme!.colours["messaging-component-message-divider-background"]};
+    background: ${({ theme }) => theme!.colours.background};
   }
 
   border-top: thin solid
@@ -68,11 +67,11 @@ interface Props {
  */
 export function MessageDivider(props: Props) {
   return (
-    <Base unread={props.unread || true}>
-      <Show when={props.unread || true}>
+    <Base unread={props.unread}>
+      <Show when={props.unread}>
         <Unread>NEW</Unread>
       </Show>
-      <Show when={props.date && false}>
+      <Show when={props.date}>
         <time>{props.date}</time>
       </Show>
     </Base>

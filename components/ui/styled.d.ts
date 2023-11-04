@@ -45,16 +45,31 @@ declare module "solid-styled-components" {
                 | "foreground"
                 | "foreground-description"
                 | `background-${"icon" | "collapse" | "hover" | "active"}`}`
-            | `modal-${"background" | "foreground"}`}`
-        | `sidebar-${`channels-${"background" | "foreground"}`}`
+            | `modal-${"background" | "foreground"}`
+            | `avatar-fallback${"-contrast" | ""}-${
+                | "background"
+                | "foreground"}`}`
+        | `sidebar-${
+            | "header-transparent-background"
+            | "server-list-foreground"
+            | `${
+                | "channels"
+                | "members"
+                | "header"
+                | "header-with-image-text"}-${"background" | "foreground"}`}`
         | `messaging-${
             | `indicator-${"background" | "foreground"}`
             | `message-box-${"background" | "foreground"}`
             | `component-${`${
                 | "code-block"
+                | "blockquote"
+                | "text-embed"
+                | "attachment"
                 | "code-block-language"
                 | "message-divider"
                 | "message-divider-unread"
+                | "reaction"
+                | "reaction-selected"
                 | "mention"}-${"background" | "foreground"}`}`}`
         | `settings-${
             | "background"

@@ -127,7 +127,7 @@ export const ServerSidebar = (props: Props) => {
     <SidebarBase>
       <Switch
         fallback={
-          <Header palette="secondary">
+          <Header placement="secondary">
             <ServerInfo
               server={props.server}
               openServerInfo={props.openServerInfo}
@@ -138,7 +138,7 @@ export const ServerSidebar = (props: Props) => {
       >
         <Match when={props.server.banner}>
           <HeaderWithImage
-            palette="secondary"
+            placement="secondary"
             style={{
               background: `url('${props.server.bannerURL}')`,
             }}
@@ -151,7 +151,7 @@ export const ServerSidebar = (props: Props) => {
           </HeaderWithImage>
         </Match>
       </Switch>
-      <div use:scrollable={{ showOnHover: true }}>
+      <div use:scrollable={{ showOnHover: true }} style={{ "flex-grow": 1 }}>
         <List gap="lg">
           <div />
           <For each={props.server.orderedChannels}>
@@ -253,8 +253,6 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
   user-select: none;
   text-transform: uppercase;
   transition: ${(props) => props.theme!.transitions.fast} all;
-
-  color: ${(props) => props.theme!.colours["foreground-200"]};
 
   &:hover {
     filter: brightness(1.1);

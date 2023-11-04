@@ -15,11 +15,11 @@ export function UnreadsGraphic(props: Props) {
   return (
     <Switch>
       <Match when={props.count > 0}>
-        <circle cx="27" cy="5" r="5" fill={theme!.colours["error"]} />
+        <circle cx="27" cy="5" r="5" fill={theme!.customColours.error.color} />
         <text
           x="27"
           y="5"
-          fill={"white"}
+          fill={theme!.customColours.error.onColor}
           font-size={"7.5"}
           font-weight={600}
           text-anchor="middle"
@@ -30,7 +30,7 @@ export function UnreadsGraphic(props: Props) {
         </text>
       </Match>
       <Match when={props.unread}>
-        <circle cx="27" cy="5" r="5" fill={"white"} />
+        <circle cx="27" cy="5" r="5" fill={theme!.colours.foreground} />
       </Match>
     </Switch>
   );

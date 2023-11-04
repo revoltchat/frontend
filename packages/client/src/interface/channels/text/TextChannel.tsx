@@ -47,7 +47,7 @@ export function TextChannel(props: ChannelPageProps) {
 
   return (
     <>
-      <HeaderWithTransparency palette="primary">
+      <HeaderWithTransparency placement="primary">
         <ChannelHeader channel={props.channel} />
       </HeaderWithTransparency>
       <Content>

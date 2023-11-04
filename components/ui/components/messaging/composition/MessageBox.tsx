@@ -69,7 +69,7 @@ const Base = styled("div", "MessageBox")`
   height: 48px;
   flex-shrink: 0;
 
-  margin: ${(props) => props.theme!.gap.md};
+  margin: ${(props) => (props.theme!.gap.md + " ").repeat(3)}0;
   border-radius: ${(props) => props.theme!.borderRadius.lg};
 
   display: flex;

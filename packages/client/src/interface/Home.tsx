@@ -84,7 +84,7 @@ export function HomePage() {
   return (
     // TODO: i18n
     <Base>
-      <Header palette="primary">
+      <Header placement="primary">
         <HeaderIcon>
           <BiSolidHome size={24} />
         </HeaderIcon>

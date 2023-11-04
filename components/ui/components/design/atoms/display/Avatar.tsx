@@ -10,6 +10,11 @@ export type Props = {
   size?: number;
 
   /**
+   * Avatar shape
+   */
+  shape?: "circle" | "rounded-square";
+
+  /**
    * Image source
    */
   src?: string;
@@ -20,16 +25,21 @@ export type Props = {
   fallback?: string | JSXElement;
 
   /**
+   * If this avatar falls back, use primary contrasting colours
+   */
+  primaryContrast?: boolean;
+
+  /**
    * Punch a hole through the avatar
    */
   holepunch?:
-  | "bottom-right"
-  | "top-right"
-  | "right"
-  | "overlap"
-  | "overlap-subtle"
-  | "none"
-  | false;
+    | "bottom-right"
+    | "top-right"
+    | "right"
+    | "overlap"
+    | "overlap-subtle"
+    | "none"
+    | false;
 
   /**
    * Specify overlay component
@@ -45,20 +55,28 @@ export type Props = {
 /**
  * Avatar image
  */
-const Image = styled("img")`
+const Image = styled("img")<Pick<Props, "shape">>`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+
+  border-radius: ${(props) =>
+    props.shape === "rounded-square"
+      ? props.theme!.borderRadius.md
+      : props.theme!.borderRadius.full};
 `;
 
 /**
  * Text fallback container
  */
-const FallbackBase = styled("div")`
+const FallbackBase = styled("div")<Pick<Props, "shape" | "primaryContrast">>`
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+
+  border-radius: ${(props) =>
+    props.shape === "rounded-square"
+      ? props.theme!.borderRadius.md
+      : props.theme!.borderRadius.full};
 
   display: flex;
   align-items: center;
@@ -66,14 +84,24 @@ const FallbackBase = styled("div")`
 
   font-weight: 600;
   font-size: 0.75rem;
-  color: ${({ theme }) => theme!.colours["foreground"]};
-  background: ${({ theme }) => theme!.colours["background-200"]};
+  color: ${(props) =>
+    props.theme!.colours[
+      `component-avatar-fallback${
+        props.primaryContrast ? "-contrast" : ""
+      }-foreground`
+    ]};
+  background: ${(props) =>
+    props.theme!.colours[
+      `component-avatar-fallback${
+        props.primaryContrast ? "-contrast" : ""
+      }-background`
+    ]};
 `;
 
 /**
  * Avatar parent container
  */
-const ParentBase = styled("svg", "Avatar") <Pick<Props, "interactive">>`
+const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive">>`
   flex-shrink: 0;
   user-select: none;
   cursor: ${(props) => (props.interactive ? "cursor" : "inherit")};
@@ -110,9 +138,14 @@ export function Avatar(props: Props) {
           props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined
         }
       >
-        {props.src && <Image src={props.src} draggable={false} />}
+        {props.src && (
+          <Image src={props.src} draggable={false} shape={props.shape} />
+        )}
         {!props.src && (
-          <FallbackBase>
+          <FallbackBase
+            shape={props.shape}
+            primaryContrast={props.primaryContrast}
+          >
             {typeof props.fallback === "string" ? (
               <Initials input={props.fallback} maxLength={2} />
             ) : (

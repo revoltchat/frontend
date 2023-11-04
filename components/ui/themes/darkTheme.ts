@@ -10,7 +10,7 @@ import {
   themeFromSourceColor,
 } from "@material/material-color-utilities";
 
-// const hex = '#d59ff5';
+// const hex = "#d59ff5";
 // const hex = "#FF7F50";
 // const hex = "#B4CBAF";
 // const hex = "#8C5FD3"; // Purple
@@ -176,18 +176,55 @@ export const darkTheme: DefaultTheme = {
     // Component: Modal
     "component-modal-background": materialColour("secondary", 96),
     "component-modal-foreground": materialColour("onBackground"),
+    // Component: Avatar (Fallback)
+    "component-avatar-fallback-background": materialColour("onBackground", 94),
+    "component-avatar-fallback-foreground": materialColour("onBackground"),
+    "component-avatar-fallback-contrast-background": materialColour("primary"),
+    "component-avatar-fallback-contrast-foreground":
+      materialColour("onPrimary"),
 
     // Sidebar
-    "sidebar-channels-background": materialColour("background", 94),
-    "sidebar-channels-foreground": materialColour("onBackground"),
+    // TODO: figure this out
+    // works better for both dark and light theme but more muted:
+    "sidebar-channels-background": materialColour("onBackground", 94),
+    "sidebar-channels-foreground": materialColour("onPrimaryContainer"),
+    "sidebar-members-background": materialColour("onBackground", 94),
+    "sidebar-members-foreground": materialColour("onPrimaryContainer"),
+    "sidebar-header-background": materialColour("onBackground", 94),
+    "sidebar-header-foreground": materialColour("onPrimaryContainer"),
+    "sidebar-header-transparent-background": `rgba(${hexToRgb(
+      materialColour("onBackground", 94)
+    )}, 0.75)`,
+    "sidebar-header-with-image-text-background": `rgba(${hexToRgb(
+      materialColour("onBackground")
+    )}, 0.5)`,
+    "sidebar-header-with-image-text-foreground": materialColour("background"),
+    "sidebar-server-list-foreground": materialColour("onBackground", 80),
+    // OR balls to the wall: (but dark mode gets fucked)
+    // "sidebar-channels-background": materialColour("primaryContainer", 94),
+    // "sidebar-channels-foreground": materialColour("onPrimaryContainer"),
+    // "sidebar-members-background": materialColour("primaryContainer", 94),
+    // "sidebar-members-foreground": materialColour("onPrimaryContainer"),
+    // "sidebar-header-background": materialColour("primaryContainer", 94),
+    // "sidebar-header-foreground": materialColour("onPrimaryContainer"),
+    // "sidebar-header-transparent-background": `rgba(${hexToRgb(
+    //   materialColour("primaryContainer")
+    // )}, 0.75)`,
+    // "sidebar-header-with-image-text-background": `rgba(${hexToRgb(
+    //   materialColour("onBackground")
+    // )}, 0.5)`,
+    // "sidebar-header-with-image-text-foreground": materialColour("background"),
+    // "sidebar-server-list-foreground": materialColour("onBackground", 80),
 
     // Messaging: Interface
     "messaging-indicator-background": `rgba(${hexToRgb(
       materialColour("background", 94)
     )}, 0.75)`,
     "messaging-indicator-foreground": materialColour("onBackground"),
-    "messaging-message-box-background": materialColour("primaryContainer"),
+    "messaging-message-box-background": materialColour("onBackground", 94),
     "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
+    // "messaging-message-box-background": materialColour("primaryContainer"),
+    // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
     // Messaging: Components
     "messaging-component-code-block-background":
@@ -198,13 +235,38 @@ export const darkTheme: DefaultTheme = {
       materialColour("primary"),
     "messaging-component-code-block-language-foreground":
       materialColour("onPrimary"),
-    "messaging-component-message-divider-background":
-      materialColour("background"),
-    "messaging-component-message-divider-foreground":
-      materialColour("onBackground"),
+    "messaging-component-blockquote-background":
+      materialColour("surfaceVariant"),
+    "messaging-component-blockquote-foreground":
+      materialColour("onSurfaceVariant"),
+    "messaging-component-text-embed-background":
+      materialColour("surfaceVariant"),
+    "messaging-component-text-embed-foreground":
+      materialColour("onSurfaceVariant"),
+    "messaging-component-attachment-background":
+      materialColour("surfaceVariant"),
+    "messaging-component-attachment-foreground":
+      materialColour("onSurfaceVariant"),
+    "messaging-component-message-divider-background": materialColour(
+      "onSurfaceVariant",
+      80
+    ),
+    "messaging-component-message-divider-foreground": materialColour(
+      "onSurfaceVariant",
+      60
+    ),
     "messaging-component-message-divider-unread-background":
       materialColour("primary"),
     "messaging-component-message-divider-unread-foreground":
+      materialColour("onPrimary"),
+    "messaging-component-reaction-background": materialColour(
+      "onBackground",
+      97
+    ),
+    "messaging-component-reaction-foreground": materialColour("onBackground"),
+    "messaging-component-reaction-selected-background":
+      materialColour("primary"),
+    "messaging-component-reaction-selected-foreground":
       materialColour("onPrimary"),
     "messaging-component-mention-background": materialColour("surfaceVariant"),
     "messaging-component-mention-foreground":
