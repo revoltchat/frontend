@@ -38,6 +38,9 @@ declare module "solid-styled-components" {
             | "chip-background"
             | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`
             | `btn-foreground-${"plain" | "plain-secondary"}`
+            | `menubtn-${"default" | "selected" | "muted" | "hover"}-${
+                | "background"
+                | "foreground"}`
             | `input-${"foreground" | "focus"}`
             | `input-${"background" | "hover"}-${"primary" | "secondary"}`
             | `categorybtn-${
@@ -52,6 +55,7 @@ declare module "solid-styled-components" {
         | `sidebar-${
             | "header-transparent-background"
             | "server-list-foreground"
+            | "channels-category-foreground"
             | `${
                 | "channels"
                 | "members"

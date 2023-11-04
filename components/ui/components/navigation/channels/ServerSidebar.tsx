@@ -254,6 +254,9 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
   text-transform: uppercase;
   transition: ${(props) => props.theme!.transitions.fast} all;
 
+  color: ${(props) =>
+    props.theme!.colours["sidebar-channels-category-foreground"]};
+
   &:hover {
     filter: brightness(1.1);
   }
@@ -287,14 +290,16 @@ function Entry(props: { channel: Channel; active: boolean }) {
           props.active ? "selected" : props.channel.unread ? "active" : "normal"
         }
         icon={
-          <Switch fallback={<BiRegularHash size={24} />}>
-            <Match when={props.channel.icon}>
+          <>
+            <Switch fallback={<BiRegularHash size={20} />}>
+              <Match when={props.channel.type === "VoiceChannel"}>
+                <BiRegularPhoneCall size={20} />
+              </Match>
+            </Switch>
+            <Show when={props.channel.icon}>
               <ChannelIcon src={props.channel.smallIconURL} />
-            </Match>
-            <Match when={props.channel.type === "VoiceChannel"}>
-              <BiRegularPhoneCall size={24} />
-            </Match>
-          </Switch>
+            </Show>
+          </>
         }
       >
         <OverflowingText>
@@ -309,8 +314,8 @@ function Entry(props: { channel: Channel; active: boolean }) {
  * Channel icon styling
  */
 const ChannelIcon = styled("img")`
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
 `;
 

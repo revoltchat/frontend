@@ -18,31 +18,6 @@ const hex = "#FF5733"; // Coral Orange
 const darkMode = false;
 const theme = themeFromSourceColor(argbFromHex(hex), [
   {
-    name: "status-online",
-    value: argbFromHex("#3ABF7E"),
-    blend: true,
-  },
-  {
-    name: "status-idle",
-    value: argbFromHex("#F39F00"),
-    blend: true,
-  },
-  {
-    name: "status-focus",
-    value: argbFromHex("#4799F0"),
-    blend: true,
-  },
-  {
-    name: "status-busy",
-    value: argbFromHex("#F84848"),
-    blend: true,
-  },
-  {
-    name: "status-invisible",
-    value: argbFromHex("#A5A5A5"),
-    blend: true,
-  },
-  {
     name: "success",
     value: argbFromHex("#65E572"),
     blend: true,
@@ -59,7 +34,28 @@ const theme = themeFromSourceColor(argbFromHex(hex), [
   },
 ]);
 
-const customColours = {} as Record<
+const customColours = {
+  "status-online": {
+    color: "#3ABF7E",
+    onColor: "black",
+  },
+  "status-idle": {
+    color: "#F39F00",
+    onColor: "black",
+  },
+  "status-focus": {
+    color: "#4799F0",
+    onColor: "black",
+  },
+  "status-busy": {
+    color: "#F84848",
+    onColor: "white",
+  },
+  "status-invisible": {
+    color: "#A5A5A5",
+    onColor: "black",
+  },
+} as Record<
   | `status-${"online" | "idle" | "focus" | "busy" | "streaming" | "invisible"}`
   | "success"
   | "warning"
@@ -143,6 +139,27 @@ export const darkTheme: DefaultTheme = {
       "onBackground",
       40
     ),
+    // Component: Menu Button
+    "component-menubtn-default-background": "transparent",
+    "component-menubtn-default-foreground": materialColour(
+      "onSurfaceVariant",
+      55
+    ),
+    "component-menubtn-selected-background": materialColour("surfaceVariant"),
+    "component-menubtn-selected-foreground": materialColour(
+      "onSurfaceVariant",
+      30
+    ),
+    "component-menubtn-muted-background": materialColour("surfaceVariant"),
+    "component-menubtn-muted-foreground": materialColour(
+      "onSurfaceVariant",
+      65
+    ),
+    "component-menubtn-hover-background": materialColour("surfaceVariant"),
+    "component-menubtn-hover-foreground": materialColour(
+      "onSurfaceVariant",
+      25
+    ),
     // Component: Input
     "component-input-focus": materialColour("primary"),
     "component-input-foreground": materialColour("onBackground"),
@@ -200,6 +217,10 @@ export const darkTheme: DefaultTheme = {
     )}, 0.5)`,
     "sidebar-header-with-image-text-foreground": materialColour("background"),
     "sidebar-server-list-foreground": materialColour("onBackground", 80),
+    "sidebar-channels-category-foreground": materialColour(
+      "onSurfaceVariant",
+      60
+    ),
     // OR balls to the wall: (but dark mode gets fucked)
     // "sidebar-channels-background": materialColour("primaryContainer", 94),
     // "sidebar-channels-foreground": materialColour("onPrimaryContainer"),

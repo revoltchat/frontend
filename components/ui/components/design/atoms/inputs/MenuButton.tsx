@@ -57,21 +57,27 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   color: ${(props) =>
     props.theme!.colours[
       props.attention === "active" || props.attention === "selected"
-        ? "foreground"
-        : "foreground-400"
+        ? "component-menubtn-selected-foreground"
+        : props.attention === "muted"
+        ? "component-menubtn-muted-foreground"
+        : "component-menubtn-default-foreground"
     ]};
 
   background: ${(props) =>
-    props.attention === "selected"
-      ? props.theme!.colours["background-200"]
-      : "transparent"};
+    props.theme!.colours[
+      props.attention === "selected"
+        ? "component-menubtn-selected-background"
+        : props.attention === "muted"
+        ? "component-menubtn-muted-background"
+        : "component-menubtn-default-background"
+    ]};
 
   transition: ${(props) => props.theme!.transitions.fast} all;
 
-  > * {
+  /* TODO: BAD!! > * {
     filter: ${(props) =>
-      props.attention === "muted" ? props.theme!.effects.muted : "none"};
-  }
+    props.attention === "muted" ? props.theme!.effects.muted : "none"};
+  } */
 
   .content {
     flex-grow: 1;
@@ -83,7 +89,10 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   }
 
   &:hover {
-    background: ${({ theme }) => theme!.colours["background-200"]};
+    color: ${({ theme }) =>
+      theme!.colours["component-menubtn-hover-foreground"]};
+    background: ${({ theme }) =>
+      theme!.colours["component-menubtn-hover-background"]};
 
     .actions {
       display: block;
