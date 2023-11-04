@@ -428,6 +428,14 @@ export const darkTheme: DefaultTheme = {
       fontWeight: 500,
       fontSize: "0.9rem",
     },
+    // Home
+    "home-page-title": {
+      element: "h1",
+      margin: 0,
+      lineHeight: "1rem",
+      fontWeight: 600,
+      fontSize: "1.4rem",
+    },
     // Legacy
     "legacy-settings-title": {
       element: "h1",

@@ -134,6 +134,7 @@ declare module "solid-styled-components" {
         | "settings-account-card-subtitle"
         | "modal-title"
         | "modal-description"
+        | "home-page-title"
         | "legacy-settings-title"
         | "small"
         | "legacy-modal-title"

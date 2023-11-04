@@ -33,8 +33,6 @@ const Base = styled("div")`
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  background: ${({ theme }) => theme!.colours.please_set_me};
 `;
 
 /**
@@ -43,6 +41,10 @@ const Base = styled("div")`
 const Content = styled("div")`
   width: fit-content;
   margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme!.gap.xl};
 `;
 
 /**
@@ -50,6 +52,11 @@ const Content = styled("div")`
  */
 const Buttons = styled("div")`
   display: flex;
+
+  padding: ${(props) => props.theme!.gap.md};
+
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+  background: ${(props) => props.theme!.colours["sidebar-channels-background"]};
 `;
 
 /**
@@ -65,7 +72,9 @@ const SeparatedColumn = styled(Column)`
  */
 const Image = styled("img")`
   margin-top: 0.5em;
-  height: 80px;
+  height: 36px;
+
+  filter: invert(100%);
 `;
 
 /**
@@ -91,15 +100,7 @@ export function HomePage() {
         Home
       </Header>
       <Content>
-        <Typography
-          // TODO: create separate typography style for homepage
-          style={{
-            "text-align": "center",
-            "margin-bottom": "1em",
-            "font-size": "200%",
-          }}
-          variant="legacy-settings-title"
-        >
+        <Typography variant="home-page-title">
           {t("app.special.modals.onboarding.welcome")}
           <br />
           <Image src={wideSvg} />

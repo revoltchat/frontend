@@ -21,16 +21,14 @@ import {
   useTheme,
 } from "@revolt/ui";
 
+import MdErrorFill from "@material-design-icons/svg/filled/error.svg?component-solid";
+import MdVerifiedFill from "@material-design-icons/svg/filled/verified.svg?component-solid";
 import MdCalendarMonth from "@material-design-icons/svg/outlined/calendar_month.svg?component-solid";
 import MdKeyboardTab from "@material-design-icons/svg/outlined/keyboard_tab.svg?component-solid";
 import MdKeyboardTabRtl from "@material-design-icons/svg/outlined/keyboard_tab.svg?component-solid";
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?component-solid";
-
-import MdVerifiedFill from "@material-design-icons/svg/filled/verified.svg?component-solid";
-import MdErrorFill from "@material-design-icons/svg/filled/error.svg?component-solid";
 import MdTranslate from "@material-design-icons/svg/outlined/translate.svg?component-solid";
-
 
 /**
  * Language
@@ -106,8 +104,19 @@ function PickLanguage() {
             onClick={() => loadAndSetLanguage(id as never)}
           >
             <Row>
-              {lang.display} {lang.verified && <MdVerifiedFill {...iconSize(18)} fill={theme!.colour("primary")} />}{" "}
-              {lang.incomplete && <MdErrorFill {...iconSize(18)} fill={theme!.colour("primary")} />}
+              {lang.display}{" "}
+              {lang.verified && (
+                <MdVerifiedFill
+                  {...iconSize(18)}
+                  fill={theme!.colours.foreground}
+                />
+              )}{" "}
+              {lang.incomplete && (
+                <MdErrorFill
+                  {...iconSize(18)}
+                  fill={theme!.colours.foreground}
+                />
+              )}
             </Row>
           </CategoryButton>
         )}
