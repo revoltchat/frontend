@@ -1,8 +1,9 @@
 import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
-import { API, Channel, ServerMember } from "revolt.js";
+import { Channel, ServerMember } from "revolt.js";
 
+import { floatingUserMenus } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
@@ -263,14 +264,7 @@ function Member(props: { member: ServerMember }) {
     );
 
   return (
-    <div
-      use:floating={{
-        userCard: {
-          user: props.member.user!,
-          member: props.member,
-        },
-      }}
-    >
+    <div use:floating={floatingUserMenus(props.member.user!, props.member)}>
       <MenuButton
         size="normal"
         attention={props.member.user?.online ? "active" : "muted"}

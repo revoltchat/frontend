@@ -49,13 +49,18 @@ export function Embed(props: { embed: MessageEmbed }) {
             autoplay={isGIF()}
             controls={!isGIF()}
             preload="metadata"
-            src={video()!.proxiedURL}
+            // bypass proxy for known GIF providers
+            src={isGIF() ? video()!.url : video()!.proxiedURL}
           />
         </SizedContent>
       </Match>
       <Match when={image()}>
         <SizedContent width={image()!.width} height={image()!.height}>
-          <img src={image()!.proxiedURL} loading="lazy" />
+          <img
+            // bypass proxy for known GIF providers
+            src={isGIF() ? image()!.url : image()!.proxiedURL}
+            loading="lazy"
+          />
         </SizedContent>
       </Match>
       <Match

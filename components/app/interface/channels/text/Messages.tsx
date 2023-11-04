@@ -123,9 +123,33 @@ export function Messages(props: Props) {
     }
   }
 
+  /**
+   * Handle deleted messages
+   */
+  function onMessageDelete(message: { id: string; channelId: string }) {
+    console.error("delete", message);
+    if (
+      message.channelId === props.channel.id &&
+      messages().find((msg) => msg.id === message.id)
+    ) {
+      setMessages((messages) =>
+        messages.filter((msg) => msg.id !== message.id)
+      );
+    }
+  }
+
   // Add listener for messages
-  onMount(() => client().addListener("messageCreate", onMessage));
-  onCleanup(() => client().removeListener("messageCreate", onMessage));
+  onMount(() => {
+    const c = client();
+    c.addListener("messageCreate", onMessage);
+    c.addListener("messageDelete", onMessageDelete);
+  });
+
+  onCleanup(() => {
+    const c = client();
+    c.removeListener("messageCreate", onMessage);
+    c.removeListener("messageDelete", onMessageDelete);
+  });
 
   // We need to cache created objects to prevent needless re-rendering
   const objectCache = new Map();
