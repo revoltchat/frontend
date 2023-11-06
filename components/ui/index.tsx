@@ -26,7 +26,7 @@ export type { DefaultTheme } from "solid-styled-components";
  * @param viewBox Custom view box if necessary
  * @returns Props
  */
-export function iconSize(size: number, viewBox?: string) {
+export function iconSize(size: string, viewBox?: string) {
   return {
     width: size,
     height: size,

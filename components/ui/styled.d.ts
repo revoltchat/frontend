@@ -51,7 +51,13 @@ declare module "solid-styled-components" {
             | `modal-${"background" | "foreground"}`
             | `avatar-fallback${"-contrast" | ""}-${
                 | "background"
-                | "foreground"}`}`
+                | "foreground"}`
+            | `context-menu-${
+                | "background"
+                | "foreground"
+                | "item-hover-background"
+                | "divider"
+                | "shadow"}`}`
         | `sidebar-${
             | "header-transparent-background"
             | "server-list-foreground"

@@ -12,7 +12,7 @@ import {
 
 // const hex = "#d59ff5";
 // const hex = "#FF7F50";
-// const hex = "#B4CBAF";
+// const hex = "#B4CBAF"; // Green
 // const hex = "#8C5FD3"; // Purple
 const hex = "#FF5733"; // Coral Orange
 const darkMode = false;
@@ -199,6 +199,15 @@ export const darkTheme: DefaultTheme = {
     "component-avatar-fallback-contrast-background": materialColour("primary"),
     "component-avatar-fallback-contrast-foreground":
       materialColour("onPrimary"),
+    // Component: Context Menu
+    "component-context-menu-background": materialColour("surfaceVariant", 97),
+    "component-context-menu-foreground": materialColour("onSurface"),
+    "component-context-menu-item-hover-background": materialColour(
+      "surfaceVariant",
+      94
+    ),
+    "component-context-menu-divider": materialColour("onSurface", 92),
+    "component-context-menu-shadow": "#0004",
 
     // Sidebar
     // TODO: figure this out
@@ -286,9 +295,9 @@ export const darkTheme: DefaultTheme = {
     ),
     "messaging-component-reaction-foreground": materialColour("onBackground"),
     "messaging-component-reaction-selected-background":
-      materialColour("primary"),
+      materialColour("primaryContainer"),
     "messaging-component-reaction-selected-foreground":
-      materialColour("onPrimary"),
+      materialColour("onPrimaryContainer"),
     "messaging-component-mention-background": materialColour("surfaceVariant"),
     "messaging-component-mention-foreground":
       materialColour("onSurfaceVariant"),
@@ -508,7 +517,8 @@ export const darkTheme: DefaultTheme = {
   },
   layout: {
     width: {
-      "channel-sidebar": "232px",
+      // "channel-sidebar": "232px", (without margins)
+      "channel-sidebar": "248px",
     },
     height: {
       header: "48px",

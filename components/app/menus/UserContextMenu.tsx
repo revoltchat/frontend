@@ -2,7 +2,7 @@ import { JSX, Show } from "solid-js";
 
 import { ServerMember, User } from "revolt.js";
 
-import { ContextMenu, ContextMenuButton } from "./ContextMenu";
+import { ContextMenu, ContextMenuItem } from "./ContextMenu";
 
 /**
  *
@@ -15,22 +15,21 @@ export function UserContextMenu(props: { user?: User; member?: ServerMember }) {
 
   return (
     <ContextMenu>
-      user context menu.jpg{" "}
       <Show when={props.member}>
-        <ContextMenuButton
+        <ContextMenuItem
           onClick={() => prompt("u sure?") && props.member!.kick()}
         >
           Kick Member
-        </ContextMenuButton>
-        <ContextMenuButton
+        </ContextMenuItem>
+        <ContextMenuItem
           onClick={() =>
             prompt("u sure?") && props.member!.ban({ reason: "die" })
           }
         >
           Ban Member (reason = "die")
-        </ContextMenuButton>
+        </ContextMenuItem>
       </Show>
-      <ContextMenuButton
+      <ContextMenuItem
         onClick={() =>
           window.open(
             `https://admin.revolt.chat/panel/inspect/user/${props.user?.id}`,
@@ -39,7 +38,7 @@ export function UserContextMenu(props: { user?: User; member?: ServerMember }) {
         }
       >
         Admin Panel
-      </ContextMenuButton>
+      </ContextMenuItem>
     </ContextMenu>
   );
 }

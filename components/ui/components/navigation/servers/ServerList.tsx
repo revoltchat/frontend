@@ -130,7 +130,7 @@ export const ServerList = (props: Props) => {
           <EntryContainer>
             <Show when={!props.selectedServer()}>
               <PositionSwoosh>
-                <Swoosh />
+                <Swoosh topItem />
               </PositionSwoosh>
             </Show>
             <Link href="/">

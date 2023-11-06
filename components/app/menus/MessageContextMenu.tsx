@@ -3,7 +3,19 @@ import { Message } from "revolt.js";
 import { useUser } from "@revolt/client";
 import { state } from "@revolt/state";
 
-import { ContextMenu, ContextMenuButton } from "./ContextMenu";
+import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
+import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
+import MdMarkChatUnread from "@material-design-icons/svg/outlined/mark_chat_unread.svg?component-solid";
+import MdReply from "@material-design-icons/svg/outlined/reply.svg?component-solid";
+import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
+import MdShield from "@material-design-icons/svg/outlined/shield.svg?component-solid";
+
+import {
+  ContextMenu,
+  ContextMenuButton,
+  ContextMenuDivider,
+  ContextMenuItem,
+} from "./ContextMenu";
 
 /**
  *
@@ -15,24 +27,29 @@ export function MessageContextMenu(props: { message: Message }) {
 
   return (
     <ContextMenu>
-      my context menu.jpg{" "}
       <ContextMenuButton
+        icon={MdReply}
         onClick={() => {
           state.draft.addReply(props.message, user()!.id);
         }}
       >
         Reply
       </ContextMenuButton>
-      <ContextMenuButton>Mark as unread</ContextMenuButton>
+      <ContextMenuButton icon={MdMarkChatUnread}>
+        Mark as unread
+      </ContextMenuButton>
       <ContextMenuButton
+        icon={MdContentCopy}
         onClick={() => {
           navigator.clipboard.writeText(props.message.content);
         }}
       >
         Copy text
       </ContextMenuButton>
-      <ContextMenuButton>Report message</ContextMenuButton>
+      <ContextMenuDivider />
+      <ContextMenuButton icon={MdReport}>Report message</ContextMenuButton>
       <ContextMenuButton
+        icon={MdDelete}
         onClick={() => {
           props.message.delete();
         }}
@@ -40,6 +57,7 @@ export function MessageContextMenu(props: { message: Message }) {
         Delete message
       </ContextMenuButton>
       <ContextMenuButton
+        icon={MdShield}
         onClick={() =>
           window.open(
             `https://admin.revolt.chat/panel/inspect/message/${props.message.id}`,
@@ -47,7 +65,7 @@ export function MessageContextMenu(props: { message: Message }) {
           )
         }
       >
-        Admin Panel
+        Open as admin
       </ContextMenuButton>
     </ContextMenu>
   );
