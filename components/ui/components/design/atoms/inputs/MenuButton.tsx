@@ -126,7 +126,11 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
           unread
         />
       </Show>
-      {local.actions && <div class="actions">{local.actions}</div>}
+      {local.actions && (
+        <div class="actions" onClick={(e) => e.stopPropagation()}>
+          {local.actions}
+        </div>
+      )}
     </Base>
   );
 }
