@@ -15,6 +15,7 @@ import create_category from "./CreateCategory";
 import create_channel from "./CreateChannel";
 import create_group from "./CreateGroup";
 import create_invite from "./CreateInvite";
+import create_or_join_server from "./CreateOrJoinServer";
 import create_role from "./CreateRole";
 import create_server from "./CreateServer";
 import custom_status from "./CustomStatus";
@@ -24,6 +25,7 @@ import edit_keybind from "./EditKeybind";
 import edit_password from "./EditPassword";
 import edit_username from "./EditUsername";
 import error from "./Error";
+import join_server from "./JoinServer";
 import kick_member from "./KickMember";
 import mfa_enable_totp from "./MFAEnableTOTP";
 import mfa_flow from "./MFAFlow";
@@ -48,12 +50,14 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   create_invite,
   create_role,
   create_server,
+  create_or_join_server,
   custom_status,
   delete_message,
   edit_email,
   edit_password,
   edit_username,
   error,
+  join_server,
   edit_keybind,
   kick_member,
   mfa_enable_totp,

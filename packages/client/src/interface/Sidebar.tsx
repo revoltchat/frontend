@@ -11,6 +11,7 @@ import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
  */
 export const Sidebar: Component = () => {
   const user = useUser();
+  const client = useClient();
   const params = useSmartParams();
 
   return (
@@ -24,6 +25,12 @@ export const Sidebar: Component = () => {
         )}
         user={user()!}
         selectedServer={() => params().serverId}
+        onCreateOrJoinServer={() =>
+          modalController.push({
+            type: "create_or_join_server",
+            client: client(),
+          })
+        }
       />
       <Routes>
         <Route path="/server/:server/*" component={Server} />

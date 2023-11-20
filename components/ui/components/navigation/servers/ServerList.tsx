@@ -1,4 +1,4 @@
-import { BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
+import { BiRegularPlus, BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
@@ -7,6 +7,8 @@ import { Channel, Server, User } from "revolt.js";
 import { KeybindAction } from "@revolt/keybinds";
 import { Link, useNavigate } from "@revolt/routing";
 
+// import MdPlus from "@material-design-icons/svg/outlined/password.svg?component-solid";
+import { iconSize } from "../../..";
 import { invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
@@ -48,6 +50,11 @@ interface Props {
    * Selected server id
    */
   selectedServer: Accessor<string | undefined>;
+
+  /**
+   * Create or join server
+   */
+  onCreateOrJoinServer(): void;
 }
 
 /**
@@ -116,7 +123,10 @@ export const ServerList = (props: Props) => {
 
   return (
     <ServerListBase>
-      <div use:invisibleScrollable={{ direction: "y" }}>
+      <div
+        use:invisibleScrollable={{ direction: "y" }}
+        style={{ "flex-grow": 1 }} // TODO: move into ListBase
+      >
         <Tooltip
           placement="right"
           content={() => (
@@ -223,6 +233,20 @@ export const ServerList = (props: Props) => {
             </Tooltip>
           )}
         </Draggable>
+        <Tooltip placement="right" content={"Create or join a server"}>
+          <EntryContainer>
+            <a onClick={() => props.onCreateOrJoinServer()}>
+              <Avatar
+                size={42}
+                fallback={
+                  /*<MdPlus {...iconSize("24px")} />*/ <BiRegularPlus
+                    size={20}
+                  />
+                }
+              />
+            </a>
+          </EntryContainer>
+        </Tooltip>
       </div>
       <Shadow>
         <div />

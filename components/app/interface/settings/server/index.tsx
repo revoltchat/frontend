@@ -11,6 +11,7 @@ import {
 import { Server } from "revolt.js";
 
 import { useUser } from "@revolt/client";
+import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText, useTheme } from "@revolt/ui";
@@ -134,6 +135,15 @@ const Config: SettingsConfiguration<Server> = {
                   {t("app.context_menu.delete_server")}
                 </ColouredText>
               ),
+              /**
+               * Handle server deletion request
+               */
+              onClick() {
+                getController("modal").push({
+                  type: "delete_server",
+                  server,
+                });
+              },
             },
           ],
         },

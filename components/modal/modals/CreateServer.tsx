@@ -8,7 +8,7 @@ import { PropGenerator } from "../types";
 /**
  * Modal to create a new server
  */
-const CreateInvite: PropGenerator<"create_server"> = (props) => {
+const CreateServer: PropGenerator<"create_server"> = (props) => {
   const t = useTranslation();
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ const CreateInvite: PropGenerator<"create_server"> = (props) => {
         })
         .catch(mapAnyError);
 
-      navigate(`/server/${server._id}`);
+      setTimeout(() => navigate(`/server/${server._id}`));
     },
     submit: {
       children: t("app.special.modals.actions.create"),
@@ -48,4 +48,4 @@ const CreateInvite: PropGenerator<"create_server"> = (props) => {
   });
 };
 
-export default CreateInvite;
+export default CreateServer;

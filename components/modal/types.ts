@@ -23,7 +23,9 @@ export type Modals =
       type:
         | "add_friend"
         | "create_group"
+        | "create_or_join_server"
         | "create_server"
+        | "join_server"
         | "custom_status"
         | "edit_username"
         | "edit_email"

@@ -28,7 +28,7 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
   const t = useTranslation();
 
   const [processing, setProcessing] = createSignal(false);
-  const [code, setCode] = createSignal("...");
+  const [link, setLink] = createSignal("...");
 
   // Generate an invite code
   onMount(() => {
@@ -36,7 +36,13 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
 
     props.channel
       .createInvite()
-      .then(({ _id }) => setCode(_id))
+      .then(({ _id }) =>
+        setLink(
+          IS_REVOLT
+            ? `https://rvlt.gg/${_id}`
+            : `${window.location.protocol}//${window.location.host}/invite/${_id}`
+        )
+      )
       .catch((err) =>
         modalController.push({ type: "error", error: mapAnyError(err) })
       )
@@ -59,7 +65,7 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
             <Match when={!processing()}>
               <Invite>
                 {t("app.special.modals.prompt.create_invite_created")}
-                <code>{code}</code>
+                <code>{link()}</code>
               </Invite>
             </Match>
           </Switch>
@@ -73,12 +79,7 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
     actions: [
       {
         children: t("app.context_menu.copy_link"),
-        onClick: () =>
-          modalController.writeText(
-            IS_REVOLT
-              ? `https://rvlt.gg/${code}`
-              : `${window.location.host}/invite/${code}`
-          ),
+        onClick: () => modalController.writeText(link()),
       },
     ],
   });

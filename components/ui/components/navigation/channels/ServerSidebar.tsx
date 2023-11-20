@@ -1,8 +1,10 @@
 import {
   BiRegularHash,
   BiRegularPhoneCall,
+  BiRegularShare,
   BiSolidChevronRight,
   BiSolidCog,
+  BiSolidShare,
 } from "solid-icons/bi";
 import {
   For,
@@ -18,6 +20,7 @@ import { styled } from "solid-styled-components";
 
 import type { API, Channel, Server } from "revolt.js";
 
+import { getController } from "@revolt/common";
 import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useNavigate } from "@revolt/routing";
@@ -300,6 +303,19 @@ function Entry(props: { channel: Channel; active: boolean }) {
               <ChannelIcon src={props.channel.smallIconURL} />
             </Show>
           </>
+        }
+        actions={
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              getController("modal").push({
+                type: "create_invite",
+                channel: props.channel,
+              });
+            }}
+          >
+            <BiRegularShare size={16} />
+          </a>
         }
       >
         <OverflowingText>
