@@ -37,6 +37,15 @@ export type Modals =
       session: Session;
     }
   | {
+      type: "report_content";
+      target: Server | User | Message;
+      messageId?: string;
+    }
+  | {
+      type: "report_success";
+      user?: User;
+    }
+  | {
       type: "signed_out";
     }
   | ({

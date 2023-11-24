@@ -1,6 +1,7 @@
 import { Message } from "revolt.js";
 
 import { useUser } from "@revolt/client";
+import { getController } from "@revolt/common";
 import { state } from "@revolt/state";
 
 import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
@@ -14,7 +15,6 @@ import {
   ContextMenu,
   ContextMenuButton,
   ContextMenuDivider,
-  ContextMenuItem,
 } from "./ContextMenu";
 
 /**
@@ -47,7 +47,17 @@ export function MessageContextMenu(props: { message: Message }) {
         Copy text
       </ContextMenuButton>
       <ContextMenuDivider />
-      <ContextMenuButton icon={MdReport}>Report message</ContextMenuButton>
+      <ContextMenuButton
+        icon={MdReport}
+        onClick={() => {
+          getController("modal").push({
+            type: "report_content",
+            target: props.message,
+          });
+        }}
+      >
+        Report message
+      </ContextMenuButton>
       <ContextMenuButton
         icon={MdDelete}
         onClick={() => {
