@@ -1,4 +1,4 @@
-import { Component, ComponentProps, JSX } from "solid-js";
+import { Component, ComponentProps, JSX, splitProps } from "solid-js";
 
 import { iconSize, styled } from "@revolt/ui";
 
@@ -50,10 +50,12 @@ type ButtonProps = ComponentProps<typeof ContextMenuItem> & {
 };
 
 export function ContextMenuButton(props: ButtonProps) {
+  const [local, remote] = splitProps(props, ["icon", "children"]);
+
   return (
-    <ButtonBase>
-      {props.icon?.(iconSize("1.2em"))}
-      <span>{props.children}</span>
+    <ButtonBase {...remote}>
+      {local.icon?.(iconSize("1.2em"))}
+      <span>{local.children}</span>
     </ButtonBase>
   );
 }
