@@ -33,7 +33,9 @@ declare module "solid-styled-components" {
         | "background"
         | "foreground"
         | `component-${
-            | `${"fab" | "checkbox"}-${"background" | "foreground"}`
+            | `${"fab" | "checkbox" | "scrollbar"}-${
+                | "background"
+                | "foreground"}`
             | "checkbox-foreground-check"
             | "chip-background"
             | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`

@@ -176,6 +176,9 @@ export const darkTheme: DefaultTheme = {
     // Component: FAB
     "component-fab-background": materialColour("primary"),
     "component-fab-foreground": materialColour("primary", 90),
+    // Component: Scrollbar
+    "component-scrollbar-background": "transparent",
+    "component-scrollbar-foreground": materialColour("primary", 85),
     // Component: Category Button
     "component-categorybtn-background": materialColour("background", 99),
     "component-categorybtn-background-icon": materialColour("primary", 90),

@@ -20,7 +20,7 @@ export function scrollable(
     ${"overflow-" + ((props?.direction ?? "y") === "y" ? "x" : "y")}: hidden;
 
     scrollbar-width: ${props?.showOnHover ? "none" : "thin"};
-    scrollbar-color: ${theme!.colours["background-400"]} transparent;
+    scrollbar-color: ${theme!.colours["component-scrollbar-foreground"]} ${theme!.colours["component-scrollbar-background"]};
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -29,11 +29,11 @@ export function scrollable(
     }
 
     &::-webkit-scrollbar-track {
-      background: transparent;
+      background: ${theme!.colours["component-scrollbar-background"]};
     }
 
     &::-webkit-scrollbar-thumb {
-      background: ${theme!.colours["background-400"]};
+      background: ${theme!.colours["component-scrollbar-foreground"]};
       background-clip: content-box;
 
       border: 1px solid transparent;
