@@ -1,10 +1,8 @@
 import {
   BiRegularHash,
   BiRegularPhoneCall,
-  BiRegularShare,
   BiSolidChevronRight,
   BiSolidCog,
-  BiSolidShare,
 } from "solid-icons/bi";
 import {
   For,
@@ -25,7 +23,11 @@ import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useNavigate } from "@revolt/routing";
 
-import { scrollable } from "../../../directives";
+import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
+import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
+
+import { iconSize } from "../../..";
+import { floating, scrollable } from "../../../directives";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
@@ -34,7 +36,8 @@ import { Column, OverflowingText, Row } from "../../design/layout";
 
 import { SidebarBase } from "./common";
 
-scrollable;
+void scrollable;
+void floating;
 
 interface Props {
   /**
@@ -305,17 +308,44 @@ function Entry(props: { channel: Channel; active: boolean }) {
           </>
         }
         actions={
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              getController("modal").push({
-                type: "create_invite",
-                channel: props.channel,
-              });
-            }}
-          >
-            <BiRegularShare size={16} />
-          </a>
+          <>
+            <a
+              use:floating={{
+                tooltip: {
+                  placement: "top",
+                  content: "Create Invite",
+                },
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                getController("modal").push({
+                  type: "create_invite",
+                  channel: props.channel,
+                });
+              }}
+            >
+              <MdPersonAdd {...iconSize("14px")} />
+            </a>
+
+            <a
+              use:floating={{
+                tooltip: {
+                  placement: "top",
+                  content: "Edit Channel",
+                },
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                getController("modal").push({
+                  type: "settings",
+                  config: "channel",
+                  context: props.channel,
+                });
+              }}
+            >
+              <MdSettings {...iconSize("14px")} />
+            </a>
+          </>
         }
       >
         <OverflowingText>

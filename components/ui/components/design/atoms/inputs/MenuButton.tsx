@@ -86,6 +86,16 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
 
   .actions {
     display: none;
+
+    align-items: center;
+    flex-direction: row;
+    gap: ${(props) => props.theme!.gap.sm};
+
+    /*TEMP FIXME*/
+    a {
+      display: grid;
+      place-items: center;
+    }
   }
 
   &:hover {
@@ -95,7 +105,7 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
       theme!.colours["component-menubtn-hover-background"]};
 
     .actions {
-      display: block;
+      display: flex;
     }
   }
 
