@@ -122,11 +122,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               title: <></>,
               hidden: true,
             },
-            {
+            /*{
               id: "profile",
               icon: <MdAccountCircle {...iconSize(20)} />,
               title: t("app.settings.pages.profile.title"),
-            },
+            },*/
             {
               id: "sessions",
               icon: <MdVerifiedUser {...iconSize(20)} />,
@@ -154,7 +154,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             },
           ],
         },
-        {
+        /*{
           title: t("app.settings.categories.client_settings"),
           entries: [
             {
@@ -212,15 +212,15 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               title: t("app.settings.pages.experiments.title"),
             },
           ],
-        },
+        },*/
         {
           entries: [
-            {
+            /*{
               onClick: () =>
                 getController("modal").push({ type: "changelog", posts: [] }),
               icon: <MdFormatListBulleted {...iconSize(20)} />,
               title: t("app.special.modals.changelogs.title"),
-            },
+            },*/
             {
               href: "https://github.com/revoltchat",
               icon: <MdMemory {...iconSize(20)} />,
