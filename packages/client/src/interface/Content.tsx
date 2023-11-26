@@ -29,24 +29,5 @@ function SettingsRedirect() {
  * Render content without sidebars
  */
 export const Content: Component = () => {
-  return (
-    <Routes>
-      <Route
-        path="/server/:server/*"
-        element={
-          <Routes>
-            <Route path="/channel/:channel" component={ChannelPage} />
-            <Route path="/*" component={ServerHome} />
-          </Routes>
-        }
-      />
-      <Route path="/channel/:channel" component={ChannelPage} />
-      <Route path="/dev" component={DevelopmentPage} />
-      <Route path="/friends" component={Friends} />
-      <Route path="/app" component={HomePage} />
-      <Route path="/pwa" component={PWARedirect} />
-      <Route path="/settings" component={SettingsRedirect} />
-      <Route path="/" element={<Navigate href="/app" />} />
-    </Routes>
-  );
+  return <ChannelPage />;
 };

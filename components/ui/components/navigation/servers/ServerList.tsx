@@ -1,5 +1,5 @@
 import { BiRegularPlus, BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
-import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
+import { Accessor, For, Show, batch, onCleanup, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Channel, Server, User } from "revolt.js";
@@ -121,6 +121,48 @@ export const ServerList = (props: Props) => {
     );
   });
 
+  function Item(props: { accentColour: string; darkMode?: boolean }) {
+    return (
+      <EntryContainer
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          batch(() => {
+            (window as any)._demo_setAccent(props.accentColour);
+            (window as any)._demo_setDarkMode(props.darkMode ?? false);
+          });
+        }}
+      >
+        <Avatar
+          size={42}
+          fallback={
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                overflow: "hidden",
+                background: props.darkMode ? "#101010" : "#f0f0f0",
+                "border-radius": "50%",
+              }}
+            >
+              <div
+                style={{
+                  width: "0",
+                  height: "0",
+                  border: "solid 20px",
+                  "border-color":
+                    props.accentColour +
+                    " transparent transparent " +
+                    props.accentColour,
+                }}
+              />
+            </div>
+          }
+          interactive
+        />
+      </EntryContainer>
+    );
+  }
+
   return (
     <ServerListBase>
       <div
@@ -204,48 +246,36 @@ export const ServerList = (props: Props) => {
           </EntryContainer>
         </Show>
         <LineDivider />
-        <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
-          {(item) => (
-            <Tooltip placement="right" content={item.name}>
-              <EntryContainer>
-                <Show when={props.selectedServer() === item.id}>
-                  <PositionSwoosh>
-                    <Swoosh />
-                  </PositionSwoosh>
-                </Show>
-                <Link href={`/server/${item.id}`}>
-                  <Avatar
-                    size={42}
-                    src={item.iconURL}
-                    holepunch={item.unread ? "top-right" : "none"}
-                    overlay={
-                      <>
-                        <Show when={item.unread}>
-                          <UnreadsGraphic count={item.mentions.length} unread />
-                        </Show>
-                      </>
-                    }
-                    fallback={item.name}
-                    interactive
-                  />
-                </Link>
-              </EntryContainer>
-            </Tooltip>
-          )}
-        </Draggable>
-        <Tooltip placement="right" content={"Create or join a server"}>
-          <EntryContainer>
-            <a onClick={() => props.onCreateOrJoinServer()}>
-              <Avatar
-                size={42}
-                fallback={
-                  /*<MdPlus {...iconSize("24px")} />*/ <BiRegularPlus
-                    size={20}
-                  />
-                }
-              />
-            </a>
-          </EntryContainer>
+
+        <Tooltip placement="right" content={"Coral Orange (Light)"}>
+          <Item accentColour="#FF5733" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Coral Orange (Dark)"}>
+          <Item accentColour="#FF5733" darkMode />
+        </Tooltip>
+        <Tooltip placement="right" content={"Purple (Light)"}>
+          <Item accentColour="#8C5FD3" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Purple (Dark)"}>
+          <Item accentColour="#8C5FD3" darkMode />
+        </Tooltip>
+        <Tooltip placement="right" content={"Green (Light)"}>
+          <Item accentColour="#B4CBAF" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Green (Dark)"}>
+          <Item accentColour="#B4CBAF" darkMode />
+        </Tooltip>
+        <Tooltip placement="right" content={"Blue (Light)"}>
+          <Item accentColour="#5231E7" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Blue (Dark)"}>
+          <Item accentColour="#5231E7" darkMode />
+        </Tooltip>
+        <Tooltip placement="right" content={"Pink (Light)"}>
+          <Item accentColour="#FFC0CB" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Pink (Dark)"}>
+          <Item accentColour="#FFC0CB" darkMode />
         </Tooltip>
       </div>
       <Shadow>

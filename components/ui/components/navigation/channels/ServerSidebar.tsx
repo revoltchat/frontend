@@ -161,9 +161,14 @@ export const ServerSidebar = (props: Props) => {
         <List gap="lg">
           <div />
           <For each={props.server.orderedChannels}>
-            {(category) => (
-              <Category category={category} channelId={props.channelId} />
-            )}
+            {(category) =>
+              ![
+                "01G3E05H65N1K6WM64SPVJ4PSE",
+                "01HC0JQH88WC02Y0S1VE9WEBRM",
+              ].includes(category.id) && (
+                <Category category={category} channelId={props.channelId} />
+              )
+            }
           </For>
           <div />
         </List>
@@ -185,9 +190,9 @@ function ServerInfo(
           <TextWithEmoji content={props.server.name} />
         </OverflowingText>
       </ServerName>
-      <SettingsLink onClick={props.openServerSettings}>
+      {/* <SettingsLink onClick={props.openServerSettings}>
         <BiSolidCog size={18} />
-      </SettingsLink>
+      </SettingsLink> */}
     </Row>
   );
 }
@@ -327,7 +332,7 @@ function Entry(props: { channel: Channel; active: boolean }) {
               <MdPersonAdd {...iconSize("14px")} />
             </a>
 
-            <a
+            {/* <a
               use:floating={{
                 tooltip: {
                   placement: "top",
@@ -344,7 +349,7 @@ function Entry(props: { channel: Channel; active: boolean }) {
               }}
             >
               <MdSettings {...iconSize("14px")} />
-            </a>
+            </a> */}
           </>
         }
       >

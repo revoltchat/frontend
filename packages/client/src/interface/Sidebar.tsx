@@ -12,7 +12,6 @@ import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 export const Sidebar: Component = () => {
   const user = useUser();
   const client = useClient();
-  const params = useSmartParams();
 
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>
@@ -24,7 +23,7 @@ export const Sidebar: Component = () => {
           (channel) => channel.unread
         )}
         user={user()!}
-        selectedServer={() => params().serverId}
+        selectedServer={() => "01F7ZSBSFHQ8TA81725KQCSDDP"}
         onCreateOrJoinServer={() =>
           modalController.push({
             type: "create_or_join_server",
@@ -32,11 +31,7 @@ export const Sidebar: Component = () => {
           })
         }
       />
-      <Routes>
-        <Route path="/server/:server/*" component={Server} />
-        <Route path="/admin" element={null} />
-        <Route path="/*" component={Home} />
-      </Routes>
+      <Server />
     </div>
   );
 };
@@ -83,14 +78,13 @@ const Home: Component = () => {
  * Render sidebar for a server
  */
 const Server: Component = () => {
-  const params = useSmartParams();
   const client = useClient();
 
   /**
    * Resolve the server
    * @returns Server
    */
-  const server = () => client()!.servers.get(params().serverId!)!;
+  const server = () => client()!.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP")!;
 
   /**
    * Open the server information modal
@@ -117,7 +111,7 @@ const Server: Component = () => {
     <Show when={server()}>
       <ServerSidebar
         server={server()}
-        channelId={params().channelId}
+        channelId={"01F92C5ZXBQWQ8KY7J8KY917NM"}
         openServerInfo={openServerInfo}
         openServerSettings={openServerSettings}
       />
