@@ -182,7 +182,7 @@ render(() => {
     <div style={{ background: "#111", height: "100%" }}>
       <Masks />
       <I18nContext.Provider value={i18n}>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={darkTheme()}>
           <ApplyGlobalStyles />
           <Container>
             <Row gap="none" justify="stretch" grow>

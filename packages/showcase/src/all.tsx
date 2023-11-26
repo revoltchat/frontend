@@ -92,7 +92,7 @@ render(() => {
     <div style={{ background: "black" }}>
       <Masks />
       <I18nContext.Provider value={i18n}>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={darkTheme()}>
           <ApplyGlobalStyles />
           <Column>
             <For each={Object.keys(components)}>
