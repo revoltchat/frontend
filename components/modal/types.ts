@@ -38,8 +38,9 @@ export type Modals =
     }
   | {
       type: "report_content";
+      client: Client;
       target: Server | User | Message;
-      messageId?: string;
+      contextMessage?: Message;
     }
   | {
       type: "report_success";
