@@ -21,6 +21,12 @@ export function TextChannel(props: ChannelPageProps) {
   // Last unread message ID
   const [_lastId, setLastId] = createSignal<string | undefined>(undefined);
 
+  // Get a reference to the message box's load latest function
+  let loadLatestRef: ((nearby?: string) => void) | undefined;
+
+  // Get a reference to the message list's "end status"
+  let atEndRef: (() => boolean) | undefined;
+
   // Store last unread message ID
   createEffect(
     on(
@@ -37,13 +43,11 @@ export function TextChannel(props: ChannelPageProps) {
   // Mark channel as read whenever it is marked as unread
   createEffect(
     on(
-      () => props.channel.unread,
+      // must be at the end of the conversation
+      () => props.channel.unread && (atEndRef ? atEndRef() : true),
       (unread) => unread && props.channel.ack()
     )
   );
-
-  // Get a reference to the message box's load latest function
-  let loadLatestRef: ((nearby?: string) => void) | undefined;
 
   return (
     <>
@@ -55,6 +59,7 @@ export function TextChannel(props: ChannelPageProps) {
           <Messages
             channel={props.channel}
             limit={150}
+            atEndRef={(ref) => (atEndRef = ref)}
             loadInitialMessagesRef={(ref) => (loadLatestRef = ref)}
           />
           <TypingIndicator
