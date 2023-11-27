@@ -49,7 +49,7 @@ export function RenderMention(props: CustomComponentProps) {
   const user = useUser(props.match);
 
   return (
-    <Mention>
+    <Mention /* TODO: use:floating={floatingUserMenus}*/>
       <Avatar size={16} src={user()!.avatar} />
       <ColouredText
         colour={user()!.colour!}
