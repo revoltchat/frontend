@@ -28,5 +28,5 @@ export function mapAnyError(error: any) {
     return "NetworkError";
   }
 
-  return "UnknownError";
+  return typeof error === "string" ? error : "UnknownError";
 }
