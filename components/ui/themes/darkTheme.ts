@@ -142,8 +142,11 @@ export const darkTheme: (
       // Component: Button
       "component-btn-background-primary": materialColour("primary"),
       "component-btn-foreground-primary": materialColour("onBackground", 98),
-      "component-btn-background-secondary": materialColour("primary"),
-      "component-btn-foreground-secondary": materialColour("onBackground", 96),
+      "component-btn-background-secondary": materialColour("surfaceVariant"),
+      "component-btn-foreground-secondary": materialColour(
+        "onSurfaceVariant",
+        30
+      ),
       "component-btn-foreground-plain": materialColour("onBackground"),
       "component-btn-foreground-plain-secondary": materialColour(
         "onBackground",
