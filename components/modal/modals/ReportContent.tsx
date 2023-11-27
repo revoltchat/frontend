@@ -1,3 +1,5 @@
+import { API, Server, User } from "revolt.js";
+
 import { Message } from "@revolt/app";
 import { useTranslation } from "@revolt/i18n";
 import { scrollable, styled } from "@revolt/ui";
@@ -7,6 +9,33 @@ import { PropGenerator } from "../types";
 
 scrollable;
 
+const CONTENT_REPORT_REASONS: API.ContentReportReason[] = [
+  "Illegal",
+  "IllegalGoods",
+  "IllegalExtortion",
+  "IllegalPornography",
+  "IllegalHacking",
+  "ExtremeViolence",
+  "PromotesHarm",
+  "UnsolicitedSpam",
+  "Raid",
+  "SpamAbuse",
+  "ScamsFraud",
+  "Malware",
+  "Harassment",
+  "NoneSpecified",
+];
+
+const USER_REPORT_REASONS: API.UserReportReason[] = [
+  "UnsolicitedSpam",
+  "SpamAbuse",
+  "InappropriateProfile",
+  "Impersonation",
+  "BanEvasion",
+  "Underage",
+  "NoneSpecified",
+];
+
 /**
  * Modal to report content
  */
@@ -15,7 +44,13 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
 
   return createFormModal({
     modalProps: {
-      title: "Tell us what's wrong with this message",
+      title: `Tell us what's wrong with this ${
+        /* TEMP TODO */ props.target instanceof User
+          ? "user"
+          : props.target instanceof Server
+          ? "server"
+          : "message"
+      }`,
     },
     schema: {
       preview: "custom",
@@ -26,24 +61,68 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
       preview: {
         element: (
           <ContentContainer use:scrollable>
-            <Message message={props.target as never} />
+            {props.target instanceof User ? (
+              <b>{props.target.username}</b>
+            ) : props.target instanceof Server ? (
+              <b>{props.target.name}</b>
+            ) : (
+              <Message message={props.target as never} />
+            )}
           </ContentContainer>
         ),
       },
       category: {
-        options: [{ name: "aaa", value: "aaa" }],
+        options: [
+          {
+            name: "Please select a reason",
+            value: "",
+            disabled: true,
+            selected: true,
+          },
+          ...(props.target instanceof User
+            ? USER_REPORT_REASONS
+            : CONTENT_REPORT_REASONS
+          ).map((value) => ({
+            name: t(
+              `app.special.modals.report.content_reason.${value}`,
+              {},
+              value
+            ),
+            value,
+          })),
+        ],
         field: "Pick a category",
       },
       detail: {
         field: "Give us some detail",
       },
     },
-    callback: async ({ category, detail, preview }) => {
-      // TODO: bot API in revolt.js
-      /*const { bot } = await props.client.bots
-        .create({ name })
-        .catch(mapAnyError);*/
-      // props.onCreate(bot);
+    callback: async ({ category, detail }) => {
+      if (!category || (category === "NoneSpecified" && !detail))
+        throw "NoReasonProvided";
+
+      await props.client.api.post("/safety/report", {
+        content:
+          props.target instanceof User
+            ? {
+                type: "User",
+                id: props.target.id,
+                report_reason: category as API.UserReportReason,
+                message_id: props.contextMessage?.id,
+              }
+            : props.target instanceof Server
+            ? {
+                type: "Server",
+                id: props.target.id,
+                report_reason: category as API.ContentReportReason,
+              }
+            : {
+                type: "Message",
+                id: props.target.id,
+                report_reason: category as API.ContentReportReason,
+              },
+        additional_context: detail,
+      });
     },
     submit: {
       children: "Report",
