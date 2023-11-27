@@ -32,7 +32,10 @@ import {
 } from "@revolt/ui";
 
 import { MessageContextMenu } from "../../../menus/MessageContextMenu";
-import { floatingUserMenus } from "../../../menus/UserContextMenu";
+import {
+  floatingUserMenus,
+  floatingUserMenusFromMessage,
+} from "../../../menus/UserContextMenu";
 
 floating;
 
@@ -87,12 +90,7 @@ export function Message(props: Props) {
   return (
     <MessageContainer
       username={
-        <div
-          use:floating={floatingUserMenus(
-            props.message.author!,
-            props.message.member
-          )}
-        >
+        <div use:floating={floatingUserMenusFromMessage(props.message)}>
           <Username
             username={props.message.username}
             colour={props.message.roleColour!}
@@ -101,10 +99,7 @@ export function Message(props: Props) {
       }
       avatar={
         <AvatarContainer
-          use:floating={floatingUserMenus(
-            props.message.author!,
-            props.message.member
-          )}
+          use:floating={floatingUserMenusFromMessage(props.message)}
         >
           <Avatar size={36} src={props.message.avatarURL} />
         </AvatarContainer>

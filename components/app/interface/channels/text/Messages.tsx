@@ -55,6 +55,12 @@ interface Props {
    * @param fn Function
    */
   loadInitialMessagesRef?: (fn: (nearby?: string) => void) => void;
+
+  /**
+   * Bind the atEnd signal to the parent component
+   * @param fn Function
+   */
+  atEndRef?: (fn: () => boolean) => void;
 }
 
 /**
@@ -100,8 +106,11 @@ export function Messages(props: Props) {
       .then(handleResult);
   }
 
-  // Setup ref if it exists
-  onMount(() => props.loadInitialMessagesRef?.(loadInitialMessages));
+  // Setup refs if they exists
+  onMount(() => {
+    props.loadInitialMessagesRef?.(loadInitialMessages);
+    props.atEndRef?.(atEnd);
+  });
 
   /**
    * Fetch messages on channel mount

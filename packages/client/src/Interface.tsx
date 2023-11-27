@@ -1,5 +1,8 @@
 import { Component, Match, Switch, onCleanup, onMount } from "solid-js";
 
+import { Server } from "revolt.js";
+
+import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
 import { clientController } from "@revolt/client";
 import { KeybindAction } from "@revolt/keybinds";
 import { modalController } from "@revolt/modal";
@@ -23,6 +26,7 @@ const Interface: Component = () => {
         e.preventDefault();
         modalController.push({
           type: "settings",
+          config: "client",
         });
       } else if (typeof e.to === "string") {
         state.layout.setLastActivePath(e.to);
@@ -56,7 +60,21 @@ const Interface: Component = () => {
           }}
           onDrop={(e) => e.preventDefault()}
         >
-          <Sidebar />
+          <Sidebar
+            menuGenerator={(target) => ({
+              contextMenu: () => {
+                return (
+                  <>
+                    {target instanceof Server ? (
+                      <ServerContextMenu server={target} />
+                    ) : (
+                      <ChannelContextMenu channel={target} />
+                    )}
+                  </>
+                );
+              },
+            })}
+          />
           <Content />
         </Layout>
       </Match>
