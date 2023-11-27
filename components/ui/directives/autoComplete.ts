@@ -292,13 +292,13 @@ function searchMatches(
         config.searchSpace?.members ??
         config.searchSpace?.users ??
         config.client.users.toList()
-      ).sort((a, b) => a.username!.localeCompare(b.username!));
+      ).sort((a, b) => a.displayName!.localeCompare(b.displayName!));
 
       let i = 0;
       while (matches.length < 10 && i < searchSpace.length) {
         const user = searchSpace[i];
         if (
-          user.username?.toLowerCase().includes(query) ||
+          user.displayName?.toLowerCase().includes(query) ||
           (user instanceof ServerMember &&
             user.user?.username.toLowerCase().includes(query))
         ) {
