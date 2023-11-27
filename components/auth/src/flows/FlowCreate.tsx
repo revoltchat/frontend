@@ -1,7 +1,9 @@
 import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { Link, useNavigate } from "@revolt/routing";
-import { Button, Typography } from "@revolt/ui";
+import { Button, Row, Typography, iconSize } from "@revolt/ui";
+
+import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
 import { clientController } from "../../../client";
 
@@ -32,7 +34,7 @@ export default function FlowCreate() {
     });
 
     // FIXME: should tell client if email was sent
-    // or if email even needs to be confirmed
+    //        or if email even needs to be confirmed
 
     // TODO: log straight in if no email confirmation?
 
@@ -42,16 +44,38 @@ export default function FlowCreate() {
 
   return (
     <>
-      <FlowTitle subtitle={t("login.subtitle2")} emoji="wave">
+      {/* <FlowTitle subtitle={t("login.subtitle2")} emoji="wave">
         {t("login.welcome2")}
-      </FlowTitle>
+      </FlowTitle> */}
       <Form onSubmit={create} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email", "password"]} />
-        <Button type="submit">{t("login.register")}</Button>
+        <Row align justify="center">
+          <Link href="..">
+            <Button palette="plain">
+              <MdArrowBack {...iconSize("1.2em")} /> Back
+            </Button>
+          </Link>
+          <Button type="submit">{t("login.register")}</Button>
+        </Row>
       </Form>
-      <Typography variant="legacy-settings-description">
-        {t("login.existing")} <Link href="..">{t("login.remembered")}</Link>
-      </Typography>
+      {import.meta.env.DEV && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            background: "white",
+            color: "black",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setFlowCheckEmail("insert@revolt.chat");
+            navigate("/login/check", { replace: true });
+          }}
+        >
+          Mock Submission
+        </div>
+      )}
     </>
   );
 }

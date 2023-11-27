@@ -1,6 +1,8 @@
 import { useTranslation } from "@revolt/i18n";
 import { Link, useNavigate } from "@revolt/routing";
-import { Button, Column, Typography, styled } from "@revolt/ui";
+import { Button, Column, Row, Typography, iconSize, styled } from "@revolt/ui";
+
+import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
 import { clientController } from "../../../client";
 
@@ -40,23 +42,23 @@ export default function FlowLogin() {
 
   return (
     <>
-      <FlowTitle subtitle={t("login.subtitle")} emoji="wave">
+      {/*<FlowTitle subtitle={t("login.subtitle")} emoji="wave">
         {t("login.welcome")}
-      </FlowTitle>
+      </FlowTitle>*/}
       <Form onSubmit={login}>
         <Fields fields={["email", "password"]} />
-        <Button type="submit">{t("login.title")}</Button>
+        <Link href="../reset">{t("login.reset")}</Link>
+        <Row align justify="center">
+          <Link href="..">
+            <Button palette="plain">
+              <MdArrowBack {...iconSize("1.2em")} /> Back
+            </Button>
+          </Link>
+          <Button type="submit">{t("login.title")}</Button>
+        </Row>
       </Form>
-      <Typography variant="legacy-settings-description">
-        {t("login.new")} <Link href="create">{t("login.create")}</Link>
-      </Typography>
-      <Typography variant="legacy-settings-description">
-        {t("login.forgot")} <Link href="reset">{t("login.reset")}</Link>
-      </Typography>
-      <Typography variant="legacy-settings-description">
-        {t("login.missing_verification")}{" "}
-        <Link href="resend">{t("login.resend")}</Link>
-      </Typography>
+
+      <Link href="../resend">{t("login.resend")}</Link>
 
       {/*<Show when={clientController.getReadyClients().length > 0}>
         <Switch fallback={<Navigate href="/" />}>
