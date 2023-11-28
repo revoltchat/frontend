@@ -10,6 +10,7 @@ import {
   AutoCompleteState,
   autoComplete,
   floating,
+  ripple,
   scrollable,
 } from "./directives";
 
@@ -44,6 +45,7 @@ export function ProvideDirectives(props: { children: JSX.Element }) {
         "use:floating": floating,
         "use:scrollable": scrollable,
         "use:autoComplete": autoComplete,
+        "use:ripple": ripple,
       }}
     >
       {props.children}
@@ -79,6 +81,11 @@ declare module "solid-js" {
   // eslint-disable-next-line
   namespace JSX {
     interface Directives {
+      ripple:
+        | true
+        | {
+            enable: boolean;
+          };
       scrollable:
         | true
         | {

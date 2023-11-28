@@ -135,6 +135,7 @@ export const darkTheme: (
   }
 
   return {
+    darkMode,
     colours: {
       // Global
       background: materialColour("background"),
@@ -163,13 +164,14 @@ export const darkTheme: (
         "onSurfaceVariant",
         30
       ),
-      "component-menubtn-muted-background": materialColour("surfaceVariant"),
+      "component-menubtn-muted-background": "transparent",
       "component-menubtn-muted-foreground": materialColour(
         "onSurfaceVariant",
-        65
+        45
       ),
-      "component-menubtn-hover-background": materialColour("surfaceVariant"),
+      "component-menubtn-hover-background": materialColour("surfaceVariant"), // DEPRECATE
       "component-menubtn-hover-foreground": materialColour(
+        // DEPRECATE
         "onSurfaceVariant",
         25
       ),
@@ -178,8 +180,8 @@ export const darkTheme: (
       "component-input-foreground": materialColour("onBackground"),
       "component-input-background-primary": materialColour("background", 100),
       "component-input-background-secondary": materialColour("background", 98),
-      "component-input-hover-primary": materialColour("background", 98),
-      "component-input-hover-secondary": materialColour("background", 100),
+      "component-input-hover-primary": materialColour("background", 98), // DEPRECATE?
+      "component-input-hover-secondary": materialColour("background", 100), // DEPRECATE?
       // Component: Chip
       "component-chip-background": materialColour("secondary", 96),
       // Component: Checkbox
@@ -279,6 +281,10 @@ export const darkTheme: (
       "messaging-indicator-foreground": materialColour("onBackground"),
       "messaging-message-box-background": materialColour("onBackground", 94),
       "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
+      "messaging-message-mentioned-background": materialColour(
+        "surfaceVariant",
+        95
+      ),
       // "messaging-message-box-background": materialColour("primaryContainer"),
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
@@ -537,9 +543,15 @@ export const darkTheme: (
       blur: {
         md: "blur(20px)",
       },
-      muted: "brightness(0.5) saturate(0.75)",
-      hover: "brightness(1.1)",
-      active: "brightness(0.9)",
+      ripple: {
+        hover: 0.05,
+      },
+      muted: "brightness(0)", // DEPRECATE
+      hover: "brightness(0)", // DEPRECATE
+      active: "brightness(0)", // DEPRECATE
+      // muted: "brightness(0.5) saturate(0.75)",
+      // hover: "brightness(1.1)",
+      // active: "brightness(0.9)",
       spoiler: "brightness(0.2) contrast(0.8) blur(24px)",
     },
     layout: {

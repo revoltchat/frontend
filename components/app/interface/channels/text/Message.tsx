@@ -107,6 +107,7 @@ export function Message(props: Props) {
       contextMenu={() => <MessageContextMenu message={props.message} />}
       timestamp={props.message.createdAt}
       edited={props.message.editedAt}
+      mentioned={props.message.mentioned}
       tail={props.tail || state.settings.getValue("appearance:compact_mode")}
       header={
         <Show when={props.message.replyIds}>

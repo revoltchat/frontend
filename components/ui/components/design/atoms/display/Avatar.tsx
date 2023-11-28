@@ -1,7 +1,11 @@
 import { JSXElement } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { ripple } from "../../../../directives";
+
 import { Initials } from "./Initials";
+
+void ripple;
 
 export type Props = {
   /**
@@ -109,10 +113,6 @@ const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive">>`
   foreignObject {
     transition: ${(props) => props.theme!.transitions.fast} filter;
   }
-
-  &:hover foreignObject {
-    filter: ${(props) => (props.interactive ? "brightness(0.8)" : "unset")};
-  }
 `;
 
 /**
@@ -143,6 +143,7 @@ export function Avatar(props: Props) {
         )}
         {!props.src && (
           <FallbackBase
+            use:ripple
             shape={props.shape}
             primaryContrast={props.primaryContrast}
           >

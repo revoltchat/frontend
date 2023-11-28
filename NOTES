@@ -8,6 +8,8 @@ Context menu needs to be more broadly available (in interface package?)
 - Modals "edit identity", "leave server", "delete channel", "kick member", "ban member", "report user"
 - Store unsent messages in Draft (keep files around until send)
 - Fix colours for offline members in list
-- Fix colours for hovering messages in chat
+- Fix colours for hovering / mentions messages in chat
 - Style the message "bars": reply, attached, last read message, auto complete
 - Redesign login page
+- Image preview modal prolly
+- separate invite background
