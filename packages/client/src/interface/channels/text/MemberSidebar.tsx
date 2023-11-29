@@ -147,16 +147,16 @@ export function ServerMemberSidebar(props: Props) {
   // Stage 4: Perform sorting on role lists
   const roles = createMemo(() => {
     const roles = stage3();
-    roles.forEach((entry) =>
-      entry.members.sort(
+
+    return roles.map((entry) => ({
+      ...entry,
+      members: [...entry.members].sort(
         (a, b) =>
           (a.nickname ?? a.user?.displayName)?.localeCompare(
             b.nickname ?? b.user?.displayName ?? ""
           ) || 0
-      )
-    );
-
-    return roles;
+      ),
+    }));
   });
 
   return (
@@ -279,7 +279,7 @@ function Member(props: { member: ServerMember }) {
       >
         <Column gap="none">
           <OverflowingText>
-            <Username username={user().username} colour={user().colour} />
+            <Username username={user().username} colour={user().colour!} />
           </OverflowingText>
           <Show when={status()}>
             <Tooltip
