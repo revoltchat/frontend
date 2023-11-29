@@ -2,6 +2,7 @@ import type { ComponentProps, JSX } from "solid-js";
 
 import {
   API,
+  Bot,
   Channel,
   Client,
   Message,
@@ -178,9 +179,7 @@ export type Modals =
     }
   | {
       type: "delete_bot";
-      bot: string;
-      name: string;
-      cb?: () => void;
+      bot: Bot;
     }
   | {
       type: "delete_message";
