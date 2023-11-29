@@ -213,31 +213,41 @@ export const ServerList = (props: Props) => {
         <LineDivider />
         <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
           {(item) => (
-            <Tooltip placement="right" content={item.name}>
-              <EntryContainer use:floating={props.menuGenerator(item)}>
-                <Show when={props.selectedServer() === item.id}>
-                  <PositionSwoosh>
-                    <Swoosh />
-                  </PositionSwoosh>
-                </Show>
-                <Link href={`/server/${item.id}`}>
-                  <Avatar
-                    size={42}
-                    src={item.iconURL}
-                    holepunch={item.unread ? "top-right" : "none"}
-                    overlay={
-                      <>
-                        <Show when={item.unread}>
-                          <UnreadsGraphic count={item.mentions.length} unread />
-                        </Show>
-                      </>
-                    }
-                    fallback={item.name}
-                    interactive
-                  />
-                </Link>
-              </EntryContainer>
-            </Tooltip>
+            <Show
+              when={
+                item.$exists /** reactivity lags behind here for some reason,
+                                 just check existence before continuing */
+              }
+            >
+              <Tooltip placement="right" content={item.name}>
+                <EntryContainer use:floating={props.menuGenerator(item)}>
+                  <Show when={props.selectedServer() === item.id}>
+                    <PositionSwoosh>
+                      <Swoosh />
+                    </PositionSwoosh>
+                  </Show>
+                  <Link href={`/server/${item.id}`}>
+                    <Avatar
+                      size={42}
+                      src={item.iconURL}
+                      holepunch={item.unread ? "top-right" : "none"}
+                      overlay={
+                        <>
+                          <Show when={item.unread}>
+                            <UnreadsGraphic
+                              count={item.mentions.length}
+                              unread
+                            />
+                          </Show>
+                        </>
+                      }
+                      fallback={item.name}
+                      interactive
+                    />
+                  </Link>
+                </EntryContainer>
+              </Tooltip>
+            </Show>
           )}
         </Draggable>
         <Tooltip placement="right" content={"Create or join a server"}>
