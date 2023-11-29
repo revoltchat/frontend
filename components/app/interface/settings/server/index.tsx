@@ -41,6 +41,11 @@ const Config: SettingsConfiguration<Server> = {
     // eslint-disable-next-line solid/reactivity
     const id = props.page();
 
+    if (!server.$exists) {
+      getController("modal").pop();
+      return null;
+    }
+
     switch (id) {
       case "overview":
         return <Overview server={server} />;
