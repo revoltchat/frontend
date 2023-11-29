@@ -1,6 +1,6 @@
 import { ulid } from "ulid";
 
-import { mapAnyError } from "@revolt/client";
+import { mapAndRethrowError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 
 import { createFormModal } from "../form";
@@ -36,7 +36,7 @@ const CreateCategory: PropGenerator<"create_category"> = (props) => {
             },
           ],
         })
-        .catch(mapAnyError);
+        .catch(mapAndRethrowError);
     },
     submit: {
       children: t("app.special.modals.actions.create"),

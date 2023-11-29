@@ -19,7 +19,10 @@ import create_or_join_server from "./CreateOrJoinServer";
 import create_role from "./CreateRole";
 import create_server from "./CreateServer";
 import custom_status from "./CustomStatus";
+import delete_bot from "./DeleteBot";
+import delete_channel from "./DeleteChannel";
 import delete_message from "./DeleteMessage";
+import delete_server from "./DeleteServer";
 import edit_email from "./EditEmail";
 import edit_keybind from "./EditKeybind";
 import edit_password from "./EditPassword";
@@ -27,6 +30,7 @@ import edit_username from "./EditUsername";
 import error from "./Error";
 import join_server from "./JoinServer";
 import kick_member from "./KickMember";
+import leave_server from "./LeaveServer";
 import mfa_enable_totp from "./MFAEnableTOTP";
 import mfa_flow from "./MFAFlow";
 import mfa_recovery from "./MFARecovery";
@@ -53,7 +57,10 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   create_server,
   create_or_join_server,
   custom_status,
+  delete_bot,
+  delete_channel,
   delete_message,
+  delete_server,
   edit_email,
   edit_password,
   edit_username,
@@ -61,6 +68,7 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   join_server,
   edit_keybind,
   kick_member,
+  leave_server,
   mfa_enable_totp,
   mfa_flow,
   mfa_recovery,

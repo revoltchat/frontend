@@ -6,7 +6,7 @@ import ClientController from "./Controller";
 
 export type { default as ClientController } from "./Controller";
 
-export { mapAnyError } from "./error";
+export { mapAnyError, mapAndRethrowError } from "./error";
 
 /**
  * Global client controller

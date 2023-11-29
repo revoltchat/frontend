@@ -2,7 +2,7 @@ import { API, Server, User } from "revolt.js";
 
 import { Message } from "@revolt/app";
 import { useTranslation } from "@revolt/i18n";
-import { scrollable, styled } from "@revolt/ui";
+import { Avatar, Column, Initials, scrollable, styled } from "@revolt/ui";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
@@ -62,9 +62,19 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
         element: (
           <ContentContainer use:scrollable>
             {props.target instanceof User ? (
-              <b>{props.target.username}</b>
+              <Column align="center">
+                <Avatar src={props.target.animatedAvatarURL} size={64} />
+                {props.target.displayName}
+              </Column>
             ) : props.target instanceof Server ? (
-              <b>{props.target.name}</b>
+              <Column align="center">
+                <Avatar
+                  src={props.target.animatedIconURL}
+                  fallback={<Initials input={props.target.name} />}
+                  size={64}
+                />
+                {props.target.name}
+              </Column>
             ) : (
               <Message message={props.target as never} />
             )}

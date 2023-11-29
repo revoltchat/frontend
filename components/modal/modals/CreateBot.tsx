@@ -1,4 +1,4 @@
-import { mapAnyError } from "@revolt/client";
+import { mapAndRethrowError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 
 import { createFormModal } from "../form";
@@ -26,7 +26,7 @@ const CreateBot: PropGenerator<"create_bot"> = (props) => {
       // TODO: bot API in revolt.js
       /*const { bot } = await props.client.bots
         .create({ name })
-        .catch(mapAnyError);*/
+        .catch(mapAndRethrowError);*/
       // props.onCreate(bot);
     },
     submit: {

@@ -23,7 +23,7 @@ const KickMember: PropGenerator<"kick_member"> = (props) => {
           <Column align="center">
             <Avatar src={props.member.user?.animatedAvatarURL} size={64} />
             {t("app.special.modals.prompt.confirm_kick", {
-              name: props.member.user?.username!,
+              name: props.member.user?.username as string,
             })}
           </Column>
         ),
