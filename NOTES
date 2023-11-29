@@ -3,13 +3,29 @@
 Wherever we are using "menu generator", chances are we should just move the component into interface.
 Context menu needs to be more broadly available (in interface package?)
 
+# Good to do but not necessary
+
+- separate invite background
+- check what we are missing from competitors in ctx menus
+- Image preview modal prolly (this will be annoying to not have to users)
+- Store unsent messages in Draft (keep files around until send)
+
 # To-do
 
-- Modals "edit identity", "leave server", "delete channel", "kick member", "ban member", "report user"
-- Store unsent messages in Draft (keep files around until send)
+- Style the message "bars": reply, attached, last read message, auto complete
+- not sure whether to polish up all message components
+
+# In Progress
+
+- Modals "edit identity"
+- Redesign login page
+
+# Done
+
+- Modals "kick member", "ban member", "report user"
+- pressing enter in modal does not close it [BUG]
+- [BUG] deleting server has weird behaviour
+- [BUG] missing user for new members joining server
+- Modals "delete X", "leave server", "delete channel"
 - Fix colours for offline members in list
 - Fix colours for hovering / mentions messages in chat
-- Style the message "bars": reply, attached, last read message, auto complete
-- Redesign login page
-- Image preview modal prolly
-- separate invite background
