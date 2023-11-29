@@ -100,6 +100,10 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
       place-items: center;
     }
   }
+
+  &:hover .actions {
+    display: flex;
+  }
 `;
 
 /**
