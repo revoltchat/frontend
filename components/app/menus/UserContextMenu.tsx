@@ -6,6 +6,7 @@ import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
 
 import MdAdminPanelSettings from "@material-design-icons/svg/outlined/admin_panel_settings.svg?component-solid";
+import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdDoNotDisturbOn from "@material-design-icons/svg/outlined/do_not_disturb_on.svg?component-solid";
 import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid";
@@ -31,6 +32,13 @@ export function UserContextMenu(props: {
   // TODO: if we take serverId instead, we could dynamically fetch server member here
   // same for the floating menu I guess?
   const client = useClient();
+
+  /**
+   * Mention the user
+   */
+  function mention() {
+    getController("state").draft.insertText(props.user.toString());
+  }
 
   /**
    * Edit server identity for user
@@ -93,6 +101,9 @@ export function UserContextMenu(props: {
 
   return (
     <ContextMenu>
+      <ContextMenuButton icon={MdAlternateEmail} onClick={mention}>
+        Mention
+      </ContextMenuButton>
       <Show
         when={
           props.member &&
