@@ -9,4 +9,6 @@ export { Tabs } from "./Tabs";
 export { CategoryButton } from "./CategoryButton";
 export { OverrideSwitch } from "./OverrideSwitch";
 export { CategoryCollapse } from "./CategoryCollapse";
+export { CategoryButtonGroup } from "./CategoryButtonGroup";
 export { IconButton } from "./IconButton";
+export { Chip } from "./Chip";

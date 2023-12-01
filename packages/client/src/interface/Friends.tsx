@@ -94,7 +94,7 @@ export function Friends() {
   return (
     // TODO: i18n
     <Base>
-      <Header palette="primary">
+      <Header placement="primary">
         <HeaderIcon>
           <BiSolidUserDetail size={24} />
         </HeaderIcon>
@@ -235,7 +235,7 @@ const Avatars = styled("div", "Avatars")`
 
   svg:not(:first-child) {
     position: relative;
-    margin-left: -32px;
+    margin-inline-start: -32px;
   }
 `;
 

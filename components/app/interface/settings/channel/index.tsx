@@ -8,6 +8,7 @@ import {
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText, useTheme } from "@revolt/ui";
@@ -62,45 +63,61 @@ const Config: SettingsConfiguration<Channel> = {
     const t = useTranslation();
     const theme = useTheme();
 
-    return [
-      {
-        title: <TextWithEmoji content={channel.name} />,
-        entries: [
-          {
-            id: "overview",
-            icon: <BiSolidInfoCircle size={20} />,
-            title: t("app.settings.channel_pages.overview.title"),
-          },
-          {
-            hidden: !channel.havePermission("ManagePermissions"),
-            id: "permissions",
-            icon: <BiRegularListUl size={20} />,
-            title: t("app.settings.channel_pages.permissions.title"),
-          },
-          {
-            hidden: !channel.havePermission("ManageWebhooks"),
-            id: "webhooks",
-            icon: <BiSolidCloud size={20} />,
-            title: t("app.settings.channel_pages.webhooks.title"),
-          },
-        ],
-      },
-      {
-        hidden: !(
-          channel.type !== "Group" && channel.havePermission("ManageChannel")
-        ),
-        entries: [
-          {
-            icon: <BiSolidTrash size={20} color={theme!.colours.error} />,
-            title: (
-              <ColouredText colour={theme!.colours.error}>
-                {t("app.context_menu.delete_channel")}
-              </ColouredText>
-            ),
-          },
-        ],
-      },
-    ];
+    return {
+      entries: [
+        {
+          title: <TextWithEmoji content={channel.name} />,
+          entries: [
+            {
+              id: "overview",
+              icon: <BiSolidInfoCircle size={20} />,
+              title: t("app.settings.channel_pages.overview.title"),
+            },
+            {
+              hidden: !channel.havePermission("ManagePermissions"),
+              id: "permissions",
+              icon: <BiRegularListUl size={20} />,
+              title: t("app.settings.channel_pages.permissions.title"),
+            },
+            {
+              hidden: !channel.havePermission("ManageWebhooks"),
+              id: "webhooks",
+              icon: <BiSolidCloud size={20} />,
+              title: t("app.settings.channel_pages.webhooks.title"),
+            },
+          ],
+        },
+        {
+          hidden: !(
+            channel.type !== "Group" && channel.havePermission("ManageChannel")
+          ),
+          entries: [
+            {
+              icon: (
+                <BiSolidTrash
+                  size={20}
+                  color={theme!.customColours.error.color}
+                />
+              ),
+              title: (
+                <ColouredText colour={theme!.customColours.error.color}>
+                  {t("app.context_menu.delete_channel")}
+                </ColouredText>
+              ),
+              /**
+               * Handle server deletion request
+               */
+              onClick() {
+                getController("modal").push({
+                  type: "delete_channel",
+                  channel,
+                });
+              },
+            },
+          ],
+        },
+      ],
+    };
   },
 };
 

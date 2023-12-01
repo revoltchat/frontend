@@ -2,6 +2,8 @@ import { JSX, createMemo } from "solid-js";
 import { For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { getController } from "@revolt/common";
+
 import { ColouredText, Row, Username } from "../design";
 
 /**
@@ -23,6 +25,9 @@ export function UserCard(
   const roleIds = createMemo(
     () => new Set(props.member?.orderedRoles.map((role) => role.id))
   );
+
+  // Disable it while it's being developed
+  if (!getController("state").experiments.isEnabled("user_card")) return null;
 
   return (
     <Base>

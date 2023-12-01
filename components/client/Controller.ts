@@ -87,7 +87,7 @@ export default class ClientController {
 
     const client = new Client({
       baseURL: CONFIGURATION.DEFAULT_API_URL,
-      debug: false,
+      debug: import.meta.env.DEV,
       syncUnreads: true,
       /**
        * Check whether a channel is muted

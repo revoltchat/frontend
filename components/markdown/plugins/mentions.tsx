@@ -1,9 +1,8 @@
-import { Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { RE_MENTIONS } from "revolt.js";
 
-import { clientController, useClient } from "@revolt/client";
+import { clientController } from "@revolt/client";
 import { Avatar, ColouredText } from "@revolt/ui";
 
 import { useUser } from "../users";
@@ -17,14 +16,17 @@ const Mention = styled.a`
   padding-right: 6px;
   align-items: center;
   display: inline-flex;
-  vertical-align: middle;
+  vertical-align: bottom;
 
   cursor: pointer;
 
   font-weight: 600;
   text-decoration: none !important;
   border-radius: ${(props) => props.theme!.borderRadius.lg};
-  background: ${(props) => props.theme!.colours["background-100"]};
+  color: ${(props) =>
+    props.theme!.colours["messaging-component-mention-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-mention-background"]};
 
   transition: 0.1s ease filter;
 
@@ -46,7 +48,7 @@ export function RenderMention(props: CustomComponentProps) {
   const user = useUser(props.match);
 
   return (
-    <Mention>
+    <Mention /* TODO: use:floating={floatingUserMenus}*/>
       <Avatar size={16} src={user()!.avatar} />
       <ColouredText
         colour={user()!.colour!}

@@ -6,6 +6,7 @@ import {
 } from "solid-icons/bi";
 import {
   For,
+  JSX,
   Match,
   Show,
   Switch,
@@ -18,11 +19,16 @@ import { styled } from "solid-styled-components";
 
 import type { API, Channel, Server } from "revolt.js";
 
+import { getController } from "@revolt/common";
 import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useNavigate } from "@revolt/routing";
 
-import { scrollable } from "../../../directives";
+import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
+import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
+
+import { iconSize } from "../../..";
+import { floating, scrollable } from "../../../directives";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
@@ -31,7 +37,8 @@ import { Column, OverflowingText, Row } from "../../design/layout";
 
 import { SidebarBase } from "./common";
 
-scrollable;
+void scrollable;
+void floating;
 
 interface Props {
   /**
@@ -53,6 +60,11 @@ interface Props {
    * Open server settings modal
    */
   openServerSettings: () => void;
+
+  /**
+   * Menu generator
+   */
+  menuGenerator: (target: Server | Channel) => JSX.Directives["floating"];
 }
 
 /**
@@ -127,7 +139,7 @@ export const ServerSidebar = (props: Props) => {
     <SidebarBase>
       <Switch
         fallback={
-          <Header palette="secondary">
+          <Header placement="secondary">
             <ServerInfo
               server={props.server}
               openServerInfo={props.openServerInfo}
@@ -138,7 +150,7 @@ export const ServerSidebar = (props: Props) => {
       >
         <Match when={props.server.banner}>
           <HeaderWithImage
-            palette="secondary"
+            placement="secondary"
             style={{
               background: `url('${props.server.bannerURL}')`,
             }}
@@ -151,12 +163,20 @@ export const ServerSidebar = (props: Props) => {
           </HeaderWithImage>
         </Match>
       </Switch>
-      <div use:scrollable={{ showOnHover: true }}>
+      <div
+        use:scrollable={{ showOnHover: true }}
+        style={{ "flex-grow": 1 }}
+        use:floating={props.menuGenerator(props.server)}
+      >
         <List gap="lg">
           <div />
           <For each={props.server.orderedChannels}>
             {(category) => (
-              <Category category={category} channelId={props.channelId} />
+              <Category
+                category={category}
+                channelId={props.channelId}
+                menuGenerator={props.menuGenerator}
+              />
             )}
           </For>
           <div />
@@ -207,10 +227,12 @@ const SettingsLink = styled.a`
 /**
  * Single category entry
  */
-function Category(props: {
-  category: CategoryData;
-  channelId: string | undefined;
-}) {
+function Category(
+  props: {
+    category: CategoryData;
+    channelId: string | undefined;
+  } & Pick<Props, "menuGenerator">
+) {
   const [shown, setShown] = createSignal(true);
   const channels = createMemo(() =>
     props.category.channels.filter(
@@ -237,7 +259,11 @@ function Category(props: {
       </Show>
       <For each={channels()}>
         {(channel) => (
-          <Entry channel={channel} active={channel.id === props.channelId} />
+          <Entry
+            channel={channel}
+            active={channel.id === props.channelId}
+            menuGenerator={props.menuGenerator}
+          />
         )}
       </For>
     </Column>
@@ -254,7 +280,8 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
   text-transform: uppercase;
   transition: ${(props) => props.theme!.transitions.fast} all;
 
-  color: ${(props) => props.theme!.colours["foreground-200"]};
+  color: ${(props) =>
+    props.theme!.colours["sidebar-channels-category-foreground"]};
 
   &:hover {
     filter: brightness(1.1);
@@ -273,12 +300,15 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
 /**
  * Server channel entry
  */
-function Entry(props: { channel: Channel; active: boolean }) {
+function Entry(
+  props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">
+) {
   return (
     <Link
       href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}
     >
       <MenuButton
+        use:floating={props.menuGenerator(props.channel)}
         size="thin"
         alert={
           !props.active &&
@@ -289,14 +319,56 @@ function Entry(props: { channel: Channel; active: boolean }) {
           props.active ? "selected" : props.channel.unread ? "active" : "normal"
         }
         icon={
-          <Switch fallback={<BiRegularHash size={24} />}>
-            <Match when={props.channel.icon}>
+          <>
+            <Switch fallback={<BiRegularHash size={20} />}>
+              <Match when={props.channel.type === "VoiceChannel"}>
+                <BiRegularPhoneCall size={20} />
+              </Match>
+            </Switch>
+            <Show when={props.channel.icon}>
               <ChannelIcon src={props.channel.smallIconURL} />
-            </Match>
-            <Match when={props.channel.type === "VoiceChannel"}>
-              <BiRegularPhoneCall size={24} />
-            </Match>
-          </Switch>
+            </Show>
+          </>
+        }
+        actions={
+          <>
+            <a
+              use:floating={{
+                tooltip: {
+                  placement: "top",
+                  content: "Create Invite",
+                },
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                getController("modal").push({
+                  type: "create_invite",
+                  channel: props.channel,
+                });
+              }}
+            >
+              <MdPersonAdd {...iconSize("14px")} />
+            </a>
+
+            <a
+              use:floating={{
+                tooltip: {
+                  placement: "top",
+                  content: "Edit Channel",
+                },
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                getController("modal").push({
+                  type: "settings",
+                  config: "channel",
+                  context: props.channel,
+                });
+              }}
+            >
+              <MdSettings {...iconSize("14px")} />
+            </a>
+          </>
         }
       >
         <OverflowingText>
@@ -311,8 +383,8 @@ function Entry(props: { channel: Channel; active: boolean }) {
  * Channel icon styling
  */
 const ChannelIcon = styled("img")`
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
 `;
 

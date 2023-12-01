@@ -1,9 +1,12 @@
 import { ComponentProps, JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { ripple } from "../../../../directives";
 import { Row } from "../../layout";
 import { generateTypographyCSS } from "../display/Typography";
 import { Unreads } from "../indicators";
+
+void ripple;
 
 export interface Props {
   /**
@@ -57,21 +60,27 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   color: ${(props) =>
     props.theme!.colours[
       props.attention === "active" || props.attention === "selected"
-        ? "foreground"
-        : "foreground-400"
+        ? "component-menubtn-selected-foreground"
+        : props.attention === "muted"
+        ? "component-menubtn-muted-foreground"
+        : "component-menubtn-default-foreground"
     ]};
 
   background: ${(props) =>
-    props.attention === "selected"
-      ? props.theme!.colours["background-200"]
-      : "transparent"};
+    props.theme!.colours[
+      props.attention === "selected"
+        ? "component-menubtn-selected-background"
+        : props.attention === "muted"
+        ? "component-menubtn-muted-background"
+        : "component-menubtn-default-background"
+    ]};
 
   transition: ${(props) => props.theme!.transitions.fast} all;
 
-  > * {
+  /* TODO: BAD!! > * {
     filter: ${(props) =>
-      props.attention === "muted" ? props.theme!.effects.muted : "none"};
-  }
+    props.attention === "muted" ? props.theme!.effects.muted : "none"};
+  } */
 
   .content {
     flex-grow: 1;
@@ -80,18 +89,20 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
 
   .actions {
     display: none;
-  }
 
-  &:hover {
-    background: ${({ theme }) => theme!.colours["background-200"]};
+    align-items: center;
+    flex-direction: row;
+    gap: ${(props) => props.theme!.gap.sm};
 
-    .actions {
-      display: block;
+    /*TEMP FIXME*/
+    a {
+      display: grid;
+      place-items: center;
     }
   }
 
-  &:active {
-    filter: ${(props) => props.theme!.effects.active};
+  &:hover .actions {
+    display: flex;
   }
 `;
 
@@ -107,7 +118,7 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
   ]);
 
   return (
-    <Base {...other} align>
+    <Base {...other} align use:ripple>
       {local.icon}
       <div class="content">{local.children}</div>
       <Show when={local.alert}>
@@ -117,7 +128,11 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
           unread
         />
       </Show>
-      {local.actions && <div class="actions">{local.actions}</div>}
+      {local.actions && (
+        <div class="actions" onClick={(e) => e.stopPropagation()}>
+          {local.actions}
+        </div>
+      )}
     </Base>
   );
 }

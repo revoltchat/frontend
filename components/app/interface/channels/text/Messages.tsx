@@ -23,11 +23,14 @@ import {
   ListView,
   MessageDivider,
   Row,
+  ripple,
   styled,
 } from "@revolt/ui";
 import { generateTypographyCSS } from "@revolt/ui/components/design/atoms/display/Typography";
 
 import { Message } from "./Message";
+
+void ripple;
 
 /**
  * Default fetch limit
@@ -55,6 +58,12 @@ interface Props {
    * @param fn Function
    */
   loadInitialMessagesRef?: (fn: (nearby?: string) => void) => void;
+
+  /**
+   * Bind the atEnd signal to the parent component
+   * @param fn Function
+   */
+  atEndRef?: (fn: () => boolean) => void;
 }
 
 /**
@@ -100,8 +109,11 @@ export function Messages(props: Props) {
       .then(handleResult);
   }
 
-  // Setup ref if it exists
-  onMount(() => props.loadInitialMessagesRef?.(loadInitialMessages));
+  // Setup refs if they exists
+  onMount(() => {
+    props.loadInitialMessagesRef?.(loadInitialMessages);
+    props.atEndRef?.(atEnd);
+  });
 
   /**
    * Fetch messages on channel mount
@@ -336,7 +348,7 @@ export function Messages(props: Props) {
       </ListView>
       <Show when={!atEnd()}>
         <JumpToBottom onClick={() => loadInitialMessages()}>
-          <Row align>
+          <Row align use:ripple>
             <span>Viewing older messages</span>
             <span>Jump to present</span>
             <BiSolidDownArrowAlt size={18} />
@@ -349,21 +361,21 @@ export function Messages(props: Props) {
 
 const JumpToBottom = styled.div`
   z-index: 30;
-  display: absolute;
+  position: relative;
 
   div {
-    cursor: pointer;
-    display: relative;
-    padding: ${(props) => props.theme!.gap.md};
+    bottom: 0;
+    width: 100%;
+    position: absolute;
 
-    backdrop-filter: blur(20px);
-    border-radius: ${(props) => props.theme!.borderRadius.md}
-      ${(props) => props.theme!.borderRadius.md} 0 0;
-    color: ${(props) => props.theme!.colours["foreground-300"]};
-    background-color: rgba(
-      ${(props) => props.theme!.rgb["typing-indicator"]},
-      0.9
-    );
+    padding: ${(props) => props.theme!.gap.md};
+    border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+    cursor: pointer;
+    backdrop-filter: ${(props) => props.theme!.effects.blur.md};
+    color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
+    background-color: ${(props) =>
+      props.theme!.colours["messaging-indicator-background"]};
 
     ${(props) => generateTypographyCSS(props.theme!, "jump-to-bottom")}
 
@@ -371,13 +383,8 @@ const JumpToBottom = styled.div`
       flex-grow: 1;
     }
 
-    &:hover {
-      filter: ${(props) => props.theme!.effects.hover};
-    }
-
     &:active {
       transform: translateY(1px);
-      filter: ${(props) => props.theme!.effects.active};
     }
 
     @keyframes bottomBounce {

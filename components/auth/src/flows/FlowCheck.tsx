@@ -1,8 +1,10 @@
 import { Show } from "solid-js";
 
 import { useTranslation } from "@revolt/i18n";
-import { Link } from "@revolt/routing";
-import { Typography } from "@revolt/ui";
+import { Link, useNavigate } from "@revolt/routing";
+import { Button, Column, Row, Typography, iconSize } from "@revolt/ui";
+
+import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
 import { FlowTitle } from "./Flow";
 import { MailProvider } from "./MailProvider";
@@ -24,18 +26,40 @@ export function setFlowCheckEmail(e: string) {
  */
 export default function FlowCheck() {
   const t = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <>
       <FlowTitle subtitle={t("login.email_delay")} emoji="mail">
         {t("login.check_mail")}
       </FlowTitle>
-      <Show when={email}>
-        <MailProvider email={email} />
-      </Show>
-      <Typography variant="legacy-settings-description">
-        <Link href="..">{t("login.remembered")}</Link>
-      </Typography>
+      <Row align justify="center">
+        <Link href="..">
+          <Button palette="plain">
+            <MdArrowBack {...iconSize("1.2em")} /> Back
+          </Button>
+        </Link>
+        <Show when={email}>
+          <MailProvider email={email} />
+        </Show>
+      </Row>
+      {import.meta.env.DEV && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            background: "white",
+            color: "black",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate("/login/verify/abc", { replace: true });
+          }}
+        >
+          Mock Verify
+        </div>
+      )}
     </>
   );
 }

@@ -31,7 +31,7 @@ export function Breadcrumbs(props: Props) {
           return (
             <>
               <Show when={index() !== 0}>
-                <BiSolidChevronRight size="0.8em" />
+                <BiSolidChevronRight size="0.6em" />
               </Show>
               <Switch
                 fallback={

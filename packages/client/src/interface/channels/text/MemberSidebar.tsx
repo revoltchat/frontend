@@ -147,32 +147,27 @@ export function ServerMemberSidebar(props: Props) {
   // Stage 4: Perform sorting on role lists
   const roles = createMemo(() => {
     const roles = stage3();
-    roles.forEach((entry) =>
-      entry.members.sort(
-        (a, b) =>
-          (a.nickname ?? a.user?.username)?.localeCompare(
-            b.nickname ?? b.user?.username ?? ""
-          ) || 0
-      )
-    );
 
-    return roles;
+    return roles.map((entry) => ({
+      ...entry,
+      members: [...entry.members].sort(
+        (a, b) =>
+          (a.nickname ?? a.user?.displayName)?.localeCompare(
+            b.nickname ?? b.user?.displayName ?? ""
+          ) || 0
+      ),
+    }));
   });
 
   return (
     <Base
       ref={scrollTargetElement}
       use:scrollable={{
-        offsetTop: 48,
         direction: "y",
         showOnHover: true,
       }}
     >
-      <div
-        style={{
-          width: "232px",
-        }}
-      >
+      <Container>
         <CategoryTitle>
           <Row align>
             <UserStatus size="0.7em" status="Online" />
@@ -217,17 +212,30 @@ export function ServerMemberSidebar(props: Props) {
             )}
           </For>
         </Deferred>
-      </div>
+      </Container>
     </Base>
   );
 }
 
 /**
- * Base Styles
+ * Base styles
  */
 const Base = styled.div`
   flex-shrink: 0;
-  background: ${(props) => props.theme!.colours["background-100"]};
+
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
+  margin: ${(props) => (props.theme!.gap.md + " ").repeat(3)}0;
+  margin-top: calc(48px + 2 * ${(props) => props.theme!.gap.md});
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+  color: ${({ theme }) => theme!.colours["sidebar-channels-foreground"]};
+  background: ${({ theme }) => theme!.colours["sidebar-channels-background"]};
+`;
+
+/**
+ * Container styles
+ */
+const Container = styled.div`
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;
 
@@ -236,7 +244,6 @@ const Base = styled.div`
  */
 const CategoryTitle = styled.div`
   padding: 16px 14px 4px;
-  color: ${(props) => props.theme!.colours["foreground-400"]};
   ${(props) => generateTypographyCSS(props.theme!, "category")}
 `;
 
@@ -275,7 +282,7 @@ function Member(props: { member: ServerMember }) {
       >
         <Column gap="none">
           <OverflowingText>
-            <Username username={user().username} colour={user().colour} />
+            <Username username={user().username} colour={user().colour!} />
           </OverflowingText>
           <Show when={status()}>
             <Tooltip
@@ -283,11 +290,11 @@ function Member(props: { member: ServerMember }) {
               placement="top-start"
               aria={status()!}
             >
-              <Status>
+              <OverflowingText>
                 <Typography variant="status">
                   <TextWithEmoji content={status()!} />
                 </Typography>
-              </Status>
+              </OverflowingText>
             </Tooltip>
           </Show>
         </Column>
@@ -295,10 +302,3 @@ function Member(props: { member: ServerMember }) {
     </div>
   );
 }
-
-/**
- * Status text
- */
-const Status = styled(OverflowingText)`
-  color: ${(props) => props.theme!.colours["foreground-400"]};
-`;

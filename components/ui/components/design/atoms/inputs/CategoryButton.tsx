@@ -2,7 +2,6 @@ import {
   BiRegularLinkExternal,
   BiSolidChevronDown,
   BiSolidChevronRight,
-  BiSolidPencil,
 } from "solid-icons/bi";
 import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
@@ -19,22 +18,31 @@ export interface Props {
   readonly children?: JSX.Element;
   readonly description?: JSX.Element;
 
+  readonly disabled?: boolean;
   readonly onClick?: () => void;
   readonly action?: Action | Action[];
 }
 
 /**
- * Category Button
+ * Category Button (Fluent)
  */
 export function CategoryButton(props: Props) {
   return (
-    <Base isLink={!!props.onClick} onClick={props.onClick}>
-      <Switch fallback={props.icon}>
-        <Match when={props.icon === "blank"}>
-          <Blank />
-        </Match>
-      </Switch>
-      <Content grow gap="sm">
+    <Base
+      isLink={!!props.onClick}
+      disabled={props.disabled}
+      aria-disabled={props.disabled}
+      onClick={props.disabled ? undefined : props.onClick}
+    >
+      <Show when={props.icon !== "blank"}>
+        <IconWrapper>{props.icon}</IconWrapper>
+      </Show>
+
+      <Show when={props.icon === "blank"}>
+        <BlankIconWrapper />
+      </Show>
+
+      <Content grow>
         <Show when={props.children}>
           <OverflowingText>{props.children}</OverflowingText>
         </Show>
@@ -46,16 +54,19 @@ export function CategoryButton(props: Props) {
         {(action) => (
           <Switch fallback={action}>
             <Match when={action === "chevron"}>
-              <BiSolidChevronRight size={24} />
+              <Action>
+                <BiSolidChevronRight size={18} />
+              </Action>
             </Match>
             <Match when={action === "collapse"}>
-              <BiSolidChevronDown size={24} />
-            </Match>
-            <Match when={action === "edit"}>
-              <BiSolidPencil size={20} />
+              <Action>
+                <BiSolidChevronDown size={18} />
+              </Action>
             </Match>
             <Match when={action === "external"}>
-              <BiRegularLinkExternal size={20} />
+              <Action>
+                <BiRegularLinkExternal size={18} />
+              </Action>
             </Match>
           </Switch>
         )}
@@ -65,26 +76,24 @@ export function CategoryButton(props: Props) {
 }
 
 /**
- * Blank icon
- */
-const Blank = styled.div`
-  width: 24px;
-`;
-
-/**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
-  gap: 12px;
-  padding: 10px 12px;
-
-  color: ${(props) => props.theme!.colours["foreground"]};
+const Base = styled("a", "CategoryButton")<{
+  isLink: boolean;
+  disabled?: boolean;
+}>`
+  gap: 16px;
+  padding: 13px; /*TODO: make this a prop*/
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-300"]};
+
+  color: ${(props) => props.theme!.colours["component-categorybtn-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["component-categorybtn-background"]};
 
   user-select: none;
-  cursor: ${(props) => (props.isLink ? "pointer" : "initial")};
-  transition: ${(props) => props.theme!.transitions.fast} all;
+  cursor: ${(props) =>
+    props.disabled ? "not-allowed" : props.isLink ? "pointer" : "initial"};
+  transition: background-color 0.1s ease-in-out;
 
   display: flex;
   align-items: center;
@@ -95,12 +104,13 @@ const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
   }
 
   &:hover {
-    filter: ${(props) => (props.isLink ? props.theme!.effects.hover : "unset")};
+    background-color: ${(props) =>
+      props.theme!.colours["component-categorybtn-background-hover"]};
   }
 
   &:active {
-    filter: ${(props) =>
-      props.isLink ? props.theme!.effects.active : "unset"};
+    background-color: ${(props) =>
+      props.theme!.colours["component-categorybtn-background-active"]};
   }
 `;
 
@@ -108,19 +118,64 @@ const Base = styled("a", "CategoryButton")<{ isLink: boolean }>`
  * Title and description styles
  */
 const Content = styled(Column)`
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: 500;
+  font-size: 14px;
+  gap: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+/**
+ * Accented wrapper for the category button icons
+ */
+const IconWrapper = styled.div`
+  background: ${(props) =>
+    props.theme!.colours["component-categorybtn-background-icon"]};
+
+  width: 36px;
+  height: 36px;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  svg {
+    color: ${(props) =>
+      props.theme!.colours["component-categorybtn-foreground-description"]};
+  }
+`;
+
+/**
+ * Category button icon wrapper for the blank state
+ */
+const BlankIconWrapper = styled(IconWrapper)`
+  background: transparent;
 `;
 
 /**
  * Description shown below title
  */
 const Description = styled.span`
-  font-weight: 400;
-  font-size: 0.6875rem;
-  color: ${(props) => props.theme!.colours["foreground-200"]};
+  font-weight: 500;
+  font-size: 12px;
+  color: ${(props) =>
+    props.theme!.colours["component-categorybtn-foreground-description"]};
 
   a:hover {
     text-decoration: underline;
   }
+`;
+
+/**
+ * Container for action icons
+ */
+const Action = styled.div`
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
 `;

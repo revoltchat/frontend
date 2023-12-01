@@ -1,4 +1,4 @@
-import { mapAnyError } from "@revolt/client";
+import { mapAndRethrowError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 
@@ -27,9 +27,7 @@ const CreateGroup: PropGenerator<"create_group"> = (props) => {
     callback: async ({ name }) => {
       const group = await props.client.channels
         .createGroup(name, [])
-        .catch((err) => {
-          throw mapAnyError(err);
-        });
+        .catch(mapAndRethrowError);
 
       navigate(`/channel/${group.id}`);
     },

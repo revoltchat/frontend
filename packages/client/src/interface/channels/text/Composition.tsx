@@ -501,6 +501,9 @@ export function MessageComposition(props: Props) {
             ? { users: props.channel.recipients, channels: [] }
             : { channels: [] },
         }}
+        updateDraftSelection={(start, end) =>
+          state.draft.setSelection(props.channel.id, start, end)
+        }
       />
       <FilePasteCollector onFiles={onFiles} />
       <FileDropAnywhereCollector onFiles={onFiles} />

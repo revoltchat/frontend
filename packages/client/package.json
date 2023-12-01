@@ -11,14 +11,18 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "@solid-devtools/transform": "^0.10.4",
     "@types/lodash.isequal": "^4.5.5",
     "lnk": "^1.1.0",
     "revolt.js": "workspace:^",
     "typescript": "^4.8.2",
     "vite": "^4.2.1",
-    "vite-plugin-solid": "^2.3.0"
+    "vite-plugin-pwa": "^0.14.7",
+    "vite-plugin-solid": "^2.3.0",
+    "vite-plugin-solid-svg": "^0.6.1"
   },
   "dependencies": {
+    "@material-design-icons/svg": "^0.14.8",
     "@minht11/solid-virtual-container": "^0.2.1",
     "@revolt/app": "workspace:^",
     "@revolt/auth": "workspace:^",
@@ -33,12 +37,13 @@
     "@revolt/ui": "workspace:^",
     "@sentry/browser": "^7.38.0",
     "@sentry/tracing": "^7.38.0",
+    "@solid-devtools/debugger": "^0.22.1",
+    "@solid-devtools/overlay": "^0.27.3",
     "lodash.isequal": "^4.5.0",
     "mobx": "^6.3.2",
     "solid-icons": "^1.0.4",
     "solid-js": "^1.7.3",
     "ulid": "^2.3.0",
-    "vite-plugin-pwa": "^0.14.7",
     "workbox-precaching": "^6.5.4"
   },
   "private": true

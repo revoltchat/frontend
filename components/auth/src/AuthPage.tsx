@@ -3,6 +3,9 @@ import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
 import { Route, Routes } from "@revolt/routing";
+import { Button, iconSize } from "@revolt/ui";
+
+import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?component-solid";
 
 import wideSvg from "../../../packages/client/public/assets/wide.svg";
 
@@ -12,6 +15,7 @@ import { FlowBase } from "./flows/Flow";
 import FlowCheck from "./flows/FlowCheck";
 import FlowConfirmReset from "./flows/FlowConfirmReset";
 import FlowCreate from "./flows/FlowCreate";
+import FlowHome from "./flows/FlowHome";
 import FlowLogin from "./flows/FlowLogin";
 import FlowResend from "./flows/FlowResend";
 import FlowReset from "./flows/FlowReset";
@@ -62,6 +66,18 @@ const Nav = styled("div")`
     color: white;
     text-decoration: none;
   }
+
+  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
+    color: ${(props) => props.theme!.colours.foreground};
+
+    a,
+    a:link,
+    a:visited,
+    a:active,
+    svg {
+      color: ${(props) => props.theme!.colours.foreground};
+    }
+  }
 `;
 
 /**
@@ -77,7 +93,6 @@ const NavItems = styled("div")<{
   align-items: center;
   flex-grow: ${(props) => (props.grow ? 1 : 0)};
 
-  color: #ddd;
   font-size: 0.9em;
 
   @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
@@ -117,6 +132,8 @@ const Logo = styled("img")`
   height: 24px;
 `;
 
+let a = false;
+
 /**
  * Authentication page
  */
@@ -126,34 +143,48 @@ export function AuthPage() {
   return (
     <Base>
       <Nav>
+        <div />
+        <Button
+          compact="icon"
+          onClick={() => {
+            a = !a;
+            (window as any)._demo_setDarkMode(a);
+          }}
+        >
+          <MdDarkMode {...iconSize("24px")} />
+        </Button>
+      </Nav>
+      {/*<Nav>
         <Logo src={wideSvg} />
         <LocaleSelector />
-      </Nav>
+      </Nav>*/}
       <FlowBase>
         <Routes>
           <Route path="/check" component={FlowCheck} />
           <Route path="/create" component={FlowCreate} />
+          <Route path="/auth" component={FlowLogin} />
+          <Route path="/auth2" element={<b>test</b>} />
           <Route path="/resend" component={FlowResend} />
           <Route path="/reset" component={FlowReset} />
           <Route path="/verify/:token" component={FlowVerify} />
           <Route path="/reset/:token" component={FlowConfirmReset} />
-          <Route path="/*any" component={FlowLogin} />
+          <Route path="/*any" component={FlowHome} />
         </Routes>
       </FlowBase>
       <Nav>
         <NavItems stack grow>
           <NavItems>
             <LinkWithIcon href="https://github.com/revoltchat" target="_blank">
-              <BiLogosGithub size={24} color="white" />
+              <BiLogosGithub size={24} />
             </LinkWithIcon>
             <LinkWithIcon href="https://twitter.com/revoltchat" target="_blank">
-              <BiLogosTwitter size={24} color="white" />
+              <BiLogosTwitter size={24} />
             </LinkWithIcon>
             <LinkWithIcon
               href="https://mastodon.social/web/@revoltchat"
               target="_blank"
             >
-              <BiLogosMastodon size={24} color="white" />
+              <BiLogosMastodon size={24} />
             </LinkWithIcon>
           </NavItems>
           <Bullet />

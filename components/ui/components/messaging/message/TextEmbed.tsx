@@ -22,19 +22,24 @@ const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
   gap: ${(props) => props.theme!.gap.md};
 
   padding: ${(props) => props.theme!.gap.md};
-  color: ${(props) => props.theme!.colours["foreground"]};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-300"]};
+
+  color: ${(props) =>
+    props.theme!.colours["messaging-component-text-embed-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-text-embed-background"]};
 
   border-inline-start: 4px solid
-    ${(props) => props.borderColour ?? props.theme!.colours["background-200"]};
+    ${(props) =>
+      props.borderColour ??
+      props.theme!.colours["messaging-component-text-embed-foreground"]};
 `;
 
 const SiteInformation = styled("div", "SiteInfo")`
   display: flex;
   flex-direction: row;
   gap: ${(props) => props.theme!.gap.md};
-  color: ${(props) => props.theme!.colours["foreground-100"]};
+  /* TODO: color: ${(props) => props.theme!.colours["foreground-100"]}; */
 `;
 
 const Favicon = styled("img", "Favicon")`

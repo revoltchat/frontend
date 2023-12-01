@@ -2,6 +2,7 @@ import type { ComponentProps, JSX } from "solid-js";
 
 import {
   API,
+  Bot,
   Channel,
   Client,
   Message,
@@ -23,7 +24,9 @@ export type Modals =
       type:
         | "add_friend"
         | "create_group"
+        | "create_or_join_server"
         | "create_server"
+        | "join_server"
         | "custom_status"
         | "edit_username"
         | "edit_email"
@@ -33,6 +36,16 @@ export type Modals =
   | {
       type: "rename_session";
       session: Session;
+    }
+  | {
+      type: "report_content";
+      client: Client;
+      target: Server | User | Message;
+      contextMessage?: Message;
+    }
+  | {
+      type: "report_success";
+      user?: User;
     }
   | {
       type: "signed_out";
@@ -166,9 +179,7 @@ export type Modals =
     }
   | {
       type: "delete_bot";
-      bot: string;
-      name: string;
-      cb?: () => void;
+      bot: Bot;
     }
   | {
       type: "delete_message";

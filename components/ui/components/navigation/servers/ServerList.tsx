@@ -1,5 +1,11 @@
-import { BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
+import {
+  BiRegularPlus,
+  BiSolidCheckShield,
+  BiSolidCog,
+  BiSolidMegaphone,
+} from "solid-icons/bi";
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
+import { JSX } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Channel, Server, User } from "revolt.js";
@@ -7,7 +13,9 @@ import { Channel, Server, User } from "revolt.js";
 import { KeybindAction } from "@revolt/keybinds";
 import { Link, useNavigate } from "@revolt/routing";
 
-import { invisibleScrollable } from "../../../directives";
+// import MdPlus from "@material-design-icons/svg/outlined/password.svg?component-solid";
+import { iconSize } from "../../..";
+import { floating, invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Button, Column, Typography } from "../../design";
@@ -21,6 +29,7 @@ import { Tooltip } from "../../floating";
 import { Swoosh } from "./Swoosh";
 
 invisibleScrollable;
+floating;
 
 interface Props {
   /**
@@ -48,6 +57,16 @@ interface Props {
    * Selected server id
    */
   selectedServer: Accessor<string | undefined>;
+
+  /**
+   * Create or join server
+   */
+  onCreateOrJoinServer(): void;
+
+  /**
+   * Menu generator
+   */
+  menuGenerator: (target: Server | Channel) => JSX.Directives["floating"];
 }
 
 /**
@@ -116,7 +135,10 @@ export const ServerList = (props: Props) => {
 
   return (
     <ServerListBase>
-      <div use:invisibleScrollable={{ direction: "y" }}>
+      <div
+        use:invisibleScrollable={{ direction: "y" }}
+        style={{ "flex-grow": 1 }} // TODO: move into ListBase
+      >
         <Tooltip
           placement="right"
           content={() => (
@@ -130,7 +152,7 @@ export const ServerList = (props: Props) => {
           <EntryContainer>
             <Show when={!props.selectedServer()}>
               <PositionSwoosh>
-                <Swoosh />
+                <Swoosh topItem />
               </PositionSwoosh>
             </Show>
             <Link href="/">
@@ -156,7 +178,7 @@ export const ServerList = (props: Props) => {
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
-              <EntryContainer>
+              <EntryContainer use:floating={props.menuGenerator(conversation)}>
                 <Link href={`/channel/${conversation.id}`}>
                   <Avatar
                     size={42}
@@ -196,37 +218,72 @@ export const ServerList = (props: Props) => {
         <LineDivider />
         <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
           {(item) => (
-            <Tooltip placement="right" content={item.name}>
-              <EntryContainer>
-                <Show when={props.selectedServer() === item.id}>
-                  <PositionSwoosh>
-                    <Swoosh />
-                  </PositionSwoosh>
-                </Show>
-                <Link href={`/server/${item.id}`}>
-                  <Avatar
-                    size={42}
-                    src={item.iconURL}
-                    holepunch={item.unread ? "top-right" : "none"}
-                    overlay={
-                      <>
-                        <Show when={item.unread}>
-                          <UnreadsGraphic count={item.mentions.length} unread />
-                        </Show>
-                      </>
-                    }
-                    fallback={item.name}
-                    interactive
-                  />
-                </Link>
-              </EntryContainer>
-            </Tooltip>
+            <Show
+              when={
+                item.$exists /** reactivity lags behind here for some reason,
+                                 just check existence before continuing */
+              }
+            >
+              <Tooltip placement="right" content={item.name}>
+                <EntryContainer use:floating={props.menuGenerator(item)}>
+                  <Show when={props.selectedServer() === item.id}>
+                    <PositionSwoosh>
+                      <Swoosh />
+                    </PositionSwoosh>
+                  </Show>
+                  <Link href={`/server/${item.id}`}>
+                    <Avatar
+                      size={42}
+                      src={item.iconURL}
+                      holepunch={item.unread ? "top-right" : "none"}
+                      overlay={
+                        <>
+                          <Show when={item.unread}>
+                            <UnreadsGraphic
+                              count={item.mentions.length}
+                              unread
+                            />
+                          </Show>
+                        </>
+                      }
+                      fallback={item.name}
+                      interactive
+                    />
+                  </Link>
+                </EntryContainer>
+              </Tooltip>
+            </Show>
           )}
         </Draggable>
+        <Tooltip placement="right" content={"Create or join a server"}>
+          <EntryContainer>
+            <a onClick={() => props.onCreateOrJoinServer()}>
+              <Avatar
+                size={42}
+                fallback={
+                  /*<MdPlus {...iconSize("24px")} />*/ <BiRegularPlus
+                    size={20}
+                  />
+                }
+              />
+            </a>
+          </EntryContainer>
+        </Tooltip>
       </div>
       <Shadow>
         <div />
       </Shadow>
+      <Tooltip placement="right" content="Give Feedback">
+        <EntryContainer>
+          <Link href="/server/01F7ZSBSFHQ8TA81725KQCSDDP/channel/01HGJPTXVPM3RJV0RG3YQA20KZ">
+            <Avatar
+              size={42}
+              fallback={<BiSolidMegaphone size={18} />}
+              interactive
+            />
+          </Link>
+        </EntryContainer>
+      </Tooltip>
       <Tooltip placement="right" content="Settings">
         <EntryContainer>
           <Link href="/settings">
@@ -272,7 +329,8 @@ const LineDivider = styled.div`
   flex-shrink: 0;
   margin: 6px auto;
   width: calc(100% - 24px);
-  background: ${({ theme }) => theme!.colours["background-300"]};
+  background: ${({ theme }) =>
+    theme!.colours["sidebar-server-list-foreground"]};
 `;
 
 /**

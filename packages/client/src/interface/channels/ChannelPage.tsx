@@ -51,7 +51,7 @@ export const ChannelPage: Component = () => {
           <TextChannel channel={channel()} />
         </Match>
         <Match when={channel()!.type === "VoiceChannel"}>
-          <Header palette="primary">
+          <Header placement="primary">
             <TextWithEmoji content={channel().name!} />
           </Header>
           <Typography variant="legacy-modal-title">

@@ -13,7 +13,7 @@ export default function testMiddleware(children: () => JSX.Element) {
   return (
     <Router source={hashIntegration()}>
       <I18nContext.Provider value={i18n}>
-        <ThemeProvider theme={darkTheme}>{children()}</ThemeProvider>
+        <ThemeProvider theme={darkTheme()}>{children()}</ThemeProvider>
       </I18nContext.Provider>
       <Masks />
     </Router>

@@ -10,19 +10,28 @@ import wave from "./wave.svg";
  * Container for authentication page flows
  */
 export const FlowBase = styled(Column)`
-  background-color: rgba(36, 36, 36, 0.75);
-  border: 2px solid rgba(128, 128, 128, 0.15);
-  backdrop-filter: blur(20px);
+  background: ${(props) =>
+    props.theme!.colours["messaging-message-box-background"]};
+  color: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
+
+  /* background-color: rgba(36, 36, 36, 0.75);
+   backdrop-filter: blur(20px); */
+  /* // border: 2px solid rgba(128, 128, 128, 0.15); */
+
+  gap: ${(props) => props.theme!.gap.lg};
 
   max-width: 360px;
   max-height: 600px;
-  padding: 30px 25px;
-  border-radius: 8px;
+  /* padding: 30px 25px; */
+  padding: 45px 40px;
+  border-radius: 32px;
 
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-inline-start: 50px;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
+  /* // box-shadow: 0 2px 10px rgb(0 0 0 / 20%); */
+
+  justify-self: center;
+  margin-inline: auto;
 
   a,
   a:link,
@@ -30,11 +39,6 @@ export const FlowBase = styled(Column)`
   a:active {
     text-decoration: none;
     color: ${({ theme }) => theme!.colours["accent"]};
-  }
-
-  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
-    justify-self: center;
-    margin-inline: auto;
   }
 `;
 
@@ -115,7 +119,7 @@ export function FlowTitle(props: {
   emoji?: "wave" | "mail";
 }) {
   return (
-    <>
+    <Column>
       <Row align gap="sm">
         <Show when={props.emoji === "wave"}>
           <Wave src={wave} />
@@ -132,6 +136,6 @@ export function FlowTitle(props: {
           {props.subtitle}
         </Typography>
       </Show>
-    </>
+    </Column>
   );
 }

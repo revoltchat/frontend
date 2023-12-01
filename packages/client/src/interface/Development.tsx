@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
 
+import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
+
 import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import {
@@ -10,7 +12,7 @@ import {
   Column,
   ComboBox,
   OverrideSwitch,
-  floating,
+  iconSize,
   styled,
 } from "@revolt/ui";
 
@@ -53,6 +55,16 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <div
+        style={{
+          width: "480px",
+          height: "480px",
+          display: "grid",
+          "place-items": "center",
+        }}
+      >
+        <Face fill="red" {...iconSize(128)} />
+      </div>
       <OverrideSwitch />
       <SomeComponent
         use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}

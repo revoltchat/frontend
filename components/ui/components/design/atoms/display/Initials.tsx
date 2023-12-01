@@ -16,7 +16,7 @@ export type Props = {
  * @param maxLength Max number of initials
  * @returns Initials from string
  */
-export function toInitials(input: string, maxLength = 100) {
+export function toInitials(input: string, maxLength = 2) {
   return input
     .split(/\s+/)
     .map((x) => x[0])

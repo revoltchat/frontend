@@ -34,6 +34,18 @@ export default function FlowVerify() {
 
   onMount(async () => {
     try {
+      if (import.meta.env.DEV) {
+        if (confirm("Mock verification?")) {
+          if (confirm("Successful verification?")) {
+            setState({ state: "success", mfa_ticket: "token" });
+          } else {
+            setState({ state: "error", error: "InvalidToken" });
+          }
+
+          return;
+        }
+      }
+
       const data = (await clientController.api.post(
         `/auth/account/verify/${params.token}`
       )) as { ticket?: { token: string } };

@@ -165,8 +165,8 @@ export function SystemMessage(props: Props) {
 }
 
 const Base = styled("div", "SystemMessage")`
-  height: 20px;
   display: flex;
+  min-height: 20px;
   align-items: center;
   color: ${(props) => props.theme!.colours["foreground-400"]};
 `;

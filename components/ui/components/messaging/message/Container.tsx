@@ -1,7 +1,7 @@
 import { Component, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { floating } from "../../../directives";
+import { floating, ripple } from "../../../directives";
 import { Time } from "../../design/atoms/display/Time";
 import {
   Typography,
@@ -14,7 +14,8 @@ import {
   Row,
 } from "../../design/layout";
 
-floating;
+void floating;
+void ripple;
 
 interface CommonProps {
   /**
@@ -67,6 +68,11 @@ type Props = CommonProps & {
   edited?: Date;
 
   /**
+   * Whether this message mentions the user
+   */
+  mentioned?: boolean;
+
+  /**
    * Component to render message context menu
    */
   contextMenu?: () => JSX.Element;
@@ -85,11 +91,17 @@ type Props = CommonProps & {
 /**
  * Message container layout
  */
-const Base = styled(Column as Component, "Message")<CommonProps>`
+const Base = styled(Column as Component, "Message")<
+  CommonProps & Pick<Props, "mentioned">
+>`
   ${(props) => generateTypographyCSS(props.theme!, "messages")}
 
   padding: 2px 0;
   color: ${(props) => props.theme!.colours.foreground};
+  background: ${(props) =>
+    props.mentioned
+      ? props.theme!.colours["messaging-message-mentioned-background"]
+      : "transparent"};
   margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
 
   .hidden {
@@ -100,8 +112,6 @@ const Base = styled(Column as Component, "Message")<CommonProps>`
     .hidden {
       display: block;
     }
-
-    backdrop-filter: ${(props) => props.theme!.effects.hover};
   }
 
   a:hover {
@@ -154,7 +164,12 @@ const CompactInfo = styled(Row)`
  */
 export function MessageContainer(props: Props) {
   return (
-    <Base tail={props.tail} use:floating={{ contextMenu: props.contextMenu }}>
+    <Base
+      tail={props.tail}
+      mentioned={props.mentioned}
+      use:floating={{ contextMenu: props.contextMenu }}
+      use:ripple={{ enable: false }}
+    >
       {props.header}
       <Row gap="none">
         <Info tail={props.tail} compact={props.compact}>

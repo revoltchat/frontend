@@ -1,5 +1,9 @@
 import { Component, Show, createMemo } from "solid-js";
+import { JSX } from "solid-js";
 
+import { Channel, Server as ServerI } from "revolt.js";
+
+import { ChannelContextMenu, ServerSidebarContextMenu } from "@revolt/app";
 import { useClient, useUser } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import { Route, Routes, useSmartParams } from "@revolt/routing";
@@ -9,8 +13,14 @@ import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 /**
  * Left-most channel navigation sidebar
  */
-export const Sidebar: Component = () => {
+export const Sidebar = (props: {
+  /**
+   * Menu generator TODO FIXME: remove
+   */
+  menuGenerator: (t: ServerI | Channel) => JSX.Directives["floating"];
+}) => {
   const user = useUser();
+  const client = useClient();
   const params = useSmartParams();
 
   return (
@@ -24,6 +34,13 @@ export const Sidebar: Component = () => {
         )}
         user={user()!}
         selectedServer={() => params().serverId}
+        onCreateOrJoinServer={() =>
+          modalController.push({
+            type: "create_or_join_server",
+            client: client(),
+          })
+        }
+        menuGenerator={props.menuGenerator}
       />
       <Routes>
         <Route path="/server/:server/*" component={Server} />
@@ -113,6 +130,14 @@ const Server: Component = () => {
         channelId={params().channelId}
         openServerInfo={openServerInfo}
         openServerSettings={openServerSettings}
+        menuGenerator={(target) => ({
+          contextMenu: () =>
+            target instanceof Channel ? (
+              <ChannelContextMenu channel={target} />
+            ) : (
+              <ServerSidebarContextMenu server={target} />
+            ),
+        })}
       />
     </Show>
   );

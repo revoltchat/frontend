@@ -14,7 +14,7 @@ interface UserInformation {
   /**
    * Username or nickname
    */
-  username?: string;
+  username: string;
 
   /**
    * Avatar or server profile avatar
@@ -27,8 +27,6 @@ interface UserInformation {
   colour?: string | null;
 }
 
-const DEFAULT_COLOUR = "#848484";
-
 /**
  * Create user information from given objects
  * @param user User
@@ -37,9 +35,9 @@ const DEFAULT_COLOUR = "#848484";
  */
 export function userInformation(user?: User, member?: ServerMember) {
   return {
-    username: member?.nickname ?? user?.username,
+    username: member?.nickname ?? user?.displayName ?? "Unknown User",
     avatar: member?.animatedAvatarURL ?? user?.animatedAvatarURL,
-    colour: member?.roleColour ?? DEFAULT_COLOUR,
+    colour: member?.roleColour,
   };
 }
 

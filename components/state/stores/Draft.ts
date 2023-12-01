@@ -24,6 +24,23 @@ export interface DraftData {
   files?: string[];
 }
 
+export interface TextSelection {
+  /**
+   * Draft we should update
+   */
+  channelId: string;
+
+  /**
+   * Start index of text selection
+   */
+  start: number;
+
+  /**
+   * End index of text selection
+   */
+  end: number;
+}
+
 export type TypeDraft = {
   /**
    * All active message drafts
@@ -39,6 +56,11 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * Keep track of cached files
    */
   private fileCache: Record<string, { file: File; dataUri: string }>;
+
+  /**
+   * Current text selection
+   */
+  private textSelection?: TextSelection;
 
   /**
    * Construct store
@@ -185,6 +207,44 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
         return file;
       }),
     };
+  }
+
+  /**
+   * Set the current text selection
+   * @param channelId Channel Id
+   * @param start Start index
+   * @param end End index
+   */
+  setSelection(channelId: string, start: number, end: number) {
+    this.textSelection = {
+      channelId,
+      start,
+      end,
+    };
+  }
+
+  /**
+   * Insert text into the current selection
+   * @param string Text
+   */
+  insertText(string: string) {
+    if (this.textSelection) {
+      const content = this.getDraft(this.textSelection.channelId).content ?? "";
+      const startStr = content.slice(0, this.textSelection.start);
+      const endStr = content.slice(this.textSelection.end, content.length);
+
+      this.setDraft(this.textSelection.channelId, (draft) => ({
+        ...draft,
+        content: startStr + string + endStr,
+      }));
+
+      const pasteEndIdx = startStr.length + string.length;
+      this.textSelection = {
+        ...this.textSelection,
+        start: pasteEndIdx,
+        end: pasteEndIdx,
+      };
+    }
   }
 
   /**

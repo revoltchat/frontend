@@ -27,10 +27,9 @@ export const UserStatusGraphic = (props: Props) => {
       cy="27"
       r="5"
       fill={
-        theme.colours[
-          `status-${statusLowercase()}` as keyof typeof theme.colours
-        ]
+        theme.customColours[`status-${statusLowercase() as "online"}`].color
       }
+      mask={`url(#accessible-status-${statusLowercase()})`}
     />
   );
 };

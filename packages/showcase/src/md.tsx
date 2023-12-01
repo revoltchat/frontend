@@ -169,7 +169,7 @@ const Container = styled.div`
 
 render(() => {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme()}>
       <Container>
         <Markdown content={MdArticle} />
       </Container>

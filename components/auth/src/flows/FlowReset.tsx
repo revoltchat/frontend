@@ -42,6 +42,23 @@ export default function FlowReset() {
       <Typography variant="legacy-settings-description">
         <Link href="..">{t("login.remembered")}</Link>
       </Typography>
+      {import.meta.env.DEV && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            background: "white",
+            color: "black",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate("/login/reset/abc", { replace: true });
+          }}
+        >
+          Mock Reset Screen
+        </div>
+      )}
     </>
   );
 }
