@@ -277,13 +277,13 @@ export const darkTheme: (
       // Messaging: Interface
       "messaging-indicator-background": `rgba(${hexToRgb(
         materialColour("background", 94)
-      )}, 0.75)`,
+      )}, 0.50)`,
       "messaging-indicator-foreground": materialColour("onBackground"),
       "messaging-message-box-background": materialColour("onBackground", 94),
       "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
       "messaging-message-mentioned-background": materialColour(
         "surfaceVariant",
-        95
+        97
       ),
       // "messaging-message-box-background": materialColour("primaryContainer"),
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),

@@ -14,14 +14,23 @@ Context menu needs to be more broadly available (in interface package?)
 
 - Style the message "bars": reply, attached, last read message, auto complete
 - not sure whether to polish up all message components
+- fix all the auth flows
+- shift + click mention user
+
+# Ask about
+
+- right side padding on messages
 
 # In Progress
 
 - Modals "edit identity"
 - Redesign login page
+- confirm reports
+- report menu should say it goes to team
 
 # Done
 
+- right click mention user
 - Modals "kick member", "ban member", "report user"
 - pressing enter in modal does not close it [BUG]
 - [BUG] deleting server has weird behaviour
