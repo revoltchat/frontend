@@ -15,7 +15,7 @@ export function scrollable(
 
   el.classList.add(css`
     will-change: transform;
-    padding-top: ${(props?.offsetTop || 0).toString()}px;
+    ${props.offsetTop ? "padding-top: " + props.offsetTop + "px;" : ""}
     ${"overflow-" + (props?.direction ?? "y")}: scroll;
     ${"overflow-" + ((props?.direction ?? "y") === "y" ? "x" : "y")}: hidden;
 

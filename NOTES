@@ -19,13 +19,16 @@ Context menu needs to be more broadly available (in interface package?)
 - not sure whether to polish up all message components
 - fix all the auth flows
 - shift + click mention user
+- Style the message "bars": last read message
 
 # To-do (more urgent)
 
-- Style the message "bars": reply, attached, last read message, auto complete
+- Style the message "bars": reply
 
 # Done
 
+- Style the message "bars": attached
+- Style the message "bars": auto complete
 - Style the message "bars": typing, jump to last
 - Modals "edit identity" (no avatar)
 - design at least login "home" & "login"

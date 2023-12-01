@@ -279,6 +279,9 @@ export const darkTheme: (
         materialColour("background", 94)
       )}, 0.50)`,
       "messaging-indicator-foreground": materialColour("onBackground"),
+      "messaging-upload-file-background": materialColour("surfaceVariant", 80),
+      "messaging-upload-file-foreground": materialColour("onBackground", 98),
+      "messaging-upload-divider": materialColour("primary", 85),
       "messaging-message-box-background": materialColour("onBackground", 94),
       "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
       "messaging-message-mentioned-background": materialColour(
