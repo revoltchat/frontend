@@ -23,11 +23,14 @@ import {
   ListView,
   MessageDivider,
   Row,
+  ripple,
   styled,
 } from "@revolt/ui";
 import { generateTypographyCSS } from "@revolt/ui/components/design/atoms/display/Typography";
 
 import { Message } from "./Message";
+
+void ripple;
 
 /**
  * Default fetch limit
@@ -345,7 +348,7 @@ export function Messages(props: Props) {
       </ListView>
       <Show when={!atEnd()}>
         <JumpToBottom onClick={() => loadInitialMessages()}>
-          <Row align>
+          <Row align use:ripple>
             <span>Viewing older messages</span>
             <span>Jump to present</span>
             <BiSolidDownArrowAlt size={18} />
@@ -369,7 +372,7 @@ const JumpToBottom = styled.div`
     border-radius: ${(props) => props.theme!.borderRadius.lg};
 
     cursor: pointer;
-    backdrop-filter: blur(20px);
+    backdrop-filter: ${(props) => props.theme!.effects.blur.md};
     color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
     background-color: ${(props) =>
       props.theme!.colours["messaging-indicator-background"]};
@@ -380,13 +383,8 @@ const JumpToBottom = styled.div`
       flex-grow: 1;
     }
 
-    &:hover {
-      filter: ${(props) => props.theme!.effects.hover};
-    }
-
     &:active {
       transform: translateY(1px);
-      filter: ${(props) => props.theme!.effects.active};
     }
 
     @keyframes bottomBounce {
