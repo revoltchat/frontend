@@ -291,6 +291,18 @@ export const ServerList = (props: Props) => {
         <Tooltip placement="right" content={"Cyan (Dark)"}>
           <Item accentColour="#00b7c3" darkMode />
         </Tooltip>
+        <Tooltip placement="right" content={"Yellow (Light)"}>
+          <Item accentColour="#f5cb42" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Yellow (Dark)"}>
+          <Item accentColour="#f5cb42" darkMode />
+        </Tooltip>
+        <Tooltip placement="right" content={"Green (Light)"}>
+          <Item accentColour="#42f5a1" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Green (Dark)"}>
+          <Item accentColour="#42f5a1" darkMode />
+        </Tooltip>
       </div>
       <Shadow>
         <div />
