@@ -7,6 +7,7 @@ import { getController } from "@revolt/common";
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 import MdLibraryAdd from "@material-design-icons/svg/outlined/library_add.svg?component-solid";
+import MdMarkChatRead from "@material-design-icons/svg/outlined/mark_chat_read.svg?component-solid";
 import MdShield from "@material-design-icons/svg/outlined/shield.svg?component-solid";
 
 import {
@@ -21,6 +22,13 @@ import {
  * @returns
  */
 export function ChannelContextMenu(props: { channel: Channel }) {
+  /**
+   * Mark server as read
+   */
+  function markAsRead() {
+    props.channel.ack();
+  }
+
   /**
    * Create a new channel
    */
@@ -60,6 +68,13 @@ export function ChannelContextMenu(props: { channel: Channel }) {
 
   return (
     <ContextMenu>
+      <Show when={props.channel.unread}>
+        <ContextMenuButton icon={MdMarkChatRead} onClick={markAsRead}>
+          Mark as read
+        </ContextMenuButton>
+        <ContextMenuDivider />
+      </Show>
+
       <Show when={props.channel.server?.havePermission("ManageChannel")}>
         {/* TODO re order */}
         <ContextMenuButton icon={MdLibraryAdd} onClick={createChannel}>
@@ -72,6 +87,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
         </ContextMenuButton>
         <ContextMenuDivider />
       </Show>
+
       <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
         Admin Panel
       </ContextMenuButton>
