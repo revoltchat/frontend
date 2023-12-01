@@ -76,7 +76,7 @@ export function ripple(
   // FIXME: there is a bug here if theme is changed, this class just disappears
   createEffect(
     on(
-      () => theme.darkMode,
+      () => theme.darkMode + theme.colours.foreground,
       () => applyClasses()
     )
   );
