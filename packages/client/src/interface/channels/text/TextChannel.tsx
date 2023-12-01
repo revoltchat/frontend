@@ -106,4 +106,6 @@ const MessagingStack = styled.div`
   flex-grow: 1;
   min-width: 0;
   min-height: 0;
+
+  padding: 0 ${(props) => props.theme!.gap.md} 0 0;
 `;

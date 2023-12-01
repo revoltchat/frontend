@@ -167,11 +167,7 @@ export function ServerMemberSidebar(props: Props) {
         showOnHover: true,
       }}
     >
-      <div
-        style={{
-          width: "232px",
-        }}
-      >
+      <Container>
         <CategoryTitle>
           <Row align>
             <UserStatus size="0.7em" status="Online" />
@@ -216,17 +212,16 @@ export function ServerMemberSidebar(props: Props) {
             )}
           </For>
         </Deferred>
-      </div>
+      </Container>
     </Base>
   );
 }
 
 /**
- * Base Styles
+ * Base styles
  */
 const Base = styled.div`
   flex-shrink: 0;
-  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 
   margin: ${(props) => (props.theme!.gap.md + " ").repeat(3)}0;
   margin-top: calc(48px + 2 * ${(props) => props.theme!.gap.md});
@@ -234,6 +229,13 @@ const Base = styled.div`
 
   color: ${({ theme }) => theme!.colours["sidebar-channels-foreground"]};
   background: ${({ theme }) => theme!.colours["sidebar-channels-background"]};
+`;
+
+/**
+ * Container styles
+ */
+const Container = styled.div`
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;
 
 /**
