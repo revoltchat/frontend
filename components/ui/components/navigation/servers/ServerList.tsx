@@ -1,4 +1,9 @@
-import { BiRegularPlus, BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
+import {
+  BiRegularPlus,
+  BiSolidCheckShield,
+  BiSolidCog,
+  BiSolidMegaphone,
+} from "solid-icons/bi";
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { JSX } from "solid-js";
 import { styled } from "solid-styled-components";
@@ -268,6 +273,17 @@ export const ServerList = (props: Props) => {
       <Shadow>
         <div />
       </Shadow>
+      <Tooltip placement="right" content="Give Feedback">
+        <EntryContainer>
+          <Link href="/server/01F7ZSBSFHQ8TA81725KQCSDDP/channel/01HGJPTXVPM3RJV0RG3YQA20KZ">
+            <Avatar
+              size={42}
+              fallback={<BiSolidMegaphone size={18} />}
+              interactive
+            />
+          </Link>
+        </EntryContainer>
+      </Tooltip>
       <Tooltip placement="right" content="Settings">
         <EntryContainer>
           <Link href="/settings">
