@@ -1,9 +1,8 @@
-import { Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { RE_MENTIONS } from "revolt.js";
 
-import { clientController, useClient } from "@revolt/client";
+import { clientController } from "@revolt/client";
 import { Avatar, ColouredText } from "@revolt/ui";
 
 import { useUser } from "../users";
@@ -17,7 +16,7 @@ const Mention = styled.a`
   padding-right: 6px;
   align-items: center;
   display: inline-flex;
-  vertical-align: middle;
+  vertical-align: bottom;
 
   cursor: pointer;
 
