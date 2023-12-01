@@ -37,10 +37,9 @@ const TEXT_CHANNEL_TYPES: Channel["type"][] = [
  * Channel component
  */
 export const ChannelPage: Component = () => {
+  const params = useParams();
   const client = useClient();
-  const channel = createMemo(
-    () => client()!.channels.get("01F92C5ZXBQWQ8KY7J8KY917NM")!
-  );
+  const channel = createMemo(() => client()!.channels.get(params.channel)!);
 
   return (
     <Base>

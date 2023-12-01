@@ -88,6 +88,7 @@ const Home: Component = () => {
  * Render sidebar for a server
  */
 const Server: Component = () => {
+  const params = useSmartParams();
   const client = useClient();
 
   /**
@@ -121,7 +122,7 @@ const Server: Component = () => {
     <Show when={server()}>
       <ServerSidebar
         server={server()}
-        channelId={"01F92C5ZXBQWQ8KY7J8KY917NM"}
+        channelId={params().channelId}
         openServerInfo={openServerInfo}
         openServerSettings={openServerSettings}
         menuGenerator={(target) => ({

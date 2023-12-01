@@ -22,6 +22,7 @@ import { ChangelogPost } from "./modals/Changelog";
 export type Modals =
   | {
       type:
+        | "demo"
         | "add_friend"
         | "create_group"
         | "create_or_join_server"

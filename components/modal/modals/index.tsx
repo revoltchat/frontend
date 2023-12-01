@@ -23,6 +23,7 @@ import delete_bot from "./DeleteBot";
 import delete_channel from "./DeleteChannel";
 import delete_message from "./DeleteMessage";
 import delete_server from "./DeleteServer";
+import demo from "./DemoJoinLounge";
 import edit_email from "./EditEmail";
 import edit_keybind from "./EditKeybind";
 import edit_password from "./EditPassword";
@@ -44,6 +45,7 @@ import sign_out_sessions from "./SignOutSessions";
 import signed_out from "./SignedOut";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
+  demo,
   add_friend,
   ban_member,
   changelog,

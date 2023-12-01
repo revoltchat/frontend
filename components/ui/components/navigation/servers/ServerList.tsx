@@ -213,7 +213,7 @@ export const ServerList = (props: Props) => {
             </Link>
           </EntryContainer>
         </Show>
-        <For each={props.unreadConversations.slice(0, 9)}>
+        {/* <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
               <EntryContainer use:floating={props.menuGenerator(conversation)}>
@@ -242,7 +242,7 @@ export const ServerList = (props: Props) => {
               </EntryContainer>
             </Tooltip>
           )}
-        </For>
+        </For> */}
         <Show when={props.unreadConversations.length > 9}>
           <EntryContainer>
             <Link href={`/`}>
@@ -284,6 +284,12 @@ export const ServerList = (props: Props) => {
         </Tooltip>
         <Tooltip placement="right" content={"Pink (Dark)"}>
           <Item accentColour="#FFC0CB" darkMode />
+        </Tooltip>
+        <Tooltip placement="right" content={"Cyan (Light)"}>
+          <Item accentColour="#00b7c3" />
+        </Tooltip>
+        <Tooltip placement="right" content={"Cyan (Dark)"}>
+          <Item accentColour="#00b7c3" darkMode />
         </Tooltip>
       </div>
       <Shadow>
