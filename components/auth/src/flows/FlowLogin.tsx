@@ -45,9 +45,24 @@ export default function FlowLogin() {
       {/*<FlowTitle subtitle={t("login.subtitle")} emoji="wave">
         {t("login.welcome")}
       </FlowTitle>*/}
+      <strong>
+        You are logging into a limited demo of the new Revolt client.
+      </strong>
+
+      <span>
+        Please provide feedback through{" "}
+        <a
+          href="https://github.com/revoltchat/frontend/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
+          target="_blank"
+          style={{ "text-decoration": "underline" }}
+        >
+          GitHub issues
+        </a>{" "}
+        where possible.
+      </span>
+
       <Form onSubmit={login}>
         <Fields fields={["email", "password"]} />
-        <Link href="../reset">{t("login.reset")}</Link>
         <Row align justify="center">
           <Link href="..">
             <Button palette="plain">
@@ -58,7 +73,16 @@ export default function FlowLogin() {
         </Row>
       </Form>
 
-      <Link href="../resend">{t("login.resend")}</Link>
+      <a href="https://app.revolt.chat/login/reset" target="_blank">
+        {/* <Link href="../reset"> */}
+        {t("login.reset")}
+        {/* </Link> */}
+      </a>
+      <a href="https://app.revolt.chat/login/resend" target="_blank">
+        {/* <Link href="../resend"> */}
+        {t("login.resend")}
+        {/* </Link> */}
+      </a>
 
       {/*<Show when={clientController.getReadyClients().length > 0}>
         <Switch fallback={<Navigate href="/" />}>

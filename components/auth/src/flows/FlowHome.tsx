@@ -76,11 +76,13 @@ export default function FlowHome() {
               <Button>Log In</Button>
             </Column>
           </Link>
-          <Link href="create">
+          {/* <Link href="create"> */}
+          <a href="https://app.revolt.chat/login/create" target="_blank">
             <Column>
               <Button palette="secondary">Sign Up</Button>
             </Column>
-          </Link>
+          </a>
+          {/* </Link> */}
         </Column>
       </Column>
 
