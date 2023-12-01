@@ -113,9 +113,9 @@ const CloseAnchor = styled.a`
   transition: ${(props) => props.theme!.transitions.fast} background-color;
 
   svg {
-    transition: ${(props) => props.theme!.transitions.fast} background-color;
     color: ${(props) =>
       props.theme!.colours["settings-close-anchor"]} !important;
+    transition: ${(props) => props.theme!.transitions.fast} background-color;
   }
 
   &:hover {
@@ -151,7 +151,7 @@ const CloseAction = styled.div`
     justify-content: center;
     width: 36px;
     font-weight: 600;
-    color: ${(props) => props.theme!.colours["settings-content-foreground"]};
     font-size: 0.75rem;
+    color: ${(props) => props.theme!.colours["settings-foreground"]};
   }
 `;

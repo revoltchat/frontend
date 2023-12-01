@@ -119,6 +119,7 @@ const ProfileBadges = styled.div`
   display: flex;
 
   background: ${(props) => props.theme!.colours["settings-background"]};
+  fill: ${(props) => props.theme!.colours["settings-foreground"]};
 `;
 
 /**
@@ -133,7 +134,7 @@ const AccountBox = styled(Row)`
       rgba(255, 255, 255, 0.7)
     ),
     url("https://autumn.revolt.chat/backgrounds/PA-U1R3u-iw72V-WH0C9aDN1rBTbnm-sKNR8YN4RL8?width=1000");
-  color: ${(props) => props.theme!.colours["foreground"]};
+  color: black;
 
   .column {
     display: flex;

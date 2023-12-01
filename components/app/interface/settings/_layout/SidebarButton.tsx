@@ -19,6 +19,7 @@ export const SidebarButton = styled.a<Props>`
   font-size: 15px;
   user-select: none;
   transition: background-color 0.1s ease-in-out;
+  fill: ${(props) => props.theme!.colours["settings-sidebar-foreground"]};
   color: ${(props) => props.theme!.colours["settings-sidebar-foreground"]};
 
   svg {

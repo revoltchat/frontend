@@ -144,6 +144,8 @@ const IconWrapper = styled.div`
   svg {
     color: ${(props) =>
       props.theme!.colours["component-categorybtn-foreground-description"]};
+    fill: ${(props) =>
+      props.theme!.colours["component-categorybtn-foreground-description"]};
   }
 `;
 
