@@ -72,6 +72,7 @@ declare module "solid-styled-components" {
                 | "header-with-image-text"}-${"background" | "foreground"}`}`
         | `messaging-${
             | `indicator-${"background" | "foreground"}`
+            | `indicator-autocomplete-selected-${"background" | "foreground"}`
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
             | `component-${`${

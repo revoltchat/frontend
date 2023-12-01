@@ -119,7 +119,7 @@ const Bar = styled.div`
   align-items: center;
   flex-direction: row;
 
-  backdrop-filter: blur(20px);
+  backdrop-filter: ${(props) => props.theme!.effects.blur.md};
   color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
   background: ${(props) =>
     props.theme!.colours["messaging-indicator-background"]};

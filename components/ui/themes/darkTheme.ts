@@ -232,7 +232,7 @@ export const darkTheme: (
       "component-context-menu-foreground": materialColour("onSurface"),
       "component-context-menu-item-hover-background": materialColour(
         "surfaceVariant",
-        94
+        92
       ),
       "component-context-menu-divider": materialColour("onSurface", 92),
       "component-context-menu-shadow": "#0004",

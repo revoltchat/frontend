@@ -9,27 +9,27 @@ Context menu needs to be more broadly available (in interface package?)
 - check what we are missing from competitors in ctx menus
 - Image preview modal prolly (this will be annoying to not have to users)
 - Store unsent messages in Draft (keep files around until send)
+- report menu should say it goes to team
+- confirm reports
+- Redesign login page
 
-# To-do
+# To-do (less urgent)
 
-- Style the message "bars": reply, attached, last read message, auto complete
+- style the user card
 - not sure whether to polish up all message components
 - fix all the auth flows
 - shift + click mention user
 
-# Ask about
+# To-do (more urgent)
 
-- right side padding on messages
-
-# In Progress
-
-- Modals "edit identity"
-- Redesign login page
-- confirm reports
-- report menu should say it goes to team
+- Style the message "bars": reply, attached, last read message, auto complete
 
 # Done
 
+- Style the message "bars": typing, jump to last
+- Modals "edit identity" (no avatar)
+- design at least login "home" & "login"
+- right side padding on messages
 - right click mention user
 - Modals "kick member", "ban member", "report user"
 - pressing enter in modal does not close it [BUG]
