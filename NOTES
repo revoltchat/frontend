@@ -21,12 +21,9 @@ Context menu needs to be more broadly available (in interface package?)
 - shift + click mention user
 - Style the message "bars": last read message
 
-# To-do (more urgent)
-
-- Style the message "bars": reply
-
 # Done
 
+- Style the message "bars": reply
 - Style the message "bars": attached
 - Style the message "bars": auto complete
 - Style the message "bars": typing, jump to last

@@ -72,6 +72,7 @@ declare module "solid-styled-components" {
                 | "header-with-image-text"}-${"background" | "foreground"}`}`
         | `messaging-${
             | `indicator-${"background" | "foreground"}`
+            | `indicator-reply-${"enabled" | "disabled"}`
             | `upload-${"file-background" | "file-foreground" | "divider"}`
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
