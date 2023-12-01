@@ -40,7 +40,7 @@ export function MessageContextMenu(props: { message: Message }) {
    * Mark message as unread
    */
   function markAsUnread() {
-    props.message.ack();
+    props.message.channel!.ack(props.message, false, false, true);
   }
 
   /**
