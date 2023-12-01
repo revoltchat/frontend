@@ -358,16 +358,18 @@ export function Messages(props: Props) {
 
 const JumpToBottom = styled.div`
   z-index: 30;
-  display: absolute;
+  position: relative;
 
   div {
-    cursor: pointer;
-    display: relative;
-    padding: ${(props) => props.theme!.gap.md};
+    bottom: 0;
+    width: 100%;
+    position: absolute;
 
+    padding: ${(props) => props.theme!.gap.md};
+    border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+    cursor: pointer;
     backdrop-filter: blur(20px);
-    border-radius: ${(props) => props.theme!.borderRadius.md}
-      ${(props) => props.theme!.borderRadius.md} 0 0;
     color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
     background-color: ${(props) =>
       props.theme!.colours["messaging-indicator-background"]};

@@ -104,19 +104,22 @@ const Avatars = styled.div`
  * Styles for the typing indicator
  */
 const Bar = styled.div`
-  top: -26px;
+  bottom: 0;
   width: 100%;
   height: 26px;
   position: absolute;
 
-  gap: ${(props) => props.theme!.gap.md};
-  display: flex;
   padding: 0 ${(props) => props.theme!.gap.lg};
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+  display: flex;
+  gap: ${(props) => props.theme!.gap.md};
 
   user-select: none;
   align-items: center;
   flex-direction: row;
 
+  backdrop-filter: blur(20px);
   color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
   background: ${(props) =>
     props.theme!.colours["messaging-indicator-background"]};
