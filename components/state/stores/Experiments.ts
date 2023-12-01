@@ -28,6 +28,11 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
 ];
 
 /**
+ * Experiments enabled by default.
+ */
+export const DEFAULT_EXPERIMENTS: Experiment[] = ["file_uploads"];
+
+/**
  * Always-on development-mode experiments.
  */
 export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [
@@ -110,7 +115,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    */
   default(): TypeExperiments {
     return {
-      enabled: [],
+      enabled: DEFAULT_EXPERIMENTS,
       safeMode: false,
     };
   }
