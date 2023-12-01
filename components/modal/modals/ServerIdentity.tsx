@@ -46,14 +46,14 @@ const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
     }),
     children: (
       <Column>
-        <span>developer ui</span>
+        {/* <span>developer ui</span> */}
         <span>{t("app.special.popovers.server_identity.nickname")}</span>
         <Input
           value={nickname()}
           onChange={(e) => setNickname(e.currentTarget.value)}
         />
-        <span>{t("app.special.popovers.server_identity.avatar")}</span>
-        <Avatar size={64} src={props.member.animatedAvatarURL} interactive />
+        {/* <span>{t("app.special.popovers.server_identity.avatar")}</span> */}
+        {/* <Avatar size={64} src={props.member.animatedAvatarURL} interactive /> */}
         {/* <Preview nickname={nickname} member={props.member} /> */}
       </Column>
     ),
