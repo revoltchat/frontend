@@ -18,8 +18,7 @@ const AccountSwitcher = styled(Column)`
 
 const Logo = styled(RevoltSvg)`
   margin: auto;
-  fill: ${(props) => props.theme!.colours.foreground};
-  /* filter: invert(1); */
+  filter: ${(props) => props.theme!.effects.svg.light};
 `;
 
 /**

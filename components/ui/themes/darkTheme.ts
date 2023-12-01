@@ -551,6 +551,10 @@ export const darkTheme: (
       ripple: {
         hover: 0.05,
       },
+      svg: {
+        light: darkMode ? "invert(1)" : "invert(0)",
+        dark: darkMode ? "invert(0)" : "invert(1)",
+      },
       muted: "brightness(0)", // DEPRECATE
       hover: "brightness(0)", // DEPRECATE
       active: "brightness(0)", // DEPRECATE
