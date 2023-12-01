@@ -57,6 +57,15 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
 
   ${(props) => generateTypographyCSS(props.theme!, "menu-button")};
 
+  fill: ${(props) =>
+    props.theme!.colours[
+      props.attention === "active" || props.attention === "selected"
+        ? "component-menubtn-selected-foreground"
+        : props.attention === "muted"
+        ? "component-menubtn-muted-foreground"
+        : "component-menubtn-default-foreground"
+    ]};
+
   color: ${(props) =>
     props.theme!.colours[
       props.attention === "active" || props.attention === "selected"

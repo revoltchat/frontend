@@ -13,6 +13,7 @@ export const ContextMenu = styled.div`
     props.theme!.colours["component-context-menu-background"]};
   color: ${(props) =>
     props.theme!.colours["component-context-menu-foreground"]};
+  fill: ${(props) => props.theme!.colours["component-context-menu-foreground"]};
 
   box-shadow: 0 0 3px
     ${(props) => props.theme!.colours["component-context-menu-shadow"]};

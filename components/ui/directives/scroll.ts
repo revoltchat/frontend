@@ -16,7 +16,7 @@ export function scrollable(
   el.classList.add(css`
     will-change: transform;
     ${props.offsetTop ? "padding-top: " + props.offsetTop + "px;" : ""}
-    ${"overflow-" + (props?.direction ?? "y")}: scroll;
+    ${"overflow-" + (props?.direction ?? "y")}: auto;
     ${"overflow-" + ((props?.direction ?? "y") === "y" ? "x" : "y")}: hidden;
 
     scrollbar-width: ${props?.showOnHover ? "none" : "initial"};

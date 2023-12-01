@@ -68,13 +68,7 @@ export const HeaderWithImage = styled(Header)`
   > * {
     flex-grow: 1;
     padding: 6px 14px;
-    color: ${(props) =>
-      props.theme!.colours["sidebar-header-with-image-text-foreground"]};
-    background: linear-gradient(
-      0deg,
-      ${(props) =>
-        props.theme!.colours["sidebar-header-with-image-text-background"]},
-      transparent
-    );
+    color: white;
+    background: linear-gradient(0deg, black, transparent);
   }
 `;
