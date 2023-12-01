@@ -223,6 +223,7 @@ export function ServerMemberSidebar(props: Props) {
 const Base = styled.div`
   flex-shrink: 0;
 
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
   margin: ${(props) => (props.theme!.gap.md + " ").repeat(3)}0;
   margin-top: calc(48px + 2 * ${(props) => props.theme!.gap.md});
   border-radius: ${(props) => props.theme!.borderRadius.lg};
