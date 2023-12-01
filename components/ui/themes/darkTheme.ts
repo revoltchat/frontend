@@ -135,6 +135,7 @@ export const darkTheme: (
   }
 
   return {
+    darkMode,
     colours: {
       // Global
       background: materialColour("background"),
@@ -142,8 +143,11 @@ export const darkTheme: (
       // Component: Button
       "component-btn-background-primary": materialColour("primary"),
       "component-btn-foreground-primary": materialColour("onBackground", 98),
-      "component-btn-background-secondary": materialColour("primary"),
-      "component-btn-foreground-secondary": materialColour("onBackground", 96),
+      "component-btn-background-secondary": materialColour("surfaceVariant"),
+      "component-btn-foreground-secondary": materialColour(
+        "onSurfaceVariant",
+        30
+      ),
       "component-btn-foreground-plain": materialColour("onBackground"),
       "component-btn-foreground-plain-secondary": materialColour(
         "onBackground",
@@ -160,13 +164,14 @@ export const darkTheme: (
         "onSurfaceVariant",
         30
       ),
-      "component-menubtn-muted-background": materialColour("surfaceVariant"),
+      "component-menubtn-muted-background": "transparent",
       "component-menubtn-muted-foreground": materialColour(
         "onSurfaceVariant",
-        65
+        45
       ),
-      "component-menubtn-hover-background": materialColour("surfaceVariant"),
+      "component-menubtn-hover-background": materialColour("surfaceVariant"), // DEPRECATE
       "component-menubtn-hover-foreground": materialColour(
+        // DEPRECATE
         "onSurfaceVariant",
         25
       ),
@@ -175,8 +180,8 @@ export const darkTheme: (
       "component-input-foreground": materialColour("onBackground"),
       "component-input-background-primary": materialColour("background", 100),
       "component-input-background-secondary": materialColour("background", 98),
-      "component-input-hover-primary": materialColour("background", 98),
-      "component-input-hover-secondary": materialColour("background", 100),
+      "component-input-hover-primary": materialColour("background", 98), // DEPRECATE?
+      "component-input-hover-secondary": materialColour("background", 100), // DEPRECATE?
       // Component: Chip
       "component-chip-background": materialColour("secondary", 96),
       // Component: Checkbox
@@ -227,7 +232,7 @@ export const darkTheme: (
       "component-context-menu-foreground": materialColour("onSurface"),
       "component-context-menu-item-hover-background": materialColour(
         "surfaceVariant",
-        94
+        92
       ),
       "component-context-menu-divider": materialColour("onSurface", 92),
       "component-context-menu-shadow": "#0004",
@@ -272,10 +277,19 @@ export const darkTheme: (
       // Messaging: Interface
       "messaging-indicator-background": `rgba(${hexToRgb(
         materialColour("background", 94)
-      )}, 0.75)`,
+      )}, 0.50)`,
       "messaging-indicator-foreground": materialColour("onBackground"),
+      "messaging-indicator-reply-enabled": materialColour("primary"),
+      "messaging-indicator-reply-disabled": materialColour("onBackground", 60),
+      "messaging-upload-file-background": materialColour("surfaceVariant", 80),
+      "messaging-upload-file-foreground": materialColour("onBackground", 98),
+      "messaging-upload-divider": materialColour("primary", 85),
       "messaging-message-box-background": materialColour("onBackground", 94),
       "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
+      "messaging-message-mentioned-background": materialColour(
+        "surfaceVariant",
+        97
+      ),
       // "messaging-message-box-background": materialColour("primaryContainer"),
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
@@ -534,9 +548,15 @@ export const darkTheme: (
       blur: {
         md: "blur(20px)",
       },
-      muted: "brightness(0.5) saturate(0.75)",
-      hover: "brightness(1.1)",
-      active: "brightness(0.9)",
+      ripple: {
+        hover: 0.05,
+      },
+      muted: "brightness(0)", // DEPRECATE
+      hover: "brightness(0)", // DEPRECATE
+      active: "brightness(0)", // DEPRECATE
+      // muted: "brightness(0.5) saturate(0.75)",
+      // hover: "brightness(1.1)",
+      // active: "brightness(0.9)",
       spoiler: "brightness(0.2) contrast(0.8) blur(24px)",
     },
     layout: {

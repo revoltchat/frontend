@@ -10,6 +10,7 @@ export type Experiment =
   | "friends"
   | "account_switcher"
   | "gif_picker"
+  | "user_card"
   | "emoji_picker"
   | "plugins"
   | "voice_chat";
@@ -22,10 +23,16 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
   "friends",
   "account_switcher",
   "gif_picker",
+  "user_card",
   "emoji_picker",
   "plugins",
   "voice_chat",
 ];
+
+/**
+ * Experiments enabled by default.
+ */
+export const DEFAULT_EXPERIMENTS: Experiment[] = ["file_uploads"];
 
 /**
  * Always-on development-mode experiments.
@@ -34,6 +41,7 @@ export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [
   "file_uploads",
   "friends",
   "gif_picker",
+  "user_card",
 ];
 
 /**
@@ -57,6 +65,10 @@ export const EXPERIMENTS: {
   gif_picker: {
     title: "GIF Picker",
     description: "Search and send GIFs from GIFBox!",
+  },
+  user_card: {
+    title: "Member Pop-out Card",
+    description: "Click on members to see more information about them.",
   },
   emoji_picker: {
     title: "Emoji Picker Placeholder",
@@ -110,7 +122,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    */
   default(): TypeExperiments {
     return {
-      enabled: [],
+      enabled: DEFAULT_EXPERIMENTS,
       safeMode: false,
     };
   }

@@ -45,8 +45,6 @@ export class ModalController {
 
     this.pop = this.pop.bind(this);
 
-    registerController("modal", this);
-
     // TODO: this should instead work using some sort of priority queue system from a dedicated keybind handler
     // so that, for example, popping draft does not conflict with closing the current modal
     // example API: registerKeybind(key = 'Escape', priority = 20, fn = () => void)
@@ -116,6 +114,14 @@ export class ModalController {
  * Modal controller with additional helpers.
  */
 export class ModalControllerExtended extends ModalController {
+  /**
+   * Construct controller
+   */
+  constructor() {
+    super();
+    registerController("modal", this);
+  }
+
   /**
    * Perform MFA flow
    * @param mfa MFA helper

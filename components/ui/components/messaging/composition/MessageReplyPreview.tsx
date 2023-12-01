@@ -55,7 +55,9 @@ const MentionToggle = styled.a<{ mention: boolean }>`
   gap: ${(props) => props.theme!.gap.sm};
 
   color: ${(props) =>
-    props.theme!.colours[props.mention ? "foreground-100" : "foreground-400"]};
+    props.theme!.colours[
+      `messaging-indicator-reply-${props.mention ? "enabled" : "disabled"}`
+    ]};
 `;
 
 /**
@@ -73,9 +75,12 @@ const Base = styled(Row)`
   font-size: 0.8em;
   user-select: none;
 
-  color: ${(props) => props.theme!.colours["foreground-100"]};
-  background: ${(props) => props.theme!.colours.background};
   padding: ${(props) => props.theme!.gap.md} ${(props) => props.theme!.gap.lg};
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+  color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-indicator-background"]};
 
   a:hover {
     filter: brightness(1.2);

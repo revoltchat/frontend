@@ -15,6 +15,7 @@ declare module "solid-styled-components" {
     /* colour(base: keyof Scheme, tone?: number): string;
     scheme: Record<keyof Scheme, string>;
     tones: Record<keyof Scheme, TonalPalette>; */
+    darkMode: boolean;
     customColours: Record<
       | `status-${
           | "online"
@@ -71,7 +72,10 @@ declare module "solid-styled-components" {
                 | "header-with-image-text"}-${"background" | "foreground"}`}`
         | `messaging-${
             | `indicator-${"background" | "foreground"}`
+            | `indicator-reply-${"enabled" | "disabled"}`
+            | `upload-${"file-background" | "file-foreground" | "divider"}`
             | `message-box-${"background" | "foreground"}`
+            | `message-mentioned-background`
             | `component-${`${
                 | "code-block"
                 | "blockquote"
@@ -170,6 +174,9 @@ declare module "solid-styled-components" {
     effects: {
       blur: {
         [key in "md"]: string;
+      };
+      ripple: {
+        hover: number;
       };
       muted: string;
       hover: string;

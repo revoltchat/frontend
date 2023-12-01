@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -440,6 +444,9 @@ importers:
       '@fontsource/open-sans':
         specifier: ^4.5.11
         version: 4.5.11
+      '@material-design-icons/svg':
+        specifier: ^0.14.8
+        version: 0.14.8
       '@material/material-color-utilities':
         specifier: ^0.2.7
         version: 0.2.7
@@ -624,8 +631,8 @@ importers:
         specifier: ^5.2.1
         version: 5.2.1
       revolt-api:
-        specifier: 0.6.7
-        version: 0.6.7
+        specifier: 0.6.9
+        version: 0.6.9
       solid-js:
         specifier: ^1.7.3
         version: 1.7.3
@@ -9503,8 +9510,8 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /revolt-api@0.6.7:
-    resolution: {integrity: sha512-CfMs8xCy9VcZIzyaJ9/t6ixcUR+YJ1hahIiunHd2FcoSKKiPgJNZvCXSV2vSWW1b8y2ftFeFygU/+AfdZocOeQ==}
+  /revolt-api@0.6.9:
+    resolution: {integrity: sha512-Z9YcsVh91bl+JVcVqzeL1tKWn1IExXDTwI0HMbEQ8X+eiuLhWG31HQSa6ESf12jI8eSv1c3jj99v5LbgGODYLA==}
     dependencies:
       '@insertish/oapi': 0.1.18
       axios: 0.26.1
@@ -11254,7 +11261,3 @@ packages:
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

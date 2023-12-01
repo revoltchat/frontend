@@ -1,5 +1,7 @@
-import { BiRegularPlus, BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
+import { BiSolidCheckShield, BiSolidCog } from "solid-icons/bi";
+import { BiSolidMegaphone } from "solid-icons/bi";
 import { Accessor, For, Show, batch, onCleanup, onMount } from "solid-js";
+import { JSX } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Channel, Server, User } from "revolt.js";
@@ -9,7 +11,7 @@ import { Link, useNavigate } from "@revolt/routing";
 
 // import MdPlus from "@material-design-icons/svg/outlined/password.svg?component-solid";
 import { iconSize } from "../../..";
-import { invisibleScrollable } from "../../../directives";
+import { floating, invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Button, Column, Typography } from "../../design";
@@ -23,6 +25,7 @@ import { Tooltip } from "../../floating";
 import { Swoosh } from "./Swoosh";
 
 invisibleScrollable;
+floating;
 
 interface Props {
   /**
@@ -55,6 +58,11 @@ interface Props {
    * Create or join server
    */
   onCreateOrJoinServer(): void;
+
+  /**
+   * Menu generator
+   */
+  menuGenerator: (target: Server | Channel) => JSX.Directives["floating"];
 }
 
 /**
@@ -208,7 +216,7 @@ export const ServerList = (props: Props) => {
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
-              <EntryContainer>
+              <EntryContainer use:floating={props.menuGenerator(conversation)}>
                 <Link href={`/channel/${conversation.id}`}>
                   <Avatar
                     size={42}
@@ -281,6 +289,17 @@ export const ServerList = (props: Props) => {
       <Shadow>
         <div />
       </Shadow>
+      <Tooltip placement="right" content="Give Feedback">
+        <EntryContainer>
+          <Link href="/server/01F7ZSBSFHQ8TA81725KQCSDDP/channel/01HGJPTXVPM3RJV0RG3YQA20KZ">
+            <Avatar
+              size={42}
+              fallback={<BiSolidMegaphone size={18} />}
+              interactive
+            />
+          </Link>
+        </EntryContainer>
+      </Tooltip>
       <Tooltip placement="right" content="Settings">
         <EntryContainer>
           <Link href="/settings">

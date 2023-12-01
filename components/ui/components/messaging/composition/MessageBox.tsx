@@ -1,5 +1,5 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Show, Switch } from "solid-js";
+import { JSX, Match, Show, Switch, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
@@ -58,6 +58,11 @@ interface Props {
    * Auto complete config
    */
   autoCompleteConfig?: JSX.Directives["autoComplete"];
+
+  /**
+   * Update the current draft selection
+   */
+  updateDraftSelection?: (start: number, end: number) => void;
 }
 
 /**
@@ -67,7 +72,7 @@ const Base = styled("div", "MessageBox")`
   height: 48px;
   flex-shrink: 0;
 
-  margin: 0 ${(props) => (props.theme!.gap.md + " ").repeat(2)}0;
+  margin: 0 0 ${(props) => props.theme!.gap.md} 0;
   border-radius: ${(props) => props.theme!.borderRadius.lg};
 
   display: flex;
@@ -116,6 +121,28 @@ export function MessageBox(props: Props) {
     props.setContent(event.currentTarget!.value);
   }
 
+  /**
+   * Handle key up event
+   * @param event Event
+   */
+  function onKeyUp(
+    event: KeyboardEvent & {
+      currentTarget: HTMLTextAreaElement;
+    }
+  ) {
+    props.updateDraftSelection?.(
+      event.currentTarget.selectionStart,
+      event.currentTarget.selectionEnd
+    );
+  }
+
+  /**
+   * Set initial draft selection
+   */
+  onMount(() =>
+    props.updateDraftSelection?.(props.content.length, props.content.length)
+  );
+
   return (
     <Base>
       <Switch fallback={props.actionsStart}>
@@ -131,9 +158,10 @@ export function MessageBox(props: Props) {
         fallback={
           <Input
             ref={props.ref}
+            onInput={onInput}
+            onKeyUp={onKeyUp}
             value={props.content}
             placeholder={props.placeholder}
-            onInput={onInput}
             use:autoComplete={props.autoCompleteConfig ?? true}
           />
         }

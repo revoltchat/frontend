@@ -84,18 +84,24 @@ const ButtonBase = styled("button")<Props>`
 `;
 
 const PrimaryButton = styled(ButtonBase)<Props>`
+  fill: ${({ theme }) => theme!.colours["component-btn-foreground-primary"]};
   color: ${({ theme }) => theme!.colours["component-btn-foreground-primary"]};
   background: ${({ theme }) =>
     theme!.colours["component-btn-background-primary"]};
 `;
 
 const SecondaryButton = styled(ButtonBase)<Props>`
+  fill: ${({ theme }) => theme!.colours["component-btn-foreground-secondary"]};
   color: ${({ theme }) => theme!.colours["component-btn-foreground-secondary"]};
   background: ${({ theme }) =>
     theme!.colours["component-btn-background-secondary"]};
 `;
 
 const PlainButton = styled(ButtonBase)<Props>`
+  fill: ${(props) =>
+    props.theme!.colours[
+      `component-btn-foreground-${props.palette as "plain" | "plain-secondary"}`
+    ]};
   color: ${(props) =>
     props.theme!.colours[
       `component-btn-foreground-${props.palette as "plain" | "plain-secondary"}`
@@ -116,6 +122,9 @@ const AccentedButton = styled(ButtonBase)<Props>`
   background: ${(props) =>
     props.theme!.customColours[props.palette as "success" | "warning" | "error"]
       .color};
+  fill: ${(props) =>
+    props.theme!.customColours[props.palette as "success" | "warning" | "error"]
+      .onColor};
   color: ${(props) =>
     props.theme!.customColours[props.palette as "success" | "warning" | "error"]
       .onColor};

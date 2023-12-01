@@ -1,4 +1,4 @@
-import { mapAnyError } from "@revolt/client";
+import { mapAndRethrowError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 
@@ -38,9 +38,9 @@ const CreateServer: PropGenerator<"create_server"> = (props) => {
         .createServer({
           name,
         })
-        .catch(mapAnyError);
+        .catch(mapAndRethrowError);
 
-      setTimeout(() => navigate(`/server/${server._id}`));
+      setTimeout(() => navigate(`/server/${server.id}`));
     },
     submit: {
       children: t("app.special.modals.actions.create"),

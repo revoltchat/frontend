@@ -28,5 +28,13 @@ export function mapAnyError(error: any) {
     return "NetworkError";
   }
 
-  return "UnknownError";
+  return typeof error === "string" ? error : "UnknownError";
 }
+
+/**
+ * Turn any error into a thrown i18n key.
+ * @param error Error object
+ */
+export const mapAndRethrowError = (error: any) => {
+  throw mapAnyError(error);
+};

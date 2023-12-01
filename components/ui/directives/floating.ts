@@ -99,6 +99,7 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
    * Handle click events
    */
   function onClick() {
+    // TODO: handle shift+click for mention
     trigger("userCard");
   }
 

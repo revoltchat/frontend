@@ -94,8 +94,11 @@ export function AutoComplete(
  */
 const Entry = styled(Row)<{ selected: boolean }>`
   cursor: pointer;
+  padding: ${(props) => props.theme!.gap.sm} ${(props) => props.theme!.gap.md};
   background: ${(props) =>
-    props.selected ? props.theme!.colours["background-300"] : "transparent"};
+    props.selected
+      ? props.theme!.colours["component-context-menu-item-hover-background"]
+      : "transparent"};
 `;
 
 /**
@@ -103,7 +106,6 @@ const Entry = styled(Row)<{ selected: boolean }>`
  */
 const Name = styled.div`
   font-size: 0.9em;
-  color: ${(props) => props.theme!.colours["foreground-200"]};
 `;
 
 /**
@@ -112,7 +114,12 @@ const Name = styled.div`
 const Base = styled(Column)`
   --emoji-size: 1.4em;
 
-  padding: ${(props) => props.theme!.gap.md};
+  padding: ${(props) => props.theme!.gap.md} 0;
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-100"]};
+
+  backdrop-filter: ${(props) => props.theme!.effects.blur.md};
+  color: ${(props) =>
+    props.theme!.colours["component-context-menu-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["component-context-menu-background"]};
 `;

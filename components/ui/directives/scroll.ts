@@ -15,12 +15,13 @@ export function scrollable(
 
   el.classList.add(css`
     will-change: transform;
-    padding-top: ${(props?.offsetTop || 0).toString()}px;
+    ${props.offsetTop ? "padding-top: " + props.offsetTop + "px;" : ""}
     ${"overflow-" + (props?.direction ?? "y")}: scroll;
     ${"overflow-" + ((props?.direction ?? "y") === "y" ? "x" : "y")}: hidden;
 
-    scrollbar-width: ${props?.showOnHover ? "none" : "thin"};
-    scrollbar-color: ${theme!.colours["component-scrollbar-foreground"]} ${theme!.colours["component-scrollbar-background"]};
+    scrollbar-width: ${props?.showOnHover ? "none" : "initial"};
+    scrollbar-color: ${theme!.colours["component-scrollbar-foreground"]}
+      ${theme!.colours["component-scrollbar-background"]};
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -44,7 +45,7 @@ export function scrollable(
 
   if (props?.showOnHover) {
     const showClass = css`
-      scrollbar-width: thin !important;
+      scrollbar-width: initial !important;
 
       &::-webkit-scrollbar {
         display: unset !important;

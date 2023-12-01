@@ -6,6 +6,7 @@ import {
 } from "solid-icons/bi";
 import {
   For,
+  JSX,
   Match,
   Show,
   Switch,
@@ -59,6 +60,11 @@ interface Props {
    * Open server settings modal
    */
   openServerSettings: () => void;
+
+  /**
+   * Menu generator
+   */
+  menuGenerator: (target: Server | Channel) => JSX.Directives["floating"];
 }
 
 /**
@@ -157,7 +163,11 @@ export const ServerSidebar = (props: Props) => {
           </HeaderWithImage>
         </Match>
       </Switch>
-      <div use:scrollable={{ showOnHover: true }} style={{ "flex-grow": 1 }}>
+      <div
+        use:scrollable={{ showOnHover: true }}
+        style={{ "flex-grow": 1 }}
+        use:floating={props.menuGenerator(props.server)}
+      >
         <List gap="lg">
           <div />
           <For each={props.server.orderedChannels}>
@@ -166,7 +176,11 @@ export const ServerSidebar = (props: Props) => {
                 "01G3E05H65N1K6WM64SPVJ4PSE",
                 "01HC0JQH88WC02Y0S1VE9WEBRM",
               ].includes(category.id) && (
-                <Category category={category} channelId={props.channelId} />
+                <Category
+                  category={category}
+                  channelId={props.channelId}
+                  menuGenerator={props.menuGenerator}
+                />
               )
             }
           </For>
@@ -218,10 +232,12 @@ const SettingsLink = styled.a`
 /**
  * Single category entry
  */
-function Category(props: {
-  category: CategoryData;
-  channelId: string | undefined;
-}) {
+function Category(
+  props: {
+    category: CategoryData;
+    channelId: string | undefined;
+  } & Pick<Props, "menuGenerator">
+) {
   const [shown, setShown] = createSignal(true);
   const channels = createMemo(() =>
     props.category.channels.filter(
@@ -248,7 +264,11 @@ function Category(props: {
       </Show>
       <For each={channels()}>
         {(channel) => (
-          <Entry channel={channel} active={channel.id === props.channelId} />
+          <Entry
+            channel={channel}
+            active={channel.id === props.channelId}
+            menuGenerator={props.menuGenerator}
+          />
         )}
       </For>
     </Column>
@@ -285,12 +305,15 @@ const CategoryBase = styled(Row)<{ open: boolean }>`
 /**
  * Server channel entry
  */
-function Entry(props: { channel: Channel; active: boolean }) {
+function Entry(
+  props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">
+) {
   return (
     <Link
       href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}
     >
       <MenuButton
+        use:floating={props.menuGenerator(props.channel)}
         size="thin"
         alert={
           !props.active &&

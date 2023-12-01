@@ -1,6 +1,8 @@
 import { useTranslation } from "@revolt/i18n";
 import { Link, useNavigate } from "@revolt/routing";
-import { Button, Column, Typography, styled } from "@revolt/ui";
+import { Button, Column, Row, Typography, iconSize, styled } from "@revolt/ui";
+
+import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
 import { clientController } from "../../../client";
 
@@ -40,23 +42,47 @@ export default function FlowLogin() {
 
   return (
     <>
-      <FlowTitle subtitle={t("login.subtitle")} emoji="wave">
+      {/*<FlowTitle subtitle={t("login.subtitle")} emoji="wave">
         {t("login.welcome")}
-      </FlowTitle>
+      </FlowTitle>*/}
+      <strong>
+        You are logging into a limited demo of the new Revolt client.
+      </strong>
+
+      <span>
+        Please provide feedback through{" "}
+        <a
+          href="https://github.com/revoltchat/frontend/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
+          target="_blank"
+          style={{ "text-decoration": "underline" }}
+        >
+          GitHub issues
+        </a>{" "}
+        where possible.
+      </span>
+
       <Form onSubmit={login}>
         <Fields fields={["email", "password"]} />
-        <Button type="submit">{t("login.title")}</Button>
+        <Row align justify="center">
+          <Link href="..">
+            <Button palette="plain">
+              <MdArrowBack {...iconSize("1.2em")} /> Back
+            </Button>
+          </Link>
+          <Button type="submit">{t("login.title")}</Button>
+        </Row>
       </Form>
-      <Typography variant="legacy-settings-description">
-        {t("login.new")} <Link href="create">{t("login.create")}</Link>
-      </Typography>
-      <Typography variant="legacy-settings-description">
-        {t("login.forgot")} <Link href="reset">{t("login.reset")}</Link>
-      </Typography>
-      <Typography variant="legacy-settings-description">
-        {t("login.missing_verification")}{" "}
-        <Link href="resend">{t("login.resend")}</Link>
-      </Typography>
+
+      <a href="https://app.revolt.chat/login/reset" target="_blank">
+        {/* <Link href="../reset"> */}
+        {t("login.reset")}
+        {/* </Link> */}
+      </a>
+      <a href="https://app.revolt.chat/login/resend" target="_blank">
+        {/* <Link href="../resend"> */}
+        {t("login.resend")}
+        {/* </Link> */}
+      </a>
 
       {/*<Show when={clientController.getReadyClients().length > 0}>
         <Switch fallback={<Navigate href="/" />}>

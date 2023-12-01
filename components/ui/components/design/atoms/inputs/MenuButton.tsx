@@ -1,9 +1,12 @@
 import { ComponentProps, JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { ripple } from "../../../../directives";
 import { Row } from "../../layout";
 import { generateTypographyCSS } from "../display/Typography";
 import { Unreads } from "../indicators";
+
+void ripple;
 
 export interface Props {
   /**
@@ -98,19 +101,8 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
     }
   }
 
-  &:hover {
-    color: ${({ theme }) =>
-      theme!.colours["component-menubtn-hover-foreground"]};
-    background: ${({ theme }) =>
-      theme!.colours["component-menubtn-hover-background"]};
-
-    .actions {
-      display: flex;
-    }
-  }
-
-  &:active {
-    filter: ${(props) => props.theme!.effects.active};
+  &:hover .actions {
+    display: flex;
   }
 `;
 
@@ -126,7 +118,7 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
   ]);
 
   return (
-    <Base {...other} align>
+    <Base {...other} align use:ripple>
       {local.icon}
       <div class="content">{local.children}</div>
       <Show when={local.alert}>

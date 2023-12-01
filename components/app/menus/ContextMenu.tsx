@@ -35,7 +35,7 @@ export const ContextMenuItem = styled("a", "MenuItem")`
   }
 `;
 
-const ButtonBase = styled(ContextMenuItem)`
+const ButtonBase = styled(ContextMenuItem)<{ destructive?: boolean }>`
   display: flex;
   align-items: center;
   gap: ${(props) => props.theme!.gap.md};
@@ -43,10 +43,18 @@ const ButtonBase = styled(ContextMenuItem)`
   > span {
     margin-top: 1px;
   }
+
+  ${(props) =>
+    props.destructive
+      ? `fill: ${props.theme!.customColours.error.color}; color: ${
+          props.theme!.customColours.error.color
+        };`
+      : ""}
 `;
 
 type ButtonProps = ComponentProps<typeof ContextMenuItem> & {
   icon?: Component<JSX.SvgSVGAttributes<SVGSVGElement>>;
+  destructive?: boolean;
 };
 
 export function ContextMenuButton(props: ButtonProps) {
