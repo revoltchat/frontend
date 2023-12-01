@@ -297,10 +297,10 @@ export const ServerList = (props: Props) => {
         <Tooltip placement="right" content={"Yellow (Dark)"}>
           <Item accentColour="#f5cb42" darkMode />
         </Tooltip>
-        <Tooltip placement="right" content={"Green (Light)"}>
+        <Tooltip placement="right" content={"Lime (Light)"}>
           <Item accentColour="#42f5a1" />
         </Tooltip>
-        <Tooltip placement="right" content={"Green (Dark)"}>
+        <Tooltip placement="right" content={"Lime (Dark)"}>
           <Item accentColour="#42f5a1" darkMode />
         </Tooltip>
       </div>
