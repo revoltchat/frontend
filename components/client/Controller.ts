@@ -83,7 +83,9 @@ export default class ClientController {
    */
   createClient(session: PrivateSession) {
     if (typeof session === "string") throw "Bot login not supported";
-    if (this.#clients.get(session.user_id)) throw "User client already exists";
+    // if (this.#clients.get(session.user_id)) throw "User client already exists";
+    this.#clients.delete(session.user_id);
+    // TODO: yeah whatever
 
     const client = new Client({
       baseURL: CONFIGURATION.DEFAULT_API_URL,
