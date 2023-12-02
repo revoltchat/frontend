@@ -1,16 +1,18 @@
-# ‼️ READ: Please **do not create any issues** and clear any PRs with me ahead of time (some PRs may be rejected at this stage).
+# ‼️ READ: THIS IS STILL IN DEVELOPMENT
 
-This is still in very heavy development, and we are currently overhauling a lot of the UI on our own private downstream branch, as such we may be limiting PRs to purely functional changes in certain cases (i.e. which don't have to touch UI) so it is best that you liase with someone on the team first to ask about whether a certain part of the project may be worked on.
+This is still in early development. Everything you see here may - and likely will - be tweaked or changed further before release.
 
 # Revolt Frontend
 
-See [code style guidelines here](./GUIDELINES.md)!
+This repository contains the code for Revolt's new frontend, built with Solid.js.
+
+You can find the code style guidelines [here](./GUIDELINES.md).
 
 ## Setup locally
 
 ```bash
 # clone the repository
-git clone --recursive https://github.com/revoltchat/revoltchat-solid-client-monorepo client
+git clone --recursive https://github.com/revoltchat/frontend client
 cd client
 
 # update submodules if you pull new changes
@@ -19,10 +21,10 @@ cd client
 # install all packages
 pnpm i
 
-# build deps
+# build deps:
 pnpm build:deps
 
-# or build a specific dep: (i.e. revolt.js updates)
+# or build a specific dep (e.g. revolt.js updates):
 # pnpm --filter revolt.js run build
 
 # run dev server
@@ -50,7 +52,7 @@ If you want to pull in Revolt brand assets after pulling, run the following:
 git -c submodule."packages/client/assets".update=checkout submodule update --init packages/client/assets
 ```
 
-You can switch back to fallback assets by running deinit and continuing as normal:
+You can switch back to the fallback assets by running deinit and continuing as normal:
 
 ```bash
 # deinit submodule which clears directory
@@ -67,7 +69,7 @@ To make it easier to work with `revolt.js`, you may want to temporarily make thi
 +  "module": "src/index.ts",
 ```
 
-Any edits to the revolt.js codebase will immediately reflect while developing.
+Any edits to the revolt.js codebase will immediately be reflected while developing.
 
 ## Using `pnpm`
 

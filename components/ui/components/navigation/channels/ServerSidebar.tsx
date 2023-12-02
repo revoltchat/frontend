@@ -1,6 +1,8 @@
 import {
+  BiRegularCheckCircle,
   BiRegularHash,
   BiRegularPhoneCall,
+  BiSolidCheckCircle,
   BiSolidChevronRight,
   BiSolidCog,
 } from "solid-icons/bi";
@@ -17,9 +19,10 @@ import {
 } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import type { API, Channel, Server } from "revolt.js";
+import type { API, Channel, Server, ServerFlags } from "revolt.js";
 
 import { getController } from "@revolt/common";
+import { useTranslation } from "@revolt/i18n";
 import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useNavigate } from "@revolt/routing";
@@ -34,6 +37,7 @@ import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
+import { Tooltip } from "../../floating";
 
 import { SidebarBase } from "./common";
 
@@ -199,6 +203,7 @@ function ServerInfo(
 ) {
   return (
     <Row align grow>
+      <ServerBadge flags={props.server.flags} />
       <ServerName onClick={props.openServerInfo}>
         <OverflowingText>
           <TextWithEmoji content={props.server.name} />
@@ -228,6 +233,32 @@ const SettingsLink = styled.a`
     display: block;
   }
 `;
+
+/**
+ * Server badge
+ */
+function ServerBadge(props: { flags: ServerFlags }) {
+  const t = useTranslation();
+
+  return (
+    <Show when={props.flags}>
+      <Tooltip
+        content={
+          props.flags === 1
+            ? t("app.special.server-badges.official")
+            : t("app.special.server-badges.verified")
+        }
+        placement="top"
+      >
+        {props.flags === 1 ? (
+          <BiSolidCheckCircle size={12} />
+        ) : (
+          <BiRegularCheckCircle size={12} />
+        )}
+      </Tooltip>
+    </Show>
+  );
+}
 
 /**
  * Single category entry
