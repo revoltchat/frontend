@@ -52,10 +52,18 @@ export function Masks() {
         <mask id="accessible-status-focus">
           <circle cx="27" cy="27" r="5" fill="white" />
           <line
-            x1="24"
-            y1="27"
-            x2="30"
-            y2="27"
+            x1="25.5"
+            y1="24"
+            x2="25.5"
+            y2="30"
+            stroke="black"
+            stroke-width={2}
+          />
+          <line
+            x1="28.5"
+            y1="24"
+            x2="28.5"
+            y2="30"
             stroke="black"
             stroke-width={2}
           />
