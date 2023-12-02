@@ -1,10 +1,10 @@
 import {
+  BiRegularCheckCircle,
   BiRegularHash,
   BiRegularPhoneCall,
+  BiSolidCheckCircle,
   BiSolidChevronRight,
   BiSolidCog,
-  BiSolidCheckCircle,
-  BiRegularCheckCircle
 } from "solid-icons/bi";
 import {
   For,
@@ -22,10 +22,10 @@ import { styled } from "solid-styled-components";
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
 
 import { getController } from "@revolt/common";
+import { useTranslation } from "@revolt/i18n";
 import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
-import { Link } from "@revolt/routing";
-import { useTranslation } from "@revolt/i18n";
+import { Link, useNavigate } from "@revolt/routing";
 
 import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
@@ -37,9 +37,9 @@ import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
+import { Tooltip } from "../../floating";
 
 import { SidebarBase } from "./common";
-import { Tooltip } from "../../floating";
 
 void scrollable;
 void floating;
@@ -237,8 +237,19 @@ function ServerBadge(props: { flags: ServerFlags }) {
 
   return (
     <Show when={props.flags}>
-      <Tooltip content={props.flags === 1 ? t("app.special.server-badges.official") : t("app.special.server-badges.verified")} placement="top">
-        {props.flags === 1 ? (<BiSolidCheckCircle size={12} />) : (<BiRegularCheckCircle size={12} />)}
+      <Tooltip
+        content={
+          props.flags === 1
+            ? t("app.special.server-badges.official")
+            : t("app.special.server-badges.verified")
+        }
+        placement="top"
+      >
+        {props.flags === 1 ? (
+          <BiSolidCheckCircle size={12} />
+        ) : (
+          <BiRegularCheckCircle size={12} />
+        )}
       </Tooltip>
     </Show>
   );
