@@ -68,9 +68,9 @@ function UserInformation() {
                 </div>
               </div>
             </ProfileDetails>
-            <div class="button">
+            {/*<div class="button">
               <MdEdit {...iconSize(22)} />
-            </div>
+  </div>*/}
           </div>
           <BadgeContainer>
             <ProfileBadges>
