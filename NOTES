@@ -15,6 +15,7 @@ Context menu needs to be more broadly available (in interface package?)
 
 # To-do (less urgent)
 
+- move zindex into theme
 - style the user card
 - not sure whether to polish up all message components
 - fix all the auth flows
