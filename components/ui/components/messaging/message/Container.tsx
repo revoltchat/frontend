@@ -103,6 +103,7 @@ const Base = styled(Column as Component, "Message")<
       ? props.theme!.colours["messaging-message-mentioned-background"]
       : "transparent"};
   margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
+  border-radius: ${(props) => props.theme!.borderRadius.md};
 
   .hidden {
     display: none;
