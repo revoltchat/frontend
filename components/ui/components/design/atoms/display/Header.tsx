@@ -42,6 +42,25 @@ export const Header = styled("div", "Header")<Props>`
 `;
 
 /**
+ * Position an element below a floating header
+ *
+ * Ensure you place a div inside to make the positioning work
+ */
+export const BelowFloatingHeader = styled.div`
+  z-index: 30;
+  position: relative;
+
+  > * {
+    width: 100%;
+    position: absolute;
+    top: calc(
+      2 * ${(props) => props.theme!.gap.md} +
+        ${(props) => props.theme!.layout.height.header}
+    );
+  }
+`;
+
+/**
  * Header with background transparency
  */
 export const HeaderWithTransparency = styled(Header)`

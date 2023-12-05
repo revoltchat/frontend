@@ -4,7 +4,13 @@ import { Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { HeaderWithTransparency, TypingIndicator, styled } from "@revolt/ui";
+import {
+  BelowFloatingHeader,
+  HeaderWithTransparency,
+  NewMessages,
+  TypingIndicator,
+  styled,
+} from "@revolt/ui";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -19,7 +25,7 @@ export function TextChannel(props: ChannelPageProps) {
   const client = useClient();
 
   // Last unread message ID
-  const [_lastId, setLastId] = createSignal<string | undefined>(undefined);
+  const [lastId, setLastId] = createSignal<string | undefined>(undefined);
 
   // Get a reference to the message box's load latest function
   let loadLatestRef: ((nearby?: string) => void) | undefined;
@@ -56,6 +62,11 @@ export function TextChannel(props: ChannelPageProps) {
       </HeaderWithTransparency>
       <Content>
         <MessagingStack>
+          <BelowFloatingHeader>
+            <div>
+              <NewMessages lastId={lastId} />
+            </div>
+          </BelowFloatingHeader>
           <Messages
             channel={props.channel}
             limit={150}
