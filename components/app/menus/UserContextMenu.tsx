@@ -5,11 +5,15 @@ import { Message, ServerMember, User } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
 
+import MdAddCircleOutline from "@material-design-icons/svg/outlined/add_circle_outline.svg?component-solid";
 import MdAdminPanelSettings from "@material-design-icons/svg/outlined/admin_panel_settings.svg?component-solid";
 import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
+import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
+import MdCancel from "@material-design-icons/svg/outlined/cancel.svg?component-solid";
 import MdDoNotDisturbOn from "@material-design-icons/svg/outlined/do_not_disturb_on.svg?component-solid";
 import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid";
+import MdPersonAddAlt from "@material-design-icons/svg/outlined/person_add_alt.svg?component-solid";
 import MdPersonRemove from "@material-design-icons/svg/outlined/person_remove.svg?component-solid";
 import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
 
@@ -83,6 +87,34 @@ export function UserContextMenu(props: {
   }
 
   /**
+   * Add friend
+   */
+  function addFriend() {
+    props.user.addFriend();
+  }
+
+  /**
+   * Remove friend
+   */
+  function removeFriend() {
+    props.user.removeFriend();
+  }
+
+  /**
+   * Block user
+   */
+  function blockUser() {
+    props.user.blockUser();
+  }
+
+  /**
+   * Unblock user
+   */
+  function unblockUser() {
+    props.user.unblockUser();
+  }
+
+  /**
    * Open user in Revolt Admin Panel
    */
   function openAdminPanel() {
@@ -104,6 +136,8 @@ export function UserContextMenu(props: {
       <ContextMenuButton icon={MdAlternateEmail} onClick={mention}>
         Mention
       </ContextMenuButton>
+      <ContextMenuDivider />
+
       <Show
         when={
           props.member &&
@@ -159,6 +193,46 @@ export function UserContextMenu(props: {
       <Show when={!props.user.self || props.member}>
         <ContextMenuDivider />
       </Show>
+
+      <Show when={!props.user.self}>
+        <Show when={props.user.relationship === "None"}>
+          <ContextMenuButton icon={MdPersonAddAlt} onClick={addFriend}>
+            Add Friend
+          </ContextMenuButton>
+        </Show>
+        <Show when={props.user.relationship === "Friend"}>
+          <ContextMenuButton icon={MdPersonRemove} onClick={removeFriend}>
+            Remove Friend
+          </ContextMenuButton>
+        </Show>
+        <Show when={props.user.relationship === "Incoming"}>
+          <ContextMenuButton icon={MdPersonAddAlt} onClick={addFriend}>
+            Accept Friend Request
+          </ContextMenuButton>
+        </Show>
+        <Show when={props.user.relationship === "Incoming"}>
+          <ContextMenuButton icon={MdCancel} onClick={removeFriend}>
+            Reject Friend Request
+          </ContextMenuButton>
+        </Show>
+        <Show when={props.user.relationship === "Outgoing"}>
+          <ContextMenuButton icon={MdCancel} onClick={removeFriend}>
+            Cancel Friend Request
+          </ContextMenuButton>
+        </Show>
+        <Show when={props.user.relationship !== "Blocked"}>
+          <ContextMenuButton icon={MdBlock} onClick={blockUser}>
+            Block User
+          </ContextMenuButton>
+        </Show>
+        <Show when={props.user.relationship === "Blocked"}>
+          <ContextMenuButton icon={MdAddCircleOutline} onClick={unblockUser}>
+            Unblock User
+          </ContextMenuButton>
+        </Show>
+        <ContextMenuDivider />
+      </Show>
+
       <ContextMenuButton icon={MdAdminPanelSettings} onClick={openAdminPanel}>
         Admin Panel
       </ContextMenuButton>
