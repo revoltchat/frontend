@@ -77,6 +77,7 @@ declare module "solid-styled-components" {
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
             | `component-${`${
+                | "blocked-message"
                 | "code-block"
                 | "blockquote"
                 | "text-embed"
@@ -140,7 +141,7 @@ declare module "solid-styled-components" {
         | "composition-typing-indicator"
         | "conversation-channel-name"
         | "conversation-start"
-        | "jump-to-bottom"
+        | "conversation-indicator"
         | "system-message"
         | "sidebar-title"
         | "channel-topic"

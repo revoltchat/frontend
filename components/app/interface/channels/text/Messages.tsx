@@ -1,4 +1,3 @@
-import { BiSolidDownArrowAlt } from "solid-icons/bi";
 import {
   For,
   Match,
@@ -19,14 +18,14 @@ import { Channel, Message as MessageInterface } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { dayjs } from "@revolt/i18n";
 import {
+  BlockedMessage,
   ConversationStart,
+  JumpToBottom,
   ListView,
   MessageDivider,
-  Row,
   ripple,
   styled,
 } from "@revolt/ui";
-import { generateTypographyCSS } from "@revolt/ui/components/design/atoms/display/Typography";
 
 import { Message } from "./Message";
 
@@ -109,7 +108,7 @@ export function Messages(props: Props) {
       .then(handleResult);
   }
 
-  // Setup refs if they exists
+  // Setup references if they exists
   onMount(() => {
     props.loadInitialMessagesRef?.(loadInitialMessages);
     props.atEndRef?.(atEnd);
@@ -170,6 +169,22 @@ export function Messages(props: Props) {
   const messagesWithTail = createMemo<ListEntry[]>(() => {
     const messagesWithTail: ListEntry[] = [];
 
+    let blockedMessages = 0;
+
+    /**
+     * Create blocked message divider
+     */
+    const createBlockedMessageCount = () => {
+      if (blockedMessages) {
+        messagesWithTail.push({
+          t: 2,
+          count: blockedMessages,
+        });
+
+        blockedMessages = 0;
+      }
+    };
+
     const arr = messages();
     arr.forEach((message, index) => {
       const next = arr[index + 1];
@@ -207,14 +222,21 @@ export function Messages(props: Props) {
         tail = false;
       }
 
-      // Add message to list, retrieve if it exists in the cache
-      messagesWithTail.push(
-        objectCache.get(`${message.id}:${tail}`) ?? {
-          t: 0,
-          message,
-          tail,
-        }
-      );
+      if (message.author?.relationship === "Blocked") {
+        blockedMessages++;
+      } else {
+        // Push any blocked messages if they haven't been yet
+        createBlockedMessageCount();
+
+        // Add message to list, retrieve if it exists in the cache
+        messagesWithTail.push(
+          objectCache.get(`${message.id}:${tail}`) ?? {
+            t: 0,
+            message,
+            tail,
+          }
+        );
+      }
 
       // Add date to list, retrieve if it exists in the cache
       if (date) {
@@ -228,6 +250,9 @@ export function Messages(props: Props) {
       }
     });
 
+    // Push remainder of blocked messages
+    createBlockedMessageCount();
+
     // Flush cache
     objectCache.clear();
 
@@ -235,7 +260,7 @@ export function Messages(props: Props) {
     for (const object of messagesWithTail) {
       if (object.t === 0) {
         objectCache.set(`${object.message.id}:${object.tail}`, object);
-      } else {
+      } else if (object.t === 1) {
         objectCache.set(object.date, object);
       }
     }
@@ -244,11 +269,19 @@ export function Messages(props: Props) {
   });
 
   /**
+   * Check if we are already fetching somewhere
+   */
+  function fetchGuard() {
+    return false;
+  }
+
+  /**
    * Fetch messages in past
    * @param reposition Scroll guard callback
    */
   async function fetchTop(reposition: (cb: () => void) => void) {
     if (atStart()) return;
+    if (fetchGuard()) return;
 
     // Fetch messages before the oldest message we have
     const result = await props.channel.fetchMessagesWithUsers({
@@ -294,6 +327,7 @@ export function Messages(props: Props) {
    */
   async function fetchBottom(reposition: (cb: () => void) => void) {
     if (atEnd()) return;
+    if (fetchGuard()) return;
 
     // Fetch messages after the newest message we have
     const result = await props.channel.fetchMessagesWithUsers({
@@ -332,6 +366,13 @@ export function Messages(props: Props) {
     }
   }
 
+  /**
+   * Jump to the bottom of the chat
+   */
+  function jumpToBottom() {
+    loadInitialMessages();
+  }
+
   return (
     <>
       <ListView offsetTop={48} fetchTop={fetchTop} fetchBottom={fetchBottom}>
@@ -340,26 +381,27 @@ export function Messages(props: Props) {
             <Show when={atStart()}>
               <ConversationStart channel={props.channel} />
             </Show>
+            {/* TODO: else show (loading icon) OR (load more) */}
             <For each={messagesWithTail()}>
               {(props) => <Entry {...props} />}
             </For>
+            {/* TODO: show (loading icon) OR (load more) */}
           </div>
         </div>
       </ListView>
       <Show when={!atEnd()}>
-        <JumpToBottom onClick={() => loadInitialMessages()}>
-          <Row align use:ripple>
-            <span>Viewing older messages</span>
-            <span>Jump to present</span>
-            <BiSolidDownArrowAlt size={18} />
-          </Row>
-        </JumpToBottom>
+        <AnchorToEnd>
+          <JumpToBottom onClick={jumpToBottom} />
+        </AnchorToEnd>
       </Show>
     </>
   );
 }
 
-const JumpToBottom = styled.div`
+/**
+ * Anchor to the end of the messages list
+ */
+const AnchorToEnd = styled.div`
   z-index: 30;
   position: relative;
 
@@ -367,36 +409,6 @@ const JumpToBottom = styled.div`
     bottom: 0;
     width: 100%;
     position: absolute;
-
-    padding: ${(props) => props.theme!.gap.md};
-    border-radius: ${(props) => props.theme!.borderRadius.lg};
-
-    cursor: pointer;
-    backdrop-filter: ${(props) => props.theme!.effects.blur.md};
-    color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
-    background-color: ${(props) =>
-      props.theme!.colours["messaging-indicator-background"]};
-
-    ${(props) => generateTypographyCSS(props.theme!, "jump-to-bottom")}
-
-    :first-child {
-      flex-grow: 1;
-    }
-
-    &:active {
-      transform: translateY(1px);
-    }
-
-    @keyframes bottomBounce {
-      0% {
-        transform: translateY(33px);
-      }
-      100% {
-        transform: translateY(0px);
-      }
-    }
-
-    animation: bottomBounce 340ms cubic-bezier(0.2, 0.9, 0.5, 1.16) forwards;
   }
 `;
 
@@ -415,6 +427,11 @@ type ListEntry =
       t: 1;
       date: string;
       unread: boolean;
+    }
+  | {
+      // Blocked messages
+      t: 2;
+      count: number;
     };
 
 /**
@@ -430,6 +447,9 @@ function Entry(props: ListEntry) {
       </Match>
       <Match when={local.t === 1}>
         <MessageDivider {...(other as ListEntry & { t: 1 })} />
+      </Match>
+      <Match when={local.t === 2}>
+        <BlockedMessage count={(other as ListEntry & { t: 2 }).count} />
       </Match>
     </Switch>
   );

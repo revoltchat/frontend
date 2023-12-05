@@ -294,6 +294,11 @@ export const darkTheme: (
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
       // Messaging: Components
+      "messaging-component-blocked-message-background": "transparent",
+      "messaging-component-blocked-message-foreground": materialColour(
+        "onBackground",
+        60
+      ),
       "messaging-component-code-block-background":
         materialColour("surfaceVariant"),
       "messaging-component-code-block-foreground":
@@ -459,7 +464,7 @@ export const darkTheme: (
         margin: 0,
         fontSize: "14px",
       },
-      "jump-to-bottom": {
+      "conversation-indicator": {
         fontSize: "12px",
         fontWeight: 600,
       },
