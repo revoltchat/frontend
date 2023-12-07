@@ -485,6 +485,9 @@ importers:
       solid-styled-components:
         specifier: ^0.28.4
         version: link:../../packages/solid-styled-components
+      ulid:
+        specifier: ^2.3.0
+        version: 2.3.0
     devDependencies:
       revolt.js:
         specifier: workspace:^

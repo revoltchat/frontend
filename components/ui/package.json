@@ -16,8 +16,8 @@
     "@fontsource/inter": "^4.5.12",
     "@fontsource/jetbrains-mono": "^4.5.12",
     "@fontsource/open-sans": "^4.5.11",
-    "@material/material-color-utilities": "^0.2.7",
     "@material-design-icons/svg": "^0.14.8",
+    "@material/material-color-utilities": "^0.2.7",
     "@minht11/solid-virtual-container": "^0.2.1",
     "@motionone/solid": "^10.15.4",
     "@revolt/common": "workspace:^1.0.0",
@@ -30,6 +30,7 @@
     "solid-floating-ui": "^0.2.0",
     "solid-icons": "^1.0.4",
     "solid-js": "^1.7.3",
-    "solid-styled-components": "^0.28.4"
+    "solid-styled-components": "^0.28.4",
+    "ulid": "^2.3.0"
   }
 }
