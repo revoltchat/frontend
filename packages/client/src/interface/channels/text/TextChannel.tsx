@@ -1,5 +1,7 @@
 import { Show, createEffect, createSignal, on } from "solid-js";
 
+import { decodeTime, ulid } from "ulid";
+
 import { Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
@@ -51,7 +53,22 @@ export function TextChannel(props: ChannelPageProps) {
     on(
       // must be at the end of the conversation
       () => props.channel.unread && (atEndRef ? atEndRef() : true),
-      (unread) => unread && props.channel.ack()
+      (unread) => {
+        if (unread) {
+          if (document.hasFocus()) {
+            // acknowledge the message
+            props.channel.ack();
+          } else {
+            // otherwise mark this location as the last read location
+            if (!lastId()) {
+              // (taking away one second from the seed)
+              setLastId(ulid(decodeTime(props.channel.lastMessageId!) - 1));
+            }
+
+            // TODO: ack on refocus
+          }
+        }
+      }
     )
   );
 
@@ -64,12 +81,17 @@ export function TextChannel(props: ChannelPageProps) {
         <MessagingStack>
           <BelowFloatingHeader>
             <div>
-              <NewMessages lastId={lastId} />
+              <NewMessages
+                lastId={lastId}
+                jumpBack={() => void 0}
+                dismiss={() => setLastId()}
+              />
             </div>
           </BelowFloatingHeader>
           <Messages
             channel={props.channel}
             limit={150}
+            lastReadId={lastId}
             atEndRef={(ref) => (atEndRef = ref)}
             loadInitialMessagesRef={(ref) => (loadLatestRef = ref)}
           />
