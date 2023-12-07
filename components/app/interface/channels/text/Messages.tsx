@@ -1,4 +1,5 @@
 import {
+  Accessor,
   For,
   Match,
   Show,
@@ -51,6 +52,11 @@ interface Props {
    * Limit to number of messages to display at one time
    */
   limit?: number;
+
+  /**
+   * Last read message id
+   */
+  lastReadId: Accessor<string | undefined>;
 
   /**
    * Bind the initial messages function to the parent component
@@ -168,8 +174,10 @@ export function Messages(props: Props) {
   // Determine which messages have a tail and add message dividers
   const messagesWithTail = createMemo<ListEntry[]>(() => {
     const messagesWithTail: ListEntry[] = [];
+    const lastReadId = props.lastReadId() ?? "0";
 
     let blockedMessages = 0;
+    let insertedUnreadDivider = false;
 
     /**
      * Create blocked message divider
@@ -222,6 +230,21 @@ export function Messages(props: Props) {
         tail = false;
       }
 
+      // Try to add the unread divider
+      if (
+        !insertedUnreadDivider &&
+        message.id.localeCompare(lastReadId) === -1
+      ) {
+        insertedUnreadDivider = true;
+
+        messagesWithTail.push(
+          objectCache.get(true) ?? {
+            t: 1,
+            unread: true,
+          }
+        );
+      }
+
       if (message.author?.relationship === "Blocked") {
         blockedMessages++;
       } else {
@@ -244,7 +267,6 @@ export function Messages(props: Props) {
           objectCache.get(date) ?? {
             t: 1,
             date: dayjs(date).format("LL"),
-            unread: false,
           }
         );
       }
@@ -261,7 +283,7 @@ export function Messages(props: Props) {
       if (object.t === 0) {
         objectCache.set(`${object.message.id}:${object.tail}`, object);
       } else if (object.t === 1) {
-        objectCache.set(object.date, object);
+        objectCache.set(object.unread ?? object.date, object);
       }
     }
 
@@ -425,8 +447,8 @@ type ListEntry =
   | {
       // Message Divider
       t: 1;
-      date: string;
-      unread: boolean;
+      date?: string;
+      unread?: boolean;
     }
   | {
       // Blocked messages
