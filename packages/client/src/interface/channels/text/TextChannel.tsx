@@ -41,7 +41,7 @@ export function TextChannel(props: ChannelPageProps) {
   const highlightMessageId = () => params().messageId;
 
   // Get a reference to the message box's load latest function
-  let loadLatestRef: ((nearby?: string) => void) | undefined;
+  let jumpToBottomRef: ((nearby?: string) => void) | undefined;
 
   // Get a reference to the message list's "end status"
   let atEndRef: (() => boolean) | undefined;
@@ -106,7 +106,7 @@ export function TextChannel(props: ChannelPageProps) {
             highlightedMessageId={highlightMessageId}
             clearHighlightedMessage={() => navigate(".")}
             atEndRef={(ref) => (atEndRef = ref)}
-            loadInitialMessagesRef={(ref) => (loadLatestRef = ref)}
+            jumpToBottomRef={(ref) => (jumpToBottomRef = ref)}
           />
           <TypingIndicator
             users={props.channel.typing}
@@ -114,7 +114,7 @@ export function TextChannel(props: ChannelPageProps) {
           />
           <MessageComposition
             channel={props.channel}
-            onMessageSend={() => loadLatestRef?.()}
+            onMessageSend={() => jumpToBottomRef?.()}
           />
         </MessagingStack>
         <Show

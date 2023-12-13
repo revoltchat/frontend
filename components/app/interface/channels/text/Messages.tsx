@@ -73,7 +73,7 @@ interface Props {
    * Bind the initial messages function to the parent component
    * @param fn Function
    */
-  loadInitialMessagesRef?: (fn: (nearby?: string) => void) => void;
+  jumpToBottomRef?: (fn: (nearby?: string) => void) => void;
 
   /**
    * Bind the atEnd signal to the parent component
@@ -391,6 +391,21 @@ export function Messages(props: Props) {
    * Jump to the present messages
    */
   async function caseJumpToBottom() {
+    /**
+     * Helper function to find the closest parent scroll container
+     * @param el Element
+     * @returns Element
+     */
+    function findScrollContainer(el: Element | null) {
+      if (!el) {
+        return null;
+      } else if (getComputedStyle(el).overflowY === "scroll") {
+        return el;
+      } else {
+        return el.parentElement;
+      }
+    }
+
     // Scroll to the bottom if we're already at the end
     if (atEnd()) {
       listRef?.scroll({
@@ -441,16 +456,6 @@ export function Messages(props: Props) {
         // Stop collecting messages
         collectedMessages = [];
 
-        function findScrollContainer(el: Element | null) {
-          if (!el) {
-            return null;
-          } else if (getComputedStyle(el).overflowY === "scroll") {
-            return el;
-          } else {
-            return el.parentElement;
-          }
-        }
-
         // Animate scroll to bottom
         setTimeout(() => {
           const containerChild = findScrollContainer(listRef!)!.children[0];
@@ -482,6 +487,9 @@ export function Messages(props: Props) {
    * @param messageId Message Id
    */
   async function caseJumpToMessage(messageId: string) {
+    /**
+     * Scroll to the nearest message (to the id) in history
+     */
     const scrollToNearestMessage = () => {
       const index = messagesWithTail().findIndex(
         (entry) => entry.t === 0 && entry.message.id === messageId
@@ -536,118 +544,10 @@ export function Messages(props: Props) {
     }
   }
 
-  /* Jump / fetch cases:
-     - Channel load (trigger: channel id changes (message ID may be provided) / select "retry" on failure)
-       Pre-empt any existing fetch
-       Clear messages list
-       atStart := false
-       atEnd := nearby is null
-       fetching := initial (show loading indicator)
-       failure := false
-       fetchMessages( [nearby = messageID] )
-         => if '<=' expected (and nearby is not set) then atStart := true
-         => fetching := null
-         => messages := messages list merged with fetched messages (in case anything came in during)
-         => check if nearby is set
-             => scroll to the rendered message
-         !> failure := true
-     - Fetch upwards / downwards (trigger: reach end of chat / select "load more" / select "retry" on failure)
-       Don't do anything if already fetching and there has been no failure yet
-       fetching := upwards / downwards
-       failure := false
-       fetchMessages( [before = ..], [after = ..] )
-         => if '<=' expected then atStart / atEnd := true (respectively)
-         => fetching := null
-         => messages := messages list merged with fetched messages iff atEnd (in case anything came in during)
-         !> failure := true
-     - Jump to bottom (trigger: user is in history and selects "jump to present" / ESC keybind)
-       Pre-empt any existing fetch
-       Check if atEnd
-       => scroll to bottom
-         !> fetching := jump_end
-         !> failure := false
-         !> start collecting new messages to array 'newMessages'
-         !> fetchMessages()
-              => if '<=' expected then atStart := true
-                 NB. this seems impossible anyways
-              => fetching := null
-              => messages := merge 'newMessages' with fetched messages
-              => stop collecting to 'newMessages'
-              => atEnd := true
-              !> failure := true
-              !> toast the user (or otherwise) to alert them we couldn't jump
-                 NB. you can use fetching = jump_end and failure = true to replace the bottom bar with error
-     - Jump to message (trigger: message ID in link updates)
-       Pre-empty any existing fetch
-       Check if message ID is already present
-         => scroll to rendered message
-         !> fetching := jump_msg
-         !> failure := false
-         !> fetchMessages( nearby = messageID )
-             => fetching := null
-             => messages := fetched messages
-             => atStart := false
-             => atEnd := false
-             => if '<=' expected then atStart := true, atEnd := true
-                NB. we fetch n/2 on both sides
-                This may be tricky and introduce weird edge cases, so just skip this.
-             !> failure := true
-             !> toast the user (or otherwise) alert them we couldn't jump
-   */
-
-  /**
-   * Load latest messages or at a specific point in history
-   * @param nearby Target message to fetch around
-   * @param mergeExistingMessages Whether to merge existing messages
-   */
-  // function _loadInitialMessages(
-  //   nearby?: string,
-  //   mergeExistingMessages?: boolean
-  // ) {
-  //   /**
-  //    * Handle result from request
-  //    */
-  //   function handleResult({ messages }: { messages: MessageInterface[] }) {
-  //     // If it's less than we expected, we are at the start already
-  //     if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-  //       setStart(true);
-  //     }
-
-  //     if (mergeExistingMessages) {
-  //       setMessages((latest) => {
-  //         // Try to account for any messages sent while we are loading the channel
-  //         const knownIds = new Set(latest.map((x) => x.id));
-  //         return [...latest, ...messages.filter((x) => !knownIds.has(x.id))];
-  //       });
-  //     } else {
-  //       return messages;
-  //     }
-  //   }
-
-  //   props.channel
-  //     .fetchMessagesWithUsers({ limit: props.fetchLimit })
-  //     .then(handleResult);
-  // }
-
-  /**
-   * Load latest messages or at a specific point in history
-   * @param nearby Target message to fetch around
-   * @param initial Whether this is the initial fetch
-   */
-  // function loadInitialMessages(nearby?: string, initial?: boolean) {
-  //   if (!nearby && !initial && atEnd()) return;
-
-  //   setMessages([]);
-  //   setStart(false);
-  //   setEnd(true);
-
-  //   _loadInitialMessages(nearby, initial);
-  // }
-
   // Setup references if they exists
   onMount(() => {
     // TODO: check if ref has to be renamed
-    props.loadInitialMessagesRef?.(caseJumpToBottom);
+    props.jumpToBottomRef?.(caseJumpToBottom);
     props.atEndRef?.(atEnd);
   });
 
