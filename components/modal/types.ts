@@ -5,6 +5,7 @@ import {
   Bot,
   Channel,
   Client,
+  File,
   Message,
   Server,
   ServerMember,
@@ -126,7 +127,7 @@ export type Modals =
   | {
       type: "image_viewer";
       embed?: API.Image;
-      attachment?: API.File;
+      file?: File;
     }
   | {
       type: "user_picker";

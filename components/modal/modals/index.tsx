@@ -28,6 +28,7 @@ import edit_keybind from "./EditKeybind";
 import edit_password from "./EditPassword";
 import edit_username from "./EditUsername";
 import error from "./Error";
+import image_viewer from "./ImageViewer";
 import join_server from "./JoinServer";
 import kick_member from "./KickMember";
 import leave_server from "./LeaveServer";
@@ -66,6 +67,7 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   edit_password,
   edit_username,
   error,
+  image_viewer,
   join_server,
   edit_keybind,
   kick_member,
