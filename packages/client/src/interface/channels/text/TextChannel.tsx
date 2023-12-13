@@ -1,9 +1,17 @@
-import { Show, createEffect, createSignal, on } from "solid-js";
+import {
+  Show,
+  createEffect,
+  createSignal,
+  on,
+  onCleanup,
+  onMount,
+} from "solid-js";
 
 import { decodeTime, ulid } from "ulid";
 
 import { Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
+import { KeybindAction } from "@revolt/keybinds";
 import { useNavigate, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -14,6 +22,7 @@ import {
   TypingIndicator,
   styled,
 } from "@revolt/ui";
+import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -80,6 +89,27 @@ export function TextChannel(props: ChannelPageProps) {
           }
         }
       }
+    )
+  );
+
+  // Register "jump to latest messages"
+  const keybinds = useKeybindActions();
+
+  function scrollToBottom() {
+    jumpToBottomRef?.();
+  }
+
+  onMount(() =>
+    keybinds.addEventListener(
+      KeybindAction.MessagingScrollToBottom,
+      scrollToBottom
+    )
+  );
+
+  onCleanup(() =>
+    keybinds.removeEventListener(
+      KeybindAction.MessagingScrollToBottom,
+      scrollToBottom
     )
   );
 

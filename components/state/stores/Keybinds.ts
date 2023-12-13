@@ -33,15 +33,15 @@ export const DEFAULT_VALUES: KeybindActions = keybindMap({
   [KeybindAction.AutoCompleteDown]: ["ArrowDown"],
   [KeybindAction.AutoCompleteSelect]: ["Enter", "Tab"],
 
-  [KeybindAction.NavigatePreviousContext]: ["Escape"],
+  [KeybindAction.NavigatePreviousContext]: [], //["Escape"],
   [KeybindAction.NavigatePreviousContextModal]: [],
   [KeybindAction.NavigatePreviousContextSettings]: [],
 
   [KeybindAction.InputForceSubmit]: ["Control+Enter"],
   [KeybindAction.InputSubmit]: ["Enter"],
-  [KeybindAction.InputCancel]: ["Escape"],
+  [KeybindAction.InputCancel]: [], // ["Escape"],
 
-  [KeybindAction.MessagingMarkChannelRead]: ["Escape"],
+  [KeybindAction.MessagingMarkChannelRead]: [], // ["Escape"],
   [KeybindAction.MessagingScrollToBottom]: ["Escape"],
   [KeybindAction.MessagingEditPreviousMessage]: ["ArrowUp"],
 

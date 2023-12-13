@@ -413,9 +413,10 @@ export function Messages(props: Props) {
 
     // Scroll to the bottom if we're already at the end
     if (atEnd()) {
-      listRef?.scroll({
-        top: listRef.scrollHeight,
+      const containerChild = findScrollContainer(listRef!)!.children[0];
+      containerChild!.scrollIntoView({
         behavior: "smooth",
+        block: "end",
       });
     }
     // Otherwise fetch present messages
@@ -551,7 +552,7 @@ export function Messages(props: Props) {
 
   // Setup references if they exists
   onMount(() => {
-    props.jumpToBottomRef?.(caseJumpToBottom);
+    props.jumpToBottomRef?.(jumpToBottom);
     props.atEndRef?.(atEnd);
   });
 
@@ -701,13 +702,11 @@ export function Messages(props: Props) {
         createBlockedMessageCount();
 
         // Add message to list, retrieve if it exists in the cache
-        const highlight = props.highlightedMessageId() === message.id;
         messagesWithTail.push(
-          objectCache.get(`${message.id}:${tail}:${highlight}`) ?? {
+          objectCache.get(`${message.id}:${tail}`) ?? {
             t: 0,
             message,
             tail,
-            highlight,
           }
         );
       }
@@ -732,12 +731,7 @@ export function Messages(props: Props) {
     // Populate cache with current objects
     for (const object of messagesWithTail) {
       if (object.t === 0) {
-        objectCache.set(
-          `${object.message.id}:${object.tail}:${
-            props.highlightedMessageId() === object.message.id
-          }`,
-          object
-        );
+        objectCache.set(`${object.message.id}:${object.tail}`, object);
       } else if (object.t === 1) {
         objectCache.set(object.unread ?? object.date, object);
       }
@@ -745,163 +739,6 @@ export function Messages(props: Props) {
 
     return messagesWithTail.reverse();
   });
-
-  /**
-   * Fetch messages in past
-   * @param reposition Scroll guard callback
-   */
-  // async function fetchTop(reposition: (cb: () => void) => void) {
-  //   if (atStart()) return;
-  //   if (fetching()) return;
-  //   setFetching("top");
-
-  //   try {
-  //     // Fetch messages before the oldest message we have
-  //     const result = await props.channel.fetchMessagesWithUsers({
-  //       limit: props.fetchLimit,
-  //       before: messages().slice(-1)[0].id,
-  //     });
-
-  //     // If it's less than we expected, we are at the start
-  //     if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-  //       setStart(true);
-  //     }
-
-  //     // If we received any messages at all, append them to the top
-  //     if (result.messages.length) {
-  //       // Calculate how much we need to cut off the other end
-  //       const tooManyBy = Math.max(
-  //         0,
-  //         result.messages.length + messages().length - (props.limit ?? 0)
-  //       );
-
-  //       // If it's at least one element, we are no longer at the end
-  //       if (tooManyBy > 0) {
-  //         setEnd(false);
-  //       }
-
-  //       // Append messages to the top
-  //       setMessages((prev) => [...prev, ...result.messages]);
-
-  //       // If we removed any messages, guard the scroll position as we remove them
-  //       if (tooManyBy) {
-  //         reposition(() => {
-  //           setMessages((prev) => {
-  //             return prev.slice(tooManyBy);
-  //           });
-  //         });
-  //       }
-  //     }
-  //   } finally {
-  //     setFetching();
-  //   }
-  // }
-
-  /**
-   * Fetch messages in future
-   * @param reposition Scroll guard callback
-   */
-  // async function fetchBottom(reposition: (cb: () => void) => void) {
-  //   if (atEnd()) return;
-  //   if (fetching()) return;
-  //   setFetching("bottom");
-
-  //   try {
-  //     // Fetch messages after the newest message we have
-  //     const result = await props.channel.fetchMessagesWithUsers({
-  //       limit: props.fetchLimit,
-  //       after: messages()[0].id,
-  //       sort: "Oldest",
-  //     });
-
-  //     // If it's less than we expected, we are at the end
-  //     if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-  //       setEnd(true);
-  //     }
-
-  //     // If we received any messages at all, append them to the bottom
-  //     if (result.messages.length) {
-  //       // Calculate how much we need to cut off the other end
-  //       const tooManyBy = Math.max(
-  //         0,
-  //         result.messages.length + messages().length - (props.limit ?? 0)
-  //       );
-
-  //       // If it's at least one element, we are no longer at the start
-  //       if (tooManyBy > 0) {
-  //         setStart(false);
-  //       }
-
-  //       // Append messages to the bottom
-  //       setMessages((prev) => {
-  //         return [...result.messages.reverse(), ...prev];
-  //       });
-
-  //       // If we removed any messages, guard the scroll position as we remove them
-  //       if (tooManyBy) {
-  //         reposition(() => setMessages((prev) => prev.slice(0, -tooManyBy)));
-  //       }
-  //     }
-  //   } finally {
-  //     setFetching();
-  //   }
-  // }
-
-  /**
-   * Jump to a given message id
-   * @param messageId Message Id
-   */
-  // async function jumpToMessage(messageId: string) {
-  //   // Let the initial message fetcher deal with this case
-  //   if (!messages().length) return;
-
-  //   // Otherwise try to scroll to the message:
-  //   if (messages().find((message) => message.id === messageId)) {
-  //     const index = messagesWithTail().findIndex(
-  //       (entry) => entry.t === 0 && entry.message.id === messageId
-  //     );
-
-  //     listRef!.children[index + (atStart() ? 1 : 0)].scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "center",
-  //     });
-  //   }
-  //   // Otherwise load nearby and jump:
-  //   else {
-  //     // setMessages([]);
-  //     // setStart(false);
-  //     // setEnd(true);
-
-  //     /* eslint-disable no-inner-declarations */
-  //     /**
-  //      * Handle result from request
-  //      */
-  //     function handleResult({ messages }: { messages: MessageInterface[] }) {
-  //       // If it's less than we expected, we are at the start already
-  //       if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-  //         setStart(true);
-  //       } else {
-  //         setStart(false);
-  //       }
-
-  //       messages.sort((a, b) => a.id.localeCompare(b.id));
-
-  //       setEnd(false);
-  //       setMessages(messages);
-
-  //       setTimeout(() => {
-  //         if (messages.find((message) => message.id === messageId)) {
-  //           jumpToMessage(messageId);
-  //         }
-  //       });
-  //     }
-  //     /* eslint-enable no-inner-declarations */
-
-  //     props.channel
-  //       .fetchMessagesWithUsers({ limit: props.fetchLimit, nearby: messageId })
-  //       .then(handleResult);
-  //   }
-  // }
 
   /**
    * Jump to the bottom of the chat
@@ -928,7 +765,12 @@ export function Messages(props: Props) {
             </Show>
             {/* TODO: else show (loading icon) OR (load more) */}
             <For each={messagesWithTail()}>
-              {(props) => <Entry {...props} />}
+              {(entry) => (
+                <Entry
+                  {...entry}
+                  highlightedMessageId={props.highlightedMessageId}
+                />
+              )}
             </For>
             {/* TODO: show (loading icon) OR (load more) */}
             <Padding />
@@ -991,13 +833,19 @@ type ListEntry =
 /**
  * Render individual list entry
  */
-function Entry(props: ListEntry) {
-  const [local, other] = splitProps(props, ["t"]);
+function Entry(props: ListEntry & Pick<Props, "highlightedMessageId">) {
+  const [local, other] = splitProps(props, ["t", "highlightedMessageId"]);
 
   return (
     <Switch>
       <Match when={local.t === 0}>
-        <Message {...(other as ListEntry & { t: 0 })} />
+        <Message
+          {...(other as ListEntry & { t: 0 })}
+          highlight={
+            (other as ListEntry & { t: 0 }).message.id ===
+            local.highlightedMessageId()
+          }
+        />
       </Match>
       <Match when={local.t === 1}>
         <MessageDivider {...(other as ListEntry & { t: 1 })} />

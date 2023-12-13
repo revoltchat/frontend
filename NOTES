@@ -42,6 +42,7 @@ Context menu needs to be more broadly available (in interface package?)
 
 BUGS:
 
-- [ ] highlighting a message re-renders it (bad!)
+- [x] scroll to bottom on ESC
+- [x] highlighting a message re-renders it (bad!)
 - [x] jumping to bottom doesnt jump to the very bottom
 - [FIXED?] scrolling down through history is buggy (up is good)

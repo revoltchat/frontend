@@ -106,6 +106,7 @@ export class KeybindEventHandler<
             this.possibleSequences.set(sequence, expectedSequence.slice(1));
           } else {
             this.possibleSequences.delete(sequence);
+            console.info("dispatch", action, event);
             this.dispatchEvent(
               new KeybindEvent(action as KeybindAction, event)
             );
