@@ -4,6 +4,7 @@ import {
   Match,
   Show,
   Switch,
+  batch,
   createEffect,
   createMemo,
   createSignal,
@@ -54,9 +55,19 @@ interface Props {
   limit?: number;
 
   /**
+   * Highlighted message id
+   */
+  highlightedMessageId: Accessor<string | undefined>;
+
+  /**
    * Last read message id
    */
   lastReadId: Accessor<string | undefined>;
+
+  /**
+   * Clear the highlighted message
+   */
+  clearHighlightedMessage: () => void;
 
   /**
    * Bind the initial messages function to the parent component
@@ -77,46 +88,566 @@ interface Props {
 export function Messages(props: Props) {
   const client = useClient();
 
-  // Keep track of messages and whether we are at the start or end (or both) of the conversation
+  /**
+   * Loaded messages
+   */
   const [messages, setMessages] = createSignal<MessageInterface[]>([]);
+
+  /**
+   * Whether we've reached the start of the conversation
+   */
   const [atStart, setStart] = createSignal(false);
+
+  /**
+   * Whether we've reached the end of the conversation
+   */
   const [atEnd, setEnd] = createSignal(true);
+
+  /**
+   * The current direction of fetching
+   */
+  const [fetching, setFetching] = createSignal<
+    "initial" | "upwards" | "downwards" | "jump_end" | "jump_msg"
+  >();
+
+  /**
+   * Whether the current fetch has failed
+   */
+  const [failure, setFailure] = createSignal(false);
+
+  /**
+   * Collect messages during fetches
+   *
+   * The new message handler should write into this if it
+   * is defined as opposed to appending to messages[] list
+   */
+  let collectedMessages: MessageInterface[] | undefined;
+
+  /**
+   * Pre-empt the current fetch
+   */
+  let preemptFetch: () => void | undefined;
+
+  /**
+   * Reference for the list container so we can scroll to elements
+   */
+  let listRef: HTMLDivElement | undefined;
+
+  /**
+   * Whether we can fetch
+   * @returns Boolean
+   */
+  function canFetch() {
+    return !fetching() || failure();
+  }
+
+  /**
+   * Pre-empt the current fetch
+   */
+  function preempt() {
+    batch(() => {
+      setFetching();
+      setFailure(false);
+      preemptFetch?.();
+    });
+  }
+
+  /**
+   * Helper for checking if we've been pre-empted
+   * @returns Function to check if we have been pre-empted
+   */
+  function newPreempted() {
+    let preempted = false;
+    preemptFetch = () => {
+      preempted = true;
+    };
+
+    return () => preempted;
+  }
+
+  /**
+   * Safely update messages by applying consistency checks
+   * @param messagesArr Array of message arrays
+   */
+  function setMessagesSafely(...messagesArr: MessageInterface[][]) {
+    setMessages(
+      messagesArr.flat().toSorted((a, b) => b.id.localeCompare(a.id))
+    );
+  }
+
+  /**
+   * Initial load subroutine
+   * @param nearby Message we should load around (and then scroll to)
+   */
+  async function caseInitialLoad(nearby?: string) {
+    // Pre-empt any fetches
+    preempt();
+    setFetching("initial");
+
+    // Handle incoming pre-emptions
+    const preempted = newPreempted();
+
+    // Clear the messages list
+    // NB. component does not remount on channel switch
+    setMessages([]);
+
+    // Set the initial position
+    setStart(false);
+    setEnd(true);
+
+    // Start collecting messages
+    collectedMessages = [];
+
+    try {
+      // Fetch messages for channel
+      const { messages } = await props.channel.fetchMessagesWithUsers({
+        limit: props.fetchLimit,
+        nearby,
+      });
+
+      // Cancel if we've been pre-empted
+      if (preempted()) return;
+
+      // Assume we are not at the end if we jumped to a message
+      // NB. we set this late to not display the "jump to bottom" bar
+      if (typeof nearby === "string") {
+        setEnd(
+          // If the messages fetched include the latest message,
+          // then we are at the end and mark the channel as such.
+          messages.findIndex(
+            (msg) => msg.id === props.channel.lastMessageId
+          ) !== -1
+        );
+      }
+      // Check if we're at the start of the conversation otherwise
+      else if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+        setStart(true);
+      }
+
+      // Merge list with any new ones that have come in if we are at the end
+      if (atEnd()) {
+        const knownIds = new Set(collectedMessages!.map((x) => x.id));
+        setMessagesSafely(
+          collectedMessages!,
+          messages.filter((x) => !knownIds.has(x.id))
+        );
+      }
+      // Otherwise just replace the whole list
+      else {
+        setMessages(messages);
+      }
+
+      // Stop collecting messages
+      collectedMessages = [];
+
+      // Mark as fetching has ended
+      setFetching();
+    } catch (err) {
+      // Keep track of any failures (and allow retry / other actions)
+      setFailure(true);
+    }
+  }
+
+  /**
+   * Fetch upwards from current position
+   * @param reposition Callback for ListView
+   */
+  async function caseFetchUpwards(reposition: (cb: () => void) => void) {
+    // Pre-conditions:
+    // - Must not already be at the start
+    // - Must not already be fetching (or otherwise the fetch must have failed)
+    if (atStart() || !canFetch()) return;
+
+    // Indicate we are fetching upwards
+    setFetching("upwards");
+
+    // Handle incoming pre-emptions
+    const preempted = newPreempted();
+
+    try {
+      // Fetch messages for channel
+      const result = await props.channel.fetchMessagesWithUsers({
+        limit: props.fetchLimit,
+        // Take the id of the oldest message currently fetched
+        before: messages().slice(-1)[0].id,
+      });
+
+      // Cancel if we've been pre-empted
+      if (preempted()) return;
+
+      // If it's less than we expected, we are at the start
+      if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+        setStart(true);
+      }
+
+      // Prepend messages if we received any
+      if (result.messages.length) {
+        // Calculate how much we need to cut off the other end
+        const tooManyBy = Math.max(
+          0,
+          result.messages.length + messages().length - (props.limit ?? 0)
+        );
+
+        // If it's at least one element, we are no longer at the end
+        if (tooManyBy > 0) {
+          setEnd(false);
+        }
+
+        // Append messages to the top
+        setMessagesSafely(messages(), result.messages);
+
+        // If we removed any messages, guard the scroll position as we remove them
+        if (tooManyBy) {
+          reposition(() => {
+            setMessages((prev) => {
+              return prev.slice(tooManyBy);
+            });
+
+            // Mark as fetching has ended
+            setFetching();
+          });
+        } else {
+          // Mark as fetching has ended
+          setFetching();
+        }
+      }
+    } catch (err) {
+      // Keep track of any failures (and allow retry / other actions)
+      setFailure(true);
+    }
+  }
+
+  /**
+   * Fetch downwards from current position
+   * @param reposition Callback for ListView
+   */
+  async function caseFetchDownwards(reposition: (cb: () => void) => void) {
+    // Pre-conditions:
+    // - Must not already be at the end
+    // - Must not already be fetching (or otherwise the fetch must have failed)
+    if (atEnd() || !canFetch()) return;
+
+    // Indicate we are fetching downwards
+    setFetching("downwards");
+
+    // Handle incoming pre-emptions
+    const preempted = newPreempted();
+
+    try {
+      // Fetch messages after the newest message we have
+      const result = await props.channel.fetchMessagesWithUsers({
+        limit: props.fetchLimit,
+        after: messages()[0].id,
+        sort: "Oldest",
+      });
+
+      // Cancel if we've been pre-empted
+      if (preempted()) return;
+
+      // If it's less than we expected, we are at the end
+      if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+        setEnd(true);
+      }
+
+      // If we received any messages at all, append them to the bottom
+      if (result.messages.length) {
+        // Calculate how much we need to cut off the other end
+        const tooManyBy = Math.max(
+          0,
+          result.messages.length + messages().length - (props.limit ?? 0)
+        );
+
+        // If it's at least one element, we are no longer at the start
+        if (tooManyBy > 0) {
+          setStart(false);
+        }
+
+        // Append messages to the bottom
+        // TODO: this loses scroll position
+        setMessages(() => {
+          return [...result.messages.reverse(), ...messages()];
+        });
+
+        // If we removed any messages, guard the scroll position as we remove them
+        if (tooManyBy) {
+          reposition(() => {
+            setMessages((prev) => prev.slice(0, -tooManyBy));
+
+            // Mark as fetching has ended
+            setFetching();
+          });
+        } else {
+          // Mark as fetching has ended
+          setFetching();
+        }
+      }
+    } catch (err) {
+      // Keep track of any failures (and allow retry / other actions)
+      setFailure(true);
+    }
+  }
+
+  /**
+   * Jump to the present messages
+   */
+  async function caseJumpToBottom() {
+    // Scroll to the bottom if we're already at the end
+    if (atEnd()) {
+      listRef?.scroll({
+        top: listRef.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+    // Otherwise fetch present messages
+    else {
+      // Pre-empty any fetches
+      preempt();
+      setFetching("jump_end");
+
+      // Handle incoming pre-emptions
+      const preempted = newPreempted();
+
+      // Start collecting messages
+      collectedMessages = [];
+
+      try {
+        // Fetch messages for channel
+        const { messages } = await props.channel.fetchMessagesWithUsers({
+          limit: props.fetchLimit,
+        });
+
+        // Cancel if we've been pre-empted
+        if (preempted()) return;
+
+        // Check if we're at the start of the conversation
+        // NB. this may be counter-intuitive because we are in history but,
+        //     this could be a very rare edge case for large moderation actions
+        if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+          setStart(true);
+        } else {
+          setStart(false);
+        }
+
+        // Indicate we are at the end now
+        setEnd(true);
+
+        // Merge list with any new ones that have come in
+        const knownIds = new Set(collectedMessages!.map((x) => x.id));
+        setMessagesSafely(
+          collectedMessages!,
+          messages.filter((x) => !knownIds.has(x.id))
+        );
+
+        // Stop collecting messages
+        collectedMessages = [];
+
+        function findScrollContainer(el: Element | null) {
+          if (!el) {
+            return null;
+          } else if (getComputedStyle(el).overflowY === "scroll") {
+            return el;
+          } else {
+            return el.parentElement;
+          }
+        }
+
+        // Animate scroll to bottom
+        setTimeout(() => {
+          const containerChild = findScrollContainer(listRef!)!.children[0];
+
+          containerChild!.scrollIntoView({
+            behavior: "instant",
+            block: "start",
+          });
+
+          setTimeout(() => {
+            containerChild!.scrollIntoView({
+              behavior: "smooth",
+              block: "end",
+            });
+
+            // Mark as fetching has ended
+            setFetching();
+          });
+        });
+      } catch (err) {
+        // Keep track of any failures (and allow retry / other actions)
+        setFailure(true);
+      }
+    }
+  }
+
+  /**
+   * Jump to a given message
+   * @param messageId Message Id
+   */
+  async function caseJumpToMessage(messageId: string) {
+    const scrollToNearestMessage = () => {
+      const index = messagesWithTail().findIndex(
+        (entry) => entry.t === 0 && entry.message.id === messageId
+      ); // use localeCompare
+
+      listRef!.children[index + (atStart() ? 1 : 0)].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    };
+
+    if (messages().find((message) => message.id === messageId)) {
+      scrollToNearestMessage();
+      return;
+    }
+
+    // Pre-empty any fetches
+    preempt();
+    setFetching("jump_msg");
+
+    // Handle incoming pre-emptions
+    const preempted = newPreempted();
+
+    try {
+      // Fetch messages for channel
+      const { messages } = await props.channel.fetchMessagesWithUsers({
+        limit: props.fetchLimit,
+        nearby: messageId,
+      });
+
+      // Cancel if we've been pre-empted
+      if (preempted()) return;
+
+      // Assume we are somewhere in history
+      // NB. we could be clever here, but best not to be
+      setStart(false);
+      setEnd(false);
+
+      // Replace the messages
+      setMessagesSafely(messages);
+
+      setTimeout(() => {
+        // Scroll to the message
+        scrollToNearestMessage();
+
+        // Mark as fetching has ended
+        setFetching();
+      });
+    } catch (err) {
+      // Keep track of any failures (and allow retry / other actions)
+      setFailure(true);
+    }
+  }
+
+  /* Jump / fetch cases:
+     - Channel load (trigger: channel id changes (message ID may be provided) / select "retry" on failure)
+       Pre-empt any existing fetch
+       Clear messages list
+       atStart := false
+       atEnd := nearby is null
+       fetching := initial (show loading indicator)
+       failure := false
+       fetchMessages( [nearby = messageID] )
+         => if '<=' expected (and nearby is not set) then atStart := true
+         => fetching := null
+         => messages := messages list merged with fetched messages (in case anything came in during)
+         => check if nearby is set
+             => scroll to the rendered message
+         !> failure := true
+     - Fetch upwards / downwards (trigger: reach end of chat / select "load more" / select "retry" on failure)
+       Don't do anything if already fetching and there has been no failure yet
+       fetching := upwards / downwards
+       failure := false
+       fetchMessages( [before = ..], [after = ..] )
+         => if '<=' expected then atStart / atEnd := true (respectively)
+         => fetching := null
+         => messages := messages list merged with fetched messages iff atEnd (in case anything came in during)
+         !> failure := true
+     - Jump to bottom (trigger: user is in history and selects "jump to present" / ESC keybind)
+       Pre-empt any existing fetch
+       Check if atEnd
+       => scroll to bottom
+         !> fetching := jump_end
+         !> failure := false
+         !> start collecting new messages to array 'newMessages'
+         !> fetchMessages()
+              => if '<=' expected then atStart := true
+                 NB. this seems impossible anyways
+              => fetching := null
+              => messages := merge 'newMessages' with fetched messages
+              => stop collecting to 'newMessages'
+              => atEnd := true
+              !> failure := true
+              !> toast the user (or otherwise) to alert them we couldn't jump
+                 NB. you can use fetching = jump_end and failure = true to replace the bottom bar with error
+     - Jump to message (trigger: message ID in link updates)
+       Pre-empty any existing fetch
+       Check if message ID is already present
+         => scroll to rendered message
+         !> fetching := jump_msg
+         !> failure := false
+         !> fetchMessages( nearby = messageID )
+             => fetching := null
+             => messages := fetched messages
+             => atStart := false
+             => atEnd := false
+             => if '<=' expected then atStart := true, atEnd := true
+                NB. we fetch n/2 on both sides
+                This may be tricky and introduce weird edge cases, so just skip this.
+             !> failure := true
+             !> toast the user (or otherwise) alert them we couldn't jump
+   */
 
   /**
    * Load latest messages or at a specific point in history
    * @param nearby Target message to fetch around
+   * @param mergeExistingMessages Whether to merge existing messages
    */
-  function loadInitialMessages(nearby?: string, initial?: boolean) {
-    if (!nearby && !initial && atEnd()) return;
+  // function _loadInitialMessages(
+  //   nearby?: string,
+  //   mergeExistingMessages?: boolean
+  // ) {
+  //   /**
+  //    * Handle result from request
+  //    */
+  //   function handleResult({ messages }: { messages: MessageInterface[] }) {
+  //     // If it's less than we expected, we are at the start already
+  //     if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+  //       setStart(true);
+  //     }
 
-    setMessages([]);
-    setStart(false);
-    setEnd(true);
+  //     if (mergeExistingMessages) {
+  //       setMessages((latest) => {
+  //         // Try to account for any messages sent while we are loading the channel
+  //         const knownIds = new Set(latest.map((x) => x.id));
+  //         return [...latest, ...messages.filter((x) => !knownIds.has(x.id))];
+  //       });
+  //     } else {
+  //       return messages;
+  //     }
+  //   }
 
-    /**
-     * Handle result from request
-     */
-    function handleResult({ messages }: { messages: MessageInterface[] }) {
-      // If it's less than we expected, we are at the start already
-      if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-        setStart(true);
-      }
+  //   props.channel
+  //     .fetchMessagesWithUsers({ limit: props.fetchLimit })
+  //     .then(handleResult);
+  // }
 
-      setMessages((latest) => {
-        // Try to account for any messages sent while we are loading the channel
-        const knownIds = new Set(latest.map((x) => x.id));
-        return [...latest, ...messages.filter((x) => !knownIds.has(x.id))];
-      });
-    }
+  /**
+   * Load latest messages or at a specific point in history
+   * @param nearby Target message to fetch around
+   * @param initial Whether this is the initial fetch
+   */
+  // function loadInitialMessages(nearby?: string, initial?: boolean) {
+  //   if (!nearby && !initial && atEnd()) return;
 
-    props.channel
-      .fetchMessagesWithUsers({ limit: props.fetchLimit })
-      .then(handleResult);
-  }
+  //   setMessages([]);
+  //   setStart(false);
+  //   setEnd(true);
+
+  //   _loadInitialMessages(nearby, initial);
+  // }
 
   // Setup references if they exists
   onMount(() => {
-    props.loadInitialMessagesRef?.(loadInitialMessages);
+    // TODO: check if ref has to be renamed
+    props.loadInitialMessagesRef?.(caseJumpToBottom);
     props.atEndRef?.(atEnd);
   });
 
@@ -126,7 +657,22 @@ export function Messages(props: Props) {
   createEffect(
     on(
       () => props.channel,
-      () => loadInitialMessages(undefined, true)
+      () => caseInitialLoad(props.highlightedMessageId())
+    )
+  );
+
+  /**
+   * Jump to highlighted message
+   */
+  createEffect(
+    on(
+      () => props.highlightedMessageId(),
+      (messageId) => {
+        // Jump only if messages are loaded
+        if (messageId && messages()) {
+          caseJumpToMessage(messageId);
+        }
+      }
     )
   );
 
@@ -144,7 +690,6 @@ export function Messages(props: Props) {
    * Handle deleted messages
    */
   function onMessageDelete(message: { id: string; channelId: string }) {
-    console.error("delete", message);
     if (
       message.channelId === props.channel.id &&
       messages().find((msg) => msg.id === message.id)
@@ -252,11 +797,13 @@ export function Messages(props: Props) {
         createBlockedMessageCount();
 
         // Add message to list, retrieve if it exists in the cache
+        const highlight = props.highlightedMessageId() === message.id;
         messagesWithTail.push(
-          objectCache.get(`${message.id}:${tail}`) ?? {
+          objectCache.get(`${message.id}:${tail}:${highlight}`) ?? {
             t: 0,
             message,
             tail,
+            highlight,
           }
         );
       }
@@ -281,7 +828,12 @@ export function Messages(props: Props) {
     // Populate cache with current objects
     for (const object of messagesWithTail) {
       if (object.t === 0) {
-        objectCache.set(`${object.message.id}:${object.tail}`, object);
+        objectCache.set(
+          `${object.message.id}:${object.tail}:${
+            props.highlightedMessageId() === object.message.id
+          }`,
+          object
+        );
       } else if (object.t === 1) {
         objectCache.set(object.unread ?? object.date, object);
       }
@@ -291,115 +843,182 @@ export function Messages(props: Props) {
   });
 
   /**
-   * Check if we are already fetching somewhere
-   */
-  function fetchGuard() {
-    return false;
-  }
-
-  /**
    * Fetch messages in past
    * @param reposition Scroll guard callback
    */
-  async function fetchTop(reposition: (cb: () => void) => void) {
-    if (atStart()) return;
-    if (fetchGuard()) return;
+  // async function fetchTop(reposition: (cb: () => void) => void) {
+  //   if (atStart()) return;
+  //   if (fetching()) return;
+  //   setFetching("top");
 
-    // Fetch messages before the oldest message we have
-    const result = await props.channel.fetchMessagesWithUsers({
-      limit: props.fetchLimit,
-      before: messages().slice(-1)[0].id,
-    });
+  //   try {
+  //     // Fetch messages before the oldest message we have
+  //     const result = await props.channel.fetchMessagesWithUsers({
+  //       limit: props.fetchLimit,
+  //       before: messages().slice(-1)[0].id,
+  //     });
 
-    // If it's less than we expected, we are at the start
-    if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-      setStart(true);
-    }
+  //     // If it's less than we expected, we are at the start
+  //     if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+  //       setStart(true);
+  //     }
 
-    // If we received any messages at all, append them to the top
-    if (result.messages.length) {
-      // Calculate how much we need to cut off the other end
-      const tooManyBy = Math.max(
-        0,
-        result.messages.length + messages().length - (props.limit ?? 0)
-      );
+  //     // If we received any messages at all, append them to the top
+  //     if (result.messages.length) {
+  //       // Calculate how much we need to cut off the other end
+  //       const tooManyBy = Math.max(
+  //         0,
+  //         result.messages.length + messages().length - (props.limit ?? 0)
+  //       );
 
-      // If it's at least one element, we are no longer at the end
-      if (tooManyBy > 0) {
-        setEnd(false);
-      }
+  //       // If it's at least one element, we are no longer at the end
+  //       if (tooManyBy > 0) {
+  //         setEnd(false);
+  //       }
 
-      // Append messages to the top
-      setMessages((prev) => [...prev, ...result.messages]);
+  //       // Append messages to the top
+  //       setMessages((prev) => [...prev, ...result.messages]);
 
-      // If we removed any messages, guard the scroll position as we remove them
-      if (tooManyBy) {
-        reposition(() => {
-          setMessages((prev) => {
-            return prev.slice(tooManyBy);
-          });
-        });
-      }
-    }
-  }
+  //       // If we removed any messages, guard the scroll position as we remove them
+  //       if (tooManyBy) {
+  //         reposition(() => {
+  //           setMessages((prev) => {
+  //             return prev.slice(tooManyBy);
+  //           });
+  //         });
+  //       }
+  //     }
+  //   } finally {
+  //     setFetching();
+  //   }
+  // }
 
   /**
    * Fetch messages in future
    * @param reposition Scroll guard callback
    */
-  async function fetchBottom(reposition: (cb: () => void) => void) {
-    if (atEnd()) return;
-    if (fetchGuard()) return;
+  // async function fetchBottom(reposition: (cb: () => void) => void) {
+  //   if (atEnd()) return;
+  //   if (fetching()) return;
+  //   setFetching("bottom");
 
-    // Fetch messages after the newest message we have
-    const result = await props.channel.fetchMessagesWithUsers({
-      limit: props.fetchLimit,
-      after: messages()[0].id,
-      sort: "Oldest",
-    });
+  //   try {
+  //     // Fetch messages after the newest message we have
+  //     const result = await props.channel.fetchMessagesWithUsers({
+  //       limit: props.fetchLimit,
+  //       after: messages()[0].id,
+  //       sort: "Oldest",
+  //     });
 
-    // If it's less than we expected, we are at the end
-    if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
-      setEnd(true);
-    }
+  //     // If it's less than we expected, we are at the end
+  //     if (result.messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+  //       setEnd(true);
+  //     }
 
-    // If we received any messages at all, append them to the bottom
-    if (result.messages.length) {
-      // Calculate how much we need to cut off the other end
-      const tooManyBy = Math.max(
-        0,
-        result.messages.length + messages().length - (props.limit ?? 0)
-      );
+  //     // If we received any messages at all, append them to the bottom
+  //     if (result.messages.length) {
+  //       // Calculate how much we need to cut off the other end
+  //       const tooManyBy = Math.max(
+  //         0,
+  //         result.messages.length + messages().length - (props.limit ?? 0)
+  //       );
 
-      // If it's at least one element, we are no longer at the start
-      if (tooManyBy > 0) {
-        setStart(false);
-      }
+  //       // If it's at least one element, we are no longer at the start
+  //       if (tooManyBy > 0) {
+  //         setStart(false);
+  //       }
 
-      // Append messages to the bottom
-      setMessages((prev) => {
-        return [...result.messages.reverse(), ...prev];
-      });
+  //       // Append messages to the bottom
+  //       setMessages((prev) => {
+  //         return [...result.messages.reverse(), ...prev];
+  //       });
 
-      // If we removed any messages, guard the scroll position as we remove them
-      if (tooManyBy) {
-        reposition(() => setMessages((prev) => prev.slice(0, -tooManyBy)));
-      }
-    }
-  }
+  //       // If we removed any messages, guard the scroll position as we remove them
+  //       if (tooManyBy) {
+  //         reposition(() => setMessages((prev) => prev.slice(0, -tooManyBy)));
+  //       }
+  //     }
+  //   } finally {
+  //     setFetching();
+  //   }
+  // }
+
+  /**
+   * Jump to a given message id
+   * @param messageId Message Id
+   */
+  // async function jumpToMessage(messageId: string) {
+  //   // Let the initial message fetcher deal with this case
+  //   if (!messages().length) return;
+
+  //   // Otherwise try to scroll to the message:
+  //   if (messages().find((message) => message.id === messageId)) {
+  //     const index = messagesWithTail().findIndex(
+  //       (entry) => entry.t === 0 && entry.message.id === messageId
+  //     );
+
+  //     listRef!.children[index + (atStart() ? 1 : 0)].scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "center",
+  //     });
+  //   }
+  //   // Otherwise load nearby and jump:
+  //   else {
+  //     // setMessages([]);
+  //     // setStart(false);
+  //     // setEnd(true);
+
+  //     /* eslint-disable no-inner-declarations */
+  //     /**
+  //      * Handle result from request
+  //      */
+  //     function handleResult({ messages }: { messages: MessageInterface[] }) {
+  //       // If it's less than we expected, we are at the start already
+  //       if (messages.length < (props.fetchLimit ?? DEFAULT_FETCH_LIMIT)) {
+  //         setStart(true);
+  //       } else {
+  //         setStart(false);
+  //       }
+
+  //       messages.sort((a, b) => a.id.localeCompare(b.id));
+
+  //       setEnd(false);
+  //       setMessages(messages);
+
+  //       setTimeout(() => {
+  //         if (messages.find((message) => message.id === messageId)) {
+  //           jumpToMessage(messageId);
+  //         }
+  //       });
+  //     }
+  //     /* eslint-enable no-inner-declarations */
+
+  //     props.channel
+  //       .fetchMessagesWithUsers({ limit: props.fetchLimit, nearby: messageId })
+  //       .then(handleResult);
+  //   }
+  // }
 
   /**
    * Jump to the bottom of the chat
    */
   function jumpToBottom() {
-    loadInitialMessages();
+    caseJumpToBottom();
+
+    if (props.highlightedMessageId()) {
+      props.clearHighlightedMessage();
+    }
   }
 
   return (
     <>
-      <ListView offsetTop={48} fetchTop={fetchTop} fetchBottom={fetchBottom}>
+      <ListView
+        offsetTop={48}
+        fetchTop={caseFetchUpwards}
+        fetchBottom={caseFetchDownwards}
+      >
         <div>
-          <div>
+          <div ref={listRef}>
             <Show when={atStart()}>
               <ConversationStart channel={props.channel} />
             </Show>
@@ -443,6 +1062,7 @@ type ListEntry =
       t: 0;
       message: MessageInterface;
       tail: boolean;
+      highlight: boolean;
     }
   | {
       // Message Divider

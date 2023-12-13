@@ -35,12 +35,12 @@ export const Content: Component = () => {
         path="/server/:server/*"
         element={
           <Routes>
-            <Route path="/channel/:channel" component={ChannelPage} />
+            <Route path="/channel/:channel/*" component={ChannelPage} />
             <Route path="/*" component={ServerHome} />
           </Routes>
         }
       />
-      <Route path="/channel/:channel" component={ChannelPage} />
+      <Route path="/channel/:channel/*" component={ChannelPage} />
       <Route path="/dev" component={DevelopmentPage} />
       <Route path="/friends" component={Friends} />
       <Route path="/app" component={HomePage} />

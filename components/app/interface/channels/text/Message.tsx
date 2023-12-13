@@ -55,6 +55,11 @@ interface Props {
    * Whether this is the tail of another message
    */
   tail?: boolean;
+
+  /**
+   * Whether to highlight this message
+   */
+  highlight?: boolean;
 }
 
 /**
@@ -108,6 +113,7 @@ export function Message(props: Props) {
       timestamp={props.message.createdAt}
       edited={props.message.editedAt}
       mentioned={props.message.mentioned}
+      highlight={props.highlight}
       tail={props.tail || state.settings.getValue("appearance:compact_mode")}
       header={
         <Show when={props.message.replyIds}>

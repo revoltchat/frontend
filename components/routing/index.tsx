@@ -25,6 +25,7 @@ export {
 
 const RE_SERVER = /\/server\/([A-Z0-9]{26})/;
 const RE_CHANNEL = /\/channel\/([A-Z0-9]{26})/;
+const RE_MESSAGE_ID = /\/channel\/[A-Z0-9]{26}\/([A-Z0-9]{26})/;
 
 /**
  * Route parameters available globally
@@ -39,6 +40,11 @@ type GlobalParams = {
    * Channel ID
    */
   channelId?: string;
+
+  /**
+   * Message ID
+   */
+  messageId?: string;
 };
 
 /**
@@ -59,6 +65,12 @@ export function paramsFromPathname(pathname: string): GlobalParams {
   const channel = pathname.match(RE_CHANNEL);
   if (channel) {
     params.channelId = channel[1];
+  }
+
+  // Check for message ID
+  const message = pathname.match(RE_MESSAGE_ID);
+  if (message) {
+    params.messageId = message[1];
   }
 
   return params;

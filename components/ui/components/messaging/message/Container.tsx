@@ -73,6 +73,11 @@ type Props = CommonProps & {
   mentioned?: boolean;
 
   /**
+   * Whether this message should be highlighted
+   */
+  highlight?: boolean;
+
+  /**
    * Component to render message context menu
    */
   contextMenu?: () => JSX.Element;
@@ -92,7 +97,7 @@ type Props = CommonProps & {
  * Message container layout
  */
 const Base = styled(Column as Component, "Message")<
-  CommonProps & Pick<Props, "mentioned">
+  CommonProps & Pick<Props, "mentioned" | "highlight">
 >`
   ${(props) => generateTypographyCSS(props.theme!, "messages")}
 
@@ -104,6 +109,8 @@ const Base = styled(Column as Component, "Message")<
       : "transparent"};
   margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
   border-radius: ${(props) => props.theme!.borderRadius.md};
+
+  ${(props) => (props.highlight ? "outline: 2px solid red;" : "")}
 
   .hidden {
     display: none;
@@ -168,6 +175,7 @@ export function MessageContainer(props: Props) {
     <Base
       tail={props.tail}
       mentioned={props.mentioned}
+      highlight={props.highlight}
       use:floating={{ contextMenu: props.contextMenu }}
       use:ripple={{ enable: false }}
     >

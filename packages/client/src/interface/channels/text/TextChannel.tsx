@@ -4,6 +4,7 @@ import { decodeTime, ulid } from "ulid";
 
 import { Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
+import { useNavigate, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
@@ -26,8 +27,18 @@ import { MemberSidebar } from "./MemberSidebar";
 export function TextChannel(props: ChannelPageProps) {
   const client = useClient();
 
-  // Last unread message ID
-  const [lastId, setLastId] = createSignal<string | undefined>(undefined);
+  // Last unread message id
+  const [lastId, setLastId] = createSignal<string>();
+
+  // Read highlighted message id from parameters
+  const params = useSmartParams();
+  const navigate = useNavigate();
+
+  /**
+   * Message id to be highlighted
+   * @returns Message Id
+   */
+  const highlightMessageId = () => params().messageId;
 
   // Get a reference to the message box's load latest function
   let loadLatestRef: ((nearby?: string) => void) | undefined;
@@ -35,7 +46,7 @@ export function TextChannel(props: ChannelPageProps) {
   // Get a reference to the message list's "end status"
   let atEndRef: (() => boolean) | undefined;
 
-  // Store last unread message ID
+  // Store last unread message id
   createEffect(
     on(
       () => props.channel.id,
@@ -83,7 +94,7 @@ export function TextChannel(props: ChannelPageProps) {
             <div>
               <NewMessages
                 lastId={lastId}
-                jumpBack={() => void 0}
+                jumpBack={() => navigate(lastId()!)}
                 dismiss={() => setLastId()}
               />
             </div>
@@ -92,6 +103,8 @@ export function TextChannel(props: ChannelPageProps) {
             channel={props.channel}
             limit={150}
             lastReadId={lastId}
+            highlightedMessageId={highlightMessageId}
+            clearHighlightedMessage={() => navigate(".")}
             atEndRef={(ref) => (atEndRef = ref)}
             loadInitialMessagesRef={(ref) => (loadLatestRef = ref)}
           />

@@ -20,10 +20,10 @@ Context menu needs to be more broadly available (in interface package?)
 - not sure whether to polish up all message components
 - fix all the auth flows
 - shift + click mention user
-- Style the message "bars": last read message
 
 # Done
 
+- Style the message "bars": last read message
 - Style the message "bars": reply
 - Style the message "bars": attached
 - Style the message "bars": auto complete
@@ -39,3 +39,9 @@ Context menu needs to be more broadly available (in interface package?)
 - Modals "delete X", "leave server", "delete channel"
 - Fix colours for offline members in list
 - Fix colours for hovering / mentions messages in chat
+
+BUGS:
+
+- highlighting a message re-renders it (bad!)
+- jumping to bottom doesnt jump to the very bottom
+- scrolling down through history is buggy (up is good)
