@@ -117,6 +117,6 @@ export function ListView(props: Props) {
  */
 const Reverse = styled.div`
   display: flex;
-  padding-bottom: 24px;
+  /* padding-bottom: 24px;*/
   flex-direction: column-reverse;
 `;

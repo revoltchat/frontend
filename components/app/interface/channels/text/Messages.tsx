@@ -551,7 +551,6 @@ export function Messages(props: Props) {
 
   // Setup references if they exists
   onMount(() => {
-    // TODO: check if ref has to be renamed
     props.jumpToBottomRef?.(caseJumpToBottom);
     props.atEndRef?.(atEnd);
   });
@@ -932,6 +931,7 @@ export function Messages(props: Props) {
               {(props) => <Entry {...props} />}
             </For>
             {/* TODO: show (loading icon) OR (load more) */}
+            <Padding />
           </div>
         </div>
       </ListView>
@@ -956,6 +956,13 @@ const AnchorToEnd = styled.div`
     width: 100%;
     position: absolute;
   }
+`;
+
+/**
+ * Container padding
+ */
+const Padding = styled.div`
+  height: 24px;
 `;
 
 /**
