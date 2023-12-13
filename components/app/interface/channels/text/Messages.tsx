@@ -310,6 +310,9 @@ export function Messages(props: Props) {
           // Mark as fetching has ended
           setFetching();
         }
+      } else {
+        // Mark as fetching has ended
+        setFetching();
       }
     } catch (err) {
       // Keep track of any failures (and allow retry / other actions)
@@ -363,7 +366,6 @@ export function Messages(props: Props) {
         }
 
         // Append messages to the bottom
-        // TODO: this loses scroll position
         setMessages(() => {
           return [...result.messages.reverse(), ...messages()];
         });
@@ -380,6 +382,9 @@ export function Messages(props: Props) {
           // Mark as fetching has ended
           setFetching();
         }
+      } else {
+        // Mark as fetching has ended
+        setFetching();
       }
     } catch (err) {
       // Keep track of any failures (and allow retry / other actions)
