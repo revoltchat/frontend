@@ -47,8 +47,8 @@ export const Header = styled("div", "Header")<Props>`
  * Ensure you place a div inside to make the positioning work
  */
 export const BelowFloatingHeader = styled.div`
-  z-index: 30;
   position: relative;
+  z-index: ${(props) => props.theme!.layout.zIndex["floating-bar"]};
 
   > * {
     width: 100%;
@@ -68,9 +68,9 @@ export const HeaderWithTransparency = styled(Header)`
     props.theme!.colours["sidebar-header-transparent-background"]};
   backdrop-filter: ${(props) => props.theme!.effects.blur.md};
 
-  width: calc(100% - ${(props) => props.theme!.gap.md});
-  z-index: 20;
   position: absolute;
+  width: calc(100% - ${(props) => props.theme!.gap.md});
+  z-index: ${(props) => props.theme!.layout.zIndex["floating-bar"]};
 `;
 
 /**

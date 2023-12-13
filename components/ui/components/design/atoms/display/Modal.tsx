@@ -84,8 +84,8 @@ const Base = styled("div", "Modal")<{ show?: boolean }>`
   width: 100%;
   height: 100%;
 
-  z-index: 9999;
   position: fixed;
+  z-index: ${(props) => props.theme!.layout.zIndex["modal"]};
 
   max-height: 100%;
   user-select: none;

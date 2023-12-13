@@ -586,6 +586,11 @@ export const darkTheme: (
         medium: "48px",
         large: "96px",
       },
+      zIndex: {
+        "floating-bar": 20,
+        modal: 50,
+        "floating-element": 100,
+      },
     },
   };
 };

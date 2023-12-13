@@ -148,6 +148,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
   }
 
   return (
+    // TODO: don't think this works?
     <Motion
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -160,6 +161,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
           position: position.strategy,
           top: `${position.y ?? 0}px`,
           left: `${position.x ?? 0}px`,
+          // TODO: use floating-element zIndex from theme
           "z-index": 10000,
         }}
       >

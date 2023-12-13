@@ -201,6 +201,9 @@ declare module "solid-styled-components" {
       emoji: {
         [key in "small" | "medium" | "large"]: string;
       };
+      zIndex: {
+        [key in "floating-bar" | "modal" | "floating-element"]: number;
+      };
     };
   }
 }
