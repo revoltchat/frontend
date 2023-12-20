@@ -55,6 +55,11 @@ interface Props {
   limit?: number;
 
   /**
+   * Pending messages to render at the end of the list
+   */
+  pendingMessages?: Element;
+
+  /**
    * Highlighted message id
    */
   highlightedMessageId: Accessor<string | undefined>;
@@ -773,6 +778,7 @@ export function Messages(props: Props) {
               )}
             </For>
             {/* TODO: show (loading icon) OR (load more) */}
+            <Show when={atEnd()}>{props.pendingMessages}</Show>
             <Padding />
           </div>
         </div>

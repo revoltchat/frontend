@@ -1,4 +1,5 @@
 import {
+  For,
   Show,
   createEffect,
   createSignal,
@@ -7,19 +8,24 @@ import {
   onMount,
 } from "solid-js";
 
+import { Message as MessageInterface } from "revolt.js";
 import { decodeTime, ulid } from "ulid";
 
-import { Messages } from "@revolt/app";
-import { useClient } from "@revolt/client";
+import { Message, Messages } from "@revolt/app";
+import { useClient, useUser } from "@revolt/client";
 import { KeybindAction } from "@revolt/keybinds";
+import { userInformation } from "@revolt/markdown/users";
 import { useNavigate, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
+  Avatar,
   BelowFloatingHeader,
   HeaderWithTransparency,
+  MessageContainer,
   NewMessages,
   TypingIndicator,
+  Username,
   styled,
 } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
@@ -35,6 +41,8 @@ import { MemberSidebar } from "./MemberSidebar";
  */
 export function TextChannel(props: ChannelPageProps) {
   const client = useClient();
+  const user = useUser();
+  const userInfo = () => userInformation(user(), props.channel.server?.member);
 
   // Last unread message id
   const [lastId, setLastId] = createSignal<string>();
@@ -133,6 +141,18 @@ export function TextChannel(props: ChannelPageProps) {
             channel={props.channel}
             limit={150}
             lastReadId={lastId}
+            pendingMessages={
+              <For each={state.draft.getPendingMessages(props.channel.id)}>
+                {(draft) => (
+                  <MessageContainer
+                    avatar={<Avatar src={userInfo().avatar} size={36} />}
+                    children={draft.content}
+                    timestamp="Sending..."
+                    username={<Username username={userInfo().username} />}
+                  />
+                )}
+              </For>
+            }
             highlightedMessageId={highlightMessageId}
             clearHighlightedMessage={() => navigate(".")}
             atEndRef={(ref) => (atEndRef = ref)}

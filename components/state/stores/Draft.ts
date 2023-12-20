@@ -24,6 +24,13 @@ export interface DraftData {
   files?: string[];
 }
 
+export type UnsentMessage = {
+  /**
+   * Unique identifier
+   */
+  nonce: string;
+} & DraftData;
+
 export interface TextSelection {
   /**
    * Draft we should update
@@ -46,6 +53,11 @@ export type TypeDraft = {
    * All active message drafts
    */
   drafts: Record<string, DraftData>;
+
+  /**
+   * Unsent messages
+   */
+  outbox: Record<string, UnsentMessage[]>;
 };
 
 /**
@@ -86,6 +98,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   default(): TypeDraft {
     return {
       drafts: {},
+      outbox: {},
     };
   }
 
@@ -124,8 +137,12 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       }
     }
 
+    // TODO
+    const outbox = {};
+
     return {
       drafts,
+      outbox,
     };
   }
 
@@ -207,6 +224,15 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
         return file;
       }),
     };
+  }
+
+  /**
+   * Get all pending messages
+   * @param channelId Channel Id
+   * @returns Pending messages
+   */
+  getPendingMessages(channelId: string) {
+    return this.get().outbox[channelId] ?? [{ content: "hello" }];
   }
 
   /**

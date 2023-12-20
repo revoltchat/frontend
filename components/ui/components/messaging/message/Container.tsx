@@ -60,7 +60,7 @@ type Props = CommonProps & {
   /**
    * Timestamp message was sent at
    */
-  timestamp: Date;
+  timestamp: Date | string;
 
   /**
    * Date message was edited at
@@ -220,11 +220,15 @@ export function MessageContainer(props: Props) {
               <NonBreakingText>
                 <InfoText gap="sm" align>
                   {props.info}
-                  <Time
-                    value={props.timestamp}
-                    format="calendar"
-                    referenceTime={props._referenceTime}
-                  />
+                  <Switch fallback={props.timestamp as string}>
+                    <Match when={props.timestamp instanceof Date}>
+                      <Time
+                        format="calendar"
+                        value={props.timestamp}
+                        referenceTime={props._referenceTime}
+                      />
+                    </Match>
+                  </Switch>
                   <Show when={props.edited}>
                     <span>(edited)</span>
                   </Show>
