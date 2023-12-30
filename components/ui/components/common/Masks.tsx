@@ -51,22 +51,8 @@ export function Masks() {
         </mask>
         <mask id="accessible-status-focus">
           <circle cx="27" cy="27" r="5" fill="white" />
-          <line
-            x1="25.5"
-            y1="24"
-            x2="25.5"
-            y2="30"
-            stroke="black"
-            stroke-width={2}
-          />
-          <line
-            x1="28.5"
-            y1="24"
-            x2="28.5"
-            y2="30"
-            stroke="black"
-            stroke-width={2}
-          />
+          <circle cx="27" cy="27" r="4" fill="black" />
+          <circle cx="27" cy="27" r="2" fill="white" />
         </mask>
       </defs>
     </svg>
