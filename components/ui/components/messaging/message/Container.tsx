@@ -78,6 +78,11 @@ type Props = CommonProps & {
   highlight?: boolean;
 
   /**
+   * Send status of this message
+   */
+  sendStatus?: "sending" | "failed";
+
+  /**
    * Component to render message context menu
    */
   contextMenu?: () => JSX.Element;
@@ -97,18 +102,22 @@ type Props = CommonProps & {
  * Message container layout
  */
 const Base = styled(Column as Component, "Message")<
-  CommonProps & Pick<Props, "mentioned" | "highlight">
+  CommonProps & Pick<Props, "mentioned" | "highlight" | "sendStatus">
 >`
   ${(props) => generateTypographyCSS(props.theme!, "messages")}
 
   padding: 2px 0;
-  color: ${(props) => props.theme!.colours.foreground};
+  color: ${(props) =>
+    props.sendStatus
+      ? props.theme!.customColours.error.color
+      : props.theme!.colours.foreground};
   background: ${(props) =>
     props.mentioned
       ? props.theme!.colours["messaging-message-mentioned-background"]
       : "transparent"};
   margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
   border-radius: ${(props) => props.theme!.borderRadius.md};
+  min-height: 1em;
 
   ${(props) => (props.highlight ? "outline: 2px solid red;" : "")}
 
@@ -176,6 +185,7 @@ export function MessageContainer(props: Props) {
       tail={props.tail}
       mentioned={props.mentioned}
       highlight={props.highlight}
+      sendStatus={props.sendStatus}
       use:floating={{ contextMenu: props.contextMenu }}
       use:ripple={{ enable: false }}
     >

@@ -114,45 +114,48 @@ export function MessageComposition(props: Props) {
       return props.channel.sendMessage(useContent);
     }
 
-    const { content, replies, files } = state.draft.popDraft(props.channel.id);
+    state.draft.sendDraft(props.channel);
 
-    // Construct message object
-    const attachments: string[] = [];
-    const data: API.DataMessageSend = {
-      content,
-      replies,
-      attachments,
-    };
+    // TODO:
+    // const { content, replies, files } = state.draft.popDraft(props.channel.id);
 
-    // Add any files if attached
-    if (files?.length) {
-      for (const file of files) {
-        // Prepare for upload
-        const body = new FormData();
-        body.append("file", file);
+    // // Construct message object
+    // const attachments: string[] = [];
+    // const data: API.DataMessageSend = {
+    //   content,
+    //   replies,
+    //   attachments,
+    // };
 
-        // Upload to Autumn
-        attachments.push(
-          await fetch(
-            `${client()?.configuration?.features.autumn.url}/attachments`,
-            {
-              method: "POST",
-              body,
-            }
-          )
-            .then((res) => res.json())
-            .then((res) => res.id)
-        );
-      }
-    }
+    // // Add any files if attached
+    // if (files?.length) {
+    //   for (const file of files) {
+    //     // Prepare for upload
+    //     const body = new FormData();
+    //     body.append("file", file);
 
-    // TODO: fix bug with backend
-    if (!attachments.length) {
-      delete data.attachments;
-    }
+    //     // Upload to Autumn
+    //     attachments.push(
+    //       await fetch(
+    //         `${client()?.configuration?.features.autumn.url}/attachments`,
+    //         {
+    //           method: "POST",
+    //           body,
+    //         }
+    //       )
+    //         .then((res) => res.json())
+    //         .then((res) => res.id)
+    //     );
+    //   }
+    // }
 
-    // Send the message and clear the draft
-    props.channel.sendMessage(data);
+    // // TODO: fix bug with backend
+    // if (!attachments.length) {
+    //   delete data.attachments;
+    // }
+
+    // // Send the message and clear the draft
+    // props.channel.sendMessage(data);
   }
 
   /**

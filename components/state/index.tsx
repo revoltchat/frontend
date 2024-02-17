@@ -42,7 +42,7 @@ export class State {
   auth = new Auth(this);
   draft = new Draft(this);
   experiments = new Experiments(this);
-  keybinds = new Keybinds(this)
+  keybinds = new Keybinds(this);
   layout = new Layout(this);
   locale = new Locale(this);
   notifications = new NotificationOptions(this);
@@ -136,7 +136,7 @@ export class State {
 
     // run side-effects
     if (import.meta.env.DEV) {
-      console.info("[store]", this.store);
+      console.info("[store] updated data", args[0]);
     }
   };
 

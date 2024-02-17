@@ -11,7 +11,7 @@ import {
 import { Message as MessageInterface } from "revolt.js";
 import { decodeTime, ulid } from "ulid";
 
-import { Message, Messages } from "@revolt/app";
+import { DraftMessages, Message, Messages } from "@revolt/app";
 import { useClient, useUser } from "@revolt/client";
 import { KeybindAction } from "@revolt/keybinds";
 import { userInformation } from "@revolt/markdown/users";
@@ -23,6 +23,7 @@ import {
   BelowFloatingHeader,
   HeaderWithTransparency,
   MessageContainer,
+  MessageReply,
   NewMessages,
   TypingIndicator,
   Username,
@@ -41,8 +42,6 @@ import { MemberSidebar } from "./MemberSidebar";
  */
 export function TextChannel(props: ChannelPageProps) {
   const client = useClient();
-  const user = useUser();
-  const userInfo = () => userInformation(user(), props.channel.server?.member);
 
   // Last unread message id
   const [lastId, setLastId] = createSignal<string>();
@@ -141,18 +140,7 @@ export function TextChannel(props: ChannelPageProps) {
             channel={props.channel}
             limit={150}
             lastReadId={lastId}
-            pendingMessages={
-              <For each={state.draft.getPendingMessages(props.channel.id)}>
-                {(draft) => (
-                  <MessageContainer
-                    avatar={<Avatar src={userInfo().avatar} size={36} />}
-                    children={draft.content}
-                    timestamp="Sending..."
-                    username={<Username username={userInfo().username} />}
-                  />
-                )}
-              </For>
-            }
+            pendingMessages={<DraftMessages channel={props.channel} />}
             highlightedMessageId={highlightMessageId}
             clearHighlightedMessage={() => navigate(".")}
             atEndRef={(ref) => (atEndRef = ref)}

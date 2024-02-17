@@ -1,6 +1,7 @@
 import {
   Accessor,
   For,
+  JSX,
   Match,
   Show,
   Switch,
@@ -57,7 +58,7 @@ interface Props {
   /**
    * Pending messages to render at the end of the list
    */
-  pendingMessages?: Element;
+  pendingMessages?: JSX.Element;
 
   /**
    * Highlighted message id
