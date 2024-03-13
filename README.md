@@ -1,14 +1,18 @@
-# ‼️ READ: THIS IS STILL IN DEVELOPMENT
-
-This is still in early development. Everything you see here may - and likely will - be tweaked or changed further before release.
-
 # Revolt Frontend
 
-This repository contains the code for Revolt's new frontend, built with Solid.js.
+This repository contains the code for Revolt's frontend, built with Solid.js.
 
 You can find the code style guidelines [here](./GUIDELINES.md).
 
-## Setup locally
+## Development Guide
+
+Before getting started, you'll want to install:
+
+- Git
+- Node.js
+- pnpm (run `corepack enable`)
+
+Then proceed to setup:
 
 ```bash
 # clone the repository
@@ -33,17 +37,7 @@ pnpm dev
 
 Finally, navigate to http://local.revolt.chat:5173.
 
-## Build client
-
-```bash
-# install packages
-pnpm i
-
-# build everything
-pnpm build:all
-```
-
-## Pulling in Revolt's assets
+### Pulling in Revolt's assets
 
 If you want to pull in Revolt brand assets after pulling, run the following:
 
@@ -59,7 +53,7 @@ You can switch back to the fallback assets by running deinit and continuing as n
 git submodule deinit packages/client/assets
 ```
 
-## Faster iteration with Revolt.js
+### Faster iteration with Revolt.js
 
 To make it easier to work with `revolt.js`, you may want to temporarily make this change:
 
@@ -71,21 +65,28 @@ To make it easier to work with `revolt.js`, you may want to temporarily make thi
 
 Any edits to the revolt.js codebase will immediately be reflected while developing.
 
-## Using `pnpm`
+## Deployment Guide
 
-Add a new package to a workspace:
+### Build the app
 
 ```bash
-pnpm add solid-hcaptcha --filter @revolt/auth
+# install packages
+pnpm i
+
+# build everything
+pnpm build:all
 ```
 
-# Deployment Information
+### Routing Information
 
 The app currently needs the following routes:
 
 - `/server`
 - `/channel`
+- `/dev`
 - `/friends`
-- `/admin`
 - `/app`
 - `/pwa`
+- `/settings`
+
+This corresponds to [Content.tsx#L33](packages/client/src/interface/Content.tsx).
