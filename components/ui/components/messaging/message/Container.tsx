@@ -108,7 +108,7 @@ const Base = styled(Column as Component, "Message")<
 
   padding: 2px 0;
   color: ${(props) =>
-    props.sendStatus
+    props.sendStatus === "failed"
       ? props.theme!.customColours.error.color
       : props.theme!.colours.foreground};
   background: ${(props) =>

@@ -1,6 +1,6 @@
 import { batch } from "solid-js";
 
-import { API, Channel, Message } from "revolt.js";
+import { API, Channel, Client, Message } from "revolt.js";
 
 import { CONFIGURATION, insecureUniqueId } from "@revolt/common";
 
@@ -248,9 +248,11 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
 
   /**
    * Get the draft for a channel and send it
+   * @param client Client
    * @param channel Channel
+   * @param existingDraft The existing draft to send
    */
-  async sendDraft(channel: Channel, existingDraft: DraftData) {
+  async sendDraft(client: Client, channel: Channel, existingDraft: DraftData) {
     const draft = existingDraft ?? this.popDraft(channel.id);
 
     // TODO: const idempotencyKey = ulid();
@@ -281,24 +283,48 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       // we could visually show this in chat like
       // on Discord mobile and allow individual
       // files to be cancelled
-      for (const file of files) {
+      for (const fileId of files) {
         // Prepare for upload
-        const body = new FormData();
-        body.append("file", file);
+        // const body = new FormData();
+        const { file } = this.fileCache[fileId];
+
+        const totalBytes = file.size;
+        let bytesUploaded = 0;
+        const progressTrackingStream = new TransformStream({
+          /**
+           *
+           * @param chunk
+           * @param controller
+           */
+          transform(chunk, controller) {
+            controller.enqueue(chunk);
+            bytesUploaded += chunk.byteLength;
+            console.log("upload progress:", bytesUploaded / totalBytes);
+            const progress = bytesUploaded / totalBytes;
+          },
+          /**
+           *
+           * @param controller
+           */
+          flush(controller) {
+            console.log("completed stream");
+          },
+        });
+
+        // body.append("file", file.stream().pipeThrough(progressTrackingStream));
 
         // Upload to Autumn
-        // attachments.push(
-        //   await fetch(
-        //     `${channel.?.configuration?.features.autumn.url}/attachments`,
-        //     {
-        //       method: "POST",
-        //       body,
-        //     }
-        //   )
-        //     .then((res) => res.json())
-        //     .then((res) => res.id)
-        // );
-        // TODO: need client
+        attachments.push(
+          await fetch(
+            `${client.configuration!.features.autumn.url}/attachments`,
+            {
+              method: "POST",
+              body: file.stream().pipeThrough(progressTrackingStream),
+            }
+          )
+            .then((res) => res.json())
+            .then((res) => res.id)
+        );
       }
     }
 
@@ -360,7 +386,13 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     };
   }
 
-  retrySend(channel: Channel, idempotencyKey: string) {
+  /**
+   * Retry sending a message in a channel
+   * @param client Client
+   * @param channel Channel
+   * @param idempotencyKey Idempotency key
+   */
+  retrySend(client: Client, channel: Channel, idempotencyKey: string) {
     batch(() => {
       const draft = this.get().outbox[channel.id].find(
         (entry) => entry.idempotencyKey === idempotencyKey
@@ -368,10 +400,15 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       // TODO: validation?
 
       this.cancelSend(channel, idempotencyKey);
-      this.sendDraft(channel, draft!);
+      this.sendDraft(client, channel, draft!);
     });
   }
 
+  /**
+   * Cancel sending a message in a channel
+   * @param channel Channel
+   * @param idempotencyKey Idempotency key
+   */
   cancelSend(channel: Channel, idempotencyKey: string) {
     this.set(
       "outbox",

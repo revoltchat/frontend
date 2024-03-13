@@ -3,7 +3,6 @@ import { For } from "solid-js";
 import { Channel } from "revolt.js";
 
 import { state } from "@revolt/state";
-import { UnsentMessage } from "@revolt/state/stores/Draft";
 
 import { DraftMessage } from "./DraftMessage";
 
@@ -34,7 +33,7 @@ export function DraftMessages(props: Props) {
           <DraftMessage
             draft={draft}
             channel={props.channel}
-            tail // ={index() !== 0}
+            tail={index() !== 0}
           />
         )}
       </For>
