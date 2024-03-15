@@ -1,9 +1,8 @@
 import { Show } from "solid-js";
 
-import { Channel, Message } from "revolt.js";
+import { Channel } from "revolt.js";
 
-import { useClient, useUser } from "@revolt/client";
-import { getController } from "@revolt/common";
+import { useClient } from "@revolt/client";
 import { state } from "@revolt/state";
 import { UnsentMessage } from "@revolt/state/stores/Draft";
 
@@ -11,11 +10,7 @@ import MdClose from "@material-design-icons/svg/outlined/close.svg?component-sol
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 import MdRefresh from "@material-design-icons/svg/outlined/refresh.svg?component-solid";
 
-import {
-  ContextMenu,
-  ContextMenuButton,
-  ContextMenuDivider,
-} from "./ContextMenu";
+import { ContextMenu, ContextMenuButton } from "./ContextMenu";
 
 interface Props {
   draft: UnsentMessage;
@@ -28,14 +23,13 @@ interface Props {
  * @returns
  */
 export function DraftMessageContextMenu(props: Props) {
-  const user = useUser();
   const client = useClient();
 
   /**
    * Retry sending the draft message
    */
   function retrySend(ev: MouseEvent) {
-    state.draft.retrySend(props.channel, props.draft.idempotencyKey);
+    state.draft.retrySend(client(), props.channel, props.draft.idempotencyKey);
   }
 
   /**

@@ -68,13 +68,26 @@ export type TypeDraft = {
 };
 
 /**
+ * List of image content types
+ */
+export const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+];
+
+/**
  * Message drafts store
  */
 export class Draft extends AbstractStore<"draft", TypeDraft> {
   /**
    * Keep track of cached files
    */
-  private fileCache: Record<string, { file: File; dataUri: string }>;
+  private fileCache: Record<
+    string,
+    { file: File; dataUri: string | undefined }
+  >;
 
   /**
    * Current text selection
@@ -252,7 +265,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param channel Channel
    * @param existingDraft The existing draft to send
    */
-  async sendDraft(client: Client, channel: Channel, existingDraft: DraftData) {
+  async sendDraft(client: Client, channel: Channel, existingDraft?: DraftData) {
     const draft = existingDraft ?? this.popDraft(channel.id);
 
     // TODO: const idempotencyKey = ulid();
@@ -285,46 +298,39 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       // files to be cancelled
       for (const fileId of files) {
         // Prepare for upload
-        // const body = new FormData();
-        const { file } = this.fileCache[fileId];
+        const body = new FormData();
+        const { file } = this.getFile(fileId);
+        body.set("file", file);
 
-        const totalBytes = file.size;
-        let bytesUploaded = 0;
-        const progressTrackingStream = new TransformStream({
-          /**
-           *
-           * @param chunk
-           * @param controller
-           */
-          transform(chunk, controller) {
-            controller.enqueue(chunk);
-            bytesUploaded += chunk.byteLength;
-            console.log("upload progress:", bytesUploaded / totalBytes);
-            const progress = bytesUploaded / totalBytes;
-          },
-          /**
-           *
-           * @param controller
-           */
-          flush(controller) {
-            console.log("completed stream");
-          },
+        // We have to use XMLHttpRequest because modern fetch duplex streams require QUIC or HTTP/2
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = "json";
+
+        const [success, response] = await new Promise<
+          [boolean, { id: string }]
+        >((resolve) => {
+          xhr.upload.addEventListener("progress", (event) => {
+            if (event.lengthComputable) {
+              // TODO: show this to users
+              console.log("upload progress:", event.loaded / event.total);
+            }
+          });
+
+          xhr.addEventListener("loadend", () => {
+            resolve([xhr.readyState === 4 && xhr.status === 200, xhr.response]);
+          });
+
+          xhr.open(
+            "POST",
+            `${client.configuration!.features.autumn.url}/attachments`,
+            true
+          );
+          xhr.send(body);
         });
 
-        // body.append("file", file.stream().pipeThrough(progressTrackingStream));
-
-        // Upload to Autumn
-        attachments.push(
-          await fetch(
-            `${client.configuration!.features.autumn.url}/attachments`,
-            {
-              method: "POST",
-              body: file.stream().pipeThrough(progressTrackingStream),
-            }
-          )
-            .then((res) => res.json())
-            .then((res) => res.id)
-        );
+        // TODO: keep track of uploaded files (and don't reupload those that succeded if message or something else fails)
+        if (!success) throw "Upload Error";
+        attachments.push(response.id);
       }
     }
 
@@ -336,6 +342,12 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     // Send the message and clear the draft
     try {
       await channel.sendMessage(data, idempotencyKey);
+
+      if (files) {
+        for (const file of files) {
+          this.removeFile(channel.id, file);
+        }
+      }
 
       this.set(
         "outbox",
@@ -377,12 +389,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     return {
       content,
       replies,
-      files: files?.map((id) => {
-        const { file, dataUri } = this.fileCache[id];
-        URL.revokeObjectURL(dataUri);
-        delete this.fileCache[id];
-        return file;
-      }),
+      files,
     };
   }
 
@@ -425,7 +432,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @returns Pending messages
    */
   getPendingMessages(channelId: string) {
-    return this.get().outbox[channelId] ?? [{ content: "hello" }];
+    return this.get().outbox[channelId] ?? [];
   }
 
   /**
@@ -547,10 +554,29 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   addFile(channelId: string, file: File) {
     const id = insecureUniqueId();
-    this.fileCache[id] = { file, dataUri: URL.createObjectURL(file) };
+    this.fileCache[id] = {
+      file,
+      dataUri: ALLOWED_IMAGE_TYPES.includes(file.type)
+        ? URL.createObjectURL(file)
+        : undefined,
+    };
+
     this.setDraft(channelId, (data) => ({
       files: [...(data.files ?? []), id],
     }));
+  }
+
+  /**
+   * Delete a file from cache
+   * @param fileId File ID
+   */
+  private deleteFile(fileId: string) {
+    const file = this.fileCache[fileId];
+    if (file?.dataUri) {
+      URL.revokeObjectURL(file.dataUri);
+    }
+
+    delete this.fileCache[fileId];
   }
 
   /**
@@ -559,11 +585,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param fileId File ID
    */
   removeFile(channelId: string, fileId: string) {
-    if (this.fileCache[fileId]) {
-      URL.revokeObjectURL(this.fileCache[fileId].dataUri);
-    }
-
-    delete this.fileCache[fileId];
+    this.deleteFile(fileId);
     this.setDraft(channelId, (data) => ({
       files: data.files?.filter((entry) => entry !== fileId),
     }));

@@ -114,48 +114,7 @@ export function MessageComposition(props: Props) {
       return props.channel.sendMessage(useContent);
     }
 
-    state.draft.sendDraft(props.channel);
-
-    // TODO:
-    // const { content, replies, files } = state.draft.popDraft(props.channel.id);
-
-    // // Construct message object
-    // const attachments: string[] = [];
-    // const data: API.DataMessageSend = {
-    //   content,
-    //   replies,
-    //   attachments,
-    // };
-
-    // // Add any files if attached
-    // if (files?.length) {
-    //   for (const file of files) {
-    //     // Prepare for upload
-    //     const body = new FormData();
-    //     body.append("file", file);
-
-    //     // Upload to Autumn
-    //     attachments.push(
-    //       await fetch(
-    //         `${client()?.configuration?.features.autumn.url}/attachments`,
-    //         {
-    //           method: "POST",
-    //           body,
-    //         }
-    //       )
-    //         .then((res) => res.json())
-    //         .then((res) => res.id)
-    //     );
-    //   }
-    // }
-
-    // // TODO: fix bug with backend
-    // if (!attachments.length) {
-    //   delete data.attachments;
-    // }
-
-    // // Send the message and clear the draft
-    // props.channel.sendMessage(data);
+    state.draft.sendDraft(client(), props.channel);
   }
 
   /**
