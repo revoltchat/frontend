@@ -1,4 +1,6 @@
-import { API, Message } from "revolt.js";
+import { batch } from "solid-js";
+
+import { API, Channel, Client, Message } from "revolt.js";
 
 import { CONFIGURATION, insecureUniqueId } from "@revolt/common";
 
@@ -16,13 +18,25 @@ export interface DraftData {
   /**
    * Message IDs being replied to
    */
-  replies?: API.Reply[];
+  replies?: API.ReplyIntent[];
 
   /**
    * IDs of cached files
    */
   files?: string[];
 }
+
+export type UnsentMessage = {
+  /**
+   * Idempotency key
+   */
+  idempotencyKey: string;
+
+  /**
+   * Status
+   */
+  status: "sending" | "unsent" | "failed";
+} & DraftData;
 
 export interface TextSelection {
   /**
@@ -46,6 +60,11 @@ export type TypeDraft = {
    * All active message drafts
    */
   drafts: Record<string, DraftData>;
+
+  /**
+   * Unsent messages
+   */
+  outbox: Record<string, UnsentMessage[]>;
 };
 
 /**
@@ -86,6 +105,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   default(): TypeDraft {
     return {
       drafts: {},
+      outbox: {},
     };
   }
 
@@ -94,6 +114,22 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   clean(input: Partial<TypeDraft>): TypeDraft {
     const drafts: TypeDraft["drafts"] = {};
+    const outbox: TypeDraft["outbox"] = {};
+
+    /**
+     * Validate replies array is correct
+     * @param replies Replies array
+     * @returns Validity
+     */
+    const validateReplies = (replies?: API.ReplyIntent[]) =>
+      Array.isArray(replies) &&
+      replies.length &&
+      !replies.find(
+        (x) =>
+          typeof x !== "object" ||
+          typeof x.id !== "string" ||
+          typeof x.mention !== "boolean"
+      );
 
     const messageDrafts = input.drafts;
     if (typeof messageDrafts === "object") {
@@ -105,16 +141,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
           draft.content = entry.content;
         }
 
-        if (
-          Array.isArray(entry?.replies) &&
-          entry!.replies.length &&
-          !entry!.replies.find(
-            (x) =>
-              typeof x !== "object" ||
-              typeof x.id !== "string" ||
-              typeof x.mention !== "boolean"
-          )
-        ) {
+        if (validateReplies(entry?.replies)) {
           draft.replies = entry!.replies;
         }
 
@@ -124,8 +151,44 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       }
     }
 
+    const pendingMessages = input.outbox;
+    if (typeof pendingMessages === "object") {
+      for (const channelId of Object.keys(pendingMessages)) {
+        const entry = pendingMessages[channelId];
+        const messages: UnsentMessage[] = [];
+
+        if (Array.isArray(entry)) {
+          for (const message of entry) {
+            if (
+              typeof message === "object" &&
+              ["sending", "unsent", "failed"].includes(message.status) &&
+              typeof message.idempotencyKey === "string" &&
+              typeof message.content === "string" // shouldn't be enforced once we support caching files
+            ) {
+              const msg: UnsentMessage = {
+                idempotencyKey: message.idempotencyKey,
+                content: message.content,
+                status: "unsent",
+                // TODO: support storing unsent files in local storage
+                // files: [..]
+              };
+
+              if (validateReplies(message.replies)) {
+                msg.replies = message.replies;
+              }
+
+              messages.push(msg);
+            }
+          }
+        }
+
+        outbox[channelId] = messages;
+      }
+    }
+
     return {
       drafts,
+      outbox,
     };
   }
 
@@ -184,6 +247,120 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   }
 
   /**
+   * Get the draft for a channel and send it
+   * @param client Client
+   * @param channel Channel
+   * @param existingDraft The existing draft to send
+   */
+  async sendDraft(client: Client, channel: Channel, existingDraft: DraftData) {
+    const draft = existingDraft ?? this.popDraft(channel.id);
+
+    // TODO: const idempotencyKey = ulid();
+    const idempotencyKey = Math.random().toString();
+    this.set("outbox", channel.id, [
+      ...this.getPendingMessages(channel.id),
+      {
+        ...draft,
+        idempotencyKey,
+        status: "sending",
+      } as UnsentMessage,
+    ]);
+
+    // Try sending the message
+    const { content, replies, files } = draft;
+
+    // Construct message object
+    const attachments: string[] = [];
+    const data: API.DataMessageSend = {
+      content,
+      replies,
+      attachments,
+    };
+
+    // Add any files if attached
+    if (files?.length) {
+      // TODO: keep track of % upload progress
+      // we could visually show this in chat like
+      // on Discord mobile and allow individual
+      // files to be cancelled
+      for (const fileId of files) {
+        // Prepare for upload
+        // const body = new FormData();
+        const { file } = this.fileCache[fileId];
+
+        const totalBytes = file.size;
+        let bytesUploaded = 0;
+        const progressTrackingStream = new TransformStream({
+          /**
+           *
+           * @param chunk
+           * @param controller
+           */
+          transform(chunk, controller) {
+            controller.enqueue(chunk);
+            bytesUploaded += chunk.byteLength;
+            console.log("upload progress:", bytesUploaded / totalBytes);
+            const progress = bytesUploaded / totalBytes;
+          },
+          /**
+           *
+           * @param controller
+           */
+          flush(controller) {
+            console.log("completed stream");
+          },
+        });
+
+        // body.append("file", file.stream().pipeThrough(progressTrackingStream));
+
+        // Upload to Autumn
+        attachments.push(
+          await fetch(
+            `${client.configuration!.features.autumn.url}/attachments`,
+            {
+              method: "POST",
+              body: file.stream().pipeThrough(progressTrackingStream),
+            }
+          )
+            .then((res) => res.json())
+            .then((res) => res.id)
+        );
+      }
+    }
+
+    // TODO: fix bug with backend
+    if (!attachments.length) {
+      delete data.attachments;
+    }
+
+    // Send the message and clear the draft
+    try {
+      await channel.sendMessage(data, idempotencyKey);
+
+      this.set(
+        "outbox",
+        channel.id,
+        this.getPendingMessages(channel.id).filter(
+          (entry) => entry.idempotencyKey !== idempotencyKey
+        )
+      );
+    } catch (err) {
+      this.set(
+        "outbox",
+        channel.id,
+        this.getPendingMessages(channel.id).map((entry) =>
+          entry.idempotencyKey === idempotencyKey
+            ? {
+                ...entry,
+                status: "failed",
+              }
+            : entry
+        )
+      );
+    }
+  }
+
+  /**
    * Remove required objects for sending a new message
    * @param channelId Channel ID
    * @returns Object with all required data
@@ -207,6 +384,48 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
         return file;
       }),
     };
+  }
+
+  /**
+   * Retry sending a message in a channel
+   * @param client Client
+   * @param channel Channel
+   * @param idempotencyKey Idempotency key
+   */
+  retrySend(client: Client, channel: Channel, idempotencyKey: string) {
+    batch(() => {
+      const draft = this.get().outbox[channel.id].find(
+        (entry) => entry.idempotencyKey === idempotencyKey
+      );
+      // TODO: validation?
+
+      this.cancelSend(channel, idempotencyKey);
+      this.sendDraft(client, channel, draft!);
+    });
+  }
+
+  /**
+   * Cancel sending a message in a channel
+   * @param channel Channel
+   * @param idempotencyKey Idempotency key
+   */
+  cancelSend(channel: Channel, idempotencyKey: string) {
+    this.set(
+      "outbox",
+      channel.id,
+      this.getPendingMessages(channel.id).filter(
+        (entry) => entry.idempotencyKey !== idempotencyKey
+      )
+    );
+  }
+
+  /**
+   * Get all pending messages
+   * @param channelId Channel Id
+   * @returns Pending messages
+   */
+  getPendingMessages(channelId: string) {
+    return this.get().outbox[channelId] ?? [{ content: "hello" }];
   }
 
   /**

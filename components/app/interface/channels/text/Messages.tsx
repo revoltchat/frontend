@@ -1,6 +1,7 @@
 import {
   Accessor,
   For,
+  JSX,
   Match,
   Show,
   Switch,
@@ -53,6 +54,11 @@ interface Props {
    * Limit to number of messages to display at one time
    */
   limit?: number;
+
+  /**
+   * Pending messages to render at the end of the list
+   */
+  pendingMessages?: JSX.Element;
 
   /**
    * Highlighted message id
@@ -773,6 +779,7 @@ export function Messages(props: Props) {
               )}
             </For>
             {/* TODO: show (loading icon) OR (load more) */}
+            <Show when={atEnd()}>{props.pendingMessages}</Show>
             <Padding />
           </div>
         </div>

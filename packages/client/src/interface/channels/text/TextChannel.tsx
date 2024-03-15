@@ -1,4 +1,5 @@
 import {
+  For,
   Show,
   createEffect,
   createSignal,
@@ -7,19 +8,25 @@ import {
   onMount,
 } from "solid-js";
 
+import { Message as MessageInterface } from "revolt.js";
 import { decodeTime, ulid } from "ulid";
 
-import { Messages } from "@revolt/app";
-import { useClient } from "@revolt/client";
+import { DraftMessages, Message, Messages } from "@revolt/app";
+import { useClient, useUser } from "@revolt/client";
 import { KeybindAction } from "@revolt/keybinds";
+import { userInformation } from "@revolt/markdown/users";
 import { useNavigate, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
+  Avatar,
   BelowFloatingHeader,
   HeaderWithTransparency,
+  MessageContainer,
+  MessageReply,
   NewMessages,
   TypingIndicator,
+  Username,
   styled,
 } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
@@ -133,6 +140,7 @@ export function TextChannel(props: ChannelPageProps) {
             channel={props.channel}
             limit={150}
             lastReadId={lastId}
+            pendingMessages={<DraftMessages channel={props.channel} />}
             highlightedMessageId={highlightMessageId}
             clearHighlightedMessage={() => navigate(".")}
             atEndRef={(ref) => (atEndRef = ref)}
