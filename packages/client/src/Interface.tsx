@@ -54,33 +54,55 @@ const Interface: Component = () => {
         <Navigate href="/login" />
       </Match>
       <Match when={clientController.isReady()}>
-        <Layout
-          onDragOver={(e) => {
-            if (e.dataTransfer) e.dataTransfer.dropEffect = "none";
+        <div
+          style={{
+            display: "flex",
+            "flex-direction": "column",
+            height: "100%",
           }}
-          onDrop={(e) => e.preventDefault()}
         >
-          <Sidebar
-            menuGenerator={(target) => ({
-              contextMenu: () => {
-                return (
-                  <>
-                    {target instanceof Server ? (
-                      <ServerContextMenu server={target} />
-                    ) : (
-                      <ChannelContextMenu channel={target} />
-                    )}
-                  </>
-                );
-              },
-            })}
-          />
-          <Content />
-        </Layout>
+          <Notice>⚠️ This is beta software, things will break!</Notice>
+          <Layout
+            style={{ "flex-grow": 1, "min-height": 0 }}
+            onDragOver={(e) => {
+              if (e.dataTransfer) e.dataTransfer.dropEffect = "none";
+            }}
+            onDrop={(e) => e.preventDefault()}
+          >
+            <Sidebar
+              menuGenerator={(target) => ({
+                contextMenu: () => {
+                  return (
+                    <>
+                      {target instanceof Server ? (
+                        <ServerContextMenu server={target} />
+                      ) : (
+                        <ChannelContextMenu channel={target} />
+                      )}
+                    </>
+                  );
+                },
+              })}
+            />
+            <Content />
+          </Layout>
+        </div>
       </Match>
     </Switch>
   );
 };
+
+const Notice = styled.div`
+  text-align: center;
+  font-size: 0.8em;
+  margin: ${(props) => props.theme!.gap.md} ${(props) => props.theme!.gap.md} 0
+    ${(props) => props.theme!.gap.md};
+  padding: ${(props) => props.theme!.gap.md};
+  background: ${(props) =>
+    props.theme!.colours["messaging-message-box-background"]};
+  color: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
+  border-radius: ${(props) => props.theme!.borderRadius.md};
+`;
 
 /**
  * Parent container
