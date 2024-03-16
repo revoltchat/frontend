@@ -1,8 +1,10 @@
+import devtools from "@solid-devtools/transform";
+import { readdirSync } from "node:fs";
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
 import solidSvg from "vite-plugin-solid-svg";
-import devtools from "@solid-devtools/transform";
 
 const base = process.env.BASE_PATH ?? "/";
 
@@ -62,5 +64,16 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ["solid-styled-components"],
+  },
+  resolve: {
+    alias: {
+      ...readdirSync(resolve(__dirname, "components")).reduce(
+        (p, f) => ({
+          ...p,
+          [`@revolt/${f}`]: resolve(__dirname, "components", f),
+        }),
+        {}
+      ),
+    },
   },
 });

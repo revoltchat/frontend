@@ -3,7 +3,7 @@ import { useTranslation } from "@revolt/i18n";
 import { Link, useNavigate } from "@revolt/routing";
 import { Button, Column, Row, Typography, styled } from "@revolt/ui";
 
-import RevoltSvg from "../../../../packages/client/public/assets/wide.svg?component-solid";
+import RevoltSvg from "../../../../public/assets/wide.svg?component-solid";
 
 import { FlowTitle } from "./Flow";
 import { Fields, Form } from "./Form";
