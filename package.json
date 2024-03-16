@@ -16,7 +16,7 @@
     "build:prod": "pnpm run build:deps && cd packages/client && pnpm run build:prod",
     "build:deps": "pnpm --filter revolt.js build",
     "build:all": "pnpm run build:deps && pnpm run build",
-    "start": "cd packages/client && pnpm run start",
+    "start": "cd packages/client && pnpm run serve",
     "showcase": "cd packages/showcase && pnpm run dev",
     "fmt": "prettier --write '**/*.{ts,tsx,json}'",
     "fmt:check": "prettier --check '**/*.{ts,tsx,json}'",
