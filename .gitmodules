@@ -2,7 +2,7 @@
 	path = packages/revolt.js
 	url = https://github.com/revoltchat/revolt.js
 [submodule "components/i18n/locales"]
-	path = components/i18n/locales
+	path = packages/client/components/i18n/locales
 	url = https://github.com/revoltchat/translations
 [submodule "packages/solid-styled-components"]
 	path = packages/solid-styled-components
