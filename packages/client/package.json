@@ -44,7 +44,7 @@
     "@solid-primitives/keyed": "^1.2.0",
     "revolt.js": "workspace:^",
     "solid-hcaptcha": "^0.2.5",
-    "solid-styled-components": "^0.28.4",
+    "solid-styled-components": "workspace:^0.28.5",
     "@solid-primitives/map": "^0.4.3",
     "detect-browser": "^5.3.0",
     "@sentry/browser": "^7.38.0",
