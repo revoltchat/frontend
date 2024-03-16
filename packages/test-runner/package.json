@@ -13,9 +13,6 @@
     "@vitest/coverage-c8": "^0.24.3"
   },
   "dependencies": {
-    "@revolt/i18n": "workspace:^1.0.0",
-    "@revolt/routing": "workspace:^1.0.0",
-    "@revolt/ui": "workspace:^1.0.0",
     "solid-styled-components": "workspace:^0.28.5"
   }
 }
