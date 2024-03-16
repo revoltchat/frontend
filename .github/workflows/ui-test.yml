@@ -2,14 +2,14 @@ name: Run UI Regression Tests
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - "components/ui/**"
       - "packages/browser-test-runner/**"
       - "packages/test-runner/**"
       - "packages/showcase/**"
   pull_request:
-    branches: [master]
+    branches: [main]
     paths:
       - "components/ui/**"
       - "packages/browser-test-runner/**"
