@@ -1,0 +1,1112 @@
+{
+    "general": {
+        "tos": "Termos de Serbiço",
+        "privacy": "Política de Pribacidade",
+        "image_by": "Eimaige por",
+        "loading": "Carregando…",
+        "on": "Lhigado",
+        "off": "Zlhigado",
+        "unavailable": "Nó çponible",
+        "learn_more": "Daprende más",
+        "about": "Subre",
+        "disabled": "Zatibado"
+    },
+    "actions": {
+        "submit": "Ambiar"
+    },
+    "login": {
+        "title": "Antrar",
+        "welcome": "Bienbenido/a!",
+        "subtitle": "Antre ne l Revolt",
+        "welcome2": "Oulá!",
+        "subtitle2": "Cria ũa conta",
+        "register": "Registrar",
+        "email": "Email",
+        "password": "Palabra passe",
+        "new_password": "Nuoba Palabra passe",
+        "totp": "App de Autenticaçon",
+        "recovery": "Código de Recuperaçon",
+        "invite": "Código de Cumbite",
+        "current_password": "Palabra passe atual",
+        "enter": {
+            "username": "Pon l tou nome de outilizador.",
+            "email": "Pon l tou email.",
+            "password": "Pon la tue Palabra passe.",
+            "new_password": "Pon ũa nuoba Palabra passe.",
+            "invite": "Pon l tou código de cumbite.",
+            "current_password": "Pon la tue Palabra passe atual."
+        },
+        "forgot": "Se te olbidou la tue Palabra passe?",
+        "reset": "Reiniciar Palabra passe",
+        "set_password": "Faç ũa nuoba Palabra passe",
+        "remembered": "Bolbe al Login",
+        "new": "Nuobo cun l Revolt?",
+        "existing": "Yá tenes ũa conta?",
+        "create": "Cria ũa nuoba conta",
+        "resend": "Reambiar berificaçon",
+        "cancel": "Cancelar pedido",
+        "check_mail": "Mira l tou mail!",
+        "open_mail_provider": "Çfechar {{provider}}",
+        "successful_registration": "Registrado cun sucesso!",
+        "verifying_account": "Berificando la tue conta…",
+        "verified_account": "La tue conta fui berificada!",
+        "error": {
+            "create": "Hoube ũa falha a registrar!",
+            "login": "Hoube ũa falha ne l Login!",
+            "reset": "Hoube ũa falha a reiniciar!",
+            "resend": "Hoube ũa falha a reambiar!",
+            "verify": "Hoube ũa falha a berificar!"
+        },
+        "unofficial_instance": "Anstáncia de terceiros.",
+        "username": "Nome de outelizador",
+        "log_out_other": "Salir de to las outras sessones",
+        "missing_verification": "Nun recebiste un email?",
+        "email_delay": "Ambiámos un email de berificaçon. Aspere anté 10 minutos pa el chegar fai fabor.",
+        "check_spam": "Mira la tue pasta de spam se nun lo cunsegues ancuntrar",
+        "verified_continue": "Acuntinar pa l Login"
+    },
+    "app": {
+        "status": {
+            "online": "Online",
+            "idle": "Idle",
+            "focus": "Foco",
+            "busy": "Nun Anquemodar",
+            "invisible": "Ambisible",
+            "offline": "Offline",
+            "reconnect": "Reconectar"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Cas",
+                "dev": "Zambolbedor",
+                "friends": "Amios",
+                "saved": "Notas Salbadas",
+                "unreads": "Nun bistas"
+            }
+        },
+        "home": {
+            "directs": "Mensaiges Diretas",
+            "join-testers": "Ajunta-te al serbidor de ls testers",
+            "goto-testers": "Bai al serbidor de testers",
+            "goto-testers_desc": "Puodes reportar berbicachos i çcutir melhoramientos diretamente eiqui.",
+            "donate": "Doar pa l Revolt",
+            "donate_desc": "Arrima l porjeto por doar - oubrigado!",
+            "feedback": "Dá feedback ne l Revolt",
+            "settings": "Çfechar definiçones",
+            "settings-tooltip": "Puodes fazer right-click ne l ícone de outelizador ne l canto izquierdo, ó left-click se yá stás na cas.",
+            "discover": "Çcobre l Revolt",
+            "group": "Cria un grupo",
+            "group_desc": "Ambita to ls tous amios, alguns buns bots, i faç ũa fiesta.",
+            "join-testers_desc": "Puodes reportar berbicachos i çcutir melhoramientos diretamente eiqui.",
+            "feedback_desc": "Diç-mos cumo podemos melhorar la nuossa app dando feedback.",
+            "discover_desc": "Ancuntra ũa quemunidade cun ls tous hobbies ó antresses."
+        },
+        "main": {
+            "categories": {
+                "conversations": "Cumbersas",
+                "participants": "Partecipantes",
+                "channels": "Canales",
+                "members": "Nembros"
+            },
+            "channel": {
+                "message_where": "Mensaige {{channel_name}}",
+                "message_who": "Mensaige @{{person}}",
+                "message_saved": "Salba nas tues notas",
+                "uploading_file": "Ambiando…",
+                "failed_upload": "Falha an carregar!",
+                "reactions": {
+                    "others_reacted": "{{userlist}} i outros {{count}} reagirun",
+                    "single_reacted": "1 pessona reagiu",
+                    "unknown_reacted": "{{count}} pessonas reagirun",
+                    "people_reacted": "{{people}} reagirun"
+                },
+                "reply": {
+                    "replying": "Arrespundendo a",
+                    "toggle": "Lhigar ping de outor"
+                },
+                "typing": {
+                    "multiple": "{{userlist}} i {{user}} stán screbindo…",
+                    "several": "Muitas pessonas stán screbindo…",
+                    "single": "{{user}} stá screbindo…"
+                },
+                "system": {
+                    "user_joined": "{{user}} ajuntou-se",
+                    "user_left": "{{user}} saliu",
+                    "user_kicked": "{{user}} fui expulso",
+                    "added_by": "{{user}} fui adicionado por {{other_user}}",
+                    "channel_renamed": "{{user}} renomeou l canal pa {{name}}",
+                    "channel_description_changed": "{{user}} demudou la çcriçon de l canal",
+                    "channel_icon_changed": "{{user}} demudou l’ícone de l canal",
+                    "channel_ownership_changed": "{{from}} dou {{to}} propiadade de l grupo",
+                    "registered_at": "Registrado {{time}}",
+                    "user_banned": "{{user}} fui banido",
+                    "removed_by": "{{user}} fui remobido por {{other_user}}"
+                },
+                "start": {
+                    "saved": "Este ye l’ampeço de las tues notas.",
+                    "group": "Este ye l’ampeço de la buossa cumbersa."
+                },
+                "voice": {
+                    "connected": "Boç conetada",
+                    "leave": "Salir",
+                    "mute": "Mutar",
+                    "unmute": "Zmutar"
+                },
+                "misc": {
+                    "viewing_old": "Bendo mensaiges bielhas",
+                    "jump_present": "Bolber al persente",
+                    "jump_beginning": "Ir pa l percípio",
+                    "new_messages": "Nuobas mensaiges zde {{time_ago}}",
+                    "spoiler_attachment": "Spoiler",
+                    "failed_load": "Nun fui possible carregar la mensaige.",
+                    "not_loaded": "Mensaige nun carregada, clica pa ir",
+                    "timed_out": "Stás timed out por {{time}}.",
+                    "blocked_messages": "{{count}} mensaiges bloqueadas",
+                    "blocked_user": "Outelizador Bloqueado",
+                    "sent_multiple_files": "Ambious bários aneixos",
+                    "load_file": "Carregar arquivo",
+                    "no_sending": "Nun tenes permisson pa screbir mensaiges neste canal.",
+                    "sent_file": "Ambiou un aneixo"
+                },
+                "attached_file": "{{filename}} apegado",
+                "nsfw": {
+                    "channel": {
+                        "marked": "Este canal ye cunsidrado NSFW.",
+                        "confirm": "Antrar ne l Canal"
+                    },
+                    "confirm": "You confirmo que tengo pul menos 18 anhos de eidade."
+                },
+                "unknown_user": "<Outelizador Çcoincido>",
+                "edited": "(eiditado)",
+                "bridge": "puonte",
+                "bot": "Robó",
+                "new_to_revolt": "Nuobo al Revolt",
+                "new_to_server": "Nuobo a este serbidor",
+                "team": "Comunicaçon Oufecial",
+                "notifications": {
+                    "default": "Outelizar Default",
+                    "all": "To las Mensaiges",
+                    "mention": "Solo Amentas",
+                    "none": "Ningun",
+                    "muted": "Mutado"
+                },
+                "search": {
+                    "title": "Apercurar",
+                    "sort": {
+                        "relevance": "Relebáncia",
+                        "latest": "Radadeiros",
+                        "oldest": "Más bielhos"
+                    }
+                },
+                "errors": {
+                    "nochannels": "Este serbidor nun ten canales, ó tu nun tenes acesso a ningun.",
+                    "nochannel": "Sien canal",
+                    "title": "Ups, nun hai nadica eiqui!"
+                },
+                "bridged": "Mensaige fui ambiada noutra plataforma",
+                "user_timed_out": "L’outelizador stá timed out por {{time}}."
+            },
+            "groups": {
+                "create": "Criar um grupo",
+                "name": "Nome de l Grupo",
+                "description": "Çcriçon de l Grupo",
+                "owner": "Duonho de l Grupo"
+            },
+            "servers": {
+                "create": "Criar un serbidor",
+                "description": "Çcriçon de l Serbidor",
+                "channel_name": "Nome de l Canal",
+                "channel_type": "Tipo de Canal",
+                "category_name": "Nome de la Catadorie",
+                "channel_description": "Çcriçon de Canal",
+                "owner": "Duonho de l Serbidor",
+                "text_channel": "Canal de Testo",
+                "voice_channel": "Canal de Boç",
+                "name": "Nome de l Serbidor",
+                "custom_banner": "Banner Customizado"
+            }
+        },
+        "settings": {
+            "title": "Definiçones",
+            "categories": {
+                "client_settings": "Definiçones de Cliente",
+                "danger_zone": "Zona de Peligro",
+                "user_settings": "Definiçones de Outelizador"
+            },
+            "actions": {
+                "remove": "Remober",
+                "max_filesize": "(mássimo {{filesize}})",
+                "edit": "Eiditar {{name}}",
+                "upload": "Carregar"
+            },
+            "pages": {
+                "account": {
+                    "title": "La mie Conta",
+                    "change_field": "Demudar",
+                    "2fa": {
+                        "title": "Autentificaçon de Dous Fatores",
+                        "description": "Adicionar ũa camada de sigurança extra atibando 2FA na tue conta.",
+                        "view_recovery": "Ber Códigos de Recuperaçon",
+                        "generate_recovery": "Gerar Códigos de Recuperaçon",
+                        "add_auth": "Adicionar Autenticador",
+                        "remove_auth": "Remober Autenticador",
+                        "two_factor_on": "La autenticaçon de Dous Fatores stá atualmente lhigada.",
+                        "two_factor_off": "Tu nun atibaste la autenticaçon de Dous Fatores!",
+                        "view_recovery_long": "Ber i fazer download de ls tous códigos de recuperaçon O2F(Outenticaçon de 2 fatores).",
+                        "generate_recovery_long": "Purpara-te pa ousar 2FA configurando un modo de recuperaçon."
+                    },
+                    "manage": {
+                        "disable": "Zatibar Conta",
+                        "disable_description": "Nun bais a cunseguir acessar la tue conta se nun cuntatares suporte - anque, la tue data nun bai a ser apagada.",
+                        "delete": "Marcar la Conta pa ser Apagada",
+                        "title": "Geston de Conta",
+                        "description": "Zatiba ó apaga la tue conta quando quejires. Dambas las açones ban fazer logout nas tues sessones atibas.",
+                        "delete_description": "La tue conta i to la tue data (ancluindo las tues mensaiges i lhistas de amios) ban a star nũa carreira pa ser apagadas. Un email de cunfirmaçon bai a ser ambiado - tu puodes cancelar esto por 7 dies cuntatando suporte."
+                    },
+                    "unique_id": "Este ye un eidentificador único pa la tue conta."
+                },
+                "profile": {
+                    "info": "Anformaçon",
+                    "fetching": "Apercurando l tou perfil…",
+                    "profile_picture": "Eimaige de Perfil",
+                    "edit_background": "Eiditar Background",
+                    "edit_profile": "Eiditar Perfil",
+                    "title": "Perfil",
+                    "placeholder": "Scribe algũa cousa subre ti…",
+                    "custom_background": "Background Customizado"
+                },
+                "sessions": {
+                    "title": "Sessones",
+                    "this_device": "Este Çpositibo",
+                    "created": "Criado {{time_ago}}",
+                    "logout": "Fazer Logout de to las outras sessones",
+                    "active_sessions": "Sessones Atibas"
+                },
+                "audio": {
+                    "input_device": "Microfone",
+                    "output_device": "Coluna / Fones",
+                    "tip_grant_permission": "Percisas de dar permisson pa aceder las definiçones de áudio.",
+                    "device_label_NA": "N/A",
+                    "button_retry": "antenta outra beç",
+                    "button_grant": "Dar permisson",
+                    "title": "Definiçones de Boç",
+                    "tip_retry": "Nun deste permisson al Revolt pa acessar l tou microfone. {{retryBtn}} fai fabor."
+                },
+                "appearance": {
+                    "title": "Aparéncia",
+                    "theme": "Tema",
+                    "colours": {
+                        "title": "Quelores"
+                    },
+                    "emoji": {
+                        "title": "Emoji"
+                    },
+                    "fonts": {
+                        "title": "Fontes"
+                    },
+                    "display": {
+                        "default": "Default",
+                        "compact": "Compacto",
+                        "compact_description": "L'ancrible IRC.",
+                        "default_description": "Galano, eilegante i moderno."
+                    },
+                    "discover": {
+                        "title": "Çcobre Temas",
+                        "description": "Apercura por temas fazidos pula quemunidade"
+                    },
+                    "color": {
+                        "light": "lhuziente",
+                        "dark": "scuro"
+                    },
+                    "accent_selector": "Quelor de Assento",
+                    "appearance_options": {
+                        "title": "Oupçones de Aparéncia",
+                        "show_send": "Amostrar siempre l buton de Ambiar Mensaige",
+                        "show_account_age": "Amostrar siempre eidade de conta al lhado de mensaiges de ajuntar",
+                        "show_send_desc": "Se esto stá zatibado, l buton de Ambiar Mensaige solo aparecerá ne l telemóble.",
+                        "show_account_age_desc": "Se esto stá zatibado, l’eidade de conta solo bai a ser amostrada a nuobos outelizadores."
+                    },
+                    "theme_options": {
+                        "title": "Oupçones de Temas",
+                        "follow": "Seguir l tema de l sistema",
+                        "seasonal": "Tema Sazonal",
+                        "seasonal_desc": "Amostra efeitos na tab de cas por alturas de l Natal, Halloween, etc.",
+                        "transparency": "Efeitos de Trasparéncia",
+                        "transparency_desc": "Atiba efeitos de trasparéncia pula app.",
+                        "follow_desc": "Se esto stá atibado, tu nun bais a cunseguir demudar l tou tema ó ousar un tema customizado."
+                    },
+                    "message_display": "Exibiçon de Mensaiges",
+                    "advanced": "Oupçones Abançadas",
+                    "overrides": "Subreponer de Temas",
+                    "import": "Amportar un tema",
+                    "import_theme": "Amportar tema de string",
+                    "theme_data": "Data de Tema",
+                    "custom_css": "CSS Customizado",
+                    "sync": "Oupçones de Sync",
+                    "mono_font": "Seletor de Fontes Monospace",
+                    "font": "Fonte",
+                    "ligatures": "Ligaduras de Fontes",
+                    "advanced_options": {
+                        "title": "Oupçones Abançadas"
+                    },
+                    "emoji_pack": "Pacote de Emojis",
+                    "reset_overrides": "Reiniciar Subreponeres",
+                    "ligatures_desc": "Pa fontes suportadas, ligaduras cumbinan letras - por eisemplo, tornar -> nũa frecha."
+                },
+                "accessibility": {
+                    "title": "Acessibilidade",
+                    "reduced_motion": "Mobimientaçon Reduzida",
+                    "descriptions": {
+                        "reduced_motion": "Se esto stá atibado, animaçones i efeitos de mobimientaçon quedarán eimaiges ó menos antensos."
+                    }
+                },
+                "notifications": {
+                    "title": "Notificaçones",
+                    "push_notifications": "Notificaçones Push",
+                    "enable_desktop": "Atibar Notificaçones de Desktop",
+                    "enable_push": "Atibar Notificaçones Push",
+                    "sounds": "Sonidos",
+                    "descriptions": {
+                        "enable_desktop": "Se esto stá atibado, bais a recebir notificaçones mentes l’app stá lhigada.",
+                        "enable_push": "Se esto stá atibado, tu bais a recebir notificaçones quando stás offline."
+                    },
+                    "sound": {
+                        "message": "Mensaige Recebida",
+                        "outbound": "Mensaige Ambiada",
+                        "call_join": "Un Outelizador Ajuntou-se a la Chamada",
+                        "call_leave": "Un Outelizador Saliu da Chamada"
+                    }
+                },
+                "language": {
+                    "select": "Seleciona la tue lhéngua",
+                    "other": "Oupçones de Outras Lhénguas",
+                    "title": "Lhéngua",
+                    "const": "Lhénguas custruídas"
+                },
+                "sync": {
+                    "options": "Oupçones de Sync",
+                    "descriptions": {
+                        "theme": "Esto bai a sincronizar l tou tema scolhido, quelores i qualquiera CSS customizado.",
+                        "locale": "Esto bai a sincronizar la tue lhéngua atualmente scolhida.",
+                        "appearance": "Esto bai a sincronizar las oupçones de aparéncia, cumo l tou pacote de emojis scolhido i densidade de mensaiges."
+                    },
+                    "title": "Sincronizar",
+                    "categories": "Catadories de Sync"
+                },
+                "native": {
+                    "title": "Definiçones de Desktop"
+                },
+                "experiments": {
+                    "title": "Sprienças",
+                    "features": "Recursos Çponibles",
+                    "not_available": "Ningũa spriença stá çponible neste momiento."
+                },
+                "plugins": {
+                    "title": "Plug-ins",
+                    "wip": "Abiso: este recurso inda stá an zambolbimiento.",
+                    "delete_plugin": "Apagar",
+                    "no_plugins": "Nun hai ningun Plug-in einstalado atualmente."
+                },
+                "donate": {
+                    "title": "Doar"
+                },
+                "source_code": "Código Fuonte",
+                "bots": {
+                    "title": "Ls mius Bots",
+                    "create_bot": "Cria un Bot",
+                    "copy_invite": "Copiar Link de Cumbite",
+                    "add": "Adicionar un Bot",
+                    "token": "Token",
+                    "public_bot_tip": "Este bot ye público. Qualquiera pessona puode ambitar-lo.",
+                    "public_bot": "Bot Público",
+                    "profile": "Perfil de Bot",
+                    "interactions_url": "URL de Anteraçones",
+                    "reserved": "Nota: esta ária stá reserbada pa l feturo.",
+                    "unique_id": "Esto ye un eidantificador único pa l tou Bot. Esto nun ye la token de l Bot.",
+                    "private_bot_tip": "Este bot ye pribado, Solo tu puodes ambitar-lo.",
+                    "public_bot_desc": "Se esto stá atibado, outros outelizadores puoden adicionar este Bot a serbidores i mensaiges de grupo."
+                },
+                "theme_shop": {
+                    "title": "Loija de Temas",
+                    "description": "Apercura cientos de temas, criados pula quemunidade.",
+                    "search": "Apercura temas…",
+                    "category": {
+                        "manage": "Gerenciar salbo",
+                        "new": "Nuobo desta sumana",
+                        "default": "Temas Default",
+                        "highest": "Abaluados melhor",
+                        "viewall": "Ber todo",
+                        "saved": "Salbado"
+                    },
+                    "use": "Ousar tema",
+                    "by": "por",
+                    "active": "Atualmente atibos"
+                },
+                "feedback": {
+                    "title": "Oupeniones",
+                    "suggest": "Ambiar sugeston de recurso",
+                    "suggest_desc": "Lhucitar un nuobo recurso de l Revolt nas çcuçones de l GitHub.",
+                    "issue": "Criar um nuobo salimiento",
+                    "bug": "Tracker de Bugs",
+                    "bug_desc": "Ber relatórios de bugs atualmente atibos eiqui.",
+                    "description": "Submeter oupenion",
+                    "issue_desc": "Pa mos dar ũa upa más fácelmente, puodes criar ũa conta ne l GitHub."
+                },
+                "logOut": "Logout",
+                "keybinds": {
+                    "title": "Atalhos de Teclado",
+                    "edit_keybind": "Eiditar atalho de teclado",
+                    "reset_keybind": "Reiniciar atalho de teclado pa {{keybind}}",
+                    "action": {
+                        "navigate_channel_up": {
+                            "title": "Nabegar pa l canal atrasado",
+                            "description": "Nabegar pa l canal atrasado."
+                        },
+                        "navigate_server_down": {
+                            "description": "Nabegar pa l próssimo serbidor.",
+                            "title": "Nabegar pa l próssimo serbidor"
+                        },
+                        "auto_complete_up": {
+                            "description": "Mover la seleçon autocumpleta pa l’atrasada.",
+                            "title": "Atrasada Seleçon de Autocumpletar"
+                        },
+                        "input_submit": {
+                            "description": "Ũa keybind abançada que ye normalmente ousada pa ambair l’atual input.\nEsto puode ancluir ambiar ũa mensaige, ambiar ũa eidiçon a ũa mensaige, ambiar ũa pesquisa, etc..",
+                            "title": "Ambiar Input"
+                        },
+                        "input_force_submit": {
+                            "description": "Ũa keybind abançada que ye normalmente ousada pa ambiar l’atual input a la fuorça, eignorando algũas berificaçones ó outros keybinds.\nEsto puode ancluir ambiar ũa mensaige an beç de cunfirmar la seleçon de autocumpletar.",
+                            "title": "Fuorçar Ambio de Input"
+                        },
+                        "navigate_channel_down": {
+                            "title": "Nabegar pa l próssimo canal",
+                            "description": "Nabegar pa l próssimo canal."
+                        },
+                        "navigate_server_up": {
+                            "title": "Nabegar pa l serbidor atrasado",
+                            "description": "Nabegar pa l serbidor atrasado."
+                        },
+                        "messaging_edit_previous_message": {
+                            "title": "Eiditar la atrasada mensaige",
+                            "description": "Eiditar l’atrasadamiente ambiada mensaige na bisualizaçon de mensaiges atualmente carregada."
+                        },
+                        "auto_complete_down": {
+                            "title": "Próssima Seleçon de Autocumpletar",
+                            "description": "Mober la seleçon de autocumpletar pa la próssima."
+                        },
+                        "auto_complete_select": {
+                            "title": "Cunfirmar Seleçon de Autocumpletar",
+                            "description": "Cunfirmar l’atual seleçon de autocumpeltar."
+                        },
+                        "input_cancel": {
+                            "title": "Cancelar Input",
+                            "description": "Ũa keybind abançada que ye normalmente ousada pa cancelar l’atual input.\nEsto puode ancluir cancelar ũa eidiçon dũa mensaige, remober ũa eimaige an carreira, ó cenários aparecidos."
+                        },
+                        "messaging_scroll_to_bottom": {
+                            "title": "Fazer scroll anté l fondo de las mensaiges",
+                            "description": "Faç scroll anté l fondo de la bisualizaçon de mensaiges."
+                        },
+                        "messaging_mark_channel_read": {
+                            "title": "Marcar canal cumo lhido",
+                            "description": "Marca l’atual canal cumo lhido."
+                        },
+                        "navigate_previous_context": {
+                            "title": "Nabegar pa l’atrasado cuntesto",
+                            "description": "Ũa keybind abançada que ye normalmente ousada pa cerrar la páigina de definiçones, un modal, ó un popup i bolbe pa l’atrasado cuntesto."
+                        },
+                        "developer_toggle_all_experiments": {
+                            "title": "Alternar pa modo de sigurança de spormentaçon",
+                            "description": "Esto bai a atibar / zatibar to las spormentaçones dũa beç."
+                        }
+                    },
+                    "description": "Ber i definir atalhos de teclado",
+                    "search": "Apercurar atalhos de teclado…",
+                    "add_keybind": "Adicionar nuobo atalho de teclado",
+                    "remove_keybind": "Remober atalho de teclado",
+                    "category": {
+                        "navigation": "Nabegaçon",
+                        "messaging": "Ambio de Mensaiges",
+                        "advanced": "Abançado"
+                    }
+                }
+            },
+            "permissions": {
+                "hoist_desc": "Amostrar este ancargo arriba doutros.",
+                "default_role": "Default",
+                "server": "Permissones de Serbidor",
+                "channel": "Permissones de Canal",
+                "role_name": "Nome de Ancargo",
+                "role_colour": "Quelor de l Ancargo",
+                "role_options": "Oupçones de Ancargo",
+                "role_ranking": "Classeficaçon de Ancargos",
+                "delete_role": "Apagar Ancargo",
+                "hoist_role": "Eiçar Ancargo",
+                "title": "Permissones pa {{role}}",
+                "edit_title": "Eiditar Permissones",
+                "create_role": "Criar un nuobo ancargo"
+            },
+            "channel_pages": {
+                "overview": {
+                    "title": "Bison giral",
+                    "name": "Nome de Canal",
+                    "description": "Çcriçon de Canal"
+                },
+                "permissions": {
+                    "title": "Permissones"
+                },
+                "webhooks": {
+                    "title": "Web-hooks"
+                }
+            },
+            "server_pages": {
+                "overview": {
+                    "title": "Bison Giral",
+                    "description": "Çcriçon de Canal",
+                    "system_messages": "Sistemizar Canales de Mensaiges",
+                    "name": "Nome de Serbidor"
+                },
+                "management": {
+                    "title": "Geréncia de Outelizador"
+                },
+                "customisation": {
+                    "title": "Customizaçon"
+                },
+                "members": {
+                    "title": "Nembros"
+                },
+                "invites": {
+                    "title": "Cumbites",
+                    "code": "Código de Cumbite",
+                    "channel": "Canal",
+                    "revoke": "Rebogar",
+                    "invitor": "Cumbidador"
+                },
+                "bans": {
+                    "title": "Banimientos",
+                    "user": "Outelizador",
+                    "reason": "Rezon de Banimiento",
+                    "revoke": "Rebogar",
+                    "no_reason": "Sien rezon de banimiento."
+                },
+                "roles": {
+                    "title": "Ancargos"
+                },
+                "categories": {
+                    "title": "Catadories"
+                },
+                "emojis": {
+                    "upload": "Carregar Emoji",
+                    "title": "Emojis"
+                }
+            },
+            "tips": {
+                "account": {
+                    "a": "Quieres customizar l tou perfil público?",
+                    "b": "Bai pa las definiçones de perfil."
+                },
+                "languages": {
+                    "a": "Nun tenemos ũa lhéngua que quieres?",
+                    "b": "Dá-mos ũa upa por cuntrebuir cun más traduçones."
+                },
+                "sessions": {
+                    "a": "Se beres ũa sesson çcoincida na lhista,",
+                    "b": "Assegure la tue conta demudando la tue palabra passe i cunfigurando un 2FA."
+                }
+            }
+        },
+        "special": {
+            "copy_username": "Clica pa copiar nome de outelizador",
+            "copy": "Clica pa copiar",
+            "friends": {
+                "pending": "Solicitaçones Pendientes",
+                "blocked": "Bloqueado",
+                "incoming": "Solicitaçon de amizade chegando.",
+                "sent": "Ambiado",
+                "from": {
+                    "several": "De {{userlist}} i más {{count}}…",
+                    "single": "De {{user}}",
+                    "multiple": "De {{userlist}} i {{user}}"
+                },
+                "outgoing": "Solicitaçon de amizade ambiada.",
+                "nobody": "Naide eiqui inda!"
+            },
+            "status": {
+                "connecting": "Conetando…",
+                "offline": "Offline.",
+                "disconnected": "Çconetado.",
+                "reconnecting": "Reconetando…"
+            },
+            "modals": {
+                "clipboard": {
+                    "unavailable": "L Clipboard stá indiçponible!",
+                    "https": "Atualmente, nun stás nun cuntesto HTTPS.",
+                    "copy": "Cópia Manual:"
+                },
+                "onboarding": {
+                    "pick": "Scolhe un username que quieres que las pessonas te ancuntren por. Esto puode ser demudado apuis nas definiçones de outelizador.",
+                    "welcome": "Bienbenido a"
+                },
+                "prompt": {
+                    "confirm_close_dm_long": "Tu puodes çfechar-la apuis, mas bai a zaparecer an dambos ls lhados.",
+                    "unfriend_user": "Çfazer amizade cun {{name}}?",
+                    "unfriend_user_long": "Tu puodes nun cunseguir falar cun el/eilha anté lo adicionares outra beç.",
+                    "silent_leave": "Salir Selénciosamente",
+                    "confirm_leave": "Deixar {{name}}?",
+                    "confirm_leave_long": "Tu nun bais a cunseguir ajuntar-te outra beç se naide te re-ambitar.",
+                    "confirm_close_dm": "Cerrar cumbersa cun {{name}}?",
+                    "confirm_delete": "Apagar {{name}}?",
+                    "confirm_delete_long": "Quando stubir apagado, nun puodes bolber atrás.",
+                    "confirm_delete_message_long": "Tenes la certeza que quieres apagar esto?",
+                    "create_invite_generate": "Gerando cumbite…",
+                    "create_invite_created": "Eiqui stá l tou nuobo código de cumbite:",
+                    "confirm_kick": "Tenes la certeza que quieres expulsar {{name}}?",
+                    "confirm_ban": "Bais a banir l {{name}}",
+                    "confirm_ban_reason": "Rezon de Banimento",
+                    "block_user": "Bloquear {{name}}?",
+                    "block_user_long": "Stás assegurado que quieres bloquear {{name}}? El/Eilha tamien bai a ser remobido de la tue lhista de amios.",
+                    "members_not_notified": "Outros nembros nun serán notificados"
+                },
+                "account": {
+                    "change": {
+                        "password": "Demudar la tue palabra passe",
+                        "username": "Demudar l tou username",
+                        "email": "Demudar l tou email"
+                    },
+                    "failed": "Altaraçon falhada!"
+                },
+                "mfa": {
+                    "recovery_codes": "Ls tous códigos de recuperaçon",
+                    "prompt_totp": "Eisamina ó ousa la token ambaixo na tue app de autenticador fai fabor.",
+                    "save_codes": "Salba estes pa un paradeiro assegurado fai fabor.",
+                    "confirm": "Cunfirma esta açon ousando l modo selecionado fai fabor.",
+                    "select_method": "Selecione un modo de balidar la tue solicitaçon.",
+                    "enable_totp": "Habilitar app de autenticador",
+                    "enter_code": "Poner Código"
+                },
+                "out_of_date": {
+                    "title": "L tou cliente stá fuora de data!",
+                    "description": "Ten que ser atualizado pa funcionar culas nuobas mudanças.",
+                    "version": "L tou cliente stá an {{client}}, mas l serbidor neçita un {{server}}.",
+                    "ignore": "Eignorar l’update",
+                    "attempting": "Antentando fazer l’update…"
+                },
+                "sessions": {
+                    "title": "Tenes la certeza que quieres lhimpar las tues sessones?",
+                    "short": "Nun puodes çfazer esta açon.",
+                    "accept": "Remober to las sessones"
+                },
+                "report": {
+                    "reported": "Reportado",
+                    "thank_you": "Oubrigado por mos dares ũa upa an mantener l Revolt seguro. Nós bamos a reber l tou reporte l más temprano possible.",
+                    "no_reason": "Ningũa rezon specíficada / outra rezon",
+                    "content_reason": {
+                        "SpamAbuse": "Esto ye spam ó abuso de la plataforma",
+                        "Illegal": "Cuntenido quebra ũa ó más lheis",
+                        "PromotesHarm": "Cuntenido pormobe danhar outros ó tu mesmo",
+                        "Malware": "Esto ye malware",
+                        "Harassment": "Esto ye assédio ó abuso direçonado a outro outelizador"
+                    },
+                    "user_reason": {
+                        "InappropriateProfile": "L perfil de l'outelizador ye einaporpriado pa ũa oudiença general",
+                        "SpamAbuse": "L'outelizador stá ambiando spam ó abusando la plataforma",
+                        "Impersonation": "Este outelizador stá personificando alguien",
+                        "BanEvasion": "Este outelizador stá spipando-se a un banimiento",
+                        "Underage": "Este outelizador nun ye bielho que chegue pa tener ũa conta"
+                    },
+                    "message": "Reportar Mensaige",
+                    "by_name": "Reportar {{name}}",
+                    "reason": "Rezon",
+                    "block_user": "Quieres bloquear este outelizador?",
+                    "additional_context": "Anformaçon Adicional"
+                },
+                "actions": {
+                    "done": "Fazido",
+                    "close": "Cerrar",
+                    "ok": "Stá Bien",
+                    "ban": "Banir",
+                    "kick": "Eispulsar",
+                    "save": "Salbar",
+                    "hide": "Scunder",
+                    "edit": "Eiditar",
+                    "block": "Bloquear",
+                    "leave": "Salir",
+                    "reset": "Reiniciar",
+                    "back": "Bolber",
+                    "remove": "Remober",
+                    "delete": "Apagar",
+                    "report": "Reportar",
+                    "create": "Criar",
+                    "reveal": "Rebelar",
+                    "update": "Atualizar",
+                    "cancel": "Cancelar",
+                    "preview": "Bisualizar",
+                    "confirm": "Cunfirmar",
+                    "reload": "Recarregar l'App",
+                    "continue": "Acuntinar",
+                    "send_email": "Ambiar Email",
+                    "dont_block": "Nun bloquear"
+                },
+                "error": "Acunteceu un erro!",
+                "confirm": "Cunfirmar açon",
+                "signed_out": "Tu stabas signed out!",
+                "token_reveal": "Token de l {{name}}",
+                "changelogs": {
+                    "title": "Registros de Altaraçones",
+                    "description": "Lhé subre las atualizaçones al Revolt.",
+                    "older": "Ber updates más bielhos"
+                },
+                "external_links": {
+                    "title": "Links eisternos puoden ser peligrosos!",
+                    "short": "Tenes la certeza que quieres ir pa:",
+                    "trust_domain": "Cunfiar neste domain"
+                },
+                "edit_keybind": {
+                    "title": "Eiditar keybind pa {{action}}",
+                    "placeholder": "Pressionar teclas pa grabar"
+                }
+            },
+            "popovers": {
+                "user_profile": {
+                    "badges": {
+                        "responsible_disclosure": "Questones de Sigurança Dibulgadas cun Repunsablidade",
+                        "founder": "Fundador",
+                        "translator": "Tradutor",
+                        "supporter": "Arrimador",
+                        "moderation": "Moderaçon de Plataforma",
+                        "early_adopter": "Pioneiro"
+                    },
+                    "profile": "Perfil",
+                    "mutual_friends": "Amios Mútuos",
+                    "mutual_groups": "Grupos Mútuos",
+                    "mutual_servers": "Serbidores Mútuos",
+                    "empty": "Stá un cachico baziu eiqui…",
+                    "no_users": "Sien amios mútuos",
+                    "no_groups": "Sien grupos mútuos",
+                    "no_servers": "Sien serbidores mútuos",
+                    "sub": {
+                        "badges": "Craxás",
+                        "information": "Anformaçon",
+                        "connections": "Conecçones"
+                    }
+                },
+                "user_picker": {
+                    "select": "Seleciona amios pa adicionar."
+                },
+                "create_bot": {
+                    "title": "Criar un nuobo bot",
+                    "failed": "Criaçon dun bot falhada!"
+                },
+                "server_identity": {
+                    "title": "Demudar eidentidade an {{server}}",
+                    "nickname": "Nomeada",
+                    "avatar": "Abatar"
+                }
+            },
+            "invite": {
+                "invalid_desc": "L cumbite puode nun eisistir, ó tu nun tenes permisson pa te ajuntares.",
+                "invited_by": "Ambitado por {{user}}",
+                "login": "Fazer login al Revolt",
+                "accept": "Aceitar Cumbite",
+                "user_count": "{{member_count}} outelizadores",
+                "invalid": "Cumbite ambálido!"
+            },
+            "server-badges": {
+                "official": "Serbidor Oufecial",
+                "verified": "Serbidor Berificado"
+            },
+            "requires_online": "Tu percisas de stár online pa ber esto."
+        },
+        "context_menu": {
+            "retry_message": "Antentar ambiar outra beç",
+            "make_owner": "Dar propiadade de grupo",
+            "remove_member": "Remober de l grupo",
+            "copy_id": "Copiar ID",
+            "copy_selection": "Copiar seleçon",
+            "copy_text": "Copiar testo",
+            "copy_uid": "Copiar l'ID de outelizador",
+            "copy_sid": "Copiar ID de serbidor",
+            "copy_cid": "Copiar ID de canal",
+            "copy_mid": "Copiar ID de mensaige",
+            "copy_message_link": "Copiar link de mensaige",
+            "mention": "Mençon",
+            "message_user": "Mensaige",
+            "view_profile": "Ber perfil",
+            "mark_as_read": "Marcar cumo lhido",
+            "mark_unread": "Marcar cumo nun lhida",
+            "cancel_message": "Cancelar ambio",
+            "reply_message": "Arrespunder",
+            "quote_message": "Citar mensaige",
+            "edit_message": "Eiditar mensaige",
+            "report_message": "Reportar mensaige",
+            "delete_message": "Apagar mensaige",
+            "kick_member": "Eispulsar nembro",
+            "unblock_user": "Zbloquear outelizador",
+            "clear_status": "Lhimpar stado",
+            "copy_link": "Copiar link",
+            "ban_member": "Banir nembro",
+            "open_file": "Abrir fexeiro",
+            "add_friend": "Adicionar amio",
+            "remove_friend": "Remober amio",
+            "cancel_friend": "Cancelar solicitaçon",
+            "report_user": "Reportar outelizador",
+            "custom_status": "Stado customizado",
+            "save_file": "Salbar fexeiro",
+            "open_image": "Ber eimaige",
+            "save_image": "Salbar eimaige",
+            "open_video": "Ber bídio",
+            "save_video": "Salbar bídio",
+            "open_link": "Çfechar link",
+            "block_user": "Bloquear outelizador",
+            "set_custom_status": "Definir un stado customizado",
+            "leave_group": "Salir de l grupo",
+            "leave_server": "Salir de l serbidor",
+            "close_dm": "Cerrar DM",
+            "report_server": "Reportar serbidor",
+            "delete_server": "Apagar serbidor",
+            "edit_identity": "Eiditar eidentidade",
+            "delete_channel": "Apagar canal",
+            "create_channel": "Criar canal",
+            "create_category": "Criar catadorie",
+            "create_invite": "Criar cumbite",
+            "open_notification_options": "Oupçones de notificaçones",
+            "open_channel_settings": "Definiçones de canal",
+            "open_server_settings": "Definiçones de serbidor",
+            "open_group_settings": "Definiçones de grupo"
+        },
+        "permissions": {
+            "required": "Permissones oubrigatórias"
+        }
+    },
+    "error": {
+        "NetworkError": "Erro de la Network.",
+        "MissingPermission": "Sien permisson.",
+        "EmailFailed": "Falha an ambiar l'Email.",
+        "UsernameTaken": "Esse nome de outelizador yá stá sendo outelizado.",
+        "InvalidEmail": "Endereço de Email ambálido",
+        "IoError": "L serbidor ancuntrou un erro de I/O.",
+        "DeniedNotification": "Tu negaste acesso de notificaçones. Berifica las configuraçones de la páigina.",
+        "ReachedMaximumBots": "Chegaste al númaro mássimo de bots.",
+        "AudioPermissionBlock": "Sien acesso al tou microfone. Berifica las definiçones de l tou nabegador fai fabor.",
+        "Unauthorized": "Nun Outorizado.",
+        "Unlabelled": "Algũa cousa acunteceu.",
+        "FailedValidation": "Falha a balidar campos.",
+        "DatabaseError": "Erro de la Database.",
+        "InternalError": "Erro anterno.",
+        "UnknownError": "Ber consola.",
+        "OperationFailed": "Ouparaçon falhada.",
+        "RenderFail": "Falha na renderizaçon de l modelo.",
+        "MissingHeaders": "Cabeçalho ousente.",
+        "InvalidSession": "Sesson ambálida.",
+        "UnverifiedAccount": "Conta nun berificada.",
+        "UnknownUser": "Outelizador çcoincido.",
+        "EmailInUse": "Email a ser ousado.",
+        "InvalidCredentials": "L'Email ó la palabra passe stán arrados.",
+        "InvalidToken": "Token ambálida",
+        "MissingInvite": "Código de cumbite ousente ne l rogo.",
+        "InvalidInvite": "Código ambálido",
+        "AlreadyOnboarded": "Antegraçon cumpleta.",
+        "AlreadyFriends": "Yá sós amio cun este outelizador.",
+        "AlreadySentRequest": "Yá ambiaste un rogo a este outelizador.",
+        "Blocked": "Bloqueaste este outelizador.",
+        "BlockedOther": "Este outelizador bloqueou-te.",
+        "NoEffect": "Este rogo nun tube ningun efeito.",
+        "RequiredField": "Oubrigatório",
+        "TooShort": "Smasiado cúrtio",
+        "TooLong": "Smasiado lhargo",
+        "Unavailable": "Ançponible.",
+        "FileTooLarge": "L fexeiro ye smasiado lhargo.",
+        "FailedToReceive": "L serbidor falhou a recebir l tou fexeiro.",
+        "MissingData": "Faltan dados ne l rogo.",
+        "ProbeError": "Falha a oubtener ls metadados de l'arquibo.",
+        "UnsupportedBrowser": "L nabegador nun ten suporte pa este recurso.",
+        "CompromisedPassword": "Esta palabra passe ye bulnerable.",
+        "DiscriminatorChangeRatelimited": "Smasiadas demudanças de tag."
+    },
+    "permissions": {
+        "ManagePermissions": {
+            "d": "Outoriza nembros a demudar permissones a canales i ancarregos cun statutos más abaixo.",
+            "t": "Dregir Permissones"
+        },
+        "KickMembers": {
+            "d": "Outoriza nembros a remober nembros deste serbidor. Nembros eispulsos puoden bolber cun un cumbite.",
+            "t": "Eispulsar Nembros"
+        },
+        "AssignRoles": {
+            "t": "Atribuir Ancarregos",
+            "d": "Outoriza nembros a atribuir ancarregos abaixo de l sou a outros nembros."
+        },
+        "ManageRole": {
+            "d": "Outoriza nembros a criar, eiditar i apagar ancarregos cun un statuto más abaixo que l del/deilha, i modificar permissones de ancarregos an canales.",
+            "t": "Dregir Ancarregos"
+        },
+        "RemoveAvatars": {
+            "d": "Outoriza nembros a remober ls abatares de serbidor de outros nembros neste serbidor.",
+            "t": "Remober Abatares"
+        },
+        "ManageMessages": {
+            "d": "Outoriza nembros a apagar mensaiges ambiadas por outros nembros.",
+            "t": "Dregir Mensaiges"
+        },
+        "DeafenMembers": {
+            "d": "Outoriza nembros a anxordecer outros nun canal de boç.",
+            "t": "Anxordecer Nembros"
+        },
+        "ManageChannels": {
+            "t": "Dregir Canales",
+            "d": "Outoriza nembros a criar, eiditar i apagar canales."
+        },
+        "ManageServer": {
+            "t": "Dregir Serbidor",
+            "d": "Outoriza nembros a demudar l nome de l serbidor, çcriçon, ícone i outra anformaçon relacionada."
+        },
+        "ManageCustomisation": {
+            "t": "Dregir Customizaçon",
+            "d": "Outoriza nembros a criar, eiditar i apagar emojis."
+        },
+        "BanMembers": {
+            "t": "Banir Nembros",
+            "d": "Outoriza nembros a remober outros nembros de l serbidor permanientemente."
+        },
+        "TimeoutMembers": {
+            "t": "Poner Nembros de Castigo",
+            "d": "Outoriza nembros a prebenir outelizadores de anteragir cul serbidor tiemporariamente."
+        },
+        "ChangeNickname": {
+            "t": "Demudar Nomeada",
+            "d": "Outoriza nembros a demudar las sues nomeadas neste serbidor."
+        },
+        "ManageNicknames": {
+            "t": "Dregir Nomeadas",
+            "d": "Outoriza nembros a demudar las nomeadas de outros nembros."
+        },
+        "ChangeAvatar": {
+            "t": "Demudar Abatar",
+            "d": "Outoriza nembros a demudar ls sous abatares neste serbidor."
+        },
+        "ViewChannel": {
+            "t": "Ber Canal",
+            "d": "Outoriza nembros a ber qualquiera canal an que tengan esta permisson."
+        },
+        "ReadMessageHistory": {
+            "t": "Lher Stórico de Mensaiges",
+            "d": "Outoriza nembros a lher l stórico de mensaiges deste canal."
+        },
+        "SendMessage": {
+            "t": "Ambiar Mensaiges",
+            "d": "Outoriza nembros a ambiar mensaiges an canales de testo."
+        },
+        "ManageWebhooks": {
+            "t": "Dregir Webhooks",
+            "d": "Outoriza nembros a cuntrolar webhooks nun canal."
+        },
+        "ManageChannel": {
+            "t": "Dregir Canales",
+            "d": "Outoriza nembros a eiditar ó apagar un canal."
+        },
+        "InviteOthers": {
+            "t": "Ambitar Outros",
+            "d": "Outoriza nembros a ambitar outros outelizadores a un canal."
+        },
+        "SendEmbeds": {
+            "t": "Ambiar Embeds",
+            "d": "Outoriza nembros a ambiar cuntenido \"embedded\", de links ó de embeds de testo customizado."
+        },
+        "UploadFiles": {
+            "t": "Fazer Upload de Fexeiros",
+            "d": "Outoriza nembros a fazer upload de fexeiros an canales de testo."
+        },
+        "Masquerade": {
+            "t": "Maçcarielha",
+            "d": "Outoriza nembros a demudar l sou nome i abatar por mensaige."
+        },
+        "React": {
+            "t": "Ousar Reaçones",
+            "d": "Outoriza nembros a reagir a mensaiges."
+        },
+        "Connect": {
+            "t": "Conetar",
+            "d": "Outoriza nembros a conetar a un canal de boç."
+        },
+        "Speak": {
+            "t": "Falar",
+            "d": "Outoriza nembros a falar nun canal de boç."
+        },
+        "Video": {
+            "t": "Bídio",
+            "d": "Outoriza nembros a fazer streaming de bídios nun canal de boç."
+        },
+        "MuteMembers": {
+            "t": "Selenciar Nembros",
+            "d": "Outoriza nembros a selenciar outros nun canal de boç."
+        },
+        "MoveMembers": {
+            "t": "Mober Nembros",
+            "d": "Outoriza nembros a mober outros antre canales de boç."
+        }
+    },
+    "quantities": {
+        "members": {
+            "one": "1 Nembro",
+            "many": "{{count}} Nembros"
+        },
+        "dropFiles": {
+            "one": "Solta un fexeiro",
+            "many": "Solta {{count}} fexeiros"
+        }
+    },
+    "dayjs": {
+        "lastDay": "[Onte a las] {{time}}",
+        "sameDay": "[Hoije a las] {{time}}",
+        "nextDay": "[Manhana a las] {{time}}",
+        "lastWeek": "[Radadeiro/a] dddd [a las] {{time}}",
+        "nextWeek": "dddd [a las] {{time}}",
+        "defaults": {
+            "date_separator": "/",
+            "date_format": "traditional",
+            "twelvehour": "no"
+        }
+    },
+    "notifications": {
+        "sent_request": "@{{person}} ambiou-te un rogo de amizade.",
+        "now_friends": "Tu aora sós amio de @{{person}}!"
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "keys": {
+        "Escape": {
+            "short": "Esc"
+        },
+        "PrintScreen": {
+            "full": "Captura de Tela",
+            "short": "PrtSc"
+        },
+        "Control": {
+            "short": "Ctrl"
+        },
+        "Insert": {
+            "short": "Ins"
+        },
+        "Delete": {
+            "short": "Del"
+        },
+        "Backspace": {
+            "short": "Backspace"
+        },
+        "PageUp": {
+            "full": "Páigina de Riba",
+            "short": "PgUp"
+        },
+        "PageDown": {
+            "full": "Páigina de Baixo",
+            "short": "PgDown"
+        },
+        "ScrollLock": {
+            "full": "Bloqueio de Scroll",
+            "short": "ScrLK"
+        },
+        "CapsLock": {
+            "full": "Caps Lock"
+        }
+    }
+}

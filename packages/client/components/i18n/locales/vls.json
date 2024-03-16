@@ -1,0 +1,416 @@
+{
+    "general": {
+        "tos": "Gebruiksvoorwaarden",
+        "image_by": "Beeld door",
+        "loading": "Laden…",
+        "on": "Aan",
+        "unavailable": "Niet beschikbaar",
+        "learn_more": "Meer informatie",
+        "about": "Over",
+        "privacy": "Privacybeleid",
+        "off": "Uit",
+        "disabled": "Uitgeschakeld"
+    },
+    "actions": {
+        "submit": "Indienen"
+    },
+    "login": {
+        "title": "Aanmelden",
+        "subtitle": "Inloggen bij Revolt",
+        "welcome2": "Hallo!",
+        "register": "Inschrijven",
+        "email": "E-mail",
+        "new_password": "Nieuw Paswoord",
+        "totp": "Authenticatie-app",
+        "recovery": "Herstelcode",
+        "invite": "Invitatiecode",
+        "log_out_other": "Afmelden op alle andere sessies",
+        "enter": {
+            "username": "Typ uw gebruikersnaam.",
+            "new_password": "Voer uw nieuwe paswoord in.",
+            "invite": "Voer uw Invitatiecode in.",
+            "current_password": "Voer uw huidige paswoord in.",
+            "email": "Voer uw e-mailadres in.",
+            "password": "Voer uw paswoord in."
+        },
+        "forgot": "Paswoord vergeten?",
+        "set_password": "Stel een nieuw paswoord in",
+        "remembered": "Keer terug naar aanmelden",
+        "new": "Nieuw bij Revolt?",
+        "existing": "Hebt u al een account?",
+        "create": "Maak nieuw account aan",
+        "resend": "Verificatie opnieuw verzenden",
+        "cancel": "Verzoek annuleren",
+        "check_mail": "Kijk in je mailbox!",
+        "check_spam": "Kijk in je ongewenste e-mail map als je het niet kunt vinden",
+        "open_mail_provider": "Open {{provider}}",
+        "verifying_account": "Je account verifiëren…",
+        "verified_account": "Je account is geverifieerd!",
+        "verified_continue": "Doorgaan naar aanmelden",
+        "error": {
+            "login": "Mislukt om aan te melden!",
+            "reset": "Mislukt om opnieuw in te stellen!",
+            "resend": "Mislukt om opnieuw te verzenden!",
+            "create": "Mislukt om te registreren!",
+            "verify": "Mislukt om te verifiëren!"
+        },
+        "unofficial_instance": "Derde-partij instantie.",
+        "welcome": "Welkom!",
+        "subtitle2": "Een account aanmaken",
+        "username": "Gebruikersnaam",
+        "password": "Paswoord",
+        "current_password": "Huidig paswoord",
+        "reset": "Paswoord opnieuw instellen",
+        "missing_verification": "Heeft u geen e-mail ontvangen?",
+        "email_delay": "Gelieve tot 10 minuten te wachten vooraleer het aankomt.",
+        "successful_registration": "Succesvol geregistreerd!"
+    },
+    "app": {
+        "status": {
+            "online": "Online",
+            "idle": "Inactief",
+            "focus": "Focus",
+            "busy": "Niet Storen",
+            "invisible": "Onzichtbaar",
+            "offline": "Offline",
+            "reconnect": "Maak opnieuw verbinding"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Startpagina",
+                "dev": "Ontwikkelaar",
+                "friends": "Vrienden",
+                "saved": "Opgeslagen Notities",
+                "unreads": "Ongelezen"
+            }
+        },
+        "home": {
+            "goto-testers": "Ga naar de tester-server toe",
+            "join-testers": "Treed de tester-server toe",
+            "directs": "Directe Berichten",
+            "join-testers_desc": "U kunt hier direct problemen melden en verbeteringen met ons bespreken.",
+            "donate": "Doneer aan Opstand",
+            "donate_desc": "Steun het project door te doneren - bedankt!",
+            "feedback": "Geef feedback over Revolt",
+            "settings": "Open instellingen",
+            "discover": "Ontdek Opstand",
+            "discover_desc": "Zoek een community op basis van je hobby's of interesses.",
+            "group": "Een groep maken",
+            "group_desc": "Nodig al je vrienden, enkele coole bots uit en geef een groot feest.",
+            "goto-testers_desc": "U kunt hier direct problemen melden en verbeteringen met ons bespreken.",
+            "feedback_desc": "Laat ons weten hoe we onze app kunnen verbeteren door ons feedback te geven.",
+            "settings-tooltip": "U kunt ook met de rechtermuisknop op het gebruikerspictogram in de linkerbovenhoek klikken, of er met de linkermuisknop op klikken als u al thuis bent."
+        },
+        "main": {
+            "categories": {
+                "conversations": "Gesprekken",
+                "participants": "Deelnemers",
+                "channels": "Kanalen",
+                "members": "Leden"
+            },
+            "channel": {
+                "message_where": "Bericht {{channel_name}}",
+                "message_who": "Bericht {{person}}",
+                "message_saved": "Sla op in je notities",
+                "uploading_file": "Uploaden…",
+                "failed_upload": "Kon niet worden geupload!",
+                "reply": {
+                    "replying": "Antwoorden op",
+                    "toggle": "Schrijver ping wisselen"
+                },
+                "typing": {
+                    "single": "{{user}} is aan het typen…",
+                    "multiple": "{{userlist}} en {{user}} zijn aan het typen…",
+                    "several": "Meerdere mensen zijn aan het typen…"
+                },
+                "reactions": {
+                    "unknown_reacted": "{{count}} mensen hebben gereageerd",
+                    "others_reacted": "{{userlist}} en {{count}} anderen hebben gereageerd",
+                    "single_reacted": "1 persoon heeft gereageerd",
+                    "people_reacted": "{{people}} Reageerde"
+                },
+                "attached_file": "Bijgevoegd {{filename}}",
+                "system": {
+                    "user_kicked": "{{user}} is gekicked",
+                    "removed_by": "{{user}} is verwijderd door {{other_user}}",
+                    "user_banned": "{{user}} is verbannen",
+                    "added_by": "{{user}} is toegevoegd door {{other_user}}",
+                    "channel_renamed": "{{user}} heeft de naam van het kanaal veranderd naar {{name}}",
+                    "channel_ownership_changed": "{{from}} gaf {{to}} groep eigendom",
+                    "registered_at": "Geregistreerd {{time}}",
+                    "channel_description_changed": "{{user}} heeft de beschrijving van het kanaal veranderd",
+                    "channel_icon_changed": "{{user}} heeft het kanaal icoon veranderd"
+                },
+                "voice": {
+                    "unmute": "Dempen opheffen",
+                    "connected": "Stem is verbonden",
+                    "leave": "Verlaat",
+                    "mute": "Dempen"
+                },
+                "misc": {
+                    "viewing_old": "U bekijkt oude berichten",
+                    "jump_present": "Spring naar huidig",
+                    "jump_beginning": "Spring naar het begin van dit gesprek",
+                    "new_messages": "Nieuwe berichten sinds {{time_ago}}",
+                    "spoiler_attachment": "Spoiler",
+                    "failed_load": "Kon bericht niet laden.",
+                    "not_loaded": "Bericht werd niet geladen, klik om te springen",
+                    "no_sending": "U heeft niet de juiste bevoegdheden om berichten te versturen in dit kanaal.",
+                    "timed_out": "U bent in time-out voor {{time}}.",
+                    "blocked_messages": "{{count}} Geblokkeerde berichten",
+                    "blocked_user": "Geblokkeerde Gebruiker",
+                    "sent_file": "Stuur een bijlage",
+                    "sent_multiple_files": "Stuur meerdere bijlagen",
+                    "load_file": "Laad bestand"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Dit kanaal is gemarkeerd als NSFW.",
+                        "confirm": "Betreed Kanaal"
+                    },
+                    "confirm": "Ik bevestig dat ik minimaal 18 jaar oud ben."
+                },
+                "unknown_user": "<Onbekende Gebruiker>",
+                "edited": "(Bewerkt)",
+                "bot": "Robot",
+                "bridge": "Brug",
+                "bridged": "Bericht was verzonden op een ander platform",
+                "team": "officiële Communicatie",
+                "user_timed_out": "Gebruiker is in time-out voor {{time}}.",
+                "notifications": {
+                    "default": "Gebruik Standaard",
+                    "all": "Alle Berichten",
+                    "none": "Geen",
+                    "muted": "Gedempt",
+                    "mention": "Alleen Meldingen"
+                },
+                "search": {
+                    "title": "Zoek",
+                    "sort": {
+                        "relevance": "Relevantie",
+                        "latest": "Laatste",
+                        "oldest": "Oudste"
+                    }
+                },
+                "errors": {
+                    "title": "Oeps, er is hier niks!",
+                    "nochannel": "Geen kanaal",
+                    "nochannels": "Deze server heeft geen kanalen, of u heeft niet de benodigde bevoegdheden om deze te kunnen zien."
+                },
+                "start": {
+                    "group": "Dit is het begin van uw gesprek.",
+                    "saved": "Dit is het begin van uw notities."
+                },
+                "new_to_revolt": "Nieuw in Revolt",
+                "new_to_server": "Nieuw in deze server"
+            },
+            "groups": {
+                "owner": "Groep Eigenaar",
+                "create": "Maak een groep",
+                "name": "Groep Naam",
+                "description": "Groep Beschrijving"
+            },
+            "servers": {
+                "create": "Maak een server",
+                "name": "Server Naam",
+                "channel_name": "Kanaal naam",
+                "category_name": "Categorie Naam",
+                "channel_description": "Kanaal Beschrijving",
+                "channel_type": "Kanaal type",
+                "custom_banner": "Aangepaste banner",
+                "owner": "Server Eigenaar",
+                "text_channel": "Text Kanaal",
+                "voice_channel": "Spraak Kanaal",
+                "description": "Server Beschrijving"
+            }
+        },
+        "settings": {
+            "title": "Instellingen",
+            "categories": {
+                "user_settings": "Gebruiker Instellingen",
+                "danger_zone": "Gevaar Zone",
+                "client_settings": "App Instellingen"
+            },
+            "actions": {
+                "remove": "Verwijder",
+                "upload": "Upload",
+                "max_filesize": "(maximale {{filesize}})",
+                "edit": "Bewerk {{name}}"
+            },
+            "pages": {
+                "account": {
+                    "unique_id": "Dit is een unieke gebruiker identificatie voor uw account.",
+                    "2fa": {
+                        "title": "Twee-factor-Authenticatie",
+                        "description": "Voeg een extra beveiligingslaag toe door 2FA op uw account in te schakelen.",
+                        "view_recovery": "Herstelcodes bekijken",
+                        "view_recovery_long": "Bekijk en download uw 2FA-herstelcodes.",
+                        "generate_recovery": "Herstelcodes Genereren",
+                        "two_factor_off": "U heeft tweefactorauthenticatie niet ingeschakeld!",
+                        "generate_recovery_long": "Maak je klaar om 2FA te gebruiken door een herstelmethode in te stellen.",
+                        "add_auth": "Authenticator toevoegen",
+                        "remove_auth": "Authenticator verwijderen",
+                        "two_factor_on": "Twee-factor-authenticatie staat momenteel aan."
+                    },
+                    "manage": {
+                        "title": "Accountbeheer",
+                        "description": "Deactiveer of verwijder uw account op elk gewenst moment. Deze actie logt je uit en verwijdert je account volledig, inclusief je chatgeschiedenis en vrienden.",
+                        "disable": "Account uitschakelen",
+                        "delete": "Account markeren voor verwijdering"
+                    },
+                    "title": "Mijn Account",
+                    "change_field": "Verander"
+                },
+                "profile": {
+                    "title": "Profiel",
+                    "fetching": "Je profiel ophalen…",
+                    "info": "Informatie",
+                    "placeholder": "Vertel iets over jezelf…",
+                    "profile_picture": "Profiel Foto",
+                    "custom_background": "Aangepaste Achtergrond",
+                    "edit_background": "Wijzig Achtergrond",
+                    "edit_profile": "Wijzig Profiel"
+                },
+                "sessions": {
+                    "title": "Sessies",
+                    "active_sessions": "Actieve Sessies",
+                    "this_device": "Dit Toestel",
+                    "created": "Gemaakt {{time_ago}}",
+                    "logout": "Meld u af bij alle andere sessies"
+                },
+                "audio": {
+                    "title": "Spraakinstellingen",
+                    "input_device": "Microfoon",
+                    "tip_grant_permission": "U moet toestemming verlenen voor toegang tot audio-instellingen.",
+                    "output_device": "Luidspreker / Koptelefoon",
+                    "button_retry": "opnieuw proberen",
+                    "button_grant": "Toestemming geven",
+                    "tip_retry": "U heeft geen toestemming gegeven voor toegang tot je microfoon, {{retryBtn}}."
+                },
+                "appearance": {
+                    "appearance_options": {
+                        "show_send_desc": "Indien uitgeschakeld, verschijnt de knop Bericht verzenden alleen op mobiel.",
+                        "show_account_age": "Toon altijd accountleeftijd naast de welkom berichten",
+                        "show_account_age_desc": "Indien uitgeschakeld, wordt de accountleeftijd alleen weergegeven voor nieuwe gebruikers.",
+                        "title": "Uiterlijk opties",
+                        "show_send": "Toon altijd de Bericht verzenden knop"
+                    },
+                    "theme_options": {
+                        "seasonal": "Seizoensgebonden thema",
+                        "transparency_desc": "Maakt transparantie-effecten in de hele app mogelijk.",
+                        "transparency": "Transparantie-effecten",
+                        "follow": "Volg het systeemthema",
+                        "seasonal_desc": "Geeft effecten weer op het starttabblad tijdens feestdagen.",
+                        "title": "Thema Opties",
+                        "follow_desc": "Indien aangevinkt, kunt u uw thema niet wijzigen of een aangepast thema gebruiken."
+                    },
+                    "import": "Importeer een thema",
+                    "sync": "Synchronisatie-opties",
+                    "font": "Letter-type",
+                    "mono_font": "Monospace-lettertypekiezer",
+                    "title": "Verschijning",
+                    "display": {
+                        "default_description": "Mooi, strak en modern.",
+                        "default": "Standaard",
+                        "compact": "Compact",
+                        "compact_description": "Goede oude IRC."
+                    },
+                    "discover": {
+                        "title": "Ontdek Thema's",
+                        "description": "Blader door thema's die door de community zijn gemaakt"
+                    },
+                    "color": {
+                        "dark": "donker",
+                        "light": "licht"
+                    },
+                    "emoji_pack": "Emoji Pakket",
+                    "message_display": "Berichtweergave",
+                    "reset_overrides": "Overschrijvingen resetten",
+                    "custom_css": "Aangepaste CSS",
+                    "ligatures": "Lettertype Ligaturen",
+                    "overrides": "Thema-overschrijvingen",
+                    "import_theme": "Thema importeren uit sting",
+                    "theme_data": "Thema Data",
+                    "theme": "Thema",
+                    "colours": {
+                        "title": "Kleuren"
+                    },
+                    "emoji": {
+                        "title": "Emoji"
+                    },
+                    "fonts": {
+                        "title": "Letter Type"
+                    },
+                    "advanced_options": {
+                        "title": "Geavanceerde Opties"
+                    },
+                    "accent_selector": "Accentkleur",
+                    "advanced": "Geavanceerde mogelijkheden"
+                },
+                "notifications": {
+                    "title": "Meldingen",
+                    "enable_push": "Schakel pushmeldingen in",
+                    "sounds": "Geluiden",
+                    "descriptions": {
+                        "enable_push": "Schakel in om meldingen te ontvangen wanneer je offline bent.",
+                        "enable_desktop": "Deze optie geeft meldingen weer terwijl de app in gebruik is."
+                    },
+                    "sound": {
+                        "message": "Bericht ontvangen",
+                        "outbound": "Bericht verzonden",
+                        "call_join": "Gebruik is Call gejoined",
+                        "call_leave": "Gebruiker heeft Call verlaten"
+                    },
+                    "push_notifications": "Push-meldingen",
+                    "enable_desktop": "Schakel bureaubladmeldingen in"
+                },
+                "language": {
+                    "select": "Selecteer uw taal",
+                    "other": "Andere taal opties",
+                    "title": "Taal",
+                    "const": "Geconstrueerde talen"
+                },
+                "sync": {
+                    "descriptions": {
+                        "theme": "Hiermee worden het door u gekozen thema, de kleuren en eventuele aangepaste CSS gesynchroniseerd.",
+                        "appearance": "Hiermee worden opties zoals emoji-pakketten en berichtdichtheid gesynchroniseerd.",
+                        "locale": "Hiermee wordt uw momenteel gekozen taal gesynchroniseerd."
+                    },
+                    "title": "Synchroniseren",
+                    "options": "Synchronisatie-opties",
+                    "categories": "Synchroniseer categorieën"
+                },
+                "plugins": {
+                    "wip": "Waarschuwing: deze functie is nog in ontwikkeling.",
+                    "delete_plugin": "Verwijder",
+                    "title": "Plug-ins",
+                    "no_plugins": "Er zijn momenteel geen plug-ins geïnstalleerd."
+                },
+                "bots": {
+                    "profile": "Bot Profiel",
+                    "add": "Voeg Robot toe",
+                    "unique_id": "Dit is een unieke identificatie voor uw Robot. Dit is niet het token van de Robot.",
+                    "create_bot": "Maak een Robot",
+                    "copy_invite": "Uitnodigingslink kopiëren",
+                    "token": "Token",
+                    "private_bot_tip": "Bot is privé. Alleen jij kunt het uitnodigen.",
+                    "title": "Mijn Robots",
+                    "public_bot": "Publieke Bot",
+                    "public_bot_tip": "Bot is openbaar. Iedereen kan het uitnodigen."
+                },
+                "native": {
+                    "title": "Bureaublad instellingen"
+                },
+                "experiments": {
+                    "title": "Experimentale",
+                    "not_available": "Er zijn momenteel geen experimentele opties beschikbaar.",
+                    "features": "Beschikbare functies"
+                },
+                "source_code": "Broncode",
+                "donate": {
+                    "title": "Doneer"
+                }
+            }
+        }
+    }
+}

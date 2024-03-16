@@ -1,0 +1,59 @@
+{
+    "general": {
+        "tos": "Servicevoorwaarden",
+        "image_by": "Afbeelding door",
+        "on": "On",
+        "off": "Uit",
+        "unavailable": "Niet beschikbaar",
+        "learn_more": "Meer informatie",
+        "about": "Over",
+        "privacy": "Privacybeleid",
+        "disabled": "Gehandicapt",
+        "loading": "Bezig met laden…"
+    },
+    "actions": {
+        "submit": "Indienen"
+    },
+    "login": {
+        "title": "Log in",
+        "welcome": "Welkom!",
+        "welcome2": "Hallo!",
+        "register": "Registerr",
+        "username": "Gebruikersnaam",
+        "email": "E-mail",
+        "password": "Wachtwoord",
+        "new_password": "nieuw paswoord",
+        "totp": "Authenticator-app",
+        "recovery": "Herstel code",
+        "invite": "Uitnodigingscode",
+        "current_password": "huidig wachtwoord",
+        "enter": {
+            "password": "Voer uw wachtwoord in.",
+            "new_password": "Voer een nieuw wachtwoord in.",
+            "username": "Typ je gebruikersnaam.",
+            "email": "Vul alstublieft uw e-mailadres in.",
+            "invite": "Voer uw uitnodigingscode in.",
+            "current_password": "Voer uw huidige wachtwoord in."
+        },
+        "subtitle": "Meld u aan bij Revolt",
+        "subtitle2": "Account aanmaken",
+        "log_out_other": "Meld u af bij alle andere sessies",
+        "forgot": "Wachtwoord vergeten?",
+        "reset": "Wachtwoord opnieuw instellen",
+        "set_password": "nieuw wachtwoord instellen",
+        "remembered": "Ga terug naar login",
+        "new": "Nieuw bij Revolt?",
+        "existing": "Heb je al een account?",
+        "create": "Maak een nieuw account aan",
+        "missing_verification": "Geen e-mail ontvangen?",
+        "resend": "Verificatie opnieuw verzenden",
+        "cancel": "Aanvraag annuleren",
+        "check_mail": "Check je mail!",
+        "email_delay": "Het kan tot 10 minuten duren voordat het aankomt.",
+        "check_spam": "Controleer spam als u deze niet kunt vinden",
+        "open_mail_provider": "Open {{provider}}",
+        "successful_registration": "Succesvol geregistreerd!",
+        "verifying_account": "Je account verifiëren…",
+        "verified_account": "Uw account is geverifieerd!"
+    }
+}

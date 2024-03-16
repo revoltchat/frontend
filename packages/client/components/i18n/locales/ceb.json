@@ -1,0 +1,328 @@
+{
+    "general": {
+        "tos": "Mga Termino sa Serbisyo",
+        "privacy": "Palisiya sa Pagkapribado",
+        "image_by": "Hulagway ni",
+        "on": "Abri",
+        "off": "Sirado",
+        "disabled": "Gisirado",
+        "unavailable": "Dili magamit",
+        "learn_more": "Dugang pang impormasyon",
+        "loading": "Kadali…",
+        "about": "Mahintungod Niini"
+    },
+    "login": {
+        "welcome": "Kumusta!",
+        "welcome2": "Kumusta!",
+        "subtitle2": "Paghimo og account",
+        "register": "Pagparehistro",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "title": "Log in",
+        "new_password": "Bag-ong Password",
+        "totp": "App Panghimatuod",
+        "recovery": "Code Pang-recover",
+        "invite": "Code Pang-imbita",
+        "current_password": "Password Karon",
+        "log_out_other": "Pag-log out sa tanang uban pang sesyon",
+        "enter": {
+            "username": "Ibutang ang imong username.",
+            "email": "Ibutang ang imong email.",
+            "password": "Ibutang ang imong password.",
+            "new_password": "Pagbutang og bag-ong password.",
+            "invite": "Ibutang ang imong code sa pag-imbita.",
+            "current_password": "Ibutang ang password nimo karon."
+        },
+        "forgot": "Nakalimtan nimo ang imong password?",
+        "reset": "I-reset ang password",
+        "set_password": "Pagbutang og bag-ong password",
+        "remembered": "Pagbalik sa login",
+        "new": "Bag-o sa Revolt?",
+        "existing": "Naa na kay account?",
+        "create": "Paghimo og bag-ong account",
+        "missing_verification": "Walay nadawat nga email?",
+        "resend": "Ipadala pag-usab ang pamatuod",
+        "cancel": "Kanselahon ang hangyo",
+        "check_mail": "Tan-awa ang imong mail!",
+        "email_delay": "Paghulat og hangtud 10 minuto bag-o to moabot.",
+        "check_spam": "Palihug tan-awa sa sudlanan og spam kung wala nimo to nakit-an",
+        "open_mail_provider": "Abriha ang {{provider}}",
+        "successful_registration": "Malampuson nga naparehistro!",
+        "verifying_account": "Ginaberipika ang imong account…",
+        "verified_account": "Naberipika ang imong account!",
+        "verified_continue": "Pagpadayon sa login",
+        "error": {
+            "create": "Napakyas sa pagparehistro!",
+            "login": "Napakyas sa pag-log in!",
+            "reset": "Napakyas sa pag-reset!",
+            "resend": "Napakyas sa pagpadala og usab!",
+            "verify": "Napakyas sa pagberipika!"
+        },
+        "unofficial_instance": "Instansyang third-party.",
+        "subtitle": "Pag-sign in sa Revolt"
+    },
+    "app": {
+        "status": {
+            "online": "Online",
+            "focus": "Naka-focus",
+            "busy": "Ayaw Disturboha",
+            "offline": "Offline",
+            "invisible": "Dili Makit-an",
+            "idle": "Nagpahulay",
+            "reconnect": "Pagkonekta og usab"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Pagsugod",
+                "dev": "Developer",
+                "friends": "Mga Higala",
+                "unreads": "Mga Wala Nabasa",
+                "saved": "Mga Na-save nga Note"
+            }
+        },
+        "home": {
+            "directs": "Mga Direktang Mensahe",
+            "join-testers": "Pag-apil sa server sa mga mosulay",
+            "donate": "Pag-donate sa Revolt",
+            "donate_desc": "Suportaha ning proyekto paagi sa pag-donate - daghang salamat!",
+            "feedback": "Ipahibalo ang imong feedback mahitungod sa Revolt",
+            "settings": "Abriha ang mga setting",
+            "group": "Paghimo og grupo",
+            "join-testers_desc": "Diri ka direktang maka-report og mga isyu ug makahisgot bahin sa mga kalamboan kauban namo.",
+            "goto-testers": "Pangadto sa server sa mga mosulay",
+            "goto-testers_desc": "Diri ka direktang maka-report og mga isyu ug makahisgot bahin sa mga kalamboan kauban namo.",
+            "feedback_desc": "Ipahibalo sa amo kung unsaon namo aron mapanindot ning app pinaagi sa paghatag sa amo og feedback.",
+            "discover": "Pangadiskubre sa Revolt",
+            "discover_desc": "Pagpangita og komunidad sa imong kalingawan o interes.",
+            "settings-tooltip": "Pwede pud nimo i-right-click ang icon sa user sa ibabaw sa tuo, o i-left click kung naa na ka sa panid sa pagsugod.",
+            "group_desc": "Pag-imbitar og mga higala ug mga bot, ug paghimo og nindot nga party."
+        },
+        "main": {
+            "categories": {
+                "conversations": "Mga Panag-istoryahanay",
+                "channels": "Mga Channel",
+                "participants": "Mga Niapil",
+                "members": "Mga Miyembro"
+            },
+            "channel": {
+                "message_where": "Pag-message sa {{channel_name}}",
+                "message_who": "Pag-message kang {{person}}",
+                "uploading_file": "Gina-upload…",
+                "failed_upload": "Napakyas sa pag-upload!",
+                "attached_file": "Gilakip {{filename}}",
+                "reply": {
+                    "replying": "Mitubag kang",
+                    "toggle": "Abriha/isira ang ping sa gitubagan"
+                },
+                "typing": {
+                    "single": "Nag-type si {{user}}…",
+                    "multiple": "Nag-type sina {{userlist}} ug {{user}}…",
+                    "several": "Daghang mga nag-type…"
+                },
+                "system": {
+                    "user_joined": "Niapil si {{user}}",
+                    "user_left": "Nibiya si {{user}}",
+                    "user_kicked": "Gitangtang si {{user}}",
+                    "user_banned": "Gi-ban si {{user}}",
+                    "added_by": "Gidugang ni {{other_user}} si {{user}}",
+                    "channel_renamed": "Gihimong {{name}} ni {{user}} ang ngalan sa channel",
+                    "channel_description_changed": "Giilisan ni {{user}} ang deskripsyon sa channel",
+                    "channel_icon_changed": "Giilisan ni {{user}} ang icon sa channel",
+                    "registered_at": "Nagparehistro sa {{time}}",
+                    "removed_by": "Gitangtang ni {{other_user}} si {{user}}",
+                    "channel_ownership_changed": "Gihatagan ni {{from}} og pagpanag-iya sa grupo si {{to}}"
+                },
+                "start": {
+                    "saved": "Diri nagsugod ang imong mga note.",
+                    "group": "Diri nagsugod ang inyohang pag-istoryahanay."
+                },
+                "voice": {
+                    "connected": "Nakakonekta sa boses",
+                    "leave": "Mobiya",
+                    "mute": "I-mute",
+                    "unmute": "Ayaw i-mute"
+                },
+                "misc": {
+                    "jump_present": "Pangadto sa karon",
+                    "jump_beginning": "Pangadto sa pagsugod",
+                    "new_messages": "Mga bag-ong mensahe gikan {{time_ago}}",
+                    "spoiler_attachment": "Spoiler",
+                    "failed_load": "Dili ma-load ang mensahe.",
+                    "no_sending": "Dili ka gitugotan nga magpadala og mga mensahe diriang channel.",
+                    "timed_out": "Gi-time out ka nang {{time}}.",
+                    "blocked_messages": "{{count}} mga mensahe nga gibabagan",
+                    "blocked_user": "User nga Gibabagan",
+                    "sent_file": "Pagpadala og kasuod",
+                    "sent_multiple_files": "Pagpadala og daghang kasuod",
+                    "load_file": "I-load ang file",
+                    "viewing_old": "Nagtan-aw og daan nga mga mensahe",
+                    "not_loaded": "Wala na-load ang mensahe, pinduta aron muambak padulong didto"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "NSFW (bastos/sensitibo) ning channel.",
+                        "confirm": "Sudlan Ning Channel"
+                    },
+                    "confirm": "Gipamatud-an nako'g 18+ na ako."
+                },
+                "unknown_user": "<Di Mailhan nga User>",
+                "edited": "(gibag-o)",
+                "bot": "bot",
+                "bridged": "Gipadala ning mensahe sa lain nga platform",
+                "team": "Opisyal nga Komunikasyon",
+                "notifications": {
+                    "default": "Gamita ang Default",
+                    "all": "Tanang mga Mensahe",
+                    "mention": "Mga Mention Lang",
+                    "none": "Wala",
+                    "muted": "Gi-mute"
+                },
+                "search": {
+                    "title": "Pagpangita",
+                    "sort": {
+                        "relevance": "Kalabutan",
+                        "latest": "Pinakabag-o",
+                        "oldest": "Pinakaluma"
+                    }
+                },
+                "errors": {
+                    "title": "Naku, walay naa diri!",
+                    "nochannel": "Walay channel",
+                    "nochannels": "Walay mga channel ning server, o dili lang ka ka-akses sa ilaha."
+                },
+                "message_saved": "I-save sa imong mga note",
+                "bridge": "tulay",
+                "user_timed_out": "Gi-time out ang user nang {{time}}."
+            },
+            "groups": {
+                "create": "Paghimo og grupo",
+                "name": "Pangalan sa Grupo",
+                "description": "Deskripsyon sa Grupo",
+                "owner": "Tag-iya sa Grupo"
+            },
+            "servers": {
+                "create": "Paghimo og server",
+                "name": "Pangalan sa Server",
+                "description": "Deskripsyon sa Server",
+                "channel_name": "Pangalan sa Channel",
+                "category_name": "Pangalan sa Kategorya",
+                "custom_banner": "Personalisado nga Bandera",
+                "text_channel": "Channel sa Teksto",
+                "voice_channel": "Channel sa Boses",
+                "channel_type": "Matang sa Channel",
+                "channel_description": "Deskripsyon sa Channel",
+                "owner": "Tag-iya sa Server"
+            }
+        },
+        "settings": {
+            "title": "Mga Setting",
+            "categories": {
+                "user_settings": "Mga Setting sa User",
+                "client_settings": "Mga Setting sa Kliyente",
+                "danger_zone": "Delikado Dinhi"
+            },
+            "actions": {
+                "remove": "Tangtanga",
+                "upload": "Upload",
+                "edit": "Alisdan ang {{name}}",
+                "max_filesize": "(hangtud {{filesize}} lang)"
+            },
+            "pages": {
+                "account": {
+                    "title": "Akong Account",
+                    "change_field": "Alisdan",
+                    "unique_id": "Talagsaon ni nga tig-ila sa user para sa imong account.",
+                    "2fa": {
+                        "title": "Duha Ka Paagi nga Awtentikasyon",
+                        "description": "Pagdugang og ikaduha nga layer sa seguridad pinaagi sa pagpagana og 2FA sa imong account.",
+                        "view_recovery": "Tan-awa ang Mga Code sa Recovery",
+                        "view_recovery_long": "Tan-awa ug i-download ang mga recovery code nimo sa 2FA.",
+                        "generate_recovery": "Paghimo og Recovery Code",
+                        "generate_recovery_long": "Pag-andam sa paggamit og 2FA pinaagi sa pagset-up og paagi sa pag-recover.",
+                        "add_auth": "Pagdugang og Awtentikador",
+                        "remove_auth": "Tangtanga ang Awtentikator",
+                        "two_factor_on": "Abri karon ang Duha Ka Paagi nga Awtentikasyon.",
+                        "two_factor_off": "Wala pa nimo giabrihan ang Duha Ka Paagi nga Awtentikasyon!"
+                    },
+                    "manage": {
+                        "title": "Pagdumala sa Account",
+                        "disable": "I-disable ang Account",
+                        "delete": "Markaha ning Account aron Matangtang",
+                        "description": "I-disable o tangtanga ang imong account bisan kanus-a. Ma-log out ka ug matangtang ang imong account, apil imong chat history ug mga higala."
+                    }
+                },
+                "profile": {
+                    "title": "Profile",
+                    "fetching": "Gikuha ang imong profile…",
+                    "profile_picture": "Hulagway sa Profile",
+                    "custom_background": "Custom nga Background",
+                    "edit_background": "Alisdan ang Background",
+                    "edit_profile": "Alisdan ang Profile",
+                    "info": "Impormasyon",
+                    "placeholder": "Pagsulat mahitungod sa imong kaugalingon…"
+                },
+                "sessions": {
+                    "title": "Mga Sesyon",
+                    "this_device": "Kining Device",
+                    "created": "Gihimo {{time_ago}}",
+                    "active_sessions": "Aktibo nga Mga Sesyon",
+                    "logout": "Pag-log out sa tanang uban pang sesyon"
+                },
+                "audio": {
+                    "title": "Mga Setting sa Boses",
+                    "input_device": "Mikropono",
+                    "output_device": "Speaker / Headset",
+                    "tip_grant_permission": "Kinahanglan nimo mi tugoti aron ma-access ang mga setting sa audio.",
+                    "device_label_NA": "N/A",
+                    "button_grant": "Tugoti",
+                    "tip_retry": "Wala nimo kami tugoti sa pag-access sa imong mikropono, palihug {{retryBtn}}.",
+                    "button_retry": "usaba"
+                },
+                "appearance": {
+                    "title": "Panagway",
+                    "display": {
+                        "default": "Default",
+                        "compact": "Gagmay",
+                        "compact_description": "Tigulang pero masaligan nga IRC.",
+                        "default_description": "Nindot, maanyag ug moderno."
+                    },
+                    "discover": {
+                        "title": "Pagdiskubre og Mga Tema",
+                        "description": "Pagtan-aw sa mga temang gihimo sa komunidad"
+                    },
+                    "color": {
+                        "light": "hayag",
+                        "dark": "ngitngit"
+                    },
+                    "accent_selector": "Kolor sa Accent",
+                    "theme": "Tema"
+                }
+            }
+        }
+    },
+    "actions": {
+        "submit": "Isumite"
+    },
+    "permissions": {
+        "React": {
+            "t": "paggamit sa mga reaksyon",
+            "d": "Gitugotan ang mga miyembro sa pagtubag sa mga mensahe."
+        },
+        "SendEmbeds": {
+            "d": "Gitugotan ang mga miyembro sa pagpadala sa naka-embed nga sulud, bisan gikan sa mga link o naandan nga pag-embed sa teksto.",
+            "t": "Ipadala ang mga Embed"
+        },
+        "UploadFiles": {
+            "t": "Pag-upload sa mga File.",
+            "d": "Gitugotan ang mga miyembro nga mag-upload og mga file sa mga text channel."
+        },
+        "Connect": {
+            "t": "Sumpaysumpaya"
+        },
+        "Masquerade": {
+            "d": "Gitugotan ang mga miyembro nga usbon ang ilang ngalan ug avatar matag mensahe.",
+            "t": "Pagtakuban"
+        }
+    }
+}

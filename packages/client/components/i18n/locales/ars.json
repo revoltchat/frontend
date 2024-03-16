@@ -1,0 +1,160 @@
+{
+    "general": {
+        "about": "عن",
+        "tos": "شرط الخدمة",
+        "privacy": "سياسة الخصوصية",
+        "image_by": "الصورة بواسطة",
+        "loading": "تحميل.",
+        "on": "على",
+        "off": "خارج",
+        "disabled": "معاق",
+        "unavailable": "غير متوفر",
+        "learn_more": "مزيد من المعلومات"
+    },
+    "login": {
+        "title": "تسجيل الدخول",
+        "welcome": "مرحبا بكم!",
+        "subtitle": "Revolt وقع في",
+        "welcome2": "مرحبا",
+        "subtitle2": "انشاء حساب",
+        "register": "السجل",
+        "username": "اسم المستخدم",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "recovery": "رمز الاسترداد",
+        "invite": "رمز الدعوة",
+        "current_password": "كلمة المرور الحالية",
+        "totp": "تطبيق المصادقة",
+        "enter": {
+            "username": ".أدخل اسم المستخدم",
+            "email": ".لو سمحت أدخل بريدك الإلكتروني",
+            "password": ".ادخل كلمة المرور",
+            "invite": "ادخل رمز الدعوة الخاص بك.",
+            "new_password": "ادخل كلمة مرور جديدة.",
+            "current_password": "ادخل كلمة المرور الحالية."
+        },
+        "new_password": "كلمة مرور جديدة",
+        "log_out_other": "اخرج من جميع الجلسات الاخرى",
+        "remembered": "العودة لتسجيل الدخول",
+        "new": "هل انت جديد في Revolt?",
+        "create": "انشاء حساب جديد",
+        "set_password": "قم بتعيين كلمة مرور جديدة",
+        "existing": "هل لديك حساب؟",
+        "forgot": "نسيت كلمة المرور?",
+        "reset": "إعادة تعيين كلمة المرور",
+        "missing_verification": "ألم تتلق بريدًا إلكترونيًا؟",
+        "resend": "إعادة التحقق",
+        "cancel": "إلغاء الطلب",
+        "check_spam": "يرجى التحقق من البريد العشوائي إذا لم تتمكن من العثور عليه",
+        "open_mail_provider": "{{provider}} افتح",
+        "email_delay": "يُرجى الانتظار مدة تصل إلى 10 دقائق حتى تصل.",
+        "successful_registration": "سجلت بنجاح!",
+        "verifying_account": "التحقق من حسابك…",
+        "verified_account": "تم التحقق من حسابك!",
+        "verified_continue": "استمر في تسجيل الدخول",
+        "error": {
+            "create": "فشل في تسجيل!",
+            "login": "فشل في تسجيل الدخول!",
+            "resend": "فشل في إعادة الإرسال!",
+            "verify": "فشل التحقق!",
+            "reset": "فشلت في إعادة تعيين!"
+        },
+        "check_mail": "راجع بريدك!",
+        "unofficial_instance": "مثيل الطرف الثالث."
+    },
+    "actions": {
+        "submit": "ارسال"
+    },
+    "app": {
+        "status": {
+            "idle": "بلا عمل",
+            "focus": "ركز",
+            "invisible": "غير مرئي",
+            "offline": "خارج الشبكة",
+            "busy": "لا تزعجني",
+            "online": "على الانترنت",
+            "reconnect": "اعيد الاتصال"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "البيت",
+                "dev": "مطور",
+                "unreads": "رسائل غير مقروءة",
+                "saved": "الملاحظات المحفوظة",
+                "friends": "اصدقاء"
+            }
+        },
+        "home": {
+            "goto-testers_desc": "تستطيع ان  تقر المشاكل و تتناقش التطويرات معنا هنا مباشرة",
+            "donate": "تبرع ل Revolt",
+            "directs": "الرسائل المباشرة",
+            "join-testers_desc": "تستطيع ان تقر المشاكل و تتناقش التطويرات معنا هنا مباشرة",
+            "discover": "اكتشف Revolt",
+            "donate_desc": "ادعم المشروع من خلال التبرع - شكرا!",
+            "feedback": "اعطنا تعليقك عن Revolt",
+            "settings": "افتح الاعدادات",
+            "group_desc": "ادعوا كل اصحابك, بعض الروبوتات الرائعة, و القي حفلة فخمة.",
+            "feedback_desc": "خلينا نعرق كيف نقدر نحسن تطبيقنا من خلال اعطائنا تعليك."
+        },
+        "main": {
+            "categories": {
+                "channels": "قنوات",
+                "members": "أعضاء",
+                "conversations": "محادثات"
+            },
+            "channel": {
+                "message_who": "راسل {{person}}",
+                "message_saved": "احفظ لملحوظاتك",
+                "uploading_file": "يحمل…",
+                "failed_upload": "فشل التحميل!",
+                "reply": {
+                    "replying": "الرد على"
+                },
+                "typing": {
+                    "several": "العديد من الناس يكتبون…",
+                    "single": "{{user}} يكتب…"
+                },
+                "system": {
+                    "user_joined": "{{user}} انضم",
+                    "user_left": "{{user}} غادر",
+                    "channel_description_changed": "غير {{user}} وصف القناة",
+                    "user_banned": "تم حظر {{user}}",
+                    "channel_renamed": "اعاد {{user}} تسمية القناة الى {{name}}",
+                    "channel_icon_changed": "غير {{user}} ايقونة القناة",
+                    "added_by": "تم اضافة {{user}} من قبل {{other_user}}",
+                    "removed_by": "تم ازالة {{user}} من قبل {{other_user}}"
+                },
+                "start": {
+                    "saved": "هذي بداية ملاحظاتك.",
+                    "group": "هذي بداية محادثتك."
+                },
+                "voice": {
+                    "connected": "تم الاتصال بالمحادثة الصوتية",
+                    "leave": "اطلع"
+                },
+                "misc": {
+                    "blocked_messages": "{{count}} رسائل محظورة",
+                    "viewing_old": "عرض الرسائل القديمة",
+                    "jump_present": "اقفز إلى الحاضر",
+                    "jump_beginning": "اقفز لبداية المحادثة",
+                    "new_messages": "رسائل جديدة منذ {{time_ago}}",
+                    "failed_load": "فشل تحميل الرسلة.",
+                    "no_sending": "ما عندك الاذن لارسال رسائل في هذي القناة.",
+                    "blocked_user": "مستخدم محظور",
+                    "load_file": "تحميل ملف",
+                    "not_loaded": "فشل تحميل السالة, اضغط للقفز"
+                },
+                "unknown_user": "<مستخدم غير معروف>",
+                "bridge": "برج",
+                "edited": "(تم تحريره)",
+                "nsfw": {
+                    "confirm": "انا اؤكد اني على الاقل 18 سنة من العمر.",
+                    "channel": {
+                        "confirm": "ادخل قناة"
+                    }
+                },
+                "message_where": "راسل {{channel_name}}"
+            }
+        }
+    }
+}

@@ -1,0 +1,732 @@
+{
+    "general": {
+        "loading": "Palyow…",
+        "off": "Dhe-ves",
+        "unavailable": "Na kavadow",
+        "learn_more": "Dyski moy",
+        "about": "A-dro",
+        "privacy": "Privetter",
+        "image_by": "Aven privetter",
+        "on": "War-rag",
+        "disabled": "Evredhek",
+        "tos": "Ger a gonis"
+    },
+    "login": {
+        "subtitle": "Sina yn Revolt",
+        "subtitle2": "Gwruthyl akont",
+        "username": "Usyer-hanow",
+        "email": "Ebostya",
+        "password": "Ger-tremena",
+        "new_password": "Nowydh ger-tremena",
+        "current_password": "Frosow ger-tremena",
+        "log_out_other": "Omdedna a oll aral esedhek",
+        "enter": {
+            "invite": "Entra dha gelwel kod.",
+            "email": "Plesya entra dha ebostya.",
+            "username": "Entra dha usyer-hanow.",
+            "password": "Entra dha ger-tremena.",
+            "new_password": "Entra unn nowydh ger-tremena.",
+            "current_password": "Entra dha fros ger-tremena."
+        },
+        "reset": "Kemerydh ger-tremena",
+        "title": "Omgelmi",
+        "welcome": "Dynerghi!",
+        "welcome2": "Dydh da!",
+        "register": "Kovskrifa",
+        "recovery": "Yaghheansow kod",
+        "invite": "Gelwel kod",
+        "forgot": "Ankevi dha ger-tremena?",
+        "totp": "Sodhek app",
+        "set_password": "Settya nowydh ger-tremena",
+        "new": "Nowydh dhe Revolt?",
+        "create": "Gul unn nowydh akont",
+        "missing_verification": "Gwrys na degemeres an ebost?",
+        "cancel": "Dilea govyn",
+        "check_mail": "Checkya dha ebost!",
+        "check_spam": "Gwrewgh merkya bys dhe ardak spamyamar kwredh kevewgh ni",
+        "open_mail_provider": "Ygeri {{provider}}",
+        "verified_account": "Agas aknot res bones kovskrifa!",
+        "verified_continue": "Durya dhe omgelmi",
+        "error": {
+            "login": "Defowt dhe omgelmi!",
+            "resend": "Defowt dhe re-danvon!",
+            "create": "Defowt dhe kovskrifa!",
+            "reset": "Defowt dhe kemerydh!",
+            "verify": "Defowt dhe dwirhe!"
+        },
+        "unofficial_instance": "Tressa-kevewi ensampel.",
+        "remembered": "dehweles dhe omgelmi",
+        "existing": "Seulabrys kavos an akont?",
+        "resend": "Re-danvon komposa",
+        "email_delay": "Plegya alowa bys dhe 10 kovnotyans dhe dones.",
+        "successful_registration": "Yn sewen kovskrifa!",
+        "verifying_account": "kovskrifa dha akont…"
+    },
+    "actions": {
+        "submit": "Danvon"
+    },
+    "app": {
+        "status": {
+            "online": "Warlinen",
+            "idle": "Diek",
+            "focus": "Fogella",
+            "busy": "Gul Na Disturb",
+            "reconnect": "Re-junya",
+            "invisible": "Anweladow",
+            "offline": "Dhywarlinen"
+        },
+        "navigation": {
+            "tabs": {
+                "dev": "Displegya",
+                "friends": "Kowethegeth",
+                "unreads": "Unran-lenna",
+                "home": "Chi",
+                "saved": "Lemen noten"
+            }
+        },
+        "home": {
+            "join-testers": "Junya an previ desen",
+            "goto-testers": "Mones dhe an previ desen",
+            "donate": "Argevri dhe Revolt",
+            "feedback": "Rei dasliv war-rag Revolt",
+            "settings": "Egeri sedhes",
+            "discover": "Diskudha Revolt",
+            "group": "Gwul unn bagas",
+            "directs": "Didro messajya",
+            "join-testers_desc": "Gas kanna dyllans hag dadhel gwellheans gans usow distowgh omma.",
+            "goto-testers_desc": "Gas kanna derivas dyllans hag dadhla gwellheans gans nei distowgh omma.",
+            "donate_desc": "Skoodhya an ragdres erbynn argevro - meur ras!",
+            "feedback_desc": "Strik gan aswon fatel nei kanna gwellhe agan appys erbynn nei dasliv.",
+            "settings-tooltip": "Hello Kanna keffrys gwir-click an usyer delow yn penn gerys, bo gerys click a'n mara 'gas seulabrys chi.",
+            "discover_desc": "Kavos unn kemeneth ben war-rag dha hobbis bo deur.",
+            "group_desc": "Gelwel oll gas kothmans, a-dro goyeyn botow, hag deghesi unn bras kevewi."
+        },
+        "main": {
+            "categories": {
+                "members": "Esel",
+                "conversations": "Keskowsow",
+                "participants": "Kevrenogesow",
+                "channels": "Goothi"
+            },
+            "channel": {
+                "message_where": "Danvonadow {{channel_name}}",
+                "failed_upload": "A wrug fyllel bys dhe ughkarg!",
+                "attached_file": "Kelmys {{filename}}",
+                "reactions": {
+                    "unknown_reacted": "{{count}} pobla dasoberi",
+                    "single_reacted": "1 den dasoberi",
+                    "people_reacted": "{{people}} dasoberi",
+                    "others_reacted": "{{userlist}} hag {{count}} erel dasoberi"
+                },
+                "reply": {
+                    "replying": "Gorthyp bys dhe",
+                    "toggle": "Trelya awtour ping"
+                },
+                "typing": {
+                    "several": "Divers Pobla'ma jynnskrif…",
+                    "single": "{{user}} ma jynnskrifa…",
+                    "multiple": "{{userlist}} hag {{user}} ma jynnskrifa…"
+                },
+                "system": {
+                    "user_kicked": "{{user}} a veu i a botyas orto",
+                    "user_banned": "{{user}} a veu difennys",
+                    "added_by": "{{user}} a veu keworrys bys {{other_user}}",
+                    "removed_by": "{{user}} a veu estreghys bys {{other_user}}",
+                    "channel_description_changed": "{{user}} dashenwel dhe'n chanel deskrifans",
+                    "channel_ownership_changed": "{{from}} rei {{to}} bagas pergennieth",
+                    "user_joined": "{{user}} kesjunys",
+                    "user_left": "{{user}} a-gledh",
+                    "channel_renamed": "{{user}} dashenwel dhe'n chanel bys dhe {{name}}",
+                    "channel_icon_changed": "{{user}} treylyes dhe'n chanel arwodhik",
+                    "registered_at": "Kovskrifys {{time}}"
+                },
+                "start": {
+                    "group": "An pyth ma ema dhe'n dalla a kesklap.",
+                    "saved": "Ma eus dhe'n dalla rag'gas kesklap."
+                },
+                "voice": {
+                    "connected": "Lev kelmys",
+                    "mute": "Avlavar",
+                    "unmute": "Andreylyes",
+                    "leave": "Kummyas"
+                },
+                "misc": {
+                    "viewing_old": "Yn unn vires dhe henavek messages",
+                    "new_messages": "Nowedh danvonadow a-ban {{time_ago}}",
+                    "no_sending": "Gas gwiska a's teves kubmyas bys dhe messajya en an pyth ma chanel.",
+                    "timed_out": "Esis ta gas tremena termyn a-rag {{time}}.",
+                    "blocked_messages": "{{count}} degeas messajys keskows",
+                    "blocked_user": "Degeas usyer",
+                    "sent_file": "A dhellos un stagel",
+                    "sent_multiple_files": "A dhellos lies stagellow",
+                    "jump_present": "Labm bys dhe a-lebmyn",
+                    "jump_beginning": "Labm bys dhe dalla",
+                    "spoiler_attachment": "Gwarnyans",
+                    "failed_load": "Ny yllsyn argha messajya.",
+                    "not_loaded": "Messajya a-der loaded, klyckya bys dhe labm",
+                    "load_file": "Argha restredna"
+                },
+                "nsfw": {
+                    "channel": {
+                        "confirm": "Entra Chanel",
+                        "marked": "Ma chanel ema merkys del NSFW."
+                    },
+                    "confirm": "Bedhewgh gostydh dhe an daklen na-ma dhe'n leha 18 bloodh."
+                },
+                "unknown_user": "<Anaswonys Usyer>",
+                "edited": "(Golegys)",
+                "bridge": "Ponsresulyan",
+                "bridged": "Messajya a veu danvenys a-dro hwath arethvahe",
+                "new_to_revolt": "Nowedh bys dhe Revolt",
+                "notifications": {
+                    "muted": "Omlavar",
+                    "mention": "Kampol Eneth",
+                    "none": "Vyth",
+                    "default": "Devnydh Defowt",
+                    "all": "Oll Messajys keskows"
+                },
+                "search": {
+                    "sort": {
+                        "latest": "Diwettha",
+                        "oldest": "An kottha",
+                        "relevance": "Perthynekter"
+                    },
+                    "title": "Hwilas"
+                },
+                "errors": {
+                    "nochannel": "A-der Chanel",
+                    "title": "Dar, nyns eus tra omma!",
+                    "nochannels": "Ma leuren a wrug a-der Chanels, po'gas a nag a's teves drehedhes bys dhe denvyth."
+                },
+                "uploading_file": "Ughkargow…",
+                "message_who": "Danvonadow @ {{person}}",
+                "message_saved": "Difres bys dhe gas notennow",
+                "bot": "Botow",
+                "new_to_server": "Nowedh bys dhe an pyth ma leuren",
+                "team": "Offysyal Kemenessens",
+                "user_timed_out": "Usyer eus termyn yn-mes a-rag {{time}}."
+            },
+            "groups": {
+                "create": "Gul a bagas",
+                "name": "Bagas gelwel",
+                "description": "Bagas-deskrifans",
+                "owner": "Bagas-perghednek"
+            },
+            "servers": {
+                "create": "Gul a leuren",
+                "description": "Leuren-deskrifans",
+                "channel_name": "Gooth-gelwel",
+                "custom_banner": "a-vusur-baner",
+                "owner": "Leuren-perghednek",
+                "voice_channel": "Lev-Chanel",
+                "name": "Leuren-gelwel",
+                "channel_type": "Gooth-eghen",
+                "category_name": "Klass-gelwel",
+                "channel_description": "Gooth-deskrifans",
+                "text_channel": "Skrif-Chanel"
+            }
+        },
+        "settings": {
+            "categories": {
+                "user_settings": "Uyser-desedhansow",
+                "danger_zone": "Danjer grugys",
+                "client_settings": "Kliens-desedhansow"
+            },
+            "actions": {
+                "remove": "Remova",
+                "upload": "Ughkargow",
+                "max_filesize": "(dhe'n moyha {{filesize}})",
+                "edit": "Pennskrifa {{name}}"
+            },
+            "pages": {
+                "sessions": {
+                    "title": "Esedhogow",
+                    "active_sessions": "Bew Esedhvosow",
+                    "this_device": "Ma Devis",
+                    "created": "Formyes {{time_ago}}",
+                    "logout": "Omdedna a oll aral esedhek"
+                },
+                "audio": {
+                    "title": "Lev Desedhansow",
+                    "input_device": "Korrgowsellow",
+                    "device_label_NA": "N/A",
+                    "button_retry": "Adv'saya",
+                    "output_device": "Arether / Headset",
+                    "tip_retry": "Na wruss'ta rei an gront bys dhe drehedhes agas korrgowsell, dell y'm kyrii {{retryBtn}}.",
+                    "tip_grant_permission": "Res yw dhis gront kubmyas bys dhe drehedhes awdyo dessedhansow.",
+                    "button_grant": "Gront kubmyas"
+                },
+                "appearance": {
+                    "theme": "Theme",
+                    "colours": {
+                        "title": "Kolors"
+                    },
+                    "emoji": {
+                        "title": "Memoji"
+                    },
+                    "fonts": {
+                        "title": "Besydhva"
+                    },
+                    "display": {
+                        "compact": "Kesstrotha",
+                        "default": "Defowtya",
+                        "compact_description": "Da goth IRC.",
+                        "default_description": "Brav, leven hag arnowedh."
+                    },
+                    "color": {
+                        "dark": "Du",
+                        "light": "Golow"
+                    },
+                    "discover": {
+                        "title": "Diskevra Testednow",
+                        "description": "Gwandra testednow gwres gans dhe'n kemeneth"
+                    },
+                    "accent_selector": "Blas Kolor",
+                    "appearance_options": {
+                        "show_send": "Bykken diskwedh Danon Messajya Boton",
+                        "title": "Fysmant Dewisyansow",
+                        "show_send_desc": "Mar efreth, an Danon Danvonadow boton a venn eneth apperya a-dro gwayadow.",
+                        "show_account_age": "A'y oes diskwedh akont amser a dheu bys dhe junya nowodhow",
+                        "show_account_age_desc": "Mar efreth, an akont amser a venn bedhewgh a-rag devnydhyoryon nowydh."
+                    },
+                    "title": "Mirow",
+                    "font": "Besydhva",
+                    "advanced_options": {
+                        "title": "Avonsys Dewisyansow"
+                    },
+                    "theme_options": {
+                        "title": "Testen Dewisyansow",
+                        "transparency": "Bollder Dewth",
+                        "seasonal": "Sesonek Testen",
+                        "follow": "Folya kevreyth testen"
+                    },
+                    "message_display": "Messajya Diskwedhes",
+                    "advanced": "Avonsys Dewisyansow",
+                    "overrides": "Thema Gorerghi",
+                    "theme_data": "Thema Data",
+                    "custom_css": "A-vusur CSS",
+                    "ligatures": "Besydhva Giow",
+                    "emoji_pack": "Emoji Bagas",
+                    "reset_overrides": "Dassettya gorerghi",
+                    "sync": "Kettermynegi Dewisyansow",
+                    "import": "Ymperthi a testen",
+                    "mono_font": "Unnspas Besydhva Dewis"
+                },
+                "plugins": {
+                    "delete_plugin": "Dilea",
+                    "title": "Ebilyans"
+                },
+                "donate": {
+                    "title": "Argevri"
+                },
+                "feedback": {
+                    "title": "Dasliva",
+                    "description": "Davon daslev",
+                    "suggest": "Davon apperya kussul",
+                    "bug": "Hweskeren Hellerghyas"
+                },
+                "account": {
+                    "change_field": "Chanj",
+                    "2fa": {
+                        "title": "Due-Faktor Gwiryonheans",
+                        "description": "Addya a keworransel gweli dre afydhyans bys gallosegor 2FA a-dro agas aknot.",
+                        "view_recovery": "Golokva Daswrians Koden Gesroswyth",
+                        "view_recovery_long": "Golokva hag iskarga agas 2FA daswrians Koden Gesrosweyth.",
+                        "generate_recovery": "Dinethi Daswrians Koden Gesrosweyth",
+                        "two_factor_off": "Nyns usi genes Due-Elven gwiryonheans!",
+                        "two_factor_on": "Deu-Elven gwiryonheans eus a-lemmyn a-dro.",
+                        "generate_recovery_long": "Bydhewgh parays devnydhya 2FA bys desedha a daswrians fordh.",
+                        "add_auth": "Addya Gwiryonheans Gwi",
+                        "remove_auth": "Dilea Gwiryonheans Gwi"
+                    },
+                    "title": "Ow Akont",
+                    "unique_id": "Hemm yw a dibarow usyer aswon a-barth agas akont.",
+                    "manage": {
+                        "title": "Akontyans Menystrans",
+                        "disable": "Diallosegi Aknot",
+                        "delete": "Margh Aknot A-barth Dileans",
+                        "description": "Diallosegi po defendya agas aknot neb pres. Ma akt a venn nyns owgh hwi omgelmys hag yn feur defendya agas aknot, e'ga mesk agas keskewsel istori hag kothmans.",
+                        "disable_description": "Hwi a alsa agas akont ma's 'gas gul kestava orth astel - bettegens, hwi derivadow ny vydh diles."
+                    }
+                },
+                "profile": {
+                    "title": "Profilys",
+                    "info": "Kedhlow",
+                    "fetching": "Kerghes agas profil…",
+                    "placeholder": "Lyennega neb tra 'dro dh agas honan…",
+                    "profile_picture": "Profil Imach",
+                    "custom_background": "A-vusur Keyndir",
+                    "edit_background": "Pennskrifa Keyndir",
+                    "edit_profile": "Pennskrifa Profil"
+                },
+                "notifications": {
+                    "title": "Notyans",
+                    "sounds": "Tros",
+                    "push_notifications": "Herdhyans Notyans",
+                    "sound": {
+                        "message": "Messajya Kevys",
+                        "outbound": "Messajya A dhellos",
+                        "call_join": "Usyer Kesjunys",
+                        "call_leave": "Usyer A-gledh Galow"
+                    },
+                    "enable_desktop": "Gallosegi Jynn amontya Notyans",
+                    "enable_push": "Gallosegi herdhya Notyans"
+                },
+                "language": {
+                    "title": "Tavas",
+                    "const": "Drehevys Tavosow",
+                    "select": "Dewis agas yeth",
+                    "other": "Aral yeth dewisyansow"
+                },
+                "sync": {
+                    "title": "Kettermynegi",
+                    "options": "Kettermynegi Dewisyansow",
+                    "categories": "Kettermynegi Klassys"
+                },
+                "experiments": {
+                    "title": "Arbrovow",
+                    "features": "Kavadow Nasyow"
+                },
+                "bots": {
+                    "token": "Tokyn",
+                    "unique_id": "Hemm yw a dibarow hevelepter a'th botow. Nyns yw hobma an Botow tokyn.",
+                    "title": "Ma Botow",
+                    "add": "Addya Botow",
+                    "public_bot": "Pobel Botow",
+                    "profile": "Botow Profil",
+                    "interactions_url": "Kesoberyansow Kkowethasek URL",
+                    "create_bot": "Gul a Botow",
+                    "copy_invite": "Daskrif Galow Junya"
+                },
+                "theme_shop": {
+                    "category": {
+                        "saved": "Difres",
+                        "manage": "Messajya sawys",
+                        "default": "Defowt themys",
+                        "new": "Nowedh An seythen ma",
+                        "highest": "Kevradh ughella",
+                        "viewall": "Golok kekebmys"
+                    },
+                    "by": "Gans",
+                    "title": "Testen Gwerthji",
+                    "search": "Helgh Testednow…",
+                    "active": "A-lemmyn bew",
+                    "use": "Devnydh thema"
+                },
+                "native": {
+                    "title": "Jynn Amontya Desedhansow"
+                },
+                "source_code": "Devedhyans Kevrinhe",
+                "logOut": "Omdenna"
+            },
+            "server_pages": {
+                "overview": {
+                    "title": "Gorwologow",
+                    "name": "Leuren Gelwel",
+                    "description": "Chanel Deskrifans",
+                    "system_messages": "Kevreyth Danvonadow Chanels"
+                },
+                "invites": {
+                    "revoke": "Diswruthyl",
+                    "title": "Galowyow",
+                    "invitor": "Gelwys",
+                    "channel": "Gooth",
+                    "code": "Gelwel kod"
+                },
+                "roles": {
+                    "title": "Dutys ha rolyow"
+                },
+                "emojis": {
+                    "title": "Emojiow",
+                    "upload": "Ughkarga Emoji"
+                },
+                "customisation": {
+                    "title": "Personelheans"
+                },
+                "members": {
+                    "title": "Eseli"
+                },
+                "bans": {
+                    "title": "Difen",
+                    "user": "Usyer",
+                    "revoke": "Diswruthyl",
+                    "reason": "Difen Acheson",
+                    "no_reason": "A-der difen acheson."
+                },
+                "categories": {
+                    "title": "Klassys"
+                },
+                "management": {
+                    "title": "Usyer Dyghtyans"
+                }
+            },
+            "title": "Sedhesow",
+            "channel_pages": {
+                "overview": {
+                    "title": "Gorwolok",
+                    "name": "Chanel Gelwel",
+                    "description": "Chanel Deskrifans"
+                },
+                "permissions": {
+                    "title": "Gront"
+                },
+                "webhooks": {
+                    "title": "Gwi-bagh"
+                }
+            },
+            "permissions": {
+                "default_role": "Defowt",
+                "server": "Leuren Kumyasow",
+                "channel": "Chanel Kumyasow",
+                "role_name": "Radn Gelwel",
+                "role_colour": "Radn Kolor",
+                "role_options": "Radn Dewisyansow",
+                "role_ranking": "Radn Renkys",
+                "delete_role": "Defendya Radn",
+                "hoist_role": "Garan Radn",
+                "edit_title": "Pennskrifa Kumyasow",
+                "title": "Kumyasow a-barth {{role}}"
+            }
+        },
+        "special": {
+            "status": {
+                "disconnected": "Digelmys.",
+                "reconnecting": "Das-Gwelynni mellya…",
+                "offline": "dhywar-linen.",
+                "connecting": "Gwelynni mellya…"
+            },
+            "friends": {
+                "sent": "Glan-o moas",
+                "blocked": "Degeas",
+                "pending": "Ow kortos gofednow",
+                "incoming": "Dewedhes kothman gofen.",
+                "outgoing": "Arghans spenys kothman gofen.",
+                "nobody": "Den veth ma hawth!",
+                "from": {
+                    "single": "A {{user}}"
+                }
+            },
+            "modals": {
+                "changelogs": {
+                    "title": "Amendya-kovlyvrow"
+                },
+                "report": {
+                    "reason": "Acheson",
+                    "reported": "Derivys",
+                    "message": "Derivas Messajya",
+                    "by_name": "Deryivas {{name}}",
+                    "additional_context": "Keworansel Derivadow"
+                },
+                "actions": {
+                    "ok": "Da lowr",
+                    "ban": "Difen",
+                    "done": "Gwrys",
+                    "kick": "Potya",
+                    "save": "Difres",
+                    "edit": "Pennskrifa",
+                    "close": "Degea",
+                    "leave": "Delya",
+                    "reset": "Dassettya",
+                    "remove": "Dilea",
+                    "delete": "Defendya",
+                    "back": "Dehweles",
+                    "report": "Derivas",
+                    "create": "Gul",
+                    "reveal": "Diskevra",
+                    "update": "Nowedha",
+                    "cancel": "Defendya",
+                    "preview": "Kynwel",
+                    "hide": "Keles",
+                    "block": "Blok",
+                    "confirm": "Afydhya",
+                    "continue": "Durya",
+                    "reload": "Daskarga Towlen"
+                },
+                "clipboard": {
+                    "copy": "Dornel Daskrif:",
+                    "unavailable": "Aste; glypp ema ankavadow!"
+                },
+                "confirm": "Afydhya akt",
+                "token_reveal": "{{name}}'s Nos",
+                "onboarding": {
+                    "welcome": "Wolcom bys dhe"
+                },
+                "error": "An gwall hwarvos!",
+                "prompt": {
+                    "confirm_leave": "Delya {{name}}?",
+                    "confirm_delete": "Defendya {{name}}?",
+                    "create_invite_generate": "Dineythi gober galow…",
+                    "confirm_ban_reason": "Difen Acheson",
+                    "unfriend_user": "Anhweg {{name}}?",
+                    "block_user": "Blok {{name}}?",
+                    "silent_leave": "Heb gul son Delya"
+                },
+                "account": {
+                    "change": {
+                        "username": "Amendya agas hanow devenydhyer",
+                        "email": "Amendya agas ebost",
+                        "password": "Amendya agas ger tremena"
+                    }
+                },
+                "mfa": {
+                    "enter_code": "Entra Kevrinhe"
+                },
+                "out_of_date": {
+                    "ignore": "Ankothvoshe nowedha"
+                },
+                "sessions": {
+                    "short": "Ny yll'ta diswruthyl an dra ma akt."
+                }
+            },
+            "popovers": {
+                "user_profile": {
+                    "profile": "Profilys",
+                    "sub": {
+                        "badges": "Arwodhigow",
+                        "information": "Ynformacyon",
+                        "connections": "Keskolmow"
+                    },
+                    "badges": {
+                        "founder": "Fundyer",
+                        "translator": "Trelyer",
+                        "supporter": "Darbarer"
+                    }
+                },
+                "server_identity": {
+                    "nickname": "Leshanow"
+                },
+                "create_bot": {
+                    "failed": "A wrug fyllel bys dhe gul a botow!"
+                }
+            },
+            "copy": "Klyckya bys dhe daskrif",
+            "server-badges": {
+                "official": "Offysyal Leuren",
+                "verified": "Afydhys Leuren"
+            }
+        },
+        "context_menu": {
+            "mention": "Kampol",
+            "message_user": "Messajya",
+            "reply_message": "Gorthebi",
+            "create_category": "Gul Klass",
+            "create_invite": "Gul galow",
+            "open_notification_options": "Notyans dewisyansow",
+            "open_channel_settings": "Chanel desedhansow",
+            "open_server_settings": "Leuren desedhansow",
+            "open_group_settings": "Bagas desedhansow"
+        },
+        "permissions": {
+            "required": "Kumyasow a res"
+        }
+    },
+    "dayjs": {
+        "defaults": {
+            "twelvehour": "A-der",
+            "date_separator": "/",
+            "date_format": "Traditional"
+        }
+    },
+    "error": {
+        "Unauthorized": "Heb kubmyas.",
+        "RequiredField": "A res",
+        "Unavailable": "Ankavadow.",
+        "NetworkError": "Rosweyth gwall.",
+        "Unlabelled": "Neb tra y hwer hware.",
+        "DatabaseError": "Datasel gwall.",
+        "InternalError": "A-bervedh gwall.",
+        "MissingPermission": "Eth dhe goll gront.",
+        "UnknownError": "A wel hebaskhe.",
+        "OperationFailed": "Oberyans a wrug fyllel.",
+        "MissingHeaders": "Eth dhe goll pennlinen.",
+        "InvalidSession": "Drog esedhek.",
+        "UnverifiedAccount": "Unverified aknot.",
+        "InvalidCredentials": "E-bost bo ger tremena ema anewn.",
+        "MissingInvite": "Eth dhe goll galow kevrinhe a-ji gofen."
+    },
+    "permissions": {
+        "Connect": {
+            "t": "Junya",
+            "d": "Alowa eselewo/eseli bys dhe junya erel a-ji a lev gooth."
+        },
+        "Masquerade": {
+            "t": "Dons vysours"
+        },
+        "Speak": {
+            "t": "Kewsel",
+            "d": "Alowa eselewo/eseli bys dhe kewsel e erel a-ji a lev gooth."
+        },
+        "Video": {
+            "t": "Gwelesek",
+            "d": "Alowa eselewo/eseli bys dhe fros erel a-ji a lev gooth."
+        },
+        "ManageWebhooks": {
+            "t": "Dyghtya Webhooks"
+        },
+        "ManageChannel": {
+            "t": "Dyghtya Chanels"
+        },
+        "UploadFiles": {
+            "t": "Ughkarga Restren Weythresadow"
+        },
+        "React": {
+            "t": "Devnydh Holyansen",
+            "d": "Alowa eselewo/eseli bys dhe dasoberi bys dhe messajys jeskows."
+        },
+        "SendMessage": {
+            "t": "Dannon Messach Keskows"
+        },
+        "InviteOthers": {
+            "t": "Galow Erel"
+        },
+        "SendEmbeds": {
+            "t": "Dannon Tarna"
+        },
+        "MuteMembers": {
+            "t": "Avlavar Eseli",
+            "d": "Alowa eselewo/eseli bys dhe avlavar erel a-ji a lev gooth."
+        },
+        "DeafenMembers": {
+            "t": "Bodharhe Eseli",
+            "d": "Alowa eselewo/eseli bys dhe bodharhe erel a-ji a lev gooth."
+        },
+        "MoveMembers": {
+            "t": "Chanjya chei Eseli",
+            "d": "Alowa eselesow/eseli bys dhe chanjya chei tredh lev kanolyow."
+        }
+    },
+    "quantities": {
+        "members": {
+            "many": "{{count}} Esels",
+            "one": "1 Esel"
+        }
+    },
+    "keys": {
+        "PageDown": {
+            "short": "Pg-a-hys",
+            "full": "Folen A-hys"
+        },
+        "PageUp": {
+            "short": "Pg'Badn",
+            "full": "Folen'Badn"
+        },
+        "Backspace": {
+            "short": "Kilspas"
+        },
+        "Delete": {
+            "short": "Defendya"
+        },
+        "Insert": {
+            "short": "A-bervedh"
+        },
+        "Control": {
+            "short": "Gallos"
+        },
+        "Escape": {
+            "short": "Diank"
+        },
+        "PrintScreen": {
+            "full": "Argrafa"
+        }
+    }
+}

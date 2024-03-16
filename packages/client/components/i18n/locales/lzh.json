@@ -1,0 +1,328 @@
+{
+    "general": {
+        "on": "啟",
+        "off": "閉",
+        "disabled": "閉",
+        "image_by": "出畫影之處",
+        "loading": "待頃刻…",
+        "unavailable": "用之不可",
+        "learn_more": "了解更多",
+        "tos": "行事律法",
+        "privacy": "私隱律法",
+        "about": "關於"
+    },
+    "login": {
+        "title": "入之",
+        "subtitle": "入 Revolt",
+        "subtitle2": "造一帳本",
+        "register": "登名造冊",
+        "username": "汝之名諱",
+        "email": "洋飛鴿",
+        "password": "暗語",
+        "enter": {
+            "username": "書君好之名。",
+            "password": "書君之暗語。",
+            "current_password": "書君今之暗語。",
+            "email": "書君洋飛鴿之名。",
+            "new_password": "書一新暗語。",
+            "invite": "書君之請束。"
+        },
+        "current_password": "今之暗語",
+        "forgot": "汝忘暗語？",
+        "reset": "重書暗語",
+        "set_password": "書新暗語",
+        "new": "初用 Revolt？",
+        "cancel": "請罷",
+        "missing_verification": "未得洋飛鴿？",
+        "email_delay": "請待洋飛鴿達，久至二三刻。",
+        "open_mail_provider": "啟 {{provider}}",
+        "check_mail": "請君察洋飛鴿！",
+        "check_spam": "若不得，請察荒棄之洋飛鴿",
+        "welcome": "歡迎！",
+        "welcome2": "近來可好！",
+        "create": "造新冊",
+        "error": {
+            "login": "入之不成！",
+            "create": "冊之造不成！",
+            "resend": "重送不成！",
+            "verify": "鑑定未成！"
+        },
+        "remembered": "返至入之處",
+        "existing": "已登名造冊？",
+        "resend": "使洋飛鴿重送暗語",
+        "successful_registration": "已造冊！",
+        "new_password": "新暗語",
+        "invite": "請束",
+        "verifying_account": "鑑定汝之冊…",
+        "verified_account": "汝之冊已鑑定！",
+        "verified_continue": "續入",
+        "recovery": "恢復代碼",
+        "totp": "身份驗證器應用程序"
+    },
+    "app": {
+        "status": {
+            "online": "上朝",
+            "idle": "悠哉",
+            "invisible": "隱居山林",
+            "busy": "勿擾",
+            "focus": "專心致志",
+            "offline": "下朝"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "首頁",
+                "unreads": "未批閱",
+                "saved": "笏",
+                "dev": "開天闢地之士",
+                "friends": "友"
+            }
+        },
+        "home": {
+            "directs": "密件",
+            "join-testers_desc": "君可於此上奏。",
+            "goto-testers_desc": "君可於此上奏。",
+            "donate": "打賞Revolt",
+            "discover": "窮Revolt之面貌",
+            "discover_desc": "尋與君志同道合之朋黨。",
+            "group": "立黨",
+            "group_desc": "迎汝之友，炫洋鐵俑辦一筵席。",
+            "feedback_desc": "請示高見使吾等知何修業益進。",
+            "donate_desc": "以銀兩援助之 不勝感激！",
+            "feedback": "予 Revolt 高見",
+            "join-testers": "入試者伺服器"
+        },
+        "main": {
+            "categories": {
+                "conversations": "語",
+                "participants": "與會之士",
+                "members": "黨眾"
+            },
+            "channel": {
+                "system": {
+                    "user_joined": "{{user}} 入",
+                    "user_left": "{{user}} 去",
+                    "user_kicked": "驅 {{user}}",
+                    "user_banned": "禁 {{user}}",
+                    "added_by": "{{other_user}} 邀 {{user}}",
+                    "removed_by": "{{other_user}} 除 {{user}}"
+                },
+                "uploading_file": "郵驛急傳中…",
+                "voice": {
+                    "leave": "離席",
+                    "mute": "斷其音訊",
+                    "unmute": "通其音訊"
+                },
+                "misc": {
+                    "spoiler_attachment": "文矣",
+                    "viewing_old": "閱舊訊",
+                    "blocked_user": "與其不相來往",
+                    "jump_present": "躍至當今",
+                    "jump_beginning": "躍至始",
+                    "sent_file": "已傳件"
+                },
+                "edited": "(修)",
+                "bot": "洋鐵俑",
+                "notifications": {
+                    "none": "無"
+                },
+                "search": {
+                    "sort": {
+                        "oldest": "舊雨",
+                        "latest": "新知",
+                        "relevance": "最適"
+                    },
+                    "title": "尋"
+                },
+                "message_saved": "存汝之笏",
+                "nsfw": {
+                    "confirm": "吾已過束髮之年。"
+                },
+                "failed_upload": "未傳至！",
+                "attached_file": "附 {{filename}}",
+                "start": {
+                    "group": "此為言之始。",
+                    "saved": "此為笏之始。"
+                },
+                "errors": {
+                    "title": "此處無物！"
+                },
+                "reply": {
+                    "replying": "曰"
+                },
+                "new_to_server": "初來乍到",
+                "reactions": {
+                    "single_reacted": "一人應",
+                    "people_reacted": "{{people}} 應"
+                }
+            }
+        },
+        "settings": {
+            "title": "擇法",
+            "actions": {
+                "remove": "除名",
+                "upload": "傳於郵驛"
+            },
+            "pages": {
+                "account": {
+                    "change_field": "更",
+                    "title": "吾之冊",
+                    "manage": {
+                        "title": "冊司",
+                        "disable": "棄冊"
+                    }
+                },
+                "notifications": {
+                    "title": "報",
+                    "sounds": "樂",
+                    "push_notifications": "傳送報",
+                    "enable_desktop": "啟桌面之報",
+                    "enable_push": "啟傳送報"
+                },
+                "experiments": {
+                    "title": "講工部"
+                },
+                "profile": {
+                    "info": "訊",
+                    "title": "名刺"
+                },
+                "sessions": {
+                    "title": "入之方位"
+                },
+                "audio": {
+                    "input_device": "傳話使",
+                    "device_label_NA": "用之不可",
+                    "button_retry": "復試"
+                },
+                "appearance": {
+                    "title": "面目",
+                    "theme": "景",
+                    "display": {
+                        "default": "本位",
+                        "compact": "儉"
+                    },
+                    "color": {
+                        "light": "陽",
+                        "dark": "陰"
+                    },
+                    "font": "書文"
+                },
+                "sync": {
+                    "title": "相應"
+                },
+                "language": {
+                    "title": "言語",
+                    "select": "擇汝語言"
+                },
+                "bots": {
+                    "add": "增洋鐵俑",
+                    "title": "吾之洋鐵俑",
+                    "create_bot": "建洋鐵俑",
+                    "unique_id": "此為汝洋鐵俑之牒，非令牌。",
+                    "token": "令牌",
+                    "public_bot_tip": "此洋鐵俑為公。眾皆可邀之。",
+                    "private_bot_tip": "此洋鐵俑為私。僅汝可邀之。",
+                    "public_bot": "公之洋鐵俑",
+                    "public_bot_desc": "是否允眾邀約此洋鐵俑。"
+                },
+                "theme_shop": {
+                    "category": {
+                        "saved": "存",
+                        "viewall": "閱盡"
+                    }
+                }
+            },
+            "server_pages": {
+                "invites": {
+                    "code": "請束"
+                },
+                "categories": {
+                    "title": "類別"
+                }
+            },
+            "tips": {
+                "languages": {
+                    "a": "缺乏汝需之語？"
+                }
+            }
+        },
+        "special": {
+            "copy": "得一抄本",
+            "friends": {
+                "incoming": "求與君識之士。",
+                "nobody": "尚無眾於此！"
+            },
+            "modals": {
+                "error": "見壹誤也！",
+                "account": {
+                    "change": {
+                        "username": "更汝之稱呼",
+                        "email": "更汝之洋飛鴿",
+                        "password": "更汝之暗語"
+                    },
+                    "failed": "更之不成！"
+                },
+                "mfa": {
+                    "recovery_codes": "汝之復語",
+                    "enable_totp": "啟二重密語之器"
+                },
+                "actions": {
+                    "ok": "是",
+                    "ban": "禁",
+                    "save": "存",
+                    "done": "成",
+                    "kick": "驅逐",
+                    "create": "建"
+                },
+                "prompt": {
+                    "create_invite_created": "此為汝之新請束：",
+                    "confirm_ban": "君將禁 {{name}}",
+                    "confirm_ban_reason": "禁之故"
+                },
+                "changelogs": {
+                    "older": "閱舊聞"
+                }
+            },
+            "popovers": {
+                "create_bot": {
+                    "failed": "建洋鐵俑之不成！"
+                },
+                "user_profile": {
+                    "sub": {
+                        "badges": "獎章"
+                    },
+                    "badges": {
+                        "translator": "譯者",
+                        "supporter": "助者"
+                    },
+                    "no_groups": "無同群體"
+                }
+            },
+            "requires_online": "君需上朝方可閱此。",
+            "invite": {
+                "login": "入 Revolt",
+                "invited_by": "{{user}} 邀之",
+                "invalid": "無用之請束！"
+            }
+        },
+        "context_menu": {
+            "save_image": "存圖畫",
+            "open_image": "開圖像",
+            "mark_as_read": "標示已閱",
+            "mark_unread": "標記未閱",
+            "retry_message": "重送",
+            "kick_member": "驅逐成員"
+        }
+    },
+    "error": {
+        "EmailInUse": "洋飛鴿方用也。",
+        "InvalidCredentials": "洋飛鴿或暗語有誤",
+        "EmailFailed": "洋飛鴿未傳至。"
+    },
+    "notifications": {
+        "now_friends": "汝今爲@{{person}}友矣！",
+        "sent_request": "@{{person}} 欲與汝結為友。"
+    },
+    "actions": {
+        "submit": "上呈"
+    }
+}

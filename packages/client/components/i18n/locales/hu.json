@@ -1,0 +1,1142 @@
+{
+    "general": {
+        "tos": "Szolgáltatási feltételek",
+        "privacy": "Adatvédelmi szabályzat",
+        "image_by": "A képet készítette:",
+        "about": "A Revoltról",
+        "loading": "Betöltés…",
+        "on": "Be",
+        "off": "Ki",
+        "disabled": "Letiltva",
+        "unavailable": "nem elérhető",
+        "learn_more": "Bővebben"
+    },
+    "login": {
+        "email": "E-mail-cím",
+        "password": "Jelszó",
+        "enter": {
+            "email": "Add meg az e-mail-címed",
+            "password": "A Revolt-jelszavad helye",
+            "username": "Adj meg egy nevet",
+            "current_password": "Add meg a mostani jelszót",
+            "invite": "Add meg a meghívókódot",
+            "new_password": "Add meg az új jelszavad"
+        },
+        "forgot": "Nem emlékszel a jelszavadra?",
+        "new": "Még nincs Revoltod?",
+        "title": "Bejelentkezés",
+        "create": "Hozd létre a fiókod!",
+        "check_mail": "Nézd meg, hogy jött-e leveled.",
+        "reset": "Jelszóváltoztatás kérése",
+        "successful_registration": "Regisztráltál, hurrá!",
+        "open_mail_provider": "{{provider}} megnyitása",
+        "cancel": "Folyamat megszakítása",
+        "existing": "Van már fiókod?",
+        "remembered": "Vissza a bejelentkezéshez",
+        "username": "Felhasználónév",
+        "register": "Regisztrálás",
+        "error": {
+            "resend": "Nem sikerült újraküldeni.",
+            "reset": "Nem sikerült jelszóváltoztatást kérni.",
+            "login": "Nem sikerült bejelentkezned.",
+            "create": "Nem sikerült regisztrálnod.",
+            "verify": "Nem sikerült igazolnod a fiókodat."
+        },
+        "check_spam": "Ha nem találnád, nézd meg a levélszemét között.",
+        "resend": "Visszaigazoló e-mail újraküldése",
+        "missing_verification": "Nem jött meg az e-mail?",
+        "set_password": "Add meg az új jelszavad",
+        "current_password": "Mostani jelszavad",
+        "invite": "Meghívókód",
+        "email_delay": "Elküldtük a visszaigazoló e-mailt. A leveled 10 percen belül meg fog érkezni.",
+        "subtitle": "Bejelentkezés a Revoltba",
+        "welcome": "Üdv!",
+        "welcome2": "Szia!",
+        "subtitle2": "Fiók létrehozása",
+        "unofficial_instance": "Ezt egy harmadik személy üzemelteti.",
+        "totp": "Hitelesítést végző app",
+        "recovery": "Helyreállító kód",
+        "verifying_account": "A fiókod igazolódik…",
+        "verified_account": "A fiókod igazolva lett",
+        "verified_continue": "Tovább a bejelentkezéshez",
+        "new_password": "Új jelszó",
+        "log_out_other": "Kijelentkezés az összes többi munkamenetből"
+    },
+    "app": {
+        "main": {
+            "channel": {
+                "message": "Üzenet: {{name}}",
+                "message_who": "Üzenet írása @{{person}} részére",
+                "message_where": "Üzenet írása {{channel_name}} csatornába",
+                "system": {
+                    "user_left": "{{user}} lehet, már nem jön vissza többet",
+                    "user_joined": "{{user}} tagja lett a szervernek",
+                    "added_by": "{{other_user}} hozzáadta {{user}} tagot",
+                    "removed_by": "{{other_user}} eltávolította {{user}} tagot",
+                    "channel_renamed": "{{user}} új nevet adott a csatornának: „{{name}}”",
+                    "channel_description_changed": "{{user}} megváltoztatta a csatorna leírását",
+                    "channel_icon_changed": "{{user}} megváltoztatta a csatorna ikonját",
+                    "user_banned": "{{user}} ki lett tiltva",
+                    "user_kicked": "{{user}} ki lett rúgva",
+                    "channel_ownership_changed": "{{from}} átruházta a csoport tulajdonjogát {{to}} tagnak",
+                    "registered_at": "{{time}} regisztrált"
+                },
+                "typing": {
+                    "several": "Többen is gépelnek…",
+                    "multiple": "{{userlist}} és {{user}} éppen gépelnek…",
+                    "single": "{{user}} éppen gépel…"
+                },
+                "attached_file": "{{filename}} csatolva",
+                "failed_upload": "Nem sikerült feltölteni.",
+                "uploading_file": "Feltöltés folyamatban…",
+                "message_saved": "Mentés a többi feljegyzéshez",
+                "bot": "Robi 🤖",
+                "unknown_user": "<ismeretlen felhasználó>",
+                "start": {
+                    "group": "Innen indult a beszélgetés",
+                    "saved": "Itt jött létre az első bejegyzés"
+                },
+                "edited": "(módosítva)",
+                "voice": {
+                    "connected": "Hanggal csatlakoztál",
+                    "mute": "Némítás",
+                    "unmute": "Némítás feloldása",
+                    "leave": "Hívás vége"
+                },
+                "misc": {
+                    "viewing_old": "a régen írt üzeneteket látod",
+                    "jump_present": "ugrás a mostaniakhoz",
+                    "spoiler_attachment": "Spoiler",
+                    "failed_load": "Nem lehetett betölteni az üzenetet.",
+                    "no_sending": "ide nincs engedélyed üzenetet írni",
+                    "blocked_messages": "{{count}} kizárt üzenet",
+                    "blocked_user": "Kizárt felhasználó",
+                    "sent_file": "csatolmányt küldött",
+                    "sent_multiple_files": "több csatolmányt küldött",
+                    "jump_beginning": "ugrás az elejéhez",
+                    "new_messages": "{{time_ago}} érkeztek új üzenetek",
+                    "load_file": "Fájl betöltése",
+                    "timed_out": "{{time}} eltiltottak.",
+                    "not_loaded": "Az üzenet nem lett betöltve – kattints az ugráshoz"
+                },
+                "notifications": {
+                    "default": "Alapértelmezett használata",
+                    "all": "Összes üzenet",
+                    "mention": "Csak említések",
+                    "none": "Egyik sem",
+                    "muted": "Némítás"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Ez a csatorna NSFW-ként van jelölve.",
+                        "confirm": "Belépés a csatornába"
+                    },
+                    "confirm": "Kijelentem, hogy elmúltam 18 éves."
+                },
+                "search": {
+                    "title": "Keresés",
+                    "sort": {
+                        "latest": "Újak",
+                        "relevance": "Releváns",
+                        "oldest": "Régiek"
+                    }
+                },
+                "errors": {
+                    "title": "Jaj, itt semmi sincs!",
+                    "nochannels": "Vagy nincs a szervernek csatornája, vagy pedig egyikhez sincs hozzáférésed.",
+                    "nochannel": "Nincsenek csatornák"
+                },
+                "reply": {
+                    "replying": "Neki válaszolsz:",
+                    "toggle": "Értesítés küldése a válaszolásról"
+                },
+                "bridge": "híd",
+                "user_timed_out": "{{time}} el lett tiltva.",
+                "bridged": "Az üzenetet másik platformon keresztül küldték el",
+                "team": "Hivatalos kommunikáció",
+                "reactions": {
+                    "others_reacted": "{{userlist}} és {{count}} többi személy reagált",
+                    "unknown_reacted": "{{count}} személy reagált",
+                    "single_reacted": "1 személy reagált",
+                    "people_reacted": "{{people}} személy reagált"
+                },
+                "new_to_revolt": "Nemrég lett Revoltja",
+                "new_to_server": "Nemrég csatlakozott a szerverhez"
+            },
+            "groups": {
+                "name": "Csoportnév",
+                "create": "Csoport létrehozása",
+                "owner": "Csoporttulajdonos",
+                "description": "Csoport leírása"
+            },
+            "categories": {
+                "members": "Tagok",
+                "channels": "Csatornák",
+                "conversations": "Beszélgetések",
+                "participants": "Résztvevők"
+            },
+            "servers": {
+                "create": "Szerver létrehozása",
+                "name": "Szervernév",
+                "channel_name": "Csatornanév",
+                "owner": "Szervertulajdonos",
+                "description": "Szerver leírása",
+                "channel_description": "Csatorna leírása",
+                "custom_banner": "Saját banner",
+                "channel_type": "Csatorna típusa",
+                "text_channel": "Szövegcsatorna",
+                "voice_channel": "Beszédcsatorna",
+                "category_name": "Kategória neve"
+            }
+        },
+        "settings": {
+            "pages": {
+                "sessions": {
+                    "created": "{{time_ago}} lett létrehozva",
+                    "title": "Munkamenetek",
+                    "this_device": "Jelenlegi munkamenet eszköze",
+                    "active_sessions": "Aktív munkamenetek",
+                    "logout": "Kijelentkezés az összes többi munkamenetből"
+                },
+                "appearance": {
+                    "import_theme": "Színséma importálása stringből",
+                    "import_manual": "Kézi importálás",
+                    "theme_data": "Színséma adata",
+                    "overrides": "Színséma felülírása",
+                    "import_clipboard": "Beillesztés vágólapról",
+                    "export_clipboard": "Másolás vágólapra",
+                    "reset_overrides": "Felülírások visszaállítása",
+                    "title": "Kinézet",
+                    "advanced": "Speciális beállítások",
+                    "custom_css": "Saját CSS",
+                    "display": {
+                        "default": "Alapértelmezett",
+                        "compact": "Kompakt",
+                        "compact_description": "A jó öreg IRC.",
+                        "default_description": "Gyönyörű, csillogó és modern."
+                    },
+                    "sync": "Szinkronizálási beállítások",
+                    "color": {
+                        "light": "világos",
+                        "dark": "sötét"
+                    },
+                    "accent_selector": "Hangsúlyos szín",
+                    "emoji_pack": "Emodzsicsomagok",
+                    "theme": "Színséma",
+                    "message_display": "Megjelenő üzenet",
+                    "ligatures": "Ligatúra",
+                    "mono_font": "Azonos szélességű betűtípus",
+                    "font": "Betűtípus",
+                    "import": "Színséma importálása",
+                    "ligatures_desc": "A ligatúrákat támogató betűtípusok bizonyos karakteregyütteseket egybeírva jelenítenek meg: például -> gépelésével jobbra nyíl jelenik meg.",
+                    "theme_options": {
+                        "title": "Színséma beállításai",
+                        "follow": "Rendszerszínsémához alkalmazkodás",
+                        "seasonal": "Időszakos kinézet",
+                        "seasonal_desc": "A kezdőhelyen ünnepekhez illő kinézet lesz látható.",
+                        "follow_desc": "Nem fogsz tudni egyéni színsémát használni, vagy pedig színsémát váltani, amíg bekapcsolva marad.",
+                        "transparency_desc": "Az appban átlátszó hatású felületek lesznek láthatóak.",
+                        "transparency": "Átlátszó hatású felületek"
+                    },
+                    "discover": {
+                        "title": "Találj új színsémákat",
+                        "description": "Tallózz a közösség által létrehozott színsémák között"
+                    },
+                    "appearance_options": {
+                        "show_send": "Mindig látszódjon az üzenetküldő gomb",
+                        "title": "Kinézet beállításai",
+                        "show_send_desc": "Ha nincs kipipálva, akkor az üzenetküldő gomb csak mobilon lesz látható.",
+                        "show_account_age": "A fiók regisztrálási ideje mindig látszik a csatlakozási üzenetnél",
+                        "show_account_age_desc": "Ha nincs kipipálva, akkor a fiók regisztrálási ideje csak az új tagoknál látszik."
+                    },
+                    "advanced_options": {
+                        "title": "Speciális beállítások"
+                    },
+                    "colours": {
+                        "title": "Színek"
+                    },
+                    "emoji": {
+                        "title": "Emodzsi"
+                    },
+                    "fonts": {
+                        "title": "Betűtípusok"
+                    }
+                },
+                "logOut": "Kijelentkezés",
+                "account": {
+                    "title": "Fiók",
+                    "change_field": "Megváltoztatás",
+                    "unique_id": "Ez a fiókod egyedi felhasználói azonosítója.",
+                    "2fa": {
+                        "title": "Kétlépéses hitelesítés",
+                        "add_auth": "Hitelesítő hozzáadása",
+                        "remove_auth": "Hitelesítő eltávolítása",
+                        "description": "A fiókod extra védelméért állíts be kétlépéses hitelesítést.",
+                        "view_recovery": "Helyreállító kódok megtekintése",
+                        "view_recovery_long": "Itt tudod megtekinteni és letölteni a kétlépéses hitelesítést helyreállító kódokat.",
+                        "generate_recovery": "Helyreállító kódok létrehozása",
+                        "two_factor_on": "Kétlépéses hitelesítést használsz.",
+                        "generate_recovery_long": "A kétlépéses hitelesítés használatát a helyreállítási mód kiválasztása után kezdheted meg.",
+                        "two_factor_off": "Jelenleg nem használsz kétlépéses hitelesítést."
+                    },
+                    "manage": {
+                        "title": "Fiókkezelés",
+                        "description": "A fiókod bármikor letiltható vagy törölhető. Ha ezt választod, ki leszel jelentkeztetve az aktív munkameneteidből.",
+                        "disable": "Fiók letiltása",
+                        "delete": "Fiók törlésre jelölése",
+                        "disable_description": "Nem fogsz tudni hozzáférni a fiókodhoz, amíg segítséget nem kérsz az ügyfélszolgálattól. Az adataid nem lesznek törölve.",
+                        "delete_description": "A fiókod és a hozzátartozó összes adat (az üzeneteidet és az ismerőseid listáját is beleértve) idővel törölve lesz. Erről visszaigazoló e-mailt küldünk. Az ügyfélszolgállattól mai naptól számítva hét napon belül segítséget kérve visszavonhatod a törlést."
+                    }
+                },
+                "language": {
+                    "title": "Nyelv",
+                    "select": "Válassz nyelvet",
+                    "other": "Egyéb nyelvezetek",
+                    "const": "Mesterséges nyelvek"
+                },
+                "notifications": {
+                    "enable_desktop": "Asztali értesítések engedélyezése",
+                    "title": "Értesítések",
+                    "enable_sound": "Hang lejátszása üzenetek érkezésekor.",
+                    "enable_outgoing_sound": "Hang lejátszása üzenetek küldésekor.",
+                    "sounds": "Hangos értesítés",
+                    "descriptions": {
+                        "enable_desktop": "Értesítéseket fogsz kapni, amíg az app nyitva marad.",
+                        "enable_push": "További értesítéseket kapsz majd, amíg offline leszel.",
+                        "enable_sound": "Kapcsold be ahhoz, hogy hangot játsszunk le amikor megérkezik egy üzenet.",
+                        "enable_outgoing_sound": "Kapcsold be ahhoz, hogy egy hangot játsszunk le amikor elküldesz egy üzenetet."
+                    },
+                    "enable_push": "Leküldéses értesítések engedélyezése",
+                    "push_notifications": "Leküldéses értesítés",
+                    "sound": {
+                        "message": "Üzenetek érkezésekor",
+                        "outbound": "Elküldött üzenetkor",
+                        "call_join": "Felhasználó híváshoz csatlakozásakor",
+                        "call_leave": "Felhasználó hívásból való távozásakor"
+                    }
+                },
+                "profile": {
+                    "title": "Profil",
+                    "info": "Tudnivalók",
+                    "placeholder": "Írj valamit magadról!",
+                    "profile_picture": "Profilkép",
+                    "custom_background": "Saját háttér",
+                    "edit_background": "Háttér szerkesztése",
+                    "fetching": "A profilodat mindjárt előhozzuk…",
+                    "edit_profile": "Profil szerkesztése"
+                },
+                "feedback": {
+                    "title": "Visszajelzés",
+                    "report": "Mit szeretnél bejelenteni?",
+                    "bug": "Bug Tracker",
+                    "feature": "Funkció kérelmezése",
+                    "other": "Más (Írd ide)",
+                    "send": "Visszajelzés beküldése",
+                    "describe": "Kérjük, írd ismertesd a problémát.",
+                    "suggest": "Featurejavaslat írása",
+                    "suggest_desc": "Javasolj új Revolt feature-öket a GitHub Discussions oldalon!",
+                    "issue": "Új issue létrehozása",
+                    "bug_desc": "Az aktív hibajelentéseket itt láthatod.",
+                    "issue_desc": "A GitHubon hozhatsz létre egy új issue-t, hogy segíthess nekünk könnyebben triage-elni azokat.",
+                    "description": "Visszajelzés írása"
+                },
+                "donate": {
+                    "title": "Adományozás"
+                },
+                "source_code": "Forráskód",
+                "sync": {
+                    "descriptions": {
+                        "theme": "Ez a kiválasztott színsémát és színeket, a saját CSS-t szinkronizálja.",
+                        "appearance": "Ez a beállításokat szinkronizálja (mint például a választott emodzsicsomagodat és az üzenetek között lévő hely mértékét).",
+                        "locale": "A most használt nyelvet szinkronizálja."
+                    },
+                    "title": "Szinkronizálás",
+                    "categories": "Szinkronizálási lehetőségek",
+                    "options": "Szinkronizálás beállításai"
+                },
+                "experiments": {
+                    "title": "Kísérletek",
+                    "features": "Elérhető lehetőségek",
+                    "titles": {
+                        "servers": "Szerverek"
+                    },
+                    "descriptions": {
+                        "servers": "Ez teszi lehetővé a szerverek létrehozását csatornákkal, meghívókkal, tiltásokkal, moderálással és egyebekkel."
+                    },
+                    "not_available": "Jelenleg nincsenek elérhető kísérleti dolgok."
+                },
+                "native": {
+                    "title": "Asztali beállítások"
+                },
+                "audio": {
+                    "input_device": "Mikrofon",
+                    "output_device": "Hangszóró / Fejhallgató",
+                    "title": "Beszéd",
+                    "device_label_NA": "nem elérhető",
+                    "button_retry": "próbáld újra",
+                    "tip_retry": "Nem adtál engedélyt a Revoltnak a mikrofon elérésére. Kérlek, {{retryBtn}}!",
+                    "tip_grant_permission": "A beállítások eléréséhez engedélyezned kell a mikrofon használatát.",
+                    "button_grant": "Engedélyezés"
+                },
+                "bots": {
+                    "title": "Saját robik",
+                    "public_bot_tip": "A robi nyilvános. Bárki meghívhatja.",
+                    "reserved": "Megjegyzés: Ez a mező a jövőbeni dolgoknak van fenntartva.",
+                    "create_bot": "Új robi létrehozása",
+                    "copy_invite": "Meghívólink másolása",
+                    "add": "Létrehozás",
+                    "token": "Token",
+                    "private_bot_tip": "A robi nem nyilvános. Csak te hívhatod meg.",
+                    "public_bot": "Nyilvános robi",
+                    "public_bot_desc": "Mások hozzáadhatják szerverekhez és csoportüzenetekhez ezt a robit.",
+                    "interactions_url": "Interakciós URL",
+                    "unique_id": "Ez a robid egyedi azonosítója. Ez nem a robi tokenje.",
+                    "profile": "A robi profilja"
+                },
+                "theme_shop": {
+                    "title": "Színsémabolt",
+                    "category": {
+                        "saved": "Mentve",
+                        "new": "Heti újdonság",
+                        "highest": "Legjobbra értékeltek",
+                        "viewall": "Összes megtekintése",
+                        "manage": "Mentettek kezelése",
+                        "default": "Alapértelmezett színsémák"
+                    },
+                    "description": "Tallózz a közösség által létrehozott és ajánlott színsémák százai között!",
+                    "search": "Keresés a színsémák között…",
+                    "by": "Készítette:",
+                    "use": "Színséma betöltése",
+                    "active": "Most használt"
+                },
+                "plugins": {
+                    "title": "Pluginok",
+                    "wip": "Figyelem! Ez a lehetőség még nem készült el teljesen.",
+                    "delete_plugin": "Törlés",
+                    "no_plugins": "Még egy plugin sincs telepítve."
+                },
+                "accessibility": {
+                    "title": "Kisegítő lehetőségek",
+                    "descriptions": {
+                        "reduced_motion": "Az animációk és a mozgó képhatások nem látszódnak majd, vagy pedig kevésbé lesznek erőteljesek."
+                    },
+                    "reduced_motion": "Csökkentett képhatás"
+                },
+                "keybinds": {
+                    "description": "Gyorsbillentyűk megtekintése és beállítása",
+                    "reset_keybind": "Gyorsbillentyű {{keybind}} értékre visszaállítása",
+                    "action": {
+                        "navigate_channel_down": {
+                            "description": "Ugrás a következő csatornához.",
+                            "title": "Ugrás a következő csatornához"
+                        },
+                        "navigate_server_down": {
+                            "description": "Ugrás a következő szerverhez.",
+                            "title": "Ugrás a következő szerverhez"
+                        },
+                        "auto_complete_down": {
+                            "description": "Lépés a következő automatikus kiegészítésre.",
+                            "title": "Következő automatikus kiegészítés"
+                        },
+                        "input_submit": {
+                            "description": "Leginkább a jelenlegi bevitel elküldésére szolgáló, speciális gyorsbillentyű.\nÁltalában üzenet küldésére, üzenet szerkesztésének elküldésére, vagy keresésre használható.",
+                            "title": "Bevitelküldés"
+                        },
+                        "input_force_submit": {
+                            "description": "Leginkább a jelenlegi bevitel kényszerített elküldésére szolgáló, speciális gyorsbillentyű, mely figyelmen kívül hagyja a küldés előtti ellenőrzést, vagy más gyorsbillentyű-parancsokat.\nÁltalában automatikus kiegészítés jóváhagyása helyett az üzenet elküldésére használható.",
+                            "title": "Bevitelküldés kényszerítése"
+                        },
+                        "messaging_scroll_to_bottom": {
+                            "description": "Az üzenetváltási ablak aljához görget.",
+                            "title": "Legutóbbi üzenethez görgetés"
+                        },
+                        "messaging_mark_channel_read": {
+                            "title": "Csatorna megjelölése olvasottként",
+                            "description": "Olvasottként jelöli meg a jelenlegi csatornát."
+                        },
+                        "navigate_previous_context": {
+                            "description": "Leginkább a beállítások oldal, egy felugró menü, vagy felugró ablak bezárására szolgáló, speciális gyorsbillentyű, mellyel az előző állapothoz való visszatérésre használható.",
+                            "title": "Ugrás az előzőhöz"
+                        },
+                        "navigate_channel_up": {
+                            "title": "Ugrás az előző csatornához",
+                            "description": "Ugrás az előző csatornához."
+                        },
+                        "navigate_server_up": {
+                            "title": "Ugrás az előző szerverhez",
+                            "description": "Ugrás az előző szerverhez."
+                        },
+                        "messaging_edit_previous_message": {
+                            "title": "Legutóbbi üzenet szerkesztése",
+                            "description": "A mostani üzenetváltási ablak legutóbb küldött üzenetének szerkesztése."
+                        },
+                        "auto_complete_up": {
+                            "title": "Előző automatikus kiegészítés",
+                            "description": "Visszalépés az előző automatikus kiegészítésre."
+                        },
+                        "auto_complete_select": {
+                            "title": "Automatikus kiegészítés jóváhagyása",
+                            "description": "Kiválasztott automatikus kiegészítés jóváhagyása."
+                        },
+                        "input_cancel": {
+                            "title": "Bevitel visszavonása",
+                            "description": "Leginkább a jelenlegi bevitel visszavonására szolgáló, speciális gyorsbillentyű.\nÁltalában üzenet szerkesztésének visszavonására, elküldendő kép eltávolítására, vagy hasonló funckióra használható."
+                        },
+                        "developer_toggle_all_experiments": {
+                            "title": "Összes kísérlet be- és kikapcsolása közti váltás",
+                            "description": "Az összes kísérletet egyszerre lehet kikapcsolni, vagy bekapcsolni."
+                        }
+                    },
+                    "title": "Gyorsbillentyűk",
+                    "search": "Gyorsbillentyűk keresése…",
+                    "add_keybind": "Új gyorsbillentyű",
+                    "edit_keybind": "Gyorsbillentyű szerkesztése",
+                    "remove_keybind": "Gyorsbillentyű eltávolítása",
+                    "category": {
+                        "navigation": "Ugrás",
+                        "messaging": "Üzenetváltás",
+                        "advanced": "Speciális"
+                    }
+                }
+            },
+            "categories": {
+                "user_settings": "Felhasználói beállítások",
+                "client_settings": "Kliens beállításai",
+                "danger_zone": "Veszélyes terület"
+            },
+            "title": "Beállítások",
+            "channel_pages": {
+                "overview": {
+                    "title": "Áttekintés",
+                    "name": "Csatorna neve",
+                    "description": "Csatorna leírása"
+                },
+                "permissions": {
+                    "title": "Engedélyek"
+                },
+                "webhooks": {
+                    "title": "Webhookok"
+                }
+            },
+            "tips": {
+                "languages": {
+                    "b": "Segíts nekünk fordítani!",
+                    "a": "Nincs itt az a nyelv, aminek itt kellene lennie?"
+                },
+                "sessions": {
+                    "b": "Változtass jelszót és használj kétlépéses hitelesítést!",
+                    "a": "Helyezd biztonságba a fiókod, ha nem a saját munkameneteidet látnád az aktív munkamenetek között."
+                },
+                "account": {
+                    "a": "Testre szeretnéd szabni a nyilvános profilod?",
+                    "b": "A profilod beállításai közt megteheted."
+                }
+            },
+            "actions": {
+                "remove": "Eltávolítás",
+                "upload": "Feltöltés",
+                "max_filesize": "(legfeljebb {{filesize}})",
+                "edit": "{{name}} szerkesztése"
+            },
+            "server_pages": {
+                "invites": {
+                    "title": "Meghívók",
+                    "invitor": "Meghívó",
+                    "revoke": "Érvénytelenítés",
+                    "code": "Meghívó kódja",
+                    "channel": "Csatorna"
+                },
+                "bans": {
+                    "title": "Kitiltottak",
+                    "no_reason": "Indok nélkül.",
+                    "user": "Felhasználó",
+                    "revoke": "Kitiltás visszavonása",
+                    "reason": "Kitiltás indoka"
+                },
+                "members": {
+                    "title": "Tagok"
+                },
+                "overview": {
+                    "title": "Áttekintés",
+                    "name": "Szervernév",
+                    "description": "Csatorna leírása",
+                    "system_messages": "Rendszerértesítések csatornái"
+                },
+                "roles": {
+                    "title": "Titulusok"
+                },
+                "categories": {
+                    "title": "Kategóriák"
+                },
+                "management": {
+                    "title": "Felhasználók kezelése"
+                },
+                "emojis": {
+                    "title": "Emodzsik",
+                    "upload": "Emodzsi feltöltése"
+                },
+                "customisation": {
+                    "title": "Testreszabás"
+                }
+            },
+            "permissions": {
+                "channel": "Csatornaszintű engedélyek",
+                "default_role": "Alapértelmezett",
+                "server": "Szerverszintű engedélyek",
+                "create_role": "Új titulus létrehozása",
+                "role_name": "Titulus címe",
+                "role_colour": "Titulus színe",
+                "delete_role": "Titulus törlése",
+                "title": "{{role}} engedélyei",
+                "hoist_desc": "A titulus megjelenítése a többi felett.",
+                "edit_title": "Engedélyek szerkesztése",
+                "role_ranking": "Titulusok rangsorolása",
+                "role_options": "Titulusok beállításai",
+                "hoist_role": "Titulus kiemelése"
+            }
+        },
+        "special": {
+            "requires_online": "Online kell lenned ahhoz, hogy a többit is lásd.",
+            "modals": {
+                "actions": {
+                    "reload": "App újratöltése",
+                    "cancel": "Mégsem",
+                    "continue": "Folytatás",
+                    "close": "Bezárás",
+                    "ok": "OK",
+                    "send_email": "E-mail küldése",
+                    "update": "Frissítés",
+                    "save": "Mentés",
+                    "preview": "Előnézet",
+                    "ban": "Kitiltás",
+                    "kick": "Kirúgás",
+                    "delete": "Törlés",
+                    "create": "Létrehozás",
+                    "block": "Kizárás",
+                    "leave": "Hely elhagyása",
+                    "remove": "Eltávolítás",
+                    "back": "Vissza",
+                    "reveal": "megmutat",
+                    "hide": "elrejt",
+                    "edit": "Szerkesztés",
+                    "done": "Rendben van!",
+                    "reset": "Visszaállítás",
+                    "confirm": "Jóváhagyás",
+                    "report": "Bejelentés",
+                    "dont_block": "Ne legyen kizárva"
+                },
+                "prompt": {
+                    "confirm_leave": "Végleg elhagyod ezt a helyet? „{{name}}”",
+                    "confirm_leave_long": "Nem fogsz tudni visszalépni, amíg újra meg nem hívnak.",
+                    "confirm_delete_message_long": "Tényleg törlöd?",
+                    "create_invite_created": "Ez a te meghívókódod:",
+                    "confirm_kick": "Tényleg ki akarod rúgni őt? „{{name}}”",
+                    "confirm_ban_reason": "Kitiltás indoka",
+                    "confirm_close_dm": "Befejezed a beszélgetést {{name}} taggal?",
+                    "confirm_close_dm_long": "Később újra megnyithatod, de mindkettőtöknek el fog veszni a beszélgetés.",
+                    "confirm_delete": "Törlöd? „{{name}}”",
+                    "confirm_delete_long": "Még nem késő visszavonni a visszahozhatatlant.",
+                    "confirm_ban": "Ezennel {{name}} ki lesz tiltva innen",
+                    "create_invite_generate": "Meghívó létrehozása…",
+                    "block_user": "Kizárod őt? „{{name}}”",
+                    "unfriend_user": "Te és {{name}} nem lesztek ismerősök",
+                    "unfriend_user_long": "Nem fogsz tudni többé kapcsolatba lépni vele, amíg újból ismerősnek nem jelölöd.",
+                    "block_user_long": "Tényleg ki szeretnéd zárni {{name}} tagot? Az ismerőseid közül is törölve lesz.",
+                    "members_not_notified": "A többi tag nem lesz értesítve",
+                    "silent_leave": "A hely feltűnés nélküli elhagyása"
+                },
+                "clipboard": {
+                    "https": "Pillanatnyilag nem HTTPS-kapcsolat áll fent.",
+                    "copy": "Kézzel való másolás:",
+                    "unavailable": "A vágólap nem használható."
+                },
+                "error": "Hiba történt.",
+                "onboarding": {
+                    "pick": "Olyan felhasználónevet válassz, ami alapján mások azonosítanak majd téged. Ezt a beállításokban később megváltoztathatod.",
+                    "welcome": "Üdvözöl a"
+                },
+                "signed_out": "Kijelentkeztettek.",
+                "account": {
+                    "failed": "Nem sikerült megváltoztatni.",
+                    "change": {
+                        "password": "Jelszó megváltoztatása",
+                        "email": "E-mail-cím megváltoztatása",
+                        "username": "Felhasználónév megváltoztatása"
+                    }
+                },
+                "external_links": {
+                    "title": "A kimenő linkek veszélyt rejthetnek!",
+                    "short": "Tényleg ide szeretnél menni?",
+                    "trust_domain": "Megbízom a webcímben"
+                },
+                "token_reveal": "{{name}} tokenje",
+                "sessions": {
+                    "title": "Tényleg törölni szeretnéd a munkameneteket?",
+                    "short": "Ez a művelet nem vonható vissza.",
+                    "accept": "Minden munkamenet törlése"
+                },
+                "confirm": "Művelet jóváhagyása",
+                "mfa": {
+                    "recovery_codes": "Helyreállító kódok",
+                    "save_codes": "Tárold biztonságos helyen ezeket a kódokat!",
+                    "confirm": "A választott móddal hagyd jóvá a választásod.",
+                    "select_method": "Válaszd ki a kérés hitelesítéséhez való módot.",
+                    "enable_totp": "Hitelesítő app engedélyezése",
+                    "prompt_totp": "Olvasd, vagy pedig írd be a lenti tokent a hitelesítő appodban.",
+                    "enter_code": "Add meg a kódot"
+                },
+                "out_of_date": {
+                    "title": "A kliensed elavult",
+                    "version": "A kliens, amit használsz {{client}} verziójú, de a szervernek {{server}} verzió szükséges.",
+                    "ignore": "Frissítés figyelmen kívül hagyása",
+                    "attempting": "Frissítés megkísérlése…",
+                    "description": "A változások miatt frissítened kell, különben azok nem fognak működni!"
+                },
+                "changelogs": {
+                    "title": "Változások",
+                    "description": "A Revolt újdonságai",
+                    "older": "A Revolt közelmúltbeli újdonságai"
+                },
+                "report": {
+                    "block_user": "Kizárod ezt a felhasználót?",
+                    "thank_you": "Köszönjük, amiért segíted megőrizni a Revolt biztonságát. Amint lehetséges, felülvizsgáljuk jelentésed.",
+                    "reason": "Indoklás",
+                    "message": "Üzenet jelentése",
+                    "by_name": "{{name}} jelentése",
+                    "additional_context": "Kiegészítő információ",
+                    "no_reason": "Indoklás nélkül / más okból",
+                    "content_reason": {
+                        "SpamAbuse": "Spam vagy egyéb visszaélés a platformmal",
+                        "PromotesHarm": "Önkárosításra vagy mások bántalmazására buzdító tartalom",
+                        "Illegal": "Törvénysértő tartalom",
+                        "Malware": "Rosszindulatú program",
+                        "Harassment": "Felhasználót zaklatnak vagy bántalmaznak"
+                    },
+                    "user_reason": {
+                        "SpamAbuse": "A felhasználó spamet küld vagy visszaél a platformmal",
+                        "BanEvasion": "A felhasználó megpróbálja kijátszani a kitiltást",
+                        "Underage": "A felhasználó még fiatalkorú ahhoz, hogy fiókkal rendelkezzen",
+                        "InappropriateProfile": "A felhasználó profilja nem helyénvaló a nagyközönség számára",
+                        "Impersonation": "A felhasználó valaki másnak adja ki magát"
+                    },
+                    "reported": "Jelentve"
+                },
+                "edit_keybind": {
+                    "title": "{{action}} gyorsbillentyűjének szerkesztése",
+                    "placeholder": "Add meg a gyorsbillentyű-kombinációdat"
+                }
+            },
+            "status": {
+                "disconnected": "Nincs kapcsolat.",
+                "reconnecting": "Újracsatlakozás…",
+                "connecting": "Csatlakozás…",
+                "offline": "Offline."
+            },
+            "friends": {
+                "outgoing": "Ismerősnek jelölted",
+                "incoming": "Ismerősnek jelölt meg",
+                "blocked": "Kizártak",
+                "pending": "Eldöntendő jelölések",
+                "nobody": "Még nincs egy ismerősöd sem.",
+                "sent": "Jelölések",
+                "from": {
+                    "single": "{{user}}",
+                    "multiple": "{{userlist}} és {{user}}",
+                    "several": "{{userlist}} és {{count}} többi személy küldte"
+                }
+            },
+            "popovers": {
+                "user_profile": {
+                    "no_groups": "nem vagytok közösen egy csoportban sem",
+                    "no_users": "nincsenek közös ismerőseitek",
+                    "mutual_groups": "Csoportjaink",
+                    "mutual_friends": "Ismerőseink",
+                    "profile": "Profil",
+                    "badges": {
+                        "early_adopter": "Pionír volt",
+                        "supporter": "Támogató",
+                        "translator": "Fordító",
+                        "responsible_disclosure": "Felelősségteljesen hozott nyilvánosságra biztonsági gondokat",
+                        "founder": "Alapító",
+                        "moderation": "Platformmoderáló"
+                    },
+                    "sub": {
+                        "information": "Tudnivalók",
+                        "connections": "Kapcsolatok",
+                        "badges": "Kitűzők"
+                    },
+                    "empty": "kicsit kong az ürességtől a tudnivalók rész",
+                    "mutual_servers": "Szervereink",
+                    "no_servers": "nem vagytok közösen egy szerveren sem"
+                },
+                "user_picker": {
+                    "select": "Válaszd ki az ismerőseidet"
+                },
+                "create_bot": {
+                    "title": "Új robi létrehozása",
+                    "failed": "Nem sikerült létrehozni a robit"
+                },
+                "server_identity": {
+                    "title": "Identitás megváltoztatása {{server}} szerveren",
+                    "nickname": "Becenév",
+                    "avatar": "Profilkép"
+                }
+            },
+            "copy_username": "Kattints a felhasználónév másolásához",
+            "copy": "Kattints a másoláshoz",
+            "invite": {
+                "user_count": "{{member_count}} tag",
+                "login": "Bejelentkezés a Revoltba",
+                "accept": "Meghívás elfogadása",
+                "invited_by": "{{user}} meghívott!",
+                "invalid": "Érvénytelen a meghívó!",
+                "invalid_desc": "Vagy nincs engedélyed csatlakozni, vagy pedig a meghívás már nem él."
+            },
+            "server-badges": {
+                "official": "Hivatalos szerver",
+                "verified": "Igazolt szerver"
+            }
+        },
+        "navigation": {
+            "tabs": {
+                "unreads": "Nem olvasottak",
+                "saved": "Mentett jegyzetek",
+                "friends": "Ismerősök",
+                "dev": "Fejlesztő",
+                "home": "Kezdőhely"
+            }
+        },
+        "context_menu": {
+            "cancel_friend": "Jelölés visszavonása",
+            "remove_friend": "Ismerettség törlése",
+            "add_friend": "Ismerősnek jelölés",
+            "unblock_user": "Felhasználó visszaengedése",
+            "block_user": "Felhasználó kizárása",
+            "remove_member": "Eltávolítás a csoportból",
+            "delete_message": "Üzenet törlése",
+            "edit_message": "Üzenet szerkesztése",
+            "mark_as_read": "Megjelölés olvasottként",
+            "message_user": "Üzenetírás",
+            "copy_mid": "Üzenet ID másolása",
+            "copy_cid": "Csatorna ID másolása",
+            "copy_uid": "Felhasználói ID másolása",
+            "copy_id": "ID másolása",
+            "save_video": "Videó mentése",
+            "open_video": "Videó megnyitása",
+            "save_image": "Kép mentése",
+            "open_image": "Kép megnyitása",
+            "save_file": "Fájl mentése",
+            "open_file": "Fájl megnyitása",
+            "quote_message": "Üzenet idézése",
+            "cancel_message": "Küldés visszavonása",
+            "retry_message": "Újraküldés",
+            "mention": "Megemlítés",
+            "copy_text": "Szöveg másolása",
+            "set_custom_status": "Mit csinálsz most?",
+            "custom_status": "Mást csinálok",
+            "copy_selection": "Szövegrész másolása",
+            "open_channel_settings": "Csatorna beállításai",
+            "open_group_settings": "Csoport beállításai",
+            "copy_link": "Link másolása",
+            "open_link": "Link megnyitása",
+            "clear_status": "Törlés",
+            "delete_server": "Szerver törlése",
+            "leave_group": "Csoport elhagyása",
+            "kick_member": "Tag kirúgása",
+            "ban_member": "Tag kitiltása",
+            "leave_server": "Szerver elhagyása",
+            "close_dm": "Beszélgetés befejezése",
+            "create_invite": "Meghívó létrehozása",
+            "copy_sid": "Szerver ID másolása",
+            "view_profile": "Profil megtekintése",
+            "delete_channel": "Csatorna törlése",
+            "create_channel": "Csatorna létrehozása",
+            "open_server_settings": "Szerver beállításai",
+            "reply_message": "Válaszolás",
+            "open_notification_options": "Értesítési lehetőségek",
+            "create_category": "Kategória létrehozása",
+            "copy_message_link": "Üzenet linkjének másolása",
+            "edit_identity": "Identitás szerkesztése",
+            "mark_unread": "Megjelölés nem olvasottként",
+            "make_owner": "Csoport tulajdonjogának átruházása",
+            "report_message": "Üzenet jelentése",
+            "report_user": "Felhasználó jelentése",
+            "report_server": "Szerver jelentése"
+        },
+        "status": {
+            "offline": "Offline",
+            "invisible": "Láthatatlan",
+            "busy": "Ne zavard",
+            "idle": "Nem csinál semmit",
+            "online": "Online",
+            "reconnect": "Újracsatlakozás",
+            "focus": "Koncentál"
+        },
+        "permissions": {
+            "required": "Engedélyköteles"
+        },
+        "home": {
+            "join-testers": "Csatlakozz a teszterek szerveréhez",
+            "settings-tooltip": "A bal felső sarokban kattints jobb egérgombbal a profilképedre, vagy ballal ide.",
+            "goto-testers": "Irány a teszterek szervere",
+            "donate": "Adományozz a Revoltnak",
+            "feedback": "Jelezz vissza nekünk",
+            "settings": "Beállítások megnyitása",
+            "social": "Szerverek és ’botok",
+            "directs": "Közvetlen üzenetek",
+            "join-testers_desc": "Közvetlenül itt jelezhetsz az issue-król és vitathatod meg velünk a továbbfejlesztéseket.",
+            "donate_desc": "Adományozz a projektnek – ezzel is támogatod. Köszönjük!",
+            "feedback_desc": "Írd meg miként fejleszthetnénk tovább a Revoltot.",
+            "discover": "Fedezd fel a Revoltot",
+            "discover_desc": "Találj rá a hobbiddal, érdeklődéseiddel egyező közösségekre.",
+            "group": "Hozd létre a csoportodat",
+            "goto-testers_desc": "Közvetlenül itt jelezhetsz az issue-król és vitathatod meg velünk a továbbfejlesztéseket.",
+            "group_desc": "Hívd meg minden ismerősödet (plusz menő robikat) és kezdődhet a buli!"
+        }
+    },
+    "dayjs": {
+        "nextWeek": "dddd {{time}}[-kor]",
+        "lastWeek": "[múlt] dddd {{time}}",
+        "nextDay": "[holnap] {{time}}",
+        "sameDay": "[ma] {{time}}",
+        "lastDay": "[tegnap] {{time}}",
+        "sameElse": "L",
+        "defaults": {
+            "date_format": "ISO8601",
+            "twelvehour": "no",
+            "date_separator": "."
+        }
+    },
+    "quantities": {
+        "members": {
+            "many": "{{count}} tag",
+            "one": "1 tag"
+        },
+        "dropFiles": {
+            "one": "Fájl bedobása",
+            "many": "{{count}} fájl bedobása"
+        }
+    },
+    "notifications": {
+        "now_friends": "Te és @{{person}} ismerősök lettetek.",
+        "sent_request": "@{{person}} ismerősöd szeretne lenni."
+    },
+    "error": {
+        "AlreadyOnboarded": "Már végeztél az előkészületekkel.",
+        "InvalidSession": "A munkamenet nem érvényes.",
+        "FailedValidation": "Nem sikerült ellenőrizni a mezők érvényességét.",
+        "Unavailable": "Nem lehetséges.",
+        "InvalidEmail": "Az e-mail-cím nem érvényes",
+        "TooLong": "Túl hosszú",
+        "TooShort": "Túl rövid",
+        "RequiredField": "Meg kell adnod",
+        "NoEffect": "Ennek a kérelemnek nem volt hatása.",
+        "BlockedOther": "Ez a felhasználó kizárt téged.",
+        "Blocked": "Már kizártad ezt a felhasználót.",
+        "AlreadySentRequest": "Már küldtél kérelmet ennek a felhasználónak.",
+        "AlreadyFriends": "Már ismerősöd ez a felhasználó.",
+        "UsernameTaken": "Ez a felhasználónév már foglalt.",
+        "WrongPassword": "Helytelen jelszó.",
+        "EmailInUse": "Ezt az e-mail-címet már használják.",
+        "UnknownUser": "Ismeretlen felhasználó.",
+        "UnverifiedAccount": "Nem igazolt fiók.",
+        "MissingHeaders": "Hiányoznak a header-ök.",
+        "OperationFailed": "A művelet nem sikerült.",
+        "UnknownError": "Lásd a konzolt.",
+        "InternalError": "Belső hiba.",
+        "DatabaseError": "Adatbázishiba.",
+        "Unlabelled": "Valami történt.",
+        "MissingPermission": "Hiányzik az engedély.",
+        "Unauthorized": "Nem engedélyezett.",
+        "NetworkError": "Hálózati hiba.",
+        "RenderFail": "A sablon megjelenítése nem sikerült.",
+        "EmailFailed": "Nem sikerült elküldeni az e-mailt.",
+        "InvalidCredentials": "Vagy az e-mail, vagy pedig a jelszó nem megfelelő.",
+        "FileTooLarge": "A fájl túl nagy.",
+        "FailedToReceive": "A szervernek nem sikerült megkapnia a fájlodat.",
+        "DeniedNotification": "Megtagadtad az értesítésekhez való hozzáférést. Ellenőrizd az oldal beállításait.",
+        "MissingInvite": "Hiányzik a meghívó kódja a kérésben.",
+        "ProbeError": "Nem sikerült megszerezni a fájl metaadatait.",
+        "IoError": "A szervernek I/O-hibája lett.",
+        "UnsupportedBrowser": "A böngésződ nem támogatja ezt a funkciót.",
+        "CompromisedPassword": "Ezt a jelszót már sokan ismerik – ne használd!",
+        "InvalidInvite": "Érvénytelen kód",
+        "InvalidToken": "Érvénytelen token",
+        "MissingData": "A kérésből adat hiányzik.",
+        "ReachedMaximumBots": "Elérted a maximálisan használható robik számát.",
+        "AudioPermissionBlock": "Nem lehetett hozzáférni mikrofonhoz. Ellenőrizd a böngésződ beállítását.",
+        "DiscriminatorChangeRatelimited": "Túl sokszor változtattál címkét."
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "permissions": {
+        "BanMembers": {
+            "d": "A tagok örökre el tudnak távolítani más tagokat a szerverről.",
+            "t": "Kitilthatnak tagokat"
+        },
+        "ChangeNickname": {
+            "d": "A tagok megváltoztathatják becenevüket a szerveren.",
+            "t": "Becenevet válthatnak"
+        },
+        "ManageChannels": {
+            "d": "A tagok létrehozhatnak, szerkeszthetnek és törölhetnek csatornákat.",
+            "t": "Kezelhetnek csatornákat"
+        },
+        "KickMembers": {
+            "t": "Kirúghatnak tagokat",
+            "d": "A tagok más tagokat is eltávolíthatnak a szerverről. A kirúgott tagok meghívóval újból csatlakozhatnak."
+        },
+        "ChangeAvatar": {
+            "d": "A tagok megváltoztathatják profilképüket a szerveren.",
+            "t": "Profilképet válthatnak"
+        },
+        "RemoveAvatars": {
+            "t": "Profilképeket távolíthatnak el",
+            "d": "A tagok eltávolíthatják a többi tag szerveren lévő profilképeit."
+        },
+        "ManageServer": {
+            "d": "A tagok megváltoztathatják a szerver nevét, leírását, ikonját és az egyéb, ilyen információkat.",
+            "t": "Kezelhetik a szervert"
+        },
+        "ManageNicknames": {
+            "d": "A tagok megváltoztathatják a többi tag becenevét a szerveren.",
+            "t": "Kezelhetik más becenevét"
+        },
+        "UploadFiles": {
+            "t": "Feltölthetnek fájlokat",
+            "d": "A tagok fájlokat tölthetnek fel szöveges csatornákon."
+        },
+        "VoiceCall": {
+            "d": "A tagok beszédcsatornákhoz csatlakozhatnak.",
+            "t": "Beszédhívást kezdeményezhetnek"
+        },
+        "InviteOthers": {
+            "t": "Meghívhatnak másokat",
+            "d": "A tagok másokat is meghívhatnak egy csatornába."
+        },
+        "ManageChannel": {
+            "t": "Kezelhetnek csatornákat",
+            "d": "A tagok módosíthatnak és törölhetnek csatornákat."
+        },
+        "SendMessage": {
+            "d": "A tagok üzenetet küldhetnek a szöveges csatornákon.",
+            "t": "Küldhetnek üzenetet"
+        },
+        "ManageMessages": {
+            "d": "A tagok a többi tag elküldött üzeneteit törölhetik.",
+            "t": "Kezelhetnek üzeneteket"
+        },
+        "EmbedLinks": {
+            "t": "Linkeket ágyazhatnak be",
+            "d": "A tagok a linkekkel beágyazott tartalmakat jeleníthetnek meg szöveges csatornákon."
+        },
+        "Masquerade": {
+            "t": "Elmaszkírozhatják magukat",
+            "d": "A tagok üzenetküldésenként változtathatják meg profilképüket és becenevüket."
+        },
+        "ManageRole": {
+            "t": "Kezelhetnek titulusokat",
+            "d": "A tagok alacsonyabb ranggal is létrehozhatnak, módosíthatnak és törölhetnek titulusokat, módosíthatják a csatornaszintű engedélyeket."
+        },
+        "ViewChannel": {
+            "t": "Láthatják a csatornákat",
+            "d": "A tagok számára minden csatorna látható lesz."
+        },
+        "ManagePermissions": {
+            "d": "A tagok alacsonyabb ranggal is szerkeszthetik a csatornák és titulusok engedélyeit.",
+            "t": "Engedélyek kezelése"
+        },
+        "Connect": {
+            "t": "Hangcsatornához csatlakozhatnak",
+            "d": "A tagok hangcsatornához csatlakozhatnak."
+        },
+        "MuteMembers": {
+            "d": "A tagok másokat is némíthatnak a hangcsatornában.",
+            "t": "Tagok némítása"
+        },
+        "Speak": {
+            "t": "Beszéd",
+            "d": "A tagok beszélhetnek hangcsatornában."
+        },
+        "Video": {
+            "t": "Videó",
+            "d": "A tagok videót streamelhetnek a hangcsatornában."
+        },
+        "DeafenMembers": {
+            "t": "Tagok süketítése",
+            "d": "A tagok másokat is süketíthetnek a hangcsatornában."
+        },
+        "MoveMembers": {
+            "t": "Tagok áthelyezése",
+            "d": "A tagok másokat is áthelyezhetnek a hangcsatornák között."
+        },
+        "TimeoutMembers": {
+            "d": "A tagok ideiglenesen eltilthatnak más tagokat a szerver használatától.",
+            "t": "Tageltiltás"
+        },
+        "AssignRoles": {
+            "d": "A tagok alacsonyabb ranggal is hozzárendelhetnek titulusokat a többi taghoz.",
+            "t": "Titulusok hozzárendelése"
+        },
+        "ManageWebhooks": {
+            "t": "Kezelhetnek Webhookokat",
+            "d": "A tagok kezelhetik a csatorna webhookjait."
+        },
+        "ReadMessageHistory": {
+            "t": "Korábbi üzenetek olvasása",
+            "d": "A tagok elolvashatják a csatorna korábbi üzeneteit."
+        },
+        "SendEmbeds": {
+            "t": "Beágyazott tartalmak küldése",
+            "d": "A tagok linkekkel vagy egyéni, szöveges beágyazással küldhetnek beágyazott tartalmakat."
+        },
+        "ManageCustomisation": {
+            "d": "A tagok emodzsikat hozhatnak létre, szerkeszthetik és törölhetik azokat.",
+            "t": "Testreszabás kezelése"
+        },
+        "React": {
+            "t": "Üzenetekre reagálhatnak",
+            "d": "A tagok reagálhatnak az üzenetekre."
+        }
+    },
+    "actions": {
+        "submit": "Küldés"
+    },
+    "keys": {
+        "Escape": {
+            "short": "Esc"
+        },
+        "Control": {
+            "short": "Ctrl"
+        },
+        "Insert": {
+            "short": "Ins"
+        },
+        "Delete": {
+            "short": "Del"
+        },
+        "Backspace": {
+            "short": "Backspace"
+        },
+        "PageUp": {
+            "full": "Page Up",
+            "short": "PgUp"
+        },
+        "PageDown": {
+            "full": "Page Down",
+            "short": "PgDown"
+        },
+        "PrintScreen": {
+            "full": "Print Screen",
+            "short": "PrtSc"
+        },
+        "ScrollLock": {
+            "full": "Scroll Lock",
+            "short": "ScrLK"
+        },
+        "CapsLock": {
+            "full": "Caps Lock"
+        }
+    }
+}

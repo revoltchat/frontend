@@ -1,0 +1,309 @@
+{
+    "general": {
+        "about": "Über",
+        "image_by": "Bild vo",
+        "loading": "Lade…",
+        "on": "A",
+        "off": "Us",
+        "disabled": "Deaktiviert",
+        "unavailable": "Ned verfüegbar",
+        "tos": "Nutzungsbedingunge",
+        "privacy": "Dateschutzrichtlinie",
+        "learn_more": "Meh Erfahre"
+    },
+    "login": {
+        "title": "Aamäude",
+        "subtitle": "Bi Revolt aamäude",
+        "welcome2": "Hoi!",
+        "subtitle2": "Account erstelle",
+        "register": "Registriere",
+        "username": "Benutzername",
+        "email": "E-Mail Adrässe",
+        "password": "Passwort",
+        "current_password": "Aktuelles Passwort",
+        "enter": {
+            "username": "Gib dine Benutzername ii.",
+            "email": "Bitte gib dini E-Mail Adrässe ii.",
+            "password": "Tipp dis Passwort ii.",
+            "invite": "Gib dis Iiladigscode ii.",
+            "current_password": "Gib dis aktuelles Passwort ii.",
+            "new_password": "Gib es nöies Passwort ii."
+        },
+        "forgot": "Passwort vergässe?",
+        "reset": "Passwort zruggsetze",
+        "set_password": "Nöies Passwort sätze",
+        "remembered": "Gaa zrugg zum Amäude",
+        "new": "Nöi zu Revolt?",
+        "existing": "Häsch scho es Account?",
+        "create": "Erställ e nöie Account",
+        "missing_verification": "Häsch chä E-Mail becho?",
+        "resend": "Verifikation nöi sände",
+        "cancel": "Afrag abbräche",
+        "check_mail": "Überprüef dini E-Mail!",
+        "email_delay": "Bitte wart bis zu 10 minute dass es achummt.",
+        "check_spam": "Bitte überprüefe spam wenn du's nöd finde chasch",
+        "open_mail_provider": "Öffne {{provider}}",
+        "successful_registration": "Erfolgriich regischtriert!",
+        "error": {
+            "create": "Regischtrierig fehlgschlagä!",
+            "login": "Aamäuldig fehlgschlagä!",
+            "resend": "Nöiversände fehlgschlagä!",
+            "reset": "Zruggsätze fehlgschlagä!",
+            "verify": "Verifikation fählgschlage!"
+        },
+        "welcome": "Wöuchomä!",
+        "invite": "Iiladigscode",
+        "recovery": "Wiederherstelligscode",
+        "totp": "Authentifizierigs-App",
+        "new_password": "Nöie Passwort",
+        "log_out_other": "Vo aui anderi Sitzige abmälde",
+        "unofficial_instance": "Drittanbieter-Instanz.",
+        "verifying_account": "Account wird verifiziert…",
+        "verified_account": "Di Account isch verifiziert worde!"
+    },
+    "app": {
+        "status": {
+            "online": "Online",
+            "idle": "Abwäsend",
+            "busy": "Ned störe",
+            "invisible": "Unsichtbar",
+            "offline": "Unaktiv",
+            "reconnect": "Wieder verbindä",
+            "focus": "Fokus"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Home",
+                "dev": "Entwickler",
+                "friends": "Früünde",
+                "unreads": "Ungläse",
+                "saved": "Gschpiichereti Notize"
+            }
+        },
+        "home": {
+            "directs": "Direktnachrichte",
+            "join-testers": "Tritt de Servers vo Testers bi",
+            "goto-testers": "Ga zom Server vom Testern",
+            "donate": "Mach e Spende zu Revolt",
+            "donate_desc": "Unterstütz de Projekt mit e Spende - danke!",
+            "feedback": "Gib rückmäldig uf Revolt",
+            "join-testers_desc": "Hier chasch direkt Probleme mälde ond Verbesserige mit ons bespräche.",
+            "settings": "Öffne Istellige",
+            "discover": "Revolt entdäcke",
+            "group": "Erstell e gruppe",
+            "goto-testers_desc": "Hier chasch direkt Probleme mälde ond Verbesserige mit ons bespräche.",
+            "feedback_desc": "La üs wösse, wie mer üseri App verbessere cha, indäm du üs Feedback gibsch.",
+            "settings-tooltip": "Du chasch au mit de rechte Muustaschte uf das Benutzersymbol obe links klicke oder mit de linke Muustaschte druf klicke, wenn du scho bi Home bisch.",
+            "discover_desc": "Find e Community basiert uf dini Hobbies oder interesse.",
+            "group_desc": "Lad all dini Fründe i, e paar cooli Bots ond mach e grossi Party."
+        },
+        "main": {
+            "categories": {
+                "conversations": "Konversatione",
+                "participants": "Mitglieder",
+                "channels": "Kanäle",
+                "members": "Mitglieder"
+            },
+            "channel": {
+                "message_who": "Schick Nachricht a {{person}}",
+                "message_saved": "Spiichere zu dini Notize",
+                "uploading_file": "Uelade…",
+                "message_where": "Nachricht a {{channel_name}}",
+                "misc": {
+                    "spoiler_attachment": "Spoiler",
+                    "no_sending": "Du bisch nöd berechtigt, Nachrichte z versände in disem Kanal.",
+                    "viewing_old": "Zeigt altere Nachrichte a",
+                    "jump_present": "Zu itzige springe",
+                    "jump_beginning": "Zum afang springe",
+                    "new_messages": "Nöi Nachrichte sit {{time_ago}}",
+                    "failed_load": "Nachrichte lade fehlgschlagä.",
+                    "blocked_messages": "{{count}} blockierte Nachrichte",
+                    "blocked_user": "Blockierte Benutzer",
+                    "sent_file": "Ahang gsändet",
+                    "sent_multiple_files": "Mehrer Ahäng gsändet",
+                    "not_loaded": "Nachrichtä nid glade, klick zum springe",
+                    "timed_out": "Du häsch e Timeout für {{time}}.",
+                    "load_file": "Lade Datei"
+                },
+                "notifications": {
+                    "muted": "Stummgschalte",
+                    "default": "Standard benutze",
+                    "all": "Alli Nachrichte",
+                    "mention": "Nur Erwähnige",
+                    "none": "Cheni"
+                },
+                "search": {
+                    "sort": {
+                        "relevance": "Relevanz",
+                        "latest": "Nöiste",
+                        "oldest": "Alteste"
+                    },
+                    "title": "Sueche"
+                },
+                "failed_upload": "sUelade fehlgschlagä!",
+                "attached_file": "{{filename}} Aaghange",
+                "typing": {
+                    "single": "{{user}} schriibt…",
+                    "multiple": "{{userlist}} ond {{user}} schriibe…",
+                    "several": "Mehreri Lüüt schriibe…"
+                },
+                "system": {
+                    "user_joined": "{{user}} isch bigtrete",
+                    "user_left": "{{user}} het verlaa",
+                    "user_kicked": "{{user}} isch usegworfe worde",
+                    "user_banned": "{{user}} isch gsperrt worde",
+                    "added_by": "{{user}} isch vo {{other_user}} hizuegfüegt worde",
+                    "removed_by": "{{user}} isch vo {{other_user}} usegworfe worde",
+                    "channel_renamed": "{{user}} het de Kanal zu {{name}} umbenannt",
+                    "channel_description_changed": "{{user}} het de Kanalbeschribig gändert",
+                    "channel_icon_changed": "{{user}} het de Kanal-Icon gändert",
+                    "channel_ownership_changed": "{{from}} hät {{to}} gruppe besitzerrächte gä",
+                    "registered_at": "Registriert am {{time}}"
+                },
+                "start": {
+                    "group": "Das isch de Start vo de Konversation.",
+                    "saved": "Das isch de Start vo dini Notize."
+                },
+                "voice": {
+                    "connected": "Sprachchat verbunde",
+                    "leave": "Verlaa",
+                    "mute": "Stummschalte",
+                    "unmute": "Stummschaltig ufhäbe"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Diese Kanal isch als NSFW markiert worde.",
+                        "confirm": "Im Kanal inegaa"
+                    },
+                    "confirm": "Ich bestätige dass ich zumindenscht 18 jahr alt bi."
+                },
+                "unknown_user": "<Unbekannte Benutzer>",
+                "edited": "(editiert)",
+                "bot": "Bot",
+                "errors": {
+                    "title": "Ups, hier isch nüt!",
+                    "nochannels": "De Server het cheni Kanäle, oder du häsch che Zuegriff zu dene.",
+                    "nochannel": "Ches Kanal"
+                },
+                "reply": {
+                    "replying": "Antwortet zue",
+                    "toggle": "Autor erwähne"
+                },
+                "user_timed_out": "User hät e Timeout für {{time}}.",
+                "new_to_revolt": "Neu bi Revolt",
+                "reactions": {
+                    "unknown_reacted": "{{count}} persone hei reagiert",
+                    "single_reacted": "1 person hät reagiert",
+                    "people_reacted": "{{people}} hei reagiert",
+                    "others_reacted": "{{userlist}} u {{count}} angeri hei reagiert"
+                },
+                "new_to_server": "Neu ufm Server",
+                "team": "Offizielli Kommunikation",
+                "bridged": "Nachricht isch uf ere angeri plattform gsendet worde"
+            },
+            "groups": {
+                "create": "Erstell e Gruppe",
+                "name": "Gruppename",
+                "description": "Gruppebeschriibig",
+                "owner": "Gruppebesitzer"
+            },
+            "servers": {
+                "create": "E Server erstelle",
+                "name": "Servername",
+                "description": "Serverbeschriibig",
+                "channel_name": "Kanalname",
+                "channel_type": "Kanaltyp",
+                "channel_description": "Kanalbeschriibig",
+                "custom_banner": "Benutzerdefiniertes Banner",
+                "owner": "Serverbesitzer",
+                "text_channel": "Textkanal",
+                "voice_channel": "Sprochkanal",
+                "category_name": "Kategoriename"
+            }
+        },
+        "settings": {
+            "title": "Istellige",
+            "categories": {
+                "user_settings": "Benutzer-istellige",
+                "client_settings": "Clientistellige",
+                "danger_zone": "Gefahräzone"
+            },
+            "pages": {
+                "account": {
+                    "2fa": {
+                        "two_factor_off": "Du muesch Zwei-Faktor-Authentifizierig aktiviere!",
+                        "view_recovery": "Wiederherstelligs Codes aluege",
+                        "view_recovery_long": "2FA Wiederherstelligs Codes aluege und abelade.",
+                        "remove_auth": "Authenticator entferne",
+                        "add_auth": "Authenticator hizuefüege",
+                        "description": "Mehr sicherheit uf dim Account wenn du 2FA aktiviersch.",
+                        "title": "Zwei-Factor-Authentifizierig",
+                        "generate_recovery": "Wiederherstelligcodes erstelle",
+                        "generate_recovery_long": "Mach dich bereit 2FA zu benutze, in dem du e Wiederherstelligs Methode erstellsch.",
+                        "two_factor_on": "Zwei-Factor-Authentifizierig isch zurzit aktiviert."
+                    },
+                    "change_field": "Ändere",
+                    "manage": {
+                        "title": "Account Management"
+                    },
+                    "title": "Mi Account",
+                    "unique_id": "Das isch e einzigartige User identifikation für di account."
+                }
+            },
+            "actions": {
+                "edit": "Bearbeite {{name}}",
+                "remove": "Entfernä",
+                "upload": "Ufeladä",
+                "max_filesize": "(max {{filesize}})"
+            }
+        },
+        "permissions": {
+            "required": "Berechtigungen erforderlich"
+        }
+    },
+    "dayjs": {
+        "lastDay": "[Gestern um] {{time}}",
+        "sameDay": "[Heute um] {{time}}",
+        "nextDay": "[Morgen um] {{time}}",
+        "lastWeek": "[Letzter] dddd [um] {{time}}",
+        "nextWeek": "dddd [um] {{time}}",
+        "defaults": {
+            "date_separator": "."
+        }
+    },
+    "error": {
+        "UnknownError": "Siehe Konsole.",
+        "InternalError": "Interner Fehler.",
+        "MissingPermission": "Fehlende Erlaubnis.",
+        "AlreadyFriends": "Bereits mit diesem Benutzer befreundet.",
+        "OperationFailed": "Operation fehlgeschlagen.",
+        "InvalidInvite": "Ungültiger Code",
+        "InvalidCredentials": "Email oder Passwort ist falsch.",
+        "MissingInvite": "Fehlender Einladungscode in Anfrage.",
+        "UsernameTaken": "Benutzername ist vergeben.",
+        "Unauthorized": "Unbefugt.",
+        "Unlabelled": "Etwas passiert.",
+        "Blocked": "Sie haben diesen Benutzer blockiert.",
+        "NetworkError": "Netzwerkfehler.",
+        "DatabaseError": "Datenbankfehler.",
+        "InvalidToken": "Ungültiges Token",
+        "RenderFail": "Rendern der Vorlage fehlgeschlagen.",
+        "InvalidSession": "Ungültige Sitzung.",
+        "UnverifiedAccount": "Unbestätigtes Konto.",
+        "UnknownUser": "Unbekannter Benutzer.",
+        "CompromisedPassword": "Dieses Passwort ist kompromittiert."
+    },
+    "quantities": {
+        "members": {
+            "one": "1 Mitglied",
+            "many": "{{count}} Mitglieder"
+        }
+    },
+    "notifications": {
+        "now_friends": "Du bist jetzt mit @{{person}} befreundet!",
+        "sent_request": "@{{person}} hat dir eine Freundschaftsanfrage gesendet."
+    },
+    "actions": {
+        "submit": "Iigäh"
+    }
+}

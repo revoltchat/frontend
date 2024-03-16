@@ -1,0 +1,1073 @@
+{
+    "general": {
+        "about": "Apie",
+        "tos": "Naudojimo sąlygos",
+        "privacy": "Privatumo politika",
+        "image_by": "Paveikslėlio autorius",
+        "loading": "Įkeliama…",
+        "on": "Įjungta",
+        "off": "Išjungta",
+        "disabled": "Išjungta",
+        "unavailable": "Neprieinama",
+        "learn_more": "Sužinokite daugiau"
+    },
+    "login": {
+        "title": "Prisijungti",
+        "email": "El. paštas",
+        "password": "Slaptažodis",
+        "enter": {
+            "email": "Įveskite el. pašto adresą.",
+            "password": "Įveskite slaptažodį.",
+            "username": "Įveskite naudotojo vardą.",
+            "current_password": "Įveskite dabartinį slaptažodį.",
+            "invite": "Įveskite kvietimo kodą.",
+            "new_password": "Įveskite naują slaptažodį."
+        },
+        "forgot": "Pamiršote slaptažodį?",
+        "new": "Neturite Revolt paskyros?",
+        "create": "Kurti naują paskyrą",
+        "register": "Registruotis",
+        "remembered": "Grįžti prie prisijungimo",
+        "existing": "Jau turite paskyrą?",
+        "cancel": "Atšaukti užklausą",
+        "username": "Naudotojo vardas",
+        "reset": "Atkurti slaptažodį",
+        "error": {
+            "resend": "Nepavyko išsiųsti iš naujo!",
+            "login": "Nepavyko prisijungti!",
+            "create": "Nepavyko užsiregistruoti!",
+            "reset": "Nepavyko atkurti!",
+            "verify": "Nepavyko patvirtinti!"
+        },
+        "successful_registration": "Sėkmingai užsiregistravote!",
+        "check_spam": "Jei nerandate laiško, patikrinkite šlamšto aplanką",
+        "check_mail": "Patikrinkite savo el. paštą!",
+        "resend": "Iš naujo siųsti patvirtinimą",
+        "missing_verification": "Negavote el. laiško?",
+        "set_password": "Nustatyti naują slaptažodį",
+        "current_password": "Dabartinis slaptažodis",
+        "invite": "Kvietimo kodas",
+        "open_mail_provider": "Atidaryti {{provider}}",
+        "email_delay": "Mes išsiuntėme patvirtinimo el. laišką. Gali užtrukti iki 10 minučių, kol jį gausite.",
+        "welcome2": "Sveiki!",
+        "subtitle2": "Kurti paskyrą",
+        "subtitle": "Prisijungti prie Revolt",
+        "welcome": "Sveiki!",
+        "unofficial_instance": "Trečiųjų šalių objektas.",
+        "recovery": "Atkūrimo kodas",
+        "totp": "Autentifikavimo programėlė",
+        "verified_account": "Jūsų paskyra patvirtinta!",
+        "verified_continue": "Eiti į prisijungimą",
+        "verifying_account": "Patvirtinama jūsų paskyra…",
+        "new_password": "Naujas slaptažodis",
+        "log_out_other": "Atsijungti nuo visų kitų sesijų"
+    },
+    "app": {
+        "main": {
+            "channel": {
+                "message": "Siųsti žinutę {{name}}",
+                "bot": "Botas",
+                "edited": "(redaguota)",
+                "unknown_user": "<Nežinomas naudotojas>",
+                "start": {
+                    "group": "Tai yra jūsų pokalbio pradžia.",
+                    "saved": "Tai yra jūsų užrašų pradžia."
+                },
+                "system": {
+                    "channel_renamed": "{{user}} pervardijo kanalą į {{name}}",
+                    "removed_by": "{{other_user}} pašalino {{user}}",
+                    "added_by": "{{other_user}} pridėjo {{user}}",
+                    "user_left": "{{user}} išėjo",
+                    "user_joined": "{{user}} prisijungė",
+                    "channel_description_changed": "{{user}} pakeitė kanalo aprašymą",
+                    "channel_icon_changed": "{{user}} pakeitė kanalo piktogramą",
+                    "user_banned": "{{user}} buvo užblokuotas",
+                    "user_kicked": "{{user}} buvo išmestas",
+                    "channel_ownership_changed": "{{from}} suteikė grupės nuosavybę {{to}}",
+                    "registered_at": "Užsiregistravo {{time}}"
+                },
+                "typing": {
+                    "several": "Rašo keli žmonės…",
+                    "multiple": "{{userlist}} ir {{user}} rašo…",
+                    "single": "{{user}} rašo…"
+                },
+                "attached_file": "Prisegta {{filename}}",
+                "failed_upload": "Nepavyko įkelti!",
+                "uploading_file": "Įkeliama…",
+                "message_saved": "Išsaugoti į savo užrašus",
+                "message_who": "Rašyti @{{person}}",
+                "message_where": "Rašyti {{channel_name}}",
+                "misc": {
+                    "spoiler_attachment": "Atskleidžiamas turinys",
+                    "jump_present": "Eiti į dabartį",
+                    "viewing_old": "Rodomos senesnės žinutės",
+                    "no_sending": "Neturite leidimo siųsti žinučių šiame kanale.",
+                    "failed_load": "Nepavyko įkelti žinutės.",
+                    "blocked_messages": "Užblokuota žinučių: {{count}}",
+                    "blocked_user": "Užblokuotas naudotojas",
+                    "sent_file": "Išsiųstas priedas",
+                    "sent_multiple_files": "Išsiųsti keli priedai",
+                    "jump_beginning": "Eiti į pradžią",
+                    "new_messages": "Naujos žinutės {{time_ago}}",
+                    "load_file": "Įkelti failą",
+                    "timed_out": "Esate sulaikyti {{time}}.",
+                    "not_loaded": "Žinutė neįkelta, spustelėkite, kad pereitumėte"
+                },
+                "voice": {
+                    "unmute": "Atšaukti nutildymą",
+                    "mute": "Nutildyti",
+                    "leave": "Išeiti",
+                    "connected": "Balsas prijungtas"
+                },
+                "notifications": {
+                    "all": "Visos žinutės",
+                    "default": "Naudoti numatytuosius nustatymus",
+                    "mention": "Tik paminėjimai",
+                    "none": "Jokių",
+                    "muted": "Nutildytas"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Šis kanalas pažymėtas kaip NSFW.",
+                        "confirm": "Eiti į kanalą"
+                    },
+                    "confirm": "Patvirtinu, kad man daugiau nei 18 metų."
+                },
+                "search": {
+                    "title": "Paieška",
+                    "sort": {
+                        "relevance": "Aktualūs",
+                        "latest": "Naujausi",
+                        "oldest": "Seniausi"
+                    }
+                },
+                "errors": {
+                    "title": "Oi, čia nieko nėra!",
+                    "nochannels": "Šis serveris neturi kanalų arba neturite prieigos prie jų.",
+                    "nochannel": "Nėra kanalo"
+                },
+                "reply": {
+                    "replying": "Atsakoma",
+                    "toggle": "Perjungti autoriaus paminėjimą"
+                },
+                "bridge": "tiltas",
+                "user_timed_out": "Naudotojas sulaikytas {{time}}.",
+                "bridged": "Žinutė buvo išsiųsta kitoje platformoje",
+                "team": "Oficialus pranešimas",
+                "new_to_revolt": "Revolt naujokas",
+                "new_to_server": "Serverio naujokas",
+                "reactions": {
+                    "others_reacted": "{{userlist}} ir dar {{count}} sureagavo",
+                    "unknown_reacted": "{{count}} žmonės sureagavo",
+                    "single_reacted": "1 žmogus sureagavo",
+                    "people_reacted": "{{people}} sureagavo"
+                }
+            },
+            "categories": {
+                "members": "Nariai",
+                "channels": "Kanalai",
+                "conversations": "Pokalbiai",
+                "participants": "Dalyviai"
+            },
+            "groups": {
+                "owner": "Grupės savininkas",
+                "name": "Grupės pavadinimas",
+                "create": "Kurti grupę",
+                "description": "Grupės aprašymas"
+            },
+            "servers": {
+                "create": "Kurti serverį",
+                "channel_name": "Kanalo pavadinimas",
+                "name": "Serverio pavadinimas",
+                "owner": "Serverio savininkas",
+                "channel_type": "Kanalo rūšis",
+                "text_channel": "Teksto kanalas",
+                "voice_channel": "Balso kanalas",
+                "channel_description": "Kanalo aprašymas",
+                "custom_banner": "Tinkinta vėliava",
+                "description": "Serverio aprašymas",
+                "category_name": "Kategorijos pavadinimas"
+            }
+        },
+        "navigation": {
+            "tabs": {
+                "unreads": "Neskaityti",
+                "friends": "Draugai",
+                "home": "Pagrindinis",
+                "dev": "Kūrėjas",
+                "saved": "Išsaugoti užrašai"
+            }
+        },
+        "status": {
+            "offline": "Atsijungęs",
+            "invisible": "Nematomumas",
+            "busy": "Netrukdyti",
+            "idle": "Pasitraukęs",
+            "online": "Prisijungęs",
+            "reconnect": "Jungtis iš naujo",
+            "focus": "Susikaupęs"
+        },
+        "special": {
+            "friends": {
+                "pending": "Laukiančios užklausos",
+                "blocked": "Užblokuotas",
+                "incoming": "Gavote užklausą draugauti.",
+                "outgoing": "Išsiunčiamasis prašymas draugauti.",
+                "nobody": "Kol kas nieko nėra!",
+                "sent": "Išsiunčiamasis",
+                "from": {
+                    "single": "Nuo {{user}}",
+                    "multiple": "Nuo {{userlist}} ir {{user}}",
+                    "several": "Nuo {{userlist}} ir {{count}} daugiau…"
+                }
+            },
+            "status": {
+                "reconnecting": "Jungiamasi iš naujo…",
+                "offline": "Atsijungęs.",
+                "disconnected": "Atjungtas.",
+                "connecting": "Jungiamasi…"
+            },
+            "modals": {
+                "error": "Įvyko klaida!",
+                "clipboard": {
+                    "unavailable": "Iškarpinė nepasiekiama!",
+                    "https": "Šiuo metu nesate HTTPS kontekste.",
+                    "copy": "Rankinis kopijavimas:"
+                },
+                "signed_out": "Buvote atjungti!",
+                "actions": {
+                    "ok": "Gerai",
+                    "close": "Uždaryti",
+                    "reload": "Paleisti iš naujo",
+                    "continue": "Tęsti",
+                    "cancel": "Atšaukti",
+                    "preview": "Peržiūra",
+                    "send_email": "Siųsti el. laišką",
+                    "update": "Naujinti",
+                    "save": "Išsaugoti",
+                    "block": "Blokuoti",
+                    "leave": "Išeiti",
+                    "remove": "Šalinti",
+                    "ban": "Blokuoti",
+                    "create": "Kurti",
+                    "kick": "Išmesti",
+                    "delete": "Naikinti",
+                    "reveal": "Rodyti",
+                    "back": "Grįžti atgal",
+                    "hide": "Slėpti",
+                    "edit": "Redaguoti",
+                    "report": "Skųstis",
+                    "confirm": "Patvirtinti",
+                    "done": "Baigta",
+                    "reset": "Atkurti",
+                    "dont_block": "Neblokuoti"
+                },
+                "onboarding": {
+                    "welcome": "Sveiki atvykę į",
+                    "pick": "Pasirinkite naudotojo vardą, pagal kurį jus galėtų rasti žmonės. Jis galės būti pakeistas naudotojo nustatymuose."
+                },
+                "account": {
+                    "failed": "Nepavyko pakeisti!",
+                    "change": {
+                        "password": "Keisti slaptažodį",
+                        "email": "Keisti el. paštą",
+                        "username": "Keisti naudotojo vardą"
+                    }
+                },
+                "prompt": {
+                    "confirm_leave_long": "Negalėsite sugrįžti, nebent kas nors jus pakvies.",
+                    "confirm_leave": "Išeiti iš {{name}}?",
+                    "confirm_delete_long": "Panaikinus kelio atgal nėra.",
+                    "unfriend_user": "Išdrauginti {{name}}?",
+                    "unfriend_user_long": "Gali būti, kad negalėsite kartu bendrauti, kol nepridėsite jų atgal.",
+                    "block_user": "Blokuoti {{name}}?",
+                    "block_user_long": "Tikrai norite užblokuoti {{name}}? Jie taip pat bus pašalinti iš jūsų draugų sąrašo.",
+                    "create_invite_created": "Jūsų naujas kvietimo kodas:",
+                    "create_invite_generate": "Generuojamas kvietimas…",
+                    "confirm_delete_message_long": "Tikrai norite tai panaikinti?",
+                    "confirm_ban": "Tuojau užblokuosite {{name}}",
+                    "confirm_ban_reason": "Blokavimo priežastis",
+                    "confirm_kick": "Tikrai norite išmesti {{name}}?",
+                    "confirm_close_dm": "Uždaryti pokalbį su {{name}}?",
+                    "confirm_close_dm_long": "Vėliau galėsite jį vėl atidaryti, bet jis išnyks iš abiejų pusių.",
+                    "confirm_delete": "Naikinti {{name}}?",
+                    "silent_leave": "Tylus išėjimas",
+                    "members_not_notified": "Kitiems nariams nebus pranešta"
+                },
+                "external_links": {
+                    "title": "Išorinės nuorodos gali būti pavojingos!",
+                    "short": "Tikrai norite eiti į:",
+                    "trust_domain": "Pasitikėti šiuo domenu"
+                },
+                "token_reveal": "{{name}} raktas",
+                "sessions": {
+                    "title": "Tikrai norite išvalyti visas sesijas?",
+                    "accept": "Šalinti visas sesijas",
+                    "short": "Šis veiksmas yra negrįžtamas."
+                },
+                "mfa": {
+                    "enter_code": "Įveskite kodą",
+                    "recovery_codes": "Jūsų atkūrimo kodai",
+                    "save_codes": "Išsaugokite juos saugioje vietoje.",
+                    "confirm": "Patvirtinkite šį veiksmą pasirinktu būdu.",
+                    "select_method": "Pasirinkite užklausos autentifikavimo būdą.",
+                    "enable_totp": "Įjungti autentifikavimo programėlę",
+                    "prompt_totp": "Nuskaitykite arba panaudokite žemiau esantį raktą autentifikavimo programėlėje."
+                },
+                "changelogs": {
+                    "title": "Keitimų sąrašai",
+                    "description": "Skaitykite apie Revolt naujinimus.",
+                    "older": "Rodyti senesnius naujinimus"
+                },
+                "out_of_date": {
+                    "attempting": "Bandymas naujinti…",
+                    "title": "Jūsų klientas yra pasenęs!",
+                    "description": "Jis turi būti atnaujintas, kad veiktų su naujausiais pakeitimais.",
+                    "ignore": "Ignoruoti naujinimą",
+                    "version": "Jūsų kliento versija yra {{client}}, o serveriui reikia {{server}}."
+                },
+                "confirm": "Patvirtinti veiksmą",
+                "report": {
+                    "reason": "Priežastis",
+                    "additional_context": "Papildoma informacija",
+                    "message": "Skundas",
+                    "by_name": "Skundas prieš {{name}}",
+                    "no_reason": "Priežastis nenurodyta / kita priežastis",
+                    "content_reason": {
+                        "Illegal": "Turinys pažeidžia vieną arba kelis įstatymus",
+                        "PromotesHarm": "Turinys skatina savęs ir kitų žalojimą",
+                        "SpamAbuse": "Tai yra šlamštas arba piktnaudžiavimas platforma",
+                        "Malware": "Tai yra kenkėjiška programa",
+                        "Harassment": "Tai yra priekabiavimas arba įžeidinėjimas, nukreiptas prieš kitą naudotoją"
+                    },
+                    "user_reason": {
+                        "SpamAbuse": "Naudotojas siunčia šlamštą arba priešingu atveju piktnaudžiauja platforma",
+                        "InappropriateProfile": "Naudotojo profilis yra nepriimtinas bendrajai bendruomenei",
+                        "Impersonation": "Šis naudotojas apsimetinėja kitu",
+                        "BanEvasion": "Šis naudotojas vengia blokavimo",
+                        "Underage": "Šis naudotojas yra per jaunas, kad turėtų paskyrą"
+                    },
+                    "block_user": "Norite užblokuoti šį naudotoją?",
+                    "reported": "Išsiųsta",
+                    "thank_you": "Ačiū, kad rūpinatės Revolt saugumu. Mes peržiūrėsime jūsų skundą kaip galima greičiau."
+                }
+            },
+            "requires_online": "Turite būti prisijungę, kad tai peržiūrėtumėte.",
+            "popovers": {
+                "user_profile": {
+                    "badges": {
+                        "early_adopter": "Ankstyvasis naudotojas",
+                        "supporter": "Rėmėjas",
+                        "translator": "Vertėjas",
+                        "responsible_disclosure": "Atsakingai atskleistos saugumo problemos",
+                        "founder": "Įkūrėjas",
+                        "moderation": "Platformos moderavimas"
+                    },
+                    "sub": {
+                        "connections": "Sąsajos",
+                        "information": "Informacija",
+                        "badges": "Ženkleliai"
+                    },
+                    "no_groups": "Nėra bendrų grupių",
+                    "no_users": "Nėra bendrų draugų",
+                    "empty": "Čia tuštoka…",
+                    "mutual_groups": "Bendros grupės",
+                    "mutual_friends": "Bendri draugai",
+                    "profile": "Profilis",
+                    "mutual_servers": "Bendri serveriai",
+                    "no_servers": "Nėra bendrų serverių"
+                },
+                "user_picker": {
+                    "select": "Pasirinkite draugus, kuriuos norėtumėte pridėti."
+                },
+                "create_bot": {
+                    "title": "Kurti naują botą",
+                    "failed": "Nepavyko sukurti boto!"
+                },
+                "server_identity": {
+                    "title": "Keisti tapatybę {{server}}",
+                    "nickname": "Pravardė",
+                    "avatar": "Avataras"
+                }
+            },
+            "copy_username": "Spustelėkite, kad nukopijuotumėte naudotojo vardą",
+            "copy": "Spustelėkite, kad nukopijuotumėte",
+            "invite": {
+                "invited_by": "Kvietimas nuo {{user}}",
+                "login": "Prisijungti prie Revolt",
+                "accept": "Priimti kvietimą",
+                "user_count": "{{member_count}} naudotojai",
+                "invalid": "Negaliojantis kvietimas!",
+                "invalid_desc": "Šis kvietimas neegzistuoja arba neturite leidimo prisijungti."
+            },
+            "server-badges": {
+                "official": "Oficialus serveris",
+                "verified": "Patvirtintas serveris"
+            }
+        },
+        "context_menu": {
+            "copy_id": "Kopijuoti ID",
+            "message_user": "Žinutė",
+            "block_user": "Blokuoti naudotoją",
+            "open_group_settings": "Grupės nustatymai",
+            "open_channel_settings": "Kanalo nustatymai",
+            "set_custom_status": "Nustatyti tinkintą būseną",
+            "clear_status": "Valyti būseną",
+            "custom_status": "Tinkinta būsena",
+            "cancel_friend": "Atšaukti užklausą",
+            "add_friend": "Pridėti į draugus",
+            "remove_friend": "Šalinti iš draugų",
+            "unblock_user": "Atblokuoti naudotoją",
+            "open_link": "Atidaryti nuorodą",
+            "copy_link": "Kopijuoti nuorodą",
+            "save_video": "Išsaugoti vaizdo įrašą",
+            "open_video": "Atidaryti vaizdo įrašą",
+            "save_image": "Išsaugoti paveikslėlį",
+            "open_image": "Atidaryti paveikslėlį",
+            "save_file": "Išsaugoti failą",
+            "open_file": "Atidaryti failą",
+            "remove_member": "Šalinti iš grupės",
+            "delete_message": "Naikinti žinutę",
+            "edit_message": "Redaguoti žinutę",
+            "quote_message": "Cituoti žinutę",
+            "cancel_message": "Atšaukti siuntimą",
+            "retry_message": "Siųsti iš naujo",
+            "mark_as_read": "Pažymėti kaip skaitytą",
+            "mention": "Paminėti",
+            "copy_mid": "Kopijuoti žinutės ID",
+            "copy_cid": "Kopijuoti kanalo ID",
+            "copy_uid": "Kopijuoti naudotojo ID",
+            "copy_text": "Kopijuoti tekstą",
+            "copy_sid": "Kopijuoti serverio ID",
+            "copy_selection": "Kopijuoti pasirinkimą",
+            "view_profile": "Rodyti profilį",
+            "reply_message": "Atsakyti",
+            "kick_member": "Išmesti narį",
+            "ban_member": "Blokuoti narį",
+            "leave_server": "Išeiti iš serverio",
+            "leave_group": "Išeiti iš grupės",
+            "close_dm": "Uždaryti AP",
+            "open_server_settings": "Serverio nustatymai",
+            "delete_server": "Naikinti serverį",
+            "delete_channel": "Naikinti kanalą",
+            "create_channel": "Kurti kanalą",
+            "create_invite": "Kurti kvietimą",
+            "open_notification_options": "Pranešimų nustatymai",
+            "copy_message_link": "Kopijuoti žinutės nuorodą",
+            "edit_identity": "Redaguoti tapatybę",
+            "create_category": "Kurti kategoriją",
+            "mark_unread": "Pažymėti kaip neskaitytą",
+            "make_owner": "Suteikti grupės nuosavybę",
+            "report_message": "Skųstis žinute",
+            "report_user": "Skųstis naudotoju",
+            "report_server": "Skųstis serveriu"
+        },
+        "settings": {
+            "pages": {
+                "appearance": {
+                    "color": {
+                        "dark": "tamsi",
+                        "light": "šviesi"
+                    },
+                    "display": {
+                        "compact_description": "Senas geras IRC.",
+                        "default_description": "Gražu, glotnu ir modernu.",
+                        "compact": "Kompaktiška",
+                        "default": "Numatyta"
+                    },
+                    "theme": "Tema",
+                    "title": "Išvaizda",
+                    "overrides": "Temos tinkinimas",
+                    "message_display": "Žinučių rodymas",
+                    "sync": "Sinchronizuoti parinktis",
+                    "custom_css": "Tinkintas CSS",
+                    "theme_data": "Temos duomenys",
+                    "import_theme": "Įkelti temą iš eilutės",
+                    "import_manual": "Įkelti rankiniu būdu",
+                    "import_clipboard": "Įkelti iš iškarpinės",
+                    "export_clipboard": "Perkelti į iškarpinę",
+                    "reset_overrides": "Atkurti",
+                    "advanced": "Išplėstinės parinktys",
+                    "emoji_pack": "Jaustukų paketas",
+                    "accent_selector": "Akcento spalva",
+                    "font": "Šriftas",
+                    "mono_font": "Monospace šriftų parinkiklis",
+                    "ligatures": "Šriftų ligatūros",
+                    "ligatures_desc": "Palaikomuose šriftuose ligatūros kartu sujungia simbolius, pavyzdžiui, paversdamos -> į strėlytę.",
+                    "import": "Įkelti temą",
+                    "theme_options": {
+                        "seasonal": "Sezoninė tema",
+                        "seasonal_desc": "Švenčių metu rodo efektus pagrindiniame puslapyje.",
+                        "title": "Temos parinktys",
+                        "follow": "Laikytis sistemos temos",
+                        "follow_desc": "Jei įjungta, negalėsite keisti savo temos arba ją tinkinti.",
+                        "transparency": "Skaidrumo efektai",
+                        "transparency_desc": "Įjungia skaidrumo efektus programėlėje."
+                    },
+                    "discover": {
+                        "title": "Atraskite temų",
+                        "description": "Atraskite bendruomenės sukurtų temų"
+                    },
+                    "appearance_options": {
+                        "title": "Išvaizdos parinktys",
+                        "show_send": "Visada rodyti mygtuką „Siųsti žinutę“",
+                        "show_send_desc": "Jei išjungta, mygtukas „Siųsti žinutę“ bus rodomas tik mobiliuosiuose įrenginiuose.",
+                        "show_account_age": "Visada rodyti paskyros amžių šalia prisijungimo žinučių",
+                        "show_account_age_desc": "Jei išjungta, paskyros amžius bus rodomas tik naujiems naudotojams."
+                    },
+                    "colours": {
+                        "title": "Spalvos"
+                    },
+                    "advanced_options": {
+                        "title": "Išplėstinės parinktys"
+                    },
+                    "emoji": {
+                        "title": "Jaustukai"
+                    },
+                    "fonts": {
+                        "title": "Šriftai"
+                    }
+                },
+                "sessions": {
+                    "created": "Sukurta {{time_ago}}",
+                    "this_device": "Šis įrenginys",
+                    "active_sessions": "Aktyvios sesijos",
+                    "title": "Sesijos",
+                    "logout": "Atsijungti nuo visų kitų sesijų"
+                },
+                "profile": {
+                    "placeholder": "Parašykite ką nors apie save…",
+                    "fetching": "Įkeliamas jūsų profilis…",
+                    "info": "Informacija",
+                    "title": "Profilis",
+                    "edit_background": "Redaguoti foną",
+                    "custom_background": "Tinkintas fonas",
+                    "profile_picture": "Profilio nuotrauka",
+                    "edit_profile": "Redaguoti profilį"
+                },
+                "account": {
+                    "change_field": "Keisti",
+                    "title": "Mano paskyra",
+                    "unique_id": "Tai yra unikalus naudotojo identifikatorius jūsų paskyrai.",
+                    "2fa": {
+                        "add_auth": "Pridėti autentifikatorių",
+                        "remove_auth": "Šalinti autentifikatorių",
+                        "title": "Dviejų veiksnių autentifikavimas",
+                        "description": "Pridėkite dar vieną saugumo sluoksnį įjungdami dviejų veiksnių autentifikavimą.",
+                        "view_recovery": "Rodyti atkūrimo kodus",
+                        "view_recovery_long": "Rodyti ir atsisiųsti atkūrimo kodus.",
+                        "generate_recovery": "Generuoti atkūrimo kodus",
+                        "generate_recovery_long": "Pasiruoškite naudoti dviejų veiksnių autentifikavimą nustatydami atkūrimo būdą.",
+                        "two_factor_on": "Dviejų veiksnių autentifikavimas yra įjungtas.",
+                        "two_factor_off": "Neįjungėte dviejų veiksnių autentifikavimo!"
+                    },
+                    "manage": {
+                        "title": "Paskyros valdymas",
+                        "description": "Bet kada išjunkite arba panaikinkite savo paskyrą. Abu veiksmai jus atjungs nuo visų aktyvių sesijų.",
+                        "disable": "Išjungti paskyrą",
+                        "delete": "Pažymėti paskyrą panaikinimui",
+                        "disable_description": "Negalėsite prisijungti prie savo paskyros, nebent susisieksite su palaikymu – jūsų duomenys nebus panaikinti.",
+                        "delete_description": "Jūsų paskyra ir visi jūsų duomenys (išskyrus žinutės ir draugų sąrašas) bus panaikinimo eilėje. Jums bus atsiųstas patvirtinimo el. laiškas – panaikinimą galite atšaukti per 7 dienas susisiekdami su palaikymu."
+                    }
+                },
+                "logOut": "Atsijungti",
+                "feedback": {
+                    "send": "Išsiųsti atsiliepimą",
+                    "describe": "Prašau aprašykite problemą.",
+                    "other": "Kita",
+                    "feature": "Pasiūlymas",
+                    "bug": "Klaidų seklys",
+                    "report": "Ką jūs norite pranešti?",
+                    "title": "Atsiliepimai",
+                    "issue_desc": "Jei norite padėti mums lengviau išspręsti problemas, galite sukurti problemą GitHub.",
+                    "suggest": "Pateikti funkcijos pasiūlymą",
+                    "suggest_desc": "Siūlykite naujų Revolt funkcijų GitHub diskusijose.",
+                    "issue": "Kurti naują problemą",
+                    "bug_desc": "Peržiūrėkite šiuo metu aktyvius klaidų pranešimus čia.",
+                    "description": "Pateikti atsiliepimą"
+                },
+                "source_code": "Pirminis kodas",
+                "donate": {
+                    "title": "Aukoti"
+                },
+                "language": {
+                    "select": "Pasirinkite kalbą",
+                    "title": "Kalba",
+                    "other": "Kitos kalbos parinktys",
+                    "const": "Dirbtinės kalbos"
+                },
+                "notifications": {
+                    "descriptions": {
+                        "enable_outgoing_sound": "Įjunkite tam, kad girdėtumėte garsus, kai išsiunčiate pranešimą.",
+                        "enable_sound": "Įjunkite tam, kad girdėtumėte garsus tada, kai ateina pranešimas.",
+                        "enable_push": "Jei įjungta, gausite pranešimus, kai esate atsijungę.",
+                        "enable_desktop": "Jei įjungta, gausite pranešimus, kai programėlė atidaryta."
+                    },
+                    "enable_outgoing_sound": "Skleisti garsą, kai išsiunčiamas pranešimas.",
+                    "enable_sound": "Skleisti garsą, kai ateina pranešimas.",
+                    "sounds": "Garsai",
+                    "enable_push": "Įjungti iššokančius pranešimus",
+                    "enable_desktop": "Įjungti pranešimus darbalaukyje",
+                    "push_notifications": "Iššokantys pranešimai",
+                    "title": "Pranešimai",
+                    "sound": {
+                        "outbound": "Žinutė išsiųsta",
+                        "message": "Žinutė gauta",
+                        "call_join": "Naudotojas prisijungė prie skambučio",
+                        "call_leave": "Naudotojas paliko skambutį"
+                    }
+                },
+                "experiments": {
+                    "not_available": "Nėra prieinamų eksperimentų.",
+                    "features": "Prieinamos funkcijos",
+                    "title": "Eksperimentai",
+                    "descriptions": {
+                        "servers": "Tai leis jums kurti serverius su kanalais, pakvietimais, draudimais bei daugiau."
+                    },
+                    "titles": {
+                        "servers": "Serveriai"
+                    }
+                },
+                "sync": {
+                    "descriptions": {
+                        "theme": "Sinchronizuos jūsų pasirinktą temą, spalvas ir bet kuriuos tinkintus CSS.",
+                        "appearance": "Sinchronizuos išvaizdos parinktis, tokias kaip pasirinkti jaustukų paketai ir žinučių tankis.",
+                        "locale": "Sinchronizuos jūsų pasirinktą kalbą."
+                    },
+                    "title": "Sinchronizavimas",
+                    "categories": "Sinchronizuoti kategorijas",
+                    "options": "Sinchronizuoti parinktis"
+                },
+                "native": {
+                    "title": "Darbalaukio nustatymai"
+                },
+                "bots": {
+                    "title": "Mano botai",
+                    "copy_invite": "Kopijuoti kvietimo nuorodą",
+                    "add": "Pridėti botą",
+                    "token": "Raktas",
+                    "public_bot_tip": "Šis botas yra viešas. Bet kas gali jį pakviesti.",
+                    "private_bot_tip": "Šis botas yra privatus. Tik jūs galite jį pakviesti.",
+                    "public_bot": "Viešas botas",
+                    "public_bot_desc": "Jei įjungta, kiti naudotojai galės pridėti šį botą prie serverių ir grupių.",
+                    "interactions_url": "Sąveikų URL",
+                    "reserved": "Pastaba: šis laukelis numatytas ateičiai.",
+                    "create_bot": "Kurti botą",
+                    "unique_id": "Tai yra unikalus jūsų roboto identifikatorius. Tai nėra boto raktas.",
+                    "profile": "Boto profilis"
+                },
+                "audio": {
+                    "title": "Balso nustatymai",
+                    "input_device": "Mikrofonas",
+                    "output_device": "Garsiakalbis / Ausinės",
+                    "button_retry": "Bandyti iš naujo",
+                    "device_label_NA": "Nerasta",
+                    "tip_retry": "Nesuteikėte Revolt prieigos prie savo mikrofono. {{retryBtn}}.",
+                    "button_grant": "Suteikti prieigą",
+                    "tip_grant_permission": "Turite suteikti prieigą prie garso nustatymų."
+                },
+                "theme_shop": {
+                    "title": "Temų parduotuvė",
+                    "description": "Naršykite tarp šimto bendruomenės sukurtų ir kuruojamų temų.",
+                    "search": "Ieškoti temų…",
+                    "category": {
+                        "saved": "Išsaugotos",
+                        "manage": "Tvarkyti išsaugotas",
+                        "new": "Savaitės naujienos",
+                        "default": "Numatytosios temos",
+                        "highest": "Geriausiai įvertintos",
+                        "viewall": "Peržiūrėti visas"
+                    },
+                    "use": "Naudoti temą",
+                    "by": "nuo",
+                    "active": "Šiuo metu aktyvi"
+                },
+                "plugins": {
+                    "title": "Įskiepiai",
+                    "wip": "Įspėjimas: ši funkcija vis dar kuriama.",
+                    "no_plugins": "Šiuo metu neįdiegta jokių įskiepių.",
+                    "delete_plugin": "Naikinti"
+                },
+                "accessibility": {
+                    "title": "Prieinamumas",
+                    "descriptions": {
+                        "reduced_motion": "Jei įjungta, animacijos ir judėjimo efektai nebus rodomi arba bus mažiau intensyvūs."
+                    },
+                    "reduced_motion": "Sumažintas judėjimas"
+                },
+                "keybinds": {
+                    "title": "Spartieji klavišai",
+                    "description": "Peržiūrėti ir nustatyti sparčiuosius klavišus",
+                    "search": "Ieškoti sparčiųjų klavišų…",
+                    "add_keybind": "Pridėti spartųjį klavišą",
+                    "edit_keybind": "Redaguoti spartųjį klavišą",
+                    "remove_keybind": "Šalinti spartųjį klavišą",
+                    "reset_keybind": "Atkurti spartųjį klavišą į {{keybind}}",
+                    "category": {
+                        "advanced": "Išplėstiniai",
+                        "navigation": "Navigacija",
+                        "messaging": "Žinutės"
+                    },
+                    "action": {
+                        "navigate_channel_up": {
+                            "title": "Pereiti į ankstesnį kanalą",
+                            "description": "Pereiti į ankstesnį kanalą."
+                        },
+                        "navigate_channel_down": {
+                            "title": "Pereiti į sekantį kanalą",
+                            "description": "Pereiti į sekantį kanalą."
+                        },
+                        "navigate_server_up": {
+                            "title": "Pereiti į ankstesnį serverį",
+                            "description": "Pereiti į ankstesnį serverį."
+                        },
+                        "navigate_server_down": {
+                            "title": "Pereiti į sekantį serverį",
+                            "description": "Pereiti į sekantį serverį."
+                        },
+                        "messaging_edit_previous_message": {
+                            "title": "Redaguoti ankstesnę žinutę",
+                            "description": "Redaguoja paskiausią išsiųstą žinutę dabartiniame įkeltame kanale."
+                        },
+                        "auto_complete_up": {
+                            "title": "Ankstesnis automatinio baigimo pasirinkimas"
+                        },
+                        "input_submit": {
+                            "title": "Patvirtinti įvestį"
+                        },
+                        "input_cancel": {
+                            "title": "Atšaukti įvestį"
+                        }
+                    }
+                }
+            },
+            "categories": {
+                "client_settings": "Kliento nustatymai",
+                "user_settings": "Naudotojo nustatymai",
+                "danger_zone": "Pavojinga zona"
+            },
+            "title": "Nustatymai",
+            "tips": {
+                "sessions": {
+                    "b": "apsaugokite savo paskyra pakeisdami slaptažodį ir įjungdami dviejų veiksnių autentifikavimą.",
+                    "a": "Jei sąraše matote nežinomą sesiją,"
+                },
+                "languages": {
+                    "b": "Padėkite mums prisidedami prie vertimo.",
+                    "a": "Trūksta pageidaujamos kalbos?"
+                },
+                "account": {
+                    "b": "Eikite į savo profilio nustatymus.",
+                    "a": "Norite tinkinti savo viešąjį profilį?"
+                }
+            },
+            "channel_pages": {
+                "overview": {
+                    "description": "Kanalo aprašymas",
+                    "name": "Kanalo pavadinimas",
+                    "title": "Apžvalga"
+                },
+                "permissions": {
+                    "title": "Leidimai"
+                },
+                "webhooks": {
+                    "title": "Internetiniai Kabliukai"
+                }
+            },
+            "actions": {
+                "upload": "Įkelti",
+                "remove": "Šalinti",
+                "max_filesize": "(iki {{filesize}})",
+                "edit": "Redaguoti {{name}}"
+            },
+            "server_pages": {
+                "roles": {
+                    "title": "Vaidmenys"
+                },
+                "overview": {
+                    "description": "Kanalo aprašymas",
+                    "name": "Serverio pavadinimas",
+                    "title": "Apžvalga",
+                    "system_messages": "Sistemos žinučių kanalai"
+                },
+                "invites": {
+                    "title": "Kvietimai",
+                    "code": "Kvietimo kodas",
+                    "invitor": "Kviečiantysis",
+                    "channel": "Kanalas",
+                    "revoke": "Atšaukti"
+                },
+                "bans": {
+                    "title": "Blokavimai",
+                    "user": "Naudotojas",
+                    "reason": "Blokavimo priežastis",
+                    "revoke": "Atšaukti",
+                    "no_reason": "Blokavimo priežasties nėra."
+                },
+                "members": {
+                    "title": "Nariai"
+                },
+                "categories": {
+                    "title": "Kategorijos"
+                },
+                "management": {
+                    "title": "Naudotojų valdymas"
+                },
+                "customisation": {
+                    "title": "Tinkinimas"
+                },
+                "emojis": {
+                    "title": "Jaustukai",
+                    "upload": "Įkelti jaustuką"
+                }
+            },
+            "permissions": {
+                "server": "Serverio leidimai",
+                "channel": "Kanalo leidimai",
+                "create_role": "Kurti naują vaidmenį",
+                "role_name": "Vaidmens pavadinimas",
+                "default_role": "Numatytasis",
+                "role_colour": "Vaidmens spalva",
+                "role_options": "Vaidmens parinktys",
+                "hoist_desc": "Rodyti šį vaidmenį virš kitų.",
+                "role_ranking": "Vaidmens lygis",
+                "delete_role": "Naikinti vaidmenį",
+                "hoist_role": "Iškelti vaidmenį",
+                "title": "{{role}} leidimai",
+                "edit_title": "Redaguoti leidimus"
+            }
+        },
+        "permissions": {
+            "required": "Reikalingi leidimai"
+        },
+        "home": {
+            "settings-tooltip": "Taip pat galite spustelėti dešinįjį pelės klavišą ant naudotojo piktogramos arba kairįjį, jei jau esate pagrindiniame puslapyje.",
+            "join-testers": "Prisijunkite prie testuotojų serverio",
+            "goto-testers": "Prisijunkite prie testuotojų serverio",
+            "donate": "Paremkite Revolt",
+            "feedback": "Parašykite atsiliepimą apie Revolt",
+            "settings": "Atidarykite nustatymus",
+            "social": "Rasti serverių arba botų",
+            "directs": "Asmeninės žinutės",
+            "join-testers_desc": "Galite pranešti apie problemas ir aptarti patobulinimus su mumis tiesiogiai čia.",
+            "goto-testers_desc": "Galite pranešti apie problemas ir aptarti patobulinimus su mumis tiesiogiai čia.",
+            "donate_desc": "Paremkite projektą paaukodami – ačiū!",
+            "feedback_desc": "Pateikite atsiliepimą, kad galėtume tobulinti mūsų programėlę.",
+            "discover": "Atraskite Revolt",
+            "discover_desc": "Raskite bendruomenę pagal savo hobius ar interesus.",
+            "group": "Sukurkite grupę",
+            "group_desc": "Pakvieskite visus savo draugus, keletą šaunių botų ir pasilinksminkite."
+        }
+    },
+    "dayjs": {
+        "at": " ",
+        "last": "Praeitą",
+        "nextDay": "[Rytoj] {{time}}",
+        "sameDay": "[Šiandien] {{time}}",
+        "lastDay": "[Vakar] {{time}}",
+        "nextWeek": "dddd {{time}}",
+        "sameElse": "L",
+        "lastWeek": "[Praeitas] dddd {{time}}",
+        "defaults": {
+            "date_separator": "-",
+            "date_format": "ISO8601",
+            "twelvehour": "no"
+        }
+    },
+    "notifications": {
+        "now_friends": "Dabar esate draugai su @{{person}}!",
+        "sent_request": "@{{person}} išsiuntė jums užklausą draugauti."
+    },
+    "quantities": {
+        "members": {
+            "many": "{{count}} nariai",
+            "one": "1 narys"
+        },
+        "dropFiles": {
+            "one": "Įkelti failą",
+            "many": "Įkelti {{count}} failus"
+        }
+    },
+    "error": {
+        "Unlabelled": "Kažkas nutiko.",
+        "FailedValidation": "Nepavyko patvirtinti laukų.",
+        "DatabaseError": "Duomenų bazės klaida.",
+        "InternalError": "Vidinė klaida.",
+        "UnknownError": "Patikrinkite konsolę.",
+        "OperationFailed": "Operacija nepavyko.",
+        "MissingHeaders": "Trūksta antraščių.",
+        "AlreadyOnboarded": "Registracija jau baigta.",
+        "UsernameTaken": "Naudotojo vardas jau užimtas.",
+        "AlreadyFriends": "Esate draugai su šiuo naudotoju.",
+        "AlreadySentRequest": "Šiam naudotojui jau išsiuntėte užklausą.",
+        "Blocked": "Užblokavote šį naudotoją.",
+        "BlockedOther": "Šis naudotojas jus užblokavo.",
+        "NoEffect": "Ši užklausa neturėjo jokio poveikio.",
+        "RequiredField": "Privaloma",
+        "TooShort": "Per trumpas",
+        "TooLong": "Per ilgas",
+        "InvalidEmail": "Netinkamas el. pašto adresas",
+        "InvalidSession": "Negaliojanti sesija.",
+        "UnverifiedAccount": "Nepatvirtinta paskyra.",
+        "UnknownUser": "Nežinomas naudotojas.",
+        "EmailInUse": "El. paštas jau naudojamas.",
+        "WrongPassword": "Netinkamas slaptažodis.",
+        "NetworkError": "Tinklo klaida.",
+        "InvalidInvite": "Neteisingas kodas",
+        "InvalidCredentials": "El. paštas arba slaptažodis neteisingas.",
+        "EmailFailed": "Nepavyko išsiųsti el. laiško.",
+        "IoError": "Serveris susidūrė su įvesties / išvesties klaida.",
+        "DeniedNotification": "Trūksta prieigos prie pranešimų. Patikrinkite puslapio nustatymus.",
+        "UnsupportedBrowser": "Naršyklė nepalaiko šios funkcijos.",
+        "ProbeError": "Nepavyko gauti failo metaduomenų.",
+        "Unavailable": "Nepasiekiama.",
+        "FileTooLarge": "Failas per didelis.",
+        "FailedToReceive": "Serveriui nepavyko gauti jūsų failo.",
+        "MissingData": "Užklausai trūksta duomenų.",
+        "MissingInvite": "Kvietime trūksta kodo.",
+        "InvalidToken": "Negaliojantis raktas",
+        "RenderFail": "Nepavyko apdoroti šablono.",
+        "MissingPermission": "Nėra leidimo.",
+        "Unauthorized": "Neleistina.",
+        "CompromisedPassword": "Slaptažodis sukompromituotas.",
+        "ReachedMaximumBots": "Pasiekėte didžiausią botų skaičių.",
+        "AudioPermissionBlock": "Nėra prieigos prie jūsų mikrofono. Patikrinkite savo naršyklės konfigūraciją.",
+        "DiscriminatorChangeRatelimited": "Per daug žymių keitimų."
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "permissions": {
+        "ManageChannels": {
+            "t": "Tvarkyti kanalus",
+            "d": "Leidžia nariams kurti, redaguoti ir naikinti kanalus."
+        },
+        "ManageServer": {
+            "t": "Tvarkyti serverį",
+            "d": "Leidžia nariams keisti šio serverio pavadinimą, aprašymą, piktogramą ir kitą susijusią informaciją."
+        },
+        "KickMembers": {
+            "t": "Išmesti narius",
+            "d": "Leidžia nariams šalinti narius iš šio serverio. Išmesti nariai galės grįžti su kvietimu."
+        },
+        "BanMembers": {
+            "t": "Blokuoti narius",
+            "d": "Leidžia nariams visam laikui pašalinti narius iš šio serverio."
+        },
+        "ChangeNickname": {
+            "t": "Keisti pravardę",
+            "d": "Leidžia nariams keisti savo pravardę šiame serveryje."
+        },
+        "ManageNicknames": {
+            "t": "Tvarkyti pravardes",
+            "d": "Leidžia nariams keisti kitų narių pravardes."
+        },
+        "ChangeAvatar": {
+            "t": "Keisti avatarą",
+            "d": "Leidžia nariams keisti savo avatarą šiame serveryje."
+        },
+        "RemoveAvatars": {
+            "t": "Šalinti avatarus",
+            "d": "Leidžia nariams šalinti kitų narių avatarus šiame serveryje."
+        },
+        "SendMessage": {
+            "t": "Siųsti žinutes",
+            "d": "Leidžia nariams siųsti žinutes teksto kanaluose."
+        },
+        "ManageMessages": {
+            "t": "Tvarkyti žinutes",
+            "d": "Leidžia nariams naikinti kitų narių siųstas žinutes."
+        },
+        "ManageChannel": {
+            "t": "Tvarkyti kanalus",
+            "d": "Leidžia nariams redaguoti arba naikinti kanalą."
+        },
+        "VoiceCall": {
+            "t": "Skambinti balsu",
+            "d": "Leidžia nariams prisijungti prie balso kanalų."
+        },
+        "InviteOthers": {
+            "t": "Kviesti kitus",
+            "d": "Leidžia nariams kviesti kitus narius į kanalą."
+        },
+        "EmbedLinks": {
+            "t": "Prisegti nuorodas",
+            "d": "Leidžia nariams rodyti prisegtą turinį nuorodose, kurias jie kelia teksto kanaluose."
+        },
+        "UploadFiles": {
+            "t": "Įkelti failus",
+            "d": "Leidžia nariams įkelti failus teksto kanaluose."
+        },
+        "Masquerade": {
+            "t": "Maskaradas",
+            "d": "Leidžia nariams keisti savo vardą ir avatarą kiekvienai žinutei."
+        },
+        "ManageRole": {
+            "t": "Tvarkyti vaidmenis",
+            "d": "Leidžia nariams kurti, redaguoti, naikinti žemesnio lygio vaidmenis ir redaguoti vaidmenų leidimus kanaluose."
+        },
+        "ViewChannel": {
+            "d": "Leidžia nariams peržiūrėti bet kuriuos kanalus, kuriuose jie turi šį leidimą.",
+            "t": "Peržiūrėti kanalą"
+        },
+        "ManagePermissions": {
+            "t": "Tvarkyti leidimus",
+            "d": "Leidžia nariams keisti kanalų ir žemesnio lygio vaidmenų leidimus."
+        },
+        "React": {
+            "t": "Naudoti reakcijas",
+            "d": "Leidžia nariams reaguoti į žinutes."
+        },
+        "Video": {
+            "d": "Leidžia nariams transliuoti vaizdo įrašus balso kanale.",
+            "t": "Vaizdo įrašai"
+        },
+        "SendEmbeds": {
+            "d": "Leidžia nariams siųsti įterpiamąjį turinį iš nuorodų ar tinkintų teksto įterpimų.",
+            "t": "Siųsti įterpimus"
+        },
+        "Connect": {
+            "d": "Leidžia nariams prisijungti prie balso kanalo.",
+            "t": "Prisijungimas"
+        },
+        "Speak": {
+            "t": "Kalbėjimas",
+            "d": "Leidžia nariams kalbėti balso kanale."
+        },
+        "MuteMembers": {
+            "t": "Nutildyti narius",
+            "d": "Leidžia nariams nutildyti kitus balso kanale."
+        },
+        "ReadMessageHistory": {
+            "t": "Peržiūrėti žinučių istoriją",
+            "d": "Leidžia nariams peržiūrėti šio kanalo žinučių istoriją."
+        },
+        "ManageCustomisation": {
+            "t": "Tvarkyti tinkinimą",
+            "d": "Leidžia nariams kurti, redaguoti ir naikinti jaustukus."
+        },
+        "TimeoutMembers": {
+            "d": "Leidžia nariams laikinai neleisti naudotojams sąveikauti su serveriu.",
+            "t": "Sulaikyti narius"
+        },
+        "AssignRoles": {
+            "t": "Priskirti vaidmenis",
+            "d": "Leidžia nariams priskirti žemesnio lygio vaidmenis kitiems nariams."
+        },
+        "ManageWebhooks": {
+            "t": "Tvarkyti Webhooks",
+            "d": "Leidžia nariams tvarkyti kanalo Webhooks."
+        },
+        "MoveMembers": {
+            "t": "Perkelti narius",
+            "d": "Leidžia nariams perkelti kitus narius tarp balso kanalų."
+        },
+        "DeafenMembers": {
+            "t": "Išjungti narių garsą",
+            "d": "Leidžia nariams išjungti kitų narių garsą balso kanale."
+        }
+    },
+    "actions": {
+        "submit": "Siųsti"
+    }
+}

@@ -1,0 +1,1070 @@
+{
+    "app": {
+        "settings": {
+            "pages": {
+                "appearance": {
+                    "color": {
+                        "light": "明亮模式",
+                        "dark": "黑暗模式"
+                    },
+                    "display": {
+                        "compact_description": "懷舊風。",
+                        "default_description": "漂亮，時尚，以及現代感。",
+                        "compact": "簡化",
+                        "default": "預設"
+                    },
+                    "theme": "主題",
+                    "title": "外觀",
+                    "ligatures_desc": "如果字體支援，此選項將相鄰的字元連結在一起 - 例如，將->顯示為箭頭。",
+                    "ligatures": "字體連字",
+                    "mono_font": "等寬字體偏好",
+                    "font": "字體",
+                    "sync": "同步設定",
+                    "custom_css": "自訂 CSS",
+                    "theme_data": "主題資料",
+                    "import_theme": "從字串匯入主題",
+                    "import": "匯入主題",
+                    "reset_overrides": "重設主題",
+                    "overrides": "自訂主題",
+                    "advanced": "進階設定",
+                    "message_display": "訊息顯示",
+                    "emoji_pack": "表情包",
+                    "accent_selector": "強調顏色",
+                    "theme_options": {
+                        "transparency_desc": "啟用整個應用程式的透明效果。",
+                        "transparency": "透明效果",
+                        "follow": "跟隨系統主題",
+                        "follow_desc": "啓用後，您將無法更改主題或使用自訂主題。",
+                        "title": "主題選項",
+                        "seasonal_desc": "節日期間，在主頁顯示特殊效果。",
+                        "seasonal": "季節性主題"
+                    },
+                    "discover": {
+                        "title": "探索主題",
+                        "description": "瀏覽其他人做的主題"
+                    },
+                    "appearance_options": {
+                        "show_send": "總是顯示發送訊息按鈕",
+                        "show_send_desc": "禁用後將僅在移動端顯示發送訊息按鈕。",
+                        "title": "外觀選項",
+                        "show_account_age": "永遠在加入訊息旁邊顯示帳號年齡",
+                        "show_account_age_desc": "禁用後將只在新賬戶顯示賬戶建立日期。"
+                    },
+                    "advanced_options": {
+                        "title": "進階選項"
+                    },
+                    "fonts": {
+                        "title": "字體"
+                    },
+                    "colours": {
+                        "title": "顏色"
+                    },
+                    "emoji": {
+                        "title": "表情符號"
+                    }
+                },
+                "audio": {
+                    "output_device": "喇叭/耳機",
+                    "input_device": "麥克風",
+                    "title": "語音設定",
+                    "tip_retry": "您沒有給予麥克風權限，請 {{retryBtn}}。",
+                    "device_label_NA": "無法使用",
+                    "button_retry": "重試",
+                    "button_grant": "授予權限",
+                    "tip_grant_permission": "您需要擁有權限才能訪問語音頻道設置。"
+                },
+                "sessions": {
+                    "created": "建立於 {{time_ago}}",
+                    "logout": "從所有其他裝置登出",
+                    "active_sessions": "使用中的裝置",
+                    "title": "裝置",
+                    "this_device": "這個裝置"
+                },
+                "profile": {
+                    "edit_profile": "編輯個人頁面",
+                    "edit_background": "編輯背景",
+                    "custom_background": "自訂背景",
+                    "fetching": "正在載入您的個人頁面…",
+                    "info": "資訊",
+                    "title": "個人頁面",
+                    "profile_picture": "個人頁面頭像",
+                    "placeholder": "關於您的介紹…"
+                },
+                "account": {
+                    "manage": {
+                        "delete": "將帳號標記為即將刪除",
+                        "disable": "凍結帳號",
+                        "description": "您可以隨時停用或刪除帳號。這會登出您的所有工作階段。",
+                        "title": "帳號管理",
+                        "disable_description": "除非您聯絡支援人員，否則您將無法存取您的帳戶 - 但您的資料不會被刪除。",
+                        "delete_description": "您的帳戶及所有資料（包括訊息和好友）將儘快刪除。我們會發送一封確認電子郵件 - 您可以在 7 天內聯絡支援人員以取消此操作。"
+                    },
+                    "2fa": {
+                        "remove_auth": "移除安全認證",
+                        "add_auth": "新增安全認證",
+                        "description": "啟用雙重認證來增加帳號安全。",
+                        "title": "雙重認證",
+                        "generate_recovery": "產生恢復代碼",
+                        "view_recovery_long": "查看及下載您的二步驟驗證恢復代碼。",
+                        "view_recovery": "查看恢復代碼",
+                        "generate_recovery_long": "啟用二步驟驗證前，還需要設定一種恢復方式。",
+                        "two_factor_on": "二步驟驗證目前已啟用。",
+                        "two_factor_off": "您尚未啟用二步驟驗證!"
+                    },
+                    "unique_id": "這是您的使用者唯一辨識碼。",
+                    "change_field": "變更",
+                    "title": "我的帳號"
+                },
+                "bots": {
+                    "token": "金鑰",
+                    "reserved": "注意：此欄位為未來保留。",
+                    "interactions_url": "互動 URL",
+                    "public_bot_desc": "啓用後，其他使用者將可以將此機器人新增到伺服器或群組對話。",
+                    "public_bot": "公開機器人",
+                    "private_bot_tip": "此機器人是私人的。只有您可以邀請它。",
+                    "public_bot_tip": "此機器人是公開的。所有人都可以邀請。",
+                    "add": "新增機器人",
+                    "copy_invite": "複製邀請連結",
+                    "create_bot": "建立機器人",
+                    "title": "我的機器人",
+                    "unique_id": "這是您機器人的唯一標誌，而不是機器人的金鑰。",
+                    "profile": "機器人資料"
+                },
+                "logOut": "登出",
+                "feedback": {
+                    "bug": "追蹤錯誤",
+                    "bug_desc": "查看當前活躍的錯誤回報。",
+                    "issue_desc": "為了幫助我們更輕鬆的區分問題，您可以在 Github 上新增 Issue。",
+                    "issue": "新增 Issue",
+                    "suggest_desc": "在 Github 討論區為 Revolt 建議新功能。",
+                    "suggest": "提交功能建議",
+                    "title": "意見回饋",
+                    "description": "提供反應"
+                },
+                "source_code": "原始碼",
+                "donate": {
+                    "title": "捐獻"
+                },
+                "experiments": {
+                    "not_available": "目前沒有可用的實驗功能。",
+                    "features": "可用功能",
+                    "title": "實驗室"
+                },
+                "native": {
+                    "title": "桌面設定"
+                },
+                "sync": {
+                    "descriptions": {
+                        "locale": "這將會同步您當前選擇的語言。",
+                        "theme": "這將會同步您的外觀設定、顏色以及自訂 CSS。",
+                        "appearance": "這會同步外觀設定，包括已選定的表情符號和訊息密度。"
+                    },
+                    "categories": "同步分類",
+                    "title": "同步",
+                    "options": "同步設定"
+                },
+                "language": {
+                    "other": "其他語言選項",
+                    "const": "人造語言",
+                    "select": "選擇語言",
+                    "title": "語言"
+                },
+                "notifications": {
+                    "sound": {
+                        "call_leave": "使用者離開語音",
+                        "call_join": "使用者加入語音",
+                        "outbound": "送出訊息",
+                        "message": "接收訊息"
+                    },
+                    "descriptions": {
+                        "enable_push": "啓用後，您將可以在離綫時收到通知。",
+                        "enable_desktop": "啓用後，您將在程式開啓時收到通知。"
+                    },
+                    "sounds": "聲音",
+                    "enable_push": "開啟傳送通知",
+                    "enable_desktop": "開啟桌面通知",
+                    "push_notifications": "傳送通知",
+                    "title": "通知"
+                },
+                "theme_shop": {
+                    "title": "主題商店",
+                    "description": "瀏覽由社群建立並精心挑選的數百個主題。",
+                    "search": "搜尋主題…",
+                    "category": {
+                        "manage": "管理已儲存",
+                        "saved": "已儲存",
+                        "highest": "最高評分",
+                        "default": "預設主題",
+                        "viewall": "查看全部",
+                        "new": "本周最新"
+                    },
+                    "use": "使用主題",
+                    "active": "目前使用",
+                    "by": "來自"
+                },
+                "plugins": {
+                    "wip": "警告：此功能仍在開發中。",
+                    "no_plugins": "目前沒有安裝任何插件。",
+                    "title": "插件",
+                    "delete_plugin": "刪除"
+                },
+                "accessibility": {
+                    "title": "輔助功能",
+                    "reduced_motion": "減少動作",
+                    "descriptions": {
+                        "reduced_motion": "啓用後，動畫和運動效果將不會播放或減弱。"
+                    }
+                },
+                "keybinds": {
+                    "title": "快速鍵",
+                    "add_keybind": "新增快速鍵",
+                    "action": {
+                        "messaging_edit_previous_message": {
+                            "description": "編輯上一則在載入消息介面發送的訊息。",
+                            "title": "編輯上一則訊息"
+                        },
+                        "messaging_scroll_to_bottom": {
+                            "description": "滾動到訊息介面的底部。",
+                            "title": "滾動到訊息底部"
+                        },
+                        "messaging_mark_channel_read": {
+                            "description": "標示為已讀。",
+                            "title": "標示為已讀"
+                        },
+                        "navigate_channel_up": {
+                            "title": "導覽到上一個頻道",
+                            "description": "導覽到上一個頻道。"
+                        },
+                        "developer_toggle_all_experiments": {
+                            "description": "開啟/關閉所有實驗性功能。",
+                            "title": "切換實驗性功能安全模式"
+                        }
+                    },
+                    "description": "查看和設定快速鍵",
+                    "search": "搜尋快速鍵…",
+                    "edit_keybind": "編輯快速鍵",
+                    "remove_keybind": "移除快速鍵",
+                    "reset_keybind": "重設快速鍵為 {{keybind}}",
+                    "category": {
+                        "messaging": "訊息",
+                        "advanced": "進階",
+                        "navigation": "導覽"
+                    }
+                }
+            },
+            "actions": {
+                "max_filesize": "（最大容量 {{filesize}}）",
+                "upload": "上傳",
+                "remove": "移除",
+                "edit": "編輯 {{name}}"
+            },
+            "categories": {
+                "client_settings": "用戶端設定",
+                "user_settings": "使用者設定",
+                "danger_zone": "危險操作"
+            },
+            "title": "設定",
+            "permissions": {
+                "role_name": "身份組名稱",
+                "create_role": "新建身份組",
+                "channel": "頻道權限",
+                "server": "伺服器權限",
+                "default_role": "預設",
+                "role_ranking": "身份組等級",
+                "hoist_desc": "將此身份組顯示在其他身份組之上。",
+                "role_colour": "身份組顏色",
+                "role_options": "身份組選項",
+                "delete_role": "刪除身份組",
+                "hoist_role": "提升身份組",
+                "title": "{{role}} 的權限",
+                "edit_title": "編輯權限"
+            },
+            "tips": {
+                "sessions": {
+                    "b": "請更換密碼且開啟雙重認證以確保您的帳號安全。",
+                    "a": "如果您在列表中見到不明設備，"
+                },
+                "languages": {
+                    "b": "幫助提供更多翻譯。",
+                    "a": "缺少您需要的語言嗎？"
+                },
+                "account": {
+                    "b": "前往您的個人資訊設定。",
+                    "a": "要自訂您的公開個人資料嗎？"
+                }
+            },
+            "server_pages": {
+                "categories": {
+                    "title": "類別"
+                },
+                "roles": {
+                    "title": "身份組"
+                },
+                "bans": {
+                    "no_reason": "無封鎖原因。",
+                    "revoke": "收回",
+                    "reason": "封鎖原因",
+                    "user": "使用者",
+                    "title": "封鎖"
+                },
+                "invites": {
+                    "revoke": "收回",
+                    "channel": "頻道",
+                    "invitor": "邀請者",
+                    "code": "邀請碼",
+                    "title": "邀請"
+                },
+                "members": {
+                    "title": "成員"
+                },
+                "overview": {
+                    "system_messages": "系統訊息頻道",
+                    "description": "頻道簡介",
+                    "name": "伺服器名稱",
+                    "title": "概述"
+                },
+                "management": {
+                    "title": "使用者管理"
+                },
+                "customisation": {
+                    "title": "自訂"
+                },
+                "emojis": {
+                    "title": "表情符號",
+                    "upload": "上傳表情符號"
+                }
+            },
+            "channel_pages": {
+                "permissions": {
+                    "title": "權限"
+                },
+                "overview": {
+                    "description": "頻道簡介",
+                    "name": "頻道名稱",
+                    "title": "概述"
+                },
+                "webhooks": {
+                    "title": "Webhooks"
+                }
+            }
+        },
+        "main": {
+            "servers": {
+                "voice_channel": "語音頻道",
+                "text_channel": "文字頻道",
+                "owner": "伺服器擁有人",
+                "custom_banner": "自訂旗幟",
+                "channel_description": "頻道簡介",
+                "channel_type": "頻道類別",
+                "channel_name": "頻道名稱",
+                "description": "伺服器簡介",
+                "name": "伺服器名稱",
+                "create": "建立伺服器",
+                "category_name": "分類名稱"
+            },
+            "groups": {
+                "owner": "群主",
+                "description": "群組簡介",
+                "name": "群組名稱",
+                "create": "建立群組"
+            },
+            "channel": {
+                "search": {
+                    "sort": {
+                        "oldest": "最舊",
+                        "latest": "最新",
+                        "relevance": "最佳"
+                    },
+                    "title": "搜尋"
+                },
+                "notifications": {
+                    "muted": "靜音",
+                    "none": "無",
+                    "mention": "只限標註",
+                    "all": "所有訊息",
+                    "default": "使用預設"
+                },
+                "bot": "機器人",
+                "edited": "(已編輯)",
+                "unknown_user": "<不明的使用者>",
+                "nsfw": {
+                    "confirm": "我確認我已滿18歲。",
+                    "channel": {
+                        "confirm": "進入頻道",
+                        "marked": "這是一個限制級的頻道。"
+                    }
+                },
+                "misc": {
+                    "sent_multiple_files": "上傳多個附件",
+                    "sent_file": "上傳附件",
+                    "blocked_user": "封鎖的使用者",
+                    "blocked_messages": "{{count}} 個封鎖的訊息",
+                    "no_sending": "您沒有權限在此頻道發言。",
+                    "failed_load": "無法讀取訊息。",
+                    "spoiler_attachment": "爆雷內容",
+                    "jump_present": "跳到最新",
+                    "viewing_old": "查看歷史訊息",
+                    "jump_beginning": "跳回開頭",
+                    "new_messages": "自 {{time_ago}} 以來的新訊息",
+                    "load_file": "載入文件",
+                    "timed_out": "您已超時 {{time}}.",
+                    "not_loaded": "訊息未載入，點擊跳轉"
+                },
+                "voice": {
+                    "unmute": "取消靜音",
+                    "mute": "靜音",
+                    "leave": "離開",
+                    "connected": "已連接語音"
+                },
+                "start": {
+                    "group": "這裡是聊天室的起始。",
+                    "saved": "這裡是您筆記的開始。"
+                },
+                "system": {
+                    "channel_icon_changed": "{{user}} 更改了頻道圖示",
+                    "channel_description_changed": "{{user}} 更改了頻道簡介",
+                    "channel_renamed": "{{user}} 將頻道名稱更改為 {{name}}",
+                    "removed_by": "{{other_user}} 移除了 {{user}}",
+                    "added_by": "{{other_user}} 加入了 {{user}}",
+                    "user_banned": "{{user}} 被停權了",
+                    "user_kicked": "{{user}} 被踢出伺服器",
+                    "user_joined": "{{user}} 加入了伺服器",
+                    "user_left": "{{user}} 離開了伺服器",
+                    "channel_ownership_changed": "{{from}} 將群組的所有權轉移給了 {{to}}",
+                    "registered_at": "已註冊 {{time}}"
+                },
+                "typing": {
+                    "several": "有好幾個人正在輸入…",
+                    "multiple": "{{userlist}} 和 {{user}} 正在輸入…",
+                    "single": "{{user}} 正在輸入…"
+                },
+                "attached_file": "附件 {{filename}}",
+                "failed_upload": "上傳失敗！",
+                "uploading_file": "上傳中…",
+                "message_saved": "儲存到記事本",
+                "message_who": "發送給 {{person}}",
+                "message_where": "發送到 {{channel_name}}",
+                "errors": {
+                    "title": "哎呀，這裡什麼都沒有！",
+                    "nochannels": "此伺服器沒有頻道，或者您沒有檢視頻道的權限。",
+                    "nochannel": "沒有頻道"
+                },
+                "reply": {
+                    "replying": "回覆",
+                    "toggle": "提及使用者"
+                },
+                "bridge": "橋接",
+                "user_timed_out": "用戶超時 {{time}}.",
+                "bridged": "訊息傳送自其他平台",
+                "team": "官方社群",
+                "new_to_revolt": "Revolt 新手",
+                "new_to_server": "伺服器新成員",
+                "reactions": {
+                    "others_reacted": "{{userlist}} 和其他 {{count}} 人做出反應",
+                    "unknown_reacted": "{{count}} 人做出反應",
+                    "single_reacted": "1 人做出反應",
+                    "people_reacted": "{{people}} 做出反應"
+                }
+            },
+            "categories": {
+                "members": "成員",
+                "channels": "頻道",
+                "participants": "參與人員",
+                "conversations": "對話"
+            }
+        },
+        "navigation": {
+            "tabs": {
+                "saved": "記事本",
+                "unreads": "未讀",
+                "friends": "好友",
+                "dev": "開發人員",
+                "home": "首頁"
+            }
+        },
+        "status": {
+            "offline": "離線",
+            "invisible": "隱形",
+            "busy": "請勿打擾",
+            "idle": "閒置",
+            "online": "線上",
+            "reconnect": "重新連線",
+            "focus": "專注"
+        },
+        "special": {
+            "modals": {
+                "prompt": {
+                    "confirm_close_dm": "關閉與 {{name}} 的對話？",
+                    "confirm_leave_long": "您將無法再加入除非您再度被邀請。",
+                    "confirm_ban_reason": "封鎖原因",
+                    "unfriend_user": "解除與 {{name}} 的好友關係？",
+                    "confirm_leave": "離開 {{name}}？",
+                    "block_user_long": "您確定要封禁 {{name}} 嗎？他們將會被移出您的好友清單。",
+                    "create_invite_created": "這是您的新邀請代碼：",
+                    "confirm_kick": "您確定要踢出 {{name}} 嗎？",
+                    "confirm_ban": "您將會封禁 {{name}}",
+                    "unfriend_user_long": "您可能無法再和他們對話，除非重新新增。",
+                    "block_user": "要封鎖 {{name}}嗎？",
+                    "confirm_close_dm_long": "您可以稍後重新打開它，但它會同時對對話雙方隱藏。",
+                    "confirm_delete": "要刪除 {{name}}？",
+                    "confirm_delete_long": "刪除之後，將無法復原。",
+                    "confirm_delete_message_long": "您確定要刪除嗎？",
+                    "create_invite_generate": "正在建立邀請…",
+                    "silent_leave": "默默離開",
+                    "members_not_notified": "不會通知其他成員"
+                },
+                "onboarding": {
+                    "pick": "請選擇一個使用者名稱以便其他人尋找，您隨後可以在設定中進行更改。",
+                    "welcome": "歡迎來到"
+                },
+                "token_reveal": "{{name}} 的 Token",
+                "signed_out": "您已經登出！",
+                "clipboard": {
+                    "https": "您當前不在 HTTPS 連線環境。",
+                    "unavailable": "剪貼簿無法使用！",
+                    "copy": "手動複製："
+                },
+                "actions": {
+                    "continue": "繼續",
+                    "cancel": "取消",
+                    "update": "更新",
+                    "hide": "隱藏",
+                    "edit": "編輯",
+                    "delete": "移除",
+                    "remove": "移除",
+                    "back": "返回",
+                    "leave": "離開",
+                    "close": "關閉",
+                    "block": "封鎖",
+                    "kick": "踢出",
+                    "ban": "封鎖",
+                    "ok": "確定",
+                    "reload": "重新載入程式",
+                    "send_email": "發送電子郵件",
+                    "create": "創建",
+                    "reveal": "顯示",
+                    "preview": "預覽",
+                    "save": "儲存",
+                    "reset": "重置",
+                    "done": "完成",
+                    "confirm": "確定",
+                    "report": "檢舉",
+                    "dont_block": "不要封鎖"
+                },
+                "external_links": {
+                    "trust_domain": "信任此網域",
+                    "short": "您確定要訪問這個連結：",
+                    "title": "外部連結可能有危險！"
+                },
+                "error": "發現錯誤！",
+                "account": {
+                    "change": {
+                        "password": "更改您的密碼",
+                        "username": "更改您的使用者名稱",
+                        "email": "更改您的電子郵件"
+                    },
+                    "failed": "更改失效！"
+                },
+                "sessions": {
+                    "title": "您確定要清除您已登入的裝置嗎？",
+                    "accept": "刪除所有使用設備",
+                    "short": "您無法撤銷此操作。"
+                },
+                "out_of_date": {
+                    "title": "您的程式端太舊!",
+                    "version": "您的程式端版本是 {{client}} ，而伺服器要求的最低版本是 {{server}} 。",
+                    "description": "必須先更新才能使用最新功能。",
+                    "ignore": "略過更新",
+                    "attempting": "正在嘗試更新…"
+                },
+                "changelogs": {
+                    "title": "更新日誌",
+                    "description": "閱讀 Revolt 的更新內容。",
+                    "older": "查看以前的更新"
+                },
+                "mfa": {
+                    "recovery_codes": "您的恢復代碼",
+                    "save_codes": "請將它們儲存在安全的位置。",
+                    "confirm": "請使用已選擇的方式確認此操作。",
+                    "select_method": "請選擇一種方式驗證您的要求。",
+                    "enable_totp": "開啟二步驟驗證程式",
+                    "prompt_totp": "請在二步驟驗證器內掃碼或填入以下金鑰。",
+                    "enter_code": "輸入代碼"
+                },
+                "confirm": "確定操作",
+                "report": {
+                    "message": "檢舉訊息",
+                    "by_name": "檢舉 {{name}}",
+                    "reason": "原因",
+                    "user_reason": {
+                        "SpamAbuse": "使用者發送洗版訊息或濫用平台功能",
+                        "InappropriateProfile": "使用者的個人資料不適合一般使用者",
+                        "Impersonation": "使用者偽裝成其他人",
+                        "Underage": "使用者未達到可擁有帳號的年齡",
+                        "BanEvasion": "使用者嘗試繞過封鎖"
+                    },
+                    "no_reason": "無特定原因 / 其他原因",
+                    "content_reason": {
+                        "Illegal": "內容違反一條或多條規定",
+                        "PromotesHarm": "內容助長對他人或自己造成傷害",
+                        "SpamAbuse": "洗版或濫用平台功能",
+                        "Malware": "惡意軟體",
+                        "Harassment": "針對其他使用者的騷擾或辱罵"
+                    },
+                    "reported": "已檢舉",
+                    "thank_you": "感謝您協助維護Revolt的安全，我們會盡快審查您的檢舉。",
+                    "block_user": "您想要封鎖這位使用者嗎？",
+                    "additional_context": "附加訊息"
+                },
+                "edit_keybind": {
+                    "title": "編輯 {{action}} 的快速鍵",
+                    "placeholder": "按下按鍵以錄製"
+                }
+            },
+            "friends": {
+                "from": {
+                    "several": "從 {{userlist}} 與其他 {{count}} 人…",
+                    "multiple": "從 {{userlist}} 與 {{user}}",
+                    "single": "從 {{user}}"
+                },
+                "outgoing": "發出好友邀請。",
+                "blocked": "已封鎖",
+                "nobody": "這裡還沒有任何人！",
+                "incoming": "新的好友邀請。",
+                "sent": "離開",
+                "pending": "等待的好友請求"
+            },
+            "status": {
+                "offline": "離線。",
+                "reconnecting": "重新連結中…",
+                "connecting": "連結中…",
+                "disconnected": "已斷線。"
+            },
+            "copy": "點擊複製",
+            "copy_username": "點選複製使用者名稱",
+            "popovers": {
+                "user_profile": {
+                    "profile": "個人資料",
+                    "no_groups": "沒有共同的群組",
+                    "mutual_friends": "共同好友",
+                    "mutual_groups": "共同群組",
+                    "mutual_servers": "共同的伺服器",
+                    "empty": "這裡什麼都沒有…",
+                    "no_users": "沒有共同的朋友",
+                    "no_servers": "沒有共同的伺服器",
+                    "sub": {
+                        "badges": "徽章",
+                        "information": "關於我",
+                        "connections": "連結"
+                    },
+                    "badges": {
+                        "translator": "翻譯人員",
+                        "supporter": "支援者",
+                        "responsible_disclosure": "富責任心的漏洞揭露者",
+                        "early_adopter": "早期使用者",
+                        "founder": "創始人",
+                        "moderation": "平台管理者"
+                    }
+                },
+                "server_identity": {
+                    "title": "更改在 {{server}} 的身分",
+                    "nickname": "暱稱",
+                    "avatar": "頭像"
+                },
+                "create_bot": {
+                    "title": "新建機器人",
+                    "failed": "建立機器人失敗！"
+                },
+                "user_picker": {
+                    "select": "選擇要加入的好友。"
+                }
+            },
+            "requires_online": "您需要上線才能查看。",
+            "invite": {
+                "invited_by": "由 {{user}} 邀請",
+                "login": "登入 Revolt",
+                "accept": "接受邀請",
+                "user_count": "{{member_count}} 位使用者",
+                "invalid": "邀請無效！",
+                "invalid_desc": "該邀請可能不存在或您沒有加入的權限。"
+            },
+            "server-badges": {
+                "official": "官方服務器",
+                "verified": "被驗證的伺服器"
+            }
+        },
+        "context_menu": {
+            "reply_message": "回覆",
+            "save_image": "儲存圖片",
+            "copy_text": "複製文字",
+            "copy_uid": "複製使用者 ID",
+            "copy_sid": "複製伺服器 ID",
+            "copy_cid": "複製頻道 ID",
+            "copy_mid": "複製訊息 ID",
+            "copy_id": "複製 ID",
+            "copy_selection": "複製所選",
+            "copy_message_link": "複製訊息連結",
+            "mention": "提及",
+            "message_user": "訊息",
+            "view_profile": "查看使用者個人資料",
+            "mark_as_read": "標記為已讀",
+            "retry_message": "重新發送",
+            "cancel_message": "收回訊息",
+            "quote_message": "引用訊息",
+            "edit_message": "編輯訊息",
+            "delete_message": "刪除訊息",
+            "remove_member": "從群組移除",
+            "kick_member": "踢出成員",
+            "ban_member": "封鎖成員",
+            "open_file": "開啟檔案",
+            "save_file": "儲存檔案",
+            "save_video": "儲存影片",
+            "copy_link": "複製連結",
+            "open_link": "開啟連結",
+            "block_user": "封鎖使用者",
+            "unblock_user": "解除封鎖使用者",
+            "open_image": "開啟圖片",
+            "open_video": "開啟影片",
+            "create_channel": "建立頻道",
+            "create_category": "新建分類",
+            "create_invite": "新建邀請",
+            "open_notification_options": "通知選項",
+            "open_group_settings": "群組設定",
+            "add_friend": "新增好友",
+            "remove_friend": "刪除好友",
+            "cancel_friend": "取消好友邀請",
+            "custom_status": "自訂狀態",
+            "clear_status": "清除狀態",
+            "leave_group": "離開群組",
+            "leave_server": "離開伺服器",
+            "close_dm": "關閉私訊",
+            "delete_server": "刪除伺服器",
+            "edit_identity": "編輯身份",
+            "delete_channel": "刪除頻道",
+            "open_channel_settings": "頻道設定",
+            "open_server_settings": "伺服器設定",
+            "set_custom_status": "設定自訂狀態",
+            "mark_unread": "標記為未讀",
+            "make_owner": "轉交群組所有權",
+            "report_message": "檢舉訊息",
+            "report_user": "檢舉使用者",
+            "report_server": "檢舉伺服器"
+        },
+        "permissions": {
+            "required": "需要權限"
+        },
+        "home": {
+            "goto-testers": "前往測試者伺服器",
+            "donate": "捐獻給 Revolt",
+            "settings": "開啟設定",
+            "join-testers": "加入測試者伺服器",
+            "social": "尋找其他伺服器和機器人",
+            "feedback": "給予 Revolt 回饋",
+            "settings-tooltip": "您也可以右鍵點擊左上角的使用者頭像，或是在首頁點擊左鍵。",
+            "directs": "私人訊息",
+            "join-testers_desc": "您可以直接在此處報告問題並與我們討論改進。",
+            "goto-testers_desc": "您可以直接在此處報告問題並與我們討論改進。",
+            "donate_desc": "通過捐贈支持本計劃 - 謝謝！",
+            "feedback_desc": "通過向我們提供回饋，讓我們知道如何改進我們的應用程式。",
+            "discover_desc": "根據您的愛好或興趣尋找社群。",
+            "group": "建立群組",
+            "group_desc": "邀請您所有的朋友，一些很酷的機器人，並舉辦一個盛大的派對。",
+            "discover": "探索 Revolt"
+        }
+    },
+    "login": {
+        "error": {
+            "resend": "重新發送失敗！",
+            "reset": "重設失敗！",
+            "login": "登入失敗！",
+            "create": "註冊失敗！",
+            "verify": "驗證失敗！"
+        },
+        "create": "註冊新帳號",
+        "successful_registration": "註冊成功！",
+        "open_mail_provider": "打開 {{provider}}",
+        "check_spam": "如果找不到，請檢查垃圾信箱",
+        "email_delay": "請等待電子郵件送達，最多可能會需要 10 分鐘。",
+        "check_mail": "請檢查您的電子郵件！",
+        "cancel": "取消請求",
+        "resend": "重新發送認證碼",
+        "missing_verification": "沒有收到電子郵件？",
+        "existing": "已經有一個帳號了嗎？",
+        "new": "第一次使用 Revolt？",
+        "remembered": "返回登入頁面",
+        "set_password": "設定新密碼",
+        "reset": "重設密碼",
+        "forgot": "忘記密碼？",
+        "enter": {
+            "current_password": "輸入目前的密碼。",
+            "invite": "輸入您的邀請碼。",
+            "password": "輸入您的密碼。",
+            "email": "請輸入您的電子郵件。",
+            "username": "輸入您的使用者名稱。",
+            "new_password": "輸入新密碼。"
+        },
+        "current_password": "目前密碼",
+        "invite": "邀請碼",
+        "password": "密碼",
+        "email": "電子郵件",
+        "username": "使用者名稱",
+        "register": "註冊",
+        "title": "登入",
+        "welcome2": "您好！",
+        "subtitle2": "建立帳號",
+        "welcome": "歡迎！",
+        "subtitle": "登入 Revolt",
+        "unofficial_instance": "第三方實例。",
+        "totp": "二步驟驗證程式",
+        "recovery": "備份安全碼",
+        "new_password": "新密碼",
+        "log_out_other": "登出所有其他裝置",
+        "verifying_account": "驗證您的帳號…",
+        "verified_account": "您的帳號已驗證！",
+        "verified_continue": "繼續登入"
+    },
+    "general": {
+        "unavailable": "無法使用",
+        "disabled": "已停用",
+        "off": "關閉",
+        "on": "開啟",
+        "loading": "讀取中…",
+        "image_by": "圖示來自",
+        "privacy": "隱私政策",
+        "tos": "服務條款",
+        "about": "關於",
+        "learn_more": "瞭解更多"
+    },
+    "quantities": {
+        "members": {
+            "one": "1位成員",
+            "many": "{{count}} 位成員"
+        },
+        "dropFiles": {
+            "many": "上傳 {{count}} 個檔案",
+            "one": "上傳檔案"
+        }
+    },
+    "dayjs": {
+        "lastDay": "[昨天] {{time}}",
+        "sameDay": "[今天] {{time}}",
+        "nextDay": "[明天] {{time}}",
+        "lastWeek": "[上] dddd [的] {{time}}",
+        "nextWeek": "dddd [的] {{time}}",
+        "defaults": {
+            "date_separator": "/",
+            "date_format": "ISO8601",
+            "twelvehour": "no"
+        }
+    },
+    "notifications": {
+        "now_friends": "您現在是 @{{person}} 的朋友了！",
+        "sent_request": "@{{person}} 發送了好友邀請。"
+    },
+    "error": {
+        "NetworkError": "網路錯誤。",
+        "Unlabelled": "發生了一些事。",
+        "FailedValidation": "無法驗證字串。",
+        "DatabaseError": "資料庫錯誤。",
+        "AudioPermissionBlock": "無法存取您的麥克風，請檢查瀏覽器權限設定。",
+        "InternalError": "內部錯誤。",
+        "MissingPermission": "您沒有該操作的權限。",
+        "ReachedMaximumBots": "您已到達機器人的最大數量。",
+        "IoError": "伺服器發生 I/O 錯誤。",
+        "UnsupportedBrowser": "瀏覽器不支援此功能。",
+        "DeniedNotification": "您拒絕了通知權限，請檢查頁面設定。",
+        "CompromisedPassword": "此密碼不安全。",
+        "Unauthorized": "未經授權許可。",
+        "MissingHeaders": "缺乏 Header。",
+        "InvalidSession": "無效的會話。",
+        "UnknownError": "請查看瀏覽器控制台。",
+        "OperationFailed": "操作失效。",
+        "UnverifiedAccount": "未驗證的帳號。",
+        "UnknownUser": "未知的使用者。",
+        "EmailInUse": "電子郵件已經被使用。",
+        "EmailFailed": "電子郵件發送失敗。",
+        "InvalidCredentials": "電子郵件或密碼錯誤。",
+        "InvalidToken": "無效的金鑰",
+        "MissingInvite": "請求中缺少邀請代碼。",
+        "InvalidInvite": "無效的代碼",
+        "NoEffect": "此請求無效。",
+        "RequiredField": "必填",
+        "TooShort": "太短",
+        "TooLong": "太長",
+        "InvalidEmail": "無效的電子郵件",
+        "Unavailable": "不可用。",
+        "FileTooLarge": "檔案過大。",
+        "FailedToReceive": "伺服器接收您的檔案失敗。",
+        "AlreadyOnboarded": "已經完成了初始化。",
+        "UsernameTaken": "該使用者名稱已被使用。",
+        "AlreadyFriends": "已經與此使用者成為好友。",
+        "AlreadySentRequest": "已經向此使用者發送了邀請。",
+        "Blocked": "您已封鎖此使用者。",
+        "BlockedOther": "此使用者已封鎖您。",
+        "RenderFail": "模板載入失败。",
+        "MissingData": "請求缺少資料。",
+        "ProbeError": "取得文件元資料失敗。",
+        "DiscriminatorChangeRatelimited": "您近期所做的使用者名稱變更過多。"
+    },
+    "permissions": {
+        "ManageChannels": {
+            "t": "管理頻道",
+            "d": "允許成員建立，編輯和刪除頻道。"
+        },
+        "ManageServer": {
+            "t": "管理伺服器",
+            "d": "允許成員更改伺服器名稱，說明，圖示和其他相關訊息。"
+        },
+        "BanMembers": {
+            "t": "封鎖成員",
+            "d": "允許成員從伺服器永久移除成員。"
+        },
+        "KickMembers": {
+            "t": "踢出成員",
+            "d": "允許成員在伺服器移除成員，被踢出的人可以透過邀請重新加入此伺服器。"
+        },
+        "ChangeNickname": {
+            "t": "更改暱稱",
+            "d": "允許成員更改在此伺服器上的暱稱。"
+        },
+        "ManageNicknames": {
+            "t": "管理暱稱",
+            "d": "允許成員更改其他成員的暱稱。"
+        },
+        "ChangeAvatar": {
+            "t": "更改頭貼",
+            "d": "允許成員更改在此伺服器的頭貼。"
+        },
+        "RemoveAvatars": {
+            "t": "移除頭貼",
+            "d": "允許成員刪除此伺服器上其他成員的頭貼。"
+        },
+        "UploadFiles": {
+            "d": "允許成員在文字頻道上傳檔案。",
+            "t": "上傳檔案"
+        },
+        "VoiceCall": {
+            "t": "語音聊天",
+            "d": "允許成員加入語音頻道。"
+        },
+        "InviteOthers": {
+            "t": "邀請成員",
+            "d": "允許成員邀請其他成員到此頻道。"
+        },
+        "EmbedLinks": {
+            "t": "嵌入式連結",
+            "d": "允許成員在文字頻道發送連結時，顯示嵌入式內容。"
+        },
+        "ManageMessages": {
+            "d": "允許成員刪除其他成員發送的訊息。",
+            "t": "管理訊息"
+        },
+        "SendMessage": {
+            "t": "發送訊息",
+            "d": "允許成員在本文字頻道發送訊息。"
+        },
+        "ManageChannel": {
+            "t": "管理頻道",
+            "d": "允許成員編輯或刪除頻道。"
+        },
+        "Masquerade": {
+            "t": "偽裝身份",
+            "d": "允許使用者每發一則訊息就能更改名稱和頭像。"
+        },
+        "ManageRole": {
+            "t": "管理身份組",
+            "d": "允許成員建立、編輯和刪除級別低於自己的身份組，以及修改頻道身份組權限。"
+        },
+        "ViewChannel": {
+            "t": "查看頻道",
+            "d": "允許成員查看此伺服器上的所有頻道。"
+        },
+        "ManagePermissions": {
+            "d": "允許成員更改等級低於自己的頻道與身份組的權限。",
+            "t": "管理權限"
+        },
+        "TimeoutMembers": {
+            "t": "靜默成員",
+            "d": "允許成員臨時阻止使用者與此伺服器互動。"
+        },
+        "AssignRoles": {
+            "d": "允許成員向其他成員分配低於自己的身份組。",
+            "t": "分配身份組"
+        },
+        "ManageWebhooks": {
+            "d": "允許成員控制頻道內的 Webhook。",
+            "t": "管理 Webhook"
+        },
+        "Connect": {
+            "t": "連接",
+            "d": "允許成員連接到語音頻道。"
+        },
+        "Speak": {
+            "t": "發言",
+            "d": "允許成員在語音頻道內發言。"
+        },
+        "DeafenMembers": {
+            "d": "允許成員在語音頻道內禁止其他成員收聽。",
+            "t": "靜音成員"
+        },
+        "MoveMembers": {
+            "t": "移動成員",
+            "d": "允許成員在語音頻道之間移動其他成員。"
+        },
+        "ReadMessageHistory": {
+            "t": "閱讀訊息歷史",
+            "d": "允許成員閱讀此頻道的訊息歷史記錄。"
+        },
+        "SendEmbeds": {
+            "t": "發送嵌入內容",
+            "d": "允許成員發送嵌入內容，例如連結和自訂嵌入文字。"
+        },
+        "Video": {
+            "t": "影片",
+            "d": "允許成員在語音頻道內串流影片。"
+        },
+        "MuteMembers": {
+            "t": "禁言成員",
+            "d": "允許成員在語音頻道內禁言其他成員。"
+        },
+        "React": {
+            "t": "使用反應",
+            "d": "允許成員對訊息做出回應。"
+        },
+        "ManageCustomisation": {
+            "t": "管理自訂",
+            "d": "允許成員新增、編輯和刪除表情符號。"
+        }
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "actions": {
+        "submit": "送出"
+    },
+    "keys": {
+        "Escape": {
+            "short": "Esc"
+        },
+        "Control": {
+            "short": "Ctrl"
+        },
+        "Insert": {
+            "short": "Ins"
+        },
+        "Delete": {
+            "short": "Del"
+        },
+        "Backspace": {
+            "short": "Backspace"
+        },
+        "PageUp": {
+            "full": "Page Up",
+            "short": "PgUp"
+        },
+        "PageDown": {
+            "full": "Page Down",
+            "short": "PgDown"
+        }
+    }
+}

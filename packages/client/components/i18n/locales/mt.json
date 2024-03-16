@@ -1,0 +1,158 @@
+{
+    "general": {
+        "tos": "Termini tas-Servizz",
+        "privacy": "Regoli tal-privatezza",
+        "loading": "Tagħbija…",
+        "on": "Mixgħul",
+        "off": "Mitfi",
+        "unavailable": "Ma jeżistix",
+        "about": "Dwar il-proġett",
+        "disabled": "Mitfi",
+        "image_by": "Immaġni minn",
+        "learn_more": "Informazzjoni Aktar"
+    },
+    "login": {
+        "title": "Idħol f'account",
+        "welcome": "Merħba lura!",
+        "subtitle": "Idħol f'Revolt",
+        "welcome2": "Bongu!",
+        "subtitle2": "Aghmel account",
+        "register": "Aghmel account",
+        "username": "Isem tal-utent",
+        "password": "Il-Kodiċi",
+        "enter": {
+            "username": "Daħħal l-isem preferut tiegħek.",
+            "password": "Daħħal il-password magħżula tiegħek,",
+            "email": "Daħħal l-email tiegħek.",
+            "invite": "Daħħal il-kodiċi tal-istedina tiegħek.",
+            "current_password": "Daħħal il-password attwali tiegħek.",
+            "new_password": "Daħħal password ġdħol"
+        },
+        "set_password": "Agħmel password ġdida",
+        "current_password": "Kodiċi kurrenti",
+        "forgot": "Insejt il-password?",
+        "email": "Email",
+        "invite": "Stieden Kodiċi",
+        "reset": "Irrisettja l-password",
+        "remembered": "Mur lura għall-login",
+        "new": "Ġdid għar-Revolt?",
+        "existing": "Diġà għandek kont?",
+        "create": "Oħloq kont ġdid",
+        "missing_verification": "Ma rċevejtx email?",
+        "resend": "Ibgħat mill-ġdid il-verifika",
+        "cancel": "Ikkanċella t-talba",
+        "check_mail": "Iċċekkja l-posta tiegħek!",
+        "email_delay": "Jekk jogħġbok ħalli sa 10 minuti biex tasal.",
+        "check_spam": "Jekk jogħġbok iċċekkja l-ispam jekk ma tistax issibha",
+        "open_mail_provider": "Iftaħ {{provditur}}",
+        "successful_registration": "irreġistrat b'suċċess",
+        "error": {
+            "create": "naqas milli jirreġistra!",
+            "login": "naqas milli login!",
+            "reset": "Naqas li reset!",
+            "resend": "Naqas milli jerġa' jibgħat!",
+            "verify": "Verifikazzjoni falliet!"
+        },
+        "unofficial_instance": "Instanza terza parti",
+        "log_out_other": "Ħalli Sessjonijiet Oħrajn Kollha",
+        "new_password": "Password Ġdħol",
+        "totp": "App Tal-Awtentikazzjoni",
+        "recovery": "Kodi Tal-Ġimgħat",
+        "verifying_account": "Verifikazzjoni tal-kont tiegħek…",
+        "verified_account": "Il-kont tiegħek ġie verifikat!",
+        "verified_continue": "Kompli jidħol fil-kont"
+    },
+    "app": {
+        "status": {
+            "reconnect": "Erġa' qabbad",
+            "online": "Online",
+            "idle": "Idle",
+            "busy": "Ittellifx",
+            "invisible": "Inviżibbli",
+            "offline": "Offline",
+            "focus": "Fokus"
+        },
+        "home": {
+            "settings-tooltip": "Tista 'wkoll tikklikkja bil-lemin fuq l-ikona tal-utent fin-naħa ta' fuq tax-xellug, jew tikklikkja fuq ix-xellug jekk int diġà d-dar.",
+            "discover_desc": "Sib komunità bbażata fuq il-passatempi jew l-interessi tiegħek.",
+            "group": "Oħloq grupp",
+            "group_desc": "Stieden lil sħabek kollha, xi bots friski, u agħmel festa kbira.",
+            "join-testers": "Ingħaqad mas-server tat-testers",
+            "join-testers_desc": "Tista' tirrapporta kwistjonijiet u tiddiskuti titjib magħna direttament hawn.",
+            "goto-testers": "Mur fis-server tat-testers",
+            "goto-testers_desc": "Tista' tirrapporta kwistjonijiet u tiddiskuti titjib magħna direttament hawn.",
+            "directs": "Messaġġi Diretti",
+            "donate_desc": "Appoġġa l-proġett billi tagħti donazzjoni - grazzi!",
+            "feedback": "Agħti feedback dwar Revolt",
+            "feedback_desc": "Għidilna kif nistgħu ntejbu l-app tagħna billi tagħtina feedback.",
+            "settings": "Iftaħ is-settings",
+            "donate": "Agħti donazzjoni lil Revolt",
+            "discover": "Skopri Revolt"
+        },
+        "main": {
+            "categories": {
+                "conversations": "Konversazzjonijiet",
+                "participants": "Parteċipanti",
+                "channels": "Kanali",
+                "members": "Membri"
+            },
+            "channel": {
+                "message_where": "Messaġġ {{channel_name}}",
+                "message_who": "Messaġġ {{persuna}}",
+                "message_saved": "Ħlief fin-noti tiegħek",
+                "uploading_file": "Qed ittella'…",
+                "failed_upload": "Naqas milli ttella!",
+                "attached_file": "Mehmuż {{filename}}",
+                "reply": {
+                    "replying": "Twieġeb għal",
+                    "toggle": "Aqleb il-ping tal-awtur"
+                },
+                "typing": {
+                    "single": "{{user}} qed ittajpja…",
+                    "multiple": "{{userlist}} u {{user}} qed jittajpja…",
+                    "several": "Diversi nies qed ittajpjaw…"
+                },
+                "system": {
+                    "user_joined": "{{user}} ingħaqad",
+                    "user_left": "{{utent}} telaq",
+                    "channel_description_changed": "{{user}} biddel id-diskrizzjoni tal-kanal",
+                    "channel_renamed": "{{user}} biddel il-kanal għal {{name}}",
+                    "registered_at": "Rreġistrat {{time}}",
+                    "user_kicked": "{{user}} ġie bħallet",
+                    "user_banned": "{{user}} ġie bannat",
+                    "added_by": "ġie miżjud mill-{{other_user}}",
+                    "removed_by": "{{user}} ġie rimosso mill-{{other_user}}",
+                    "channel_icon_changed": "{{user}} biddel l-ikona tal-kanal",
+                    "channel_ownership_changed": "{{from}} ttella {{to}} l-għaxar titolu tal-grupp"
+                },
+                "voice": {
+                    "leave": "Ivvjaħt",
+                    "connected": "Vokali konnessa",
+                    "mute": "Mutizza",
+                    "unmute": "Unmutizza"
+                },
+                "start": {
+                    "group": "Dan huwa l-bidu tal-konversazzjoni tiegħek.",
+                    "saved": "Din il-bidu ta' noti tiegħek. traduċi għall-Malti"
+                },
+                "misc": {
+                    "viewing_old": "Qarrej ta' messaġġi qodma",
+                    "jump_present": "Lur għal dik l-Attuali",
+                    "jump_beginning": "Lur għal bidu"
+                }
+            }
+        },
+        "navigation": {
+            "tabs": {
+                "dev": "Żviluppatur",
+                "friends": "Ħbieb",
+                "unreads": "Mhux moqrija",
+                "home": "Dar",
+                "saved": "Noti Salvati"
+            }
+        }
+    },
+    "actions": {
+        "submit": "Ibgħat"
+    }
+}

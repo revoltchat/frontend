@@ -67,10 +67,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      ...readdirSync(resolve(__dirname, "..", "..", "components")).reduce(
+      ...readdirSync(resolve(__dirname, "components")).reduce(
         (p, f) => ({
           ...p,
-          [`@revolt/${f}`]: resolve(__dirname, "..", "..", "components", f),
+          [`@revolt/${f}`]: resolve(__dirname, "components", f),
         }),
         {}
       ),

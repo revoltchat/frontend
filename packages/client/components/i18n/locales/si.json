@@ -1,0 +1,721 @@
+{
+    "login": {
+        "email_delay": "එය පැමිණීමට විනාඩි 10 ක් වත් ඉඩ දෙන්න.",
+        "new": "රිවෝල්ට් වෙත අළුත් ද?",
+        "register": "ලියාපදිංචි වන්න",
+        "username": "පරීශිලක නාමය",
+        "email": "වි-තැපෑල",
+        "password": "මුරපදය",
+        "current_password": "වත්මන් මුරපදය",
+        "enter": {
+            "username": "පරිශ්‍රීලක නාමය යොදන්න.",
+            "password": "මුරපදය ඇතුල් කරන්න.",
+            "invite": "ඇරයුම් කේතය යොදන්න.",
+            "current_password": "වත්මන් මුරපදය යොදන්න.",
+            "email": "වි-තැපෑල යොදන්න.",
+            "new_password": "නව මුරපදයක් යොදන්න."
+        },
+        "forgot": "මුරපදය අමතක වුනාද?",
+        "reset": "මුරපදය යළි සකසන්න",
+        "set_password": "නව මුරපදය සකසන්න",
+        "create": "නව ගිණුමක් සාදන්න",
+        "missing_verification": "වි-තැපෑලක් නොලැබුණේ ද?",
+        "cancel": "ඉල්ලීම ඉවතලන්න",
+        "open_mail_provider": "{{provider}} අරින්න",
+        "successful_registration": "සාර්ථකව ලියාපදිංචි විය!",
+        "error": {
+            "create": "ලියාපදිංචි වීමට අසමත් විය!",
+            "resend": "නැවත යැවීමට අසමත්!",
+            "reset": "නැවත සැකසීමට අසමත්!",
+            "login": "පිවිසීමට අසමත් විය!",
+            "verify": "සත්‍යාපනයට නොහැකි විය!"
+        },
+        "invite": "ඇරයුම් කේතය",
+        "existing": "දැනටමත් ගිණුමක් තිබේද?",
+        "check_mail": "වි-තැපෑල පරීක්‍ෂා කරන්න!",
+        "title": "පිවිසෙන්න",
+        "remembered": "පිවිසුමට ආපසු යන්න",
+        "check_spam": "නැති නම් අයාචිතය ද බලන්න",
+        "welcome2": "ආයුබෝ!",
+        "subtitle2": "ගිණුමක් සාදන්න",
+        "totp": "සත්‍යාපන යෙදුම",
+        "recovery": "ප්‍රතිසාධන කේතය",
+        "welcome": "සාදරයෙන් පිළිගනිමු!",
+        "subtitle": "රිවෝල්ට් වෙත පිවිසෙන්න",
+        "resend": "නැවත යවන්න",
+        "verifying_account": "ගිණුම සත්‍යාපනය වෙමින්…",
+        "verified_account": "ගිණුම සත්‍යාපනය වී ඇත!",
+        "verified_continue": "පිවිසුම වෙත යන්න",
+        "new_password": "නව මුරපදය"
+    },
+    "app": {
+        "main": {
+            "channel": {
+                "misc": {
+                    "sent_file": "ඇමුණුමක් යැවිණි",
+                    "failed_load": "පණිවිඩ පූරණය කළ නොහැකි විය.",
+                    "sent_multiple_files": "ඇමුණුම් කිහිපයක් යැවිණි",
+                    "no_sending": "ඔබට මෙම නාලිකාවේ පණිවිඩ යැවීමට අවසර නැත.",
+                    "blocked_messages": "අවහිර කළ පණිවිඩ {{count}}",
+                    "blocked_user": "අවහිර කළ පරිශීලකයෙකි",
+                    "viewing_old": "පරණ පණිවිඩ දකිමින්",
+                    "jump_present": "වත්මනට යන්න",
+                    "load_file": "ගොනුව පූරණය",
+                    "new_messages": "{{time_ago}} සිට නව පණිවිඩ"
+                },
+                "notifications": {
+                    "none": "කිසිත් නැත",
+                    "all": "සියළුම පණිවිඩ",
+                    "mention": "සැඳහුම් පමණි",
+                    "muted": "නිහඬයි"
+                },
+                "errors": {
+                    "nochannel": "නාලිකා නැත",
+                    "nochannels": "මෙම සේවාදායකයේ නාලිකා නැත, හෝ ඔබට ප්‍රවේශයක් නැත.",
+                    "title": "අපොයි, මෙතැන කිසිවක් නැත!"
+                },
+                "message_saved": "ඔබගේ සටහන් වෙත සුරකින්න",
+                "start": {
+                    "group": "මෙය ඔබගේ සංවාදයේ ආරම්භය යි.",
+                    "saved": "මෙය ඔබගේ සටහන්වල ආරම්භයයි."
+                },
+                "system": {
+                    "user_joined": "{{user}} එක් වුණා",
+                    "user_left": "{{user}} හැර ගියා",
+                    "channel_icon_changed": "{{user}} නාලිකාවේ නිරූපකය වෙනස් කළා",
+                    "user_banned": "{{user}} තහනම් කර ඇත"
+                },
+                "voice": {
+                    "leave": "හැරයන්න",
+                    "mute": "නිහඬ",
+                    "connected": "කටහඬ සම්බන්ධිතයි",
+                    "unmute": "නොනිහඬ"
+                },
+                "nsfw": {
+                    "channel": {
+                        "confirm": "නාලිකාවට ඇතුල් වන්න"
+                    },
+                    "confirm": "මම අවම වශයෙන් අවු. 18 ක් බව තහවුරු කරමි."
+                },
+                "unknown_user": "<නොදන්නා අයෙකි>",
+                "bot": "ස්වයංක්‍රමලේඛය",
+                "search": {
+                    "title": "සොයන්න",
+                    "sort": {
+                        "oldest": "පරණම",
+                        "latest": "නවතම"
+                    }
+                },
+                "uploading_file": "උඩුගත වෙමින්…",
+                "failed_upload": "උඩුගත විමට අසමත්!",
+                "message_where": "{{channel_name}}වෙත පණිවුඩයක් යවන්න",
+                "attached_file": "{{filename}} අමුණා ඇත",
+                "edited": "(සංශෝධිතයි)",
+                "typing": {
+                    "single": "{{user}} ලියමින්…",
+                    "multiple": "{{userlist}} සහ {{user}} ලියමින්…",
+                    "several": "කිහිප දෙනෙක් ලියමින්…"
+                },
+                "message_who": "{{person}}ට පණිවුඩයක් යවන්න",
+                "team": "නිල සන්නිවේදනය"
+            },
+            "groups": {
+                "owner": "සමූහයේ හිමිකරු",
+                "create": "සමූහයක් සාදන්න",
+                "name": "සමූහයේ නම",
+                "description": "සමූහයේ සවිස්තරය"
+            },
+            "servers": {
+                "create": "සේවාදායකයක් සාදන්න",
+                "owner": "සේවාදායකයේ හිමිකරු",
+                "name": "සේවාදායකයේ නම",
+                "channel_name": "නාලිකාවේ නම",
+                "channel_type": "නාලිකාවේ වර්ගය",
+                "voice_channel": "කටහඬ නාලිකාව",
+                "category_name": "ප්‍රවර්ගයේ නම",
+                "description": "සේවාදායකයේ සවිස්තරය",
+                "channel_description": "නාලිකාවේ නම",
+                "text_channel": "පාඨ නාලිකාව"
+            },
+            "categories": {
+                "conversations": "සංවාද",
+                "participants": "සහභාගීන්",
+                "members": "සාමාජිකයින්",
+                "channels": "නාලිකා"
+            }
+        },
+        "special": {
+            "modals": {
+                "prompt": {
+                    "create_invite_created": "ඔබගේ නව ඇරයුම් කේතය:",
+                    "unfriend_user": "{{name}} ඉවත් කරනවාද?",
+                    "block_user": "{{name}} අවහිර?",
+                    "confirm_leave": "{{name}} හැරයනවාද?",
+                    "confirm_close_dm": "{{name}} සමඟ සංවාදය වසනවාද?",
+                    "unfriend_user_long": "ඔවුන්ව නැවත එකතු කරගන්නා තෙක් කතා කිරීමට නොහැකි වනු ඇත.",
+                    "create_invite_generate": "ඇරයුම උත්පාදනය වෙමින්…",
+                    "confirm_leave_long": "ඔබට ඇරයුමකින් තොරව නැවත එක්වීමට නොහැකිය.",
+                    "confirm_close_dm_long": "ඔබට එය පසුව විවෘත කළ හැකිමුත් දෙපැත්තෙන්ම නොපෙනී යනු ඇත.",
+                    "confirm_ban_reason": "තහනමට හේතුව",
+                    "confirm_ban": "{{name}} තහනම් කිරීමට සැරසෙමින්",
+                    "block_user_long": "{{name}} අවහිර කිරීමට ඇවැසිද? ඔබගේ යහළුන්ගේ ලේඛනයෙන්ද ඉවත් වනු ඇත.",
+                    "silent_leave": "නිහඬව හැරයන්න"
+                },
+                "external_links": {
+                    "short": "මෙයට යාමට වුවමනා ද:",
+                    "title": "බාහිර සබැඳි අනතරායකාරී විය හැකිය!",
+                    "trust_domain": "වසම විශ්වාස කරන්න"
+                },
+                "actions": {
+                    "back": "ආපසු යන්න",
+                    "remove": "ඉවත් කරන්න",
+                    "send_email": "වි-තැපෑල යවන්න",
+                    "ok": "හරි",
+                    "ban": "තහනම්",
+                    "save": "සුරකින්න",
+                    "hide": "සඟවන්න",
+                    "edit": "සංස්කරණය",
+                    "block": "අවහිර",
+                    "close": "වසන්න",
+                    "leave": "හැරයන්න",
+                    "create": "සාදන්න",
+                    "update": "යාවත්කාල",
+                    "cancel": "අවලංගු",
+                    "preview": "පෙරදසුන",
+                    "reload": "යෙදුම යළි පූරණය",
+                    "continue": "ඉදිරියට",
+                    "reveal": "හෙළිකරන්න",
+                    "report": "වාර්තාව",
+                    "reset": "යළි සකසන්න",
+                    "done": "අහවරයි",
+                    "delete": "මකන්න",
+                    "confirm": "තහවුරු"
+                },
+                "onboarding": {
+                    "welcome": "සාදරයෙන් පිළිගනිමු"
+                },
+                "account": {
+                    "change": {
+                        "username": "පරිශීලකනාමය සංශෝධනය",
+                        "email": "වි-තැපෑල සංශෝධනය",
+                        "password": "මුරපදය සංශෝධනය"
+                    },
+                    "failed": "සංශෝධනයට අසමත්!"
+                },
+                "error": "දෝෂයක් සිදුවිණි!",
+                "clipboard": {
+                    "unavailable": "පසුරුපුවරුව නොතිබේ!"
+                },
+                "signed_out": "ඔබ නික්ම ගොස් ඇත!",
+                "changelogs": {
+                    "title": "වෙනස්කම් සටහන්"
+                },
+                "mfa": {
+                    "recovery_codes": "ඔබගේ ප්‍රතිසාධන කේත",
+                    "enter_code": "කේතය යොදන්න"
+                }
+            },
+            "popovers": {
+                "user_profile": {
+                    "mutual_servers": "අන්‍යෝන්‍ය සේවාදායක",
+                    "sub": {
+                        "information": "තොරතුරු",
+                        "connections": "සම්බන්ධතා",
+                        "badges": "චිහ්න"
+                    },
+                    "profile": "පැතිකඩ",
+                    "mutual_friends": "අන්‍යෝන්‍ය යහළුවන්",
+                    "mutual_groups": "අන්‍යෝන්‍ය සමූහ",
+                    "no_users": "අන්‍යෝන්‍ය යහළුවන් නැත",
+                    "no_groups": "අන්‍යෝන්‍ය සමූහ නැත",
+                    "no_servers": "අන්‍යෝන්‍ය සේවාදායක නැත",
+                    "badges": {
+                        "translator": "පරිවර්තක",
+                        "supporter": "සහායක",
+                        "founder": "ප්‍රාරම්භක"
+                    },
+                    "empty": "මෙතැන තරමක් හිස් ය…"
+                },
+                "create_bot": {
+                    "title": "නව ස්වයංක්‍රමලේඛයක් සාදන්න",
+                    "failed": "නව ස්වයංක්‍රමලේඛයක් සෑදීමට අසමත්!"
+                },
+                "server_identity": {
+                    "nickname": "අපනාමය",
+                    "title": "{{server}} අනන්‍යතාව වෙනස් කරන්න",
+                    "avatar": "ප්‍රතිරූපය"
+                }
+            },
+            "invite": {
+                "invalid": "ඇරයුම වලංගු නොවේ!",
+                "accept": "ඇරයුම පිළිගන්න",
+                "user_count": "පරිශීලකයින් {{member_count}}",
+                "invalid_desc": "ඇරයුම නොපවතී හෝ ඔබට එක්වීමට අවසර නැත.",
+                "login": "රිවෝල්ට් වෙත පිවිසෙන්න"
+            },
+            "copy_username": "එබීමෙන් නාමයේ පිටපතක් ලැබේ",
+            "copy": "පිටපතකට ඔබන්න",
+            "friends": {
+                "from": {
+                    "single": "{{user}} වෙතින්",
+                    "several": "{{userlist}} සහ තවත් {{count}} වෙතින්…",
+                    "multiple": "{{userlist}} සහ {{user}} වෙතින්"
+                },
+                "blocked": "අවහිර කර ඇත",
+                "nobody": "තවම කවුරුවත් නැහැ!",
+                "sent": "පිටතට"
+            },
+            "status": {
+                "connecting": "සම්බන්ධ වෙමින්…",
+                "reconnecting": "යළි සම්බන්ධ වෙමින්…",
+                "disconnected": "විසන්ධි වී ඇත."
+            },
+            "server-badges": {
+                "official": "නිල සේවාදායකය",
+                "verified": "සත්‍යාපිත සේවාදායකයකි"
+            }
+        },
+        "context_menu": {
+            "copy_uid": "පරිශීලක හැඳු. පිටපතක්",
+            "copy_message_link": "පණිවිඩ සබැඳියේ පිටපතක්",
+            "remove_member": "සමූහයෙන් ඉවත් කරන්න",
+            "save_video": "දෘශ්‍යකය සුරකින්න",
+            "custom_status": "අභිරුචි තත්‍වය",
+            "create_channel": "නාලිකාව සාදන්න",
+            "create_category": "ප්‍රවර්ගය සාදන්න",
+            "open_group_settings": "සමූහයේ සැකසුම්",
+            "copy_id": "හැඳු. පිටපතක්",
+            "copy_sid": "සේවාදායක හැඳු. පිටපතක්",
+            "copy_cid": "නාලිකාවේ හැඳු. පිටපතක්",
+            "copy_mid": "පණිවිඩයේ හැඳු. පිටපතක්",
+            "message_user": "පණිවිඩය",
+            "reply_message": "පිළිතුර",
+            "edit_message": "පණිවිඩය සංස්කරණය",
+            "save_file": "ගොනුව සුරකින්න",
+            "open_file": "ගොනුව අරින්න",
+            "copy_link": "සබැඳියේ පිටපතක්",
+            "block_user": "පරිශීලකයා අවහිර",
+            "unblock_user": "පරිශීලකයා අනවහිර",
+            "set_custom_status": "අභිරුචි තත්‍වයක් සකසන්න",
+            "leave_group": "සමූහය හැරයන්න",
+            "leave_server": "සේවාදායකය හැරයන්න",
+            "create_invite": "ඇරයුම සාදන්න",
+            "open_notification_options": "දැනුම්දීම් විකල්ප",
+            "open_channel_settings": "නාලිකාවේ සැකසුම්",
+            "open_server_settings": "සේවාදායකයේ සැකසුම්",
+            "mention": "සැඳහුම",
+            "cancel_message": "යැවීම ඉවතලන්න",
+            "retry_message": "නැවත යවන්න",
+            "mark_as_read": "කියවූ බව යොදන්න",
+            "ban_member": "සමාජිකයා තහනම්",
+            "open_video": "දෘශ්‍යකය අරින්න",
+            "add_friend": "යහළුවා එක් කරන්න",
+            "remove_friend": "යහළුවා ඉවත් කරන්න",
+            "cancel_friend": "ඉල්ලීම ඉවතලන්න",
+            "close_dm": "පෞ.ප. වසන්න",
+            "open_link": "සබැඳිය අරින්න",
+            "edit_identity": "හැඳුනුම සංස්කරණය",
+            "clear_status": "තත්‍වය මකන්න",
+            "view_profile": "පැතිකඩ දකින්න",
+            "quote_message": "පණිවිඩය උපුටන්න",
+            "save_image": "අනුරුව සුරකින්න",
+            "open_image": "අනුරුව අරින්න",
+            "copy_text": "පෙළ පිටපතක්",
+            "delete_server": "සේවාදායකය මකන්න",
+            "delete_channel": "නාලිකාව මකන්න",
+            "delete_message": "පණිවිඩය මකන්න"
+        },
+        "settings": {
+            "categories": {
+                "client_settings": "අනුග්‍රාහක සැකසුම්",
+                "user_settings": "පරිශීලක සැකසුම්"
+            },
+            "pages": {
+                "account": {
+                    "manage": {
+                        "disable": "ගිණුම අබල කරන්න",
+                        "title": "ගිණුම කළමනාකරණය"
+                    },
+                    "title": "මාගේ ගිණුම",
+                    "change_field": "වෙනස් කරන්න",
+                    "unique_id": "මෙය ඔබගේ ගිණුමට අනන්‍ය පරිශීලක හඳුන්වනයකි.",
+                    "2fa": {
+                        "view_recovery": "ප්‍රතිසාධන කේත බලන්න",
+                        "generate_recovery": "ප්‍රතිසාධන කේත උත්පාදනය"
+                    }
+                },
+                "profile": {
+                    "placeholder": "ඔබ ගැන යම් දෙයක් ලියන්න…",
+                    "title": "පැතිකඩ",
+                    "info": "තොරතුරු",
+                    "custom_background": "අභිරුචි පසුබිම",
+                    "edit_background": "පසුබිම සංස්කරණය",
+                    "edit_profile": "පැතිකඩ සංස්කරණය",
+                    "fetching": "ඔබගේ පැතිකඩ ගෙනෙමින්…",
+                    "profile_picture": "පැතිකඩ රූපය"
+                },
+                "audio": {
+                    "input_device": "ශබ්දවාහිනිය",
+                    "device_label_NA": "අ/නොවේ",
+                    "title": "කටහඬ සැකසුම්",
+                    "tip_grant_permission": "ශ්‍රව්‍ය සැකසුම් වෙත ප්‍රවේශය සඳහා ඔබ අවසර දිය යුතුය.",
+                    "button_retry": "යළි උත්සාහය",
+                    "output_device": "විකාශකය / ඉස්බණුව",
+                    "tip_retry": "ශබ්දවාහිනියට ප්‍රවේශ වීමට ඔබ අවසර දුන්නේ නැත, කරුණාකර {{retryBtn}}.",
+                    "button_grant": "අවසර දීම"
+                },
+                "appearance": {
+                    "theme": "තේමාව",
+                    "advanced": "වැඩිදුර විකල්ප",
+                    "theme_data": "තේමාවේ දත්ත",
+                    "sync": "සමමුහූර්ත විකල්ප",
+                    "color": {
+                        "dark": "අඳුරු",
+                        "light": "දීප්ත"
+                    },
+                    "import": "තේමාවක් ආයාතය",
+                    "custom_css": "අභිරුචි සීඑස්එස්",
+                    "title": "පෙනුම",
+                    "display": {
+                        "default": "පෙරනිමි"
+                    },
+                    "font": "මුද්‍රණඅකුර",
+                    "message_display": "පණිවිඩ දර්ශකය",
+                    "theme_options": {
+                        "title": "තේමා විකල්ප",
+                        "seasonal": "සෘතුමය තේමා",
+                        "follow": "පද්ධතියේ තේමාව අනුගමනය"
+                    },
+                    "appearance_options": {
+                        "title": "පෙනුමට විකල්ප"
+                    },
+                    "emoji_pack": "ඉමෝජි ඇසුරුම",
+                    "discover": {
+                        "title": "තේමා බලන්න"
+                    },
+                    "emoji": {
+                        "title": "ඉමෝජි"
+                    },
+                    "fonts": {
+                        "title": "රුවකුරු"
+                    },
+                    "advanced_options": {
+                        "title": "වැඩිදුර විකල්ප"
+                    }
+                },
+                "notifications": {
+                    "sounds": "ශබ්ද",
+                    "title": "දැනුම්දීම්",
+                    "sound": {
+                        "message": "පණිවිඩය ලැබුණි",
+                        "outbound": "පණිවිඩය යැවිණි",
+                        "call_leave": "පුද්ගලයා ඇමතුම හැරගියා",
+                        "call_join": "පුද්ඉගලයා ඇමතුමට එක්විය"
+                    },
+                    "descriptions": {
+                        "enable_desktop": "මෙය ඔබගේ යෙදුම විවෘත විට දැනුම්දීම් සපයයි."
+                    },
+                    "enable_desktop": "වැඩතල දැනුම්දීම් සබල කරන්න",
+                    "enable_push": "තල්ලු දැනුම්දීම් සබල කරන්න",
+                    "push_notifications": "තල්ලු දැනුම්දීම්"
+                },
+                "sessions": {
+                    "this_device": "මෙම උපාංගය",
+                    "title": "වාර",
+                    "logout": "අන් සියළුම වාර නික්මවන්න",
+                    "active_sessions": "සක්‍රිය වාර",
+                    "created": ""
+                },
+                "language": {
+                    "title": "භාෂාව",
+                    "other": "වෙනත් භාෂා විකල්ප",
+                    "select": "ඔබගේ භාෂාව තෝරන්න"
+                },
+                "sync": {
+                    "title": "සමමුහූර්ත",
+                    "categories": "ප්‍රවර්ග සමමුහූර්තය",
+                    "options": "සමමුහූර්ත විකල්ප"
+                },
+                "bots": {
+                    "title": "මාගේ ස්වයංක්‍රමලේඛ",
+                    "create_bot": "ස්වයංක්‍රමලේඛයක් සාදන්න",
+                    "add": "ස්වයංක්‍රමලේඛය එක්කරන්න",
+                    "copy_invite": "ඇරයුම් සබැඳියේ පිටපතක්",
+                    "reserved": "සටහන: මෙම ක්‍ෂේත්‍රය මතුවට වෙන්කර ඇත.",
+                    "public_bot_tip": "ස්වයංක්‍රමලේඛය ප්‍රසිද්ධයි. හැමෝටම ආරාධනා කළ හැකිය.",
+                    "private_bot_tip": "ස්වයංක්‍රමලේඛය පෞද්ගලිකයි. ඔබට පමණක් ආරාධනා කළ හැකිය.",
+                    "public_bot": "ප්‍රසිද්ධ ස්වයංක්‍රමලේඛය"
+                },
+                "donate": {
+                    "title": "පරිත්‍යාග"
+                },
+                "source_code": "ප්‍රභව කේතය",
+                "feedback": {
+                    "suggest_desc": "නව විශේෂාංග ගිට්ගබ් සාකච්ඡා හරහා යෝජනා කරන්න.",
+                    "suggest": "විශේෂාංග යෝජනාවක් යොමන්න",
+                    "title": "ප්‍රතිපෝෂණය",
+                    "description": "ප්‍රතිපෝෂණය යොමන්න"
+                },
+                "experiments": {
+                    "title": "පර්යේෂණ",
+                    "features": "තිබෙන විශේෂාංග",
+                    "not_available": "මේ මොහොතේ පර්යේෂණ නොතිබේ."
+                },
+                "theme_shop": {
+                    "title": "තේමා වෙළඳසැල",
+                    "category": {
+                        "viewall": "සියල්ල බලන්න",
+                        "default": "පෙරනිමි තේමා",
+                        "saved": "සුරැකිණි"
+                    },
+                    "search": "තේමා සොයන්න…",
+                    "use": "තේමාව යොදන්න"
+                },
+                "logOut": "නික්මෙන්න",
+                "native": {
+                    "title": "වැඩතල සැකසුම්"
+                },
+                "plugins": {
+                    "title": "පේනු",
+                    "delete_plugin": "මකන්න"
+                }
+            },
+            "title": "සැකසුම්",
+            "actions": {
+                "remove": "ඉවත් කරන්න",
+                "upload": "උඩුගත කරන්න",
+                "max_filesize": "(උපරිම {{filesize}})",
+                "edit": "{{name}} සංස්කරණය"
+            },
+            "channel_pages": {
+                "overview": {
+                    "name": "නාලිකාවේ නම",
+                    "title": "දළ විශ්ලේෂණය",
+                    "description": "නාලිකාවේ සවිස්තරය"
+                },
+                "permissions": {
+                    "title": "අවසර"
+                }
+            },
+            "server_pages": {
+                "overview": {
+                    "name": "සේවාදායකයේ නම",
+                    "title": "දළ විශ්ලේෂණය",
+                    "description": "නාලිකාවේ සවිස්තරය",
+                    "system_messages": "පද්ධතියේ පණිවිඩ නාලිකා"
+                },
+                "members": {
+                    "title": "සාමාජිකයින්"
+                },
+                "invites": {
+                    "title": "ඇරයුම්",
+                    "code": "ඇරයුම් කේතය",
+                    "channel": "නාලිකාව",
+                    "invitor": "ඇරයුම්කරු"
+                },
+                "bans": {
+                    "user": "පරිශීලක",
+                    "reason": "තහනමට හේතුව",
+                    "title": "තහනම්",
+                    "no_reason": "තහනමට හේතුවක් නැත."
+                },
+                "categories": {
+                    "title": "ප්‍රවර්ග"
+                },
+                "roles": {
+                    "title": "භූමිකා"
+                },
+                "management": {
+                    "title": "පරිශීලක කළමනාකරණය"
+                },
+                "customisation": {
+                    "title": "අභිරුචිකරණය"
+                },
+                "emojis": {
+                    "title": "ඉමෝජි"
+                }
+            },
+            "permissions": {
+                "channel": "නාලිකාවේ අවසර",
+                "server": "සේවාදායකයේ අවසර",
+                "role_name": "භූමිකාවේ නම",
+                "default_role": "පෙරනිමි",
+                "create_role": "නම භූමිකාවක් සාදන්න",
+                "edit_title": "අවසර සංස්කරණය",
+                "title": "{{role}} සඳහා අවසර",
+                "delete_role": "භූමිකාව මකන්න",
+                "role_options": "භූමිකාවේ විකල්ප"
+            },
+            "tips": {
+                "languages": {
+                    "b": "තවත් පරිවර්තන සඳහා දායකවන්න.",
+                    "a": "ඔබට ඇවැසි භාෂාව දක්නට නැතිද?"
+                },
+                "account": {
+                    "a": "ඔබගේ ප්‍රසිද්ධ පැතිකඩ අභිරුචිකරණයට කැමතිද?"
+                }
+            }
+        },
+        "status": {
+            "busy": "බාධා කරන්න එපා",
+            "reconnect": "යළි සබැඳුම",
+            "invisible": "අදෘශ්‍යමානයි",
+            "offline": "මාර්ගඅපගතයි",
+            "online": "මාර්ගගතයි"
+        },
+        "navigation": {
+            "tabs": {
+                "dev": "සංවර්ධක",
+                "friends": "යහළුවන්",
+                "saved": "සුරැකි සටහන්",
+                "home": "මුල",
+                "unreads": "නොකියවූ"
+            }
+        },
+        "permissions": {
+            "required": "අවසර අවශ්‍යයි"
+        },
+        "home": {
+            "join-testers": "අත්හදා බැලීමට එක්වන්න",
+            "goto-testers": "පරීක්‍ෂක සේවාදායකයට එක්වන්න",
+            "donate": "රිවෝල්ට් වෙත පරිත්‍යාග",
+            "feedback": "රිවෝල්ට් ගැන ප්‍රතිපෝෂණ",
+            "settings": "සැකසුම් අරින්න",
+            "social": "සේවාදායක හා ස්වයංක්‍රමලේඛ",
+            "discover": "රිවොල්ට් ගවේශනය",
+            "group": "සමූහයක් සාදන්න",
+            "directs": "සෘජු පණිවිඩ",
+            "donate_desc": "මෙම ව්‍යාපෘතියට පරිත්‍යාග කිරීමෙන් උදව් වන්න - ස්තූතියි!"
+        }
+    },
+    "dayjs": {
+        "defaults": {
+            "date_separator": ".",
+            "date_format": "ISO8601",
+            "twelvehour": "yes"
+        },
+        "sameDay": "[අද] {{time}} ට",
+        "lastDay": "[ඊයේ] {{time}} ට",
+        "nextWeek": "dddd {{time}} [ට]",
+        "nextDay": "[හෙට] {{time}} ට",
+        "lastWeek": "[පසුගිය] dddd {{time}} [ට]"
+    },
+    "error": {
+        "NetworkError": "ජාලයේ දෝෂයකි.",
+        "InternalError": "අභ්‍යන්තර දෝෂයකි.",
+        "UnknownUser": "නොදන්නා අයෙකි.",
+        "EmailInUse": "වි-තැපෑල භාවිතයේ ඇත.",
+        "InvalidInvite": "කේතය වලංගු නොවේ",
+        "AlreadyFriends": "දැනටමත් ඔහු/ඇය සමඟ හිතවත්ය.",
+        "RequiredField": "අවශ්‍යයි",
+        "TooShort": "ඉතා කෙටිය",
+        "FailedToReceive": "සේවාදායකයට ඔබගේ ගොනුව නොලැබිණි.",
+        "DatabaseError": "දත්තසමුදායේ දෝෂයකි.",
+        "InvalidCredentials": "වි-තැපෑල හෝ මුරපදය වැරදියි.",
+        "EmailFailed": "වි-තැපෑල යැවීමට අසමත් විය.",
+        "UsernameTaken": "නම අරගෙන ඇත.",
+        "TooLong": "දිග වැඩිය",
+        "InvalidEmail": "වි-තැපෑල වලංගු නොවේ",
+        "AlreadySentRequest": "ඔහු/ඇයට දැනටමත් ඉල්ලීමක් යවා ඇත.",
+        "Unlabelled": "යමක් සිදුවිණි.",
+        "Blocked": "ඔබ මෙම පරිශීලකයාව අවහිර කර ඇත.",
+        "BlockedOther": "ඔහු/ඇය ඔබව අවහිර කර ඇත.",
+        "FileTooLarge": "ගොනුව විශාල වැඩිය.",
+        "ReachedMaximumBots": "ඔබ උපරිම ස්වයංක්‍රමලේඛ ගණනට ලඟා වී ඇත.",
+        "AudioPermissionBlock": "ශබ්දවාහිනියට ප්‍රවේශය නැත. ඔබගේ අතිරික්සුවේ වින්‍යාසය පරීක්‍ෂා කරන්න.",
+        "IoError": "සේවාදායකය ආ/ප්‍ර දෝෂයකට මුහුණ දුණි.",
+        "ProbeError": "ගොනුවේ පාරදත්ත ගැනීමට අසමත්!.",
+        "MissingInvite": "ඉල්ලීමෙහි ඇරයුම් කේතය දක්නට නැත.",
+        "MissingPermission": "අවසරය මඟහැරී ඇත.",
+        "UnknownError": "හසුරුව බලන්න.",
+        "MissingHeaders": "මඟහැරුණු ශ්‍රීර්ෂ.",
+        "MissingData": "ඉල්ලීමෙහි දත්ත දක්නට නැත.",
+        "InvalidSession": "වාරය වලංගු නොවේ."
+    },
+    "general": {
+        "disabled": "අබල කර ඇත",
+        "privacy": "රහස්‍යතා ප්‍රතිපත්තිය",
+        "on": "සක්‍රියයි",
+        "off": "අක්‍රියයි",
+        "about": "පිළිබඳව",
+        "tos": "සේවාවේ නියම",
+        "loading": "පූරණය වෙමින්…",
+        "learn_more": "තව දැනගන්න",
+        "image_by": "අනුරුව",
+        "unavailable": "නොතිබේ"
+    },
+    "quantities": {
+        "members": {
+            "one": "සාමාජිකයින් 1",
+            "many": "සාමාජිකයින් {{count}}"
+        }
+    },
+    "permissions": {
+        "ManageServer": {
+            "t": "සේවාදායකය කළමණාකරනය",
+            "d": "සාමාජිකයින්ට මෙම සේවාදායකයේ නම, සවිස්තරය, නිරූපකය සහ වෙනත් තොරතුරු සංශෝධනයට ඉඩදෙන්න."
+        },
+        "BanMembers": {
+            "d": "සාමාජිකයින්ට මෙම සේවාදායකයෙන් සදහටම සාමාජිකයින් ඉවත් කිරීමට ඉඩදෙන්න.",
+            "t": "සාමාජිකයින් තහනම"
+        },
+        "ChangeNickname": {
+            "d": "මෙම සේවාදායකයෙහි සාමාජිකයින්ට ඔවුන්ගේ අපනාමය සංශෝධනයට ඉඩදෙන්න.",
+            "t": "අපනාමය සංශෝධනය"
+        },
+        "ManageNicknames": {
+            "t": "අපනාම කළමනාකරණය",
+            "d": "සාමාජිකයින්ට අනෙක් සාමාජිකයින්ගේ අපනාම සංශෝධනයට ඉඩදෙන්න."
+        },
+        "ManageChannels": {
+            "t": "නාලිකා කළමණාකරනය"
+        },
+        "EmbedLinks": {
+            "t": "එබ්බවූ සබැඳි",
+            "d": "සාමාජිකයින්ට පළකරන සබැඳිවල ගිල්ලවූ අන්තර්ගතය පෙන්වීමට ඉඩදෙන්න."
+        },
+        "VoiceCall": {
+            "d": "සාමාජිකයින්ට කටහඬ නාලිකාවලට එක්වීමට ඉඩදෙන්න.",
+            "t": "හඬ ඇමතුම"
+        },
+        "UploadFiles": {
+            "t": "ගොනු උඩුගත",
+            "d": "සාමාජිකයින්ට පාඨ නාලිකාවලට ගොනු උඩුගත කිරීමට ඉඩදෙන්න."
+        },
+        "SendMessage": {
+            "t": "පණිවිඩ යවන්න",
+            "d": "සාමාජිකයින්ට පාඨ නාලිකාවල පණිවිඩ යැවීමට ඉඩදෙන්න."
+        },
+        "ManageMessages": {
+            "t": "පණිවිඩ කළමනාකරණය"
+        },
+        "ManageChannel": {
+            "t": "නාලිකා කළමනාකරණය"
+        },
+        "InviteOthers": {
+            "d": "වෙනත් පරිශීලකයින් නාලිකාවක් වෙත ආරාධනයට සාමාජිකයින්ට ඉඩදෙන්න."
+        },
+        "ManageRole": {
+            "t": "භූමිකා කළමනාකරණය"
+        },
+        "ViewChannel": {
+            "t": "නාලිකාව දකින්න",
+            "d": "සාමාජිකයින්ට මෙම අවසරය ඇති ඕනෑම නාලිකාවක් දැකීමට ඉඩදෙන්න."
+        },
+        "Connect": {
+            "t": "සබඳින්න"
+        },
+        "MoveMembers": {
+            "t": "සමාජිකයින් ගෙනයන්න"
+        }
+    },
+    "notifications": {
+        "now_friends": "ඔබ දැන් @{{person}} සමඟ යහළු වී ඇත!"
+    },
+    "actions": {
+        "submit": "යොමන්න"
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    }
+}

@@ -1,0 +1,1112 @@
+{
+    "general": {
+        "about": "480U7",
+        "tos": "732M5 0F 532V1C3",
+        "privacy": "P21V4CY P0L1CY",
+        "image_by": "1M463 8Y",
+        "loading": "L04D1N6…",
+        "on": "0N",
+        "off": "0FF",
+        "disabled": "D1548L3D",
+        "unavailable": "N07 4V41L48L3",
+        "learn_more": "L342N M023"
+    },
+    "actions": {
+        "submit": "5U8M17"
+    },
+    "login": {
+        "title": "L061N",
+        "welcome": "W3LC0M3!",
+        "subtitle": "516N 1N70 23V0L7",
+        "welcome2": "H3LL0!",
+        "subtitle2": "C23473 4N 4CC0UN7",
+        "register": "23615732",
+        "username": "U532N4M3",
+        "email": "3M41L",
+        "password": "P455W02D",
+        "new_password": "N3W P455W02D",
+        "totp": "4U7H3N71C4702 4PP",
+        "recovery": "23C0V32Y C0D3",
+        "invite": "1NV173 C0D3",
+        "current_password": "CU223N7 P455W02D",
+        "log_out_other": "L06 0U7 0F 4LL 07H32 535510N5",
+        "enter": {
+            "username": "3N732 Y0U2 U532N4M3.",
+            "email": "PL3453 3N732 Y0U2 3M41L.",
+            "password": "3N732 Y0U2 P455W02D.",
+            "new_password": "3N732 4 N3W P455W02D.",
+            "invite": "3N732 Y0U2 1NV173 C0D3.",
+            "current_password": "3N732 Y0U2 CU223N7 P455W02D."
+        },
+        "forgot": "F02607 Y0U2 P455W02D?",
+        "reset": "23537 P455W02D",
+        "set_password": "537 N3W P455W02D",
+        "remembered": "60 84CK 70 L061N",
+        "new": "N3W 70 23V0L7?",
+        "existing": "4L234DY H4V3 4N 4CC0UN7?",
+        "create": "C23473 4 N3W 4CC0UN7",
+        "missing_verification": "D1DN'7 23C31V3 4N 3M41L?",
+        "resend": "2353ND V321F1C4710N",
+        "cancel": "C4NC3L 23QU357",
+        "check_mail": "CH3CK Y0U2 M41L!",
+        "email_delay": "W3'V3 53N7 Y0U 4 V321F1C4710N 3M41L. PL3453 4LL0W UP 70 10 M1NU735 F02 17 70 4221V3.",
+        "check_spam": "PL3453 CH3CK Y0U2 5P4M F0LD32 1F Y0U C4N'7 F1ND 17",
+        "open_mail_provider": "0P3N {{P20V1D32}}",
+        "successful_registration": "5UCC355FULLY 236157323D!",
+        "verifying_account": "V321FY1N6 Y0U2 4CC0UN7…",
+        "verified_account": "Y0U2 4CC0UN7 H45 833N V321F13D!",
+        "verified_continue": "C0N71NU3 70 L061N",
+        "error": {
+            "create": "F41L3D 70 23615732!",
+            "login": "F41L3D 70 L061N!",
+            "reset": "F41L3D 70 23537!",
+            "resend": "F41L3D 70 2353ND!",
+            "verify": "F41L3D 70 V321FY!"
+        },
+        "unofficial_instance": "7H12D-P427Y 1N574NC3."
+    },
+    "app": {
+        "status": {
+            "online": "0NL1N3",
+            "idle": "1DL3",
+            "focus": "F0CU5",
+            "busy": "D0 N07 D157U28",
+            "invisible": "1NV1518L3",
+            "offline": "0FFL1N3",
+            "reconnect": "23C0NN3C7"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "H0M3",
+                "dev": "D3V3L0P32",
+                "friends": "F213ND5",
+                "unreads": "UN234D5",
+                "saved": "54V3D N0735"
+            }
+        },
+        "home": {
+            "directs": "D123C7 M3554635",
+            "join-testers": "J01N 7H3 7357325 532V32",
+            "join-testers_desc": "Y0U C4N 23P027 155U35 4ND D15CU55 1MP20V3M3N75 W17H U5 D123C7LY H323.",
+            "goto-testers": "60 70 7H3 7357325 532V32",
+            "goto-testers_desc": "Y0U C4N 23P027 155U35 4ND D15CU55 1MP20V3M3N75 W17H U5 D123C7LY H323.",
+            "donate": "D0N473 70 23V0L7",
+            "donate_desc": "5UPP027 7H3 P20J3C7 8Y D0N471N6 - 7H4NK Y0U!",
+            "feedback": "61V3 F33D84CK 0N 23V0L7",
+            "feedback_desc": "L37 U5 KN0W H0W W3 C4N 1MP20V3 0U2 4PP 8Y 61V1N6 U5 F33D84CK.",
+            "settings": "0P3N 53771N65",
+            "settings-tooltip": "Y0U C4N 4L50 216H7-CL1CK 7H3 U532 1C0N 1N 7H3 70P L3F7, 02 L3F7 CL1CK 17 1F Y0U'23 4L234DY H0M3.",
+            "discover": "D15C0V32 23V0L7",
+            "discover_desc": "F1ND 4 C0MMUN17Y 8453D 0N Y0U2 H088135 02 1N7323575.",
+            "group": "C23473 4 620UP",
+            "group_desc": "1NV173 4LL 0F Y0U2 F213ND5, 50M3 C00L 8075, 4ND 7H20W 4 816 P427Y."
+        },
+        "main": {
+            "categories": {
+                "conversations": "C0NV3254710N5",
+                "participants": "P4271C1P4N75",
+                "channels": "CH4NN3L5",
+                "members": "M3M8325"
+            },
+            "channel": {
+                "message_where": "M355463 {{CH4NN3L_N4M3}}",
+                "message_who": "M355463 @{{P3250N}}",
+                "message_saved": "54V3 70 Y0U2 N0735",
+                "uploading_file": "UPL04D1N6…",
+                "failed_upload": "F41L3D 70 UPL04D!",
+                "attached_file": "4774CH3D {{F1L3N4M3}}",
+                "reactions": {
+                    "others_reacted": "{{U532L157}} 4ND {{C0UN7}} 07H325 234C73D",
+                    "unknown_reacted": "{{C0UN7}} P30PL3 234C73D",
+                    "single_reacted": "1 P3250N 234C73D",
+                    "people_reacted": "{{P30PL3}} 234C73D"
+                },
+                "reply": {
+                    "replying": "23PLY1N6 70",
+                    "toggle": "7066L3 4U7H02 P1N6"
+                },
+                "typing": {
+                    "single": "{{U532}} 15 7YP1N6…",
+                    "multiple": "{{U532L157}} 4ND {{U532}} 423 7YP1N6…",
+                    "several": "53V324L P30PL3 423 7YP1N6…"
+                },
+                "system": {
+                    "user_joined": "{{U532}} J01N3D",
+                    "user_left": "{{U532}} L3F7",
+                    "user_kicked": "{{U532}} W45 K1CK3D",
+                    "user_banned": "{{U532}} W45 84NN3D",
+                    "added_by": "{{U532}} W45 4DD3D 8Y {{07H32_U532}}",
+                    "removed_by": "{{U532}} W45 23M0V3D 8Y {{07H32_U532}}",
+                    "channel_renamed": "{{U532}} 23N4M3D 7H3 CH4NN3L 70 {{N4M3}}",
+                    "channel_description_changed": "{{U532}} CH4N63D 7H3 CH4NN3L D35C21P710N",
+                    "channel_icon_changed": "{{U532}} CH4N63D 7H3 CH4NN3L 1C0N",
+                    "channel_ownership_changed": "{{F20M}} 64V3 {{70}} 620UP 0WN325H1P",
+                    "registered_at": "236157323D {{71M3}}"
+                },
+                "start": {
+                    "group": "7H15 15 7H3 57427 0F Y0U2 C0NV3254710N.",
+                    "saved": "7H15 15 7H3 57427 0F Y0U2 N0735."
+                },
+                "voice": {
+                    "connected": "V01C3 C0NN3C73D",
+                    "leave": "L34V3",
+                    "mute": "MU73",
+                    "unmute": "UNMU73"
+                },
+                "misc": {
+                    "viewing_old": "V13W1N6 0LD32 M3554635",
+                    "jump_present": "JUMP 70 P2353N7",
+                    "jump_beginning": "JUMP 70 7H3 8361NN1N6",
+                    "new_messages": "N3W M3554635 51NC3 {{71M3_460}}",
+                    "spoiler_attachment": "5P01L32",
+                    "failed_load": "C0ULDN'7 L04D M355463.",
+                    "not_loaded": "M355463 N07 L04D3D, CL1CK 70 JUMP",
+                    "no_sending": "Y0U D0N'7 H4V3 P32M15510N 70 53ND M3554635 1N 7H15 CH4NN3L.",
+                    "timed_out": "Y0U 423 71M3D 0U7 F02 {{71M3}}.",
+                    "blocked_messages": "{{C0UN7}} 8L0CK3D M3554635",
+                    "blocked_user": "8L0CK3D U532",
+                    "sent_file": "53N7 4N 4774CHM3N7",
+                    "sent_multiple_files": "53N7 MUL71PL3 4774CHM3N75",
+                    "load_file": "L04D F1L3"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "7H15 CH4NN3L 15 M42K3D 45 N5FW.",
+                        "confirm": "3N732 CH4NN3L"
+                    },
+                    "confirm": "1 C0NF12M 7H47 1 4M 47 L3457 18 Y3425 0LD."
+                },
+                "unknown_user": "<UNKN0WN U532>",
+                "edited": "(3D173D)",
+                "bot": "807",
+                "bridge": "821D63",
+                "bridged": "M355463 W45 53N7 0N 4N07H32 PL47F02M",
+                "new_to_revolt": "N3W 70 23V0L7",
+                "new_to_server": "N3W 70 7H15 532V32",
+                "team": "0FF1C14L C0MMUN1C4710N",
+                "user_timed_out": "U532 15 71M3D 0U7 F02 {{71M3}}.",
+                "notifications": {
+                    "default": "U53 D3F4UL7",
+                    "all": "4LL M3554635",
+                    "mention": "M3N710N5 0NLY",
+                    "none": "N0N3",
+                    "muted": "MU73D"
+                },
+                "search": {
+                    "title": "5342CH",
+                    "sort": {
+                        "relevance": "23L3V4NC3",
+                        "latest": "L47357",
+                        "oldest": "0LD357"
+                    }
+                },
+                "errors": {
+                    "title": "00P5, 7H323'5 N07H1N6 H323!",
+                    "nochannels": "7H15 532V32 H45 N0 CH4NN3L5, 02 Y0U D0N'7 H4V3 4CC355 70 4NY.",
+                    "nochannel": "N0 CH4NN3L"
+                }
+            },
+            "groups": {
+                "create": "C23473 4 620UP",
+                "name": "620UP N4M3",
+                "description": "620UP D35C21P710N",
+                "owner": "620UP 0WN32"
+            },
+            "servers": {
+                "create": "C23473 4 532V32",
+                "name": "532V32 N4M3",
+                "description": "532V32 D35C21P710N",
+                "channel_name": "CH4NN3L N4M3",
+                "channel_type": "CH4NN3L 7YP3",
+                "category_name": "C473602Y N4M3",
+                "channel_description": "CH4NN3L D35C21P710N",
+                "custom_banner": "CU570M 84NN32",
+                "owner": "532V32 0WN32",
+                "text_channel": "73X7 CH4NN3L",
+                "voice_channel": "V01C3 CH4NN3L"
+            }
+        },
+        "settings": {
+            "title": "53771N65",
+            "categories": {
+                "user_settings": "U532 53771N65",
+                "client_settings": "CL13N7 53771N65",
+                "danger_zone": "D4N632 Z0N3"
+            },
+            "actions": {
+                "remove": "23M0V3",
+                "upload": "UPL04D",
+                "max_filesize": "(M4X {{F1L351Z3}})",
+                "edit": "3D17 {{N4M3}}"
+            },
+            "pages": {
+                "account": {
+                    "title": "MY 4CC0UN7",
+                    "change_field": "CH4N63",
+                    "unique_id": "7H15 15 4 UN1QU3 U532 1D3N71F132 F02 Y0U2 4CC0UN7.",
+                    "2fa": {
+                        "title": "7W0-F4C702 4U7H3N71C4710N",
+                        "description": "4DD 4N 3X724 L4Y32 0F 53CU217Y 8Y 3N48L1N6 2F4 0N Y0U2 4CC0UN7.",
+                        "view_recovery": "V13W 23C0V32Y C0D35",
+                        "view_recovery_long": "V13W 4ND D0WNL04D Y0U2 2F4 23C0V32Y C0D35.",
+                        "generate_recovery": "63N32473 23C0V32Y C0D35",
+                        "generate_recovery_long": "637 234DY 70 U53 2F4 8Y 53771N6 UP 4 23C0V32Y M37H0D.",
+                        "add_auth": "4DD 4U7H3N71C4702",
+                        "remove_auth": "23M0V3 4U7H3N71C4702",
+                        "two_factor_on": "7W0-F4C702 4U7H3N71C4710N 15 CU223N7LY 0N.",
+                        "two_factor_off": "Y0U H4V3 N07 3N48L3D 7W0-F4C702 4U7H3N71C4710N!"
+                    },
+                    "manage": {
+                        "title": "4CC0UN7 M4N463M3N7",
+                        "description": "D1548L3 02 D3L373 Y0U2 4CC0UN7 47 4NY 71M3. 807H 4C710N5 W1LL L06 Y0U 0U7 0F Y0U2 4C71V3 535510N5.",
+                        "disable": "D1548L3 4CC0UN7",
+                        "disable_description": "Y0U W0N'7 83 48L3 70 4CC355 Y0U2 4CC0UN7 UNL355 Y0U C0N74C7 5UPP027 - H0W3V32, Y0U2 D474 W1LL N07 83 D3L373D.",
+                        "delete": "M42K 4CC0UN7 F02 D3L3710N",
+                        "delete_description": "Y0U2 4CC0UN7 4ND 4LL 0F Y0U2 D474 (1NCLUD1N6 Y0U2 M3554635 4ND F213ND5 L157) W1LL 83 QU3U3D F02 D3L3710N. 4 C0NF12M4710N 3M41L W1LL 83 53N7 - Y0U C4N C4NC3L 7H15 W17H1N 7 D4Y5 8Y C0N74C71N6 5UPP027."
+                    }
+                },
+                "profile": {
+                    "title": "P20F1L3",
+                    "info": "1NF02M4710N",
+                    "fetching": "F37CH1N6 Y0U2 P20F1L3…",
+                    "placeholder": "W2173 50M37H1N6 480U7 Y0U253LF…",
+                    "profile_picture": "P20F1L3 P1C7U23",
+                    "custom_background": "CU570M 84CK620UND",
+                    "edit_background": "3D17 84CK620UND",
+                    "edit_profile": "3D17 P20F1L3"
+                },
+                "sessions": {
+                    "title": "535510N5",
+                    "active_sessions": "4C71V3 535510N5",
+                    "this_device": "7H15 D3V1C3",
+                    "created": "C23473D {{71M3_460}}",
+                    "logout": "L06 0U7 0F 4LL 07H32 535510N5"
+                },
+                "audio": {
+                    "title": "V01C3 53771N65",
+                    "input_device": "M1C20PH0N3",
+                    "output_device": "5P34K32 / H34D537",
+                    "tip_retry": "Y0U D1DN'7 61V3 23V0L7 P32M15510N 70 4CC355 Y0U2 M1C20PH0N3. PL3453 {{2372Y87N}}.",
+                    "tip_grant_permission": "Y0U N33D 70 624N7 P32M15510N 70 4CC355 4UD10 53771N65.",
+                    "device_label_NA": "N/4",
+                    "button_retry": "2372Y",
+                    "button_grant": "624N7 P32M15510N"
+                },
+                "appearance": {
+                    "title": "4PP3424NC3",
+                    "theme": "7H3M3",
+                    "colours": {
+                        "title": "C0L0U25"
+                    },
+                    "emoji": {
+                        "title": "3M0J1"
+                    },
+                    "fonts": {
+                        "title": "F0N75"
+                    },
+                    "advanced_options": {
+                        "title": "4DV4NC3D 0P710N5"
+                    },
+                    "display": {
+                        "default": "D3F4UL7",
+                        "compact": "C0MP4C7",
+                        "default_description": "834U71FUL, 5L33K 4ND M0D32N.",
+                        "compact_description": "600D 0LD 12C."
+                    },
+                    "discover": {
+                        "title": "D15C0V32 7H3M35",
+                        "description": "820W53 7H3M35 M4D3 8Y 7H3 C0MMUN17Y"
+                    },
+                    "color": {
+                        "light": "L16H7",
+                        "dark": "D42K"
+                    },
+                    "accent_selector": "4CC3N7 C0L0U2",
+                    "appearance_options": {
+                        "title": "4PP3424NC3 0P710N5",
+                        "show_send": "4LW4Y5 5H0W 53ND M355463 8U770N",
+                        "show_send_desc": "1F 7H15 15 D1548L3D, 7H3 53ND M355463 8U770N W1LL 0NLY 4PP342 0N M081L3.",
+                        "show_account_age": "4LW4Y5 5H0W 4CC0UN7 463 N3X7 70 J01N M3554635",
+                        "show_account_age_desc": "1F 7H15 15 D1548L3D, 7H3 4CC0UN7 463 W1LL 0NLY 83 5H0WN F02 N3W U5325."
+                    },
+                    "theme_options": {
+                        "title": "7H3M3 0P710N5",
+                        "follow": "F0LL0W 5Y573M 7H3M3",
+                        "follow_desc": "1F 7H15 15 3N48L3D, Y0U W0N'7 83 48L3 70 CH4N63 Y0U2 7H3M3 02 U53 4 CU570M 7H3M3.",
+                        "seasonal": "53450N4L 7H3M3",
+                        "seasonal_desc": "D15PL4Y5 3FF3C75 1N 7H3 H0M3 748 DU21N6 H0L1D4Y 53450N5.",
+                        "transparency": "724N5P423NCY 3FF3C75",
+                        "transparency_desc": "3N48L35 724N5P423NCY 3FF3C75 7H20U6H0U7 7H3 4PP."
+                    },
+                    "emoji_pack": "3M0J1 P4CK",
+                    "message_display": "M355463 D15PL4Y",
+                    "advanced": "4DV4NC3D 0P710N5",
+                    "overrides": "7H3M3 0V3221D35",
+                    "reset_overrides": "23537 0V3221D35",
+                    "import": "1MP027 4 7H3M3",
+                    "import_theme": "1MP027 7H3M3 F20M 5721N6",
+                    "theme_data": "7H3M3 D474",
+                    "custom_css": "CU570M C55",
+                    "sync": "5YNC 0P710N5",
+                    "font": "F0N7",
+                    "mono_font": "M0N05P4C3 F0N7 53L3C702",
+                    "ligatures": "F0N7 L1647U235",
+                    "ligatures_desc": "F02 5UPP0273D F0N75, L1647U235 C0M81N3 CH424C7325 70637H32 - F02 3X4MPL3, 7U2N1N6 -> 1N70 4N 4220W."
+                },
+                "accessibility": {
+                    "title": "4CC355181L17Y",
+                    "reduced_motion": "23DUC3D M0710N",
+                    "descriptions": {
+                        "reduced_motion": "1F 7H15 15 3N48L3D, 4N1M4710N5 4ND M0710N 3FF3C75 W0N'7 PL4Y 02 W1LL 83 L355 1N73N53."
+                    }
+                },
+                "notifications": {
+                    "title": "N071F1C4710N5",
+                    "push_notifications": "PU5H N071F1C4710N5",
+                    "enable_desktop": "3N48L3 D35K70P N071F1C4710N5",
+                    "enable_push": "3N48L3 PU5H N071F1C4710N5",
+                    "sounds": "50UND5",
+                    "descriptions": {
+                        "enable_desktop": "1F 7H15 15 3N48L3D, Y0U W1LL 23C31V3 N071F1C4710N5 WH1L3 7H3 4PP 15 0P3N.",
+                        "enable_push": "1F 7H15 15 3N48L3D, Y0U W1LL 23C31V3 N071F1C4710N5 WH3N Y0U'23 0FFL1N3."
+                    },
+                    "sound": {
+                        "message": "M355463 23C31V3D",
+                        "outbound": "M355463 53N7",
+                        "call_join": "U532 J01N3D C4LL",
+                        "call_leave": "U532 L3F7 C4LL"
+                    }
+                },
+                "language": {
+                    "title": "L4N6U463",
+                    "select": "53L3C7 Y0U2 L4N6U463",
+                    "const": "C0N572UC73D L4N6U4635",
+                    "other": "07H32 L4N6U463 0P710N5"
+                },
+                "sync": {
+                    "title": "5YNC",
+                    "options": "5YNC 0P710N5",
+                    "categories": "5YNC C473602135",
+                    "descriptions": {
+                        "appearance": "7H15 W1LL 5YNC 4PP3424NC3 0P710N5, 5UCH 45 Y0U2 CH053N 3M0J1 P4CK 4ND M355463 D3N517Y.",
+                        "theme": "7H15 W1LL 5YNC Y0U2 CH053N 7H3M3, C0L0U25 4ND 4NY CU570M C55.",
+                        "locale": "7H15 W1LL 5YNC Y0U2 CU223N7LY CH053N L4N6U463."
+                    }
+                },
+                "native": {
+                    "title": "D35K70P 53771N65"
+                },
+                "experiments": {
+                    "title": "3XP321M3N75",
+                    "features": "4V41L48L3 F347U235",
+                    "not_available": "N0 3XP321M3N75 423 4V41L48L3 47 7H15 71M3."
+                },
+                "plugins": {
+                    "title": "PLU61N5",
+                    "wip": "W42N1N6: 7H15 F347U23 15 571LL 1N D3V3L0PM3N7.",
+                    "delete_plugin": "D3L373",
+                    "no_plugins": "N0 PLU61N5 423 CU223N7LY 1N574LL3D."
+                },
+                "donate": {
+                    "title": "D0N473"
+                },
+                "source_code": "50U2C3 C0D3",
+                "bots": {
+                    "title": "MY 8075",
+                    "create_bot": "C23473 4 807",
+                    "copy_invite": "C0PY 1NV173 L1NK",
+                    "add": "4DD 807",
+                    "unique_id": "7H15 15 4 UN1QU3 1D3N71F132 F02 Y0U2 807. 7H15 15 N07 7H3 807'5 70K3N.",
+                    "token": "70K3N",
+                    "public_bot_tip": "7H15 807 15 PU8L1C. 4NY0N3 C4N 1NV173 17.",
+                    "private_bot_tip": "7H15 807 15 P21V473. 0NLY Y0U C4N 1NV173 17.",
+                    "public_bot": "PU8L1C 807",
+                    "profile": "807 P20F1L3",
+                    "public_bot_desc": "1F 7H15 15 3N48L3D, 07H32 U5325 C4N 4DD 7H15 807 70 532V325 4ND 620UP M3554635.",
+                    "interactions_url": "1N7324C710N5 U2L",
+                    "reserved": "N073: 7H15 F13LD 15 23532V3D F02 7H3 FU7U23."
+                },
+                "theme_shop": {
+                    "title": "7H3M3 5H0P",
+                    "description": "820W53 HUND23D5 0F 7H3M35, C23473D 4ND CU2473D 8Y 7H3 C0MMUN17Y.",
+                    "search": "5342CH 7H3M35…",
+                    "category": {
+                        "saved": "54V3D",
+                        "manage": "M4N463 54V3D",
+                        "new": "N3W 7H15 W33K",
+                        "default": "D3F4UL7 7H3M35",
+                        "highest": "H16H357 2473D",
+                        "viewall": "V13W 4LL"
+                    },
+                    "active": "CU223N7LY 4C71V3",
+                    "use": "U53 7H3M3",
+                    "by": "8Y"
+                },
+                "keybinds": {
+                    "title": "K3Y81ND5",
+                    "description": "V13W 4ND 537 K3Y81ND5",
+                    "search": "5342CH K3Y81ND5…",
+                    "add_keybind": "4DD N3W K3Y81ND",
+                    "edit_keybind": "3D17 K3Y81ND",
+                    "remove_keybind": "23M0V3 K3Y81ND",
+                    "reset_keybind": "23537 K3Y81ND 70 {{K3Y81ND}}",
+                    "category": {
+                        "navigation": "N4V164710N",
+                        "messaging": "M355461N6",
+                        "advanced": "4DV4NC3D"
+                    },
+                    "action": {
+                        "navigate_channel_up": {
+                            "title": "N4V16473 70 7H3 P23V10U5 CH4NN3L",
+                            "description": "N4V16473 70 7H3 P23V10U5 CH4NN3L."
+                        },
+                        "navigate_channel_down": {
+                            "title": "N4V16473 70 7H3 N3X7 CH4NN3L",
+                            "description": "N4V16473 70 7H3 N3X7 CH4NN3L."
+                        },
+                        "navigate_server_up": {
+                            "title": "N4V16473 70 7H3 P23V10U5 532V32",
+                            "description": "N4V16473 70 7H3 P23V10U5 532V32."
+                        },
+                        "navigate_server_down": {
+                            "title": "N4V16473 70 7H3 N3X7 532V32",
+                            "description": "N4V16473 70 7H3 N3X7 532V32."
+                        },
+                        "messaging_edit_previous_message": {
+                            "title": "3D17 P23V10U5 M355463",
+                            "description": "3D17 7H3 P23V10U5LY 53N7 M355463 1N 7H3 CU223N7LY L04D3D M355461N6 V13W."
+                        },
+                        "auto_complete_up": {
+                            "title": "P23V10U5 4U70C0MPL373 53L3C710N",
+                            "description": "M0V3 7H3 4U70C0MPL373 53L3C710N 70 7H3 P23V10U5 0N3."
+                        },
+                        "auto_complete_down": {
+                            "title": "N3X7 4U70C0MPL373 53L3C710N",
+                            "description": "M0V3 7H3 4U70C0MPL373 53L3C710N 70 7H3 N3X7 0N3."
+                        },
+                        "auto_complete_select": {
+                            "title": "C0NF12M 4U70C0MPL373 53L3C710N",
+                            "description": "C0NF12M 7H3 CU223N7 4U70C0MPL3710N 53L3C710N."
+                        },
+                        "input_submit": {
+                            "title": "5U8M17 1NPU7",
+                            "description": "4N 4DV4NC3D K3Y81ND 7H47 15 7YP1C4LLY U53D 70 5U8M17 7H3 CU223N7 1NPU7.\n7H15 M4Y 1NCLUD3 5U8M1771N6 4 M355463, 5U8M1771N6 4N 3D17 70 4 M355463, 5U8M1771N6 4 5342CH, 37C.."
+                        },
+                        "input_cancel": {
+                            "title": "C4NC3L 1NPU7",
+                            "description": "4N 4DV4NC3D K3Y81ND 7H47 15 7YP1C4LLY U53D 70 C4NC3L 7H3 CU223N7 1NPU7.\n7H15 M4Y 1NCLUD3 C4NC3LL1N6 4 M355463 3D17, 23M0V1N6 4 QU3U3D 1M463, 02 51M1L42 5C3N42105."
+                        },
+                        "input_force_submit": {
+                            "title": "F02C3 5U8M17 1NPU7",
+                            "description": "4N 4DV4NC3D K3Y81ND 7H47 15 7YP1C4LLY U53D 70 F02C3FULLY 5U8M17 7H3 CU223N7 1NPU7, 16N021N6 50M3 CH3CK5 02 07H32 K3Y81ND5.\n7H15 M4Y 1NCLUD3 5U8M1771N6 4 M355463 1N5734D 0F C0NF12M1N6 7H3 4U70C0MPL373 53L3C710N."
+                        },
+                        "messaging_scroll_to_bottom": {
+                            "title": "5C20LL 70 80770M 0F M3554635",
+                            "description": "5C20LL5 70 7H3 80770M 0F 7H3 M355461N6 V13W."
+                        },
+                        "messaging_mark_channel_read": {
+                            "title": "M42K CH4NN3L 45 234D",
+                            "description": "M42K5 7H3 CU223N7 CH4NN3L 45 234D."
+                        },
+                        "navigate_previous_context": {
+                            "title": "N4V16473 70 7H3 P23V10U5 C0N73X7",
+                            "description": "4N 4DV4NC3D K3Y81ND 7H47 15 7YP1C4LLY U53D 70 CL053 7H3 53771N6 P463, 4 M0D4L, 02 4 P0PUP 4ND 237U2N 84CK 70 7H3 P23V10U5 C0N73X7."
+                        },
+                        "developer_toggle_all_experiments": {
+                            "title": "7066L3 3XP321M3N7 54F3 M0D3",
+                            "description": "7H15 W1LL 3N48L3 / D1548L3 4LL 3XP321M3N75 47 0NC3."
+                        }
+                    }
+                },
+                "feedback": {
+                    "title": "F33D84CK",
+                    "description": "5U8M17 F33D84CK",
+                    "suggest": "5U8M17 F347U23 5U6635710N",
+                    "suggest_desc": "5U66357 N3W 23V0L7 F347U235 0N 617HU8 D15CU5510N5.",
+                    "issue": "C23473 4 N3W 155U3",
+                    "issue_desc": "70 H3LP U5 M023 3451LY 721463 155U35, Y0U C4N C23473 4N 155U3 0N 617HU8.",
+                    "bug": "8U6 724CK32",
+                    "bug_desc": "V13W CU223N7LY 4C71V3 8U6 23P0275 H323."
+                },
+                "logOut": "L06 0U7"
+            },
+            "channel_pages": {
+                "overview": {
+                    "title": "0V32V13W",
+                    "name": "CH4NN3L N4M3",
+                    "description": "CH4NN3L D35C21P710N"
+                },
+                "permissions": {
+                    "title": "P32M15510N5"
+                },
+                "webhooks": {
+                    "title": "W38H00K5"
+                }
+            },
+            "server_pages": {
+                "overview": {
+                    "title": "0V32V13W",
+                    "name": "532V32 N4M3",
+                    "description": "CH4NN3L D35C21P710N",
+                    "system_messages": "5Y573M M355463 CH4NN3L5"
+                },
+                "management": {
+                    "title": "U532 M4N463M3N7"
+                },
+                "customisation": {
+                    "title": "CU570M154710N"
+                },
+                "members": {
+                    "title": "M3M8325"
+                },
+                "invites": {
+                    "title": "1NV1735",
+                    "code": "1NV173 C0D3",
+                    "invitor": "1NV1732",
+                    "channel": "CH4NN3L",
+                    "revoke": "23V0K3"
+                },
+                "bans": {
+                    "title": "84N5",
+                    "user": "U532",
+                    "reason": "84N 23450N",
+                    "revoke": "23V0K3",
+                    "no_reason": "N0 84N 23450N."
+                },
+                "roles": {
+                    "title": "20L35"
+                },
+                "categories": {
+                    "title": "C473602135"
+                },
+                "emojis": {
+                    "title": "3M0J15",
+                    "upload": "UPL04D 3M0J1"
+                }
+            },
+            "tips": {
+                "account": {
+                    "a": "W4N7 70 CU570M153 Y0U2 PU8L1C P20F1L3?",
+                    "b": "H34D 0V32 70 Y0U2 P20F1L3 53771N65."
+                },
+                "languages": {
+                    "a": "423 W3 M1551N6 4 L4N6U463 Y0U W4N7?",
+                    "b": "H3LP U5 0U7 8Y C0N7218U71N6 M023 724N5L4710N5."
+                },
+                "sessions": {
+                    "a": "1F Y0U 533 4N UNKN0WN 535510N 0N 7H3 L157,",
+                    "b": "53CU23 Y0U2 4CC0UN7 8Y CH4N61N6 Y0U2 P455W02D 4ND 53771N6 UP 2F4."
+                }
+            },
+            "permissions": {
+                "default_role": "D3F4UL7",
+                "server": "532V32 P32M15510N5",
+                "channel": "CH4NN3L P32M15510N5",
+                "create_role": "C23473 4 N3W 20L3",
+                "role_name": "20L3 N4M3",
+                "role_colour": "20L3 C0L0U2",
+                "role_options": "20L3 0P710N5",
+                "role_ranking": "20L3 24NK1N6",
+                "delete_role": "D3L373 20L3",
+                "hoist_role": "H0157 20L3",
+                "hoist_desc": "D15PL4Y 7H15 20L3 480V3 07H325.",
+                "title": "P32M15510N5 F02 {{20L3}}",
+                "edit_title": "3D17 P32M15510N5"
+            }
+        },
+        "special": {
+            "copy_username": "CL1CK 70 C0PY U532N4M3",
+            "copy": "CL1CK 70 C0PY",
+            "friends": {
+                "pending": "P3ND1N6 23QU3575",
+                "sent": "0U7601N6",
+                "blocked": "8L0CK3D",
+                "incoming": "1NC0M1N6 F213ND 23QU357.",
+                "outgoing": "0U7601N6 F213ND 23QU357.",
+                "nobody": "N080DY H323 Y37!",
+                "from": {
+                    "single": "F20M {{U532}}",
+                    "multiple": "F20M {{U532L157}} 4ND {{U532}}",
+                    "several": "F20M {{U532L157}} 4ND {{C0UN7}} M023…"
+                }
+            },
+            "status": {
+                "offline": "0FFL1N3.",
+                "disconnected": "D15C0NN3C73D.",
+                "connecting": "C0NN3C71N6…",
+                "reconnecting": "23C0NN3C71N6…"
+            },
+            "server-badges": {
+                "official": "0FF1C14L 532V32",
+                "verified": "V321F13D 532V32"
+            },
+            "modals": {
+                "error": "4N 32202 0CCU223D!",
+                "clipboard": {
+                    "unavailable": "CL1P8042D 15 UN4V41L48L3!",
+                    "https": "Y0U 423 CU223N7LY N07 1N 4 H77P5 C0N73X7.",
+                    "copy": "M4NU4L C0PY:"
+                },
+                "confirm": "C0NF12M 4C710N",
+                "signed_out": "Y0U W323 516N3D 0U7!",
+                "token_reveal": "{{N4M3}}'5 70K3N",
+                "onboarding": {
+                    "welcome": "W3LC0M3 70",
+                    "pick": "P1CK 4 U532N4M3 7H47 Y0U W4N7 P30PL3 70 83 48L3 70 F1ND Y0U 8Y. 7H15 C4N 83 CH4N63D L4732 1N Y0U2 U532 53771N65."
+                },
+                "prompt": {
+                    "confirm_leave": "L34V3 {{N4M3}}?",
+                    "confirm_leave_long": "Y0U W0N'7 83 48L3 70 23J01N UNL355 Y0U 423 23-1NV173D.",
+                    "confirm_close_dm": "CL053 C0NV3254710N W17H {{N4M3}}?",
+                    "confirm_close_dm_long": "Y0U C4N 23-0P3N 17 L4732, 8U7 17 W1LL D154PP342 0N 807H 51D35.",
+                    "confirm_delete": "D3L373 {{N4M3}}?",
+                    "confirm_delete_long": "0NC3 17'5 D3L373D, 7H323'5 N0 601N6 84CK.",
+                    "confirm_delete_message_long": "423 Y0U 5U23 Y0U W4N7 70 D3L373 7H15?",
+                    "create_invite_generate": "63N32471N6 1NV173…",
+                    "create_invite_created": "H323 15 Y0U2 N3W 1NV173 C0D3:",
+                    "confirm_kick": "423 Y0U 5U23 Y0U W4N7 70 K1CK {{N4M3}}?",
+                    "confirm_ban": "Y0U 423 480U7 70 84N {{N4M3}}",
+                    "confirm_ban_reason": "84N 23450N",
+                    "unfriend_user": "UNF213ND {{N4M3}}?",
+                    "unfriend_user_long": "Y0U M4Y N07 83 48L3 70 74LK 70 7H3M 4641N UN71L Y0U 4DD 7H3M 84CK.",
+                    "block_user": "8L0CK {{N4M3}}?",
+                    "block_user_long": "423 Y0U 5U23 Y0U W4N7 70 8L0CK {{N4M3}}? 7H3Y W1LL 4L50 83 23M0V3D F20M Y0U2 F213ND5 L157.",
+                    "silent_leave": "51L3N7LY L34V3",
+                    "members_not_notified": "07H32 M3M8325 W1LL N07 83 N071F13D"
+                },
+                "account": {
+                    "change": {
+                        "username": "CH4N63 Y0U2 U532N4M3",
+                        "email": "CH4N63 Y0U2 3M41L",
+                        "password": "CH4N63 Y0U2 P455W02D"
+                    },
+                    "failed": "F41L3D 70 CH4N63!"
+                },
+                "mfa": {
+                    "recovery_codes": "Y0U2 23C0V32Y C0D35",
+                    "save_codes": "PL3453 54V3 7H353 70 4 54F3 L0C4710N.",
+                    "confirm": "PL3453 C0NF12M 7H15 4C710N U51N6 7H3 53L3C73D M37H0D.",
+                    "select_method": "PL3453 53L3C7 4 M37H0D 70 4U7H3N71C473 Y0U2 23QU357.",
+                    "enable_totp": "3N48L3 4U7H3N71C4702 4PP",
+                    "prompt_totp": "PL3453 5C4N 02 U53 7H3 70K3N 83L0W 1N Y0U2 4U7H3N71C4702 4PP.",
+                    "enter_code": "3N732 C0D3"
+                },
+                "changelogs": {
+                    "title": "CH4N63L065",
+                    "description": "234D 480U7 UPD4735 70 23V0L7.",
+                    "older": "V13W 0LD32 UPD4735"
+                },
+                "out_of_date": {
+                    "title": "Y0U2 CL13N7 15 0U7 0F D473!",
+                    "description": "17 MU57 83 UPD473D 1N 02D32 70 W02K W17H 23C3N7 CH4N635.",
+                    "version": "Y0U2 CL13N7 15 47 {{CL13N7}}, 8U7 7H3 532V32 23QU1235 {{532V32}}.",
+                    "ignore": "16N023 UPD473",
+                    "attempting": "4773MP71N6 70 UPD473…"
+                },
+                "external_links": {
+                    "title": "3X732N4L L1NK5 C4N 83 D4N6320U5!",
+                    "short": "423 Y0U 5U23 Y0U W4N7 70 60 70:",
+                    "trust_domain": "72U57 7H15 D0M41N"
+                },
+                "sessions": {
+                    "title": "423 Y0U 5U23 Y0U W4N7 70 CL342 Y0U2 535510N5?",
+                    "short": "Y0U C4NN07 UND0 7H15 4C710N.",
+                    "accept": "23M0V3 4LL 535510N5"
+                },
+                "report": {
+                    "message": "23P027 M355463",
+                    "by_name": "23P027 {{N4M3}}",
+                    "reason": "23450N",
+                    "reported": "23P0273D",
+                    "thank_you": "7H4NK Y0U F02 H3LP1N6 70 K33P 23V0L7 54F3. W3 W1LL 23V13W Y0U2 23P027 45 500N 45 P05518L3.",
+                    "block_user": "W0ULD Y0U L1K3 70 8L0CK 7H15 U532?",
+                    "additional_context": "4DD1710N4L 1NF02M4710N",
+                    "no_reason": "N0 23450N 5P3C1F13D / 07H32 23450N",
+                    "content_reason": {
+                        "Illegal": "C0N73N7 8234K5 0N3 02 M023 L4W5",
+                        "PromotesHarm": "C0N73N7 P20M0735 H42M 70 07H325 02 53LF",
+                        "SpamAbuse": "7H15 15 5P4M 02 PL47F02M 48U53",
+                        "Malware": "7H15 15 M4LW423",
+                        "Harassment": "7H15 15 H42455M3N7 02 48U53 7426373D 47 4N07H32 U532"
+                    },
+                    "user_reason": {
+                        "SpamAbuse": "U532 15 53ND1N6 5P4M 02 07H32W153 48U51N6 7H3 PL47F02M",
+                        "InappropriateProfile": "U532'5 P20F1L3 15 1N4PP20P21473 F02 4 63N324L 4UD13NC3",
+                        "Impersonation": "7H15 U532 15 1MP3250N471N6 50M30N3 3L53",
+                        "BanEvasion": "7H15 U532 15 3V4D1N6 4 84N",
+                        "Underage": "7H15 U532 15 N07 0LD 3N0U6H 70 H4V3 4N 4CC0UN7"
+                    }
+                },
+                "actions": {
+                    "ok": "0K",
+                    "ban": "84N",
+                    "done": "D0N3",
+                    "kick": "K1CK",
+                    "save": "54V3",
+                    "hide": "H1D3",
+                    "edit": "3D17",
+                    "block": "8L0CK",
+                    "close": "CL053",
+                    "leave": "L34V3",
+                    "reset": "23537",
+                    "back": "60 84CK",
+                    "remove": "23M0V3",
+                    "delete": "D3L373",
+                    "report": "23P027",
+                    "create": "C23473",
+                    "reveal": "23V34L",
+                    "update": "UPD473",
+                    "cancel": "C4NC3L",
+                    "preview": "P23V13W",
+                    "confirm": "C0NF12M",
+                    "reload": "23L04D 4PP",
+                    "continue": "C0N71NU3",
+                    "send_email": "53ND 3M41L",
+                    "dont_block": "D0N'7 8L0CK"
+                },
+                "edit_keybind": {
+                    "title": "3D17 K3Y81ND F02 {{4C710N}}",
+                    "placeholder": "P2355 K3Y5 70 23C02D"
+                }
+            },
+            "popovers": {
+                "user_profile": {
+                    "profile": "P20F1L3",
+                    "mutual_friends": "MU7U4L F213ND5",
+                    "mutual_groups": "MU7U4L 620UP5",
+                    "mutual_servers": "MU7U4L 532V325",
+                    "empty": "17'5 4 817 3MP7Y 1N H323…",
+                    "no_users": "N0 MU7U4L F213ND5",
+                    "no_groups": "N0 MU7U4L 620UP5",
+                    "no_servers": "N0 MU7U4L 532V325",
+                    "sub": {
+                        "badges": "84D635",
+                        "information": "1NF02M4710N",
+                        "connections": "C0NN3C710N5"
+                    },
+                    "badges": {
+                        "founder": "F0UND32",
+                        "translator": "724N5L4702",
+                        "supporter": "5UPP02732",
+                        "moderation": "PL47F02M M0D324710N",
+                        "responsible_disclosure": "235P0N518LY D15CL053D 53CU217Y 155U35",
+                        "early_adopter": "342LY 4D0P732"
+                    }
+                },
+                "user_picker": {
+                    "select": "53L3C7 F213ND5 70 4DD."
+                },
+                "create_bot": {
+                    "title": "C23473 4 N3W 807",
+                    "failed": "F41L3D 70 C23473 4 807!"
+                },
+                "server_identity": {
+                    "title": "CH4N63 1D3N717Y 0N {{532V32}}",
+                    "nickname": "N1CKN4M3",
+                    "avatar": "4V4742"
+                }
+            },
+            "requires_online": "Y0U N33D 70 83 0NL1N3 70 V13W 7H15.",
+            "invite": {
+                "invited_by": "1NV173D 8Y {{U532}}",
+                "login": "L061N 70 23V0L7",
+                "accept": "4CC3P7 1NV173",
+                "user_count": "{{M3M832_C0UN7}} U5325",
+                "invalid": "1NV4L1D 1NV173!",
+                "invalid_desc": "7H3 1NV173 M4Y N07 3X157, 02 Y0U D0N'7 H4V3 P32M15510N 70 J01N."
+            }
+        },
+        "context_menu": {
+            "copy_id": "C0PY 1D",
+            "copy_selection": "C0PY 53L3C710N",
+            "copy_text": "C0PY 73X7",
+            "copy_uid": "C0PY U532 1D",
+            "copy_sid": "C0PY 532V32 1D",
+            "copy_cid": "C0PY CH4NN3L 1D",
+            "copy_mid": "C0PY M355463 1D",
+            "copy_message_link": "C0PY M355463 L1NK",
+            "mention": "M3N710N",
+            "message_user": "M355463",
+            "view_profile": "V13W P20F1L3",
+            "mark_as_read": "M42K 45 234D",
+            "mark_unread": "M42K 45 UN234D",
+            "retry_message": "2372Y 53ND",
+            "cancel_message": "C4NC3L 53ND",
+            "reply_message": "23PLY",
+            "quote_message": "QU073 M355463",
+            "edit_message": "3D17 M355463",
+            "report_message": "23P027 M355463",
+            "delete_message": "D3L373 M355463",
+            "make_owner": "61V3 620UP 0WN325H1P",
+            "remove_member": "23M0V3 F20M 620UP",
+            "kick_member": "K1CK M3M832",
+            "ban_member": "84N M3M832",
+            "open_file": "0P3N F1L3",
+            "save_file": "54V3 F1L3",
+            "open_image": "0P3N 1M463",
+            "save_image": "54V3 1M463",
+            "open_video": "0P3N V1D30",
+            "save_video": "54V3 V1D30",
+            "copy_link": "C0PY L1NK",
+            "open_link": "0P3N L1NK",
+            "block_user": "8L0CK U532",
+            "unblock_user": "UN8L0CK U532",
+            "add_friend": "4DD F213ND",
+            "remove_friend": "23M0V3 F213ND",
+            "cancel_friend": "C4NC3L 23QU357",
+            "report_user": "23P027 U532",
+            "custom_status": "CU570M 5747U5",
+            "clear_status": "CL342 5747U5",
+            "set_custom_status": "537 4 CU570M 5747U5",
+            "leave_group": "L34V3 620UP",
+            "leave_server": "L34V3 532V32",
+            "close_dm": "CL053 DM",
+            "report_server": "23P027 532V32",
+            "delete_server": "D3L373 532V32",
+            "edit_identity": "3D17 1D3N717Y",
+            "delete_channel": "D3L373 CH4NN3L",
+            "create_channel": "C23473 CH4NN3L",
+            "create_category": "C23473 C473602Y",
+            "create_invite": "C23473 1NV173",
+            "open_notification_options": "N071F1C4710N 0P710N5",
+            "open_channel_settings": "CH4NN3L 53771N65",
+            "open_server_settings": "532V32 53771N65",
+            "open_group_settings": "620UP 53771N65"
+        },
+        "permissions": {
+            "required": "P32M15510N5 23QU123D"
+        }
+    },
+    "quantities": {
+        "members": {
+            "one": "1 M3M832",
+            "many": "{{C0UN7}} M3M8325"
+        },
+        "dropFiles": {
+            "one": "D20P 4 F1L3",
+            "many": "D20P {{C0UN7}} F1L35"
+        }
+    },
+    "dayjs": {
+        "lastDay": "[Yesterday at] {{time}}",
+        "sameDay": "[Today at] {{time}}",
+        "nextDay": "[Tomorrow at] {{time}}",
+        "lastWeek": "[Last] dddd [at] {{time}}",
+        "nextWeek": "dddd [at] {{time}}",
+        "defaults": {
+            "date_separator": "/",
+            "date_format": "traditional",
+            "twelvehour": "no"
+        }
+    },
+    "notifications": {
+        "sent_request": "@{{P3250N}} 53N7 Y0U 4 F213ND 23QU357.",
+        "now_friends": "Y0U 423 N0W F213ND5 W17H @{{P3250N}}!"
+    },
+    "error": {
+        "NetworkError": "N37W02K 32202.",
+        "Unauthorized": "UN4U7H021Z3D.",
+        "Unlabelled": "50M37H1N6 H4PP3N3D.",
+        "FailedValidation": "F41L3D 70 V4L1D473 F13LD5.",
+        "DatabaseError": "D4748453 32202.",
+        "InternalError": "1N732N4L 32202.",
+        "MissingPermission": "M1551N6 P32M15510N.",
+        "UnknownError": "533 C0N50L3.",
+        "OperationFailed": "0P324710N F41L3D.",
+        "RenderFail": "73MPL473 23ND321N6 F41L3D.",
+        "MissingHeaders": "M1551N6 H34D325.",
+        "InvalidSession": "1NV4L1D 535510N.",
+        "UnverifiedAccount": "UNV321F13D 4CC0UN7.",
+        "UnknownUser": "UNKN0WN U532.",
+        "EmailInUse": "3M41L 1N U53.",
+        "EmailFailed": "3M41L F41L3D 70 53ND.",
+        "InvalidCredentials": "3M41L 02 P455W02D 15 W20N6.",
+        "InvalidToken": "1NV4L1D 70K3N",
+        "MissingInvite": "M1551N6 1NV173 C0D3 1N 23QU357.",
+        "InvalidInvite": "1NV4L1D C0D3",
+        "AlreadyOnboarded": "4L234DY F1N15H3D 0N8042D1N6.",
+        "UsernameTaken": "7H47 U532N4M3 15 74K3N.",
+        "AlreadyFriends": "4L234DY F213ND5 W17H 7H15 U532.",
+        "AlreadySentRequest": "4L234DY 53N7 4 23QU357 70 7H15 U532.",
+        "Blocked": "Y0U H4V3 8L0CK3D 7H15 U532.",
+        "BlockedOther": "7H15 U532 H45 8L0CK3D Y0U.",
+        "NoEffect": "7H15 23QU357 H4D N0 3FF3C7.",
+        "RequiredField": "23QU123D",
+        "TooShort": "700 5H027",
+        "TooLong": "700 L0N6",
+        "InvalidEmail": "1NV4L1D 3M41L 4DD2355",
+        "Unavailable": "UN4V41L48L3.",
+        "FileTooLarge": "F1L3 15 700 L4263.",
+        "FailedToReceive": "532V32 F41L3D 70 23C31V3 Y0U2 F1L3.",
+        "MissingData": "23QU357 15 M1551N6 D474.",
+        "ProbeError": "F41L3D 70 637 F1L3 M374D474.",
+        "IoError": "532V32 3NC0UN7323D 4N 1/0 32202.",
+        "UnsupportedBrowser": "820W532 15 M1551N6 5UPP027 F02 7H15 F347U23.",
+        "DeniedNotification": "Y0U D3N13D N071F1C4710N 4CC355. CH3CK P463 53771N65.",
+        "CompromisedPassword": "7H15 P455W02D 15 C0MP20M153D.",
+        "ReachedMaximumBots": "Y0U'V3 234CH3D 7H3 M4X1MUM 4M0UN7 0F 8075.",
+        "AudioPermissionBlock": "N0 4CC355 70 Y0U2 M1C20PH0N3. PL3453 CH3CK Y0U2 820W532'5 C0NF16U24710N.",
+        "DiscriminatorChangeRatelimited": "700 M4NY 746 CH4N635."
+    },
+    "shortcuts": {
+        "ctrlc": "C72L + C"
+    },
+    "permissions": {
+        "ManageChannels": {
+            "t": "M4N463 CH4NN3L5",
+            "d": "4LL0W5 M3M8325 70 C23473, 3D17 4ND D3L373 CH4NN3L5."
+        },
+        "ManageServer": {
+            "t": "M4N463 532V32",
+            "d": "4LL0W5 M3M8325 70 CH4N63 7H15 532V32'5 N4M3, D35C21P710N, 1C0N 4ND 07H32 23L473D 1NF02M4710N."
+        },
+        "ManagePermissions": {
+            "t": "M4N463 P32M15510N5",
+            "d": "4LL0W5 M3M8325 70 CH4N63 P32M15510N5 F02 CH4NN3L5 4ND 20L35 W17H 4 L0W32 24NK1N6."
+        },
+        "ManageRole": {
+            "t": "M4N463 20L35",
+            "d": "4LL0W5 M3M8325 70 C23473, 3D17 4ND D3L373 20L35 W17H 4 L0W32 24NK 7H4N 7H3125, 4ND M0D1FY 20L3 P32M15510N5 0N CH4NN3L5."
+        },
+        "ManageCustomisation": {
+            "t": "M4N463 CU570M154710N",
+            "d": "4LL0W5 M3M8325 70 C23473, 3D17 4ND D3L373 3M0J15."
+        },
+        "KickMembers": {
+            "t": "K1CK M3M8325",
+            "d": "4LL0W5 M3M8325 70 23M0V3 M3M8325 F20M 7H15 532V32. K1CK3D M3M8325 M4Y 23J01N W17H 4N 1NV173."
+        },
+        "BanMembers": {
+            "t": "84N M3M8325",
+            "d": "4LL0W5 M3M8325 70 P32M4N3N7LY 23M0V3 M3M8325 F20M 7H15 532V32."
+        },
+        "TimeoutMembers": {
+            "t": "71M30U7 M3M8325",
+            "d": "4LL0W5 M3M8325 70 73MP02421LY P23V3N7 U5325 F20M 1N7324C71N6 W17H 7H3 532V32."
+        },
+        "AssignRoles": {
+            "t": "45516N 20L35",
+            "d": "4LL0W5 M3M8325 70 45516N 20L35 83L0W 7H312 0WN 24NK 70 07H32 M3M8325."
+        },
+        "ChangeNickname": {
+            "t": "CH4N63 N1CKN4M3",
+            "d": "4LL0W5 M3M8325 70 CH4N63 7H312 N1CKN4M3 0N 7H15 532V32."
+        },
+        "ManageNicknames": {
+            "t": "M4N463 N1CKN4M35",
+            "d": "4LL0W5 M3M8325 70 CH4N63 7H3 N1CKN4M35 0F 07H32 M3M8325."
+        },
+        "ChangeAvatar": {
+            "t": "CH4N63 4V4742",
+            "d": "4LL0W5 M3M8325 70 CH4N63 7H312 4V4742 0N 7H15 532V32."
+        },
+        "RemoveAvatars": {
+            "t": "23M0V3 4V47425",
+            "d": "4LL0W5 M3M8325 70 23M0V3 7H3 532V32 4V47425 0F 07H32 M3M8325 0N 7H15 532V32."
+        },
+        "ViewChannel": {
+            "t": "V13W CH4NN3L",
+            "d": "4LL0W5 M3M8325 70 V13W 4NY CH4NN3L5 7H3Y H4V3 7H15 P32M15510N 0N."
+        },
+        "ReadMessageHistory": {
+            "t": "234D M355463 H15702Y",
+            "d": "4LL0W5 M3M8325 70 234D 7H3 M355463 H15702Y 0F 7H15 CH4NN3L."
+        },
+        "SendMessage": {
+            "t": "53ND M3554635",
+            "d": "4LL0W5 M3M8325 70 53ND M3554635 1N 73X7 CH4NN3L5."
+        },
+        "ManageMessages": {
+            "t": "M4N463 M3554635",
+            "d": "4LL0W5 M3M8325 70 D3L373 M3554635 53N7 8Y 07H32 M3M8325."
+        },
+        "ManageWebhooks": {
+            "t": "M4N463 W38H00K5",
+            "d": "4LL0W5 M3M8325 70 C0N720L W38H00K5 1N 4 CH4NN3L."
+        },
+        "ManageChannel": {
+            "t": "M4N463 CH4NN3L5",
+            "d": "4LL0W5 M3M8325 70 3D17 02 D3L373 4 CH4NN3L."
+        },
+        "InviteOthers": {
+            "t": "1NV173 07H325",
+            "d": "4LL0W5 M3M8325 70 1NV173 07H32 U5325 70 4 CH4NN3L."
+        },
+        "SendEmbeds": {
+            "t": "53ND 3M83D5",
+            "d": "4LL0W5 M3M8325 70 53ND 3M83DD3D C0N73N7, WH37H32 F20M L1NK5 02 CU570M 73X7 3M83D5."
+        },
+        "UploadFiles": {
+            "t": "UPL04D F1L35",
+            "d": "4LL0W5 M3M8325 70 UPL04D F1L35 1N 73X7 CH4NN3L5."
+        },
+        "Masquerade": {
+            "t": "M45QU324D3",
+            "d": "4LL0W5 M3M8325 70 CH4N63 7H312 N4M3 4ND 4V4742 P32-M355463."
+        },
+        "React": {
+            "t": "U53 234C710N5",
+            "d": "4LL0W5 M3M8325 70 234C7 70 M3554635."
+        },
+        "Connect": {
+            "t": "C0NN3C7",
+            "d": "4LL0W5 M3M8325 70 C0NN3C7 70 4 V01C3 CH4NN3L."
+        },
+        "Speak": {
+            "t": "5P34K",
+            "d": "4LL0W5 M3M8325 70 5P34K 1N 4 V01C3 CH4NN3L."
+        },
+        "Video": {
+            "t": "V1D30",
+            "d": "4LL0W5 M3M8325 70 57234M V1D30 1N 4 V01C3 CH4NN3L."
+        },
+        "MuteMembers": {
+            "t": "MU73 M3M8325",
+            "d": "4LL0W5 M3M8325 70 MU73 07H325 1N 4 V01C3 CH4NN3L."
+        },
+        "DeafenMembers": {
+            "t": "D34F3N M3M8325",
+            "d": "4LL0W5 M3M8325 70 D34F3N 07H325 1N 4 V01C3 CH4NN3L."
+        },
+        "MoveMembers": {
+            "t": "M0V3 M3M8325",
+            "d": "4LL0W5 M3M8325 70 M0V3 07H325 837W33N V01C3 CH4NN3L5."
+        }
+    },
+    "keys": {
+        "Escape": {
+            "short": "35C"
+        },
+        "Control": {
+            "short": "C72L"
+        },
+        "Insert": {
+            "short": "1N5"
+        },
+        "Delete": {
+            "short": "D3L"
+        },
+        "Backspace": {
+            "short": "84CK5P4C3"
+        },
+        "PageUp": {
+            "full": "P463 UP",
+            "short": "P6UP"
+        },
+        "PageDown": {
+            "full": "P463 D0WN",
+            "short": "P6D0WN"
+        },
+        "PrintScreen": {
+            "full": "P21N7 5C233N",
+            "short": "P275C"
+        },
+        "ScrollLock": {
+            "full": "5C20LL L0CK",
+            "short": "5C2LK"
+        },
+        "CapsLock": {
+            "full": "C4P5 L0CK"
+        }
+    }
+}

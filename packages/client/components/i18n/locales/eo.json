@@ -1,0 +1,1121 @@
+{
+    "app": {
+        "main": {
+            "channel": {
+                "typing": {
+                    "several": "Pluraj homoj skribas…",
+                    "multiple": "{{userlist}} kaj {{user}} skribas…",
+                    "single": "{{user}} skribas…"
+                },
+                "failed_upload": "Malsukcesa alŝutado!",
+                "uploading_file": "Alŝutado…",
+                "message_saved": "Konservi en viajn notojn",
+                "message_who": "Mesaĝi al @{{person}}",
+                "message_where": "Mesaĝi al {{channel_name}}",
+                "attached_file": "Alkroĉiĝis {{filename}}",
+                "system": {
+                    "user_joined": "{{user}} aliĝis",
+                    "user_left": "{{user}} foriris",
+                    "user_kicked": "{{user}} forpeliĝis",
+                    "user_banned": "{{user}} forbariĝis",
+                    "added_by": "{{user}} estas aldonita de {{other_user}}",
+                    "removed_by": "{{user}} estas forpelita de {{other_user}}",
+                    "channel_renamed": "{{user}} renomis la kanalon al {{name}}",
+                    "channel_description_changed": "{{user}} ŝanĝis la priskribon de la kanalo",
+                    "channel_icon_changed": "{{user}} ŝanĝis la bildsimbolon de la kanalo",
+                    "channel_ownership_changed": "{{from}} transdonis al {{to}} posedon de la grupo",
+                    "registered_at": "Registriĝis {{time}}"
+                },
+                "start": {
+                    "group": "Jen la komenco de via konversacio.",
+                    "saved": "Jen la komenco de viaj notoj."
+                },
+                "voice": {
+                    "connected": "Voĉe konektita",
+                    "leave": "Forlasi",
+                    "mute": "Silentigi",
+                    "unmute": "Malsilentigi"
+                },
+                "misc": {
+                    "viewing_old": "Vi rigardas mesaĝojn pli malnovajn",
+                    "jump_present": "Salti aktualen",
+                    "spoiler_attachment": "Kaŝendaĵo",
+                    "failed_load": "Ne eblis ŝargi la mesaĝon.",
+                    "no_sending": "Vi ne havas permeson sendi mesaĝojn en ĉi tiu kanalo.",
+                    "blocked_messages": "{{count}} blokitaj mesaĝoj",
+                    "blocked_user": "Blokita uzanto",
+                    "sent_file": "Sendiĝis alkroĉaĵo",
+                    "sent_multiple_files": "Sendiĝis pluraj alkroĉaĵoj",
+                    "jump_beginning": "Salti al komenco",
+                    "load_file": "Ŝarĝi dosieron",
+                    "new_messages": "Novaj mesaĝoj ekde {{time_ago}}",
+                    "timed_out": "Vi estas tempolimigita dum {{time}}.",
+                    "not_loaded": "Mesaĝo ne ŝargiĝis, alklaku por salti"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Ĉi tiu kanalo estas markita kiel „netaŭga por laborejo”.",
+                        "confirm": "Eniri kanalon"
+                    },
+                    "confirm": "Mi konfirmas, ke mi aĝas almenaŭ 18 jarojn."
+                },
+                "unknown_user": "<Nekonata uzanto>",
+                "edited": "(redaktita)",
+                "bot": "Roboto",
+                "notifications": {
+                    "default": "Uzi defaŭlton",
+                    "all": "Ĉiuj mesaĝoj",
+                    "mention": "Nur mencioj",
+                    "none": "Neniuj",
+                    "muted": "Silentigita"
+                },
+                "search": {
+                    "title": "Serĉi",
+                    "sort": {
+                        "relevance": "Laŭ rilateco",
+                        "latest": "Plej laste",
+                        "oldest": "Plej malnove"
+                    }
+                },
+                "errors": {
+                    "title": "Aj, estas nenio tie ĉi!",
+                    "nochannels": "Ĉi tiu servilo havas neniujn kanalojn, aŭ vi ne havas aliron al ili.",
+                    "nochannel": "Neniu kanalo"
+                },
+                "bridge": "ponto",
+                "reply": {
+                    "toggle": "Baskuligi helikumon al aŭtoro",
+                    "replying": "Respondante al"
+                },
+                "user_timed_out": "Uzanto estas tempolimigita dum {{time}}.",
+                "team": "Oficiala komunikaĵo",
+                "bridged": "Mesaĝo sendiĝis ĉe alia platformo",
+                "new_to_revolt": "Nove en Revolt",
+                "reactions": {
+                    "unknown_reacted": "{{count}} homoj reagis",
+                    "single_reacted": "1 homo reagis",
+                    "people_reacted": "{{people}} reagis",
+                    "others_reacted": "{{userlist}} kaj {{count}} aliaj reagis"
+                },
+                "new_to_server": "Nove en ĉi tiu servilo"
+            },
+            "categories": {
+                "members": "Membroj",
+                "channels": "Kanaloj",
+                "participants": "Partoprenantoj",
+                "conversations": "Konversacioj"
+            },
+            "groups": {
+                "create": "Krei grupon",
+                "name": "Nomo de la grupo",
+                "description": "Priskribo de la grupo",
+                "owner": "Posedanto de la grupo"
+            },
+            "servers": {
+                "create": "Krei servilon",
+                "name": "Nomo de la servilo",
+                "description": "Priskribo de la servilo",
+                "channel_name": "Nomo de la kanalo",
+                "channel_type": "Speco de la kanalo",
+                "channel_description": "Priskribo de la kanalo",
+                "custom_banner": "Propra standardo",
+                "owner": "Posedanto de la servilo",
+                "text_channel": "Teksta kanalo",
+                "voice_channel": "Voĉa kanalo",
+                "category_name": "Nomo de la kategorio"
+            }
+        },
+        "navigation": {
+            "tabs": {
+                "saved": "Konservitaj notoj",
+                "unreads": "Nelegitaĵoj",
+                "friends": "Amikoj",
+                "dev": "Programisto",
+                "home": "Ĉefpaĝo"
+            }
+        },
+        "status": {
+            "offline": "Elreta",
+            "invisible": "Nevidebla",
+            "busy": "Neĝenenda",
+            "idle": "Senokupa",
+            "online": "Enreta",
+            "reconnect": "Rekonektiĝi",
+            "focus": "Koncentriĝanta"
+        },
+        "settings": {
+            "pages": {
+                "appearance": {
+                    "custom_css": "Propra CSS",
+                    "sync": "Sinkronigaj agordoj",
+                    "font": "Tiparo",
+                    "mono_font": "Elektilo de egallarĝa tiparo",
+                    "ligatures": "Tiparaj ligaĵoj",
+                    "ligatures_desc": "Por subtenataj tiparoj, ligaĵoj (ligaturoj) kunligas iuj signojn - ekzemple, -> fariĝas sago.",
+                    "title": "Aspekto",
+                    "theme": "Etoso",
+                    "display": {
+                        "default": "Defaŭlta",
+                        "compact": "Kompakta",
+                        "default_description": "Bela, glata kaj moderna.",
+                        "compact_description": "Bona, malnova IRC."
+                    },
+                    "color": {
+                        "light": "hela",
+                        "dark": "malhela"
+                    },
+                    "accent_selector": "Emfaza koloro",
+                    "emoji_pack": "Emoĝiaro",
+                    "message_display": "Mesaĝa montro",
+                    "advanced": "Altnivelaj agordoj",
+                    "overrides": "Etosaj transpasigoj",
+                    "reset_overrides": "Restarigi transpasigojn",
+                    "import": "Importi etoson",
+                    "import_theme": "Importi etoson de tekstoĉeno",
+                    "theme_data": "Etosaj datumoj",
+                    "theme_options": {
+                        "seasonal": "Sezona etoso",
+                        "follow_desc": "Se ĉi tio estas ebligita, vi ne povos ŝanĝi vian haŭton aŭ uzi propran haŭton.",
+                        "title": "Etosaj agordoj",
+                        "seasonal_desc": "Montras efektojn en la ĉefpaĝo dum festotagaj sezonoj.",
+                        "transparency_desc": "Ebligas travideblajn efektojn tra la tuta apo.",
+                        "follow": "Sekvi sisteman etoson",
+                        "transparency": "Travideblaj efektoj"
+                    },
+                    "discover": {
+                        "description": "Esploru etosojn faritajn de la komunumo",
+                        "title": "Trovi etosojn"
+                    },
+                    "appearance_options": {
+                        "title": "Aspektaj agordoj",
+                        "show_send": "Ĉiam montri mesaĝo-sendan butonon",
+                        "show_send_desc": "Se ĉi tio estas malŝaltita, la «Sendi Mesaĝon» butonon aperos nur ĉe poŝtelefono.",
+                        "show_account_age_desc": "Se ĉi tio estas malŝaltita, la konta aĝo estos montrata nur por novaj uzantoj.",
+                        "show_account_age": "Ĉiam montri kontan aĝon apud aliĝaj mesaĝoj"
+                    },
+                    "colours": {
+                        "title": "Koloroj"
+                    },
+                    "emoji": {
+                        "title": "Emoĝio"
+                    },
+                    "fonts": {
+                        "title": "Tiparoj"
+                    },
+                    "advanced_options": {
+                        "title": "Altnivelaj agordoj"
+                    }
+                },
+                "notifications": {
+                    "title": "Sciigoj",
+                    "push_notifications": "Puŝaj sciigoj",
+                    "enable_desktop": "Ebligi labortablajn sciigojn",
+                    "enable_push": "Ebligi puŝajn sciigojn",
+                    "sounds": "Sonoj",
+                    "descriptions": {
+                        "enable_desktop": "Se ĉi tio estas ebligita, vi ricevos sciigojn dum la aplikaĵo estas malfermita.",
+                        "enable_push": "Se ĉi tio estas ebligita, vi ricevos sciigojn kiam vi elretas."
+                    },
+                    "sound": {
+                        "message": "Riceviĝo de mesaĝo",
+                        "outbound": "Sendado de mesaĝo",
+                        "call_join": "Aliĝo de uzanto en voĉbabilejon",
+                        "call_leave": "Forlaso de uzanto el voĉbabilejo"
+                    }
+                },
+                "account": {
+                    "manage": {
+                        "description": "Vi povas iam ajn malvalidigi aŭ forigi vian konton. Ambaŭ agoj elsalutigos vin el viaj aktivaj sesioj.",
+                        "title": "Konta mastrumado",
+                        "disable": "Malvalidigi konton",
+                        "delete": "Marki konton forigota",
+                        "disable_description": "Vi ne povos aliri vian konton krom se vi kontaktos subtenon - tamen viaj datumoj ne estos forigitaj.",
+                        "delete_description": "Via konto kaj ĉiuj viaj datumoj (inkluzive de viaj mesaĝoj kaj listo de amikoj) estos atendovicigataj por forigo. Konfirma retpoŝto estos sendita - vi povas nuligi ĉi tion ene de 7 tagoj kontaktante subtenon."
+                    },
+                    "title": "Mia konto",
+                    "change_field": "Ŝanĝi",
+                    "unique_id": "Tio ĉi estas unika uzantidentigilo por via konto.",
+                    "2fa": {
+                        "title": "Dupaŝa aŭtentigo",
+                        "description": "Aldonu plian sekurecon, ŝaltante dupaŝan aŭtentigon por via konto.",
+                        "add_auth": "Aldoni aŭtentigilon",
+                        "remove_auth": "Forigi aŭtentigilon",
+                        "view_recovery": "Vidi restarigajn kodojn",
+                        "view_recovery_long": "Vidu kaj elŝutu viajn restarigajn kodojn por dupaŝa aŭtentigo.",
+                        "generate_recovery": "Krei restarigajn kodojn",
+                        "generate_recovery_long": "Pretiĝu uzi 2PA-n, agordante metodon por restarigo.",
+                        "two_factor_on": "Dupaŝa aŭtentigo nune estas aktiva.",
+                        "two_factor_off": "Vi ne jam ebligis dupaŝan aŭtentigon!"
+                    }
+                },
+                "audio": {
+                    "input_device": "Mikrofono",
+                    "title": "Voĉaj agordoj",
+                    "output_device": "Laŭtparolilo / kapaŭskultiloj",
+                    "device_label_NA": "Neaplikebla",
+                    "button_retry": "reprovi",
+                    "tip_retry": "Vi ne donis al Revolt permeson uzi la mikrofonon. Bonvolu {{retryBtn}}.",
+                    "button_grant": "Doni permeson",
+                    "tip_grant_permission": "Vi devas doni permeson por aliri agordojn de sono."
+                },
+                "bots": {
+                    "reserved": "Noto: Ĉi tiu tajpujo estas rezervita por la estonteco.",
+                    "unique_id": "Tio ĉi estas unika identigilo por via roboto. Ĝi ne estas la ĵetono de la roboto.",
+                    "token": "Ĵetono",
+                    "public_bot_tip": "Ĉi tiu roboto estas publika. Iu ajn povas inviti ĝin.",
+                    "private_bot_tip": "Ĉi tiu roboto estas privata. Nur vi povas inviti ĝin.",
+                    "public_bot": "Publika roboto",
+                    "public_bot_desc": "Se ĉi tio estas ebligita, aliaj uzantoj povas aldoni ĉi tiun roboton al serviloj kaj grupmesaĝoj.",
+                    "interactions_url": "Ligilo de interagoj",
+                    "title": "Miaj robotoj",
+                    "create_bot": "Krei roboton",
+                    "copy_invite": "Kopii invitligilon",
+                    "add": "Aldoni roboton",
+                    "profile": "Robotprofilo"
+                },
+                "theme_shop": {
+                    "title": "Etosa butiko",
+                    "search": "Serĉi etosojn…",
+                    "category": {
+                        "new": "Novaj ĉi-semajne",
+                        "default": "Defaŭltaj etosoj",
+                        "viewall": "Vidi ĉiujn",
+                        "highest": "Plej alte taksitaj",
+                        "saved": "Konservitaj",
+                        "manage": "Mastrumi konservitajn"
+                    },
+                    "use": "Uzi etoson",
+                    "by": "de",
+                    "description": "Esploru centojn da etosoj, kreitaj kaj reviziitaj de la komunumo.",
+                    "active": "Nune aktivaj"
+                },
+                "profile": {
+                    "title": "Profilo",
+                    "info": "Informoj",
+                    "fetching": "Ŝargiĝas via profilo…",
+                    "placeholder": "Skribu ion pri vi mem…",
+                    "profile_picture": "Profilbildo",
+                    "custom_background": "Propra fono",
+                    "edit_background": "Redakti fonon",
+                    "edit_profile": "Redakti profilon"
+                },
+                "sessions": {
+                    "title": "Seancoj",
+                    "active_sessions": "Aktivaj seancoj",
+                    "this_device": "Ĉi tiu aparato",
+                    "created": "Kreiĝis {{time_ago}}",
+                    "logout": "Elsalutigi ĉiujn aliajn seancojn"
+                },
+                "feedback": {
+                    "title": "Prikomentoj",
+                    "issue_desc": "Por helpi al ni pli facile ordigi la problemojn, vi povas krei problemraporton ĉe GitHub.",
+                    "bug_desc": "Rigardu nune aktivajn cimraportojn ĉi tie.",
+                    "suggest": "Sendi sugeston por funkcio",
+                    "suggest_desc": "Proponu novajn funkciojn de Revolt ĉe GitHub Discussions.",
+                    "issue": "Krei novan problemraporton",
+                    "bug": "Cimspurilo",
+                    "description": "Alsendi prikomentojn"
+                },
+                "language": {
+                    "title": "Lingvo",
+                    "select": "Elektu vian lingvon",
+                    "const": "Planlingvoj",
+                    "other": "Aliaj lingvaj elektebloj"
+                },
+                "sync": {
+                    "title": "Sinkronigo",
+                    "categories": "Sinkronigaj kategorioj",
+                    "descriptions": {
+                        "appearance": "Ĉi tiu agordo sinkronigas aspektajn agordojn, kiel viajn elektitajn emoĝiarojn kaj mesaĝodensecon.",
+                        "theme": "Ĉi tiu agordo sinkronigas viajn proprajn etoson, kolorojn kaj iun ajn propran CSS-on.",
+                        "locale": "Ĉi tiu agordo sinkronigas vian elektitan lingvon."
+                    },
+                    "options": "Sinkronigaj agordoj"
+                },
+                "native": {
+                    "title": "Labortablaj agordoj"
+                },
+                "experiments": {
+                    "title": "Eksperimentoj",
+                    "features": "Disponeblaj funkcioj",
+                    "not_available": "Neniuj eksperimentoj nuntempe estas disponeblaj."
+                },
+                "donate": {
+                    "title": "Donaci"
+                },
+                "source_code": "Fontkodo",
+                "logOut": "Elsaluti",
+                "plugins": {
+                    "wip": "Averto: Ĉi tiu funkcio estas ankoraŭ disvolvigata.",
+                    "delete_plugin": "Forigi",
+                    "title": "Kromprogramoj",
+                    "no_plugins": "Neniuj kromprogramoj estas nune instalitaj."
+                },
+                "accessibility": {
+                    "title": "Alirebleco",
+                    "reduced_motion": "Reduktita Movo",
+                    "descriptions": {
+                        "reduced_motion": "Se ĉi tio estas ebligita, animacioj kaj movaj efektoj ne ludos aŭ estos malpli intensaj."
+                    }
+                },
+                "keybinds": {
+                    "description": "Vidi kaj agordi klavkombinojn",
+                    "search": "Serĉi klavkombinojn…",
+                    "add_keybind": "Aldoni novan klavkombinon",
+                    "remove_keybind": "Forigi klavkombinon",
+                    "reset_keybind": "Restarigi klavkombinon al {{keybind}}",
+                    "category": {
+                        "navigation": "Navigado",
+                        "messaging": "Mesaĝado",
+                        "advanced": "Altnivela"
+                    },
+                    "action": {
+                        "navigate_channel_up": {
+                            "title": "Iri al la antaŭa kanalo",
+                            "description": "Iri al la antaŭa kanalo."
+                        },
+                        "navigate_channel_down": {
+                            "title": "Iri al la sekva kanalo",
+                            "description": "Iri al la sekva kanalo."
+                        },
+                        "navigate_server_up": {
+                            "title": "Iri al la antaŭa servilo",
+                            "description": "Iri al la antaŭa servilo."
+                        },
+                        "navigate_server_down": {
+                            "title": "Iri al la sekva servilo",
+                            "description": "Iri al la sekva servilo."
+                        },
+                        "messaging_edit_previous_message": {
+                            "title": "Redakti antaŭan mesaĝon",
+                            "description": "Redakti la antaŭe senditan mesaĝon en la nun ŝarĝita mesaĝa vido."
+                        },
+                        "auto_complete_up": {
+                            "title": "Antaŭa Aŭtokompleta Elekto",
+                            "description": "Movu la aŭtokompletan elekton al la antaŭa."
+                        },
+                        "developer_toggle_all_experiments": {
+                            "description": "Ĉi tio ebligos/malŝaltos ĉiujn eksperimentojn samtempe.",
+                            "title": "Baskuli eksperimentan sekuran reĝimon"
+                        },
+                        "navigate_previous_context": {
+                            "title": "Iri al la antaŭa kunteksto",
+                            "description": "Altnivela klavkombino, kiu estas kutime uzata por fermi la agordan paĝon, modalon aŭ ŝprucfenestron kaj reveni al la antaŭa kunteksto."
+                        },
+                        "auto_complete_down": {
+                            "title": "Sekva Aŭtokompleta Elekto",
+                            "description": "Movu la aŭtokompletan elekton al la sekva."
+                        },
+                        "auto_complete_select": {
+                            "title": "Konfirmi Aŭtokompletan Elekton",
+                            "description": "Konfirmi la nunan elekton de aŭtokompletigo."
+                        },
+                        "input_submit": {
+                            "title": "Sendi Enigon",
+                            "description": "Altnivela klavkombino, kiu estas kutime uzata por sendi la nunan enigon.\nĈi tio povas inkluzivi sendi mesaĝon, sendi redakton al mesaĝo, sendi serĉon ktp."
+                        },
+                        "input_cancel": {
+                            "title": "Nuligi Enigon",
+                            "description": "Altnivela klavkombino, kiu estas kutime uzata por nuligi la nunan enigon.\nĈi tio povas inkluzivi nuligi mesaĝan redakton, forigon de atendovicigita bildo aŭ similajn scenarojn."
+                        },
+                        "input_force_submit": {
+                            "title": "Devige Sendi Enigon",
+                            "description": "Altnivela klavkombino, kiu estas kutime uzata por devige sendi la nunan enigon, ignorante kelkajn kontrolojn aŭ aliajn klavkombinojn.\nĈi tio povas inkluzivi sendi mesaĝon anstataŭ konfirmi la aŭtokompletan elekton."
+                        },
+                        "messaging_scroll_to_bottom": {
+                            "description": "Rulumas al la fundo de la mesaĝa rigardo.",
+                            "title": "Rulumi al la fundo de mesaĝoj"
+                        },
+                        "messaging_mark_channel_read": {
+                            "title": "Marki kanalon kiel legita",
+                            "description": "Markas la nunan kanalon kiel legita."
+                        }
+                    },
+                    "title": "Klavkombinoj",
+                    "edit_keybind": "Redakti klavkombinon"
+                }
+            },
+            "title": "Agordoj",
+            "categories": {
+                "user_settings": "Uzantaj agordoj",
+                "client_settings": "Klientaj agordoj",
+                "danger_zone": "Danĝerzono"
+            },
+            "actions": {
+                "remove": "Forigi",
+                "upload": "Alŝuti",
+                "max_filesize": "(maksimume {{filesize}})",
+                "edit": "Redakti {{name}}"
+            },
+            "tips": {
+                "languages": {
+                    "a": "Ĉu ni mankas lingvo, kiun vi volas?",
+                    "b": "Helpu nin kontribuante pliajn tradukojn."
+                },
+                "account": {
+                    "a": "Ĉu vi volas proprigi vian publikan profilon?",
+                    "b": "Iru al viaj profilaj agordoj."
+                },
+                "sessions": {
+                    "a": "Se vi vidas nekonatan seancon en la listo,",
+                    "b": "sekurigu vian konton, ŝanĝante vian pasvorton kaj agordante dupaŝan aŭtentigon."
+                }
+            },
+            "server_pages": {
+                "overview": {
+                    "system_messages": "Kanaloj de sistemaj mesaĝoj",
+                    "title": "Superrigardo",
+                    "name": "Servila nomo",
+                    "description": "Kanala priskribo"
+                },
+                "invites": {
+                    "title": "Invitoj",
+                    "code": "Invitkodo",
+                    "invitor": "Invitanto",
+                    "channel": "Kanalo",
+                    "revoke": "Senvalidigi"
+                },
+                "bans": {
+                    "title": "Forbaroj",
+                    "user": "Uzanto",
+                    "no_reason": "Neniu kialo de forbaro.",
+                    "revoke": "Senvalidigi",
+                    "reason": "Kialo de forbaro"
+                },
+                "roles": {
+                    "title": "Roloj"
+                },
+                "categories": {
+                    "title": "Kategorioj"
+                },
+                "members": {
+                    "title": "Membroj"
+                },
+                "management": {
+                    "title": "Uzanta administrado"
+                },
+                "emojis": {
+                    "upload": "Alŝuti emoĝion",
+                    "title": "Emoĝioj"
+                },
+                "customisation": {
+                    "title": "Proprigo"
+                }
+            },
+            "channel_pages": {
+                "permissions": {
+                    "title": "Permesoj"
+                },
+                "overview": {
+                    "title": "Superrigardo",
+                    "name": "Kanala nomo",
+                    "description": "Kanala priskribo"
+                },
+                "webhooks": {
+                    "title": "Rethokoj"
+                }
+            },
+            "permissions": {
+                "default_role": "Defaŭlto",
+                "role_name": "Rola nomo",
+                "server": "Servilaj permesoj",
+                "channel": "Kanalaj permesoj",
+                "create_role": "Krei novan rolon",
+                "hoist_desc": "Montri ĉi tiun rolon super aliaj.",
+                "title": "Permesoj por {{role}}",
+                "edit_title": "Redakti permesojn",
+                "hoist_role": "Levi rolon",
+                "role_colour": "Rola koloro",
+                "role_options": "Rolaj agordoj",
+                "role_ranking": "Rola rangigo",
+                "delete_role": "Forigi rolon"
+            }
+        },
+        "special": {
+            "friends": {
+                "pending": "Pritraktotaj amikiĝpetoj",
+                "blocked": "Blokita",
+                "from": {
+                    "multiple": "De {{userlist}} kaj {{user}}",
+                    "single": "De {{user}}",
+                    "several": "De {{userlist}} kaj {{count}} pliaj…"
+                },
+                "sent": "Eliraj petoj",
+                "incoming": "Envena amikiĝpeto.",
+                "outgoing": "Elira amikiĝpeto.",
+                "nobody": "Neniu jam ĉeestas!"
+            },
+            "copy_username": "Alklaku por kopii uzantnomon",
+            "copy": "Alklaku por kopii",
+            "modals": {
+                "onboarding": {
+                    "welcome": "Bonvenon al",
+                    "pick": "Elektu uzantonomon, per kiu oni povos trovi vin. Ĉi tio povas esti ŝanĝita poste en viaj uzantaj agordoj."
+                },
+                "actions": {
+                    "hide": "Kaŝi",
+                    "ok": "Okej",
+                    "remove": "Forigi",
+                    "create": "Krei",
+                    "delete": "Forigi",
+                    "ban": "Forbari",
+                    "kick": "Forpeli",
+                    "save": "Konservi",
+                    "block": "Bloki",
+                    "close": "Fermi",
+                    "leave": "Foriri",
+                    "back": "Reen",
+                    "reveal": "Malkaŝi",
+                    "update": "Ĝisdatigi",
+                    "cancel": "Nuligi",
+                    "preview": "Antaŭvido",
+                    "reload": "Reŝargi apon",
+                    "edit": "Redakti",
+                    "continue": "Daŭrigi",
+                    "send_email": "Sendi retpoŝton",
+                    "done": "Farite",
+                    "reset": "Restarigi",
+                    "report": "Raporti",
+                    "confirm": "Konfirmi",
+                    "dont_block": "Ne bloki"
+                },
+                "external_links": {
+                    "trust_domain": "Fidi al tiu ĉi domajno",
+                    "short": "Ĉu vi certas, ke vi volas iri al:",
+                    "title": "Eksteraj ligiloj povas esti danĝeraj!"
+                },
+                "prompt": {
+                    "confirm_close_dm": "Ĉu fermi konversacion kun {{name}}?",
+                    "confirm_leave_long": "Vi ne povos re-aliĝi, krom se vi reinvitiĝas.",
+                    "confirm_leave": "Ĉu forlasi {{name}}?",
+                    "confirm_close_dm_long": "Vi povas remalfermi ĝin poste, sed ĝi malaperos ĉe ambaŭ uzantoj.",
+                    "confirm_delete": "Ĉu forigi {{name}}?",
+                    "confirm_delete_long": "Vi ne povos malfari la forigon.",
+                    "create_invite_generate": "Generado de invitilo…",
+                    "create_invite_created": "Jen via nova invitkodo:",
+                    "confirm_kick": "Ĉu vi vere volas forpeli {{name}}?",
+                    "confirm_ban": "Vi pretas forbari {{name}}",
+                    "confirm_ban_reason": "Kialo de forbaro",
+                    "unfriend_user": "Ĉu malamikigi {{name}}?",
+                    "block_user": "Ĉu bloki {{name}}?",
+                    "block_user_long": "Ĉu vi vere volas bloki {{name}}? Ri ankaŭ foriĝos de via amiklisto.",
+                    "confirm_delete_message_long": "Ĉu vi vere volas forigi ĉi tion?",
+                    "unfriend_user_long": "Vi eble ne plu povos paroli al ri, krom se vi realdonas rin.",
+                    "silent_leave": "Silente forlasi",
+                    "members_not_notified": "Aliaj membroj ne estos sciigitaj"
+                },
+                "error": "Eraro okazis!",
+                "clipboard": {
+                    "unavailable": "Tondujo ne estas disponebla!",
+                    "https": "Vi nune ne estas en kunteksto de HTTPS.",
+                    "copy": "Permana kopiado:"
+                },
+                "signed_out": "Vi elsalutiĝis!",
+                "token_reveal": "Ĵetono de {{name}}",
+                "account": {
+                    "change": {
+                        "username": "Ŝanĝi vian uzantonomon",
+                        "email": "Ŝanĝi vian retpoŝtadreson",
+                        "password": "Ŝanĝi vian pasvorton"
+                    },
+                    "failed": "Malsukcesis la ŝanĝado!"
+                },
+                "out_of_date": {
+                    "description": "Ĝi devas ĝisdatiĝi por funkcii je lastatempaj ŝanĝoj.",
+                    "ignore": "Malatenti ĝisdatigon",
+                    "attempting": "Ĝisdatigo estas provata…",
+                    "title": "Via kliento estas eksdata!",
+                    "version": "Via kliento estas je {{client}}, sed la servilo devigas {{server}}."
+                },
+                "mfa": {
+                    "enable_totp": "Ebligi aŭtentigan apon",
+                    "select_method": "Bonvolu elekti metodon por aŭtentigi vian peton.",
+                    "enter_code": "Enigi kodon",
+                    "confirm": "Bonvolu konfirmi ĉi tiun agon per la elektita metodo.",
+                    "recovery_codes": "Viaj restarigaj kodoj",
+                    "save_codes": "Bonvolu konservi ĉi tiujn en sekura loko.",
+                    "prompt_totp": "Bonvolu skani aŭ uzi la ĵetonon ĉi-sube en via aŭtentiga aplikaĵo."
+                },
+                "changelogs": {
+                    "title": "Ŝanĝoprotokoloj",
+                    "description": "Legu pri ĝisdatigoj de Revolt.",
+                    "older": "Vidi malnovajn ĝisdatigojn"
+                },
+                "sessions": {
+                    "accept": "Forigi ĉiujn seancojn",
+                    "short": "Vi ne povas malfari tion.",
+                    "title": "Ĉu vi certas, ke vi volas viŝi viajn seancojn?"
+                },
+                "confirm": "Konfirmi agon",
+                "report": {
+                    "content_reason": {
+                        "PromotesHarm": "Enhavo instigas aliajn aŭ la skribinton al memvundado",
+                        "Illegal": "Enhavo rompas unu leĝon aŭ pliajn",
+                        "Harassment": "Ĉi tio estas atakado aŭ fitraktado kontraŭ alia uzanto",
+                        "SpamAbuse": "Ĉi tio estas trudaĵo aŭ fiuzo de la platformo",
+                        "Malware": "Ĉi tio estas fiprogramaro"
+                    },
+                    "by_name": "Raporti {{name}}",
+                    "reason": "Kialo",
+                    "additional_context": "Aldonaj informoj",
+                    "no_reason": "Neniu kialo specifita / alia kialo",
+                    "message": "Raporti mesaĝon",
+                    "user_reason": {
+                        "SpamAbuse": "Uzanto sendas trudaĵojn aŭ alie fiuzas la platformon",
+                        "BanEvasion": "Ĉi tiu uzanto evitadas forbaron",
+                        "Impersonation": "Ĉi tiu uzanto ŝajnigas vere esti alia homo",
+                        "InappropriateProfile": "La profilo de la uzanto estas netaŭga por ĝenerala publiko",
+                        "Underage": "Ĉi tiu uzanto ne sufiĉe aĝas por havi konton"
+                    },
+                    "reported": "Raportite",
+                    "thank_you": "Dankon pro helpi plu sekurigi Revolt. Ni kontrolos vian raporton kiel eble plej baldaŭe.",
+                    "block_user": "Ĉu vi volas bloki ĉi tiun uzanton?"
+                },
+                "edit_keybind": {
+                    "title": "Redakti klavkombinon por {{action}}",
+                    "placeholder": "Premu klavojn por registri"
+                }
+            },
+            "popovers": {
+                "server_identity": {
+                    "title": "Ŝanĝi identecon ĉe {{server}}",
+                    "nickname": "Kromnomo",
+                    "avatar": "Uzantobildo"
+                },
+                "user_profile": {
+                    "badges": {
+                        "translator": "Tradukisto",
+                        "supporter": "Subtenanto",
+                        "responsible_disclosure": "Respondece Diskonigitaj Sekurecaj Problemoj",
+                        "early_adopter": "Frua ekuzanto",
+                        "founder": "Fondinto",
+                        "moderation": "Kontrolado de platformo"
+                    },
+                    "mutual_friends": "Reciprokaj amikoj",
+                    "mutual_groups": "Reciprokaj grupoj",
+                    "mutual_servers": "Reciprokaj serviloj",
+                    "empty": "Estas iom malplenece tie ĉi…",
+                    "no_users": "Neniuj reciprokaj amikoj",
+                    "no_groups": "Neniuj reciprokaj grupoj",
+                    "no_servers": "Neniuj reciprokaj serviloj",
+                    "sub": {
+                        "badges": "Ŝildoj",
+                        "connections": "Konektoj",
+                        "information": "Informoj"
+                    },
+                    "profile": "Profilo"
+                },
+                "user_picker": {
+                    "select": "Elektu aldonotajn amikojn."
+                },
+                "create_bot": {
+                    "title": "Krei novan roboton",
+                    "failed": "Malsukcesis kreado de roboto!"
+                }
+            },
+            "invite": {
+                "invalid_desc": "La invitilo eble ne ekzistas, alie vi ne havas permeson por aliĝi.",
+                "invited_by": "Invitita de {{user}}",
+                "login": "Ensaluti al Revolt",
+                "accept": "Akcepti inviton",
+                "invalid": "Nevalida invitilo!",
+                "user_count": "{{member_count}} uzantoj"
+            },
+            "status": {
+                "offline": "Elreta.",
+                "disconnected": "Malkonektita.",
+                "connecting": "Konektado…",
+                "reconnecting": "Rekonektado…"
+            },
+            "server-badges": {
+                "official": "Oficiala servilo",
+                "verified": "Aprobita servilo"
+            },
+            "requires_online": "Vi devas esti enreta por vidi ĉi tion."
+        },
+        "context_menu": {
+            "mention": "Mencii",
+            "ban_member": "Forbari membron",
+            "copy_link": "Kopii ligilon",
+            "open_video": "Malfermi videaĵon",
+            "save_video": "Konservi videaĵon",
+            "clear_status": "Forigi statotekston",
+            "copy_id": "Kopii identigilon",
+            "copy_cid": "Kopii identigilon de kanalo",
+            "copy_mid": "Kopii identigilon de mesaĝo",
+            "remove_member": "Forigi de grupo",
+            "open_file": "Malfermi dosieron",
+            "delete_message": "Forigi mesaĝon",
+            "save_image": "Konservi bildon",
+            "open_image": "Malfermi bildon",
+            "unblock_user": "Malbloki uzanton",
+            "block_user": "Bloki uzanton",
+            "add_friend": "Amikigi",
+            "custom_status": "Propra statoteksto",
+            "set_custom_status": "Agordi propran statotekston",
+            "delete_server": "Forigi servilon",
+            "leave_server": "Forlasi servilon",
+            "close_dm": "Fermi rektmesaĝon",
+            "create_category": "Krei kategorion",
+            "create_invite": "Krei invitilon",
+            "create_channel": "Krei kanalon",
+            "copy_selection": "Kopii elektaĵon",
+            "copy_text": "Kopii tekston",
+            "copy_uid": "Kopii identigilon de uzanto",
+            "copy_sid": "Kopii identigilon de servilo",
+            "copy_message_link": "Kopii ligilon al mesaĝo",
+            "message_user": "Mesaĝi",
+            "view_profile": "Vidi profilon",
+            "mark_as_read": "Marki legita",
+            "retry_message": "Reprovi sendadon",
+            "cancel_message": "Nuligi sendadon",
+            "reply_message": "Respondi",
+            "quote_message": "Citi mesaĝon",
+            "edit_message": "Redakti mesaĝon",
+            "save_file": "Konservi dosieron",
+            "open_link": "Malfermi ligilon",
+            "remove_friend": "Malamikigi",
+            "cancel_friend": "Nuligi amikiĝpeton",
+            "leave_group": "Forlasi grupon",
+            "edit_identity": "Redakti identecon",
+            "delete_channel": "Forigi kanalon",
+            "open_notification_options": "Agordoj de sciigoj",
+            "open_server_settings": "Agordoj de servilo",
+            "open_group_settings": "Agordoj de grupo",
+            "kick_member": "Forpeli membron",
+            "open_channel_settings": "Agordoj de kanalo",
+            "mark_unread": "Marki nelegita",
+            "make_owner": "Transdoni posedon de grupo",
+            "report_user": "Raporti uzanton",
+            "report_server": "Raporti servilon",
+            "report_message": "Raporti mesaĝon"
+        },
+        "home": {
+            "goto-testers": "Iri al la servilo de testantoj",
+            "donate": "Donaci al Revolt",
+            "feedback": "Prikomenti al Revolt",
+            "settings": "Malfermi agordojn",
+            "social": "Trovi servilojn kaj robotojn",
+            "join-testers": "Aliĝi al la servilo de testantoj",
+            "settings-tooltip": "La agordoj estas alireblaj per dekstra (aŭ maldekstra en la ĉefpaĝo) alklako je via profilbildo supra-maldekstre.",
+            "directs": "Rektaj mesaĝoj",
+            "join-testers_desc": "Vi povas raporti problemojn kaj rekte priparoli plibonigojn kun ni ĉi tie.",
+            "donate_desc": "Subtenu la projekton per donaco - dankon!",
+            "feedback_desc": "Sciigu nin kiel ni povas plibonigi nian apon, prikomentante al ni.",
+            "discover_desc": "Trovu komunumon baze sur viaj ŝatokupoj aŭ interesoj.",
+            "group_desc": "Invitu viajn amikojn, kelkajn mojosajn robotojn, kaj faru grandan feston.",
+            "discover": "Malkovri Revolt",
+            "group": "Krei grupon",
+            "goto-testers_desc": "Vi povas raporti problemojn kaj rekte priparoli plibonigojn kun ni ĉi tie."
+        },
+        "permissions": {
+            "required": "Permesoj estas devigaj"
+        }
+    },
+    "login": {
+        "error": {
+            "resend": "Malsukcesa resendado!",
+            "reset": "Malsukcesa restarigo!",
+            "login": "Malsukcesa ensalutado!",
+            "create": "Malsukcesa registriĝo!",
+            "verify": "Konfirmado malsukcesis!"
+        },
+        "successful_registration": "Sukcesa registriĝo!",
+        "open_mail_provider": "Malfermi {{provider}}",
+        "check_spam": "Bonvolu kontroli vian trudujon se vi ne povas trovi ĝin",
+        "email_delay": "Ni sendis al vi konfirman retpoŝton. Bonvolu atendi ĝis 10 minutoj por ĝia alveno.",
+        "check_mail": "Kontrolu vian retpoŝton!",
+        "cancel": "Nuligi la peton",
+        "resend": "Resendi kontroladon",
+        "missing_verification": "Ĉu neniu retpoŝto alvenis?",
+        "create": "Krei novan konton",
+        "existing": "Ĉu vi jam havas konton?",
+        "new": "Ĉu vi novas en Revolt?",
+        "remembered": "Reiri al ensalutado",
+        "set_password": "Agordi novan pasvorton",
+        "reset": "Restarigi pasvorton",
+        "forgot": "Ĉu vi forgesis vian pasvorton?",
+        "enter": {
+            "current_password": "Entajpu vian aktualan pasvorton.",
+            "invite": "Entajpu vian invitkodon.",
+            "password": "Entajpu vian pasvorton.",
+            "email": "Bonvolu enigi vian retpoŝtadreson.",
+            "username": "Enigu vian uzantnomon.",
+            "new_password": "Enigu novan pasvorton."
+        },
+        "current_password": "Aktuala pasvorto",
+        "invite": "Invitkodo",
+        "password": "Pasvorto",
+        "email": "Retpoŝto",
+        "username": "Uzantnomo",
+        "register": "Registriĝi",
+        "title": "Ensaluti",
+        "welcome2": "Saluton!",
+        "subtitle2": "Krei konton",
+        "welcome": "Bonvenon!",
+        "subtitle": "Ensaluti al Revolt",
+        "totp": "Aŭtentiga apo",
+        "recovery": "Restariga kodo",
+        "unofficial_instance": "Apero de ekstera liveranto.",
+        "verifying_account": "Konfirmado de via konto…",
+        "verified_account": "Via konto estas konfirmita!",
+        "verified_continue": "Pluiri al ensalutado",
+        "new_password": "Nova pasvorto",
+        "log_out_other": "Elsalutigi ĉiujn aliajn seancojn"
+    },
+    "general": {
+        "unavailable": "Ne disponebla",
+        "disabled": "Malebligita",
+        "loading": "Ŝargado…",
+        "image_by": "Bildo de",
+        "privacy": "Privateca politiko",
+        "tos": "Servokondiĉoj",
+        "about": "Pri",
+        "on": "Ŝaltita",
+        "off": "Malŝaltita",
+        "learn_more": "Pliaj informoj"
+    },
+    "dayjs": {
+        "defaults": {
+            "twelvehour": "no",
+            "date_separator": "-",
+            "date_format": "ISO8601"
+        },
+        "nextDay": "[Morgaŭ je] {{time}}",
+        "lastWeek": "[Lasta] dddd [je] {{time}}",
+        "lastDay": "[Hieraŭ je] {{time}}",
+        "sameDay": "[Hodiaŭ je] {{time}}",
+        "nextWeek": "dddd [je] {{time}}"
+    },
+    "notifications": {
+        "sent_request": "@{{person}} sendis al vi amikiĝpeton.",
+        "now_friends": "Vi amikiĝis kun @{{person}}!"
+    },
+    "error": {
+        "NetworkError": "Eraro de reto.",
+        "Unauthorized": "Nerajtigite.",
+        "MissingInvite": "Mankas invitkodo en la peto.",
+        "InvalidCredentials": "Retpoŝtadreso aŭ pasvorto malĝustas.",
+        "InvalidToken": "Nevalida ĵetono",
+        "InvalidInvite": "Nevalida kodo",
+        "AudioPermissionBlock": "Ne eblas aliri vian mikrofonon. Bonvolu kontroli la agordojn de via retumilo.",
+        "Unlabelled": "Io okazis.",
+        "FailedValidation": "Malsukcesis validigo de kampoj.",
+        "DatabaseError": "Eraro de datumbazo.",
+        "InternalError": "Interna eraro.",
+        "MissingPermission": "Mankas permeso.",
+        "UnknownError": "Vidu konzolon.",
+        "OperationFailed": "Operacio malsukcesis.",
+        "MissingHeaders": "Mankas kapoj.",
+        "UnverifiedAccount": "Nekonfirmita konto.",
+        "UnknownUser": "Nekonata uzanto.",
+        "EmailInUse": "Retpoŝtadreso uziĝas.",
+        "EmailFailed": "Retpoŝto malsukcese sendiĝis.",
+        "AlreadyOnboarded": "Agordado jam finiĝis.",
+        "UsernameTaken": "Tiu uzantonomo jam estas uzata.",
+        "AlreadyFriends": "Tiu uzanto jam estas amiko.",
+        "AlreadySentRequest": "Vi jam sendis peton al tiu uzanto.",
+        "Blocked": "Vi blokis ĉi tiun uzanton.",
+        "BlockedOther": "Tiu uzanto blokis vin.",
+        "NoEffect": "Tiu peto ne havis efikon.",
+        "RequiredField": "Deviga",
+        "TooShort": "Tro mallonga",
+        "TooLong": "Tro longa",
+        "InvalidEmail": "Nevalida retpoŝtadreso",
+        "Unavailable": "Nedisponebla.",
+        "FileTooLarge": "Dosiero estas tro granda.",
+        "FailedToReceive": "La servilo malsukcesis ricevi vian dosieron.",
+        "MissingData": "Mankas datumoj en la peto.",
+        "ProbeError": "Malsukcesis akirado de dosiermetadatumoj.",
+        "DeniedNotification": "Vi malakceptis aliron de sciigoj. Kontrolu paĝagordojn.",
+        "CompromisedPassword": "Tiu pasvorto estas danĝerigita.",
+        "ReachedMaximumBots": "Vi atingis la maksimuman kvanton da robotoj.",
+        "UnsupportedBrowser": "Mankas en la retumilo subteno por tiu funkcio.",
+        "InvalidSession": "Nevalida seanco.",
+        "IoError": "La servilo spertis eraron de eneligo.",
+        "RenderFail": "Bildigo de ŝablono malsukcesis.",
+        "DiscriminatorChangeRatelimited": "Tro da etikedŝanĝoj."
+    },
+    "permissions": {
+        "ManageChannels": {
+            "t": "Mastrumi kanalojn",
+            "d": "Ebligas al membroj krei, redakti kaj forigi kanalojn."
+        },
+        "BanMembers": {
+            "d": "Ebligas al membroj porĉiame forigi membrojn de tiu ĉi servilo.",
+            "t": "Forbari membrojn"
+        },
+        "RemoveAvatars": {
+            "d": "Ebligas al membroj forigi laŭservilajn uzantobildojn de aliaj membroj en tiu ĉi servilo.",
+            "t": "Forigi uzantobildojn"
+        },
+        "ManageServer": {
+            "d": "Ebligas al membroj ŝanĝi la nomon, priskribon, bildsimbolon kaj aliajn rilatajn informojn de la servilo.",
+            "t": "Mastrumi servilon"
+        },
+        "KickMembers": {
+            "t": "Forpeli membrojn",
+            "d": "Ebligas al membroj forigi membrojn de la servilo. Forpelitaj membroj povas re-aliĝi per invitilo."
+        },
+        "ChangeNickname": {
+            "t": "Ŝanĝi kromnomon",
+            "d": "Ebligas al membroj ŝanĝi siajn kromnomojn en tiu ĉi servilo."
+        },
+        "ManageNicknames": {
+            "t": "Mastrumi kromnomojn",
+            "d": "Ebligas al membroj ŝanĝi kromnomojn de aliaj membroj."
+        },
+        "ChangeAvatar": {
+            "t": "Ŝanĝi uzantobildon",
+            "d": "Ebligas al membroj ŝanĝi siajn laŭservilajn uzantobildojn en tiu ĉi servilo."
+        },
+        "ManageMessages": {
+            "t": "Mastrumi mesaĝojn",
+            "d": "Ebligas al membroj forigi mesaĝojn senditajn de aliaj membroj."
+        },
+        "UploadFiles": {
+            "t": "Alŝuti dosierojn",
+            "d": "Ebligas al membroj alŝuti dosierojn en tekstkanaloj."
+        },
+        "SendMessage": {
+            "t": "Sendi mesaĝojn",
+            "d": "Ebligas al membroj sendi mesaĝojn en tekstkanaloj."
+        },
+        "ManageChannel": {
+            "d": "Ebligas al membroj redakti aŭ forigi kanalon.",
+            "t": "Mastrumi kanalojn"
+        },
+        "VoiceCall": {
+            "t": "Voĉbabili",
+            "d": "Ebligas al membroj aliĝi al voĉkanaloj."
+        },
+        "InviteOthers": {
+            "t": "Inviti aliulojn",
+            "d": "Ebligas al membroj inviti aliajn uzantojn al kanalo."
+        },
+        "EmbedLinks": {
+            "t": "Enkorpigi ligilojn",
+            "d": "Ebligas al membroj montri enkorpan havaĵon de ligiloj, kiujn ili afiŝas en tekstkanaloj."
+        },
+        "Masquerade": {
+            "t": "Maskado",
+            "d": "Ebligas al membroj ŝanĝi siajn nomon kaj uzantobildon laŭmesaĝe."
+        },
+        "ManageRole": {
+            "t": "Mastrumi rolojn",
+            "d": "Ebligas por membroj krei, redakti kaj forigi rolojn kun malpli alta rango ol la siaj kaj modifi rolpermesojn ĉe kanaloj."
+        },
+        "ViewChannel": {
+            "d": "Ebligas al membroj vidi iujn ajn kanalojn, ĉe kiuj ili havas tiun ĉi permeson.",
+            "t": "Vidi kanalon"
+        },
+        "AssignRoles": {
+            "t": "Atribui rolojn",
+            "d": "Ebligas al membroj atribui rolojn sub sia propra rango al aliaj membroj."
+        },
+        "TimeoutMembers": {
+            "d": "Ebligas al membroj provizore preventi uzantojn de interagi kun la servilo.",
+            "t": "Tempolimigi membrojn"
+        },
+        "React": {
+            "d": "Ebligas al membroj reagi al mesaĝoj.",
+            "t": "Uzi reagojn"
+        },
+        "Video": {
+            "d": "Ebligas al membroj elsendi videaĵon en voĉkanalo.",
+            "t": "Video"
+        },
+        "MuteMembers": {
+            "t": "Silentigi membrojn",
+            "d": "Ebligas al membroj silentigi aliulojn en voĉkanalo."
+        },
+        "Speak": {
+            "t": "Paroli",
+            "d": "Ebligas al membroj paroli en voĉkanalo."
+        },
+        "MoveMembers": {
+            "d": "Ebligas al membroj movi aliulojn inter voĉkanaloj.",
+            "t": "Movi membrojn"
+        },
+        "ManagePermissions": {
+            "d": "Ebligas al membroj ŝanĝi permesojn por kanaloj kaj roloj kun pli-malalta rango.",
+            "t": "Mastrumi permesojn"
+        },
+        "ReadMessageHistory": {
+            "t": "Legi mesaĝan historion",
+            "d": "Ebligas al membroj legi la mesaĝan historion de ĉi tiu kanalo."
+        },
+        "Connect": {
+            "d": "Ebligas al membroj konekti al voĉkanalo.",
+            "t": "Konekti"
+        },
+        "ManageCustomisation": {
+            "t": "Mastrumi proprigon",
+            "d": "Ebligas al membroj krei, redakti kaj forigi emoĝiojn."
+        },
+        "SendEmbeds": {
+            "t": "Sendi enkorpigaĵojn",
+            "d": "Ebligas al membroj sendi enkorpigitan enhavon, ĉu de ligiloj aŭ propraj tekst-enkorpigaĵoj."
+        },
+        "ManageWebhooks": {
+            "d": "Ebligas al membroj regi rethokojn en kanalo.",
+            "t": "Mastrumi rethokojn"
+        },
+        "DeafenMembers": {
+            "t": "Surdigi membrojn",
+            "d": "Ebligas al membroj surdigi aliulojn en voĉkanalo."
+        }
+    },
+    "quantities": {
+        "members": {
+            "one": "1 membro",
+            "many": "{{count}} membroj"
+        },
+        "dropFiles": {
+            "many": "Delasi {{count}} dosierojn",
+            "one": "Delasi dosieron"
+        }
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "actions": {
+        "submit": "Sendi"
+    },
+    "keys": {
+        "Control": {
+            "short": "Ctrl"
+        },
+        "PageUp": {
+            "full": "Paĝo Supre",
+            "short": "PgUp"
+        },
+        "PageDown": {
+            "full": "Paĝo Sube",
+            "short": "PgDown"
+        },
+        "ScrollLock": {
+            "full": "Ruluma Baskulo",
+            "short": "ScrLK"
+        },
+        "PrintScreen": {
+            "short": "PrtSc",
+            "full": "Presi Ekranon"
+        },
+        "CapsLock": {
+            "full": "Majuskla Baskulo"
+        },
+        "Insert": {
+            "short": "Ins"
+        },
+        "Delete": {
+            "short": "Del"
+        },
+        "Backspace": {
+            "short": "Backspace"
+        },
+        "Escape": {
+            "short": "Esc"
+        }
+    }
+}

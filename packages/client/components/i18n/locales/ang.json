@@ -1,0 +1,158 @@
+{
+    "general": {
+        "about": "Be",
+        "tos": "T'rms of s'rvice",
+        "privacy": "Díegolnes Policy",
+        "image_by": "Onlicnes fore",
+        "loading": "Loading…",
+        "on": "To",
+        "off": "ûtan",
+        "disabled": "Unfêre",
+        "unavailable": "Unavailable",
+        "learn_more": "Wot moe"
+    },
+    "app": {
+        "settings": {
+            "tips": {
+                "sessions": {
+                    "b": "secureth thy account by changing thy passw'rd and using 2FA."
+                }
+            },
+            "pages": {
+                "bots": {
+                    "public_bot_desc": "Wheth'r to alloweth oth'r us'rs to inviteth this bot."
+                },
+                "feedback": {
+                    "bug_desc": "View currently factious bug rep'rts h're.",
+                    "issue_desc": "To holp us m're easily triage issues, thee can maketh an issue on GitHub."
+                },
+                "sync": {
+                    "descriptions": {
+                        "locale": "This shall sync thy currently chosen language.",
+                        "theme": "This shall sync thy chosen theme, colours and any custom CSS."
+                    }
+                },
+                "profile": {
+                    "placeholder": "Writeth something about yourself…"
+                },
+                "appearance": {
+                    "color": {
+                        "light": "lighteth",
+                        "dark": "dark"
+                    }
+                },
+                "audio": {
+                    "tip_retry": "Thee didn't giveth the p'rmission to access thy microphone, prithee {{retryBtn}}."
+                }
+            }
+        },
+        "special": {
+            "modals": {
+                "prompt": {
+                    "confirm_leave_long": "Thee wonneth't beest able to rejoin unless thou art re-invit'd.",
+                    "confirm_close_dm_long": "Thee can re-open t lat'r but 'twill disappeareth on both sides.",
+                    "unfriend_user_long": "Thee may not beest able to talketh to those folk again until thee addeth those folk backeth."
+                },
+                "signed_out": "Thee w're sign'd out!",
+                "external_links": {
+                    "trust_domain": "Trusteth this domain"
+                }
+            },
+            "popovers": {
+                "user_profile": {
+                    "badges": {
+                        "translator": "Translat'r"
+                    }
+                }
+            },
+            "requires_online": "Thee needeth to beest online to view this."
+        },
+        "main": {
+            "channel": {
+                "typing": {
+                    "multiple": "{{userlist}} and {{user}} be scribing…",
+                    "single": "{{user}} be scribing…"
+                },
+                "misc": {
+                    "no_sending": "Thee has't not p'rmission to sendeth messages in this channel."
+                }
+            }
+        },
+        "home": {
+            "donate": "[Donate]wiðerwinnan [Revolt]",
+            "join-testers": "Befêgan dôð [testers] [server]",
+            "feedback": "Tîðian [feedback] onuppan [Revolt]",
+            "join-testers_desc": "Êower canne spellian [issues] swâðêana geondsmêagan [improvements] mid ûs of pro ic sôna hêr.",
+            "goto-testers_desc": "Êower canne spellian [issues] swâðêana geondsmêagan [improvements] mid ûs of pro ic sôna hêr.",
+            "donate_desc": "Fêdan duguð oferhlîfan fram from [donating] [-] wil−sum êow!",
+            "directs": "Benemnan [messages]"
+        },
+        "status": {
+            "idle": "Unbeðyrfe",
+            "busy": "Yfelian Nâteðæshwôn Dweald",
+            "invisible": "Ungesýne"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Heorð",
+                "friends": "Frîend"
+            }
+        }
+    },
+    "notifications": {
+        "now_friends": "Thou art anon cater-cousins with @{{person}}!"
+    },
+    "error": {
+        "TooShort": "Too sh'rt",
+        "TooLong": "Too longeth",
+        "DeniedNotification": "Thee did deny notification access, checketh page settings.",
+        "ReachedMaximumBots": "Thee've hath reached the maximum amount of bots.",
+        "RenderFail": "Template rendering failed."
+    },
+    "login": {
+        "check_mail": "Wiðwinnan êower herew¯æd!",
+        "error": {
+            "reset": "Failed to reset ye!",
+            "resend": "[failed] âsettan [resend]!",
+            "login": "[failed] oðferian [login]!",
+            "create": "[failed] stêpan [register]!"
+        },
+        "enter": {
+            "password": "Hladan êower lêafnesword.",
+            "current_password": "Tredan and êower brimstrêam lêafnesword.",
+            "invite": "R¯æran êower ingelaðian [code].",
+            "username": "R¯æran êower [preferred] [username].",
+            "email": "Bestæppan êower [email]."
+        },
+        "missing_verification": "[Didn't] of−gân ealdgenîðla [email]?",
+        "title": "[login]",
+        "password": "Passgeweorc",
+        "invite": "Ingelaðian [code]",
+        "remembered": "Edhwyrfan oðtêon [login]",
+        "new": "Nîwianwiðerwinnan [Revolt]?",
+        "forgot": "[Forgot] êower lêafnesword?",
+        "reset": "[Reset] lêafnesword",
+        "set_password": "ðurhbregdan geong lêafnesword",
+        "create": "Onstellan wiðerbreca eahtan",
+        "cancel": "Undôn biddan",
+        "email_delay": "Weldôn âl¯ætanoð pîcian [minutes] swâðêana sêbecuman becuman.",
+        "check_spam": "Hagian wiðhabban [spam] heonu êow [can't] infindan hit hê",
+        "open_mail_provider": "Gêap {{provider}}",
+        "successful_registration": "W¯æwærðlic [registered]!",
+        "welcome": "Willkommen!",
+        "subtitle": "Segn binnan [Revolt]",
+        "subtitle2": "Tâwian wiðerbreca scêad",
+        "current_password": "Êastrêam Lêafnesword",
+        "existing": "Hêrbeforan hæbbe ealdgenîðla eahtian?",
+        "new_password": "Niewe Passgeweorc",
+        "email": "Letter",
+        "register": "Regester",
+        "username": "Gebrucernama",
+        "welcome2": "Hál!",
+        "totp": "Tostyrnend App",
+        "recovery": "Wihtsweord"
+    },
+    "actions": {
+        "submit": "Abugan"
+    }
+}

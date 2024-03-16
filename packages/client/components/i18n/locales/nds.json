@@ -1,0 +1,77 @@
+{
+    "general": {
+        "privacy": "Datenschutzrichtlinie",
+        "image_by": "Bild von",
+        "loading": "Laden…",
+        "on": "An",
+        "off": "Aus",
+        "disabled": "Deaktiviert",
+        "about": "Över",
+        "tos": "Bedingungen för de Bruuk",
+        "unavailable": "Nich to Hebben",
+        "learn_more": "Erfahren Sie mehr"
+    },
+    "actions": {
+        "submit": "Übermaken"
+    },
+    "login": {
+        "title": "Anmellen",
+        "welcome": "Willkamen!",
+        "subtitle": "Meld di an bi Revolt an",
+        "welcome2": "Moin!",
+        "subtitle2": "En Konto anlegg'n",
+        "register": "Registreer di",
+        "username": "Benutzernamen",
+        "password": "Passwort",
+        "new_password": "Nei Passwort",
+        "totp": "Authentifizierungs-App",
+        "recovery": "Erholungskood",
+        "invite": "Inladungscode",
+        "current_password": "Aktuelles Passwort",
+        "enter": {
+            "username": "Geef dien Benutzhornamen.",
+            "password": "Geef dien Passwort in.",
+            "new_password": "Geef een niegen Passwort in.",
+            "invite": "Giff dien Inladungscode in.",
+            "current_password": "Geef dien aktuell Passwort in.",
+            "email": "Bitte geef dien E-Mail-Adress in."
+        },
+        "forgot": "Passwort vergäten?",
+        "reset": "Passwort trüchsetten",
+        "email": "E-Mail",
+        "log_out_other": "Melden Sie sich von allen anderen Sitzungen ab",
+        "set_password": "Stell en nieg Passwort in",
+        "remembered": "Gaot torüch to Log-In",
+        "existing": "Hast du al en Konto?",
+        "email_delay": "Bitte gewähr di 10 Minuten Tied, bet dat ankommt.",
+        "new": "Nie in Revolt west?",
+        "create": "Mak dat Du en niegt Konto maakst",
+        "missing_verification": "Hast du keen E-Mail kregen?",
+        "resend": "Verifikatschoon reseten",
+        "cancel": "Anfraag afbreken",
+        "check_mail": "Kiek na dien E-Mail!",
+        "open_mail_provider": "Öffne {{provider}}",
+        "successful_registration": "Successvol inlöggelt!",
+        "verifying_account": "Dien Konto warrt verifizeert…",
+        "check_spam": "Kiek bitte in dien Spam-Ordner wenn du dat nich finnen kannst",
+        "verified_account": "Dien Konto is verifieert worrn!",
+        "verified_continue": "Weiter zur Anmeldung",
+        "error": {
+            "create": "Registrierung fehlgeschlagen!",
+            "login": "Anmeldung fehlgeschlagen!",
+            "reset": "Zurücksetzen fehlgeschlagen!",
+            "resend": "Erneutes Senden fehlgeschlagen!",
+            "verify": "Verifizierung fehlgeschlagen!"
+        },
+        "unofficial_instance": "Drittanbieter-Instanz."
+    },
+    "app": {
+        "status": {
+            "online": "Online",
+            "idle": "Untätig",
+            "focus": "Fokus",
+            "busy": "Bitte nicht stören",
+            "invisible": "Unsichtbar"
+        }
+    }
+}

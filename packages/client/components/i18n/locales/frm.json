@@ -1,0 +1,804 @@
+{
+    "login": {
+        "forgot": "Mot de passe oblïé?",
+        "reset": "Recrïer le mot de passe",
+        "set_password": "Defenir un novel mot de passe",
+        "new": "Apprentiz de Revolt?",
+        "create": "Crïer un novel conte",
+        "cancel": "Demande d'anulation",
+        "email_delay": "Prevoiiez usque 10 minutes por quil arive.",
+        "check_spam": "Verifiiez les corriers indesirrables si vos ne le trovez pas",
+        "open_mail_provider": "Ovrir {{provider}}",
+        "successful_registration": "Conte crïe avec succes!",
+        "error": {
+            "create": "Eschec de l'inscription !",
+            "login": "Eschec de la connexion !",
+            "reset": "Eschec de la remise a zero!",
+            "resend": "Eschec du renvoi!",
+            "verify": "Eschec de la verification !"
+        },
+        "enter": {
+            "current_password": "Escrivez vostre mot de passe actuel.",
+            "password": "Escrivez vostre mot de passe.",
+            "invite": "Escrivez vostre code d'invitation.",
+            "email": "Escrivez vostre adrece E-letre.",
+            "username": "Escrivez vostre nom d'utilisateur.",
+            "new_password": "Escrivez un novel mot de passe."
+        },
+        "remembered": "Retorner à la connexion",
+        "existing": "Avez vous desja un compte?",
+        "resend": "Renvoiier la verification",
+        "check_mail": "Verifiiez vostre e-corrier!",
+        "missing_verification": "Pas d'e-letre receüe?",
+        "register": "Enregister",
+        "username": "Nom d'utilisateur",
+        "email": "E-letre",
+        "password": "Mot de passe",
+        "invite": "Code d'invitation",
+        "current_password": "Mot de passe actuel",
+        "title": "Connexer",
+        "welcome": "Bienvenu!",
+        "subtitle": "Connexez-vous à Revolt",
+        "welcome2": "Salut!",
+        "subtitle2": "Crïer un conte",
+        "verifying_account": "Verification de vostre conte…",
+        "recovery": "Code de recuperation",
+        "verified_account": "Vostre conte a été vérifié !",
+        "verified_continue": "Continüer à se connexer",
+        "log_out_other": "Sortire de totes sessïons",
+        "unofficial_instance": "Instance tierce.",
+        "totp": "Outil de Certifficacion",
+        "new_password": "Novel Mot de Passe"
+    },
+    "app": {
+        "status": {
+            "online": "Present",
+            "idle": "Oisif",
+            "busy": "Ne pas desrengier",
+            "invisible": "Invisible",
+            "offline": "Non present",
+            "reconnect": "Reconnexion",
+            "focus": "Meditatif"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Acueil",
+                "dev": "Artisan",
+                "friends": "Amis",
+                "unreads": "Non lu",
+                "saved": "Notes escrites"
+            }
+        },
+        "main": {
+            "categories": {
+                "conversations": "Conversacïons",
+                "participants": "Participants",
+                "channels": "Sale",
+                "members": "Membres"
+            },
+            "channel": {
+                "uploading_file": "Envoi…",
+                "nsfw": {
+                    "channel": {
+                        "confirm": "Entrer dans la sale",
+                        "marked": "Cette sale est un lieu d'indecence."
+                    },
+                    "confirm": "Je confirme estre une persone majore."
+                },
+                "edited": "(edité)",
+                "bot": "Machine",
+                "notifications": {
+                    "all": "Tot les messages",
+                    "mention": "Mencïons solement",
+                    "muted": "Rendu Müet",
+                    "default": "Utiliser defauts",
+                    "none": "Rien"
+                },
+                "search": {
+                    "sort": {
+                        "oldest": "Anciiens",
+                        "latest": "Derniers",
+                        "relevance": "Pertinence"
+                    },
+                    "title": "Cherchier"
+                },
+                "errors": {
+                    "title": "Fichtre, rien ici!",
+                    "nochannel": "Aucune sale",
+                    "nochannels": "Ce serveor n'a pas de sales, ou vous n'avez accès à aucune."
+                },
+                "message_saved": "Metre dans vos notes",
+                "typing": {
+                    "multiple": "{{userlist}} et {{user}} sont en train d'escrire…",
+                    "single": "{{user}} est en train d'escrire…",
+                    "several": "Plusor persones escrivent…"
+                },
+                "system": {
+                    "added_by": "{{user}} a été ajosté par {{other_user}}",
+                    "channel_renamed": "{{user}} a renomé la sale: {{name}}",
+                    "channel_description_changed": "{{user}} a modifié la descricïon de la sale",
+                    "channel_icon_changed": "{{user}} a changé l'icône de la sale",
+                    "user_joined": "{{user}} a rejoint",
+                    "user_left": "{{user}} est parti",
+                    "user_kicked": "{{user}} a été expulsé",
+                    "user_banned": "{{user}} a été bani",
+                    "removed_by": "{{user}} a été retiré par {{other_user}}",
+                    "registered_at": "Rejoint {{time}}",
+                    "channel_ownership_changed": "{{from}} a otroiié la propïete de la coterie a {{to}}"
+                },
+                "start": {
+                    "group": "Vez l'origine de vostre conversacïon.",
+                    "saved": "Vez l'origine de vos notes."
+                },
+                "misc": {
+                    "jump_present": "Revenir au present",
+                    "no_sending": "Vos ne poiiez pas envoiier des messages dans cest sale.",
+                    "viewing_old": "Veüe des messages plus anciiens",
+                    "spoiler_attachment": "Secré",
+                    "failed_load": "Lecture du message impossible.",
+                    "blocked_messages": "{{count}} messages bloqués",
+                    "blocked_user": "Utilisateur bloqué",
+                    "sent_file": "Envoyé un fichier",
+                    "sent_multiple_files": "Envoyé plusieurs fichiers",
+                    "jump_beginning": "Revenir au début",
+                    "new_messages": "Novels messages depuis {{time_ago}}",
+                    "timed_out": "Vos êtes isolé por {{time}}.",
+                    "load_file": "Ajoster un fichier",
+                    "not_loaded": "Message non chargé, apoiier por retorner"
+                },
+                "unknown_user": "<Utilisateur inconnu>",
+                "message_where": "Envoiier un message sur {{channel_name}}",
+                "message_who": "Envoiier un message à {{person}}",
+                "failed_upload": "Eschec de l'envoi !",
+                "attached_file": "Piece jointe {{filename}}",
+                "voice": {
+                    "connected": "Voiz connexée",
+                    "leave": "Partir",
+                    "mute": "Müet",
+                    "unmute": "Rendre l'oïe"
+                },
+                "reply": {
+                    "replying": "Respondre à",
+                    "toggle": "Activer/Desactiver la mention de l'autor"
+                },
+                "user_timed_out": "L'utilisateur est isolé pour {{time}}.",
+                "bridge": "pont",
+                "reactions": {
+                    "others_reacted": "{{userlist}} et {{count}} ont acquiescé",
+                    "unknown_reacted": "{{count}} ont acquiescé",
+                    "single_reacted": "1 persone a acquiescé",
+                    "people_reacted": "{{people}} acquiescent"
+                },
+                "team": "Comunicacïon publique",
+                "new_to_server": "Novel sur ce serveor",
+                "bridged": "Le message a été envoiié sur une autre plateforme",
+                "new_to_revolt": "Novel à REVOLT"
+            },
+            "groups": {
+                "create": "Créer une coterie",
+                "owner": "Proprïetaire de la coterie",
+                "description": "Descricïon de la coterie",
+                "name": "Nom de coterie"
+            },
+            "servers": {
+                "create": "Crïer un serveor",
+                "name": "Nom du Serveor",
+                "description": "Descricïon du serveor",
+                "channel_name": "Nom de la sale",
+                "channel_type": "Type de sale",
+                "channel_description": "Descricïon de la sale",
+                "custom_banner": "Baniere personnelle",
+                "owner": "Suzerain du serveor",
+                "category_name": "Nom de categorie",
+                "text_channel": "Sale d'escriture",
+                "voice_channel": "Sale de paroles"
+            }
+        },
+        "home": {
+            "donate": "Faire donacion à Revolt",
+            "settings-tooltip": "Vos povez egalement apoiier avuec le boton droit sur vostre icône en haut à gauche ou apoiier avuec le boton gauche si vous êtes déjà dans l'acueil.",
+            "join-testers": "Rejoignez la coterie des testeurs",
+            "goto-testers": "Tresaler à la coterie des testeurs",
+            "feedback": "Donez vostre avis sur Revolt",
+            "settings": "Ovrir les Opcïons",
+            "social": "Trouver des serveurs et des bots",
+            "directs": "Messages Directs",
+            "join-testers_desc": "Vos pöoiez nos informer des problèmes et discuter de suggestïons directement avec nos ici.",
+            "feedback_desc": "Aidant nos à ameliorer nostre servise en nos donant vos suggestïons.",
+            "donate_desc": "Suportez le projet en faisant donacion - merci !",
+            "discover": "Descovrir Revolt",
+            "discover_desc": "Trovez une comunauté correspondant à vos passïons et à vos interests.",
+            "group": "Crïer une coterie",
+            "group_desc": "Invitez tot vos amis, des machines amusantes, et organisez une grande feste.",
+            "goto-testers_desc": "Vos pöoiez nos informer des problèmes et discuter de suggestïons directement avec nos ici."
+        },
+        "settings": {
+            "categories": {
+                "client_settings": "Opcïons des clients",
+                "user_settings": "Opcïons utilisateur",
+                "danger_zone": "Zone dangiereuse"
+            },
+            "pages": {
+                "account": {
+                    "manage": {
+                        "delete": "Demander suppression du conte",
+                        "description": "Desactivez ou supprimez vostre conte à tot moment. Cette accion vos déconnexera et supprimera completement vostre conte, y compris vostre historique de discussïon et vos amis.",
+                        "title": "Gestion de conte",
+                        "disable": "Désactiver conte"
+                    },
+                    "title": "Mon conte",
+                    "change_field": "Changier",
+                    "2fa": {
+                        "title": "Certifficacion à deus facteurs",
+                        "add_auth": "Ajoster Certiffieur",
+                        "description": "Resistez aux sieges en activant la C2F sur vostre conte.",
+                        "remove_auth": "Supprimer Certiffieur",
+                        "view_recovery": "Afichier les codes de recuperation",
+                        "view_recovery_long": "Vëoir et recuperer vos codes de récupération C2F.",
+                        "two_factor_off": "Vous n'avez pas activé la Certifficacion à deus facteurs !",
+                        "generate_recovery": "Crïer des codes de récupération",
+                        "generate_recovery_long": "Préparez la C2F en mettant en place une maniere de recuperation.",
+                        "two_factor_on": "La Certifficacion à deus facteurs est actuellement activée."
+                    },
+                    "unique_id": "Ceci est un code d'utilisateur unique por vostre conte."
+                },
+                "profile": {
+                    "title": "Portrait",
+                    "placeholder": "Escrivez quelque chose à vostre subjet…",
+                    "profile_picture": "Image du Portrait",
+                    "edit_background": "Modifier ariere-plan",
+                    "info": "Information",
+                    "fetching": "Récupération de vostre profil…",
+                    "custom_background": "Ariere-plan personnel",
+                    "edit_profile": "Modifier Portrait"
+                },
+                "sessions": {
+                    "active_sessions": "Sessïons actives",
+                    "title": "Sessïons",
+                    "this_device": "Cestui apareil",
+                    "created": "Crïé il y a {{time_ago}}",
+                    "logout": "Déconnexez-vos de totes les autres sessïons"
+                },
+                "audio": {
+                    "device_label_NA": "Indisponible",
+                    "button_retry": "retenter",
+                    "output_device": "Auriculaires",
+                    "input_device": "Hérault",
+                    "tip_retry": "Vostre hérault n'a pas permission de vos entendre, veuillez {{retryBtn}}.",
+                    "tip_grant_permission": "Vous devez donner permission d'acceder aux opcïons audio.",
+                    "button_grant": "Doner permission",
+                    "title": "Opcïons de voiz"
+                },
+                "appearance": {
+                    "display": {
+                        "compact_description": "Bon vieil IRC.",
+                        "default": "Par défaut",
+                        "default_description": "Beau, élégant et moderne.",
+                        "compact": "Compact"
+                    },
+                    "color": {
+                        "light": "Cler",
+                        "dark": "sombre"
+                    },
+                    "message_display": "Affichage des messages",
+                    "title": "Apparance",
+                    "theme": "Teme",
+                    "theme_options": {
+                        "seasonal_desc": "Affiche les effets dans l'onglet d'accueil pendant les périodes de vacances.",
+                        "transparency": "Effets de transparence",
+                        "transparency_desc": "Active effets de transparence dans toute l'application.",
+                        "title": "Options du thème",
+                        "follow": "Suivre thème du système",
+                        "follow_desc": "Une fois marqué, vous ne pourrez pas modifier votre thème ou utiliser un thème personnalisé.",
+                        "seasonal": "Thème saisonnier"
+                    },
+                    "advanced": "Options avancées",
+                    "accent_selector": "Couleur d'acent",
+                    "emoji_pack": "Pack d'émojis",
+                    "import": "Importer un thème",
+                    "theme_data": "Données du thème",
+                    "import_theme": "Importer un thème depuis une chaîne de caractères",
+                    "font": "Police d'écriture",
+                    "discover": {
+                        "description": "Parcorir les temes crïés par la comunauté",
+                        "title": "Descovrir des temes"
+                    },
+                    "mono_font": "Sélecteur de police d'écriture à chasse fixe",
+                    "overrides": "Surcouches de thème",
+                    "custom_css": "CSS personnalisé",
+                    "sync": "Paramètres de synchronisation",
+                    "ligatures": "Ligatures de la police",
+                    "appearance_options": {
+                        "show_account_age": "Toujours afficher l'âge du compte à côté des messages de participations",
+                        "show_account_age_desc": "S'il est désactivé, l'âge du compte ne sera affiché que pour les nouveaux utilisateurs.",
+                        "title": "Ocïons d'aparance",
+                        "show_send": "Tosjorsmes afichier le boton \"Envoiier un message\"",
+                        "show_send_desc": "S'il est désactivé, le bouton Envoyer un message n'apparaîtra que sur le mobile."
+                    },
+                    "ligatures_desc": "Pour les polices prises en charge, les ligatures combinent les caractères entre eux, par exemple, en transformant -> en flèche.",
+                    "colours": {
+                        "title": "Couleurs"
+                    },
+                    "emoji": {
+                        "title": "Esmocions"
+                    },
+                    "fonts": {
+                        "title": "Polices"
+                    },
+                    "advanced_options": {
+                        "title": "Opcïons avanciées"
+                    },
+                    "reset_overrides": "Réinitialiser les dérogations"
+                },
+                "notifications": {
+                    "sounds": "Sons",
+                    "title": "Notifications",
+                    "descriptions": {
+                        "enable_desktop": "Ceci va vous envoyer des notifications quand cette application est ouverte.",
+                        "enable_push": "Activez pour recevoir les notifications quand vous êtes hors-ligne."
+                    },
+                    "enable_push": "Activer les notifications Push.",
+                    "sound": {
+                        "call_leave": "Un utilisateur a quitté l'appel",
+                        "outbound": "Message envoyé",
+                        "call_join": "Un utilisateur a rejoint l'appel",
+                        "message": "Message reçu"
+                    },
+                    "push_notifications": "Notifications Push",
+                    "enable_desktop": "Activer les notifications de bureau."
+                },
+                "language": {
+                    "title": "Langage",
+                    "const": "Langues construites",
+                    "other": "Autres paramètres de langue",
+                    "select": "Sélectionnez votre langue"
+                },
+                "bots": {
+                    "token": "Jeton",
+                    "profile": "Profil du bot",
+                    "create_bot": "Créer un bot",
+                    "copy_invite": "Copier le lien d'invitation",
+                    "unique_id": "Ceci est un identifiant unique pour votre bot. Ce n'est pas le jeton de votre bot.",
+                    "title": "Mes bots",
+                    "add": "Ajouter un bot",
+                    "public_bot": "Bot public",
+                    "private_bot_tip": "Votre bot est privé. Vous seul pouvez l'inviter.",
+                    "reserved": "Note : ce champ est réservé à une utilisation future.",
+                    "public_bot_tip": "Votre bot est public. N'importe qui peut l'inviter.",
+                    "public_bot_desc": "Si vous voulez permettre aux autres utilisateurs d'inviter ce robot.",
+                    "interactions_url": "URL d'interactions"
+                },
+                "sync": {
+                    "title": "Synchronisation",
+                    "descriptions": {
+                        "locale": "Cela synchronisera la langue actuellement sélectionnée.",
+                        "appearance": "Cela synchronisera les paramètres telles que les collections d'emoji et la densité des messages.",
+                        "theme": "Cela synchronisera votre choix de thème, vos couleurs et votre CSS personnalisé."
+                    },
+                    "categories": "Synchronisation des catégories",
+                    "options": "Synchronisation des paramètres"
+                },
+                "native": {
+                    "title": "Paramètres de bureau"
+                },
+                "theme_shop": {
+                    "description": "Naviguer à travers des centaines de thèmes, créées et maintenues par la communauté.",
+                    "title": "Boutique de thèmes",
+                    "category": {
+                        "default": "Thèmes par défaut",
+                        "highest": "Les mieux notés",
+                        "viewall": "Voir tout",
+                        "saved": "Sauvegarder",
+                        "new": "Nouveau cette semaine",
+                        "manage": "Gérer les sauvegardes"
+                    },
+                    "search": "Rechercher des thèmes…",
+                    "by": "par",
+                    "active": "Actuellement actif",
+                    "use": "Utiliser le thème"
+                },
+                "feedback": {
+                    "bug": "Traqueur de bugs",
+                    "issue": "Créer un nouveau ticket",
+                    "suggest": "Envoyer la suggestion de fonctionnalité",
+                    "bug_desc": "Voir les rapports d'erreur actifs ici.",
+                    "suggest_desc": "Suggérer une nouvelle fonctionnalité Revolt sur les discussions GitHub.",
+                    "issue_desc": "Pour nous aider à trier plus facilement les problèmes, vous pouvez créer un problème sur GitHub.",
+                    "description": "Soumettre un commentaire",
+                    "title": "Retour (d'informations)"
+                },
+                "experiments": {
+                    "features": "Fonctionnalités disponibles",
+                    "title": "Expériences",
+                    "not_available": "Aucune expérience n'est disponible pour le moment."
+                },
+                "donate": {
+                    "title": "Faire un don"
+                },
+                "logOut": "Déconnexion",
+                "source_code": "Code source",
+                "plugins": {
+                    "title": "Plugins",
+                    "wip": "Avertissement : Cette fonctionnalité est encore en cours de développement.",
+                    "delete_plugin": "Effacer",
+                    "no_plugins": "Aucun plugin n'est actuellement installé."
+                }
+            },
+            "actions": {
+                "remove": "Esfacier",
+                "upload": "Envoiier",
+                "max_filesize": "(maximum {{filesize}})",
+                "edit": "Modifier {{name}}"
+            },
+            "title": "Opcïons",
+            "server_pages": {
+                "invites": {
+                    "title": "Invitations",
+                    "code": "Code d'invitation",
+                    "channel": "Salon",
+                    "revoke": "Révoquer",
+                    "invitor": "Invitée"
+                },
+                "overview": {
+                    "description": "Description du salon",
+                    "title": "Vue d'ensemble",
+                    "name": "Nom du serveur",
+                    "system_messages": "Canaux de messages système"
+                },
+                "roles": {
+                    "title": "Rôles"
+                },
+                "bans": {
+                    "user": "Utilisateur",
+                    "title": "Bannissements",
+                    "no_reason": "Aucune raison de bannissement.",
+                    "reason": "Raison du bannissement",
+                    "revoke": "Révoquer"
+                },
+                "management": {
+                    "title": "Gestion des utilisateurs"
+                },
+                "members": {
+                    "title": "Membres"
+                },
+                "categories": {
+                    "title": "Catégories"
+                },
+                "emojis": {
+                    "title": "Emotes",
+                    "upload": "Téléchargez des émoticônes"
+                },
+                "customisation": {
+                    "title": "Customisation"
+                }
+            },
+            "channel_pages": {
+                "permissions": {
+                    "title": "Permissions"
+                },
+                "overview": {
+                    "title": "Vue d'ensemble",
+                    "description": "Description du salon",
+                    "name": "Nom du salon"
+                },
+                "webhooks": {
+                    "title": "Webhooks"
+                }
+            },
+            "tips": {
+                "account": {
+                    "a": "Vous cherchez à personnaliser votre profil public ?",
+                    "b": "Rendez-vous dans vos paramètres de profil."
+                },
+                "languages": {
+                    "a": "Manque-t-il la langue que vous souhaitiez ?",
+                    "b": "Contribuez à la traduction."
+                },
+                "sessions": {
+                    "b": "sécurisez votre compte en changeant votre mot de passe et en activant l'A2F.",
+                    "a": "Si vous voyez une session inconnue sur la liste,"
+                }
+            },
+            "permissions": {
+                "role_name": "Nom du rôle",
+                "default_role": "Par défaut",
+                "server": "Permissions du serveur",
+                "channel": "Permissions du salon",
+                "create_role": "Créer un nouveau rôle",
+                "hoist_role": "Rôle de levage",
+                "role_colour": "Rôle couleur",
+                "delete_role": "Rôle supprimées",
+                "role_ranking": "Classement des rôles",
+                "role_options": "Rôle d'option",
+                "hoist_desc": "Affichez ce rôle au-dessus des autres.",
+                "title": "Autorisations pour {{role}}",
+                "edit_title": "Modifier l'autorisation"
+            }
+        },
+        "context_menu": {
+            "unblock_user": "Débloquer l'utilisateur",
+            "remove_friend": "Retirer des amis",
+            "copy_text": "Copier le texte",
+            "copy_uid": "Copier l'ID de l'utilisateur",
+            "copy_mid": "Copier l'ID du message",
+            "copy_message_link": "Copier le lien du message",
+            "save_video": "Sauvegarder la vidéo",
+            "add_friend": "Ajouter en ami",
+            "open_notification_options": "Options de notifications",
+            "open_channel_settings": "Paramètres du salon",
+            "save_file": "Sauvegarder le fichier",
+            "copy_selection": "Copier la sélection",
+            "mention": "Mentionner",
+            "open_link": "Ouvrir le lien",
+            "cancel_friend": "Annuler la requête",
+            "close_dm": "Fermer les MP",
+            "leave_server": "Quitter le serveur",
+            "delete_server": "Supprimer le serveur",
+            "edit_identity": "Modifier l'identité",
+            "delete_channel": "Supprimer le salon",
+            "create_channel": "Créer un salon",
+            "create_category": "Créer une catégorie",
+            "copy_sid": "Copier l'ID du serveur",
+            "save_image": "Sauvegarder l'image",
+            "open_video": "Ouvrir la vidéo",
+            "copy_link": "Copier le lien",
+            "block_user": "Bloquer l'utilisateur",
+            "leave_group": "Quiter la coterie",
+            "create_invite": "Créer une invitation",
+            "open_server_settings": "Paramètres du serveur",
+            "open_group_settings": "Opcïons de la coterie",
+            "open_file": "Ouvrir un fichier",
+            "open_image": "Ouvrir l'image",
+            "copy_id": "Copier l'identifiant",
+            "copy_cid": "Copier l'ID du salon",
+            "view_profile": "Voir le profil"
+        },
+        "special": {
+            "invite": {
+                "invalid": "Invitation invalide !",
+                "invalid_desc": "Cette invitation n'existe pas ou vous n'avez pas la permission de rejoindre."
+            },
+            "friends": {
+                "sent": "Envoyées",
+                "incoming": "Demande d'ami reçue.",
+                "pending": "Demandes en attente",
+                "blocked": "Bloqué",
+                "outgoing": "Demande d'ami envoyée.",
+                "nobody": "Il n'y a encore personne ici !",
+                "from": {
+                    "single": "De {{user}}",
+                    "several": "De {{userlist}} et {{count}} en plus…",
+                    "multiple": "De {{userlist}} et {{user}}"
+                }
+            },
+            "modals": {
+                "error": "Une erreur est survenue !",
+                "prompt": {
+                    "confirm_delete_long": "Après la suppression, vous ne pourrez pas revenir en arrière.",
+                    "confirm_leave_long": "Vous ne pourrez pas revenir sans être réinvité.",
+                    "confirm_delete": "Supprimer {{name}} ?",
+                    "confirm_leave": "Quitter {{name}} ?",
+                    "confirm_close_dm": "Fermer la conversation avec {{name}} ?",
+                    "unfriend_user": "Retirer {{name}} ?",
+                    "confirm_ban_reason": "Raison de bannissement",
+                    "block_user": "Bloquer {{name}} ?",
+                    "block_user_long": "Êtes-vous sûr(e) de vouloir bloquer {{name}} ? Il sera aussi supprimé de voir liste d'ami.",
+                    "confirm_ban": "Vous êtes sur le point de bannir {{name}}",
+                    "confirm_delete_message_long": "Êtes-vous sûr de vouloir supprimer-ceci ?",
+                    "unfriend_user_long": "Vous n'avez peut-être pas la possibilité de leur parler tant que vous ne les aurez pas ajoutés.",
+                    "create_invite_generate": "Génération d'une invitation…",
+                    "create_invite_created": "Voilà votre nouveau code d'invitation :",
+                    "confirm_kick": "Êtes-vous sûr de vouloir expulser {{name}} ?",
+                    "members_not_notified": "Les autres membres ne seront pas avertis",
+                    "confirm_close_dm_long": "Vous pourrez le réouvrir plus tard mais il disparaîtra des deux côtés.",
+                    "silent_leave": "Partir en silence"
+                },
+                "onboarding": {
+                    "pick": "Choisissez un nom d'utilisateur avec lequel vous souhaitez être trouvable, il pourra être changé plus tard dans les paramètres.",
+                    "welcome": "Bienvenue à"
+                },
+                "clipboard": {
+                    "unavailable": "Le presse-papier n'est pas disponible !",
+                    "copy": "Copie manuelle :",
+                    "https": "Vous n'êtes actuellement pas sur un contexte HTTPS."
+                },
+                "signed_out": "Vous avez été déconnecté !",
+                "token_reveal": "Jeton de {{name}}",
+                "external_links": {
+                    "trust_domain": "Faire confiance à ce domaine",
+                    "short": "Êtes-vous sûr(e) de vouler aller sur :",
+                    "title": "Les liens externes peuvent être dangereux !"
+                },
+                "actions": {
+                    "ok": "Ok",
+                    "save": "Sauvegarder",
+                    "close": "Fermer",
+                    "reveal": "Révéler",
+                    "continue": "Continuer",
+                    "send_email": "Envoyer l'email",
+                    "ban": "Bannir",
+                    "hide": "Cacher",
+                    "edit": "Modifier",
+                    "update": "Mettre à jour",
+                    "block": "Bloquer",
+                    "leave": "Quitter",
+                    "preview": "Prévisualier",
+                    "kick": "Expulser",
+                    "remove": "Retirer",
+                    "delete": "Supprimer",
+                    "create": "Créer",
+                    "cancel": "Annuler",
+                    "reload": "Recharger l'application"
+                },
+                "account": {
+                    "change": {
+                        "username": "Modifier votre nom d'utilisateur",
+                        "email": "Modifier votre adresse email",
+                        "password": "Modifier votre mot de passe"
+                    },
+                    "failed": "Échec de la modification !"
+                },
+                "confirm": "Confirmer l'action"
+            },
+            "server-badges": {
+                "official": "Serveur officiel",
+                "verified": "Serveur vérifié"
+            },
+            "status": {
+                "connecting": "Connexion…",
+                "reconnecting": "Reconnexion…",
+                "disconnected": "Déconnecté.",
+                "offline": "Hors ligne."
+            },
+            "copy_username": "Cliquez pour copier le nom d'utilisateur",
+            "copy": "Cliquez pour copier",
+            "popovers": {
+                "user_profile": {
+                    "no_users": "Aucun ami en commun",
+                    "empty": "C'est un peu vide ici…",
+                    "sub": {
+                        "information": "Information",
+                        "connections": "Connexions",
+                        "badges": "Badges"
+                    },
+                    "mutual_groups": "Coteries en commun",
+                    "profile": "Profil",
+                    "mutual_servers": "Serveurs en commun",
+                    "no_groups": "Pas de coteries en commun",
+                    "badges": {
+                        "founder": "Fondateur"
+                    },
+                    "no_servers": "Pas de serveurs en commun",
+                    "mutual_friends": "Amis en commun"
+                }
+            }
+        },
+        "permissions": {
+            "required": "Permissions nécessaires"
+        }
+    },
+    "general": {
+        "image_by": "Image de",
+        "loading": "Chargement…",
+        "about": "À propos",
+        "tos": "Termes de servise",
+        "privacy": "Politique de Vie privee",
+        "on": "Activée",
+        "off": "Désactivée",
+        "unavailable": "Indisposé",
+        "disabled": "Désactiver",
+        "learn_more": "Aprendre plus"
+    },
+    "permissions": {
+        "ManageNicknames": {
+            "t": "Gérer les surnoms",
+            "d": "Permettre de changer le surnom des autres membres."
+        },
+        "ChangeAvatar": {
+            "t": "Changer d'avatar"
+        },
+        "ManageChannels": {
+            "t": "Gerer les sales",
+            "d": "Permettre aux membres de créer, éditer et supprimer des canaux."
+        },
+        "KickMembers": {
+            "t": "Expulser des membres",
+            "d": "Permet aux membres d'expulser les autres membres du serveur. Les membres expulsés peuvent rejoindre à nouveau avec une invitation valide."
+        },
+        "ManageServer": {
+            "t": "Gérer le serveur",
+            "d": "Permet aux membres de modifier le nom, la description, l'icône et d'autres informations liées au serveur."
+        },
+        "BanMembers": {
+            "t": "Bannir des membres",
+            "d": "Permet aux membres de retirer définitivement des membres de ce serveur."
+        },
+        "ChangeNickname": {
+            "t": "Changer de surnom",
+            "d": "Permet aux membres de modifier leur surnom sur le serveur."
+        },
+        "RemoveAvatars": {
+            "d": "Permet aux membres de retirer les avatars de serveur d'autres membres du serveur.",
+            "t": "Retirer les avatars"
+        },
+        "Masquerade": {
+            "t": "Mascarade",
+            "d": "Permet aux membres de changer leur pseudonyme et avatar par message."
+        },
+        "SendMessage": {
+            "t": "Envoyer des messages",
+            "d": "Permettre aux membres d'envoyer des messages dans les canaux textuels."
+        },
+        "VoiceCall": {
+            "t": "Appel vocal",
+            "d": "Permettre aux membres de rejoindre les canaux vocaux."
+        },
+        "ManageChannel": {
+            "d": "Permettre aux membres d'éditer ou de supprimer un canal.",
+            "t": "Gérer les canaux"
+        },
+        "ManageMessages": {
+            "d": "Permettre aux membres de supprimer les messages envoyés par les autres membres.",
+            "t": "Gérer les messages"
+        },
+        "InviteOthers": {
+            "d": "Permettre aux membres d'inviter d'autres utilisateurs dans un canal.",
+            "t": "Inviter d'autres personnes"
+        },
+        "UploadFiles": {
+            "t": "Envoyer des fichiers",
+            "d": "Permet aux membres d'envoyer des fichiers dans les canaux textuels."
+        },
+        "EmbedLinks": {
+            "d": "Permet aux membres d'afficher du contenu intégré aux liens qu'ils envoient dans un canal textuel.",
+            "t": "Intégration de liens"
+        },
+        "ManageRole": {
+            "t": "Manager les rôles",
+            "d": "Permet aux membres de créer, modifier et supprimer les rôles hiérarchiquement inférieurs aux leurs. Leur permet également de modifier les droits des rôles pour les canaux."
+        },
+        "ViewChannel": {
+            "t": "Voir un canal",
+            "d": "Permet aux membres de voir tous les canaux sur lesquels ils ont cette permission."
+        }
+    },
+    "notifications": {
+        "now_friends": "Vous êtes désormais ami avec @{{person}} !",
+        "sent_request": "@{{person}} vous a envoyé une demande d'ami."
+    },
+    "error": {
+        "NetworkError": "Erreur du réseau.",
+        "Unauthorized": "Non autorisé.",
+        "CompromisedPassword": "Ce mot de passe est compromis.",
+        "Unlabelled": "Quelque chose s'est produit.",
+        "MissingPermission": "Permission manquante.",
+        "UnknownError": "Voir la console.",
+        "OperationFailed": "Échec de l'opération.",
+        "FileTooLarge": "Le fichier est trop volumineux.",
+        "ReachedMaximumBots": "Vous avez abouti la limite maximale de robots.",
+        "DatabaseError": "Erreur de base de données.",
+        "InternalError": "Erreur interne.",
+        "ProbeError": "Un problème est survenu lors de l'interaction du fichier metadata.",
+        "DeniedNotification": "Vous avez renier l'accès aux notifications, vérifiez la page des paramètres.",
+        "UnsupportedBrowser": "Votre navigateur internet ne supporte pas cette fonctionnalité.",
+        "AudioPermissionBlock": "Aucun accès à votre microphone, pouvez-vous vérifier l'autorisation de votre navigateur internet."
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "dayjs": {
+        "sameDay": "[Aujourd'hui à] {{time}}",
+        "lastDay": "[Hier à] {{time}}",
+        "nextDay": "[Demain à]{{time}}",
+        "lastWeek": "[Dernier] dddd [à] {{time}}"
+    },
+    "quantities": {
+        "members": {
+            "one": "1 Membre",
+            "many": "{{count}} Membres"
+        }
+    },
+    "actions": {
+        "submit": "Sosmetre"
+    }
+}

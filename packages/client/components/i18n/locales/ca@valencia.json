@@ -1,0 +1,846 @@
+{
+    "login": {
+        "create": "Crear una compte nova",
+        "error": {
+            "resend": "Error en reexpedir!",
+            "create": "Error en registrar-se!",
+            "login": "Error en iniciar sessió!",
+            "reset": "Error en reiniciar!",
+            "verify": "Error al verificar!"
+        },
+        "title": "Iniciar sessió",
+        "welcome": "Benvingut de nou!",
+        "subtitle": "Inicia sessió en Revolt",
+        "welcome2": "Hola!",
+        "subtitle2": "Crear un compte",
+        "register": "Registrar",
+        "username": "Nom d'usuari",
+        "email": "Email",
+        "password": "Contrasenya",
+        "invite": "Codi d'invitació",
+        "current_password": "Contrasenya actual",
+        "enter": {
+            "username": "Escriu el teu nom d'usuari preferit.",
+            "email": "Escriu el teu correu electrónic.",
+            "password": "Escriu la teua contrasenya.",
+            "invite": "Introdueix el teu codi d'invitació.",
+            "current_password": "Escriu la teua contrasenya actual.",
+            "new_password": "Introduïx una nova contrasenya."
+        },
+        "forgot": "T'has oblidat de la teua contrasenya?",
+        "reset": "Restablir contrasenya",
+        "set_password": "Establir nova contrasenya",
+        "remembered": "Tornar a l'inici de sessió",
+        "new": "Nou a Revolt?",
+        "existing": "Ja tens un compte?",
+        "missing_verification": "No ha rebut el email?",
+        "resend": "Reenviar verificació",
+        "cancel": "Cancel·lar sol·licitud",
+        "check_mail": "Comprova el seu email!",
+        "email_delay": "Per favor espere menys de 10 minuts fins que el correu aplegue.",
+        "check_spam": "Per favor, revisa l'spam si no trobes el teu correu",
+        "open_mail_provider": "Obrir {{provider}}",
+        "successful_registration": "Registrat satisfactoriament!",
+        "unofficial_instance": "Instància de tercers.",
+        "totp": "Aplicació d'autenticació",
+        "recovery": "Codi de recuperació",
+        "log_out_other": "Tancar les altres sessions",
+        "new_password": "Nova contrasenya",
+        "verifying_account": "Verificant el teu compte…",
+        "verified_account": "El teu compte fou verificat!",
+        "verified_continue": "Continua a l'inici de sessió"
+    },
+    "app": {
+        "home": {
+            "directs": "Missatges directes",
+            "join-testers_desc": "Pots discutir problemes i millores ací.",
+            "donate": "Donar a Revolt",
+            "feedback_desc": "Deixa'ns saber com podem millorar la nostra app.",
+            "settings-tooltip": "També pots fer clic dret a l'icona de l'usuari a dalt a l'esquerra, o clic esquerre so ja estés un casa.",
+            "discover": "Descobreix Revolt",
+            "discover_desc": "Troba una communitat basat en els teus hobbies o interessos.",
+            "join-testers": "Unisca's al servidor d'emprovadors",
+            "goto-testers": "Ir al servidor d'emprovadors",
+            "goto-testers_desc": "Pots discutir problemes i millores ací.",
+            "donate_desc": "Soporta el projecte donant-us - Gracies!",
+            "feedback": "Proporcione feedback en Revolt",
+            "settings": "Obrir les configuracións",
+            "group": "Crear un grup",
+            "group_desc": "Invita als teus amics, uns guays bots, i lanza una gran festa."
+        },
+        "main": {
+            "channel": {
+                "message_where": "Mandar missatge a {{channel_name}}",
+                "misc": {
+                    "no_sending": "No tens permissos per a mandar missatges en aquest canal.",
+                    "sent_multiple_files": "Envià alguns arxius",
+                    "viewing_old": "Mirant messatges antics",
+                    "jump_present": "Saltar al present",
+                    "jump_beginning": "Saltar a l'inici",
+                    "new_messages": "Nou missatges des de {{time_ago}}",
+                    "spoiler_attachment": "Spoiler",
+                    "failed_load": "No s'ha pogut cargar el missatge.",
+                    "blocked_messages": "{{count}} missatges bloqueats",
+                    "blocked_user": "Usuari Bloqueat",
+                    "sent_file": "Envià un arxiu",
+                    "timed_out": "T'han aïllat temporalment per {{time}}.",
+                    "load_file": "Carregar arxiu",
+                    "not_loaded": "Missatge no carregat, click per a vore'l"
+                },
+                "message_who": "Mandar missatje a {{person}}",
+                "message_saved": "Guardar en les teues notes",
+                "uploading_file": "Subint…",
+                "failed_upload": "N'hi ha hagut un error en la subida!",
+                "attached_file": "Adjuntat {{filename}}",
+                "typing": {
+                    "multiple": "{{userlist}} i {{user}} estan escrivint…",
+                    "several": "Varies persones estan escrivint…",
+                    "single": "{{user}} esta escrivint…"
+                },
+                "system": {
+                    "user_joined": "{{user}} s'ha unit",
+                    "user_left": "{{user}} s'ha salit",
+                    "user_kicked": "{{user}} va ser expulsat",
+                    "user_banned": "{{user}} va ser vetat",
+                    "added_by": "{{user}} va ser afegit per {{other_user}}",
+                    "removed_by": "{{user}} va ser eliminat per {{other_user}}",
+                    "channel_renamed": "{{user}} ha renombrat el canal a {{name}}",
+                    "channel_description_changed": "{{user}} ha canviat la descripció del canal",
+                    "channel_icon_changed": "{{user}} va cambiar l'icona del canal",
+                    "registered_at": "Registrat {{time}}",
+                    "channel_ownership_changed": "{{from}} ha fet a {{to}} propietari del grup"
+                },
+                "start": {
+                    "group": "Aquest es el inici de la vostra conversació.",
+                    "saved": "Aquest es el inici de les teues notes."
+                },
+                "voice": {
+                    "connected": "Veu connectada",
+                    "leave": "Salir",
+                    "mute": "Silenciar",
+                    "unmute": "Llevar silenci"
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Aquest canal es marcat com NSFW.",
+                        "confirm": "Entrar Al Canal"
+                    },
+                    "confirm": "Confirme que jo soc major de 18 anys de edat."
+                },
+                "unknown_user": "<Usuari Desconegut>",
+                "edited": "(editat)",
+                "bot": "bot",
+                "notifications": {
+                    "default": "Usar Prefeterminat",
+                    "all": "Tots els missatges",
+                    "mention": "Solo Mencions",
+                    "none": "Ningú",
+                    "muted": "Silenciat"
+                },
+                "search": {
+                    "title": "Buscar",
+                    "sort": {
+                        "relevance": "Rellevància",
+                        "latest": "Últim",
+                        "oldest": "El més antic"
+                    }
+                },
+                "errors": {
+                    "title": "Oops, no n'hi ha nada!",
+                    "nochannels": "Aquest Servidor no té canals, o no tens access to ningú.",
+                    "nochannel": "Sense canal"
+                },
+                "bridge": "pont",
+                "team": "Comunicació oficial",
+                "reply": {
+                    "replying": "Responent a",
+                    "toggle": "Mencionar l'autor"
+                },
+                "user_timed_out": "Usuari castigat per {{time}}.",
+                "bridged": "El missatge fou enviat en una altra plataforma",
+                "new_to_revolt": "Nou en Revolt",
+                "new_to_server": "Nou en este servidor",
+                "reactions": {
+                    "others_reacted": "{{userlist}} i {{count}} més reaccionaren",
+                    "unknown_reacted": "{{count}} persones reaccionaren",
+                    "single_reacted": "1 persona reaccionà",
+                    "people_reacted": "{{people}} reaccionà"
+                }
+            },
+            "categories": {
+                "conversations": "Conversacions",
+                "participants": "Participants",
+                "channels": "Canals",
+                "members": "Membres"
+            },
+            "groups": {
+                "create": "Crear un grup",
+                "description": "Descripció Del Grup",
+                "name": "Nom Del Grup",
+                "owner": "Propietari Del Grup"
+            },
+            "servers": {
+                "create": "Crear un servidor",
+                "name": "Nom del Servidor",
+                "voice_channel": "Canal de veu",
+                "custom_banner": "Bàner personalitzat",
+                "owner": "Propietari del servidor",
+                "description": "Descripció del servidor",
+                "channel_type": "Tipus de canal",
+                "channel_name": "Nom del canal",
+                "category_name": "Nom de la categoria",
+                "channel_description": "Descripció del canal",
+                "text_channel": "Canal de text"
+            }
+        },
+        "status": {
+            "online": "En línia",
+            "idle": "Absent",
+            "busy": "No Disturbar",
+            "invisible": "Invisible",
+            "offline": "Desconnectat",
+            "reconnect": "Reconnecta",
+            "focus": "Concentrat"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Casa",
+                "dev": "Desenvolupador",
+                "friends": "Amics",
+                "unreads": "Sense llegir",
+                "saved": "Notes Guardades"
+            }
+        },
+        "settings": {
+            "pages": {
+                "appearance": {
+                    "theme_options": {
+                        "transparency": "Efectes de transparència",
+                        "follow_desc": "Si açò està activat, no podràs canviar el tema ni utilitzar un tema personalitzat.",
+                        "seasonal_desc": "Mostrar els efectes en la pestanya d'inici durant les èpoques de vacacions.",
+                        "title": "Opcions de tema",
+                        "transparency_desc": "Permetre els efectes de transparència en tota l'aplicació.",
+                        "seasonal": "Tema de temporada",
+                        "follow": "Seguir el tema del sistema"
+                    },
+                    "theme": "Tema",
+                    "display": {
+                        "compact_description": "Bon antic IRC.",
+                        "default_description": "Bonic, elegant i modern.",
+                        "compact": "Compacte",
+                        "default": "Predeterminat"
+                    },
+                    "color": {
+                        "light": "clar",
+                        "dark": "fosc"
+                    },
+                    "emoji_pack": "Paquet d'emojis",
+                    "title": "Apariència",
+                    "advanced": "Configuració avançada",
+                    "reset_overrides": "Restablir les substitucions",
+                    "appearance_options": {
+                        "show_send_desc": "Si açò està desactivat, el botó d'enviar missatge només apareixerà en dispositius mòvils.",
+                        "show_account_age": "Mostrar sempre l'edat del compte al costat dels missatges de qui s'ha unit",
+                        "title": "Configuració d'aparença",
+                        "show_send": "Mostrar sempre el botó d'enviar missatge",
+                        "show_account_age_desc": "Si açò està desactivat, l'edat del compte només serà mostrar als nous usuaris."
+                    },
+                    "discover": {
+                        "description": "Buscar temes fets per la comunitat",
+                        "title": "Explorar temes"
+                    },
+                    "message_display": "Visualització dels missatges",
+                    "overrides": "Substitució de temes",
+                    "import": "Importar un tema",
+                    "import_theme": "Importar tema des de'l text",
+                    "theme_data": "Dades del tema",
+                    "custom_css": "CSS personalitzat",
+                    "sync": "Sincronitzar opcions",
+                    "font": "Font",
+                    "mono_font": "Selector de tipus de lletra Monospace",
+                    "ligatures": "Lligadures de tipus de lletra",
+                    "ligatures_desc": "En els tipus de lletra compatibles, les lligadures combinen caràcters, per exemple, convertint -> en una flecha.",
+                    "emoji": {
+                        "title": "Emoji"
+                    },
+                    "fonts": {
+                        "title": "Fonts"
+                    },
+                    "advanced_options": {
+                        "title": "Opcions avançades"
+                    },
+                    "accent_selector": "Color d'accent",
+                    "colours": {
+                        "title": "Colors"
+                    }
+                },
+                "bots": {
+                    "reserved": "Anotació: Este camp està reservat per al futur.",
+                    "public_bot": "Bot Públic",
+                    "public_bot_tip": "Este bot és públic. Qualsevol pot invitar-lo.",
+                    "public_bot_desc": "Si açò està actiu, altres usuaris poden afegir este bot a servidors i grups de missatges.",
+                    "interactions_url": "URL d'interaccions",
+                    "title": "Els meus Bots",
+                    "create_bot": "Crear un Bot",
+                    "copy_invite": "Copiar l'enllaç d'invitació",
+                    "add": "Afegir Bot",
+                    "unique_id": "Este és un identificador unic per al teu bot. No és el token del bot.",
+                    "token": "Token",
+                    "private_bot_tip": "Este bot és privat. Només tu pots convidar-lo.",
+                    "profile": "Perfil del Bot"
+                },
+                "theme_shop": {
+                    "category": {
+                        "new": "Nou esta setmana",
+                        "default": "Temes predeterminats",
+                        "saved": "Guardat",
+                        "manage": "Administrar guardats",
+                        "highest": "Millor valorat",
+                        "viewall": "Vore tot"
+                    },
+                    "by": "per",
+                    "active": "Actiu",
+                    "search": "Buscar temes…",
+                    "use": "Utilitzar tema",
+                    "title": "Tenda de temes",
+                    "description": "Explora cents de temes creats i seleccionats per la comunitat."
+                },
+                "feedback": {
+                    "title": "Comentaris",
+                    "suggest_desc": "Sugerir noves característiques per a Revolt en discussions de GitHub.",
+                    "issue_desc": "Per a ajudar-nos més fàcilment a classificar problemes, pots obrir una incidència en GitHub.",
+                    "bug": "Rastrejador d'errors. Woof 🐶",
+                    "bug_desc": "Consultar els informes d'errors actius.",
+                    "description": "Enviar comentaris",
+                    "suggest": "Enviar Sugeriments",
+                    "issue": "Informar d'un problema"
+                },
+                "account": {
+                    "2fa": {
+                        "generate_recovery_long": "Genera les teues claus de recuperació 2FA i estigues preparat per a activar un métode de recuperació.",
+                        "description": "Afegir una capa adicional de securetat activant 2FA en el teu compte.",
+                        "view_recovery": "Vore codis de recuperació",
+                        "generate_recovery": "Generar codis de recuperació",
+                        "add_auth": "Afegir autenticador",
+                        "two_factor_off": "No has activat l'autenticació de dos factors!",
+                        "title": "Autenticació de dos factors",
+                        "view_recovery_long": "Vore i descarregar els teus codis de recuperació 2FA.",
+                        "remove_auth": "Eliminar Autenticador",
+                        "two_factor_on": "L'autenticació de dos factors està activada."
+                    },
+                    "manage": {
+                        "disable": "Desactiva el compte",
+                        "title": "Administració del compte",
+                        "description": "Desactiva o elimina el teu compte en qualsevol moment. Ambdues accions tancaran les sessions que tingues actives.",
+                        "disable_description": "No podràs accedir al teu compte a no ser de que tingues contacte amb el suport tècnic - no obstant açò, les teues dades no seran eliminades.",
+                        "delete": "Marcar el compte per a suprimir-lo",
+                        "delete_description": "El teu compte i totes les teues dades (incluint missatges i llista d'amics) seran posats a la cua per a ser suprimits. Et serà enviat un correu de confirmació - pots cancelar açò si et poses en contacte amb el suport en un termini de 7 dies."
+                    },
+                    "title": "El meu compte",
+                    "change_field": "Canviar",
+                    "unique_id": "Este és un identificador unic per al teu compte."
+                },
+                "sync": {
+                    "categories": "Sincronitzar Categories",
+                    "title": "Sincronitzar",
+                    "descriptions": {
+                        "appearance": "Açò sincronitzarà la configuració d'aparença com els paquets d'emojis i la densitat dels misstages",
+                        "theme": "Açò sicronitzarà el tema escollit, els colors i qualsevol CSS personalitzat.",
+                        "locale": "Açò sincronitzarà la llengua escollida."
+                    },
+                    "options": "Sincronitzar opcions"
+                },
+                "native": {
+                    "title": "Opcions d'escriptori"
+                },
+                "experiments": {
+                    "title": "Experiments",
+                    "features": "Funcions disponibles",
+                    "not_available": "No hi ha experiments disponible en este moment."
+                },
+                "profile": {
+                    "fetching": "Recuperant el teu perfil…",
+                    "info": "Informació",
+                    "edit_background": "Editar fons",
+                    "edit_profile": "Editar el perfil",
+                    "title": "Perfil",
+                    "placeholder": "Escriu alguna coseta graciosa sobre tu…",
+                    "profile_picture": "Foto de perfil",
+                    "custom_background": "Fons personalitzat"
+                },
+                "donate": {
+                    "title": "Donar"
+                },
+                "accessibility": {
+                    "reduced_motion": "Moviment reduït",
+                    "descriptions": {
+                        "reduced_motion": "Si açò està activat, les animacions i efectes de moviment no es reproduiran o seran menys intensos."
+                    },
+                    "title": "Accessibilitat"
+                },
+                "notifications": {
+                    "sound": {
+                        "outbound": "Missatge enviat",
+                        "call_join": "Un usuari s'ha unit a la quirdada",
+                        "call_leave": "Un usuari dixà cridada",
+                        "message": "Missatge rebut"
+                    },
+                    "sounds": "Sons",
+                    "push_notifications": "Notificacions push",
+                    "enable_desktop": "Permetre les notificacions d'escriptori",
+                    "enable_push": "Permetre notificacions push",
+                    "title": "Notificacions",
+                    "descriptions": {
+                        "enable_push": "Si açò està activat, rebràs notificacions mentres estigues desconnectat.",
+                        "enable_desktop": "Si açò està activat, rebràs notificacions mentrés l'aplicació estiga oberta."
+                    }
+                },
+                "language": {
+                    "other": "Altres opcions de llengua",
+                    "select": "Escull la teua llengua",
+                    "const": "Llengues construïdes",
+                    "title": "Llengua"
+                },
+                "sessions": {
+                    "active_sessions": "Sessions actives",
+                    "title": "Sessions",
+                    "this_device": "Este dispositiu",
+                    "created": "Creat fa {{time_ago}}",
+                    "logout": "Tancar totes les altres sessions"
+                },
+                "audio": {
+                    "tip_retry": "No donares permisos a Revolt per a accedir al teu micròfon. Per favor {{retryBtn}}.",
+                    "tip_grant_permission": "Has de donar permís per a accedir a la configuració d'àudio.",
+                    "button_grant": "Concedir permissos",
+                    "title": "Configuració de veu",
+                    "input_device": "Micròfon",
+                    "output_device": "Altaveu / Auriculars",
+                    "device_label_NA": "N/A",
+                    "button_retry": "intentar de nou"
+                },
+                "plugins": {
+                    "no_plugins": "No hi ha complements instal·lats.",
+                    "title": "Complements",
+                    "wip": "Atenció: Esta característica encara està en desenvolupament.",
+                    "delete_plugin": "Suprimir"
+                },
+                "source_code": "Codi Font",
+                "logOut": "Tancar sessió"
+            },
+            "server_pages": {
+                "roles": {
+                    "title": "Rols"
+                },
+                "overview": {
+                    "title": "General",
+                    "system_messages": "Canal dels missatges del sistema",
+                    "name": "Nom del Servidor",
+                    "description": "Descripció del canal"
+                },
+                "invites": {
+                    "code": "Codi d'invitació",
+                    "title": "Invitacions",
+                    "invitor": "Convidador",
+                    "channel": "Canal",
+                    "revoke": "Revocar"
+                },
+                "bans": {
+                    "user": "Usuari",
+                    "revoke": "Revocar",
+                    "title": "Expulsions",
+                    "reason": "Motiu de l'expulsió",
+                    "no_reason": "Sense motiu d'expulsió."
+                },
+                "categories": {
+                    "title": "Categories"
+                },
+                "management": {
+                    "title": "Gestió d'usuaris"
+                },
+                "customisation": {
+                    "title": "Personalització"
+                },
+                "members": {
+                    "title": "Membres"
+                },
+                "emojis": {
+                    "upload": "Pujar Emoji",
+                    "title": "Emojis"
+                }
+            },
+            "categories": {
+                "user_settings": "Configuració d'usuari",
+                "danger_zone": "Zona de perill",
+                "client_settings": "Configuració del client"
+            },
+            "permissions": {
+                "role_colour": "Color del rol",
+                "role_ranking": "Classificació de rol",
+                "edit_title": "Editar permisos",
+                "delete_role": "Eliminar rol",
+                "role_name": "Nom del rol",
+                "role_options": "Configuració del Rol",
+                "hoist_role": "Elevar rol",
+                "title": "Permisos per a {{role}}",
+                "hoist_desc": "Mostrar este rol per damunt dels demés.",
+                "default_role": "Predeterminat",
+                "server": "Permisos del Servidor",
+                "channel": "Permisos del canal",
+                "create_role": "Crear un nou rol"
+            },
+            "title": "Configuració",
+            "actions": {
+                "remove": "Esborrar",
+                "max_filesize": "(grandària {{filesize}})",
+                "upload": "Pujar",
+                "edit": "Editar {{name}}"
+            },
+            "channel_pages": {
+                "webhooks": {
+                    "title": "Webhooks"
+                },
+                "overview": {
+                    "title": "General",
+                    "name": "Nom del canal",
+                    "description": "Descripció del canal"
+                },
+                "permissions": {
+                    "title": "Permissos"
+                }
+            },
+            "tips": {
+                "account": {
+                    "a": "Vols personalitzar el teu perfil públic?",
+                    "b": "Ves a la configuració del perfil."
+                },
+                "languages": {
+                    "a": "Hi ha cap llengua que se'ns oblide?",
+                    "b": "Ajuda'ns a traduir Revolt."
+                },
+                "sessions": {
+                    "a": "Si veus una sessió desconeguda en la llista,",
+                    "b": "Protegix el teu compte canviant la contrasenya i activant 2FA."
+                }
+            }
+        },
+        "special": {
+            "modals": {
+                "confirm": "Confirma l'acció",
+                "prompt": {
+                    "confirm_close_dm": "Tancar la conversació amb {{name}}?",
+                    "confirm_leave": "Dixar {{name}}?",
+                    "silent_leave": "Eixir en cura",
+                    "members_not_notified": "Els altres membres no seran notificats",
+                    "confirm_ban": "Estàs a punt d'enviar a fer punyetes a {{name}}",
+                    "unfriend_user_long": "Possiblement no podràs xarrar amb ells de nou fins que no els afegisques una altra volta.",
+                    "block_user_long": "De segur que vols bloquejar a {{name}}? També se n'aniran a fregir espàrrecs de la teua llista d'amics.",
+                    "confirm_leave_long": "No podràs tornar si no et conviden una altra volta.",
+                    "confirm_close_dm_long": "Pots obrir-la més tard, però els missatges enviats anteriorment es pedran per a ambdos.",
+                    "confirm_delete": "Eliminar {{name}}?",
+                    "confirm_delete_long": "Una volta s'haja esborrat, no es podrà canviar.",
+                    "confirm_delete_message_long": "Estàs segur que vols eliminar açò?",
+                    "create_invite_generate": "Fent-te una invitació…",
+                    "create_invite_created": "Voilà! Ací tens un nou codi d'invitació:",
+                    "confirm_kick": "De segur que vols enviar a fer la má a {{name}}?",
+                    "confirm_ban_reason": "Motiu d'expulsió",
+                    "unfriend_user": "De segur que vols acabar l'amistat amb {{name}}?",
+                    "block_user": "Bloquejar a {{name}}?"
+                },
+                "report": {
+                    "content_reason": {
+                        "Illegal": "El contingut va en contra d'una o varies lleis",
+                        "Malware": "Açò és un virus d'estos, millor em prenc una orxateta...",
+                        "Harassment": "Açò és abús cap a altre usuari",
+                        "PromotesHarm": "Promou la violència",
+                        "SpamAbuse": "És spam"
+                    },
+                    "reason": "Raó",
+                    "block_user": "Vols bloquejar este usuari?",
+                    "additional_context": "Informació de més que ningú llig...",
+                    "user_reason": {
+                        "InappropriateProfile": "El perfil del usuari és innapropiat per a l'audiència general",
+                        "SpamAbuse": "L'usuari envia spam o abusa de la plataforma d'alguna manera",
+                        "Impersonation": "Este usuari està fent-se passar per una altra persona",
+                        "BanEvasion": "Este usuari està intentant eludir una expulsió",
+                        "Underage": "Este usuari no té l'edat miníma per a tindre un compte"
+                    },
+                    "message": "Este missatge no està bé!",
+                    "by_name": "Informar sobre {{name}}",
+                    "reported": "Reportat",
+                    "thank_you": "Gràcies per ajudar a mantindre Revolt segur. Revisarem el teu report quan puguem.",
+                    "no_reason": "No especifica el motiu / una altra raó"
+                },
+                "sessions": {
+                    "short": "Esta acció no podrà ser canviada.",
+                    "accept": "Lleva totes les sessions.",
+                    "title": "De segur que vols netejar les teues sessions?"
+                },
+                "error": "Xe!! Ha passat un error!",
+                "clipboard": {
+                    "https": "Ara mateix no està en un context HTTPS.",
+                    "unavailable": "El portapapers no està disponible!",
+                    "copy": "Còpia manual:"
+                },
+                "signed_out": "Se ha tancat la teua sessió!",
+                "token_reveal": "Token de {{name}}",
+                "account": {
+                    "failed": "UPS! Crec que ha passat alguna cosa a l'hora de fer els canvis.",
+                    "change": {
+                        "username": "Canviar el nom d'usuari",
+                        "email": "Canviar el correu electrònic",
+                        "password": "Canviar contrasenya"
+                    }
+                },
+                "mfa": {
+                    "recovery_codes": "Codis de recuperació",
+                    "save_codes": "Guarda'ls en un puesto segur.",
+                    "prompt_totp": "Escaneja o utilitza el codi en la teua aplicació d'autenticació.",
+                    "enter_code": "Entra el codi",
+                    "enable_totp": "Habilitar aplicació d'autenticació",
+                    "confirm": "Per favor, confirma esta acció utilitzant el metode seleccionat.",
+                    "select_method": "Per favor, selecciona un mètode per a autenticar la seua sol·licitud."
+                },
+                "changelogs": {
+                    "description": "Mira totes les coses boniques que n'hi ha noves!!",
+                    "title": "Registre de canvis",
+                    "older": "Mirar actualitzacions anteriors"
+                },
+                "out_of_date": {
+                    "version": "El teu clien està en {{client}}, però el server cal de {{server}}.",
+                    "attempting": "Intentant actualitzar…",
+                    "description": "Deu ser actualitzar per a que funcione amb els últims canvis.",
+                    "ignore": "Ignorar actualització",
+                    "title": "El teu client està per a renovar."
+                },
+                "external_links": {
+                    "trust_domain": "Confia en este domini",
+                    "short": "De segur que vols anar a:",
+                    "title": "No fages click en enllaços externs que puguen ser perillosos."
+                },
+                "onboarding": {
+                    "welcome": "Benvingut a",
+                    "pick": "Tria un nom d'usuari pel que vols que la gent puga trobar-te. Pots canviar-lo més des de la configuració."
+                },
+                "actions": {
+                    "remove": "Llevar",
+                    "back": "Ves enrere",
+                    "kick": "Expulsar",
+                    "update": "Actualitzar",
+                    "continue": "Continuar",
+                    "ban": "Enviar a fer la má",
+                    "dont_block": "No bloquejar... Pobret :(",
+                    "ok": "D'acord",
+                    "done": "Fet",
+                    "save": "Guardar",
+                    "hide": "Ocultar",
+                    "edit": "Editar",
+                    "block": "Bloquejar",
+                    "close": "Tancar",
+                    "leave": "Eixir",
+                    "reset": "Reiniciar",
+                    "delete": "Suprimir",
+                    "report": "Informar",
+                    "create": "Crear",
+                    "reveal": "Revelar",
+                    "cancel": "Cancelar",
+                    "preview": "Previsualització",
+                    "confirm": "Confirmar",
+                    "reload": "Recarregar l'app",
+                    "send_email": "Enviar un correu electrònic"
+                }
+            },
+            "copy": "Fes click per a copiar",
+            "friends": {
+                "nobody": "No es veu res per ací xe!!",
+                "sent": "Outgoing",
+                "blocked": "Bloquejat",
+                "incoming": "Solicitut d'amistat entrant.",
+                "from": {
+                    "single": "De {{user}}",
+                    "multiple": "De {{userlist}} i {{user}}",
+                    "several": "De {{userlist}} i {{count}} més…"
+                },
+                "pending": "Solicituts pendents"
+            },
+            "status": {
+                "offline": "Fora de línia.",
+                "disconnected": "Desconnectat.",
+                "connecting": "Connectant…",
+                "reconnecting": "Reconnectant…"
+            },
+            "server-badges": {
+                "official": "Servidor oficial",
+                "verified": "Servidor verificat"
+            },
+            "copy_username": "Fes click per a copiar el nom d'usuari",
+            "popovers": {
+                "user_profile": {
+                    "badges": {
+                        "supporter": "Donador",
+                        "founder": "Fundador",
+                        "translator": "Traductor",
+                        "moderation": "Moderador de la plataforma",
+                        "responsible_disclosure": "Problemes de securetat revelats responsablement",
+                        "early_adopter": "Pioner"
+                    },
+                    "sub": {
+                        "information": "Informació",
+                        "connections": "Connexions",
+                        "badges": "Insígnies"
+                    },
+                    "no_servers": "No teniu cap servidor en comú",
+                    "profile": "Perfil",
+                    "mutual_friends": "Amics en comú",
+                    "mutual_groups": "Grups en comú",
+                    "mutual_servers": "Servidors en comú",
+                    "empty": "No hi ha ningú ni per a fer-se una orxateta :( …",
+                    "no_users": "No teniu cap amic comú",
+                    "no_groups": "No teniu cap grup comú"
+                },
+                "create_bot": {
+                    "title": "Crear un nou bot",
+                    "failed": "Hi hagué un error al crear un bot!"
+                },
+                "server_identity": {
+                    "nickname": "Sobrenom",
+                    "title": "Canviar perfil en {{server}}",
+                    "avatar": "Avatar"
+                },
+                "user_picker": {
+                    "select": "Selecciona quins amics vols afegir."
+                }
+            },
+            "invite": {
+                "invited_by": "Convidat per {{user}}",
+                "invalid": "Invitació sense validea!",
+                "login": "Iniciar sessió en Revolt",
+                "accept": "Acceptar invitació",
+                "user_count": "Hi ha {{member_count}} usuaris",
+                "invalid_desc": "Creem que la invitació no existix, o simplement no tens permisos per a unir-t'hi."
+            },
+            "requires_online": "Necessites estar en línia per a vore açò."
+        },
+        "context_menu": {
+            "open_file": "Obrir arxiu",
+            "custom_status": "Estat personalitzat",
+            "remove_friend": "Llevar amic",
+            "cancel_friend": "Cancelar sol·licitut",
+            "open_group_settings": "Configuració del grup",
+            "mention": "Mencionar",
+            "remove_member": "Tirar-lo del grup",
+            "kick_member": "Enviar a fer la má una estoneta",
+            "save_file": "Guardar l'arxiu",
+            "edit_identity": "Editar identitat",
+            "delete_channel": "Eliminar canal",
+            "create_channel": "Crear canal",
+            "create_category": "Crear categoria",
+            "ban_member": "Enviar a fer la má per a sempre",
+            "copy_mid": "Copiar ID del missatge",
+            "mark_as_read": "Marcar com llegit",
+            "copy_sid": "Copiar l'ID del servidor",
+            "copy_cid": "Copiar ID del canal",
+            "make_owner": "Fer propietari del grup",
+            "open_image": "Obrir imatge",
+            "open_video": "Obrir vídeo",
+            "unblock_user": "Desbloquejar usuari",
+            "add_friend": "Afegir amic",
+            "clear_status": "Esborrar l'estatus",
+            "delete_server": "Eliminar servidor",
+            "create_invite": "Crear invitació",
+            "open_server_settings": "Configuració del servidor",
+            "report_user": "Informar d'usuari",
+            "report_message": "Informar del missatge",
+            "copy_id": "Copiar ID",
+            "copy_selection": "Copiar selecció",
+            "copy_text": "Copiar text",
+            "copy_uid": "Copiar l'ID d'usuari",
+            "copy_message_link": "Copiarl link del misstage",
+            "message_user": "Missatge",
+            "view_profile": "Visualitzar perfil",
+            "mark_unread": "Marcar com no llegit",
+            "retry_message": "Intenta enviar de nou",
+            "cancel_message": "Cancelar l'enviament",
+            "reply_message": "Respondre",
+            "quote_message": "Citar missatge",
+            "edit_message": "Editar missatge",
+            "delete_message": "Suprimir missatge",
+            "save_image": "Guardar imatge",
+            "save_video": "Guardar vídeo",
+            "copy_link": "Copiar link",
+            "open_link": "Obrir link",
+            "block_user": "Bloquejar usuari",
+            "set_custom_status": "Establit un estatus personalitzat",
+            "leave_group": "Eixir del grup",
+            "leave_server": "Dixar el servidor",
+            "close_dm": "Tancar MD",
+            "report_server": "Informar sobre el servidor",
+            "open_notification_options": "Opcions de notificació",
+            "open_channel_settings": "Configuració del canal"
+        },
+        "permissions": {
+            "required": "Permisos requerits"
+        }
+    },
+    "general": {
+        "about": "Sobre",
+        "tos": "Termes de servei",
+        "privacy": "Política de Privacitat",
+        "image_by": "Imatge per",
+        "loading": "Carregant…",
+        "on": "Activat",
+        "off": "Desactivat",
+        "disabled": "Deshabilitat",
+        "unavailable": "Indisponible",
+        "learn_more": "Més informació"
+    },
+    "error": {
+        "InvalidSession": "Sessió no valida.",
+        "Unauthorized": "No autoritzat.",
+        "InternalError": "Error intern.",
+        "MissingHeaders": "Falten capçaleres.",
+        "NetworkError": "Error de connexió.",
+        "Unlabelled": "Alguna cosa ha passat.",
+        "FailedValidation": "No s'ha pogut validar els camps.",
+        "DatabaseError": "Error de la base de dades.",
+        "MissingPermission": "Et falten permisos.",
+        "UnknownError": "Vore la consola.",
+        "OperationFailed": "L'operació fallà.",
+        "RenderFail": "La renderització de la pantalla fallà.",
+        "UnverifiedAccount": "Compte verificat.",
+        "UnknownUser": "Usuari desconegut.",
+        "EmailInUse": "Correu electrònic en ús.",
+        "EmailFailed": "Error a l'enviar el missatge.",
+        "InvalidCredentials": "El correu electrònic o la contrasenya no coincidix.",
+        "InvalidToken": "Token no vàlid",
+        "MissingInvite": "Falta el codi d'invitació en la sol·licitut."
+    },
+    "quantities": {
+        "members": {
+            "many": "{{count}} membres",
+            "one": "1 membre"
+        },
+        "dropFiles": {
+            "one": "Carregar un arxiu",
+            "many": "Carregar {{count}} arxius"
+        }
+    },
+    "dayjs": {
+        "defaults": {
+            "date_separator": "/",
+            "date_format": "tradicional",
+            "twelvehour": "no"
+        },
+        "nextDay": "[Demà, a les] {{time}}",
+        "nextWeek": "dddd [a les] {{time}}",
+        "lastDay": "[Ahir a les] {{time}}",
+        "sameDay": "[Hui a les] {{time}}",
+        "lastWeek": "[L'últim] dddd [a les] {{time}}"
+    },
+    "notifications": {
+        "now_friends": "Ara eres amic d' @{{person}}!",
+        "sent_request": "@{{person}} t'ha enviat una petició d'amistat."
+    },
+    "actions": {
+        "submit": "Enviar"
+    }
+}

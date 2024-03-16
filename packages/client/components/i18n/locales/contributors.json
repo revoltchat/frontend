@@ -1,0 +1,691 @@
+{
+    "en": {
+        "maintainer": [
+            "insertish"
+        ],
+        "users": [
+            {
+                "id": "01EX2NCWQ0CHS3QJF0FEQS1GR4",
+                "github": "insertish",
+                "weblate": "insert"
+            }
+        ]
+    },
+    "de": {
+        "maintainer": [
+            "sussycatgirl"
+        ],
+        "users": [
+            {
+                "id": "01EXAF3KX65608AJ4NG27YG1HM",
+                "github": "sussycatgirl",
+                "weblate": "lea"
+            },
+            {
+                "id": "01FJ83MABH61025M5Y7YA7FF6V",
+                "github": "nitrobw",
+                "weblate": "nitrobw"
+            },
+            {
+                "id": "01FQT99TE7G09HEJZA3EBYV96S",
+                "github": "arktn",
+                "weblate": "fez"
+            },
+            {
+                "id": "01F1WKM5TK2V6KCZWR6DGBJDTZ",
+                "github": "infi",
+                "weblate": "infi"
+            }
+        ]
+    },
+    "sv": {
+        "maintainer": [
+            "raggebatman"
+        ],
+        "users": [
+            {
+                "id": "01EXAFMYDYSDM6G13QMVK56ZK7",
+                "github": "raggebatman",
+                "weblate": "raggebatman"
+            }
+        ]
+    },
+    "hu": {
+        "maintainer": [
+            "f3rr31"
+        ],
+        "users": [
+            {
+                "id": "01FHCVNYTTR2S0FWENJ4S81WD3",
+                "github": "f3rr31",
+                "weblate": "frrl"
+            }
+        ]
+    },
+    "ckb": {
+        "maintainer": [
+            "fanticwastaken"
+        ],
+        "users": [
+            {
+                "id": "01FZ5P08W36B05M18FP3HF4PT1",
+                "github": "fanticwastaken",
+                "weblate": "Fantic"
+            },
+            {
+                "id": "01FVB1ZGCPS8TJ4PD4P7NAFDZA",
+                "github": "NoLogicAlan",
+                "weblate": "NoLogicAlan"
+            }
+        ]
+    },
+    "cs": {
+        "maintainer": [],
+        "users": [
+            {
+                "id": "01FXJGC0S2YQHQVADT74568DQN",
+                "github": "Cikarin3",
+                "weblate": "TheCanine"
+            }
+        ]
+    },
+    "pt_BR": {
+        "maintainer": [
+            "yanndere"
+        ],
+        "users": [
+            {
+                "id": "01F9C4HMAQWY1KBBBPHN6SZZSB",
+                "github": "yanndere",
+                "weblate": "Yann"
+            },
+            {
+                "id": "01H2RK8KT6SVNQTJF8YFS3QP21",
+                "github": "Hokiper",
+                "weblate": "Hokiper"
+            },
+            {
+                "id": "01H84AH6MMVPJDQ8RGD6YE0SBE",
+                "github": "YoshiroOno",
+                "weblate": "KitsuShiro"
+            }
+        ]
+    },
+    "pt_PT": {
+        "maintainer": [
+            "Tmpod"
+        ],
+        "users": [
+            {
+                "id": "01FE8TASJB796NPMZGVTDNVXKK",
+                "github": "Tmpod",
+                "weblate": "tmpod"
+            },
+            {
+                "id": "01GA6VKSC9BYRTH9BMMTSA7GH3",
+                "github": "SlicedBlueApple",
+                "weblate": "Sliced"
+            }
+        ]
+    },
+    "fr": {
+        "maintainer": [
+            "Hades785",
+            "Kasahe",
+            "Achlys12",
+            "TapwaveZodiac"
+        ],
+        "users": [
+            {
+                "id": "01FCY1KBKX3ZE2PCMPSTGW2NPT",
+                "github": "Hades785",
+                "weblate": "Fuzuki"
+            },
+            {
+                "id": "01GAVBETYB5HP9XNYE2YHGDAF5",
+                "github": "RedNight-was-taken",
+                "weblate": "RedNix"
+            },
+            {
+                "id": "01GNPRBTDX6QCJ31RNDCZKFQNJ",
+                "github": "Kasahe",
+                "weblate": "Kasahe"
+            },
+            {
+                "id": "01H1P7PFR9XJSEHX03JA5BQDA9",
+                "github": "Achlys12",
+                "weblate": "Achlys"
+            },
+            {
+                "id": "01H2XXFQ9GMW920PPWKFAXWR4G",
+                "github": "TapwaveZodiac",
+                "weblate": "bunray"
+            },
+            {
+                "id": "01H2PRHQ7YXGKSD10ZBS95HPZV",
+                "github": "Gaby5873",
+                "weblate": "Gaby5873"
+            },
+            {
+                "id": "01H34QWGR6C6A3JVVXA3HGH05E",
+                "github": "ay700r",
+                "weblate": "Ayl3"
+            }
+        ]
+    },
+    "br": {
+        "maintainer": [
+            "SperedAnveliour"
+        ],
+        "users": [
+            {
+                "id": "01FJVSWKQ7ZWC1V0GZZSHBSZ3E",
+                "github": "SperedAnveliour",
+                "weblate": "Spered_Bre1zh"
+            }
+        ]
+    },
+    "lv": {
+        "maintainer": [
+            "rMazeiks"
+        ],
+        "users": [
+            {
+                "id": "01FXNXSXMK0V0PXMCPB9PDWJTY",
+                "github": "rMazeiks",
+                "weblate": "reinis.mazeiks"
+            }
+        ]
+    },
+    "ar": {
+        "maintainer": [
+            "LedaThemis",
+            "vloddot"
+        ],
+        "users": [
+            {
+                "id": "01G4PRN8ZGM8HF61TTVC7AZR2V",
+                "github": "LedaThemis",
+                "weblate": "Leda"
+            },
+            {
+                "id": "01H1RXBRZ7JBCAPHZ1RA5CRCG2",
+                "github": "vloddot",
+                "weblate": "vloddot"
+            }
+        ]
+    },
+    "ru": {
+        "maintainer": [
+            "div2005"
+        ],
+        "users": [
+            {
+                "id": "01F4SSHV9AQVWY92A6QEEPZ1MM",
+                "github": "div2005",
+                "weblate": "div2005"
+            },
+            {
+                "id": "01FEPAFEEMVTP9MF7ZPBHBBZJY",
+                "github": "zptr1",
+                "weblate": "yui"
+            },
+            {
+                "id": "01FFD06NDVZ14W5T1WKKB4KKZX",
+                "github": "arslee07",
+                "weblate": "arslee"
+            }
+        ]
+    },
+    "uk": {
+        "maintainer": [
+            "div2005"
+        ],
+        "users": [
+            {
+                "id": "01F4SSHV9AQVWY92A6QEEPZ1MM",
+                "github": "div2005",
+                "weblate": "div2005"
+            },
+            {
+                "id": "01FEPAFEEMVTP9MF7ZPBHBBZJY",
+                "github": "zptr1",
+                "weblate": "yui"
+            }
+        ]
+    },
+    "et": {
+        "maintainer": [
+            "Kentledge"
+        ],
+        "users": [
+            {
+                "id": "01G45CXWDPQ116GZ1RDQ2KES42",
+                "github": "u032",
+                "weblate": "u032"
+            },
+            {
+                "id": "01GVJWPZBN93MNSHBB96448D7W",
+                "github": "Kentledge",
+                "weblate": "kentl"
+            },
+            {
+                "id": "01GVK6D8A5S722BVNEP35263T2",
+                "github": "Lefromrevolt",
+                "weblate": "Le"
+            }
+        ]
+    },
+    "fil": {
+        "maintainer": [
+            "I2rys"
+        ],
+        "users": [
+            {
+                "id": "01G4VS7A9EDMEJF5R0MQ48WY20",
+                "github": "I2rys",
+                "weblate": "I2rys"
+            },
+            {
+                "id": "01GVN2K5RY5HYKZDV2SFYD8PNV",
+                "github": "searinminecraft",
+                "weblate": "searinminecraft"
+            }
+        ]
+    },
+    "fa": {
+        "maintainer": [
+            "DevEvil99",
+            "shareghzadeh"
+        ],
+        "users": [
+            {
+                "id": "01FKGCCMX3EK90GRNWM16T6YBH",
+                "github": "DevEvil99",
+                "weblate": "DevEvil"
+            },
+            {
+                "id": "01FJ4JAF8DAG8F74KFEGJ3QWHN",
+                "github": "shareghzadeh",
+                "weblate": "Developer.SD"
+            }
+        ]
+    },
+    "es": {
+        "maintainer": [
+            "z3ro0k",
+            "fernandopal",
+            "gatomod"
+        ],
+        "users": [
+            {
+                "id": "01G5MQBMP34AM3M7G9X0RY2BD6",
+                "github": "z3ro0k",
+                "weblate": "Atzu"
+            },
+            {
+                "id": "01G5WFNS87C1HXJSR62QGG2FCH",
+                "github": "fernandopal",
+                "weblate": "fpalomo"
+            },
+            {
+                "id": "01FDZRFQ8SY60FWR184P3G0KWH",
+                "github": "Dorovich",
+                "weblate": "vido"
+            },
+            {
+                "id": "01G6V6HRE9DRG4H6RWVSNK128A",
+                "github": "gatomod",
+                "weblate": "gatomo"
+            },
+            {
+                "id": "01FNS96STXZPRREQDW6Y7MTWZ7",
+                "github": "DevArxify",
+                "weblate": "arxify"
+            }
+        ]
+    },
+    "es_419": {
+        "maintainer": [
+            "SrWesly",
+            "7Macros",
+            "gatomod"
+        ],
+        "users": [
+            {
+                "id": "01GVC39VKM9T14MSN04P7A9EER",
+                "github": "SrWesly",
+                "weblate": "Wesly"
+            },
+            {
+                "id": "01GVKKKJXW7C5R8E5192FCJNJ3",
+                "github": "7Macros",
+                "weblate": "7Macros"
+            },
+            {
+                "id": "01G6V6HRE9DRG4H6RWVSNK128A",
+                "github": "gatomod",
+                "weblate": "gatomo"
+            },
+            {
+                "id": "01GGWJQNP0A52210PY59VCB1PV",
+                "github": "exelenuwu",
+                "weblate": "Teriko"
+            }
+        ]
+    },
+    "pl": {
+        "maintainer": [
+            "jacekpoz",
+            "Pawelek-dev",
+            "HosachiPL"
+        ],
+        "users": [
+            {
+                "id": "01FZ3YGZS3GEYAMMBM2D07XV36",
+                "github": "jacekpoz",
+                "weblate": "jacekpoz"
+            },
+            {
+                "id": "01FE44DN9EBXG0KEN8K6H5N8HF",
+                "github": "Pawelek-dev",
+                "weblate": "_Paweek"
+            },
+            {
+                "id": "01GJ3RDVQSZZ0MMDD06Q6CK72E",
+                "github": "CyberL1",
+                "weblate": "CyberL1"
+            },
+            {
+                "id": "01GV8QBV3ZHSX00K20GVRVJESY",
+                "github": "HosachiPL",
+                "weblate": "Hosek"
+            }
+        ]
+    },
+    "id": {
+        "maintainer": [
+            "liimee"
+        ],
+        "users": [
+            {
+                "id": "01G60F3TGXPJ6K1DTN5X0AYM0H",
+                "github": "liimee",
+                "weblate": "liimee"
+            },
+            {
+                "id": "01FEKNC45SA690T7NE64V81XDZ",
+                "github": "ilhamfauzan",
+                "weblate": "invalid"
+            }
+        ]
+    },
+    "owo": {
+        "maintainer": [
+            "sussycatgirl",
+            "FanMclaine"
+        ],
+        "users": [
+            {
+                "id": "01EXAF3KX65608AJ4NG27YG1HM",
+                "github": "sussycatgirl",
+                "weblate": "Lea"
+            },
+            {
+                "id": "01FWXJEHNR87E0HXDMSMDZ7ZAW",
+                "github": "FanMclaine",
+                "weblate": "Mclnoot"
+            }
+        ]
+    },
+    "el": {
+        "maintainer": [
+            "SudoJanast"
+        ],
+        "users": [
+            {
+                "id": "01GA3KKZZ63PSC0G9J9M0ENVGW",
+                "github": "SudoJanast",
+                "weblate": "Janast"
+            }
+        ]
+    },
+    "nb_NO": {
+        "maintainer": [
+            "tobggs"
+        ],
+        "users": [
+            {
+                "id": "01FDA6WQKMW3EH4N9RY6AGA37N",
+                "github": "tobggs",
+                "weblate": "tobggs"
+            }
+        ]
+    },
+    "nl": {
+        "maintainer": [
+            "sympact06"
+        ],
+        "users": [
+            {
+                "id": "01FEVPQKFT45A9FCXM1YS4YMQG",
+                "github": "sympact06",
+                "weblate": "Sympact"
+            }
+        ]
+    },
+    "ca": {
+        "maintainer": [
+            "TallerThanShort"
+        ],
+        "users": [
+            {
+                "id": "01FQ462YNBSWGV0K5DWTRZNJYQ",
+                "github": "TallerThanShort",
+                "weblate": "TallerThanShort"
+            }
+        ]
+    },
+    "it": {
+        "maintainer": [
+            "plumcakey"
+        ],
+        "users": [
+            {
+                "id": "01FDYBBVANC50FXYHT343Q9K69",
+                "github": "plumcakey",
+                "weblate": "ShortCake"
+            },
+            {
+                "id": "01GZJSWWFGXKRCCB35QVQA6XCX",
+                "github": "Gabriele73",
+                "weblate": "Gabriele"
+            }
+        ]
+    },
+    "zh_Hant": {
+        "maintainer": [
+            "Zhuzi-ouo"
+        ],
+        "users": [
+            {
+                "id": "01FFHWGZXWV6H6S3TAVRDHGA7X",
+                "github": "Zhuzi-ouo",
+                "weblate": "Zhuzi"
+            }
+        ]
+    },
+    "lt": {
+        "maintainer": [
+            "ErnestasKaralius"
+        ],
+        "users": [
+            {
+                "id": "01GAWW0T29WD5BEHF6NN6B4VNG",
+                "github": "ErnestasKaralius",
+                "weblate": "KingErnest"
+            }
+        ]
+    },
+    "tokipona": {
+        "maintainer": [
+            "Gapva"
+        ],
+        "users": [
+            {
+                "id": "01FGYX21PZPCMQVT2JPAEVPG6V",
+                "github": "Gapva",
+                "weblate": "vausen"
+            }
+        ]
+    },
+    "sk": {
+        "maintainer": [
+            "ShadowLp174"
+        ],
+        "users": [
+            {
+                "id": "01G9MCW5KZFKT2CRAD3G3B9JN5",
+                "github": "ShadowLp174",
+                "weblate": "ShadowLp174"
+            }
+        ]
+    },
+    "tr": {
+        "maintainer": [
+            "KerizAlperwastaken",
+            "ramazaneris"
+        ],
+        "users": [
+            {
+                "id": "01FWY6ZGDB08N8D8B2N5B4DCM8",
+                "github": "KerizAlperwastaken",
+                "weblate": "kerizalper"
+            },
+            {
+                "id": "01FCXFBQPYCBZWX40NSBYXYAWW",
+                "github": "ramazaneris",
+                "weblate": "Jeosty"
+            }
+        ]
+    },
+    "th": {
+        "maintainer": [
+            "xhayper"
+        ],
+        "users": [
+            {
+                "id": "01GHBV31SY9JFNZ7W8TRRXWEWZ",
+                "github": "xhayper",
+                "weblate": "hayper"
+            }
+        ]
+    },
+    "ja": {
+        "maintainer": [
+            "chelley"
+        ],
+        "users": [
+            {
+                "id": "01FM3AEE16Z5T7ZVCECF7XT7CQ",
+                "github": "chelley",
+                "weblate": "chelley"
+            }
+        ]
+    },
+    "esperanto": {
+        "maintainer": [
+            "Fussmatte"
+        ],
+        "users": [
+            {
+                "id": "01FM11KGE3MXBY6VXR4E9MRFPQ",
+                "github": "Fussmatte",
+                "weblate": "ReeseRivers"
+            }
+        ]
+    },
+    "ro": {
+        "maintainer": [
+            "Edward205"
+        ],
+        "users": [
+            {
+                "id": "01GC479933RX4JWDAYQN63K9FH",
+                "github": "S703T",
+                "weblate": "Secsi"
+            },
+            {
+                "id": "01F82KZF9R7KF7JQJRTHGTQEEV",
+                "github": "Edward205",
+                "weblate": "Edward205"
+            }
+        ]
+    },
+    "zh_Hans": {
+        "maintainer": [
+            "deluxghost"
+        ],
+        "users": [
+            {
+                "id": "01GCADPN83KY273XFWXG2NVM4N",
+                "github": "YouTubeGameNana",
+                "weblate": "seven"
+            },
+            {
+                "id": "01FD6H5SC7Y4T09W6HDK36Y275",
+                "github": "deluxghost",
+                "weblate": "deluxghost"
+            }
+        ]
+    },
+    "te": {
+        "maintainer": [],
+        "users": [
+            {
+                "id": "01GCADPN83KY273XFWXG2NVM4N",
+                "github": "YouTubeGameNana",
+                "weblate": "seven"
+            }
+        ]
+    },
+    "hi": {
+        "maintainer": [
+            "Infiniticity"
+        ],
+        "users": [
+            {
+                "id": "01FDNXEK10PB97HJMJBP5RYQZH",
+                "github": "Infiniticity",
+                "weblate": "Infiniticity"
+            },
+            {
+                "id": "01G4C4PGY00H64WTXJRX7V64H0",
+                "github": "CodeWhiteWeb",
+                "weblate": "CodeWhite"
+            },
+            {
+                "id": "01GV50FAT8HWAHG4SV43FEA3WF",
+                "github": "FakeFerg",
+                "weblate": "FreakyMAN"
+            },
+            {
+                "id": "01FFHHBTT8RA8PFE8SY9112AA8",
+                "github": "Yeikzy",
+                "weblate": "Yeikzy"
+            }
+        ]
+    },
+    "bn": {
+        "maintainer": [
+            "Cynycal2003"
+        ],
+        "users": [
+            {
+                "id": "01G8A6K3EE9YR1TWJF6W0F192S",
+                "github": "Cynycal2003",
+                "weblate": "Cynycal2003"
+            }
+        ]
+    }
+}

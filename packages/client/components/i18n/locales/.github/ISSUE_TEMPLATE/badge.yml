@@ -1,0 +1,34 @@
+name: Request translator badge
+description: Request to receive a translator badge
+title: "badge: <language> for <your name>"
+labels: []
+body:
+  - type: input
+    id: language
+    attributes:
+      label: What language(s) did you translate?
+      description: Comma-separate languages if more than one
+    validations:
+      required: true
+  - type: input
+    id: revolt-id
+    attributes:
+      label: What is your Revolt ID?
+      description: Used to assign you a badge
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to Weblate profile
+      description: (if applicable)
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Validations
+      description: Before submitting, please make sure the following has been satisfied
+      options:
+        - label: The language has a maintainer (see the full list [here](https://github.com/revoltchat/translations#languages)).
+          required: true
+        - label: You agree that your translations are to a reasonable standard.
+          required: true

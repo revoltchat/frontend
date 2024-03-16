@@ -1,0 +1,957 @@
+{
+    "login": {
+        "successful_registration": "Veiksmīgi reģistrēts!",
+        "check_mail": "Pārbaudi savu e-pastu!",
+        "password": "Parole",
+        "username": "Lietotājvārds",
+        "email": "E-pasta adrese",
+        "invite": "Ielūguma kods",
+        "current_password": "Pašreizējā parole",
+        "enter": {
+            "username": "Ievadi vēlamo lietotājvārdu.",
+            "email": "Lūdzu Ievadi savu e-pasta adresi.",
+            "password": "Ievadi paroli.",
+            "invite": "Ievadi savu ielūguma kodu.",
+            "current_password": "Ievadi pašreizējo paroli.",
+            "new_password": "Ievadi jaunu paroli."
+        },
+        "forgot": "Aizmirsi paroli?",
+        "existing": "Jau ir konts?",
+        "title": "Ienākt",
+        "register": "Reģistrēties",
+        "create": "Izveidot jaunu kontu",
+        "missing_verification": "Nesaņēmi e-pastu?",
+        "resend": "Sūtīt verifikācijas saiti vēlreiz",
+        "cancel": "Atcelt pieprasījumu",
+        "email_delay": "Lūdzu gaidi 10 minūtes, lai tas atnāktu.",
+        "check_spam": "Lūdzu pārbaudi mēstules, ja to nevari atrast",
+        "open_mail_provider": "Atvērt {{provider}}",
+        "reset": "Atiestatīt paroli",
+        "set_password": "Iestatīt jaunu paroli",
+        "remembered": "Atgriezties ienākšanas lapā",
+        "new": "Lieto Revolt pirmo reizi?",
+        "error": {
+            "create": "Neizdevās reģistrēties!",
+            "login": "Neizdevās ienākt!",
+            "reset": "Neizdevās atiestatīt!",
+            "resend": "Neizdevās nosūtīt vēlreiz!"
+        },
+        "welcome2": "Sveiki!",
+        "subtitle2": "Izveidot kontu",
+        "welcome": "Priecājamies tevi atkal redzēt!",
+        "subtitle": "Ienākt Revolt",
+        "unofficial_instance": "Trešās puses instance.",
+        "totp": "Autentifikācijas lietotne",
+        "recovery": "Piekļuves atgūšanas kods",
+        "new_password": "Jauna parole",
+        "log_out_other": "Atteikt no visām citām sesijām",
+        "verified_account": "Tavs konts ir verificēts!",
+        "verifying_account": "Notiek tava konta verificēšana…"
+    },
+    "app": {
+        "main": {
+            "categories": {
+                "members": "Dalībnieki",
+                "conversations": "Sarunas",
+                "participants": "Dalībnieki",
+                "channels": "Kanāli"
+            },
+            "channel": {
+                "message_where": "Rakstīt kanālā {{channel_name}}",
+                "message_who": "Rakstīt {{person}}",
+                "message_saved": "Saglabāt savās piezīmēs",
+                "uploading_file": "Augšupielādē…",
+                "failed_upload": "Augšupielāde neizdevās!",
+                "attached_file": "Pievienots {{filename}}",
+                "typing": {
+                    "single": "{{user}} raksta…",
+                    "multiple": "{{userlist}} un {{user}} raksta…",
+                    "several": "Vairāki cilvēki raksta…"
+                },
+                "system": {
+                    "user_joined": "{{user}} pievienojās",
+                    "user_left": "{{user}} pameta",
+                    "user_kicked": "{{user}} tika izmests",
+                    "user_banned": "{{user}} tika pastāvīgi izraidīts",
+                    "added_by": "Lietotājs {{user}} pievienoja {{other_user}}",
+                    "removed_by": "Lietotājs {{user}} noņēma {{other_user}}",
+                    "channel_renamed": "{{user}} pārsauca kanālu par {{name}}",
+                    "channel_description_changed": "{{user}} nomainīja kanāla aprakstu",
+                    "channel_icon_changed": "{{user}} nomainīja kanāla ikonu",
+                    "channel_ownership_changed": "{{from}} padarīja {{to}} par grupas īpašnieku",
+                    "registered_at": "Registrējās {{time}}"
+                },
+                "start": {
+                    "group": "Šis ir tavas sarunas sākums.",
+                    "saved": "Šis ir tavu piezīmju sākums."
+                },
+                "voice": {
+                    "leave": "Pamest",
+                    "mute": "Apklusināt",
+                    "unmute": "Ieslēgt skaņu",
+                    "connected": "Savienots balss sarunā"
+                },
+                "misc": {
+                    "viewing_old": "Redzamas vecākas ziņas",
+                    "jump_present": "Doties uz jaunākajām ziņām",
+                    "failed_load": "Nevarēja ielādēt ziņu.",
+                    "blocked_messages": "{{count}} bloķētas ziņas",
+                    "blocked_user": "Bloķēts lietotājs",
+                    "sent_file": "Nosūtīja pielikumu",
+                    "sent_multiple_files": "Nosūtīja vairākus pielikumus",
+                    "spoiler_attachment": "Spoileris",
+                    "no_sending": "Tev nav atļaujas sūtīt ziņas šajā kanālā.",
+                    "jump_beginning": "Doties uz sākumu",
+                    "new_messages": "Jaunas ziņas {{time_ago}}",
+                    "load_file": "Lelādēt failu",
+                    "timed_out": "Jūsu konts īslaicīgi bloķēts: {{time}}."
+                },
+                "edited": "(rediģēts)",
+                "nsfw": {
+                    "channel": {
+                        "marked": "Šis kanāls ir apzīmēts kā nepiemērots publiskām vietām.",
+                        "confirm": "Ienākt kanālā"
+                    },
+                    "confirm": "Apstiprinu, ka esmu vismaz 18 gadus vecs."
+                },
+                "unknown_user": "<nezināms lietotājs>",
+                "bot": "Robots",
+                "notifications": {
+                    "default": "Izmantot noklusējuma iestatījumu",
+                    "all": "Visas ziņas",
+                    "mention": "Tikai pieminējumi",
+                    "none": "Neviens",
+                    "muted": "Klusināts"
+                },
+                "search": {
+                    "title": "Meklēt",
+                    "sort": {
+                        "relevance": "Pēc atbilstības",
+                        "latest": "Jaunākās",
+                        "oldest": "Vecākās"
+                    }
+                },
+                "errors": {
+                    "title": "Ak, šeit nekā nav!",
+                    "nochannels": "Šajā serverī nav kanālu vai arī tev tiem nav piekļuve.",
+                    "nochannel": "Nav kanālu"
+                },
+                "reply": {
+                    "replying": "Raksta atbildi",
+                    "toggle": "Pārslēgt autora ziņu"
+                },
+                "bridge": "tilts",
+                "user_timed_out": "Lietotāja konts īslaicīgi bloķēts: {{time}}.",
+                "bridged": "Ziņa tika nosūtīta citā platformā",
+                "reactions": {
+                    "unknown_reacted": "{{count}} cilvēki reaģēja",
+                    "single_reacted": "1 cilvēks reaģēja",
+                    "people_reacted": "{{people}} reaģēja"
+                }
+            },
+            "groups": {
+                "create": "Izveidot grupu",
+                "name": "Grupas nosaukums",
+                "description": "Grupas apraksts",
+                "owner": "Grupas īpašnieks"
+            },
+            "servers": {
+                "description": "Servera apraksts",
+                "channel_name": "Kanāla nosaukums",
+                "channel_type": "Kanāla tips",
+                "create": "Izveidot serveri",
+                "name": "Servera nosaukums",
+                "channel_description": "Kanāla apraksts",
+                "custom_banner": "Pielāgota augšmala",
+                "owner": "Servera īpašnieks",
+                "text_channel": "Teksta kanāls",
+                "voice_channel": "Balss kanāls",
+                "category_name": "Kategorijas nosaukums"
+            }
+        },
+        "status": {
+            "online": "Tiešsaistē",
+            "busy": "Netraucēt",
+            "invisible": "Neredzams",
+            "offline": "Bezsaistē",
+            "idle": "Brīvs",
+            "reconnect": "Savienoties no jauna",
+            "focus": "Fokusēt"
+        },
+        "navigation": {
+            "tabs": {
+                "home": "Sākums",
+                "dev": "Izstrādātājs",
+                "friends": "Draugi",
+                "unreads": "Nelasītās",
+                "saved": "Saglabātās piezīmes"
+            }
+        },
+        "settings": {
+            "title": "Iestatījumi",
+            "categories": {
+                "user_settings": "Lietotāja iestatījumi",
+                "client_settings": "Klienta iestatījumi",
+                "danger_zone": "Bīstama zona"
+            },
+            "actions": {
+                "remove": "Noņemt",
+                "upload": "Augšupielādēt",
+                "max_filesize": "(maks. {{filesize}})",
+                "edit": "Rediģēt {{name}}"
+            },
+            "pages": {
+                "account": {
+                    "title": "Mans konts",
+                    "change_field": "Mainīt",
+                    "unique_id": "Tas ir unikāls lietotāja identifikators tavam kontam.",
+                    "2fa": {
+                        "title": "Divfaktoru autentifikācija",
+                        "description": "Pievienojiet drošības slāni, iepējojot 2FA jūsu kontam.",
+                        "add_auth": "Pievienot autentificētāju",
+                        "remove_auth": "Noņemt autentificētāju",
+                        "view_recovery": "Skatīt atgūšanas kodus",
+                        "view_recovery_long": "Skati un lejupielādē savus divfaktoru autentifikācijas (2FA) kodus.",
+                        "generate_recovery": "Izveidot piekļuves atgūšanas kodus",
+                        "generate_recovery_long": "Sagatavojies divfaktoru autentifikācijas (2FA), uzstādot piekļuves atgūšanu.",
+                        "two_factor_on": "Divfaktoru autentifikācija ir ieslēgta.",
+                        "two_factor_off": "Neesi ieslēdzis divfaktoru autentifikāciju!"
+                    },
+                    "manage": {
+                        "title": "Konta pārvaldība",
+                        "description": "Jebkurā laikā atspējot vai dzēst savu kontu. Šī darbība tevi izrakstīs un pilnībā izdzēsīs tavu kontu, tostarp tērzēšanas vēsturi un draugus.",
+                        "disable": "Atspējot kontu",
+                        "delete": "Atzīmēt kontu dzēšanai"
+                    }
+                },
+                "profile": {
+                    "placeholder": "Uzraksti kaut ko par sevi…",
+                    "profile_picture": "Profila attēls",
+                    "edit_profile": "Rediģēt profilu",
+                    "custom_background": "Pielāgots fons",
+                    "info": "Informācija",
+                    "fetching": "Ielādē tavu profilu…",
+                    "edit_background": "Rediģēt fonu",
+                    "title": "Profils"
+                },
+                "audio": {
+                    "title": "Balss iestatījumi",
+                    "input_device": "Mikrofons",
+                    "output_device": "Skaļrunis / Austiņas",
+                    "device_label_NA": "N/A",
+                    "button_retry": "mēģināt vēlreiz",
+                    "tip_retry": "Tu nedevi atļauju piekļūt mikrofonam, lūdzu {{retryBtn}}.",
+                    "tip_grant_permission": "Tev jāpiešķir atļauja piekļūt audio iestatījumiem.",
+                    "button_grant": "Piešķirt atļauju"
+                },
+                "appearance": {
+                    "title": "Izskats",
+                    "theme": "Motīvs",
+                    "display": {
+                        "default": "Parastais",
+                        "compact_description": "Vecais labais IRC.",
+                        "compact": "Kompakts",
+                        "default_description": "Skaists, gluds un moderns."
+                    },
+                    "overrides": "Pielāgot motīvu",
+                    "import": "Importēt motīvu",
+                    "import_theme": "Importēt motīva kodu",
+                    "theme_data": "Motīva dati",
+                    "custom_css": "Pielāgots CSS",
+                    "sync": "Sinhronizācijas iestatījumi",
+                    "font": "Fonts",
+                    "ligatures": "Fontu ligatūras",
+                    "color": {
+                        "light": "gaišais",
+                        "dark": "tumšais"
+                    },
+                    "accent_selector": "Akcenta krāsa",
+                    "emoji_pack": "Emocijzīmju kolekcija",
+                    "message_display": "Ziņojumu izskats",
+                    "advanced": "Papildu opcijas",
+                    "reset_overrides": "Atiestatīt motīvu",
+                    "mono_font": "Vienplatuma fontu atlasītājs",
+                    "ligatures_desc": "Atbalstītiem fontiem ligatūras apvieno rakstzīmes, piemēram, pārvēršot -> par bultiņu.",
+                    "theme_options": {
+                        "transparency": "Caurspīdīguma efekti",
+                        "transparency_desc": "Ieslēdz caurspīdīguma efektus visā lietotnē.",
+                        "follow_desc": "Kad ieslēgsi, nevarēsi mainīt motīvu vai izmantot pielāgotu motīvu.",
+                        "seasonal": "Sezonas motīvs",
+                        "follow": "Saskaņot ar sistēmas motīvu",
+                        "seasonal_desc": "Rāda specefektus sākuma cilnē svētku sezonā.",
+                        "title": "Motīva iestatījumi"
+                    },
+                    "discover": {
+                        "description": "Pārlūkot motīvus, ko veidojusi kopiena",
+                        "title": "Atklāt motīvus"
+                    },
+                    "appearance_options": {
+                        "show_send": "Vienmēr rādīt ziņas sūtīšanas pogu",
+                        "show_send_desc": "Ja atspējosi, sūtīšanas pogu redzēsi tikai mobilajās ierīcēs.",
+                        "title": "Izskata iespējas",
+                        "show_account_age": "Vienmēr rādīt konta vecumu blakus pievienošanās ziņojumiem",
+                        "show_account_age_desc": "Izslēdzot šo funkciju, konta vecums tiks rādīts tikai jauniem kontiem."
+                    },
+                    "colours": {
+                        "title": "Krāsas"
+                    },
+                    "emoji": {
+                        "title": "Emocijzīmes"
+                    },
+                    "fonts": {
+                        "title": "Fonti"
+                    }
+                },
+                "notifications": {
+                    "title": "Paziņojumi",
+                    "enable_desktop": "Iespējot darbvirsmas paziņojumus",
+                    "sounds": "Skaņas",
+                    "descriptions": {
+                        "enable_push": "Iespējot, lai saņemtu paziņojumus, kad esi bezsaistē.",
+                        "enable_desktop": "Saņemsi paziņojumus, kamēr lietotne būs atvērta."
+                    },
+                    "sound": {
+                        "message": "Ziņa saņemta",
+                        "outbound": "Ziņa aizsūtīta",
+                        "call_leave": "Lietotājs atstāja zvanu",
+                        "call_join": "Lietotājs pievienojās zvanam"
+                    },
+                    "push_notifications": "Push paziņojumi",
+                    "enable_push": "Ieslēgt Push paziņojumus"
+                },
+                "language": {
+                    "title": "Valoda",
+                    "const": "Konstruētas valodas",
+                    "other": "Citas valodu opcijas",
+                    "select": "Izvēlies savu valodu"
+                },
+                "sync": {
+                    "title": "Sinhronizēt",
+                    "categories": "Sinhronizēšanas kategorijas",
+                    "descriptions": {
+                        "theme": "Sinhronizēs tevis izvēlēto motīvu, krāsas un pielāgoto CSS.",
+                        "appearance": "Sinhronizēs, piemēram, emocijzīmju kolekciju un ziņu blīvumu.",
+                        "locale": "Sinhronizēs tevis izvēlēto valodu."
+                    },
+                    "options": "Sinhronizēšanas iespējas"
+                },
+                "sessions": {
+                    "title": "Sesijas",
+                    "active_sessions": "Aktīvās sesijas",
+                    "this_device": "Šī ierīce",
+                    "logout": "Izrakstieties no visām pārējām sesijām",
+                    "created": "Izveidots {{time_ago}}"
+                },
+                "native": {
+                    "title": "Darbvirsmas iestatījumi"
+                },
+                "experiments": {
+                    "title": "Eksperimenti",
+                    "not_available": "Šobrīd neviens eksperiments nav pieejams.",
+                    "features": "Pieejamās funkcijas"
+                },
+                "donate": {
+                    "title": "Ziedot"
+                },
+                "source_code": "Avota kods",
+                "bots": {
+                    "copy_invite": "Kopēt uzaicinājuma saiti",
+                    "title": "Mani roboti",
+                    "create_bot": "Izveidot robotu",
+                    "add": "Pievienot robotu",
+                    "private_bot_tip": "Robots ir privāts. Tikai tu to vari uzaicināt.",
+                    "public_bot": "Publisks robots",
+                    "profile": "Robota profils",
+                    "public_bot_tip": "Robots ir publisks. Jebkurš var to uzaicināt.",
+                    "token": "Autorizācijas žetons",
+                    "reserved": "Ievērojiet: Šis lauks ir rezervēts nākotnei.",
+                    "interactions_url": "Mijiedarbības URL",
+                    "public_bot_desc": "Atļaut citiem lietotājiem ielūgt šo robotu.",
+                    "unique_id": "Šis ir unikāls identifikators tavam robotam. Tas nav autorizācijas žetons."
+                },
+                "theme_shop": {
+                    "category": {
+                        "viewall": "Skatīt visus",
+                        "saved": "Saglabāts",
+                        "highest": "Visaugstāk vērtētie",
+                        "new": "Nedēļas jaunumi",
+                        "manage": "Pārvaldīt saglabātos",
+                        "default": "Noklusējuma motīvi"
+                    },
+                    "active": "Šobrīd aktīvie",
+                    "by": "autors",
+                    "title": "Motīvu veikals",
+                    "search": "Meklēt motīvus…",
+                    "use": "Izmantot motīvu",
+                    "description": "Pārlūkot simtiem motīvu, ko izveidojusi un kurējusi kopiena."
+                },
+                "feedback": {
+                    "issue": "Izveidot jaunu ziņojumu",
+                    "suggest_desc": "Iesaki jaunas Revolt funkcijas GitHub diskusijās.",
+                    "suggest": "Ieteikt jaunu funkcijas",
+                    "issue_desc": "Lai palīdzētu mums vieglāk izvērtēt ieteikumus, vari izveidot ziņojumu platformā GitHub.",
+                    "bug": "Kļūdu Meklētājs",
+                    "bug_desc": "Skati aktīvos kļūdu ziņojumus šeit.",
+                    "title": "Atsauksmes",
+                    "description": "Sūtīt atsauksmes"
+                },
+                "logOut": "Iziet",
+                "plugins": {
+                    "title": "Spraudņi",
+                    "wip": "Brīdinājums: Šī funkcija joprojām tiek izstrādāta.",
+                    "delete_plugin": "Dzēst",
+                    "no_plugins": "Pašreiz nav instalētu spraudņu."
+                }
+            },
+            "server_pages": {
+                "overview": {
+                    "name": "Servera nosaukums",
+                    "system_messages": "Sistēmas ziņu kanāli",
+                    "description": "Kanāla apraksts",
+                    "title": "Pārskats"
+                },
+                "members": {
+                    "title": "Dalībnieki"
+                },
+                "invites": {
+                    "title": "Uzaicinājumi",
+                    "invitor": "Ielūguma sūtītājs",
+                    "code": "Ielūguma kods",
+                    "channel": "Kanāls",
+                    "revoke": "Atsaukt"
+                },
+                "management": {
+                    "title": "Lietotāju pārvaldība"
+                },
+                "categories": {
+                    "title": "Kategorijas"
+                },
+                "bans": {
+                    "reason": "Pastāvīgās izraidīšanas iemesls",
+                    "user": "Lietotājs",
+                    "no_reason": "Nav izraidījuma iemesla.",
+                    "revoke": "Atsaukt",
+                    "title": "Pastāvīgi izraidītie"
+                },
+                "roles": {
+                    "title": "Lomas"
+                },
+                "emojis": {
+                    "title": "Emocijzīmes",
+                    "upload": "Augšuplādēt emocijzīmes"
+                },
+                "customisation": {
+                    "title": "Pielāgošana"
+                }
+            },
+            "channel_pages": {
+                "overview": {
+                    "description": "Kanāla apraksts",
+                    "name": "Kanāla vārds",
+                    "title": "Pārskats"
+                },
+                "permissions": {
+                    "title": "Atļaujas"
+                }
+            },
+            "tips": {
+                "sessions": {
+                    "b": "nodrošini savu kontu, nomainot paroli un izmantojot 2FA.",
+                    "a": "Ja pamani nepazīstamu sesiju sarakstā,"
+                },
+                "account": {
+                    "b": "Dodies uz profila iestatījumiem.",
+                    "a": "Vēlies pielāgot savu publisko profilu?"
+                },
+                "languages": {
+                    "a": "Trūkst vēlamā valoda?",
+                    "b": "Palīdzi tulkot vairāk valodās."
+                }
+            },
+            "permissions": {
+                "role_name": "Lomas nosaukums",
+                "channel": "Kanāla atļaujas",
+                "create_role": "Izveidot jaunu lomu",
+                "default_role": "Noklusējums",
+                "server": "Servera atļaujas",
+                "role_colour": "Lomas krāsa",
+                "role_options": "Lomas opcijas",
+                "role_ranking": "Lomas rangs",
+                "delete_role": "Dzēst lomu",
+                "hoist_role": "Pacelt lomu",
+                "hoist_desc": "Rādīt šo lomu virs citām.",
+                "title": "Atļaujas lomai {{role}}",
+                "edit_title": "Rediģēt atļaujas"
+            }
+        },
+        "home": {
+            "social": "Atrodiet serverus un robotprogrammatūras",
+            "join-testers": "Pievienoties testētāju serverim",
+            "goto-testers": "Doties uz testētāju serveri",
+            "donate": "Ziedot Revolt",
+            "feedback": "Sniegt atsauksmes par Revolt",
+            "settings": "Atvērt iestatījumus",
+            "settings-tooltip": "Vari arī veikt labo klikšķi uz lietotāja ikonas augšējā kreisajā stūri, vai arī, ja jau esi sākumā – ar kreiso klikšķi.",
+            "directs": "Tiešās sarunas",
+            "join-testers_desc": "Šeit vari ziņot par kļūdām un pārrunāt labojumus ar mums.",
+            "goto-testers_desc": "Šeit vari ziņot par problēmām uz pārrunāt uzlabojumus ar mums.",
+            "donate_desc": "Atbalsti projektu ziedojot – paldies!",
+            "feedback_desc": "Pastāsti, kā mēs varam uzlabot mūsu lietotni, sniedzot mums atsauksmes.",
+            "discover": "Atklāj Revolt",
+            "discover_desc": "Atrodi kopienu ar līdzīgiem hobijiem un interesēm.",
+            "group": "Izveidot grupu",
+            "group_desc": "Uzaicini savus draugus un foršus robotus, un sāciet ballīti."
+        },
+        "special": {
+            "copy": "Klikšķini, lai nokopētu",
+            "status": {
+                "connecting": "Savienojas…",
+                "reconnecting": "Atjauno savienojumu…",
+                "offline": "Bezsaistē.",
+                "disconnected": "Atvienots."
+            },
+            "popovers": {
+                "user_picker": {
+                    "select": "Atlasi draugus, ko pievienot."
+                },
+                "user_profile": {
+                    "badges": {
+                        "moderation": "Platformas moderēšana",
+                        "translator": "Tulks",
+                        "responsible_disclosure": "Atbildīgi noziņotas programmatūras kļūdas",
+                        "early_adopter": "Agrīnais lietotājs",
+                        "founder": "Dibinātājs",
+                        "supporter": "Atbalstītājs"
+                    },
+                    "mutual_friends": "Kopīgie draugi",
+                    "sub": {
+                        "connections": "Savienojumi",
+                        "badges": "Nozīmes",
+                        "information": "Informācija"
+                    },
+                    "profile": "Profils",
+                    "mutual_groups": "Kopīgās grupas",
+                    "mutual_servers": "Kopīgie serveri",
+                    "empty": "Šeit ir diezgan tukšs…",
+                    "no_servers": "Nav kopīgu serveru",
+                    "no_users": "Nav kopīgu draugu",
+                    "no_groups": "Nav kopīgu grupu"
+                },
+                "create_bot": {
+                    "failed": "Neizdevās izveidot robotu!",
+                    "title": "Izveidot robotu"
+                },
+                "server_identity": {
+                    "title": "Mainīt identitāti serverī {{server}}",
+                    "nickname": "Iesauka",
+                    "avatar": "Avatārs"
+                }
+            },
+            "invite": {
+                "login": "Ienākt Revolt",
+                "invited_by": "Ielūdza lietotājs {{user}}",
+                "invalid_desc": "Iespējams, ielūgums neeksistē, vai arī tu nedrīksti pievienoties.",
+                "accept": "Pieņemt ielūgumu",
+                "user_count": "{{member_count}} lietotāji",
+                "invalid": "Nederīgs ielūgums!"
+            },
+            "modals": {
+                "error": "Notikusi kļūda!",
+                "clipboard": {
+                    "copy": "Kopē manuāli:",
+                    "https": "Neesi savienojies ar HTTPS.",
+                    "unavailable": "Starpliktuve nav pieejama!"
+                },
+                "actions": {
+                    "save": "Saglabāt",
+                    "leave": "Pamest",
+                    "hide": "Slēpt",
+                    "edit": "Mainīt",
+                    "block": "Bloķēt",
+                    "update": "Atjaunināt",
+                    "cancel": "Atcelt",
+                    "reload": "Pārlādēt aplikāciju",
+                    "ban": "Pastāvīgi izraidīt",
+                    "kick": "Noņemt",
+                    "close": "Aizvērt",
+                    "reveal": "Rādīt",
+                    "preview": "Priekšskatīt",
+                    "continue": "Turpināt",
+                    "back": "Atgriezties",
+                    "remove": "Noņemt",
+                    "delete": "Dzēst",
+                    "create": "Izveidot",
+                    "send_email": "Sūtīt e-pastu",
+                    "ok": "Labi",
+                    "done": "Gatavs",
+                    "reset": "Atiestatīt",
+                    "confirm": "Apstiprināt",
+                    "report": "Ziņot par pārkāpumu"
+                },
+                "onboarding": {
+                    "pick": "Izvēlies lietotājvārdu, kādu vēlies, lai citi tevi varētu atrast – to var nomainīt iestatījumos.",
+                    "welcome": "Laipni lūgts"
+                },
+                "prompt": {
+                    "block_user": "Bloķēt {{name}}?",
+                    "confirm_leave": "Pamest {{name}}?",
+                    "confirm_leave_long": "Nevarēsi atkal pievienoties, ja tevi neuzlūgs.",
+                    "confirm_close_dm": "Slēgt sarunu ar {{name}}?",
+                    "confirm_ban": "Tūlīt pastāvīgi izraidīsiet {{name}}",
+                    "confirm_ban_reason": "Pastāvīgā izraidījuma iemesls",
+                    "unfriend_user": "Noņemt {{name}}?",
+                    "confirm_close_dm_long": "Varēsi to vēlāk atkal atvērt, taču tā būs pazudusi abām pusēm.",
+                    "unfriend_user_long": "Iespējams, nevarēsi sarunāties ar šo lietotāju līdz atkal kļūsiet draugi.",
+                    "confirm_delete": "Dzēst {{name}}?",
+                    "confirm_delete_long": "Izdzēšanai atpakaļceļa nav.",
+                    "create_invite_generate": "Izveido ielūgumu…",
+                    "confirm_delete_message_long": "Esi pārliecināts, ka vēlies šo izdzēst?",
+                    "create_invite_created": "Lūk tavs ielūguma kods:",
+                    "confirm_kick": "Vai tiešām vēlies izmest {{name}}?",
+                    "block_user_long": "Vai patiesi vēlies bloķēt {{name}}? Lietotājs tiks arī noņemts no tava draugu saraksta.",
+                    "silent_leave": "Pamest bez paziņojuma",
+                    "members_not_notified": "Nepaziņosim citiem dalībniekiem"
+                },
+                "account": {
+                    "change": {
+                        "email": "Mainīt e-pastu",
+                        "password": "Mainīt paroli",
+                        "username": "Mainīt lietotājvārdu"
+                    },
+                    "failed": "Neizdevās nomainīt!"
+                },
+                "external_links": {
+                    "short": "Vai patiesi vēlies doties uz:",
+                    "title": "Saites uz citām lapām var būt bīstamas!",
+                    "trust_domain": "Uzticēties šim domēnam"
+                },
+                "signed_out": "Esi izrakstījies!",
+                "token_reveal": "Lietotāja {{name}} autorizācijas žetons",
+                "sessions": {
+                    "accept": "Noņemt visas sesijas",
+                    "title": "Vai tiešām vēlies atvienot visas savas sesijas?",
+                    "short": "Šo darbību nav iespējams atsaukt."
+                },
+                "out_of_date": {
+                    "title": "Tava klienta lietotne ir novecojusi!",
+                    "description": "Tā jāatjaunina, lai darbotos jaunākās izmaiņas.",
+                    "ignore": "Ignorēt atjauninājumu",
+                    "attempting": "Mēģina atjaunināt…",
+                    "version": "Tavas lietotnes versija ir {{client}}, taču serverim nepieciešama {{server}}."
+                },
+                "confirm": "Apstiprināt darbību",
+                "mfa": {
+                    "recovery_codes": "Tavi piekļuves atgūšanas kodi",
+                    "save_codes": "Lūdzu, glabā tos drošā vietā.",
+                    "confirm": "Lūdzu, apstiprini izvēlēto sistēmu.",
+                    "select_method": "Lūdzu izvēlies sistēmu, ar ko autentificēt savu pieprasījumu.",
+                    "enable_totp": "Iespējot autentifikācijas lietotni",
+                    "prompt_totp": "Lūdzu, skenē vai ievadi zemāk esošo kodu savā autentifikācijas lietotnē.",
+                    "enter_code": "Ievadīt kodu"
+                },
+                "changelogs": {
+                    "title": "Izmaiņas",
+                    "description": "Lasīt par Revolt jaunumiem.",
+                    "older": "Skatīt vecākus atjauninājumus"
+                },
+                "report": {
+                    "block_user": "Vai vēlies bloķēt šo lietotāju?"
+                }
+            },
+            "friends": {
+                "pending": "Neapstiprinātie pieprasījumi",
+                "sent": "Izejošie",
+                "from": {
+                    "single": "No {{user}}",
+                    "multiple": "No {{userlist}} un {{user}}",
+                    "several": "No {{userlist}} un {{count}} citiem…"
+                },
+                "outgoing": "Draudzības uzaicinājums nosūtīts.",
+                "nobody": "Šeit vēl neviena nav!",
+                "blocked": "Bloķētie",
+                "incoming": "Saņemts draudzības uzaicinājums."
+            },
+            "copy_username": "Klikšķini, lai kopētu lietotājvārdu",
+            "server-badges": {
+                "official": "Oficiālais serveris",
+                "verified": "Pārbaudīts serveris"
+            },
+            "requires_online": "Tev jābūt tiešsaistē, lai šo skatītu."
+        },
+        "context_menu": {
+            "save_file": "Saglabāt failu",
+            "open_file": "Atvērt failu",
+            "copy_link": "Kopēt saiti",
+            "open_link": "Atvērt saiti",
+            "block_user": "Bloķēt lietotāju",
+            "remove_friend": "Atsaukt draudzību",
+            "open_group_settings": "Grupas iestatījumi",
+            "delete_channel": "Dzēst kanālu",
+            "create_channel": "Izveidot kanālu",
+            "copy_selection": "Kopēt atlasīto",
+            "mention": "Pieminēšana",
+            "message_user": "Ziņa",
+            "save_image": "Saglabāt attēlu",
+            "leave_server": "Pamest serveri",
+            "unblock_user": "Atcelt lietotāja bloķēšanu",
+            "add_friend": "Pievienot draugu",
+            "custom_status": "Pielāgots statuss",
+            "clear_status": "Notīrīt statusu",
+            "delete_server": "Dzēst serveri",
+            "open_channel_settings": "Kanāla iestatījumi",
+            "delete_message": "Dzēst ziņu",
+            "open_video": "Atvērt video",
+            "save_video": "Saglabāt video",
+            "close_dm": "Slēgt sarunu",
+            "remove_member": "Noņemt no grupas",
+            "edit_identity": "Mainīt identitāti",
+            "cancel_friend": "Atcelt pieprasījumu",
+            "create_invite": "Izveidot ielūgumu",
+            "open_notification_options": "Paziņojumu iestatījumi",
+            "create_category": "Izveidot kategoriju",
+            "open_server_settings": "Servera iestatījumi",
+            "view_profile": "Skatīt profilu",
+            "copy_cid": "Kopēt kanāla ID",
+            "kick_member": "Noņemt dalībnieku",
+            "leave_group": "Pamest grupu",
+            "ban_member": "Pastāvīgi izraidīt dalībnieku",
+            "reply_message": "Atbildēt",
+            "open_image": "Atvērt attēlu",
+            "copy_id": "Kopēt ID",
+            "retry_message": "Mēģināt sūtīt vēlreiz",
+            "set_custom_status": "Iestatīt pielāgotu statusu",
+            "copy_sid": "Kopēt kanāla ID",
+            "copy_mid": "Kopēt ziņas ID",
+            "copy_message_link": "Kopēt ziņas saiti",
+            "mark_as_read": "Atzīmēt kā lasītu",
+            "mark_unread": "Atzīmēt kā nelasītu",
+            "cancel_message": "Atsaukt sūtīšanu",
+            "quote_message": "Citēt ziņu",
+            "edit_message": "Mainīt ziņu",
+            "copy_text": "Kopēt tekstu",
+            "copy_uid": "Kopēt lietotāja ID",
+            "make_owner": "Padarīt par grupas īpašnieku"
+        },
+        "permissions": {
+            "required": "Nepieciešamās atļaujas"
+        }
+    },
+    "general": {
+        "about": "Par",
+        "privacy": "Privātuma politika",
+        "loading": "Ielādē…",
+        "tos": "Lietošanas noteikumi",
+        "image_by": "Attēls no",
+        "unavailable": "Nav pieejams",
+        "on": "Ieslēgts",
+        "off": "Izslēgts",
+        "disabled": "Atspējots",
+        "learn_more": "Uzzināt vairāk"
+    },
+    "error": {
+        "OperationFailed": "Operācija neizdevās.",
+        "InvalidCredentials": "Nepareizs e-pasts vai parole.",
+        "InvalidToken": "Nederīgs autorizācijas žetons",
+        "InvalidEmail": "Nederīga e-pasta adrese",
+        "AlreadyFriends": "Jau esi draugos ar šo lietotāju.",
+        "Blocked": "Esi bloķējis šo lietotāju.",
+        "AlreadyOnboarded": "Uzņemšana jau pabeigta.",
+        "FailedToReceive": "Serveris nevarēja saņemt tavu failu.",
+        "UnsupportedBrowser": "Pārlūkam trūkst šī funkcija.",
+        "CompromisedPassword": "Šī parole ir kompromitēta.",
+        "Unlabelled": "Radās kļūda.",
+        "UnknownUser": "Nezināms lietotājs.",
+        "EmailInUse": "E-pasts jau izmantots.",
+        "EmailFailed": "Neizdevās nosūtīt e-pastu.",
+        "NoEffect": "Šis pieprasījums neko nemainīja.",
+        "RenderFail": "Neizdevās parādīt šablonu.",
+        "MissingHeaders": "Trūkstošas galvenes.",
+        "InvalidSession": "Nederīga sesija.",
+        "UnverifiedAccount": "Nepārbaudīts konts.",
+        "MissingInvite": "Pieprasījumā trūkst ielūguma kods.",
+        "InvalidInvite": "Nederīgs kods",
+        "UsernameTaken": "Lietotājvārds jau aizņemts.",
+        "AlreadySentRequest": "Šim lietotājam jau nosūtīji pieprasījumu.",
+        "NetworkError": "Tīkla kļūda.",
+        "Unauthorized": "Nav atļauts.",
+        "FailedValidation": "Kāds lauks bija nederīgs.",
+        "DatabaseError": "Datubāzes kļūda.",
+        "BlockedOther": "Šis lietotājs tevi nobloķēja.",
+        "RequiredField": "Obligāts",
+        "ReachedMaximumBots": "Sasniegts maksimālo robotu skaits.",
+        "InternalError": "Iekšēja kļūda.",
+        "MissingPermission": "Trūkst atļauju.",
+        "UnknownError": "Skatīt konsoli.",
+        "ProbeError": "Neizdevās iegūt faila metadatus.",
+        "IoError": "Serverī radās I/O kļūda.",
+        "TooShort": "Par īsu",
+        "Unavailable": "Nav pieejams.",
+        "FileTooLarge": "Fails ir par lielu.",
+        "MissingData": "Pieprasījumam trūkst datu.",
+        "DeniedNotification": "Neesi atļāvis paziņojumus – pārbaudi lapas iestatījumus.",
+        "AudioPermissionBlock": "Nav pieejas tavam mikrofonam, lūdzu pārbaudi pārlūka iestatījumus.",
+        "TooLong": "Par garu"
+    },
+    "permissions": {
+        "ChangeNickname": {
+            "d": "Atļauj dalībniekiem mainīt savu iesauku šajā serverī.",
+            "t": "Mainīt iesauku"
+        },
+        "ChangeAvatar": {
+            "d": "Atļauj dalībniekiem mainīt savu avatāru serverī.",
+            "t": "Mainīt avatāru"
+        },
+        "ManageNicknames": {
+            "t": "Pārvaldīt iesaukas",
+            "d": "Atļauj dalībniekiem mainīt citu dalībnieku iesaukas."
+        },
+        "ManageServer": {
+            "t": "Pārvaldīt serveri",
+            "d": "Atļauj dalībniekiem mainīt servera vārdu, aprakstu, ikonu un citu informāciju."
+        },
+        "KickMembers": {
+            "t": "Noņemt dalībniekus",
+            "d": "Atļauj dalībniekiem noņemt citus no šī servera. Noņemtie dalībnieki var atkal pievienoties ar ielūgumu."
+        },
+        "ManageChannels": {
+            "t": "Pārvaldīt kanālus",
+            "d": "Atļauj dalībniekiem izveidot, mainīt un dzēst kanālus."
+        },
+        "BanMembers": {
+            "t": "Pastāvīgi izraidīt dalībniekus",
+            "d": "Atļauj dalībniekiem pastāvīgi izraidīt citus no šī servera."
+        },
+        "RemoveAvatars": {
+            "t": "Noņemt avatārus",
+            "d": "Atļauj dalībniekiem noņemt citu dalībnieku avatārus šajā serverī."
+        },
+        "VoiceCall": {
+            "t": "Balss zvans",
+            "d": "Atļauj dalībniekiem pievienoties balss zvaniem."
+        },
+        "UploadFiles": {
+            "d": "Atļauj dalībniekiem augšuplādēt failus teksta kanālos.",
+            "t": "Augšuplādēt failus"
+        },
+        "ManageMessages": {
+            "t": "Pārvaldīt ziņas",
+            "d": "Atļauj dalībniekiem dzēst citu dalībnieku ziņas."
+        },
+        "Masquerade": {
+            "t": "Maskēties",
+            "d": "Atļauj dalībniekiem nomainīt savu vārdu un avatāru atsevišķām ziņām."
+        },
+        "InviteOthers": {
+            "d": "Atļauj dalībniekiem ielūgt citus lietotājus kanālā.",
+            "t": "Ielūgt citus"
+        },
+        "EmbedLinks": {
+            "d": "Atļauj dalībniekiem rādīt iegultu saturu saitēs, ko tie publicē teksta kanālos.",
+            "t": "Iegult saites"
+        },
+        "SendMessage": {
+            "d": "Atļauj dalībniekiem sūtīt ziņas teksta kanālos.",
+            "t": "Sūtīt ziņas"
+        },
+        "ManageChannel": {
+            "t": "Pārvaldīt kanālus",
+            "d": "Atļauj dalībniekiem mainīt vai dzēst kanālus."
+        },
+        "ManageRole": {
+            "d": "Atļauj dalībniekiem izveidot, mainīt un dzēst lomas, kam ir zemāka autoritāte. Atļauj arī mainīt lomu atļaujas kanālos.",
+            "t": "Pārvaldīt lomas"
+        },
+        "ViewChannel": {
+            "t": "Skatīt kanālu",
+            "d": "Atļauj dalībniekiem skatīt tos kanālus, kuros viņiem ir šī atļauja."
+        },
+        "Video": {
+            "t": "Video",
+            "d": "Atļauj dalībniekiem straumēt video balss kanālos."
+        },
+        "MuteMembers": {
+            "t": "Izslēgt dalībniekiem mikrofonu",
+            "d": "Atļauj dalībniekiem apklusināt citus balss kanālos."
+        },
+        "MoveMembers": {
+            "t": "Pārvietot dalībniekus",
+            "d": "Atļauj dalībniekiem pārvietot citus starp balss kanāliem."
+        },
+        "AssignRoles": {
+            "t": "Piešķirt lomas",
+            "d": "Atļauj dalībniekiem piešķirt citiem zemākas lomas par savējām."
+        },
+        "ManagePermissions": {
+            "t": "Pārvaldīt atļaujas",
+            "d": "Atļauj dalībniekiem mainīt kanālu atļaujas un zemāku lomu atļaujas."
+        },
+        "Speak": {
+            "t": "Runājiet",
+            "d": "Atļauj dalībniekiem piedalīties balss kanālos."
+        },
+        "DeafenMembers": {
+            "t": "Izslēgt dalībnieku klausuli",
+            "d": "Atļauj dalībniekiem izslēgt citu dalībnieku skaļruni balss kanālos."
+        },
+        "Connect": {
+            "t": "Savienot",
+            "d": "Atļauj dalībniekiem pievienoties balss kanāliem."
+        },
+        "ManageWebhooks": {
+            "t": "Pārvaldīt Webhooks",
+            "d": "Atļauj dalībniekiem pārvaldīt kanāla Webhooks."
+        },
+        "ReadMessageHistory": {
+            "t": "Lasīt ziņa vēsture",
+            "d": "Atļauj dalībniekiem lasīt ziņu vēsturi šajā kanālā."
+        },
+        "TimeoutMembers": {
+            "t": "Īslaicīga dalībnieku bloķēšana",
+            "d": "Atļauj dalībniekiem īslaicīgi bloķēt lietotāju darbības serverī."
+        },
+        "SendEmbeds": {
+            "d": "Atļauj dalībniekiem sūtīt ietvertu saturu, gan no saitēm, gan pielāgotu teksta ietverto saturu.",
+            "t": "Sūtīt ietverto saturu"
+        },
+        "React": {
+            "d": "Atļauj dalībniekiem reaģēt uz ziņām.",
+            "t": "Izmantot reakcijas"
+        },
+        "ManageCustomisation": {
+            "t": "Pārvaldīt pielāgošanu",
+            "d": "Atļaut dalībniekiem izveidot, mainīt un dzēst emocijzīmes."
+        }
+    },
+    "dayjs": {
+        "defaults": {
+            "date_separator": "/",
+            "twelvehour": "no",
+            "date_format": "traditional"
+        },
+        "nextDay": "[Rīt] {{time}}",
+        "sameDay": "[Šodien] {{time}}",
+        "lastDay": "[Vakar] {{time}}",
+        "lastWeek": "[Pagājušo] dddd [pulkstens] {{time}}",
+        "nextWeek": "dddd [pulkstens] {{time}}"
+    },
+    "notifications": {
+        "now_friends": "Tagad esi draugos ar @{{person}}!",
+        "sent_request": "@{{person}} tev atsūtīja draudzības uzaicinājumu."
+    },
+    "quantities": {
+        "members": {
+            "one": "1 dalībnieks",
+            "many": "{{count}} dalībnieki"
+        },
+        "dropFiles": {
+            "many": "Nolikt {{count}} failus",
+            "one": "Nolikt failu"
+        }
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "actions": {
+        "submit": "Iesniegt"
+    }
+}

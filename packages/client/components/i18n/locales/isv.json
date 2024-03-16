@@ -1,0 +1,207 @@
+{
+    "general": {
+        "tos": "Uslovje Uslugi",
+        "privacy": "Politika Privatnosti",
+        "loading": "Zamrzanje…",
+        "on": "Vključajemo",
+        "off": "Izključajemo",
+        "disabled": "Odključajemo",
+        "unavailable": "Nedostųpny",
+        "about": "Ob",
+        "image_by": "Fotografja prěz",
+        "learn_more": "Dověděti se veče"
+    },
+    "actions": {
+        "submit": "Podaj"
+    },
+    "login": {
+        "title": "Logovati se",
+        "welcome": "Dobrodošli!",
+        "welcome2": "Pozdrav!",
+        "subtitle2": "Utvrdžaj konto",
+        "register": "Založi konto",
+        "username": "Nazva koristnika",
+        "email": "Email",
+        "password": "Parola",
+        "new_password": "Nova parola",
+        "recovery": "Kod iziskanja",
+        "invite": "Kod pozvanja",
+        "log_out_other": "Odjavi se od vsih zasědanij",
+        "enter": {
+            "username": "Vpiši svoju nazvu koristnika.",
+            "email": "Prosim vpiši svoj email.",
+            "invite": "vpiši svoj kod prizvanja.",
+            "current_password": "Vpiši svoju tutčasnu parolu.",
+            "password": "Vpiši svoju parolu koristnika.",
+            "new_password": "Vpiši novu parolu."
+        },
+        "forgot": "Zabyval (-a) jesi svoju parolu?",
+        "subtitle": "Prijaviti se do Revolt",
+        "totp": "Aplikacija utvrdžanje",
+        "current_password": "Tutčasna parola",
+        "reset": "Obnovi parolu",
+        "set_password": "Ustavi novu parolu",
+        "new": "Novy v Revolt?",
+        "existing": "Imaješ už konto?",
+        "create": "Stvori novu parolu",
+        "missing_verification": "Ty ne dostal jesi emaila?",
+        "cancel": "Analuj požedanje",
+        "check_mail": "Prěgledaj svoj email!",
+        "check_spam": "Jestli ne možeš go najdti, prěgledaj svoju papku spamu",
+        "open_mail_provider": "Otvori {{provider}}",
+        "successful_registration": "Zapisany (-a) uspěšno!",
+        "verified_account": "Tvoje konto stalo verifikujemo!",
+        "verified_continue": "Prějdi do obnovanja",
+        "error": {
+            "login": "My ne mogli jesmo těbe obnovati!",
+            "reset": "My ne mogli jesmo resetovati tvoju parolu!",
+            "verify": "My ne mogli jesmo verifikovati tvojo konto!",
+            "create": "My ne mogli jesmo těbe zaregistrovati!",
+            "resend": "My ne mogli jesmo Izsliti verifikacju ponovno!"
+        },
+        "unofficial_instance": "Postranna instancja.",
+        "remembered": "Vrati se do obnovanja",
+        "resend": "Izslj verifikacju ponovno",
+        "email_delay": "Izslali jesmo tobě poslanje z verifikacijeju. Prosimo čekaj do 10 minut na dojazda.",
+        "verifying_account": "Verifikovanje konta…"
+    },
+    "app": {
+        "status": {
+            "online": "Dostupny",
+            "focus": "Susrědotočenje",
+            "idle": "Nedějuči",
+            "invisible": "Nevidimy",
+            "offline": "Nedostupny",
+            "reconnect": "Sjedini ponovno",
+            "busy": "Ne Otegčati"
+        },
+        "navigation": {
+            "tabs": {
+                "dev": "Razvitěl",
+                "friends": "Poznaci",
+                "unreads": "Nepročitajemo",
+                "saved": "Zapiski",
+                "home": "Glavna stranica"
+            }
+        },
+        "home": {
+            "directs": "privatni poslanja",
+            "goto-testers_desc": "Tut možeš donositi i diskutovati neposrědnje s nami o razvoju i ulěpšenjah.",
+            "donate_desc": "Podpiraj projekt darom - Hvala!",
+            "feedback": "Daj nam povratnu informaciju o Revolt",
+            "donate": "Podpirati Revolt",
+            "settings": "Otvori nastavjenja",
+            "settings-tooltip": "Možeš takože kliknuti pravoju tipkoju myši v lěvom vrhnom rogu, ili kliknuti levoju tipkoju myši jestli ty uż jesi na glavnoj stranici.",
+            "discover": "Odkryj Revolt",
+            "discover_desc": "Najdi družstvo bazovamo se na hobi ili interesy.",
+            "group": "Stvori grupu",
+            "goto-testers": "Prějdi do servera testělov",
+            "join-testers_desc": "Tut možeš donositi i diskutovati neposrědnje s nami o razvoju i ulěpšenjah.",
+            "feedback_desc": "Pověd nam kako možemo ulěpšati naszu aplikacju prěz dajne nam povratnu informaciju.",
+            "group_desc": "Pozovi vsih tvoih poznanci, několiko epičskih botov i ustroji velu imprezu.",
+            "join-testers": "Pristupi do servera testělov"
+        },
+        "main": {
+            "categories": {
+                "conversations": "Razgovory",
+                "participants": "Učestniki",
+                "channels": "Kanaly",
+                "members": "Členi"
+            },
+            "channel": {
+                "message_where": "Izslj do {{channel_name}}",
+                "message_who": "Izslj do {{person}}",
+                "message_saved": "Zapiši v svoih zapiskah",
+                "uploading_file": "Aplodovanje…",
+                "failed_upload": "Ne udalo se aplodovati!",
+                "attached_file": "Dodatok {{filename}}",
+                "reactions": {
+                    "unknown_reacted": "{{count}} osob odzvali se",
+                    "people_reacted": "{{people}} odzvali se",
+                    "others_reacted": "{{userlist}} i {{count}} drugih osob odzvali se",
+                    "single_reacted": "1 osoba odzvala se"
+                },
+                "reply": {
+                    "replying": "Odpovědaješ",
+                    "toggle": "Prěključaj podkazku avtora"
+                },
+                "typing": {
+                    "single": "{{user}} piše…",
+                    "multiple": "{{userlist}} i {{user}} pišut…",
+                    "several": "Mnogo osob pišut…"
+                },
+                "system": {
+                    "user_left": "{{user}} odhodil",
+                    "user_kicked": "{{user}} stal Izkydany",
+                    "user_banned": "{{user}} stal zakazany",
+                    "added_by": "{{user}} stal dobavimy prěz {{other_user}}",
+                    "user_joined": "{{user}} podključil (-a)",
+                    "removed_by": "{{user}} stal odstranjeny prěz {{other_user}}",
+                    "channel_renamed": "{{user}} izměnil nazvu kanalu na {{name}}",
+                    "channel_description_changed": "{{user}} izměnil opis kanalu",
+                    "channel_icon_changed": "{{user}} izměnil simboliku kanalu",
+                    "registered_at": "Zapisany {{time}}",
+                    "channel_ownership_changed": "{{from}} dal {{to}} vlastničstvo grupy"
+                },
+                "start": {
+                    "group": "To jest početok tvojogo razgovoru.",
+                    "saved": "To jest početok tvoih zapisok."
+                },
+                "voice": {
+                    "connected": "Glos sjedinimy",
+                    "mute": "Otišaj",
+                    "unmute": "Obotišaj",
+                    "leave": "Vyjdi"
+                },
+                "misc": {
+                    "jump_present": "Skoči do sejčasnosti",
+                    "jump_beginning": "Skoči do početka",
+                    "spoiler_attachment": "Spojler",
+                    "failed_load": "Ne udalo se ladovati poslanij.",
+                    "not_loaded": "Poslanje ne ladovane, klikni da by skočiti",
+                    "timed_out": "Imaješ prěryv na {{time}}.",
+                    "blocked_messages": "{{count}} zablokovanij poslanij",
+                    "blocked_user": "Zablokovany učestnik",
+                    "sent_file": "Izslj dodatok",
+                    "sent_multiple_files": "Izslal (-a) mnogo dodatkov",
+                    "load_file": "Ladovaj fajl",
+                    "viewing_old": "Obgleděnje starějše poslanja",
+                    "new_messages": "Nove poslanja od {{time_ago}}",
+                    "no_sending": "Ne imaješ dozvoljenja izslati poslanij na tutom kanale."
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Tutoj kanal jest označimy kako NSFW.",
+                        "confirm": "Pristupi do kanalu"
+                    },
+                    "confirm": "Potvrdžaju, čto imaju ponje 10 lět."
+                },
+                "unknown_user": "<Neznany Koristnik>",
+                "bot": "Bot",
+                "bridge": "most",
+                "new_to_revolt": "Novy v Revolt",
+                "new_to_server": "Novy na tutom serveru",
+                "edited": "(Pravjene)",
+                "bridged": "Poslanje stalo izslane na drugom platformu"
+            }
+        },
+        "settings": {
+            "pages": {
+                "audio": {
+                    "input_device": "Mikrofon",
+                    "device_label_NA": "N/A"
+                },
+                "appearance": {
+                    "colours": {
+                        "title": "Kolory"
+                    },
+                    "fonts": {
+                        "title": "Fonty"
+                    },
+                    "theme": "Temy",
+                    "title": "Izgled"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,539 @@
+{
+    "app": {
+        "status": {
+            "busy": "Disturbar Mia",
+            "online": "Online",
+            "idle": "Aosente",
+            "invisible": "Invisìbile",
+            "offline": "Offline",
+            "reconnect": "Recunir",
+            "focus": "Metìo a fogo"
+        },
+        "navigation": {
+            "tabs": {
+                "unreads": "No Ledeste",
+                "home": "Pàjina Prinsipal",
+                "dev": "Sviłupador",
+                "friends": "Amighi",
+                "saved": "Note Salve"
+            }
+        },
+        "home": {
+            "donate": "Donar al Revolt",
+            "directs": "Mesàji Driti",
+            "goto-testers": "Ndar al servidor dei testadori",
+            "donate_desc": "Te juti el projeto donando - gràsie miłe!",
+            "join-testers": "Unirse al servidor dei testadori",
+            "goto-testers_desc": "Te pol reportar probleme e discutir sora meioranse co nantri quà.",
+            "join-testers_desc": "Te pol reportar probleme e discutir sora meioranse co nantri quà.",
+            "feedback": "Dar feedback al Revolt",
+            "settings": "Vardar inpostasioni",
+            "group": "Crea un grupo",
+            "discover": "Scoèrder el Revolt",
+            "discover_desc": "Cata na comunità con tui hobbies o interessi.",
+            "feedback_desc": "Fane saver cofà podemo sviłupar mèio ła nostra app con feedbacks.",
+            "group_desc": "Convida tuti i to amighi, arquanti boni bot e comemora.",
+            "settings-tooltip": "Anca te pol far un click destro ntel ìcone de utensa nte l'àngolo sanco, o far un click sanco se te si a caza."
+        },
+        "main": {
+            "channel": {
+                "message_who": "Invia un mesàjo a {{person}}",
+                "message_where": "Invia un mesàjo in {{channel_name}}",
+                "message_saved": "Salva ntele to note",
+                "uploading_file": "Drio inviar…",
+                "failed_upload": "Invio fałisto!",
+                "attached_file": "Anesà {{filename}}",
+                "typing": {
+                    "single": "{{user}} l'è drio digitar…",
+                    "several": "Tanti parsoni i xe drio digitar…",
+                    "multiple": "{{userlist}} e {{user}} i xe drio digitar…"
+                },
+                "reply": {
+                    "replying": "Drio rispondar a",
+                    "toggle": "Mensionar l'autor"
+                },
+                "system": {
+                    "user_banned": "{{user}} l'è stà banisto",
+                    "added_by": "{{user}} l'è stà adisionà da {{other_user}}",
+                    "removed_by": "{{user}} l'è stà removesto da {{other_user}}",
+                    "user_joined": "{{user}} el se gà zuntà",
+                    "user_left": "{{user}} l'è ussisto",
+                    "channel_renamed": "{{user}} ga renominà el canal par {{name}}",
+                    "user_kicked": "{{user}} l'è stà zpulsà",
+                    "channel_description_changed": "{{user}} gà canbià ła descrision del canal",
+                    "channel_icon_changed": "{{user}} gà canbià l'ìcone del canal",
+                    "registered_at": "Registrà a {{time}}",
+                    "channel_ownership_changed": "Ła propietà del grupo ze stada dada da {{from}} a {{to}}"
+                },
+                "voice": {
+                    "mute": "Siłensiar",
+                    "leave": "Usir",
+                    "connected": "Vóxe cunista",
+                    "unmute": "Desiłensiar"
+                },
+                "start": {
+                    "group": "Sto ze 'l scomìnsio deła to conversasion.",
+                    "saved": "Sto ze 'l scomìnsio dełe to note."
+                },
+                "misc": {
+                    "jump_present": "Ndar al presente",
+                    "spoiler_attachment": "Spoiler",
+                    "jump_beginning": "Ndar al scomìnsio",
+                    "new_messages": "Novi mesàji dei {{time_ago}}",
+                    "viewing_old": "Drio védar mesàji antìghi",
+                    "sent_file": "Ga invià un anesso",
+                    "blocked_messages": "{{count}} mesàji blocà",
+                    "blocked_user": "Utensa Blocada",
+                    "sent_multiple_files": "Ga invià tanti anesi",
+                    "load_file": "Cargar archivo",
+                    "no_sending": "Ti no te ghè parmeso d'inviar mesàji in sto canal.",
+                    "failed_load": "No se pol cargar el mensàjo.",
+                    "not_loaded": "El mesàjo no ze stà cargà, clica par saltar",
+                    "timed_out": "Te si in timeout par {{time}}."
+                },
+                "nsfw": {
+                    "channel": {
+                        "marked": "Sto canal el ze senjalà come NSFW.",
+                        "confirm": "Intrar ntel Canal"
+                    },
+                    "confirm": "Mi confermo de aver a'ł meno 18 ani de età."
+                },
+                "unknown_user": "<Utensa Sconjosesta>",
+                "edited": "(edità)",
+                "bot": "robó",
+                "notifications": {
+                    "all": "Tuti Mesàji",
+                    "default": "Doparar Predefinìo",
+                    "mention": "Soło Sitasioni",
+                    "none": "Njente",
+                    "muted": "Siłensià"
+                },
+                "bridge": "pónte",
+                "search": {
+                    "title": "Sercar",
+                    "sort": {
+                        "relevance": "Inportansa",
+                        "latest": "Pì Resente",
+                        "oldest": "Pì Antìgo"
+                    }
+                },
+                "errors": {
+                    "nochannel": "Nisun canal",
+                    "nochannels": "Sto servidor no gà mìa canai, o no te ghè aseso par nisun.",
+                    "title": "Oops, no ghe xe njente cuà!"
+                },
+                "bridged": "El mesàjo ze stà invià da nantra piataforma",
+                "reactions": {
+                    "others_reacted": "{{userlist}} e altri {{count}} i gà reazìo",
+                    "unknown_reacted": "{{count}} parsone i gà reazìo",
+                    "single_reacted": "Na parsona gà reazìo",
+                    "people_reacted": "{{people}} i gà reazìo"
+                },
+                "user_timed_out": "'Sta utensa ła ze mudada par {{time}}.",
+                "new_to_revolt": "Novo in Revolt",
+                "new_to_server": "Novo inte 'sto servidor",
+                "team": "Comunicasion Ufisiałe"
+            },
+            "categories": {
+                "conversations": "Conversasion",
+                "participants": "Participanti",
+                "channels": "Canai",
+                "members": "Menbri"
+            },
+            "groups": {
+                "name": "Nome del Grupo",
+                "description": "Descrision del Grupo",
+                "create": "Crear un grupo",
+                "owner": "Paron del Grupo"
+            },
+            "servers": {
+                "channel_description": "Descrision del Canal",
+                "create": "Crear un servidor",
+                "name": "Nome del Servidor",
+                "description": "Descrision del Servidor",
+                "channel_name": "Nome del Canal",
+                "channel_type": "Tipo de Canal",
+                "category_name": "Nome deła Categoria",
+                "text_channel": "Canal de Testo",
+                "voice_channel": "Canal de Vóxe",
+                "custom_banner": "Parsonalisar el Banner",
+                "owner": "Paron del Servidor"
+            }
+        },
+        "settings": {
+            "title": "Inpostasioni",
+            "categories": {
+                "user_settings": "Inpostasioni de Utensa",
+                "client_settings": "Inpostasioni de Cliente",
+                "danger_zone": "Zona Perigołóxa"
+            },
+            "actions": {
+                "upload": "Inviar",
+                "remove": "Remóver",
+                "max_filesize": "(masimo {{filesize}})",
+                "edit": "Editar {{name}}"
+            },
+            "pages": {
+                "account": {
+                    "title": "Me Conta",
+                    "change_field": "Canbiar",
+                    "2fa": {
+                        "remove_auth": "Remóver Autenticador",
+                        "add_auth": "Adisionar Autenticador",
+                        "title": "Autenticasion a Do Fatori",
+                        "description": "Adisiona un łìvel de pì de seguresa se ti abilitar el 2FA sù ła to conta.",
+                        "view_recovery": "Védar Còdisi de Recupero",
+                        "view_recovery_long": "Védar e scarigar to còdisi de recupero 2FA.",
+                        "generate_recovery": "Zenerar Còdisi de Recupero",
+                        "generate_recovery_long": "Inposta un mèdoto de recùpero par doparar el 2FA.",
+                        "two_factor_on": "Ła autenticasion a do fatori ze inpisà.",
+                        "two_factor_off": "No te ghè abiłità ła autenticasion a do fatori!"
+                    },
+                    "manage": {
+                        "title": "Gerensa de Conta",
+                        "description": "Dezativa o remóve ła to conta in qualche momento. Sta asion te usirà e removerà totalmente ła to conta, co i to chat, historèghi e amighi.",
+                        "delete": "Remóver Conta",
+                        "disable": "Dezativar Conta"
+                    },
+                    "unique_id": "Sto xe un identificador de utensa ùnego par to conta."
+                },
+                "profile": {
+                    "title": "Profìło",
+                    "fetching": "Drio catar el to profìło…",
+                    "placeholder": "Scrive qualcosa sora ti…",
+                    "profile_picture": "Imàgine de Profìło",
+                    "info": "Informasion",
+                    "edit_profile": "Editar Profìło",
+                    "edit_background": "Canbiar el Sfóndro",
+                    "custom_background": "Profiło di Sfóndro"
+                },
+                "sessions": {
+                    "logout": "Usir de tute łe sesioni",
+                    "active_sessions": "Sesioni Ative",
+                    "this_device": "Sto Dispozitivo",
+                    "title": "Sesioni",
+                    "created": "Creà in {{time_ago}}"
+                },
+                "appearance": {
+                    "color": {
+                        "dark": "scuro",
+                        "light": "ciaro"
+                    },
+                    "discover": {
+                        "description": "Serca temi fato da ła comunità",
+                        "title": "Scovrir Temi"
+                    },
+                    "theme": "Tema",
+                    "display": {
+                        "compact_description": "Bon e vècio IRC.",
+                        "default": "Default",
+                        "default_description": "Beło, stiłè e moderno.",
+                        "compact": "Compato"
+                    },
+                    "title": "Aparénsa",
+                    "sync": "Opsioni de Sincronizasion",
+                    "theme_options": {
+                        "title": "Opsioni de Tema",
+                        "follow": "Doparar el tema del sistema",
+                        "transparency": "Efeti de Trasparensa",
+                        "transparency_desc": "Abilita efeti de trasparensa nteła app.",
+                        "follow_desc": "Se segnałà, no te podarè mìa canbiar to tema o doparar un tema parsonalisà.",
+                        "seasonal": "Tema Stagional",
+                        "seasonal_desc": "Mostra dei efeti nteła home durante łe feste stagionai."
+                    },
+                    "emoji_pack": "Pachéto d'Emoji",
+                    "import": "Inportar un tema",
+                    "advanced": "Opsioni Avansàe",
+                    "custom_css": "CSS Parsonalisà",
+                    "font": "Fonte",
+                    "appearance_options": {
+                        "show_send_desc": "Se disativà, el boton de Inviar Mesàjo, el parirà sol' ntel mòbile.",
+                        "show_send": "Senpre mostrar el boton de Inviar Mesàjo",
+                        "title": "Opsioni de Aspeto",
+                        "show_account_age": "Mostra senpre l'età de ła conta tacà ai mesàji d'entrada",
+                        "show_account_age_desc": "Se desativada, l'età de ła conta sarà mostrada solo par łe nove utense."
+                    },
+                    "accent_selector": "Cołor de Staco",
+                    "import_theme": "Inportar un tema d'una linea",
+                    "theme_data": "Dadi de Tema",
+                    "message_display": "Display dei Mesàji",
+                    "mono_font": "Seletor de Fonti a Spasiadura Fisa",
+                    "overrides": "Sustitusion del Tema",
+                    "reset_overrides": "Reinposta sustitusion",
+                    "ligatures": "Ligadure de Fonte",
+                    "ligatures_desc": "Par i caràteri suportài, łe łigadure łe conbina i caràteri insenbre, par ezenpio, łe strasforma -> te na fresa."
+                },
+                "audio": {
+                    "input_device": "Micròfono",
+                    "title": "Inpostasioni de Vóxe",
+                    "output_device": "Altoparlante / Headset",
+                    "device_label_NA": "N/A",
+                    "tip_retry": "Ti no te ghè permeso el aceso al micròfono, par piaser {{retryBtn}}.",
+                    "button_grant": "Parmétar",
+                    "tip_grant_permission": "Te bixogna parmétar par asesar łe inpostasioni d'audio.",
+                    "button_retry": "tentar de novo"
+                },
+                "sync": {
+                    "categories": "Sincronisar Categorie",
+                    "title": "Sincronizasion",
+                    "options": "Opsioni de Sincronizasion",
+                    "descriptions": {
+                        "appearance": "'Sto sincronizarà łe opsioni come i pacheti d'emoji e ła densità dei mesàji."
+                    }
+                },
+                "bots": {
+                    "public_bot_tip": "El Bot el xe pùblego. Chisìa połe convidarlo.",
+                    "private_bot_tip": "El Bot el xe privà. Sol' ti te pol convidarlo.",
+                    "title": "I Me Bots",
+                    "token": "Token",
+                    "create_bot": "Crear un Bot",
+                    "copy_invite": "Copiar el Còdise de Convite",
+                    "add": "Adisionar Bot",
+                    "unique_id": "Sto xe un identifegador ùnego pa'l to bot. Sto no xe mìa el token del bot.",
+                    "profile": "Profìło del Bot",
+                    "public_bot": "Bot Pùblego"
+                },
+                "feedback": {
+                    "title": "Opinion",
+                    "description": "Inviar opinion"
+                },
+                "native": {
+                    "title": "Inpostasioni de Desktop"
+                },
+                "source_code": "Còdise Sorgente",
+                "notifications": {
+                    "push_notifications": "Notìfeghe Push",
+                    "enable_desktop": "Ativar Notìfeghe ntel Desktop.",
+                    "sounds": "Soni",
+                    "descriptions": {
+                        "enable_desktop": "Sto te notìfegarà mentre ła app ła xe avèrta.",
+                        "enable_push": "Recever notìfeghe co te stessi offline."
+                    },
+                    "title": "Notìfeghe",
+                    "enable_push": "Ativar Notìfighe Push.",
+                    "sound": {
+                        "outbound": "Mesàjo Invià",
+                        "message": "Mesàjo Recevùo",
+                        "call_join": "Utensa se gà Zontada ała Ciamada",
+                        "call_leave": "Utensa gà Ussìa deła Ciamada"
+                    }
+                },
+                "language": {
+                    "select": "Scièlde ła to łéngua",
+                    "const": "Łéngue costruiste",
+                    "title": "Łéngua",
+                    "other": "Altre opsioni de łéngue"
+                },
+                "theme_shop": {
+                    "search": "Sercar temi…",
+                    "category": {
+                        "new": "Novi de sta setimana",
+                        "manage": "Aministrar salvài",
+                        "highest": "Pì vałuà",
+                        "viewall": "Védar tuto",
+                        "saved": "Salvà",
+                        "default": "Temi Default"
+                    },
+                    "use": "Doparar tema",
+                    "active": "Adeso ativo",
+                    "by": "da",
+                    "title": "Magazino de Temi"
+                },
+                "donate": {
+                    "title": "Donar"
+                },
+                "logOut": "Usir",
+                "plugins": {
+                    "title": "Plugins",
+                    "no_plugins": "Nesun plugin xe instalà adeso.",
+                    "delete_plugin": "Remóver"
+                }
+            }
+        },
+        "special": {
+            "popovers": {
+                "user_profile": {
+                    "badges": {
+                        "early_adopter": "Utensa Antìga",
+                        "founder": "Fondador",
+                        "translator": "Tradutor",
+                        "moderation": "Moderasion deła Piataforma"
+                    },
+                    "sub": {
+                        "badges": "Insénje"
+                    }
+                },
+                "server_identity": {
+                    "nickname": "Soranome"
+                }
+            },
+            "server-badges": {
+                "official": "Servidor Ofisiàl"
+            }
+        }
+    },
+    "general": {
+        "tos": "Tèrmini de Servìsio",
+        "image_by": "Imàgine de",
+        "loading": "Drio cargar…",
+        "on": "Ativà",
+        "off": "Desativà",
+        "disabled": "Desabiłità",
+        "unavailable": "Indisponìbiłe",
+        "about": "Sora",
+        "privacy": "Połìtega de Reservadesa",
+        "learn_more": "Pì informasion"
+    },
+    "login": {
+        "title": "Asede",
+        "welcome": "Benvenjùo(a)!",
+        "welcome2": "Ciao!",
+        "subtitle2": "Crea na conta",
+        "register": "Registrate",
+        "username": "Nome utensa",
+        "email": "E-mail",
+        "subtitle": "Asedi a Revolt",
+        "invite": "Còdise de convite",
+        "current_password": "Ciave atual",
+        "enter": {
+            "username": "Inseri el to nome utensa.",
+            "password": "Inseri ła to ciave.",
+            "invite": "Inseri el to còdise de convite.",
+            "email": "Inseri el to email.",
+            "current_password": "Inseri ła to ciave atual.",
+            "new_password": "Inseri na nova ciave."
+        },
+        "forgot": "Gheto smentegà ła to ciave?",
+        "new": "Novo in Revolt?",
+        "set_password": "Determinar na nova ciave",
+        "remembered": "Tornar al login",
+        "missing_verification": "No gheto recevisto mia un e-mail?",
+        "resend": "Rinviar ła verifegasion",
+        "cancel": "Cansełar ła solisitasion",
+        "check_mail": "Verifica el to mail!",
+        "check_spam": "Par piazer verifica el spam se no trovarlo mia",
+        "open_mail_provider": "Vèrdar {{provider}}",
+        "successful_registration": "Registrà con suceso!",
+        "error": {
+            "create": "Registrasion fałista!",
+            "reset": "Reset fałisto!",
+            "resend": "Rinvio fałisto!",
+            "login": "Aseso fałisto!",
+            "verify": "Verifegasion fałista!"
+        },
+        "password": "Ciave",
+        "reset": "Resetar ła ciave",
+        "existing": "Gheto na conta?",
+        "create": "Crear na nova conta",
+        "email_delay": "Te speti fin a 10 menuti par l'arivo del e-mail.",
+        "unofficial_instance": "Instànsa de terse parti.",
+        "recovery": "Còdise de Recupero",
+        "totp": "Aplicasion d'Autenticasion",
+        "new_password": "Nova Ciave",
+        "log_out_other": "Usìr de tute łe sesioni",
+        "verified_continue": "Ndar al login",
+        "verifying_account": "Drio verifegar to conta…",
+        "verified_account": "Ła to conta ła ze stada verifegada!"
+    },
+    "permissions": {
+        "InviteOthers": {
+            "t": "Invidar Altre Parsone",
+            "d": "Parmete che i menbri i invide altre utense a un canal."
+        },
+        "SendMessage": {
+            "t": "Inviar Mesàji",
+            "d": "Parmete che i menbri mande mesàji nte canai de testi."
+        },
+        "ReadMessageHistory": {
+            "d": "Parmete che i menbri i léxa l'istòrego de mesàji de sto canal.",
+            "t": "Léxar Istòrego de Mesàji"
+        },
+        "ManageMessages": {
+            "d": "Parmete che i menbri i remova mesàji inviài da altri menbri.",
+            "t": "Aministrar Mesàji"
+        },
+        "MoveMembers": {
+            "d": "Parmete che i menbri i mova altri tra i canai de vóxe.",
+            "t": "Mover Menbri"
+        },
+        "ManageRole": {
+            "t": "Aministrar Roli",
+            "d": "Parmete che i menbri i cree, edite e remova roli pì bassa dełe sue. Anca parmete che i modìfeghe i parmési de role su canai."
+        },
+        "ManageChannel": {
+            "d": "Parmete che i menbri i edite o remova un canal.",
+            "t": "Aministrar Canai"
+        },
+        "ManageWebhooks": {
+            "d": "Parmete che i menbri i aministre webhooks nte un canal.",
+            "t": "Aministrar Webhooks"
+        },
+        "Connect": {
+            "t": "Conetar",
+            "d": "Parmete che i menbri i se cuna a canai de vóxe."
+        },
+        "Speak": {
+            "d": "Parmete che i menbri i parle nte un canal de vóxe.",
+            "t": "Parlar"
+        },
+        "DeafenMembers": {
+            "t": "Sordir Menbri",
+            "d": "Parmete che i menbri i sorda altri nte un canal de vóxe."
+        },
+        "BanMembers": {
+            "d": "Parmete che i menbri i remova parmanentemente altri menbri de sto servidor.",
+            "t": "Banir Menbri"
+        },
+        "MuteMembers": {
+            "t": "Siłensiar Menbri",
+            "d": "Parmete che i menbri i siłensie altri nte un canal de vóxe."
+        },
+        "Video": {
+            "d": "Parmete che i menbri i trasmita vìdeo nte un canal de vóxe.",
+            "t": "Vìdeo"
+        },
+        "SendEmbeds": {
+            "t": "Inviar Enbeds",
+            "d": "Parmete che i menbri i invie contenùo embedà, tanto da links quanto da embeds de testo parsonałisà."
+        },
+        "Masquerade": {
+            "d": "Parmete che i menbri i canbie so nomi e avatari par-mesàjo.",
+            "t": "Mascarà"
+        },
+        "ChangeNickname": {
+            "t": "Canbiar Soranome",
+            "d": "Parmete che i menbri i cambie so soranomi su questo servidor."
+        },
+        "ManageNicknames": {
+            "t": "Aministrar Soranomi",
+            "d": "Parmete che i menbri i cambie i soranomi de altri menbri."
+        },
+        "ChangeAvatar": {
+            "d": "Parmete che i menbri i cambie so avatari su questo servidor.",
+            "t": "Canbiar Avatar"
+        },
+        "RemoveAvatars": {
+            "d": "Parmete che i menbri i remova i avatari de servidor de altri menbri su questo servidor.",
+            "t": "Remover Avatari"
+        },
+        "ViewChannel": {
+            "t": "Védar Canal",
+            "d": "Parmete che i menbri i véda tuti i canai su ai quai i gàbia sta permision."
+        },
+        "ManagePermissions": {
+            "t": "Aministrar Permisioni",
+            "d": "Parmete che i menbri i cambie i parmési dei canai e dełe roli pì bassi deła sua."
+        },
+        "KickMembers": {
+            "t": "Spulsar Menbri",
+            "d": "Parmete che i menbri i remova menbri de sto servidor. Menbri spulsài i połe retornar co un invìdo."
+        },
+        "UploadFiles": {
+            "t": "Inviar Archivi",
+            "d": "Parmete che i menbri i invie archivi nte canai de testo."
+        }
+    },
+    "actions": {
+        "submit": "Sotométer"
+    }
+}

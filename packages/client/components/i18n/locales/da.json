@@ -1,0 +1,996 @@
+{
+    "login": {
+        "enter": {
+            "username": "Indtast dit brugernavn.",
+            "current_password": "Indtast din nuværende adgangskode.",
+            "invite": "Indtast din invitationskode.",
+            "password": "Indtast din adgangskode.",
+            "email": "Indtast venligst din email.",
+            "new_password": "Indtast en ny adgangskode."
+        },
+        "resend": "Gensend verifikation",
+        "error": {
+            "resend": "Gensendelsen mislykkedes!",
+            "reset": "Nulstillingen mislykkedes!",
+            "login": "Login mislykkedes!",
+            "create": "Registreringen mislykkedes!",
+            "verify": "Bekræftelse Mislykkedes!"
+        },
+        "successful_registration": "Registrering succesfuld!",
+        "check_spam": "Venligst tjek spam hvis du ikke kan finde den",
+        "email_delay": "Venlist vent op til 10 minutter for den til at ankomme.",
+        "check_mail": "Tjek din mail!",
+        "cancel": "Annullér anmodning",
+        "missing_verification": "Har du ikke modtaget en mail?",
+        "create": "Opret en ny bruger",
+        "set_password": "Opret en ny adgangskode",
+        "existing": "Har du allerede en bruger?",
+        "new": "Ny hos Revolt?",
+        "remembered": "Gå tilbage til login",
+        "reset": "Nulstil adgangskode",
+        "forgot": "Glemt din adgangskode?",
+        "current_password": "Nuværende Adgangskode",
+        "invite": "Invitationskode",
+        "password": "Adgangskode",
+        "email": "Email",
+        "username": "Brugernavn",
+        "register": "Registrer",
+        "title": "Log ind",
+        "open_mail_provider": "Åbn {{provider}}",
+        "welcome2": "Hej!",
+        "subtitle2": "Opret bruger",
+        "welcome": "Velkommen!",
+        "subtitle": "Log ind på Revolt",
+        "unofficial_instance": "Tredjeparts tjeneste.",
+        "totp": "Authenticator App",
+        "recovery": "Gendannelseskode",
+        "verifying_account": "Bekræfter din bruger…",
+        "verified_account": "Din bruger er bekræftet!",
+        "verified_continue": "Fortsæt til login",
+        "new_password": "Ny Adgangskode",
+        "log_out_other": "Log ud af alle andre sessioner"
+    },
+    "app": {
+        "main": {
+            "channel": {
+                "edited": "(redigeret)",
+                "unknown_user": "<Ukendt Bruger>",
+                "nsfw": {
+                    "confirm": "Jeg bekræfter, at jeg mindst er 18 år gammel.",
+                    "channel": {
+                        "confirm": "Gå ind i kanal",
+                        "marked": "Denne kanal er markeret som NSFW."
+                    }
+                },
+                "misc": {
+                    "sent_multiple_files": "Sendte flere vedhæftelser",
+                    "sent_file": "Sendte en vedhæftelse",
+                    "blocked_user": "Blokeret Bruger",
+                    "blocked_messages": "{{count}} blokeret beskeder",
+                    "no_sending": "Du har ikke tilladelse til at sende beskeder i denne kanal.",
+                    "failed_load": "Kunne ikke indlæse beskeden.",
+                    "spoiler_attachment": "Spoiler",
+                    "jump_present": "Hop til nuværende",
+                    "viewing_old": "Ser på ældrere beskeder",
+                    "jump_beginning": "Hop til begyndelsen",
+                    "new_messages": "Nye beskeder siden {{time_ago}}",
+                    "load_file": "Indlæs fil",
+                    "timed_out": "Du har fået timeout i {{time}}.",
+                    "not_loaded": "Beskeden er ikke indlæst, klik for at hoppe"
+                },
+                "voice": {
+                    "unmute": "Ophæv stumhed",
+                    "mute": "Gør stum",
+                    "leave": "Forlad",
+                    "connected": "Stemme tilsluttet"
+                },
+                "start": {
+                    "group": "Dette er starten af jeres samtale.",
+                    "saved": "Dette er starten på dine noter."
+                },
+                "system": {
+                    "channel_icon_changed": "{{user}} skiftede kanalikonet",
+                    "channel_description_changed": "{{user}} skiftede kanalbeskrivelsen",
+                    "channel_renamed": "{{user}} omdøbte kanalen til {{name}}",
+                    "removed_by": "{{user}} blev fjernet af {{other_user}}",
+                    "added_by": "{{user}} blev tilføjet af {{other_user}}",
+                    "user_banned": "{{user}} blev bandlyst",
+                    "user_kicked": "{{user}} blev smidt ud",
+                    "user_left": "{{user}} forlod",
+                    "user_joined": "{{user}} Tilsluttede sig",
+                    "registered_at": "Registreret {{time}}",
+                    "channel_ownership_changed": "{{from}} gav {{to}} gruppe ejerskab"
+                },
+                "typing": {
+                    "several": "Adskillige personer skriver…",
+                    "multiple": "{{userlist}} og {{user}} skriver…",
+                    "single": "{{user}} skriver…"
+                },
+                "attached_file": "Vedhæftet {{filename}}",
+                "failed_upload": "Uploaden mislykkedes!",
+                "uploading_file": "Uploader…",
+                "message_saved": "Gem i dine noter",
+                "message_who": "Besked {{person}}",
+                "message_where": "Besked {{channel_name}}",
+                "bot": "bot",
+                "notifications": {
+                    "default": "Brug Standard",
+                    "all": "Alle Beskeder",
+                    "mention": "Kun Omtaler",
+                    "none": "Ingen",
+                    "muted": "Slået fra"
+                },
+                "search": {
+                    "title": "Søg",
+                    "sort": {
+                        "relevance": "Relevans",
+                        "latest": "Seneste",
+                        "oldest": "Ældste"
+                    }
+                },
+                "errors": {
+                    "title": "Ups, her er intet!",
+                    "nochannels": "Denne server har ingen kanaler, eller du har ikke adgang til nogen.",
+                    "nochannel": "Ingen kanal"
+                },
+                "reply": {
+                    "replying": "Svarer på",
+                    "toggle": "Skift forfatter ping"
+                },
+                "bridge": "bro",
+                "user_timed_out": "Brugeren har timeout i {{time}}.",
+                "bridged": "Beskeden var sent på en anden platform",
+                "team": "Officiel kommunikation",
+                "reactions": {
+                    "single_reacted": "1 person har reageret",
+                    "people_reacted": "{{people}} har reageret",
+                    "others_reacted": "{{userlist}} og {{count}} andre har reageret",
+                    "unknown_reacted": "{{count}} personer har reageret"
+                },
+                "new_to_server": "Ny på denne server",
+                "new_to_revolt": "Ny til Revolt"
+            },
+            "categories": {
+                "members": "Medlemmer",
+                "channels": "Kanaler",
+                "participants": "Deltagere",
+                "conversations": "Samtaler"
+            },
+            "groups": {
+                "create": "Opret en gruppe",
+                "name": "Gruppenavn",
+                "description": "Gruppebeskrivelse",
+                "owner": "Gruppeejer"
+            },
+            "servers": {
+                "create": "Opret en server",
+                "text_channel": "Tekstkanal",
+                "voice_channel": "Stemmekanal",
+                "name": "Servernavn",
+                "description": "Serverbeskrivelse",
+                "channel_name": "Kanalnavn",
+                "channel_type": "Kanaltype",
+                "channel_description": "Kanalbeskrivelse",
+                "custom_banner": "Brugerdefineret banner",
+                "owner": "Serverejer",
+                "category_name": "Kategorinavn"
+            }
+        },
+        "navigation": {
+            "tabs": {
+                "saved": "Gemte Noter",
+                "unreads": "Ulæste",
+                "friends": "Venner",
+                "dev": "Udvikler",
+                "home": "Hjem"
+            }
+        },
+        "status": {
+            "offline": "Offline",
+            "invisible": "Usynlig",
+            "busy": "Vil Ikke Forstyrres",
+            "idle": "Ikke til stede",
+            "online": "Online",
+            "reconnect": "Tilslut",
+            "focus": "Fokus"
+        },
+        "special": {
+            "modals": {
+                "prompt": {
+                    "create_invite_generate": "Genererer invitation…",
+                    "confirm_ban": "Du er ved at udelukke {{name}}",
+                    "confirm_delete_long": "Når først den er slettet, er der ingen vej tilbage.",
+                    "confirm_delete_message_long": "Er du sikker på at du vil slette dette?",
+                    "confirm_kick": "Er du sikker på at du vil sparke {{name}}?",
+                    "unfriend_user_long": "Du kan muligvis ikke tale med dem igen før du tilføjer dem igen.",
+                    "confirm_leave": "Vil du forlade {{name}}?",
+                    "confirm_close_dm": "Vil du lukke samtalen med {{name}}?",
+                    "confirm_ban_reason": "Grund til bandlysning",
+                    "confirm_leave_long": "Du vil ikke være i stand til at deltage igen, medmindre du bliver inviteret igen.",
+                    "confirm_close_dm_long": "Du kan åbne den igen senere, men den forsvinder på begge sider.",
+                    "confirm_delete": "Vil du slette {{name}}?",
+                    "create_invite_created": "Her er din nye invitationskode:",
+                    "block_user_long": "Er du sikker på at du vil blokere {{name}}? De vil også blive fjernet fra din venneliste.",
+                    "unfriend_user": "Vil du fjerne {{name}} som ven?",
+                    "block_user": "Vil du blokere {{name}}?",
+                    "members_not_notified": "Andre medlemmer vil ikke blive underrettet",
+                    "silent_leave": "Forlad opkaldet stille"
+                },
+                "external_links": {
+                    "trust_domain": "Stol på dette domæne",
+                    "title": "Eksterne links kan være farlige!",
+                    "short": "Er du sikker på at du vil gå til:"
+                },
+                "actions": {
+                    "save": "Gemme",
+                    "hide": "Skjul",
+                    "delete": "Slet",
+                    "reload": "Genindlæs app",
+                    "continue": "Blive ved",
+                    "kick": "Sparke",
+                    "leave": "Forlade",
+                    "remove": "Fjerne",
+                    "create": "Skab",
+                    "preview": "Forhåndsvisning",
+                    "ok": "Okay",
+                    "ban": "Ban",
+                    "edit": "Redigere",
+                    "block": "Blok",
+                    "reveal": "Løfte sløret",
+                    "cancel": "Annuller",
+                    "send_email": "Send e-mail",
+                    "back": "Gå tilbage",
+                    "close": "Luk",
+                    "update": "Opdatering",
+                    "report": "Anmeld",
+                    "done": "Færdig",
+                    "reset": "Nulstil",
+                    "confirm": "Bekræft",
+                    "dont_block": "Lad vær med at blokere"
+                },
+                "error": "En fejl opstod!",
+                "signed_out": "Du blev logget ud!",
+                "onboarding": {
+                    "pick": "Vælg et brugernavn, som du ønsker, at folk skal kunne finde dig ved, dette kan ændres senere i indstillingerne.",
+                    "welcome": "Velkommen til"
+                },
+                "account": {
+                    "change": {
+                        "email": "Skift din e-mail",
+                        "username": "Skift dit brugernavn",
+                        "password": "Skift dit kodeord"
+                    },
+                    "failed": "Kunne ikke ændres!"
+                },
+                "clipboard": {
+                    "unavailable": "Udklipsholder er ikke tilgængelig!",
+                    "https": "Du er i øjeblikket ikke i en HTTPS kontekst.",
+                    "copy": "Manuel Kopi:"
+                },
+                "token_reveal": "{{name}}'s Polet",
+                "sessions": {
+                    "accept": "Fjern alle sessioner",
+                    "title": "Er du sikker at du vil slette dine sessioner?",
+                    "short": "Du kan ikke fortryde denne handling."
+                },
+                "mfa": {
+                    "confirm": "Bekræft venligst ved hjælp af den/de valgte metode(r).",
+                    "prompt_totp": "Scan QR-koden, eller brug nedenstående token i din godkendelsesapp.",
+                    "save_codes": "Gem dem venligst på et sikkert sted.",
+                    "select_method": "Vælg venligst en metode til at godkende din anmodning.",
+                    "enable_totp": "Aktiver authenticator-appen",
+                    "recovery_codes": "Dine inddrivelseskoder",
+                    "enter_code": "Indtast kode"
+                },
+                "changelogs": {
+                    "description": "Læs om opdateringerne af Revolt.",
+                    "title": "Ændringslogger",
+                    "older": "Se ældre opdateringer"
+                },
+                "confirm": "Bekræft handling",
+                "out_of_date": {
+                    "title": "Din klient er forældet!",
+                    "description": "Den skal opdateres for at kunne fungere med de seneste ændringer.",
+                    "version": "Din klient er på {{client}}, mens serveren kræver {{server}}.",
+                    "ignore": "Ignorer opdatering",
+                    "attempting": "Forsøger at opdatere…"
+                },
+                "report": {
+                    "thank_you": "Tak for at hjælpe med af holde Revolt sikker. Vi vil hurtigst mulige kigge på din rapport.",
+                    "block_user": "Vil du gerne blokere denne bruger?",
+                    "content_reason": {
+                        "PromotesHarm": "Indholdet promovere skade til andre eller en selv",
+                        "SpamAbuse": "Dette er spam eller platform misbrug",
+                        "Malware": "Dette er malware",
+                        "Harassment": "Dette er chikane eller misbrug rettet mod en anden bruger",
+                        "Illegal": "Indholdet bryder en eller flere lov"
+                    },
+                    "reported": "Rapporteret",
+                    "user_reason": {
+                        "Impersonation": "Denne bruger udgiver sig for at være en anden person",
+                        "SpamAbuse": "Brugeren sender spam eller misbruger platformen på en anden måde",
+                        "Underage": "Denne bruger er ikke gammel nok til af have en konto",
+                        "InappropriateProfile": "Brugerens profil er upassende for andre brugere af platformen",
+                        "BanEvasion": "Denne bruger undgår en udelukkelse"
+                    },
+                    "reason": "Grundlag",
+                    "message": "Reporter beskeden",
+                    "additional_context": "Yderligere Information",
+                    "no_reason": "Ingen grund angivet / anden årsag",
+                    "by_name": "Anmeld {{name}}"
+                }
+            },
+            "popovers": {
+                "user_profile": {
+                    "mutual_friends": "Fælles Venner",
+                    "mutual_groups": "Gensidige Grupper",
+                    "profile": "Profil",
+                    "badges": {
+                        "founder": "Grundlægger",
+                        "translator": "Oversætter",
+                        "early_adopter": "Tidlig adoptant",
+                        "supporter": "Supporter",
+                        "moderation": "Platform moderation",
+                        "responsible_disclosure": "Ansvarligt afslørede sikkerhedsfejl"
+                    },
+                    "empty": "Her er lidt tomt…",
+                    "no_users": "Ingen fælles venner",
+                    "no_groups": "Ingen gensidige grupper",
+                    "no_servers": "Ingen gensidige servere",
+                    "sub": {
+                        "badges": "Badges",
+                        "information": "Information",
+                        "connections": "Forbindelser"
+                    },
+                    "mutual_servers": "Gensidige Servere"
+                },
+                "server_identity": {
+                    "title": "Skift identitet på {{server}}",
+                    "avatar": "Avatar",
+                    "nickname": "Kaldenavn"
+                },
+                "user_picker": {
+                    "select": "Vælg venner at tilføje."
+                },
+                "create_bot": {
+                    "title": "Opret en ny bot",
+                    "failed": "Kunne ikke oprette en bot!"
+                }
+            },
+            "friends": {
+                "blocked": "Blokeret",
+                "incoming": "Indgående venneanmodning.",
+                "outgoing": "Udgående venneanmodning.",
+                "from": {
+                    "single": "Fra {{user}}",
+                    "multiple": "Fra {{userlist}} og {{user}}",
+                    "several": "Fra {{userlist}} og {{count}} mere…"
+                },
+                "pending": "Afventende anmodninger",
+                "sent": "Udgående",
+                "nobody": "Ingen her endnu!"
+            },
+            "requires_online": "Du skal være online for at se dette.",
+            "invite": {
+                "invited_by": "Inviteret af {{user}}",
+                "login": "Log ind på Revolt",
+                "accept": "Accepter Invitation",
+                "user_count": "{{member_count}} brugere",
+                "invalid": "Ugyldig invitation!",
+                "invalid_desc": "Invitationen findes muligvis ikke eller du har ikke tilladelse til at deltage."
+            },
+            "status": {
+                "offline": "Offline.",
+                "disconnected": "Afbrudt.",
+                "connecting": "Tilslutning…",
+                "reconnecting": "Genopretter forbindelse…"
+            },
+            "server-badges": {
+                "official": "Officiel Server",
+                "verified": "Verificeret Server"
+            },
+            "copy_username": "Klik for at kopiere brugernavn",
+            "copy": "Klik for at kopiere"
+        },
+        "settings": {
+            "actions": {
+                "remove": "Fjern",
+                "upload": "Upload",
+                "max_filesize": "(maks {{filesize}})",
+                "edit": "Rediger {{name}}"
+            },
+            "pages": {
+                "account": {
+                    "change_field": "Ændr",
+                    "unique_id": "Dette er et unikt bruger-id til din konto.",
+                    "2fa": {
+                        "title": "To-faktor-godkendelse",
+                        "description": "Tilføj et ekstra lag sikkerhed ved at aktivere 2FA på din konto.",
+                        "add_auth": "Tilføj Authenticator",
+                        "remove_auth": "Fjern Authenticator",
+                        "view_recovery_long": "Vis og download dine 2FA genoprettelses koder.",
+                        "generate_recovery": "Generer Genoprettelses Koder",
+                        "two_factor_on": "To-faktor authentication er slået til.",
+                        "generate_recovery_long": "Bliv klar til at bruge 2FA ved at opsætte en genoprettelses metode.",
+                        "two_factor_off": "Du har ikke slået to-faktor authentication til!",
+                        "view_recovery": "Vis Genoprettelses Koder"
+                    },
+                    "manage": {
+                        "description": "Deaktiver eller fjern din konto når som helst. Denne handling vil logge dig ud og slette din konto fuldstændigt, herunder din chathistorik og venner.",
+                        "delete": "Marker konto til Sletning",
+                        "title": "Kontostyring",
+                        "disable": "Deaktiver Konto"
+                    },
+                    "title": "Min Konto"
+                },
+                "profile": {
+                    "edit_background": "Rediger Baggrund",
+                    "profile_picture": "Profilbillede",
+                    "edit_profile": "Rediger Profil",
+                    "title": "Profil",
+                    "info": "Information",
+                    "fetching": "Henter din profil…",
+                    "placeholder": "Skriv noget om dig selv…",
+                    "custom_background": "Brugerdefineret Baggrund"
+                },
+                "audio": {
+                    "tip_retry": "Du gav ikke tilladelse til at få adgang til din mikrofon, {{retryBtn}}.",
+                    "device_label_NA": "N/A",
+                    "button_retry": "prøv igen",
+                    "title": "Stemmeindstillinger",
+                    "input_device": "Mikrofon",
+                    "output_device": "Højtaler / Headset",
+                    "tip_grant_permission": "Du skal give tilladelse til at få adgang til lydindstillinger.",
+                    "button_grant": "Giv tilladelse"
+                },
+                "sessions": {
+                    "title": "Sessioner",
+                    "active_sessions": "Aktive Sessioner",
+                    "this_device": "Denne Enhed",
+                    "created": "Oprettet {{time_ago}}",
+                    "logout": "Log ud af alle andre sessioner"
+                },
+                "appearance": {
+                    "title": "Udseende",
+                    "theme": "Tema",
+                    "display": {
+                        "default": "Standard",
+                        "compact": "Kompakt",
+                        "default_description": "Smuk, glinsende og moderne.",
+                        "compact_description": "Gode gamle IRC."
+                    },
+                    "font": "Skrifttype",
+                    "import": "Importer et tema",
+                    "sync": "Synkroniseringsmuligheder",
+                    "mono_font": "Monospace-skrifttypevælger",
+                    "color": {
+                        "light": "lys",
+                        "dark": "mørk"
+                    },
+                    "accent_selector": "Accent farve",
+                    "emoji_pack": "Emojipakke",
+                    "message_display": "Beskedvisning",
+                    "advanced": "Avancerede Indstillinger",
+                    "import_theme": "Importer tema fra streng",
+                    "theme_data": "Temadata",
+                    "custom_css": "Brugerdefineret CSS",
+                    "ligatures": "Skrifttypeligaturer",
+                    "overrides": "Tematilsidesættelser",
+                    "ligatures_desc": "For understøttede skrifttyper, kombinerer ligaturer tegn sammen - for eksempel, omdanne -> til en pil.",
+                    "reset_overrides": "Nulstil tilsidesættelser",
+                    "theme_options": {
+                        "follow_desc": "Når tjekket, vil du ikke være i stand til at ændre dine temaer eller bruge et tilpasset tema.",
+                        "title": "Tema Indstillinger",
+                        "follow": "Brug system tema",
+                        "seasonal": "Sæsonbestemt Tema",
+                        "transparency": "Gennemsigtige Effekter",
+                        "transparency_desc": "Slår gennemsigtig effekter til gennem hele appen.",
+                        "seasonal_desc": "Viser effekter i hjem fanebladet i løbet af feriesæsoner."
+                    },
+                    "discover": {
+                        "title": "Udforsk Temaer",
+                        "description": "Udforsk temaer lavet af fælleskabet"
+                    },
+                    "appearance_options": {
+                        "title": "Indstillinger for udseende",
+                        "show_send": "Altid vis send besked knappen",
+                        "show_send_desc": "Hvis den er deaktiveret, vises knappen Send besked kun på mobilen.",
+                        "show_account_age": "Vis altid kontoalderen ud for at deltage i beskeder",
+                        "show_account_age_desc": "Hvis den er deaktiveret, vises kontoens alder kun for nye brugere."
+                    },
+                    "colours": {
+                        "title": "Farver"
+                    },
+                    "emoji": {
+                        "title": "Emoji"
+                    },
+                    "fonts": {
+                        "title": "Skrifttyper"
+                    },
+                    "advanced_options": {
+                        "title": "Avancerede indstillinger"
+                    }
+                },
+                "feedback": {
+                    "title": "Feedback",
+                    "bug": "Bug Tracker",
+                    "suggest": "Indsend forslag til funktioner",
+                    "suggest_desc": "Foreslå nye Revolt funktioner på GitHub-diskussioner.",
+                    "issue": "Opret et nyt problem",
+                    "issue_desc": "For at hjælpe os med lettere at løse problemer, kan du oprette et problem på GitHub.",
+                    "bug_desc": "Se aktuelt aktive fejlrapporter her.",
+                    "description": "Indsend feedback"
+                },
+                "notifications": {
+                    "sound": {
+                        "call_join": "Bruger tilsluttet opkald",
+                        "message": "Besked Modtaget",
+                        "call_leave": "Bruger forlod opkald",
+                        "outbound": "Besked Sendt"
+                    },
+                    "push_notifications": "Push Notifikationer",
+                    "enable_push": "Aktiver push-meddelelser",
+                    "descriptions": {
+                        "enable_push": "Aktiver for at modtage notifikationer, når du er offline.",
+                        "enable_desktop": "Dette vil give dig notifikationer, mens din app er åben."
+                    },
+                    "title": "Notifikationer",
+                    "enable_desktop": "Aktiver skrivebordsmeddelelser",
+                    "sounds": "Lyde"
+                },
+                "language": {
+                    "title": "Sprog",
+                    "other": "Andre sprogmuligheder",
+                    "select": "Vælg dit sprog",
+                    "const": "Konstruerede sprog"
+                },
+                "sync": {
+                    "descriptions": {
+                        "appearance": "Dette vil synkronisere muligheder såsom emoji-pakker og beskedtæthed.",
+                        "theme": "Dette vil synkronisere dit valgte tema, farver og enhver tilpasset CSS.",
+                        "locale": "Dette vil synkronisere dit aktuelt valgte sprog."
+                    },
+                    "title": "Synkronisere",
+                    "categories": "Synkroniser kategorier",
+                    "options": "Synkroniserings indstillinger"
+                },
+                "bots": {
+                    "create_bot": "Opret en bot",
+                    "public_bot": "Offentlig Bot",
+                    "reserved": "Bemærk: Dette felt er reserveret til fremtiden.",
+                    "copy_invite": "Kopiér invitationslinket",
+                    "unique_id": "Dette er en unik identifikator for din bot. Dette er ikke bottens token.",
+                    "public_bot_tip": "Bot er offentlig. Alle kan invitere den.",
+                    "private_bot_tip": "Bot er privat. Kun du kan invitere den.",
+                    "public_bot_desc": "Om andre brugere skal invitere denne bot.",
+                    "interactions_url": "Interaktions-URL",
+                    "token": "Polet",
+                    "title": "Mine bots",
+                    "add": "Tilføj Bot",
+                    "profile": "Robot profil"
+                },
+                "theme_shop": {
+                    "title": "Temabutik",
+                    "category": {
+                        "manage": "Administrere gemt",
+                        "new": "Nyt denne uge",
+                        "highest": "Højest bedømt",
+                        "viewall": "Se alle",
+                        "default": "Standard temaer",
+                        "saved": "Gemt"
+                    },
+                    "active": "I øjeblikket aktiv",
+                    "search": "Søg efter temaer…",
+                    "description": "Udforsk hundredvis af temaer, skabt og kurateret af fællesskabet.",
+                    "use": "Brug tema",
+                    "by": "af"
+                },
+                "logOut": "Log ud",
+                "experiments": {
+                    "not_available": "Ingen eksperimenter er tilgængelige på nuværende tidspunkt.",
+                    "title": "Eksperimenter",
+                    "features": "Tilgængelige funktioner"
+                },
+                "donate": {
+                    "title": "Donér"
+                },
+                "source_code": "Kildekode",
+                "native": {
+                    "title": "Skrivebordsindstillinger"
+                },
+                "plugins": {
+                    "wip": "Advarsel: Denne funktion er stadig under udvikling.",
+                    "delete_plugin": "Slet",
+                    "no_plugins": "Ingen tilføjelser er i øjeblikket installeret.",
+                    "title": "Tilføjelser"
+                }
+            },
+            "title": "Indstillinger",
+            "categories": {
+                "user_settings": "Brugerindstillinger",
+                "client_settings": "Klientindstillinger",
+                "danger_zone": "Fare Zone"
+            },
+            "server_pages": {
+                "bans": {
+                    "title": "Udlukninger",
+                    "reason": "Grund Forbyde",
+                    "user": "Bruger",
+                    "revoke": "Tilbagekald",
+                    "no_reason": "Ingen grund forbud."
+                },
+                "invites": {
+                    "revoke": "Tilbagekald",
+                    "title": "Invitationer",
+                    "code": "Invitations Kode",
+                    "invitor": "Invitere",
+                    "channel": "Kanal"
+                },
+                "members": {
+                    "title": "Medlemmer"
+                },
+                "overview": {
+                    "system_messages": "System Besked Kanaler",
+                    "title": "Oversigt",
+                    "name": "Server Navn",
+                    "description": "Kanal Beskrivelse"
+                },
+                "roles": {
+                    "title": "Roller"
+                },
+                "categories": {
+                    "title": "Kategorier"
+                },
+                "management": {
+                    "title": "Bruger Administration"
+                },
+                "emojis": {
+                    "title": "Emojis",
+                    "upload": "Upload en Emoji"
+                },
+                "customisation": {
+                    "title": "Tilpasning"
+                }
+            },
+            "permissions": {
+                "create_role": "Opret en ny rolle",
+                "channel": "Kanal Rettigheder",
+                "server": "Server Rettigheder",
+                "default_role": "Standard",
+                "role_name": "Rollenavn",
+                "role_colour": "Rolle Farve",
+                "delete_role": "Slet Rolle",
+                "role_ranking": "Rolle Rangordning",
+                "role_options": "Rolle Indstillinger",
+                "hoist_role": "Hejseværk Rolle",
+                "hoist_desc": "Vis denne rolle over de andre.",
+                "title": "Tilladelser for {{role}}",
+                "edit_title": "Rediger Tilladelser"
+            },
+            "tips": {
+                "account": {
+                    "a": "Vil du tilpasse din offentlige profil?",
+                    "b": "Gå over til dine profilindstillinger."
+                },
+                "sessions": {
+                    "b": "sikre din konto ved at ændre din adgangskode og bruge 2FA.",
+                    "a": "Hvis du ser en ukendt session på listen,"
+                },
+                "languages": {
+                    "a": "Mangler du et sprog du ønsker?",
+                    "b": "Hjælp med at bidrage med flere oversættelser."
+                }
+            },
+            "channel_pages": {
+                "overview": {
+                    "title": "Oversigt",
+                    "name": "Kanal Navn",
+                    "description": "Kanal Beskrivelse"
+                },
+                "permissions": {
+                    "title": "Rettigheder"
+                },
+                "webhooks": {
+                    "title": "Webhooks"
+                }
+            }
+        },
+        "context_menu": {
+            "copy_id": "Kopiér ID",
+            "cancel_message": "Annuller afsendelse",
+            "copy_text": "Kopier tekst",
+            "copy_selection": "Kopier markering",
+            "open_image": "Åbn billede",
+            "save_image": "Gem billede",
+            "copy_link": "Kopier link",
+            "open_link": "Åben link",
+            "set_custom_status": "Indstil en brugerdefineret status",
+            "delete_server": "Slet server",
+            "create_channel": "Opret kanal",
+            "edit_message": "Rediger besked",
+            "delete_message": "Slet besked",
+            "create_category": "Opret kategori",
+            "kick_member": "Sparke medlem",
+            "ban_member": "Ban medlem",
+            "open_file": "Åben fil",
+            "save_file": "Gem filen",
+            "open_video": "Åbn video",
+            "save_video": "Gem video",
+            "open_server_settings": "Serverindstillinger",
+            "block_user": "Bloker bruger",
+            "unblock_user": "Fjern blokering bruger",
+            "add_friend": "Tilføj ven",
+            "remove_friend": "Fjern ven",
+            "cancel_friend": "Annuller anmodning",
+            "custom_status": "Brugerdefineret status",
+            "open_group_settings": "Gruppeindstillinger",
+            "quote_message": "Citér besked",
+            "remove_member": "Fjern fra gruppen",
+            "copy_uid": "Kopiér bruger ID",
+            "copy_sid": "Kopiér server ID",
+            "copy_cid": "Kopiér kanal ID",
+            "copy_mid": "Kopiér besked ID",
+            "copy_message_link": "Kopiér beskedlink",
+            "mention": "Nævn",
+            "message_user": "Besked",
+            "view_profile": "Se profil",
+            "mark_as_read": "Marker som læst",
+            "retry_message": "Prøv sende igen",
+            "reply_message": "Svar",
+            "clear_status": "Ryd status",
+            "leave_group": "Forlad gruppe",
+            "leave_server": "Forlad serveren",
+            "close_dm": "Luk DM",
+            "edit_identity": "Rediger identitet",
+            "delete_channel": "Slet kanal",
+            "create_invite": "Opret invitation",
+            "open_notification_options": "Notifikationsmuligheder",
+            "open_channel_settings": "Kanalindstillinger",
+            "mark_unread": "Marker som ulæst",
+            "make_owner": "Giv Group ejerskab",
+            "report_message": "Anmeld beskeden",
+            "report_user": "Anmeld bruger",
+            "report_server": "Anmeld server"
+        },
+        "home": {
+            "join-testers": "Tilmeld dig testerens server",
+            "goto-testers": "Gå til testerens server",
+            "donate": "Doner til Revolt",
+            "feedback": "Giv feedback om Revolt",
+            "settings": "Åben indstillinger",
+            "settings-tooltip": "Du kan også højreklikke på brugerikonet øverst til venstre eller venstreklikke på det, hvis du allerede er hjemme.",
+            "social": "Find servere og bots",
+            "directs": "Direkte Beskeder",
+            "join-testers_desc": "Du kan rapportere problemer og diskutere forbedringer med os direkte her.",
+            "goto-testers_desc": "Du kan rapportere problemer og diskutere forbedringer med os direkte her.",
+            "donate_desc": "Støt projektet ved at donere - tak!",
+            "discover_desc": "Find et fællesskab baseret på dine hobbyer eller interesser.",
+            "group": "Lav en gruppe",
+            "group_desc": "Invitér alle dine venner, nogle seje robotter, og hold en stor fest.",
+            "feedback_desc": "Fortæl os hvordan vi kan forbedre appen ved at give os feedback.",
+            "discover": "Udforsk Revolt"
+        },
+        "permissions": {
+            "required": "Tilladelser påkrævet"
+        }
+    },
+    "general": {
+        "unavailable": "Ikke tilgængeligt",
+        "disabled": "Slået fra",
+        "off": "Fra",
+        "on": "Til",
+        "loading": "Indlæser…",
+        "image_by": "Billede af",
+        "privacy": "Privatlivspolitik",
+        "tos": "Servicevilkår",
+        "about": "Om",
+        "learn_more": "Læs mere"
+    },
+    "dayjs": {
+        "nextDay": "[I morgen kl] {{time}}",
+        "lastDay": "[I går kl] {{time}}",
+        "sameDay": "[I dag kl] {{time}}",
+        "lastWeek": "[Sidste] dddd [kl] {{time}}",
+        "nextWeek": "dddd [kl] {{time}}",
+        "defaults": {
+            "date_separator": "/",
+            "date_format": "traditional",
+            "twelvehour": "no"
+        }
+    },
+    "quantities": {
+        "members": {
+            "many": "{{count}} Medlemmer",
+            "one": "1 Medlem"
+        },
+        "dropFiles": {
+            "many": "Indsæt {{count}} filer",
+            "one": "Slip en fil"
+        }
+    },
+    "error": {
+        "OperationFailed": "Handlingen mislykkedes.",
+        "DeniedNotification": "Du nægtede meddelelsesadgang, tjek sideindstillingerne.",
+        "UnsupportedBrowser": "Browser mangler understøttelse af denne funktion.",
+        "NetworkError": "Netværksfejl.",
+        "Unauthorized": "Uberettiget.",
+        "Unlabelled": "Der skete noget.",
+        "FailedValidation": "Kunne ikke validere felter.",
+        "InvalidToken": "Ugyldig token",
+        "MissingInvite": "Manglende invitationskode i anmodningen.",
+        "InvalidInvite": "Ugyldig kode",
+        "EmailFailed": "E-mail kunne ikke sendes.",
+        "AlreadyOnboarded": "Allerede færdig med onboarding.",
+        "AlreadyFriends": "Allerede venner med denne bruger.",
+        "AudioPermissionBlock": "Ingen adgang til din mikrofon, tjek venligst din browsers konfiguration.",
+        "UnverifiedAccount": "Ubekræftet konto.",
+        "UsernameTaken": "Brugernavnet er taget.",
+        "NoEffect": "Denne anmodning havde ingen virkning.",
+        "TooLong": "For langt",
+        "FailedToReceive": "Serveren kunne ikke modtage din fil.",
+        "IoError": "Serveren stødte på en I/O fejl.",
+        "DatabaseError": "Database fejl.",
+        "InternalError": "Intern fejl.",
+        "MissingPermission": "Mangler tilladelse.",
+        "UnknownError": "Se konsol.",
+        "RenderFail": "Skabelongengivelse mislykkedes.",
+        "MissingHeaders": "Manglende overskrifter.",
+        "InvalidSession": "Ugyldig session.",
+        "UnknownUser": "Ukendt bruger.",
+        "EmailInUse": "E-mail i brug.",
+        "InvalidCredentials": "E-mail eller adgangskode er forkert.",
+        "AlreadySentRequest": "Har allerede sendt en anmodning til denne bruger.",
+        "Blocked": "Du har blokeret denne bruger.",
+        "BlockedOther": "Denne bruger har blokeret dig.",
+        "RequiredField": "Påkrævet",
+        "TooShort": "For kort",
+        "InvalidEmail": "Ugyldig emailadresse",
+        "Unavailable": "Ikke tilgængelig.",
+        "FileTooLarge": "Filen er for stor.",
+        "MissingData": "Anmodningen mangler data.",
+        "ProbeError": "Filens metadata kunne ikke hentes.",
+        "CompromisedPassword": "Denne adgangskode er kompromitteret.",
+        "ReachedMaximumBots": "Du har nået det maksimale antal bots.",
+        "DiscriminatorChangeRatelimited": "For mange tag ændringer."
+    },
+    "permissions": {
+        "BanMembers": {
+            "t": "Ban medlemmer",
+            "d": "Tillader medlemmer permanent at fjerne medlemmer fra denne server."
+        },
+        "ChangeAvatar": {
+            "d": "Tillader medlemmer at ændre deres serveravatar på denne server.",
+            "t": "Skift Avatar"
+        },
+        "ManageChannels": {
+            "t": "Administrer Kanaler",
+            "d": "Tillader medlemmer at oprette, redigere og slette kanaler."
+        },
+        "ManageServer": {
+            "t": "Administrer server",
+            "d": "Tillader medlemmer at ændre denne servers navn, beskrivelse, ikon og andre relaterede oplysninger."
+        },
+        "KickMembers": {
+            "t": "Smid medlemmer ud",
+            "d": "Tillader medlemmer at fjerne medlemmer fra denne server. Sparkede medlemmer kan tilslutte sig igen med en invitation."
+        },
+        "ChangeNickname": {
+            "t": "Skift Kaldenavn",
+            "d": "Tillader medlemmer at ændre deres kaldenavn på denne server."
+        },
+        "ManageNicknames": {
+            "t": "Administrer Kaldenavne",
+            "d": "Tillader medlemmer at ændre kaldenavne på andre medlemmer."
+        },
+        "RemoveAvatars": {
+            "t": "Fjern Avatarer",
+            "d": "Tillader medlemmer at fjerne serveravatarer for andre medlemmer på denne server."
+        },
+        "EmbedLinks": {
+            "d": "Tillader medlemmer at vise indlejret indhold på links de poster i tekstkanaler.",
+            "t": "Integrer Links"
+        },
+        "VoiceCall": {
+            "d": "Tillader medlemmer at deltage i stemmekanaler.",
+            "t": "Taleopkald"
+        },
+        "SendMessage": {
+            "d": "Tillader medlemmer at sende beskeder i tekstkanaler.",
+            "t": "Send Beskeder"
+        },
+        "UploadFiles": {
+            "d": "Tillader medlemmer at uploade filer i tekstkanaler.",
+            "t": "Upload Filer"
+        },
+        "ManageChannel": {
+            "t": "Administrer Kanaler",
+            "d": "Tillader medlemmer at redigere eller slette en kanal."
+        },
+        "InviteOthers": {
+            "t": "Inviter Andre",
+            "d": "Tillader medlemmer at invitere andre brugere til en kanal."
+        },
+        "ManageMessages": {
+            "t": "Administrer Meddelelser",
+            "d": "Tillader medlemmer at slette beskeder sendt af andre medlemmer."
+        },
+        "Masquerade": {
+            "t": "Maskerade",
+            "d": "Tillader medlemmer at ændre deres navn og avatar ved besked."
+        },
+        "ManageRole": {
+            "d": "Tillader medlemmer at oprette, redigere og slette roller med en lavere rang end deres. Giver dem også mulighed for at ændre rolletilladelser på kanaler.",
+            "t": "Administrer Roller"
+        },
+        "ViewChannel": {
+            "t": "Se Kanal",
+            "d": "Tillader medlemmer at se alle kanaler, de har denne tilladelse til."
+        },
+        "ManagePermissions": {
+            "d": "Tillad medlemmer at ændre tilladelser for kanaler og roller med lavede rangordning.",
+            "t": "Administrer Tilladelser"
+        },
+        "TimeoutMembers": {
+            "t": "Timeout medlemmer",
+            "d": "Tillader medlemmer at midlertidigt forhindre brugere i at interagere med serveren."
+        },
+        "AssignRoles": {
+            "t": "Angiv Roller",
+            "d": "Tillader medlemmere at angive roller under deres egen rolle til andre medlemmere."
+        },
+        "ReadMessageHistory": {
+            "t": "Læs besked historik",
+            "d": "Tillader medlemmere at læse beskedhistorikken af denne kanal."
+        },
+        "ManageWebhooks": {
+            "t": "Administrer Webhooks",
+            "d": "Tillader medlemmer at tag kontrol over webhooks i en kanal."
+        },
+        "ManageCustomisation": {
+            "d": "Tillader brugere at oprette, redigere og slette emojis.",
+            "t": "Administrer Tilpasning"
+        },
+        "SendEmbeds": {
+            "t": "Send indlejringer",
+            "d": "Tillad medlemmer at sende indlejret indhold, hvorvidt at det er fra links eller brugerdefinerede text indlejringer."
+        },
+        "React": {
+            "d": "Tillad medlemmer at reagere på beskeder.",
+            "t": "Brug reaktioner"
+        },
+        "Connect": {
+            "t": "Forbind",
+            "d": "Tillader at medlemmer til af forbind til en lyd kanal."
+        },
+        "Speak": {
+            "t": "Tale",
+            "d": "Tillader medlemmer at snakke i en lyd kanal."
+        },
+        "DeafenMembers": {
+            "t": "Gøre medlemmer døve",
+            "d": "Tillader medlemmer at gøre andre døve i lyd kanalen."
+        },
+        "MoveMembers": {
+            "t": "Flyt medlemmer",
+            "d": "Tillader medlemmer at rykke andre medlemmer mellem lyd kanaler."
+        },
+        "MuteMembers": {
+            "d": "Tillader medlemmer at mute andre i en lyd kanal.",
+            "t": "Gør medlemmer stumme"
+        },
+        "Video": {
+            "d": "Tillader medlemmer at stream video i en lyd kanal.",
+            "t": "Video"
+        }
+    },
+    "notifications": {
+        "sent_request": "@{{person}} har sendt dig en venneanmodning.",
+        "now_friends": "Du er nu venner med @{{person}}!"
+    },
+    "shortcuts": {
+        "ctrlc": "Ctrl + C"
+    },
+    "actions": {
+        "submit": "Indsend"
+    }
+}
