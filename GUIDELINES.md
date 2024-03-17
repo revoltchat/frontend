@@ -4,7 +4,7 @@ Before reading additional recommendations below, I recommend checking out the [A
 
 I am still working on putting stuff together, but here are some important things:
 
-- Do not destruct (reactive) SolidJS props under any circumstance! Use `splitProps`.
+- Do not destruct (reactive) Solid.js props under any circumstance! Use `splitProps`.
 - Follow the variable / function / class naming conventions in the Airbnb style guide.
 - This project uses 2-space indentation, don't ask me why it just happened.
 - Comment above all classes, constants, Solid components, constructors, methods which do not override the parent class and functions.
