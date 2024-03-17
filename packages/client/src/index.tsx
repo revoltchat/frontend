@@ -1,15 +1,15 @@
 /**
  * Configure contexts and render App
  */
-import { createComputed, createEffect, createSignal, on } from "solid-js";
+import { Show, createEffect, createSignal, on } from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
+import { appWindow } from "@tauri-apps/api/window";
 
 import i18n, { I18nContext } from "@revolt/i18n";
 import { ModalRenderer } from "@revolt/modal";
-import { Router } from "@revolt/routing";
 import { Hydrate, state } from "@revolt/state";
 import {
   ApplyGlobalStyles,
@@ -18,6 +18,7 @@ import {
   Masks,
   ProvideDirectives,
   ThemeProvider,
+  Titlebar,
   darkTheme,
 } from "@revolt/ui";
 
@@ -59,6 +60,14 @@ render(
         <MountTheme>
           <ProvideDirectives>
             <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+              <Show when={window.__TAURI__}>
+                <Titlebar
+                  isBuildDev={import.meta.env.DEV}
+                  onMinimize={() => appWindow.minimize()}
+                  onMaximize={() => appWindow.toggleMaximize()}
+                  onClose={() => appWindow.hide()}
+                />
+              </Show>
               <App />
             </KeybindsProvider>
             <ModalRenderer />
