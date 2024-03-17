@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 const publicFolder = resolve("public");
 const path = resolve("public", "assets");
 const revoltAssets = resolve("assets");
-const fallbackAssets = resolve("assets_fallback");
+const fallbackAssets = resolve("scripts", "assets_fallback");
 
 /**
  * Create the symlink

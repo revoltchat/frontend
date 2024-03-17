@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "prepare": "panda codegen",
     "start": "vite --host",
@@ -21,7 +22,7 @@
     "lnk": "^1.1.0",
     "revolt.js": "workspace:^",
     "typescript": "^4.8.2",
-    "vite": "^4.2.1",
+    "vite": "^5.1.6",
     "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-solid": "^2.3.0",
     "vite-plugin-solid-svg": "^0.6.1"
@@ -72,7 +73,7 @@
     "solid-floating-ui": "^0.2.0",
     "solid-hcaptcha": "^0.2.5",
     "solid-icons": "^1.0.4",
-    "solid-js": "^1.7.3",
+    "solid-js": "^1.8.15",
     "solid-qr-code": "^0.0.8",
     "solid-styled-components": "workspace:^0.28.5",
     "space-separated-tokens": "^2.0.2",

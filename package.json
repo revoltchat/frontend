@@ -28,20 +28,5 @@
     "pnpm": ">=6"
   },
   "private": true,
-  "devDependencies": {
-    "@solidjs/testing-library": "^0.7.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
-    "eslint": "^8.2.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-solid": "^0.12.0",
-    "eslint-plugin-spellcheck": "^0.0.20",
-    "jsdom": "^20.0.3",
-    "prettier": "^2.8.7",
-    "solid-js": "^1.7.3",
-    "vite": "^4.2.1",
-    "vite-plugin-solid": "^2.6.1",
-    "vitest": "^0.24.5"
-  },
   "packageManager": "pnpm@8.3.1"
 }

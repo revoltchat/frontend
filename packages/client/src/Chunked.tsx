@@ -1,4 +1,4 @@
-import { Button } from "@revolt/ui";
+import { Button } from "@revolt/ui/components/design/atoms/inputs/Button";
 
 export default function T() {
   return (
