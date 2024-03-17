@@ -1,5 +1,7 @@
 # Code Guidelines
 
+This repository uses prettier which does most of the heavy lifting for you, but there are some things below to keep in mind.
+
 Before reading additional recommendations below, I recommend checking out the [Airbnb JavaScript style guide](https://github.com/airbnb/javascript).
 
 I am still working on putting stuff together, but here are some important things:

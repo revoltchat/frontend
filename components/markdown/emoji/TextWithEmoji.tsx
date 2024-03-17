@@ -6,6 +6,11 @@ import { CustomEmoji, RE_ANY_EMOJI, UnicodeEmoji } from ".";
  * Convert any arbitrary text to rich text with emoji
  */
 export function TextWithEmoji(props: { content?: string }) {
+  /**
+   * Render the actual content
+   * @param content Content
+   * @returns Elements
+   */
   function render(content?: string) {
     if (!content) return null;
 
@@ -13,6 +18,10 @@ export function TextWithEmoji(props: { content?: string }) {
 
     let lastIndex = 0;
 
+    /**
+     * Push content up to given index
+     * @param index Index
+     */
     function pushToIndex(index: number) {
       if (lastIndex === index) return;
       components.push(<>{content!.slice(lastIndex, index)}</>);

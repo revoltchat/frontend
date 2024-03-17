@@ -1,8 +1,8 @@
 import {
   BiRegularAt,
   BiRegularHash,
+  BiSolidCog,
   BiSolidGroup,
-  BiSolidMagicWand,
   BiSolidNotepad,
 } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
@@ -10,7 +10,7 @@ import { Match, Show, Switch } from "solid-js";
 import { Channel } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
-import { Markdown, TextWithEmoji } from "@revolt/markdown";
+import { TextWithEmoji } from "@revolt/markdown";
 import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -49,14 +49,25 @@ export function ChannelHeader(props: Props) {
     });
   }
 
+  /**
+   * Open channel settings
+   */
+  function openChannelSettings() {
+    modalController.push({
+      type: "settings",
+      config: "channel",
+      context: props.channel,
+    });
+  }
+
   return (
     <>
       <Switch>
         <Match
           when={
-            props.channel.channel_type === "TextChannel" ||
-            props.channel.channel_type === "VoiceChannel" ||
-            props.channel.channel_type === "Group"
+            props.channel.type === "TextChannel" ||
+            props.channel.type === "VoiceChannel" ||
+            props.channel.type === "Group"
           }
         >
           <HeaderIcon>
@@ -67,29 +78,25 @@ export function ChannelHeader(props: Props) {
           </NonBreakingText>
           <Show when={props.channel.description}>
             <Divider />
-            <a onClick={openChannelInfo}>
+            <DescriptionLink onClick={openChannelInfo}>
               <OverflowingText>
                 <Typography variant="channel-topic">
-                  <Markdown
+                  <TextWithEmoji
                     content={props.channel.description?.split("\n").shift()}
-                    disallowBigEmoji
                   />
                 </Typography>
               </OverflowingText>
-            </a>
+            </DescriptionLink>
           </Show>
         </Match>
-        <Match when={props.channel.channel_type === "DirectMessage"}>
+        <Match when={props.channel.type === "DirectMessage"}>
           <HeaderIcon>
             <BiRegularAt size={24} />
           </HeaderIcon>
           <TextWithEmoji content={props.channel.recipient?.username} />
-          <UserStatus
-            status={props.channel.recipient?.status?.presence ?? "Invisible"}
-            size="8px"
-          />
+          <UserStatus status={props.channel.recipient?.presence} size="8px" />
         </Match>
-        <Match when={props.channel.channel_type === "SavedMessages"}>
+        <Match when={props.channel.type === "SavedMessages"}>
           <HeaderIcon>
             <BiSolidNotepad size={24} />
           </HeaderIcon>
@@ -99,9 +106,17 @@ export function ChannelHeader(props: Props) {
 
       <Spacer />
 
-      <IconButton>
-        <BiSolidMagicWand size={24} />
-      </IconButton>
+      <Show
+        when={
+          props.channel.type === "Group" ||
+          props.channel.orPermission("ManageChannel", "ManagePermissions")
+        }
+      >
+        <IconButton onClick={openChannelSettings}>
+          <BiSolidCog size={24} />
+        </IconButton>
+      </Show>
+
       <IconButton
         onClick={() =>
           state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)
@@ -121,4 +136,11 @@ const Divider = styled("div", "Divider")`
   margin: 0px 5px;
   padding-left: 1px;
   background-color: ${(props) => props.theme!.colours["background-400"]};
+`;
+
+/**
+ * Link for the description
+ */
+const DescriptionLink = styled.a`
+  min-width: 0;
 `;

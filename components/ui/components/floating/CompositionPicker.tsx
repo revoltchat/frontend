@@ -6,7 +6,7 @@ import { styled } from "solid-styled-components";
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
 
-import { ScrollContainer } from "../common";
+import { scrollable } from "../../directives";
 import { Column, Input } from "../design";
 
 /**
@@ -33,11 +33,12 @@ const Container = styled("div", "Picker")`
   border-radius: ${(props) => props.theme!.borderRadius.md};
 `;
 
-const GifList = styled(ScrollContainer)`
+const GifList = styled.div`
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-template-rows: masonry;
+  overflow-y: scroll;
 `;
 
 interface Props {
@@ -46,6 +47,7 @@ interface Props {
    * @param triggerProps Props that need to be applied to the trigger area
    */
   children: (triggerProps: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ref: Ref<any>;
     onClickGif: () => void;
     onClickEmoji: () => void;
@@ -123,6 +125,10 @@ export function CompositionPicker(props: Props) {
     )
   );
 
+  /**
+   * Execute search query
+   * @param query Query
+   */
   function search(query: string) {
     fetch(
       `https://api.gifbox.me/post/search?query=${encodeURIComponent(

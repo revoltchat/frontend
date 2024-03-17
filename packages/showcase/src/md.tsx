@@ -22,10 +22,10 @@ User mention: <@01EX2NCWQ0CHS3QJF0FEQS1GR4>
 
 | Style              | Markdown                                             |
 | ------------------ | ---------------------------------------------------- |
-| **bold**           | \*\*bold\*\* or \_\_bold\_\_                         |
-| _italics_          | \*italics\* or \_italics\_                           |
-| **_bold italics_** | \*\*\*bold italics\*\*\* or \_\_\_bold italics\_\_\_ |
-| ~~strikethrough~~  | \~\~strikethrough\~\~                                |
+| **bold**           | \\*\\*bold\\*\\* or \\_\\_bold\\_\\_                         |
+| _italics_          | \\*italics\\* or \\_italics\\_                           |
+| **_bold italics_** | \\*\\*\\*bold italics\\*\\*\\* or \\_\\_\\_bold italics\\_\\_\\_ |
+| ~~strikethrough~~  | \\~\\~strikethrough\\~\\~                                |
 
 ## Code Blocks
 
@@ -169,7 +169,7 @@ const Container = styled.div`
 
 render(() => {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme()}>
       <Container>
         <Markdown content={MdArticle} />
       </Container>

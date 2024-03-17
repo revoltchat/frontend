@@ -24,10 +24,13 @@ import { RenderMention, remarkMention } from "./plugins/mentions";
 import { RenderSpoiler, remarkSpoiler } from "./plugins/spoiler";
 import { remarkTimestamps } from "./plugins/timestamps";
 import { RenderUnicodeEmoji, remarkUnicodeEmoji } from "./plugins/unicodeEmoji";
-import { sanitise } from "./sanitise";
+import { remarkInsertBreaks, sanitise } from "./sanitise";
 import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 import { defaults } from "./solid-markdown/defaults";
 
+/**
+ * Empty component
+ */
 const Null = () => null;
 
 /**
@@ -73,8 +76,10 @@ const components = {
   `,
   pre: RenderCodeblock,
   code: styled.code`
-    color: ${(props) => props.theme!.colours.foreground};
-    background: ${(props) => props.theme!.colours["background-100"]};
+    color: ${(props) =>
+      props.theme!.colours["messaging-component-code-block-foreground"]};
+    background: ${(props) =>
+      props.theme!.colours["messaging-component-code-block-background"]};
 
     font-size: 90%;
     font-family: ${(props) => props.theme!.fonts.monospace};
@@ -88,7 +93,7 @@ const components = {
     th,
     td {
       padding: 6px;
-      border: 1px solid ${(props) => props.theme!.colours["foreground-200"]};
+      border: 1px solid ${(props) => props.theme!.colours.foreground};
     }
   `,
   ul: styled.ul`
@@ -103,15 +108,15 @@ const components = {
   `,
   blockquote: styled.blockquote`
     margin: 2px 0;
-    padding: 2px 0;
+    padding: 2px 8px;
     border-radius: ${(props) => props.theme!.borderRadius.md};
-    background: ${(props) => props.theme!.colours["background-300"]};
-    border-inline-start: 4px solid
-      ${(props) => props.theme!.colours["background-200"]};
-
-    > * {
-      margin: 0 8px;
-    }
+    color: ${(props) =>
+      props.theme!.colours["messaging-component-blockquote-foreground"]};
+    background: ${(props) =>
+      props.theme!.colours["messaging-component-blockquote-background"]};
+    border-inline-start: 3px solid
+      ${(props) =>
+        props.theme!.colours["messaging-component-blockquote-foreground"]};
   `,
   // Block image elements
   img: Null,
@@ -143,6 +148,7 @@ const pipeline = unified()
   .use(remarkRehype, {
     handlers,
   })
+  .use(remarkInsertBreaks)
   .use(rehypeKatex, {
     maxSize: 10,
     maxExpand: 0,

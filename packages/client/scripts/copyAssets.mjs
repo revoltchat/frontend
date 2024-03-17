@@ -1,23 +1,52 @@
-import { resolve } from 'node:path';
-import { symlink, readdir, rmdir, stat } from 'node:fs/promises';
+import lnk from "lnk";
+import { lstat, readdir, readlink, rmdir, unlink } from "node:fs/promises";
+import { resolve } from "node:path";
 
-const path = './public/assets';
+const publicFolder = resolve("public");
+const path = resolve("public", "assets");
+const revoltAssets = resolve("assets");
+const fallbackAssets = resolve("assets_fallback");
+
+/**
+ * Create the symlink
+ */
+async function createSymlink() {
+  try {
+    await lstat(revoltAssets);
+    if ((await readdir(revoltAssets)).length === 0) throw "Empty Directory";
+    await lnk(resolve(revoltAssets), resolve(publicFolder), {
+      rename: "assets",
+    });
+    console.info(`Configured Revolt assets.`);
+  } catch (error) {
+    if (error === "Empty Directory" || error.code === "ENOENT") {
+      await lnk(resolve(fallbackAssets), resolve(publicFolder), {
+        rename: "assets",
+      });
+      console.info(`Configured fallback assets.`);
+    } else {
+      console.error(error);
+      process.exit(-1);
+    }
+  }
+}
 
 try {
-    const f = await stat(path);
-    
-    if (f.isSymbolicLink()) {
-        process.exit(0);
-    }
+  await lstat(path);
 
-    if (f.isDirectory()) {
-        if (await readdir(path).length) {
-            process.exit(0);
-        }
+  try {
+    await readlink(path);
+    await unlink(path);
+  } catch (err) {
+    await rmdir(path);
+  }
 
-        await rmdir(path);
-    }
-
-    await symlink(resolve('./assets_fallback'), resolve(path));
-} catch (err) {}
-
+  createSymlink();
+} catch (error) {
+  if (error.code === "ENOENT") {
+    createSymlink();
+  } else {
+    console.error(error);
+    process.exit(-1);
+  }
+}

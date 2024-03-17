@@ -16,6 +16,7 @@ import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Link, useLocation, useNavigate } from "@revolt/routing";
 
+import { scrollable } from "../../../directives";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
@@ -26,6 +27,8 @@ import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
+
+scrollable;
 
 interface Props {
   /**
@@ -62,88 +65,96 @@ export const HomeSidebar = (props: Props) => {
   const savedNotesChannelId = createMemo(() => props.openSavedNotes());
 
   let scrollTargetElement!: HTMLDivElement;
-  // TODO: need to create use:scrollable directive for styles
 
   return (
     <SidebarBase>
       <div
         ref={scrollTargetElement}
-        style={{
-          "overflow-y": "auto",
-          "flex-grow": 1,
-          "will-change": "transform",
-        }}
+        use:scrollable={{ direction: "y", showOnHover: true }}
       >
-        <SidebarTitle>
-          <Typography variant="sidebar-title">
-            {t("app.main.categories.conversations")}
-          </Typography>
-        </SidebarTitle>
-        <Link href="/">
-          <MenuButton
-            size="normal"
-            icon={<BiSolidHome size={24} />}
-            attention={location.pathname === "/" ? "active" : "normal"}
-          >
-            Home
-          </MenuButton>
-        </Link>
-        <Show when={props.__tempDisplayFriends()}>
-          <Link href="/friends">
+        <List>
+          <SidebarTitle>
+            <Typography variant="sidebar-title">
+              {t("app.main.categories.conversations")}
+            </Typography>
+          </SidebarTitle>
+          <Link href="/">
             <MenuButton
               size="normal"
-              icon={<BiSolidUserDetail size={24} />}
-              attention={location.pathname === "/friends" ? "active" : "normal"}
+              icon={<BiSolidHome size={24} />}
+              attention={location.pathname === "/app" ? "active" : "normal"}
             >
-              Friends
+              {t("app.navigation.tabs.home")}
             </MenuButton>
           </Link>
-        </Show>
-        <a
-          // Use normal link by default
-          href={
-            savedNotesChannelId()
-              ? `/channel/${savedNotesChannelId()}`
-              : undefined
-          }
-          // Fallback to JavaScript navigation if channel doesn't exist yet
-          onClick={(ev) =>
-            !ev.currentTarget.href && props.openSavedNotes(navigate)
-          }
-        >
-          <MenuButton
-            size="normal"
-            icon={<BiSolidNotepad size={24} />}
-            attention={
-              props.channelId && savedNotesChannelId() === props.channelId
-                ? "active"
-                : "normal"
+          <Show when={props.__tempDisplayFriends()}>
+            <Link href="/friends">
+              <MenuButton
+                size="normal"
+                icon={<BiSolidUserDetail size={24} />}
+                attention={
+                  location.pathname === "/friends" ? "active" : "normal"
+                }
+              >
+                {t("app.navigation.tabs.friends")}
+              </MenuButton>
+            </Link>
+          </Show>
+          <Switch
+            fallback={
+              <MenuButton
+                size="normal"
+                attention={"normal"}
+                icon={<BiSolidNotepad size={24} />}
+                // eslint-disable-next-line solid/reactivity
+                onClick={() => props.openSavedNotes(navigate)}
+              >
+                {t("app.navigation.tabs.saved")}
+              </MenuButton>
             }
           >
-            Saved Notes
-          </MenuButton>
-        </a>
-        <Deferred>
-          <VirtualContainer
-            items={props.conversations()}
-            scrollTarget={scrollTargetElement}
-            itemSize={{ height: 48 }}
-          >
-            {(item) => (
-              <div
-                style={{ ...item.style, width: "100%", "padding-block": "3px" }}
-              >
-                <Entry
-                  role="listitem"
-                  tabIndex={item.tabIndex}
-                  style={item.style}
-                  channel={item.item}
-                  active={item.item._id === props.channelId}
-                />
-              </div>
-            )}
-          </VirtualContainer>
-        </Deferred>
+            <Match when={savedNotesChannelId()}>
+              <Link href={`/channel/${savedNotesChannelId()}`}>
+                <MenuButton
+                  size="normal"
+                  icon={<BiSolidNotepad size={24} />}
+                  attention={
+                    props.channelId && savedNotesChannelId() === props.channelId
+                      ? "active"
+                      : "normal"
+                  }
+                >
+                  {t("app.navigation.tabs.saved")}
+                </MenuButton>
+              </Link>
+            </Match>
+          </Switch>
+          <Deferred>
+            <VirtualContainer
+              items={props.conversations()}
+              scrollTarget={scrollTargetElement}
+              itemSize={{ height: 48 }}
+            >
+              {(item) => (
+                <div
+                  style={{
+                    ...item.style,
+                    width: "100%",
+                    "padding-block": "3px",
+                  }}
+                >
+                  <Entry
+                    role="listitem"
+                    tabIndex={item.tabIndex}
+                    style={item.style}
+                    channel={item.item}
+                    active={item.item.id === props.channelId}
+                  />
+                </div>
+              )}
+            </VirtualContainer>
+          </Deferred>
+        </List>
       </div>
     </SidebarBase>
   );
@@ -169,44 +180,46 @@ function Entry(
 
   const q = useQuantity();
   const t = useTranslation();
-  const dm = () => local.channel.recipient;
 
+  /**
+   * Determine user status if present
+   */
   const status = () =>
-    dm()?.status?.text ??
-    (dm()?.status?.presence === "Focus" ? t("app.status.focus") : undefined);
+    local.channel.recipient?.statusMessage((presence) =>
+      t(`app.status.${presence.toLowerCase()}`)
+    );
 
   return (
-    <Link {...remote} href={`/channel/${local.channel._id}`}>
+    <Link {...remote} href={`/channel/${local.channel.id}`}>
       <MenuButton
         size="normal"
         alert={
           !local.active &&
           local.channel.unread &&
-          (local.channel.mentions.length || true)
+          (local.channel.mentions?.size || true)
         }
         attention={
           local.active ? "selected" : local.channel.unread ? "active" : "normal"
         }
         icon={
           <Switch>
-            <Match when={local.channel.channel_type === "Group"}>
+            <Match when={local.channel.type === "Group"}>
               <Avatar
                 size={32}
+                shape="rounded-square"
                 fallback={local.channel.name}
-                src={local.channel.generateIconURL({ max_side: 256 })}
+                src={local.channel.iconURL}
+                primaryContrast
               />
             </Match>
-            <Match when={local.channel.channel_type === "DirectMessage"}>
+            <Match when={local.channel.type === "DirectMessage"}>
               <Avatar
                 size={32}
-                src={
-                  dm()?.generateAvatarURL({ max_side: 256 }) ??
-                  dm()?.defaultAvatarURL
-                }
+                src={local.channel.iconURL}
                 holepunch="bottom-right"
                 overlay={
                   <UserStatusGraphic
-                    status={dm()?.status?.presence ?? "Invisible"}
+                    status={local.channel?.recipient?.presence}
                   />
                 }
               />
@@ -216,25 +229,29 @@ function Entry(
       >
         <Column gap="none">
           <Switch>
-            <Match when={local.channel.channel_type === "Group"}>
+            <Match when={local.channel.type === "Group"}>
               <OverflowingText>
                 <TextWithEmoji content={local.channel.name!} />
               </OverflowingText>
               <Typography variant="status">
-                {q("members", local.channel.recipient_ids?.length || 0)}
+                {q("members", local.channel.recipients.length || 0)}
               </Typography>
             </Match>
-            <Match when={local.channel.channel_type === "DirectMessage"}>
-              <OverflowingText>{dm()?.username}</OverflowingText>
-              <Show when={status}>
-                <Tooltip content={status!} placement="top-start">
-                  {(triggerProps) => (
-                    <OverflowingText>
-                      <Typography {...triggerProps} variant="status">
-                        <TextWithEmoji content={status()!} />
-                      </Typography>
-                    </OverflowingText>
-                  )}
+            <Match when={local.channel.type === "DirectMessage"}>
+              <OverflowingText>
+                {local.channel?.recipient?.displayName}
+              </OverflowingText>
+              <Show when={status()}>
+                <Tooltip
+                  content={() => <TextWithEmoji content={status()!} />}
+                  placement="top-start"
+                  aria={status()!}
+                >
+                  <OverflowingText>
+                    <Typography variant="status">
+                      <TextWithEmoji content={status()!} />
+                    </Typography>
+                  </OverflowingText>
                 </Tooltip>
               </Show>
             </Match>
@@ -244,3 +261,11 @@ function Entry(
     </Link>
   );
 }
+
+/**
+ * Inner scrollable list
+ * We fix the width in order to prevent scrollbar from moving stuff around
+ */
+const List = styled.div`
+  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
+`;

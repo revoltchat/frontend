@@ -1,5 +1,8 @@
 import type { JSX } from "solid-js";
 
+/**
+ * Create resize container around some content
+ */
 export default function ResizeContentDecorator(props: {
   children: JSX.Element;
 }) {

@@ -5,7 +5,8 @@ export default {
   DEFAULT_API_URL:
     (import.meta.env.DEV ? import.meta.env.VITE_DEV_API_URL : undefined) ??
     (import.meta.env.VITE_API_URL as string) ??
-    "https://api.revolt.chat",
+    // "http://local.revolt.chat:8000",
+    "https://revolt.chat/api",
   /**
    * hCaptcha site key to use if enabled
    */
@@ -18,6 +19,12 @@ export default {
    * Maximum number of attachments a message can have
    */
   MAX_ATTACHMENTS: (import.meta.env.VITE_CFG_MAX_ATTACHMENTS as number) ?? 5,
+  /**
+   * Session ID to set during development.
+   */
+  DEVELOPMENT_SESSION_ID: import.meta.env.DEV
+    ? (import.meta.env.VITE_SESSION_ID as string)
+    : undefined,
   /**
    * Token to set during development.
    */

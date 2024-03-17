@@ -21,10 +21,13 @@ import {
   Header,
   Typography,
   UserStatusGraphic,
+  scrollable,
   styled,
 } from "@revolt/ui";
 
 import { HeaderIcon } from "./common/CommonHeader";
+
+scrollable;
 
 /**
  * Base layout of the friends page
@@ -57,7 +60,6 @@ export function Friends() {
    * Reference to the parent scroll container
    */
   let scrollTargetElement!: HTMLDivElement;
-  // TODO: need to create use:scrollable directive for styles
 
   /**
    * Signal required for reacting to ref changes
@@ -68,7 +70,7 @@ export function Friends() {
    * Generate lists of all users
    */
   const lists = createMemo(() => {
-    const list = [...client.users.values()];
+    const list = client()!.users.toList();
 
     const friends = list
       .filter((user) => user.relationship === "Friend")
@@ -92,21 +94,13 @@ export function Friends() {
   return (
     // TODO: i18n
     <Base>
-      <Header palette="primary">
+      <Header placement="primary">
         <HeaderIcon>
           <BiSolidUserDetail size={24} />
         </HeaderIcon>
         Friends
       </Header>
-      <div
-        class="FriendsList"
-        ref={scrollTargetElement}
-        style={{
-          "overflow-y": "auto",
-          "flex-grow": 1,
-          "will-change": "transform",
-        }}
-      >
+      <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
         <PendingRequests lists={lists} />
         <List
           title="Outgoing"
@@ -237,9 +231,11 @@ function Entry(
  * Overlapping avatars
  */
 const Avatars = styled("div", "Avatars")`
+  flex-shrink: 0;
+
   svg:not(:first-child) {
     position: relative;
-    margin-left: -32px;
+    margin-inline-start: -32px;
   }
 `;
 

@@ -1,9 +1,11 @@
-import { ScrollContainer } from "../../common/ScrollContainers";
+import { scrollable } from "../../../directives";
 import { MenuButton } from "../../design";
 import { Typography } from "../../design/atoms/display/Typography";
 import { Column } from "../../design/layout";
 
 import { SidebarBase } from "./common";
+
+scrollable;
 
 interface Props {
   /**
@@ -20,7 +22,7 @@ interface Props {
 export const AdminSidebar = (props: Props) => {
   return (
     <SidebarBase>
-      <ScrollContainer>
+      <div use:scrollable>
         <Column>
           <p>
             <Typography variant="legacy-settings-title">Admin Panel</Typography>
@@ -29,7 +31,7 @@ export const AdminSidebar = (props: Props) => {
             <MenuButton attention="active">Inspector</MenuButton>
           </a>
         </Column>
-      </ScrollContainer>
+      </div>
     </SidebarBase>
   );
 };

@@ -1,5 +1,4 @@
 # external libraries
-**/revolt.js/**
 **/solid-styled-components/**
 
 # minified files
@@ -8,3 +7,10 @@
 # auto-generated files
 packages/showcase/componentData.ts
 packages/showcase/src/stories.ts
+
+# configuration
+.vercel/**
+
+# built files
+**/lib/cjs/**
+coverage/**

@@ -1,5 +1,7 @@
-import { ComponentProps, Match, Show, Switch } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { TextEmbed as TextEmbedClass, WebsiteEmbed } from "revolt.js";
 
 import { Markdown } from "@revolt/markdown";
 
@@ -11,7 +13,6 @@ import {
 } from "../../design";
 
 import { Attachment } from "./Attachment";
-import type { E, Embed } from "./Embed";
 import { SpecialEmbed } from "./SpecialEmbed";
 
 const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
@@ -21,19 +22,24 @@ const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
   gap: ${(props) => props.theme!.gap.md};
 
   padding: ${(props) => props.theme!.gap.md};
-  color: ${(props) => props.theme!.colours["foreground"]};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-300"]};
+
+  color: ${(props) =>
+    props.theme!.colours["messaging-component-text-embed-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-text-embed-background"]};
 
   border-inline-start: 4px solid
-    ${(props) => props.borderColour ?? props.theme!.colours["background-200"]};
+    ${(props) =>
+      props.borderColour ??
+      props.theme!.colours["messaging-component-text-embed-foreground"]};
 `;
 
 const SiteInformation = styled("div", "SiteInfo")`
   display: flex;
   flex-direction: row;
   gap: ${(props) => props.theme!.gap.md};
-  color: ${(props) => props.theme!.colours["foreground-100"]};
+  /* TODO: color: ${(props) => props.theme!.colours["foreground-100"]}; */
 `;
 
 const Favicon = styled("img", "Favicon")`
@@ -63,27 +69,31 @@ const Description = styled("div", "Description")`
   word-wrap: break-word;
 `;
 
-export function TextEmbed(
-  props: ComponentProps<typeof Embed> & {
-    embed: { type: "Text" | "Website" };
-  }
-) {
+/**
+ * Text Embed
+ */
+export function TextEmbed(props: { embed: TextEmbedClass | WebsiteEmbed }) {
   return (
     <Base borderColour={props.embed.colour!}>
       <Content gap="md" grow>
-        <Show when={props.embed.type === "Website" && props.embed.site_name}>
+        <Show
+          when={
+            props.embed.type === "Website" &&
+            (props.embed as WebsiteEmbed).siteName
+          }
+        >
           <SiteInformation>
-            <Show when={props.embed.icon_url}>
+            <Show when={props.embed.iconUrl}>
               <Favicon
                 loading="lazy"
                 draggable={false}
-                src={props.proxyFile(props.embed.icon_url!)}
+                src={props.embed.proxiedIconURL}
                 onError={(e) => (e.currentTarget.style.display = "none")}
               />
             </Show>
             <OverflowingText>
               <Typography variant="small">
-                {(props.embed as E<"Website">).site_name}
+                {(props.embed as WebsiteEmbed).siteName}
               </Typography>
             </OverflowingText>
           </SiteInformation>
@@ -107,46 +117,43 @@ export function TextEmbed(
           </Description>
         </Show>
 
-        <Show when={props.embed.type === "Text" && props.embed.media}>
-          <Attachment
-            baseUrl={props.baseUrl}
-            file={(props.embed as E<"Text">).media!}
-          />
+        <Show
+          when={
+            props.embed.type === "Text" && (props.embed as TextEmbedClass).media
+          }
+        >
+          <Attachment file={(props.embed as TextEmbedClass).media!} />
         </Show>
 
         <Show when={props.embed.type === "Website"}>
           <Switch>
             <Match
               when={
-                (props.embed as E<"Website">).special?.type &&
-                (props.embed as E<"Website">).special?.type !== "None"
+                (props.embed as WebsiteEmbed).specialContent?.type &&
+                (props.embed as WebsiteEmbed).specialContent?.type !== "None"
               }
             >
-              <SpecialEmbed embed={props.embed as E<"Website">} />
+              <SpecialEmbed embed={props.embed as WebsiteEmbed} />
             </Match>
-            <Match when={(props.embed as E<"Website">).video}>
+            <Match when={(props.embed as WebsiteEmbed).video}>
               <SizedContent
-                width={(props.embed as E<"Website">).video!.width}
-                height={(props.embed as E<"Website">).video!.height}
+                width={(props.embed as WebsiteEmbed).video!.width}
+                height={(props.embed as WebsiteEmbed).video!.height}
               >
                 <video
                   controls
                   preload="metadata"
-                  src={props.proxyFile(
-                    (props.embed as E<"Website">).video!.url
-                  )}
+                  src={(props.embed as WebsiteEmbed).video!.proxiedURL}
                 />
               </SizedContent>
             </Match>
-            <Match when={(props.embed as E<"Website">).image?.size === "Large"}>
+            <Match when={(props.embed as WebsiteEmbed).image?.size === "Large"}>
               <SizedContent
-                width={(props.embed as E<"Website">).image!.width}
-                height={(props.embed as E<"Website">).image!.height}
+                width={(props.embed as WebsiteEmbed).image!.width}
+                height={(props.embed as WebsiteEmbed).image!.height}
               >
                 <img
-                  src={props.proxyFile(
-                    (props.embed as E<"Website">).image!.url
-                  )}
+                  src={(props.embed as WebsiteEmbed).image!.proxiedURL}
                   loading="lazy"
                 />
               </SizedContent>
@@ -158,12 +165,12 @@ export function TextEmbed(
       <Show
         when={
           props.embed.type === "Website" &&
-          props.embed.image?.size === "Preview" &&
-          !props.embed.video
+          (props.embed as WebsiteEmbed).image?.size === "Preview" &&
+          !(props.embed as WebsiteEmbed).video
         }
       >
         <PreviewImage
-          src={props.proxyFile((props.embed as E<"Website">).image!.url)}
+          src={(props.embed as WebsiteEmbed).image!.proxiedURL}
           loading="lazy"
         />
       </Show>

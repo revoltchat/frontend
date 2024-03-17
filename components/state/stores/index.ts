@@ -6,8 +6,10 @@ import { TypeAdmin } from "./Admin";
 import { TypeAuth } from "./Auth";
 import { TypeDraft } from "./Draft";
 import { TypeExperiments } from "./Experiments";
+import { TypeKeybinds } from "./Keybinds";
 import { TypeLayout } from "./Layout";
 import { TypeLocale } from "./Locale";
+import { TypeNotificationOptions } from "./NotificationOptions";
 import { TypeOrdering } from "./Ordering";
 import { TypeSettings } from "./Settings";
 
@@ -16,8 +18,10 @@ export type Store = {
   auth: TypeAuth;
   draft: TypeDraft;
   experiments: TypeExperiments;
+  keybinds: TypeKeybinds;
   layout: TypeLayout;
   locale: TypeLocale;
+  notifications: TypeNotificationOptions;
   ordering: TypeOrdering;
   settings: TypeSettings;
 };

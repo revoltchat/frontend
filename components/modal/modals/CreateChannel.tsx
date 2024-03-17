@@ -1,4 +1,4 @@
-import { mapAnyError } from "@revolt/client";
+import { mapAndRethrowError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 
@@ -47,12 +47,14 @@ const CreateChannel: PropGenerator<"create_channel"> = (props) => {
           type: type as "Text" | "Voice",
           name,
         })
-        .catch(mapAnyError);
+        .catch((err) => {
+          throw mapAndRethrowError(err);
+        });
 
       if (props.cb) {
-        props.cb(channel as any);
+        props.cb(channel);
       } else {
-        navigate(`/server/${props.server._id}/channel/${channel._id}`);
+        navigate(`/server/${props.server.id}/channel/${channel.id}`);
       }
     },
     submit: {

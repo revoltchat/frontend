@@ -1,15 +1,30 @@
 /* eslint-disable */
-import { Show } from "solid-js";
+import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
+
+import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
 
 import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
-import { Button, Column, Message, Typography } from "@revolt/ui";
+import {
+  Button,
+  CategoryButton,
+  CategoryCollapse,
+  Column,
+  ComboBox,
+  OverrideSwitch,
+  iconSize,
+  styled,
+} from "@revolt/ui";
+
+const SomeComponent = styled.div`
+  background: red;
+`;
 
 export function DevelopmentPage() {
   function open() {
     modalController.push({
       type: "custom_status",
-      client: clientController.getReadyClient()!,
+      client: clientController.getCurrentClient()!,
     });
   }
 
@@ -38,31 +53,72 @@ export function DevelopmentPage() {
     });
   }
 
-  const latestMessage = () =>
-    [...clientController.getReadyClient()!.messages.values()]
-      .filter((x) => x.author_id !== x.client.user?._id)
-      .pop();
-
-  function report() {
-    clientController.getReadyClient()!.api.post("/safety/report", {
-      content: {
-        type: "Message",
-        id: latestMessage()?._id!,
-        report_reason: "Illegal",
-      },
-      additional_context: "get real",
-    });
-  }
-
   return (
     <Column>
+      <div
+        style={{
+          width: "480px",
+          height: "480px",
+          display: "grid",
+          "place-items": "center",
+        }}
+      >
+        <Face fill="red" {...iconSize(128)} />
+      </div>
+      <OverrideSwitch />
+      <SomeComponent
+        use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
+      >
+        hi
+      </SomeComponent>
       <Button onClick={open}>Open Modal</Button>
       <Button onClick={changelog}>Changelog Modal</Button>
-      <Typography variant="label">Latest Message</Typography>
-      <Show when={latestMessage()}>
-        <Message message={latestMessage()!} />
-        <Button onClick={report}>Create Report</Button>
-      </Show>
+      <div style={{ padding: "1em", width: "400px" }}>
+        <Column>
+          <CategoryButton
+            icon={<BiSolidPalette size={24} />}
+            description="description!"
+            onClick={() => void 0}
+          >
+            I am a button
+          </CategoryButton>
+          <CategoryCollapse
+            icon={<BiSolidSpeaker size={24} />}
+            description="description!"
+            title="Choose output device tbh"
+          >
+            <CategoryButton
+              description="Active device"
+              onClick={() => void 0}
+              icon={<div style={{ width: "24px" }} />}
+            >
+              Realtek Audio
+            </CategoryButton>
+            <CategoryButton
+              onClick={() => void 0}
+              icon={<div style={{ width: "24px" }} />}
+            >
+              Line-Out Speaker
+            </CategoryButton>
+            <CategoryButton
+              onClick={() => void 0}
+              icon={<div style={{ width: "24px" }} />}
+            >
+              Airpods 3
+            </CategoryButton>
+            <CategoryButton
+              icon={<div style={{ width: "24px" }} />}
+              action={
+                <ComboBox>
+                  <option>deez</option>
+                </ComboBox>
+              }
+            >
+              combo box
+            </CategoryButton>
+          </CategoryCollapse>
+        </Column>
+      </div>
     </Column>
   );
 }

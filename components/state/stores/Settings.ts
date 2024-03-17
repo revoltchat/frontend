@@ -40,6 +40,11 @@ interface SettingsDefinition {
   "appearance:show_send_button": boolean;
 
   /**
+   * Whether to render messages in compact mode
+   */
+  "appearance:compact_mode": boolean;
+
+  /**
    * Indicate new users to Revolt
    * TODO: implement
    */
@@ -62,6 +67,7 @@ type ValueType<T extends keyof SettingsDefinition> =
  */
 const EXPECTED_TYPES: { [K in keyof SettingsDefinition]: ValueType<K> } = {
   "appearance:show_send_button": "boolean",
+  "appearance:compact_mode": "boolean",
 };
 
 /**
@@ -78,18 +84,31 @@ const DEFAULT_VALUES: TypeSettings = {};
  * Settings store
  */
 export class Settings extends AbstractStore<"settings", TypeSettings> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "settings");
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeSettings {
     return {};
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeSettings>): TypeSettings {
     const settings: TypeSettings = this.default();
 

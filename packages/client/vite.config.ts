@@ -1,13 +1,19 @@
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
+import solidSvg from "vite-plugin-solid-svg";
+import devtools from "@solid-devtools/transform";
 
 const base = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
   base,
   plugins: [
+    devtools(),
     solidPlugin(),
+    solidSvg({
+      defaultAsComponent: false,
+    }),
     VitePWA({
       srcDir: "src",
       filename: "sw.ts",
@@ -19,7 +25,7 @@ export default defineConfig({
         categories: ["communication", "chat", "messaging"],
         start_url: "/pwa",
         orientation: "portrait",
-        /* TOOD: support display_override: ["window-controls-overlay"], */
+        display_override: ["window-controls-overlay"],
         display: "standalone",
         background_color: "#101823",
         theme_color: "#101823",

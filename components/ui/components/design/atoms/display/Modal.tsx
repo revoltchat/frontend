@@ -84,8 +84,8 @@ const Base = styled("div", "Modal")<{ show?: boolean }>`
   width: 100%;
   height: 100%;
 
-  z-index: 9999;
   position: fixed;
+  z-index: ${(props) => props.theme!.layout.zIndex["modal"]};
 
   max-height: 100%;
   user-select: none;
@@ -97,10 +97,11 @@ const Base = styled("div", "Modal")<{ show?: boolean }>`
   overflow-y: auto;
   place-items: center;
 
-  color: ${(props) => props.theme!.colours.foreground};
-  transition: ${(props) => props.theme!.transitions.fast} all;
+  transition: ${(props) => props.theme!.transitions.medium} all;
   pointer-events: ${(props) => (props.show ? "all" : "none")};
-  background: ${(props) => (props.show ? "rgba(0, 0, 0, 0.8)" : "transparent")};
+
+  /** TODO: rgb value here */
+  background: ${(props) => (props.show ? "rgba(0, 0, 0, 0.6)" : "transparent")};
 `;
 
 type ContainerProps = Pick<Props, "transparent" | "maxWidth" | "maxHeight"> & {
@@ -120,10 +121,13 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
 
+  color: ${(props) => props.theme!.colours["component-modal-foreground"]};
   background: ${(props) =>
-    props.transparent ? "transparent" : props.theme!.colours["background-300"]};
+    props.transparent
+      ? "transparent"
+      : props.theme!.colours["component-modal-background"]};
   border-radius: ${(props) =>
-    props.transparent ? "none" : props.theme!.borderRadius.md};
+    props.transparent ? "none" : props.theme!.borderRadius.lg};
   overflow: ${(props) => (props.transparent ? "unset" : "hidden")};
 `;
 
@@ -142,10 +146,10 @@ const Title = styled.div`
 /**
  * Container for the given content
  */
-const Content = styled.div<Pick<Props, "transparent" | "padding">>`
+const Content = styled.div<Props>`
   flex-grow: 1;
   padding-top: 0;
-  padding: ${(props) => props.padding ?? "0 1rem 1rem"};
+  padding: 0 1rem 1rem;
 
   overflow-y: auto;
   font-size: 0.9375rem; /** FIXME */
@@ -162,12 +166,8 @@ const Actions = styled("div", "Actions")`
 
   gap: 8px;
   display: flex;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   flex-direction: row-reverse;
-
-  background: ${(props) => props.theme!.colours["background-200"]};
-  border-radius: 0 0
-    ${(props) => (props.theme!.borderRadius.md + " ").repeat(2)};
 `;
 
 /**
@@ -189,10 +189,10 @@ export function Modal(props: Props) {
         <Presence>
           <Show when={props.show}>
             <Motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.6 }}
-              transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3, easing: [0.22, 0.54, 0.41, 1.46] }}
             >
               <Container
                 actions={showActions()}
@@ -201,12 +201,12 @@ export function Modal(props: Props) {
                 <Show when={props.title || props.description}>
                   <Title>
                     <Show when={props.title}>
-                      <Typography variant="legacy-modal-title">
+                      <Typography variant="modal-title">
                         {props.title}
                       </Typography>
                     </Show>
                     <Show when={props.description}>
-                      <Typography variant="legacy-modal-title-2">
+                      <Typography variant="modal-description">
                         {props.description}
                       </Typography>
                     </Show>

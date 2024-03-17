@@ -10,19 +10,19 @@ const REFERENCE_TIME = "2022-12-07T20:27:50.000Z";
 export const TIME_TEST_DATA = [
   {
     value: "2022-12-07T20:20:50.000Z",
-    format: "calendar" as "calendar",
+    format: "calendar" as const,
     expected: "Today at 8:20 PM",
     referenceTime: REFERENCE_TIME,
   },
   {
     value: "2022-12-05T20:20:50.000Z",
-    format: "calendar" as "calendar",
+    format: "calendar" as const,
     expected: "Last Monday at 8:20 PM",
     referenceTime: REFERENCE_TIME,
   },
   {
     value: "2022-12-01T20:20:50.000Z",
-    format: "time" as "time",
+    format: "time" as const,
     expected: "20:20",
     referenceTime: REFERENCE_TIME,
   },

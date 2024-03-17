@@ -4,8 +4,13 @@ import { styled } from "solid-styled-components";
 
 import { CONFIGURATION } from "@revolt/common";
 
+import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
+import { ripple, scrollable } from "../../../directives";
 import { OverflowingText } from "../../design";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+
+void scrollable;
+void ripple;
 
 interface Props {
   /**
@@ -19,7 +24,7 @@ interface Props {
    */
   getFile(fileId: string): {
     file: File;
-    dataUri: string;
+    dataUri: string | undefined;
   };
 
   /**
@@ -50,26 +55,23 @@ export function determineFileSize(size: number) {
 }
 
 /**
- * List of image content types
- */
-const ALLOWED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/gif",
-  "image/webp",
-];
-
-/**
  * File carousel
  */
 export function FileCarousel(props: Props) {
   return (
     <Show when={props.files.length}>
       <Container>
-        <Carousel>
+        <Carousel use:scrollable={{ direction: "x" }}>
           <For each={props.files}>
             {(id, index) => {
+              /**
+               * Get the actual file
+               */
               const file = () => props.getFile(id);
+
+              /**
+               * Handler for removing the file
+               */
               const onClick = () => props.removeFile(id);
 
               return (
@@ -79,7 +81,10 @@ export function FileCarousel(props: Props) {
                   </Show>
 
                   <Entry ignored={index() >= CONFIGURATION.MAX_ATTACHMENTS}>
-                    <PreviewBox onClick={onClick}>
+                    <PreviewBox
+                      onClick={onClick}
+                      image={ALLOWED_IMAGE_TYPES.includes(file().file.type)}
+                    >
                       <Switch
                         fallback={
                           <EmptyEntry>
@@ -110,7 +115,7 @@ export function FileCarousel(props: Props) {
               );
             }}
           </For>
-          <EmptyEntry onClick={props.addFile}>
+          <EmptyEntry onClick={props.addFile} use:ripple>
             <BiRegularPlus size={48} />
           </EmptyEntry>
         </Carousel>
@@ -122,7 +127,7 @@ export function FileCarousel(props: Props) {
 /**
  * Image preview container
  */
-const PreviewBox = styled.div`
+const PreviewBox = styled.div<{ image: boolean }>`
   display: grid;
   justify-items: center;
   grid-template: "main" ${(props) =>
@@ -134,7 +139,10 @@ const PreviewBox = styled.div`
   cursor: pointer;
   overflow: hidden;
   border-radius: ${(props) => props.theme!.gap.md};
-  background: ${(props) => props.theme!.colours["background-200"]};
+
+  background: ${(props) =>
+    props.theme!.colours[`messaging-upload-file-background`]};
+  color: ${(props) => props.theme!.colours["messaging-upload-file-foreground"]};
 
   > * {
     grid-area: main;
@@ -145,7 +153,8 @@ const PreviewBox = styled.div`
  * Image preview
  */
 const Image = styled.img`
-  object-fit: contain;
+  width: 100%;
+  object-fit: cover;
   margin-bottom: ${(props) => props.theme!.gap.md};
   height: ${(props) => props.theme!.layout.height["attachment-preview"]};
 `;
@@ -162,6 +171,7 @@ const Overlay = styled.div`
   height: 100%;
 
   opacity: 0;
+  color: white;
   background: rgba(0, 0, 0, 0.8);
   transition: ${(props) => props.theme!.transitions.fast} opacity;
 
@@ -182,12 +192,8 @@ const EmptyEntry = styled.div`
 
   cursor: pointer;
   border-radius: ${(props) => props.theme!.gap.md};
-  background: ${(props) => props.theme!.colours["background-200"]};
-  transition: ${(props) => props.theme!.transitions.fast} background-color;
-
-  &:hover {
-    background: ${(props) => props.theme!.colours["background-100"]};
-  }
+  background: ${(props) =>
+    props.theme!.colours["messaging-upload-image-background"]};
 `;
 
 /**
@@ -207,7 +213,6 @@ const FileName = styled.span`
   ${(props) =>
     generateTypographyCSS(props.theme!, "composition-file-upload-name")}
   max-width: ${(props) => props.theme!.layout.height["attachment-preview"]};
-  color: ${(props) => props.theme!.colours["foreground-200"]};
   text-align: center;
 `;
 
@@ -217,7 +222,6 @@ const FileName = styled.span`
 const Size = styled.span`
   ${(props) =>
     generateTypographyCSS(props.theme!, "composition-file-upload-size")}
-  color: ${(props) => props.theme!.colours["foreground-400"]};
 `;
 
 /**
@@ -228,7 +232,7 @@ const Divider = styled.div`
   flex-shrink: 0;
   width: ${(props) => props.theme!.gap.sm};
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["foreground-400"]};
+  background: ${(props) => props.theme!.colours["messaging-upload-divider"]};
 `;
 
 /**
@@ -236,8 +240,9 @@ const Divider = styled.div`
  */
 const Carousel = styled.div`
   display: flex;
-  overflow-x: auto;
+  flex-shrink: 0;
   flex-direction: row;
+  overflow-x: auto !important;
   gap: ${(props) => props.theme!.gap.md};
 `;
 
@@ -248,7 +253,13 @@ const Container = styled.div`
   display: flex;
   user-select: none;
   flex-direction: column;
+
   gap: ${(props) => props.theme!.gap.md};
   padding: ${(props) => props.theme!.gap.md};
-  background: ${(props) => props.theme!.colours["background-300"]};
+  margin: ${(props) => props.theme!.gap.md} 0;
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+  background: ${(props) =>
+    props.theme!.colours["messaging-message-box-background"]};
+  color: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
 `;

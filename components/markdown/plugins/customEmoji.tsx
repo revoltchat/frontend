@@ -1,11 +1,13 @@
-import { Match, Switch, createSignal } from "solid-js";
+import { Match, Switch, createSignal, onMount } from "solid-js";
 
 import { useClient } from "@revolt/client";
-import { Avatar, Column, Row, Tooltip } from "@revolt/ui";
+import { Avatar, Column, Row, floating, styled } from "@revolt/ui";
 
 import { CustomEmoji, Emoji, RE_CUSTOM_EMOJI } from "../emoji";
 
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
+
+floating;
 
 /**
  * Render a custom emoji
@@ -16,45 +18,89 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
   const [exists, setExists] = createSignal(true);
 
   const client = useClient();
-  const emoji = () => client.emojis.get(props.match);
+
+  /**
+   * Resolve emoji
+   */
+  const emoji = () => client()!.emojis.get(props.match);
+
+  /**
+   * Resolve server
+   */
   const server = () =>
-    client.servers.get((emoji()!.parent as { type: "Server"; id: string }).id)!;
+    client()!.servers.get(
+      (emoji()!.parent as { type: "Server"; id: string }).id
+    )!;
 
   return (
     <Switch fallback={<span>{`:${emoji()?.name ?? props.match}:`}</span>}>
       <Match when={exists()}>
-        <Tooltip
-          placement="top"
-          content={
-            <Row align gap="lg">
-              <span style={{ "--emoji-size": "3em" }}>
-                <Emoji emoji={props.match} />
-              </span>
-              <Switch fallback="Unknown emote">
-                <Match when={emoji()?.parent.type === "Server"}>
-                  <Column align>
-                    <span>{`:${emoji()!.name}:`}</span>
-                    <Row align>
-                      <Avatar size={14} src={server().generateIconURL()} />
-                      {server().name}
-                    </Row>
-                  </Column>
-                </Match>
-              </Switch>
-            </Row>
-          }
+        <TooltipTrigger
+          use:floating={{
+            tooltip: {
+              placement: "top",
+              content: () => (
+                <Row align gap="lg">
+                  <span style={{ "--emoji-size": "3em" }}>
+                    <Emoji emoji={props.match} />
+                  </span>
+                  <Switch
+                    fallback={
+                      <>
+                        Unknown emote
+                        <FetchEmote id={props.match} />
+                      </>
+                    }
+                  >
+                    <Match when={emoji()?.parent.type === "Server"}>
+                      <Column align>
+                        <span>{`:${emoji()!.name}:`}</span>
+                        <Switch fallback="Private Server">
+                          <Match when={server()}>
+                            <Row align>
+                              <Avatar
+                                size={14}
+                                src={server().animatedIconURL}
+                              />
+                              {server().name}
+                            </Row>
+                          </Match>
+                        </Switch>
+                      </Column>
+                    </Match>
+                  </Switch>
+                </Row>
+              ),
+              aria:
+                emoji()?.parent.type === "Server"
+                  ? `:${emoji()!.name}: from ${
+                      server()?.name ?? "Private Server"
+                    }`
+                  : "Unknown emote",
+            },
+          }}
         >
-          {(triggerProps) => (
-            <CustomEmoji
-              {...triggerProps}
-              id={props.match}
-              onError={() => setExists(false)}
-            />
-          )}
-        </Tooltip>
+          <CustomEmoji id={props.match} onError={() => setExists(false)} />
+        </TooltipTrigger>
       </Match>
     </Switch>
   );
+}
+
+/**
+ * Container for trigger
+ */
+const TooltipTrigger = styled.div`
+  display: inline-block;
+`;
+
+/**
+ * Helper to fetch unknown emotes
+ */
+function FetchEmote(props: { id: string }) {
+  const client = useClient();
+  onMount(() => client().emojis.fetch(props.id));
+  return null;
 }
 
 export const remarkCustomEmoji = createComponent("cemoji", RE_CUSTOM_EMOJI);

@@ -5,8 +5,9 @@ import type { API } from "revolt.js";
 export type Props = {
   /**
    * User we are dealing with
+   * @default Invisible
    */
-  status: API.Presence;
+  status?: API.Presence;
 };
 
 /**
@@ -14,7 +15,11 @@ export type Props = {
  */
 export const UserStatusGraphic = (props: Props) => {
   const theme = useTheme();
-  const statusLowercase = () => props.status.toLowerCase();
+
+  /**
+   * Convert status to lower case
+   */
+  const statusLowercase = () => props.status?.toLowerCase() ?? "invisible";
 
   return (
     <circle
@@ -22,16 +27,15 @@ export const UserStatusGraphic = (props: Props) => {
       cy="27"
       r="5"
       fill={
-        theme.colours[
-          `status-${statusLowercase()}` as keyof typeof theme.colours
-        ]
+        theme.customColours[`status-${statusLowercase() as "online"}`].color
       }
+      mask={`url(#accessible-status-${statusLowercase()})`}
     />
   );
 };
 
 /**
- * Standalone user status element
+ * Stand-alone user status element
  */
 export function UserStatus(props: Props & { size: string }) {
   return (

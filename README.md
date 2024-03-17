@@ -1,14 +1,22 @@
-# Solid App (name TBD)
+# Revolt Frontend
 
-This is still a work in progress, please **do not create any issues** and clear any PRs with me ahead of time.
+This repository contains the code for Revolt's frontend, built with Solid.js.
 
-See [code style guidelines here](./GUIDELINES.md)!
+You can find the code style guidelines [here](./GUIDELINES.md).
 
-## Setup locally
+## Development Guide
+
+Before getting started, you'll want to install:
+
+- Git
+- Node.js
+- pnpm (run `corepack enable`)
+
+Then proceed to setup:
 
 ```bash
 # clone the repository
-git clone --recursive https://github.com/revoltchat/revoltchat-solid-client-monorepo client
+git clone --recursive https://github.com/revoltchat/frontend client
 cd client
 
 # update submodules if you pull new changes
@@ -17,10 +25,10 @@ cd client
 # install all packages
 pnpm i
 
-# build deps
+# build deps:
 pnpm build:deps
 
-# or build a specific dep: (i.e. revolt.js updates)
+# or build a specific dep (e.g. revolt.js updates):
 # pnpm --filter revolt.js run build
 
 # run dev server
@@ -29,7 +37,37 @@ pnpm dev
 
 Finally, navigate to http://local.revolt.chat:5173.
 
-## Build client
+### Pulling in Revolt's assets
+
+If you want to pull in Revolt brand assets after pulling, run the following:
+
+```bash
+# update the assets
+git -c submodule."packages/client/assets".update=checkout submodule update --init packages/client/assets
+```
+
+You can switch back to the fallback assets by running deinit and continuing as normal:
+
+```bash
+# deinit submodule which clears directory
+git submodule deinit packages/client/assets
+```
+
+### Faster iteration with Revolt.js
+
+To make it easier to work with `revolt.js`, you may want to temporarily make this change:
+
+```diff
+# packages/revolt.js/package.json
+-  "module": "lib/esm/index.js",
++  "module": "src/index.ts",
+```
+
+Any edits to the revolt.js codebase will immediately be reflected while developing.
+
+## Deployment Guide
+
+### Build the app
 
 ```bash
 # install packages
@@ -39,52 +77,16 @@ pnpm i
 pnpm build:all
 ```
 
-## Pulling in Revolt's assets
-
-If you want to pull in Revolt brand assets after pulling, run the following:
-
-```bash
-# update the assets
-git -c submodule."packages/client/public/assets".update=checkout submodule update packages/client/public/assets
-```
-
-You can switch back to fallback assets by running deinit and continuing as normal:
-
-```bash
-# deinit submodule which clears directory
-git submodule deinit packages/client/public/assets
-```
-
-If you are using fallback assets and want to switch back:
-
-```bash
-# remove symlink
-rm packages/client/public/assets
-
-# create directory
-mkdir packages/client/public/assets
-
-# reinit the submodule if not already
-git submodule init packages/client/public/assets
-
-# now run the first command
-```
-
-## Using `pnpm`
-
-Add a new package to a workspace:
-
-```bash
-pnpm add solid-hcaptcha --filter @revolt/auth
-```
-
-# Deployment Information
+### Routing Information
 
 The app currently needs the following routes:
 
 - `/server`
 - `/channel`
+- `/dev`
 - `/friends`
-- `/admin`
 - `/app`
 - `/pwa`
+- `/settings`
+
+This corresponds to [Content.tsx#L33](packages/client/src/interface/Content.tsx).

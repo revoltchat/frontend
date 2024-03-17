@@ -26,16 +26,28 @@ const ElementContainer = styled.div`
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
+/**
+ * Whether we should render this component
+ * @param key Key
+ * @returns Condition
+ */
 function shouldRender(key: string) {
   const filter = params["filter"];
   return filter ? filter === key : true;
 }
 
 render(() => {
+  /**
+   * Render a given component
+   * @param component Component
+   * @param tab Tab
+   * @returns Element
+   */
   function render(component: string | undefined, tab: string) {
     const entry = components[component!];
     if (entry) {
-      let { component: Component, props, stories, effects, decorators } = entry;
+      let { component: Component } = entry;
+      const { props, stories, decorators } = entry;
 
       const story = stories.find((story) => story.title === tab);
       if (story && !story.skipRegressionTests) {
@@ -77,10 +89,10 @@ render(() => {
   }
 
   return (
-    <div style={{"background":"black"}}>
+    <div style={{ background: "black" }}>
       <Masks />
       <I18nContext.Provider value={i18n}>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={darkTheme()}>
           <ApplyGlobalStyles />
           <Column>
             <For each={Object.keys(components)}>

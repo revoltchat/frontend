@@ -1,6 +1,10 @@
 import { Component, Show, createMemo } from "solid-js";
+import { JSX } from "solid-js";
 
-import { useClient } from "@revolt/client";
+import { Channel, Server as ServerI } from "revolt.js";
+
+import { ChannelContextMenu, ServerSidebarContextMenu } from "@revolt/app";
+import { useClient, useUser } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import { Route, Routes, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
@@ -9,7 +13,13 @@ import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 /**
  * Left-most channel navigation sidebar
  */
-export const Sidebar: Component = () => {
+export const Sidebar = (props: {
+  /**
+   * Menu generator TODO FIXME: remove
+   */
+  menuGenerator: (t: ServerI | Channel) => JSX.Directives["floating"];
+}) => {
+  const user = useUser();
   const client = useClient();
   const params = useSmartParams();
 
@@ -22,12 +32,19 @@ export const Sidebar: Component = () => {
           // TODO: muting channels
           (channel) => channel.unread
         )}
-        user={client.user!}
+        user={user()!}
         selectedServer={() => params().serverId}
+        onCreateOrJoinServer={() =>
+          modalController.push({
+            type: "create_or_join_server",
+            client: client(),
+          })
+        }
+        menuGenerator={props.menuGenerator}
       />
       <Routes>
         <Route path="/server/:server/*" component={Server} />
-        <Route path="/admin" element={() => null} />
+        <Route path="/admin" element={null} />
         <Route path="/*" component={Home} />
       </Routes>
     </div>
@@ -48,9 +65,9 @@ const Home: Component = () => {
       channelId={params().channelId}
       openSavedNotes={(navigate) => {
         // Check whether the saved messages channel exists already
-        const channelId = [...client.channels.values()].find(
-          (channel) => channel.channel_type === "SavedMessages"
-        )?._id;
+        const channelId = [...client()!.channels.values()].find(
+          (channel) => channel.type === "SavedMessages"
+        )?.id;
 
         if (navigate) {
           if (channelId) {
@@ -58,9 +75,9 @@ const Home: Component = () => {
             navigate(`/channel/${channelId}`);
           } else {
             // If not, try to create one but only if navigating
-            client
+            client()!
               .user!.openDM()
-              .then((channel) => navigate(`/channel/${channel._id}`));
+              .then((channel) => navigate(`/channel/${channel.id}`));
           }
         }
 
@@ -83,7 +100,7 @@ const Server: Component = () => {
    * Resolve the server
    * @returns Server
    */
-  const server = () => client.servers.get(params().serverId!)!;
+  const server = () => client()!.servers.get(params().serverId!)!;
 
   /**
    * Open the server information modal
@@ -95,12 +112,32 @@ const Server: Component = () => {
     });
   }
 
+  /**
+   * Open the server settings modal
+   */
+  function openServerSettings() {
+    modalController.push({
+      type: "settings",
+      config: "server",
+      context: server(),
+    });
+  }
+
   return (
     <Show when={server()}>
       <ServerSidebar
         server={server()}
         channelId={params().channelId}
         openServerInfo={openServerInfo}
+        openServerSettings={openServerSettings}
+        menuGenerator={(target) => ({
+          contextMenu: () =>
+            target instanceof Channel ? (
+              <ChannelContextMenu channel={target} />
+            ) : (
+              <ServerSidebarContextMenu server={target} />
+            ),
+        })}
       />
     </Show>
   );

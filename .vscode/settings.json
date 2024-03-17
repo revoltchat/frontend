@@ -15,5 +15,6 @@
   // Tell `rust-analyzer` where the Tauri project is.
   "rust-analyzer.linkedProjects": [
     "./packages/desktop/src-tauri/Cargo.toml"
-  ]
+  ],
+  "nixEnvSelector.nixFile": "${workspaceRoot}/default.nix"
 }

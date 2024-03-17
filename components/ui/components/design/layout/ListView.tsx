@@ -1,7 +1,9 @@
 import { JSX, createSignal, createUniqueId } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { ScrollContainer } from "../../common";
+import { scrollable } from "../../../directives";
+
+scrollable;
 
 interface Props {
   /**
@@ -89,33 +91,31 @@ export function ListView(props: Props) {
   }
 
   return (
-    <Base
+    <div
       id={id}
-      offsetTop={props.offsetTop}
-      scrollDirection="y"
+      use:scrollable={{
+        direction: "y",
+        offsetTop: props.offsetTop,
+      }}
+      style={{
+        "flex-grow": 1,
+        display: "flex",
+        "flex-direction": "column-reverse",
+      }}
       // eslint-disable-next-line solid/reactivity
       onScroll={onScroll}
     >
-      <div>
+      <Reverse>
         <div>{props.children}</div>
-      </div>
-    </Base>
+      </Reverse>
+    </div>
   );
 }
 
 /**
- * Base list container
- * TODO: use directives instead =)
+ * Reversed list container
  */
-const Base = styled(ScrollContainer)`
-  flex-grow: 1;
-
+const Reverse = styled.div`
   display: flex;
   flex-direction: column-reverse;
-
-  > div {
-    display: flex;
-    padding-bottom: 24px;
-    flex-direction: column-reverse;
-  }
 `;

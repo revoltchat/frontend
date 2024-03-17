@@ -1,18 +1,23 @@
-import { JSX, Show, splitProps } from "solid-js";
+import { ComponentProps, JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { ripple } from "../../../../directives";
 import { Row } from "../../layout";
 import { generateTypographyCSS } from "../display/Typography";
 import { Unreads } from "../indicators";
 
+void ripple;
+
 export interface Props {
   /**
    * Button size
+   * @default thin
    */
   readonly size?: "thin" | "normal";
 
   /**
    * Button attention
+   * @default normal
    */
   readonly attention?: "muted" | "normal" | "active" | "selected";
 
@@ -55,19 +60,27 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
   color: ${(props) =>
     props.theme!.colours[
       props.attention === "active" || props.attention === "selected"
-        ? "foreground"
-        : "foreground-400"
+        ? "component-menubtn-selected-foreground"
+        : props.attention === "muted"
+        ? "component-menubtn-muted-foreground"
+        : "component-menubtn-default-foreground"
     ]};
 
   background: ${(props) =>
-    props.attention === "selected"
-      ? props.theme!.colours["background-200"]
-      : "transparent"};
-
-  filter: ${(props) =>
-    props.attention === "muted" ? "brightness(0.75)" : "none"};
+    props.theme!.colours[
+      props.attention === "selected"
+        ? "component-menubtn-selected-background"
+        : props.attention === "muted"
+        ? "component-menubtn-muted-background"
+        : "component-menubtn-default-background"
+    ]};
 
   transition: ${(props) => props.theme!.transitions.fast} all;
+
+  /* TODO: BAD!! > * {
+    filter: ${(props) =>
+    props.attention === "muted" ? props.theme!.effects.muted : "none"};
+  } */
 
   .content {
     flex-grow: 1;
@@ -76,21 +89,27 @@ const Base = styled(Row)<Pick<Props, "size" | "attention">>`
 
   .actions {
     display: none;
+
+    align-items: center;
+    flex-direction: row;
+    gap: ${(props) => props.theme!.gap.sm};
+
+    /*TEMP FIXME*/
+    a {
+      display: grid;
+      place-items: center;
+    }
   }
 
-  &:hover {
-    background: ${({ theme }) => theme!.colours["background-200"]};
-
-    .actions {
-      display: block;
-    }
+  &:hover .actions {
+    display: flex;
   }
 `;
 
 /**
  * Menu button element
  */
-export function MenuButton(props: Props) {
+export function MenuButton(props: Props & ComponentProps<typeof Row>) {
   const [local, other] = splitProps(props, [
     "icon",
     "children",
@@ -99,7 +118,7 @@ export function MenuButton(props: Props) {
   ]);
 
   return (
-    <Base {...other} align>
+    <Base {...other} align use:ripple>
       {local.icon}
       <div class="content">{local.children}</div>
       <Show when={local.alert}>
@@ -109,7 +128,11 @@ export function MenuButton(props: Props) {
           unread
         />
       </Show>
-      {local.actions && <div class="actions">{local.actions}</div>}
+      {local.actions && (
+        <div class="actions" onClick={(e) => e.stopPropagation()}>
+          {local.actions}
+        </div>
+      )}
     </Base>
   );
 }

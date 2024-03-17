@@ -1,4 +1,9 @@
-import { Language, Languages, loadAndSetLanguage } from "@revolt/i18n";
+import {
+  Language,
+  Languages,
+  browserPreferredLanguage,
+  loadAndSetLanguage,
+} from "@revolt/i18n";
 
 import { State } from "..";
 
@@ -11,21 +16,37 @@ export type TypeLocale = {
   lang: Language;
 };
 
+/**
+ * Manage localisation of the application
+ */
 export class Locale extends AbstractStore<"locale", TypeLocale> {
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "locale");
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     loadAndSetLanguage(this.get().lang);
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeLocale {
     return {
-      lang: Language.ENGLISH,
+      lang: browserPreferredLanguage() as Language,
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeLocale>): TypeLocale {
     let lang: Language = input.lang!;
     if (!(lang in Languages)) {

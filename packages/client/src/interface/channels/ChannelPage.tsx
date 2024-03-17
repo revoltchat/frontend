@@ -26,7 +26,7 @@ export interface ChannelPageProps {
   channel: Channel;
 }
 
-const TEXT_CHANNEL_TYPES: Channel["channel_type"][] = [
+const TEXT_CHANNEL_TYPES: Channel["type"][] = [
   "TextChannel",
   "DirectMessage",
   "Group",
@@ -39,7 +39,7 @@ const TEXT_CHANNEL_TYPES: Channel["channel_type"][] = [
 export const ChannelPage: Component = () => {
   const params = useParams();
   const client = useClient();
-  const channel = createMemo(() => client.channels.get(params.channel)!);
+  const channel = createMemo(() => client()!.channels.get(params.channel)!);
 
   return (
     <Base>
@@ -47,11 +47,11 @@ export const ChannelPage: Component = () => {
         <Match when={!channel()}>
           <Navigate href={"../.."} />
         </Match>
-        <Match when={TEXT_CHANNEL_TYPES.includes(channel()!.channel_type)}>
+        <Match when={TEXT_CHANNEL_TYPES.includes(channel()!.type)}>
           <TextChannel channel={channel()} />
         </Match>
-        <Match when={channel()!.channel_type === "VoiceChannel"}>
-          <Header palette="primary">
+        <Match when={channel()!.type === "VoiceChannel"}>
+          <Header placement="primary">
             <TextWithEmoji content={channel().name!} />
           </Header>
           <Typography variant="legacy-modal-title">

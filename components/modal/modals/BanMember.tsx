@@ -24,7 +24,7 @@ const BanMember: PropGenerator<"ban_member"> = (props) => {
           <Column align="center">
             <Avatar src={props.member.user?.animatedAvatarURL} size={64} />
             {t("app.special.modals.prompt.confirm_ban", {
-              name: props.member.user?.username!,
+              name: props.member.user?.username as string,
             })}
           </Column>
         ),
@@ -34,7 +34,7 @@ const BanMember: PropGenerator<"ban_member"> = (props) => {
       },
     },
     callback: async ({ reason }) =>
-      void (await props.member.server!.banUser(props.member._id.user, {
+      void (await props.member.server!.banUser(props.member.id.user, {
         reason,
       })),
     submit: {

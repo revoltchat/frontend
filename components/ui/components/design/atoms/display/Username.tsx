@@ -15,6 +15,9 @@ type Props = {
   colour?: string;
 } & Omit<ComponentProps<typeof Typography>, "variant">;
 
+/**
+ * Username
+ */
 export function Username(props: Props) {
   const [local, remote] = splitProps(props, ["username", "colour"]);
 

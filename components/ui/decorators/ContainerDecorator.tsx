@@ -1,5 +1,8 @@
 import type { JSX } from "solid-js";
 
+/**
+ * Create container around some element
+ */
 export default function makeContainerDecorator({
   width,
   height,

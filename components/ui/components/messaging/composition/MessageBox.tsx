@@ -1,11 +1,14 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Switch } from "solid-js";
+import { JSX, Match, Show, Switch, onMount } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
 
+import { autoComplete } from "../../../directives";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
 import { InlineIcon, Row } from "../../design/layout";
+
+autoComplete;
 
 interface Props {
   /**
@@ -50,6 +53,16 @@ interface Props {
    * Whether sending messages is allowed
    */
   sendingAllowed: boolean;
+
+  /**
+   * Auto complete config
+   */
+  autoCompleteConfig?: JSX.Directives["autoComplete"];
+
+  /**
+   * Update the current draft selection
+   */
+  updateDraftSelection?: (start: number, end: number) => void;
 }
 
 /**
@@ -59,8 +72,13 @@ const Base = styled("div", "MessageBox")`
   height: 48px;
   flex-shrink: 0;
 
+  margin: 0 0 ${(props) => props.theme!.gap.md} 0;
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
   display: flex;
-  background: ${({ theme }) => theme!.colours["background-300"]};
+  background: ${({ theme }) =>
+    theme!.colours["messaging-message-box-background"]};
+  color: ${({ theme }) => theme!.colours["messaging-message-box-foreground"]};
 `;
 
 /**
@@ -76,7 +94,7 @@ const Input = styled("textarea")`
   padding: 14px 0;
 
   font-family: ${(props) => props.theme!.fonts.primary};
-  color: ${(props) => props.theme!.colours.foreground};
+  color: ${({ theme }) => theme!.colours["messaging-message-box-foreground"]};
   ${(props) => generateTypographyCSS(props.theme!, "messages")}
 `;
 
@@ -84,9 +102,9 @@ const Input = styled("textarea")`
  * Blocked message
  */
 const Blocked = styled(Row)`
+  font-size: 14px;
   flex-grow: 1;
   user-select: none;
-  color: ${(props) => props.theme!.colours["foreground-300"]};
 `;
 
 /**
@@ -103,6 +121,28 @@ export function MessageBox(props: Props) {
     props.setContent(event.currentTarget!.value);
   }
 
+  /**
+   * Handle key up event
+   * @param event Event
+   */
+  function onKeyUp(
+    event: KeyboardEvent & {
+      currentTarget: HTMLTextAreaElement;
+    }
+  ) {
+    props.updateDraftSelection?.(
+      event.currentTarget.selectionStart,
+      event.currentTarget.selectionEnd
+    );
+  }
+
+  /**
+   * Set initial draft selection
+   */
+  onMount(() =>
+    props.updateDraftSelection?.(props.content.length, props.content.length)
+  );
+
   return (
     <Base>
       <Switch fallback={props.actionsStart}>
@@ -118,10 +158,11 @@ export function MessageBox(props: Props) {
         fallback={
           <Input
             ref={props.ref}
-            onKeyDown={props.onKeyDown}
+            onInput={onInput}
+            onKeyUp={onKeyUp}
             value={props.content}
             placeholder={props.placeholder}
-            onInput={onInput}
+            use:autoComplete={props.autoCompleteConfig ?? true}
           />
         }
       >
@@ -129,7 +170,7 @@ export function MessageBox(props: Props) {
           <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
         </Match>
       </Switch>
-      {props.actionsEnd}
+      <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
     </Base>
   );
 }

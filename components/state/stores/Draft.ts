@@ -1,4 +1,6 @@
-import { API, Message } from "revolt.js";
+import { batch } from "solid-js";
+
+import { API, Channel, Client, Message } from "revolt.js";
 
 import { CONFIGURATION, insecureUniqueId } from "@revolt/common";
 
@@ -16,7 +18,7 @@ export interface DraftData {
   /**
    * Message IDs being replied to
    */
-  replies?: API.Reply[];
+  replies?: API.ReplyIntent[];
 
   /**
    * IDs of cached files
@@ -24,16 +26,78 @@ export interface DraftData {
   files?: string[];
 }
 
+export type UnsentMessage = {
+  /**
+   * Idempotency key
+   */
+  idempotencyKey: string;
+
+  /**
+   * Status
+   */
+  status: "sending" | "unsent" | "failed";
+} & DraftData;
+
+export interface TextSelection {
+  /**
+   * Draft we should update
+   */
+  channelId: string;
+
+  /**
+   * Start index of text selection
+   */
+  start: number;
+
+  /**
+   * End index of text selection
+   */
+  end: number;
+}
+
 export type TypeDraft = {
   /**
    * All active message drafts
    */
   drafts: Record<string, DraftData>;
+
+  /**
+   * Unsent messages
+   */
+  outbox: Record<string, UnsentMessage[]>;
 };
 
-export class Draft extends AbstractStore<"draft", TypeDraft> {
-  private fileCache: Record<string, { file: File; dataUri: string }>;
+/**
+ * List of image content types
+ */
+export const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+];
 
+/**
+ * Message drafts store
+ */
+export class Draft extends AbstractStore<"draft", TypeDraft> {
+  /**
+   * Keep track of cached files
+   */
+  private fileCache: Record<
+    string,
+    { file: File; dataUri: string | undefined }
+  >;
+
+  /**
+   * Current text selection
+   */
+  private textSelection?: TextSelection;
+
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "draft");
     this.fileCache = {};
@@ -41,21 +105,47 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     this.getFile = this.getFile.bind(this);
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeDraft {
     return {
       drafts: {},
+      outbox: {},
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeDraft>): TypeDraft {
     const drafts: TypeDraft["drafts"] = {};
+    const outbox: TypeDraft["outbox"] = {};
+
+    /**
+     * Validate replies array is correct
+     * @param replies Replies array
+     * @returns Validity
+     */
+    const validateReplies = (replies?: API.ReplyIntent[]) =>
+      Array.isArray(replies) &&
+      replies.length &&
+      !replies.find(
+        (x) =>
+          typeof x !== "object" ||
+          typeof x.id !== "string" ||
+          typeof x.mention !== "boolean"
+      );
 
     const messageDrafts = input.drafts;
-    if (messageDrafts) {
+    if (typeof messageDrafts === "object") {
       for (const channelId of Object.keys(messageDrafts)) {
         const entry = messageDrafts?.[channelId];
         const draft: DraftData = {};
@@ -64,16 +154,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
           draft.content = entry.content;
         }
 
-        if (
-          Array.isArray(entry?.replies) &&
-          entry!.replies.length &&
-          !entry!.replies.find(
-            (x) =>
-              typeof x !== "object" ||
-              typeof x.id !== "string" ||
-              typeof x.mention !== "boolean"
-          )
-        ) {
+        if (validateReplies(entry?.replies)) {
           draft.replies = entry!.replies;
         }
 
@@ -83,8 +164,44 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       }
     }
 
+    const pendingMessages = input.outbox;
+    if (typeof pendingMessages === "object") {
+      for (const channelId of Object.keys(pendingMessages)) {
+        const entry = pendingMessages[channelId];
+        const messages: UnsentMessage[] = [];
+
+        if (Array.isArray(entry)) {
+          for (const message of entry) {
+            if (
+              typeof message === "object" &&
+              ["sending", "unsent", "failed"].includes(message.status) &&
+              typeof message.idempotencyKey === "string" &&
+              typeof message.content === "string" // shouldn't be enforced once we support caching files
+            ) {
+              const msg: UnsentMessage = {
+                idempotencyKey: message.idempotencyKey,
+                content: message.content,
+                status: "unsent",
+                // TODO: support storing unsent files in local storage
+                // files: [..]
+              };
+
+              if (validateReplies(message.replies)) {
+                msg.replies = message.replies;
+              }
+
+              messages.push(msg);
+            }
+          }
+        }
+
+        outbox[channelId] = messages;
+      }
+    }
+
     return {
       drafts,
+      outbox,
     };
   }
 
@@ -143,6 +260,119 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   }
 
   /**
+   * Get the draft for a channel and send it
+   * @param client Client
+   * @param channel Channel
+   * @param existingDraft The existing draft to send
+   */
+  async sendDraft(client: Client, channel: Channel, existingDraft?: DraftData) {
+    const draft = existingDraft ?? this.popDraft(channel.id);
+
+    // TODO: const idempotencyKey = ulid();
+    const idempotencyKey = Math.random().toString();
+    this.set("outbox", channel.id, [
+      ...this.getPendingMessages(channel.id),
+      {
+        ...draft,
+        idempotencyKey,
+        status: "sending",
+      } as UnsentMessage,
+    ]);
+
+    // Try sending the message
+    const { content, replies, files } = draft;
+
+    // Construct message object
+    const attachments: string[] = [];
+    const data: API.DataMessageSend = {
+      content,
+      replies,
+      attachments,
+    };
+
+    // Add any files if attached
+    if (files?.length) {
+      // TODO: keep track of % upload progress
+      // we could visually show this in chat like
+      // on Discord mobile and allow individual
+      // files to be cancelled
+      for (const fileId of files) {
+        // Prepare for upload
+        const body = new FormData();
+        const { file } = this.getFile(fileId);
+        body.set("file", file);
+
+        // We have to use XMLHttpRequest because modern fetch duplex streams require QUIC or HTTP/2
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = "json";
+
+        const [success, response] = await new Promise<
+          [boolean, { id: string }]
+        >((resolve) => {
+          xhr.upload.addEventListener("progress", (event) => {
+            if (event.lengthComputable) {
+              // TODO: show this to users
+              console.log("upload progress:", event.loaded / event.total);
+            }
+          });
+
+          xhr.addEventListener("loadend", () => {
+            resolve([xhr.readyState === 4 && xhr.status === 200, xhr.response]);
+          });
+
+          xhr.open(
+            "POST",
+            `${client.configuration!.features.autumn.url}/attachments`,
+            true
+          );
+          xhr.send(body);
+        });
+
+        // TODO: keep track of uploaded files (and don't reupload those that succeded if message or something else fails)
+        if (!success) throw "Upload Error";
+        attachments.push(response.id);
+      }
+    }
+
+    // TODO: fix bug with backend
+    if (!attachments.length) {
+      delete data.attachments;
+    }
+
+    // Send the message and clear the draft
+    try {
+      await channel.sendMessage(data, idempotencyKey);
+
+      if (files) {
+        for (const file of files) {
+          this.removeFile(channel.id, file);
+        }
+      }
+
+      this.set(
+        "outbox",
+        channel.id,
+        this.getPendingMessages(channel.id).filter(
+          (entry) => entry.idempotencyKey !== idempotencyKey
+        )
+      );
+    } catch (err) {
+      this.set(
+        "outbox",
+        channel.id,
+        this.getPendingMessages(channel.id).map((entry) =>
+          entry.idempotencyKey === idempotencyKey
+            ? {
+                ...entry,
+                status: "failed",
+              }
+            : entry
+        )
+      );
+    }
+  }
+
+  /**
    * Remove required objects for sending a new message
    * @param channelId Channel ID
    * @returns Object with all required data
@@ -159,13 +389,88 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     return {
       content,
       replies,
-      files: files?.map((id) => {
-        const { file, dataUri } = this.fileCache[id];
-        URL.revokeObjectURL(dataUri);
-        delete this.fileCache[id];
-        return file;
-      }),
+      files,
     };
+  }
+
+  /**
+   * Retry sending a message in a channel
+   * @param client Client
+   * @param channel Channel
+   * @param idempotencyKey Idempotency key
+   */
+  retrySend(client: Client, channel: Channel, idempotencyKey: string) {
+    batch(() => {
+      const draft = this.get().outbox[channel.id].find(
+        (entry) => entry.idempotencyKey === idempotencyKey
+      );
+      // TODO: validation?
+
+      this.cancelSend(channel, idempotencyKey);
+      this.sendDraft(client, channel, draft!);
+    });
+  }
+
+  /**
+   * Cancel sending a message in a channel
+   * @param channel Channel
+   * @param idempotencyKey Idempotency key
+   */
+  cancelSend(channel: Channel, idempotencyKey: string) {
+    this.set(
+      "outbox",
+      channel.id,
+      this.getPendingMessages(channel.id).filter(
+        (entry) => entry.idempotencyKey !== idempotencyKey
+      )
+    );
+  }
+
+  /**
+   * Get all pending messages
+   * @param channelId Channel Id
+   * @returns Pending messages
+   */
+  getPendingMessages(channelId: string) {
+    return this.get().outbox[channelId] ?? [];
+  }
+
+  /**
+   * Set the current text selection
+   * @param channelId Channel Id
+   * @param start Start index
+   * @param end End index
+   */
+  setSelection(channelId: string, start: number, end: number) {
+    this.textSelection = {
+      channelId,
+      start,
+      end,
+    };
+  }
+
+  /**
+   * Insert text into the current selection
+   * @param string Text
+   */
+  insertText(string: string) {
+    if (this.textSelection) {
+      const content = this.getDraft(this.textSelection.channelId).content ?? "";
+      const startStr = content.slice(0, this.textSelection.start);
+      const endStr = content.slice(this.textSelection.end, content.length);
+
+      this.setDraft(this.textSelection.channelId, (draft) => ({
+        ...draft,
+        content: startStr + string + endStr,
+      }));
+
+      const pasteEndIdx = startStr.length + string.length;
+      this.textSelection = {
+        ...this.textSelection,
+        start: pasteEndIdx,
+        end: pasteEndIdx,
+      };
+    }
   }
 
   /**
@@ -178,27 +483,28 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   /**
    * Add a reply to the given message
    * @param message Message
+   * @param selfId Own user ID
    */
-  addReply(message: Message) {
+  addReply(message: Message, selfId: string) {
     // Ignore if reply already exists
     if (
-      this.getDraft(message.channel_id).replies?.find(
-        (reply) => reply.id === message._id
+      this.getDraft(message.channelId).replies?.find(
+        (reply) => reply.id === message.id
       )
     )
       return;
 
     // We should not mention ourselves, otherwise use previous mention state
     const shouldMention =
-      message.author_id !== message.client.user?._id &&
+      message.authorId !== selfId &&
       this.state.layout.getSectionState(LAYOUT_SECTIONS.MENTION_REPLY);
 
     // Update the draft with new reply
-    this.setDraft(message.channel_id, (data) => ({
+    this.setDraft(message.channelId, (data) => ({
       replies: [
         ...(data.replies ?? []),
         {
-          id: message._id,
+          id: message.id,
           mention: shouldMention,
         },
       ],
@@ -248,10 +554,29 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   addFile(channelId: string, file: File) {
     const id = insecureUniqueId();
-    this.fileCache[id] = { file, dataUri: URL.createObjectURL(file) };
+    this.fileCache[id] = {
+      file,
+      dataUri: ALLOWED_IMAGE_TYPES.includes(file.type)
+        ? URL.createObjectURL(file)
+        : undefined,
+    };
+
     this.setDraft(channelId, (data) => ({
       files: [...(data.files ?? []), id],
     }));
+  }
+
+  /**
+   * Delete a file from cache
+   * @param fileId File ID
+   */
+  private deleteFile(fileId: string) {
+    const file = this.fileCache[fileId];
+    if (file?.dataUri) {
+      URL.revokeObjectURL(file.dataUri);
+    }
+
+    delete this.fileCache[fileId];
   }
 
   /**
@@ -260,11 +585,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param fileId File ID
    */
   removeFile(channelId: string, fileId: string) {
-    if (this.fileCache[fileId]) {
-      URL.revokeObjectURL(this.fileCache[fileId].dataUri);
-    }
-
-    delete this.fileCache[fileId];
+    this.deleteFile(fileId);
     this.setDraft(channelId, (data) => ({
       files: data.files?.filter((entry) => entry !== fileId),
     }));

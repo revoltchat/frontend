@@ -1,39 +1,126 @@
 import "solid-styled-components";
 
+import type {
+  ColorGroup,
+  CustomColorGroup,
+  Scheme,
+  TonalPalette,
+} from "@material/material-color-utilities";
+
 /**
  * Declare our custom theme options
  */
 declare module "solid-styled-components" {
   export interface DefaultTheme {
+    /* colour(base: keyof Scheme, tone?: number): string;
+    scheme: Record<keyof Scheme, string>;
+    tones: Record<keyof Scheme, TonalPalette>; */
+    darkMode: boolean;
+    customColours: Record<
+      | `status-${
+          | "online"
+          | "idle"
+          | "focus"
+          | "busy"
+          | "streaming"
+          | "invisible"}`
+      | "success"
+      | "warning"
+      | "error",
+      Record<keyof ColorGroup, string>
+    >;
     colours: {
       [key in
-        | "accent"
-        | "foreground"
-        | `foreground-${100 | 200 | 300 | 400}`
         | "background"
-        | `background-${100 | 200 | 300 | 400}`
-        | "success"
-        | "warning"
-        | "error"
-        | `status-${
-            | "online"
-            | "idle"
-            | "focus"
-            | "busy"
-            | "streaming"
-            | "invisible"}`]: string;
+        | "foreground"
+        | `component-${
+            | `${"fab" | "checkbox" | "scrollbar"}-${
+                | "background"
+                | "foreground"}`
+            | "checkbox-foreground-check"
+            | "chip-background"
+            | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`
+            | `btn-foreground-${"plain" | "plain-secondary"}`
+            | `menubtn-${"default" | "selected" | "muted" | "hover"}-${
+                | "background"
+                | "foreground"}`
+            | `input-${"foreground" | "focus"}`
+            | `input-${"background" | "hover"}-${"primary" | "secondary"}`
+            | `categorybtn-${
+                | "background"
+                | "foreground"
+                | "foreground-description"
+                | `background-${"icon" | "collapse" | "hover" | "active"}`}`
+            | `modal-${"background" | "foreground"}`
+            | `avatar-fallback${"-contrast" | ""}-${
+                | "background"
+                | "foreground"}`
+            | `context-menu-${
+                | "background"
+                | "foreground"
+                | "item-hover-background"
+                | "divider"
+                | "shadow"}`}`
+        | `sidebar-${
+            | "header-transparent-background"
+            | "server-list-foreground"
+            | "channels-category-foreground"
+            | `${
+                | "channels"
+                | "members"
+                | "header"
+                | "header-with-image-text"}-${"background" | "foreground"}`}`
+        | `messaging-${
+            | `indicator-${"background" | "foreground"}`
+            | `indicator-reply-${"enabled" | "disabled"}`
+            | `upload-${"file-background" | "file-foreground" | "divider"}`
+            | `message-box-${"background" | "foreground"}`
+            | `message-mentioned-background`
+            | `component-${`${
+                | "blocked-message"
+                | "code-block"
+                | "blockquote"
+                | "text-embed"
+                | "attachment"
+                | "code-block-language"
+                | "message-divider"
+                | "message-divider-unread"
+                | "reaction"
+                | "reaction-selected"
+                | "mention"}-${"background" | "foreground"}`}`}`
+        | `settings-${
+            | "background"
+            | "foreground"
+            | `content-${"background" | "foreground"}`
+            | `close-anchor${"" | "-hover"}`
+            | `sidebar-${
+                | "category"
+                | "foreground"
+                | `button-${"hover" | "active"}`}`}`
+        | `temp-1`]: string;
     };
     rgb: {
-      [key in "header"]: string;
+      [key in "header" | "typing-indicator"]: string;
     };
     breakpoints: {
       [key in "sm" | "md" | "lg" | "xl"]: string;
     };
     borderRadius: {
-      [key in "sm" | "md" | "lg"]: string;
+      [key in "sm" | "md" | "lg" | "xl" | "xxl" | "full"]: string;
     };
     gap: {
-      [key in "none" | "sm" | "md" | "lg"]: string;
+      [key in
+        | "none"
+        | "xxs"
+        | "xs"
+        | "s"
+        | "sm"
+        | "md"
+        | "l"
+        | "lg"
+        | "x"
+        | "xl"
+        | "xxl"]: string;
     };
     fonts: {
       [key in "primary" | "monospace"]: string;
@@ -41,6 +128,7 @@ declare module "solid-styled-components" {
     typography: {
       [key in
         | "label"
+        | "chip"
         | "username"
         | "status"
         | "tooltip"
@@ -53,8 +141,17 @@ declare module "solid-styled-components" {
         | "composition-typing-indicator"
         | "conversation-channel-name"
         | "conversation-start"
+        | "conversation-indicator"
+        | "system-message"
         | "sidebar-title"
         | "channel-topic"
+        | "settings-title"
+        | "settings-account-username"
+        | "settings-account-card-title"
+        | "settings-account-card-subtitle"
+        | "modal-title"
+        | "modal-description"
+        | "home-page-title"
         | "legacy-settings-title"
         | "small"
         | "legacy-modal-title"
@@ -79,10 +176,18 @@ declare module "solid-styled-components" {
       blur: {
         [key in "md"]: string;
       };
+      ripple: {
+        hover: number;
+      };
+      muted: string;
       hover: string;
+      active: string;
       spoiler: string;
     };
     layout: {
+      width: {
+        [key in "channel-sidebar"]: string;
+      };
       height: {
         [key in
           | "header"
@@ -95,6 +200,9 @@ declare module "solid-styled-components" {
       };
       emoji: {
         [key in "small" | "medium" | "large"]: string;
+      };
+      zIndex: {
+        [key in "floating-bar" | "modal" | "floating-element"]: number;
       };
     };
   }

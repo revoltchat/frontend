@@ -32,6 +32,9 @@ const Base = styled("div")`
   }
 `;
 
+/**
+ * Spoiler Element
+ */
 export function Spoiler(props: Props) {
   const t = useTranslation();
   const [shown, setShown] = createSignal(true);

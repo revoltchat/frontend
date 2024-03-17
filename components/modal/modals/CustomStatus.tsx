@@ -22,10 +22,11 @@ const CustomStatus: PropGenerator<"custom_status"> = (props) => {
     data: {
       text: {
         field: t("app.context_menu.custom_status"),
+        "use:autoComplete": true,
       },
     },
     callback: ({ text }) =>
-      props.client.users.edit({
+      props.client.user!.edit({
         status: {
           ...props.client.user?.status,
           text: text.trim().length > 0 ? text : undefined,

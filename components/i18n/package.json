@@ -10,6 +10,10 @@
   "dependencies": {
     "@solid-primitives/i18n": "^1.1.1",
     "dayjs": "^1.11.5",
-    "solid-js": "^1.5.1"
+    "lodash.defaultsdeep": "^4.6.1",
+    "solid-js": "^1.7.3"
+  },
+  "devDependencies": {
+    "@types/lodash.defaultsdeep": "^4.6.7"
   }
 }

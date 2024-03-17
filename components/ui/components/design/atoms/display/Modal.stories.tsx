@@ -60,7 +60,7 @@ export default {
     (props) => (
       <div>
         <Button
-          palette="accent"
+          palette="primary"
           onClick={() => (props.childProps as any).onShow()}
         >
           Open Modal

@@ -15,8 +15,12 @@ export function CustomEmoji(
 ) {
   const [local, remote] = splitProps(props, ["id"]);
   const client = useClient();
+
+  /**
+   * Resolve emoji URL
+   */
   const url = () =>
-    `${client.configuration?.features.autumn.url}/emojis/${local.id}`;
+    `${client()?.configuration?.features.autumn.url}/emojis/${local.id}`;
 
   return (
     <EmojiBase
@@ -25,6 +29,7 @@ export function CustomEmoji(
       class="emoji"
       draggable={false}
       src={url()}
+      alt={`:${local.id}:`}
     />
   );
 }

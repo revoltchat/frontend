@@ -1,7 +1,7 @@
 import { styled } from "solid-styled-components";
 
 export interface Props {
-  readonly palette: "primary" | "secondary";
+  readonly placement: "primary" | "secondary";
 
   readonly topBorder?: boolean;
   readonly bottomBorder?: boolean;
@@ -21,11 +21,17 @@ export const Header = styled("div", "Header")<Props>`
   font-weight: 600;
   user-select: none;
 
-  color: ${(props) =>
-    props.theme!.colours[
-      props.palette === "primary" ? "foreground-200" : "foreground"
-    ]};
+  margin: ${(props) =>
+    props.placement === "primary"
+      ? (props.theme!.gap.md + " ").repeat(3) + "0"
+      : ""};
+  overflow: hidden;
   height: ${(props) => props.theme!.layout.height.header};
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+  color: ${(props) => props.theme!.colours["sidebar-header-foreground"]};
+  background-color: ${(props) =>
+    props.theme!.colours["sidebar-header-background"]};
 
   svg {
     flex-shrink: 0;
@@ -33,25 +39,38 @@ export const Header = styled("div", "Header")<Props>`
 
   background-size: cover !important;
   background-position: center !important;
-  background-color: ${(props) =>
-    props.theme!.colours[
-      `background-${props.palette === "primary" ? "300" : "200"}`
-    ]};
+`;
 
-  border-start-start-radius: ${(props) => (props.topBorder ? "8px" : 0)};
-  border-end-start-radius: ${(props) => (props.bottomBorder ? "8px" : 0)};
+/**
+ * Position an element below a floating header
+ *
+ * Ensure you place a div inside to make the positioning work
+ */
+export const BelowFloatingHeader = styled.div`
+  position: relative;
+  z-index: ${(props) => props.theme!.layout.zIndex["floating-bar"]};
+
+  > * {
+    width: 100%;
+    position: absolute;
+    top: calc(
+      2 * ${(props) => props.theme!.gap.md} +
+        ${(props) => props.theme!.layout.height.header}
+    );
+  }
 `;
 
 /**
  * Header with background transparency
  */
 export const HeaderWithTransparency = styled(Header)`
-  background-color: rgba(${(props) => props.theme!.rgb["header"]}, 0.75);
+  background-color: ${(props) =>
+    props.theme!.colours["sidebar-header-transparent-background"]};
   backdrop-filter: ${(props) => props.theme!.effects.blur.md};
 
-  width: 100%;
-  z-index: 20;
   position: absolute;
+  width: calc(100% - ${(props) => props.theme!.gap.md});
+  z-index: ${(props) => props.theme!.layout.zIndex["floating-bar"]};
 `;
 
 /**
@@ -61,18 +80,19 @@ export const HeaderWithImage = styled(Header)`
   padding: 0;
   align-items: flex-end;
   justify-content: stretch;
-  text-shadow: 0px 0px 1px black;
+  text-shadow: 0px 0px 1px ${(props) => props.theme!.colours.foreground};
   height: ${(props) => props.theme!.layout.height["tall-header"]};
+  margin: ${(props) => props.theme!.gap.md};
 
   > * {
     flex-grow: 1;
     padding: 6px 14px;
+    color: ${(props) =>
+      props.theme!.colours["sidebar-header-with-image-text-foreground"]};
     background: linear-gradient(
       0deg,
       ${(props) =>
-        props.theme!.colours[
-          `background-${props.palette === "primary" ? "200" : "100"}`
-        ]},
+        props.theme!.colours["sidebar-header-with-image-text-background"]},
       transparent
     );
   }

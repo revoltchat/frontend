@@ -7,10 +7,12 @@
   },
   "keywords": [],
   "devDependencies": {
-    "vite": "^4.2.1"
+    "vite": "^4.2.1",
+    "vite-plugin-solid-svg": "^0.6.1"
   },
   "private": true,
   "dependencies": {
+    "@material-design-icons/svg": "^0.14.8",
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/common": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
@@ -18,10 +20,10 @@
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/state": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
-    "revolt.js": "workspace:^6.0.18",
+    "revolt.js": "workspace:^",
     "solid-hcaptcha": "^0.2.5",
-    "solid-icons": "^1.0.1",
-    "solid-js": "^1.5.1",
+    "solid-icons": "^1.0.4",
+    "solid-js": "^1.7.3",
     "solid-styled-components": "^0.28.4"
   }
 }

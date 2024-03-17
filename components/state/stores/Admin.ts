@@ -1,6 +1,5 @@
 import { SetStoreFunction, createStore } from "solid-js/store";
 
-import { runInAction } from "mobx";
 import { API } from "revolt.js";
 
 import { getController } from "@revolt/common";
@@ -49,28 +48,42 @@ export const DEFAULT_TAB_OFFSET_IDX = 2;
  */
 interface Cache {
   reports: Record<string, API.Report | false>;
-  snapshots: Record<string, API.SnapshotWithContext | false>;
+  snapshots: Record<string, API.SnapshotWithContext>;
 }
 
+/**
+ * Manage currently open tabs in admin panel
+ */
 export class Admin extends AbstractStore<"admin", TypeAdmin> {
   private cache: Cache;
   private setCache: SetStoreFunction<Cache>;
   private fetchingUsers: Set<string>;
 
+  /**
+   * Construct store
+   * @param state State
+   */
   constructor(state: State) {
     super(state, "admin");
 
     const [cache, setCache] = createStore({ reports: {}, snapshots: {} });
+    // eslint-disable-next-line solid/reactivity
     this.cache = cache;
     this.setCache = setCache;
 
     this.fetchingUsers = new Set();
   }
 
+  /**
+   * Hydrate external context
+   */
   hydrate(): void {
     /** nothing needs to be done */
   }
 
+  /**
+   * Generate default values
+   */
   default(): TypeAdmin {
     return {
       tabs: [],
@@ -78,6 +91,9 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
     };
   }
 
+  /**
+   * Validate the given data to see if it is compliant and return a compliant object
+   */
   clean(input: Partial<TypeAdmin>): TypeAdmin {
     // TODO: write clean function
     return input as TypeAdmin;
@@ -125,31 +141,38 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
       this.setCache("reports", id, false);
 
       getController("client")
-        .getReadyClient()!
+        .getCurrentClient()!
         .api.get(`/safety/report/${id as ""}`)
         .then((report) => this.cacheReport(report));
     }
   }
 
   /**
-   * Get snapshot by id
-   *
-   * Will be fetched in background if not yet available
-   * @param report_id Report id
+   * Get snapshot for report
+   * @param reportId Report ID
    */
-  getSnapshot(report_id: string) {
-    const snapshot = this.cache.snapshots[report_id];
-    if (snapshot) return snapshot;
+  getSnapshots(reportId: string) {
+    return Object.keys(this.cache.snapshots)
+      .map((id) => this.cache.snapshots[id])
+      .filter((snapshot) => snapshot.report_id === reportId);
+  }
 
-    if (typeof snapshot === "undefined") {
-      this.setCache("snapshots", report_id, false);
+  /**
+   * Fetch snapshots for a report
+   * @param reportId Report ID
+   */
+  fetchSnapshots(reportId: string) {
+    if (this.getSnapshots(reportId).length) return;
 
-      const client = getController("client").getReadyClient()!;
+    const client = getController("client").getCurrentClient()!;
 
-      client.api
-        .get(`/safety/snapshot/${report_id as ""}`)
-        .then((snapshot) => this.cacheSnapshot(snapshot));
-    }
+    client.api
+      .get(`/safety/snapshot/${reportId as ""}`)
+      .then((snapshots) =>
+        (snapshots as never as API.SnapshotWithContext[]).forEach((snapshot) =>
+          this.cacheSnapshot(snapshot)
+        )
+      );
   }
 
   /**
@@ -192,10 +215,10 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
 
   /**
    * Remove tab at index
-   * @param idx Absolute index
+   * @param absoluteIndex Absolute index
    */
-  removeTab(idx: number) {
-    const index = idx - DEFAULT_TAB_OFFSET_IDX;
+  removeTab(absoluteIndex: number) {
+    const index = absoluteIndex - DEFAULT_TAB_OFFSET_IDX;
     this.set("tabs", (tabs) => tabs.filter((_, idx) => index !== idx));
   }
 
@@ -204,17 +227,15 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    * @param report Report
    */
   cacheReport(report: API.Report) {
-    runInAction(() => {
-      const client = getController("client").getReadyClient()!;
+    const client = getController("client").getCurrentClient()!;
 
-      if (
-        report.status === "Created" &&
-        !this.fetchingUsers.has(report.author_id)
-      ) {
-        this.fetchingUsers.add(report.author_id);
-        client.users.fetch(report.author_id);
-      }
-    });
+    if (
+      report.status === "Created" &&
+      !this.fetchingUsers.has(report.author_id)
+    ) {
+      this.fetchingUsers.add(report.author_id);
+      client.users.fetch(report.author_id);
+    }
 
     this.setCache("reports", report._id, report);
   }
@@ -224,36 +245,34 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    * @param snapshot Snapshot
    */
   cacheSnapshot(snapshot: API.SnapshotWithContext) {
-    runInAction(() => {
-      const client = getController("client").getReadyClient()!;
+    const client = getController("client").getCurrentClient()!;
 
-      if (snapshot._users) {
-        for (const user of snapshot._users) {
-          client.users.createObj(user);
-        }
+    if (snapshot._users) {
+      for (const user of snapshot._users) {
+        client.users.getOrCreate(user._id, user);
       }
+    }
 
-      if (snapshot._channels) {
-        for (const channel of snapshot._channels) {
-          client.channels.createObj(channel);
-        }
+    if (snapshot._channels) {
+      for (const channel of snapshot._channels) {
+        client.channels.getOrCreate(channel._id, channel);
       }
+    }
 
-      if (snapshot._server) {
-        client.servers.createObj(snapshot._server);
-      }
+    if (snapshot._server) {
+      client.servers.getOrCreate(snapshot._server._id, snapshot._server);
+    }
 
-      const content = snapshot.content;
-      if (content._type === "Message") {
-        [
-          ...(content._prior_context ?? []),
-          content,
-          ...(content._leading_context ?? []),
-        ].forEach((msg) => client.messages.createObj(msg));
-      }
-    });
+    const content = snapshot.content;
+    if (content._type === "Message") {
+      [
+        ...(content._prior_context ?? []),
+        content,
+        ...(content._leading_context ?? []),
+      ].forEach((msg) => client.messages.getOrCreate(msg._id, msg));
+    }
 
-    this.setCache("snapshots", snapshot.report_id, snapshot);
+    this.setCache("snapshots", snapshot._id, snapshot);
   }
 
   /**
@@ -263,7 +282,7 @@ export class Admin extends AbstractStore<"admin", TypeAdmin> {
    */
   async editReport(id: string, data: API.DataEditReport) {
     const report = await getController("client")
-      .getReadyClient()!
+      .getCurrentClient()!
       .api.patch(`/safety/reports/${id as ""}`, data);
 
     this.setCache("reports", id, report);

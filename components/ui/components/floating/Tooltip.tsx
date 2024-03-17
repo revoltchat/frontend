@@ -1,17 +1,15 @@
-import { useFloating } from "solid-floating-ui";
-import { JSX, Ref, Show, createSignal } from "solid-js";
-import { Portal } from "solid-js/web";
+import { JSX, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { Placement, autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "@motionone/solid";
-
+import { floating } from "../../directives";
 import { generateTypographyCSS } from "../design/atoms/display/Typography";
+
+floating;
 
 /**
  * Base element for the tooltip
  */
-const TooltipBase = styled("div", "Tooltip")`
+export const TooltipBase = styled("div", "Tooltip")`
   color: white;
   background: black;
   ${(props) => generateTypographyCSS(props.theme!, "tooltip")};
@@ -20,89 +18,26 @@ const TooltipBase = styled("div", "Tooltip")`
   border-radius: ${(props) => props.theme!.borderRadius.md};
 `;
 
-interface Props {
+type Props = {
   /**
    * Tooltip trigger area
-   * @param triggerProps Props that need to be applied to the trigger area
    */
-  children: (triggerProps: {
-    ref: Ref<any>;
-    onClick: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;
-    onMouseEnter: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;
-    onMouseLeave: JSX.EventHandlerUnion<HTMLElement | SVGElement, MouseEvent>;
-    "aria-label"?: string;
-  }) => JSX.Element;
-
-  /**
-   * Placement of the tooltip
-   */
-  placement?: Placement;
-
-  /**
-   * Initial tooltip state (used for debugging)
-   */
-  initialState?: boolean;
-
-  /**
-   * Content of the tooltip
-   */
-  content: JSX.Element;
-
-  /**
-   * Copy content to aria label field
-   * **Must be a string!**
-   */
-  aria?: boolean;
-}
+  children: JSX.Element;
+} & (JSX.Directives["floating"] & object)["tooltip"];
 
 /**
  * Tooltip component
  */
 export function Tooltip(props: Props) {
-  // for arrows: const id = crypto.randomUUID();
-  const [anchor, setAnchor] = createSignal<HTMLElement>();
-  const [floating, setFloating] = createSignal<HTMLDivElement>();
-  const [show, setShow] = createSignal(props.initialState ?? false);
-
-  const position = useFloating(anchor, floating, {
-    placement: props.placement,
-    whileElementsMounted: autoUpdate,
-    middleware: [offset(5), flip(), shift()],
-  });
+  const [local, remote] = splitProps(props, ["children"]);
 
   return (
-    <>
-      {props.children({
-        ref: setAnchor,
-        onClick: () => setShow(false),
-        onMouseEnter: () => setShow(true),
-        onMouseLeave: () => setShow(false),
-        "aria-label": props.aria ? (props.content as string) : undefined,
-      })}
-      <Portal mount={document.getElementById("floating")!}>
-        <Presence>
-          <Show when={show()}>
-            <Motion
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1, easing: [0.87, 0, 0.13, 1] }}
-            >
-              <TooltipBase
-                ref={setFloating}
-                style={{
-                  position: position.strategy,
-                  top: `${position.y ?? 0}px`,
-                  left: `${position.x ?? 0}px`,
-                }}
-                role="tooltip"
-              >
-                {props.content}
-              </TooltipBase>
-            </Motion>
-          </Show>
-        </Presence>
-      </Portal>
-    </>
+    <div
+      use:floating={{
+        tooltip: remote as never,
+      }}
+    >
+      {local.children}
+    </div>
   );
 }

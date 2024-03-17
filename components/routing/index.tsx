@@ -18,11 +18,14 @@ export {
   useNavigate,
   useParams,
   useLocation,
+  useBeforeLeave,
   hashIntegration,
+  memoryIntegration,
 } from "@solidjs/router";
 
 const RE_SERVER = /\/server\/([A-Z0-9]{26})/;
 const RE_CHANNEL = /\/channel\/([A-Z0-9]{26})/;
+const RE_MESSAGE_ID = /\/channel\/[A-Z0-9]{26}\/([A-Z0-9]{26})/;
 
 /**
  * Route parameters available globally
@@ -37,29 +40,46 @@ type GlobalParams = {
    * Channel ID
    */
   channelId?: string;
+
+  /**
+   * Message ID
+   */
+  messageId?: string;
 };
+
+/**
+ * Generate global params from path
+ * @param pathname Path
+ * @returns Params
+ */
+export function paramsFromPathname(pathname: string): GlobalParams {
+  const params: GlobalParams = {};
+
+  // Check for server ID
+  const server = pathname.match(RE_SERVER);
+  if (server) {
+    params.serverId = server[1];
+  }
+
+  // Check for channel ID
+  const channel = pathname.match(RE_CHANNEL);
+  if (channel) {
+    params.channelId = channel[1];
+  }
+
+  // Check for message ID
+  const message = pathname.match(RE_MESSAGE_ID);
+  if (message) {
+    params.messageId = message[1];
+  }
+
+  return params;
+}
 
 /**
  * Try to resolve route parameters regardless of the current position within component tree
  */
 export function useSmartParams(): Accessor<GlobalParams> {
   const location = useLocation();
-
-  return () => {
-    let params: GlobalParams = {};
-
-    // Check for server ID
-    const server = location.pathname.match(RE_SERVER);
-    if (server) {
-      params.serverId = server[1];
-    }
-
-    // Check for channel ID
-    const channel = location.pathname.match(RE_CHANNEL);
-    if (channel) {
-      params.channelId = channel[1];
-    }
-
-    return params;
-  };
+  return () => paramsFromPathname(location.pathname);
 }

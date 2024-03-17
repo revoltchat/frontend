@@ -1,3 +1,4 @@
+/* eslint-disable solid/reactivity */
 import { ComponentProps, For, JSX, Match, Show, Switch } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
@@ -140,10 +141,10 @@ export function Form<T extends FormTemplate>(props: Props<T>) {
                   type={props.schema[key]}
                   disabled={props.disabled}
                   value={() =>
-                    store[key] as Value<typeof props.schema[typeof key]>
+                    store[key] as Value<(typeof props.schema)[typeof key]>
                   }
                   onChange={(value) => {
-                    setStore(key as any, value as any);
+                    setStore(key as never, value as never);
                     props.onChange?.(store, key);
                   }}
                   {...props.data[key]}

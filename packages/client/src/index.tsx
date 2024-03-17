@@ -1,20 +1,26 @@
-import { enableExternalSource, Show } from "solid-js";
-
 /**
  * Configure contexts and render App
  */
+import { createComputed, createEffect, createSignal, on } from "solid-js";
+import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
-/**
- * Configure MobX
- */
-import { Reaction } from "mobx";
+import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
 
 import i18n, { I18nContext } from "@revolt/i18n";
 import { ModalRenderer } from "@revolt/modal";
 import { Router } from "@revolt/routing";
-import { Hydrate } from "@revolt/state";
-import { ApplyGlobalStyles, Masks, ThemeProvider, darkTheme, Titlebar, Column } from "@revolt/ui";
+import { Hydrate, state } from "@revolt/state";
+import {
+  ApplyGlobalStyles,
+  FloatingManager,
+  KeybindsProvider,
+  Masks,
+  ProvideDirectives,
+  ThemeProvider,
+  darkTheme,
+  Titlebar
+} from "@revolt/ui";
 import { appWindow } from "@tauri-apps/api/window";
 
 /* @refresh reload */
@@ -23,18 +29,28 @@ import "@revolt/ui/styles";
 import App from "./App";
 import "./sentry";
 
-let id = 0;
-enableExternalSource((fn, trigger) => {
-  const reaction = new Reaction(`@${++id}`, trigger);
-  return {
-    track: (x) => {
-      let next;
-      reaction.track(() => (next = fn(x)));
-      return next;
-    },
-    dispose: () => reaction.dispose(),
-  };
-});
+attachDevtoolsOverlay();
+
+/** TEMPORARY */
+function MountTheme(props: { children: any }) {
+  const [accent, setAccent] = createSignal("#FF5733");
+  const [darkMode, setDarkMode] = createSignal(false);
+
+  (window as any)._demo_setAccent = setAccent;
+  (window as any)._demo_setDarkMode = setDarkMode;
+
+  const [theme, setTheme] = createStore(darkTheme(accent(), darkMode()));
+
+  createEffect(
+    on(
+      () => [accent(), darkMode()] as [string, boolean],
+      ([accent, darkMode]) => setTheme(darkTheme(accent, darkMode))
+    )
+  );
+
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
+}
+/** END TEMPORARY */
 
 render(
   () => (
@@ -42,25 +58,24 @@ render(
       <Masks />
       <Router>
         <I18nContext.Provider value={i18n}>
-          <ThemeProvider theme={darkTheme}>
-            <Column gap="none" style={{
-              "min-height": "100vh",
-              height: "100%"
-            }}>
-              <Show when={window.__TAURI__}>
-                <Titlebar
-                  isBuildDev={import.meta.env.DEV}
-                  onMinimize={() => appWindow.minimize()}
-                  onMaximize={() => appWindow.toggleMaximize()}
-                  onClose={() => appWindow.hide()}
-                />
-              </Show>
-              <App />
-            </Column>
-
-            <ModalRenderer />
-            <ApplyGlobalStyles />
-          </ThemeProvider>
+          <MountTheme>
+            <ProvideDirectives>
+              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+                <Show when={window.__TAURI__}>
+                  <Titlebar
+                    isBuildDev={import.meta.env.DEV}
+                    onMinimize={() => appWindow.minimize()}
+                    onMaximize={() => appWindow.toggleMaximize()}
+                    onClose={() => appWindow.hide()}
+                  />
+                </Show>
+                <App />
+              </KeybindsProvider>
+              <ModalRenderer />
+              <FloatingManager />
+              <ApplyGlobalStyles />
+            </ProvideDirectives>
+          </MountTheme>
         </I18nContext.Provider>
       </Router>
     </Hydrate>

@@ -15,7 +15,6 @@ export interface Props {
     | "secondary"
     | "plain"
     | "plain-secondary"
-    | "accent"
     | "success"
     | "warning"
     | "error";
@@ -64,7 +63,7 @@ const ButtonBase = styled("button")<Props>`
   cursor: pointer;
 
   border: none;
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
+  border-radius: ${({ theme }) => theme!.borderRadius.xxl};
 
   transition: ${({ theme }) => theme!.transitions.fast} all;
 
@@ -75,7 +74,7 @@ const ButtonBase = styled("button")<Props>`
   }
 
   &:active {
-    filter: brightness(0.8);
+    filter: brightness(0.9);
   }
 
   &:disabled {
@@ -85,20 +84,28 @@ const ButtonBase = styled("button")<Props>`
 `;
 
 const PrimaryButton = styled(ButtonBase)<Props>`
-  color: ${({ theme }) => theme!.colours["foreground"]};
-  background: ${({ theme }) => theme!.colours["background-100"]};
+  fill: ${({ theme }) => theme!.colours["component-btn-foreground-primary"]};
+  color: ${({ theme }) => theme!.colours["component-btn-foreground-primary"]};
+  background: ${({ theme }) =>
+    theme!.colours["component-btn-background-primary"]};
 `;
 
 const SecondaryButton = styled(ButtonBase)<Props>`
-  color: ${({ theme }) => theme!.colours["foreground"]};
-  background: ${({ theme }) => theme!.colours["background-200"]};
+  fill: ${({ theme }) => theme!.colours["component-btn-foreground-secondary"]};
+  color: ${({ theme }) => theme!.colours["component-btn-foreground-secondary"]};
+  background: ${({ theme }) =>
+    theme!.colours["component-btn-background-secondary"]};
 `;
 
 const PlainButton = styled(ButtonBase)<Props>`
+  fill: ${(props) =>
+    props.theme!.colours[
+      `component-btn-foreground-${props.palette as "plain" | "plain-secondary"}`
+    ]};
   color: ${(props) =>
-    props.palette === "plain"
-      ? props.theme!.colours["foreground"]
-      : props.theme!.colours["foreground-200"]};
+    props.theme!.colours[
+      `component-btn-foreground-${props.palette as "plain" | "plain-secondary"}`
+    ]};
   background: transparent;
 
   &:hover {
@@ -113,9 +120,14 @@ const PlainButton = styled(ButtonBase)<Props>`
 const AccentedButton = styled(ButtonBase)<Props>`
   font-weight: 600;
   background: ${(props) =>
-    props.theme!.colours[
-      props.palette as "accent" | "success" | "warning" | "error"
-    ]};
+    props.theme!.customColours[props.palette as "success" | "warning" | "error"]
+      .color};
+  fill: ${(props) =>
+    props.theme!.customColours[props.palette as "success" | "warning" | "error"]
+      .onColor};
+  color: ${(props) =>
+    props.theme!.customColours[props.palette as "success" | "warning" | "error"]
+      .onColor};
 `;
 
 export type ButtonProps = Props & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -131,7 +143,6 @@ export const Button = (props: ButtonProps) => {
     case "plain":
     case "plain-secondary":
       return <PlainButton {...props} />;
-    case "accent":
     case "success":
     case "warning":
     case "error":

@@ -6,6 +6,7 @@
     "^solid",
     "<THIRD_PARTY_MODULES>",
     "^@revolt",
+    "^@material-design-icons",
     "^\\.\\.",
     "^[./]"
   ],

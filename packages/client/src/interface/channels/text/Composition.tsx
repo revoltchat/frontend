@@ -11,6 +11,7 @@ import { API, Channel } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
+import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import {
   CompositionPicker,
@@ -28,6 +29,11 @@ interface Props {
    * Channel to compose for
    */
   channel: Channel;
+
+  /**
+   * Notify parent component when a message is sent
+   */
+  onMessageSend?: () => void;
 }
 
 /**
@@ -52,7 +58,7 @@ export function MessageComposition(props: Props) {
    * @returns Draft
    */
   function draft() {
-    return state.draft.getDraft(props.channel._id);
+    return state.draft.getDraft(props.channel.id);
   }
 
   /**
@@ -66,12 +72,12 @@ export function MessageComposition(props: Props) {
   function startTyping() {
     if (typeof isTyping === "number" && +new Date() < isTyping) return;
 
-    const ws = client.websocket;
-    if (ws.connected) {
+    const ws = client()!.events;
+    if (ws.state() === 2) {
       isTyping = +new Date() + 2500;
       ws.send({
         type: "BeginTyping",
-        channel: props.channel._id,
+        channel: props.channel.id,
       });
     }
   }
@@ -81,12 +87,12 @@ export function MessageComposition(props: Props) {
    */
   function stopTyping() {
     if (isTyping) {
-      const ws = client.websocket;
-      if (ws.connected) {
+      const ws = client()!.events;
+      if (ws.state() === 2) {
         isTyping = undefined;
         ws.send({
           type: "EndTyping",
-          channel: props.channel._id,
+          channel: props.channel.id,
         });
       }
     }
@@ -102,56 +108,20 @@ export function MessageComposition(props: Props) {
    * @param useContent Content to send
    */
   async function sendMessage(useContent?: unknown) {
+    props.onMessageSend?.();
+
     if (typeof useContent === "string") {
       return props.channel.sendMessage(useContent);
     }
 
-    const { content, replies, files } = state.draft.popDraft(props.channel._id);
-
-    // Construct message object
-    const attachments: string[] = [];
-    const data: API.DataMessageSend = {
-      content,
-      replies,
-      attachments,
-    };
-
-    // Add any files if attached
-    if (files?.length) {
-      for (const file of files) {
-        // Prepare for upload
-        const body = new FormData();
-        body.append("file", file);
-
-        // Upload to Autumn
-        attachments.push(
-          await fetch(
-            `${client.configuration?.features.autumn.url}/attachments`,
-            {
-              method: "POST",
-              body,
-            }
-          )
-            .then((res) => res.json())
-            .then((res) => res.id)
-        );
-      }
-    }
-
-    // TODO: fix bug with backend
-    if (!attachments.length) {
-      delete data.attachments;
-    }
-
-    // Send the message and clear the draft
-    props.channel.sendMessage(data);
+    state.draft.sendDraft(client(), props.channel);
   }
 
   /**
    * Shorthand for updating the draft
    */
   function setContent(content: string) {
-    state.draft.setDraft(props.channel._id, { content });
+    state.draft.setDraft(props.channel.id, { content });
     startTyping();
   }
 
@@ -179,11 +149,114 @@ export function MessageComposition(props: Props) {
   function onKeyDownMessageBox(
     event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
   ) {
+    const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
+    const usingBracketIndent =
+      (event.ctrlKey || event.metaKey) &&
+      (event.key === "[" || event.key === "]");
+
+    if (
+      (event.key === "Tab" || usingBracketIndent) &&
+      !event.isComposing &&
+      insideCodeBlock
+    ) {
+      // Handle code block indentation.
+      event.preventDefault();
+
+      const indent = "  "; // 2 spaces
+
+      const selectStart = event.currentTarget.selectionStart;
+      const selectEnd = event.currentTarget.selectionEnd;
+      let selectionStartColumn = 0;
+      let selectionEndColumn = 0;
+
+      const lines = (draft().content ?? "").split("\n");
+      const selectLines = [];
+
+      // Get indexes of selected lines
+      let selectionBegun = false;
+      let lineIndex = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const currentLine = lines[i];
+        const endOfLine = lineIndex + currentLine.length;
+
+        if (selectStart >= lineIndex && selectStart <= endOfLine) {
+          selectionBegun = true;
+          selectionStartColumn = selectStart - lineIndex;
+        }
+
+        if (selectionBegun) selectLines.push(i);
+
+        if (selectEnd <= endOfLine) {
+          selectionEndColumn = selectEnd - lineIndex;
+          break;
+        }
+
+        lineIndex += currentLine.length + 1; // add 1 to account for missing newline char
+      }
+
+      if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
+        const whitespaceRegex = new RegExp(`(?<=^ *) {1,${indent.length}}`);
+
+        // Used to ensure selection remains the same after indentation changes
+        let charsRemoved = 0;
+        let charsRemovedFirstLine = 0;
+
+        // Remove indentation on selected lines, where possible.
+        for (let i = 0; i < selectLines.length; i++) {
+          const selectedLineIndex = selectLines[i];
+          const currentLine = lines[selectedLineIndex];
+          const result = whitespaceRegex.exec(currentLine);
+
+          // If result == null, there's no more spacing to remove on this line.
+          if (result != null) {
+            lines[selectedLineIndex] = currentLine.substring(result[0].length);
+            charsRemoved += result[0].length;
+            if (i === 0) charsRemovedFirstLine = result[0].length;
+          }
+        }
+
+        setContent(lines.join("\n"));
+
+        // Update selection positions.
+        event.currentTarget.selectionStart =
+          selectStart - charsRemovedFirstLine;
+        event.currentTarget.selectionEnd = selectEnd - charsRemoved;
+      } else {
+        // Used to ensure selection remains the same after indentation changes
+        let indentsAdded = 0;
+
+        // Add indentation to selected lines.
+        for (const selectedLineIndex of selectLines) {
+          const currentLine = lines[selectedLineIndex];
+
+          if (selectStart === selectEnd && event.key === "Tab") {
+            // Insert spacing at current position instead of line start
+            const beforeIndent = currentLine.slice(0, selectionStartColumn);
+            const afterIndent = currentLine.slice(selectionEndColumn);
+
+            lines[selectedLineIndex] = beforeIndent + indent + afterIndent;
+          } else {
+            // Insert spacing at beginning of selected line
+            lines[selectedLineIndex] = indent + currentLine;
+          }
+
+          indentsAdded++;
+        }
+
+        setContent(lines.join("\n"));
+
+        // Update selection positions.
+        event.currentTarget.selectionStart = selectStart + indent.length;
+        event.currentTarget.selectionEnd =
+          selectEnd + indent.length * indentsAdded;
+      }
+    }
+
     if (
       event.key === "Enter" &&
       !event.shiftKey &&
       !event.isComposing &&
-      !isInCodeBlock(event.currentTarget.selectionStart) /*&& props.ref*/
+      !insideCodeBlock /*&& props.ref*/
     ) {
       event.preventDefault();
       sendMessage();
@@ -199,12 +272,14 @@ export function MessageComposition(props: Props) {
    */
   function onKeyDown(event: KeyboardEvent) {
     if (event.key === "Escape") {
-      if (state.draft.popFromDraft(props.channel._id)) {
+      if (state.draft.popFromDraft(props.channel.id)) {
         event.preventDefault();
       }
     } else if (
       // Don't take focus from other input elements
       !(event.target instanceof HTMLInputElement) &&
+      // Don't take focus from modals
+      !modalController.isOpen() &&
       // Only focus if pasting to allow copying of text elsewhere
       (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() === "v")
     ) {
@@ -232,7 +307,7 @@ export function MessageComposition(props: Props) {
     );
 
     for (const file of validFiles) {
-      state.draft.addFile(props.channel._id, file);
+      state.draft.addFile(props.channel.id, file);
     }
   }
 
@@ -269,7 +344,7 @@ export function MessageComposition(props: Props) {
    * @param fileId File ID
    */
   function removeFile(fileId: string) {
-    state.draft.removeFile(props.channel._id, fileId);
+    state.draft.removeFile(props.channel.id, fileId);
   }
 
   return (
@@ -282,20 +357,20 @@ export function MessageComposition(props: Props) {
       />
       <For each={draft().replies ?? []}>
         {(reply) => {
-          const message = client.messages.get(reply.id);
+          const message = client()!.messages.get(reply.id);
 
           /**
            * Toggle mention on reply
            */
           function toggle() {
-            state.draft.toggleReplyMention(props.channel._id, reply.id);
+            state.draft.toggleReplyMention(props.channel.id, reply.id);
           }
 
           /**
            * Dismiss a reply
            */
           function dismiss() {
-            state.draft.removeReply(props.channel._id, reply.id);
+            state.draft.removeReply(props.channel.id, reply.id);
           }
 
           return (
@@ -304,7 +379,7 @@ export function MessageComposition(props: Props) {
               mention={reply.mention}
               toggle={toggle}
               dismiss={dismiss}
-              self={message?.author_id === client.user?._id}
+              self={message?.authorId === client()!.user!.id}
             />
           );
         }}
@@ -313,7 +388,6 @@ export function MessageComposition(props: Props) {
         ref={ref}
         content={draft()?.content ?? ""}
         setContent={setContent}
-        onKeyDown={onKeyDownMessageBox}
         actionsStart={
           <Switch fallback={<InlineIcon size="short" />}>
             <Match
@@ -364,9 +438,9 @@ export function MessageComposition(props: Props) {
           </CompositionPicker>
         }
         placeholder={
-          props.channel.channel_type === "SavedMessages"
+          props.channel.type === "SavedMessages"
             ? t("app.main.channel.message_saved")
-            : props.channel.channel_type === "DirectMessage"
+            : props.channel.type === "DirectMessage"
             ? t("app.main.channel.message_who", {
                 person: props.channel.recipient?.username as string,
               })
@@ -375,6 +449,23 @@ export function MessageComposition(props: Props) {
               })
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
+        autoCompleteConfig={{
+          onKeyDown: onKeyDownMessageBox,
+          client: client(),
+          searchSpace: props.channel.server
+            ? {
+                members: client().serverMembers.filter(
+                  (member) => member.id.server === props.channel.serverId
+                ),
+                channels: props.channel.server.channels,
+              }
+            : props.channel.type === "Group"
+            ? { users: props.channel.recipients, channels: [] }
+            : { channels: [] },
+        }}
+        updateDraftSelection={(start, end) =>
+          state.draft.setSelection(props.channel.id, start, end)
+        }
       />
       <FilePasteCollector onFiles={onFiles} />
       <FileDropAnywhereCollector onFiles={onFiles} />

@@ -1,36 +1,43 @@
 import { Match, Switch } from "solid-js";
 
-import { API } from "revolt.js";
+import {
+  ImageEmbed,
+  MessageEmbed,
+  TextEmbed as TextEmbedClass,
+  VideoEmbed,
+  WebsiteEmbed,
+} from "revolt.js";
 
 import { SizedContent } from "../../design/layout/SizedContent";
 
 import { TextEmbed } from "./TextEmbed";
 
 /**
- * Type assertion for embeds
- */
-export type E<T extends API.Embed["type"]> = API.Embed & { type: T };
-
-/**
  * Render a given embed
  */
-export function Embed(props: {
-  embed: API.Embed;
-  baseUrl: string;
-  proxyFile: (url: string) => string | undefined;
-}) {
+export function Embed(props: { embed: MessageEmbed }) {
+  /**
+   * Whether the embed is a GIF
+   */
   const isGIF = () =>
-    props.embed.type === "Website" && props.embed.special?.type === "GIF";
+    props.embed.type === "Website" &&
+    (props.embed as WebsiteEmbed).specialContent?.type === "GIF";
 
+  /**
+   * Whether there is a video
+   */
   const video = () =>
     (props.embed.type === "Video"
-      ? props.embed
-      : isGIF() && (props.embed as E<"Website">).video) || undefined;
+      ? (props.embed as VideoEmbed)
+      : isGIF() && (props.embed as WebsiteEmbed).video) || undefined;
 
+  /**
+   * Whether there is a image
+   */
   const image = () =>
     (props.embed.type === "Image"
-      ? props.embed
-      : isGIF() && (props.embed as E<"Website">).image) || undefined;
+      ? (props.embed as ImageEmbed)
+      : isGIF() && (props.embed as WebsiteEmbed).image) || undefined;
 
   return (
     <Switch fallback={`Could not render ${props.embed.type}!`}>
@@ -42,23 +49,24 @@ export function Embed(props: {
             autoplay={isGIF()}
             controls={!isGIF()}
             preload="metadata"
-            src={props.proxyFile(video()!.url)}
+            // bypass proxy for known GIF providers
+            src={isGIF() ? video()!.url : video()!.proxiedURL}
           />
         </SizedContent>
       </Match>
       <Match when={image()}>
         <SizedContent width={image()!.width} height={image()!.height}>
-          <img src={props.proxyFile(image()!.url)} loading="lazy" />
+          <img
+            // bypass proxy for known GIF providers
+            src={isGIF() ? image()!.url : image()!.proxiedURL}
+            loading="lazy"
+          />
         </SizedContent>
       </Match>
       <Match
         when={props.embed.type === "Website" || props.embed.type === "Text"}
       >
-        <TextEmbed
-          embed={props.embed as E<"Website" | "Text">}
-          proxyFile={props.proxyFile}
-          baseUrl={props.baseUrl}
-        />
+        <TextEmbed embed={props.embed as WebsiteEmbed | TextEmbedClass} />
       </Match>
       <Match when={props.embed.type === "None"}> </Match>
     </Switch>

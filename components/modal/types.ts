@@ -1,15 +1,52 @@
-import type { ComponentProps } from "solid-js";
+import type { ComponentProps, JSX } from "solid-js";
 
-import { API, Channel, Client, Member, Message, Server, User } from "revolt.js";
+import {
+  API,
+  Bot,
+  Channel,
+  Client,
+  File,
+  Message,
+  Server,
+  ServerMember,
+  Session,
+  User,
+} from "revolt.js";
+import { MFA, MFATicket } from "revolt.js/src/classes/MFA";
 
+import { SettingsConfigurations } from "@revolt/app";
+import type { KeyComboSequence, KeybindAction } from "@revolt/keybinds";
 import type { Modal } from "@revolt/ui";
 
 import { ChangelogPost } from "./modals/Changelog";
 
 export type Modals =
   | {
-      type: "add_friend" | "create_group" | "create_server" | "custom_status";
+      type:
+        | "add_friend"
+        | "create_group"
+        | "create_or_join_server"
+        | "create_server"
+        | "join_server"
+        | "custom_status"
+        | "edit_username"
+        | "edit_email"
+        | "edit_password";
       client: Client;
+    }
+  | {
+      type: "rename_session";
+      session: Session;
+    }
+  | {
+      type: "report_content";
+      client: Client;
+      target: Server | User | Message;
+      contextMessage?: Message;
+    }
+  | {
+      type: "report_success";
+      user?: User;
     }
   | {
       type: "signed_out";
@@ -18,9 +55,9 @@ export type Modals =
       type: "mfa_flow";
     } & (
       | {
+          mfa: MFA;
           state: "known";
-          client: Client;
-          callback: (ticket?: API.MFATicket) => void;
+          callback: (ticket?: MFATicket) => void;
         }
       | {
           state: "unknown";
@@ -28,7 +65,7 @@ export type Modals =
           callback: (response?: API.MFAResponse) => void;
         }
     ))
-  | { type: "mfa_recovery"; codes: string[]; client: Client }
+  | { type: "mfa_recovery"; codes: string[]; mfa: MFA }
   | {
       type: "mfa_enable_totp";
       identifier: string;
@@ -47,8 +84,6 @@ export type Modals =
   | {
       type: "sign_out_sessions";
       client: Client;
-      onDelete: () => void;
-      onDeleting: () => void;
     }
   | {
       type: "show_token";
@@ -79,7 +114,7 @@ export type Modals =
     }
   | {
       type: "server_identity";
-      member: Member;
+      member: ServerMember;
     }
   | {
       type: "channel_info";
@@ -92,7 +127,7 @@ export type Modals =
   | {
       type: "image_viewer";
       embed?: API.Image;
-      attachment?: API.File;
+      file?: File;
     }
   | {
       type: "user_picker";
@@ -145,9 +180,7 @@ export type Modals =
     }
   | {
       type: "delete_bot";
-      bot: string;
-      name: string;
-      cb?: () => void;
+      bot: Bot;
     }
   | {
       type: "delete_message";
@@ -155,11 +188,11 @@ export type Modals =
     }
   | {
       type: "kick_member";
-      member: Member;
+      member: ServerMember;
     }
   | {
       type: "ban_member";
-      member: Member;
+      member: ServerMember;
     }
   | {
       type: "unfriend_user";
@@ -180,10 +213,25 @@ export type Modals =
     }
   | {
       type: "import_theme";
+    }
+  | {
+      type: "settings";
+      config: keyof typeof SettingsConfigurations;
+      // eslint-disable-next-line
+      context?: any;
+    }
+  | {
+      type: "edit_keybind";
+      action: KeybindAction;
+      onSubmit: (sequence: KeyComboSequence) => void;
     };
 
 export type ModalProps<T extends Modals["type"]> = Modals & { type: T };
-export type ReturnType = ComponentProps<typeof Modal>;
+export type ReturnType =
+  | ComponentProps<typeof Modal>
+  | {
+      _children: (props: { show: boolean; onClose: () => void }) => JSX.Element;
+    };
 export type PropGenerator<T extends Modals["type"]> = (
   props: ModalProps<T>,
   onClose: () => void

@@ -14,7 +14,7 @@ interface Props {
   /**
    * Reactions data
    */
-  reactions: Map<string, Set<string>>;
+  reactions?: Map<string, Set<string>>;
 
   /**
    * Interactions
@@ -39,6 +39,9 @@ interface Props {
   removeReaction(reaction: string): void;
 }
 
+/**
+ * Message reactions
+ */
 export function Reactions(props: Props) {
   /**
    * Determine two lists of 'required' and 'optional' reactions
@@ -86,8 +89,8 @@ export function Reactions(props: Props) {
           {(entry) => (
             <Reaction
               reaction={entry}
-              active={props.reactions.get(entry)?.has(props.userId!)}
-              users={props.reactions.get(entry)}
+              active={props.reactions?.get(entry)?.has(props.userId!)}
+              users={props.reactions?.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />
@@ -100,8 +103,8 @@ export function Reactions(props: Props) {
           {(entry) => (
             <Reaction
               reaction={entry}
-              active={props.reactions.get(entry)?.has(props.userId!)}
-              users={props.reactions.get(entry)}
+              active={props.reactions?.get(entry)?.has(props.userId!)}
+              users={props.reactions?.get(entry)}
               addReaction={props.addReaction}
               removeReaction={props.removeReaction}
             />
@@ -174,7 +177,7 @@ function Reaction(props: {
   return (
     <Tooltip
       placement="top"
-      content={
+      content={() => (
         <Row align gap="lg">
           <span style={{ "--emoji-size": "3em" }}>
             <Emoji emoji={props.reaction} />
@@ -183,13 +186,12 @@ function Reaction(props: {
             <PeopleList>{peopleList()}</PeopleList>
           </Typography>
         </Row>
-      }
-    >
-      {(triggerProps) => (
-        <ReactionBase {...triggerProps} active={props.active} onClick={onClick}>
-          <Emoji emoji={props.reaction} /> {props.users?.size || 0}
-        </ReactionBase>
       )}
+      aria={peopleList()}
+    >
+      <ReactionBase active={props.active} onClick={onClick}>
+        <Emoji emoji={props.reaction} /> {props.users?.size || 0}
+      </ReactionBase>
     </Tooltip>
   );
 }
@@ -209,11 +211,17 @@ const ReactionBase = styled("div", "Reaction")<{ active?: boolean }>`
   padding: ${(props) => props.theme!.gap.md};
   border-radius: ${(props) => props.theme!.borderRadius.md};
   color: ${(props) =>
-    props.theme!.colours[props.active ? "accent" : "foreground-200"]};
+    props.theme!.colours[
+      `messaging-component-reaction${
+        props.active ? "-selected" : ""
+      }-foreground`
+    ]};
   background: ${(props) =>
-    props.active
-      ? "rgb(253 102 113 / 0.27)"
-      : props.theme!.colours["background-100"]};
+    props.theme!.colours[
+      `messaging-component-reaction${
+        props.active ? "-selected" : ""
+      }-background`
+    ]};
   transition: ${(props) => props.theme!.transitions.fast} all;
 
   font-weight: 600;
@@ -242,7 +250,8 @@ const AddReaction = styled(ReactionBase)`
   justify-content: center;
 
   font-size: var(--emoji-size);
-  background: ${(props) => props.theme!.colours["background-300"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-reaction-background"]};
 
   height: 33px;
   aspect-ratio: 1/1;
@@ -255,7 +264,8 @@ const AddReaction = styled(ReactionBase)`
 const Divider = styled.div`
   width: 1px;
   height: 14px;
-  background: ${(props) => props.theme!.colours["background-300"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-component-reaction-foreground"]};
 `;
 
 /**

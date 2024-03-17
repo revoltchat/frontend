@@ -11,8 +11,10 @@ import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
+import { Keybinds } from "./stores/Keybinds";
 import { Layout } from "./stores/Layout";
 import { Locale } from "./stores/Locale";
+import { NotificationOptions } from "./stores/NotificationOptions";
 import { Ordering } from "./stores/Ordering";
 import { Settings } from "./stores/Settings";
 
@@ -20,6 +22,11 @@ import { Settings } from "./stores/Settings";
  * Introduce some delay before writing state to disk
  */
 const DISK_WRITE_WAIT_MS = 1200;
+
+/**
+ * Stores for which we don't want to wait to write to
+ */
+const IGNORE_WRITE_DELAY = ["auth"];
 
 /**
  * Global application state
@@ -35,8 +42,10 @@ export class State {
   auth = new Auth(this);
   draft = new Draft(this);
   experiments = new Experiments(this);
+  keybinds = new Keybinds(this);
   layout = new Layout(this);
   locale = new Locale(this);
+  notifications = new NotificationOptions(this);
   ordering = new Ordering(this);
   settings = new Settings(this);
 
@@ -97,20 +106,25 @@ export class State {
     }
 
     // queue for writing to disk
-    this.writeQueue[key] = setTimeout(() => {
-      // remove from write queue
-      delete this.writeQueue[key];
+    this.writeQueue[key] = setTimeout(
+      () => {
+        // remove from write queue
+        delete this.writeQueue[key];
 
-      // write the entire key to storage
-      localforage.setItem(
-        key,
-        JSON.parse(JSON.stringify((this.store as Record<string, unknown>)[key]))
-      );
+        // write the entire key to storage
+        localforage.setItem(
+          key,
+          JSON.parse(
+            JSON.stringify((this.store as Record<string, unknown>)[key])
+          )
+        );
 
-      if (import.meta.env.DEV) {
-        console.info("Wrote state to disk.");
-      }
-    }, DISK_WRITE_WAIT_MS) as unknown as number;
+        if (import.meta.env.DEV) {
+          console.info("Wrote state to disk.");
+        }
+      },
+      IGNORE_WRITE_DELAY.includes(key) ? 0 : DISK_WRITE_WAIT_MS
+    ) as unknown as number;
   };
 
   /**
@@ -122,7 +136,7 @@ export class State {
 
     // run side-effects
     if (import.meta.env.DEV) {
-      console.info("[store]", this.store);
+      console.info("[store] updated data", args[0]);
     }
   };
 

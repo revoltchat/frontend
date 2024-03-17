@@ -33,8 +33,6 @@ const Base = styled("div")`
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  background: ${({ theme }) => theme!.colours["background-200"]};
 `;
 
 /**
@@ -43,6 +41,10 @@ const Base = styled("div")`
 const Content = styled("div")`
   width: fit-content;
   margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme!.gap.xl};
 `;
 
 /**
@@ -50,6 +52,11 @@ const Content = styled("div")`
  */
 const Buttons = styled("div")`
   display: flex;
+
+  padding: ${(props) => props.theme!.gap.md};
+
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+  background: ${(props) => props.theme!.colours["sidebar-channels-background"]};
 `;
 
 /**
@@ -65,7 +72,9 @@ const SeparatedColumn = styled(Column)`
  */
 const Image = styled("img")`
   margin-top: 0.5em;
-  height: 80px;
+  height: 36px;
+
+  filter: invert(100%);
 `;
 
 /**
@@ -79,27 +88,19 @@ export function HomePage() {
   // check if we're revolt.chat; if so, check if the user is in the Lounge
   const showLoungeButton = IS_REVOLT;
   const isInLounge =
-    client.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
+    client()!.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
 
   return (
     // TODO: i18n
     <Base>
-      <Header palette="primary">
+      <Header placement="primary">
         <HeaderIcon>
           <BiSolidHome size={24} />
         </HeaderIcon>
         Home
       </Header>
       <Content>
-        <Typography
-          // TODO: create separate typography style for homepage
-          style={{
-            "text-align": "center",
-            "margin-bottom": "1em",
-            "font-size": "200%",
-          }}
-          variant="legacy-settings-title"
-        >
+        <Typography variant="home-page-title">
           {t("app.special.modals.onboarding.welcome")}
           <br />
           <Image src={wideSvg} />
@@ -108,7 +109,10 @@ export function HomePage() {
           <SeparatedColumn>
             <CategoryButton
               onClick={() =>
-                modalController.push({ type: "create_group", client })
+                modalController.push({
+                  type: "create_group",
+                  client: client()!,
+                })
               }
               description={t("app.home.group_desc")}
               icon={<BiSolidPlusCircle size={24} />}
@@ -161,6 +165,7 @@ export function HomePage() {
               {t("app.home.feedback")}
             </CategoryButton>
             <CategoryButton
+              onClick={() => modalController.push({ type: "settings" })}
               description={t("app.home.settings-tooltip")}
               icon={<BiSolidCog size={24} />}
             >

@@ -1,3 +1,5 @@
+/* eslint-disable */
+// TODO: finish implementation; then remove eslint-disable
 import {
   Accessor,
   ComponentProps,
@@ -10,11 +12,12 @@ import {
 } from "solid-js";
 
 import {
-  Checkbox, // ColourSwatches,
+  // ColourSwatches,
   Column,
   ComboBox,
   FormGroup,
   Input,
+  LegacyCheckbox,
   Radio,
   Typography,
 } from "../design";
@@ -33,6 +36,7 @@ import {
  */
 export type Type =
   | "text"
+  | "password"
   | "checkbox"
   // | "colour"
   | "combo"
@@ -63,6 +67,8 @@ type Props<T extends Type> = {
 type Choice = {
   value: string;
   name: JSX.Element;
+  disabled?: boolean;
+  selected?: boolean;
 };
 
 /**
@@ -70,7 +76,8 @@ type Choice = {
  */
 type Metadata = {
   text: { value: string; props: ComponentProps<typeof Input> };
-  checkbox: { value: boolean; props: ComponentProps<typeof Checkbox> };
+  password: { value: string; props: ComponentProps<typeof Input> };
+  checkbox: { value: boolean; props: ComponentProps<typeof LegacyCheckbox> };
   /*colour: {
         value: string;
         props: ComponentProps<typeof ColourSwatches>;
@@ -132,8 +139,18 @@ export function InputElement<T extends Type>(props: Props<T>) {
             {...innerProps}
           />
         </Match>
+        <Match when={localProps.type === "password"}>
+          <Input
+            type="password"
+            value={localProps.value() as string}
+            onChange={(ev) =>
+              localProps.onChange(ev.currentTarget.value as Value<T>)
+            }
+            {...innerProps}
+          />
+        </Match>
         <Match when={localProps.type === "checkbox"}>
-          <Checkbox
+          <LegacyCheckbox
             value={localProps.value() as boolean}
             onChange={(value) => localProps.onChange(value as Value<T>)}
             {...innerProps}
@@ -155,7 +172,15 @@ export function InputElement<T extends Type>(props: Props<T>) {
             {...innerProps}
           >
             <For each={(innerProps as unknown as Props<"combo">).options}>
-              {(option) => <option value={option.value}>{option.name}</option>}
+              {(option) => (
+                <option
+                  value={option.value}
+                  disabled={option.disabled}
+                  selected={option.selected}
+                >
+                  {option.name}
+                </option>
+              )}
             </For>
           </ComboBox>
         </Match>

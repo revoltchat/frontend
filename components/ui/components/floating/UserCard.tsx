@@ -1,13 +1,10 @@
-import { useFloating } from "solid-floating-ui";
-import { For, JSX, Ref, Show, createSignal } from "solid-js";
-import { Portal } from "solid-js/web";
+import { JSX, createMemo } from "solid-js";
+import { For, Show } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "@motionone/solid";
-import { Member, User } from "revolt.js";
+import { getController } from "@revolt/common";
 
-import { ColouredText } from "../design";
+import { ColouredText, Row, Username } from "../design";
 
 /**
  * Base element for the card
@@ -19,91 +16,76 @@ const Base = styled("div", "Tooltip")`
   height: 400px;
 `;
 
-interface Props {
-  /**
-   * User card trigger area
-   * @param triggerProps Props that need to be applied to the trigger area
-   */
-  children: (triggerProps: {
-    ref: Ref<any>;
-    onClick: JSX.EventHandlerUnion<HTMLElement, MouseEvent>;
-  }) => JSX.Element;
-
-  /**
-   * Initial show state (used for debugging)
-   */
-  initialState?: boolean;
-
-  /**
-   * User to show
-   */
-  user: User;
-
-  /**
-   * Member to show
-   */
-  member?: Member;
-}
-
 /**
- * UserCard component
+ * User Card
  */
-export function UserCard(props: Props) {
-  const [anchor, setAnchor] = createSignal<HTMLElement>();
-  const [floating, setFloating] = createSignal<HTMLDivElement>();
-  const [show, setShow] = createSignal(props.initialState ?? false);
+export function UserCard(
+  props: JSX.Directives["floating"]["userCard"] & object
+) {
+  const roleIds = createMemo(
+    () => new Set(props.member?.orderedRoles.map((role) => role.id))
+  );
 
-  const position = useFloating(anchor, floating, {
-    placement: "right-start",
-    whileElementsMounted: autoUpdate,
-    middleware: [offset(5), flip(), shift()],
-  });
+  // Disable it while it's being developed
+  if (!getController("state").experiments.isEnabled("user_card")) return null;
 
   return (
-    <>
-      {props.children({
-        ref: setAnchor,
-        onClick: () => setShow(!show()),
-      })}
-      <Portal mount={document.getElementById("floating")!}>
-        <Presence>
-          <Show when={show()}>
-            <Motion
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
+    <Base>
+      <Show when={props.member}>
+        <Username
+          username={props.member!.nickname ?? props.user.username}
+          colour={props.member!.roleColour!}
+        />
+        <br />
+      </Show>
+      {props.user.username}
+      <Show when={props.member}>
+        <br />
+        <br />
+        <For each={props.member!.orderedRoles}>
+          {(role) => (
+            <div
+              onClick={() =>
+                props.member!.edit({
+                  roles: [...roleIds()].filter((id) => id !== role.id),
+                })
+              }
             >
-              <Base
-                ref={setFloating}
-                style={{
-                  position: position.strategy,
-                  top: `${position.y ?? 0}px`,
-                  left: `${position.x ?? 0}px`,
-                }}
-                role="tooltip"
+              <ColouredText
+                colour={role.colour!}
+                clip={role.colour?.includes("gradient")}
               >
-                {props.user.username}
-                <br />
-                <Show when={props.member}>
-                  <For each={props.member!.orderedRoles}>
-                    {([, role]) => (
-                      <div>
-                        <ColouredText
-                          colour={role.colour!}
-                          clip={role.colour?.includes("gradient")}
-                        >
-                          {role.name}
-                        </ColouredText>
-                      </div>
-                    )}
-                  </For>
-                </Show>
-              </Base>
-            </Motion>
-          </Show>
-        </Presence>
-      </Portal>
-    </>
+                {role.name}
+              </ColouredText>
+            </div>
+          )}
+        </For>
+        <br />
+        <Row wrap>
+          <For
+            each={props.member?.server?.orderedRoles.filter(
+              (role) => !roleIds().has(role.id)
+            )}
+          >
+            {(role) => (
+              <span
+                onClick={() =>
+                  props.member!.edit({
+                    roles: [...roleIds(), role.id],
+                  })
+                }
+              >
+                <ColouredText
+                  colour={role.colour!}
+                  clip={role.colour?.includes("gradient")}
+                >
+                  {role.name}
+                </ColouredText>
+              </span>
+            )}
+          </For>
+        </Row>
+      </Show>
+    </Base>
   );
 }

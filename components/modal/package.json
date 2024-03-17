@@ -7,16 +7,22 @@
   },
   "keywords": [],
   "private": true,
+  "devDependencies": {
+    "vite-plugin-solid-svg": "^0.6.1"
+  },
   "dependencies": {
+    "@motionone/solid": "^10.15.4",
+    "@revolt/app": "workspace:^",
     "@revolt/client": "workspace:^1.0.0",
     "@revolt/common": "workspace:^1.0.0",
     "@revolt/i18n": "workspace:^1.0.0",
     "@revolt/markdown": "workspace:^1.0.0",
     "@revolt/routing": "workspace:^1.0.0",
     "@revolt/ui": "workspace:^1.0.0",
-    "revolt.js": "workspace:^6.0.19",
-    "solid-icons": "^1.0.1",
-    "solid-js": "^1.5.1",
+    "@revolt/keybinds": "workspace:^",
+    "revolt.js": "workspace:^",
+    "solid-icons": "^1.0.4",
+    "solid-js": "^1.7.3",
     "solid-qr-code": "^0.0.8",
     "ulid": "^2.3.0"
   }

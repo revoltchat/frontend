@@ -1,29 +1,99 @@
-import { BiRegularLinkExternal, BiSolidChevronRight } from "solid-icons/bi";
-import { JSX, Match, Show, Switch } from "solid-js";
+import {
+  BiRegularLinkExternal,
+  BiSolidChevronDown,
+  BiSolidChevronRight,
+} from "solid-icons/bi";
+import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { Column, OverflowingText } from "../../layout";
 
+/**
+ * Permissible actions
+ */
+type Action = "chevron" | "collapse" | "external" | "edit" | JSX.Element;
+
 export interface Props {
-  readonly icon?: JSX.Element;
+  readonly icon?: JSX.Element | "blank";
   readonly children?: JSX.Element;
   readonly description?: JSX.Element;
 
+  readonly disabled?: boolean;
   readonly onClick?: () => void;
-  readonly action?: "chevron" | "external" | JSX.Element;
+  readonly action?: Action | Action[];
 }
 
-const Base = styled("a", "CategoryButton")`
-  gap: 12px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
+/**
+ * Category Button (Fluent)
+ */
+export function CategoryButton(props: Props) {
+  return (
+    <Base
+      isLink={!!props.onClick}
+      disabled={props.disabled}
+      aria-disabled={props.disabled}
+      onClick={props.disabled ? undefined : props.onClick}
+    >
+      <Show when={props.icon !== "blank"}>
+        <IconWrapper>{props.icon}</IconWrapper>
+      </Show>
 
-  color: ${(props) => props.theme!.colours["foreground"]};
+      <Show when={props.icon === "blank"}>
+        <BlankIconWrapper />
+      </Show>
+
+      <Content grow>
+        <Show when={props.children}>
+          <OverflowingText>{props.children}</OverflowingText>
+        </Show>
+        <Show when={props.description}>
+          <Description>{props.description}</Description>
+        </Show>
+      </Content>
+      <For each={Array.isArray(props.action) ? props.action : [props.action]}>
+        {(action) => (
+          <Switch fallback={action}>
+            <Match when={action === "chevron"}>
+              <Action>
+                <BiSolidChevronRight size={18} />
+              </Action>
+            </Match>
+            <Match when={action === "collapse"}>
+              <Action>
+                <BiSolidChevronDown size={18} />
+              </Action>
+            </Match>
+            <Match when={action === "external"}>
+              <Action>
+                <BiRegularLinkExternal size={18} />
+              </Action>
+            </Match>
+          </Switch>
+        )}
+      </For>
+    </Base>
+  );
+}
+
+/**
+ * Base container for button
+ */
+const Base = styled("a", "CategoryButton")<{
+  isLink: boolean;
+  disabled?: boolean;
+}>`
+  gap: 16px;
+  padding: 13px; /*TODO: make this a prop*/
   border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["background-200"]};
 
-  cursor: pointer;
-  transition: ${(props) => props.theme!.transitions.fast} all;
+  color: ${(props) => props.theme!.colours["component-categorybtn-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["component-categorybtn-background"]};
+
+  user-select: none;
+  cursor: ${(props) =>
+    props.disabled ? "not-allowed" : props.isLink ? "pointer" : "initial"};
+  transition: background-color 0.1s ease-in-out;
 
   display: flex;
   align-items: center;
@@ -34,49 +104,78 @@ const Base = styled("a", "CategoryButton")`
   }
 
   &:hover {
-    filter: brightness(0.8);
+    background-color: ${(props) =>
+      props.theme!.colours["component-categorybtn-background-hover"]};
   }
 
   &:active {
-    filter: brightness(0.9);
+    background-color: ${(props) =>
+      props.theme!.colours["component-categorybtn-background-active"]};
   }
 `;
 
+/**
+ * Title and description styles
+ */
 const Content = styled(Column)`
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: 500;
+  font-size: 14px;
+  gap: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
+/**
+ * Accented wrapper for the category button icons
+ */
+const IconWrapper = styled.div`
+  background: ${(props) =>
+    props.theme!.colours["component-categorybtn-background-icon"]};
+
+  width: 36px;
+  height: 36px;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  svg {
+    color: ${(props) =>
+      props.theme!.colours["component-categorybtn-foreground-description"]};
+  }
+`;
+
+/**
+ * Category button icon wrapper for the blank state
+ */
+const BlankIconWrapper = styled(IconWrapper)`
+  background: transparent;
+`;
+
+/**
+ * Description shown below title
+ */
 const Description = styled.span`
-  font-weight: 400;
-  font-size: 0.6875rem;
-  color: ${(props) => props.theme!.colours["foreground-200"]};
+  font-weight: 500;
+  font-size: 12px;
+  color: ${(props) =>
+    props.theme!.colours["component-categorybtn-foreground-description"]};
 
   a:hover {
     text-decoration: underline;
   }
 `;
 
-export function CategoryButton(props: Props) {
-  return (
-    <Base onClick={props.onClick}>
-      {props.icon}
-      <Content grow>
-        <Show when={props.children}>
-          <OverflowingText>{props.children}</OverflowingText>
-        </Show>
-        <Show when={props.description}>
-          <Description>{props.description}</Description>
-        </Show>
-      </Content>
-      <Switch fallback={props.action}>
-        <Match when={props.action === "chevron"}>
-          <BiSolidChevronRight size={24} />
-        </Match>
-        <Match when={props.action === "external"}>
-          <BiRegularLinkExternal size={20} />
-        </Match>
-      </Switch>
-    </Base>
-  );
-}
+/**
+ * Container for action icons
+ */
+const Action = styled.div`
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+`;

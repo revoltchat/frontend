@@ -7,6 +7,7 @@ import type { Message } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
+import { Link } from "@revolt/routing";
 
 import {
   Avatar,
@@ -49,6 +50,10 @@ export const Base = styled("div", "Reply")<Pick<Props, "noDecorations">>`
   ${(props) => generateTypographyCSS(props.theme!, "reply")}
 
   gap: ${(props) => props.theme!.gap.md};
+
+  a:link {
+    text-decoration: none;
+  }
 
   &::before {
     display: ${(props) => (props.noDecorations ? "none" : "block")};
@@ -107,21 +112,23 @@ export function MessageReply(props: Props) {
               </Typography>
             </ColouredText>
           </NonBreakingText>
-          <Show when={props.message!.attachments}>
-            <NonBreakingText>
-              <Attachments>
-                <BiSolidFile size={16} />
-                {props.message!.attachments!.length > 1
-                  ? t("app.main.channel.misc.sent_multiple_files")
-                  : t("app.main.channel.misc.sent_file")}
-              </Attachments>
-            </NonBreakingText>
-          </Show>
-          <Show when={props.message!.content}>
-            <OverflowingText>
-              <TextWithEmoji content={props.message!.content!} />
-            </OverflowingText>
-          </Show>
+          <Link href={props.message!.id}>
+            <Show when={props.message!.attachments}>
+              <NonBreakingText>
+                <Attachments>
+                  <BiSolidFile size={16} />
+                  {props.message!.attachments!.length > 1
+                    ? t("app.main.channel.misc.sent_multiple_files")
+                    : t("app.main.channel.misc.sent_file")}
+                </Attachments>
+              </NonBreakingText>
+            </Show>
+            <Show when={props.message!.content}>
+              <OverflowingText>
+                <TextWithEmoji content={props.message!.content!} />
+              </OverflowingText>
+            </Show>
+          </Link>
         </Match>
       </Switch>
     </Base>

@@ -13,6 +13,11 @@ interface Props {
    * Users who are typing
    */
   users: (User | undefined)[];
+
+  /**
+   * Own user ID
+   */
+  ownId: string;
 }
 
 /**
@@ -30,12 +35,12 @@ export function TypingIndicator(props: Props) {
       props.users.filter(
         (user) =>
           typeof user !== "undefined" &&
-          user._id !== user.client.user!._id &&
+          user.id !== props.ownId &&
           user.relationship !== "Blocked"
       ) as User[]
     )
-      .sort((a, b) => a!._id.toUpperCase().localeCompare(b!._id.toUpperCase()))
-      .map((user) => user._id);
+      .sort((a, b) => a!.id.toUpperCase().localeCompare(b!.id.toUpperCase()))
+      .map((user) => user.id);
 
   const users = useUsers(userIds, true);
 
@@ -87,10 +92,11 @@ export function TypingIndicator(props: Props) {
  */
 const Avatars = styled.div`
   display: flex;
+  flex-shrink: 0;
   height: fit-content;
 
   :not(:first-child) {
-    margin-left: -6px;
+    margin-inline-start: -6px;
   }
 `;
 
@@ -98,20 +104,25 @@ const Avatars = styled.div`
  * Styles for the typing indicator
  */
 const Bar = styled.div`
-  top: -26px;
+  bottom: 0;
   width: 100%;
   height: 26px;
   position: absolute;
 
-  gap: ${(props) => props.theme!.gap.md};
-  display: flex;
   padding: 0 ${(props) => props.theme!.gap.lg};
+  border-radius: ${(props) => props.theme!.borderRadius.lg};
+
+  display: flex;
+  gap: ${(props) => props.theme!.gap.md};
 
   user-select: none;
   align-items: center;
   flex-direction: row;
 
-  color: ${(props) => props.theme!.colours["foreground-200"]};
+  backdrop-filter: ${(props) => props.theme!.effects.blur.md};
+  color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
+  background: ${(props) =>
+    props.theme!.colours["messaging-indicator-background"]};
 `;
 
 /**
