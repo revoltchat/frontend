@@ -1,7 +1,7 @@
 import { BiSolidCloud, BiSolidTrash } from "solid-icons/bi";
 import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
-import { ChannelWebhook } from "revolt.js/src/classes/ChannelWebhook";
+import type { ChannelWebhook } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import {
@@ -28,6 +28,7 @@ export default function Webhooks(props: ChannelSettingsProps) {
     const existingWebhooks = client().channelWebhooks.filter(
       (webhook) => webhook.channelId === props.channel.id
     );
+
     if (existingWebhooks.length) {
       setWebhooks(client().channelWebhooks.toList());
     } else {

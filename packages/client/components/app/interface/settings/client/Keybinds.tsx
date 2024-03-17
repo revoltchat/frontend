@@ -136,7 +136,7 @@ export default function Keybinds() {
         {([category, actions]) => (
           <CategoryCollapse
             title={t(`app.settings.pages.keybinds.category.${category}`)}
-            open={category !== "advanced"}
+            // TODO: open={category !== "advanced"}
           >
             <Column group="6px">
               <For each={actions}>
