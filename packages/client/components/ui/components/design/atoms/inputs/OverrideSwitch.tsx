@@ -25,14 +25,7 @@ const SwitchContainer = styled.div<{ state: State }>`
   }
 
   transition: ${(props) => props.theme!.transitions.fast} all;
-  background: ${(props) =>
-    props.theme!.colours[
-      props.state === "Allow"
-        ? "success-200"
-        : props.state === "Deny"
-        ? "error-200"
-        : "background-200"
-    ]};
+  background: var(--unset-bg);
 `;
 
 const Switch = styled.div<{ state: State; selected: boolean }>`
@@ -42,27 +35,9 @@ const Switch = styled.div<{ state: State; selected: boolean }>`
   align-items: center;
   transition: ${(props) => props.theme!.transitions.fast} all;
 
-  color: ${(props) =>
-    props.theme!.colours[
-      props.selected
-        ? props.state === "Allow"
-          ? "success"
-          : props.state === "Deny"
-          ? "error"
-          : "warning"
-        : "foreground-400"
-    ]};
+  color: var(--unset-fg);
 
-  fill: ${(props) =>
-    props.theme!.colours[
-      props.selected
-        ? props.state === "Allow"
-          ? "success"
-          : props.state === "Deny"
-          ? "error"
-          : "warning"
-        : "foreground-400"
-    ]};
+  fill: var(--unset-fg);
 
   &:hover {
     filter: brightness(0.8);

@@ -192,8 +192,7 @@ const EmptyEntry = styled.div`
 
   cursor: pointer;
   border-radius: ${(props) => props.theme!.gap.md};
-  background: ${(props) =>
-    props.theme!.colours["messaging-upload-image-background"]};
+  background: var(--unset-bg);
 `;
 
 /**

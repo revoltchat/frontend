@@ -38,7 +38,7 @@ const BanMember: PropGenerator<"ban_member"> = (props) => {
         reason,
       })),
     submit: {
-      palette: "error",
+      variant: "error",
       children: t("app.special.modals.actions.ban"),
     },
   });

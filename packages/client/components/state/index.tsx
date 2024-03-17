@@ -7,7 +7,6 @@ import localforage from "localforage";
 import { registerController } from "@revolt/common";
 
 import { AbstractStore, Store } from "./stores";
-import { Admin } from "./stores/Admin";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
@@ -38,7 +37,6 @@ export class State {
   private writeQueue: Record<string, number>;
 
   // define all stores
-  admin = new Admin(this);
   auth = new Auth(this);
   draft = new Draft(this);
   experiments = new Experiments(this);

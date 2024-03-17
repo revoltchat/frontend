@@ -58,11 +58,7 @@ const Base = styled.div`
     div {
       width: 8px;
       height: 68px;
-      background: linear-gradient(
-        to right,
-        ${(props) => props.theme?.colours["background-100"]},
-        transparent
-      );
+      background: linear-gradient(to right, var(--unset-fg), transparent);
     }
   }
 `;

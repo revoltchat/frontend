@@ -19,7 +19,7 @@ const Base = styled("div")`
   position: relative;
   flex-direction: column;
 
-  background: ${({ theme }) => theme!.colours["background-200"]};
+  background: var(--unset-bg);
 `;
 
 export interface ChannelPageProps {

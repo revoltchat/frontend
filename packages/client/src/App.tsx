@@ -15,6 +15,7 @@ import { state } from "@revolt/state";
 
 import AuthPage from "./Auth";
 import Interface from "./Interface";
+import { Friends } from "./interface/Friends";
 import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
@@ -32,7 +33,7 @@ function PWARedirect() {
  * Open settings and redirect to last active path
  */
 function SettingsRedirect() {
-  onMount(() => modalController.push({ type: "settings" }));
+  onMount(() => modalController.push({ type: "settings", config: "client" }));
   return <PWARedirect />;
 }
 
@@ -55,6 +56,7 @@ const App: Component = () => {
       <Route path="/" component={Interface as never}>
         <Route path="/pwa" component={PWARedirect} />
         <Route path="/settings" component={SettingsRedirect} />
+        <Route path="/friends" component={Friends} />
         <Route path="/server/:server/*">
           <Route path="/channel/:channel/*" component={ChannelPage} />
           <Route path="/*" component={ServerHome} />

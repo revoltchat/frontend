@@ -46,7 +46,7 @@ export default class ClientController {
 
     this.#clients = new ReactiveMap();
 
-    const [active, setActive] = createSignal<string>();
+    const [active, setActive] = createSignal<string>(null!);
     this.activeId = active;
     this.#setActiveId = setActive;
 

@@ -24,7 +24,7 @@ interface Props {
   /**
    * Handle key presses
    */
-  onKeyDown: (
+  onKeyDown?: (
     event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
   ) => void;
 

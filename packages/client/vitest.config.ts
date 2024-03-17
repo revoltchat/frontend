@@ -38,6 +38,9 @@ export default mergeConfig(
     },
     resolve: {
       conditions: ["development", "browser"],
+      alias: {
+        "@test": resolve(__dirname, "test"),
+      },
     },
   })
 );

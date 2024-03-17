@@ -168,7 +168,7 @@ const Base = styled("div", "SystemMessage")`
   display: flex;
   min-height: 20px;
   align-items: center;
-  color: ${(props) => props.theme!.colours["foreground-400"]};
+  color: var(--unset-fg);
 `;
 
 const Username = styled.span`

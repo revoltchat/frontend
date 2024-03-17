@@ -20,7 +20,7 @@ const DeleteServer: PropGenerator<"delete_server"> = (props) => {
     data: {},
     callback: () => props.server.delete(), // TODO: need mfa flow to confirm
     submit: {
-      palette: "error",
+      variant: "error",
       children: t("app.special.modals.actions.delete"),
     },
   });

@@ -31,7 +31,7 @@ const KickMember: PropGenerator<"kick_member"> = (props) => {
     },
     callback: () => props.member.kick(),
     submit: {
-      palette: "error",
+      variant: "error",
       children: t("app.special.modals.actions.ban"),
     },
   });

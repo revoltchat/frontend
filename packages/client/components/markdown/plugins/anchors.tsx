@@ -1,7 +1,5 @@
 import { JSX, splitProps } from "solid-js";
 
-import { Link } from "@revolt/routing";
-
 // import { determineLink } from "../../../lib/links";
 
 // import { modalController } from "../../../controllers/modals/ModalController";

@@ -20,7 +20,7 @@ const DeleteChannel: PropGenerator<"delete_channel"> = (props) => {
     data: {},
     callback: () => props.channel.delete(),
     submit: {
-      palette: "error",
+      variant: "error",
       children: t("app.special.modals.actions.delete"),
     },
   });

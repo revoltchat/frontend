@@ -1,14 +1,14 @@
-import { For, JSX, Show } from "solid-js";
+import { ComponentProps, For, JSX, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 import { styled } from "solid-styled-components";
 
 import { Motion, Presence } from "@motionone/solid";
 
-import { Button, ButtonProps } from "../inputs/Button";
+import { Button } from "../inputs/Button";
 
 import { Typography } from "./Typography";
 
-export type Action = Omit<ButtonProps, "onClick"> & {
+export type Action = Omit<ComponentProps<typeof Button>, "onClick"> & {
   confirmation?: boolean;
   onClick: () => void | boolean | Promise<boolean>;
 };
@@ -225,7 +225,7 @@ export function Modal(props: Props) {
                       {(action) => (
                         <Button
                           {...action}
-                          disabled={props.disabled}
+                          isDisabled={props.disabled}
                           onClick={async () => {
                             if (await action.onClick()) {
                               props.onClose?.();

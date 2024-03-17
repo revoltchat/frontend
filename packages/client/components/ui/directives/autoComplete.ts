@@ -278,8 +278,8 @@ function searchMatches(
           : {
               type: "unicode",
               shortcode: id,
-              codepoint: emojiMapping[id],
-              replacement: emojiMapping[id],
+              codepoint: emojiMapping[id as keyof typeof emojiMapping],
+              replacement: emojiMapping[id as keyof typeof emojiMapping],
             }
       ),
     };

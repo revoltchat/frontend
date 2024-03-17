@@ -64,9 +64,8 @@ export const Base = styled("div", "Reply")<Pick<Props, "noDecorations">>`
     flex-shrink: 0;
     align-self: flex-end;
 
-    border-inline-start: 2px solid
-      ${(props) => props.theme!.colours["background-300"]};
-    border-top: 2px solid ${(props) => props.theme!.colours["background-300"]};
+    border-inline-start: 2px solid var(--unset-bg);
+    border-top: 2px solid var(--unset-bg);
   }
 `;
 
@@ -74,14 +73,14 @@ const Attachments = styled.em`
   display: flex;
   align-items: center;
   gap: ${(props) => props.theme!.gap.sm};
-  color: ${(props) => props.theme!.colours["foreground-200"]};
+  color: var(--unset-fg);
 `;
 
 /**
  * Information text
  */
 const InfoText = styled.a`
-  color: ${(props) => props.theme!.colours["foreground-400"]};
+  color: var(--unset-fg);
 `;
 
 /**

@@ -15,7 +15,7 @@ interface BaseProps {
 }
 
 const Base = styled.label<BaseProps>`
-  border: 2px solid ${(props) => props.theme?.colours["background-400"]};
+  border: 2px solid var(--unset-bg);
   padding: 10px;
   gap: 10px;
   display: flex;
@@ -31,16 +31,16 @@ const Base = styled.label<BaseProps>`
   ${(props) =>
     props.selected
       ? `
-          color: ${props.theme?.colours["background-100"]};
+          color: var(--unset-fg);
           cursor: default;
-          background: ${props.theme?.colours.accent};
-          border: 2px solid ${props.theme?.colours.accent};
+          background: var(--unset-bg);
+          border: 2px solid var(--unset-bg);
 
           div {
-            border-color:  ${props.theme?.colours["background-100"]};
+            border-color: var(--unset-bg);
 
             svg {
-              color:  ${props.theme?.colours["background-100"]};
+              color: var(--unset-fg);
               visibility: visible;
               opacity: 1;
             }
@@ -52,7 +52,7 @@ const Base = styled.label<BaseProps>`
     !props.selected
       ? `
           &:hover {
-            background: ${props.theme?.colours["background-100"]};
+            background:var(--unset-bg);
 
             svg {
               visibility: visible;
@@ -68,7 +68,7 @@ const RadioCircle = styled.div`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 2px solid ${(props) => props.theme?.colours["background-400"]};
+  border: 2px solid var(--unset-bg);
   border-radius: ${(props) => props.theme?.borderRadius.lg};
   height: 20px;
   width: 20px;
@@ -76,7 +76,7 @@ const RadioCircle = styled.div`
 
   svg {
     transition: inherit;
-    color: ${(props) => props.theme?.colours["background-400"]};
+    color: var(--unset-fg);
     flex-shrink: 0;
     visibility: hidden;
     opacity: 0;
@@ -104,7 +104,7 @@ const Title = styled.div<BaseProps>`
   ${(props) =>
     props.selected
       ? `
-          color: ${props.theme?.colours["background-100"]};
+          color: var(--unset-fg);
         `
       : undefined}
 `;
@@ -112,7 +112,7 @@ const Title = styled.div<BaseProps>`
 const Description = styled.div<BaseProps>`
   font-size: 0.6875rem;
   font-weight: 500;
-  color: ${(props) => props.theme?.colours["foreground-200"]};
+  color: var(--unset-fg);
   transition: inherit;
 
   display: -webkit-box;
@@ -123,7 +123,7 @@ const Description = styled.div<BaseProps>`
   ${(props) =>
     props.selected
       ? `
-          color: ${props.theme?.colours["background-100"]};
+          color: var(--unset-fg);
         `
       : undefined}
 `;

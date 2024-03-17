@@ -17,7 +17,7 @@ const Base = styled("label")`
   }
 
   &:hover {
-    background: ${(props) => props.theme!.colours["background-100"]};
+    background: var(--unset-bg);
 
     .check {
       visibility: visible;
@@ -57,7 +57,7 @@ const Title = styled.div`
 const Description = styled.div`
   font-size: 0.75rem;
   font-weight: 500;
-  color: ${(props) => props.theme!.colours["foreground-200"]};
+  color: var(--unset-fg);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -70,16 +70,16 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 2px solid ${(props) => props.theme!.colours["foreground-400"]};
+  border: 2px solid var(--unset-fg);
   border-radius: ${(props) => props.theme!.borderRadius["md"]};
-  background: ${(props) => props.theme!.colours["background-100"]};
+  background: var(--unset-bg);
   flex-shrink: 0;
   margin: 4px;
   transition: 0.1s ease-in-out all;
 
   .check {
     transition: inherit;
-    color: ${(props) => props.theme!.colours["foreground-400"]};
+    color: var(--unset-fg);
     visibility: hidden;
     opacity: 0;
   }
@@ -87,8 +87,8 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   ${(props) =>
     props.value
       ? `
-    border-color: ${props.theme!.colours["accent"]};
-    background: ${props.theme!.colours["accent"]};
+    border-color: var(--unset-fg);
+    background: var(--unset-bg);
 
     .check {
       visibility: visible;

@@ -40,7 +40,7 @@ const Base = styled(Row)`
  * Link action
  */
 const Action = styled("a")`
-  color: ${(props) => props.theme!.colours["foreground-100"]};
+  color: var(--unset-fg);
 
   display: grid;
   place-items: center;
@@ -82,7 +82,7 @@ export function FileInfo(props: Props) {
         <span>{props.file?.filename}</span>
         <Show when={props.file?.size}>
           <Typography variant="small">
-            {humanFileSize(props.file!.size)}
+            {humanFileSize(props.file!.size!)}
           </Typography>
         </Show>
       </Column>

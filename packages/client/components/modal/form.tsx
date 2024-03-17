@@ -91,7 +91,7 @@ export function createFormModal<
         {
           onClick: () => true,
           children: t("app.special.modals.actions.cancel"),
-          palette: "plain",
+          variant: "plain",
         },
       ]),
     ],
@@ -123,5 +123,5 @@ export function createFormModal<
  * Error text
  */
 const Error = styled.div`
-  color: ${(props) => props.theme!.colours.error};
+  color: ${(props) => props.theme!.customColours.error.color};
 `;

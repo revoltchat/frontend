@@ -20,7 +20,7 @@ const DeleteBot: PropGenerator<"delete_bot"> = (props) => {
     data: {},
     callback: () => props.bot.delete(),
     submit: {
-      palette: "error",
+      variant: "error",
       children: t("app.special.modals.actions.delete"),
     },
   });

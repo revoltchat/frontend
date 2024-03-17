@@ -32,7 +32,7 @@ const KeybindInput = styled("output", "EditKeybind-KeybindInput")`
   padding: 8px;
   font-family: ${({ theme }) => theme?.fonts.monospace};
   border-radius: ${({ theme }) => theme?.borderRadius.md};
-  background: ${({ theme }) => theme?.colours["background-200"]};
+  background: var(--unset-bg);
   height: 4ch;
   kbd {
     flex-wrap: wrap;
@@ -129,7 +129,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
     }),
     actions: [
       {
-        ref: (el) => (okButton = el),
+        ref: (el: any) => (okButton = el),
         onClick: () => {
           submit();
           return true;

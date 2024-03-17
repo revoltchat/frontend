@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
+// @ts-expect-error
 import solidSvg from "vite-plugin-solid-svg";
 
 const base = process.env.BASE_PATH ?? "/";

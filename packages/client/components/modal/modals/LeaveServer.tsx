@@ -20,7 +20,7 @@ const LeaveServer: PropGenerator<"leave_server"> = (props) => {
     data: {},
     callback: () => props.server.delete(),
     submit: {
-      palette: "error",
+      variant: "error",
       children: t("app.special.modals.actions.leave"),
     },
   });

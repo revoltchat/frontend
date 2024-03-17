@@ -49,8 +49,8 @@ export function SpecialEmbed(props: { embed: WebsiteEmbed }) {
   return (
     <SizedContent width={getSize()?.width} height={getSize()?.height}>
       <iframe
-        // @ts-expect-error attributes are not recognised
         loading="lazy"
+        // @ts-expect-error attributes are not recognised
         scrolling="no"
         allowFullScreen
         allowTransparency

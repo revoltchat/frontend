@@ -38,7 +38,7 @@ export const FlowBase = styled(Column)`
   a:visited,
   a:active {
     text-decoration: none;
-    color: ${({ theme }) => theme!.colours["accent"]};
+    color: var(--unset-fg);
   }
 `;
 

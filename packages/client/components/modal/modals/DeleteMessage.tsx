@@ -25,7 +25,7 @@ const DeleteMessage: PropGenerator<"delete_message"> = (props) => {
     },
     callback: () => props.message.delete(),
     submit: {
-      palette: "error",
+      variant: "error",
       children: t("app.special.modals.actions.delete"),
     },
   });

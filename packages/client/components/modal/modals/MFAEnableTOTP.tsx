@@ -67,7 +67,16 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
       <>
         <Column align="center">
           <Qr>
-            <QRCodeSVG value={uri()} bgColor="white" fgColor="black" />
+            <QRCodeSVG
+              value={uri()}
+              backgroundColor="white"
+              foregroundColor="black"
+              level="medium"
+              height={240}
+              width={240}
+              backgroundAlpha={1}
+              foregroundAlpha={1}
+            />
           </Qr>
           <Code>{props.secret}</Code>
         </Column>

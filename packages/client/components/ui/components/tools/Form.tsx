@@ -160,7 +160,7 @@ export function Form<T extends FormTemplate>(props: Props<T>) {
           <Button
             type="submit"
             children="Submit"
-            disabled={props.disabled}
+            isDisabled={props.disabled}
             {...props.submitBtn}
           />
         </Show>

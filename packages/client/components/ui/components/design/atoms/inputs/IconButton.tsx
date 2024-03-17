@@ -10,7 +10,7 @@ export const IconButton = styled("a", "Action")`
   place-self: normal;
   place-items: center;
 
-  color: ${({ theme }) => theme!.colours["foreground-200"]};
+  color: var(--unset-fg);
 
   &:hover {
     filter: brightness(0.9);

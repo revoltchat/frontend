@@ -145,6 +145,7 @@ export const HomeSidebar = (props: Props) => {
                   }}
                 >
                   <Entry
+                    // @ts-expect-error missing type on Entry
                     role="listitem"
                     tabIndex={item.tabIndex}
                     style={item.style}

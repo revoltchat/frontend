@@ -55,7 +55,7 @@ export function TextFile(props: Props) {
   }
 
   onMount(() => {
-    if (props.file.size <= AUTO_LOAD_MAX_SIZE_BYTES) {
+    if (props.file.size && props.file.size <= AUTO_LOAD_MAX_SIZE_BYTES) {
       load();
     }
   });
@@ -67,13 +67,13 @@ export function TextFile(props: Props) {
           when={
             !loading() &&
             !contents() &&
-            props.file.size > AUTO_LOAD_MAX_SIZE_BYTES
+            (!props.file.size || props.file.size > AUTO_LOAD_MAX_SIZE_BYTES)
           }
         >
           <Row align justify grow>
-            <Button palette="secondary" onClick={load}>
+            <Button variant="secondary" onClick={load}>
               {t("app.main.channel.misc.load_file")} (
-              {humanFileSize(props.file.size)})
+              {humanFileSize(props.file.size ?? 0)})
             </Button>
           </Row>
         </Match>

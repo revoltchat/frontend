@@ -12,16 +12,16 @@ export const ComboBox = styled("select")`
   font-family: inherit;
 
   color: ${({ theme }) => theme!.colours.foreground};
-  background: ${({ theme }) => theme!.colours["background-100"]};
+  background: var(--unset-bg);
 
   box-sizing: border-box;
   border-radius: ${({ theme }) => theme!.borderRadius.md};
-  border: 2px solid ${({ theme }) => theme!.colours["background-300"]};
+  border: 2px solid var(--unset-fg);
 
   outline: none;
   cursor: pointer;
 
   &:focus-visible {
-    box-shadow: 0 0 0 1.5pt ${({ theme }) => theme!.colours["accent"]};
+    box-shadow: 0 0 0 1.5pt var(--unset-fg);
   }
 `;

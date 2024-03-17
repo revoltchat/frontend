@@ -69,6 +69,7 @@ export function Fields(props: FieldProps) {
           {field === "log-out" ? (
             <Checkbox
               name="log-out"
+              // @ts-expect-error
               title={fieldConfiguration["log-out"].name()}
             />
           ) : (

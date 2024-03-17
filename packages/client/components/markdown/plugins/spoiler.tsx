@@ -11,8 +11,7 @@ const Spoiler = styled("span", "Spoiler")<{ shown: boolean }>`
   user-select: ${(props) => (props.shown ? "all" : "none")};
   color: ${(props) =>
     props.shown ? props.theme!.colours.foreground : "transparent"};
-  background: ${(props) =>
-    props.shown ? props.theme!.colours["background-100"] : "#151515"};
+  background: ${(props) => (props.shown ? "var(--unset-bg)" : "#151515")};
 
   > * {
     opacity: ${(props) => (props.shown ? 1 : 0)};

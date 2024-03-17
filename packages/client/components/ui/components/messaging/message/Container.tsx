@@ -162,7 +162,7 @@ const Content = styled(Column)`
  * Information text
  */
 const InfoText = styled(Row)`
-  color: ${(props) => props.theme!.colours["foreground-400"]};
+  color: var(--unset-fg);
   ${(props) => generateTypographyCSS(props.theme!, "small")}
 `;
 

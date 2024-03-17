@@ -57,7 +57,7 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
     actions: () => {
       const actions: Action[] = [
         {
-          palette: "primary",
+          variant: "primary",
           children: t("app.special.modals.actions.close"),
           onClick: () => true,
         },
@@ -65,7 +65,7 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
 
       if (currentLog()) {
         actions.push({
-          palette: "plain-secondary",
+          variant: "plain",
           children: t("app.special.modals.changelogs.older"),
           onClick: () => {
             setLog(undefined);

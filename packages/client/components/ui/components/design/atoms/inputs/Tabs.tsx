@@ -36,7 +36,7 @@ interface Props {
  */
 const Base = styled(Row)`
   flex-wrap: wrap;
-  background: ${(props) => props.theme!.colours["background-200"]};
+  background: var(--unset-bg);
 `;
 
 /**
@@ -52,10 +52,9 @@ const Tab = styled.a<{ active: boolean }>`
   padding: 0.4em 1em;
   border-top: 4px solid transparent;
   border-bottom: 4px solid
-    ${(props) =>
-      props.active ? props.theme!.colours["accent"] : "transparent"};
+    ${(props) => (props.active ? "var(--unset-fg)" : "transparent")};
   color: ${(props) => props.theme!.colours["foreground"]};
-  background: ${(props) => props.theme!.colours["background-200"]};
+  background: var(--unset-bg);
   transition: ${(props) => props.theme!.transitions.fast};
 
   &:hover {

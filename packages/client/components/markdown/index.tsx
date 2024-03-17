@@ -204,7 +204,6 @@ export function Markdown(props: MarkdownProps) {
         schema: html,
         listDepth: 0,
       },
-      // @ts-expect-error this is the correct type
       hastNode
     );
   }

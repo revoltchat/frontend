@@ -42,7 +42,7 @@ export function ListView(props: Props) {
    * Handle scroll event
    * @param event Event
    */
-  function onScroll(event: UIEvent & { currentTarget: HTMLDivElement }) {
+  function onScroll(event: Event & { currentTarget: HTMLDivElement }) {
     if (fetching()) return;
 
     // Calculate our current position in the scroll container
@@ -102,7 +102,6 @@ export function ListView(props: Props) {
         display: "flex",
         "flex-direction": "column-reverse",
       }}
-      // eslint-disable-next-line solid/reactivity
       onScroll={onScroll}
     >
       <Reverse>

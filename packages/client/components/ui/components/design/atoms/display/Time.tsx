@@ -21,7 +21,7 @@ interface Props {
 /**
  * Format a given date
  */
-export function formatTime(options: Props) {
+export function formatTime(options: Props): string {
   switch (options.format) {
     case "calendar":
       return dayjs(options.value).calendar(options.referenceTime);

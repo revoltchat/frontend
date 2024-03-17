@@ -19,6 +19,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@test": ["test"],
       "@revolt/app": ["components/app"],
       "@revolt/app/*": ["components/app/*"],
       "@revolt/auth": ["components/auth"],

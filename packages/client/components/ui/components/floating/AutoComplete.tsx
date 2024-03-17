@@ -58,10 +58,14 @@ export function AutoComplete(
             {(match, index) => (
               <Entry align selected={index() === props.selection()}>
                 <Avatar src={match.user.animatedAvatarURL} size={24} />{" "}
-                <Name>{match.user.username}</Name>
+                <Name>{match.user.displayName}</Name>
                 {match.user instanceof ServerMember &&
-                  match.user.username !== match.user.user?.username && (
-                    <> @{match.user.user?.username}</>
+                  match.user.displayName !== match.user.user?.username && (
+                    <>
+                      {" "}
+                      @{match.user.user?.username}#
+                      {match.user.user?.discriminator}
+                    </>
                   )}
               </Entry>
             )}

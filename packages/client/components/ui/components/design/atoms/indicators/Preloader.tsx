@@ -46,7 +46,7 @@ const PreloaderBase = styled("div")<{ grow?: boolean }>`
   .spinner > div {
     width: 14px;
     height: 14px;
-    background-color: ${({ theme }) => theme!.colours["foreground-300"]};
+    background: var(--unset-bg);
 
     border-radius: 100%;
     display: inline-block;

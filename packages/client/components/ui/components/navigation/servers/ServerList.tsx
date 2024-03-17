@@ -169,7 +169,7 @@ export const ServerList = (props: Props) => {
         <Show when={props.user.privileged}>
           <EntryContainer>
             <a href="/admin">
-              <Button compact="icon">
+              <Button size="icon">
                 <BiSolidCheckShield size={32} />
               </Button>
             </a>
