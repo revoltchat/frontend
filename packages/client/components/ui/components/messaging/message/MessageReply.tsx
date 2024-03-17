@@ -7,7 +7,6 @@ import type { Message } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
-import { Link } from "@revolt/routing";
 
 import {
   Avatar,
@@ -112,7 +111,7 @@ export function MessageReply(props: Props) {
               </Typography>
             </ColouredText>
           </NonBreakingText>
-          <Link href={props.message!.id}>
+          <a href={props.message!.id}>
             <Show when={props.message!.attachments}>
               <NonBreakingText>
                 <Attachments>
@@ -128,7 +127,7 @@ export function MessageReply(props: Props) {
                 <TextWithEmoji content={props.message!.content!} />
               </OverflowingText>
             </Show>
-          </Link>
+          </a>
         </Match>
       </Switch>
     </Base>

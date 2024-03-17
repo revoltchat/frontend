@@ -1,6 +1,6 @@
 import { clientController } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Link, useNavigate, useParams } from "@revolt/routing";
+import { useNavigate, useParams } from "@revolt/routing";
 import { Button, Typography } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
@@ -9,7 +9,7 @@ import { Fields, Form } from "./Form";
 /**
  * Flow for confirming a new password
  */
-export default function FlowConfirmResend() {
+export default function FlowConfirmReset() {
   const t = useTranslation();
   const { token } = useParams();
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export default function FlowConfirmResend() {
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
       <Typography variant="legacy-settings-description">
-        <Link href="../..">{t("login.remembered")}</Link>
+        <a href="../..">{t("login.remembered")}</a>
       </Typography>
     </>
   );

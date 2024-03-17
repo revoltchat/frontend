@@ -2,7 +2,7 @@ import { Match, Show, Switch, createSignal, onMount } from "solid-js";
 
 import { clientController, mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Link, useNavigate, useParams } from "@revolt/routing";
+import { useNavigate, useParams } from "@revolt/routing";
 import { Button, Preloader, Typography } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
@@ -86,7 +86,7 @@ export default function FlowVerify() {
           )}
         </Typography>
         <Typography variant="legacy-settings-description">
-          <Link href="../..">{t("login.remembered")}</Link>
+          <a href="../..">{t("login.remembered")}</a>
         </Typography>
       </Match>
       <Match when={state().state === "success"}>
@@ -95,7 +95,7 @@ export default function FlowVerify() {
           <Button onClick={login}>{t("login.verified_continue")}</Button>
         </Show>
         <Typography variant="legacy-settings-description">
-          <Link href="../..">{t("login.remembered")}</Link>
+          <a href="../..">{t("login.remembered")}</a>
         </Typography>
       </Match>
     </Switch>

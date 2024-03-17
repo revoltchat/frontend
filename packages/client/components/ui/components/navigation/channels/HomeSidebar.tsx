@@ -14,7 +14,7 @@ import { Channel } from "revolt.js";
 
 import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
-import { Link, useLocation, useNavigate } from "@revolt/routing";
+import { useLocation, useNavigate } from "@revolt/routing";
 
 import { scrollable } from "../../../directives";
 import { Avatar } from "../../design/atoms/display/Avatar";
@@ -78,7 +78,7 @@ export const HomeSidebar = (props: Props) => {
               {t("app.main.categories.conversations")}
             </Typography>
           </SidebarTitle>
-          <Link href="/">
+          <a href="/">
             <MenuButton
               size="normal"
               icon={<BiSolidHome size={24} />}
@@ -86,9 +86,10 @@ export const HomeSidebar = (props: Props) => {
             >
               {t("app.navigation.tabs.home")}
             </MenuButton>
-          </Link>
+          </a>
+
           <Show when={props.__tempDisplayFriends()}>
-            <Link href="/friends">
+            <a href="/friends">
               <MenuButton
                 size="normal"
                 icon={<BiSolidUserDetail size={24} />}
@@ -98,7 +99,7 @@ export const HomeSidebar = (props: Props) => {
               >
                 {t("app.navigation.tabs.friends")}
               </MenuButton>
-            </Link>
+            </a>
           </Show>
           <Switch
             fallback={
@@ -114,7 +115,7 @@ export const HomeSidebar = (props: Props) => {
             }
           >
             <Match when={savedNotesChannelId()}>
-              <Link href={`/channel/${savedNotesChannelId()}`}>
+              <a href={`/channel/${savedNotesChannelId()}`}>
                 <MenuButton
                   size="normal"
                   icon={<BiSolidNotepad size={24} />}
@@ -126,7 +127,7 @@ export const HomeSidebar = (props: Props) => {
                 >
                   {t("app.navigation.tabs.saved")}
                 </MenuButton>
-              </Link>
+              </a>
             </Match>
           </Switch>
           <Deferred>
@@ -171,10 +172,10 @@ const SidebarTitle = styled.p`
  * Single conversation entry
  */
 function Entry(
-  props: { channel: Channel; active: boolean } & Omit<
+  props: { channel: Channel; active: boolean } /*& Omit<
     ComponentProps<typeof Link>,
     "href"
-  >
+  >*/
 ) {
   const [local, remote] = splitProps(props, ["channel", "active"]);
 
@@ -190,7 +191,7 @@ function Entry(
     );
 
   return (
-    <Link {...remote} href={`/channel/${local.channel.id}`}>
+    <a {...remote} href={`/channel/${local.channel.id}`}>
       <MenuButton
         size="normal"
         alert={
@@ -258,7 +259,7 @@ function Entry(
           </Switch>
         </Column>
       </MenuButton>
-    </Link>
+    </a>
   );
 }
 

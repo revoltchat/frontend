@@ -1,7 +1,7 @@
 import { clientController } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
-import { Link, useNavigate } from "@revolt/routing";
+import { useNavigate } from "@revolt/routing";
 import { Button, Typography } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
@@ -40,7 +40,7 @@ export default function FlowReset() {
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
       <Typography variant="legacy-settings-description">
-        <Link href="..">{t("login.remembered")}</Link>
+        <a href="..">{t("login.remembered")}</a>
       </Typography>
       {import.meta.env.DEV && (
         <div

@@ -1,13 +1,12 @@
 import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
-import { Link, useNavigate } from "@revolt/routing";
-import { Button, Row, Typography, iconSize } from "@revolt/ui";
+import { useNavigate } from "@revolt/routing";
+import { Button, Row, iconSize } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
 import { clientController } from "../../../client";
 
-import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
 import { Fields, Form } from "./Form";
 
@@ -50,11 +49,11 @@ export default function FlowCreate() {
       <Form onSubmit={create} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email", "password"]} />
         <Row align justify="center">
-          <Link href="..">
-            <Button palette="plain">
+          <a href="..">
+            <Button variant="plain">
               <MdArrowBack {...iconSize("1.2em")} /> Back
             </Button>
-          </Link>
+          </a>
           <Button type="submit">{t("login.register")}</Button>
         </Row>
       </Form>

@@ -1,5 +1,4 @@
 import { clientController, useClient } from "@revolt/client";
-import { Link } from "@revolt/routing";
 
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
 
@@ -8,11 +7,11 @@ export function RenderChannel(props: CustomComponentProps) {
   const channel = () => client().channels.get(props.match)!;
 
   return (
-    <Link
+    <a
       href={`${
         channel().serverId ? `/server/${channel().serverId}` : ""
       }/channel/${props.match}`}
-    >{`#${channel().name}`}</Link>
+    >{`#${channel().name}`}</a>
   );
 }
 

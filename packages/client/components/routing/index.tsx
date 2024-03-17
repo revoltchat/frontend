@@ -10,17 +10,13 @@ import { useLocation } from "@solidjs/router";
  * a new library that is used in multiple components.
  */
 export {
-  Link,
   Navigate,
   Router,
-  Routes,
   Route,
   useNavigate,
   useParams,
   useLocation,
   useBeforeLeave,
-  hashIntegration,
-  memoryIntegration,
 } from "@solidjs/router";
 
 const RE_SERVER = /\/server\/([A-Z0-9]{26})/;

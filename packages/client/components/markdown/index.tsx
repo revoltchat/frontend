@@ -138,15 +138,15 @@ const pipeline = unified()
   .use(remarkBreaks)
   .use(remarkGfm)
   .use(remarkMath)
-  .use(remarkSpoiler)
-  .use(remarkTimestamps)
-  .use(remarkChannels)
-  .use(remarkMention)
-  .use(remarkUnicodeEmoji)
-  .use(remarkCustomEmoji)
+  // .use(remarkSpoiler)
+  // .use(remarkTimestamps)
+  // .use(remarkChannels)
+  // .use(remarkMention)
+  // .use(remarkUnicodeEmoji)
+  // .use(remarkCustomEmoji)
   .use(remarkHtmlToText)
   .use(remarkRehype, {
-    handlers,
+    // handlers,
   })
   .use(remarkInsertBreaks)
   .use(rehypeKatex, {
@@ -156,7 +156,7 @@ const pipeline = unified()
     strict: false,
     output: "html",
     throwOnError: false,
-    errorColor: "var(--error)",
+    errorColor: "var(--customColours-error-color)",
   })
   .use(rehypePrism);
 

@@ -1,4 +1,4 @@
-import { Component, Show, createMemo } from "solid-js";
+import { Component, Match, Show, Switch, createMemo } from "solid-js";
 import { JSX } from "solid-js";
 
 import { Channel, Server as ServerI } from "revolt.js";
@@ -6,7 +6,7 @@ import { Channel, Server as ServerI } from "revolt.js";
 import { ChannelContextMenu, ServerSidebarContextMenu } from "@revolt/app";
 import { useClient, useUser } from "@revolt/client";
 import { modalController } from "@revolt/modal";
-import { Route, Routes, useSmartParams } from "@revolt/routing";
+import { Route, useParams, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 
@@ -21,7 +21,7 @@ export const Sidebar = (props: {
 }) => {
   const user = useUser();
   const client = useClient();
-  const params = useSmartParams();
+  const params = useParams<{ server: string }>();
 
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>
@@ -33,7 +33,7 @@ export const Sidebar = (props: {
           (channel) => channel.unread
         )}
         user={user()!}
-        selectedServer={() => params().serverId}
+        selectedServer={() => params.server}
         onCreateOrJoinServer={() =>
           modalController.push({
             type: "create_or_join_server",
@@ -42,11 +42,11 @@ export const Sidebar = (props: {
         }
         menuGenerator={props.menuGenerator}
       />
-      <Routes>
-        <Route path="/server/:server/*" component={Server} />
-        <Route path="/admin" element={null} />
-        <Route path="/*" component={Home} />
-      </Routes>
+      <Switch fallback={<Home />}>
+        <Match when={params.server}>
+          <Server />
+        </Match>
+      </Switch>
     </div>
   );
 };

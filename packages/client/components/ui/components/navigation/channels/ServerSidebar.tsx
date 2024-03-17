@@ -25,7 +25,7 @@ import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
-import { Link, useNavigate } from "@revolt/routing";
+import { useNavigate } from "@revolt/routing";
 
 import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
@@ -335,9 +335,7 @@ function Entry(
   props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">
 ) {
   return (
-    <Link
-      href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}
-    >
+    <a href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}>
       <MenuButton
         use:floating={props.menuGenerator(props.channel)}
         size="thin"
@@ -406,7 +404,7 @@ function Entry(
           <TextWithEmoji content={props.channel.name!} />
         </OverflowingText>
       </MenuButton>
-    </Link>
+    </a>
   );
 }
 

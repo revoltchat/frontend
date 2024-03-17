@@ -11,7 +11,7 @@ import { styled } from "solid-styled-components";
 import { Channel, Server, User } from "revolt.js";
 
 import { KeybindAction } from "@revolt/keybinds";
-import { Link, useNavigate } from "@revolt/routing";
+import { useNavigate } from "@revolt/routing";
 
 // import MdPlus from "@material-design-icons/svg/outlined/password.svg?component-solid";
 import { iconSize } from "../../..";
@@ -155,7 +155,7 @@ export const ServerList = (props: Props) => {
                 <Swoosh topItem />
               </PositionSwoosh>
             </Show>
-            <Link href="/">
+            <a href="/">
               <Avatar
                 size={42}
                 src={props.user.avatarURL}
@@ -163,23 +163,23 @@ export const ServerList = (props: Props) => {
                 overlay={<UserStatusGraphic status={props.user.presence} />}
                 interactive
               />
-            </Link>
+            </a>
           </EntryContainer>
         </Tooltip>
         <Show when={props.user.privileged}>
           <EntryContainer>
-            <Link href="/admin">
+            <a href="/admin">
               <Button compact="icon">
                 <BiSolidCheckShield size={32} />
               </Button>
-            </Link>
+            </a>
           </EntryContainer>
         </Show>
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
               <EntryContainer use:floating={props.menuGenerator(conversation)}>
-                <Link href={`/channel/${conversation.id}`}>
+                <a href={`/channel/${conversation.id}`}>
                   <Avatar
                     size={42}
                     // TODO: fix this
@@ -200,19 +200,19 @@ export const ServerList = (props: Props) => {
                     }
                     interactive
                   />
-                </Link>
+                </a>
               </EntryContainer>
             </Tooltip>
           )}
         </For>
         <Show when={props.unreadConversations.length > 9}>
           <EntryContainer>
-            <Link href={`/`}>
+            <a href={`/`}>
               <Avatar
                 size={42}
                 fallback={<>+{props.unreadConversations.length - 9}</>}
               />
-            </Link>
+            </a>
           </EntryContainer>
         </Show>
         <LineDivider />
@@ -231,7 +231,7 @@ export const ServerList = (props: Props) => {
                       <Swoosh />
                     </PositionSwoosh>
                   </Show>
-                  <Link href={`/server/${item.id}`}>
+                  <a href={`/server/${item.id}`}>
                     <Avatar
                       size={42}
                       src={item.iconURL}
@@ -249,7 +249,7 @@ export const ServerList = (props: Props) => {
                       fallback={item.name}
                       interactive
                     />
-                  </Link>
+                  </a>
                 </EntryContainer>
               </Tooltip>
             </Show>
@@ -275,20 +275,20 @@ export const ServerList = (props: Props) => {
       </Shadow>
       <Tooltip placement="right" content="Give Feedback">
         <EntryContainer>
-          <Link href="/server/01F7ZSBSFHQ8TA81725KQCSDDP/channel/01HGJPTXVPM3RJV0RG3YQA20KZ">
+          <a href="/server/01F7ZSBSFHQ8TA81725KQCSDDP/channel/01HGJPTXVPM3RJV0RG3YQA20KZ">
             <Avatar
               size={42}
               fallback={<BiSolidMegaphone size={18} />}
               interactive
             />
-          </Link>
+          </a>
         </EntryContainer>
       </Tooltip>
       <Tooltip placement="right" content="Settings">
         <EntryContainer>
-          <Link href="/settings">
+          <a href="/settings">
             <Avatar size={42} fallback={<BiSolidCog size={18} />} interactive />
-          </Link>
+          </a>
         </EntryContainer>
       </Tooltip>
     </ServerListBase>

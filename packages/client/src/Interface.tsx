@@ -1,4 +1,4 @@
-import { Component, Match, Switch, onCleanup, onMount } from "solid-js";
+import { Component, JSX, Match, Switch, onCleanup, onMount } from "solid-js";
 
 import { Server } from "revolt.js";
 
@@ -17,7 +17,7 @@ import { Sidebar } from "./interface/Sidebar";
 /**
  * Application layout
  */
-const Interface: Component = () => {
+const Interface = (props: { children: JSX.Element }) => {
   const keybinds = useKeybindActions();
 
   useBeforeLeave((e) => {
@@ -50,9 +50,9 @@ const Interface: Component = () => {
 
   return (
     <Switch fallback={<Preloader grow type="spinner" />}>
-      <Match when={!clientController.isLoggedIn()}>
+      {/* <Match when={!clientController.isLoggedIn()}>
         <Navigate href="/login" />
-      </Match>
+      </Match> */}
       <Match when={clientController.isReady()}>
         <div
           style={{
@@ -84,7 +84,7 @@ const Interface: Component = () => {
                 },
               })}
             />
-            <Content />
+            {props.children}
           </Layout>
         </div>
       </Match>

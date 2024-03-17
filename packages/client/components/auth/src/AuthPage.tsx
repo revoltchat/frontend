@@ -1,27 +1,15 @@
 import { BiLogosGithub, BiLogosMastodon, BiLogosTwitter } from "solid-icons/bi";
+import { JSX } from "solid-js";
 
-// import { styled } from "solid-styled-components";
 import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
-import { Route, Routes } from "@revolt/routing";
 import { Button, iconSize } from "@revolt/ui";
 
 import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?component-solid";
 
-import wideSvg from "../../../packages/client/public/assets/wide.svg";
-
-import { LocaleSelector } from "./LocaleSelector";
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
-import FlowCheck from "./flows/FlowCheck";
-import FlowConfirmReset from "./flows/FlowConfirmReset";
-import FlowCreate from "./flows/FlowCreate";
-import FlowHome from "./flows/FlowHome";
-import FlowLogin from "./flows/FlowLogin";
-import FlowResend from "./flows/FlowResend";
-import FlowReset from "./flows/FlowReset";
-import FlowVerify from "./flows/FlowVerify";
 
 /**
  * Authentication page layout
@@ -140,7 +128,7 @@ let a = false;
 /**
  * Authentication page
  */
-export function AuthPage() {
+export function AuthPage(props: { children: JSX.Element }) {
   const t = useTranslation();
 
   return (
@@ -161,19 +149,7 @@ export function AuthPage() {
         <Logo src={wideSvg} />
         <LocaleSelector />
       </Nav>*/}
-      <FlowBase>
-        <Routes>
-          <Route path="/check" component={FlowCheck} />
-          <Route path="/create" component={FlowCreate} />
-          <Route path="/auth" component={FlowLogin} />
-          <Route path="/auth2" element={<b>test</b>} />
-          <Route path="/resend" component={FlowResend} />
-          <Route path="/reset" component={FlowReset} />
-          <Route path="/verify/:token" component={FlowVerify} />
-          <Route path="/reset/:token" component={FlowConfirmReset} />
-          <Route path="/*any" component={FlowHome} />
-        </Routes>
-      </FlowBase>
+      <FlowBase>{props.children}</FlowBase>
       <Nav>
         <NavItems variant="stack">
           <NavItems>

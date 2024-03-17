@@ -1,6 +1,6 @@
 import { clientController } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Link, useNavigate } from "@revolt/routing";
+import { useNavigate } from "@revolt/routing";
 import { Button, Column, Row, Typography, styled } from "@revolt/ui";
 
 import RevoltSvg from "../../../../public/assets/wide.svg?component-solid";
@@ -71,15 +71,15 @@ export default function FlowHome() {
         </Column>
 
         <Column>
-          <Link href="auth">
+          <a href="/login/auth">
             <Column>
               <Button>Log In</Button>
             </Column>
-          </Link>
+          </a>
           {/* <Link href="create"> */}
           <a href="https://app.revolt.chat/login/create" target="_blank">
             <Column>
-              <Button palette="secondary">Sign Up</Button>
+              <Button variant="secondary">Sign Up</Button>
             </Column>
           </a>
           {/* </Link> */}

@@ -55,20 +55,18 @@ render(
   () => (
     <Hydrate>
       <Masks />
-      <Router>
-        <I18nContext.Provider value={i18n}>
-          <MountTheme>
-            <ProvideDirectives>
-              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-                <App />
-              </KeybindsProvider>
-              <ModalRenderer />
-              <FloatingManager />
-              <ApplyGlobalStyles />
-            </ProvideDirectives>
-          </MountTheme>
-        </I18nContext.Provider>
-      </Router>
+      <I18nContext.Provider value={i18n}>
+        <MountTheme>
+          <ProvideDirectives>
+            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+              <App />
+            </KeybindsProvider>
+            <ModalRenderer />
+            <FloatingManager />
+            <ApplyGlobalStyles />
+          </ProvideDirectives>
+        </MountTheme>
+      </I18nContext.Provider>
     </Hydrate>
   ),
   document.getElementById("root") as HTMLElement

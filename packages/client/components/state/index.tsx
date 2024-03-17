@@ -58,7 +58,7 @@ export class State {
       Object.keys(this).filter(
         (key) =>
           (this[key as keyof State] as unknown as { _storeHint: boolean })
-            ._storeHint
+            ?._storeHint
       ) as (keyof Store)[]
     ).map((key) => this[key] as AbstractStore<typeof key, Store[typeof key]>);
   }

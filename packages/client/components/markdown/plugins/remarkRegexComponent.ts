@@ -89,8 +89,11 @@ export function createComponent(
  * @returns Handler
  */
 export const passThroughRehype: (name: string) => Handler =
-  (name: string) => (h, node) =>
-    h(node, name, node);
+  (name: string) => (h, node, c) => {
+    console.info(h, node, c);
+    return node;
+  };
+//h(node, name, node);
 
 /**
  * Pass-through multiple components at once
