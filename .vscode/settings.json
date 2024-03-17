@@ -6,7 +6,7 @@
     "**/tsconfig.json": false
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "nixEnvSelector.nixFile": "${workspaceRoot}/default.nix"
 }

@@ -1,5 +1,7 @@
 import { BiLogosGithub, BiLogosMastodon, BiLogosTwitter } from "solid-icons/bi";
-import { styled } from "solid-styled-components";
+
+// import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
 import { Route, Routes } from "@revolt/routing";
@@ -24,113 +26,114 @@ import FlowVerify from "./flows/FlowVerify";
 /**
  * Authentication page layout
  */
-const Base = styled("div")`
-  width: 100%;
-  height: 100%;
-  padding: 40px 35px;
+const Base = styled("div", {
+  base: {
+    width: "100%",
+    height: "100%",
+    padding: "40px 35px",
 
-  user-select: none;
-  overflow-y: scroll;
+    userSelect: "none",
+    overflowY: "scroll",
 
-  color: white;
-  background: url(${background});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+    color: "white",
+    background: `var(--url)`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
 
-  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
-    padding: 30px 20px;
-    background-image: unset;
-    background-color: ${({ theme }) => theme!.colours["background-200"]};
-  }
-`;
+    mdDown: {
+      padding: "30px 20px",
+      background: "var(--colours-background)",
+    },
+  },
+});
 
 /**
  * Top and bottom navigation bars
  */
-const Nav = styled("div")`
-  height: 32px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
+const Nav = styled("div", {
+  base: {
+    height: "32px",
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
 
-  a,
-  a:link,
-  a:visited,
-  a:active {
-    color: white;
-    text-decoration: none;
-  }
+    color: "white",
+    textDecoration: "none",
 
-  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
-    color: ${(props) => props.theme!.colours.foreground};
-
-    a,
-    a:link,
-    a:visited,
-    a:active,
-    svg {
-      color: ${(props) => props.theme!.colours.foreground};
-    }
-  }
-`;
+    mdDown: {
+      color: "var(--colours-foreground)",
+    },
+  },
+});
 
 /**
  * Navigation items
  */
-const NavItems = styled("div")<{
-  stack?: boolean;
-  hide?: boolean;
-  grow?: boolean;
-}>`
-  gap: 10px;
-  display: flex;
-  align-items: center;
-  flex-grow: ${(props) => (props.grow ? 1 : 0)};
+const NavItems = styled(`div`, {
+  base: {
+    gap: "10px",
+    display: "flex",
+    alignItems: "center",
 
-  font-size: 0.9em;
-
-  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
-    display: ${(props) => (props.hide ? "none" : "flex")};
-  }
-
-  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
-    flex-direction: ${(props) => (props.stack ? "column" : "row")};
-  }
-`;
+    fontSize: "0.9em",
+  },
+  variants: {
+    variant: {
+      default: {},
+      stack: {
+        mdDown: {
+          flexDirection: "column",
+        },
+      },
+      hide: {
+        mdDown: {
+          display: "none",
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 /**
  * Link with an icon inside
  */
-const LinkWithIcon = styled("a")`
-  height: 24px;
-`;
+const LinkWithIcon = styled("a", {
+  base: { height: "24px" },
+});
 
 /**
  * Middot-like bullet
  */
-const Bullet = styled("div")`
-  height: 5px;
-  width: 5px;
-  background: grey;
-  border-radius: 50%;
+const Bullet = styled("div", {
+  base: {
+    height: "5px",
+    width: "5px",
+    background: "grey",
+    borderRadius: "50%",
 
-  @media (max-width: ${({ theme }) => theme!.breakpoints.md}) {
-    display: none;
-  }
-`;
+    mdDown: {
+      display: "none",
+    },
+  },
+});
 
 /**
  * Revolt Wordmark
  */
-const Logo = styled("img")`
-  height: 24px;
-`;
+const Logo = styled("img", {
+  base: {
+    height: "24px",
+  },
+});
 
 let a = false;
 
@@ -141,11 +144,11 @@ export function AuthPage() {
   const t = useTranslation();
 
   return (
-    <Base>
+    <Base style={{ "--url": `url('${background}')` }}>
       <Nav>
         <div />
         <Button
-          compact="icon"
+          size="icon"
           onClick={() => {
             a = !a;
             (window as any)._demo_setDarkMode(a);
@@ -172,7 +175,7 @@ export function AuthPage() {
         </Routes>
       </FlowBase>
       <Nav>
-        <NavItems stack grow>
+        <NavItems variant="stack">
           <NavItems>
             <LinkWithIcon href="https://github.com/revoltchat" target="_blank">
               <BiLogosGithub size={24} />
@@ -200,7 +203,7 @@ export function AuthPage() {
             </a>
           </NavItems>
         </NavItems>
-        <NavItems hide>
+        <NavItems variant="hide">
           {t("general.image_by")} @fakurian
           <Bullet />
           <a href="https://unsplash.com/" target="_blank" rel="noreferrer">

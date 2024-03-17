@@ -67,6 +67,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      "styled-system": resolve(__dirname, "styled-system"),
       ...readdirSync(resolve(__dirname, "components")).reduce(
         (p, f) => ({
           ...p,

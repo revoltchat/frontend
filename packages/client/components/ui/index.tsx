@@ -1,6 +1,6 @@
 import { Component, createEffect } from "solid-js";
 import type { JSX } from "solid-js";
-import { useTheme } from "solid-styled-components";
+import { DefaultTheme, useTheme } from "solid-styled-components";
 import { DirectiveProvider } from "solid-styled-components";
 
 import { Placement } from "@floating-ui/dom";
@@ -69,6 +69,19 @@ export function ApplyGlobalStyles() {
 
     // Set default emoji size
     document.body.style.setProperty("--emoji-size", theme.layout.emoji.small);
+
+    // Inject all theme properties
+    function recursivelyInject(key: string, obj: any) {
+      if (typeof obj === "object") {
+        for (const subkey of Object.keys(obj)) {
+          recursivelyInject(key + "-" + subkey, obj[subkey]);
+        }
+      } else {
+        document.body.style.setProperty(`-${key}`, obj);
+      }
+    }
+
+    recursivelyInject("", theme);
   });
 
   return <></>;

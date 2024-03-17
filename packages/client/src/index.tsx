@@ -25,6 +25,7 @@ import {
 import "@revolt/ui/styles";
 
 import App from "./App";
+import "./index.css";
 import "./sentry";
 
 attachDevtoolsOverlay();
