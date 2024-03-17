@@ -12,30 +12,31 @@
     "noEmit": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@revolt/app": ["components/app"],
-      // "@app/*": ["components/app/*"],
+      "@revolt/app/*": ["components/app/*"],
       "@revolt/auth": ["components/auth"],
-      // "@auth/*": ["components/auth/*"],
+      "@revolt/auth/*": ["components/auth/*"],
       "@revolt/client": ["components/client"],
-      // "@client/*": ["components/client/*"],
+      "@revolt/client/*": ["components/client/*"],
       "@revolt/common": ["components/common"],
-      // "@common/*": ["components/common/*"],
+      "@revolt/common/*": ["components/common/*"],
       "@revolt/i18n": ["components/i18n"],
-      // "@i18n/*": ["components/i18n/*"],
+      "@revolt/i18n/*": ["components/i18n/*"],
       "@revolt/keybinds": ["components/keybinds"],
-      // "@keybinds/*": ["components/keybinds/*"],
+      "@revolt/keybinds/*": ["components/keybinds/*"],
       "@revolt/markdown": ["components/markdown"],
-      // "@markdown/*": ["components/markdown/*"],
+      "@revolt/markdown/*": ["components/markdown/*"],
       "@revolt/modal": ["components/modal"],
-      // "@modal/*": ["components/modal/*"],
+      "@revolt/modal/*": ["components/modal/*"],
       "@revolt/routing": ["components/routing"],
-      // "@routing/*": ["components/routing/*"],
+      "@revolt/routing/*": ["components/routing/*"],
       "@revolt/state": ["components/state"],
-      // "@state/*": ["components/state/*"],
-      "@revolt/ui": ["components/ui"]
-      // "@ui/*": ["components/ui/*"]
+      "@revolt/state/*": ["components/state/*"],
+      "@revolt/ui": ["components/ui"],
+      "@revolt/ui/*": ["components/ui/*"]
     }
   }
 }

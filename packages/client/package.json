@@ -21,7 +21,7 @@
     "@types/unist": "^2.0.6",
     "lnk": "^1.1.0",
     "revolt.js": "workspace:^",
-    "typescript": "^4.8.2",
+    "typescript": "^5.4.2",
     "vite": "^5.1.6",
     "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-solid": "^2.3.0",
