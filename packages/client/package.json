@@ -51,6 +51,7 @@
     "@solid-primitives/keyed": "^1.2.2",
     "@solid-primitives/map": "^0.4.11",
     "@solidjs/router": "^0.13.0",
+    "@tauri-apps/api": "^1.5.3",
     "@thisbeyond/solid-dnd": "^0.7.5",
     "color-rgba": "^3.0.0",
     "comma-separated-tokens": "^2.0.3",
