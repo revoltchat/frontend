@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeDevCommand": "pnpm --filter client dev",
-    "devPath": "http://localhost:5173",
+    "beforeDevCommand": "pnpm --filter client dev --port 6173",
+    "devPath": "http://localhost:6173",
     "distDir": "../handoff",
     "withGlobalTauri": false
   },
