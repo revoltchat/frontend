@@ -165,7 +165,9 @@ export function HomePage() {
               {t("app.home.feedback")}
             </CategoryButton>
             <CategoryButton
-              onClick={() => modalController.push({ type: "settings" })}
+              onClick={() =>
+                modalController.push({ type: "settings", config: "client" })
+              }
               description={t("app.home.settings-tooltip")}
               icon={<BiSolidCog size={24} />}
             >
@@ -174,7 +176,7 @@ export function HomePage() {
           </SeparatedColumn>
         </Buttons>
         <Show when={IS_DEV}>
-          <Button style={{ margin: "auto" }} onClick={() => navigate("/dev")}>
+          <Button onClick={() => navigate("/dev")}>
             Open Development Page
           </Button>
         </Show>

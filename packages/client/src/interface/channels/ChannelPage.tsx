@@ -18,8 +18,6 @@ const Base = styled("div")`
   display: flex;
   position: relative;
   flex-direction: column;
-
-  background: ${({ theme }) => theme!.colours["background-200"]};
 `;
 
 export interface ChannelPageProps {

@@ -21,4 +21,8 @@ for (const group of Object.keys(ordering)) {
   }
 }
 
-writeFile("components/ui/emojiMapping.json", JSON.stringify(Mapping), "utf8");
+writeFile(
+  "packages/client/components/ui/emojiMapping.json",
+  JSON.stringify(Mapping),
+  "utf8"
+);

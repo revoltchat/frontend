@@ -36,7 +36,7 @@ const Base = styled("div")`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: ${(props) => props.theme!.colours["background-200"]};
+  background: var(--unset-bg);
 
   .FriendsList {
     padding: ${(props) => props.theme!.gap.lg};
@@ -137,8 +137,7 @@ const Title = styled.a<{ active: boolean }>`
   margin-top: ${(props) => props.theme!.gap.lg};
   transition: ${(props) => props.theme!.transitions.fast} all;
 
-  color: ${(props) =>
-    props.theme!.colours[props.active ? "foreground-200" : "foreground-400"]};
+  color: var(--unset-fg);
 
   svg {
     transition: ${(props) => props.theme!.transitions.fast} all;
