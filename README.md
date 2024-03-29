@@ -32,7 +32,7 @@ pnpm build:deps
 # pnpm --filter revolt.js run build
 
 # run dev server
-pnpm dev
+pnpm dev:web
 ```
 
 Finally, navigate to http://local.revolt.chat:5173.
