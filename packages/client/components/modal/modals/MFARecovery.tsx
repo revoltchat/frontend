@@ -55,13 +55,13 @@ const MFARecovery: PropGenerator<"mfa_recovery"> = (props) => {
       {
         palette: "primary",
         children: t("app.special.modals.actions.done"),
-        onClick: () => true,
+        onPress: () => true,
         confirmation: true,
       },
       {
         palette: "plain",
         children: t("app.special.modals.actions.reset"),
-        onClick: reset,
+        onPress: reset,
       },
     ],
     children: (

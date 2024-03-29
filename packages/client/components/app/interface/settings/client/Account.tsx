@@ -171,7 +171,7 @@ function EditAccount() {
     <CategoryButtonGroup>
       <CategoryButton
         action="chevron"
-        onClick={() =>
+        onPress={() =>
           getController("modal").push({
             type: "edit_username",
             client: client(),
@@ -184,7 +184,7 @@ function EditAccount() {
       </CategoryButton>
       <CategoryButton
         action="chevron"
-        onClick={() =>
+        onPress={() =>
           getController("modal").push({
             type: "edit_email",
             client: client(),
@@ -211,7 +211,7 @@ function EditAccount() {
       </CategoryButton>
       <CategoryButton
         action="chevron"
-        onClick={() =>
+        onPress={() =>
           getController("modal").push({
             type: "edit_password",
             client: client(),
@@ -313,8 +313,8 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
           fallback={
             <CategoryButton
               icon="blank"
-              disabled={!props.mfa()}
-              onClick={generateRecoveryCodes}
+              isDisabled={!props.mfa()}
+              onPress={generateRecoveryCodes}
               description="Setup recovery codes"
             >
               Generate Recovery Codes
@@ -325,14 +325,14 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
             <CategoryButton
               icon="blank"
               description="Get active recovery codes"
-              onClick={showRecoveryCodes}
+              onPress={showRecoveryCodes}
             >
               View Recovery Codes
             </CategoryButton>
             <CategoryButton
               icon="blank"
               description="Get a new set of recovery codes"
-              onClick={generateRecoveryCodes}
+              onPress={generateRecoveryCodes}
             >
               Reset Recovery Codes
             </CategoryButton>
@@ -348,8 +348,8 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
           fallback={
             <CategoryButton
               icon="blank"
-              disabled={!props.mfa()}
-              onClick={setupAuthenticatorApp}
+              isDisabled={!props.mfa()}
+              onPress={setupAuthenticatorApp}
               description="Setup one-time password authenticator"
             >
               Enable Authenticator
@@ -360,7 +360,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
             <CategoryButton
               icon="blank"
               description="Disable one-time password authenticator"
-              onClick={disableAuthenticatorApp}
+              onPress={disableAuthenticatorApp}
             >
               Remove Authenticator
             </CategoryButton>
@@ -410,8 +410,8 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
     <CategoryButtonGroup>
       <CategoryButton
         action="chevron"
-        disabled={!props.mfa()}
-        onClick={disableAccount}
+        isDisabled={!props.mfa()}
+        onPress={disableAccount}
         icon={
           <MdBlock {...iconSize(22)} fill={theme!.customColours.error.color} />
         }
@@ -421,8 +421,8 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
       </CategoryButton>
       <CategoryButton
         action="chevron"
-        disabled={!props.mfa()}
-        onClick={deleteAccount}
+        isDisabled={!props.mfa()}
+        onPress={deleteAccount}
         icon={
           <MdDelete {...iconSize(22)} fill={theme!.customColours.error.color} />
         }

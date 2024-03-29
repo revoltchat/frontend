@@ -46,7 +46,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
                       }
                     />
                   }
-                  onClick={() => void 0}
+                  onPress={() => void 0}
                 >
                   No flags
                 </CategoryButton>
@@ -64,7 +64,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
                       }
                     />
                   }
-                  onClick={() => void 0}
+                  onPress={() => void 0}
                 >
                   Official Server
                 </CategoryButton>
@@ -82,7 +82,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
                       }
                     />
                   }
-                  onClick={() => void 0}
+                  onPress={() => void 0}
                 >
                   Verified Server
                 </CategoryButton>
@@ -102,7 +102,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
                     }
                   />
                 }
-                onClick={() => void 0}
+                onPress={() => void 0}
               >
                 Analytics
               </CategoryButton>
@@ -121,7 +121,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
                     }
                   />
                 }
-                onClick={() => void 0}
+                onPress={() => void 0}
               >
                 Public Server
               </CategoryButton>

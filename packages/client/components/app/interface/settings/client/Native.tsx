@@ -1,8 +1,3 @@
-import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
-import MdCancelPresentation from "@material-design-icons/svg/outlined/cancel_presentation.svg?component-solid";
-import MdWebAsset from "@material-design-icons/svg/outlined/web_asset.svg?component-solid";
-import MdDesktopWindows from "@material-design-icons/svg/outlined/desktop_windows.svg?component-solid";
-
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -11,6 +6,11 @@ import {
   FormGroup,
   iconSize,
 } from "@revolt/ui";
+
+import MdCancelPresentation from "@material-design-icons/svg/outlined/cancel_presentation.svg?component-solid";
+import MdDesktopWindows from "@material-design-icons/svg/outlined/desktop_windows.svg?component-solid";
+import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
+import MdWebAsset from "@material-design-icons/svg/outlined/web_asset.svg?component-solid";
 
 /**
  * Desktop Configuration Page
@@ -22,7 +22,7 @@ export default function Native() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon={<MdExitToApp {...iconSize(22)} />}
             description="Launch Revolt when you log into your computer."
           >
@@ -32,7 +32,7 @@ export default function Native() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon={<MdCancelPresentation {...iconSize(22)} />}
             description="Instead of closing, Revolt will hide in your tray."
           >
@@ -44,7 +44,7 @@ export default function Native() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon={<MdWebAsset {...iconSize(22)} />}
             description="Let Revolt use its own custom titlebar."
           >

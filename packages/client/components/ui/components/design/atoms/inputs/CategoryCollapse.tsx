@@ -63,11 +63,7 @@ export function CategoryCollapse(props: Props) {
       class={opened() ? "open" : undefined}
     >
       <summary>
-        <CategoryButton
-          {...remote}
-          action={[local.action, "collapse"].flat()}
-          onClick={() => void 0}
-        >
+        <CategoryButton {...remote} action={[local.action, "collapse"].flat()}>
           {props.title}
         </CategoryButton>
       </summary>

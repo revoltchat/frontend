@@ -24,7 +24,6 @@ export const Input = styled("input")<Props>`
   font-family: inherit;
   font-weight: 500;
 
-  outline: none;
   border: 2px solid transparent;
   border-radius: ${({ theme }) => theme!.borderRadius.md};
 
@@ -32,11 +31,6 @@ export const Input = styled("input")<Props>`
 
   &:disabled {
     filter: brightness(0.9);
-  }
-
-  &:focus-visible {
-    box-shadow: 0 0 0 1.5pt
-      ${({ theme }) => theme!.colours["component-input-focus"]};
   }
 
   color: ${(props) => props.theme!.colours["component-input-foreground"]};
@@ -59,7 +53,6 @@ export const Input = styled("input")<Props>`
       : ""}
 
   &:focus {
-    outline-offset: 4px;
     border-color: ${(props) => props.theme!.customColours.warning.color};
   }
 

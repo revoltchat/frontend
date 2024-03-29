@@ -82,14 +82,14 @@ export function createFormModal<
     disabled: processing(),
     actions: [
       {
-        onClick: onSubmit,
+        onPress: onSubmit,
         children: t("actions.submit"),
         confirmation: true,
         ...props.submit,
       },
       ...(props.actions ?? [
         {
-          onClick: () => true,
+          onPress: () => true,
           children: t("app.special.modals.actions.cancel"),
           variant: "plain",
         },

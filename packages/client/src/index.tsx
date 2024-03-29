@@ -5,6 +5,7 @@ import { Show, createEffect, createSignal, on } from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
+import { OverlayProvider } from "@solid-aria/overlays";
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
 import { appWindow } from "@tauri-apps/api/window";
 
@@ -56,26 +57,28 @@ render(
   () => (
     <Hydrate>
       <Masks />
-      <I18nContext.Provider value={i18n}>
-        <MountTheme>
-          <ProvideDirectives>
-            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-              <Show when={window.__TAURI__}>
-                <Titlebar
-                  isBuildDev={import.meta.env.DEV}
-                  onMinimize={() => appWindow.minimize()}
-                  onMaximize={() => appWindow.toggleMaximize()}
-                  onClose={() => appWindow.hide()}
-                />
-              </Show>
-              <App />
-            </KeybindsProvider>
-            <ModalRenderer />
-            <FloatingManager />
-            <ApplyGlobalStyles />
-          </ProvideDirectives>
-        </MountTheme>
-      </I18nContext.Provider>
+      <OverlayProvider>
+        <I18nContext.Provider value={i18n}>
+          <MountTheme>
+            <ProvideDirectives>
+              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+                <Show when={window.__TAURI__}>
+                  <Titlebar
+                    isBuildDev={import.meta.env.DEV}
+                    onMinimize={() => appWindow.minimize()}
+                    onMaximize={() => appWindow.toggleMaximize()}
+                    onClose={() => appWindow.hide()}
+                  />
+                </Show>
+                <App />
+              </KeybindsProvider>
+              <ModalRenderer />
+              <FloatingManager />
+              <ApplyGlobalStyles />
+            </ProvideDirectives>
+          </MountTheme>
+        </I18nContext.Provider>
+      </OverlayProvider>
     </Hydrate>
   ),
   document.getElementById("root") as HTMLElement

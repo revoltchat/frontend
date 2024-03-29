@@ -1,1 +1,9 @@
 @layer reset, base, tokens, recipes, utilities;
+
+*:focus-visible {
+  outline: 2pt solid #00a8fc;
+  z-index: 1;
+
+  min-height: 10px;
+  background: red !important;
+}

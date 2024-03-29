@@ -101,7 +101,7 @@ function PickLanguage() {
           <CategoryButton
             icon={<UnicodeEmoji emoji={lang.emoji} />}
             action={<Checkbox value={id === language()} />}
-            onClick={() => loadAndSetLanguage(id as never)}
+            onPress={() => loadAndSetLanguage(id as never)}
           >
             <Row>
               {lang.display}{" "}
@@ -141,7 +141,7 @@ function PickDateFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
+          onPress={() => void 0}
           action={<Checkbox value />}
           description={<Time format="date" value={LastWeek} />}
         >
@@ -151,7 +151,7 @@ function PickDateFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
+          onPress={() => void 0}
           action={<Checkbox />}
           description={<Time format="dateAmerican" value={LastWeek} />}
         >
@@ -161,7 +161,7 @@ function PickDateFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
+          onPress={() => void 0}
           action={<Checkbox />}
           description={<Time format="iso8601" value={LastWeek} />}
         >
@@ -185,7 +185,7 @@ function PickTimeFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
+          onPress={() => void 0}
           action={<Checkbox value />}
           description={<Time format="time24" value={new Date()} />}
         >
@@ -195,7 +195,7 @@ function PickTimeFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
+          onPress={() => void 0}
           action={<Checkbox />}
           description={<Time format="time12" value={new Date()} />}
         >
@@ -222,7 +222,7 @@ function ConfigureRTL() {
           icon={<MdKeyboardTabRtl {...iconSize(22)} />}
           description="Flip the user interface right to left"
           action={<Checkbox />}
-          onClick={() => void 0}
+          onPress={() => void 0}
         >
           Enable RTL layout
         </CategoryButton>
@@ -233,7 +233,7 @@ function ConfigureRTL() {
           icon={<MdKeyboardTab {...iconSize(22)} />}
           description="Keep the user interface left to right"
           action={<Checkbox />}
-          onClick={() => void 0}
+          onPress={() => void 0}
         >
           Force LTR layout
         </CategoryButton>
@@ -251,7 +251,7 @@ function ContributeLanguageLink() {
       <CategoryButton
         action="external"
         icon={<MdTranslate {...iconSize(22)} />}
-        onClick={() => void 0}
+        onPress={() => void 0}
         description="Help contribute to an existing or new language"
       >
         Contribute a language

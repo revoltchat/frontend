@@ -1,7 +1,3 @@
-import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
-import MdMarkUnreadChatAlt from "@material-design-icons/svg/outlined/mark_unread_chat_alt.svg?component-solid";
-import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
-
 import { useTranslation } from "@revolt/i18n";
 import {
   CategoryButton,
@@ -11,6 +7,10 @@ import {
   FormGroup,
   iconSize,
 } from "@revolt/ui";
+
+import MdMarkUnreadChatAlt from "@material-design-icons/svg/outlined/mark_unread_chat_alt.svg?component-solid";
+import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
+import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
 
 /**
  * Notifications Page
@@ -23,7 +23,7 @@ export default function Notifications() {
       <FormGroup>
         <CategoryButton
           action={<Checkbox value onChange={(value) => void value} />}
-          onClick={() => void 0}
+          onPress={() => void 0}
           icon={<MdNotifications {...iconSize(22)} />}
           description={t(
             "app.settings.pages.notifications.descriptions.enable_desktop"
@@ -35,7 +35,7 @@ export default function Notifications() {
       <FormGroup>
         <CategoryButton
           action={<Checkbox value onChange={(value) => void value} />}
-          onClick={() => void 0}
+          onPress={() => void 0}
           icon={<MdMarkUnreadChatAlt {...iconSize(22)} />}
           description={t(
             "app.settings.pages.notifications.descriptions.enable_push"
@@ -51,7 +51,7 @@ export default function Notifications() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon="blank"
           >
             {t("app.settings.pages.notifications.sound.message")}
@@ -60,7 +60,7 @@ export default function Notifications() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon="blank"
           >
             {t("app.settings.pages.notifications.sound.outbound")}
@@ -69,7 +69,7 @@ export default function Notifications() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon="blank"
           >
             {t("app.settings.pages.notifications.sound.call_join")}
@@ -78,7 +78,7 @@ export default function Notifications() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon="blank"
           >
             {t("app.settings.pages.notifications.sound.call_leave")}

@@ -2,6 +2,7 @@ import { Show } from "solid-js";
 import { Portal } from "solid-js/web";
 
 import { Motion, Presence } from "@motionone/solid";
+import { FocusScope } from "@solid-aria/focus";
 
 import { Settings, SettingsConfigurations } from "@revolt/app";
 
@@ -41,15 +42,20 @@ const SettingsModal: PropGenerator<"settings"> = ({
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.3, easing: [0.17, 0.67, 0.58, 0.98] }}
+                  transition={{
+                    duration: 0.3,
+                    easing: [0.17, 0.67, 0.58, 0.98],
+                  }}
                 >
-                  <Settings
-                    onClose={props.onClose}
-                    render={config.render}
-                    title={config.title}
-                    list={config.list}
-                    context={context as never}
-                  />
+                  <FocusScope contain restoreFocus autofocus>
+                    <Settings
+                      onClose={props.onClose}
+                      render={config.render}
+                      title={config.title}
+                      list={config.list}
+                      context={context as never}
+                    />
+                  </FocusScope>
                 </Motion.div>
               </Show>
             </Presence>

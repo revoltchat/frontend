@@ -15,7 +15,7 @@ const Error: PropGenerator<"error"> = (props) => {
       {
         children: t("app.special.modals.actions.ok"),
         palette: "secondary",
-        onClick() {
+        onPress() {
           return true;
         },
       },

@@ -59,7 +59,7 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
         {
           variant: "primary",
           children: t("app.special.modals.actions.close"),
-          onClick: () => true,
+          onPress: () => true,
         },
       ];
 
@@ -67,7 +67,7 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
         actions.push({
           variant: "plain",
           children: t("app.special.modals.changelogs.older"),
-          onClick: () => {
+          onPress: () => {
             setLog(undefined);
             return false;
           },
@@ -88,7 +88,7 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
                 const onClick = () => setLog(index());
 
                 return (
-                  <CategoryButton onClick={onClick}>
+                  <CategoryButton onPress={onClick}>
                     {entry.title}
                   </CategoryButton>
                 );

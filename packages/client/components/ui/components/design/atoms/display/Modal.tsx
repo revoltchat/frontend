@@ -3,6 +3,8 @@ import { Portal } from "solid-js/web";
 import { styled } from "solid-styled-components";
 
 import { Motion, Presence } from "@motionone/solid";
+import { FocusScope } from "@solid-aria/focus";
+import { createModal, createOverlay } from "@solid-aria/overlays";
 
 import { Button } from "../inputs/Button";
 
@@ -10,7 +12,7 @@ import { Typography } from "./Typography";
 
 export type Action = Omit<ComponentProps<typeof Button>, "onClick"> & {
   confirmation?: boolean;
-  onClick: () => void | boolean | Promise<boolean>;
+  onPress: () => void | boolean | Promise<boolean>;
 };
 
 export interface Props {
@@ -180,10 +182,16 @@ export function Modal(props: Props) {
     typeof props.actions === "function" ||
     (props.actions ? props.actions.length > 0 : false);
 
+  let ref: HTMLDivElement | undefined;
+  // const { overlayProps, underlayProps } = createOverlay(props, () => ref);
+  const { modalProps } = createModal();
+  // const { dialogProps, titleProps } = createDialog(props, () => ref);
+
   return (
     <Portal mount={document.getElementById("floating")!}>
       <Base
         show={props.show}
+        // {...underlayProps}
         onClick={() => !props.nonDismissable && props.onClose?.()}
       >
         <Presence>
@@ -194,49 +202,54 @@ export function Modal(props: Props) {
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.3, easing: [0.22, 0.54, 0.41, 1.46] }}
             >
-              <Container
-                actions={showActions()}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Show when={props.title || props.description}>
-                  <Title>
-                    <Show when={props.title}>
-                      <Typography variant="modal-title">
-                        {props.title}
-                      </Typography>
-                    </Show>
-                    <Show when={props.description}>
-                      <Typography variant="modal-description">
-                        {props.description}
-                      </Typography>
-                    </Show>
-                  </Title>
-                </Show>
-                <Content>{props.children}</Content>
-                <Show when={showActions()}>
-                  <Actions>
-                    <For
-                      each={
-                        typeof props.actions === "function"
-                          ? props.actions()
-                          : props.actions
-                      }
-                    >
-                      {(action) => (
-                        <Button
-                          {...action}
-                          isDisabled={props.disabled}
-                          onClick={async () => {
-                            if (await action.onClick()) {
-                              props.onClose?.();
-                            }
-                          }}
-                        />
-                      )}
-                    </For>
-                  </Actions>
-                </Show>
-              </Container>
+              <FocusScope contain restoreFocus autofocus>
+                <Container
+                  ref={ref}
+                  // {...overlayProps}
+                  {...modalProps}
+                  actions={showActions()}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Show when={props.title || props.description}>
+                    <Title>
+                      <Show when={props.title}>
+                        <Typography variant="modal-title">
+                          {props.title}
+                        </Typography>
+                      </Show>
+                      <Show when={props.description}>
+                        <Typography variant="modal-description">
+                          {props.description}
+                        </Typography>
+                      </Show>
+                    </Title>
+                  </Show>
+                  <Content>{props.children}</Content>
+                  <Show when={showActions()}>
+                    <Actions>
+                      <For
+                        each={
+                          typeof props.actions === "function"
+                            ? props.actions()
+                            : props.actions
+                        }
+                      >
+                        {(action) => (
+                          <Button
+                            {...action}
+                            isDisabled={props.disabled}
+                            onPress={async () => {
+                              if (await action.onPress()) {
+                                props.onClose?.();
+                              }
+                            }}
+                          />
+                        )}
+                      </For>
+                    </Actions>
+                  </Show>
+                </Container>
+              </FocusScope>
             </Motion.div>
           </Show>
         </Presence>

@@ -25,7 +25,7 @@ export default function Sync() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon={<MdPalette {...iconSize(22)} />}
             description={t("app.settings.pages.sync.descriptions.appearance")}
           >
@@ -35,7 +35,7 @@ export default function Sync() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon={<MdBrush {...iconSize(22)} />}
             description={t("app.settings.pages.sync.descriptions.theme")}
           >
@@ -45,7 +45,7 @@ export default function Sync() {
         <FormGroup>
           <CategoryButton
             action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             icon={<MdLanguage {...iconSize(22)} />}
             description={t("app.settings.pages.sync.descriptions.locale")}
           >

@@ -1,4 +1,3 @@
-import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?component-solid";
 import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
 import { Bot } from "revolt.js";
@@ -12,6 +11,8 @@ import {
   Preloader,
   iconSize,
 } from "@revolt/ui";
+
+import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?component-solid";
 
 import { useSettingsNavigation } from "../Settings";
 
@@ -36,7 +37,7 @@ function CreateBot() {
       <CategoryButton
         action="chevron"
         icon={<MdSmartToy {...iconSize(22)} />}
-        onClick={() => void 0}
+        onPress={() => void 0}
         description="You agree that your bot is subject to the Acceptable Usage Policy."
       >
         Create Bot
@@ -74,7 +75,7 @@ function ListBots() {
                       <Avatar src={bot.user!.animatedAvatarURL} size={24} />
                     }
                     description={bot.id}
-                    onClick={() => navigate(`bots/${bot.id}`)}
+                    onPress={() => navigate(`bots/${bot.id}`)}
                     action="chevron"
                   >
                     {bot.user!.username}

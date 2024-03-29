@@ -9,5 +9,6 @@ export const CategoryButtonGroup = styled.div`
   gap: ${(props) => props.theme!.gap.xs};
 
   border-radius: ${(props) => props.theme!.borderRadius.xl};
-  overflow: hidden;
 `;
+
+// TODO: used overflow: hidden; for border BUT breaks focus rings

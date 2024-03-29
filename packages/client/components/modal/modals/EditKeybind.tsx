@@ -130,7 +130,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
     actions: [
       {
         ref: (el: any) => (okButton = el),
-        onClick: () => {
+        onPress: () => {
           submit();
           return true;
         },
@@ -138,7 +138,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
         children: t("app.special.modals.actions.ok"),
       },
       {
-        onClick: () => true,
+        onPress: () => true,
         confirmation: false,
         children: t("app.special.modals.actions.cancel"),
       },

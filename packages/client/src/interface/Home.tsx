@@ -108,7 +108,7 @@ export function HomePage() {
         <Buttons>
           <SeparatedColumn>
             <CategoryButton
-              onClick={() =>
+              onPress={() =>
                 modalController.push({
                   type: "create_group",
                   client: client()!,
@@ -122,7 +122,7 @@ export function HomePage() {
             <Switch fallback={null}>
               <Match when={showLoungeButton && isInLounge}>
                 <CategoryButton
-                  onClick={() => navigate("/server/01F7ZSBSFHQ8TA81725KQCSDDP")}
+                  onPress={() => navigate("/server/01F7ZSBSFHQ8TA81725KQCSDDP")}
                   description={t("app.home.goto-testers_desc")}
                   icon={<BiSolidRightArrowCircle size={24} />}
                 >
@@ -139,7 +139,7 @@ export function HomePage() {
               </Match>
             </Switch>
             <CategoryButton
-              onClick={() =>
+              onPress={() =>
                 window.open("https://insrt.uk/donate?utm_source=revoltapp")
               }
               description={t("app.home.donate_desc")}
@@ -151,7 +151,7 @@ export function HomePage() {
           <SeparatedColumn>
             <Show when={IS_REVOLT}>
               <CategoryButton
-                onClick={() => navigate("/discover")}
+                onPress={() => navigate("/discover")}
                 description={t("app.home.discover_desc")}
                 icon={<BiSolidCompass size={24} />}
               >
@@ -165,7 +165,7 @@ export function HomePage() {
               {t("app.home.feedback")}
             </CategoryButton>
             <CategoryButton
-              onClick={() =>
+              onPress={() =>
                 modalController.push({ type: "settings", config: "client" })
               }
               description={t("app.home.settings-tooltip")}
@@ -176,7 +176,7 @@ export function HomePage() {
           </SeparatedColumn>
         </Buttons>
         <Show when={IS_DEV}>
-          <Button onClick={() => navigate("/dev")}>
+          <Button onPress={() => navigate("/dev")}>
             Open Development Page
           </Button>
         </Show>

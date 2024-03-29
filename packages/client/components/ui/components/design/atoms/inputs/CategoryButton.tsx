@@ -3,8 +3,11 @@ import {
   BiSolidChevronDown,
   BiSolidChevronRight,
 } from "solid-icons/bi";
-import { For, JSX, Match, Show, Switch } from "solid-js";
+import { For, JSX, Match, Show, Switch, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { createButton } from "@solid-aria/button";
+import { createFocusRing } from "@solid-aria/focus";
 
 import { Column, OverflowingText } from "../../layout";
 
@@ -18,22 +21,27 @@ export interface Props {
   readonly children?: JSX.Element;
   readonly description?: JSX.Element;
 
-  readonly disabled?: boolean;
-  readonly onClick?: () => void;
+  readonly isDisabled?: boolean;
+  readonly onPress?: () => void;
   readonly action?: Action | Action[];
 }
 
 /**
  * Category Button (Fluent)
  */
-export function CategoryButton(props: Props) {
+export function CategoryButton(sourceProps: Props) {
+  const [props, rest] = splitProps(sourceProps, [
+    "icon",
+    "children",
+    "description",
+    "action",
+  ]);
+
+  let ref: HTMLButtonElement | undefined;
+  const { buttonProps } = createButton(rest, () => ref);
+
   return (
-    <Base
-      isLink={!!props.onClick}
-      disabled={props.disabled}
-      aria-disabled={props.disabled}
-      onClick={props.disabled ? undefined : props.onClick}
-    >
+    <Base {...buttonProps} isLink={!!rest.onPress} ref={ref}>
       <Show when={props.icon !== "blank"}>
         <IconWrapper>{props.icon}</IconWrapper>
       </Show>
@@ -78,7 +86,7 @@ export function CategoryButton(props: Props) {
 /**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton")<{
+const Base = styled("button", "CategoryButton")<{
   isLink: boolean;
   disabled?: boolean;
 }>`
@@ -86,6 +94,7 @@ const Base = styled("a", "CategoryButton")<{
   padding: 13px; /*TODO: make this a prop*/
   border-radius: ${(props) => props.theme!.borderRadius.md};
 
+  text-align: left;
   color: ${(props) => props.theme!.colours["component-categorybtn-foreground"]};
   background: ${(props) =>
     props.theme!.colours["component-categorybtn-background"]};
@@ -95,6 +104,7 @@ const Base = styled("a", "CategoryButton")<{
     props.disabled ? "not-allowed" : props.isLink ? "pointer" : "initial"};
   transition: background-color 0.1s ease-in-out;
 
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: row;

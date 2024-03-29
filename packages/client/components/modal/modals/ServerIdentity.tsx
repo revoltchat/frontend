@@ -60,7 +60,7 @@ const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
     actions: [
       {
         children: t("app.special.modals.actions.save"),
-        async onClick() {
+        async onPress() {
           await props.member.edit(
             nickname()
               ? {

@@ -41,7 +41,7 @@ export default function Webhooks(props: ChannelSettingsProps) {
       <CategoryButton
         action="chevron"
         icon={<BiSolidCloud size={24} />}
-        onClick={() => void 0}
+        onPress={() => void 0}
       >
         Create Webhook
       </CategoryButton>
@@ -56,7 +56,7 @@ export default function Webhooks(props: ChannelSettingsProps) {
                   <CategoryButton
                     icon={<Avatar src={webhook.avatarURL} size={24} />}
                     description={webhook.id}
-                    onClick={() => navigate(`webhooks/${webhook.id}`)}
+                    onPress={() => navigate(`webhooks/${webhook.id}`)}
                     action="chevron"
                   >
                     {webhook.name}
@@ -80,7 +80,7 @@ export function Webhook(props: { webhook: ChannelWebhook }) {
       <CategoryButton
         action="chevron"
         icon={<BiSolidTrash size={24} />}
-        onClick={() => void 0}
+        onPress={() => void 0}
       >
         Delete
       </CategoryButton>

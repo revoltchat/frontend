@@ -31,7 +31,7 @@ export default function Experiments() {
                 />
               }
               description={EXPERIMENTS[key].description}
-              onClick={() => void 0}
+              onPress={() => void 0}
             >
               {EXPERIMENTS[key].title}
             </CategoryButton>

@@ -1,6 +1,7 @@
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
+import { OverlayContainer } from "@solid-aria/overlays";
 import type { API, Client } from "revolt.js";
 import { MFA, MFATicket } from "revolt.js/src/classes/MFA.js";
 
@@ -203,8 +204,12 @@ export const modalController = new ModalControllerExtended();
 
 export function ModalRenderer() {
   return (
+    // <Show when={modalController.modals.length}>
+    //   <OverlayContainer>
     <For each={modalController.modals}>
       {(entry) => <RenderModal {...entry} />}
     </For>
+    //   </OverlayContainer>
+    // </Show>
   );
 }

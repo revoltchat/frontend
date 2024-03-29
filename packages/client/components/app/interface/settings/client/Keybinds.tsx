@@ -147,7 +147,7 @@ export default function Keybinds() {
                         `app.settings.pages.keybinds.action.${action}.description`
                       )}
                       action={<BiSolidPlusCircle size={24} />}
-                      onClick={() => addKeybind(action)}
+                      onPress={() => addKeybind(action)}
                     >
                       {t(`app.settings.pages.keybinds.action.${action}.title`)}
                     </CategoryButton>

@@ -78,7 +78,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
             {
               palette: "primary",
               children: t("app.special.modals.actions.confirm"),
-              onClick: generateTicket,
+              onPress: generateTicket,
               confirmation: true,
             },
             {
@@ -88,7 +88,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
                   methods()!.length === 1 ? "cancel" : "back"
                 }`
               ),
-              onClick: () => {
+              onPress: () => {
                 if (methods()!.length === 1) {
                   props.callback();
                   return true;
@@ -102,7 +102,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
             {
               palette: "plain",
               children: t("app.special.modals.actions.cancel"),
-              onClick: () => {
+              onPress: () => {
                 props.callback();
                 return true;
               },
@@ -170,7 +170,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
                     </Match>
                   </Switch>
                 }
-                onClick={() => {
+                onPress={() => {
                   setSelected(method);
                   setResponse(undefined);
                 }}

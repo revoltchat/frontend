@@ -79,7 +79,7 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
     actions: [
       {
         children: t("app.context_menu.copy_link"),
-        onClick: () => modalController.writeText(link()),
+        onPress: () => modalController.writeText(link()),
       },
     ],
   });

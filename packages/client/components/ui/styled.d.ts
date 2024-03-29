@@ -33,6 +33,7 @@ declare module "solid-styled-components" {
       [key in
         | "background"
         | "foreground"
+        | `a11y-focus-ring`
         | `component-${
             | `${"fab" | "checkbox" | "scrollbar"}-${
                 | "background"

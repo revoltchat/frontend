@@ -1,8 +1,6 @@
 /* eslint-disable */
 import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
 
-import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
-
 import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
 import {
@@ -15,6 +13,8 @@ import {
   iconSize,
   styled,
 } from "@revolt/ui";
+
+import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
 
 const SomeComponent = styled.div`
   background: red;
@@ -71,14 +71,14 @@ export function DevelopmentPage() {
       >
         hi
       </SomeComponent>
-      <Button onClick={open}>Open Modal</Button>
-      <Button onClick={changelog}>Changelog Modal</Button>
+      <Button onPress={open}>Open Modal</Button>
+      <Button onPress={changelog}>Changelog Modal</Button>
       <div style={{ padding: "1em", width: "400px" }}>
         <Column>
           <CategoryButton
             icon={<BiSolidPalette size={24} />}
             description="description!"
-            onClick={() => void 0}
+            onPress={() => void 0}
           >
             I am a button
           </CategoryButton>
@@ -89,19 +89,19 @@ export function DevelopmentPage() {
           >
             <CategoryButton
               description="Active device"
-              onClick={() => void 0}
+              onPress={() => void 0}
               icon={<div style={{ width: "24px" }} />}
             >
               Realtek Audio
             </CategoryButton>
             <CategoryButton
-              onClick={() => void 0}
+              onPress={() => void 0}
               icon={<div style={{ width: "24px" }} />}
             >
               Line-Out Speaker
             </CategoryButton>
             <CategoryButton
-              onClick={() => void 0}
+              onPress={() => void 0}
               icon={<div style={{ width: "24px" }} />}
             >
               Airpods 3

@@ -84,7 +84,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
         <CategoryButton
           icon="blank"
           action="chevron"
-          onClick={() =>
+          onPress={() =>
             currentSession() &&
             getController("modal").push({
               type: "rename_session",
@@ -110,7 +110,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
       <Show when={props.otherSessions().length}>
         <CategoryButton
           action="chevron"
-          onClick={() =>
+          onPress={() =>
             getController("modal").push({
               type: "sign_out_sessions",
               client: client(),
@@ -153,7 +153,7 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
                 <CategoryButton
                   icon="blank"
                   action="chevron"
-                  onClick={() =>
+                  onPress={() =>
                     getController("modal").push({
                       type: "rename_session",
                       session,
@@ -165,7 +165,7 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
                 <CategoryButton
                   icon="blank"
                   action="chevron"
-                  onClick={() => session.delete()}
+                  onPress={() => session.delete()}
                 >
                   Log Out
                 </CategoryButton>

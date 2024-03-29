@@ -50,15 +50,15 @@ const Interface = (props: { children: JSX.Element }) => {
 
   return (
     <Switch fallback={<Preloader grow type="spinner" />}>
-      {/* <Match when={!clientController.isLoggedIn()}>
+      {/*<Match when={!clientController.isLoggedIn()}>
         <Navigate href="/login" />
-      </Match> */}
+      </Match>*/}
       <Match when={clientController.isReady()}>
         <div
           style={{
             display: "flex",
             "flex-direction": "column",
-            height: "100%",
+            height: "100vh",
           }}
         >
           <Notice>⚠️ This is beta software, things will break!</Notice>

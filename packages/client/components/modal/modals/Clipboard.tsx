@@ -16,7 +16,7 @@ const Clipboard: PropGenerator<"clipboard"> = (props) => {
         : undefined,
     actions: [
       {
-        onClick: () => true,
+        onPress: () => true,
         confirmation: true,
         children: t("app.special.modals.actions.close"),
       },

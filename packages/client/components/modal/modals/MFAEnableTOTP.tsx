@@ -47,7 +47,7 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
       {
         palette: "primary",
         children: t("app.special.modals.actions.continue"),
-        onClick: () => {
+        onPress: () => {
           props.callback(value().trim().replace(/\s/g, ""));
           return true;
         },
@@ -56,7 +56,7 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
       {
         palette: "plain",
         children: t("app.special.modals.actions.cancel"),
-        onClick: () => {
+        onPress: () => {
           props.callback();
           return true;
         },

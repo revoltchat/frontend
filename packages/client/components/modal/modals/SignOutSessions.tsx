@@ -19,11 +19,11 @@ const SignOutSessions: PropGenerator<"sign_out_sessions"> = (props) => {
     actions: [
       {
         palette: "accent",
-        onClick: () => true,
+        onPress: () => true,
         children: t("app.special.modals.actions.cancel"),
       },
       {
-        onClick: confirm,
+        onPress: confirm,
         children: t("app.special.modals.sessions.accept"),
       },
     ],

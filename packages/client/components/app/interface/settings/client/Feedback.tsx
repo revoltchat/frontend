@@ -1,13 +1,17 @@
-import {
-  BiLogosGithub,
-  BiLogosTrello,
-} from "solid-icons/bi";
-import MdFormatListNumbered from "@material-design-icons/svg/outlined/format_list_numbered.svg?component-solid";
-import MdBugReport from "@material-design-icons/svg/outlined/bug_report.svg?component-solid";
-import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
+import { BiLogosGithub, BiLogosTrello } from "solid-icons/bi";
 
 import { useTranslation } from "@revolt/i18n";
-import { CategoryButton, CategoryButtonGroup, styled, iconSize, Column } from "@revolt/ui";
+import {
+  CategoryButton,
+  CategoryButtonGroup,
+  Column,
+  iconSize,
+  styled,
+} from "@revolt/ui";
+
+import MdBugReport from "@material-design-icons/svg/outlined/bug_report.svg?component-solid";
+import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
+import MdFormatListNumbered from "@material-design-icons/svg/outlined/format_list_numbered.svg?component-solid";
 
 /**
  * Feedback
@@ -22,7 +26,7 @@ export default function Feedback() {
           <CategoryButton
             action="external"
             icon={<BiLogosTrello size={22} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             description="See what we're currently working on."
           >
             Roadmap
@@ -35,7 +39,7 @@ export default function Feedback() {
           <CategoryButton
             action="external"
             icon={<BiLogosGithub size={22} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             description={t("app.settings.pages.feedback.suggest_desc")}
           >
             {t("app.settings.pages.feedback.suggest")}
@@ -48,7 +52,7 @@ export default function Feedback() {
           <CategoryButton
             action="external"
             icon={<MdFormatListNumbered {...iconSize(22)} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             description={t("app.settings.pages.feedback.issue_desc")}
           >
             {t("app.settings.pages.feedback.issue")}
@@ -61,19 +65,18 @@ export default function Feedback() {
           <CategoryButton
             action="external"
             icon={<MdBugReport {...iconSize(22)} />}
-            onClick={() => void 0}
+            onPress={() => void 0}
             description={t("app.settings.pages.feedback.bug_desc")}
           >
             {t("app.settings.pages.feedback.bug")}
           </CategoryButton>
         </Link>
-
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton
           action="chevron"
           icon={<MdExitToApp {...iconSize(22)} />}
-          onClick={() => void 0}
+          onPress={() => void 0}
           description="You can report issues and discuss improvements with us directly here."
         >
           Join the Revolt Lounge

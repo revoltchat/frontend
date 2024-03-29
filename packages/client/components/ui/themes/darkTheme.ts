@@ -140,6 +140,7 @@ export const darkTheme: (
       // Global
       background: materialColour("background"),
       foreground: materialColour("onBackground"),
+
       // Component: Button
       "component-btn-background-primary": materialColour("primary"),
       "component-btn-foreground-primary": materialColour("onBackground", 98),
@@ -176,7 +177,6 @@ export const darkTheme: (
         25
       ),
       // Component: Input
-      "component-input-focus": materialColour("primary"),
       "component-input-foreground": materialColour("onBackground"),
       "component-input-background-primary": materialColour("background", 100),
       "component-input-background-secondary": materialColour("background", 98),

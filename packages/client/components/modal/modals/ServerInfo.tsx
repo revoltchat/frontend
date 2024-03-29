@@ -22,7 +22,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
             {props.server.name}
           </Typography>
         </Column>
-        <Button size="icon" variant="plain" onClick={onClose}>
+        <Button size="icon" variant="plain" onPress={onClose}>
           <BiRegularX size={36} />
         </Button>
       </Row>
@@ -35,12 +35,12 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
     actions: [
       {
         // TODO: report server
-        onClick: () => true, //report(server),
+        onPress: () => true, //report(server),
         children: t("app.special.modals.actions.report"),
         palette: "error",
       },
       {
-        onClick: () => {
+        onPress: () => {
           modalController.push({
             type: "server_identity",
             member: props.server.member!,
@@ -51,7 +51,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
         palette: "secondary",
       },
       {
-        onClick: () => {
+        onPress: () => {
           modalController.push({
             type: "settings",
             config: "server",

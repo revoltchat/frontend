@@ -15,7 +15,7 @@ const SignedOut: PropGenerator<"signed_out"> = () => {
       {
         children: t("app.special.modals.actions.ok"),
         palette: "secondary",
-        onClick() {
+        onPress() {
           return true;
         },
       },

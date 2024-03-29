@@ -34,7 +34,7 @@ export default function Appearance() {
         <CategoryButton
           action="chevron"
           icon={<MdPalette {...iconSize(22)} />}
-          onClick={() => navigate("appearance/colours")}
+          onPress={() => navigate("appearance/colours")}
           description="Customise accent colour, additional colours, and transparency"
         >
           Colours
@@ -42,7 +42,7 @@ export default function Appearance() {
         <CategoryButton
           action="chevron"
           icon={<MdFormatSize {...iconSize(22)} />}
-          onClick={() => navigate("appearance/fonts")}
+          onPress={() => navigate("appearance/fonts")}
           description="Customise display and text options"
         >
           Display and fonts
@@ -50,7 +50,7 @@ export default function Appearance() {
         <CategoryButton
           action="chevron"
           icon={<MdWallpaper {...iconSize(22)} />}
-          onClick={() => navigate("appearance/wallpaper")}
+          onPress={() => navigate("appearance/wallpaper")}
           description="Set a wallpaper for your chats"
         >
           Wallpaper
@@ -58,7 +58,7 @@ export default function Appearance() {
         <CategoryButton
           action="chevron"
           icon={<MdSentimentVerySatisfied {...iconSize(22)} />}
-          onClick={() => navigate("appearance/emoji")}
+          onPress={() => navigate("appearance/emoji")}
           description="Change how your emojis look"
         >
           Emoji
@@ -66,7 +66,7 @@ export default function Appearance() {
         <CategoryButton
           action="chevron"
           icon={<MdDataObject {...iconSize(22)} />}
-          onClick={() => navigate("appearance/advanced_options")}
+          onPress={() => navigate("appearance/advanced_options")}
           description="Customise theme variables and apply custom CSS"
         >
           Advanced Options
