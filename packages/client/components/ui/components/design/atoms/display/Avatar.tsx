@@ -143,8 +143,8 @@ export function Avatar(props: Props) {
         )}
         {!props.src && (
           <FallbackBase
-            use:ripple
             shape={props.shape}
+            use:ripple={{enable: props.interactive || false}}
             primaryContrast={props.primaryContrast}
           >
             {typeof props.fallback === "string" ? (

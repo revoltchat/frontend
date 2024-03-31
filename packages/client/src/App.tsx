@@ -11,6 +11,7 @@ import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
 import { modalController } from "@revolt/modal";
+import { Demo } from "@revolt/rtc/Demo";
 import { state } from "@revolt/state";
 
 import AuthPage from "./Auth";
@@ -53,6 +54,7 @@ const App: Component = () => {
         <Route path="/reset/:token" component={FlowConfirmReset} />
         <Route path="/*" component={FlowHome} />
       </Route>
+      <Route path="/rtc" component={Demo} />
       <Route path="/" component={Interface as never}>
         <Route path="/pwa" component={PWARedirect} />
         <Route path="/settings" component={SettingsRedirect} />

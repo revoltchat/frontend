@@ -38,6 +38,8 @@
       "@revolt/modal/*": ["components/modal/*"],
       "@revolt/routing": ["components/routing"],
       "@revolt/routing/*": ["components/routing/*"],
+      "@revolt/rtc": ["components/rtc"],
+      "@revolt/rtc/*": ["components/rtc/*"],
       "@revolt/state": ["components/state"],
       "@revolt/state/*": ["components/state/*"],
       "@revolt/ui": ["components/ui"],

@@ -10,6 +10,7 @@ import { appWindow } from "@tauri-apps/api/window";
 
 import i18n, { I18nContext } from "@revolt/i18n";
 import { ModalRenderer } from "@revolt/modal";
+import { VoiceContext } from "@revolt/rtc";
 import { Hydrate, state } from "@revolt/state";
 import {
   ApplyGlobalStyles,
@@ -57,24 +58,26 @@ render(
     <Hydrate>
       <Masks />
       <I18nContext.Provider value={i18n}>
-        <MountTheme>
-          <ProvideDirectives>
-            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-              <Show when={window.__TAURI__}>
-                <Titlebar
-                  isBuildDev={import.meta.env.DEV}
-                  onMinimize={() => appWindow.minimize()}
-                  onMaximize={() => appWindow.toggleMaximize()}
-                  onClose={() => appWindow.hide()}
-                />
-              </Show>
-              <App />
-            </KeybindsProvider>
-            <ModalRenderer />
-            <FloatingManager />
-            <ApplyGlobalStyles />
-          </ProvideDirectives>
-        </MountTheme>
+        <VoiceContext>
+          <MountTheme>
+            <ProvideDirectives>
+              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+                <Show when={window.__TAURI__}>
+                  <Titlebar
+                    isBuildDev={import.meta.env.DEV}
+                    onMinimize={() => appWindow.minimize()}
+                    onMaximize={() => appWindow.toggleMaximize()}
+                    onClose={() => appWindow.hide()}
+                  />
+                </Show>
+                <App />
+              </KeybindsProvider>
+              <ModalRenderer />
+              <FloatingManager />
+              <ApplyGlobalStyles />
+            </ProvideDirectives>
+          </MountTheme>
+        </VoiceContext>
       </I18nContext.Provider>
     </Hydrate>
   ),
