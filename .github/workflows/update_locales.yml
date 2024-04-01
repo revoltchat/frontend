@@ -16,7 +16,7 @@ jobs:
         with:
           submodules: true
       - name: Update submodule
-        run: git submodule update --remote components/i18n/locales
+        run: git submodule update --remote packages/client/components/i18n/locales
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
