@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
+  update-locales:
     runs-on: ubuntu-latest
 
     steps:
