@@ -3,6 +3,14 @@ name: Run Tests
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - ".github/**"
+      - "!.github/workflows/test.yml"
+      - ".vscode/**"
+      - "doc/**"
+      - ".gitignore"
+      - "LICENSE"
+      - "README"
   pull_request:
     branches: [main]
   workflow_dispatch:
