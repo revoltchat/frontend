@@ -14,5 +14,8 @@ in pkgs.mkShell {
     # Node
     pkgs.nodejs
     pkgs.nodejs.pkgs.pnpm
+
+    # mdbook
+    pkgs.mdbook
   ];
 }
