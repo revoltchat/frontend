@@ -157,6 +157,7 @@ export function UserContextMenu(props: {
         </ContextMenuButton>
       </Show>
       <Show when={props.member}>
+        {/** TODO: #287 timeout users */}
         <Show
           when={
             !props.user.self &&
@@ -193,6 +194,7 @@ export function UserContextMenu(props: {
       </Show>
 
       <Show when={!props.user.self}>
+        {/* TODO: #286 show profile / message */}
         <Show when={props.user.relationship === "None"}>
           <ContextMenuButton icon={MdPersonAddAlt} onClick={addFriend}>
             Add Friend
