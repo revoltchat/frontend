@@ -11,6 +11,7 @@ import {
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import type { User } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
@@ -21,7 +22,7 @@ import {
   Header,
   Typography,
   UserStatusGraphic,
-  styled,
+  styled as styledLegacy,
 } from "@revolt/ui";
 
 import { HeaderIcon } from "./common/CommonHeader";
@@ -29,16 +30,23 @@ import { HeaderIcon } from "./common/CommonHeader";
 /**
  * Base layout of the friends page
  */
-const Base = styled("div")`
+const Base = styledLegacy("div")`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--unset-bg);
 
   .FriendsList {
-    padding: ${(props) => props.theme!.gap.lg};
+    padding-inline: ${(props) => props.theme!.gap.lg};
   }
 `;
+
+const ListBase = styled("div", {
+  base: {
+    "&:not(:first-child)": {
+      paddingTop: "var(--gap-lg)",
+    },
+  },
+});
 
 /**
  * Typed accessor for lists
@@ -97,81 +105,63 @@ export function Friends() {
         </HeaderIcon>
         Friends
       </Header>
-      <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
-        <PendingRequests lists={lists} />
-        <List
-          title="Outgoing"
-          users={lists().outgoing}
-          scrollTargetElement={targetSignal}
-        />
-        <List
-          title="Online"
-          users={lists().online}
-          scrollTargetElement={targetSignal}
-        />
-        <List
-          title="Offline"
-          users={lists().offline}
-          scrollTargetElement={targetSignal}
-        />
-        <List
-          title="Blocked"
-          users={lists().blocked}
-          scrollTargetElement={targetSignal}
-        />
-      </div>
+      <Deferred>
+        <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
+          {/* <PendingRequests lists={lists} /> */}
+          <List
+            title="Outgoing"
+            users={lists().outgoing}
+            scrollTargetElement={targetSignal}
+          />
+          <List
+            title="Online"
+            users={lists().online}
+            scrollTargetElement={targetSignal}
+          />
+          <List
+            title="Offline"
+            users={lists().offline}
+            scrollTargetElement={targetSignal}
+          />
+          <List
+            title="Blocked"
+            users={lists().blocked}
+            scrollTargetElement={targetSignal}
+          />
+        </div>
+      </Deferred>
     </Base>
   );
 }
-
-const Title = styled.a<{ active: boolean }>`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-
-  user-select: none;
-  gap: ${(props) => props.theme!.gap.sm};
-  margin-top: ${(props) => props.theme!.gap.lg};
-  transition: ${(props) => props.theme!.transitions.fast} all;
-
-  color: var(--unset-fg);
-
-  svg {
-    transition: ${(props) => props.theme!.transitions.fast} all;
-    transform: rotate(${(props) => (props.active ? "0" : "-90deg")});
-  }
-`;
 
 /**
  * List of users
  */
 function List(props: {
   users: User[];
-  title?: string;
+  title: string;
   scrollTargetElement: Accessor<HTMLDivElement>;
 }) {
-  const [active, setActive] = createSignal(true);
-
   return (
-    <Deferred>
-      <Show when={props.title}>
-        <Title active={active()} onClick={() => setActive((active) => !active)}>
-          <BiSolidChevronDown size={16} />
-          <Typography variant="category">
-            {props.title} {"–"} {props.users.length}
-          </Typography>
-        </Title>
-      </Show>
-      <Show when={active()}>
-        <VirtualContainer
-          items={props.users}
-          scrollTarget={props.scrollTargetElement()}
-          itemSize={{ height: 60 }}
-        >
-          {(item) => (
-            <div
-              style={{ ...item.style, width: "100%", "padding-block": "6px" }}
-            >
+    <ListBase>
+      <Typography variant="category">
+        {props.title} {"–"} {props.users.length}
+      </Typography>
+      <VirtualContainer
+        items={props.users}
+        scrollTarget={props.scrollTargetElement()}
+        itemSize={{ height: 60, width: 240 }}
+        crossAxisCount={(measurements) =>
+          Math.floor(measurements.container.cross / measurements.itemSize.cross)
+        }
+      >
+        {(item) => (
+          <div
+            style={{
+              ...item.style,
+            }}
+          >
+            <div style={{ margin: "6px" }}>
               <Entry
                 role="listitem"
                 tabIndex={item.tabIndex}
@@ -179,10 +169,10 @@ function List(props: {
                 user={item.item}
               />
             </div>
-          )}
-        </VirtualContainer>
-      </Show>
-    </Deferred>
+          </div>
+        )}
+      </VirtualContainer>
+    </ListBase>
   );
 }
 
@@ -226,7 +216,7 @@ function Entry(
 /**
  * Overlapping avatars
  */
-const Avatars = styled("div", "Avatars")`
+const Avatars = styledLegacy("div", "Avatars")`
   flex-shrink: 0;
 
   svg:not(:first-child) {

@@ -3,12 +3,17 @@ import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
-import { Channel } from "revolt.js";
+import { Channel, Client } from "revolt.js";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
+import { useClient } from "@revolt/client";
 import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
+import { modalController } from "@revolt/modal";
 import { useLocation, useNavigate } from "@revolt/routing";
+import { iconSize } from "@revolt/ui";
+
+import MdPlus from "@material-design-icons/svg/outlined/add.svg?component-solid";
 
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
@@ -50,6 +55,7 @@ interface Props {
  */
 export const HomeSidebar = (props: Props) => {
   const t = useTranslation();
+  const client = useClient();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -69,11 +75,12 @@ export const HomeSidebar = (props: Props) => {
               {t("app.main.categories.conversations")}
             </Typography>
           </SidebarTitle>
+
           <a href="/">
             <MenuButton
               size="normal"
               icon={<BiSolidHome size={24} />}
-              attention={location.pathname === "/app" ? "active" : "normal"}
+              attention={location.pathname === "/" ? "selected" : "normal"}
             >
               {t("app.navigation.tabs.home")}
             </MenuButton>
@@ -85,13 +92,14 @@ export const HomeSidebar = (props: Props) => {
                 size="normal"
                 icon={<BiSolidUserDetail size={24} />}
                 attention={
-                  location.pathname === "/friends" ? "active" : "normal"
+                  location.pathname === "/friends" ? "selected" : "normal"
                 }
               >
                 {t("app.navigation.tabs.friends")}
               </MenuButton>
             </a>
           </Show>
+
           <Switch
             fallback={
               <MenuButton
@@ -112,7 +120,7 @@ export const HomeSidebar = (props: Props) => {
                   icon={<BiSolidNotepad size={24} />}
                   attention={
                     props.channelId && savedNotesChannelId() === props.channelId
-                      ? "active"
+                      ? "selected"
                       : "normal"
                   }
                 >
@@ -121,6 +129,30 @@ export const HomeSidebar = (props: Props) => {
               </a>
             </Match>
           </Switch>
+
+          <span
+            style={{
+              display: "flex",
+              "padding-top": "var(--gap-md)",
+              "padding-inline": "var(--gap-md)",
+              "align-items": "center",
+              "justify-content": "space-between",
+              // TODO style this
+            }}
+          >
+            <Typography variant="category">Direct Messages</Typography>
+            <a
+              onClick={() =>
+                modalController.push({
+                  type: "create_group",
+                  client: client(),
+                })
+              }
+            >
+              <MdPlus {...iconSize(14)} />
+            </a>
+          </span>
+
           <Deferred>
             <VirtualContainer
               items={props.conversations()}
@@ -157,7 +189,8 @@ export const HomeSidebar = (props: Props) => {
  * Sidebar title
  */
 const SidebarTitle = styled.p`
-  padding-inline: ${(props) => props.theme!.gap.md};
+  padding-block: ${(props) => props.theme!.gap.md};
+  padding-inline: ${(props) => props.theme!.gap.lg};
 `;
 
 /**
