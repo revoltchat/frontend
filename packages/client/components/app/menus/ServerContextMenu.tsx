@@ -1,6 +1,6 @@
-import { JSX, Show } from "solid-js";
+import { Show } from "solid-js";
 
-import { Message, Server, ServerMember, User } from "revolt.js";
+import { Server } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
