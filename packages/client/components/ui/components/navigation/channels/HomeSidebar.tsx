@@ -189,7 +189,7 @@ export const HomeSidebar = (props: Props) => {
  * Sidebar title
  */
 const SidebarTitle = styled.p`
-  padding-block: ${(props) => props.theme!.gap.md};
+  padding-bottom: ${(props) => props.theme!.gap.md};
   padding-inline: ${(props) => props.theme!.gap.lg};
 `;
 
@@ -304,5 +304,6 @@ function Entry(
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
 const List = styled.div`
+  padding: ${(props) => props.theme!.gap.md};
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;
