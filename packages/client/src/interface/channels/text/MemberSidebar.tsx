@@ -1,7 +1,7 @@
 import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
-import { Channel, ServerMember } from "revolt.js";
+import { Channel, ServerMember, User } from "revolt.js";
 
 import { floatingUserMenus } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
@@ -37,6 +37,9 @@ interface Props {
 export function MemberSidebar(props: Props) {
   return (
     <Switch>
+      <Match when={props.channel.type === "Group"}>
+        <GroupMemberSidebar channel={props.channel} />
+      </Match>
       <Match when={props.channel.type === "TextChannel"}>
         <ServerMemberSidebar channel={props.channel} />
       </Match>
@@ -266,6 +269,47 @@ export function ServerMemberSidebar(props: Props) {
 }
 
 /**
+ * Group Member Sidebar
+ */
+export function GroupMemberSidebar(props: Props) {
+  let scrollTargetElement!: HTMLDivElement;
+
+  return (
+    <Base
+      ref={scrollTargetElement}
+      use:scrollable={{
+        direction: "y",
+        showOnHover: true,
+      }}
+    >
+      <Container>
+        <CategoryTitle>{props.channel.recipientIds.size} members</CategoryTitle>
+
+        <Deferred>
+          <VirtualContainer
+            items={props.channel.recipients}
+            scrollTarget={scrollTargetElement}
+            itemSize={{ height: 48 }}
+          >
+            {(item) => (
+              <div
+                style={{
+                  ...item.style,
+                  width: "100%",
+                  "padding-block": "3px",
+                }}
+              >
+                <Member user={item.item} />
+              </div>
+            )}
+          </VirtualContainer>
+        </Deferred>
+      </Container>
+    </Base>
+  );
+}
+
+/**
  * Base styles
  */
 const Base = styled.div`
@@ -298,33 +342,45 @@ const CategoryTitle = styled.div`
 /**
  * Member
  */
-function Member(props: { member: ServerMember }) {
+function Member(props: { user?: User; member?: ServerMember }) {
   const t = useTranslation();
 
   /**
    * Create user information
    */
-  const user = () => userInformation(props.member.user!, props.member);
+  const user = () =>
+    userInformation(props.user ?? props.member?.user!, props.member);
 
   /**
    * Get user status
    */
   const status = () =>
-    props.member.user?.statusMessage((presence) =>
+    (props.user ?? props.member?.user)?.statusMessage((presence) =>
       t(`app.status.${presence.toLowerCase()}`)
     );
 
   return (
-    <div use:floating={floatingUserMenus(props.member.user!, props.member)}>
+    <div
+      use:floating={floatingUserMenus(
+        props.user ?? props.member?.user!,
+        props.member
+      )}
+    >
       <MenuButton
         size="normal"
-        attention={props.member.user?.online ? "active" : "muted"}
+        attention={
+          (props.user ?? props.member?.user)?.online ? "active" : "muted"
+        }
         icon={
           <Avatar
             src={user().avatar}
             size={32}
             holepunch="bottom-right"
-            overlay={<UserStatusGraphic status={props.member.user?.presence} />}
+            overlay={
+              <UserStatusGraphic
+                status={(props.user ?? props.member?.user)?.presence}
+              />
+            }
           />
         }
       >
