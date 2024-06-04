@@ -10,8 +10,10 @@ export function scrollable(
   el: HTMLDivElement,
   accessor: Accessor<JSX.Directives["scrollable"] & object>
 ) {
-  const theme = useTheme();
   const props = accessor();
+  if (!props) return;
+
+  const theme = useTheme();
 
   el.classList.add(css`
     will-change: transform;
@@ -74,27 +76,4 @@ export function scrollable(
       el.removeEventListener("mouseleave", onMouseLeave);
     });
   }
-}
-
-/**
- * Add styles for an invisible scrollable container
- * @param el Element
- * @param accessor Parameters
- */
-export function invisibleScrollable(
-  el: HTMLDivElement,
-  accessor: Accessor<JSX.Directives["invisibleScrollable"] & object>
-) {
-  const props = accessor();
-
-  el.classList.add(css`
-    will-change: transform;
-    ${"overflow-" + (props?.direction ?? "y")}: scroll;
-
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  `);
 }
