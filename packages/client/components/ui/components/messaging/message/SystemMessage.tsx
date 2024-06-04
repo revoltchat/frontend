@@ -11,10 +11,7 @@ import {
   UserSystemMessage,
 } from "revolt.js";
 
-import { floating } from "../../../directives";
 import { Typography } from "../../design";
-
-floating;
 
 interface Props {
   /**

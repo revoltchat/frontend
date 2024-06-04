@@ -31,7 +31,6 @@ import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?compon
 import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
 
 import { iconSize } from "../../..";
-import { floating, scrollable } from "../../../directives";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
@@ -40,9 +39,6 @@ import { Column, OverflowingText, Row } from "../../design/layout";
 import { Tooltip } from "../../floating";
 
 import { SidebarBase } from "./common";
-
-void scrollable;
-void floating;
 
 interface Props {
   /**

@@ -1,7 +1,6 @@
 import { Component, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { floating, ripple } from "../../../directives";
 import { Time } from "../../design/atoms/display/Time";
 import {
   Typography,
@@ -13,9 +12,6 @@ import {
   OverflowingText,
   Row,
 } from "../../design/layout";
-
-void floating;
-void ripple;
 
 interface CommonProps {
   /**

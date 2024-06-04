@@ -21,9 +21,7 @@ import {
 } from "./ContextMenu";
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for servers
  */
 export function ServerContextMenu(props: { server: Server }) {
   const client = useClient();

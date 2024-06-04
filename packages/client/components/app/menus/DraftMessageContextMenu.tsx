@@ -18,9 +18,7 @@ interface Props {
 }
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for draft messages
  */
 export function DraftMessageContextMenu(props: Props) {
   const client = useClient();

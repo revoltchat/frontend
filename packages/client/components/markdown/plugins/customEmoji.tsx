@@ -1,13 +1,11 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 
 import { useClient } from "@revolt/client";
-import { Avatar, Column, Row, floating, styled } from "@revolt/ui";
+import { Avatar, Column, Row, styled } from "@revolt/ui";
 
 import { CustomEmoji, Emoji, RE_CUSTOM_EMOJI } from "../emoji";
 
 import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
-
-floating;
 
 /**
  * Render a custom emoji

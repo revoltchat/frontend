@@ -1,7 +1,8 @@
 /* eslint-disable */
 import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
 
-import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
+import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
 
 import { clientController } from "@revolt/client";
 import { modalController } from "@revolt/modal";
@@ -13,12 +14,28 @@ import {
   ComboBox,
   OverrideSwitch,
   iconSize,
-  styled,
+  styled as oldStyled,
 } from "@revolt/ui";
 
-const SomeComponent = styled.div`
+import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
+
+const SomeComponent = oldStyled.div`
   background: red;
 `;
+
+const NewComponent = styled("div", {
+  base: {
+    background: "blue",
+    color: "white",
+  },
+});
+
+const newComponent = cva({
+  base: {
+    background: "blue",
+    color: "white",
+  },
+});
 
 export function DevelopmentPage() {
   function open() {
@@ -66,13 +83,37 @@ export function DevelopmentPage() {
         <Face fill="red" {...iconSize(128)} />
       </div>
       <OverrideSwitch />
+
       <SomeComponent
+        // directives hacked into solid-styled-components
+        // => unreliable (breaks on some re-renders)
+        // => uses goober, want to migrate out anyways
         use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
       >
         hi
       </SomeComponent>
-      <Button onClick={open}>Open Modal</Button>
-      <Button onClick={changelog}>Changelog Modal</Button>
+
+      <div
+        // have to wrap the component in something that can receive a directive
+        use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
+      >
+        <NewComponent>hello, but im from panda-css</NewComponent>
+      </div>
+
+      <div
+        class={newComponent()}
+        use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
+      >
+        best of both worlds?
+      </div>
+
+      <Button onPress={open}>Open Modal</Button>
+      <Button onPress={changelog}>Changelog Modal</Button>
+      <Button
+        use:floating={{ tooltip: { content: "hi", placement: "bottom" } }}
+      >
+        I'm a button with a tooltip!
+      </Button>
       <div style={{ padding: "1em", width: "400px" }}>
         <Column>
           <CategoryButton

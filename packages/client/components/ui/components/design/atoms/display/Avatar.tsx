@@ -1,11 +1,7 @@
 import { JSXElement } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { ripple } from "../../../../directives";
-
 import { Initials } from "./Initials";
-
-void ripple;
 
 export type Props = {
   /**

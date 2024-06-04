@@ -16,9 +16,7 @@ import {
 } from "./ContextMenu";
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for channels
  */
 export function ChannelContextMenu(props: { channel: Channel }) {
   /**

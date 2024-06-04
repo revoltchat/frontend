@@ -21,13 +21,10 @@ import {
   Header,
   Typography,
   UserStatusGraphic,
-  scrollable,
   styled,
 } from "@revolt/ui";
 
 import { HeaderIcon } from "./common/CommonHeader";
-
-scrollable;
 
 /**
  * Base layout of the friends page

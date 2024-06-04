@@ -15,6 +15,7 @@ import { state } from "@revolt/state";
 
 import AuthPage from "./Auth";
 import Interface from "./Interface";
+import { DevelopmentPage } from "./interface/Development";
 import { Friends } from "./interface/Friends";
 import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
@@ -55,6 +56,7 @@ const App: Component = () => {
       </Route>
       <Route path="/" component={Interface as never}>
         <Route path="/pwa" component={PWARedirect} />
+        <Route path="/dev" component={DevelopmentPage} />
         <Route path="/settings" component={SettingsRedirect} />
         <Route path="/friends" component={Friends} />
         <Route path="/server/:server/*">

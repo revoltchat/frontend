@@ -1,12 +1,5 @@
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
-import {
-  ComponentProps,
-  Match,
-  Show,
-  Switch,
-  createMemo,
-  splitProps,
-} from "solid-js";
+import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
@@ -16,7 +9,6 @@ import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useLocation, useNavigate } from "@revolt/routing";
 
-import { scrollable } from "../../../directives";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
@@ -27,8 +19,6 @@ import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
-
-scrollable;
 
 interface Props {
   /**

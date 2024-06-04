@@ -20,14 +20,9 @@ import {
   UserStatus,
   UserStatusGraphic,
   Username,
-  floating,
-  scrollable,
   styled,
 } from "@revolt/ui";
 import { generateTypographyCSS } from "@revolt/ui/components/design/atoms/display/Typography";
-
-floating;
-scrollable;
 
 interface Props {
   /**

@@ -21,9 +21,7 @@ import {
 } from "./ContextMenu";
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for messages
  */
 export function MessageContextMenu(props: { message: Message }) {
   const user = useUser();

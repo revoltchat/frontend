@@ -27,7 +27,6 @@ import {
   SystemMessageIcon,
   Tooltip,
   Username,
-  floating,
   styled,
 } from "@revolt/ui";
 
@@ -36,8 +35,6 @@ import {
   floatingUserMenus,
   floatingUserMenusFromMessage,
 } from "../../../menus/UserContextMenu";
-
-floating;
 
 /**
  * Regex for matching URLs

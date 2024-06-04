@@ -24,9 +24,7 @@ import {
 } from "./ContextMenu";
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for users
  */
 export function UserContextMenu(props: {
   user: User;

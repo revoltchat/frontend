@@ -3,11 +3,8 @@ import { useTranslation } from "@revolt/i18n";
 import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?component-solid";
 
 import { iconSize } from "../../..";
-import { ripple } from "../../../directives";
 
 import { FloatingIndicator } from "./FloatingIndicator";
-
-void ripple;
 
 interface Props {
   /**

@@ -15,7 +15,6 @@ import { useNavigate } from "@revolt/routing";
 
 // import MdPlus from "@material-design-icons/svg/outlined/password.svg?component-solid";
 import { iconSize } from "../../..";
-import { floating, invisibleScrollable } from "../../../directives";
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Button, Column, Typography } from "../../design";
@@ -27,9 +26,6 @@ import {
 import { Tooltip } from "../../floating";
 
 import { Swoosh } from "./Swoosh";
-
-invisibleScrollable;
-floating;
 
 interface Props {
   /**

@@ -5,12 +5,8 @@ import { styled } from "solid-styled-components";
 import { CONFIGURATION } from "@revolt/common";
 
 import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
-import { ripple, scrollable } from "../../../directives";
 import { OverflowingText } from "../../design";
 import { generateTypographyCSS } from "../../design/atoms/display/Typography";
-
-void scrollable;
-void ripple;
 
 interface Props {
   /**

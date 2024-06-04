@@ -12,9 +12,7 @@ import MdShield from "@material-design-icons/svg/outlined/shield.svg?component-s
 import { ContextMenu, ContextMenuButton } from "./ContextMenu";
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for server sidebar
  */
 export function ServerSidebarContextMenu(props: { server: Server }) {
   /**

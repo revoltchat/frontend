@@ -8,7 +8,6 @@ import {
 } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import type { scrollable } from "../../../../directives";
 import { Column } from "../../layout";
 
 import { CategoryButton } from "./CategoryButton";

@@ -1,10 +1,7 @@
 import { JSX, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { floating } from "../../directives";
 import { generateTypographyCSS } from "../design/atoms/display/Typography";
-
-floating;
 
 /**
  * Base element for the tooltip

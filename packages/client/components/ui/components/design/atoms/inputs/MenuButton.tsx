@@ -1,12 +1,9 @@
 import { ComponentProps, JSX, Show, splitProps } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { ripple } from "../../../../directives";
 import { Row } from "../../layout";
 import { generateTypographyCSS } from "../display/Typography";
 import { Unreads } from "../indicators";
-
-void ripple;
 
 export interface Props {
   /**
