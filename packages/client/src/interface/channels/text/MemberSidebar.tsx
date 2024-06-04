@@ -154,6 +154,56 @@ export function ServerMemberSidebar(props: Props) {
     }));
   });
 
+  // Stage 5: Flatten into a single list with caching
+  const objectCache = new Map();
+
+  const elements = createMemo(() => {
+    const elements: (
+      | { t: 0; name: string; count: number }
+      | { t: 1; member: ServerMember }
+    )[] = [];
+
+    // Create elements
+    for (const role of roles()) {
+      const roleElement = objectCache.get(role.role.name + role.members.length);
+      if (roleElement) {
+        elements.push(roleElement);
+      } else {
+        elements.push({
+          t: 0,
+          name: role.role.name,
+          count: role.members.length,
+        });
+      }
+
+      for (const member of role.members) {
+        const memberElement = objectCache.get(member.id);
+        if (memberElement) {
+          elements.push(memberElement);
+        } else {
+          elements.push({
+            t: 1,
+            member,
+          });
+        }
+      }
+    }
+
+    // Flush cache
+    objectCache.clear();
+
+    // Populate cache
+    for (const element of elements) {
+      if (element.t === 0) {
+        objectCache.set(element.name + element.count, element);
+      } else {
+        objectCache.set(element.member.id, element);
+      }
+    }
+
+    return elements;
+  });
+
   return (
     <Base
       ref={scrollTargetElement}
@@ -179,33 +229,36 @@ export function ServerMemberSidebar(props: Props) {
         </CategoryTitle>
 
         <Deferred>
-          <For each={roles()}>
-            {(entry) => (
-              <div>
-                <CategoryTitle>
-                  {entry.role.name} {"–"} {entry.members.length}
-                </CategoryTitle>
-
-                <VirtualContainer
-                  items={entry.members}
-                  scrollTarget={scrollTargetElement}
-                  itemSize={{ height: 48 }}
+          <VirtualContainer
+            items={elements()}
+            scrollTarget={scrollTargetElement}
+            itemSize={{ height: 48 }}
+          >
+            {(item) => (
+              <div
+                style={{
+                  ...item.style,
+                  width: "100%",
+                  "padding-block": "3px",
+                }}
+              >
+                <Switch
+                  fallback={
+                    <CategoryTitle>
+                      {(item.item as { name: string }).name} {"–"}{" "}
+                      {(item.item as { count: number }).count}
+                    </CategoryTitle>
+                  }
                 >
-                  {(item) => (
-                    <div
-                      style={{
-                        ...item.style,
-                        width: "100%",
-                        "padding-block": "3px",
-                      }}
-                    >
-                      <Member member={item.item} />
-                    </div>
-                  )}
-                </VirtualContainer>
+                  <Match when={item.item.t === 1}>
+                    <Member
+                      member={(item.item as { member: ServerMember }).member}
+                    />
+                  </Match>
+                </Switch>
               </div>
             )}
-          </For>
+          </VirtualContainer>
         </Deferred>
       </Container>
     </Base>
