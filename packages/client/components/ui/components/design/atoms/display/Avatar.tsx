@@ -126,8 +126,10 @@ export function Avatar(props: Props) {
     on(
       () => props.src,
       (src) => {
-        setUrl("");
-        setTimeout(() => setUrl(src));
+        if (url() !== src) {
+          setUrl("");
+          setTimeout(() => setUrl(src));
+        }
       },
       { defer: true }
     )
