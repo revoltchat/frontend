@@ -95,31 +95,52 @@ const HiddenCopyText = styled.span`
 export function MessageReply(props: Props) {
   const t = useTranslation();
 
+  /**
+   * Generates hidden text string for copying text
+   * TODO: needs to use i18n strings
+   */
+  const createHiddenText = () => {
+    if (props.message?.author?.relationship === "Blocked") {
+      return "Replying to blocked user";
+    }
+
+    const strComponents = [
+      "Replying to " + props.message!.username + ":"
+    ];
+
+    if (props.message!.attachments) {
+      const attString = props.message!.attachments!.length > 1
+      ? t("app.main.channel.misc.sent_multiple_files")
+      : t("app.main.channel.misc.sent_file");
+
+      strComponents.push("[" + attString + "]");
+    }
+
+    if (props.message!.content) {
+      strComponents.push(props.message!.content!)
+    }
+
+    // backup option if there's no text content or attachments
+    if (strComponents.length === 1) {
+      strComponents.push(`<empty>`);
+    }
+
+    return strComponents.join(" ");
+  }
+
   return (
     <Base noDecorations={props.noDecorations}>
+      <HiddenCopyText>
+        {createHiddenText()}
+        <br/>
+      </HiddenCopyText>
       <Switch
         fallback={<InfoText>{t("app.main.channel.misc.not_loaded")}</InfoText>}
       >
         <Match when={props.message?.author?.relationship === "Blocked"}>
-          <HiddenCopyText>
-            {/* TODO: needs to use i18n strings */}
-            Replying to blocked user
-          </HiddenCopyText>
           {t("app.main.channel.misc.blocked_user")}
         </Match>
         <Match when={props.message}>
-          <HiddenCopyText>
-            {/* TODO: needs to use i18n strings */}
-            Replying to {props.message!.username}:
-            <Show when={props.message!.attachments}>
-              [{props.message!.attachments!.length > 1
-                ? t("app.main.channel.misc.sent_multiple_files")
-                : t("app.main.channel.misc.sent_file")}]
-            </Show>
-            <Show when={props.message!.content}>
-              {props.message!.content!}
-            </Show>
-          </HiddenCopyText>
           <Avatar src={props.message!.avatarURL} size={14} />
           <NonBreakingText>
             <ColouredText
