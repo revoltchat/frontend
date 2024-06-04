@@ -195,7 +195,7 @@ export function UserContextMenu(props: {
 
       <Show when={!props.user.self}>
         {/* TODO: #286 show profile / message */}
-        <Show when={props.user.relationship === "None"}>
+        <Show when={props.user.relationship === "None" && !props.user.bot}>
           <ContextMenuButton icon={MdPersonAddAlt} onClick={addFriend}>
             Add Friend
           </ContextMenuButton>
