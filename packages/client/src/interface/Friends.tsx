@@ -20,6 +20,7 @@ import {
   CategoryButton,
   Deferred,
   Header,
+  OverflowingText,
   Typography,
   UserStatusGraphic,
   styled as styledLegacy,
@@ -177,6 +178,21 @@ function List(props: {
 }
 
 /**
+ * Some temporary styles for friend entries
+ */
+const Friend = styled("div", {
+  base: {
+    minWidth: 0,
+    display: "flex",
+    gap: "var(--gap-md)",
+    alignItems: "center",
+    padding: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-lg)",
+    background: "var(--colours-sidebar-channels-background)",
+  },
+});
+
+/**
  * Single user entry
  */
 function Entry(
@@ -189,26 +205,23 @@ function Entry(
 
   return (
     <a {...remote}>
-      <CategoryButton
-        icon={
-          <Avatar
-            size={36}
-            src={local.user.animatedAvatarURL}
-            holepunch={
-              props.user.relationship === "Friend" ? "bottom-right" : "none"
-            }
-            overlay={
-              <Show when={props.user.relationship === "Friend"}>
-                <UserStatusGraphic
-                  status={props.user.status?.presence ?? "Online"}
-                />
-              </Show>
-            }
-          />
-        }
-      >
-        {local.user.username}
-      </CategoryButton>
+      <Friend>
+        <Avatar
+          size={36}
+          src={local.user.animatedAvatarURL}
+          holepunch={
+            props.user.relationship === "Friend" ? "bottom-right" : "none"
+          }
+          overlay={
+            <Show when={props.user.relationship === "Friend"}>
+              <UserStatusGraphic
+                status={props.user.status?.presence ?? "Online"}
+              />
+            </Show>
+          }
+        />
+        <OverflowingText>{local.user.username}</OverflowingText>
+      </Friend>
     </a>
   );
 }
