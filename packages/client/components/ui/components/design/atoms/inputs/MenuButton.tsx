@@ -5,7 +5,7 @@ import { Row } from "../../layout";
 import { generateTypographyCSS } from "../display/Typography";
 import { Unreads } from "../indicators";
 
-export interface Props {
+export type Props = {
   /**
    * Button size
    * @default thin
@@ -37,7 +37,7 @@ export interface Props {
    * Hover actions
    */
   readonly actions?: JSX.Element;
-}
+};
 
 /**
  * Base menu button styles
@@ -115,7 +115,12 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
   ]);
 
   return (
-    <Base {...other} align use:ripple>
+    <Base
+      {...other}
+      align
+      use:ripple
+      // @codegen directives props=other include=floating
+    >
       {local.icon}
       <div class="content">{local.children}</div>
       <Show when={local.alert}>

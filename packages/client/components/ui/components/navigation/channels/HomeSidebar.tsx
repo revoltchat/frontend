@@ -5,6 +5,7 @@ import { styled } from "solid-styled-components";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel } from "revolt.js";
 
+import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useLocation, useNavigate } from "@revolt/routing";
@@ -218,6 +219,17 @@ function Entry(
             </Match>
           </Switch>
         }
+        use:floating={{
+          contextMenu: () =>
+            local.channel.type === "DirectMessage" ? (
+              <UserContextMenu
+                user={local.channel.recipient!}
+                channel={local.channel}
+              />
+            ) : (
+              <ChannelContextMenu channel={local.channel} />
+            ),
+        }}
       >
         <Column gap="none">
           <Switch>

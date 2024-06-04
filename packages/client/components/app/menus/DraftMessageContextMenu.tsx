@@ -1,8 +1,10 @@
 import { Show } from "solid-js";
 
+import { t } from "@solid-devtools/debugger/dist/index-9809b963";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { useTranslation } from "@revolt/i18n";
 import { state } from "@revolt/state";
 import { UnsentMessage } from "@revolt/state/stores/Draft";
 
@@ -22,6 +24,7 @@ interface Props {
  */
 export function DraftMessageContextMenu(props: Props) {
   const client = useClient();
+  const t = useTranslation();
 
   /**
    * Retry sending the draft message
@@ -42,7 +45,7 @@ export function DraftMessageContextMenu(props: Props) {
       <ContextMenu>
         <Show when={false}>
           <ContextMenuButton icon={MdClose} onClick={deleteMessage} destructive>
-            Cancel send
+            {t("app.context_menu.cancel_message")}
           </ContextMenuButton>
         </Show>
         <Show
@@ -51,14 +54,14 @@ export function DraftMessageContextMenu(props: Props) {
           }
         >
           <ContextMenuButton icon={MdRefresh} onClick={retrySend}>
-            Retry send
+            {t("app.context_menu.retry_message")}
           </ContextMenuButton>
           <ContextMenuButton
             icon={MdDelete}
             onClick={deleteMessage}
             destructive
           >
-            Delete message
+            {t("app.context_menu.delete_message")}
           </ContextMenuButton>
         </Show>
       </ContextMenu>
