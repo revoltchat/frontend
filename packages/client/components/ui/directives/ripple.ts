@@ -10,8 +10,10 @@ export function ripple(
   el: HTMLDivElement,
   accessor: Accessor<JSX.Directives["ripple"] & object>
 ) {
-  const theme = useTheme();
   const props = accessor();
+  if (!props) return;
+
+  const theme = useTheme();
 
   // FIXME: there is a bug here if theme is changed, this class just disappears
 

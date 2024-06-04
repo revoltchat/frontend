@@ -56,6 +56,8 @@ export function autoComplete(
   element: HTMLInputElement,
   config: Accessor<JSX.Directives["autoComplete"]>
 ) {
+  if (!config()) return;
+
   const [state, setState] = createSignal<AutoCompleteState>({
     matched: "none",
   });

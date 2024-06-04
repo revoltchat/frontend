@@ -40,6 +40,8 @@ export function unregisterFloatingElement(element: HTMLElement) {
  */
 export function floating(element: HTMLElement, accessor: Accessor<Props>) {
   const config = accessor();
+  if (!config) return;
+
   const [show, setShow] = createSignal<keyof Props | undefined>();
 
   registerFloatingElement({
