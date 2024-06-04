@@ -128,7 +128,6 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
 
   if (config.userCard) {
     element.style.cursor = "pointer";
-    element.style.userSelect = "none";
     element.addEventListener("click", onClick);
   }
 
