@@ -83,6 +83,12 @@ const InfoText = styled.a`
   color: var(--unset-fg);
 `;
 
+const HiddenCopyText = styled.span`
+  user-select: text;
+  opacity: 0;
+  position: absolute;
+`
+
 /**
  * Message being replied to
  */
@@ -95,9 +101,25 @@ export function MessageReply(props: Props) {
         fallback={<InfoText>{t("app.main.channel.misc.not_loaded")}</InfoText>}
       >
         <Match when={props.message?.author?.relationship === "Blocked"}>
+          <HiddenCopyText>
+            {/* TODO: needs to use i18n strings */}
+            Replying to blocked user
+          </HiddenCopyText>
           {t("app.main.channel.misc.blocked_user")}
         </Match>
         <Match when={props.message}>
+          <HiddenCopyText>
+            {/* TODO: needs to use i18n strings */}
+            Replying to {props.message!.username}:
+            <Show when={props.message!.attachments}>
+              [{props.message!.attachments!.length > 1
+                ? t("app.main.channel.misc.sent_multiple_files")
+                : t("app.main.channel.misc.sent_file")}]
+            </Show>
+            <Show when={props.message!.content}>
+              {props.message!.content!}
+            </Show>
+          </HiddenCopyText>
           <Avatar src={props.message!.avatarURL} size={14} />
           <NonBreakingText>
             <ColouredText
