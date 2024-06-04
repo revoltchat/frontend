@@ -1,6 +1,5 @@
 import { Show } from "solid-js";
 
-import { t } from "@solid-devtools/debugger/dist/index-9809b963";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
