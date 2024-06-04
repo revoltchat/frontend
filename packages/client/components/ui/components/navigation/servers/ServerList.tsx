@@ -1,23 +1,21 @@
-import {
-  BiRegularPlus,
-  BiSolidCheckShield,
-  BiSolidCog,
-  BiSolidMegaphone,
-} from "solid-icons/bi";
+import { BiRegularPlus, BiSolidCog, BiSolidMegaphone } from "solid-icons/bi";
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { JSX } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled as styledLegacy } from "solid-styled-components";
 
 import { Channel, Server, User } from "revolt.js";
+import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
 
 import { KeybindAction } from "@revolt/keybinds";
 import { useNavigate } from "@revolt/routing";
 
-// import MdPlus from "@material-design-icons/svg/outlined/password.svg?component-solid";
+import MdHome from "@material-design-icons/svg/outlined/home.svg?component-solid";
+
 import { iconSize } from "../../..";
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
-import { Button, Column, Typography } from "../../design";
+import { Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
   UnreadsGraphic,
@@ -131,10 +129,17 @@ export const ServerList = (props: Props) => {
 
   return (
     <ServerListBase>
-      <div
-        use:invisibleScrollable={{ direction: "y" }}
-        style={{ "flex-grow": 1 }} // TODO: move into ListBase
-      >
+      <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
+        <EntryContainer>
+          {/* <Show when={!props.selectedServer()}>
+            <PositionSwoosh>
+              <Swoosh topItem />
+            </PositionSwoosh>
+          </Show> */}
+          <a href="/">
+            <Avatar size={42} fallback={<MdHome {...iconSize(16)} />} />
+          </a>
+        </EntryContainer>
         <Tooltip
           placement="right"
           content={() => (
@@ -146,11 +151,6 @@ export const ServerList = (props: Props) => {
           aria={props.user.username}
         >
           <EntryContainer>
-            <Show when={!props.selectedServer()}>
-              <PositionSwoosh>
-                <Swoosh topItem />
-              </PositionSwoosh>
-            </Show>
             <a href="/">
               <Avatar
                 size={42}
@@ -162,15 +162,6 @@ export const ServerList = (props: Props) => {
             </a>
           </EntryContainer>
         </Tooltip>
-        <Show when={props.user.privileged}>
-          <EntryContainer>
-            <a href="/admin">
-              <Button size="icon">
-                <BiSolidCheckShield size={32} />
-              </Button>
-            </a>
-          </EntryContainer>
-        </Show>
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
@@ -294,17 +285,27 @@ export const ServerList = (props: Props) => {
 /**
  * Server list container
  */
-const ServerListBase = styled("div", "ServerList")`
-  display: flex;
-  flex-direction: column;
+const ServerListBase = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    background: "var(--colours-background)",
+  },
+});
 
-  background: ${({ theme }) => theme!.colours["background"]};
-`;
+/**
+ * Container around list of servers
+ */
+const listBase = cva({
+  base: {
+    flexGrow: 1,
+  },
+});
 
 /**
  * Server entries
  */
-const EntryContainer = styled("div", "Entry")`
+const EntryContainer = styledLegacy("div", "Entry")`
   width: 56px;
   height: 56px;
   position: relative;
@@ -320,7 +321,7 @@ const EntryContainer = styled("div", "Entry")`
 /**
  * Divider line between two lists
  */
-const LineDivider = styled.div`
+const LineDivider = styledLegacy.div`
   height: 1px;
   flex-shrink: 0;
   margin: 6px auto;
@@ -332,7 +333,7 @@ const LineDivider = styled.div`
 /**
  * Position the Swoosh correctly
  */
-const PositionSwoosh = styled.div`
+const PositionSwoosh = styledLegacy.div`
   user-select: none;
   position: absolute;
   pointer-events: none;
@@ -341,7 +342,7 @@ const PositionSwoosh = styled.div`
 /**
  * Shadow at the bottom of the list
  */
-const Shadow = styled("div", "Shadow")`
+const Shadow = styledLegacy("div", "Shadow")`
   height: 0;
   z-index: 1;
   display: relative;

@@ -1,5 +1,5 @@
-import { Accessor, JSX, onCleanup } from "solid-js";
-import { css, useTheme } from "solid-styled-components";
+import { Accessor, JSX } from "solid-js";
+import { css } from "solid-styled-components";
 
 /**
  * Add styles for an invisible scrollable container
@@ -22,4 +22,8 @@ export function invisibleScrollable(
       display: none;
     }
   `);
+
+  if (props.class) {
+    props.class.split(" ").forEach((cls) => el.classList.add(cls));
+  }
 }

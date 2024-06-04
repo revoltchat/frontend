@@ -45,7 +45,11 @@ export function scrollable(
     }
   `);
 
-  if (props?.showOnHover) {
+  if (props.class) {
+    props.class.split(" ").forEach((cls) => el.classList.add(cls));
+  }
+
+  if (props.showOnHover) {
     const showClass = css`
       scrollbar-width: initial !important;
 

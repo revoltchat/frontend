@@ -122,6 +122,11 @@ declare module "solid-js" {
              * Whether to only show scrollbar on hover
              */
             showOnHover?: boolean;
+
+            /**
+             * Pass-through class names
+             */
+            class?: string;
           };
       invisibleScrollable:
         | true
@@ -130,6 +135,11 @@ declare module "solid-js" {
              * Scroll direction
              */
             direction?: "x" | "y";
+
+            /**
+             * Pass-through class names
+             */
+            class?: string;
           };
       floating: {
         tooltip?: {
