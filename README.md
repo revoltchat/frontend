@@ -73,9 +73,14 @@ Any edits to the revolt.js codebase will immediately be reflected while developi
 # install packages
 pnpm i
 
-# build everything
-pnpm build:all
+# build dependencies
+pnpm build:deps
+
+# build for web
+pnpm build:web
 ```
+
+You can now deploy the directory `packages/client/dist`.
 
 ### Routing Information
 
