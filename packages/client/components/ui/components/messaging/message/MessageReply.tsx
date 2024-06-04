@@ -105,7 +105,7 @@ export function MessageReply(props: Props) {
     }
 
     const strComponents = [
-      "Replying to " + props.message!.username + ":"
+      t("app.main.channel.reply.replying") + " " + props.message!.username + ":",
     ];
 
     if (props.message!.attachments) {
