@@ -262,7 +262,10 @@ export const ServerList = (props: Props) => {
       </Shadow>
       <Tooltip placement="right" content="Give Feedback">
         <EntryContainer>
-          <a href="/server/01F7ZSBSFHQ8TA81725KQCSDDP/channel/01HGJPTXVPM3RJV0RG3YQA20KZ">
+          <a
+            href="https://github.com/revoltchat/frontend/issues"
+            target="_blank"
+          >
             <Avatar
               size={42}
               fallback={<BiSolidMegaphone size={18} />}
