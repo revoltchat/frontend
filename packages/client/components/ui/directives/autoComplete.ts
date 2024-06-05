@@ -98,16 +98,18 @@ export function autoComplete(
 
   // TODO: use a virtual element on the caret
   // THIS IS NOT POSSIBLE WITH HTML INPUT ELEMENT!
+  const accessor = () => ({
+    autoComplete: {
+      state,
+      selection,
+      select,
+    },
+  });
+
   registerFloatingElement({
     element,
-    config: {
-      autoComplete: {
-        state,
-        selection,
-        select,
-      },
-    },
-    show: () => (state().matched === "none" ? undefined : "autoComplete"),
+    config: accessor,
+    show: () => (state().matched === "none" ? undefined : accessor()),
     hide: () => void 0,
   });
 

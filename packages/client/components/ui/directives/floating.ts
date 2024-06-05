@@ -3,10 +3,10 @@ import { Accessor, JSX, createSignal, onCleanup } from "solid-js";
 type Props = JSX.Directives["floating"] & object;
 
 export type FloatingElement = {
-  config: Props;
+  config: () => Props;
   element: HTMLElement;
   hide: () => void;
-  show: Accessor<keyof Props | undefined>;
+  show: Accessor<Props | undefined>;
 };
 
 const [floatingElements, setFloatingElements] = createSignal<FloatingElement[]>(
@@ -42,10 +42,10 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
   const config = accessor();
   if (!config) return;
 
-  const [show, setShow] = createSignal<keyof Props | undefined>();
+  const [show, setShow] = createSignal<Props | undefined>();
 
   registerFloatingElement({
-    config,
+    config: accessor,
     element,
     show,
     /**
@@ -61,38 +61,39 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
    */
   function trigger(target: keyof Props, desiredState?: boolean) {
     const current = show();
+    const config = accessor();
 
     if (target === "userCard" && config.userCard) {
-      if (current === "userCard") {
+      if (current?.userCard) {
         setShow(undefined);
       } else if (!current) {
-        setShow("userCard");
+        setShow({ userCard: config.userCard });
       } else {
         setShow(undefined);
-        setShow("userCard");
+        setShow({ userCard: config.userCard });
       }
     }
 
     if (target === "tooltip" && config.tooltip) {
-      if (current === "tooltip") {
+      if (current?.tooltip) {
         if (desiredState !== true) {
           setShow(undefined);
         }
       } else if (!current) {
         if (desiredState !== false) {
-          setShow("tooltip");
+          setShow({ tooltip: config.tooltip });
         }
       }
     }
 
     if (target === "contextMenu" && config.contextMenu) {
-      if (current === "contextMenu") {
+      if (current?.contextMenu) {
         setShow(undefined);
       } else if (!current) {
-        setShow("contextMenu");
+        setShow({ contextMenu: config.contextMenu });
       } else {
         setShow(undefined);
-        setShow("contextMenu");
+        setShow({ contextMenu: config.contextMenu });
       }
     }
   }

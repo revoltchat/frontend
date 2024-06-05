@@ -47,6 +47,10 @@ export function ripple(
     `
   );
 
+  if (props.class) {
+    props.class.split(" ").forEach((cls) => el.classList.add(cls));
+  }
+
   if (typeof props === "boolean" || props.enable)
     el.classList.add(css`
       &::after {
