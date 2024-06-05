@@ -186,9 +186,9 @@ const Friend = styled("div", {
     display: "flex",
     gap: "var(--gap-md)",
     alignItems: "center",
-    padding: "var(--gap-md)",
-    borderRadius: "var(--borderRadius-lg)",
-    background: "var(--colours-sidebar-channels-background)",
+    // padding: "var(--gap-md)",
+    // borderRadius: "var(--borderRadius-lg)",
+    // background: "var(--colours-sidebar-channels-background)",
   },
 });
 
