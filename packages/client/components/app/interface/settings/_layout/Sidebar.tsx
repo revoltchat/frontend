@@ -103,7 +103,6 @@ const Base = styled("div", "Sidebar")`
   justify-content: flex-end;
 
   color: ${(props) => props.theme!.colours["settings-foreground"]};
-  background: ${(props) => props.theme!.colours["settings-background"]};
 `;
 
 /**

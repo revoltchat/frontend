@@ -91,7 +91,7 @@ declare module "solid-styled-components" {
         | `settings-${
             | "background"
             | "foreground"
-            | `content-${"background" | "foreground"}`
+            | `content-${"background" | "foreground" | "scroll-thumb"}`
             | `close-anchor${"" | "-hover"}`
             | `sidebar-${
                 | "category"

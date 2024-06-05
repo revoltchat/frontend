@@ -1,6 +1,8 @@
 import { BiRegularX } from "solid-icons/bi";
 import { Accessor, JSX, Show } from "solid-js";
 
+import { cva } from "styled-system/css";
+
 import { Breadcrumbs, Column, Typography, styled } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
@@ -17,9 +19,14 @@ export function SettingsContent(props: {
   const { navigate } = useSettingsNavigation();
 
   return (
-    <Base>
+    <div
+      use:scrollable={{
+        foreground: "var(--colours-settings-content-scroll-thumb)",
+        background: "var(--colours-settings-content-background)",
+        class: base(),
+      }}
+    >
       <Show when={props.page()}>
-        <InnerContentBackground />
         <InnerContent>
           <InnerColumn gap="x">
             <Typography variant="settings-title">
@@ -40,28 +47,30 @@ export function SettingsContent(props: {
           </CloseAnchor>
         </CloseAction>
       </Show>
-    </Base>
+    </div>
   );
 }
 
 /**
  * Base styles
  */
-const Base = styled("div", "Content")`
-  min-width: 0;
-  flex: 1 1 800px;
-  flex-direction: row;
+const base = cva({
+  base: {
+    minWidth: 0,
+    flex: "1 1 800px",
+    flexDirection: "row",
 
-  display: flex;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  background: ${(props) => props.theme!.colours["settings-background"]};
+    display: "flex",
+    background: "var(--colours-settings-content-background)",
 
-  /* just to avoid headaches with styling individual links */
-  a {
-    text-decoration: none;
-  }
-`;
+    borderStartStartRadius: "30px",
+    borderEndStartRadius: "30px",
+
+    "& > a": {
+      textDecoration: "none",
+    },
+  },
+});
 
 /**
  * Settings pane
@@ -75,19 +84,6 @@ const InnerContent = styled("div", "Pane")`
   padding: 80px 32px;
   justify-content: stretch;
   z-index: 1;
-`;
-
-/**
- * Settings styled background
- */
-const InnerContentBackground = styled("div", "PaneBackground")`
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  background: ${(props) => props.theme!.colours["settings-content-background"]};
-
-  border-start-start-radius: 30px;
-  border-end-start-radius: 30px;
 `;
 
 /**
@@ -142,7 +138,6 @@ const CloseAction = styled.div`
   visibility: visible;
   position: sticky;
   top: 0;
-  background: ${(props) => props.theme!.colours["settings-content-background"]};
 
   &:after {
     content: "ESC";
