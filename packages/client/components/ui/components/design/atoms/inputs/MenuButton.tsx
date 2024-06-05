@@ -75,22 +75,18 @@ const base = cva({
     },
     attention: {
       normal: {
-        fill: "var(--colours-component-menubtn-default-foreground)",
         color: "var(--colours-component-menubtn-default-foreground)",
         background: "var(--colours-component-menubtn-default-background)",
       },
       muted: {
-        fill: "var(--colours-component-menubtn-muted-foreground)",
         color: "var(--colours-component-menubtn-muted-foreground)",
         background: "var(--colours-component-menubtn-muted-background)",
       },
       active: {
-        fill: "var(--colours-component-menubtn-selected-foreground)",
         color: "var(--colours-component-menubtn-selected-foreground)",
         background: "var(--colours-component-menubtn-default-background)",
       },
       selected: {
-        fill: "var(--colours-component-menubtn-selected-foreground)",
         color: "var(--colours-component-menubtn-selected-foreground)",
         background: "var(--colours-component-menubtn-selected-background)",
       },
