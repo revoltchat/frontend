@@ -3,11 +3,12 @@ import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
 import { styled as styledLegacy } from "solid-styled-components";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
-import { Channel, Client } from "revolt.js";
+import { Channel } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
+import { getController } from "@revolt/common";
 import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { modalController } from "@revolt/modal";
@@ -15,12 +16,12 @@ import { useLocation, useNavigate } from "@revolt/routing";
 import { iconSize } from "@revolt/ui";
 
 import MdPlus from "@material-design-icons/svg/outlined/add.svg?component-solid";
+import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
-import { Column } from "../../design/layout";
 import { OverflowingText } from "../../design/layout/OverflowingText";
 import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
@@ -50,6 +51,14 @@ interface Props {
    */
   __tempDisplayFriends: () => boolean;
 }
+
+const ButtonTitle = styled("div", {
+  base: {
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
+});
 
 /**
  * Display home navigation and conversations
@@ -83,7 +92,7 @@ export const HomeSidebar = (props: Props) => {
               icon={<BiSolidHome size={24} />}
               attention={location.pathname === "/" ? "selected" : "normal"}
             >
-              {t("app.navigation.tabs.home")}
+              <ButtonTitle>{t("app.navigation.tabs.home")}</ButtonTitle>
             </MenuButton>
           </a>
 
@@ -96,7 +105,7 @@ export const HomeSidebar = (props: Props) => {
                   location.pathname === "/friends" ? "selected" : "normal"
                 }
               >
-                {t("app.navigation.tabs.friends")}
+                <ButtonTitle>{t("app.navigation.tabs.friends")}</ButtonTitle>
               </MenuButton>
             </a>
           </Show>
@@ -110,7 +119,7 @@ export const HomeSidebar = (props: Props) => {
                 // eslint-disable-next-line solid/reactivity
                 onClick={() => props.openSavedNotes(navigate)}
               >
-                {t("app.navigation.tabs.saved")}
+                <ButtonTitle>{t("app.navigation.tabs.saved")}</ButtonTitle>
               </MenuButton>
             }
           >
@@ -125,7 +134,7 @@ export const HomeSidebar = (props: Props) => {
                       : "normal"
                   }
                 >
-                  {t("app.navigation.tabs.saved")}
+                  <ButtonTitle>{t("app.navigation.tabs.saved")}</ButtonTitle>
                 </MenuButton>
               </a>
             </Match>
@@ -135,7 +144,7 @@ export const HomeSidebar = (props: Props) => {
             style={{
               display: "flex",
               "padding-top": "var(--gap-md)",
-              "padding-inline": "var(--gap-md)",
+              "padding-inline": "var(--gap-lg)",
               "align-items": "center",
               "justify-content": "space-between",
               // TODO style this
@@ -190,7 +199,7 @@ export const HomeSidebar = (props: Props) => {
  * Sidebar title
  */
 const SidebarTitle = styledLegacy.p`
-  padding-bottom: ${(props) => props.theme!.gap.md};
+  padding-block: ${(props) => props.theme!.gap.md};
   padding-inline: ${(props) => props.theme!.gap.lg};
 `;
 
@@ -266,6 +275,19 @@ function Entry(
             </Match>
           </Switch>
         }
+        actions={
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              getController("modal").push({
+                type: "delete_channel",
+                channel: local.channel,
+              });
+            }}
+          >
+            <MdClose {...iconSize("18px")} />
+          </a>
+        }
         use:floating={{
           contextMenu: () =>
             local.channel.type === "DirectMessage" ? (
@@ -318,6 +340,6 @@ function Entry(
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
 const List = styledLegacy.div`
-  padding: ${(props) => props.theme!.gap.md};
+  /* padding: ${(props) => props.theme!.gap.md}; */
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;
