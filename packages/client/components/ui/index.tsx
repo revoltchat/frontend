@@ -104,6 +104,11 @@ declare module "solid-js" {
         | true
         | {
             enable: boolean;
+
+            /**
+             * Pass-through class names
+             */
+            class?: string;
           };
       scrollable:
         | true

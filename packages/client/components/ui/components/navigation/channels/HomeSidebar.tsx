@@ -1,9 +1,10 @@
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled as styledLegacy } from "solid-styled-components";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel, Client } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
@@ -188,10 +189,23 @@ export const HomeSidebar = (props: Props) => {
 /**
  * Sidebar title
  */
-const SidebarTitle = styled.p`
+const SidebarTitle = styledLegacy.p`
   padding-bottom: ${(props) => props.theme!.gap.md};
   padding-inline: ${(props) => props.theme!.gap.lg};
 `;
+
+/**
+ * Styles required to correctly display name and status
+ */
+const NameStatusStack = styled("div", {
+  base: {
+    height: "100%",
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
 
 /**
  * Single conversation entry
@@ -264,7 +278,7 @@ function Entry(
             ),
         }}
       >
-        <Column gap="none">
+        <NameStatusStack>
           <Switch>
             <Match when={local.channel.type === "Group"}>
               <OverflowingText>
@@ -293,7 +307,7 @@ function Entry(
               </Show>
             </Match>
           </Switch>
-        </Column>
+        </NameStatusStack>
       </MenuButton>
     </a>
   );
@@ -303,7 +317,7 @@ function Entry(
  * Inner scrollable list
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
-const List = styled.div`
+const List = styledLegacy.div`
   padding: ${(props) => props.theme!.gap.md};
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;

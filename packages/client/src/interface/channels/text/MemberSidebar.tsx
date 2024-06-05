@@ -2,6 +2,7 @@ import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel, ServerMember, User } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { floatingUserMenus } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
@@ -10,7 +11,6 @@ import { TextWithEmoji } from "@revolt/markdown";
 import { userInformation } from "@revolt/markdown/users";
 import {
   Avatar,
-  Column,
   Deferred,
   MenuButton,
   OverflowingText,
@@ -20,9 +20,8 @@ import {
   UserStatus,
   UserStatusGraphic,
   Username,
-  styled,
+  styled as styledLegacy,
 } from "@revolt/ui";
-import { generateTypographyCSS } from "@revolt/ui/components/design/atoms/display/Typography";
 
 interface Props {
   /**
@@ -216,40 +215,43 @@ export function ServerMemberSidebar(props: Props) {
       }}
     >
       <Container>
-        <CategoryTitle>
-          <Row align>
-            <UserStatus size="0.7em" status="Online" />
-            {
-              client().serverMembers.filter(
-                (member) =>
-                  (member.id.server === props.channel.serverId &&
-                    member.user?.online) ||
-                  false
-              ).length
-            }{" "}
-            members online
-          </Row>
-        </CategoryTitle>
+        <MemberTitle bottomMargin="yes">
+          <Typography variant="category">
+            <Row align>
+              <UserStatus size="0.7em" status="Online" />
+              {
+                client().serverMembers.filter(
+                  (member) =>
+                    (member.id.server === props.channel.serverId &&
+                      member.user?.online) ||
+                    false
+                ).length
+              }{" "}
+              members online
+            </Row>
+          </Typography>
+        </MemberTitle>
 
         <Deferred>
           <VirtualContainer
             items={elements()}
             scrollTarget={scrollTargetElement}
-            itemSize={{ height: 48 }}
+            itemSize={{ height: 42 }}
           >
             {(item) => (
               <div
                 style={{
                   ...item.style,
                   width: "100%",
-                  "padding-block": "3px",
                 }}
               >
                 <Switch
                   fallback={
                     <CategoryTitle>
-                      {(item.item as { name: string }).name} {"–"}{" "}
-                      {(item.item as { count: number }).count}
+                      <Typography variant="category">
+                        {(item.item as { name: string }).name} {"–"}{" "}
+                        {(item.item as { count: number }).count}
+                      </Typography>
                     </CategoryTitle>
                   }
                 >
@@ -283,20 +285,25 @@ export function GroupMemberSidebar(props: Props) {
       }}
     >
       <Container>
-        <CategoryTitle>{props.channel.recipientIds.size} members</CategoryTitle>
+        <MemberTitle>
+          <Typography variant="category">
+            <Row align>{props.channel.recipientIds.size} members</Row>
+          </Typography>
+        </MemberTitle>
 
         <Deferred>
           <VirtualContainer
-            items={props.channel.recipients}
+            items={props.channel.recipients.toSorted((a, b) =>
+              a.displayName.localeCompare(b.displayName)
+            )}
             scrollTarget={scrollTargetElement}
-            itemSize={{ height: 48 }}
+            itemSize={{ height: 42 }}
           >
             {(item) => (
               <div
                 style={{
                   ...item.style,
                   width: "100%",
-                  "padding-block": "3px",
                 }}
               >
                 <Member user={item.item} />
@@ -312,7 +319,7 @@ export function GroupMemberSidebar(props: Props) {
 /**
  * Base styles
  */
-const Base = styled.div`
+const Base = styledLegacy.div`
   flex-shrink: 0;
 
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
@@ -327,17 +334,47 @@ const Base = styled.div`
 /**
  * Container styles
  */
-const Container = styled.div`
+const Container = styledLegacy.div`
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;
 
 /**
  * Category Title
  */
-const CategoryTitle = styled.div`
-  padding: 16px 14px 4px;
-  ${(props) => generateTypographyCSS(props.theme!, "category")}
+const CategoryTitle = styledLegacy.div`
+  padding: 16px 14px 0;
 `;
+
+/**
+ * Member title
+ */
+const MemberTitle = styled("div", {
+  base: {
+    marginTop: "12px",
+    marginLeft: "14px",
+  },
+  variants: {
+    bottomMargin: {
+      no: {},
+      yes: {
+        marginBottom: "-12px",
+      },
+    },
+  },
+});
+
+/**
+ * Styles required to correctly display name and status
+ */
+const NameStatusStack = styled("div", {
+  base: {
+    height: "100%",
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
 
 /**
  * Member
@@ -384,7 +421,7 @@ function Member(props: { user?: User; member?: ServerMember }) {
           />
         }
       >
-        <Column gap="none">
+        <NameStatusStack>
           <OverflowingText>
             <Username username={user().username} colour={user().colour!} />
           </OverflowingText>
@@ -401,7 +438,7 @@ function Member(props: { user?: User; member?: ServerMember }) {
               </OverflowingText>
             </Tooltip>
           </Show>
-        </Column>
+        </NameStatusStack>
       </MenuButton>
     </div>
   );

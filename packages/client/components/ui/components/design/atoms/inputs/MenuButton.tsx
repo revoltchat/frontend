@@ -1,8 +1,9 @@
 import { ComponentProps, JSX, Show, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
+
+import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
 
 import { Row } from "../../layout";
-import { generateTypographyCSS } from "../display/Typography";
 import { Unreads } from "../indicators";
 
 export type Props = {
@@ -40,74 +41,107 @@ export type Props = {
 };
 
 /**
- * Base menu button styles
+ * Top-level container
  */
-const Base = styled(Row)<Pick<Props, "size" | "attention">>`
-  margin: 0 8px;
-  padding: 0 8px;
-  flex-shrink: 0;
-  user-select: none;
+const base = cva({
+  base: {
+    flexShrink: 0,
 
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
-  height: ${(props) => (props.size === "normal" ? 42 : 32)}px;
-  gap: ${(props) => props.theme!.gap[props.size === "normal" ? "md" : "sm"]};
+    fontWeight: 500,
+    userSelect: "none",
 
-  ${(props) => generateTypographyCSS(props.theme!, "menu-button")};
+    display: "flex",
+    margin: "0 var(--gap-lg)",
+    padding: "0 var(--gap-md)",
+    borderRadius: "var(--borderRadius-md)",
 
-  color: ${(props) =>
-    props.theme!.colours[
-      props.attention === "active" || props.attention === "selected"
-        ? "component-menubtn-selected-foreground"
-        : props.attention === "muted"
-        ? "component-menubtn-muted-foreground"
-        : "component-menubtn-default-foreground"
-    ]};
+    "& > svg": {
+      alignSelf: "center",
+    },
+  },
+  variants: {
+    size: {
+      normal: {
+        height: "42px",
+        gap: "var(--gap-md)",
+      },
+      thin: {
+        height: "32px",
+        gap: "var(--gap-sm)",
 
-  background: ${(props) =>
-    props.theme!.colours[
-      props.attention === "selected"
-        ? "component-menubtn-selected-background"
-        : props.attention === "muted"
-        ? "component-menubtn-muted-background"
-        : "component-menubtn-default-background"
-    ]};
+        // implicitly align center since we won't stack anything
+        alignItems: "center",
+      },
+    },
+    attention: {
+      normal: {
+        fill: "var(--colours-component-menubtn-default-foreground)",
+        color: "var(--colours-component-menubtn-default-foreground)",
+        background: "var(--colours-component-menubtn-default-background)",
+      },
+      muted: {
+        fill: "var(--colours-component-menubtn-muted-foreground)",
+        color: "var(--colours-component-menubtn-muted-foreground)",
+        background: "var(--colours-component-menubtn-muted-background)",
+      },
+      active: {
+        fill: "var(--colours-component-menubtn-selected-foreground)",
+        color: "var(--colours-component-menubtn-selected-foreground)",
+        background: "var(--colours-component-menubtn-default-background)",
+      },
+      selected: {
+        fill: "var(--colours-component-menubtn-selected-foreground)",
+        color: "var(--colours-component-menubtn-selected-foreground)",
+        background: "var(--colours-component-menubtn-selected-background)",
+      },
+    },
+    hasActions: {
+      no: {},
+      yes: {
+        "&:hover :last-child": {
+          display: "flex",
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    size: "normal",
+    attention: "normal",
+    hasActions: "no",
+  },
+});
 
-  transition: ${(props) => props.theme!.transitions.fast} all;
+/**
+ * Textual content
+ */
+const Content = styled("div", {
+  base: {
+    flexGrow: 1,
+    minWidth: 0,
+  },
+});
 
-  /* TODO: BAD!! > * {
-    filter: ${(props) =>
-    props.attention === "muted" ? props.theme!.effects.muted : "none"};
-  } */
+/**
+ * Right-side actions
+ */
+const Actions = styled("div", {
+  base: {
+    alignSelf: "center",
 
-  .content {
-    flex-grow: 1;
-    min-width: 0;
-  }
-
-  .actions {
-    display: none;
-
-    align-items: center;
-    flex-direction: row;
-    gap: ${(props) => props.theme!.gap.sm};
-
-    /*TEMP FIXME*/
-    a {
-      display: grid;
-      place-items: center;
-    }
-  }
-
-  &:hover .actions {
-    display: flex;
-  }
-`;
+    display: "none",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: "var(--gap-sm)",
+  },
+});
 
 /**
  * Menu button element
  */
 export function MenuButton(props: Props & ComponentProps<typeof Row>) {
   const [local, other] = splitProps(props, [
+    "attention",
+    "size",
     "icon",
     "children",
     "alert",
@@ -115,14 +149,22 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
   ]);
 
   return (
-    <Base
+    // TODO: port to panda-css to merge down components
+    <div
       {...other}
-      align
-      use:ripple
+      use:ripple={{
+        enable: true,
+        class: base({
+          attention: local.attention,
+          size: local.size,
+          hasActions: local.actions ? "yes" : "no",
+        }),
+      }}
       // @codegen directives props=other include=floating
     >
+      {/* <Base {...other} align> */}
       {local.icon}
-      <div class="content">{local.children}</div>
+      <Content>{local.children}</Content>
       <Show when={local.alert}>
         <Unreads
           count={typeof local.alert === "number" ? local.alert : 0}
@@ -131,10 +173,9 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
         />
       </Show>
       {local.actions && (
-        <div class="actions" onClick={(e) => e.stopPropagation()}>
-          {local.actions}
-        </div>
+        <Actions onClick={(e) => e.stopPropagation()}>{local.actions}</Actions>
       )}
-    </Base>
+      {/* </Base> */}
+    </div>
   );
 }
