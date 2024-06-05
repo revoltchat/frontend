@@ -162,6 +162,7 @@ const Description = styled.span`
   font-size: 12px;
   color: ${(props) =>
     props.theme!.colours["component-categorybtn-foreground-description"]};
+  text-wrap: wrap;
 
   a:hover {
     text-decoration: underline;

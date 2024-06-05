@@ -149,14 +149,12 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
     // TODO: port to panda-css to merge down components
     <div
       {...other}
-      use:ripple={{
-        enable: true,
-        class: base({
-          attention: local.attention,
-          size: local.size,
-          hasActions: local.actions ? "yes" : "no",
-        }),
-      }}
+      class={base({
+        attention: local.attention,
+        size: local.size,
+        hasActions: local.actions ? "yes" : "no",
+      })}
+      use:ripple
       // @codegen directives props=other include=floating
     >
       {/* <Base {...other} align> */}

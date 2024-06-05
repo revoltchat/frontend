@@ -179,6 +179,10 @@ declare module "solid-styled-components" {
       ripple: {
         hover: number;
       };
+      invert: {
+        black: string;
+        white: string;
+      };
       muted: string;
       hover: string;
       active: string;

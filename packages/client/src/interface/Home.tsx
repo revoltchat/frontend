@@ -9,6 +9,8 @@ import {
 } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
 
+import { cva } from "styled-system/css";
+
 import { IS_DEV, IS_REVOLT, useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
@@ -38,14 +40,19 @@ const Base = styled("div")`
 /**
  * Layout of the content as a whole
  */
-const Content = styled("div")`
-  width: fit-content;
-  margin: auto;
+const content = cva({
+  base: {
+    minHeight: 0,
+    width: "100%",
+    margin: "auto",
+    padding: "var(--gap-xxl) 0",
 
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => props.theme!.gap.xl};
-`;
+    display: "flex",
+    gap: "var(--gap-xl)",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+});
 
 /**
  * Layout of the buttons
@@ -63,8 +70,13 @@ const Buttons = styled("div")`
  * Make sure the columns are separated
  */
 const SeparatedColumn = styled(Column)`
+  justify-content: stretch;
   margin-inline: 0.25em;
   width: 260px;
+
+  > * {
+    flex-grow: 1;
+  }
 `;
 
 /**
@@ -74,7 +86,7 @@ const Image = styled("img")`
   margin-top: 0.5em;
   height: 36px;
 
-  filter: invert(100%);
+  filter: ${(props) => props.theme!.effects.invert.black};
 `;
 
 /**
@@ -99,7 +111,7 @@ export function HomePage() {
         </HeaderIcon>
         Home
       </Header>
-      <Content>
+      <div use:scrollable={{ class: content() }}>
         <Typography variant="home-page-title">
           {t("app.special.modals.onboarding.welcome")}
           <br />
@@ -180,7 +192,7 @@ export function HomePage() {
             Open Development Page
           </Button>
         </Show>
-      </Content>
+      </div>
     </Base>
   );
 }
