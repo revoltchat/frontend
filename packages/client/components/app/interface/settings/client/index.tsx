@@ -6,6 +6,7 @@ import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
 import { ColouredText, Column, iconSize, useTheme } from "@revolt/ui";
+import { ColourSwatches } from "@revolt/ui/components/design/atoms/inputs/ColourSwatches";
 
 // Filled Icons
 import MdAccountCircleFill from "@material-design-icons/svg/filled/account_circle.svg?component-solid";
@@ -260,7 +261,7 @@ const ClientSettingsRouting: Record<string, Component> = {
   feedback,
   audio: () => null,
   appearance,
-  "appearance/colours": () => <h1>hi</h1>,
+  "appearance/colours": () => <ColourSwatches />,
   accessibility,
   notifications,
   language,

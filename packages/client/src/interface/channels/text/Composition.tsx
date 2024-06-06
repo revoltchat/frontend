@@ -14,11 +14,11 @@ import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import {
+  Button,
   CompositionPicker,
   FileCarousel,
   FileDropAnywhereCollector,
   FilePasteCollector,
-  IconButton,
   InlineIcon,
   MessageBox,
   MessageReplyPreview,
@@ -397,9 +397,9 @@ export function MessageComposition(props: Props) {
               }
             >
               <InlineIcon size="wide">
-                <IconButton onClick={addFile}>
+                <Button variant="plain" size="fluid" onPress={addFile}>
                   <BiRegularPlus size={24} />
-                </IconButton>
+                </Button>
               </InlineIcon>
             </Match>
           </Switch>
@@ -410,25 +410,33 @@ export function MessageComposition(props: Props) {
               <>
                 <Show when={state.experiments.isEnabled("gif_picker")}>
                   <InlineIcon size="normal">
-                    <IconButton onClick={triggerProps.onClickGif}>
+                    <Button
+                      variant="plain"
+                      size="fluid"
+                      onPress={triggerProps.onClickGif}
+                    >
                       <BiSolidFileGif size={24} />
-                    </IconButton>
+                    </Button>
                   </InlineIcon>
                 </Show>
                 <Show when={state.experiments.isEnabled("emoji_picker")}>
                   <InlineIcon size="normal">
-                    <IconButton onClick={triggerProps.onClickEmoji}>
+                    <Button
+                      variant="plain"
+                      size="fluid"
+                      onPress={triggerProps.onClickEmoji}
+                    >
                       <BiSolidHappyBeaming size={24} />
-                    </IconButton>
+                    </Button>
                   </InlineIcon>
                 </Show>
                 <Show
                   when={state.settings.getValue("appearance:show_send_button")}
                 >
                   <InlineIcon size="normal">
-                    <IconButton>
-                      <BiSolidSend size={24} onClick={sendMessage} />
-                    </IconButton>
+                    <Button variant="plain" size="fluid" onPress={sendMessage}>
+                      <BiSolidSend size={24} />
+                    </Button>
                   </InlineIcon>
                 </Show>
 

@@ -236,6 +236,15 @@ export const darkTheme: (
       ),
       "component-context-menu-divider": materialColour("onSurface", 92),
       "component-context-menu-shadow": "#0004",
+      // Component: Key
+      "component-key-background": materialColour("secondary"),
+      "component-key-foreground": materialColour("onSecondary"),
+      // Component: Combo Box
+      "component-combo-focus": materialColour("primary"),
+      "component-combo-foreground": materialColour("onBackground"),
+      "component-combo-background": materialColour("background", 100),
+      // Component: Preloader
+      "preloader-foreground": materialColour("primary"),
 
       // Sidebar
       // TODO: figure this out

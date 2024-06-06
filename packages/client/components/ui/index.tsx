@@ -70,8 +70,7 @@ export function ApplyGlobalStyles() {
     document.body.style.setProperty("--emoji-size", theme.layout.emoji.small);
 
     // Unset variables
-    document.body.style.setProperty("--unset-fg", "black");
-    // document.body.style.setProperty("--unset-fg", "red");
+    document.body.style.setProperty("--unset-fg", "red");
     document.body.style.setProperty(
       "--unset-bg",
       "repeating-conic-gradient(red 0% 25%, transparent 0% 50%) 50% / 5px 5px"

@@ -36,7 +36,6 @@ const Switch = styled.div<{ state: State; selected: boolean }>`
   transition: ${(props) => props.theme!.transitions.fast} all;
 
   color: var(--unset-fg);
-
   fill: var(--unset-fg);
 
   &:hover {

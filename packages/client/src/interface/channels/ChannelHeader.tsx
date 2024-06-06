@@ -15,7 +15,7 @@ import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
-  IconButton,
+  Button,
   NonBreakingText,
   OverflowingText,
   Spacer,
@@ -112,18 +112,20 @@ export function ChannelHeader(props: Props) {
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
-        <IconButton onClick={openChannelSettings}>
+        <Button variant="plain" size="fluid" onPress={openChannelSettings}>
           <BiSolidCog size={24} />
-        </IconButton>
+        </Button>
       </Show>
 
-      <IconButton
-        onClick={() =>
+      <Button
+        variant="plain"
+        size="fluid"
+        onPress={() =>
           state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)
         }
       >
         <BiSolidGroup size={24} />
-      </IconButton>
+      </Button>
     </>
   );
 }

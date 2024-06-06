@@ -60,7 +60,10 @@ declare module "solid-styled-components" {
                 | "foreground"
                 | "item-hover-background"
                 | "divider"
-                | "shadow"}`}`
+                | "shadow"}`
+            | `key-${"background" | "foreground"}`
+            | `combo-${"focus" | "background" | "foreground"}`}`
+        | `preloader-foreground`
         | `sidebar-${
             | "header-transparent-background"
             | "server-list-foreground"

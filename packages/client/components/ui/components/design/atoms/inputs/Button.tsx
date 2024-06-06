@@ -84,7 +84,9 @@ const button = cva({
         width: "38px",
         height: "38px",
       },
-      // fluid: {},
+      fluid: {
+        borderRadius: "var(--borderRadius-md)",
+      },
     },
   },
   defaultVariants: {
