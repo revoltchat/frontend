@@ -11,3 +11,6 @@
   - [Channels]()
     - [Text Channels]()
       - [Message Grouping Algorithm]()
+- [Components]()
+  - [Client]()
+    - [Session Lifecycle](./components/client/session-lifecycle.md)
