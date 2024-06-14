@@ -10,6 +10,9 @@ title = "Revolt Frontend"
 [preprocessor.mermaid]
 command = "mdbook-mermaid"
 
+[preprocessor.katex]
+after = ["links"]
+
 [output]
 
 [output.html]
