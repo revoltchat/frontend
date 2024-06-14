@@ -86,11 +86,11 @@ export const HomeSidebar = (props: Props) => {
             </Typography>
           </SidebarTitle>
 
-          <a href="/">
+          <a href="/app">
             <MenuButton
               size="normal"
               icon={<BiSolidHome size={24} />}
-              attention={location.pathname === "/" ? "selected" : "normal"}
+              attention={location.pathname === "/app" ? "selected" : "normal"}
             >
               <ButtonTitle>{t("app.navigation.tabs.home")}</ButtonTitle>
             </MenuButton>
