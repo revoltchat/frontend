@@ -1,5 +1,8 @@
+import { Show } from "solid-js";
+
+import { State } from "@revolt/client/Controller";
 import { useTranslation } from "@revolt/i18n";
-import { useNavigate } from "@revolt/routing";
+import { Navigate, useNavigate } from "@revolt/routing";
 import { Button, Column, Row, iconSize, styled } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
@@ -36,12 +39,18 @@ export default function FlowLogin() {
       email,
       password,
     });
-
-    navigate("/app", { replace: true });
   }
 
   return (
     <>
+      <Show when={clientController.isLoggedIn()}>
+        <Navigate href="/app" />
+      </Show>
+
+      <Show when={clientController.lifecycle.state() === State.LoggingIn}>
+        This is an indicator to indicate that we are logging in...
+      </Show>
+
       {/*<FlowTitle subtitle={t("login.subtitle")} emoji="wave">
         {t("login.welcome")}
       </FlowTitle>*/}

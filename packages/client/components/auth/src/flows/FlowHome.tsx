@@ -1,6 +1,8 @@
+import { Show } from "solid-js";
+
 import { clientController } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { useNavigate } from "@revolt/routing";
+import { Navigate, useNavigate } from "@revolt/routing";
 import { Button, Column, Row, Typography, styled } from "@revolt/ui";
 
 import RevoltSvg from "../../../../public/assets/wide.svg?component-solid";
@@ -47,6 +49,10 @@ export default function FlowHome() {
 
   return (
     <>
+      <Show when={clientController.isLoggedIn()}>
+        <Navigate href="/app" />
+      </Show>
+
       <Column gap="xl">
         <Logo />
 

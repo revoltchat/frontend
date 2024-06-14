@@ -240,6 +240,10 @@ const Config: SettingsConfiguration<{ server: Server }> = {
                   {t("app.settings.pages.logOut")}
                 </ColouredText>
               ),
+              onClick: () => {
+                getController("modal").pop();
+                getController("client").logout();
+              },
             },
           ],
         },

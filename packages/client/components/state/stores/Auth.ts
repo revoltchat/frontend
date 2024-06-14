@@ -1,21 +1,21 @@
-import type { PrivateSession } from "revolt.js";
-
+import { TransitionType } from "@revolt/client/Controller";
 import { CONFIGURATION, getController } from "@revolt/common";
 
 import { State } from "..";
 
 import { AbstractStore } from ".";
 
-interface Account {
-  session: PrivateSession & object;
-  apiUrl?: string;
-}
+export type Session = {
+  _id: string;
+  token: string;
+  userId: string;
+};
 
 export type TypeAuth = {
   /**
-   * Record of user IDs to account information
+   * Session information
    */
-  sessions: Record<string, Account>;
+  session?: Session;
 };
 
 /**
@@ -35,24 +35,21 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
    */
   hydrate(): void {
     if (CONFIGURATION.DEVELOPMENT_TOKEN && CONFIGURATION.DEVELOPMENT_USER_ID) {
-      this.setSession(
-        {
-          _id: CONFIGURATION.DEVELOPMENT_SESSION_ID ?? "0",
-          token: CONFIGURATION.DEVELOPMENT_TOKEN,
-          user_id: CONFIGURATION.DEVELOPMENT_USER_ID,
-        },
-        CONFIGURATION.DEFAULT_API_URL!
-      );
+      this.setSession({
+        _id: CONFIGURATION.DEVELOPMENT_SESSION_ID ?? "0",
+        token: CONFIGURATION.DEVELOPMENT_TOKEN,
+        userId: CONFIGURATION.DEVELOPMENT_USER_ID,
+      });
     }
 
-    const clientController = getController("client");
-
-    for (const entry of this.getAccounts()) {
-      // clientController.addSession(entry, "existing");
-      clientController.createClient(entry.session);
+    const session = this.getSession();
+    if (session) {
+      const clientController = getController("client");
+      clientController.lifecycle.transition({
+        type: TransitionType.LoginCached,
+        session,
+      });
     }
-
-    /*clientController.pickNextSession();*/
   }
 
   /**
@@ -60,7 +57,7 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
    */
   default(): TypeAuth {
     return {
-      sessions: {},
+      session: undefined,
     };
   }
 
@@ -68,56 +65,46 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
    * Validate the given data to see if it is compliant and return a compliant object
    */
   clean(input: Partial<TypeAuth>): TypeAuth {
-    const sessions: TypeAuth["sessions"] = {};
-    const originalSessions = (input.sessions ?? {}) as TypeAuth["sessions"];
-
-    for (const userId of Object.keys(originalSessions)) {
-      const entry = originalSessions[userId];
-
+    let session;
+    if (typeof input.session === "object") {
       if (
-        typeof entry.session._id === "string" &&
-        typeof entry.session.token === "string" &&
-        ["string", "undefined"].includes(typeof entry.apiUrl)
+        typeof input.session._id === "string" &&
+        typeof input.session.token === "string" &&
+        typeof input.session.userId === "string"
       ) {
-        sessions[userId] = {
-          session: {
-            user_id: userId,
-            _id: entry.session._id,
-            token: entry.session.token,
-          },
-          apiUrl: entry.apiUrl,
+        session = {
+          _id: input.session._id,
+          token: input.session.token,
+          userId: input.session.userId,
         };
       }
     }
 
     return {
-      sessions,
+      session,
     };
   }
 
   /**
-   * Get all known accounts.
-   * @returns Array of accounts
+   * Get current session.
+   * @returns Session
    */
-  getAccounts() {
-    const sessions = this.get().sessions;
-    return Object.keys(sessions).map((key) => sessions[key]);
+  getSession() {
+    return this.get().session;
   }
 
   /**
    * Add a new session to the auth manager.
    * @param session Session
-   * @param apiUrl Custom API URL
    */
-  setSession(session: PrivateSession & object, apiUrl?: string) {
-    this.set("sessions", session.user_id, { session, apiUrl });
+  setSession(session: Session) {
+    this.set("session", session);
   }
 
   /**
-   * Remove existing session by user ID.
-   * @param userId User ID tied to session
+   * Remove existing session.
    */
-  removeSession(userId: string) {
-    this.set("sessions", userId, undefined!);
+  removeSession() {
+    this.set("session", undefined!);
   }
 }
