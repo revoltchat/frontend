@@ -21,7 +21,11 @@ import { RenderAnchor } from "./plugins/anchors";
 import { RenderChannel, remarkChannels } from "./plugins/channels";
 import { RenderCustomEmoji, remarkCustomEmoji } from "./plugins/customEmoji";
 import { remarkHtmlToText } from "./plugins/htmlToText";
-import { RenderMention, remarkMention } from "./plugins/mentions";
+import {
+  RenderMention,
+  mentionHandler,
+  remarkMentions,
+} from "./plugins/mentions";
 import { passThroughComponents } from "./plugins/remarkRegexComponent";
 import {
   RenderSpoiler,
@@ -51,6 +55,7 @@ const components = () => ({
   // cemoji: RenderCustomEmoji,
   // mention: RenderMention,
   // channel: RenderChannel,
+  mention: RenderMention,
   timestamp: RenderTimestamp,
   spoiler: RenderSpoiler,
 
@@ -96,20 +101,20 @@ const pipeline = unified()
     // TODO: fork for \[\] support
     singleDollarTextMath: false,
   })
+  .use(remarkMentions)
   .use(remarkTimestamps)
   // .use(remarkChannels)
-  // .use(remarkMention)
   // .use(remarkUnicodeEmoji)
   // .use(remarkCustomEmoji)
   .use(remarkSpoiler)
   .use(remarkHtmlToText)
+  // @ts-expect-error non-standard elements not recognised by typing
   .use(remarkRehype, {
-    // passThrough: ["spoiler"] as never[],
     handlers: {
+      mention: mentionHandler,
       timestamp: timestampHandler,
       spoiler: spoilerHandler,
-    } as never,
-    // handlers,
+    },
   })
   .use(remarkInsertBreaks)
   .use(rehypeKatex, {
@@ -161,6 +166,7 @@ export function Markdown(props: MarkdownProps) {
       {
         options: {
           ...defaults,
+          // @ts-expect-error it doesn't like the td component
           components: components(),
         },
         schema: html,
