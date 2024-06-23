@@ -23,6 +23,12 @@ const RE_SERVER = /\/server\/([A-Z0-9]{26})/;
 const RE_CHANNEL = /\/channel\/([A-Z0-9]{26})/;
 const RE_MESSAGE_ID = /\/channel\/[A-Z0-9]{26}\/([A-Z0-9]{26})/;
 
+const RE_SERVER_EXACT = /^\/server\/([A-Z0-9]{26})$/;
+const RE_CHANNEL_EXACT =
+  /^(?:\/server\/[A-Z0-9]{26})?\/channel\/([A-Z0-9]{26})(?:\/[A-Z0-9]{26})?$/;
+const RE_MESSAGE_ID_EXACT =
+  /^(?:\/server\/[A-Z0-9]{26})?\/channel\/[A-Z0-9]{26}\/([A-Z0-9]{26})$/;
+
 /**
  * Route parameters available globally
  */
@@ -33,14 +39,29 @@ type GlobalParams = {
   serverId?: string;
 
   /**
+   * Exact match for server?
+   */
+  exactServer: boolean;
+
+  /**
    * Channel ID
    */
   channelId?: string;
 
   /**
+   * Exact match for channel?
+   */
+  exactChannel: boolean;
+
+  /**
    * Message ID
    */
   messageId?: string;
+
+  /**
+   * Exact match for message?
+   */
+  exactMessage: boolean;
 };
 
 /**
@@ -49,7 +70,11 @@ type GlobalParams = {
  * @returns Params
  */
 export function paramsFromPathname(pathname: string): GlobalParams {
-  const params: GlobalParams = {};
+  const params: GlobalParams = {
+    exactServer: !!pathname.match(RE_SERVER_EXACT),
+    exactChannel: !!pathname.match(RE_CHANNEL_EXACT),
+    exactMessage: !!pathname.match(RE_MESSAGE_ID_EXACT),
+  };
 
   // Check for server ID
   const server = pathname.match(RE_SERVER);

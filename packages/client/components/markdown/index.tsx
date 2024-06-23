@@ -18,7 +18,7 @@ import { injectEmojiSize } from "./emoji/util";
 import { handlers } from "./hast";
 import { RenderCodeblock } from "./plugins/Codeblock";
 import { RenderAnchor } from "./plugins/anchors";
-import { RenderChannel, remarkChannels } from "./plugins/channels";
+import { remarkChannels } from "./plugins/channels";
 import { RenderCustomEmoji, remarkCustomEmoji } from "./plugins/customEmoji";
 import { remarkHtmlToText } from "./plugins/htmlToText";
 import {
@@ -103,7 +103,7 @@ const pipeline = unified()
   })
   .use(remarkMentions)
   .use(remarkTimestamps)
-  // .use(remarkChannels)
+  .use(remarkChannels)
   // .use(remarkUnicodeEmoji)
   // .use(remarkCustomEmoji)
   .use(remarkSpoiler)
