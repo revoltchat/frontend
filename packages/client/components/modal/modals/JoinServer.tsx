@@ -15,8 +15,8 @@ const JoinServer: PropGenerator<"join_server"> = (props) => {
 
   return createFormModal({
     modalProps: {
-      title: "join string",
-      description: <>link format examples, g90ig, rvlt.gg/t9054t9</>,
+      title: "Join a server",
+      description: <>Use a code or invite link</>,
     },
     schema: {
       link: "text",
@@ -24,6 +24,7 @@ const JoinServer: PropGenerator<"join_server"> = (props) => {
     data: {
       link: {
         field: "code",
+        placeholder: "rvlt.gg/wVEJDGVs",
       },
     },
     callback: async ({ link }) => {
