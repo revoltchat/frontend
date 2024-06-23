@@ -3,7 +3,7 @@ import { Root } from "hast";
 /**
  * Regex for matching execessive recursion of blockquotes and lists
  */
-const RE_RECURSIVE = /(^(?:[>*+-][^\S\r\n]*){5})(?:[>*+-][^\S\r\n]*)+(.*$)/gm;
+const RE_RECURSIVE = /(^(?:[>*+-][^\S\r\n]*){1})(?:[>*+-][^\S\r\n]*)+(.*$)/gm;
 
 /**
  * Regex for matching multi-line blockquotes

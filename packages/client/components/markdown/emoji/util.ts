@@ -56,7 +56,7 @@ export function injectEmojiSize(
         size = "medium";
       }
 
-      properties["emoji-size"] = size;
+      properties["emojiSize"] = size;
     }
   }
 }

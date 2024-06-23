@@ -7,7 +7,10 @@ import { Avatar, ColouredText } from "@revolt/ui";
 
 import { useUser } from "../users";
 
-import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
+import {
+  CustomComponentProps,
+  createRegexComponent,
+} from "./remarkRegexComponent";
 
 const Mention = styled.a`
   gap: 4px;
@@ -60,6 +63,8 @@ export function RenderMention(props: CustomComponentProps) {
   );
 }
 
-export const remarkMention = createComponent("mention", RE_MENTIONS, (match) =>
-  clientController.getCurrentClient()!.users.has(match)
+export const remarkMention = createRegexComponent(
+  "mention",
+  RE_MENTIONS,
+  (match) => clientController.getCurrentClient()!.users.has(match)
 );

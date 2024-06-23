@@ -1,8 +1,16 @@
 import { JSX, splitProps } from "solid-js";
 
+import { cva } from "styled-system/css";
+
 // import { determineLink } from "../../../lib/links";
 
 // import { modalController } from "../../../controllers/modals/ModalController";
+
+const link = cva({
+  base: {
+    color: "blue",
+  },
+});
 
 export function RenderAnchor(
   props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>
@@ -25,6 +33,7 @@ export function RenderAnchor(
   return (
     <a
       {...remoteProps}
+      class={link()}
       href={localProps.href}
       target="_blank"
       rel="noreferrer"
