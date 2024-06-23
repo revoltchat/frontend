@@ -28,7 +28,7 @@ export default function FlowConfirmReset() {
       remove_sessions,
     });
 
-    navigate("../..", { replace: true });
+    navigate("/login/auth", { replace: true });
   }
 
   return (
@@ -39,7 +39,7 @@ export default function FlowConfirmReset() {
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
       <Typography variant="legacy-settings-description">
-        <a href="../..">{t("login.remembered")}</a>
+        <a href="/login/auth">{t("login.remembered")}</a>
       </Typography>
     </>
   );

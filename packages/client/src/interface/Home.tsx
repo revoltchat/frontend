@@ -24,9 +24,14 @@ import {
   styled,
 } from "@revolt/ui";
 
-import wideSvg from "../../../client/public/assets/wide.svg";
+import RevoltSvg from "../../public/assets/wordmark_wide_500px.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
+
+const Logo = styled(RevoltSvg)`
+  width: 240px;
+  fill: ${(props) => props.theme!.colours["foreground"]};
+`;
 
 /**
  * Base layout of the home page (i.e. the header/background)
@@ -112,11 +117,12 @@ export function HomePage() {
         Home
       </Header>
       <div use:scrollable={{ class: content() }}>
-        <Typography variant="home-page-title">
-          {t("app.special.modals.onboarding.welcome")}
-          <br />
-          <Image src={wideSvg} />
-        </Typography>
+        <Column>
+          <Typography variant="home-page-title">
+            {t("app.special.modals.onboarding.welcome")}
+          </Typography>
+          <Logo />
+        </Column>
         <Buttons>
           <SeparatedColumn>
             <CategoryButton

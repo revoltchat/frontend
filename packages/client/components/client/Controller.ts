@@ -138,9 +138,9 @@ class Lifecycle {
     this.client.on("ready", this.onReady);
   }
 
-  #enter(state: State) {
-    console.debug("Entering state", state);
-    this.#setStateSetter(state);
+  #enter(nextState: State) {
+    console.debug("Entering state", nextState);
+    this.#setStateSetter(nextState);
 
     // Clean up retry timer
     if (this.#retryTimeout) {
@@ -148,26 +148,42 @@ class Lifecycle {
       this.#retryTimeout = undefined;
     }
 
-    switch (state) {
+    switch (nextState) {
       case State.LoggingIn:
+        this.client.api.get("/onboard/hello").then(({ onboarding }) => {
+          if (onboarding) {
+            this.transition({
+              type: TransitionType.NoUser,
+            });
+          } else {
+            this.client.connect();
+          }
+        });
+
+        break;
       case State.Connecting:
       case State.Reconnecting:
         this.client.connect();
         break;
       case State.Connected:
+        state.auth.markValid();
         this.#setLoadedOnce(true);
         this.#connectionFailures = 0;
         break;
       case State.Dispose:
         this.dispose();
-        this.#enter(State.Ready);
+        this.transition({
+          type: TransitionType.Ready,
+        });
         this.#setLoadedOnce(false);
         break;
       case State.Disconnected:
         this.#connectionFailures++;
 
         if (!navigator.onLine) {
-          this.#enter(State.Offline);
+          this.transition({
+            type: TransitionType.DeviceOffline,
+          });
         } else {
           const retryIn =
             (Math.pow(2, this.#connectionFailures) - 1) *
@@ -181,7 +197,9 @@ class Lifecycle {
 
           this.#retryTimeout = setTimeout(() => {
             this.#retryTimeout = undefined;
-            this.#enter(State.Reconnecting);
+            this.transition({
+              type: TransitionType.Retry,
+            });
           }, retryIn * 1e3) as never;
         }
         break;
@@ -460,12 +478,23 @@ export default class ClientController {
       _id: session._id,
       token: session.token,
       userId: session.user_id,
+      valid: false,
     };
 
     state.auth.setSession(createdSession);
     this.lifecycle.transition({
       type: TransitionType.LoginUncached,
       session: createdSession,
+    });
+  }
+
+  async selectUsername(username: string) {
+    await this.lifecycle.client.api.post("/onboard/complete", {
+      username,
+    });
+
+    this.lifecycle.transition({
+      type: TransitionType.UserCreated,
     });
   }
 
