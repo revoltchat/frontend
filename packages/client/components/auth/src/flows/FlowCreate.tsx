@@ -7,6 +7,7 @@ import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?compon
 
 import { clientController } from "../../../client";
 
+import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
 import { Fields, Form } from "./Form";
 
@@ -43,9 +44,9 @@ export default function FlowCreate() {
 
   return (
     <>
-      {/* <FlowTitle subtitle={t("login.subtitle2")} emoji="wave">
+      <FlowTitle subtitle={t("login.subtitle2")} emoji="wave">
         {t("login.welcome2")}
-      </FlowTitle> */}
+      </FlowTitle>
       <Form onSubmit={create} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email", "password"]} />
         <Row align justify="center">

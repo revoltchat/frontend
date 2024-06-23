@@ -1,31 +1,40 @@
-import { Show } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 
-import { State } from "@revolt/client/Controller";
+import { styled } from "styled-system/jsx";
+
+import { State, TransitionType } from "@revolt/client/Controller";
 import { useTranslation } from "@revolt/i18n";
-import { Navigate, useNavigate } from "@revolt/routing";
-import { Button, Column, Row, iconSize, styled } from "@revolt/ui";
+import { Navigate } from "@revolt/routing";
+import {
+  Button,
+  Column,
+  Preloader,
+  Row,
+  Typography,
+  iconSize,
+} from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
+import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
 import { clientController } from "../../../client";
 
 import { FlowTitle } from "./Flow";
 import { Fields, Form } from "./Form";
 
-/**
- * Account switcher UI
- */
-// eslint-disable-next-line
-const AccountSwitcher = styled(Column)`
-  margin-top: 8px;
-`;
+const Logo = styled(RevoltSvg, {
+  base: {
+    height: "0.8em",
+    display: "inline",
+    fill: "var(--colours-messaging-message-box-foreground)",
+  },
+});
 
 /**
  * Flow for logging into an account
  */
 export default function FlowLogin() {
   const t = useTranslation();
-  const navigate = useNavigate();
 
   /**
    * Log into account
@@ -41,81 +50,81 @@ export default function FlowLogin() {
     });
   }
 
+  /**
+   * Select a new username
+   * @param data Form Data
+   */
+  async function select(data: FormData) {
+    const username = data.get("username") as string;
+    await clientController.selectUsername(username);
+  }
+
   return (
     <>
-      <Show when={clientController.isLoggedIn()}>
-        <Navigate href="/app" />
-      </Show>
+      <Switch
+        fallback={
+          <>
+            <FlowTitle subtitle={t("login.subtitle")} emoji="wave">
+              {t("login.welcome")}
+            </FlowTitle>
 
-      <Show when={clientController.lifecycle.state() === State.LoggingIn}>
-        This is an indicator to indicate that we are logging in...
-      </Show>
+            <Form onSubmit={login}>
+              <Fields fields={["email", "password"]} />
+              <Row align justify="center">
+                <a href="..">
+                  <Button variant="plain">
+                    <MdArrowBack {...iconSize("1.2em")} /> Back
+                  </Button>
+                </a>
+                <Button type="submit">{t("login.title")}</Button>
+              </Row>
+            </Form>
 
-      {/*<FlowTitle subtitle={t("login.subtitle")} emoji="wave">
-        {t("login.welcome")}
-      </FlowTitle>*/}
-      <strong>
-        You are logging into a limited demo of the new Revolt client.
-      </strong>
+            <Column>
+              <Typography variant="legacy-settings-description">
+                <a href="/login/reset">{t("login.reset")}</a>
+              </Typography>
 
-      <span>
-        Please provide feedback through{" "}
-        <a
-          href="https://github.com/revoltchat/frontend/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
-          target="_blank"
-          style={{ "text-decoration": "underline" }}
-        >
-          GitHub issues
-        </a>{" "}
-        where possible.
-      </span>
+              <Typography variant="legacy-settings-description">
+                <a href="/login/resend">{t("login.resend")}</a>
+              </Typography>
+            </Column>
+          </>
+        }
+      >
+        <Match when={clientController.isLoggedIn()}>
+          <Navigate href="/app" />
+        </Match>
+        <Match when={clientController.lifecycle.state() === State.LoggingIn}>
+          <Preloader type="ring" />
+        </Match>
+        <Match when={clientController.lifecycle.state() === State.Onboarding}>
+          <FlowTitle subtitle={t("app.special.modals.onboarding.pick")}>
+            <Row gap="sm">
+              {t("app.special.modals.onboarding.welcome")} <Logo />
+            </Row>
+          </FlowTitle>
 
-      <Form onSubmit={login}>
-        <Fields fields={["email", "password"]} />
-        <Row align justify="center">
-          <a href="..">
-            <Button variant="plain">
-              <MdArrowBack {...iconSize("1.2em")} /> Back
-            </Button>
-          </a>
-          <Button type="submit">{t("login.title")}</Button>
-        </Row>
-      </Form>
-
-      <a href="https://app.revolt.chat/login/reset" target="_blank">
-        {/* <Link href="../reset"> */}
-        {t("login.reset")}
-        {/* </Link> */}
-      </a>
-      <a href="https://app.revolt.chat/login/resend" target="_blank">
-        {/* <Link href="../resend"> */}
-        {t("login.resend")}
-        {/* </Link> */}
-      </a>
-
-      {/*<Show when={clientController.getReadyClients().length > 0}>
-        <Switch fallback={<Navigate href="/" />}>
-          <Match when={state.experiments.isEnabled("account_switcher")}>
-            <AccountSwitcher>
-              <FlowTitle>Use existing account</FlowTitle>
-              <For each={clientController.getReadyClients()}>
-                {(client) => (
-                  <CategoryButton
-                    icon={<Avatar src={client.user!.avatarURL} size={32} />}
-                    action="chevron"
-                    onClick={() => {
-                      clientController.switchAccount(client.user!._id);
-                      navigate("/app");
-                    }}
-                  >
-                    {client.user!.username}
-                  </CategoryButton>
-                )}
-              </For>
-            </AccountSwitcher>
-          </Match>
-        </Switch>
-                  </Show>*/}
+          <Form onSubmit={select}>
+            <Fields fields={["username"]} />
+            <Row align justify="center">
+              <Button
+                variant="plain"
+                onClick={() =>
+                  clientController.lifecycle.transition({
+                    type: TransitionType.Cancel,
+                  })
+                }
+              >
+                <MdArrowBack {...iconSize("1.2em")} /> Cancel
+              </Button>
+              <Button type="submit">
+                {t("app.special.modals.actions.confirm")}
+              </Button>
+            </Row>
+          </Form>
+        </Match>
+      </Switch>
     </>
   );
 }

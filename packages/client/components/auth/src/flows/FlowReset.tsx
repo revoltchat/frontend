@@ -40,7 +40,7 @@ export default function FlowReset() {
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
       <Typography variant="legacy-settings-description">
-        <a href="..">{t("login.remembered")}</a>
+        <a href="/login/auth">{t("login.remembered")}</a>
       </Typography>
       {import.meta.env.DEV && (
         <div

@@ -10,8 +10,12 @@ import wave from "./wave.svg";
  * Container for authentication page flows
  */
 export const FlowBase = styled(Column)`
-  background: ${(props) =>
-    props.theme!.colours["messaging-message-box-background"]};
+  background: ${
+    (props) =>
+      props.theme!.colours[
+        "messaging-message-box-background"
+      ] /* TODO: change and in other places */
+  };
   color: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
 
   /* background-color: rgba(36, 36, 36, 0.75);

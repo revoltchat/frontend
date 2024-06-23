@@ -66,7 +66,7 @@ export default function FlowVerify() {
         mfa_ticket: v.mfa_ticket,
       });
 
-      navigate("/", { replace: true });
+      navigate("/login/auth", { replace: true });
     }
   }
 
@@ -86,7 +86,7 @@ export default function FlowVerify() {
           )}
         </Typography>
         <Typography variant="legacy-settings-description">
-          <a href="../..">{t("login.remembered")}</a>
+          <a href="/login/auth">{t("login.remembered")}</a>
         </Typography>
       </Match>
       <Match when={state().state === "success"}>
@@ -95,7 +95,7 @@ export default function FlowVerify() {
           <Button onClick={login}>{t("login.verified_continue")}</Button>
         </Show>
         <Typography variant="legacy-settings-description">
-          <a href="../..">{t("login.remembered")}</a>
+          <a href="/login/auth">{t("login.remembered")}</a>
         </Typography>
       </Match>
     </Switch>

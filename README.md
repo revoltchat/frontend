@@ -89,12 +89,12 @@ You can now deploy the directory `packages/client/dist`.
 
 The app currently needs the following routes:
 
+- `/login`
+- `/pwa`
+- `/dev`
+- `/settings`
+- `/friends`
 - `/server`
 - `/channel`
-- `/dev`
-- `/friends`
-- `/app`
-- `/pwa`
-- `/settings`
 
-This corresponds to [Content.tsx#L33](packages/client/src/interface/Content.tsx).
+This corresponds to [Content.tsx#L33](packages/client/src/index.tsx).

@@ -9,6 +9,7 @@ export type Session = {
   _id: string;
   token: string;
   userId: string;
+  valid: boolean;
 };
 
 export type TypeAuth = {
@@ -39,6 +40,7 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
         _id: CONFIGURATION.DEVELOPMENT_SESSION_ID ?? "0",
         token: CONFIGURATION.DEVELOPMENT_TOKEN,
         userId: CONFIGURATION.DEVELOPMENT_USER_ID,
+        valid: true,
       });
     }
 
@@ -70,12 +72,14 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
       if (
         typeof input.session._id === "string" &&
         typeof input.session.token === "string" &&
-        typeof input.session.userId === "string"
+        typeof input.session.userId === "string" &&
+        input.session.valid
       ) {
         session = {
           _id: input.session._id,
           token: input.session.token,
           userId: input.session.userId,
+          valid: true,
         };
       }
     }
@@ -106,5 +110,15 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
    */
   removeSession() {
     this.set("session", undefined!);
+  }
+
+  /**
+   * Mark current session as valid
+   */
+  markValid() {
+    const session = this.get().session;
+    if (session && !session.valid) {
+      this.set("session", "valid", true);
+    }
   }
 }
