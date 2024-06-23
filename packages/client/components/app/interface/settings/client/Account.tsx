@@ -1,8 +1,16 @@
-import { Accessor, Match, Show, Switch, createSignal, onMount } from "solid-js";
+import {
+  Accessor,
+  Match,
+  Show,
+  Switch,
+  createMemo,
+  createSignal,
+  onMount,
+} from "solid-js";
 
 import { MFA } from "revolt.js/src/classes/MFA";
 
-import { useClient } from "@revolt/client";
+import { clientController, useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import {
@@ -377,6 +385,13 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
 function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
   const theme = useTheme();
   const t = useTranslation();
+  const client = useClient();
+
+  const stillOwnServers = createMemo(
+    () =>
+      client().servers.filter((server) => server.owner?.self || false).length >
+      0
+  );
 
   /**
    * Disable account
@@ -386,9 +401,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
     getController("modal")
       .mfaFlow(mfa)
       .then((ticket) =>
-        ticket!.disableAccount().then(() => {
-          /** TODO: log out logic */
-        })
+        ticket!.disableAccount().then(() => clientController.logout())
       );
   }
 
@@ -400,9 +413,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
     getController("modal")
       .mfaFlow(mfa)
       .then((ticket) =>
-        ticket!.deleteAccount().then(() => {
-          /** TODO: log out logic */
-        })
+        ticket!.deleteAccount().then(() => clientController.logout())
       );
   }
 
@@ -415,20 +426,24 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
         icon={
           <MdBlock {...iconSize(22)} fill={theme!.customColours.error.color} />
         }
-        description="Disable your account. You won't be able to access it unless you contact support."
+        description={t("app.settings.pages.account.manage.disable_description")}
       >
         {t("app.settings.pages.account.manage.disable")}
       </CategoryButton>
       <CategoryButton
-        action="chevron"
-        disabled={!props.mfa()}
+        action={stillOwnServers() ? undefined : "chevron"}
+        disabled={!props.mfa() || stillOwnServers()}
         onClick={deleteAccount}
         icon={
           <MdDelete {...iconSize(22)} fill={theme!.customColours.error.color} />
         }
-        description="Your account will be queued for deletion, a confirmation email will be sent."
+        description={t("app.settings.pages.account.manage.delete_description")}
       >
-        {t("app.settings.pages.account.manage.delete")}
+        {t(
+          stillOwnServers()
+            ? "app.settings.pages.account.manage.delete_still_own_servers"
+            : "app.settings.pages.account.manage.delete"
+        )}
       </CategoryButton>
     </CategoryButtonGroup>
   );
