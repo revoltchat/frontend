@@ -112,7 +112,6 @@ type ContainerProps = Pick<Props, "transparent" | "maxWidth" | "maxHeight"> & {
  * Component that wraps all of the actual modal content
  */
 const Container = styled.div<ContainerProps>`
-  min-height: 200px;
   width: ${(props) => (props.maxWidth ? "100%" : "unset")};
   max-width: min(calc(100vw - 20px), ${(props) => props.maxWidth ?? "450px"});
   max-height: min(calc(100vh - 20px), ${(props) => props.maxHeight ?? "650px"});
@@ -212,7 +211,9 @@ export function Modal(props: Props) {
                     </Show>
                   </Title>
                 </Show>
-                <Content>{props.children}</Content>
+                <Show when={props.children}>
+                  <Content>{props.children}</Content>
+                </Show>
                 <Show when={showActions()}>
                   <Actions>
                     <For
