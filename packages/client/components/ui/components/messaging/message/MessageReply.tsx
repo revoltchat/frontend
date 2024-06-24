@@ -110,7 +110,7 @@ export function MessageReply(props: Props) {
               </Typography>
             </ColouredText>
           </NonBreakingText>
-          <a href={props.message!.id}>
+          <a href={props.message!.path}>
             <Show when={props.message!.attachments}>
               <NonBreakingText>
                 <Attachments>
