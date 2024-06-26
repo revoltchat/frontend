@@ -12,7 +12,7 @@ import { MFA } from "revolt.js/src/classes/MFA";
 
 import { clientController, useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
+import { dayjs, useTranslation } from "@revolt/i18n";
 import {
   Avatar,
   CategoryButton,
@@ -36,6 +36,8 @@ import MdLock from "@material-design-icons/svg/outlined/lock.svg?component-solid
 import MdMail from "@material-design-icons/svg/outlined/mail.svg?component-solid";
 import MdPassword from "@material-design-icons/svg/outlined/password.svg?component-solid";
 import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.svg?component-solid";
+
+import { useSettingsNavigation } from "../Settings";
 
 /**
  * Account Page
@@ -61,6 +63,7 @@ export default function MyAccount() {
  */
 function UserInformation() {
   const client = useClient();
+  const { navigate } = useSettingsNavigation();
 
   return (
     <CategoryButtonGroup>
@@ -76,18 +79,29 @@ function UserInformation() {
                 </div>
               </div>
             </ProfileDetails>
-            <div class="button">
+            <a class="button" onClick={() => navigate("profile")}>
               <MdEdit {...iconSize(22)} />
-            </div>
+            </a>
           </div>
           <BadgeContainer>
+            {/* <ProfileBadges>
+              <MdDraw {...iconSize(20)} />
+              <MdDraw {...iconSize(20)} />
+              <MdDraw {...iconSize(20)} />
+            </ProfileBadges> */}
             <ProfileBadges>
-              <MdDraw {...iconSize(20)} />
-              <MdDraw {...iconSize(20)} />
-              <MdDraw {...iconSize(20)} />
-            </ProfileBadges>
-            <ProfileBadges>
-              <MdCakeFill {...iconSize(18)} />
+              <span
+                use:floating={{
+                  tooltip: {
+                    placement: "top",
+                    content: dayjs(client().user!.createdAt).format(
+                      "[Account created] Do MMMM YYYY [at] HH:mm"
+                    ),
+                  },
+                }}
+              >
+                <MdCakeFill {...iconSize(18)} />
+              </span>
             </ProfileBadges>
           </BadgeContainer>
         </div>
@@ -156,6 +170,7 @@ const AccountBox = styled(Row)`
 
   /** this should be its own thing */
   .button {
+    cursor: pointer;
     width: 42px;
     height: 42px;
     display: flex;
