@@ -1,12 +1,3 @@
-import {
-  BiRegularMoney,
-  BiSolidCog,
-  BiSolidCompass,
-  BiSolidHome,
-  BiSolidMegaphone,
-  BiSolidPlusCircle,
-  BiSolidRightArrowCircle,
-} from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
 
 import { cva } from "styled-system/css";
@@ -21,8 +12,17 @@ import {
   Column,
   Header,
   Typography,
+  iconSize,
   styled,
 } from "@revolt/ui";
+
+import MdAddCircle from "@material-design-icons/svg/filled/add_circle.svg?component-solid";
+import MdExplore from "@material-design-icons/svg/filled/explore.svg?component-solid";
+import MdGroups3 from "@material-design-icons/svg/filled/groups_3.svg?component-solid";
+import MdHome from "@material-design-icons/svg/filled/home.svg?component-solid";
+import MdPayments from "@material-design-icons/svg/filled/payments.svg?component-solid";
+import MdRateReview from "@material-design-icons/svg/filled/rate_review.svg?component-solid";
+import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
 
 import RevoltSvg from "../../public/assets/wordmark_wide_500px.svg?component-solid";
 
@@ -112,7 +112,7 @@ export function HomePage() {
     <Base>
       <Header placement="primary">
         <HeaderIcon>
-          <BiSolidHome size={24} />
+          <MdHome {...iconSize(22)} />
         </HeaderIcon>
         Home
       </Header>
@@ -133,7 +133,7 @@ export function HomePage() {
                 })
               }
               description={t("app.home.group_desc")}
-              icon={<BiSolidPlusCircle size={24} />}
+              icon={<MdAddCircle />}
             >
               {t("app.home.group")}
             </CategoryButton>
@@ -142,7 +142,7 @@ export function HomePage() {
                 <CategoryButton
                   onClick={() => navigate("/server/01F7ZSBSFHQ8TA81725KQCSDDP")}
                   description={t("app.home.goto-testers_desc")}
-                  icon={<BiSolidRightArrowCircle size={24} />}
+                  icon={<MdGroups3 />}
                 >
                   {t("app.home.goto-testers")}
                 </CategoryButton>
@@ -150,7 +150,7 @@ export function HomePage() {
               <Match when={showLoungeButton && !isInLounge}>
                 <CategoryButton
                   description={t("app.home.join-testers_desc")}
-                  icon={<BiSolidRightArrowCircle size={24} />}
+                  icon={<MdGroups3 />}
                 >
                   {t("app.home.join-testers")}
                 </CategoryButton>
@@ -161,7 +161,7 @@ export function HomePage() {
                 window.open("https://insrt.uk/donate?utm_source=revoltapp")
               }
               description={t("app.home.donate_desc")}
-              icon={<BiRegularMoney size={24} />}
+              icon={<MdPayments />}
             >
               {t("app.home.donate")}
             </CategoryButton>
@@ -171,14 +171,14 @@ export function HomePage() {
               <CategoryButton
                 onClick={() => navigate("/discover")}
                 description={t("app.home.discover_desc")}
-                icon={<BiSolidCompass size={24} />}
+                icon={<MdExplore />}
               >
                 {t("app.home.discover")}
               </CategoryButton>
             </Show>
             <CategoryButton
               description={t("app.home.feedback_desc")}
-              icon={<BiSolidMegaphone size={24} />}
+              icon={<MdRateReview {...iconSize(22)} />}
             >
               {t("app.home.feedback")}
             </CategoryButton>
@@ -187,14 +187,14 @@ export function HomePage() {
                 modalController.push({ type: "settings", config: "user" })
               }
               description={t("app.home.settings-tooltip")}
-              icon={<BiSolidCog size={24} />}
+              icon={<MdSettings />}
             >
               {t("app.home.settings")}
             </CategoryButton>
           </SeparatedColumn>
         </Buttons>
         <Show when={IS_DEV}>
-          <Button onClick={() => navigate("/dev")}>
+          <Button onPress={() => navigate("/dev")}>
             Open Development Page
           </Button>
         </Show>

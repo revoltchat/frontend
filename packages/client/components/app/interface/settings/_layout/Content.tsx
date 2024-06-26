@@ -1,9 +1,10 @@
-import { BiRegularX } from "solid-icons/bi";
 import { Accessor, JSX, Show } from "solid-js";
 
 import { cva } from "styled-system/css";
 
-import { Breadcrumbs, Column, Typography, styled } from "@revolt/ui";
+import { Breadcrumbs, Column, Typography, iconSize, styled } from "@revolt/ui";
+
+import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
 import { useSettingsNavigation } from "../Settings";
 
@@ -43,7 +44,7 @@ export function SettingsContent(props: {
       <Show when={props.onClose}>
         <CloseAction>
           <CloseAnchor onClick={props.onClose}>
-            <BiRegularX size={28} color="unset" />
+            <MdClose {...iconSize(28)} />
           </CloseAnchor>
         </CloseAction>
       </Show>

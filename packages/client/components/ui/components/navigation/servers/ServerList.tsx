@@ -1,4 +1,3 @@
-import { BiRegularPlus, BiSolidCog, BiSolidMegaphone } from "solid-icons/bi";
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { JSX } from "solid-js";
 import { styled as styledLegacy } from "solid-styled-components";
@@ -10,9 +9,11 @@ import { styled } from "styled-system/jsx";
 import { KeybindAction } from "@revolt/keybinds";
 import { useNavigate } from "@revolt/routing";
 
-import MdHome from "@material-design-icons/svg/outlined/home.svg?component-solid";
+import MdAdd from "@material-design-icons/svg/filled/add.svg?component-solid";
+import MdExplore from "@material-design-icons/svg/filled/explore.svg?component-solid";
+import MdHome from "@material-design-icons/svg/filled/home.svg?component-solid";
+import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
 
-import { iconSize } from "../../..";
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Column, Typography } from "../../design";
@@ -137,7 +138,7 @@ export const ServerList = (props: Props) => {
             </PositionSwoosh>
           </Show> */}
           <a href="/">
-            <Avatar size={42} fallback={<MdHome {...iconSize(16)} />} />
+            <Avatar size={42} fallback={<MdHome />} />
           </a>
         </EntryContainer>
         <Tooltip
@@ -245,39 +246,23 @@ export const ServerList = (props: Props) => {
         <Tooltip placement="right" content={"Create or join a server"}>
           <EntryContainer>
             <a onClick={() => props.onCreateOrJoinServer()}>
-              <Avatar
-                size={42}
-                fallback={
-                  /*<MdPlus {...iconSize("24px")} />*/ <BiRegularPlus
-                    size={20}
-                  />
-                }
-              />
+              <Avatar size={42} fallback={<MdAdd />} />
             </a>
+          </EntryContainer>
+        </Tooltip>
+        <Tooltip placement="right" content={"Find new servers to join"}>
+          <EntryContainer>
+            <Avatar size={42} fallback={<MdExplore />} />
           </EntryContainer>
         </Tooltip>
       </div>
       <Shadow>
         <div />
       </Shadow>
-      <Tooltip placement="right" content="Give Feedback">
-        <EntryContainer>
-          <a
-            href="https://github.com/revoltchat/frontend/issues"
-            target="_blank"
-          >
-            <Avatar
-              size={42}
-              fallback={<BiSolidMegaphone size={18} />}
-              interactive
-            />
-          </a>
-        </EntryContainer>
-      </Tooltip>
       <Tooltip placement="right" content="Settings">
         <EntryContainer>
           <a href="/settings">
-            <Avatar size={42} fallback={<BiSolidCog size={18} />} interactive />
+            <Avatar size={42} fallback={<MdSettings />} interactive />
           </a>
         </EntryContainer>
       </Tooltip>
