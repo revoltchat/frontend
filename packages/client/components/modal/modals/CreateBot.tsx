@@ -23,11 +23,11 @@ const CreateBot: PropGenerator<"create_bot"> = (props) => {
       },
     },
     callback: async ({ name }) => {
-      // TODO: bot API in revolt.js
-      /*const { bot } = await props.client.bots
-        .create({ name })
-        .catch(mapAndRethrowError);*/
-      // props.onCreate(bot);
+      const bot = await props.client.bots
+        .createBot(name)
+        .catch(mapAndRethrowError);
+
+      props.onCreate(bot);
     },
     submit: {
       children: t("app.special.modals.actions.create"),

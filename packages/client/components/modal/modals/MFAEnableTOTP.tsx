@@ -72,8 +72,8 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
               backgroundColor="white"
               foregroundColor="black"
               level="medium"
-              height={240}
-              width={240}
+              height={140}
+              width={140}
               backgroundAlpha={1}
               foregroundAlpha={1}
             />

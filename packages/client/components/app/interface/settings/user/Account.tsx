@@ -8,9 +8,8 @@ import {
   onMount,
 } from "solid-js";
 
-import { MFA } from "revolt.js/src/classes/MFA";
-
 import { clientController, useClient } from "@revolt/client";
+import { createMfaResource } from "@revolt/client/resources";
 import { getController } from "@revolt/common";
 import { dayjs, useTranslation } from "@revolt/i18n";
 import {
@@ -39,148 +38,24 @@ import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.sv
 
 import { useSettingsNavigation } from "../Settings";
 
+import { UserSummary } from "./account";
+
 /**
  * Account Page
  */
 export default function MyAccount() {
   const client = useClient();
-
-  const [mfa, setMfa] = createSignal<MFA>();
-  onMount(() => client().account.mfa().then(setMfa));
-
-  return (
-    <Column gap="lg">
-      <UserInformation />
-      <EditAccount />
-      <MultiFactorAuth mfa={mfa} />
-      <ManageAccount mfa={mfa} />
-    </Column>
-  );
-}
-
-/**
- * User Information
- */
-function UserInformation() {
-  const client = useClient();
   const { navigate } = useSettingsNavigation();
 
   return (
-    <CategoryButtonGroup>
-      <AccountBox align gap="lg">
-        <div class="column">
-          <div class="row">
-            <ProfileDetails>
-              <Avatar src={client().user!.animatedAvatarURL} size={58} />
-              <div class="usernameDetails">
-                {client().user!.displayName}
-                <div class="username">
-                  {client().user!.username}#{client().user!.discriminator}
-                </div>
-              </div>
-            </ProfileDetails>
-            <a class="button" onClick={() => navigate("profile")}>
-              <MdEdit {...iconSize(22)} />
-            </a>
-          </div>
-          <BadgeContainer>
-            {/* <ProfileBadges>
-              <MdDraw {...iconSize(20)} />
-              <MdDraw {...iconSize(20)} />
-              <MdDraw {...iconSize(20)} />
-            </ProfileBadges> */}
-            <ProfileBadges>
-              <span
-                use:floating={{
-                  tooltip: {
-                    placement: "top",
-                    content: dayjs(client().user!.createdAt).format(
-                      "[Account created] Do MMMM YYYY [at] HH:mm"
-                    ),
-                  },
-                }}
-              >
-                <MdCakeFill {...iconSize(18)} />
-              </span>
-            </ProfileBadges>
-          </BadgeContainer>
-        </div>
-      </AccountBox>
-    </CategoryButtonGroup>
+    <Column gap="lg">
+      <UserSummary user={client().user!} onEdit={() => navigate("profile")} />
+      <EditAccount />
+      <MultiFactorAuth />
+      <ManageAccount />
+    </Column>
   );
 }
-
-const ProfileDetails = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  flex-grow: 1;
-
-  .usernameDetails {
-    font-size: 18px;
-    font-weight: 600;
-
-    .username {
-      font-size: 14px;
-      font-weight: 400;
-    }
-  }
-`;
-
-const BadgeContainer = styled.div`
-  display: flex;
-  margin-inline-start: 73px;
-  gap: 8px;
-`;
-
-const ProfileBadges = styled.div`
-  border-radius: 8px;
-  width: fit-content;
-  padding: 4px 5px;
-  gap: 5px;
-  display: flex;
-
-  background: ${(props) => props.theme!.colours["settings-background"]};
-`;
-
-/**
- * Styles for the account box
- * TODO: classes need to be refactored out
- */
-const AccountBox = styled(Row)`
-  padding: 13px;
-  /* TODO: fetch profile for account page? or load profile eagerly */
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.7)
-    ),
-    url("https://autumn.revolt.chat/backgrounds/PA-U1R3u-iw72V-WH0C9aDN1rBTbnm-sKNR8YN4RL8?width=1000");
-  color: ${(props) => props.theme!.colours["foreground"]};
-
-  .column {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .row {
-    display: flex;
-    align-items: center;
-  }
-
-  /** this should be its own thing */
-  .button {
-    cursor: pointer;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
-    background: ${(props) => props.theme!.colours["component-fab-background"]};
-    fill: ${(props) => props.theme!.colours["component-fab-foreground"]};
-  }
-`;
 
 /**
  * Edit account details
@@ -252,21 +127,21 @@ function EditAccount() {
 /**
  * Multi-factor authentication
  */
-function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
+function MultiFactorAuth() {
   const client = useClient();
+  const mfa = createMfaResource();
 
   /**
    * Show recovery codes
    */
   async function showRecoveryCodes() {
-    const mfa = props.mfa()!;
     const modals = getController("modal");
-    const ticket = await modals.mfaFlow(mfa);
+    const ticket = await modals.mfaFlow(mfa.data!);
 
     ticket!.fetchRecoveryCodes().then((codes) =>
       getController("modal").push({
         type: "mfa_recovery",
-        mfa,
+        mfa: mfa.data!,
         codes,
       })
     );
@@ -276,14 +151,13 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
    * Generate recovery codes
    */
   async function generateRecoveryCodes() {
-    const mfa = props.mfa()!;
     const modals = getController("modal");
-    const ticket = await modals.mfaFlow(mfa);
+    const ticket = await modals.mfaFlow(mfa.data!);
 
     ticket!.generateRecoveryCodes().then((codes) =>
       getController("modal").push({
         type: "mfa_recovery",
-        mfa,
+        mfa: mfa.data!,
         codes,
       })
     );
@@ -293,9 +167,8 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
    * Configure authenticator app
    */
   async function setupAuthenticatorApp() {
-    const mfa = props.mfa()!;
     const modals = getController("modal");
-    const ticket = await modals.mfaFlow(mfa);
+    const ticket = await modals.mfaFlow(mfa.data!);
     const secret = await ticket!.generateAuthenticatorSecret();
 
     let success;
@@ -307,7 +180,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
         );
 
         if (code) {
-          await mfa.enableAuthenticator(code);
+          await mfa.data!.enableAuthenticator(code);
           success = true;
         }
       } catch (err) {
@@ -321,7 +194,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
    */
   function disableAuthenticatorApp() {
     getController("modal")
-      .mfaFlow(props.mfa()!)
+      .mfaFlow(mfa.data!)
       .then((ticket) => ticket!.disableAuthenticator());
   }
 
@@ -336,7 +209,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
           fallback={
             <CategoryButton
               icon="blank"
-              disabled={!props.mfa()}
+              disabled={mfa.isLoading}
               onClick={generateRecoveryCodes}
               description="Setup recovery codes"
             >
@@ -344,7 +217,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
             </CategoryButton>
           }
         >
-          <Match when={props.mfa()?.recoveryEnabled}>
+          <Match when={!mfa.isLoading && mfa.data?.recoveryEnabled}>
             <CategoryButton
               icon="blank"
               description="Get active recovery codes"
@@ -371,7 +244,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
           fallback={
             <CategoryButton
               icon="blank"
-              disabled={!props.mfa()}
+              disabled={mfa.isLoading}
               onClick={setupAuthenticatorApp}
               description="Setup one-time password authenticator"
             >
@@ -379,7 +252,7 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
             </CategoryButton>
           }
         >
-          <Match when={props.mfa()?.authenticatorEnabled}>
+          <Match when={!mfa.isLoading && mfa.data?.authenticatorEnabled}>
             <CategoryButton
               icon="blank"
               description="Disable one-time password authenticator"
@@ -397,10 +270,11 @@ function MultiFactorAuth(props: { mfa: Accessor<MFA | undefined> }) {
 /**
  * Manage account
  */
-function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
+function ManageAccount() {
   const theme = useTheme();
   const t = useTranslation();
   const client = useClient();
+  const mfa = createMfaResource();
 
   const stillOwnServers = createMemo(
     () =>
@@ -412,9 +286,8 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
    * Disable account
    */
   function disableAccount() {
-    const mfa = props.mfa()!;
     getController("modal")
-      .mfaFlow(mfa)
+      .mfaFlow(mfa.data!)
       .then((ticket) =>
         ticket!.disableAccount().then(() => clientController.logout())
       );
@@ -424,9 +297,8 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
    * Delete account
    */
   function deleteAccount() {
-    const mfa = props.mfa()!;
     getController("modal")
-      .mfaFlow(mfa)
+      .mfaFlow(mfa.data!)
       .then((ticket) =>
         ticket!.deleteAccount().then(() => clientController.logout())
       );
@@ -436,7 +308,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
     <CategoryButtonGroup>
       <CategoryButton
         action="chevron"
-        disabled={!props.mfa()}
+        disabled={mfa.isLoading}
         onClick={disableAccount}
         icon={
           <MdBlock {...iconSize(22)} fill={theme!.customColours.error.color} />
@@ -447,7 +319,7 @@ function ManageAccount(props: { mfa: Accessor<MFA | undefined> }) {
       </CategoryButton>
       <CategoryButton
         action={stillOwnServers() ? undefined : "chevron"}
-        disabled={!props.mfa() || stillOwnServers()}
+        disabled={mfa.isLoading || stillOwnServers()}
         onClick={deleteAccount}
         icon={
           <MdDelete {...iconSize(22)} fill={theme!.customColours.error.color} />

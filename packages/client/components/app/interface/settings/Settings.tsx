@@ -1,4 +1,10 @@
-import { createContext, createSignal, untrack, useContext } from "solid-js";
+import {
+  Accessor,
+  createContext,
+  createSignal,
+  untrack,
+  useContext,
+} from "solid-js";
 
 import { Motion, Presence } from "@motionone/solid";
 import { Rerun } from "@solid-primitives/keyed";
@@ -28,6 +34,7 @@ export type SettingsTransition = "normal" | "to-child" | "to-parent";
  * Provide navigation to child components
  */
 const SettingsNavigationContext = createContext<{
+  page: Accessor<string | undefined>;
   navigate: (path: string | SettingsEntry) => void;
 }>();
 
@@ -73,6 +80,7 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
   return (
     <SettingsNavigationContext.Provider
       value={{
+        page,
         navigate,
       }}
     >

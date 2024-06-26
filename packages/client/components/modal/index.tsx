@@ -1,7 +1,7 @@
 import { For } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
-import type { MFA, MFATicket } from "revolt.js/src/classes/MFA.js";
+import type { MFA, MFATicket } from "revolt.js";
 
 import { registerController } from "@revolt/common";
 

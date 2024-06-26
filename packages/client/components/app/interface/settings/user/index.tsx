@@ -50,7 +50,6 @@ import { SettingsConfiguration } from "..";
 import accessibility from "./Accessibility";
 import account from "./Account";
 import appearance from "./Appearance";
-import bots from "./Bots";
 import experiments from "./Experiments";
 import feedback from "./Feedback";
 import keybinds from "./Keybinds";
@@ -60,6 +59,45 @@ import notifications from "./Notifications";
 import sessions from "./Sessions";
 import sync from "./Sync";
 import { AccountCard } from "./_AccountCard";
+import { MyBots, ViewBot } from "./bots";
+
+/**
+ * All the available routes for client settings
+ */
+const ClientSettingsRouting: Record<string, Component> = {
+  account,
+  profile: () => null,
+  sessions,
+
+  // Bots
+  bots: MyBots,
+  "bots/view": ViewBot,
+
+  feedback,
+  audio: () => null,
+  appearance,
+  "appearance/colours": () => <ColourSwatches />,
+  accessibility,
+  notifications,
+  language,
+  sync,
+  native,
+  experiments,
+  keybinds,
+};
+
+/**
+ * Map the page key to component
+ * @param id Id
+ * @returns New Id
+ */
+function mapRoutingId(id: string) {
+  if (id.startsWith("bots/")) {
+    return "bots/view";
+  }
+
+  return id;
+}
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -90,7 +128,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
     // eslint-disable-next-line solid/components-return-once
     if (!id) return null;
 
-    const Component = ClientSettingsRouting[id];
+    const Component = ClientSettingsRouting[mapRoutingId(id)];
     return (
       <Show when={Component}>
         <Component />
@@ -253,24 +291,3 @@ const Config: SettingsConfiguration<{ server: Server }> = {
 };
 
 export default Config;
-
-/**
- * All the available routes for client settings
- */
-const ClientSettingsRouting: Record<string, Component> = {
-  account,
-  profile: () => null,
-  sessions,
-  bots,
-  feedback,
-  audio: () => null,
-  appearance,
-  "appearance/colours": () => <ColourSwatches />,
-  accessibility,
-  notifications,
-  language,
-  sync,
-  native,
-  experiments,
-  keybinds,
-};

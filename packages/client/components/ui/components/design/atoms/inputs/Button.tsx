@@ -84,6 +84,11 @@ const button = cva({
         width: "38px",
         height: "38px",
       },
+      fab: {
+        width: "42px",
+        height: "42px",
+        borderRadius: "var(--borderRadius-xl)",
+      },
       fluid: {
         borderRadius: "var(--borderRadius-md)",
       },
@@ -96,9 +101,10 @@ const button = cva({
 });
 
 export function Button(
-  props: Parameters<typeof button>[0] &
-    AriaButtonProps &
-    JSX.DirectiveAttributes
+  props: Omit<
+    Parameters<typeof button>[0] & AriaButtonProps & JSX.DirectiveAttributes,
+    "onClick"
+  >
 ) {
   const [style, rest] = splitProps(props, ["size", "variant"]);
   let ref: HTMLButtonElement | undefined;
