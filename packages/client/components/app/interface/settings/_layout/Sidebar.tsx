@@ -57,7 +57,13 @@ export function SettingsSidebar(props: {
                       <For each={category.entries}>
                         {(entry) => (
                           <Show when={!entry.hidden}>
-                            <SidebarButton onClick={() => navigate(entry)}>
+                            <SidebarButton
+                              onClick={() => navigate(entry)}
+                              aria-selected={
+                                props.page()?.split("/")[0] ===
+                                entry.id?.split("/")[0]
+                              }
+                            >
                               <SidebarButtonTitle>
                                 {entry.icon}
                                 <SidebarButtonContent>

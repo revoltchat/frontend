@@ -16,11 +16,14 @@ import {
 export function AccountCard() {
   const client = useClient();
   const t = useTranslation();
-  const { navigate } = useSettingsNavigation();
+  const { page, navigate } = useSettingsNavigation();
   // const theme = useTheme();
 
   return (
-    <SidebarButton onClick={() => navigate("account")}>
+    <SidebarButton
+      onClick={() => navigate("account")}
+      aria-selected={page() === "account"}
+    >
       <SidebarButtonTitle>
         <Avatar size={36} src={client().user!.animatedAvatarURL} />
         <SidebarButtonContent>
