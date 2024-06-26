@@ -7,6 +7,7 @@ import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
 import { Navigate, Route, Router } from "@solidjs/router";
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { appWindow } from "@tauri-apps/api/window";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
@@ -82,31 +83,35 @@ function SettingsRedirect() {
   return <PWARedirect />;
 }
 
+const client = new QueryClient();
+
 function MountContext(props: { children?: JSX.Element }) {
   return (
-    <Hydrate>
-      <Masks />
-      <I18nContext.Provider value={i18n}>
-        <MountTheme>
-          <ProvideDirectives>
-            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-              <Show when={window.__TAURI__}>
-                <Titlebar
-                  isBuildDev={import.meta.env.DEV}
-                  onMinimize={() => appWindow.minimize()}
-                  onMaximize={() => appWindow.toggleMaximize()}
-                  onClose={() => appWindow.hide()}
-                />
-              </Show>
-              {props.children}
-            </KeybindsProvider>
-            <ModalRenderer />
-            <FloatingManager />
-            <ApplyGlobalStyles />
-          </ProvideDirectives>
-        </MountTheme>
-      </I18nContext.Provider>
-    </Hydrate>
+    <QueryClientProvider client={client}>
+      <Hydrate>
+        <Masks />
+        <I18nContext.Provider value={i18n}>
+          <MountTheme>
+            <ProvideDirectives>
+              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+                <Show when={window.__TAURI__}>
+                  <Titlebar
+                    isBuildDev={import.meta.env.DEV}
+                    onMinimize={() => appWindow.minimize()}
+                    onMaximize={() => appWindow.toggleMaximize()}
+                    onClose={() => appWindow.hide()}
+                  />
+                </Show>
+                {props.children}
+              </KeybindsProvider>
+              <ModalRenderer />
+              <FloatingManager />
+              <ApplyGlobalStyles />
+            </ProvideDirectives>
+          </MountTheme>
+        </I18nContext.Provider>
+      </Hydrate>
+    </QueryClientProvider>
   );
 }
 
