@@ -14,7 +14,7 @@ const SettingsModal: PropGenerator<"settings"> = ({
   config: configKey,
   context,
 }) => {
-  const config = SettingsConfigurations[configKey ?? "client"];
+  const config = SettingsConfigurations[configKey];
 
   return {
     _children: (props) => {

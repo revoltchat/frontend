@@ -78,7 +78,7 @@ function PWARedirect() {
  * Open settings and redirect to last active path
  */
 function SettingsRedirect() {
-  onMount(() => modalController.push({ type: "settings", config: "client" }));
+  onMount(() => modalController.push({ type: "settings", config: "user" }));
   return <PWARedirect />;
 }
 

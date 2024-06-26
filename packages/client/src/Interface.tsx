@@ -26,7 +26,7 @@ const Interface = (props: { children: JSX.Element }) => {
         e.preventDefault();
         modalController.push({
           type: "settings",
-          config: "client",
+          config: "user",
         });
       } else if (typeof e.to === "string") {
         state.layout.setLastActivePath(e.to);
