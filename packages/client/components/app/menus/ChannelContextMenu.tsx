@@ -10,6 +10,7 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 import MdGroupAdd from "@material-design-icons/svg/outlined/group_add.svg?component-solid";
 import MdLibraryAdd from "@material-design-icons/svg/outlined/library_add.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
+import MdMarkChatRead from "@material-design-icons/svg/outlined/mark_chat_read.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/outlined/settings.svg?component-solid";
 import MdShare from "@material-design-icons/svg/outlined/share.svg?component-solid";
 import MdShield from "@material-design-icons/svg/outlined/shield.svg?component-solid";
@@ -25,6 +26,13 @@ import {
  */
 export function ChannelContextMenu(props: { channel: Channel }) {
   const t = useTranslation();
+
+  /**
+   * Mark channel as read
+   */
+  function markAsRead() {
+    props.channel.ack();
+  }
 
   /**
    * Create a new invite
@@ -97,10 +105,21 @@ export function ChannelContextMenu(props: { channel: Channel }) {
 
   return (
     <ContextMenu>
-      <Show when={props.channel.havePermission("InviteOthers")}>
-        <ContextMenuButton icon={MdGroupAdd} onClick={createInvite}>
-          {t("app.context_menu.create_invite")}
-        </ContextMenuButton>
+      <Show
+        when={
+          props.channel.unread || props.channel.havePermission("InviteOthers")
+        }
+      >
+        <Show when={props.channel.unread}>
+          <ContextMenuButton icon={MdMarkChatRead} onClick={markAsRead}>
+            {t("app.context_menu.mark_as_read")}
+          </ContextMenuButton>
+        </Show>
+        <Show when={props.channel.havePermission("InviteOthers")}>
+          <ContextMenuButton icon={MdGroupAdd} onClick={createInvite}>
+            {t("app.context_menu.create_invite")}
+          </ContextMenuButton>
+        </Show>
         <ContextMenuDivider />
       </Show>
 
