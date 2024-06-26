@@ -2,9 +2,9 @@
 
 This repository contains the code for Revolt's frontend, built with Solid.js.
 
-You can find the code style guidelines [here](./GUIDELINES.md).
-
 ## Development Guide
+
+Before contributing, make yourself familiar with [our contribution guidelines](https://developers.revolt.chat/contrib.html), the [code style guidelines](./GUIDELINES.md), and the [technical documentation for this project](https://revoltchat.github.io/frontend/).
 
 Before getting started, you'll want to install:
 
