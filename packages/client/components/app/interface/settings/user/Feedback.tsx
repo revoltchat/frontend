@@ -1,13 +1,17 @@
+import { useTranslation } from "@revolt/i18n";
 import {
-  BiLogosGithub,
-  BiLogosTrello,
-} from "solid-icons/bi";
-import MdFormatListNumbered from "@material-design-icons/svg/outlined/format_list_numbered.svg?component-solid";
+  CategoryButton,
+  CategoryButtonGroup,
+  Column,
+  iconSize,
+  styled,
+} from "@revolt/ui";
+
 import MdBugReport from "@material-design-icons/svg/outlined/bug_report.svg?component-solid";
 import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
-
-import { useTranslation } from "@revolt/i18n";
-import { CategoryButton, CategoryButtonGroup, styled, iconSize, Column } from "@revolt/ui";
+import MdFormatListNumbered from "@material-design-icons/svg/outlined/format_list_numbered.svg?component-solid";
+import MdStar from "@material-design-icons/svg/outlined/star_outline.svg?component-solid";
+import MdViewKanban from "@material-design-icons/svg/outlined/view_kanban.svg?component-solid";
 
 /**
  * Feedback
@@ -18,10 +22,13 @@ export default function Feedback() {
   return (
     <Column gap="lg">
       <CategoryButtonGroup>
-        <Link href="https://trello.com/b/4e2O7tge/roadmap" target="_blank">
+        <Link
+          href="https://github.com/orgs/revoltchat/projects/6/views/4"
+          target="_blank"
+        >
           <CategoryButton
             action="external"
-            icon={<BiLogosTrello size={22} />}
+            icon={<MdViewKanban {...iconSize(22)} />}
             onClick={() => void 0}
             description="See what we're currently working on."
           >
@@ -34,7 +41,7 @@ export default function Feedback() {
         >
           <CategoryButton
             action="external"
-            icon={<BiLogosGithub size={22} />}
+            icon={<MdStar {...iconSize(22)} />}
             onClick={() => void 0}
             description={t("app.settings.pages.feedback.suggest_desc")}
           >
@@ -67,7 +74,6 @@ export default function Feedback() {
             {t("app.settings.pages.feedback.bug")}
           </CategoryButton>
         </Link>
-
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton

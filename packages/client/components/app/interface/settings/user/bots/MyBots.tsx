@@ -1,15 +1,4 @@
-import {
-  ErrorBoundary,
-  For,
-  Match,
-  Show,
-  Suspense,
-  Switch,
-  createSignal,
-  onMount,
-} from "solid-js";
-
-import { Bot } from "revolt.js";
+import { ErrorBoundary, For, Suspense } from "solid-js";
 
 import { useClient } from "@revolt/client";
 import { createOwnBotsResource } from "@revolt/client/resources";
@@ -91,12 +80,18 @@ function ListBots() {
           <For each={bots.data}>
             {(bot) => (
               <CategoryButton
-                icon={<Avatar src={bot.user!.animatedAvatarURL} size={24} />}
-                description={bot.id}
+                icon={
+                  <Avatar
+                    src={bot.user!.animatedAvatarURL}
+                    size={24}
+                    fallback={bot.user!.displayName}
+                  />
+                }
                 onClick={() => navigate(`bots/${bot.id}`)}
                 action="chevron"
+                // description={bot.id}
               >
-                {bot.user!.username}
+                {bot.user!.displayName}
               </CategoryButton>
             )}
           </For>
