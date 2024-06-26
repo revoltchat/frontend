@@ -36,6 +36,10 @@ export type Modals =
       client: Client;
     }
   | {
+      type: "edit_display_name";
+      user: User;
+    }
+  | {
       type: "rename_session";
       session: Session;
     }

@@ -23,6 +23,7 @@ import delete_bot from "./DeleteBot";
 import delete_channel from "./DeleteChannel";
 import delete_message from "./DeleteMessage";
 import delete_server from "./DeleteServer";
+import edit_display_name from "./EditDisplayName";
 import edit_email from "./EditEmail";
 import edit_keybind from "./EditKeybind";
 import edit_password from "./EditPassword";
@@ -63,6 +64,7 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   delete_channel,
   delete_message,
   delete_server,
+  edit_display_name,
   edit_email,
   edit_password,
   edit_username,
