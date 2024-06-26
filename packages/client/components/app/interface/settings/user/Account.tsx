@@ -9,7 +9,10 @@ import {
 } from "solid-js";
 
 import { clientController, useClient } from "@revolt/client";
-import { createMfaResource } from "@revolt/client/resources";
+import {
+  createMfaResource,
+  createOwnProfileResource,
+} from "@revolt/client/resources";
 import { getController } from "@revolt/common";
 import { dayjs, useTranslation } from "@revolt/i18n";
 import {
@@ -45,11 +48,17 @@ import { UserSummary } from "./account";
  */
 export default function MyAccount() {
   const client = useClient();
+  const profile = createOwnProfileResource();
   const { navigate } = useSettingsNavigation();
 
   return (
     <Column gap="lg">
-      <UserSummary user={client().user!} onEdit={() => navigate("profile")} />
+      <UserSummary
+        user={client().user!}
+        bannerUrl={profile.data?.animatedBannerURL}
+        onEdit={() => navigate("profile")}
+        showBadges
+      />
       <EditAccount />
       <MultiFactorAuth />
       <ManageAccount />

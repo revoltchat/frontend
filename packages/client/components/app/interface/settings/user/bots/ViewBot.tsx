@@ -1,7 +1,5 @@
 import { ErrorBoundary, Suspense } from "solid-js";
 
-import { createQuery } from "@tanstack/solid-query";
-
 import { useClient } from "@revolt/client";
 import { createProfileResource } from "@revolt/client/resources";
 import { Column } from "@revolt/ui";
@@ -21,7 +19,7 @@ export function ViewBot() {
 
   return (
     <Column gap="lg">
-      <UserSummary user={bot().user!} />
+      <UserSummary user={bot().user!} showBadges />
       <ErrorBoundary fallback={<>Failed to load profile</>}>
         <Suspense fallback={<>loading...</>}>{profile.data?.content}</Suspense>
       </ErrorBoundary>

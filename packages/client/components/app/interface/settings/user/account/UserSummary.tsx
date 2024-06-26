@@ -1,7 +1,8 @@
-import { Show } from "solid-js";
+import { Accessor, Show } from "solid-js";
 
 import dayjs from "dayjs";
 import { User } from "revolt.js";
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Avatar, Button, CategoryButtonGroup, iconSize } from "@revolt/ui";
@@ -9,10 +10,24 @@ import { Avatar, Button, CategoryButtonGroup, iconSize } from "@revolt/ui";
 import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
 import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
 
-export function UserSummary(props: { user: User; onEdit?: () => void }) {
+export function UserSummary(props: {
+  user: User;
+  showBadges?: boolean;
+  bannerUrl?: string;
+  onEdit?: () => void;
+}) {
+  const bannerStyle = () =>
+    props.bannerUrl
+      ? {
+          "background-image": `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("${props.bannerUrl}")`,
+        }
+      : {
+          background: `var(--colours-settings-background)`,
+        };
+
   return (
     <CategoryButtonGroup>
-      <AccountBox>
+      <AccountBox style={bannerStyle()}>
         <ProfileDetails>
           <Avatar src={props.user.animatedAvatarURL} size={58} />
           <Username>
@@ -27,65 +42,30 @@ export function UserSummary(props: { user: User; onEdit?: () => void }) {
             </Button>
           </Show>
         </ProfileDetails>
-        <BottomBar>
-          <DummyPadding />
-          {/* <ProfileBadges>
+        <Show when={props.showBadges}>
+          <BottomBar>
+            <DummyPadding />
+            {/* <ProfileBadges>
               <MdDraw {...iconSize(20)} />
               <MdDraw {...iconSize(20)} />
               <MdDraw {...iconSize(20)} />
             </ProfileBadges> */}
-          <ProfileBadges>
-            <span
-              use:floating={{
-                tooltip: {
-                  placement: "top",
-                  content: dayjs(props.user.createdAt).format(
-                    "[Account created] Do MMMM YYYY [at] HH:mm"
-                  ),
-                },
-              }}
-            >
-              <MdCakeFill {...iconSize(18)} />
-            </span>
-          </ProfileBadges>
-        </BottomBar>
-
-        {/* <div class="column">
-        <div class="row">
-          <ProfileDetails>
-            <div class="usernameDetails">
-              {client().user!.displayName}
-              <div class="username">
-                {client().user!.username}#{client().user!.discriminator}
-              </div>
-            </div>
-          </ProfileDetails>
-          <a class="button" onClick={() => navigate("profile")}>
-            <MdEdit {...iconSize(22)} />
-          </a>
-        </div>
-        <BadgeContainer>
-          {/* <ProfileBadges>
-        <MdDraw {...iconSize(20)} />
-        <MdDraw {...iconSize(20)} />
-        <MdDraw {...iconSize(20)} />
-      </ProfileBadges> 
-          <ProfileBadges>
-            <span
-              use:floating={{
-                tooltip: {
-                  placement: "top",
-                  content: dayjs(client().user!.createdAt).format(
-                    "[Account created] Do MMMM YYYY [at] HH:mm"
-                  ),
-                },
-              }}
-            >
-              <MdCakeFill {...iconSize(18)} />
-            </span>
-          </ProfileBadges>
-        </BadgeContainer>
-      </div> */}
+            <ProfileBadges>
+              <span
+                use:floating={{
+                  tooltip: {
+                    placement: "top",
+                    content: dayjs(props.user.createdAt).format(
+                      "[Account created] Do MMMM YYYY [at] HH:mm"
+                    ),
+                  },
+                }}
+              >
+                <MdCakeFill {...iconSize(18)} />
+              </span>
+            </ProfileBadges>
+          </BottomBar>
+        </Show>
       </AccountBox>
     </CategoryButtonGroup>
   );
@@ -96,8 +76,7 @@ const AccountBox = styled("div", {
     display: "flex",
     padding: "var(--gap-lg)",
     flexDirection: "column",
-
-    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://autumn.revolt.chat/backgrounds/PA-U1R3u-iw72V-WH0C9aDN1rBTbnm-sKNR8YN4RL8?width=1000");`,
+    backgroundPosition: "center",
   },
 });
 
