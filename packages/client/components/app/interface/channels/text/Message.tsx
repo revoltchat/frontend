@@ -26,6 +26,7 @@ import {
 
 import MdCloud from "@material-design-icons/svg/filled/cloud.svg?component-solid";
 import MdLink from "@material-design-icons/svg/filled/link.svg?component-solid";
+import MdNotificationsOff from "@material-design-icons/svg/filled/notifications_off.svg?component-solid";
 import MdShield from "@material-design-icons/svg/filled/shield.svg?component-solid";
 import MdSmartToy from "@material-design-icons/svg/filled/smart_toy.svg?component-solid";
 import MdSpa from "@material-design-icons/svg/filled/spa.svg?component-solid";
@@ -164,6 +165,16 @@ export function Message(props: Props) {
           <Match when={props.message.webhook}>
             <Tooltip content={t("app.main.channel.webhook")} placement="top">
               <MdCloud {...iconSize(16)} />
+            </Tooltip>
+          </Match>
+          <Match when={props.message.webhook}>
+            <Tooltip content={t("app.main.channel.webhook")} placement="top">
+              <MdCloud {...iconSize(16)} />
+            </Tooltip>
+          </Match>
+          <Match when={props.message.isSuppressed}>
+            <Tooltip content={"Silent" /* TODO: i18n */} placement="top">
+              <MdNotificationsOff {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match
