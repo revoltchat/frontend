@@ -29,7 +29,7 @@ export function AccountCard() {
         <SidebarButtonContent>
           <OverflowingText>
             <Typography variant="settings-account-card-title">
-              {client().user!.username}
+              {client().user!.displayName}
             </Typography>
           </OverflowingText>
           <Typography variant="settings-account-card-subtitle">
