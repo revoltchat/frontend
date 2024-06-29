@@ -30,6 +30,12 @@ export const paragraph = styled("p", {
   },
 });
 
+export const emphasis = styled("em", {
+  base: {
+    fontStyle: "italic",
+  },
+});
+
 export const heading1 = styled("h1", {
   base: {
     fontSize: "2em",

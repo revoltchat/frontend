@@ -61,6 +61,7 @@ const components = () => ({
 
   a: RenderAnchor,
   p: elements.paragraph,
+  em: elements.emphasis,
   h1: elements.heading1,
   h2: elements.heading2,
   h3: elements.heading3,
