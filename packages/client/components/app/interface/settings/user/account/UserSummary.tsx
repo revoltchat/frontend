@@ -76,6 +76,8 @@ const AccountBox = styled("div", {
     display: "flex",
     padding: "var(--gap-lg)",
     flexDirection: "column",
+
+    backgroundSize: "cover",
     backgroundPosition: "center",
   },
 });
