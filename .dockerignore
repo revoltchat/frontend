@@ -1,0 +1,16 @@
+dist
+node_modules
+.env
+.env.local
+
+Dockerfile
+.dockerignore
+default.nix
+LICENSE
+NOTES
+*.md
+
+.git
+.gitignore
+.vscode
+.github
