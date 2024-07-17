@@ -8,6 +8,8 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm build:deps
 RUN pnpm build:web:prod
 
+# this server handles 404s weird, but idk if we wanna use a 2nd caddy server in the stack?
+# invalid paths should just redirect back to /
 FROM halverneus/static-file-server
 COPY --from=build /build/packages/client/node_modules /app/node_modules
 COPY --from=build /build/packages/client/dist /app
