@@ -32,7 +32,7 @@ pnpm build:deps
 # pnpm --filter revolt.js run build
 
 # Optionally copy the .env file
-cp ./packages/client/.env.example .env
+cp ./packages/client/.env.example ./packages/client/.env
 
 # run dev server
 pnpm dev:web
