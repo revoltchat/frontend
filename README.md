@@ -40,22 +40,6 @@ pnpm dev:web
 
 Finally, navigate to http://local.revolt.chat:5173.
 
-### Pulling in Revolt's assets
-
-If you want to pull in Revolt brand assets after pulling, run the following:
-
-```bash
-# update the assets
-git -c submodule."packages/client/assets".update=checkout submodule update --init packages/client/assets
-```
-
-You can switch back to the fallback assets by running deinit and continuing as normal:
-
-```bash
-# deinit submodule which clears directory
-git submodule deinit packages/client/assets
-```
-
 ### Faster iteration with Revolt.js
 
 To make it easier to work with `revolt.js`, you may want to temporarily make this change:
