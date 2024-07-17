@@ -31,6 +31,9 @@ pnpm build:deps
 # or build a specific dep (e.g. revolt.js updates):
 # pnpm --filter revolt.js run build
 
+# Optionally copy the .env file
+cp ./packages/client/.env.example .env
+
 # run dev server
 pnpm dev:web
 ```
