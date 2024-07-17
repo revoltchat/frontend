@@ -31,27 +31,14 @@ pnpm build:deps
 # or build a specific dep (e.g. revolt.js updates):
 # pnpm --filter revolt.js run build
 
+# Optionally copy the .env file
+cp ./packages/client/.env.example .env
+
 # run dev server
 pnpm dev:web
 ```
 
 Finally, navigate to http://local.revolt.chat:5173.
-
-### Pulling in Revolt's assets
-
-If you want to pull in Revolt brand assets after pulling, run the following:
-
-```bash
-# update the assets
-git -c submodule."packages/client/assets".update=checkout submodule update --init packages/client/assets
-```
-
-You can switch back to the fallback assets by running deinit and continuing as normal:
-
-```bash
-# deinit submodule which clears directory
-git submodule deinit packages/client/assets
-```
 
 ### Faster iteration with Revolt.js
 
@@ -66,26 +53,24 @@ To make it easier to work with `revolt.js`, you may want to temporarily make thi
 Any edits to the revolt.js codebase will immediately be reflected while developing.
 
 ## Deployment Guide
-
-### Build the app
-
 ```bash
+# clone the repository
+git clone --recursive https://github.com/revoltchat/frontend client
+cd client
+
 # install packages
 pnpm i
 
 # build dependencies
 pnpm build:deps
 
-# build for web
-pnpm build:web
-
-# ... when building for Revolt production, use this instead of :web
+# build web in production mode
 pnpm build:web:prod
 ```
 
 You can now deploy the directory `packages/client/dist`.
 
-### Routing Information
+## Routing Information
 
 The app currently needs the following routes:
 
