@@ -80,7 +80,7 @@ pnpm build:deps
 pnpm build:web
 
 # ... when building for Revolt production, use this instead of :web
-pnpm build:prod
+pnpm build:web:prod
 ```
 
 You can now deploy the directory `packages/client/dist`.
