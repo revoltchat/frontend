@@ -53,26 +53,24 @@ To make it easier to work with `revolt.js`, you may want to temporarily make thi
 Any edits to the revolt.js codebase will immediately be reflected while developing.
 
 ## Deployment Guide
-
-### Build the app
-
 ```bash
+# clone the repository
+git clone --recursive https://github.com/revoltchat/frontend client
+cd client
+
 # install packages
 pnpm i
 
 # build dependencies
 pnpm build:deps
 
-# build for web
-pnpm build:web
-
-# ... when building for Revolt production, use this instead of :web
+# build web in production mode
 pnpm build:web:prod
 ```
 
 You can now deploy the directory `packages/client/dist`.
 
-### Routing Information
+## Routing Information
 
 The app currently needs the following routes:
 
