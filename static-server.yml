@@ -1,5 +1,0 @@
-cors: false
-debug: false
-folder: /app
-port: 8080
-show-listing: true
