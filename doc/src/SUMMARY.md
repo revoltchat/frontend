@@ -1,6 +1,7 @@
 # Summary
 
 - [Introduction](./hello.md)
+- [Feature Matrix](./feature-matrix.md)
 - [Project Structure]()
 - [User Interface]()
   - [Navigation]()
