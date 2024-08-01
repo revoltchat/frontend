@@ -16,7 +16,7 @@ import {
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
-import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
+import RevoltSvg from "../../../../public/assets/wide.svg?component-solid";
 import { clientController } from "../../../client";
 
 import { FlowTitle } from "./Flow";
