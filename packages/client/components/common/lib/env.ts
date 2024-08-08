@@ -18,14 +18,14 @@ export default {
    */
   DEFAULT_MEDIA_URL:
     (import.meta.env.DEV ? import.meta.env.VITE_DEV_WS_URL : undefined) ??
-    (import.meta.env.VITE_WS_URL as string) ??
+    (import.meta.env.VITE_MEDIA_URL as string) ??
     "https://autumn.revolt.chat",
   /**
    * What proxy server to connect to by default.
    */
   DEFAULT_PROXY_URL:
     (import.meta.env.DEV ? import.meta.env.VITE_DEV_WS_URL : undefined) ??
-    (import.meta.env.VITE_WS_URL as string) ??
+    (import.meta.env.VITE_PROXY_URL as string) ??
     "https://jan.revolt.chat",
   /**
    * hCaptcha site key to use if enabled
