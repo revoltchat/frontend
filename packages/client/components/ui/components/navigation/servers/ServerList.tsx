@@ -137,7 +137,7 @@ export const ServerList = (props: Props) => {
               <Swoosh topItem />
             </PositionSwoosh>
           </Show> */}
-          <a href="/">
+          <a href="/app">
             <Avatar size={42} fallback={<MdHome />} />
           </a>
         </EntryContainer>
