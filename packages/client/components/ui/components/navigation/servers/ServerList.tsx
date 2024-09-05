@@ -137,7 +137,7 @@ export const ServerList = (props: Props) => {
               <Swoosh topItem />
             </PositionSwoosh>
           </Show> */}
-          <a href="/">
+          <a href="/app">
             <Avatar size={42} fallback={<MdHome />} />
           </a>
         </EntryContainer>
@@ -152,7 +152,8 @@ export const ServerList = (props: Props) => {
           aria={props.user.username}
         >
           <EntryContainer>
-            <a href="/">
+            {/* TODO: Make this open user status context menu */}
+            <a href="/app">
               <Avatar
                 size={42}
                 src={props.user.avatarURL}
