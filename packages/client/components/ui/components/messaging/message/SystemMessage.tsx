@@ -6,6 +6,7 @@ import {
   ChannelOwnershipChangeSystemMessage,
   ChannelRenamedSystemMessage,
   SystemMessage as SystemMessageClass,
+  TextSystemMessage,
   User,
   UserModeratedSystemMessage,
   UserSystemMessage,
@@ -154,6 +155,9 @@ export function SystemMessage(props: Props) {
                 (props.systemMessage as ChannelOwnershipChangeSystemMessage).to
               }
             />
+          </Match>
+          <Match when={props.systemMessage.type === "text"}>
+            {(props.systemMessage as TextSystemMessage).content}
           </Match>
         </Switch>
       </Typography>
