@@ -1,6 +1,17 @@
-# Revolt Frontend
-
-This repository contains the code for Revolt's frontend, built with Solid.js.
+<div align="center">
+<h1>
+  Revolt Frontend
+  
+  [![Stars](https://img.shields.io/github/stars/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/stargazers)
+  [![Forks](https://img.shields.io/github/forks/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/network/members)
+  [![Pull Requests](https://img.shields.io/github/issues-pr/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/pulls)
+  [![Issues](https://img.shields.io/github/issues/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/issues)
+  [![Contributors](https://img.shields.io/github/contributors/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/graphs/contributors)
+  [![License](https://img.shields.io/github/license/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/blob/main/LICENSE)
+</h1>
+The official web client powering https://revolt.chat/app, built with <a href="https://www.solidjs.com/">Solid.js</a> 💖.
+</div>
+<br/>
 
 ## Development Guide
 
