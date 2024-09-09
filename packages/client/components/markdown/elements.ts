@@ -79,19 +79,21 @@ export const heading6 = styled("h6", {
 });
 
 export const listItem = styled("li", {
-  base: {
-    listStyleType: "disc",
-
-    "& li": {
-      listStyleType: "circle",
-    },
-  },
+  base: {},
 });
 
 export const unorderedList = styled("ul", {
   base: {
     listStylePosition: "outside",
     paddingLeft: "1.5em",
+
+    "& li": {
+      listStyleType: "disc",
+    },
+
+    "& li li": {
+      listStyleType: "circle",
+    },
   },
 });
 
@@ -99,6 +101,8 @@ export const orderedList = styled("ol", {
   base: {
     listStylePosition: "outside",
     paddingLeft: "1.5em",
+
+    listStyleType: "decimal",
   },
 });
 

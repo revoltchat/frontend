@@ -14,7 +14,7 @@ import MdTag from "@material-design-icons/svg/outlined/tag.svg?component-solid";
 
 const link = cva({
   base: {
-    color: "blue",
+    color: "#0088ce !important",
   },
 });
 
