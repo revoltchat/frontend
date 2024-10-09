@@ -5,9 +5,9 @@ import { useTranslation } from "@revolt/i18n";
 import { Navigate } from "@revolt/routing";
 import { Button, Column, styled } from "@revolt/ui";
 
-import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
+// import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
 
-const Logo = styled(RevoltSvg)`
+const Logo = styled('div')`
   width: 100%;
   object-fit: contain;
   fill: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};

@@ -23,12 +23,12 @@ import MdHome from "@material-design-icons/svg/filled/home.svg?component-solid";
 import MdPayments from "@material-design-icons/svg/filled/payments.svg?component-solid";
 import MdRateReview from "@material-design-icons/svg/filled/rate_review.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
-
-import RevoltSvg from "../../public/assets/wordmark_wide_500px.svg?component-solid";
+//
+// import RevoltSvg from "../../public/assets/wordmark_wide_500px.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
 
-const Logo = styled(RevoltSvg)`
+const Logo = styled('div')`
   width: 240px;
   fill: ${(props) => props.theme!.colours["foreground"]};
 `;
