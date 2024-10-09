@@ -1,4 +1,4 @@
-import { Accessor, JSX, onCleanup } from "solid-js";
+import { type Accessor, type JSX, onCleanup } from "solid-js";
 import { css, useTheme } from "solid-styled-components";
 
 /**
