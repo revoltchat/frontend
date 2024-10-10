@@ -1,57 +1,68 @@
 /**
  * Configure contexts and render App
  */
-import { JSX, Show, createEffect, createSignal, on, onMount, createResource, createMemo } from "solid-js";
-import { createStore } from "solid-js/store";
-import { render } from "solid-js/web";
+/* @refresh reload */
+import '@revolt/ui/styles';
+import './index.css';
+import './sentry';
+import 'solid-devtools';
 
-import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
-import { Navigate, Route, Router } from "@solidjs/router";
-import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { getCurrentWindow } from "@tauri-apps/api/window";
-
-import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
-import FlowConfirmReset from "@revolt/auth/src/flows/FlowConfirmReset";
-import FlowCreate from "@revolt/auth/src/flows/FlowCreate";
-import FlowHome from "@revolt/auth/src/flows/FlowHome";
-import FlowLogin from "@revolt/auth/src/flows/FlowLogin";
-import FlowResend from "@revolt/auth/src/flows/FlowResend";
-import FlowReset from "@revolt/auth/src/flows/FlowReset";
-import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
-import { ModalRenderer, modalController } from "@revolt/modal";
-import { Hydrate, state } from "@revolt/state";
+import FlowCheck from '@revolt/auth/src/flows/FlowCheck';
+import FlowConfirmReset from '@revolt/auth/src/flows/FlowConfirmReset';
+import FlowCreate from '@revolt/auth/src/flows/FlowCreate';
+import FlowHome from '@revolt/auth/src/flows/FlowHome';
+import FlowLogin from '@revolt/auth/src/flows/FlowLogin';
+import FlowResend from '@revolt/auth/src/flows/FlowResend';
+import FlowReset from '@revolt/auth/src/flows/FlowReset';
+import FlowVerify from '@revolt/auth/src/flows/FlowVerify';
+import {
+  dict,
+  fetchLanguage,
+  I18nContext,
+  language,
+  setLanguage,
+} from '@revolt/i18n';
+import { modalController, ModalRenderer } from '@revolt/modal';
+import { Hydrate, state } from '@revolt/state';
 import {
   ApplyGlobalStyles,
+  darkTheme,
   FloatingManager,
   KeybindsProvider,
   Masks,
   ProvideDirectives,
   ThemeProvider,
   Titlebar,
-  darkTheme,
-} from "@revolt/ui";
+} from '@revolt/ui';
+import * as i18n from '@solid-primitives/i18n';
+import { Navigate, Route, Router } from '@solidjs/router';
+import { QueryClient, QueryClientProvider } from '@tanstack/solid-query';
+import { isTauri } from '@tauri-apps/api/core';
+import { getCurrentWindow } from '@tauri-apps/api/window';
+import type { JSX } from 'solid-js';
+import {
+  createEffect,
+  createMemo,
+  createResource,
+  createSignal,
+  on,
+  onMount,
+  Show,
+} from 'solid-js';
+import { createStore } from 'solid-js/store';
+import { render } from 'solid-js/web';
 
-/* @refresh reload */
-import "@revolt/ui/styles";
-
-import AuthPage from "./Auth";
-import Interface from "./Interface";
-import "./index.css";
-import { DevelopmentPage } from "./interface/Development";
-import { Friends } from "./interface/Friends";
-import { HomePage } from "./interface/Home";
-import { ServerHome } from "./interface/ServerHome";
-import { ChannelPage } from "./interface/channels/ChannelPage";
-import "./sentry";
-import * as i18n from "@solid-primitives/i18n";
-import { dict, fetchLanguage, I18nContext, language, setLanguage } from "@revolt/i18n";
-import { isTauri } from "@tauri-apps/api/core";
-
-attachDevtoolsOverlay();
+import AuthPage from './Auth';
+import Interface from './Interface';
+import { ChannelPage } from './interface/channels/ChannelPage';
+import { DevelopmentPage } from './interface/Development';
+import { Friends } from './interface/Friends';
+import { HomePage } from './interface/Home';
+import { ServerHome } from './interface/ServerHome';
 
 /** TEMPORARY */
 function MountTheme(props: { children: any }) {
-  const [accent, setAccent] = createSignal("#FF5733");
+  const [accent, setAccent] = createSignal('#FF5733');
   const [darkMode, setDarkMode] = createSignal(false);
 
   (window as any)._demo_setAccent = setAccent;
@@ -81,7 +92,7 @@ function PWARedirect() {
  * Open settings and redirect to last active path
  */
 function SettingsRedirect() {
-  onMount(() => modalController.push({ type: "settings", config: "user" }));
+  onMount(() => modalController.push({ type: 'settings', config: 'user' }));
   return <PWARedirect />;
 }
 
@@ -128,29 +139,29 @@ function MountContext(props: { children?: JSX.Element }) {
 render(
   () => (
     <Router root={MountContext}>
-      <Route path="/login" component={AuthPage as never}>
-        <Route path="/check" component={FlowCheck} />
-        <Route path="/create" component={FlowCreate} />
-        <Route path="/auth" component={FlowLogin} />
-        <Route path="/resend" component={FlowResend} />
-        <Route path="/reset" component={FlowReset} />
-        <Route path="/verify/:token" component={FlowVerify} />
-        <Route path="/reset/:token" component={FlowConfirmReset} />
-        <Route path="/*" component={FlowHome} />
+      <Route path='/login' component={AuthPage as never}>
+        <Route path='/check' component={FlowCheck} />
+        <Route path='/create' component={FlowCreate} />
+        <Route path='/auth' component={FlowLogin} />
+        <Route path='/resend' component={FlowResend} />
+        <Route path='/reset' component={FlowReset} />
+        <Route path='/verify/:token' component={FlowVerify} />
+        <Route path='/reset/:token' component={FlowConfirmReset} />
+        <Route path='/*' component={FlowHome} />
       </Route>
-      <Route path="/" component={Interface as never}>
-        <Route path="/pwa" component={PWARedirect} />
-        <Route path="/dev" component={DevelopmentPage} />
-        <Route path="/settings" component={SettingsRedirect} />
-        <Route path="/friends" component={Friends} />
-        <Route path="/server/:server/*">
-          <Route path="/channel/:channel/*" component={ChannelPage} />
-          <Route path="/*" component={ServerHome} />
+      <Route path='/' component={Interface as never}>
+        <Route path='/pwa' component={PWARedirect} />
+        <Route path='/dev' component={DevelopmentPage} />
+        <Route path='/settings' component={SettingsRedirect} />
+        <Route path='/friends' component={Friends} />
+        <Route path='/server/:server/*'>
+          <Route path='/channel/:channel/*' component={ChannelPage} />
+          <Route path='/*' component={ServerHome} />
         </Route>
-        <Route path="/channel/:channel/*" component={ChannelPage} />
-        <Route path="/*" component={HomePage} />
+        <Route path='/channel/:channel/*' component={ChannelPage} />
+        <Route path='/*' component={HomePage} />
       </Route>
     </Router>
   ),
-  document.getElementById("root") as HTMLElement
+  document.getElementById('root') as HTMLElement
 );

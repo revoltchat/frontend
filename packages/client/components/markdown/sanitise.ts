@@ -48,7 +48,7 @@ export function sanitise(content: string) {
       // Replace empty lines with non-breaking space
       // because remark renderer is collapsing empty
       // or otherwise whitespace-only lines of text
-      .replace(RE_EMPTY_LINE, "\uF800\n")
+      .replace(RE_EMPTY_LINE, '\uF800\n')
 
       // Ensure empty line after blockquotes for correct rendering
       .replace(RE_BLOCKQUOTE, (match) => `${match}\n`)
@@ -66,11 +66,11 @@ export function remarkInsertBreaks() {
      * @returns Element
      */
     function recurse(element: any): any {
-      if (element.type === "text") {
-        if (element.value === "\uF800") {
+      if (element.type === 'text') {
+        if (element.value === '\uF800') {
           return {
-            type: "element",
-            tagName: "br",
+            type: 'element',
+            tagName: 'br',
             properties: {},
             children: [],
           };

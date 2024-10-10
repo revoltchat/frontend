@@ -1,11 +1,16 @@
-import { createContext, createSignal, useContext, useTransition } from "solid-js";
 import * as i18n from '@solid-primitives/i18n';
+import {
+  createContext,
+  createSignal,
+  useContext,
+  useTransition,
+} from 'solid-js';
 
-import { Language, Languages } from "./locales/Languages";
-import en from "./locales/en.json";
+import en from './locales/en.json';
+import { Language, Languages } from './locales/Languages';
 
-export { Language, Languages } from "./locales/Languages";
-export * from "./dayjs";
+export * from './dayjs';
+export { Language, Languages } from './locales/Languages';
 
 /**
  * Default dictionary object
@@ -20,14 +25,16 @@ export type Dictionary = i18n.Flatten<RawDictionary>;
 /**
  * Currently set language
  */
-const [language, _setLanguage] = createSignal<Language>("en" as Language);
+const [language, _setLanguage] = createSignal<Language>('en' as Language);
 export { language };
 
 /**
  * Use translation function as a hook
  */
 
-export const I18nContext = createContext(i18n.translator(() => i18n.flatten(dict.en), i18n.resolveTemplate))
+export const I18nContext = createContext(
+  i18n.translator(() => i18n.flatten(dict.en), i18n.resolveTemplate)
+);
 
 export const useTranslation = () => useContext(I18nContext);
 
@@ -36,8 +43,10 @@ const [duringI18nTransition, startI18nTransition] = useTransition();
 export { duringI18nTransition };
 
 export async function fetchLanguage(key: Language): Promise<Dictionary> {
-  const data = await import(`./locales/${Languages[key].i18n}.json`) as typeof dict.en;
-  return i18n.flatten(data)
+  const data = (await import(
+    `./locales/${Languages[key].i18n}.json`
+  )) as typeof dict.en;
+  return i18n.flatten(data);
 }
 
 /**
@@ -60,10 +69,10 @@ export function browserPreferredLanguage() {
   // matches first, otherwise check for partial matches
   return (
     navigator.languages
-      .map((lang) => languages.find((l) => l[0].replace(/_/g, "-") == lang))
+      .map((lang) => languages.find((l) => l[0].replace(/_/g, '-') == lang))
       .filter((lang) => lang)[0]?.[0] ??
     navigator.languages
-      .map((x) => x.split("-")[0])
+      .map((x) => x.split('-')[0])
       .map((lang) => languages.find((l) => l[0] == lang))
       .filter((lang) => lang)[0]?.[0] ??
     Language.ENGLISH
@@ -76,7 +85,7 @@ export function browserPreferredLanguage() {
 export const useQuantity = () => {
   const t = useTranslation();
   return (id: 'members' | 'dropFiles', count: number) =>
-    t(`quantities.${id}.${count > 1 ? "many" : "one"}`, {
+    t(`quantities.${id}.${count > 1 ? 'many' : 'one'}`, {
       count: count.toString(),
     });
 };
