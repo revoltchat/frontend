@@ -1,7 +1,7 @@
 /**
  * Configure contexts and render App
  */
-import { JSX, Show, createEffect, createSignal, on, onMount } from "solid-js";
+import { JSX, Show, createEffect, createSignal, on, onMount, lazy } from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
@@ -44,6 +44,7 @@ import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
+import { ConfirmDelete } from "./interface/ConfirmDelete";
 
 attachDevtoolsOverlay();
 
@@ -119,6 +120,7 @@ render(
   () => (
     <Router root={MountContext}>
       <Route path="/login" component={AuthPage as never}>
+        <Route path="/delete/:token" component={ConfirmDelete} />
         <Route path="/check" component={FlowCheck} />
         <Route path="/create" component={FlowCreate} />
         <Route path="/auth" component={FlowLogin} />
