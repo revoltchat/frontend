@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Revolt's front-end monorepo.",
   "scripts": {
-    "test": "pnpm --filter test-runner test",
+    "test": "pnpm test --filter=client",
     "test:coverage": "pnpm --filter test-runner coverage",
     "test:browser:install": "pnpm --filter browser-test-runner exec playwright install",
     "test:browser:regression": "pnpm --filter browser-test-runner exec playwright test regression",
