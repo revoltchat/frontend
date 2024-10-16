@@ -10,7 +10,6 @@ import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?componen
 
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
-
 /**
  * Authentication page layout
  */

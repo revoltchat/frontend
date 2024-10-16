@@ -1,4 +1,4 @@
-import { Accessor, JSX, createSignal, onCleanup } from "solid-js";
+import { type Accessor, type JSX, createSignal, onCleanup } from "solid-js";
 
 type Props = JSX.Directives["floating"] & object;
 

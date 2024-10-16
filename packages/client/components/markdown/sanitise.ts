@@ -1,5 +1,3 @@
-import { Root } from "hast";
-
 /**
  * Regex for matching execessive recursion of blockquotes and lists
  */
@@ -61,7 +59,7 @@ export function sanitise(content: string) {
  * Replace \uF800 with break elements
  */
 export function remarkInsertBreaks() {
-  return (tree: Root) => {
+  return (tree: import('hast').Root) => {
     /**
      * Process element and sub-tree
      * @param element Element

@@ -12,7 +12,7 @@ const directiveRegex = new RegExp("use:(" + DIRECTIVES.join("|") + ")");
 export default function codegenPlugin() {
   return {
     name: "codegen",
-    enforce: "pre",
+    enforce: "pre" as const,
     transform(src: string, id: string) {
       if (fileRegex.test(id)) {
         src = src.replace(codegenRegex, (substring, group1) => {

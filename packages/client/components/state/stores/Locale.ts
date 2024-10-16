@@ -2,7 +2,7 @@ import {
   Language,
   Languages,
   browserPreferredLanguage,
-  loadAndSetLanguage,
+  setLanguage,
 } from "@revolt/i18n";
 
 import { State } from "..";
@@ -32,7 +32,7 @@ export class Locale extends AbstractStore<"locale", TypeLocale> {
    * Hydrate external context
    */
   hydrate(): void {
-    loadAndSetLanguage(this.get().lang);
+    setLanguage(this.get().lang);
   }
 
   /**

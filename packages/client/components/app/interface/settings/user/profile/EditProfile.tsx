@@ -14,7 +14,7 @@ import {
 
 import MdGroups from "@material-design-icons/svg/outlined/groups.svg?component-solid";
 
-import { UserSummary } from "../account";
+import { UserSummary } from "../account/index";
 
 import { EditProfileButtons } from "./EditProfileButtons";
 

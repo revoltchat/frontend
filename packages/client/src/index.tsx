@@ -1,14 +1,14 @@
 /**
  * Configure contexts and render App
  */
-import { JSX, Show, createEffect, createSignal, on, onMount } from "solid-js";
+import { JSX, Show, createEffect, createSignal, on, onMount, createResource, createMemo } from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
 import { Navigate, Route, Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { appWindow } from "@tauri-apps/api/window";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
 import FlowConfirmReset from "@revolt/auth/src/flows/FlowConfirmReset";
@@ -18,7 +18,6 @@ import FlowLogin from "@revolt/auth/src/flows/FlowLogin";
 import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
-import i18n, { I18nContext } from "@revolt/i18n";
 import { ModalRenderer, modalController } from "@revolt/modal";
 import { Hydrate, state } from "@revolt/state";
 import {
@@ -44,6 +43,9 @@ import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
+import * as i18n from "@solid-primitives/i18n";
+import { dict, fetchLanguage, I18nContext, language, setLanguage } from "@revolt/i18n";
+import { isTauri } from "@tauri-apps/api/core";
 
 attachDevtoolsOverlay();
 
@@ -86,20 +88,28 @@ function SettingsRedirect() {
 const client = new QueryClient();
 
 function MountContext(props: { children?: JSX.Element }) {
+  const [dictionary] = createResource(language, fetchLanguage, {
+    initialValue: i18n.flatten(dict.en),
+  });
+
+  const t = createMemo(() => i18n.translator(dictionary, i18n.resolveTemplate));
+
+  const appWindow = isTauri() ? getCurrentWindow() : null;
+
   return (
-    <QueryClientProvider client={client}>
-      <Hydrate>
-        <Masks />
-        <I18nContext.Provider value={i18n}>
+    <I18nContext.Provider value={t()}>
+      <QueryClientProvider client={client}>
+        <Hydrate>
+          <Masks />
           <MountTheme>
             <ProvideDirectives>
               <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
                 <Show when={window.__TAURI__}>
                   <Titlebar
                     isBuildDev={import.meta.env.DEV}
-                    onMinimize={() => appWindow.minimize()}
-                    onMaximize={() => appWindow.toggleMaximize()}
-                    onClose={() => appWindow.hide()}
+                    onMinimize={() => appWindow?.minimize?.()}
+                    onMaximize={() => appWindow?.toggleMaximize?.()}
+                    onClose={() => appWindow?.hide?.()}
                   />
                 </Show>
                 {props.children}
@@ -109,9 +119,9 @@ function MountContext(props: { children?: JSX.Element }) {
               <ApplyGlobalStyles />
             </ProvideDirectives>
           </MountTheme>
-        </I18nContext.Provider>
-      </Hydrate>
-    </QueryClientProvider>
+        </Hydrate>
+      </QueryClientProvider>
+    </I18nContext.Provider>
   );
 }
 

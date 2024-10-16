@@ -4,7 +4,7 @@ import {
   Languages,
   browserPreferredLanguage,
   language,
-  loadAndSetLanguage,
+  setLanguage,
   useTranslation,
 } from "@revolt/i18n";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
@@ -101,7 +101,7 @@ function PickLanguage() {
           <CategoryButton
             icon={<UnicodeEmoji emoji={lang.emoji} />}
             action={<Checkbox value={id === language()} />}
-            onClick={() => loadAndSetLanguage(id as never)}
+            onClick={() => setLanguage(id as never)}
           >
             <Row>
               {lang.display}{" "}

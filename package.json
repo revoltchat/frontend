@@ -20,6 +20,9 @@
     "fmt:check": "prettier --check '**/*.{ts,tsx,json}'",
     "typecheck": "cd packages/client && pnpm run typecheck"
   },
+  "devDependencies": {
+    "eslint": "^8.49.0"
+  },
   "keywords": [],
   "engines": {
     "node": ">=16",

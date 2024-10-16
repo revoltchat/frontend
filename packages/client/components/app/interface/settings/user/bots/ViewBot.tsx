@@ -13,7 +13,7 @@ import MdPublic from "@material-design-icons/svg/outlined/public.svg?component-s
 import MdToken from "@material-design-icons/svg/outlined/token.svg?component-solid";
 
 import { useSettingsNavigation } from "../../Settings";
-import { UserSummary } from "../account";
+import { UserSummary } from "../account/index";
 import { EditProfileButtons } from "../profile/EditProfileButtons";
 
 /**
