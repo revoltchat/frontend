@@ -4,6 +4,7 @@ import { useParams } from "@solidjs/router";
 import { Modal, Preloader } from "@revolt/ui";
 import { styled } from "styled-system/jsx";
 import { BiRegularCheck } from "solid-icons/bi";
+import { useTranslation } from "@revolt/i18n";
 
 const Centre = styled('div', {
   base: {
@@ -12,7 +13,10 @@ const Centre = styled('div', {
   }
 });
 
+const i18nScope = 'app.settings.pages.account.delete';
+
 export function ConfirmDelete() {
+  const t = useTranslation();
   const params = useParams<{ token: string }>();
   const clientController = getController("client");
   const [deleted] = createResource<boolean | null>( async () => {
@@ -35,27 +39,27 @@ export function ConfirmDelete() {
   })
 
   const title = createMemo(() => {
-    if (deleted() === null) return "Deletion failed";
+    if (deleted() === null) return t(`${i18nScope}.error.title`);
 
-    return deleted() ? "Confirmed deletion" : "Please wait";
+    return deleted() ? t(`${i18nScope}.success.title`) : t(`${i18nScope}.loading.title`);
   });
 
   const description = createMemo(() => {
-    if (deleted() === null) return "There was an error with your request.";
+    if (deleted() === null) return t(`${i18nScope}.error.description`);
 
     if (deleted()) return (
       <>
-        Your account will be deleted in 7 days.
+        {t(`${i18nScope}.success.description.header`)}
         <br />
-        You may contact{" "}
+        {t(`${i18nScope}.success.description.paragraph_first`)}{" "}
         <a href="mailto:contact@revolt.chat">
-          Revolt support
+          {t(`${i18nScope}.success.description.support`)}
         </a>{" "}
-        to cancel the request if you wish.
+        {t(`${i18nScope}.success.description.paragraph_second`)}
       </>
     )
 
-    return "Contacting the server."
+    return t(`${i18nScope}.loading.description`)
   })
 
   return (
