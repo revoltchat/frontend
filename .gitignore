@@ -7,3 +7,5 @@ dist
 .env*
 !.env.example
 .vercel
+
+.idea
