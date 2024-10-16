@@ -16,13 +16,13 @@ import {
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
-// import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
+import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
 import { clientController } from "../../../client";
 
 import { FlowTitle } from "./Flow";
 import { Fields, Form } from "./Form";
 
-const Logo = styled('div', {
+const Logo = styled(RevoltSvg, {
   base: {
     height: "0.8em",
     display: "inline",
