@@ -2,17 +2,22 @@ import devtools from "@solid-devtools/transform";
 import { readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
+import Inspect from "vite-plugin-inspect";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
 // @ts-expect-error
 import solidSvg from "vite-plugin-solid-svg";
+
+import codegenPlugin from "./codegen.plugin";
 
 const base = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
   base,
   plugins: [
+    Inspect(),
     devtools(),
+    codegenPlugin(),
     solidPlugin(),
     solidSvg({
       defaultAsComponent: false,

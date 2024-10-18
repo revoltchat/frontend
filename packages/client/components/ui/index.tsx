@@ -1,6 +1,6 @@
 import { Component, createEffect } from "solid-js";
 import type { JSX } from "solid-js";
-import { DefaultTheme, useTheme } from "solid-styled-components";
+import { useTheme } from "solid-styled-components";
 import { DirectiveProvider } from "solid-styled-components";
 
 import { Placement } from "@floating-ui/dom";
@@ -15,7 +15,6 @@ import {
 } from "./directives";
 
 export * from "./components";
-export * from "./directives";
 export { darkTheme } from "./themes/darkTheme";
 
 export { ThemeProvider, styled, useTheme } from "solid-styled-components";
@@ -105,6 +104,11 @@ declare module "solid-js" {
         | true
         | {
             enable: boolean;
+
+            /**
+             * Pass-through class names
+             */
+            class?: string;
           };
       scrollable:
         | true
@@ -123,6 +127,21 @@ declare module "solid-js" {
              * Whether to only show scrollbar on hover
              */
             showOnHover?: boolean;
+
+            /**
+             * Pass-through class names
+             */
+            class?: string;
+
+            /**
+             * Set custom foreground on track
+             */
+            foreground?: string;
+
+            /**
+             * Set custom background on track
+             */
+            background?: string;
           };
       invisibleScrollable:
         | true
@@ -131,6 +150,11 @@ declare module "solid-js" {
              * Scroll direction
              */
             direction?: "x" | "y";
+
+            /**
+             * Pass-through class names
+             */
+            class?: string;
           };
       floating: {
         tooltip?: {

@@ -18,7 +18,7 @@ export interface CustomComponentProps {
  * @param regex Regex to match (must have one capture group)
  * @returns Unified Plugin
  */
-export function createComponent(
+export function createRegexComponent(
   type: string,
   regex: RegExp,
   validator?: (match: string) => boolean
@@ -28,6 +28,8 @@ export function createComponent(
    */
   return () => {
     return (tree) => {
+      console.info("the tree", tree);
+
       visit(
         tree,
         "text",
@@ -88,11 +90,22 @@ export function createComponent(
  * @param name Tag name
  * @returns Handler
  */
-export const passThroughRehype: (name: string) => Handler =
-  (name: string) => (h, node, c) => {
-    console.info(h, node, c);
-    return node;
+export const passThroughRehype: (name: string) => Handler = (name: string) => {
+  return (h, node, parent) => {
+    console.info("Build", h, node, parent);
+    return {
+      type: "element",
+      tagName: "spoiler",
+      children: [
+        {
+          type: "raw",
+          value: node.match,
+        },
+      ],
+      properties: {},
+    };
   };
+};
 //h(node, name, node);
 
 /**

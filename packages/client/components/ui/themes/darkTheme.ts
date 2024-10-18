@@ -236,6 +236,15 @@ export const darkTheme: (
       ),
       "component-context-menu-divider": materialColour("onSurface", 92),
       "component-context-menu-shadow": "#0004",
+      // Component: Key
+      "component-key-background": materialColour("secondary"),
+      "component-key-foreground": materialColour("onSecondary"),
+      // Component: Combo Box
+      "component-combo-focus": materialColour("primary"),
+      "component-combo-foreground": materialColour("onBackground"),
+      "component-combo-background": materialColour("background", 100),
+      // Component: Preloader
+      "preloader-foreground": materialColour("primary"),
 
       // Sidebar
       // TODO: figure this out
@@ -349,7 +358,8 @@ export const darkTheme: (
       "settings-background": materialColour("secondary", 96),
       "settings-foreground": materialColour("onSecondaryContainer"),
       "settings-content-background": materialColour("secondary", 92),
-      "settings-content-foreground": materialColour("onSecondary"),
+      "settings-content-foreground": materialColour("onSecondary", 20),
+      "settings-content-scroll-thumb": materialColour("secondary", 70),
       "settings-close-anchor": materialColour("primary"),
       "settings-close-anchor-hover": materialColour("onPrimary"),
       "settings-sidebar-category": materialColour("primary"),
@@ -555,6 +565,10 @@ export const darkTheme: (
       },
       ripple: {
         hover: 0.05,
+      },
+      invert: {
+        black: darkMode ? "invert(100%)" : "invert(0%)",
+        white: darkMode ? "invert(0%)" : "invert(100%)",
       },
       muted: "brightness(0)", // DEPRECATE
       hover: "brightness(0)", // DEPRECATE

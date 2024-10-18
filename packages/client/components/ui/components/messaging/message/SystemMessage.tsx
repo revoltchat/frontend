@@ -6,15 +6,13 @@ import {
   ChannelOwnershipChangeSystemMessage,
   ChannelRenamedSystemMessage,
   SystemMessage as SystemMessageClass,
+  TextSystemMessage,
   User,
   UserModeratedSystemMessage,
   UserSystemMessage,
 } from "revolt.js";
 
-import { floating } from "../../../directives";
 import { Typography } from "../../design";
-
-floating;
 
 interface Props {
   /**
@@ -157,6 +155,9 @@ export function SystemMessage(props: Props) {
                 (props.systemMessage as ChannelOwnershipChangeSystemMessage).to
               }
             />
+          </Match>
+          <Match when={props.systemMessage.type === "text"}>
+            {(props.systemMessage as TextSystemMessage).content}
           </Match>
         </Switch>
       </Typography>

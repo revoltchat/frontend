@@ -58,7 +58,6 @@ const Base = styled.div`
     div {
       width: 8px;
       height: 68px;
-      background: linear-gradient(to right, var(--unset-fg), transparent);
     }
   }
 `;

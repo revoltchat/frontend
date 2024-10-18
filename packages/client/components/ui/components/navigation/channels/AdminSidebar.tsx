@@ -1,11 +1,8 @@
-import { scrollable } from "../../../directives";
 import { MenuButton } from "../../design";
 import { Typography } from "../../design/atoms/display/Typography";
 import { Column } from "../../design/layout";
 
 import { SidebarBase } from "./common";
-
-scrollable;
 
 interface Props {
   /**

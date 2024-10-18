@@ -1,22 +1,20 @@
 import { Show } from "solid-js";
 
-import { Channel, Server } from "revolt.js";
+import { Server } from "revolt.js";
 
 import { getController } from "@revolt/common";
+import { useTranslation } from "@revolt/i18n";
 
-import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
-import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 import MdLibraryAdd from "@material-design-icons/svg/outlined/library_add.svg?component-solid";
-import MdShield from "@material-design-icons/svg/outlined/shield.svg?component-solid";
 
 import { ContextMenu, ContextMenuButton } from "./ContextMenu";
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for server sidebar
  */
 export function ServerSidebarContextMenu(props: { server: Server }) {
+  const t = useTranslation();
+
   /**
    * Create a new channel
    */
@@ -31,7 +29,7 @@ export function ServerSidebarContextMenu(props: { server: Server }) {
     <ContextMenu>
       <Show when={props.server?.havePermission("ManageChannel")}>
         <ContextMenuButton icon={MdLibraryAdd} onClick={createChannel}>
-          Create Channel
+          {t("app.context_menu.create_channel")}
         </ContextMenuButton>
       </Show>
     </ContextMenu>

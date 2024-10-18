@@ -17,5 +17,6 @@ in pkgs.mkShell {
 
     # mdbook
     pkgs.mdbook
+    pkgs.mdbook-mermaid
   ];
 }

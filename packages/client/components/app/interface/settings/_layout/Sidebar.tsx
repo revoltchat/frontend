@@ -1,11 +1,6 @@
 import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 
-import {
-  Column,
-  OverflowingText,
-  invisibleScrollable,
-  styled,
-} from "@revolt/ui";
+import { Column, OverflowingText, styled } from "@revolt/ui";
 
 // import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 // import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?component-solid";
@@ -17,8 +12,6 @@ import {
   SidebarButtonContent,
   SidebarButtonTitle,
 } from "./SidebarButton";
-
-invisibleScrollable;
 
 /**
  * Settings Sidebar Layout
@@ -64,7 +57,13 @@ export function SettingsSidebar(props: {
                       <For each={category.entries}>
                         {(entry) => (
                           <Show when={!entry.hidden}>
-                            <SidebarButton onClick={() => navigate(entry)}>
+                            <SidebarButton
+                              onClick={() => navigate(entry)}
+                              aria-selected={
+                                props.page()?.split("/")[0] ===
+                                entry.id?.split("/")[0]
+                              }
+                            >
                               <SidebarButtonTitle>
                                 {entry.icon}
                                 <SidebarButtonContent>
@@ -110,7 +109,6 @@ const Base = styled("div", "Sidebar")`
   justify-content: flex-end;
 
   color: ${(props) => props.theme!.colours["settings-foreground"]};
-  background: ${(props) => props.theme!.colours["settings-background"]};
 `;
 
 /**

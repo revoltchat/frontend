@@ -60,7 +60,10 @@ declare module "solid-styled-components" {
                 | "foreground"
                 | "item-hover-background"
                 | "divider"
-                | "shadow"}`}`
+                | "shadow"}`
+            | `key-${"background" | "foreground"}`
+            | `combo-${"focus" | "background" | "foreground"}`}`
+        | `preloader-foreground`
         | `sidebar-${
             | "header-transparent-background"
             | "server-list-foreground"
@@ -91,7 +94,7 @@ declare module "solid-styled-components" {
         | `settings-${
             | "background"
             | "foreground"
-            | `content-${"background" | "foreground"}`
+            | `content-${"background" | "foreground" | "scroll-thumb"}`
             | `close-anchor${"" | "-hover"}`
             | `sidebar-${
                 | "category"
@@ -178,6 +181,10 @@ declare module "solid-styled-components" {
       };
       ripple: {
         hover: number;
+      };
+      invert: {
+        black: string;
+        white: string;
       };
       muted: string;
       hover: string;

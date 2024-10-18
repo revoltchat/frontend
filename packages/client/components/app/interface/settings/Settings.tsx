@@ -1,15 +1,17 @@
-import { createContext, createSignal, untrack, useContext } from "solid-js";
+import {
+  Accessor,
+  createContext,
+  createSignal,
+  untrack,
+  useContext,
+} from "solid-js";
 
 import { Motion, Presence } from "@motionone/solid";
 import { Rerun } from "@solid-primitives/keyed";
 
-import { invisibleScrollable } from "@revolt/ui";
-
 import { SettingsConfiguration, SettingsEntry } from ".";
 import { SettingsContent } from "./_layout/Content";
 import { SettingsSidebar } from "./_layout/Sidebar";
-
-invisibleScrollable;
 
 export interface SettingsProps {
   /**
@@ -32,6 +34,7 @@ export type SettingsTransition = "normal" | "to-child" | "to-parent";
  * Provide navigation to child components
  */
 const SettingsNavigationContext = createContext<{
+  page: Accessor<string | undefined>;
   navigate: (path: string | SettingsEntry) => void;
 }>();
 
@@ -77,6 +80,7 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
   return (
     <SettingsNavigationContext.Provider
       value={{
+        page,
         navigate,
       }}
     >
@@ -101,10 +105,10 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
                 transition() === "normal"
                   ? { opacity: 0, y: 50 }
                   : transition() === "to-child"
-                    ? {
+                  ? {
                       x: "100vw",
                     }
-                    : { x: "-100vw" }
+                  : { x: "-100vw" }
               }
               animate={{
                 opacity: 1,
@@ -115,10 +119,10 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
                 transition() === "normal"
                   ? undefined
                   : transition() === "to-child"
-                    ? {
+                  ? {
                       x: "-100vw",
                     }
-                    : { x: "100vw" }
+                  : { x: "100vw" }
               }
               transition={{ duration: 0.2, easing: [0.17, 0.67, 0.58, 0.98] }}
             >

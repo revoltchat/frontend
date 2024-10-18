@@ -1,6 +1,7 @@
 # Summary
 
 - [Introduction](./hello.md)
+- [Feature Matrix](./feature-matrix.md)
 - [Project Structure]()
 - [User Interface]()
   - [Navigation]()
@@ -11,3 +12,6 @@
   - [Channels]()
     - [Text Channels]()
       - [Message Grouping Algorithm]()
+- [Components]()
+  - [Client]()
+    - [Session Lifecycle](./components/client/session-lifecycle.md)

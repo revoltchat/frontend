@@ -29,7 +29,7 @@ const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
   background: ${(props) =>
     props.theme!.colours["messaging-component-text-embed-background"]};
 
-  border-inline-start: 4px solid
+  border-inline-start: var(--gap-sm) solid
     ${(props) =>
       props.borderColour ??
       props.theme!.colours["messaging-component-text-embed-foreground"]};

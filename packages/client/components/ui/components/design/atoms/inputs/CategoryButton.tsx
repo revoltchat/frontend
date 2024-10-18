@@ -1,17 +1,25 @@
-import {
-  BiRegularLinkExternal,
-  BiSolidChevronDown,
-  BiSolidChevronRight,
-} from "solid-icons/bi";
 import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
+
+import { iconSize } from "@revolt/ui";
+
+import MdChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg?component-solid";
+import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
+import MdKeyboardDown from "@material-design-icons/svg/outlined/keyboard_arrow_down.svg?component-solid";
+import MdOpenInNew from "@material-design-icons/svg/outlined/open_in_new.svg?component-solid";
 
 import { Column, OverflowingText } from "../../layout";
 
 /**
  * Permissible actions
  */
-type Action = "chevron" | "collapse" | "external" | "edit" | JSX.Element;
+type Action =
+  | "chevron"
+  | "collapse"
+  | "external"
+  | "edit"
+  | "copy"
+  | JSX.Element;
 
 export interface Props {
   readonly icon?: JSX.Element | "blank";
@@ -55,17 +63,22 @@ export function CategoryButton(props: Props) {
           <Switch fallback={action}>
             <Match when={action === "chevron"}>
               <Action>
-                <BiSolidChevronRight size={18} />
+                <MdChevronRight {...iconSize(18)} />
               </Action>
             </Match>
             <Match when={action === "collapse"}>
               <Action>
-                <BiSolidChevronDown size={18} />
+                <MdKeyboardDown {...iconSize(18)} />
               </Action>
             </Match>
             <Match when={action === "external"}>
               <Action>
-                <BiRegularLinkExternal size={18} />
+                <MdOpenInNew {...iconSize(18)} />
+              </Action>
+            </Match>
+            <Match when={action === "copy"}>
+              <Action>
+                <MdContentCopy {...iconSize(18)} />
               </Action>
             </Match>
           </Switch>
@@ -162,6 +175,7 @@ const Description = styled.span`
   font-size: 12px;
   color: ${(props) =>
     props.theme!.colours["component-categorybtn-foreground-description"]};
+  text-wrap: wrap;
 
   a:hover {
     text-decoration: underline;

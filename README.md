@@ -1,10 +1,21 @@
-# Revolt Frontend
-
-This repository contains the code for Revolt's frontend, built with Solid.js.
-
-You can find the code style guidelines [here](./GUIDELINES.md).
+<div align="center">
+<h1>
+  Revolt Frontend
+  
+  [![Stars](https://img.shields.io/github/stars/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/stargazers)
+  [![Forks](https://img.shields.io/github/forks/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/network/members)
+  [![Pull Requests](https://img.shields.io/github/issues-pr/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/pulls)
+  [![Issues](https://img.shields.io/github/issues/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/issues)
+  [![Contributors](https://img.shields.io/github/contributors/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/graphs/contributors)
+  [![License](https://img.shields.io/github/license/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/blob/main/LICENSE)
+</h1>
+The official web client powering https://revolt.chat/app, built with <a href="https://www.solidjs.com/">Solid.js</a> 💖.
+</div>
+<br/>
 
 ## Development Guide
+
+Before contributing, make yourself familiar with [our contribution guidelines](https://developers.revolt.chat/contrib.html), the [code style guidelines](./GUIDELINES.md), and the [technical documentation for this project](https://revoltchat.github.io/frontend/).
 
 Before getting started, you'll want to install:
 
@@ -73,20 +84,28 @@ Any edits to the revolt.js codebase will immediately be reflected while developi
 # install packages
 pnpm i
 
-# build everything
-pnpm build:all
+# build dependencies
+pnpm build:deps
+
+# build for web
+pnpm build:web
+
+# ... when building for Revolt production, use this instead of :web
+pnpm build:prod
 ```
+
+You can now deploy the directory `packages/client/dist`.
 
 ### Routing Information
 
 The app currently needs the following routes:
 
+- `/login`
+- `/pwa`
+- `/dev`
+- `/settings`
+- `/friends`
 - `/server`
 - `/channel`
-- `/dev`
-- `/friends`
-- `/app`
-- `/pwa`
-- `/settings`
 
-This corresponds to [Content.tsx#L33](packages/client/src/interface/Content.tsx).
+This corresponds to [Content.tsx#L33](packages/client/src/index.tsx).

@@ -10,8 +10,10 @@ export function scrollable(
   el: HTMLDivElement,
   accessor: Accessor<JSX.Directives["scrollable"] & object>
 ) {
-  const theme = useTheme();
   const props = accessor();
+  if (!props) return;
+
+  const theme = useTheme();
 
   el.classList.add(css`
     will-change: transform;
@@ -20,8 +22,9 @@ export function scrollable(
     ${"overflow-" + ((props?.direction ?? "y") === "y" ? "x" : "y")}: hidden;
 
     scrollbar-width: ${props?.showOnHover ? "none" : "initial"};
-    scrollbar-color: ${theme!.colours["component-scrollbar-foreground"]}
-      ${theme!.colours["component-scrollbar-background"]};
+    scrollbar-color: ${props.foreground ??
+      theme!.colours["component-scrollbar-foreground"]}
+      ${props.background ?? theme!.colours["component-scrollbar-background"]};
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -30,11 +33,13 @@ export function scrollable(
     }
 
     &::-webkit-scrollbar-track {
-      background: ${theme!.colours["component-scrollbar-background"]};
+      background: ${props.background ??
+      theme!.colours["component-scrollbar-background"]};
     }
 
     &::-webkit-scrollbar-thumb {
-      background: ${theme!.colours["component-scrollbar-foreground"]};
+      background: ${props.foreground ??
+      theme!.colours["component-scrollbar-foreground"]};
       background-clip: content-box;
 
       border: 1px solid transparent;
@@ -43,7 +48,11 @@ export function scrollable(
     }
   `);
 
-  if (props?.showOnHover) {
+  if (props.class) {
+    props.class.split(" ").forEach((cls) => el.classList.add(cls));
+  }
+
+  if (props.showOnHover) {
     const showClass = css`
       scrollbar-width: initial !important;
 
@@ -74,27 +83,4 @@ export function scrollable(
       el.removeEventListener("mouseleave", onMouseLeave);
     });
   }
-}
-
-/**
- * Add styles for an invisible scrollable container
- * @param el Element
- * @param accessor Parameters
- */
-export function invisibleScrollable(
-  el: HTMLDivElement,
-  accessor: Accessor<JSX.Directives["invisibleScrollable"] & object>
-) {
-  const props = accessor();
-
-  el.classList.add(css`
-    will-change: transform;
-    ${"overflow-" + (props?.direction ?? "y")}: scroll;
-
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  `);
 }

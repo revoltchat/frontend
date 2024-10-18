@@ -2,8 +2,8 @@ import { Accessor, JSX } from "solid-js";
 
 import { Settings, SettingsProps } from "./Settings";
 import channel from "./channel";
-import client from "./client";
 import server from "./server";
+import user from "./user";
 
 export { Settings } from "./Settings";
 
@@ -61,7 +61,7 @@ export const SettingsConfigurations: Record<
   string,
   SettingsConfiguration<never>
 > = {
-  client,
+  user,
   server,
   channel,
 };

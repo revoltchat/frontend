@@ -40,7 +40,7 @@ export default function FlowResend() {
         <Button type="submit">{t("login.resend")}</Button>
       </Form>
       <Typography variant="legacy-settings-description">
-        <a href="..">{t("login.remembered")}</a>
+        <a href="/login/auth">{t("login.remembered")}</a>
       </Typography>
     </>
   );

@@ -5,9 +5,6 @@ import { useTranslation } from "@revolt/i18n";
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
 import { iconSize } from "../../../..";
-import { ripple } from "../../../../directives";
-
-void ripple;
 
 /**
  * Base styles

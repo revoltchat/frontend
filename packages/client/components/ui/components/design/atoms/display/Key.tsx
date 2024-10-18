@@ -18,12 +18,13 @@ export interface Props {
 
 const Base = styled("kbd", "Key")<Pick<Props, "simple">>`
   display: inline-flex;
-  background: var(--unset-bg);
+  color: var(--colours-component-key-foreground);
+  background: var(--colours-component-key-background);
 
   padding: 0.5ch 1ch 0.35ch;
 
   border-radius: 3px;
-  outline: 1px solid rgb(66 66 66 / 0.5);
+  /*outline: 1px solid rgb(66 66 66 / 0.5);*/
 
   font-weight: 700;
   font-family: ${(props) => props.theme?.fonts.monospace};
@@ -43,7 +44,6 @@ const Base = styled("kbd", "Key")<Pick<Props, "simple">>`
 
           &:active {
             outline: 1px solid rgb(0 0 0 / 0.3);
-            color: var(--unset-fg);
             transform: translateY(2px);
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
           }

@@ -1,4 +1,5 @@
 import { splitProps } from "solid-js";
+import { JSX } from "solid-js/jsx-runtime";
 
 import { AriaButtonProps, createButton } from "@solid-aria/button";
 import { cva } from "styled-system/css/cva";
@@ -83,7 +84,14 @@ const button = cva({
         width: "38px",
         height: "38px",
       },
-      // fluid: {},
+      fab: {
+        width: "42px",
+        height: "42px",
+        borderRadius: "var(--borderRadius-xl)",
+      },
+      fluid: {
+        borderRadius: "var(--borderRadius-md)",
+      },
     },
   },
   defaultVariants: {
@@ -92,13 +100,23 @@ const button = cva({
   },
 });
 
-export function Button(props: Parameters<typeof button>[0] & AriaButtonProps) {
+export function Button(
+  props: Omit<
+    Parameters<typeof button>[0] & AriaButtonProps & JSX.DirectiveAttributes,
+    "onClick"
+  >
+) {
   const [style, rest] = splitProps(props, ["size", "variant"]);
   let ref: HTMLButtonElement | undefined;
 
   const { buttonProps } = createButton(rest, () => ref);
   return (
-    <button {...buttonProps} class={button(style)} ref={ref}>
+    <button
+      {...buttonProps}
+      ref={ref}
+      class={button(style)}
+      // @codegen directives props=rest include=floating
+    >
       {rest.children}
     </button>
   );

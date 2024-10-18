@@ -1,9 +1,10 @@
 import { BiSolidFile } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
 import { Show } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled as styledL } from "solid-styled-components";
 
 import type { Message } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
@@ -36,7 +37,7 @@ interface Props {
   noDecorations?: boolean;
 }
 
-export const Base = styled("div", "Reply")<Pick<Props, "noDecorations">>`
+export const Base = styledL("div", "Reply")<Pick<Props, "noDecorations">>`
   min-width: 0;
   flex-grow: 1;
   display: flex;
@@ -69,17 +70,18 @@ export const Base = styled("div", "Reply")<Pick<Props, "noDecorations">>`
   }
 `;
 
-const Attachments = styled.em`
-  display: flex;
+const Attachments = styledL.em`
+  display: inline-flex;
   align-items: center;
   gap: ${(props) => props.theme!.gap.sm};
   color: var(--unset-fg);
+  white-space: nowrap;
 `;
 
 /**
  * Information text
  */
-const InfoText = styled.a`
+const InfoText = styledL.a`
   color: var(--unset-fg);
 `;
 
@@ -88,6 +90,18 @@ const HiddenCopyText = styled.span`
   opacity: 0;
   position: absolute;
 `
+
+/**
+ * Link styling
+ */
+const Link = styled("a", {
+  base: {
+    minWidth: 0,
+    display: "flex",
+    alignItems: "center",
+    gap: "var(--gap-md)",
+  },
+});
 
 /**
  * Message being replied to
@@ -153,23 +167,21 @@ export function MessageReply(props: Props) {
               </Typography>
             </ColouredText>
           </NonBreakingText>
-          <a href={props.message!.id}>
+          <Link href={props.message!.path}>
             <Show when={props.message!.attachments}>
-              <NonBreakingText>
-                <Attachments>
-                  <BiSolidFile size={16} />
-                  {props.message!.attachments!.length > 1
-                    ? t("app.main.channel.misc.sent_multiple_files")
-                    : t("app.main.channel.misc.sent_file")}
-                </Attachments>
-              </NonBreakingText>
+              <Attachments>
+                <BiSolidFile size={16} />
+                {props.message!.attachments!.length > 1
+                  ? t("app.main.channel.misc.sent_multiple_files")
+                  : t("app.main.channel.misc.sent_file")}
+              </Attachments>
             </Show>
             <Show when={props.message!.content}>
               <OverflowingText>
                 <TextWithEmoji content={props.message!.content!} />
               </OverflowingText>
             </Show>
-          </a>
+          </Link>
         </Match>
       </Switch>
     </Base>

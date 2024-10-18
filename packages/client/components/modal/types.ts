@@ -6,13 +6,14 @@ import {
   Channel,
   Client,
   File,
+  MFA,
+  MFATicket,
   Message,
   Server,
   ServerMember,
   Session,
   User,
 } from "revolt.js";
-import { MFA, MFATicket } from "revolt.js/src/classes/MFA";
 
 import { SettingsConfigurations } from "@revolt/app";
 import type { KeyComboSequence, KeybindAction } from "@revolt/keybinds";
@@ -33,6 +34,10 @@ export type Modals =
         | "edit_email"
         | "edit_password";
       client: Client;
+    }
+  | {
+      type: "edit_display_name";
+      user: User;
     }
   | {
       type: "rename_session";
@@ -143,7 +148,7 @@ export type Modals =
   | {
       type: "create_bot";
       client: Client;
-      onCreate: (bot: API.Bot) => void;
+      onCreate: (bot: Bot) => void;
     }
   | {
       type: "onboarding";

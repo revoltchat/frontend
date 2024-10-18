@@ -26,13 +26,10 @@ import {
   JumpToBottom,
   ListView,
   MessageDivider,
-  ripple,
   styled,
 } from "@revolt/ui";
 
 import { Message } from "./Message";
-
-void ripple;
 
 /**
  * Default fetch limit

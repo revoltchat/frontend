@@ -4,6 +4,7 @@ import { Message } from "revolt.js";
 
 import { useClient, useUser } from "@revolt/client";
 import { getController } from "@revolt/common";
+import { useTranslation } from "@revolt/i18n";
 import { state } from "@revolt/state";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
@@ -12,6 +13,7 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 import MdMarkChatUnread from "@material-design-icons/svg/outlined/mark_chat_unread.svg?component-solid";
 import MdReply from "@material-design-icons/svg/outlined/reply.svg?component-solid";
 import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
+import MdShare from "@material-design-icons/svg/outlined/share.svg?component-solid";
 import MdShield from "@material-design-icons/svg/outlined/shield.svg?component-solid";
 
 import {
@@ -21,13 +23,12 @@ import {
 } from "./ContextMenu";
 
 /**
- *
- * @param props
- * @returns
+ * Context menu for messages
  */
 export function MessageContextMenu(props: { message: Message }) {
   const user = useUser();
   const client = useClient();
+  const t = useTranslation();
 
   /**
    * Reply to this message
@@ -86,6 +87,17 @@ export function MessageContextMenu(props: { message: Message }) {
   }
 
   /**
+   * Copy message link to clipboard
+   */
+  function copyLink() {
+    navigator.clipboard.writeText(
+      `${location.origin}${
+        props.message.server ? `/server/${props.message.server?.id}` : ""
+      }/channel/${props.message.channelId}/${props.message.id}`
+    );
+  }
+
+  /**
    * Copy message id to clipboard
    */
   function copyId() {
@@ -95,18 +107,18 @@ export function MessageContextMenu(props: { message: Message }) {
   return (
     <ContextMenu>
       <ContextMenuButton icon={MdReply} onClick={reply}>
-        Reply
+        {t("app.context_menu.reply_message")}
       </ContextMenuButton>
       <ContextMenuButton icon={MdMarkChatUnread} onClick={markAsUnread}>
-        Mark as unread
+        {t("app.context_menu.mark_unread")}
       </ContextMenuButton>
       <ContextMenuButton icon={MdContentCopy} onClick={copyText}>
-        Copy text
+        {t("app.context_menu.copy_text")}
       </ContextMenuButton>
       <ContextMenuDivider />
       <Show when={!props.message.author?.self}>
         <ContextMenuButton icon={MdReport} onClick={report} destructive>
-          Report message
+          {t("app.context_menu.report_message")}
         </ContextMenuButton>
       </Show>
       <Show
@@ -116,15 +128,18 @@ export function MessageContextMenu(props: { message: Message }) {
         }
       >
         <ContextMenuButton icon={MdDelete} onClick={deleteMessage} destructive>
-          Delete message
+          {t("app.context_menu.delete_message")}
         </ContextMenuButton>
       </Show>
       <ContextMenuDivider />
       <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
         Admin Panel
       </ContextMenuButton>
+      <ContextMenuButton icon={MdShare} onClick={copyLink}>
+        {t("app.context_menu.copy_link")}
+      </ContextMenuButton>
       <ContextMenuButton icon={MdBadge} onClick={copyId}>
-        Copy message ID
+        {t("app.context_menu.copy_mid")}
       </ContextMenuButton>
     </ContextMenu>
   );

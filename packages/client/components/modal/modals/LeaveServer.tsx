@@ -16,9 +16,16 @@ const LeaveServer: PropGenerator<"leave_server"> = (props) => {
       }),
       description: t("app.special.modals.prompt.confirm_leave_long"),
     },
-    schema: {},
-    data: {},
-    callback: () => props.server.delete(),
+    schema: {
+      silent: "checkbox",
+    },
+    data: {
+      silent: {
+        title: t("app.special.modals.prompt.silent_leave"),
+        description: t("app.special.modals.prompt.members_not_notified"),
+      },
+    },
+    callback: (data) => props.server.delete(data.silent),
     submit: {
       variant: "error",
       children: t("app.special.modals.actions.leave"),

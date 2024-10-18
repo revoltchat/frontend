@@ -1,13 +1,6 @@
-import {
-  BiRegularMoney,
-  BiSolidCog,
-  BiSolidCompass,
-  BiSolidHome,
-  BiSolidMegaphone,
-  BiSolidPlusCircle,
-  BiSolidRightArrowCircle,
-} from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
+
+import { cva } from "styled-system/css";
 
 import { IS_DEV, IS_REVOLT, useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
@@ -19,12 +12,26 @@ import {
   Column,
   Header,
   Typography,
+  iconSize,
   styled,
 } from "@revolt/ui";
 
-import wideSvg from "../../../client/public/assets/wide.svg";
+import MdAddCircle from "@material-design-icons/svg/filled/add_circle.svg?component-solid";
+import MdExplore from "@material-design-icons/svg/filled/explore.svg?component-solid";
+import MdGroups3 from "@material-design-icons/svg/filled/groups_3.svg?component-solid";
+import MdHome from "@material-design-icons/svg/filled/home.svg?component-solid";
+import MdPayments from "@material-design-icons/svg/filled/payments.svg?component-solid";
+import MdRateReview from "@material-design-icons/svg/filled/rate_review.svg?component-solid";
+import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
+
+import RevoltSvg from "../../public/assets/wordmark_wide_500px.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
+
+const Logo = styled(RevoltSvg)`
+  width: 240px;
+  fill: ${(props) => props.theme!.colours["foreground"]};
+`;
 
 /**
  * Base layout of the home page (i.e. the header/background)
@@ -38,14 +45,19 @@ const Base = styled("div")`
 /**
  * Layout of the content as a whole
  */
-const Content = styled("div")`
-  width: fit-content;
-  margin: auto;
+const content = cva({
+  base: {
+    minHeight: 0,
+    width: "100%",
+    margin: "auto",
+    padding: "var(--gap-xxl) 0",
 
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => props.theme!.gap.xl};
-`;
+    display: "flex",
+    gap: "var(--gap-xl)",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+});
 
 /**
  * Layout of the buttons
@@ -63,8 +75,13 @@ const Buttons = styled("div")`
  * Make sure the columns are separated
  */
 const SeparatedColumn = styled(Column)`
+  justify-content: stretch;
   margin-inline: 0.25em;
   width: 260px;
+
+  > * {
+    flex-grow: 1;
+  }
 `;
 
 /**
@@ -74,7 +91,7 @@ const Image = styled("img")`
   margin-top: 0.5em;
   height: 36px;
 
-  filter: invert(100%);
+  filter: ${(props) => props.theme!.effects.invert.black};
 `;
 
 /**
@@ -95,16 +112,17 @@ export function HomePage() {
     <Base>
       <Header placement="primary">
         <HeaderIcon>
-          <BiSolidHome size={24} />
+          <MdHome {...iconSize(22)} />
         </HeaderIcon>
         Home
       </Header>
-      <Content>
-        <Typography variant="home-page-title">
-          {t("app.special.modals.onboarding.welcome")}
-          <br />
-          <Image src={wideSvg} />
-        </Typography>
+      <div use:scrollable={{ class: content() }}>
+        <Column>
+          <Typography variant="home-page-title">
+            {t("app.special.modals.onboarding.welcome")}
+          </Typography>
+          <Logo />
+        </Column>
         <Buttons>
           <SeparatedColumn>
             <CategoryButton
@@ -115,7 +133,7 @@ export function HomePage() {
                 })
               }
               description={t("app.home.group_desc")}
-              icon={<BiSolidPlusCircle size={24} />}
+              icon={<MdAddCircle />}
             >
               {t("app.home.group")}
             </CategoryButton>
@@ -124,7 +142,7 @@ export function HomePage() {
                 <CategoryButton
                   onClick={() => navigate("/server/01F7ZSBSFHQ8TA81725KQCSDDP")}
                   description={t("app.home.goto-testers_desc")}
-                  icon={<BiSolidRightArrowCircle size={24} />}
+                  icon={<MdGroups3 />}
                 >
                   {t("app.home.goto-testers")}
                 </CategoryButton>
@@ -132,7 +150,7 @@ export function HomePage() {
               <Match when={showLoungeButton && !isInLounge}>
                 <CategoryButton
                   description={t("app.home.join-testers_desc")}
-                  icon={<BiSolidRightArrowCircle size={24} />}
+                  icon={<MdGroups3 />}
                 >
                   {t("app.home.join-testers")}
                 </CategoryButton>
@@ -143,7 +161,7 @@ export function HomePage() {
                 window.open("https://insrt.uk/donate?utm_source=revoltapp")
               }
               description={t("app.home.donate_desc")}
-              icon={<BiRegularMoney size={24} />}
+              icon={<MdPayments />}
             >
               {t("app.home.donate")}
             </CategoryButton>
@@ -153,34 +171,34 @@ export function HomePage() {
               <CategoryButton
                 onClick={() => navigate("/discover")}
                 description={t("app.home.discover_desc")}
-                icon={<BiSolidCompass size={24} />}
+                icon={<MdExplore />}
               >
                 {t("app.home.discover")}
               </CategoryButton>
             </Show>
             <CategoryButton
               description={t("app.home.feedback_desc")}
-              icon={<BiSolidMegaphone size={24} />}
+              icon={<MdRateReview {...iconSize(22)} />}
             >
               {t("app.home.feedback")}
             </CategoryButton>
             <CategoryButton
               onClick={() =>
-                modalController.push({ type: "settings", config: "client" })
+                modalController.push({ type: "settings", config: "user" })
               }
               description={t("app.home.settings-tooltip")}
-              icon={<BiSolidCog size={24} />}
+              icon={<MdSettings />}
             >
               {t("app.home.settings")}
             </CategoryButton>
           </SeparatedColumn>
         </Buttons>
         <Show when={IS_DEV}>
-          <Button onClick={() => navigate("/dev")}>
+          <Button onPress={() => navigate("/dev")}>
             Open Development Page
           </Button>
         </Show>
-      </Content>
+      </div>
     </Base>
   );
 }

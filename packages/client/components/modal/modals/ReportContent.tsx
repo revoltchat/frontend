@@ -2,12 +2,10 @@ import { API, Server, User } from "revolt.js";
 
 import { Message } from "@revolt/app";
 import { useTranslation } from "@revolt/i18n";
-import { Avatar, Column, Initials, scrollable, styled } from "@revolt/ui";
+import { Avatar, Column, Initials, styled } from "@revolt/ui";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-
-scrollable;
 
 const CONTENT_REPORT_REASONS: API.ContentReportReason[] = [
   "Illegal",

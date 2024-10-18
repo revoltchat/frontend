@@ -41,6 +41,8 @@ const ButtonBase = styled(ContextMenuItem)<{ destructive?: boolean }>`
   align-items: center;
   gap: ${(props) => props.theme!.gap.md};
 
+  text-transform: capitalize;
+
   > span {
     margin-top: 1px;
   }

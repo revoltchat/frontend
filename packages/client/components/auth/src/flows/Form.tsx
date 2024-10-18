@@ -1,6 +1,8 @@
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
 import { For, JSX, Show, createSignal } from "solid-js";
 
+import { cva } from "styled-system/css";
+
 import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { Checkbox, Column, FormGroup, Input, Typography } from "@revolt/ui";
@@ -8,7 +10,7 @@ import { Checkbox, Column, FormGroup, Input, Typography } from "@revolt/ui";
 /**
  * Available field types
  */
-type Field = "email" | "password" | "new-password" | "log-out";
+type Field = "email" | "password" | "new-password" | "log-out" | "username";
 
 /**
  * Properties to apply to fields
@@ -38,8 +40,23 @@ const useFieldConfiguration = () => {
     "log-out": {
       name: () => t("login.log_out_other"),
     },
+    username: {
+      minLength: 2,
+      type: "text",
+      autocomplete: "none",
+      name: () => t("login.username"),
+      placeholder: () => t("login.enter.username"),
+    },
   };
 };
+
+const labelRow = cva({
+  base: {
+    gap: "var(--gap-sm)",
+    display: "flex",
+    alignItems: "center",
+  },
+});
 
 interface FieldProps {
   /**
@@ -67,11 +84,12 @@ export function Fields(props: FieldProps) {
       {(field) => (
         <FormGroup>
           {field === "log-out" ? (
-            <Checkbox
-              name="log-out"
-              // @ts-expect-error
-              title={fieldConfiguration["log-out"].name()}
-            />
+            <label class={labelRow()}>
+              <Checkbox name="log-out" />
+              <Typography variant="label">
+                {fieldConfiguration["log-out"].name()}
+              </Typography>
+            </label>
           ) : (
             <>
               <Typography variant="label">

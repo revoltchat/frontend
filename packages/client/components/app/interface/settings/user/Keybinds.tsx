@@ -13,10 +13,10 @@ import { KeyComboSequence } from "@revolt/keybinds";
 import { KeyCombo } from "@revolt/keybinds";
 import { state } from "@revolt/state";
 import {
+  Button,
   CategoryButton,
   CategoryCollapse,
   Column,
-  IconButton,
   Input,
   KeySequence,
   styled,
@@ -164,37 +164,43 @@ export default function Keybinds() {
                         return (
                           <CategoryButton
                             action={[
-                              <IconButton
-                                onClick={() => editKeybind(action, index())}
+                              <Button
+                                size="fluid"
+                                variant="plain"
+                                onPress={() => editKeybind(action, index())}
                               >
                                 <BiSolidPencil size={24} />
-                              </IconButton>,
+                              </Button>,
                               <Switch>
                                 <Match
                                   when={!keybindIsDefault && indexIsDefault}
                                 >
-                                  <IconButton
-                                    title={t(
-                                      "app.settings.pages.keybinds.remove_keybind"
-                                    )}
-                                    onclick={() =>
+                                  <Button
+                                    size="fluid"
+                                    variant="plain"
+                                    // title={t(
+                                    //   "app.settings.pages.keybinds.remove_keybind"
+                                    // )}
+                                    onPress={() =>
                                       resetKeybind(action, index())
                                     }
                                   >
                                     <BiRegularReset size={24} />
-                                  </IconButton>
+                                  </Button>
                                 </Match>
                                 <Match when={!keybindIsDefault}>
-                                  <IconButton
-                                    title={t(
-                                      "app.settings.pages.keybinds.remove_keybind"
-                                    )}
-                                    onclick={() =>
+                                  <Button
+                                    size="fluid"
+                                    variant="plain"
+                                    // title={t(
+                                    //   "app.settings.pages.keybinds.remove_keybind"
+                                    // )}
+                                    onPress={() =>
                                       resetKeybind(action, index())
                                     }
                                   >
                                     <BiSolidXCircle size={24} />
-                                  </IconButton>
+                                  </Button>
                                 </Match>
                               </Switch>,
                             ]}

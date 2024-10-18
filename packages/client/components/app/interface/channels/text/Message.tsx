@@ -1,10 +1,3 @@
-import {
-  BiRegularLink,
-  BiSolidBot,
-  BiSolidCloud,
-  BiSolidLeaf,
-  BiSolidShield,
-} from "solid-icons/bi";
 import { For, Match, Show, Switch, onMount } from "solid-js";
 
 import { Message as MessageInterface, WebsiteEmbed } from "revolt.js";
@@ -27,17 +20,22 @@ import {
   SystemMessageIcon,
   Tooltip,
   Username,
-  floating,
+  iconSize,
   styled,
 } from "@revolt/ui";
+
+import MdCloud from "@material-design-icons/svg/filled/cloud.svg?component-solid";
+import MdLink from "@material-design-icons/svg/filled/link.svg?component-solid";
+import MdNotificationsOff from "@material-design-icons/svg/filled/notifications_off.svg?component-solid";
+import MdShield from "@material-design-icons/svg/filled/shield.svg?component-solid";
+import MdSmartToy from "@material-design-icons/svg/filled/smart_toy.svg?component-solid";
+import MdSpa from "@material-design-icons/svg/filled/spa.svg?component-solid";
 
 import { MessageContextMenu } from "../../../menus/MessageContextMenu";
 import {
   floatingUserMenus,
   floatingUserMenusFromMessage,
 } from "../../../menus/UserContextMenu";
-
-floating;
 
 /**
  * Regex for matching URLs
@@ -151,22 +149,32 @@ export function Message(props: Props) {
             }
           >
             <Tooltip content={t("app.main.channel.bridged")} placement="top">
-              <BiRegularLink size={16} />
+              <MdLink {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match when={props.message.author?.privileged}>
             <Tooltip content={t("app.main.channel.team")} placement="top">
-              <BiSolidShield size={16} />
+              <MdShield {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match when={props.message.author?.bot}>
             <Tooltip content={t("app.main.channel.bot")} placement="top">
-              <BiSolidBot size={16} />
+              <MdSmartToy {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match when={props.message.webhook}>
             <Tooltip content={t("app.main.channel.webhook")} placement="top">
-              <BiSolidCloud size={16} />
+              <MdCloud {...iconSize(16)} />
+            </Tooltip>
+          </Match>
+          <Match when={props.message.webhook}>
+            <Tooltip content={t("app.main.channel.webhook")} placement="top">
+              <MdCloud {...iconSize(16)} />
+            </Tooltip>
+          </Match>
+          <Match when={props.message.isSuppressed}>
+            <Tooltip content={"Silent" /* TODO: i18n */} placement="top">
+              <MdNotificationsOff {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match
@@ -177,7 +185,7 @@ export function Message(props: Props) {
           >
             <NewUser>
               <Tooltip content="New to Revolt" placement="top">
-                <BiSolidLeaf size={16} />
+                <MdSpa {...iconSize(16)} />
               </Tooltip>
             </NewUser>
           </Match>
@@ -189,7 +197,7 @@ export function Message(props: Props) {
           >
             <NewUser>
               <Tooltip content="New to the server" placement="top">
-                <BiSolidLeaf size={16} />
+                <MdSpa {...iconSize(16)} />
               </Tooltip>
             </NewUser>
           </Match>

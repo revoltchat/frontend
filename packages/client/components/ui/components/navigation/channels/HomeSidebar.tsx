@@ -1,34 +1,32 @@
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
-import {
-  ComponentProps,
-  Match,
-  Show,
-  Switch,
-  createMemo,
-  splitProps,
-} from "solid-js";
-import { styled } from "solid-styled-components";
+import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
+import { styled as styledLegacy } from "solid-styled-components";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
+import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
+import { useClient } from "@revolt/client";
+import { getController } from "@revolt/common";
 import { useQuantity, useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
+import { modalController } from "@revolt/modal";
 import { useLocation, useNavigate } from "@revolt/routing";
+import { iconSize } from "@revolt/ui";
 
-import { scrollable } from "../../../directives";
+import MdPlus from "@material-design-icons/svg/outlined/add.svg?component-solid";
+import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
+
 import { Avatar } from "../../design/atoms/display/Avatar";
 import { Typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
-import { Column } from "../../design/layout";
 import { OverflowingText } from "../../design/layout/OverflowingText";
 import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
-
-scrollable;
 
 interface Props {
   /**
@@ -54,11 +52,20 @@ interface Props {
   __tempDisplayFriends: () => boolean;
 }
 
+const ButtonTitle = styled("div", {
+  base: {
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
+});
+
 /**
  * Display home navigation and conversations
  */
 export const HomeSidebar = (props: Props) => {
   const t = useTranslation();
+  const client = useClient();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -78,13 +85,14 @@ export const HomeSidebar = (props: Props) => {
               {t("app.main.categories.conversations")}
             </Typography>
           </SidebarTitle>
-          <a href="/">
+
+          <a href="/app">
             <MenuButton
               size="normal"
               icon={<BiSolidHome size={24} />}
-              attention={location.pathname === "/app" ? "active" : "normal"}
+              attention={location.pathname === "/app" ? "selected" : "normal"}
             >
-              {t("app.navigation.tabs.home")}
+              <ButtonTitle>{t("app.navigation.tabs.home")}</ButtonTitle>
             </MenuButton>
           </a>
 
@@ -94,13 +102,14 @@ export const HomeSidebar = (props: Props) => {
                 size="normal"
                 icon={<BiSolidUserDetail size={24} />}
                 attention={
-                  location.pathname === "/friends" ? "active" : "normal"
+                  location.pathname === "/friends" ? "selected" : "normal"
                 }
               >
-                {t("app.navigation.tabs.friends")}
+                <ButtonTitle>{t("app.navigation.tabs.friends")}</ButtonTitle>
               </MenuButton>
             </a>
           </Show>
+
           <Switch
             fallback={
               <MenuButton
@@ -110,7 +119,7 @@ export const HomeSidebar = (props: Props) => {
                 // eslint-disable-next-line solid/reactivity
                 onClick={() => props.openSavedNotes(navigate)}
               >
-                {t("app.navigation.tabs.saved")}
+                <ButtonTitle>{t("app.navigation.tabs.saved")}</ButtonTitle>
               </MenuButton>
             }
           >
@@ -121,15 +130,39 @@ export const HomeSidebar = (props: Props) => {
                   icon={<BiSolidNotepad size={24} />}
                   attention={
                     props.channelId && savedNotesChannelId() === props.channelId
-                      ? "active"
+                      ? "selected"
                       : "normal"
                   }
                 >
-                  {t("app.navigation.tabs.saved")}
+                  <ButtonTitle>{t("app.navigation.tabs.saved")}</ButtonTitle>
                 </MenuButton>
               </a>
             </Match>
           </Switch>
+
+          <span
+            style={{
+              display: "flex",
+              "padding-top": "var(--gap-md)",
+              "padding-inline": "var(--gap-lg)",
+              "align-items": "center",
+              "justify-content": "space-between",
+              // TODO style this
+            }}
+          >
+            <Typography variant="category">Direct Messages</Typography>
+            <a
+              onClick={() =>
+                modalController.push({
+                  type: "create_group",
+                  client: client(),
+                })
+              }
+            >
+              <MdPlus {...iconSize(14)} />
+            </a>
+          </span>
+
           <Deferred>
             <VirtualContainer
               items={props.conversations()}
@@ -165,9 +198,23 @@ export const HomeSidebar = (props: Props) => {
 /**
  * Sidebar title
  */
-const SidebarTitle = styled.p`
-  padding-inline: ${(props) => props.theme!.gap.md};
+const SidebarTitle = styledLegacy.p`
+  padding-block: ${(props) => props.theme!.gap.md};
+  padding-inline: ${(props) => props.theme!.gap.lg};
 `;
+
+/**
+ * Styles required to correctly display name and status
+ */
+const NameStatusStack = styled("div", {
+  base: {
+    height: "100%",
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
 
 /**
  * Single conversation entry
@@ -228,8 +275,32 @@ function Entry(
             </Match>
           </Switch>
         }
+        actions={
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              getController("modal").push({
+                type: "delete_channel",
+                channel: local.channel,
+              });
+            }}
+          >
+            <MdClose {...iconSize("18px")} />
+          </a>
+        }
+        use:floating={{
+          contextMenu: () =>
+            local.channel.type === "DirectMessage" ? (
+              <UserContextMenu
+                user={local.channel.recipient!}
+                channel={local.channel}
+              />
+            ) : (
+              <ChannelContextMenu channel={local.channel} />
+            ),
+        }}
       >
-        <Column gap="none">
+        <NameStatusStack>
           <Switch>
             <Match when={local.channel.type === "Group"}>
               <OverflowingText>
@@ -258,7 +329,7 @@ function Entry(
               </Show>
             </Match>
           </Switch>
-        </Column>
+        </NameStatusStack>
       </MenuButton>
     </a>
   );
@@ -268,6 +339,7 @@ function Entry(
  * Inner scrollable list
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
-const List = styled.div`
+const List = styledLegacy.div`
+  /* padding: ${(props) => props.theme!.gap.md}; */
   width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
 `;

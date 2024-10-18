@@ -1,10 +1,6 @@
 import { JSX, createSignal, createUniqueId } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { scrollable } from "../../../directives";
-
-scrollable;
-
 interface Props {
   /**
    * Space to leave at the top of the scroll container

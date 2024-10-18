@@ -25,6 +25,16 @@ interface UserInformation {
    * Role colour
    */
   colour?: string | null;
+
+  /**
+   * Underlying user
+   */
+  user?: User;
+
+  /**
+   * Underlying member
+   */
+  member?: ServerMember;
 }
 
 /**
@@ -38,6 +48,8 @@ export function userInformation(user?: User, member?: ServerMember) {
     username: member?.nickname ?? user?.displayName ?? "Unknown User",
     avatar: member?.animatedAvatarURL ?? user?.animatedAvatarURL,
     colour: member?.roleColour,
+    user,
+    member,
   };
 }
 
@@ -84,7 +96,7 @@ export function useUsers(
  * @param id ID
  * @returns User information
  */
-export function useUser(id: string): Accessor<UserInformation | undefined> {
+export function useUser(id: string): Accessor<UserInformation> {
   const users = useUsers([id]);
-  return () => users()[0];
+  return () => users()[0] ?? { username: "Unknown User" };
 }

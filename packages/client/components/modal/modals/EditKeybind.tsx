@@ -6,13 +6,7 @@ import {
   KEYBINDING_MODIFIER_KEYS,
   KeyComboSequence as TKeySequence,
 } from "@revolt/keybinds";
-import {
-  IconButton,
-  Input,
-  InputElement,
-  KeySequence,
-  styled,
-} from "@revolt/ui";
+import { Button, KeySequence, styled } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 
@@ -154,9 +148,12 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
         >
           {<KeySequence sequence={[mods()].concat(sequence())} short />}
         </KeybindInput>
-        <IconButton title="clear input" onClick={reset}>
+        <Button
+          // title="clear input"
+          onPress={reset}
+        >
           <BiRegularReset size={20}></BiRegularReset>
-        </IconButton>
+        </Button>
       </Container>
     ),
   };

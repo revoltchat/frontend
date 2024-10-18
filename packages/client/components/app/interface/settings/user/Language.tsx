@@ -38,12 +38,12 @@ export default function Language() {
     <Column gap="lg">
       <CategoryButtonGroup>
         <PickLanguage />
-        <ConfigureRTL />
+        {/* <ConfigureRTL /> */}
       </CategoryButtonGroup>
-      <CategoryButtonGroup>
+      {/* <CategoryButtonGroup>
         <PickDateFormat />
         <PickTimeFormat />
-      </CategoryButtonGroup>
+      </CategoryButtonGroup> */}
       <CategoryButtonGroup>
         <ContributeLanguageLink />
       </CategoryButtonGroup>

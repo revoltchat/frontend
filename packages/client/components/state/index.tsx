@@ -185,8 +185,6 @@ export const state = new State();
  */
 export function Hydrate(props: { children: JSX.Element }) {
   const [hydrated, setHydrated] = createSignal(false);
-
   onMount(() => state.hydrate().then(() => setHydrated(true)));
-
   return <Show when={hydrated}>{props.children}</Show>;
 }

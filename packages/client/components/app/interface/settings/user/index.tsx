@@ -6,6 +6,7 @@ import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
 import { ColouredText, Column, iconSize, useTheme } from "@revolt/ui";
+import { ColourSwatches } from "@revolt/ui/components/design/atoms/inputs/ColourSwatches";
 
 // Filled Icons
 import MdAccountCircleFill from "@material-design-icons/svg/filled/account_circle.svg?component-solid";
@@ -49,7 +50,6 @@ import { SettingsConfiguration } from "..";
 import accessibility from "./Accessibility";
 import account from "./Account";
 import appearance from "./Appearance";
-import bots from "./Bots";
 import experiments from "./Experiments";
 import feedback from "./Feedback";
 import keybinds from "./Keybinds";
@@ -59,6 +59,46 @@ import notifications from "./Notifications";
 import sessions from "./Sessions";
 import sync from "./Sync";
 import { AccountCard } from "./_AccountCard";
+import { MyBots, ViewBot } from "./bots";
+import { EditProfile } from "./profile";
+
+/**
+ * All the available routes for client settings
+ */
+const ClientSettingsRouting: Record<string, Component> = {
+  account,
+  profile: EditProfile,
+  sessions,
+
+  // Bots
+  bots: MyBots,
+  "bots/view": ViewBot,
+
+  feedback,
+  audio: () => null,
+  appearance,
+  "appearance/colours": () => <ColourSwatches />,
+  accessibility,
+  notifications,
+  language,
+  sync,
+  native,
+  experiments,
+  keybinds,
+};
+
+/**
+ * Map the page key to component
+ * @param id Id
+ * @returns New Id
+ */
+function mapRoutingId(id: string) {
+  if (id.startsWith("bots/")) {
+    return "bots/view";
+  }
+
+  return id;
+}
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -89,7 +129,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
     // eslint-disable-next-line solid/components-return-once
     if (!id) return null;
 
-    const Component = ClientSettingsRouting[id];
+    const Component = ClientSettingsRouting[mapRoutingId(id)];
     return (
       <Show when={Component}>
         <Component />
@@ -157,55 +197,55 @@ const Config: SettingsConfiguration<{ server: Server }> = {
         {
           title: t("app.settings.categories.client_settings"),
           entries: [
-            {
-              id: "audio",
-              icon: <MdSpeaker {...iconSize(20)} />,
-              title: t("app.settings.pages.audio.title"),
-              hidden:
-                !getController("state").experiments.isEnabled("voice_chat"),
-            },
-            {
-              id: "appearance",
-              icon: <MdPalette {...iconSize(20)} />,
-              title: t("app.settings.pages.appearance.title"),
-            },
-            {
-              id: "accessibility",
-              icon: <MdAccessibility {...iconSize(20)} />,
-              title: t("app.settings.pages.accessibility.title"),
-            },
-            {
-              id: "plugins",
-              icon: <MdExtension {...iconSize(20)} />,
-              title: t("app.settings.pages.plugins.title"),
-              hidden: !getController("state").experiments.isEnabled("plugins"),
-            },
-            {
-              id: "notifications",
-              icon: <MdNotifications {...iconSize(20)} />,
-              title: t("app.settings.pages.notifications.title"),
-            },
-            {
-              id: "keybinds",
-              icon: <MdKeybinds {...iconSize(20)} />,
-              title: t("app.settings.pages.keybinds.title"),
-            },
+            // {
+            //   id: "audio",
+            //   icon: <MdSpeaker {...iconSize(20)} />,
+            //   title: t("app.settings.pages.audio.title"),
+            //   hidden:
+            //     !getController("state").experiments.isEnabled("voice_chat"),
+            // },
+            // {
+            //   id: "appearance",
+            //   icon: <MdPalette {...iconSize(20)} />,
+            //   title: t("app.settings.pages.appearance.title"),
+            // },
+            // {
+            //   id: "accessibility",
+            //   icon: <MdAccessibility {...iconSize(20)} />,
+            //   title: t("app.settings.pages.accessibility.title"),
+            // },
+            // {
+            //   id: "plugins",
+            //   icon: <MdExtension {...iconSize(20)} />,
+            //   title: t("app.settings.pages.plugins.title"),
+            //   hidden: !getController("state").experiments.isEnabled("plugins"),
+            // },
+            // {
+            //   id: "notifications",
+            //   icon: <MdNotifications {...iconSize(20)} />,
+            //   title: t("app.settings.pages.notifications.title"),
+            // },
+            // {
+            //   id: "keybinds",
+            //   icon: <MdKeybinds {...iconSize(20)} />,
+            //   title: t("app.settings.pages.keybinds.title"),
+            // },
             {
               id: "language",
               icon: <MdLanguage {...iconSize(20)} />,
               title: t("app.settings.pages.language.title"),
             },
-            {
-              id: "sync",
-              icon: <MdSync {...iconSize(20)} />,
-              title: t("app.settings.pages.sync.title"),
-            },
-            {
-              id: "native",
-              hidden: false,
-              icon: <MdDesktopWindows {...iconSize(20)} />,
-              title: t("app.settings.pages.native.title"),
-            },
+            // {
+            //   id: "sync",
+            //   icon: <MdSync {...iconSize(20)} />,
+            //   title: t("app.settings.pages.sync.title"),
+            // },
+            // {
+            //   id: "native",
+            //   hidden: false,
+            //   icon: <MdDesktopWindows {...iconSize(20)} />,
+            //   title: t("app.settings.pages.native.title"),
+            // },
             {
               id: "experiments",
               icon: <MdScience {...iconSize(20)} />,
@@ -215,12 +255,12 @@ const Config: SettingsConfiguration<{ server: Server }> = {
         },
         {
           entries: [
-            {
-              onClick: () =>
-                getController("modal").push({ type: "changelog", posts: [] }),
-              icon: <MdFormatListBulleted {...iconSize(20)} />,
-              title: t("app.special.modals.changelogs.title"),
-            },
+            // {
+            //   onClick: () =>
+            //     getController("modal").push({ type: "changelog", posts: [] }),
+            //   icon: <MdFormatListBulleted {...iconSize(20)} />,
+            //   title: t("app.special.modals.changelogs.title"),
+            // },
             {
               href: "https://github.com/revoltchat",
               icon: <MdMemory {...iconSize(20)} />,
@@ -239,6 +279,10 @@ const Config: SettingsConfiguration<{ server: Server }> = {
                   {t("app.settings.pages.logOut")}
                 </ColouredText>
               ),
+              onClick: () => {
+                getController("modal").pop();
+                getController("client").logout();
+              },
             },
           ],
         },
@@ -248,24 +292,3 @@ const Config: SettingsConfiguration<{ server: Server }> = {
 };
 
 export default Config;
-
-/**
- * All the available routes for client settings
- */
-const ClientSettingsRouting: Record<string, Component> = {
-  account,
-  profile: () => null,
-  sessions,
-  bots,
-  feedback,
-  audio: () => null,
-  appearance,
-  "appearance/colours": () => <h1>hi</h1>,
-  accessibility,
-  notifications,
-  language,
-  sync,
-  native,
-  experiments,
-  keybinds,
-};

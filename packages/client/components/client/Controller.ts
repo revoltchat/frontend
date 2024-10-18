@@ -1,9 +1,7 @@
 import { Accessor, Setter, createSignal } from "solid-js";
 
-import { ReactiveMap } from "@solid-primitives/map";
 import { detect } from "detect-browser";
-import { API, Client } from "revolt.js";
-import type { PrivateSession } from "revolt.js";
+import { API, Client, ConnectionState } from "revolt.js";
 
 import {
   CONFIGURATION,
@@ -11,6 +9,357 @@ import {
   registerController,
 } from "@revolt/common";
 import { state } from "@revolt/state";
+import type { Session } from "@revolt/state/stores/Auth";
+
+export enum State {
+  Ready,
+  LoggingIn,
+  Onboarding,
+  Error,
+  Dispose,
+  Connecting,
+  Connected,
+  Disconnected,
+  Reconnecting,
+  Offline,
+}
+
+export enum TransitionType {
+  LoginUncached,
+  LoginCached,
+  SocketConnected,
+  SocketDropped,
+  DeviceOffline,
+  DeviceOnline,
+  PermanentFailure,
+  TemporaryFailure,
+  UserCreated,
+  NoUser,
+  Cancel,
+  Error,
+  Dispose,
+  Dismiss,
+  Ready,
+  Retry,
+  Logout,
+}
+
+export type Transition =
+  | {
+      type: TransitionType.LoginUncached | TransitionType.LoginCached;
+      session: Session;
+    }
+  | {
+      type: TransitionType.Error | TransitionType.PermanentFailure;
+      error: string;
+    }
+  | {
+      type:
+        | TransitionType.NoUser
+        | TransitionType.UserCreated
+        | TransitionType.TemporaryFailure
+        | TransitionType.SocketConnected
+        | TransitionType.SocketDropped
+        | TransitionType.DeviceOffline
+        | TransitionType.DeviceOnline
+        | TransitionType.Cancel
+        | TransitionType.Dismiss
+        | TransitionType.Ready
+        | TransitionType.Retry
+        | TransitionType.Dispose
+        | TransitionType.Logout;
+    };
+
+class Lifecycle {
+  readonly state: Accessor<State>;
+  #setStateSetter: Setter<State>;
+
+  readonly loadedOnce: Accessor<boolean>;
+  #setLoadedOnce: Setter<boolean>;
+
+  client: Client;
+
+  #connectionFailures = 0;
+  #retryTimeout: number | undefined;
+
+  constructor() {
+    this.onState = this.onState.bind(this);
+    this.onReady = this.onReady.bind(this);
+
+    const [state, setState] = createSignal(State.Ready);
+    this.state = state;
+    this.#setStateSetter = setState;
+
+    const [loadedOnce, setLoadedOnce] = createSignal(false);
+    this.loadedOnce = loadedOnce;
+    this.#setLoadedOnce = setLoadedOnce;
+
+    this.client = null!;
+    this.dispose();
+  }
+
+  dispose() {
+    if (this.client) {
+      this.client.events.removeAllListeners();
+      this.client.removeAllListeners();
+      this.client.events.disconnect();
+    }
+
+    this.client = new Client({
+      baseURL: CONFIGURATION.DEFAULT_API_URL,
+      autoReconnect: false,
+      syncUnreads: true,
+      debug: import.meta.env.DEV,
+    });
+
+    this.client.configuration = {
+      revolt: String(),
+      app: String(),
+      build: {} as never,
+      features: {
+        autumn: {
+          enabled: true,
+          url: CONFIGURATION.DEFAULT_MEDIA_URL,
+        },
+        january: {
+          enabled: true,
+          url: CONFIGURATION.DEFAULT_PROXY_URL,
+        },
+        captcha: {} as never,
+        email: true,
+        invite_only: false,
+        voso: {} as never,
+      },
+      vapid: String(),
+      ws: CONFIGURATION.DEFAULT_WS_URL,
+    };
+
+    this.client.events.on("state", this.onState);
+    this.client.on("ready", this.onReady);
+  }
+
+  #enter(nextState: State) {
+    console.debug("Entering state", nextState);
+    this.#setStateSetter(nextState);
+
+    // Clean up retry timer
+    if (this.#retryTimeout) {
+      clearTimeout(this.#retryTimeout);
+      this.#retryTimeout = undefined;
+    }
+
+    switch (nextState) {
+      case State.LoggingIn:
+        this.client.api.get("/onboard/hello").then(({ onboarding }) => {
+          if (onboarding) {
+            this.transition({
+              type: TransitionType.NoUser,
+            });
+          } else {
+            this.client.connect();
+          }
+        });
+
+        break;
+      case State.Connecting:
+      case State.Reconnecting:
+        this.client.connect();
+        break;
+      case State.Connected:
+        state.auth.markValid();
+        this.#setLoadedOnce(true);
+        this.#connectionFailures = 0;
+        break;
+      case State.Dispose:
+        this.dispose();
+        this.transition({
+          type: TransitionType.Ready,
+        });
+        this.#setLoadedOnce(false);
+        break;
+      case State.Disconnected:
+        this.#connectionFailures++;
+
+        if (!navigator.onLine) {
+          this.transition({
+            type: TransitionType.DeviceOffline,
+          });
+        } else {
+          const retryIn =
+            (Math.pow(2, this.#connectionFailures) - 1) *
+            (0.8 + Math.random() * 0.4);
+
+          console.info(
+            "Will try to reconnect in",
+            retryIn.toFixed(2),
+            "seconds!"
+          );
+
+          this.#retryTimeout = setTimeout(() => {
+            this.#retryTimeout = undefined;
+            this.transition({
+              type: TransitionType.Retry,
+            });
+          }, retryIn * 1e3) as never;
+        }
+        break;
+    }
+  }
+
+  transition(transition: Transition) {
+    console.debug("Received transition", transition.type);
+
+    const currentState = this.state();
+    switch (currentState) {
+      case State.Ready:
+        if (transition.type === TransitionType.LoginUncached) {
+          this.client.useExistingSession({
+            ...transition.session,
+            user_id: transition.session.userId,
+          });
+
+          this.#enter(State.LoggingIn);
+        } else if (transition.type === TransitionType.LoginCached) {
+          this.client.useExistingSession({
+            ...transition.session,
+            user_id: transition.session.userId,
+          });
+
+          this.#enter(State.Connecting);
+        }
+        break;
+      case State.LoggingIn:
+        switch (transition.type) {
+          case TransitionType.SocketConnected:
+            this.#enter(State.Connected);
+            break;
+          case TransitionType.NoUser:
+            this.#enter(State.Onboarding);
+            break;
+          case TransitionType.Error:
+            // TODO: relay error
+            this.#enter(State.Error);
+        }
+        break;
+      case State.Onboarding:
+        if (transition.type === TransitionType.UserCreated) {
+          this.#enter(State.Connecting);
+        } else if (transition.type === TransitionType.Cancel) {
+          this.#enter(State.Dispose);
+        }
+        break;
+      case State.Error:
+        if (transition.type === TransitionType.Dismiss) {
+          this.#enter(State.Dispose);
+        }
+        break;
+      case State.Dispose:
+        if (transition.type === TransitionType.Ready) {
+          this.#enter(State.Ready);
+        }
+        break;
+      case State.Connecting:
+        switch (transition.type) {
+          case TransitionType.SocketConnected:
+            this.#enter(State.Connected);
+            break;
+          case TransitionType.TemporaryFailure:
+            this.#enter(State.Disconnected);
+            break;
+          case TransitionType.PermanentFailure:
+            // TODO: relay error
+            this.#enter(State.Error);
+            break;
+          case TransitionType.Logout:
+            this.#enter(State.Dispose);
+            break;
+        }
+        break;
+      case State.Connected:
+        switch (transition.type) {
+          case TransitionType.SocketDropped:
+            this.#enter(State.Disconnected);
+            break;
+          case TransitionType.Logout:
+            this.#enter(State.Dispose);
+            break;
+        }
+        break;
+      case State.Disconnected:
+        switch (transition.type) {
+          case TransitionType.DeviceOffline:
+            this.#enter(State.Offline);
+            break;
+          case TransitionType.Retry:
+            this.#enter(State.Reconnecting);
+            break;
+          case TransitionType.Logout:
+            this.#enter(State.Dispose);
+            break;
+        }
+        break;
+      case State.Reconnecting:
+        switch (transition.type) {
+          case TransitionType.SocketConnected:
+            this.#enter(State.Connected);
+            break;
+          case TransitionType.TemporaryFailure:
+            this.#enter(State.Disconnected);
+            break;
+          case TransitionType.PermanentFailure:
+            // TODO: relay error
+            this.#enter(State.Error);
+            break;
+          case TransitionType.Logout:
+            this.#enter(State.Dispose);
+            break;
+        }
+        break;
+      case State.Offline:
+        switch (transition.type) {
+          case TransitionType.DeviceOnline:
+            this.#enter(State.Reconnecting);
+            break;
+          case TransitionType.Logout:
+            this.#enter(State.Dispose);
+            break;
+        }
+        break;
+    }
+
+    if (currentState === this.state()) {
+      console.error(
+        "An unhandled transition occurred!",
+        transition,
+        "was received on",
+        currentState
+      );
+    }
+  }
+
+  private onReady() {
+    this.transition({
+      type: TransitionType.SocketConnected,
+    });
+  }
+
+  private onState(state: ConnectionState) {
+    switch (state) {
+      case ConnectionState.Disconnected:
+        if (this.client.events.lastError) {
+          this.transition({
+            type: TransitionType.TemporaryFailure,
+            // TODO: handle permanent failure
+          });
+        } else {
+          this.transition({
+            type: TransitionType.SocketDropped,
+          });
+        }
+        break;
+    }
+  }
+}
 
 /**
  * Controls lifecycle of clients
@@ -22,19 +371,9 @@ export default class ClientController {
   readonly api: API.API;
 
   /**
-   * Clients
+   * Lifecycle
    */
-  #clients: ReactiveMap<string, Client>;
-
-  /**
-   * Currently active user ID
-   */
-  readonly activeId: Accessor<string | undefined>;
-
-  /**
-   * Set the currently active user ID
-   */
-  #setActiveId: Setter<string>;
+  readonly lifecycle: Lifecycle;
 
   /**
    * Construct new client controller
@@ -44,74 +383,23 @@ export default class ClientController {
       baseURL: CONFIGURATION.DEFAULT_API_URL,
     });
 
-    this.#clients = new ReactiveMap();
-
-    const [active, setActive] = createSignal<string>(null!);
-    this.activeId = active;
-    this.#setActiveId = setActive;
+    this.lifecycle = new Lifecycle();
 
     registerController("client", this);
   }
 
-  /**
-   * Get the currently in-use client
-   * @returns Client
-   */
   getCurrentClient() {
-    return this.activeId() ? this.#clients.get(this.activeId()!) : undefined;
+    return this.lifecycle.client;
   }
 
-  /**
-   * Check whether we are logged in right now
-   * @returns Whether we are logged in
-   */
   isLoggedIn() {
-    return typeof this.activeId() === "string";
-  }
-
-  /**
-   * Check whether we are currently ready
-   * @returns Whether we are ready to render
-   */
-  isReady() {
-    return this.#clients.get(this.activeId()!)?.ready();
-  }
-
-  /**
-   * Create a new client with the given credentials
-   * @param session Session
-   */
-  createClient(session: PrivateSession) {
-    if (typeof session === "string") throw "Bot login not supported";
-    if (this.#clients.get(session.user_id)) throw "User client already exists";
-
-    const client = new Client({
-      baseURL: CONFIGURATION.DEFAULT_API_URL,
-      debug: import.meta.env.DEV,
-      syncUnreads: true,
-      /**
-       * Check whether a channel is muted
-       * @param channel Channel
-       * @returns Whether it is muted
-       */
-      channelIsMuted(channel) {
-        return getController("state").notifications.isMuted(channel);
-      },
-    });
-
-    client.useExistingSession(session);
-
-    this.#clients.set(session.user_id, client);
-    this.#setActiveId(session.user_id);
-  }
-
-  /**
-   * Switch to another user session
-   * @param userId Target User ID
-   */
-  switchAccount(userId: string) {
-    if (!this.#clients.has(userId)) throw "Invalid session.";
-    this.#setActiveId(userId);
+    return [
+      State.Connecting,
+      State.Connected,
+      State.Disconnected,
+      State.Offline,
+      State.Reconnecting,
+    ].includes(this.lifecycle.state());
   }
 
   /**
@@ -186,7 +474,34 @@ export default class ClientController {
       return;
     }
 
-    state.auth.setSession(session);
-    this.createClient(session);
+    const createdSession = {
+      _id: session._id,
+      token: session.token,
+      userId: session.user_id,
+      valid: false,
+    };
+
+    state.auth.setSession(createdSession);
+    this.lifecycle.transition({
+      type: TransitionType.LoginUncached,
+      session: createdSession,
+    });
+  }
+
+  async selectUsername(username: string) {
+    await this.lifecycle.client.api.post("/onboard/complete", {
+      username,
+    });
+
+    this.lifecycle.transition({
+      type: TransitionType.UserCreated,
+    });
+  }
+
+  logout() {
+    state.auth.removeSession();
+    this.lifecycle.transition({
+      type: TransitionType.Logout,
+    });
   }
 }

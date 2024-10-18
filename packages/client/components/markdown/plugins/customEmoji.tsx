@@ -1,13 +1,14 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 
 import { useClient } from "@revolt/client";
-import { Avatar, Column, Row, floating, styled } from "@revolt/ui";
+import { Avatar, Column, Row, styled } from "@revolt/ui";
 
 import { CustomEmoji, Emoji, RE_CUSTOM_EMOJI } from "../emoji";
 
-import { CustomComponentProps, createComponent } from "./remarkRegexComponent";
-
-floating;
+import {
+  CustomComponentProps,
+  createRegexComponent,
+} from "./remarkRegexComponent";
 
 /**
  * Render a custom emoji
@@ -103,4 +104,7 @@ function FetchEmote(props: { id: string }) {
   return null;
 }
 
-export const remarkCustomEmoji = createComponent("cemoji", RE_CUSTOM_EMOJI);
+export const remarkCustomEmoji = createRegexComponent(
+  "cemoji",
+  RE_CUSTOM_EMOJI
+);

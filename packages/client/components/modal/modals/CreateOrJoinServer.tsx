@@ -1,11 +1,10 @@
-import { BiRegularPlus, BiRegularShare, BiSolidShare } from "solid-icons/bi";
-
 import { useTranslation } from "@revolt/i18n";
-import { useNavigate } from "@revolt/routing";
-import { styled } from "@revolt/ui";
+import { iconSize, styled } from "@revolt/ui";
+
+import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
+import MdLink from "@material-design-icons/svg/outlined/link.svg?component-solid";
 
 import { modalController } from "..";
-import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
 /**
@@ -15,7 +14,7 @@ const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
   const t = useTranslation();
 
   return {
-    // title: "...",
+    title: "Create or join a server",
     description: (
       <Base>
         <a
@@ -27,7 +26,7 @@ const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
             });
           }}
         >
-          <BiRegularPlus size={48} />
+          <MdAdd {...iconSize(48)} />
           Create
         </a>
         <a
@@ -36,12 +35,11 @@ const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
             modalController.push({ type: "join_server", client: props.client });
           }}
         >
-          <BiRegularShare size={48} />
+          <MdLink {...iconSize(48)} />
           Join
         </a>
       </Base>
     ),
-    actions: [],
   };
 };
 

@@ -1,24 +1,22 @@
-import {
-  BiRegularPlus,
-  BiSolidCheckShield,
-  BiSolidCog,
-  BiSolidMegaphone,
-} from "solid-icons/bi";
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { JSX } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled as styledLegacy } from "solid-styled-components";
 
 import { Channel, Server, User } from "revolt.js";
+import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
 
 import { KeybindAction } from "@revolt/keybinds";
 import { useNavigate } from "@revolt/routing";
 
-// import MdPlus from "@material-design-icons/svg/outlined/password.svg?component-solid";
-import { iconSize } from "../../..";
-import { floating, invisibleScrollable } from "../../../directives";
+import MdAdd from "@material-design-icons/svg/filled/add.svg?component-solid";
+import MdExplore from "@material-design-icons/svg/filled/explore.svg?component-solid";
+import MdHome from "@material-design-icons/svg/filled/home.svg?component-solid";
+import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
+
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
-import { Button, Column, Typography } from "../../design";
+import { Column, Typography } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
   UnreadsGraphic,
@@ -27,9 +25,6 @@ import {
 import { Tooltip } from "../../floating";
 
 import { Swoosh } from "./Swoosh";
-
-invisibleScrollable;
-floating;
 
 interface Props {
   /**
@@ -135,10 +130,17 @@ export const ServerList = (props: Props) => {
 
   return (
     <ServerListBase>
-      <div
-        use:invisibleScrollable={{ direction: "y" }}
-        style={{ "flex-grow": 1 }} // TODO: move into ListBase
-      >
+      <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
+        <EntryContainer>
+          {/* <Show when={!props.selectedServer()}>
+            <PositionSwoosh>
+              <Swoosh topItem />
+            </PositionSwoosh>
+          </Show> */}
+          <a href="/app">
+            <Avatar size={42} fallback={<MdHome />} />
+          </a>
+        </EntryContainer>
         <Tooltip
           placement="right"
           content={() => (
@@ -150,12 +152,8 @@ export const ServerList = (props: Props) => {
           aria={props.user.username}
         >
           <EntryContainer>
-            <Show when={!props.selectedServer()}>
-              <PositionSwoosh>
-                <Swoosh topItem />
-              </PositionSwoosh>
-            </Show>
-            <a href="/">
+            {/* TODO: Make this open user status context menu */}
+            <a href="/app">
               <Avatar
                 size={42}
                 src={props.user.avatarURL}
@@ -166,15 +164,6 @@ export const ServerList = (props: Props) => {
             </a>
           </EntryContainer>
         </Tooltip>
-        <Show when={props.user.privileged}>
-          <EntryContainer>
-            <a href="/admin">
-              <Button size="icon">
-                <BiSolidCheckShield size={32} />
-              </Button>
-            </a>
-          </EntryContainer>
-        </Show>
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
@@ -258,36 +247,23 @@ export const ServerList = (props: Props) => {
         <Tooltip placement="right" content={"Create or join a server"}>
           <EntryContainer>
             <a onClick={() => props.onCreateOrJoinServer()}>
-              <Avatar
-                size={42}
-                fallback={
-                  /*<MdPlus {...iconSize("24px")} />*/ <BiRegularPlus
-                    size={20}
-                  />
-                }
-              />
+              <Avatar size={42} fallback={<MdAdd />} />
             </a>
+          </EntryContainer>
+        </Tooltip>
+        <Tooltip placement="right" content={"Find new servers to join"}>
+          <EntryContainer>
+            <Avatar size={42} fallback={<MdExplore />} />
           </EntryContainer>
         </Tooltip>
       </div>
       <Shadow>
         <div />
       </Shadow>
-      <Tooltip placement="right" content="Give Feedback">
-        <EntryContainer>
-          <a href="/server/01F7ZSBSFHQ8TA81725KQCSDDP/channel/01HGJPTXVPM3RJV0RG3YQA20KZ">
-            <Avatar
-              size={42}
-              fallback={<BiSolidMegaphone size={18} />}
-              interactive
-            />
-          </a>
-        </EntryContainer>
-      </Tooltip>
       <Tooltip placement="right" content="Settings">
         <EntryContainer>
           <a href="/settings">
-            <Avatar size={42} fallback={<BiSolidCog size={18} />} interactive />
+            <Avatar size={42} fallback={<MdSettings />} interactive />
           </a>
         </EntryContainer>
       </Tooltip>
@@ -298,17 +274,27 @@ export const ServerList = (props: Props) => {
 /**
  * Server list container
  */
-const ServerListBase = styled("div", "ServerList")`
-  display: flex;
-  flex-direction: column;
+const ServerListBase = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    background: "var(--colours-background)",
+  },
+});
 
-  background: ${({ theme }) => theme!.colours["background"]};
-`;
+/**
+ * Container around list of servers
+ */
+const listBase = cva({
+  base: {
+    flexGrow: 1,
+  },
+});
 
 /**
  * Server entries
  */
-const EntryContainer = styled("div", "Entry")`
+const EntryContainer = styledLegacy("div", "Entry")`
   width: 56px;
   height: 56px;
   position: relative;
@@ -324,7 +310,7 @@ const EntryContainer = styled("div", "Entry")`
 /**
  * Divider line between two lists
  */
-const LineDivider = styled.div`
+const LineDivider = styledLegacy.div`
   height: 1px;
   flex-shrink: 0;
   margin: 6px auto;
@@ -336,7 +322,7 @@ const LineDivider = styled.div`
 /**
  * Position the Swoosh correctly
  */
-const PositionSwoosh = styled.div`
+const PositionSwoosh = styledLegacy.div`
   user-select: none;
   position: absolute;
   pointer-events: none;
@@ -345,7 +331,7 @@ const PositionSwoosh = styled.div`
 /**
  * Shadow at the bottom of the list
  */
-const Shadow = styled("div", "Shadow")`
+const Shadow = styledLegacy("div", "Shadow")`
   height: 0;
   z-index: 1;
   display: relative;

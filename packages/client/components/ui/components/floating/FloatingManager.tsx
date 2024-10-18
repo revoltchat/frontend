@@ -63,16 +63,16 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
    */
   const placement = () => {
     const current = props.show();
+    if (!current) return;
 
-    switch (current) {
-      case "tooltip":
-        return props.config.tooltip!.placement;
-      case "userCard":
-        return "right-start";
-      case "contextMenu":
-        return "right-start";
-      case "autoComplete":
-        return "top-start";
+    if (current.tooltip) {
+      return current.tooltip.placement;
+    } else if (current.userCard) {
+      return "right-start";
+    } else if (current.contextMenu) {
+      return "right-start";
+    } else if (current.autoComplete) {
+      return "top-start";
     }
   };
 
@@ -82,27 +82,26 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
   const element = () => {
     const current = props.show();
 
-    switch (current) {
-      case "contextMenu":
-        return {
-          /**
-           * Determine client rectangle for virtual element
-           */
-          getBoundingClientRect() {
-            return {
-              width: 0,
-              height: 0,
-              x: props.mouseX,
-              y: props.mouseY,
-              left: props.mouseX,
-              right: props.mouseX,
-              top: props.mouseY,
-              bottom: props.mouseY,
-            };
-          },
-        };
-      default:
-        return props.element;
+    if (current?.contextMenu) {
+      return {
+        /**
+         * Determine client rectangle for virtual element
+         */
+        getBoundingClientRect() {
+          return {
+            width: 0,
+            height: 0,
+            x: props.mouseX,
+            y: props.mouseY,
+            left: props.mouseX,
+            right: props.mouseX,
+            top: props.mouseY,
+            bottom: props.mouseY,
+          };
+        },
+      };
+    } else {
+      return props.element;
     }
   };
 
@@ -110,7 +109,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
     placement: placement(),
     middleware: [offset(5), flip(), shift()],
     whileElementsMounted:
-      props.show() === "tooltip" || props.show() === "autoComplete"
+      props.show()?.tooltip || props.show()?.autoComplete
         ? autoUpdate
         : undefined,
   });
@@ -122,7 +121,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
   function onMouseDown(event: MouseEvent) {
     // Context menu should always dismiss on click
     // (for now...)
-    if (props.show() === "contextMenu") {
+    if (props.show()?.contextMenu) {
       props.hide();
       return;
     }
@@ -142,7 +141,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
 
   // We know what we're doing here...
   // eslint-disable-next-line solid/reactivity
-  if (props.config.userCard || props.config.contextMenu) {
+  if (props.config().userCard || props.config().contextMenu) {
     onMount(() => document.addEventListener("mousedown", onMouseDown));
     onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
   }
@@ -166,24 +165,24 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
         }}
       >
         <Switch>
-          <Match when={props.show() === "tooltip"}>
+          <Match when={props.show()?.tooltip}>
             <TooltipBase>
-              {typeof props.config.tooltip!.content === "function"
-                ? props.config.tooltip!.content({})
-                : props.config.tooltip!.content}
+              {typeof props.show()!.tooltip!.content === "function"
+                ? (props.show()!.tooltip!.content as Function)({})
+                : props.show()!.tooltip!.content}
             </TooltipBase>
           </Match>
-          <Match when={props.show() === "userCard"}>
+          <Match when={props.show()?.userCard}>
             <UserCard
-              user={props.config.userCard!.user}
-              member={props.config.userCard!.member}
+              user={props.show()!.userCard!.user}
+              member={props.show()!.userCard!.member}
             />
           </Match>
-          <Match when={props.show() === "contextMenu"}>
-            {props.config.contextMenu!({})}
+          <Match when={props.show()?.contextMenu}>
+            {props.show()!.contextMenu!({})}
           </Match>
-          <Match when={props.show() === "autoComplete"}>
-            <AutoComplete {...props.config.autoComplete!} />
+          <Match when={props.show()?.autoComplete}>
+            <AutoComplete {...props.show()!.autoComplete!} />
           </Match>
         </Switch>
       </div>

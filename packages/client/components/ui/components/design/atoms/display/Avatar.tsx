@@ -1,11 +1,7 @@
-import { JSXElement } from "solid-js";
+import { JSXElement, createEffect, createSignal, on } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { ripple } from "../../../../directives";
-
 import { Initials } from "./Initials";
-
-void ripple;
 
 export type Props = {
   /**
@@ -121,6 +117,24 @@ const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive">>`
  * Partially inspired by Adw.Avatar API, we allow users to specify a fallback component (usually just text) to display in case the URL is invalid.
  */
 export function Avatar(props: Props) {
+  const [url, setUrl] = createSignal(props.src);
+
+  // Clear the source URL on change before applying new to avoid
+  // the stale image remaining on screen and hence causing weird
+  // visual issues in virtual containers.
+  createEffect(
+    on(
+      () => props.src,
+      (src) => {
+        if (url() !== src) {
+          setUrl("");
+          setTimeout(() => setUrl(src));
+        }
+      },
+      { defer: true }
+    )
+  );
+
   return (
     <ParentBase
       width={props.size}
@@ -138,10 +152,8 @@ export function Avatar(props: Props) {
           props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined
         }
       >
-        {props.src && (
-          <Image src={props.src} draggable={false} shape={props.shape} />
-        )}
-        {!props.src && (
+        {url() && <Image src={url()} draggable={false} shape={props.shape} />}
+        {!url() && (
           <FallbackBase
             use:ripple
             shape={props.shape}

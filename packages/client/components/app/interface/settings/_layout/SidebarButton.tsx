@@ -20,6 +20,10 @@ export const SidebarButton = styled.a<Props>`
   user-select: none;
   transition: background-color 0.1s ease-in-out;
   color: ${(props) => props.theme!.colours["settings-sidebar-foreground"]};
+  background: ${(props) =>
+    props["aria-selected"]
+      ? props.theme!.colours["settings-sidebar-button-hover"]
+      : "unset"};
 
   svg {
     flex-shrink: 0;

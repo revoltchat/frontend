@@ -14,7 +14,7 @@ const SettingsModal: PropGenerator<"settings"> = ({
   config: configKey,
   context,
 }) => {
-  const config = SettingsConfigurations[configKey ?? "client"];
+  const config = SettingsConfigurations[configKey];
 
   return {
     _children: (props) => {
@@ -37,11 +37,15 @@ const SettingsModal: PropGenerator<"settings"> = ({
                     height: "100%",
                     "pointer-events": "all",
                     display: "flex",
+                    background: "var(--colours-settings-background)",
                   }}
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.3, easing: [0.17, 0.67, 0.58, 0.98] }}
+                  transition={{
+                    duration: 0.3,
+                    easing: [0.17, 0.67, 0.58, 0.98],
+                  }}
                 >
                   <Settings
                     onClose={props.onClose}

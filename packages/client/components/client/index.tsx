@@ -39,6 +39,7 @@ export function useApi() {
 
 export const IS_REVOLT =
   import.meta.env.VITE_API_URL === "https://api.revolt.chat" ||
-  import.meta.env.VITE_API_URL === "https://revolt.chat/api";
+  import.meta.env.VITE_API_URL === "https://revolt.chat/api" ||
+  typeof import.meta.env.VITE_API_URL !== "string";
 
 export const IS_DEV = import.meta.env.DEV;
