@@ -5,6 +5,7 @@ import "katex/dist/katex.min.css";
 import { html } from "property-information";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
@@ -95,6 +96,7 @@ const components = () => ({
  */
 const pipeline = unified()
   .use(remarkParse)
+  .use(remarkBreaks)
   .use(remarkGfm)
   .use(remarkMath, {
     // TODO: fork for \[\] support
