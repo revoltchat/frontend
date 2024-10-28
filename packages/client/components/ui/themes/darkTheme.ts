@@ -291,6 +291,7 @@ export const darkTheme: (
       "messaging-indicator-reply-enabled": materialColour("primary"),
       "messaging-indicator-reply-disabled": materialColour("onBackground", 60),
       "messaging-upload-file-background": materialColour("surfaceVariant", 80),
+      "messaging-upload-file-new": materialColour("surfaceVariant", 85),
       "messaging-upload-file-foreground": materialColour("onBackground", 98),
       "messaging-upload-divider": materialColour("primary", 85),
       "messaging-message-box-background": materialColour("onBackground", 94),

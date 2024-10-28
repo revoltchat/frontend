@@ -14,6 +14,7 @@
     "dev:desktop": "pnpm --filter desktop tauri dev",
     "build:deps": "pnpm --filter revolt.js build",
     "build:web": "pnpm --filter client build",
+    "build:prod": "pnpm --filter client build:prod",
     "build:desktop": "pnpm --filter desktop tauri build",
     "start": "cd packages/client && pnpm run serve",
     "fmt": "prettier --write '**/*.{ts,tsx,json}'",

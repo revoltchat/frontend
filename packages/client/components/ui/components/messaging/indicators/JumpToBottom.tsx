@@ -1,4 +1,5 @@
 import { useTranslation } from "@revolt/i18n";
+import { hoverStyles } from "@revolt/ui/directives";
 
 import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?component-solid";
 
@@ -20,7 +21,11 @@ export function JumpToBottom(props: Props) {
   const t = useTranslation();
 
   return (
-    <FloatingIndicator use:ripple position="bottom" onClick={props.onClick}>
+    <FloatingIndicator
+      class={hoverStyles({ ripple: true })}
+      position="bottom"
+      onClick={props.onClick}
+    >
       <span style={{ "flex-grow": 1 }}>
         {t("app.main.channel.misc.viewing_old")}
       </span>
