@@ -1,4 +1,4 @@
-import { For } from "solid-js";
+import { createEffect, For, onMount } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { MFA, MFATicket } from "revolt.js";
@@ -9,6 +9,7 @@ import "../ui/styled.d.ts";
 
 import { RenderModal } from "./modals";
 import { Modals } from "./types";
+import { registerKeybindWithPriority, unregisterKeybindWithPriority } from "../../src/shared/lib/priorityKeybind";
 
 export type ActiveModal = {
   /**
@@ -28,6 +29,15 @@ export type ActiveModal = {
 };
 
 /**
+ * Handle key press
+ * @param event Event
+ */
+function keyDown(event: KeyboardEvent) {
+  event.stopPropagation();
+  modalController.pop();
+}
+
+/**
  * Global modal controller for layering and displaying one or more modal to the user
  */
 export class ModalController {
@@ -43,23 +53,6 @@ export class ModalController {
     this.setModals = setModals;
 
     this.pop = this.pop.bind(this);
-
-    // TODO: this should instead work using some sort of priority queue system from a dedicated keybind handler
-    // so that, for example, popping draft does not conflict with closing the current modal
-    // example API: registerKeybind(key = 'Escape', priority = 20, fn = () => void)
-    // => event.stopPropagation
-
-    /**
-     * Handle key press
-     * @param event Event
-     */
-    function keyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        modalController.pop();
-      }
-    }
-
-    document.addEventListener("keydown", keyDown);
   }
 
   /**
@@ -201,6 +194,12 @@ export class ModalControllerExtended extends ModalController {
 export const modalController = new ModalControllerExtended();
 
 export function ModalRenderer() {
+  createEffect(() => {
+    if (modalController.modals.length === 0) return unregisterKeybindWithPriority(keyDown);
+
+    return registerKeybindWithPriority("Escape", keyDown, 1, "user-visible");
+  });
+
   return (
     <For each={modalController.modals}>
       {(entry) => <RenderModal {...entry} />}
