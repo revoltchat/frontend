@@ -22,7 +22,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
             {props.server.name}
           </Typography>
         </Column>
-        <Button size="icon" variant="plain" onClick={onClose}>
+        <Button size="icon" variant="plain" onPress={onClose}>
           <BiRegularX size={36} />
         </Button>
       </Row>

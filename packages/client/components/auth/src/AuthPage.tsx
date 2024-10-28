@@ -137,7 +137,7 @@ export function AuthPage(props: { children: JSX.Element }) {
         <div />
         <Button
           size="icon"
-          onClick={() => {
+          onPress={() => {
             a = !a;
             (window as any)._demo_setDarkMode(a);
           }}

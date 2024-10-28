@@ -92,7 +92,7 @@ export default function FlowVerify() {
       <Match when={state().state === "success"}>
         <FlowTitle>{t("login.verified_account")}</FlowTitle>
         <Show when={"mfa_ticket" in state()}>
-          <Button onClick={login}>{t("login.verified_continue")}</Button>
+          <Button onPress={login}>{t("login.verified_continue")}</Button>
         </Show>
         <Typography variant="legacy-settings-description">
           <a href="/login/auth">{t("login.remembered")}</a>

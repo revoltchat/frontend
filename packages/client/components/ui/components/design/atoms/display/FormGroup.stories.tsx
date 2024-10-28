@@ -21,4 +21,7 @@ export default {
   propTypes: {
     children: "component",
   },
-} as ComponentStory<typeof FormGroup, ComponentProps<typeof FormGroup>>;
+} as never as ComponentStory<
+  typeof FormGroup,
+  ComponentProps<typeof FormGroup>
+>;

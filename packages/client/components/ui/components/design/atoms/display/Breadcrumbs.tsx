@@ -59,7 +59,7 @@ export function Breadcrumbs(props: Props) {
  */
 const Base = styled(Row)`
   user-select: none;
-  color: ${(props) => props.theme!.colours["foreground-300"]};
+  color: var(--unset-fg);
 `;
 
 /**

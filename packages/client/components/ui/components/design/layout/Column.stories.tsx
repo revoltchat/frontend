@@ -48,7 +48,7 @@ export default {
         grow: true,
       },
       decorators: [
-        (props) => (
+        (props: any) => (
           <div style={{ height: "120px", display: "flex" }}>
             {props.children}
           </div>
@@ -85,4 +85,4 @@ export default {
     grow: "boolean",
     group: "boolean",
   },
-} as ComponentStory<typeof Column>;
+} as never as ComponentStory<typeof Column>;

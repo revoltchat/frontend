@@ -1,4 +1,4 @@
-import type { ComponentProps } from "solid-js";
+import { type ComponentProps, Index } from "solid-js";
 
 import TextColourDecorator from "../../../../decorators/TextColourDecorator";
 import type { ComponentStory } from "../../../stories";
@@ -17,12 +17,12 @@ export default {
       title: "With Transparency",
       component: HeaderWithTransparency,
       decorators: [
-        (props) => (
+        (props: any) => (
           <Column>
             <Column>
-              {new Array(5).fill(0).map(() => (
-                <span>background content</span>
-              ))}
+              <Index each={new Array(5).fill(0)}>
+                {() => <span>background content</span>}
+              </Index>
             </Column>
             {props.children}
           </Column>
@@ -37,4 +37,4 @@ export default {
   propTypes: {
     children: "string",
   },
-} as ComponentStory<typeof Header, ComponentProps<typeof Header>>;
+} as never as ComponentStory<typeof Header, ComponentProps<typeof Header>>;

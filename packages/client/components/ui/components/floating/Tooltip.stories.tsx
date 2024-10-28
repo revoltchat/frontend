@@ -13,7 +13,7 @@ export default {
     /**
      * Render the children
      */
-    children(fn) {
+    children(fn: any) {
       return (
         <Button {...fn} type="button">
           Example
@@ -24,4 +24,4 @@ export default {
     initialState: true,
   },
   propTypes: {},
-} as ComponentStory<typeof Tooltip, ComponentProps<typeof Tooltip>>;
+} as never as ComponentStory<typeof Tooltip, ComponentProps<typeof Tooltip>>;
