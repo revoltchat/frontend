@@ -43,5 +43,6 @@
       "@revolt/ui": ["components/ui"],
       "@revolt/ui/*": ["components/ui/*"]
     }
-  }
+  },
+  "exclude": ["components/i18n/locales/*"]
 }

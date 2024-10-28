@@ -6007,13 +6007,13 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/builder-vite@8.4.0-beta.0(storybook@8.2.0-alpha.5)(vite@5.1.6):
-    resolution: {integrity: sha512-7SlyZ3XQRQju4GFlzNLS45KhUAfWnBexKnqqpL2sOPMgcTfIkahESZXhhi1lX4AwHT1hXSkKR23lUhgS39E3Fw==}
+  /@storybook/builder-vite@8.4.0-beta.1(storybook@8.2.0-alpha.5)(vite@5.1.6):
+    resolution: {integrity: sha512-RoXwed7jWRjqKKc4Cl2nx0gxkcuhyD9iwotaUOXkEzKdgtVJh5YAAHv9qRmT+c5MrUsPbg87CekdVA9wEtZoPw==}
     peerDependencies:
-      storybook: ^8.4.0-beta.0
+      storybook: ^8.4.0-beta.1
       vite: ^4.0.0 || ^5.0.0
     dependencies:
-      '@storybook/csf-plugin': 8.4.0-beta.0(storybook@8.2.0-alpha.5)
+      '@storybook/csf-plugin': 8.4.0-beta.1(storybook@8.2.0-alpha.5)
       browser-assert: 1.2.1
       storybook: 8.2.0-alpha.5(react-dom@18.3.1)(react@18.3.1)
       ts-dedent: 2.2.0
@@ -6315,10 +6315,10 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/csf-plugin@8.4.0-beta.0(storybook@8.2.0-alpha.5):
-    resolution: {integrity: sha512-tsyl6txhgY3+nb8kuo1vbKF/G7BBXwJGZwvDhUBUBs/DVHhnxgc4t07wHNtqa1JYAV+v0Pwb10xvs6hK+9O55w==}
+  /@storybook/csf-plugin@8.4.0-beta.1(storybook@8.2.0-alpha.5):
+    resolution: {integrity: sha512-Hv2HViSS+bpf3eLpkjA8UUWoTVH/7j75LzjYFHiKsVs/yya569rKUqTGtpB5bcEwnbj3ROCECMY+mBoAOWoLAw==}
     peerDependencies:
-      storybook: ^8.4.0-beta.0
+      storybook: ^8.4.0-beta.1
     dependencies:
       storybook: 8.2.0-alpha.5(react-dom@18.3.1)(react@18.3.1)
       unplugin: 1.10.1
@@ -14631,7 +14631,7 @@ packages:
     resolution: {integrity: sha512-dD+VMYC5fBBQNesVb+mjB0LOkZIf100SQFbjAt9/sDstNUvc5ce3yZwLYXzgcOc7jcSMkrBu/cZNRzEM4YIAyw==}
     engines: {node: ^14.18 || >=16}
     dependencies:
-      '@storybook/builder-vite': 8.4.0-beta.0(storybook@8.2.0-alpha.5)(vite@5.1.6)
+      '@storybook/builder-vite': 8.4.0-beta.1(storybook@8.2.0-alpha.5)(vite@5.1.6)
     transitivePeerDependencies:
       - storybook
       - vite

@@ -1,6 +1,8 @@
 import { Component, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { hoverStyles } from "@revolt/ui/directives";
+
 import { Time } from "../../design/atoms/display/Time";
 import {
   Typography,
@@ -179,11 +181,11 @@ export function MessageContainer(props: Props) {
   return (
     <Base
       tail={props.tail}
+      class={hoverStyles()}
       mentioned={props.mentioned}
       highlight={props.highlight}
       sendStatus={props.sendStatus}
       use:floating={{ contextMenu: props.contextMenu }}
-      use:ripple={{ enable: false }}
     >
       {props.header}
       <Row gap="none">

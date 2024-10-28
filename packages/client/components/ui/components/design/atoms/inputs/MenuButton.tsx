@@ -3,6 +3,8 @@ import { ComponentProps, JSX, Show, splitProps } from "solid-js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { hoverStyles } from "@revolt/ui/directives";
+
 import { Row } from "../../layout";
 import { Unreads } from "../indicators";
 
@@ -149,12 +151,14 @@ export function MenuButton(props: Props & ComponentProps<typeof Row>) {
     // TODO: port to panda-css to merge down components
     <div
       {...other}
-      class={base({
-        attention: local.attention,
-        size: local.size,
-        hasActions: local.actions ? "yes" : "no",
-      })}
-      use:ripple
+      classList={{
+        [base({
+          attention: local.attention,
+          size: local.size,
+          hasActions: local.actions ? "yes" : "no",
+        })]: true,
+        [hoverStyles({ ripple: true })]: true,
+      }}
       // @codegen directives props=other include=floating
     >
       {/* <Base {...other} align> */}

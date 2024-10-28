@@ -227,7 +227,7 @@ export function Modal(props: Props) {
                         <Button
                           {...action}
                           isDisabled={props.disabled}
-                          onClick={async () => {
+                          onPress={async () => {
                             if (await action.onClick()) {
                               props.onClose?.();
                             }

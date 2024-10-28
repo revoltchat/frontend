@@ -33,7 +33,7 @@ export default {
     unread: "boolean",
     count: "number",
   },
-} as ComponentStory<
+} as never as ComponentStory<
   typeof UnreadsGraphic,
   ComponentProps<typeof UnreadsGraphic>
 >;

@@ -1,6 +1,8 @@
 import { JSXElement, createEffect, createSignal, on } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { hoverStyles } from "@revolt/ui/directives";
+
 import { Initials } from "./Initials";
 
 export type Props = {
@@ -155,7 +157,6 @@ export function Avatar(props: Props) {
         {url() && <Image src={url()} draggable={false} shape={props.shape} />}
         {!url() && (
           <FallbackBase
-            use:ripple
             shape={props.shape}
             primaryContrast={props.primaryContrast}
           >
