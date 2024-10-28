@@ -1,5 +1,5 @@
 import {
-  Accessor,
+  type Accessor,
   Match,
   Show,
   Switch,
@@ -41,7 +41,7 @@ import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.sv
 
 import { useSettingsNavigation } from "../Settings";
 
-import { UserSummary } from "./account";
+import { UserSummary } from "./account/index";
 
 /**
  * Account Page

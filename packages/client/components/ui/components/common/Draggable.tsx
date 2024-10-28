@@ -66,7 +66,6 @@ export function Draggable<T>(props: Props<T>) {
    */
   return (
     <div
-      // @ts-expect-error Typescript doesn't support directives
       use:dndzone={{ items: containerItems }}
       on:consider={handleDndEvent}
       on:finalize={handleDndEvent}
