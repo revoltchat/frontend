@@ -41,9 +41,6 @@ importers:
       '@sentry/browser':
         specifier: ^8.33.1
         version: 8.33.1
-      '@sentry/tracing':
-        specifier: ^7.114.0
-        version: 7.114.0
       '@solid-aria/button':
         specifier: ^0.1.3
         version: 0.1.3(solid-js@1.9.2)
@@ -60,8 +57,11 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2(solid-js@1.9.2)
       '@solid-primitives/map':
-        specifier: ^0.4.13
-        version: 0.4.13(solid-js@1.9.2)
+        specifier: ^0.4.11
+        version: 0.4.11(solid-js@1.9.2)
+      '@solid-primitives/set':
+        specifier: ^0.4.11
+        version: 0.4.11(solid-js@1.9.2)
       '@solidjs/router':
         specifier: ^0.14.7
         version: 0.14.7(solid-js@1.9.2)
@@ -4657,15 +4657,6 @@ packages:
       '@sentry/utils': 8.33.1
     dev: false
 
-  /@sentry-internal/tracing@7.114.0:
-    resolution: {integrity: sha512-dOuvfJN7G+3YqLlUY4HIjyWHaRP8vbOgF+OsE5w2l7ZEn1rMAaUbPntAR8AF9GBA6j2zWNoSo8e7GjbJxVofSg==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.114.0
-      '@sentry/types': 7.114.0
-      '@sentry/utils': 7.114.0
-    dev: false
-
   /@sentry/browser@8.33.1:
     resolution: {integrity: sha512-c6zI/igexkLwZuGk+u8Rj26ChjxGgkhe6ZbKFsXCYaKAp5ep5X7HQRkkqgbxApiqlC0LduHdd/ymzh139JLg8w==}
     engines: {node: '>=14.18'}
@@ -4679,14 +4670,6 @@ packages:
       '@sentry/utils': 8.33.1
     dev: false
 
-  /@sentry/core@7.114.0:
-    resolution: {integrity: sha512-YnanVlmulkjgZiVZ9BfY9k6I082n+C+LbZo52MTvx3FY6RE5iyiPMpaOh67oXEZRWcYQEGm+bKruRxLVP6RlbA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.114.0
-      '@sentry/utils': 7.114.0
-    dev: false
-
   /@sentry/core@8.33.1:
     resolution: {integrity: sha512-3SS41suXLFzxL3OQvTMZ6q92ZapELVq2l2SoWlZopcamWhog2Ru0dp2vkunq97kFHb2TzKRTlFH4+4gbT8SJug==}
     engines: {node: '>=14.18'}
@@ -4695,28 +4678,9 @@ packages:
       '@sentry/utils': 8.33.1
     dev: false
 
-  /@sentry/tracing@7.114.0:
-    resolution: {integrity: sha512-eldEYGADReZ4jWdN5u35yxLUSTOvjsiZAYd4KBEpf+Ii65n7g/kYOKAjNl7tHbrEG1EsMW4nDPWStUMk1w+tfg==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry-internal/tracing': 7.114.0
-    dev: false
-
-  /@sentry/types@7.114.0:
-    resolution: {integrity: sha512-tsqkkyL3eJtptmPtT0m9W/bPLkU7ILY7nvwpi1hahA5jrM7ppoU0IMaQWAgTD+U3rzFH40IdXNBFb8Gnqcva4w==}
-    engines: {node: '>=8'}
-    dev: false
-
   /@sentry/types@8.33.1:
     resolution: {integrity: sha512-GjoAMvwtpIemoF/IiwZ7A60g4nQv3qwzR21GvJqDVUoKD0e8pv9OLX+HyXoUat4wEDGSuDUcUyUKD2G+od73QA==}
     engines: {node: '>=14.18'}
-    dev: false
-
-  /@sentry/utils@7.114.0:
-    resolution: {integrity: sha512-319N90McVpupQ6vws4+tfCy/03AdtsU0MurIE4+W5cubHME08HtiEWlfacvAxX+yuKFhvdsO4K4BB/dj54ideg==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.114.0
     dev: false
 
   /@sentry/utils@8.33.1:
@@ -5129,12 +5093,12 @@ packages:
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
-      '@solid-primitives/trigger': 1.0.11(solid-js@1.8.15)
+      '@solid-primitives/trigger': 1.1.0(solid-js@1.8.15)
       solid-js: 1.8.15
     dev: false
 
-  /@solid-primitives/map@0.4.13(solid-js@1.9.2):
-    resolution: {integrity: sha512-B1zyFbsiTQvqPr+cuPCXO72sRuczG9Swncqk5P74NCGw1VE8qa/Ry9GlfI1e/VdeQYHjan+XkbE3rO2GW/qKew==}
+  /@solid-primitives/map@0.4.11(solid-js@1.9.2):
+    resolution: {integrity: sha512-OAD65RPxMDYv41oAvadPCqedZfDX92BbWLUC+Qwh9okVMDAF/5UM+t1916OAfGV01Cr30d/fxIT1x86P+gFgSQ==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
@@ -5289,6 +5253,15 @@ packages:
       solid-js: 1.8.15
     dev: false
 
+  /@solid-primitives/set@0.4.11(solid-js@1.9.2):
+    resolution: {integrity: sha512-DBA4KjOvqc8aer0EO14MkJM6pgs+WHujkfRVwwE31i7NVzpiqp3RY9it2dvmLthj4MHzvOBoeZosgN8Pm44GiA==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/trigger': 1.1.0(solid-js@1.9.2)
+      solid-js: 1.9.2
+    dev: false
+
   /@solid-primitives/static-store@0.0.5(solid-js@1.9.2):
     resolution: {integrity: sha512-ssQ+s/wrlFAEE4Zw8GV499yBfvWx7SMm+ZVc11wvao4T5xg9VfXCL9Oa+x4h+vPMvSV/Knv5LrsLiUa+wlJUXQ==}
     peerDependencies:
@@ -5343,6 +5316,15 @@ packages:
 
   /@solid-primitives/trigger@1.0.11(solid-js@1.8.15):
     resolution: {integrity: sha512-4oc8grBzBit7ByXgE1aZ0QXfhdlhXaiFjDKYsOhRyUJa8fN4hdr2IgsYqjmHwxyjK+Dm2OUwkCI1bGkaLgtgXg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.3(solid-js@1.8.15)
+      solid-js: 1.8.15
+    dev: false
+
+  /@solid-primitives/trigger@1.1.0(solid-js@1.8.15):
+    resolution: {integrity: sha512-00BbAiXV66WwjHuKZc3wr0+GLb9C24mMUmi3JdTpNFgHBbrQGrIHubmZDg36c5/7wH+E0GQtOOanwQS063PO+A==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:

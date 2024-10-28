@@ -37,6 +37,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
     <Switch fallback={<span>{`:${emoji()?.name ?? props.match}:`}</span>}>
       <Match when={exists()}>
         <TooltipTrigger
+          // @ts-expect-error this is a hack; replace with plain element & panda-css
           use:floating={{
             tooltip: {
               placement: "top",

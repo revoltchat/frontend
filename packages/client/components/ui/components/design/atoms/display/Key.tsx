@@ -67,8 +67,12 @@ export const Key: Component<Props> = (props) => {
     return (
       REPLACEMENTS[key]?.() ??
       (props.short
-        ? t(`keys.${key}.short`, {}, t(`keys.${key}.full`, {}, key))
-        : t(`keys.${key}.full`, {}, key))
+        ? t(
+            `keys.${key}.short` as any,
+            {},
+            t(`keys.${key}.full` as any, {}, key)
+          )
+        : t(`keys.${key}.full` as any, {}, key))
     );
   });
 

@@ -86,6 +86,7 @@ export function CategoryCollapse(props: Props) {
             gap="xs"
             ref={column!}
             style={{ height: updatedHeight() }}
+            // @ts-expect-error this is a hack; replace with plain element & panda-css
             use:scrollable
           >
             {props.children}

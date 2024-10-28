@@ -88,6 +88,7 @@ export function DevelopmentPage() {
         // directives hacked into solid-styled-components
         // => unreliable (breaks on some re-renders)
         // => uses goober, want to migrate out anyways
+        // @ts-expect-error this is a hack; replace with plain element & panda-css
         use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
       >
         hi

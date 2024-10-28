@@ -1,11 +1,10 @@
-import { ComponentProps, JSX, Show, splitProps } from "solid-js";
+import { JSX, Show, splitProps } from "solid-js";
 
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { hoverStyles } from "@revolt/ui/directives";
 
-import { Row } from "../../layout";
 import { Unreads } from "../indicators";
 
 export type Props = {
@@ -137,7 +136,7 @@ const Actions = styled("div", {
 /**
  * Menu button element
  */
-export function MenuButton(props: Props & ComponentProps<typeof Row>) {
+export function MenuButton(props: Props & JSX.HTMLAttributes<HTMLDivElement>) {
   const [local, other] = splitProps(props, [
     "attention",
     "size",

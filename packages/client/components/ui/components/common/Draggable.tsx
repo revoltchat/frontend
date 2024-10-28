@@ -67,6 +67,7 @@ export function Draggable<T>(props: Props<T>) {
   return (
     <div
       use:dndzone={{ items: containerItems }}
+      // @ts-expect-error
       on:consider={handleDndEvent}
       on:finalize={handleDndEvent}
     >

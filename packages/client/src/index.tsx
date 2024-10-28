@@ -1,13 +1,24 @@
 /**
  * Configure contexts and render App
  */
-import { JSX, Show, createEffect, createSignal, on, onMount, createResource, createMemo } from "solid-js";
+import {
+  JSX,
+  Show,
+  createEffect,
+  createMemo,
+  createResource,
+  createSignal,
+  on,
+  onMount,
+} from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
+import * as i18n from "@solid-primitives/i18n";
 import { Navigate, Route, Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
+import { isTauri } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
@@ -18,6 +29,13 @@ import FlowLogin from "@revolt/auth/src/flows/FlowLogin";
 import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
+import {
+  I18nContext,
+  dict,
+  fetchLanguage,
+  language,
+  setLanguage,
+} from "@revolt/i18n";
 import { ModalRenderer, modalController } from "@revolt/modal";
 import { Hydrate, state } from "@revolt/state";
 import {
@@ -43,9 +61,6 @@ import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
-import * as i18n from "@solid-primitives/i18n";
-import { dict, fetchLanguage, I18nContext, language, setLanguage } from "@revolt/i18n";
-import { isTauri } from "@tauri-apps/api/core";
 
 attachDevtoolsOverlay();
 

@@ -22,6 +22,7 @@ const CustomStatus: PropGenerator<"custom_status"> = (props) => {
     data: {
       text: {
         field: t("app.context_menu.custom_status"),
+        // @ts-expect-error this is a hack; replace with plain element & panda-css
         "use:autoComplete": true,
       },
     },
