@@ -80,6 +80,7 @@ class Lifecycle {
   client: Client;
 
   #connectionFailures = 0;
+  #permanentError: string | undefined;
   #retryTimeout: number | undefined;
 
   constructor() {
@@ -98,7 +99,7 @@ class Lifecycle {
     this.dispose();
   }
 
-  dispose() {
+  private dispose() {
     if (this.client) {
       this.client.events.removeAllListeners();
       this.client.removeAllListeners();
@@ -267,7 +268,7 @@ class Lifecycle {
             this.#enter(State.Disconnected);
             break;
           case TransitionType.PermanentFailure:
-            // TODO: relay error
+            this.#permanentError = transition.error;
             this.#enter(State.Error);
             break;
           case TransitionType.Logout:
@@ -347,9 +348,19 @@ class Lifecycle {
     switch (state) {
       case ConnectionState.Disconnected:
         if (this.client.events.lastError) {
+          if (this.client.events.lastError.type === "revolt") {
+            // if (this.client.events.lastError.data.type == 'InvalidSession') {
+
+            this.transition({
+              type: TransitionType.PermanentFailure,
+              error: this.client.events.lastError.data.type,
+            });
+
+            break;
+          }
+
           this.transition({
             type: TransitionType.TemporaryFailure,
-            // TODO: handle permanent failure
           });
         } else {
           this.transition({
@@ -358,6 +369,13 @@ class Lifecycle {
         }
         break;
     }
+  }
+
+  /**
+   * Get the permanent error
+   */
+  get permanentError() {
+    return this.#permanentError!;
   }
 }
 
@@ -400,6 +418,10 @@ export default class ClientController {
       State.Offline,
       State.Reconnecting,
     ].includes(this.lifecycle.state());
+  }
+
+  isError() {
+    return this.lifecycle.state() === State.Error;
   }
 
   /**
