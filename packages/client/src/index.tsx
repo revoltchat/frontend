@@ -37,7 +37,7 @@ import {
   setLanguage,
 } from "@revolt/i18n";
 import { ModalRenderer, modalController } from "@revolt/modal";
-import { Hydrate, state } from "@revolt/state";
+import { state } from "@revolt/state";
 import {
   ApplyGlobalStyles,
   FloatingManager,
@@ -114,58 +114,58 @@ function MountContext(props: { children?: JSX.Element }) {
   return (
     <I18nContext.Provider value={t()}>
       <QueryClientProvider client={client}>
-        <Hydrate>
-          <Masks />
-          <MountTheme>
-            <ProvideDirectives>
-              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-                <Show when={window.__TAURI__}>
-                  <Titlebar
-                    isBuildDev={import.meta.env.DEV}
-                    onMinimize={() => appWindow?.minimize?.()}
-                    onMaximize={() => appWindow?.toggleMaximize?.()}
-                    onClose={() => appWindow?.hide?.()}
-                  />
-                </Show>
-                {props.children}
-              </KeybindsProvider>
-              <ModalRenderer />
-              <FloatingManager />
-              <ApplyGlobalStyles />
-            </ProvideDirectives>
-          </MountTheme>
-        </Hydrate>
+        <Masks />
+        <MountTheme>
+          <ProvideDirectives>
+            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+              <Show when={window.__TAURI__}>
+                <Titlebar
+                  isBuildDev={import.meta.env.DEV}
+                  onMinimize={() => appWindow?.minimize?.()}
+                  onMaximize={() => appWindow?.toggleMaximize?.()}
+                  onClose={() => appWindow?.hide?.()}
+                />
+              </Show>
+              {props.children}
+            </KeybindsProvider>
+            <ModalRenderer />
+            <FloatingManager />
+            <ApplyGlobalStyles />
+          </ProvideDirectives>
+        </MountTheme>
       </QueryClientProvider>
     </I18nContext.Provider>
   );
 }
 
-render(
-  () => (
-    <Router root={MountContext}>
-      <Route path="/login" component={AuthPage as never}>
-        <Route path="/check" component={FlowCheck} />
-        <Route path="/create" component={FlowCreate} />
-        <Route path="/auth" component={FlowLogin} />
-        <Route path="/resend" component={FlowResend} />
-        <Route path="/reset" component={FlowReset} />
-        <Route path="/verify/:token" component={FlowVerify} />
-        <Route path="/reset/:token" component={FlowConfirmReset} />
-        <Route path="/*" component={FlowHome} />
-      </Route>
-      <Route path="/" component={Interface as never}>
-        <Route path="/pwa" component={PWARedirect} />
-        <Route path="/dev" component={DevelopmentPage} />
-        <Route path="/settings" component={SettingsRedirect} />
-        <Route path="/friends" component={Friends} />
-        <Route path="/server/:server/*">
-          <Route path="/channel/:channel/*" component={ChannelPage} />
-          <Route path="/*" component={ServerHome} />
+state.hydrate().then(() =>
+  render(
+    () => (
+      <Router root={MountContext}>
+        <Route path="/login" component={AuthPage as never}>
+          <Route path="/check" component={FlowCheck} />
+          <Route path="/create" component={FlowCreate} />
+          <Route path="/auth" component={FlowLogin} />
+          <Route path="/resend" component={FlowResend} />
+          <Route path="/reset" component={FlowReset} />
+          <Route path="/verify/:token" component={FlowVerify} />
+          <Route path="/reset/:token" component={FlowConfirmReset} />
+          <Route path="/*" component={FlowHome} />
         </Route>
-        <Route path="/channel/:channel/*" component={ChannelPage} />
-        <Route path="/*" component={HomePage} />
-      </Route>
-    </Router>
-  ),
-  document.getElementById("root") as HTMLElement
+        <Route path="/" component={Interface as never}>
+          <Route path="/pwa" component={PWARedirect} />
+          <Route path="/dev" component={DevelopmentPage} />
+          <Route path="/settings" component={SettingsRedirect} />
+          <Route path="/friends" component={Friends} />
+          <Route path="/server/:server/*">
+            <Route path="/channel/:channel/*" component={ChannelPage} />
+            <Route path="/*" component={ServerHome} />
+          </Route>
+          <Route path="/channel/:channel/*" component={ChannelPage} />
+          <Route path="/*" component={HomePage} />
+        </Route>
+      </Router>
+    ),
+    document.getElementById("root") as HTMLElement
+  )
 );

@@ -179,12 +179,3 @@ export class State {
  * Global application state
  */
 export const state = new State();
-
-/**
- * Component to block rendering until state is hydrated
- */
-export function Hydrate(props: { children: JSX.Element }) {
-  const [hydrated, setHydrated] = createSignal(false);
-  onMount(() => state.hydrate().then(() => setHydrated(true)));
-  return <Show when={hydrated}>{props.children}</Show>;
-}
