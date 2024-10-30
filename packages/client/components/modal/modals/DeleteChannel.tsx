@@ -25,10 +25,10 @@ const DeleteChannel: PropGenerator<"delete_channel"> = (props) => {
 
   return createFormModal({
     modalProps: {
-      title: t(i18nKey, {
+      title: t(i18nKey as any, {
         name: props.channel.name ?? props.channel.recipient?.displayName,
       }),
-      description: t(i18nKey + "_long"),
+      description: t((i18nKey + "_long") as any),
     },
     schema: {},
     data: {},

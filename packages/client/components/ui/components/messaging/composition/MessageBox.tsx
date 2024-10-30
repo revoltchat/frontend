@@ -159,6 +159,7 @@ export function MessageBox(props: Props) {
             onKeyUp={onKeyUp}
             value={props.content}
             placeholder={props.placeholder}
+            // @ts-expect-error this is a hack; replace with plain element & panda-css
             use:autoComplete={props.autoCompleteConfig ?? true}
           />
         }

@@ -58,7 +58,10 @@ export function FileCarousel(props: Props) {
   return (
     <Show when={props.files.length}>
       <Container>
-        <Carousel use:scrollable={{ direction: "x" }}>
+        <Carousel
+          // @ts-expect-error this is a hack; replace with plain element & panda-css
+          use:scrollable={{ direction: "x" }}
+        >
           <For each={props.files}>
             {(id, index) => {
               /**

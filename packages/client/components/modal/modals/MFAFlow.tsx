@@ -120,7 +120,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
       <Switch fallback={<Preloader type="ring" />}>
         <Match when={selectedMethod()}>
           <Typography variant="label">
-            {t(`login.${selectedMethod()!.toLowerCase()}`)}
+            {t(`login.${selectedMethod()!.toLowerCase()}` as any)}
           </Typography>
           <Switch>
             <Match when={selectedMethod() === "Password"}>
@@ -175,7 +175,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
                   setResponse(undefined);
                 }}
               >
-                {t(`login.${method.toLowerCase()}`)}
+                {t(`login.${method.toLowerCase()}` as any)}
               </CategoryButton>
             )}
           </For>

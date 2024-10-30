@@ -80,7 +80,7 @@ export default function FlowVerify() {
         <FlowTitle>{t("login.error.verify")}</FlowTitle>
         <Typography variant="legacy-settings-description">
           {t(
-            `error.${(state() as State & { state: "error" }).error}`,
+            `error.${(state() as State & { state: "error" }).error}` as any,
             undefined,
             (state() as State & { state: "error" }).error
           )}

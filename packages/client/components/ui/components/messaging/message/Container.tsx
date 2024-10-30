@@ -185,6 +185,7 @@ export function MessageContainer(props: Props) {
       mentioned={props.mentioned}
       highlight={props.highlight}
       sendStatus={props.sendStatus}
+      // @ts-expect-error this is a hack; replace with plain element & panda-css
       use:floating={{ contextMenu: props.contextMenu }}
     >
       {props.header}

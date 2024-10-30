@@ -36,7 +36,10 @@ interface Props {
  */
 function Usr(props: { user?: User } & Pick<Props, "menuGenerator">) {
   return (
-    <Username use:floating={props.menuGenerator(props.user)}>
+    <Username
+      // @ts-expect-error this is a hack; replace with plain element & panda-css
+      use:floating={props.menuGenerator(props.user)}
+    >
       {props.user?.username}
     </Username>
   );

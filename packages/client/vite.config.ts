@@ -5,7 +5,6 @@ import { defineConfig } from "vite";
 import Inspect from "vite-plugin-inspect";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
-// @ts-expect-error
 import solidSvg from "vite-plugin-solid-svg";
 
 import codegenPlugin from "./codegen.plugin";
@@ -67,9 +66,12 @@ export default defineConfig({
   ],
   build: {
     target: "esnext",
+    rollupOptions: {
+      external: ["hast"]
+    }
   },
   optimizeDeps: {
-    exclude: ["solid-styled-components"],
+    exclude: ["solid-styled-components", "hast"],
   },
   resolve: {
     alias: {

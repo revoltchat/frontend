@@ -110,7 +110,7 @@ export function createFormModal<
         <Show when={error()}>
           <Error>
             <Typography variant="label">
-              {t(`error.${error()}`, undefined, error())}
+              {t(`error.${error()}` as any, undefined, error())}
             </Typography>
           </Error>
         </Show>

@@ -62,7 +62,9 @@ export default function Keybinds() {
 
   const translateCombo = (combo: KeyCombo, short: boolean) =>
     combo
-      .map((key) => t(`keys.${key}.${short ? "short" : "full"}`, {}, key))
+      .map((key) =>
+        t(`keys.${key}.${short ? "short" : "full"}` as any, {}, key)
+      )
       .join("+");
 
   const translateSequence = (sequence: KeyComboSequence, short: boolean) =>
@@ -94,8 +96,12 @@ export default function Keybinds() {
       .flat()
       .map((action) => [
         action,
-        t(`app.settings.pages.keybinds.action.${action}.description`) as string,
-        t(`app.settings.pages.keybinds.action.${action}.title`) as string,
+        t(
+          `app.settings.pages.keybinds.action.${action}.description` as any
+        ) as string,
+        t(
+          `app.settings.pages.keybinds.action.${action}.title` as any
+        ) as string,
         ...state.keybinds
           .getKeybinds()
           [action].flatMap((sequence) => [
@@ -135,7 +141,7 @@ export default function Keybinds() {
       <For each={filteredData()}>
         {([category, actions]) => (
           <CategoryCollapse
-            title={t(`app.settings.pages.keybinds.category.${category}`)}
+            title={t(`app.settings.pages.keybinds.category.${category}` as any)}
             // TODO: open={category !== "advanced"}
           >
             <Column group="6px">
@@ -144,12 +150,14 @@ export default function Keybinds() {
                   <ActionCategory>
                     <CategoryButton
                       description={t(
-                        `app.settings.pages.keybinds.action.${action}.description`
+                        `app.settings.pages.keybinds.action.${action}.description` as any
                       )}
                       action={<BiSolidPlusCircle size={24} />}
                       onClick={() => addKeybind(action)}
                     >
-                      {t(`app.settings.pages.keybinds.action.${action}.title`)}
+                      {t(
+                        `app.settings.pages.keybinds.action.${action}.title` as any
+                      )}
                     </CategoryButton>
                     <For each={state.keybinds.getKeybinds()[action]}>
                       {(sequence, index) => {
