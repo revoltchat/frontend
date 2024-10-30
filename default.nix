@@ -1,10 +1,11 @@
 let
-  # Pinned nixpkgs, deterministic. Last updated: 11-08-2023.
-  pkgs = import (fetchTarball("https://github.com/NixOS/nixpkgs/archive/bb9707ef2ea4a5b749b362d5cf81ada3ded2c53f.tar.gz")) {};
+  # Pinned nixpkgs, deterministic. Last updated: 29-10-2024.
+  pkgs = import (fetchTarball ("https://github.com/NixOS/nixpkgs/archive/0930fa9bab0e3877d4ab0682f805b2dc86ec5716.tar.gz")) { };
 
   # Rolling updates, not deterministic.
-  # pkgs = import (fetchTarball("channel:nixpkgs-unstable")) {};
-in pkgs.mkShell {
+  # pkgs = import (fetchTarball ("channel:nixpkgs-unstable")) { };
+in
+pkgs.mkShell {
   name = "revoltEnv";
 
   buildInputs = [
