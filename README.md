@@ -34,7 +34,7 @@ cd client
 # git submodule init && git submodule update
 
 # install all packages
-pnpm i
+pnpm i --frozen-lockfile 
 
 # build deps:
 pnpm build:deps
@@ -82,7 +82,7 @@ Any edits to the revolt.js codebase will immediately be reflected while developi
 
 ```bash
 # install packages
-pnpm i
+pnpm i --frozen-lockfile 
 
 # build dependencies
 pnpm build:deps
