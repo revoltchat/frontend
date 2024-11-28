@@ -138,6 +138,7 @@ export const darkTheme: (
     darkMode,
     colours: {
       // Global
+      link: "#0088ce",
       background: materialColour("background"),
       foreground: materialColour("onBackground"),
       // Component: Button

@@ -31,6 +31,7 @@ declare module "solid-styled-components" {
     >;
     colours: {
       [key in
+        | "link"
         | "background"
         | "foreground"
         | `component-${
