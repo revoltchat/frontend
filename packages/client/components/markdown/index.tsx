@@ -34,6 +34,11 @@ import {
   spoilerHandler,
 } from "./plugins/spoiler";
 import {
+  RenderFormatter,
+  remarkTextFormattingExtensions,
+  textFormatHandler,
+} from "./plugins/textFormattingExtensions";
+import {
   RenderTimestamp,
   remarkTimestamps,
   timestampHandler,
@@ -61,6 +66,7 @@ const components = () => ({
   mention: RenderMention,
   timestamp: RenderTimestamp,
   spoiler: RenderSpoiler,
+  formatter: RenderFormatter,
 
   a: RenderAnchor,
   p: elements.paragraph,
@@ -111,6 +117,7 @@ const pipeline = unified()
   .use(remarkUnicodeEmoji)
   .use(remarkCustomEmoji)
   .use(remarkSpoiler)
+  .use(remarkTextFormattingExtensions)
   .use(remarkHtmlToText)
   // @ts-expect-error non-standard elements not recognised by typing
   .use(remarkRehype, {
@@ -120,6 +127,7 @@ const pipeline = unified()
       mention: mentionHandler,
       timestamp: timestampHandler,
       spoiler: spoilerHandler,
+      formatter: textFormatHandler,
     },
   })
   .use(remarkInsertBreaks)
