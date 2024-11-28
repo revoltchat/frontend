@@ -288,6 +288,7 @@ export const darkTheme: (
       // "sidebar-server-list-foreground": materialColour("onBackground", 80),
 
       // Messaging: Interface
+      "messaging-channel-header-divider": materialColour("onBackground", 80),
       "messaging-indicator-background": `rgba(${hexToRgb(
         materialColour("background", 94)
       )}, 0.50)`,
@@ -313,6 +314,14 @@ export const darkTheme: (
       "messaging-component-blocked-message-foreground": materialColour(
         "onBackground",
         60
+      ),
+      "messaging-component-system-message-foreground": materialColour(
+        "onBackground",
+        40
+      ),
+      "messaging-component-message-reply-hook": materialColour(
+        "onBackground",
+        90
       ),
       "messaging-component-code-block-background":
         materialColour("surfaceVariant"),

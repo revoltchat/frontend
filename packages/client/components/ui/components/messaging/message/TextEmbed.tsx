@@ -39,7 +39,6 @@ const SiteInformation = styled("div", "SiteInfo")`
   display: flex;
   flex-direction: row;
   gap: ${(props) => props.theme!.gap.md};
-  color: var(--unset-fg);
 `;
 
 const Favicon = styled("img", "Favicon")`

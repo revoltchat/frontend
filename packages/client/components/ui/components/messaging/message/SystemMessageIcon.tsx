@@ -99,17 +99,12 @@ const Base = styled.div<{ type: SystemMessage["type"] }>`
   display: grid;
   place-items: center;
 
-  color: ${
-    "var(--unset-fg)"
-    // (props) =>
-    // props.theme!.colours[
-    //   danger.has(props.type)
-    //     ? "error"
-    //     : warning.has(props.type)
-    //     ? "warning"
-    //     : success.has(props.type)
-    //     ? "success"
-    //     : "foreground-200"
-    // ]
-  };
+  color: ${(props) =>
+    danger.has(props.type)
+      ? "var(--customColours-error-color)"
+      : warning.has(props.type)
+      ? "var(--customColours-warning-color)"
+      : success.has(props.type)
+      ? "var(--customColours-success-color)"
+      : "var(--colours-foreground)"};
 `;

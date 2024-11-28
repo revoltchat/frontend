@@ -172,7 +172,7 @@ const Base = styled("div", "SystemMessage")`
   display: flex;
   min-height: 20px;
   align-items: center;
-  color: var(--unset-fg);
+  color: var(--colours-messaging-component-system-message-foreground);
 `;
 
 const Username = styled.span`

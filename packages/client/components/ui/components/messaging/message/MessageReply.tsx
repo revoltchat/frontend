@@ -3,9 +3,10 @@ import { Match, Switch } from "solid-js";
 import { Show } from "solid-js";
 import { styled as styledL } from "solid-styled-components";
 
-import type { Message } from "revolt.js";
+import { type Message, RE_SPOILER } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 
@@ -49,7 +50,7 @@ export const Base = styledL("div", "Reply")<Pick<Props, "noDecorations">>`
 
   ${(props) => generateTypographyCSS(props.theme!, "reply")}
 
-  gap: ${(props) => props.theme!.gap.md};
+  gap: ${(props) => props.theme!.gap.sm};
 
   a:link {
     text-decoration: none;
@@ -60,13 +61,14 @@ export const Base = styledL("div", "Reply")<Pick<Props, "noDecorations">>`
 
     content: "";
     width: 22px;
-    height: 8px;
+    height: 12px;
 
     flex-shrink: 0;
     align-self: flex-end;
 
-    border-inline-start: 2px solid var(--unset-bg);
-    border-top: 2px solid var(--unset-bg);
+    border-start-start-radius: 4px;
+    border-inline-start: 2px solid var(--colours-messaging-component-message-reply-hook);
+    border-top: 2px solid var(--colours-messaging-component-message-reply-hook);
   }
 `;
 
@@ -74,15 +76,7 @@ const Attachments = styledL.em`
   display: inline-flex;
   align-items: center;
   gap: ${(props) => props.theme!.gap.sm};
-  color: var(--unset-fg);
   white-space: nowrap;
-`;
-
-/**
- * Information text
- */
-const InfoText = styledL.a`
-  color: var(--unset-fg);
 `;
 
 /**
@@ -102,12 +96,11 @@ const Link = styled("a", {
  */
 export function MessageReply(props: Props) {
   const t = useTranslation();
+  const client = useClient();
 
   return (
     <Base noDecorations={props.noDecorations}>
-      <Switch
-        fallback={<InfoText>{t("app.main.channel.misc.not_loaded")}</InfoText>}
-      >
+      <Switch fallback={<span>{t("app.main.channel.misc.not_loaded")}</span>}>
         <Match when={props.message?.author?.relationship === "Blocked"}>
           {t("app.main.channel.misc.blocked_user")}
         </Match>
@@ -135,7 +128,9 @@ export function MessageReply(props: Props) {
             </Show>
             <Show when={props.message!.content}>
               <OverflowingText>
-                <TextWithEmoji content={props.message!.content!} />
+                <TextWithEmoji
+                  content={client().markdownToText(props.message!.content!)}
+                />
               </OverflowingText>
             </Show>
           </Link>
