@@ -41,6 +41,7 @@ declare module "solid-styled-components" {
             | "chip-background"
             | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`
             | `btn-foreground-${"plain" | "plain-secondary"}`
+            | `breadcrumbs-${"foreground" | "foreground-active"}`
             | `menubtn-${"default" | "selected" | "muted" | "hover"}-${
                 | "background"
                 | "foreground"}`
@@ -83,6 +84,7 @@ declare module "solid-styled-components" {
                 | "divider"}`
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
+            | `message-info-text`
             | `component-${`${
                 | "blocked-message"
                 | "code-block"

@@ -153,6 +153,9 @@ export const darkTheme: (
         "onBackground",
         40
       ),
+      // Component: Breadcrumbs
+      "component-breadcrumbs-foreground": materialColour("onBackground", 60),
+      "component-breadcrumbs-foreground-active": materialColour("onBackground"),
       // Component: Menu Button
       "component-menubtn-default-background": "transparent",
       "component-menubtn-default-foreground": materialColour(
@@ -300,6 +303,7 @@ export const darkTheme: (
         "surfaceVariant",
         97
       ),
+      "messaging-message-info-text": materialColour("onBackground", 50),
       // "messaging-message-box-background": materialColour("primaryContainer"),
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 

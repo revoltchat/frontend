@@ -160,7 +160,7 @@ const Content = styled(Column)`
  * Information text
  */
 const InfoText = styled(Row)`
-  color: var(--unset-fg);
+  color: var(--colours-messaging-message-info-text);
   ${(props) => generateTypographyCSS(props.theme!, "small")}
 `;
 
