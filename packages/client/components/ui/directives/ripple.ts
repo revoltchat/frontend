@@ -18,7 +18,7 @@ export const hoverStyles = cva({
       height: "100%",
 
       opacity: 0,
-      zIndex: 0,
+      zIndex: -1,
       transform: "scale(2)",
       pointerEvents: "none",
       background: "black", // TODO: dark/light dependent
