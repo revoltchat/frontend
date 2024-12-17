@@ -10,6 +10,7 @@ import {
   createSignal,
   on,
   onMount,
+  lazy,
 } from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
@@ -61,6 +62,7 @@ import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
+import { ConfirmDelete } from "./interface/ConfirmDelete";
 
 attachDevtoolsOverlay();
 
@@ -87,8 +89,7 @@ function MountTheme(props: { children: any }) {
 
 /**
  * Redirect PWA start to the last active path
- */
-function PWARedirect() {
+ */function PWARedirect() {
   return <Navigate href={state.layout.getLastActivePath()} />;
 }
 
@@ -143,6 +144,7 @@ state.hydrate().then(() =>
     () => (
       <Router root={MountContext}>
         <Route path="/login" component={AuthPage as never}>
+          <Route path="/delete/:token" component={ConfirmDelete} />
           <Route path="/check" component={FlowCheck} />
           <Route path="/create" component={FlowCreate} />
           <Route path="/auth" component={FlowLogin} />
