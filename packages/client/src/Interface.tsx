@@ -1,4 +1,12 @@
-import { Component, JSX, Match, Switch, onCleanup, onMount } from "solid-js";
+import {
+  Component,
+  JSX,
+  Match,
+  Switch,
+  createEffect,
+  onCleanup,
+  onMount,
+} from "solid-js";
 
 import { Server } from "revolt.js";
 
@@ -46,6 +54,12 @@ const Interface = (props: { children: JSX.Element }) => {
       KeybindAction.DeveloperToggleAllExperiments,
       state.experiments.toggleSafeMode
     );
+  });
+
+  createEffect(() => {
+    if (!clientController.isLoggedIn()) {
+      console.info("WAITING... currently", clientController.lifecycle.state());
+    }
   });
 
   return (

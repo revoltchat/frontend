@@ -80,7 +80,7 @@ export default function FlowVerify() {
         <FlowTitle>{t("login.error.verify")}</FlowTitle>
         <Typography variant="legacy-settings-description">
           {t(
-            `error.${(state() as State & { state: "error" }).error}`,
+            `error.${(state() as State & { state: "error" }).error}` as any,
             undefined,
             (state() as State & { state: "error" }).error
           )}
@@ -92,7 +92,7 @@ export default function FlowVerify() {
       <Match when={state().state === "success"}>
         <FlowTitle>{t("login.verified_account")}</FlowTitle>
         <Show when={"mfa_ticket" in state()}>
-          <Button onClick={login}>{t("login.verified_continue")}</Button>
+          <Button onPress={login}>{t("login.verified_continue")}</Button>
         </Show>
         <Typography variant="legacy-settings-description">
           <a href="/login/auth">{t("login.remembered")}</a>

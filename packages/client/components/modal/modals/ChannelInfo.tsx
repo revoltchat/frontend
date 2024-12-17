@@ -15,7 +15,7 @@ const ChannelInfo: PropGenerator<"channel_info"> = (props, onClose) => {
         <Column grow>
           <Typography variant="legacy-modal-title">{`#${props.channel.name}`}</Typography>
         </Column>
-        <Button size="icon" variant="plain" onClick={onClose}>
+        <Button size="icon" variant="plain" onPress={onClose}>
           <BiRegularX size={36} />
         </Button>
       </Row>

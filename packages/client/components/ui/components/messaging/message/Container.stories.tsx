@@ -55,7 +55,8 @@ export default {
     header: "component",
     tail: "boolean",
   },
-} as ComponentStory<
+  // dropped type
+} as never as ComponentStory<
   typeof MessageContainer,
   ComponentProps<typeof MessageContainer>
 >;

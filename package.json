@@ -8,17 +8,21 @@
     "test:browser:install": "pnpm --filter browser-test-runner exec playwright install",
     "test:browser:regression": "pnpm --filter browser-test-runner exec playwright test regression",
     "test:browser:report": "pnpm --filter browser-test-runner exec playwright show-report",
-    "lint": "eslint --ext .ts,.tsx components/ packages/",
-    "lint:fix": "pnpm lint --fix",
+    "lint": "eslint --ext .ts,.tsx packages/client",
+    "lint:fix": "eslint --fix --ext .ts,.tsx packages/client",
     "dev:web": "pnpm --filter client dev",
     "dev:desktop": "pnpm --filter desktop tauri dev",
     "build:deps": "pnpm --filter revolt.js build",
     "build:web": "pnpm --filter client build",
+    "build:prod": "pnpm --filter client build:prod",
     "build:desktop": "pnpm --filter desktop tauri build",
     "start": "cd packages/client && pnpm run serve",
     "fmt": "prettier --write '**/*.{ts,tsx,json}'",
     "fmt:check": "prettier --check '**/*.{ts,tsx,json}'",
     "typecheck": "cd packages/client && pnpm run typecheck"
+  },
+  "devDependencies": {
+    "eslint": "^8.49.0"
   },
   "keywords": [],
   "engines": {
@@ -26,5 +30,5 @@
     "pnpm": ">=6"
   },
   "private": true,
-  "packageManager": "pnpm@8.6.0"
+  "packageManager": "pnpm@9.14.3+sha256.652c47dac7c2b9350db4cdb9330c087d527114a0c2dff4cbac7ea9b96be928bd"
 }

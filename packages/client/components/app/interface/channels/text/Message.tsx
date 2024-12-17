@@ -102,6 +102,7 @@ export function Message(props: Props) {
       }
       avatar={
         <AvatarContainer
+          // @ts-expect-error this is a hack; replace with plain element & panda-css
           use:floating={floatingUserMenusFromMessage(props.message)}
         >
           <Avatar size={36} src={props.message.avatarURL} />
@@ -163,12 +164,14 @@ export function Message(props: Props) {
             </Tooltip>
           </Match>
           <Match when={props.message.webhook}>
-            <Tooltip content={t("app.main.channel.webhook")} placement="top">
-              <MdCloud {...iconSize(16)} />
-            </Tooltip>
-          </Match>
-          <Match when={props.message.webhook}>
-            <Tooltip content={t("app.main.channel.webhook")} placement="top">
+            <Tooltip
+              content={
+                "Webhook"
+
+                // TODO: missing i18n
+              }
+              placement="top"
+            >
               <MdCloud {...iconSize(16)} />
             </Tooltip>
           </Match>
@@ -253,7 +256,9 @@ export function Message(props: Props) {
           </For>
         </Show>
         <Reactions
-          reactions={props.message.reactions}
+          reactions={
+            props.message.reactions as never as Map<string, Set<string>>
+          }
           interactions={props.message.interactions}
           userId={client().user!.id}
           addReaction={react}

@@ -137,7 +137,7 @@ const Divider = styled("div", "Divider")`
   height: 20px;
   margin: 0px 5px;
   padding-left: 1px;
-  background-color: var(--unset-bg);
+  background-color: var(--colours-messaging-channel-header-divider);
 `;
 
 /**

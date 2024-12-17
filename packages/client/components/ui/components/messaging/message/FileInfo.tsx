@@ -40,7 +40,7 @@ const Base = styled(Row)`
  * Link action
  */
 const Action = styled("a")`
-  color: var(--unset-fg);
+  color: var(--foreground);
 
   display: grid;
   place-items: center;
@@ -52,32 +52,30 @@ const Action = styled("a")`
 export function FileInfo(props: Props) {
   return (
     <Base align>
-      <Action>
-        <Switch fallback={<BiSolidFile size={24} />}>
-          <Match
-            when={
-              props.file?.metadata.type === "Image" ||
-              props.embed?.type === "Image"
-            }
-          >
-            <BiSolidImage size={24} />
-          </Match>
-          <Match
-            when={
-              props.file?.metadata.type === "Video" ||
-              props.embed?.type === "Video"
-            }
-          >
-            <BiSolidVideo size={24} />
-          </Match>
-          <Match when={props.file?.metadata.type === "Audio"}>
-            <BiRegularHeadphone size={24} />
-          </Match>
-          <Match when={props.file?.metadata.type === "Text"}>
-            <BiSolidFileTxt size={24} />
-          </Match>
-        </Switch>
-      </Action>
+      <Switch fallback={<BiSolidFile size={24} />}>
+        <Match
+          when={
+            props.file?.metadata.type === "Image" ||
+            props.embed?.type === "Image"
+          }
+        >
+          <BiSolidImage size={24} />
+        </Match>
+        <Match
+          when={
+            props.file?.metadata.type === "Video" ||
+            props.embed?.type === "Video"
+          }
+        >
+          <BiSolidVideo size={24} />
+        </Match>
+        <Match when={props.file?.metadata.type === "Audio"}>
+          <BiRegularHeadphone size={24} />
+        </Match>
+        <Match when={props.file?.metadata.type === "Text"}>
+          <BiSolidFileTxt size={24} />
+        </Match>
+      </Switch>
       <Column grow gap="none">
         <span>{props.file?.filename}</span>
         <Show when={props.file?.size}>

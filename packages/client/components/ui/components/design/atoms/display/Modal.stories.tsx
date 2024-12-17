@@ -39,13 +39,13 @@ export default {
     actions: [
       {
         children: "OK",
-        palette: "accent",
+        variant: "accent",
         confirmation: true,
         onClick: () => true,
       },
       {
         children: "Cancel",
-        palette: "plain",
+        variant: "plain",
         onClick: () => true,
       },
     ],
@@ -60,8 +60,8 @@ export default {
     (props) => (
       <div>
         <Button
-          palette="primary"
-          onClick={() => (props.childProps as any).onShow()}
+          variant="primary"
+          onPress={() => (props.childProps as any).onShow()}
         >
           Open Modal
         </Button>

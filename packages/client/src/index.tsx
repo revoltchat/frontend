@@ -1,14 +1,26 @@
 /**
  * Configure contexts and render App
  */
-import { JSX, Show, createEffect, createSignal, on, onMount } from "solid-js";
+import {
+  JSX,
+  Show,
+  createEffect,
+  createMemo,
+  createResource,
+  createSignal,
+  on,
+  onMount,
+  lazy,
+} from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
+import * as i18n from "@solid-primitives/i18n";
 import { Navigate, Route, Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { appWindow } from "@tauri-apps/api/window";
+import { isTauri } from "@tauri-apps/api/core";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
 import FlowConfirmReset from "@revolt/auth/src/flows/FlowConfirmReset";
@@ -18,9 +30,15 @@ import FlowLogin from "@revolt/auth/src/flows/FlowLogin";
 import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
-import i18n, { I18nContext } from "@revolt/i18n";
+import {
+  I18nContext,
+  dict,
+  fetchLanguage,
+  language,
+  setLanguage,
+} from "@revolt/i18n";
 import { ModalRenderer, modalController } from "@revolt/modal";
-import { Hydrate, state } from "@revolt/state";
+import { state } from "@revolt/state";
 import {
   ApplyGlobalStyles,
   FloatingManager,
@@ -45,6 +63,7 @@ import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
 import { registerKeybindsWithPriority } from "./shared/lib/priorityKeybind";
+import { ConfirmDelete } from "./interface/ConfirmDelete";
 
 attachDevtoolsOverlay();
 
@@ -71,8 +90,7 @@ function MountTheme(props: { children: any }) {
 
 /**
  * Redirect PWA start to the last active path
- */
-function PWARedirect() {
+ */function PWARedirect() {
   return <Navigate href={state.layout.getLastActivePath()} />;
 }
 
@@ -87,63 +105,72 @@ function SettingsRedirect() {
 const client = new QueryClient();
 
 function MountContext(props: { children?: JSX.Element }) {
+  const [dictionary] = createResource(language, fetchLanguage, {
+    initialValue: i18n.flatten(dict.en),
+  });
+
+  const t = createMemo(() => i18n.translator(dictionary, i18n.resolveTemplate));
+
+  const appWindow = isTauri() ? getCurrentWindow() : null;
+
   return (
-    <QueryClientProvider client={client}>
-      <Hydrate>
+    <I18nContext.Provider value={t()}>
+      <QueryClientProvider client={client}>
         <Masks />
-        <I18nContext.Provider value={i18n}>
-          <MountTheme>
-            <ProvideDirectives>
-              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-                <Show when={window.__TAURI__}>
-                  <Titlebar
-                    isBuildDev={import.meta.env.DEV}
-                    onMinimize={() => appWindow.minimize()}
-                    onMaximize={() => appWindow.toggleMaximize()}
-                    onClose={() => appWindow.hide()}
-                  />
-                </Show>
-                {props.children}
-              </KeybindsProvider>
-              <ModalRenderer />
-              <FloatingManager />
-              <ApplyGlobalStyles />
-            </ProvideDirectives>
-          </MountTheme>
-        </I18nContext.Provider>
-      </Hydrate>
-    </QueryClientProvider>
+        <MountTheme>
+          <ProvideDirectives>
+            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+              <Show when={window.__TAURI__}>
+                <Titlebar
+                  isBuildDev={import.meta.env.DEV}
+                  onMinimize={() => appWindow?.minimize?.()}
+                  onMaximize={() => appWindow?.toggleMaximize?.()}
+                  onClose={() => appWindow?.hide?.()}
+                />
+              </Show>
+              {props.children}
+            </KeybindsProvider>
+            <ModalRenderer />
+            <FloatingManager />
+            <ApplyGlobalStyles />
+          </ProvideDirectives>
+        </MountTheme>
+      </QueryClientProvider>
+    </I18nContext.Provider>
   );
 }
 
 registerKeybindsWithPriority();
 
-render(
-  () => (
-    <Router root={MountContext}>
-      <Route path="/login" component={AuthPage as never}>
-        <Route path="/check" component={FlowCheck} />
-        <Route path="/create" component={FlowCreate} />
-        <Route path="/auth" component={FlowLogin} />
-        <Route path="/resend" component={FlowResend} />
-        <Route path="/reset" component={FlowReset} />
-        <Route path="/verify/:token" component={FlowVerify} />
-        <Route path="/reset/:token" component={FlowConfirmReset} />
-        <Route path="/*" component={FlowHome} />
-      </Route>
-      <Route path="/" component={Interface as never}>
-        <Route path="/pwa" component={PWARedirect} />
-        <Route path="/dev" component={DevelopmentPage} />
-        <Route path="/settings" component={SettingsRedirect} />
-        <Route path="/friends" component={Friends} />
-        <Route path="/server/:server/*">
-          <Route path="/channel/:channel/*" component={ChannelPage} />
-          <Route path="/*" component={ServerHome} />
+state.hydrate().then(() =>
+  render(
+    () => (
+      <Router root={MountContext}>
+        <Route path="/login" component={AuthPage as never}>
+          <Route path="/delete/:token" component={ConfirmDelete} />
+          <Route path="/check" component={FlowCheck} />
+          <Route path="/create" component={FlowCreate} />
+          <Route path="/auth" component={FlowLogin} />
+          <Route path="/resend" component={FlowResend} />
+          <Route path="/reset" component={FlowReset} />
+          <Route path="/verify/:token" component={FlowVerify} />
+          <Route path="/reset/:token" component={FlowConfirmReset} />
+          <Route path="/*" component={FlowHome} />
         </Route>
-        <Route path="/channel/:channel/*" component={ChannelPage} />
-        <Route path="/*" component={HomePage} />
-      </Route>
-    </Router>
-  ),
-  document.getElementById("root") as HTMLElement
+        <Route path="/" component={Interface as never}>
+          <Route path="/pwa" component={PWARedirect} />
+          <Route path="/dev" component={DevelopmentPage} />
+          <Route path="/settings" component={SettingsRedirect} />
+          <Route path="/friends" component={Friends} />
+          <Route path="/server/:server/*">
+            <Route path="/channel/:channel/*" component={ChannelPage} />
+            <Route path="/*" component={ServerHome} />
+          </Route>
+          <Route path="/channel/:channel/*" component={ChannelPage} />
+          <Route path="/*" component={HomePage} />
+        </Route>
+      </Router>
+    ),
+    document.getElementById("root") as HTMLElement
+  )
 );

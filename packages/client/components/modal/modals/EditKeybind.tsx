@@ -119,7 +119,9 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
   return {
     // TODO: the way this reads and looks is awkward, find a better way
     title: t("app.special.modals.edit_keybind.title", {
-      action: t(`app.settings.pages.keybinds.action.${props.action}.title`),
+      action: t(
+        `app.settings.pages.keybinds.action.${props.action}.title` as any
+      ),
     }),
     actions: [
       {

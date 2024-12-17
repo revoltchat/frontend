@@ -31,7 +31,9 @@ const Config: SettingsConfiguration<Channel> = {
       return webhook!.name;
     }
 
-    return t(`app.settings.channel_pages.${key.replaceAll("/", ".")}.title`);
+    return t(
+      `app.settings.channel_pages.${key.replaceAll("/", ".")}.title` as any
+    );
   },
 
   /**

@@ -1,5 +1,66 @@
-import { Accessor, JSX, createEffect, on, onMount } from "solid-js";
-import { css, useTheme } from "solid-styled-components";
+import { Accessor, JSX } from "solid-js";
+
+import { cva } from "styled-system/css";
+
+/**
+ * Generate class names for ripple
+ */
+export const hoverStyles = cva({
+  base: {
+    overflow: "hidden",
+    position: "relative",
+
+    // just the hover effect
+    "&::before": {
+      content: "' '",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+
+      opacity: 0,
+      zIndex: -1,
+      transform: "scale(2)",
+      pointerEvents: "none",
+      background: "black", // TODO: dark/light dependent
+
+      transition: "var(--transitions-fast)",
+    },
+
+    // make the hover effect visible on hover
+    "&:hover::before": {
+      opacity: "var(--effects-ripple-hover)",
+    },
+  },
+  variants: {
+    ripple: {
+      true: {
+        // ripple effect
+        "&::after": {
+          content: "' '",
+          position: "absolute",
+          width: "100%",
+          aspectRatio: 1,
+
+          zIndex: 0,
+          borderRadius: "50%",
+          transform: "scale(0)",
+          pointerEvents: "none",
+
+          background: "black", // TODO: dark/light dependent
+          opacity: "var(--effects-ripple-hover)",
+
+          transition: "var(--transitions-medium)",
+        },
+
+        // make the ripple effect occur on click
+        "&:active::after": {
+          transform: "scale(8)",
+        },
+      },
+      false: {},
+    },
+  },
+});
 
 /**
  * Add styles and events for ripple
@@ -12,63 +73,4 @@ export function ripple(
 ) {
   const props = accessor();
   if (!props) return;
-
-  const theme = useTheme();
-
-  // FIXME: there is a bug here if theme is changed, this class just disappears
-
-  createEffect(() => {
-    el.classList.add(
-      css`
-        overflow: hidden;
-        position: relative;
-
-        * {
-          z-index: 1;
-        }
-
-        &::before {
-          content: " ";
-          position: absolute;
-          width: 100%;
-          height: 100%;
-
-          opacity: 0;
-          z-index: 0;
-          transform: scale(2);
-          pointer-events: none;
-          background: ${theme.darkMode ? "white" : "black"};
-
-          transition: ${theme.transitions.fast};
-        }
-
-        &:hover::before {
-          opacity: ${theme.effects.ripple.hover.toString()};
-        }
-      `
-    );
-
-    if (typeof props === "boolean" || props.enable)
-      el.classList.add(css`
-        &::after {
-          content: " ";
-          position: absolute;
-          width: 100%;
-          aspect-ratio: 1;
-
-          z-index: 0;
-          border-radius: 50%;
-          transform: scale(0);
-          pointer-events: none;
-          background: ${theme.darkMode ? "white" : "black"};
-          opacity: ${theme.effects.ripple.hover.toString()};
-
-          transition: ${theme.transitions.medium};
-        }
-
-        &:active::after {
-          transform: scale(8);
-        }
-      `);
-  });
 }

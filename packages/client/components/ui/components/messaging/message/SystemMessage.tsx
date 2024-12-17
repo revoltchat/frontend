@@ -36,7 +36,10 @@ interface Props {
  */
 function Usr(props: { user?: User } & Pick<Props, "menuGenerator">) {
   return (
-    <Username use:floating={props.menuGenerator(props.user)}>
+    <Username
+      // @ts-expect-error this is a hack; replace with plain element & panda-css
+      use:floating={props.menuGenerator(props.user)}
+    >
       {props.user?.username}
     </Username>
   );
@@ -169,7 +172,7 @@ const Base = styled("div", "SystemMessage")`
   display: flex;
   min-height: 20px;
   align-items: center;
-  color: var(--unset-fg);
+  color: var(--colours-messaging-component-system-message-foreground);
 `;
 
 const Username = styled.span`

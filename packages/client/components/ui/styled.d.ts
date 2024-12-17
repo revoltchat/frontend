@@ -31,6 +31,7 @@ declare module "solid-styled-components" {
     >;
     colours: {
       [key in
+        | "link"
         | "background"
         | "foreground"
         | `component-${
@@ -41,6 +42,7 @@ declare module "solid-styled-components" {
             | "chip-background"
             | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`
             | `btn-foreground-${"plain" | "plain-secondary"}`
+            | `breadcrumbs-${"foreground" | "foreground-active"}`
             | `menubtn-${"default" | "selected" | "muted" | "hover"}-${
                 | "background"
                 | "foreground"}`
@@ -76,9 +78,16 @@ declare module "solid-styled-components" {
         | `messaging-${
             | `indicator-${"background" | "foreground"}`
             | `indicator-reply-${"enabled" | "disabled"}`
-            | `upload-${"file-background" | "file-foreground" | "divider"}`
+            | `upload-${
+                | "file-background"
+                | "file-new"
+                | "file-foreground"
+                | "divider"}`
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
+            | `message-info-text`
+            | "component-system-message-foreground"
+            | "component-message-reply-hook"
             | `component-${`${
                 | "blocked-message"
                 | "code-block"

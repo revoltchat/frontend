@@ -10,7 +10,6 @@ import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?componen
 
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
-
 /**
  * Authentication page layout
  */
@@ -137,7 +136,7 @@ export function AuthPage(props: { children: JSX.Element }) {
         <div />
         <Button
           size="icon"
-          onClick={() => {
+          onPress={() => {
             a = !a;
             (window as any)._demo_setDarkMode(a);
           }}

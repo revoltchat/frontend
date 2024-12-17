@@ -58,7 +58,10 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
     data: {
       preview: {
         element: (
-          <ContentContainer use:scrollable>
+          <ContentContainer
+            // @ts-expect-error this is a hack; replace with plain element & panda-css
+            use:scrollable
+          >
             {props.target instanceof User ? (
               <Column align="center">
                 <Avatar src={props.target.animatedAvatarURL} size={64} />
@@ -92,7 +95,7 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
             : CONTENT_REPORT_REASONS
           ).map((value) => ({
             name: t(
-              `app.special.modals.report.content_reason.${value}`,
+              `app.special.modals.report.content_reason.${value}` as any,
               {},
               value
             ),

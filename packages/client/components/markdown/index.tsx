@@ -1,5 +1,4 @@
 import { createEffect, createSignal, on } from "solid-js";
-import { styled } from "solid-styled-components";
 
 import "katex/dist/katex.min.css";
 import { html } from "property-information";
@@ -15,18 +14,20 @@ import { VFile } from "vfile";
 
 import * as elements from "./elements";
 import { injectEmojiSize } from "./emoji/util";
-import { handlers } from "./hast";
 import { RenderCodeblock } from "./plugins/Codeblock";
 import { RenderAnchor } from "./plugins/anchors";
 import { remarkChannels } from "./plugins/channels";
-import { RenderCustomEmoji, remarkCustomEmoji } from "./plugins/customEmoji";
+import {
+  RenderCustomEmoji,
+  customEmojiHandler,
+  remarkCustomEmoji,
+} from "./plugins/customEmoji";
 import { remarkHtmlToText } from "./plugins/htmlToText";
 import {
   RenderMention,
   mentionHandler,
   remarkMentions,
 } from "./plugins/mentions";
-import { passThroughComponents } from "./plugins/remarkRegexComponent";
 import {
   RenderSpoiler,
   remarkSpoiler,
@@ -37,7 +38,11 @@ import {
   remarkTimestamps,
   timestampHandler,
 } from "./plugins/timestamps";
-import { RenderUnicodeEmoji, remarkUnicodeEmoji } from "./plugins/unicodeEmoji";
+import {
+  RenderUnicodeEmoji,
+  remarkUnicodeEmoji,
+  unicodeEmojiHandler,
+} from "./plugins/unicodeEmoji";
 import { remarkInsertBreaks, sanitise } from "./sanitise";
 import { childrenToSolid } from "./solid-markdown/ast-to-solid";
 import { defaults } from "./solid-markdown/defaults";
@@ -51,10 +56,8 @@ const Null = () => null;
  * Custom Markdown components
  */
 const components = () => ({
-  // uemoji: RenderUnicodeEmoji,
-  // cemoji: RenderCustomEmoji,
-  // mention: RenderMention,
-  // channel: RenderChannel,
+  unicodeEmoji: RenderUnicodeEmoji,
+  customEmoji: RenderCustomEmoji,
   mention: RenderMention,
   timestamp: RenderTimestamp,
   spoiler: RenderSpoiler,
@@ -105,13 +108,15 @@ const pipeline = unified()
   .use(remarkMentions)
   .use(remarkTimestamps)
   .use(remarkChannels)
-  // .use(remarkUnicodeEmoji)
-  // .use(remarkCustomEmoji)
+  .use(remarkUnicodeEmoji)
+  .use(remarkCustomEmoji)
   .use(remarkSpoiler)
   .use(remarkHtmlToText)
   // @ts-expect-error non-standard elements not recognised by typing
   .use(remarkRehype, {
     handlers: {
+      unicodeEmoji: unicodeEmojiHandler,
+      customEmoji: customEmojiHandler,
       mention: mentionHandler,
       timestamp: timestampHandler,
       spoiler: spoilerHandler,

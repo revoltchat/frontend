@@ -114,7 +114,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
     }
 
     return t(
-      `app.settings.pages.${key.replaceAll("/", ".")}.title`,
+      `app.settings.pages.${key.replaceAll("/", ".")}.title` as any,
       undefined,
       key
     );

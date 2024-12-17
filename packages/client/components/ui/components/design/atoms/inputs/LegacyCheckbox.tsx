@@ -17,7 +17,7 @@ const Base = styled("label")`
   }
 
   &:hover {
-    background: var(--unset-bg);
+    /* background: var(--unset-bg); */
 
     .check {
       visibility: visible;
@@ -57,7 +57,7 @@ const Title = styled.div`
 const Description = styled.div`
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--unset-fg);
+  color: var(--foreground);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -70,16 +70,16 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   justify-content: center;
   width: 24px;
   height: 24px;
-  border: 2px solid var(--unset-fg);
+  border: 2px solid var(--foreground);
   border-radius: ${(props) => props.theme!.borderRadius["md"]};
-  background: var(--unset-bg);
+  /* background: var(--unset-bg); */
   flex-shrink: 0;
   margin: 4px;
   transition: 0.1s ease-in-out all;
 
   .check {
     transition: inherit;
-    color: var(--unset-fg);
+    color: var(--foreground);
     visibility: hidden;
     opacity: 0;
   }
@@ -87,8 +87,8 @@ const Checkmark = styled.div<Pick<Props, "value">>`
   ${(props) =>
     props.value
       ? `
-    border-color: var(--unset-fg);
-    background: var(--unset-bg);
+    border-color: var(--foreground);
+    /* background: var(--unset-bg); */
 
     .check {
       visibility: visible;
@@ -127,6 +127,7 @@ export function LegacyCheckbox(props: Props) {
   const checked = () => local.value ?? controlledValue();
 
   return (
+    // @ts-expect-error legacy component
     <Base {...others}>
       <Content>
         <Show when={local.title}>

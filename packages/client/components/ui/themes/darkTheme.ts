@@ -138,6 +138,7 @@ export const darkTheme: (
     darkMode,
     colours: {
       // Global
+      link: "#0088ce",
       background: materialColour("background"),
       foreground: materialColour("onBackground"),
       // Component: Button
@@ -153,6 +154,9 @@ export const darkTheme: (
         "onBackground",
         40
       ),
+      // Component: Breadcrumbs
+      "component-breadcrumbs-foreground": materialColour("onBackground", 60),
+      "component-breadcrumbs-foreground-active": materialColour("onBackground"),
       // Component: Menu Button
       "component-menubtn-default-background": "transparent",
       "component-menubtn-default-foreground": materialColour(
@@ -284,6 +288,7 @@ export const darkTheme: (
       // "sidebar-server-list-foreground": materialColour("onBackground", 80),
 
       // Messaging: Interface
+      "messaging-channel-header-divider": materialColour("onBackground", 80),
       "messaging-indicator-background": `rgba(${hexToRgb(
         materialColour("background", 94)
       )}, 0.50)`,
@@ -291,6 +296,7 @@ export const darkTheme: (
       "messaging-indicator-reply-enabled": materialColour("primary"),
       "messaging-indicator-reply-disabled": materialColour("onBackground", 60),
       "messaging-upload-file-background": materialColour("surfaceVariant", 80),
+      "messaging-upload-file-new": materialColour("surfaceVariant", 85),
       "messaging-upload-file-foreground": materialColour("onBackground", 98),
       "messaging-upload-divider": materialColour("primary", 85),
       "messaging-message-box-background": materialColour("onBackground", 94),
@@ -299,6 +305,7 @@ export const darkTheme: (
         "surfaceVariant",
         97
       ),
+      "messaging-message-info-text": materialColour("onBackground", 50),
       // "messaging-message-box-background": materialColour("primaryContainer"),
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
@@ -307,6 +314,14 @@ export const darkTheme: (
       "messaging-component-blocked-message-foreground": materialColour(
         "onBackground",
         60
+      ),
+      "messaging-component-system-message-foreground": materialColour(
+        "onBackground",
+        40
+      ),
+      "messaging-component-message-reply-hook": materialColour(
+        "onBackground",
+        90
       ),
       "messaging-component-code-block-background":
         materialColour("surfaceVariant"),
