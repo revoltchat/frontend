@@ -23,6 +23,7 @@ import {
   MessageBox,
   MessageReplyPreview,
 } from "@revolt/ui";
+import { registerKeybindWithPriority, unregisterKeybindWithPriority } from "../../../shared/lib/priorityKeybind";
 
 interface Props {
   /**
@@ -288,8 +289,8 @@ export function MessageComposition(props: Props) {
   }
 
   // Bind onKeyDown to the document
-  onMount(() => document.addEventListener("keydown", onKeyDown));
-  onCleanup(() => document.removeEventListener("keydown", onKeyDown));
+  onMount(() => registerKeybindWithPriority("Escape", onKeyDown));
+  onCleanup(() => unregisterKeybindWithPriority(onKeyDown));
 
   /**
    * Handle files being added to the draft.

@@ -1,7 +1,8 @@
 import { Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled as styledLegacy } from "solid-styled-components";
 
 import { TextEmbed as TextEmbedClass, WebsiteEmbed } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { Markdown } from "@revolt/markdown";
 
@@ -15,7 +16,7 @@ import {
 import { Attachment } from "./Attachment";
 import { SpecialEmbed } from "./SpecialEmbed";
 
-const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
+const Base = styledLegacy("div", "TextEmbed")<{ borderColour?: string }>`
   display: flex;
   max-width: 480px; /* TODO: theme this */
   flex-direction: row;
@@ -35,35 +36,36 @@ const Base = styled("div", "TextEmbed")<{ borderColour?: string }>`
       props.theme!.colours["messaging-component-text-embed-foreground"]};
 `;
 
-const SiteInformation = styled("div", "SiteInfo")`
+const SiteInformation = styledLegacy("div", "SiteInfo")`
   display: flex;
   flex-direction: row;
   gap: ${(props) => props.theme!.gap.md};
-  color: var(--unset-fg);
 `;
 
-const Favicon = styled("img", "Favicon")`
+const Favicon = styledLegacy("img", "Favicon")`
   width: 14px;
   height: 14px;
   flex-shrink: 0;
 `;
 
-const PreviewImage = styled("img", "PreviewImage")`
+const PreviewImage = styledLegacy("img", "PreviewImage")`
   max-width: 120px;
   max-height: 120px;
   border-radius: ${(props) => props.theme!.borderRadius.md};
 `;
 
-// TODO: move all font sizes into typography
-const Title = styled("div", "Title")`
-  font-size: 16px;
-`;
+const Title = styled("a", {
+  base: {
+    fontSize: "16px",
+    color: "var(--colours-link) !important",
+  },
+});
 
-const Content = styled(Column)`
+const Content = styledLegacy(Column)`
   min-width: 0;
 `;
 
-const Description = styled("div", "Description")`
+const Description = styledLegacy("div", "Description")`
   font-size: 12px;
   overflow: hidden;
   word-wrap: break-word;
@@ -100,10 +102,8 @@ export function TextEmbed(props: { embed: TextEmbedClass | WebsiteEmbed }) {
         </Show>
 
         <Show when={props.embed.title}>
-          <Title>
-            <a>
-              <OverflowingText>{props.embed.title}</OverflowingText>
-            </a>
+          <Title href={props.embed.url}>
+            <OverflowingText>{props.embed.title}</OverflowingText>
           </Title>
         </Show>
 

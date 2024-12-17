@@ -31,6 +31,7 @@ declare module "solid-styled-components" {
     >;
     colours: {
       [key in
+        | "link"
         | "background"
         | "foreground"
         | `component-${
@@ -41,6 +42,7 @@ declare module "solid-styled-components" {
             | "chip-background"
             | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`
             | `btn-foreground-${"plain" | "plain-secondary"}`
+            | `breadcrumbs-${"foreground" | "foreground-active"}`
             | `menubtn-${"default" | "selected" | "muted" | "hover"}-${
                 | "background"
                 | "foreground"}`
@@ -83,6 +85,9 @@ declare module "solid-styled-components" {
                 | "divider"}`
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
+            | `message-info-text`
+            | "component-system-message-foreground"
+            | "component-message-reply-hook"
             | `component-${`${
                 | "blocked-message"
                 | "code-block"

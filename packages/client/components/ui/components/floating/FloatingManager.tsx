@@ -120,14 +120,6 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
    * @param event Event
    */
   function onMouseDown(event: MouseEvent) {
-    // Context menu should always dismiss on click
-    // (for now...)
-    if (props.show()?.contextMenu) {
-      props.hide();
-      return;
-    }
-
-    // Otherwise figure out if we clicked within element
     const parentEl = floating();
 
     let currentEl = event.target as HTMLElement | null;
@@ -140,11 +132,21 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
     }
   }
 
-  // We know what we're doing here...
-  // eslint-disable-next-line solid/reactivity
-  if (props.config().userCard || props.config().contextMenu) {
+  if (props.config().contextMenu) {
     onMount(() => document.addEventListener("mousedown", onMouseDown));
     onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
+  }
+
+  /**
+   * Always dismiss context menu on click
+   */
+  function onClick() {
+    props.hide();
+  }
+
+  if (props.config().contextMenu) {
+    onMount(() => document.addEventListener("click", onClick));
+    onCleanup(() => document.removeEventListener("click", onClick));
   }
 
   return (

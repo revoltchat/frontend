@@ -28,7 +28,6 @@ export enum TransitionType {
   LoginUncached,
   LoginCached,
   SocketConnected,
-  SocketDropped,
   DeviceOffline,
   DeviceOnline,
   PermanentFailure,
@@ -36,7 +35,6 @@ export enum TransitionType {
   UserCreated,
   NoUser,
   Cancel,
-  Error,
   Dispose,
   Dismiss,
   Ready,
@@ -50,7 +48,7 @@ export type Transition =
       session: Session;
     }
   | {
-      type: TransitionType.Error | TransitionType.PermanentFailure;
+      type: TransitionType.PermanentFailure;
       error: string;
     }
   | {
@@ -59,7 +57,6 @@ export type Transition =
         | TransitionType.UserCreated
         | TransitionType.TemporaryFailure
         | TransitionType.SocketConnected
-        | TransitionType.SocketDropped
         | TransitionType.DeviceOffline
         | TransitionType.DeviceOnline
         | TransitionType.Cancel
@@ -237,9 +234,11 @@ class Lifecycle {
           case TransitionType.NoUser:
             this.#enter(State.Onboarding);
             break;
-          case TransitionType.Error:
+          case TransitionType.PermanentFailure:
+          case TransitionType.TemporaryFailure:
             // TODO: relay error
             this.#enter(State.Error);
+            break;
         }
         break;
       case State.Onboarding:
@@ -278,7 +277,7 @@ class Lifecycle {
         break;
       case State.Connected:
         switch (transition.type) {
-          case TransitionType.SocketDropped:
+          case TransitionType.TemporaryFailure:
             this.#enter(State.Disconnected);
             break;
           case TransitionType.Logout:
@@ -358,15 +357,12 @@ class Lifecycle {
 
             break;
           }
-
-          this.transition({
-            type: TransitionType.TemporaryFailure,
-          });
-        } else {
-          this.transition({
-            type: TransitionType.SocketDropped,
-          });
         }
+
+        this.transition({
+          type: TransitionType.TemporaryFailure,
+        });
+
         break;
     }
   }

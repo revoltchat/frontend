@@ -8,6 +8,7 @@ const Codeblock = styled("pre", {
     background: "#0d1117",
 
     padding: "var(--gap-md)",
+    marginY: "var(--gap-sm)",
     borderRadius: "var(--borderRadius-md)",
 
     wordWrap: "break-word",
