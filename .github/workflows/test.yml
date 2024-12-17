@@ -2,26 +2,23 @@ name: Run Tests
 
 on:
   push:
-    branches: [main]
     paths-ignore:
       - ".github/**"
       - "!.github/workflows/test.yml"
       - ".vscode/**"
       - "doc/**"
+      - "lifecycle/**"
       - ".gitignore"
-      - "LICENSE"
-      - "README"
+      - "README.md"
   pull_request:
-    branches: [main]
-  workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x]
 
     steps:
       - name: Checkout repository and submodules

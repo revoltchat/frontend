@@ -43,5 +43,15 @@
       "@revolt/ui": ["components/ui"],
       "@revolt/ui/*": ["components/ui/*"]
     }
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "test/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "types/*.d.ts"
+  ],
+  "exclude": ["components/i18n/locales/*"]
 }

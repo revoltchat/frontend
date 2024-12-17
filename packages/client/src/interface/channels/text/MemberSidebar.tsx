@@ -209,6 +209,7 @@ export function ServerMemberSidebar(props: Props) {
   return (
     <Base
       ref={scrollTargetElement}
+      // @ts-expect-error this is a hack; replace with plain element & panda-css
       use:scrollable={{
         direction: "y",
         showOnHover: true,
@@ -279,6 +280,7 @@ export function GroupMemberSidebar(props: Props) {
   return (
     <Base
       ref={scrollTargetElement}
+      // @ts-expect-error this is a hack; replace with plain element & panda-css
       use:scrollable={{
         direction: "y",
         showOnHover: true,
@@ -393,7 +395,7 @@ function Member(props: { user?: User; member?: ServerMember }) {
    */
   const status = () =>
     (props.user ?? props.member?.user)?.statusMessage((presence) =>
-      t(`app.status.${presence.toLowerCase()}`)
+      t(`app.status.${presence.toLowerCase()}` as any)
     );
 
   return (

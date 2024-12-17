@@ -52,7 +52,7 @@ export default {
         grow: true,
       },
       decorators: [
-        (props) => (
+        (props: any) => (
           <div style={{ width: "360px", display: "flex" }}>
             {props.children}
           </div>
@@ -81,4 +81,4 @@ export default {
     justify: ["start", "end", "left", "right", "center", "stretch", true],
     grow: "boolean",
   },
-} as ComponentStory<typeof Row>;
+} as never as ComponentStory<typeof Row>;

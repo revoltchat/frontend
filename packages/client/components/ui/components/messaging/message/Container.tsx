@@ -1,6 +1,8 @@
 import { Component, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
+import { hoverStyles } from "@revolt/ui/directives";
+
 import { Time } from "../../design/atoms/display/Time";
 import {
   Typography,
@@ -158,7 +160,7 @@ const Content = styled(Column)`
  * Information text
  */
 const InfoText = styled(Row)`
-  color: var(--unset-fg);
+  color: var(--colours-messaging-message-info-text);
   ${(props) => generateTypographyCSS(props.theme!, "small")}
 `;
 
@@ -179,11 +181,12 @@ export function MessageContainer(props: Props) {
   return (
     <Base
       tail={props.tail}
+      class={hoverStyles()}
       mentioned={props.mentioned}
       highlight={props.highlight}
       sendStatus={props.sendStatus}
+      // @ts-expect-error this is a hack; replace with plain element & panda-css
       use:floating={{ contextMenu: props.contextMenu }}
-      use:ripple={{ enable: false }}
     >
       {props.header}
       <Row gap="none">

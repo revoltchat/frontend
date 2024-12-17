@@ -71,7 +71,7 @@ export function TextFile(props: Props) {
           }
         >
           <Row align justify grow>
-            <Button variant="secondary" onClick={load}>
+            <Button variant="secondary" onPress={load}>
               {t("app.main.channel.misc.load_file")} (
               {humanFileSize(props.file.size ?? 0)})
             </Button>

@@ -12,6 +12,7 @@ import { Portal } from "solid-js/web";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { Motion, Presence } from "@motionone/solid";
+import { cva } from "styled-system/css";
 
 import { FloatingElement, floatingElements } from "../../directives";
 
@@ -119,14 +120,6 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
    * @param event Event
    */
   function onMouseDown(event: MouseEvent) {
-    // Context menu should always dismiss on click
-    // (for now...)
-    if (props.show()?.contextMenu) {
-      props.hide();
-      return;
-    }
-
-    // Otherwise figure out if we clicked within element
     const parentEl = floating();
 
     let currentEl = event.target as HTMLElement | null;
@@ -139,19 +132,27 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
     }
   }
 
-  // We know what we're doing here...
-  // eslint-disable-next-line solid/reactivity
-  if (props.config().userCard || props.config().contextMenu) {
+  if (props.config().contextMenu) {
     onMount(() => document.addEventListener("mousedown", onMouseDown));
     onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
   }
 
+  /**
+   * Always dismiss context menu on click
+   */
+  function onClick() {
+    props.hide();
+  }
+
+  if (props.config().contextMenu) {
+    onMount(() => document.addEventListener("click", onClick));
+    onCleanup(() => document.removeEventListener("click", onClick));
+  }
+
   return (
-    // TODO: don't think this works?
     <Motion
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       transition={{ duration: 0.1, easing: [0.87, 0, 0.13, 1] }}
     >
       <div
@@ -160,8 +161,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
           position: position.strategy,
           top: `${position.y ?? 0}px`,
           left: `${position.x ?? 0}px`,
-          // TODO: use floating-element zIndex from theme
-          "z-index": 10000,
+          "z-index": "var(--layout-zIndex-floating-element)",
         }}
       >
         <Switch>

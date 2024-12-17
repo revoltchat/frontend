@@ -3,6 +3,7 @@ import { Accessor, Show } from "solid-js";
 import { decodeTime } from "ulid";
 
 import { dayjs, useTranslation } from "@revolt/i18n";
+import { hoverStyles } from "@revolt/ui/directives";
 
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
@@ -45,7 +46,11 @@ export function NewMessages(props: Props) {
 
   return (
     <Show when={props.lastId()}>
-      <FloatingIndicator use:ripple position="top" onClick={props.jumpBack}>
+      <FloatingIndicator
+        class={hoverStyles({ ripple: true })}
+        position="top"
+        onClick={props.jumpBack}
+      >
         <span style={{ "flex-grow": 1 }}>
           {t("app.main.channel.misc.new_messages", {
             time_ago: dayjs(decodeTime(props.lastId()!)).fromNow(),

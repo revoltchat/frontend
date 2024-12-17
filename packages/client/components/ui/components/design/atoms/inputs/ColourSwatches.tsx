@@ -111,7 +111,7 @@ const Rows = styled.div`
 `;
 
 export function ColourSwatches(props: Props) {
-  let inputRef: HTMLInputElement | null = null!;
+  const inputRef: HTMLInputElement = null!;
   const [local, others] = splitProps(props, ["onChange", "presets", "value"]);
   const [controlledValue, setControlledValue] = createSignal<string>(
     local.value || "#FD6671"

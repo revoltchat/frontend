@@ -167,7 +167,10 @@ export const ServerList = (props: Props) => {
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
-              <EntryContainer use:floating={props.menuGenerator(conversation)}>
+              <EntryContainer
+                // @ts-expect-error this is a hack; replace with plain element & panda-css
+                use:floating={props.menuGenerator(conversation)}
+              >
                 <a href={`/channel/${conversation.id}`}>
                   <Avatar
                     size={42}
@@ -214,7 +217,10 @@ export const ServerList = (props: Props) => {
               }
             >
               <Tooltip placement="right" content={item.name}>
-                <EntryContainer use:floating={props.menuGenerator(item)}>
+                <EntryContainer
+                  // @ts-expect-error this is a hack; replace with plain element & panda-css
+                  use:floating={props.menuGenerator(item)}
+                >
                   <Show when={props.selectedServer() === item.id}>
                     <PositionSwoosh>
                       <Swoosh />

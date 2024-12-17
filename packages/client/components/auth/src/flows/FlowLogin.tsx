@@ -110,7 +110,7 @@ export default function FlowLogin() {
             <Row align justify="center">
               <Button
                 variant="plain"
-                onClick={() =>
+                onPress={() =>
                   clientController.lifecycle.transition({
                     type: TransitionType.Cancel,
                   })

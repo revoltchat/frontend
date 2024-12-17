@@ -1,5 +1,3 @@
-import { Root } from "hast";
-
 /**
  * Regex for matching execessive recursion of blockquotes and lists
  */
@@ -27,6 +25,11 @@ const RE_EMPTY_LINE = /^\s*?$/gm;
 const RE_PLUS = /^\s*\+(?:$|[^+])/gm;
 
 /**
+ * Regex for matching non-breaking spaces in code blocks
+ */
+const RE_CODEBLOCK_EMPTY_LINE_FIX = /(?<=`{3}[\s\S]*)\n\uF800\n(?=[\s\S]*`{3})/gm;
+
+/**
  * Sanitise Markdown input before rendering
  * @param content Input string
  * @returns Sanitised string
@@ -50,7 +53,12 @@ export function sanitise(content: string) {
       // Replace empty lines with non-breaking space
       // because remark renderer is collapsing empty
       // or otherwise whitespace-only lines of text
-      .replace(RE_EMPTY_LINE, "\uF800\n")
+      .replace(RE_EMPTY_LINE, "\n\uF800\n")
+
+      // Reverts previous empty line operation specifically for codeblocks.
+      // Hacky solution, I know, but so far I haven't found a more elegant
+      // way of achieving this.
+      .replace(RE_CODEBLOCK_EMPTY_LINE_FIX, "")
 
       // Ensure empty line after blockquotes for correct rendering
       .replace(RE_BLOCKQUOTE, (match) => `${match}\n`)
@@ -61,7 +69,7 @@ export function sanitise(content: string) {
  * Replace \uF800 with break elements
  */
 export function remarkInsertBreaks() {
-  return (tree: Root) => {
+  return (tree: import('hast').Root) => {
     /**
      * Process element and sub-tree
      * @param element Element

@@ -164,7 +164,7 @@ export function Form(props: Props) {
         {props.children}
         <Show when={error()}>
           <Typography variant="legacy-settings-description">
-            {t(`error.${error()}`, undefined, error())}
+            {t(`error.${error()}` as any, undefined, error())}
           </Typography>
         </Show>
       </Column>

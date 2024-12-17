@@ -42,7 +42,7 @@ export const FlowBase = styled(Column)`
   a:visited,
   a:active {
     text-decoration: none;
-    color: var(--unset-fg);
+    color: var(--colours-link);
   }
 `;
 

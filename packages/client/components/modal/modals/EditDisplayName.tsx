@@ -9,12 +9,15 @@ import { PropGenerator } from "../types";
 const EditDisplayName: PropGenerator<"edit_display_name"> = (props) => {
   const t = useTranslation();
 
+  /**
+   * Apply new display name
+   * @param display_name Display name
+   */
   async function applyName(display_name?: string) {
     if (display_name && display_name !== props.user.username) {
       await props.user.edit({ display_name });
     } else {
       await props.user.edit({
-        // @ts-expect-error missing in types
         remove: ["DisplayName"],
       });
     }
@@ -42,6 +45,9 @@ const EditDisplayName: PropGenerator<"edit_display_name"> = (props) => {
         type: "button",
         variant: "plain",
         children: "Clear",
+        /**
+         * Clear display name
+         */
         async onClick() {
           await applyName();
           return true;

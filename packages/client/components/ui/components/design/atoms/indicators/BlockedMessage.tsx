@@ -1,6 +1,7 @@
 import { styled } from "solid-styled-components";
 
 import { useTranslation } from "@revolt/i18n";
+import { hoverStyles } from "@revolt/ui/directives";
 
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
@@ -41,7 +42,7 @@ export function BlockedMessage(props: Props) {
   const t = useTranslation();
 
   return (
-    <Base use:ripple={{ enable: false }}>
+    <Base class={hoverStyles()}>
       <MdClose {...iconSize(16)} />{" "}
       {t("app.main.channel.misc.blocked_messages", {
         count: props.count.toString(),

@@ -3,6 +3,7 @@ import { For, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
 import { CONFIGURATION } from "@revolt/common";
+import { hoverStyles } from "@revolt/ui/directives";
 
 import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
 import { OverflowingText } from "../../design";
@@ -57,7 +58,10 @@ export function FileCarousel(props: Props) {
   return (
     <Show when={props.files.length}>
       <Container>
-        <Carousel use:scrollable={{ direction: "x" }}>
+        <Carousel
+          // @ts-expect-error this is a hack; replace with plain element & panda-css
+          use:scrollable={{ direction: "x" }}
+        >
           <For each={props.files}>
             {(id, index) => {
               /**
@@ -111,7 +115,10 @@ export function FileCarousel(props: Props) {
               );
             }}
           </For>
-          <EmptyEntry onClick={props.addFile} use:ripple>
+          <EmptyEntry
+            onClick={props.addFile}
+            class={hoverStyles({ ripple: true })}
+          >
             <BiRegularPlus size={48} />
           </EmptyEntry>
         </Carousel>
@@ -188,7 +195,7 @@ const EmptyEntry = styled.div`
 
   cursor: pointer;
   border-radius: ${(props) => props.theme!.gap.md};
-  background: var(--unset-bg);
+  background: ${(props) => props.theme!.colours["messaging-upload-file-new"]};
 `;
 
 /**

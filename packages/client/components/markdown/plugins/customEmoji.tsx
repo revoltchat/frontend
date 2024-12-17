@@ -1,21 +1,20 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 
+import { Handler } from "mdast-util-to-hast";
+import { Plugin } from "unified";
+import { visit } from "unist-util-visit";
+
 import { useClient } from "@revolt/client";
 import { Avatar, Column, Row, styled } from "@revolt/ui";
 
 import { CustomEmoji, Emoji, RE_CUSTOM_EMOJI } from "../emoji";
-
-import {
-  CustomComponentProps,
-  createRegexComponent,
-} from "./remarkRegexComponent";
 
 /**
  * Render a custom emoji
  *
  * This will also display a tooltip and fallback to text if the emoji doesn't exist.
  */
-export function RenderCustomEmoji(props: CustomComponentProps) {
+export function RenderCustomEmoji(props: { id: string }) {
   const [exists, setExists] = createSignal(true);
 
   const client = useClient();
@@ -23,7 +22,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
   /**
    * Resolve emoji
    */
-  const emoji = () => client()!.emojis.get(props.match);
+  const emoji = () => client()!.emojis.get(props.id);
 
   /**
    * Resolve server
@@ -34,22 +33,23 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
     )!;
 
   return (
-    <Switch fallback={<span>{`:${emoji()?.name ?? props.match}:`}</span>}>
+    <Switch fallback={<span>{`:${emoji()?.name ?? props.id}:`}</span>}>
       <Match when={exists()}>
         <TooltipTrigger
+          // @ts-expect-error this is a hack; replace with plain element & panda-css
           use:floating={{
             tooltip: {
               placement: "top",
               content: () => (
                 <Row align gap="lg">
                   <span style={{ "--emoji-size": "3em" }}>
-                    <Emoji emoji={props.match} />
+                    <Emoji emoji={props.id} />
                   </span>
                   <Switch
                     fallback={
                       <>
                         Unknown emote
-                        <FetchEmote id={props.match} />
+                        <FetchEmote id={props.id} />
                       </>
                     }
                   >
@@ -81,7 +81,7 @@ export function RenderCustomEmoji(props: CustomComponentProps) {
             },
           }}
         >
-          <CustomEmoji id={props.match} onError={() => setExists(false)} />
+          <CustomEmoji id={props.id} onError={() => setExists(false)} />
         </TooltipTrigger>
       </Match>
     </Switch>
@@ -104,7 +104,59 @@ function FetchEmote(props: { id: string }) {
   return null;
 }
 
-export const remarkCustomEmoji = createRegexComponent(
-  "cemoji",
-  RE_CUSTOM_EMOJI
-);
+export const remarkCustomEmoji: Plugin = () => (tree) => {
+  visit(
+    tree,
+    "text",
+    (
+      node: { type: "text"; value: string },
+      idx,
+      parent: { children: any[] }
+    ) => {
+      let elements = node.value.split(RE_CUSTOM_EMOJI);
+      if (elements.length === 1) return; // no matches
+
+      // Generate initial node
+      const newNodes: (
+        | { type: "text"; value: string }
+        | {
+            type: "customEmoji";
+            id: string;
+          }
+      )[] = [
+        {
+          type: "text",
+          value: elements.shift()!,
+        },
+      ];
+
+      // Process all timestamps
+      for (let i = 0; i < elements.length / 2; i++) {
+        // Insert components
+        newNodes.push({
+          type: "customEmoji",
+          id: elements[i * 2],
+        });
+
+        newNodes.push({
+          type: "text",
+          value: elements[i * 2 + 1],
+        });
+      }
+
+      parent.children.splice(idx, 1, ...newNodes);
+      return idx + newNodes.length;
+    }
+  );
+};
+
+export const customEmojiHandler: Handler = (h, node) => {
+  return {
+    type: "element" as const,
+    tagName: "customEmoji",
+    children: [],
+    properties: {
+      id: node.id,
+    },
+  };
+};

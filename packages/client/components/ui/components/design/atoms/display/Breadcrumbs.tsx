@@ -59,7 +59,7 @@ export function Breadcrumbs(props: Props) {
  */
 const Base = styled(Row)`
   user-select: none;
-  color: ${(props) => props.theme!.colours["foreground-300"]};
+  color: var(--colours-component-breadcrumbs-foreground);
 `;
 
 /**
@@ -82,5 +82,5 @@ const Unselected = styled.div`
  * Selected styles
  */
 const Selected = styled.div`
-  color: ${(props) => props.theme!.colours["foreground"]};
+  color: var(--colours-component-breadcrumbs-foreground-active);
 `;

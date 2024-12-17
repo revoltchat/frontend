@@ -19,4 +19,4 @@ export default {
       </>
     ),
   },
-} as ComponentStory<typeof ComboBox>;
+} as never as ComponentStory<typeof ComboBox>;
