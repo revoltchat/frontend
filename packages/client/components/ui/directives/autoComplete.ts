@@ -121,25 +121,9 @@ export function autoComplete(
   ) {
     const current = state();
     if (current.matched !== "none") {
-      if (event.key === "Enter") {
+      if (event.key === "Enter" || event.key === "Tab") {
         event.preventDefault();
         select(selection());
-        return;
-      }
-
-      if (event.key === "ArrowUp") {
-        event.preventDefault();
-        setSelection(
-          (prev) => (prev === 0 ? current.matches.length : prev) - 1
-        );
-        return;
-      }
-
-      if (event.key === "ArrowDown") {
-        event.preventDefault();
-        setSelection(
-          (prev) => (prev + 1 === current.matches.length ? -1 : prev) + 1
-        );
         return;
       }
     }
