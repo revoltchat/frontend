@@ -135,6 +135,8 @@ export const darkTheme: (
   }
 
   return {
+    accentColour,
+    materialTheme: theme,
     darkMode,
     colours: {
       // Global

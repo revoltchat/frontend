@@ -92,6 +92,14 @@ const button = cva({
       fluid: {
         borderRadius: "var(--borderRadius-md)",
       },
+      inline: {
+        padding: "var(--gap-xs) var(--gap-md)",
+        fontSize: "0.8125rem",
+        borderRadius: "var(--borderRadius-md)",
+      },
+      none: {
+        borderRadius: "0",
+      },
     },
   },
   defaultVariants: {
@@ -102,16 +110,29 @@ const button = cva({
 
 export function Button(
   props: Omit<
-    Parameters<typeof button>[0] & AriaButtonProps & JSX.DirectiveAttributes,
+    Parameters<typeof button>[0] &
+      AriaButtonProps &
+      JSX.DirectiveAttributes &
+      Pick<
+        JSX.ButtonHTMLAttributes<HTMLButtonElement>,
+        "role" | "tabIndex" | "aria-selected"
+      >,
     "onClick"
   >
 ) {
-  const [style, rest] = splitProps(props, ["size", "variant"]);
+  const [passthrough, propsRest] = splitProps(props, [
+    "aria-selected",
+    "tabIndex",
+    "role",
+  ]);
+
+  const [style, rest] = splitProps(propsRest, ["size", "variant"]);
   let ref: HTMLButtonElement | undefined;
 
   const { buttonProps } = createButton(rest, () => ref);
   return (
     <button
+      {...passthrough}
       {...buttonProps}
       ref={ref}
       class={button(style)}

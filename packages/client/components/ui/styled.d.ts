@@ -4,6 +4,7 @@ import type {
   ColorGroup,
   CustomColorGroup,
   Scheme,
+  Theme,
   TonalPalette,
 } from "@material/material-color-utilities";
 
@@ -15,6 +16,8 @@ declare module "solid-styled-components" {
     /* colour(base: keyof Scheme, tone?: number): string;
     scheme: Record<keyof Scheme, string>;
     tones: Record<keyof Scheme, TonalPalette>; */
+    accentColour: string,
+    materialTheme: Theme,
     darkMode: boolean;
     customColours: Record<
       | `status-${

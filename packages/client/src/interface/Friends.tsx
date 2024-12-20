@@ -15,12 +15,15 @@ import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
+import { modalController } from "@revolt/modal";
 import {
   Avatar,
+  Button,
   CategoryButton,
   Deferred,
   Header,
   OverflowingText,
+  Tabs,
   Typography,
   UserStatusGraphic,
   styled as styledLegacy,
@@ -83,8 +86,8 @@ export function Friends() {
       .sort((a, b) => a.username.localeCompare(b.username));
 
     return {
+      friends,
       online: friends.filter((user) => user.online),
-      offline: friends.filter((user) => !user.online),
       incoming: list
         .filter((user) => user.relationship === "Incoming")
         .sort((a, b) => a.username.localeCompare(b.username)),
@@ -97,6 +100,10 @@ export function Friends() {
     };
   });
 
+  const [selected, setSelected] = createSignal<
+    "online" | "all" | "pending" | "blocked"
+  >("online");
+
   return (
     // TODO: i18n
     <Base>
@@ -105,30 +112,62 @@ export function Friends() {
           <BiSolidUserDetail size={24} />
         </HeaderIcon>
         Friends
+        <Button
+          size="inline"
+          onPress={() =>
+            modalController.push({ type: "add_friend", client: client() })
+          }
+        >
+          Add Friend
+        </Button>
       </Header>
+
+      <Tabs
+        selected={selected}
+        setSelected={setSelected}
+        tabs={[
+          { id: "online", title: "Online" },
+          { id: "all", title: "All" },
+          { id: "pending", title: "Pending" },
+          { id: "blocked", title: "Blocked" },
+        ]}
+      />
+
       <Deferred>
         <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
-          {/* <PendingRequests lists={lists} /> */}
-          <List
-            title="Outgoing"
-            users={lists().outgoing}
-            scrollTargetElement={targetSignal}
-          />
-          <List
-            title="Online"
-            users={lists().online}
-            scrollTargetElement={targetSignal}
-          />
-          <List
-            title="Offline"
-            users={lists().offline}
-            scrollTargetElement={targetSignal}
-          />
-          <List
-            title="Blocked"
-            users={lists().blocked}
-            scrollTargetElement={targetSignal}
-          />
+          <Show when={selected() === "online"}>
+            <List
+              title="Online"
+              users={lists().online}
+              scrollTargetElement={targetSignal}
+            />
+          </Show>
+          <Show when={selected() === "all"}>
+            <List
+              title="All"
+              users={lists().friends}
+              scrollTargetElement={targetSignal}
+            />
+          </Show>
+          <Show when={selected() === "pending"}>
+            <List
+              title="Incoming"
+              users={lists().incoming}
+              scrollTargetElement={targetSignal}
+            />
+            <List
+              title="Outgoing"
+              users={lists().outgoing}
+              scrollTargetElement={targetSignal}
+            />
+          </Show>
+          <Show when={selected() === "blocked"}>
+            <List
+              title="Blocked"
+              users={lists().blocked}
+              scrollTargetElement={targetSignal}
+            />
+          </Show>
         </div>
       </Deferred>
     </Base>
