@@ -10,6 +10,7 @@ import { AbstractStore } from ".";
 export enum LAYOUT_SECTIONS {
   MEMBER_SIDEBAR = "MEMBER_SIDEBAR",
   MENTION_REPLY = "MENTION_REPLY",
+  MATURE = "nsfw",
 }
 
 export interface TypeLayout {

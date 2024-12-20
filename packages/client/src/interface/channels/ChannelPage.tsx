@@ -7,6 +7,7 @@ import { TextWithEmoji } from "@revolt/markdown";
 import { Navigate, useParams } from "@revolt/routing";
 import { Header, Typography, styled } from "@revolt/ui";
 
+import { AgeGate } from "./AgeGate";
 import { TextChannel } from "./text/TextChannel";
 
 /**
@@ -41,22 +42,29 @@ export const ChannelPage: Component = () => {
 
   return (
     <Base>
-      <Switch fallback="Unknown channel type!">
-        <Match when={!channel()}>
-          <Navigate href={"../.."} />
-        </Match>
-        <Match when={TEXT_CHANNEL_TYPES.includes(channel()!.type)}>
-          <TextChannel channel={channel()} />
-        </Match>
-        <Match when={channel()!.type === "VoiceChannel"}>
-          <Header placement="primary">
-            <TextWithEmoji content={channel().name!} />
-          </Header>
-          <Typography variant="legacy-modal-title">
-            Legacy voice channels are not supported!
-          </Typography>
-        </Match>
-      </Switch>
+      <AgeGate
+        enabled={channel().mature}
+        contentId={channel().id}
+        contentName={"#" + channel().name}
+        contentType="channel"
+      >
+        <Switch fallback="Unknown channel type!">
+          <Match when={!channel()}>
+            <Navigate href={"../.."} />
+          </Match>
+          <Match when={TEXT_CHANNEL_TYPES.includes(channel()!.type)}>
+            <TextChannel channel={channel()} />
+          </Match>
+          <Match when={channel()!.type === "VoiceChannel"}>
+            <Header placement="primary">
+              <TextWithEmoji content={channel().name!} />
+            </Header>
+            <Typography variant="legacy-modal-title">
+              Legacy voice channels are not supported!
+            </Typography>
+          </Match>
+        </Switch>
+      </AgeGate>
     </Base>
   );
 };

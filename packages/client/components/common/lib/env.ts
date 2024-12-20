@@ -22,7 +22,7 @@ export default {
   DEFAULT_WS_URL:
     (import.meta.env.DEV ? import.meta.env.VITE_DEV_WS_URL : undefined) ??
     (import.meta.env.VITE_WS_URL as string) ??
-    "wss://revolt.chat/events",
+    "wss://beta.revolt.chat/events",
   /**
    * What media server to connect to by default.
    */
