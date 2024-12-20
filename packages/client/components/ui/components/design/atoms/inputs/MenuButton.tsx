@@ -53,7 +53,7 @@ const base = cva({
     userSelect: "none",
 
     display: "flex",
-    margin: "0 var(--gap-lg)",
+    margin: "0 var(--gap-md)",
     padding: "0 var(--gap-md)",
     borderRadius: "var(--borderRadius-md)",
 
