@@ -1,6 +1,7 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 
-import { IS_REVOLT, mapAnyError } from "@revolt/client";
+import { mapAnyError } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { Column, styled } from "@revolt/ui";
 
@@ -38,7 +39,7 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
       .createInvite()
       .then(({ _id }) =>
         setLink(
-          IS_REVOLT
+          CONFIGURATION.IS_REVOLT
             ? `https://rvlt.gg/${_id}`
             : `${window.location.protocol}//${window.location.host}/invite/${_id}`
         )

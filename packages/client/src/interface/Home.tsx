@@ -2,7 +2,8 @@ import { Match, Show, Switch } from "solid-js";
 
 import { cva } from "styled-system/css";
 
-import { IS_DEV, IS_REVOLT, useClient } from "@revolt/client";
+import { IS_DEV, useClient } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
@@ -103,7 +104,7 @@ export function HomePage() {
   const client = useClient();
 
   // check if we're revolt.chat; if so, check if the user is in the Lounge
-  const showLoungeButton = IS_REVOLT;
+  const showLoungeButton = CONFIGURATION.IS_REVOLT;
   const isInLounge =
     client()!.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
 
@@ -167,7 +168,7 @@ export function HomePage() {
             </CategoryButton>
           </SeparatedColumn>
           <SeparatedColumn>
-            <Show when={IS_REVOLT}>
+            <Show when={CONFIGURATION.IS_REVOLT}>
               <CategoryButton
                 onClick={() => navigate("/discover")}
                 description={t("app.home.discover_desc")}
