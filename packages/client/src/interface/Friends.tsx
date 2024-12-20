@@ -18,6 +18,7 @@ import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
 import {
   Avatar,
+  Badge,
   Button,
   CategoryButton,
   Deferred,
@@ -40,7 +41,8 @@ const Base = styledLegacy("div")`
   flex-direction: column;
 
   .FriendsList {
-    padding-inline: ${(props) => props.theme!.gap.lg};
+    padding-inline-start: ${(props) => props.theme!.gap.sm};
+    padding-inline-end: ${(props) => props.theme!.gap.md};
   }
 `;
 
@@ -100,9 +102,10 @@ export function Friends() {
     };
   });
 
-  const [selected, setSelected] = createSignal<
-    "online" | "all" | "pending" | "blocked"
-  >("online");
+  const pending = () => {
+    const incoming = lists().incoming;
+    return incoming.length > 99 ? "99+" : incoming.length;
+  };
 
   return (
     // TODO: i18n
@@ -122,52 +125,68 @@ export function Friends() {
         </Button>
       </Header>
 
-      <Tabs
-        selected={selected}
-        setSelected={setSelected}
-        tabs={[
-          { id: "online", title: "Online" },
-          { id: "all", title: "All" },
-          { id: "pending", title: "Pending" },
-          { id: "blocked", title: "Blocked" },
-        ]}
-      />
-
       <Deferred>
         <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
-          <Show when={selected() === "online"}>
-            <List
-              title="Online"
-              users={lists().online}
-              scrollTargetElement={targetSignal}
-            />
-          </Show>
-          <Show when={selected() === "all"}>
-            <List
-              title="All"
-              users={lists().friends}
-              scrollTargetElement={targetSignal}
-            />
-          </Show>
-          <Show when={selected() === "pending"}>
-            <List
-              title="Incoming"
-              users={lists().incoming}
-              scrollTargetElement={targetSignal}
-            />
-            <List
-              title="Outgoing"
-              users={lists().outgoing}
-              scrollTargetElement={targetSignal}
-            />
-          </Show>
-          <Show when={selected() === "blocked"}>
-            <List
-              title="Blocked"
-              users={lists().blocked}
-              scrollTargetElement={targetSignal}
-            />
-          </Show>
+          <Tabs
+            tabs={[
+              {
+                title: "Online",
+                content: (
+                  <List
+                    title="Online"
+                    users={lists().online}
+                    scrollTargetElement={targetSignal}
+                  />
+                ),
+              },
+              {
+                title: "All",
+                content: (
+                  <List
+                    title="All"
+                    users={lists().friends}
+                    scrollTargetElement={targetSignal}
+                  />
+                ),
+              },
+              {
+                title: (
+                  <>
+                    Pending{" "}
+                    <Show when={pending()}>
+                      <Badge slot="badge" variant="large">
+                        {pending()}
+                      </Badge>
+                    </Show>
+                  </>
+                ),
+                content: (
+                  <>
+                    <List
+                      title="Incoming"
+                      users={lists().incoming}
+                      scrollTargetElement={targetSignal}
+                    />
+                    <List
+                      title="Outgoing"
+                      users={lists().outgoing}
+                      scrollTargetElement={targetSignal}
+                    />
+                  </>
+                ),
+              },
+              {
+                title: "Blocked",
+                content: (
+                  <List
+                    title="Blocked"
+                    users={lists().blocked}
+                    scrollTargetElement={targetSignal}
+                  />
+                ),
+              },
+            ]}
+          />
         </div>
       </Deferred>
     </Base>

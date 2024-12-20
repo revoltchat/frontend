@@ -6,7 +6,7 @@ declare module "solid-js" {
       "md-tabs": ComponentProps<"div">
       "md-primary-tab": ComponentProps<"div">
 
-      "mdui-tabs": ComponentProps<"div"> & { value: string },
+      "mdui-tabs": ComponentProps<"div"> & { value: string, "full-width": boolean },
       "mdui-tab": ComponentProps<"div"> & { value: string },
       "mdui-tab-panel": ComponentProps<"div"> & { value: string },
       "mdui-badge": ComponentProps<"div">,

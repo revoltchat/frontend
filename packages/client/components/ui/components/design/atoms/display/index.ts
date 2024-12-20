@@ -9,7 +9,6 @@ export {
   BelowFloatingHeader,
 } from "./Header";
 export { Initials } from "./Initials";
-export { Tabs } from "./Tabs";
 export { Time } from "./Time";
 export { Typography } from "./Typography";
 export { Modal } from "./Modal";
