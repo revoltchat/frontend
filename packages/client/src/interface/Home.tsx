@@ -159,7 +159,9 @@ export function HomePage() {
             </Switch>
             <CategoryButton
               onClick={() =>
-                window.open("https://insrt.uk/donate?utm_source=revoltapp")
+                window.open(
+                  "https://wiki.revolt.chat/notes/project/financial-support/"
+                )
               }
               description={t("app.home.donate_desc")}
               icon={<MdPayments />}

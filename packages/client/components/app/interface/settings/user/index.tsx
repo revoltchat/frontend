@@ -188,7 +188,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               title: t("app.settings.pages.feedback.title"),
             },
             {
-              href: "https://insrt.uk/donate",
+              href: "https://wiki.revolt.chat/notes/project/financial-support/",
               icon: <MdLocalCafe {...iconSize(20)} />,
               title: t("app.settings.pages.donate.title"),
             },
