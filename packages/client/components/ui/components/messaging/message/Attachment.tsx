@@ -61,7 +61,7 @@ export function Attachment(props: { file: File }) {
               })
             }
             loading="lazy"
-            src={props.file.createFileURL({ max_side: 512 }, true)}
+            src={props.file.createFileURL()}
           />
         </SizedContent>
       </Match>
