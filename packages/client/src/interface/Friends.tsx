@@ -209,13 +209,16 @@ function List(props: {
       <VirtualContainer
         items={props.users}
         scrollTarget={props.scrollTargetElement()}
-        itemSize={{ height: 60, width: 240 }}
-        crossAxisCount={(measurements) =>
-          Math.floor(measurements.container.cross / measurements.itemSize.cross)
-        }
+        itemSize={{ height: 60 }}
+        // grid rendering:
+        // itemSize={{ height: 60, width: 240 }}
+        // crossAxisCount={(measurements) =>
+        //   Math.floor(measurements.container.cross / measurements.itemSize.cross)
+        // }
+        // width: 100% needs to be removed from listentry below for this to work ^^^
       >
         {(item) => (
-          <div
+          <ContainerListEntry
             style={{
               ...item.style,
             }}
@@ -228,12 +231,18 @@ function List(props: {
                 user={item.item}
               />
             </div>
-          </div>
+          </ContainerListEntry>
         )}
       </VirtualContainer>
     </ListBase>
   );
 }
+
+const ContainerListEntry = styled("div", {
+  base: {
+    width: "100%",
+  },
+});
 
 /**
  * Some temporary styles for friend entries
