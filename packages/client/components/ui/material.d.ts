@@ -5,7 +5,7 @@ declare module "solid-js" {
     interface IntrinsicElements {
       "md-tabs": ComponentProps<"div">;
       "md-primary-tab": ComponentProps<"div">;
-      "md-ripple": ComponentProps<"div">;
+      "md-ripple": { disabled?: boolean };
 
       "mdui-tabs": ComponentProps<"div"> & {
         value: string;

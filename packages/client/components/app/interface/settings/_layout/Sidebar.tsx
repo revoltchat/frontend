@@ -1,6 +1,6 @@
 import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 
-import { Column, OverflowingText, styled } from "@revolt/ui";
+import { Column, OverflowingText, Ripple, styled } from "@revolt/ui";
 
 // import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 // import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?component-solid";
@@ -64,6 +64,7 @@ export function SettingsSidebar(props: {
                                 entry.id?.split("/")[0]
                               }
                             >
+                              <Ripple />
                               <SidebarButtonTitle>
                                 {entry.icon}
                                 <SidebarButtonContent>

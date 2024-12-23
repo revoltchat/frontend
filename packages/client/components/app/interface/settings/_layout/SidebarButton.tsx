@@ -10,6 +10,8 @@ type Props = Record<never, never>;
 export const SidebarButton = styled.a<Props>`
   min-width: 0;
 
+  position: relative;
+
   display: flex;
   align-items: center;
   padding: 6px 8px;
@@ -29,15 +31,15 @@ export const SidebarButton = styled.a<Props>`
     flex-shrink: 0;
   }
 
-  &:hover {
+  /* &:hover {
     background-color: ${(props) =>
-      props.theme!.colours["settings-sidebar-button-hover"]};
+    props.theme!.colours["settings-sidebar-button-hover"]};
   }
 
   &:active {
     background-color: ${(props) =>
-      props.theme!.colours["settings-sidebar-button-active"]};
-  }
+    props.theme!.colours["settings-sidebar-button-active"]};
+  } */
 `;
 
 export const SidebarButtonTitle = styled.div`

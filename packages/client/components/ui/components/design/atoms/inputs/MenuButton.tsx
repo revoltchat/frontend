@@ -3,6 +3,7 @@ import { JSX, Show, splitProps } from "solid-js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { Ripple } from "@revolt/ui/components/material";
 import { hoverStyles } from "@revolt/ui/directives";
 
 import { Unreads } from "../indicators";
@@ -52,10 +53,11 @@ const base = cva({
     fontSize: "15px",
     userSelect: "none",
 
+    position: "relative",
     display: "flex",
     margin: "0 var(--gap-md)",
     padding: "0 var(--gap-md)",
-    borderRadius: "var(--borderRadius-md)",
+    borderRadius: "var(--borderRadius-xl)",
 
     "& > svg": {
       alignSelf: "center",
@@ -156,10 +158,10 @@ export function MenuButton(props: Props & JSX.HTMLAttributes<HTMLDivElement>) {
           size: local.size,
           hasActions: local.actions ? "yes" : "no",
         })]: true,
-        [hoverStyles({ ripple: true })]: true,
       }}
       // @codegen directives props=other include=floating
     >
+      <Ripple />
       {/* <Base {...other} align> */}
       {local.icon}
       <Content>{local.children}</Content>

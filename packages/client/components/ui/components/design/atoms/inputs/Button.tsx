@@ -91,7 +91,7 @@ const button = cva({
       fab: {
         width: "42px",
         height: "42px",
-        borderRadius: "var(--borderRadius-xl)",
+        borderRadius: "var(--borderRadius-lg)",
       },
       fluid: {
         borderRadius: "var(--borderRadius-md)",

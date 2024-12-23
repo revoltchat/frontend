@@ -14,6 +14,7 @@ import {
   OverflowingText,
   Row,
 } from "../../design/layout";
+import { Ripple } from "../../material";
 
 interface CommonProps {
   /**
@@ -124,6 +125,8 @@ const Base = styled(Column as Component, "Message")<
   }
 
   &:hover {
+    background: yellow;
+
     .hidden {
       display: block;
     }
@@ -181,7 +184,6 @@ export function MessageContainer(props: Props) {
   return (
     <Base
       tail={props.tail}
-      class={hoverStyles()}
       mentioned={props.mentioned}
       highlight={props.highlight}
       sendStatus={props.sendStatus}

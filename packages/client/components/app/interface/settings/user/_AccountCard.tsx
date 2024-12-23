@@ -1,6 +1,6 @@
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Avatar, OverflowingText, Typography } from "@revolt/ui";
+import { Avatar, OverflowingText, Ripple, Typography } from "@revolt/ui";
 
 // import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 import { useSettingsNavigation } from "../Settings";
@@ -24,6 +24,7 @@ export function AccountCard() {
       onClick={() => navigate("account")}
       aria-selected={page() === "account"}
     >
+      <Ripple />
       <SidebarButtonTitle>
         <Avatar size={36} src={client().user!.animatedAvatarURL} />
         <SidebarButtonContent>

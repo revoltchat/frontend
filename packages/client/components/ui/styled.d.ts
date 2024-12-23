@@ -16,8 +16,8 @@ declare module "solid-styled-components" {
     /* colour(base: keyof Scheme, tone?: number): string;
     scheme: Record<keyof Scheme, string>;
     tones: Record<keyof Scheme, TonalPalette>; */
-    accentColour: string,
-    materialTheme: Theme,
+    accentColour: string;
+    materialTheme: Theme;
     darkMode: boolean;
     customColours: Record<
       | `status-${
@@ -190,9 +190,6 @@ declare module "solid-styled-components" {
     effects: {
       blur: {
         [key in "md"]: string;
-      };
-      ripple: {
-        hover: number;
       };
       invert: {
         black: string;
