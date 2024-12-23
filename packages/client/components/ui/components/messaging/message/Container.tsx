@@ -120,12 +120,14 @@ const Base = styled(Column as Component, "Message")<
 
   ${(props) => (props.highlight ? "outline: 2px solid red;" : "")}
 
+  transition: ${(props) => props.theme!.transitions.fast} background-color;
+
   .hidden {
     display: none;
   }
 
   &:hover {
-    background: yellow;
+    background: var(--colours-messaging-component-container-background);
 
     .hidden {
       display: block;

@@ -89,6 +89,7 @@ declare module "solid-styled-components" {
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
             | `message-info-text`
+            | "component-container-background"
             | "component-system-message-foreground"
             | "component-message-reply-hook"
             | `component-${`${

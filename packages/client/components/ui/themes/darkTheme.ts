@@ -314,6 +314,10 @@ export const darkTheme: (
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
       // Messaging: Components
+      "messaging-component-container-background": materialColour(
+        "background",
+        95,
+      ),
       "messaging-component-blocked-message-background": "transparent",
       "messaging-component-blocked-message-foreground": materialColour(
         "onBackground",
