@@ -4,8 +4,12 @@ import { JSX } from "solid-js/jsx-runtime";
 import { AriaButtonProps, createButton } from "@solid-aria/button";
 import { cva } from "styled-system/css/cva";
 
+import { Ripple } from "@revolt/ui/components/material";
+
 const button = cva({
   base: {
+    position: "relative",
+
     flexShrink: 0,
     display: "flex",
     alignItems: "center",
@@ -118,7 +122,7 @@ export function Button(
         "role" | "tabIndex" | "aria-selected"
       >,
     "onClick"
-  >
+  >,
 ) {
   const [passthrough, propsRest] = splitProps(props, [
     "aria-selected",
@@ -138,6 +142,7 @@ export function Button(
       class={button(style)}
       // @codegen directives props=rest include=floating
     >
+      <Ripple />
       {rest.children}
     </button>
   );

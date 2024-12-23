@@ -3,7 +3,9 @@ import {
   Accessor,
   For,
   JSX,
+  Match,
   Show,
+  Switch,
   createMemo,
   createSignal,
   splitProps,
@@ -23,12 +25,20 @@ import {
   CategoryButton,
   Deferred,
   Header,
+  NavigationRail,
+  NavigationRailItem,
   OverflowingText,
   Tabs,
   Typography,
   UserStatusGraphic,
   styled as styledLegacy,
 } from "@revolt/ui";
+
+import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
+import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
+import MdGroup from "@material-design-icons/svg/outlined/group.svg?component-solid";
+import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
+import MdWavingHand from "@material-design-icons/svg/outlined/waving_hand.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
 
@@ -43,6 +53,8 @@ const Base = styledLegacy("div")`
   .FriendsList {
     padding-inline-start: ${(props) => props.theme!.gap.sm};
     padding-inline-end: ${(props) => props.theme!.gap.md};
+    overflow-y: scroll;
+    height: 100%;
   }
 `;
 
@@ -107,6 +119,8 @@ export function Friends() {
     return incoming.length > 99 ? "99+" : incoming.length;
   };
 
+  const [page, setPage] = createSignal("online");
+
   return (
     // TODO: i18n
     <Base>
@@ -115,80 +129,153 @@ export function Friends() {
           <BiSolidUserDetail size={24} />
         </HeaderIcon>
         Friends
-        <Button
+        {/* <Button
           size="inline"
           onPress={() =>
             modalController.push({ type: "add_friend", client: client() })
           }
         >
           Add Friend
-        </Button>
+        </Button> */}
       </Header>
 
-      <Deferred>
-        <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
-          <Tabs
-            tabs={[
-              {
-                title: "Online",
-                content: (
-                  <List
-                    title="Online"
-                    users={lists().online}
-                    scrollTargetElement={targetSignal}
-                  />
-                ),
-              },
-              {
-                title: "All",
-                content: (
-                  <List
-                    title="All"
-                    users={lists().friends}
-                    scrollTargetElement={targetSignal}
-                  />
-                ),
-              },
-              {
-                title: (
-                  <>
-                    Pending{" "}
-                    <Show when={pending()}>
-                      <Badge slot="badge" variant="large">
-                        {pending()}
-                      </Badge>
-                    </Show>
-                  </>
-                ),
-                content: (
-                  <>
+      <div
+        style={{
+          position: "relative",
+          "min-height": 0,
+        }}
+      >
+        <NavigationRail contained value={page} onValue={setPage}>
+          <div style={{ "margin-top": "6px", "margin-bottom": "12px" }}>
+            <Button size="fab">
+              <MdAdd />
+            </Button>
+          </div>
+
+          <NavigationRailItem icon={<MdWavingHand />} value="online">
+            Online
+          </NavigationRailItem>
+          <NavigationRailItem icon={<MdGroup />} value="all">
+            All
+          </NavigationRailItem>
+          <NavigationRailItem icon={<MdNotifications />} value="pending">
+            Pending
+            <Show when={pending()}>
+              <Badge slot="badge" variant="large">
+                {pending()}
+              </Badge>
+            </Show>
+          </NavigationRailItem>
+          <NavigationRailItem icon={<MdBlock />} value="blocked">
+            Blocked
+          </NavigationRailItem>
+        </NavigationRail>
+
+        <Deferred>
+          <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
+            <Switch
+              fallback={
+                <List
+                  title="Online"
+                  users={lists().online}
+                  scrollTargetElement={targetSignal}
+                />
+              }
+            >
+              <Match when={page() === "all"}>
+                <List
+                  title="All"
+                  users={lists().friends}
+                  scrollTargetElement={targetSignal}
+                />
+              </Match>
+              <Match when={page() === "pending"}>
+                <List
+                  title="Incoming"
+                  users={lists().incoming}
+                  scrollTargetElement={targetSignal}
+                />
+                <List
+                  title="Outgoing"
+                  users={lists().outgoing}
+                  scrollTargetElement={targetSignal}
+                />
+              </Match>
+              <Match when={page() === "blocked"}>
+                <List
+                  title="Blocked"
+                  users={lists().blocked}
+                  scrollTargetElement={targetSignal}
+                />
+              </Match>
+            </Switch>
+          </div>
+        </Deferred>
+
+        <div />
+        {/* <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
+            <Tabs
+              tabs={[
+                {
+                  title: "Online",
+                  content: (
                     <List
-                      title="Incoming"
-                      users={lists().incoming}
+                      title="Online"
+                      users={lists().online}
                       scrollTargetElement={targetSignal}
                     />
+                  ),
+                },
+                {
+                  title: "All",
+                  content: (
                     <List
-                      title="Outgoing"
-                      users={lists().outgoing}
+                      title="All"
+                      users={lists().friends}
                       scrollTargetElement={targetSignal}
                     />
-                  </>
-                ),
-              },
-              {
-                title: "Blocked",
-                content: (
-                  <List
-                    title="Blocked"
-                    users={lists().blocked}
-                    scrollTargetElement={targetSignal}
-                  />
-                ),
-              },
-            ]}
-          />
-        </div>
-      </Deferred>
+                  ),
+                },
+                {
+                  title: (
+                    <>
+                      Pending{" "}
+                      <Show when={pending()}>
+                        <Badge slot="badge" variant="large">
+                          {pending()}
+                        </Badge>
+                      </Show>
+                    </>
+                  ),
+                  content: (
+                    <>
+                      <List
+                        title="Incoming"
+                        users={lists().incoming}
+                        scrollTargetElement={targetSignal}
+                      />
+                      <List
+                        title="Outgoing"
+                        users={lists().outgoing}
+                        scrollTargetElement={targetSignal}
+                      />
+                    </>
+                  ),
+                },
+                {
+                  title: "Blocked",
+                  content: (
+                    <List
+                      title="Blocked"
+                      users={lists().blocked}
+                      scrollTargetElement={targetSignal}
+                    />
+                  ),
+                },
+              ]}
+            />
+          </div> */}
+      </div>
     </Base>
   );
 }
@@ -266,7 +353,7 @@ function Entry(
   props: { user: User } & Omit<
     JSX.AnchorHTMLAttributes<HTMLAnchorElement>,
     "href"
-  >
+  >,
 ) {
   const [local, remote] = splitProps(props, ["user"]);
 
