@@ -52,6 +52,11 @@ export type Props = {
    * Whether this icon is interactive
    */
   interactive?: boolean;
+
+  /**
+   * HTML Web Component slot
+   */
+  slot?: string;
 };
 
 /**
@@ -103,7 +108,7 @@ const FallbackBase = styled("div")<Pick<Props, "shape" | "primaryContrast">>`
 /**
  * Avatar parent container
  */
-const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive">>`
+const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive" | "slot">>`
   flex-shrink: 0;
   user-select: none;
   cursor: ${(props) => (props.interactive ? "cursor" : "inherit")};
@@ -133,12 +138,13 @@ export function Avatar(props: Props) {
           setTimeout(() => setUrl(src));
         }
       },
-      { defer: true }
-    )
+      { defer: true },
+    ),
   );
 
   return (
     <ParentBase
+      slot={props.slot}
       width={props.size}
       height={props.size}
       viewBox="0 0 32 32"

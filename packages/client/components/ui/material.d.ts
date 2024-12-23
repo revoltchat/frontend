@@ -19,6 +19,9 @@ declare module "solid-js" {
         value: string;
       };
       "mdui-navigation-rail-item": ComponentProps<"div"> & { value: string };
+      "mdui-list": ComponentProps<"div">;
+      "mdui-list-item": ComponentProps<"div"> & { rounded: boolean };
+      "mdui-list-subheader": ComponentProps<"div">;
     }
   }
 }

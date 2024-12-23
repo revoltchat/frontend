@@ -15,6 +15,7 @@ import { VirtualContainer } from "@minht11/solid-virtual-container";
 import type { User } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
@@ -25,6 +26,9 @@ import {
   CategoryButton,
   Deferred,
   Header,
+  List,
+  ListItem,
+  ListSubheader,
   NavigationRail,
   NavigationRailItem,
   OverflowingText,
@@ -51,20 +55,19 @@ const Base = styledLegacy("div")`
   flex-direction: column;
 
   .FriendsList {
-    padding-inline-start: ${(props) => props.theme!.gap.sm};
-    padding-inline-end: ${(props) => props.theme!.gap.md};
+    padding-inline: ${(props) => props.theme!.gap.md};
     overflow-y: scroll;
     height: 100%;
   }
 `;
 
-const ListBase = styled("div", {
-  base: {
-    "&:not(:first-child)": {
-      paddingTop: "var(--gap-lg)",
-    },
-  },
-});
+// const ListBase = styled("div", {
+//   base: {
+//     "&:not(:first-child)": {
+//       paddingTop: "var(--gap-lg)",
+//     },
+//   },
+// });
 
 /**
  * Typed accessor for lists
@@ -131,9 +134,6 @@ export function Friends() {
         Friends
         {/* <Button
           size="inline"
-          onPress={() =>
-            modalController.push({ type: "add_friend", client: client() })
-          }
         >
           Add Friend
         </Button> */}
@@ -147,7 +147,12 @@ export function Friends() {
       >
         <NavigationRail contained value={page} onValue={setPage}>
           <div style={{ "margin-top": "6px", "margin-bottom": "12px" }}>
-            <Button size="fab">
+            <Button
+              size="fab"
+              onPress={() =>
+                modalController.push({ type: "add_friend", client: client() })
+              }
+            >
               <MdAdd />
             </Button>
           </div>
@@ -175,7 +180,7 @@ export function Friends() {
           <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
             <Switch
               fallback={
-                <List
+                <People
                   title="Online"
                   users={lists().online}
                   scrollTargetElement={targetSignal}
@@ -183,26 +188,26 @@ export function Friends() {
               }
             >
               <Match when={page() === "all"}>
-                <List
+                <People
                   title="All"
                   users={lists().friends}
                   scrollTargetElement={targetSignal}
                 />
               </Match>
               <Match when={page() === "pending"}>
-                <List
+                <People
                   title="Incoming"
                   users={lists().incoming}
                   scrollTargetElement={targetSignal}
                 />
-                <List
+                <People
                   title="Outgoing"
                   users={lists().outgoing}
                   scrollTargetElement={targetSignal}
                 />
               </Match>
               <Match when={page() === "blocked"}>
-                <List
+                <People
                   title="Blocked"
                   users={lists().blocked}
                   scrollTargetElement={targetSignal}
@@ -283,20 +288,20 @@ export function Friends() {
 /**
  * List of users
  */
-function List(props: {
+function People(props: {
   users: User[];
   title: string;
   scrollTargetElement: Accessor<HTMLDivElement>;
 }) {
   return (
-    <ListBase>
-      <Typography variant="category">
+    <List>
+      <ListSubheader>
         {props.title} {"–"} {props.users.length}
-      </Typography>
+      </ListSubheader>
       <VirtualContainer
         items={props.users}
         scrollTarget={props.scrollTargetElement()}
-        itemSize={{ height: 60 }}
+        itemSize={{ height: 58 }}
         // grid rendering:
         // itemSize={{ height: 60, width: 240 }}
         // crossAxisCount={(measurements) =>
@@ -310,39 +315,22 @@ function List(props: {
               ...item.style,
             }}
           >
-            <div style={{ margin: "6px" }}>
-              <Entry
-                role="listitem"
-                tabIndex={item.tabIndex}
-                style={item.style}
-                user={item.item}
-              />
-            </div>
+            <Entry
+              role="listitem"
+              tabIndex={item.tabIndex}
+              style={item.style}
+              user={item.item}
+            />
           </ContainerListEntry>
         )}
       </VirtualContainer>
-    </ListBase>
+    </List>
   );
 }
 
 const ContainerListEntry = styled("div", {
   base: {
     width: "100%",
-  },
-});
-
-/**
- * Some temporary styles for friend entries
- */
-const Friend = styled("div", {
-  base: {
-    minWidth: 0,
-    display: "flex",
-    gap: "var(--gap-md)",
-    alignItems: "center",
-    // padding: "var(--gap-md)",
-    // borderRadius: "var(--borderRadius-lg)",
-    // background: "var(--colours-sidebar-channels-background)",
   },
 });
 
@@ -358,9 +346,15 @@ function Entry(
   const [local, remote] = splitProps(props, ["user"]);
 
   return (
-    <a {...remote}>
-      <Friend>
+    <a
+      {...remote}
+      use:floating={{
+        contextMenu: () => <UserContextMenu user={local.user} />,
+      }}
+    >
+      <ListItem>
         <Avatar
+          slot="icon"
           size={36}
           src={local.user.animatedAvatarURL}
           holepunch={
@@ -375,7 +369,7 @@ function Entry(
           }
         />
         <OverflowingText>{local.user.username}</OverflowingText>
-      </Friend>
+      </ListItem>
     </a>
   );
 }

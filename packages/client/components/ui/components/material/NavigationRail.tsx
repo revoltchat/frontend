@@ -1,5 +1,6 @@
 import { Accessor, JSXElement, Setter } from "solid-js";
 
+import "mdui/components/navigation-rail-item.js";
 import "mdui/components/navigation-rail.js";
 import { cva } from "styled-system/css";
 
@@ -28,3 +29,17 @@ const rail = cva({
     width: "56px",
   },
 });
+
+interface ItemProps {
+  value: string;
+  icon: JSXElement;
+  children: JSXElement;
+}
+
+export function NavigationRailItem(props: ItemProps) {
+  return (
+    <mdui-navigation-rail-item value={props.value}>
+      {props.children} <div slot="icon">{props.icon}</div>
+    </mdui-navigation-rail-item>
+  );
+}
