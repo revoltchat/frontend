@@ -132,11 +132,6 @@ export function Friends() {
           <BiSolidUserDetail size={24} />
         </HeaderIcon>
         Friends
-        {/* <Button
-          size="inline"
-        >
-          Add Friend
-        </Button> */}
       </Header>
 
       <div
@@ -216,70 +211,6 @@ export function Friends() {
             </Switch>
           </div>
         </Deferred>
-
-        <div />
-        {/* <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
-            <Tabs
-              tabs={[
-                {
-                  title: "Online",
-                  content: (
-                    <List
-                      title="Online"
-                      users={lists().online}
-                      scrollTargetElement={targetSignal}
-                    />
-                  ),
-                },
-                {
-                  title: "All",
-                  content: (
-                    <List
-                      title="All"
-                      users={lists().friends}
-                      scrollTargetElement={targetSignal}
-                    />
-                  ),
-                },
-                {
-                  title: (
-                    <>
-                      Pending{" "}
-                      <Show when={pending()}>
-                        <Badge slot="badge" variant="large">
-                          {pending()}
-                        </Badge>
-                      </Show>
-                    </>
-                  ),
-                  content: (
-                    <>
-                      <List
-                        title="Incoming"
-                        users={lists().incoming}
-                        scrollTargetElement={targetSignal}
-                      />
-                      <List
-                        title="Outgoing"
-                        users={lists().outgoing}
-                        scrollTargetElement={targetSignal}
-                      />
-                    </>
-                  ),
-                },
-                {
-                  title: "Blocked",
-                  content: (
-                    <List
-                      title="Blocked"
-                      users={lists().blocked}
-                      scrollTargetElement={targetSignal}
-                    />
-                  ),
-                },
-              ]}
-            />
-          </div> */}
       </div>
     </Base>
   );
@@ -298,6 +229,11 @@ function People(props: {
       <ListSubheader>
         {props.title} {"–"} {props.users.length}
       </ListSubheader>
+
+      <Show when={props.users.length === 0}>
+        <ListItem disabled>Nobody here right now!</ListItem>
+      </Show>
+
       <VirtualContainer
         items={props.users}
         scrollTarget={props.scrollTargetElement()}

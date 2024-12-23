@@ -1,7 +1,7 @@
 import { For, JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "solid-styled-components";
 
-import { iconSize } from "@revolt/ui";
+import { Ripple, iconSize } from "@revolt/ui";
 
 import MdChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg?component-solid";
 import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
@@ -42,6 +42,8 @@ export function CategoryButton(props: Props) {
       aria-disabled={props.disabled}
       onClick={props.disabled ? undefined : props.onClick}
     >
+      <Ripple />
+
       <Show when={props.icon !== "blank"}>
         <IconWrapper>{props.icon}</IconWrapper>
       </Show>
@@ -95,6 +97,8 @@ const Base = styled("a", "CategoryButton")<{
   isLink: boolean;
   disabled?: boolean;
 }>`
+  position: relative;
+
   gap: 16px;
   padding: 13px; /*TODO: make this a prop*/
   border-radius: ${(props) => props.theme!.borderRadius.md};
@@ -114,16 +118,6 @@ const Base = styled("a", "CategoryButton")<{
 
   > svg {
     flex-shrink: 0;
-  }
-
-  &:hover {
-    background-color: ${(props) =>
-      props.theme!.colours["component-categorybtn-background-hover"]};
-  }
-
-  &:active {
-    background-color: ${(props) =>
-      props.theme!.colours["component-categorybtn-background-active"]};
   }
 `;
 
