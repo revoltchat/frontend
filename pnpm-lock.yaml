@@ -329,8 +329,8 @@ importers:
         specifier: ^5.2.3
         version: 5.2.3
       revolt-api:
-        specifier: 0.7.16
-        version: 0.7.16
+        specifier: 0.8.0
+        version: 0.8.0
       solid-js:
         specifier: ^1.8.15
         version: 1.8.15
@@ -2837,10 +2837,10 @@ packages:
       react-dom:
         optional: true
 
-  '@storybook/builder-vite@8.5.0-beta.4':
-    resolution: {integrity: sha512-a4NFy6y2pfBMQWe4ZPCMh5/Fr3YMDeWWsPoc6KGXc5IbV0YMF8bPlQt3hLKRBGWQOR7C/VuuKnD4FE5CSHIbCA==}
+  '@storybook/builder-vite@8.5.0-beta.7':
+    resolution: {integrity: sha512-D1HrfF34ASsrw4PBFgHBn66Xi5rkwOVsfW8ffVku8N3+pw2udjzwV8CuWYn1r5WJmGwjFQbUFt2+pi1zuWjkyQ==}
     peerDependencies:
-      storybook: ^8.5.0-beta.4
+      storybook: ^8.5.0-beta.7
       vite: ^4.0.0 || ^5.0.0 || ^6.0.0
 
   '@storybook/components@8.3.6':
@@ -2856,10 +2856,10 @@ packages:
     peerDependencies:
       storybook: ^8.3.5
 
-  '@storybook/csf-plugin@8.5.0-beta.4':
-    resolution: {integrity: sha512-b+V6hWSjo1g1jj+CQBm0br0/XAZ92NTEL7yiu3UuZsPZr27bNFysDEEpfxWjnlJP28z9R7VaHvMnEsQ5hRjdOA==}
+  '@storybook/csf-plugin@8.5.0-beta.7':
+    resolution: {integrity: sha512-GGlF8N8zHFSMier7kKIyPyLA6uEAfQvRXNlOBjZNTcDXQEyq+Ts9kjA7Ii7y41M8jQwzC15VKlwvib0iXGuMWw==}
     peerDependencies:
-      storybook: ^8.5.0-beta.4
+      storybook: ^8.5.0-beta.7
 
   '@storybook/csf@0.1.11':
     resolution: {integrity: sha512-dHYFQH3mA+EtnCkHXzicbLgsvzYjcDJ1JWsogbItZogkPHgSJM/Wr71uMkcvw8v9mmCyP4NpXJuu6bPoVsOnzg==}
@@ -6206,8 +6206,8 @@ packages:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  revolt-api@0.7.16:
-    resolution: {integrity: sha512-Buoc5XQAjAud2GxG210bNHiRne4lOSybuSYoN3FQJXQz1JApFuDx20PPnqJQS2r3/9eWZSgr1HlyBasvzACqTQ==}
+  revolt-api@0.8.0:
+    resolution: {integrity: sha512-Bxhh77BVTeNyBgw8SLaSMmx9MBKvq0ZsZ0LjjNBlfteUIIuJZWJixK5nT/misc9+atYEwNl97UqNg7s92grFxg==}
 
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
@@ -10569,9 +10569,9 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.5.0-beta.4(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))':
+  '@storybook/builder-vite@8.5.0-beta.7(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))':
     dependencies:
-      '@storybook/csf-plugin': 8.5.0-beta.4(storybook@8.3.5)
+      '@storybook/csf-plugin': 8.5.0-beta.7(storybook@8.3.5)
       browser-assert: 1.2.1
       storybook: 8.3.5
       ts-dedent: 2.2.0
@@ -10606,7 +10606,7 @@ snapshots:
       storybook: 8.3.5
       unplugin: 1.10.1
 
-  '@storybook/csf-plugin@8.5.0-beta.4(storybook@8.3.5)':
+  '@storybook/csf-plugin@8.5.0-beta.7(storybook@8.3.5)':
     dependencies:
       storybook: 8.3.5
       unplugin: 1.10.1
@@ -14780,7 +14780,7 @@ snapshots:
 
   reusify@1.0.4: {}
 
-  revolt-api@0.7.16:
+  revolt-api@0.8.0:
     dependencies:
       axios: 0.26.1
       lodash.defaultsdeep: 4.6.1
@@ -15098,7 +15098,7 @@ snapshots:
 
   storybook-solidjs-vite@1.0.0-beta.2(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2)):
     dependencies:
-      '@storybook/builder-vite': 8.5.0-beta.4(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))
+      '@storybook/builder-vite': 8.5.0-beta.7(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))
     transitivePeerDependencies:
       - storybook
       - vite
