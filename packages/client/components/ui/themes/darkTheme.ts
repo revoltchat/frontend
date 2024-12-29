@@ -538,7 +538,7 @@ export const darkTheme: (
       "home-page-title": {
         element: "h1",
         margin: 0,
-        lineHeight: "1rem",
+        lineHeight: "1.5rem",
         fontWeight: 600,
         fontSize: "1.4rem",
       },
@@ -546,7 +546,7 @@ export const darkTheme: (
       "legacy-settings-title": {
         element: "h1",
         margin: 0,
-        lineHeight: "1rem",
+        lineHeight: "1.5rem",
         fontWeight: 600,
         fontSize: "1.2rem",
       },

@@ -39,11 +39,16 @@ export default function FlowHome() {
                   display: "flex",
                   "flex-direction": "column",
                   "align-items": "center",
+                  "text-align": "center",
                 }}
               >
-                <span>Find your community,</span>
-                <br />
-                <span>connect with the world.</span>
+                <span>
+                  Find your com
+                  <wbr />
+                  munity,
+                  <br />
+                  connect with the world.
+                </span>
               </b>
               <span style={{ "text-align": "center", opacity: "0.5" }}>
                 Revolt is one of the best ways to stay connected with your
