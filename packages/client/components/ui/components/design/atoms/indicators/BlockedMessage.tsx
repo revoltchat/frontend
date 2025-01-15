@@ -1,4 +1,4 @@
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
 import { hoverStyles } from "@revolt/ui/directives";
@@ -10,23 +10,22 @@ import { iconSize } from "../../../..";
 /**
  * Base styles
  */
-const Base = styled("div")<{ unread?: boolean }>`
-  display: flex;
-  align-items: center;
+const Base = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
 
-  gap: ${(props) => props.theme!.gap.s};
-  margin-top: ${(props) => props.theme!.gap.md};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-  padding: ${(props) => props.theme!.gap.sm} ${(props) => props.theme!.gap.xxl};
+    gap: "var(--gap-s)",
+    marginTop: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-md)",
+    padding: "var(--gap-sm) var(--gap-xxl)",
 
-  font-size: 0.8em; /* TODO should be in typography */
-  color: ${(props) =>
-    props.theme!.colours["messaging-component-blocked-message-foreground"]};
-  fill: ${(props) =>
-    props.theme!.colours["messaging-component-blocked-message-foreground"]};
-  background: ${(props) =>
-    props.theme!.colours["messaging-component-blocked-message-background"]};
-`;
+    fontSize: "0.8em" /* TODO should be in typography */,
+    color: "var(--colours-messaging-component-blocked-message-foreground)",
+    fill: "var(--colours-messaging-component-blocked-message-foreground)",
+    background: "var(--colours-messaging-component-blocked-message-background)",
+  },
+});
 
 interface Props {
   /**

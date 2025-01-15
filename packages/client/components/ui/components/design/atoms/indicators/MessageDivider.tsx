@@ -1,54 +1,60 @@
 import { Show } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 /**
  * Divider line
  */
-const Base = styled("div")<{ unread?: boolean }>`
-  height: 0;
-  display: flex;
-  user-select: none;
-  align-items: center;
-  margin: 17px 12px 5px;
+const Base = styled("div", {
+  base: {
+    height: 0,
+    display: "flex",
+    userSelect: "none",
+    alignItems: "center",
+    margin: "17px 12px 5px",
 
-  time {
-    margin-top: -2px;
-    font-size: 0.6875rem;
-    line-height: 0.6875rem;
-    font-weight: 600;
-    padding-inline: 5px 5px;
+    "& time": {
+      marginTop: "-2px",
+      fontSize: "0.6875rem",
+      lineHeight: "0.6875rem",
+      fontWeight: 600,
+      paddingInline: "5px 5px",
 
-    border-radius: ${(props) => props.theme!.borderRadius.md};
+      borderRadius: "var(--borderRadius-md)",
 
-    color: ${({ theme }) =>
-      theme!.colours["messaging-component-message-divider-foreground"]};
-    background: ${({ theme }) => theme!.colours.background};
-  }
+      color: "var(--colours-messaging-component-message-divider-foreground)",
+      background: "var(--colours-background)",
+    },
 
-  border-top: thin solid
-    ${({ unread, theme }) =>
-      theme!.colours[
-        `messaging-component-message-divider${
-          unread ? "-unread" : ""
-        }-background`
-      ]};
-`;
+    borderTop:
+      "thin solid var(--colours-messaging-component-message-divider-background)",
+  },
+  variants: {
+    unread: {
+      true: {
+        borderTop:
+          "thin solid var(--colours-messaging-component-message-divider-unread-background)",
+      },
+    },
+  },
+});
 
 /**
  * Unread indicator
  */
-const Unread = styled("div")`
-  font-size: 0.625rem;
-  font-weight: 600;
-  color: ${({ theme }) =>
-    theme!.colours["messaging-component-message-divider-unread-foreground"]};
-  background: ${({ theme }) =>
-    theme!.colours["messaging-component-message-divider-unread-background"]};
+const Unread = styled("div", {
+  base: {
+    fontSize: "0.625rem",
+    fontWeight: 600,
+    color:
+      "var(--colours-messaging-component-message-divider-unread-foreground)",
+    background:
+      "var(--colours-messaging-component-message-divider-unread-background)",
 
-  padding: 2px 6px;
-  margin-top: -1px;
-  border-radius: 60px;
-`;
+    padding: "2px 6px",
+    marginTop: "-1px",
+    borderRadius: "60px",
+  },
+});
 
 interface Props {
   /**

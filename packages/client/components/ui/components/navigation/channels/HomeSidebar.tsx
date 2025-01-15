@@ -1,10 +1,9 @@
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
-import { styled as styledLegacy } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel } from "revolt.js";
-import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
@@ -197,10 +196,12 @@ export const HomeSidebar = (props: Props) => {
 /**
  * Sidebar title
  */
-const SidebarTitle = styledLegacy.p`
-  padding-block: ${(props) => props.theme!.gap.md};
-  padding-inline: ${(props) => props.theme!.gap.lg};
-`;
+const SidebarTitle = styled("p", {
+  base: {
+    paddingBlock: "var(--gap-md)",
+    paddingInline: "var(--gap-lg)",
+  },
+});
 
 /**
  * Styles required to correctly display name and status
@@ -208,7 +209,6 @@ const SidebarTitle = styledLegacy.p`
 const NameStatusStack = styled("div", {
   base: {
     height: "100%",
-
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -338,7 +338,8 @@ function Entry(
  * Inner scrollable list
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
-const List = styledLegacy.div`
-  /* padding: ${(props) => props.theme!.gap.md}; */
-  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
-`;
+const List = styled("div", {
+  base: {
+    width: "var(--layout-width-channel-sidebar)",
+  },
+});
