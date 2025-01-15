@@ -7,7 +7,8 @@ import { hoverStyles } from "@revolt/ui/directives";
 
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
-import { iconSize, styled } from "../../..";
+import { iconSize } from "../../..";
+import { styled } from "styled-system/jsx";
 
 import { FloatingIndicator } from "./FloatingIndicator";
 
@@ -65,6 +66,8 @@ export function NewMessages(props: Props) {
   );
 }
 
-const CancelIcon = styled.div`
-  height: 16px;
-`;
+const CancelIcon = styled("div", {
+  base: {
+    height: "16px",
+  },
+});

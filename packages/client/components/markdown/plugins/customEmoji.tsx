@@ -5,9 +5,10 @@ import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
 import { useClient } from "@revolt/client";
-import { Avatar, Column, Row, styled } from "@revolt/ui";
+import { Avatar, Column, Row } from "@revolt/ui";
 
 import { CustomEmoji, Emoji, RE_CUSTOM_EMOJI } from "../emoji";
+import { cva } from "styled-system/css";
 
 /**
  * Render a custom emoji
@@ -35,8 +36,8 @@ export function RenderCustomEmoji(props: { id: string }) {
   return (
     <Switch fallback={<span>{`:${emoji()?.name ?? props.id}:`}</span>}>
       <Match when={exists()}>
-        <TooltipTrigger
-          // @ts-expect-error this is a hack; replace with plain element & panda-css
+        <div
+          class={tooltipTrigger()}
           use:floating={{
             tooltip: {
               placement: "top",
@@ -82,7 +83,7 @@ export function RenderCustomEmoji(props: { id: string }) {
           }}
         >
           <CustomEmoji id={props.id} onError={() => setExists(false)} />
-        </TooltipTrigger>
+        </div>
       </Match>
     </Switch>
   );
@@ -91,9 +92,11 @@ export function RenderCustomEmoji(props: { id: string }) {
 /**
  * Container for trigger
  */
-const TooltipTrigger = styled.div`
-  display: inline-block;
-`;
+const tooltipTrigger = cva({
+  base: {
+    display: "inline-block",
+  },
+});
 
 /**
  * Helper to fetch unknown emotes

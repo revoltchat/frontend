@@ -25,7 +25,6 @@ import {
   NewMessages,
   TypingIndicator,
   Username,
-  styled,
 } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
@@ -34,6 +33,8 @@ import { ChannelPageProps } from "../ChannelPage";
 
 import { MessageComposition } from "./Composition";
 import { MemberSidebar } from "./MemberSidebar";
+
+import { styled } from "styled-system/jsx";
 
 /**
  * Channel component
@@ -169,25 +170,26 @@ export function TextChannel(props: ChannelPageProps) {
 /**
  * Main content row layout
  */
-const Content = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  flex-grow: 1;
-  min-width: 0;
-  min-height: 0;
-`;
+const Content = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "row",
+    flexGrow: 1,
+    minWidth: 0,
+    minHeight: 0,
+  },
+});
 
 /**
  * Component housing messages and composition
  */
-const MessagingStack = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  flex-grow: 1;
-  min-width: 0;
-  min-height: 0;
-
-  padding: 0 ${(props) => props.theme!.gap.md} 0 0;
-`;
+const MessagingStack = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+    minWidth: 0,
+    minHeight: 0,
+    padding: "0 var(--gap-md) 0 0",
+  },
+});

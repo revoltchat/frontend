@@ -1,13 +1,5 @@
-import { BiSolidChevronDown, BiSolidUserDetail } from "solid-icons/bi";
-import {
-  Accessor,
-  For,
-  JSX,
-  Show,
-  createMemo,
-  createSignal,
-  splitProps,
-} from "solid-js";
+import { BiSolidUserDetail } from "solid-icons/bi";
+import { Accessor, For, JSX, Show, createMemo, splitProps } from "solid-js";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import type { User } from "revolt.js";
@@ -23,7 +15,6 @@ import {
   OverflowingText,
   Typography,
   UserStatusGraphic,
-  styled as styledLegacy,
 } from "@revolt/ui";
 
 import { HeaderIcon } from "./common/CommonHeader";
@@ -31,15 +22,16 @@ import { HeaderIcon } from "./common/CommonHeader";
 /**
  * Base layout of the friends page
  */
-const Base = styledLegacy("div")`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .FriendsList {
-    padding-inline: ${(props) => props.theme!.gap.lg};
-  }
-`;
+const Base = styled("div", {
+  base: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    "& .FriendsList": {
+      paddingInline: "var(--gap-lg)",
+    },
+  },
+});
 
 const ListBase = styled("div", {
   base: {
@@ -229,14 +221,15 @@ function Entry(
 /**
  * Overlapping avatars
  */
-const Avatars = styledLegacy("div", "Avatars")`
-  flex-shrink: 0;
-
-  svg:not(:first-child) {
-    position: relative;
-    margin-inline-start: -32px;
-  }
-`;
+const Avatars = styled("div", {
+  base: {
+    flexShrink: 0,
+    "& svg:not(:first-child)": {
+      position: "relative",
+      marginInlineStart: "-32px",
+    },
+  },
+});
 
 /**
  * Pending requests button

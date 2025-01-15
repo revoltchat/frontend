@@ -14,14 +14,9 @@ import {
   ComboBox,
   OverrideSwitch,
   iconSize,
-  styled as oldStyled,
 } from "@revolt/ui";
 
 import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
-
-const SomeComponent = oldStyled.div`
-  background: red;
-`;
 
 const NewComponent = styled("div", {
   base: {
@@ -83,16 +78,6 @@ export function DevelopmentPage() {
         <Face fill="red" {...iconSize(128)} />
       </div>
       <OverrideSwitch />
-
-      <SomeComponent
-        // directives hacked into solid-styled-components
-        // => unreliable (breaks on some re-renders)
-        // => uses goober, want to migrate out anyways
-        // @ts-expect-error this is a hack; replace with plain element & panda-css
-        use:floating={{ tooltip: { content: "hello", placement: "bottom" } }}
-      >
-        hi
-      </SomeComponent>
 
       <div
         // have to wrap the component in something that can receive a directive

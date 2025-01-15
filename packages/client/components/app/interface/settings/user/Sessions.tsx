@@ -27,11 +27,11 @@ import {
   Preloader,
   Time,
   iconSize,
-  styled,
 } from "@revolt/ui";
 
 import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
+import { styled } from "styled-system/jsx";
 
 /**
  * Sessions
@@ -179,9 +179,11 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
 /**
  * Capitalize session titles
  */
-const Capitalise = styled.div`
-  text-transform: capitalize;
-`;
+const Capitalise = styled("div", {
+  base: {
+    textTransform: "capitalize",
+  },
+});
 
 /**
  * Show icon for session

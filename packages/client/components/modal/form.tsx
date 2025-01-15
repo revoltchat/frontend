@@ -3,7 +3,7 @@ import { createStore } from "solid-js/store";
 
 import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Column, Form, Typography, styled } from "@revolt/ui";
+import { Column, Form, Typography } from "@revolt/ui";
 import type {
   Action,
   Props as ModalProps,
@@ -17,6 +17,8 @@ import type {
 
 import { modalController } from ".";
 import { Modals, PropGenerator } from "./types";
+
+import { styled } from "styled-system/jsx";
 
 type Props<T extends FormTemplate> = Omit<
   FormProps<T>,
@@ -122,6 +124,8 @@ export function createFormModal<
 /**
  * Error text
  */
-const Error = styled.div`
-  color: ${(props) => props.theme!.customColours.error.color};
-`;
+const Error = styled("div", {
+  base: {
+    color: "var(--customColours-error-color)",
+  },
+});

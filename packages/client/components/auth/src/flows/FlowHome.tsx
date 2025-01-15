@@ -7,12 +7,15 @@ import { Navigate } from "@revolt/routing";
 import { Button, Column, styled } from "@revolt/ui";
 
 import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
+import { cva } from "styled-system/css";
 
-const Logo = styled(RevoltSvg)`
-  width: 100%;
-  object-fit: contain;
-  fill: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
-`;
+const logo = cva({
+  base: {
+    width: "100%",
+    objectFit: "contain",
+    fill: "var(--colours-messaging-message-box-foreground)",
+  },
+});
 
 /**
  * Flow for logging into an account
@@ -29,7 +32,7 @@ export default function FlowHome() {
           </Show>
 
           <Column gap="xl">
-            <Logo />
+            <RevoltSvg class={logo()} />
 
             <Column>
               <b

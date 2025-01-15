@@ -22,6 +22,7 @@ import {
   Username,
   styled as styledLegacy,
 } from "@revolt/ui";
+import { cva } from "styled-system/css";
 
 interface Props {
   /**
@@ -207,9 +208,9 @@ export function ServerMemberSidebar(props: Props) {
   });
 
   return (
-    <Base
+    <div
+      class={base()}
       ref={scrollTargetElement}
-      // @ts-expect-error this is a hack; replace with plain element & panda-css
       use:scrollable={{
         direction: "y",
         showOnHover: true,
@@ -267,7 +268,7 @@ export function ServerMemberSidebar(props: Props) {
           </VirtualContainer>
         </Deferred>
       </Container>
-    </Base>
+    </div>
   );
 }
 
@@ -278,9 +279,9 @@ export function GroupMemberSidebar(props: Props) {
   let scrollTargetElement!: HTMLDivElement;
 
   return (
-    <Base
+    <div
+      class={base()}
       ref={scrollTargetElement}
-      // @ts-expect-error this is a hack; replace with plain element & panda-css
       use:scrollable={{
         direction: "y",
         showOnHover: true,
@@ -314,38 +315,41 @@ export function GroupMemberSidebar(props: Props) {
           </VirtualContainer>
         </Deferred>
       </Container>
-    </Base>
+    </div>
   );
 }
 
 /**
  * Base styles
  */
-const Base = styledLegacy.div`
-  flex-shrink: 0;
-
-  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
-  margin: ${(props) => (props.theme!.gap.md + " ").repeat(3)}0;
-  margin-top: calc(48px + 2 * ${(props) => props.theme!.gap.md});
-  border-radius: ${(props) => props.theme!.borderRadius.lg};
-
-  color: ${({ theme }) => theme!.colours["sidebar-channels-foreground"]};
-  background: ${({ theme }) => theme!.colours["sidebar-channels-background"]};
-`;
+const base = cva({
+  base: {
+    flexShrink: 0,
+    width: "var(--layout-width-channel-sidebar)",
+    margin: "calc(48px + 2 * var(--gap-md)) var(--gap-md) var(--gap-md) 0",
+    borderRadius: "var(--borderRadius-lg)",
+    color: "var(--colours-sidebar-channels-foreground)",
+    background: "var(--colours-sidebar-channels-background)",
+  },
+});
 
 /**
  * Container styles
  */
-const Container = styledLegacy.div`
-  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
-`;
+const Container = styled("div", {
+  base: {
+    width: "var(--layout-width-channel-sidebar)",
+  },
+});
 
 /**
  * Category Title
  */
-const CategoryTitle = styledLegacy.div`
-  padding: 16px 14px 0;
-`;
+const CategoryTitle = styled("div", {
+  base: {
+    padding: "16px 14px 0",
+  },
+});
 
 /**
  * Member title
@@ -371,7 +375,6 @@ const MemberTitle = styled("div", {
 const NameStatusStack = styled("div", {
   base: {
     height: "100%",
-
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

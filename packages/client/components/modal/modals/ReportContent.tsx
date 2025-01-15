@@ -2,10 +2,12 @@ import { API, Server, User } from "revolt.js";
 
 import { Message } from "@revolt/app";
 import { useTranslation } from "@revolt/i18n";
-import { Avatar, Column, Initials, styled } from "@revolt/ui";
+import { Avatar, Column, Initials } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { cva } from "styled-system/css";
 
 const CONTENT_REPORT_REASONS: API.ContentReportReason[] = [
   "Illegal",
@@ -58,17 +60,14 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
     data: {
       preview: {
         element: (
-          <ContentContainer
-            // @ts-expect-error this is a hack; replace with plain element & panda-css
-            use:scrollable
-          >
+          <div class={contentContainer()} use:scrollable>
             {props.target instanceof User ? (
-              <Column align="center">
+              <Column align>
                 <Avatar src={props.target.animatedAvatarURL} size={64} />
                 {props.target.displayName}
               </Column>
             ) : props.target instanceof Server ? (
-              <Column align="center">
+              <Column align>
                 <Avatar
                   src={props.target.animatedIconURL}
                   fallback={<Initials input={props.target.name} />}
@@ -79,7 +78,7 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
             ) : (
               <Message message={props.target as never} />
             )}
-          </ContentContainer>
+          </div>
         ),
       },
       category: {
@@ -141,15 +140,16 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
   });
 };
 
-const ContentContainer = styled.div`
-  max-width: 100%;
-  max-height: 240px;
-
-  > div {
-    margin-top: 0 !important;
-    pointer-events: none;
-    user-select: none;
-  }
-`;
+const contentContainer = cva({
+  base: {
+    maxWidth: "100%",
+    maxHeight: "240px",
+    "& > div": {
+      marginTop: "0 !important",
+      pointerEvents: "none",
+      userSelect: "none",
+    },
+  },
+});
 
 export default ReportContent;

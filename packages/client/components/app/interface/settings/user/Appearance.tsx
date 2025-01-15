@@ -88,19 +88,23 @@ export default function Appearance() {
 /**
  * Theme preview styling
  */
-const ThemePreview = styled.img`
-  height: 200px;
-  width: fit-content;
-  border-radius: ${(props) => props.theme!.borderRadius.xl};
-`;
+const ThemePreview = styled("img", {
+  base: {
+    height: "200px",
+    width: "fit-content",
+    borderRadius: "var(--borderRadius-xl)",
+  },
+});
 
 /**
  * Theme preview styling
  */
-const ThemeProperties = styled.div`
-  display: flex;
-  width: 100%;
-  padding: 20px;
-  background: ${(props) => props.theme!.colours["temp-1"]};
-  border-radius: ${(props) => props.theme!.borderRadius.xl};
-`;
+const ThemeProperties = styled("div", {
+  base: {
+    display: "flex",
+    width: "100%",
+    padding: "20px",
+    background: "var(--colours-temp-1)",
+    borderRadius: "var(--borderRadius-xl)",
+  },
+});
