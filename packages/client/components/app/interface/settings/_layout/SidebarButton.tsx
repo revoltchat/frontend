@@ -1,4 +1,4 @@
-import { styled } from "panda-css/jsx";
+import { styled } from "styled-system/jsx";
 
 // TODO: move to @revolt/ui package
 
@@ -23,7 +23,7 @@ export const SidebarButton = styled("a", {
     color: "var(--colours-settings-sidebar-foreground)",
     background: "unset",
 
-    svg: {
+    "& svg": {
       flexShrink: 0,
     },
 
