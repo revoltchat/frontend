@@ -24,7 +24,6 @@ export function SettingsSidebar(props: {
   page: Accessor<string | undefined>;
 }) {
   const { navigate } = useSettingsNavigation();
-  // const theme = useTheme();
 
   /**
    * Generate list of categories / links

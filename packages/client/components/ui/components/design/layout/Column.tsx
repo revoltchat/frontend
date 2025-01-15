@@ -42,6 +42,7 @@ export const Column = styled("div", {
     },
     gap: {
       xs: { gap: "var(--gap-xs)" },
+      s: { gap: "var(--gap-s)" },
       sm: { gap: "var(--gap-sm)" },
       md: { gap: "var(--gap-md)" },
       lg: { gap: "var(--gap-lg)" },

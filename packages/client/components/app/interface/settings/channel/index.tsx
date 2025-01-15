@@ -11,7 +11,7 @@ import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
-import { ColouredText, useTheme } from "@revolt/ui";
+import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
 
@@ -63,7 +63,6 @@ const Config: SettingsConfiguration<Channel> = {
    */
   list(channel) {
     const t = useTranslation();
-    const theme = useTheme();
 
     return {
       entries: [
@@ -98,11 +97,11 @@ const Config: SettingsConfiguration<Channel> = {
               icon: (
                 <BiSolidTrash
                   size={20}
-                  color={theme!.customColours.error.color}
+                  color="var(--customColours-error-color)"
                 />
               ),
               title: (
-                <ColouredText colour={theme!.customColours.error.color}>
+                <ColouredText colour="var(--customColours-error-color)">
                   {t("app.context_menu.delete_channel")}
                 </ColouredText>
               ),

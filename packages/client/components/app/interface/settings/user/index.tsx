@@ -5,7 +5,7 @@ import { Server } from "revolt.js";
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
-import { ColouredText, Column, iconSize, useTheme } from "@revolt/ui";
+import { ColouredText, Column, iconSize } from "@revolt/ui";
 import { ColourSwatches } from "@revolt/ui/components/design/atoms/inputs/ColourSwatches";
 
 // Filled Icons
@@ -143,7 +143,6 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    */
   list() {
     const t = useTranslation();
-    const theme = useTheme();
 
     return {
       prepend: (
@@ -271,11 +270,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               icon: (
                 <MdLogout
                   {...iconSize(20)}
-                  fill={theme!.customColours.error.color}
+                  fill="var(--customColours-error-color)"
                 />
               ),
               title: (
-                <ColouredText colour={theme!.customColours.error.color}>
+                <ColouredText colour="var(--customColours-error-color)">
                   {t("app.settings.pages.logOut")}
                 </ColouredText>
               ),

@@ -1,4 +1,4 @@
-import { Component, createEffect } from "solid-js";
+import { createEffect } from "solid-js";
 import type { JSX } from "solid-js";
 import { useTheme } from "solid-styled-components";
 import { DirectiveProvider } from "solid-styled-components";

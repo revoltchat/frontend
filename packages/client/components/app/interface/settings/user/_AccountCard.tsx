@@ -17,7 +17,6 @@ export function AccountCard() {
   const client = useClient();
   const t = useTranslation();
   const { page, navigate } = useSettingsNavigation();
-  // const theme = useTheme();
 
   return (
     <SidebarButton

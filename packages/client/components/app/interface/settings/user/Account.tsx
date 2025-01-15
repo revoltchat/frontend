@@ -14,9 +14,8 @@ import {
   createOwnProfileResource,
 } from "@revolt/client/resources";
 import { getController } from "@revolt/common";
-import { dayjs, useTranslation } from "@revolt/i18n";
+import { useTranslation } from "@revolt/i18n";
 import {
-  Avatar,
   CategoryButton,
   CategoryButtonGroup,
   CategoryCollapse,
@@ -24,8 +23,6 @@ import {
   Row,
   Typography,
   iconSize,
-  styled,
-  useTheme,
 } from "@revolt/ui";
 
 import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
@@ -280,7 +277,6 @@ function MultiFactorAuth() {
  * Manage account
  */
 function ManageAccount() {
-  const theme = useTheme();
   const t = useTranslation();
   const client = useClient();
   const mfa = createMfaResource();
@@ -320,7 +316,7 @@ function ManageAccount() {
         disabled={mfa.isLoading}
         onClick={disableAccount}
         icon={
-          <MdBlock {...iconSize(22)} fill={theme!.customColours.error.color} />
+          <MdBlock {...iconSize(22)} fill="var(--customColours-error-color)" />
         }
         description={t("app.settings.pages.account.manage.disable_description")}
       >
@@ -331,7 +327,7 @@ function ManageAccount() {
         disabled={mfa.isLoading || stillOwnServers()}
         onClick={deleteAccount}
         icon={
-          <MdDelete {...iconSize(22)} fill={theme!.customColours.error.color} />
+          <MdDelete {...iconSize(22)} fill="var(--customColours-error-color)" />
         }
         description={t("app.settings.pages.account.manage.delete_description")}
       >
