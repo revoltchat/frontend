@@ -8,20 +8,18 @@ import {
   onMount,
 } from "solid-js";
 
-import { Message as MessageInterface } from "revolt.js";
 import { decodeTime, ulid } from "ulid";
 
-import { DraftMessages, Message, Messages } from "@revolt/app";
-import { useClient, useUser } from "@revolt/client";
+import { DraftMessages, Messages } from "@revolt/app";
+import { useClient } from "@revolt/client";
 import { KeybindAction } from "@revolt/keybinds";
-import { userInformation } from "@revolt/markdown/users";
 import { useNavigate, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   Avatar,
   BelowFloatingHeader,
-  HeaderWithTransparency,
+  Header,
   MessageContainer,
   MessageReply,
   NewMessages,
@@ -122,9 +120,9 @@ export function TextChannel(props: ChannelPageProps) {
 
   return (
     <>
-      <HeaderWithTransparency placement="primary">
+      <Header transparent placement="primary">
         <ChannelHeader channel={props.channel} />
-      </HeaderWithTransparency>
+      </Header>
       <Content>
         <MessagingStack>
           <BelowFloatingHeader>

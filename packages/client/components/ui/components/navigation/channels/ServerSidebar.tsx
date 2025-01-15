@@ -32,7 +32,7 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 
 import { iconSize } from "../../..";
 import { useKeybindActions } from "../../context/Keybinds";
-import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
+import { Header } from "../../design/atoms/display/Header";
 import { Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
@@ -149,7 +149,8 @@ export const ServerSidebar = (props: Props) => {
         }
       >
         <Match when={props.server.banner}>
-          <HeaderWithImage
+          <Header
+            image
             placement="secondary"
             style={{
               background: `url('${props.server.bannerURL}')`,
@@ -160,7 +161,7 @@ export const ServerSidebar = (props: Props) => {
               openServerInfo={props.openServerInfo}
               openServerSettings={props.openServerSettings}
             />
-          </HeaderWithImage>
+          </Header>
         </Match>
       </Switch>
       <div
