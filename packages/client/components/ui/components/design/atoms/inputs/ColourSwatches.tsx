@@ -1,6 +1,6 @@
 import { BiRegularCheck, BiSolidPalette } from "solid-icons/bi";
 import { For, Show, createSignal, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 interface Props {
   readonly presets?: string[][];
@@ -36,79 +36,84 @@ const DEFAULT_PRESETS = [
   ],
 ];
 
-const Base = styled.div`
-  display: flex;
+const Base = styled("div", {
+  base: {
+    display: "flex",
 
-  input {
-    width: 0;
-    padding: 0;
-    border: 0;
-    margin: 0;
-    height: 0;
-    top: 72px;
-    opacity: 0;
-    position: relative;
-    pointer-events: none;
-  }
+    "& input": {
+      width: 0,
+      padding: 0,
+      border: 0,
+      margin: 0,
+      height: 0,
+      top: "72px",
+      opacity: 0,
+      position: "relative",
+      pointerEvents: "none",
+    },
 
-  .overlay {
-    position: relative;
-    width: 0;
+    "& .overlay": {
+      position: "relative",
+      width: 0,
 
-    div {
-      width: 8px;
-      height: 68px;
-    }
-  }
-`;
+      "& div": {
+        width: "8px",
+        height: "68px",
+      },
+    },
+  },
+});
 
-const Swatch = styled.div<SwatchProps>`
-  flex-shrink: 0;
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: ${(props) => props.theme?.borderRadius.md};
-  background-color: ${(props) => props.colour};
+const Swatch = styled("div", {
+  base: {
+    flexShrink: 0,
+    cursor: "pointer",
+    border: "2px solid transparent",
+    borderRadius: "var(--borderRadius-md)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "var(--transitions-fast)",
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: ${(props) => props.theme?.transitions.fast};
+    "& svg": {
+      transition: "inherit",
+      color: "var(--colours-background)",
+    },
 
-  &:hover {
-    border: 2px solid ${(props) => props.theme?.colours.foreground};
-  }
+    "&:hover": {
+      border: "2px solid var(--colours-foreground)",
+    },
+  },
+  variants: {
+    type: {
+      small: {
+        height: "30px",
+        width: "30px",
+      },
+      large: {
+        width: "68px",
+        height: "68px",
+      },
+    },
+  },
+});
 
-  svg {
-    transition: inherit;
-    color: ${(props) => props.theme?.colours.background};
-  }
+const Rows = styled("div", {
+  base: {
+    gap: "8px",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "auto",
+    paddingBottom: "4px",
 
-  ${(props) =>
-    props.type === "small"
-      ? `
-          height: 30px;
-          width: 30px;
-        `
-      : `
-          width: 68px;
-          height: 68px;
-        `}
-`;
-
-const Rows = styled.div`
-  gap: 8px;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  padding-bottom: 4px;
-
-  > div {
-    gap: 8px;
-    display: flex;
-    flex-direction: row;
-    padding-inline-start: 8px;
-  }
-`;
+    "& > div": {
+      gap: "8px",
+      display: "flex",
+      flexDirection: "row",
+      paddingInlineStart: "8px",
+    },
+  },
+});
 
 export function ColourSwatches(props: Props) {
   const inputRef: HTMLInputElement = null!;
@@ -126,9 +131,11 @@ export function ColourSwatches(props: Props) {
         onChange={(ev) => setControlledValue(ev.currentTarget.value)}
       />
       <Swatch
-        colour={controlledValue()}
         type="large"
         onClick={() => inputRef!.click()}
+        style={{
+          "background-color": controlledValue(),
+        }}
       >
         <BiSolidPalette size={32} />
       </Swatch>
@@ -143,9 +150,9 @@ export function ColourSwatches(props: Props) {
               <For each={row}>
                 {(swatch) => (
                   <Swatch
-                    colour={swatch}
                     type="small"
                     onClick={() => setControlledValue(swatch)}
+                    style={{ "background-color": swatch }}
                   >
                     <Show when={swatch === controlledValue()}>
                       <BiRegularCheck size={22} />

@@ -1,19 +1,18 @@
 import { JSX, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
-
-import { generateTypographyCSS } from "../design/atoms/display/Typography";
+import { styled } from "styled-system/jsx";
 
 /**
  * Base element for the tooltip
  */
-export const TooltipBase = styled("div", "Tooltip")`
-  color: white;
-  background: black;
-  ${(props) => generateTypographyCSS(props.theme!, "tooltip")};
-
-  padding: ${(props) => props.theme!.gap.md};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-`;
+export const TooltipBase = styled("div", {
+  base: {
+    color: "white",
+    background: "black",
+    padding: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-md)",
+    // TODO: ...generateTypographyCSS("tooltip"),
+  },
+});
 
 type Props = {
   /**

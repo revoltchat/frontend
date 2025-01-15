@@ -1,6 +1,6 @@
 import { BiRegularCheck } from "solid-icons/bi";
-import { createSignal, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
+import { createSignal } from "solid-js";
+import { styled } from "styled-system/jsx";
 
 export type Props = {
   readonly disabled?: boolean;
@@ -33,44 +33,46 @@ export function Checkbox(props: Props) {
     </Checkmark>
   );
 }
-const Input = styled.input`
-  display: none;
-`;
+const Input = styled("input", {
+  base: {
+    display: "none",
+  },
+});
 
-const Checkmark = styled.div<Pick<Props, "value">>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 2px solid
-    ${(props) => props.theme!.colours["component-checkbox-foreground"]};
-  border-radius: ${(props) => props.theme!.borderRadius["md"]};
-  background: ${(props) =>
-    props.theme!.colours["component-checkbox-background"]};
-  flex-shrink: 0;
-  margin: 4px;
-  transition: 0.1s ease-in-out all;
+const Checkmark = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "24px",
+    height: "24px",
+    border: "2px solid var(--colours-component-checkbox-foreground)",
+    borderRadius: "var(--borderRadius-md)",
+    background: "var(--colours-component-checkbox-background)",
+    flexShrink: 0,
+    margin: "4px",
+    transition: "0.1s ease-in-out all",
 
-  .check {
-    transition: inherit;
-    fill: ${(props) =>
-      props.theme!.colours["component-checkbox-foreground-check"]};
-    visibility: hidden;
-    opacity: 0;
-  }
+    "& .check": {
+      transition: "inherit",
+      fill: "var(--colours-component-checkbox-foreground-check)",
+      visibility: "hidden",
+      opacity: 0,
+    },
+  },
 
-  ${(props) =>
-    props.value
-      ? `
-    border-color: ${props.theme!.colours["component-checkbox-foreground"]};
-    background: ${props.theme!.colours["component-checkbox-foreground"]};
+  variants: {
+    value: {
+      true: {
+        borderColor: "var(--colours-component-checkbox-foreground)",
+        background: "var(--colours-component-checkbox-foreground)",
 
-    .check {
-      visibility: visible;
-      opacity: 1;
-      color: ${props.theme!.colours["component-checkbox-foreground-check"]};
-    }
-  `
-      : ""}
-`;
+        ".check": {
+          visibility: "visible",
+          opacity: 1,
+          color: "var(--colours-component-checkbox-foreground-check)",
+        },
+      },
+    },
+  },
+});
