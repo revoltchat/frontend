@@ -13,7 +13,7 @@ export function scrollable(
   const props = accessor();
   if (!props) return;
 
-  const theme = useTheme();
+  const theme = useTheme() ?? {};
 
   el.classList.add(css`
     will-change: transform;
@@ -23,8 +23,8 @@ export function scrollable(
 
     scrollbar-width: ${props?.showOnHover ? "none" : "initial"};
     scrollbar-color: ${props.foreground ??
-      theme!.colours["component-scrollbar-foreground"]}
-      ${props.background ?? theme!.colours["component-scrollbar-background"]};
+      theme?.colours?.["component-scrollbar-foreground"]}
+      ${props.background ?? theme?.colours?.["component-scrollbar-background"]};
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -34,16 +34,16 @@ export function scrollable(
 
     &::-webkit-scrollbar-track {
       background: ${props.background ??
-      theme!.colours["component-scrollbar-background"]};
+      theme?.colours?.["component-scrollbar-background"]};
     }
 
     &::-webkit-scrollbar-thumb {
       background: ${props.foreground ??
-      theme!.colours["component-scrollbar-foreground"]};
+      theme?.colours?.["component-scrollbar-foreground"]};
       background-clip: content-box;
 
       border: 1px solid transparent;
-      border-radius: ${theme!.borderRadius.lg};
+      border-radius: ${theme?.borderRadius?.lg};
       border-top: ${(props?.offsetTop || 0).toString()}px solid transparent;
     }
   `);

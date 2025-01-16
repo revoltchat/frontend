@@ -70,7 +70,7 @@ export default function FlowLogin() {
 
             <Form onSubmit={login}>
               <Fields fields={["email", "password"]} />
-              <Row align justify="center">
+              <Row align justify>
                 <a href="..">
                   <Button variant="plain">
                     <MdArrowBack {...iconSize("1.2em")} /> Back
@@ -107,7 +107,7 @@ export default function FlowLogin() {
 
           <Form onSubmit={select}>
             <Fields fields={["username"]} />
-            <Row align justify="center">
+            <Row align justify>
               <Button
                 variant="plain"
                 onPress={() =>

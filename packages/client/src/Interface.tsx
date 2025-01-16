@@ -56,57 +56,51 @@ const Interface = (props: { children: JSX.Element }) => {
   });
 
   return (
-    <Switch fallback={<Preloader grow type="spinner" />}>
-      <Match when={!clientController.isLoggedIn()}>
-        <Navigate href="/login" />
-      </Match>
-      <Match when={clientController.lifecycle.loadedOnce()}>
-        <div
-          style={{
-            display: "flex",
-            "flex-direction": "column",
-            height: "100%",
-          }}
-        >
-          <Notice>
-            ⚠️ This is beta software, things will break! State:{" "}
-            <Switch>
-              <Match
-                when={clientController.lifecycle.state() === State.Connecting}
-              >
-                Connecting
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Connected}
-              >
-                Connected
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Disconnected}
-              >
-                Disconnected{" "}
-                <a
-                  onClick={() =>
-                    clientController.lifecycle.transition({
-                      type: TransitionType.Retry,
-                    })
-                  }
-                >
-                  (reconnect now)
-                </a>
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Reconnecting}
-              >
-                Reconnecting
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Offline}
-              >
-                Device is offline
-              </Match>
-            </Switch>
-          </Notice>
+    <div
+      style={{
+        display: "flex",
+        "flex-direction": "column",
+        height: "100%",
+      }}
+    >
+      <Notice>
+        ⚠️ This is beta software, things will break! State:{" "}
+        <Switch>
+          <Match when={clientController.lifecycle.state() === State.Connecting}>
+            Connecting
+          </Match>
+          <Match when={clientController.lifecycle.state() === State.Connected}>
+            Connected
+          </Match>
+          <Match
+            when={clientController.lifecycle.state() === State.Disconnected}
+          >
+            Disconnected{" "}
+            <a
+              onClick={() =>
+                clientController.lifecycle.transition({
+                  type: TransitionType.Retry,
+                })
+              }
+            >
+              (reconnect now)
+            </a>
+          </Match>
+          <Match
+            when={clientController.lifecycle.state() === State.Reconnecting}
+          >
+            Reconnecting
+          </Match>
+          <Match when={clientController.lifecycle.state() === State.Offline}>
+            Device is offline
+          </Match>
+        </Switch>
+      </Notice>
+      <Switch fallback={<Preloader grow type="spinner" />}>
+        <Match when={!clientController.isLoggedIn()}>
+          <Navigate href="/login" />
+        </Match>
+        <Match when={clientController.lifecycle.loadedOnce()}>
           <Layout
             style={{ "flex-grow": 1, "min-height": 0 }}
             onDragOver={(e) => {
@@ -131,9 +125,9 @@ const Interface = (props: { children: JSX.Element }) => {
             />
             {props.children}
           </Layout>
-        </div>
-      </Match>
-    </Switch>
+        </Match>
+      </Switch>
+    </div>
   );
 };
 
