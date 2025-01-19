@@ -4,7 +4,7 @@ import { Portal } from "solid-js/web";
 import { styled } from "styled-system/jsx";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 
 import { scrollable } from "../../directives";
 import { Column, Input } from "../design";

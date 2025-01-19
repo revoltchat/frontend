@@ -24,6 +24,7 @@ import {
 import { Tooltip } from "../../floating";
 
 import { Swoosh } from "./Swoosh";
+import { modalController } from "@revolt/modal";
 
 interface Props {
   /**
@@ -141,7 +142,7 @@ export const ServerList = (props: Props) => {
         <Tooltip
           placement="right"
           content={() => (
-            <Column gap="none">
+            <Column>
               <span>{props.user.username}</span>
               <Typography variant="small">{props.user.presence}</Typography>
             </Column>
@@ -261,7 +262,13 @@ export const ServerList = (props: Props) => {
         <div />
       </Shadow>
       <Tooltip placement="right" content="Settings">
-        <a class={entryContainer()} href="/settings">
+        <a
+          class={entryContainer()}
+          onClick={() => {
+            console.info("[DEBUG] (1) Pushing to modal controller!");
+            modalController.push({ type: "settings", config: "user" });
+          }}
+        >
           <Avatar size={42} fallback={<MdSettings />} interactive />
         </a>
       </Tooltip>

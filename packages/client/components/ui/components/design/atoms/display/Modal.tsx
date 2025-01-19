@@ -2,7 +2,7 @@ import { ComponentProps, For, JSX, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 import { styled } from "styled-system/jsx";
 
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 
 import { Button } from "../inputs/Button";
 

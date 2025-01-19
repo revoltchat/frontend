@@ -15,7 +15,7 @@ import {
 import { Portal } from "solid-js/web";
 import { styled } from "styled-system/jsx";
 
-import { Motion } from "@motionone/solid";
+import { Motion } from "solid-motionone";
 
 import { getController } from "@revolt/common";
 import { useQuantity } from "@revolt/i18n";

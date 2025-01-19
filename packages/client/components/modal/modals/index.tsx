@@ -44,6 +44,7 @@ import server_info from "./ServerInfo";
 import settings from "./Settings";
 import sign_out_sessions from "./SignOutSessions";
 import signed_out from "./SignedOut";
+import { CONFIGURATION } from "@revolt/common";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   add_friend,
@@ -97,23 +98,48 @@ export function RenderModal(props: ActiveModal) {
    */
   const onClose = () => modalController.remove(props.id);
 
-  if (import.meta.env.DEV) {
-    // eslint-disable-next-line solid/reactivity
-    console.info("modal:", props.props.type);
+  if (CONFIGURATION.DEBUG) {
+    console.info(
+      "components/modal — modal renderer created for type:",
+      props.props.type
+    );
   }
 
-  // eslint-disable-next-line solid/reactivity
+  if (!Modals[props.props.type]) {
+    console.error(
+      "Failed to create a modal for",
+      props.props.type,
+      "as it is not registered!"
+    );
+    console.debug("Modals registered currently:", Modals);
+    return null;
+  }
+
+  if (CONFIGURATION.DEBUG) {
+    console.info("components/modal — ready to render");
+  }
+
   const modalProps = Modals[props.props.type](props.props, onClose);
+
+  if (CONFIGURATION.DEBUG) {
+    console.info("components/modal — modal props generated", modalProps);
+  }
+
   const Component = (
     modalProps as {
       _children: (props: { show: boolean; onClose: () => void }) => JSX.Element;
     }
   )._children;
+
   const element = Component ? (
     <Component show={props.show} onClose={onClose} />
   ) : (
     <Modal show={props.show} onClose={onClose} {...modalProps} />
   );
+
+  if (CONFIGURATION.DEBUG) {
+    console.info("components/modal — created target element:", element);
+  }
 
   return element;
 }
