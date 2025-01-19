@@ -69,6 +69,7 @@ const content = cva({
 const Buttons = styled("div", {
   base: {
     display: "flex",
+    gap: "var(--gap-md)",
     padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-lg)",
     background: "var(--colours-sidebar-channels-background)",

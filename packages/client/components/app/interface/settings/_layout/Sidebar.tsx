@@ -1,6 +1,6 @@
 import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 
-import { Column, OverflowingText, styled } from "@revolt/ui";
+import { Column, OverflowingText } from "@revolt/ui";
 
 // import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 // import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?component-solid";
@@ -12,6 +12,7 @@ import {
   SidebarButtonContent,
   SidebarButtonTitle,
 } from "./SidebarButton";
+import { styled } from "styled-system/jsx";
 
 /**
  * Settings Sidebar Layout
@@ -125,7 +126,7 @@ const Content = styled("div", {
 
     flexDirection: "column",
 
-    "a > div": {
+    "& a > div": {
       margin: 0,
     },
   },
@@ -134,8 +135,12 @@ const Content = styled("div", {
 /**
  * Titles for each category
  */
-const CategoryTitle = styled(OverflowingText, {
+const CategoryTitle = styled("span", {
   base: {
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+
     textTransform: "uppercase",
     fontSize: "0.75rem",
     fontWeight: 700,

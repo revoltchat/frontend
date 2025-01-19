@@ -105,6 +105,9 @@ const Base = styled("div", {
       },
     },
   },
+  defaultVariants: {
+    show: true,
+  },
 });
 
 /**

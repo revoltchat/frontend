@@ -32,7 +32,7 @@ const SettingsModal: PropGenerator<"settings"> = ({
           >
             <Presence>
               <Show when={props?.show}>
-                {/* <Motion.div
+                <Motion.div
                   style={{
                     height: "100%",
                     "pointer-events": "all",
@@ -46,15 +46,15 @@ const SettingsModal: PropGenerator<"settings"> = ({
                     duration: 0.3,
                     easing: [0.17, 0.67, 0.58, 0.98],
                   }}
-                > */}
-                <Settings
-                  onClose={props.onClose}
-                  render={config.render}
-                  title={config.title}
-                  list={config.list}
-                  context={context as never}
-                />
-                {/* </Motion.div> */}
+                >
+                  <Settings
+                    onClose={props.onClose}
+                    render={config.render}
+                    title={config.title}
+                    list={config.list}
+                    context={context as never}
+                  />
+                </Motion.div>
               </Show>
             </Presence>
           </div>
