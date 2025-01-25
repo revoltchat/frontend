@@ -1,5 +1,4 @@
 import { Match, Switch } from "solid-js";
-import { useTheme } from "solid-styled-components";
 
 import { styled } from "styled-system/jsx";
 

@@ -23,8 +23,7 @@ export function SettingsContent(props: {
   return (
     <div
       use:scrollable={{
-        foreground: "var(--colours-settings-content-scroll-thumb)",
-        background: "var(--colours-settings-content-background)",
+        palette: "settings",
         class: base(),
       }}
     >
