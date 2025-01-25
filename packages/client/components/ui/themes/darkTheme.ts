@@ -1,5 +1,3 @@
-import { DefaultTheme } from "solid-styled-components";
-
 import {
   ColorGroup,
   Hct,
@@ -9,6 +7,7 @@ import {
   hexFromArgb,
   themeFromSourceColor,
 } from "@material/material-color-utilities";
+import { DefaultTheme } from "../styled";
 
 /**
  * Convert a scheme to usable hex colours

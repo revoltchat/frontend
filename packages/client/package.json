@@ -98,7 +98,6 @@
     "solid-js": "^1.9.2",
     "solid-motionone": "^1.0.3",
     "solid-qr-code": "^0.1.11",
-    "solid-styled-components": "workspace:^",
     "space-separated-tokens": "^2.0.2",
     "style-to-object": "^1.0.8",
     "ulid": "^2.3.0",

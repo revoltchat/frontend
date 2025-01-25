@@ -1,5 +1,29 @@
 import { Accessor, JSX } from "solid-js";
-import { css } from "solid-styled-components";
+import { cva } from "styled-system/css";
+
+const baseStyles = cva({
+  base: {
+    willChange: "transform",
+    scrollbarWidth: "none",
+
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+  variants: {
+    direction: {
+      x: {
+        overflowX: "scroll",
+      },
+      y: {
+        overflowY: "scroll",
+      },
+    },
+  },
+  defaultVariants: {
+    direction: "y",
+  },
+});
 
 /**
  * Add styles for an invisible scrollable container
@@ -12,16 +36,7 @@ export function invisibleScrollable(
 ) {
   const props = accessor();
 
-  el.classList.add(css`
-    will-change: transform;
-    ${"overflow-" + (props?.direction ?? "y")}: scroll;
-
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  `);
+  el.classList.add(...baseStyles().split(" "));
 
   if (props.class) {
     props.class.split(" ").forEach((cls) => el.classList.add(cls));

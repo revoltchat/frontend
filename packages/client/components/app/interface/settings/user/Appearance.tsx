@@ -4,7 +4,6 @@ import {
   Column,
   Row,
   iconSize,
-  styled,
 } from "@revolt/ui";
 
 import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
@@ -15,6 +14,7 @@ import MdSentimentVerySatisfied from "@material-design-icons/svg/outlined/sentim
 import MdWallpaper from "@material-design-icons/svg/outlined/wallpaper.svg?component-solid";
 
 import { useSettingsNavigation } from "../Settings";
+import { styled } from "styled-system/jsx";
 
 /**
  * Appearance
