@@ -16,7 +16,7 @@ export function NavigationRail(props: Props) {
     <mdui-navigation-rail
       class={rail()}
       value={props.value()}
-      onChange={(e) => props.onValue((e.currentTarget as any).value)}
+      onChange={(e: Event) => props.onValue((e.currentTarget as any).value)}
       contained={props.contained}
     >
       {props.children}

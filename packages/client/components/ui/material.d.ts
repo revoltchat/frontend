@@ -1,30 +1,29 @@
+import type { Badge } from "mdui/components/badge";
+import type { List } from "mdui/components/list";
+import type { ListItem } from "mdui/components/list-item";
+import type { ListSubheader } from "mdui/components/list-subheader";
+import type { NavigationRail } from "mdui/components/navigation-rail";
+import type { NavigationRailItem } from "mdui/components/navigation-rail-item";
+import type { Tab } from "mdui/components/tab";
+import type { TabPanel } from "mdui/components/tab-panel";
+import type { Tabs } from "mdui/components/tabs";
+
 import type { ComponentProps } from "solid-js";
 
 declare module "solid-js" {
   namespace JSX {
     interface IntrinsicElements {
-      "md-tabs": ComponentProps<"div">;
-      "md-primary-tab": ComponentProps<"div">;
       "md-ripple": { disabled?: boolean };
 
-      "mdui-tabs": ComponentProps<"div"> & {
-        value: string;
-        "full-width": boolean;
-      };
-      "mdui-tab": ComponentProps<"div"> & { value: string };
-      "mdui-tab-panel": ComponentProps<"div"> & { value: string };
-      "mdui-badge": ComponentProps<"div">;
-      "mdui-navigation-rail": ComponentProps<"div"> & {
-        contained: boolean;
-        value: string;
-      };
-      "mdui-navigation-rail-item": ComponentProps<"div"> & { value: string };
-      "mdui-list": ComponentProps<"div">;
-      "mdui-list-item": ComponentProps<"div"> & {
-        disabled?: boolean;
-        rounded?: boolean;
-      };
-      "mdui-list-subheader": ComponentProps<"div">;
+      "mdui-tabs": ComponentProps<Tabs>;
+      "mdui-tab": ComponentProps<Tab>;
+      "mdui-tab-panel": ComponentProps<TabPanel>;
+      "mdui-badge": ComponentProps<Badge>;
+      "mdui-navigation-rail": ComponentProps<NavigationRail>;
+      "mdui-navigation-rail-item": ComponentProps<NavigationRailItem>;
+      "mdui-list": ComponentProps<List>;
+      "mdui-list-item": ComponentProps<ListItem>;
+      "mdui-list-subheader": ComponentProps<ListSubheader>;
     }
   }
 }

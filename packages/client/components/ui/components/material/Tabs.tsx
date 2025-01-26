@@ -1,11 +1,8 @@
-import { Accessor, For, JSXElement, Setter, createUniqueId } from "solid-js";
+import { For, JSXElement } from "solid-js";
 
 import "mdui/components/tab-panel.js";
 import "mdui/components/tab.js";
 import "mdui/components/tabs.js";
-import { styled } from "styled-system/jsx";
-
-import { Button } from "../design/atoms/inputs";
 
 type Props = {
   defaultTab?: number;
@@ -31,24 +28,3 @@ export function Tabs(props: Props) {
     </mdui-tabs>
   );
 }
-
-const TabGroup = styled("div", {
-  base: {
-    display: "flex",
-    flexDirection: "row",
-
-    justifyContent: "center",
-
-    borderBottom: "2px solid black",
-
-    "& button": {
-      width: "120px",
-      padding: "var(--gap-md) var(--gap-lg)",
-      borderY: "var(--gap-sm) solid transparent",
-    },
-
-    "& button[aria-selected=true]": {
-      borderBottom: "var(--gap-xs) solid black",
-    },
-  },
-});
