@@ -15,9 +15,11 @@ export const FlowBase = styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
+    gap: "var(--gap-lg)",
     flexGrow: 0,
     background: "var(--colours-messaging-message-box-background)",
     color: "var(--colours-messaging-message-box-foreground)",
+    width: "360px",
     maxWidth: "360px",
     maxHeight: "600px",
     padding: "45px 40px",

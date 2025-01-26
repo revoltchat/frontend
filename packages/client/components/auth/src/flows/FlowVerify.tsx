@@ -3,7 +3,7 @@ import { Match, Show, Switch, createSignal, onMount } from "solid-js";
 import { clientController, mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate, useParams } from "@revolt/routing";
-import { Button, Preloader, Typography } from "@revolt/ui";
+import { Button, Preloader, Text } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
 
@@ -78,25 +78,25 @@ export default function FlowVerify() {
       </Match>
       <Match when={state().state === "error"}>
         <FlowTitle>{t("login.error.verify")}</FlowTitle>
-        <Typography variant="legacy-settings-description">
+        <Text class="body" size="small">
           {t(
             `error.${(state() as State & { state: "error" }).error}` as any,
             undefined,
             (state() as State & { state: "error" }).error
           )}
-        </Typography>
-        <Typography variant="legacy-settings-description">
+        </Text>
+        <Text class="label" size="small">
           <a href="/login/auth">{t("login.remembered")}</a>
-        </Typography>
+        </Text>
       </Match>
       <Match when={state().state === "success"}>
         <FlowTitle>{t("login.verified_account")}</FlowTitle>
         <Show when={"mfa_ticket" in state()}>
           <Button onPress={login}>{t("login.verified_continue")}</Button>
         </Show>
-        <Typography variant="legacy-settings-description">
+        <Text class="label" size="small">
           <a href="/login/auth">{t("login.remembered")}</a>
-        </Typography>
+        </Text>
       </Match>
     </Switch>
   );

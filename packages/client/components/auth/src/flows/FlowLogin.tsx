@@ -68,9 +68,16 @@ export default function FlowLogin() {
             <FlowTitle subtitle={t("login.subtitle")} emoji="wave">
               {t("login.welcome")}
             </FlowTitle>
-
             <Form onSubmit={login}>
               <Fields fields={["email", "password"]} />
+              <Column
+                class={typography({ class: "label", size: "small" })}
+                gap="xl"
+                align
+              >
+                <a href="/login/reset">{t("login.reset")}</a>
+                <a href="/login/resend">{t("login.resend")}</a>
+              </Column>
               <Row align justify>
                 <a href="..">
                   <Button variant="plain">
@@ -80,11 +87,6 @@ export default function FlowLogin() {
                 <Button type="submit">{t("login.title")}</Button>
               </Row>
             </Form>
-
-            <Column class={typography({ class: "label" })} gap="xs">
-              <a href="/login/reset">{t("login.reset")}</a>
-              <a href="/login/resend">{t("login.resend")}</a>
-            </Column>
           </>
         }
       >

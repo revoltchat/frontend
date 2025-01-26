@@ -24,18 +24,18 @@ const Base = styled("div", {
     overflowY: "scroll",
 
     color: "white",
-    background: `var(--url)`,
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
+    background: "var(--colours-background)",
+    // background: `var(--url)`,
+    // backgroundPosition: "center",
+    // backgroundRepeat: "no-repeat",
+    // backgroundSize: "cover",
 
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
 
-    md: {
+    mdDown: {
       padding: "30px 20px",
-      background: "var(--colours-background)",
     },
   },
 });

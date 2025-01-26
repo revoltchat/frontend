@@ -2,6 +2,7 @@ import { createEffect } from "solid-js";
 
 import { applyTheme } from "@material/material-color-utilities";
 import { setColorScheme } from "mdui/functions/setColorScheme.js";
+import { setTheme } from "mdui/functions/setTheme.js";
 
 import { DefaultTheme } from "./styled";
 export type { DefaultTheme } from "./styled";
@@ -66,10 +67,12 @@ export function ApplyGlobalStyles(props: { theme: DefaultTheme }) {
       "--md-ref-typeface-brand",
       props.theme.fonts.primary
     );
+
     document.body.style.setProperty(
       "--md-ref-typeface-plain",
       props.theme.fonts.primary
     );
+
     applyTheme(props.theme.materialTheme, {
       target: document.body,
       dark: props.theme.darkMode,
@@ -77,6 +80,7 @@ export function ApplyGlobalStyles(props: { theme: DefaultTheme }) {
 
     // Inject properties for MDUI library
     setColorScheme(props.theme.accentColour);
+    setTheme(props.theme.darkMode ? "dark" : "light");
   });
 
   return <></>;

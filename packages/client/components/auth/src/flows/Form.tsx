@@ -5,7 +5,8 @@ import { cva } from "styled-system/css";
 
 import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Checkbox, Column, FormGroup, Input, Typography } from "@revolt/ui";
+import { Checkbox, Column, FormGroup, TextField, Typography } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 /**
  * Available field types
@@ -70,14 +71,6 @@ interface FieldProps {
  */
 export function Fields(props: FieldProps) {
   const fieldConfiguration = useFieldConfiguration();
-  const [failedValidation, setFailedValidation] = createSignal(false);
-
-  /**
-   * If an input element notifies us it was invalid, enable live input validation.
-   */
-  function onInvalid() {
-    setFailedValidation(true);
-  }
 
   return (
     <For each={props.fields}>
@@ -91,19 +84,13 @@ export function Fields(props: FieldProps) {
               </Typography>
             </label>
           ) : (
-            <>
-              <Typography variant="label">
-                {fieldConfiguration[field].name()}
-              </Typography>
-              <Input
-                required
-                {...fieldConfiguration[field]}
-                name={field}
-                placeholder={fieldConfiguration[field].placeholder()}
-                submissionTried={failedValidation()}
-                onInvalid={onInvalid}
-              />
-            </>
+            <TextField
+              required
+              {...fieldConfiguration[field]}
+              name={field}
+              label={fieldConfiguration[field].name()}
+              placeholder={fieldConfiguration[field].placeholder()}
+            />
           )}
         </FormGroup>
       )}
@@ -160,7 +147,7 @@ export function Form(props: Props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <Column>
+      <Column gap="lg">
         {props.children}
         <Show when={error()}>
           <Typography variant="legacy-settings-description">

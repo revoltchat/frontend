@@ -7,6 +7,7 @@ import type { NavigationRailItem } from "mdui/components/navigation-rail-item";
 import type { Tab } from "mdui/components/tab";
 import type { TabPanel } from "mdui/components/tab-panel";
 import type { Tabs } from "mdui/components/tabs";
+import type { TextField } from "mdui/components/text-field";
 
 import type { ComponentProps } from "solid-js";
 
@@ -24,6 +25,7 @@ declare module "solid-js" {
       "mdui-list": ComponentProps<List>;
       "mdui-list-item": ComponentProps<ListItem>;
       "mdui-list-subheader": ComponentProps<ListSubheader>;
+      "mdui-text-field": ComponentProps<TextField>;
     }
   }
 }
