@@ -31,7 +31,6 @@ export interface DefaultTheme {
       | `component-${
           | `${"fab" | "checkbox" | "scrollbar"}-${"background" | "foreground"}`
           | "checkbox-foreground-check"
-          | "chip-background"
           | `btn-${"background" | "foreground"}-${"primary" | "secondary"}`
           | `btn-foreground-${"plain" | "plain-secondary"}`
           | `breadcrumbs-${"foreground" | "foreground-active"}`
@@ -125,10 +124,10 @@ export interface DefaultTheme {
   fonts: {
     [key in "primary" | "monospace"]: string;
   };
-  typography: {
+  typography: {};
+  typography_depr: {
     [key in
       | "label"
-      | "chip"
       | "username"
       | "status"
       | "tooltip"

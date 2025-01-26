@@ -9,4 +9,3 @@ export { CategoryButton } from "./CategoryButton";
 export { OverrideSwitch } from "./OverrideSwitch";
 export { CategoryCollapse } from "./CategoryCollapse";
 export { CategoryButtonGroup } from "./CategoryButtonGroup";
-export { Chip } from "./Chip";

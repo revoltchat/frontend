@@ -1,5 +1,6 @@
 import { JSX, splitProps } from "solid-js";
 import { styled } from "styled-system/jsx";
+import { typography } from "../design";
 
 /**
  * Base element for the tooltip
@@ -10,7 +11,11 @@ export const TooltipBase = styled("div", {
     background: "black",
     padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-md)",
-    // TODO: ...generateTypographyCSS("tooltip"),
+
+    ...typography.raw({
+      class: "label",
+      size: "small",
+    }),
   },
 });
 

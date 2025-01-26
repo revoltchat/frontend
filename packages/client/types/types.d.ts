@@ -30,7 +30,7 @@ declare module "solid-js" {
             /**
              * Colour customisation
              */
-            palette: "default" | "settings";
+            palette?: "default" | "settings";
 
             /**
              * Scroll direction

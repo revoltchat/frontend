@@ -86,10 +86,9 @@ export function CategoryCollapse(props: Props) {
       >
         <Match when={props.scrollable}>
           <div
-            class={innerColumn()}
             ref={column!}
             style={{ height: updatedHeight() }}
-            use:scrollable
+            use:scrollable={{ class: innerColumn() }}
           >
             {props.children}
           </div>

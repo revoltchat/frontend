@@ -1,6 +1,6 @@
 import { styled } from "styled-system/jsx";
 
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 
 /**
  * Common styles for the floating indicators
@@ -21,7 +21,7 @@ export const FloatingIndicator = styled("div", {
     color: "var(--colours-messaging-indicator-foreground)",
     backgroundColor: "var(--colours-messaging-indicator-background)",
 
-    // TODO: ...generateTypographyCSS("conversation-indicator"),
+    ...typography.raw({ size: "small" }),
 
     // TODO: "@keyframes anim": {
     //   "0%": {

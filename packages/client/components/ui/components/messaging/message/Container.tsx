@@ -2,7 +2,7 @@ import { JSX, Match, Show, Switch } from "solid-js";
 import { styled } from "styled-system/jsx";
 
 import { Time } from "../../design/atoms/display/Time";
-import { Typography } from "../../design/atoms/display/Typography";
+import { typography, Typography } from "../../design/atoms/display/Typography";
 import {
   Column,
   NonBreakingText,
@@ -119,7 +119,7 @@ const base = cva({
       textDecoration: "underline",
     },
 
-    // ...generateTypographyCSS("messages"),
+    ...typography.raw({ class: "_messages" }),
   },
   variants: {
     tail: {
@@ -190,7 +190,8 @@ const Content = styled(Column, {
 const InfoText = styled(Row, {
   base: {
     color: "var(--colours-messaging-message-info-text)",
-    // ...generateTypographyCSS("small"),
+
+    ...typography.raw({ class: "label", size: "small" }),
   },
 });
 
@@ -240,16 +241,14 @@ export function MessageContainer(props: Props) {
             </Match>
             <Match when={props.tail}>
               <InfoText class={!props.edited ? "hidden" : undefined}>
-                <Typography variant="small">
-                  <Show when={props.edited}>(edited)</Show>
-                  <Show when={!props.edited}>
-                    <Time
-                      value={props.timestamp}
-                      format="time"
-                      referenceTime={props._referenceTime}
-                    />
-                  </Show>
-                </Typography>
+                <Show when={props.edited}>(edited)</Show>
+                <Show when={!props.edited}>
+                  <Time
+                    value={props.timestamp}
+                    format="time"
+                    referenceTime={props._referenceTime}
+                  />
+                </Show>
               </InfoText>
             </Match>
           </Switch>

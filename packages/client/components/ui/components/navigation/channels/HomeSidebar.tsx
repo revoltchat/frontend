@@ -18,7 +18,7 @@ import MdPlus from "@material-design-icons/svg/outlined/add.svg?component-solid"
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
 import { Avatar } from "../../design/atoms/display/Avatar";
-import { Typography } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { OverflowingText } from "../../design/layout/OverflowingText";
@@ -51,14 +51,6 @@ interface Props {
   __tempDisplayFriends: () => boolean;
 }
 
-const ButtonTitle = styled("div", {
-  base: {
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-  },
-});
-
 /**
  * Display home navigation and conversations
  */
@@ -79,11 +71,7 @@ export const HomeSidebar = (props: Props) => {
         use:scrollable={{ direction: "y", showOnHover: true }}
       >
         <List>
-          <SidebarTitle>
-            <Typography variant="sidebar-title">
-              {t("app.main.categories.conversations")}
-            </Typography>
-          </SidebarTitle>
+          <SidebarTitle>{t("app.main.categories.conversations")}</SidebarTitle>
 
           <a href="/app">
             <MenuButton
@@ -138,17 +126,8 @@ export const HomeSidebar = (props: Props) => {
             </Match>
           </Switch>
 
-          <span
-            style={{
-              display: "flex",
-              "padding-top": "var(--gap-md)",
-              "padding-inline": "var(--gap-lg)",
-              "align-items": "center",
-              "justify-content": "space-between",
-              // TODO style this
-            }}
-          >
-            <Typography variant="category">Direct Messages</Typography>
+          <Category>
+            Direct Messages
             <a
               onClick={() =>
                 modalController.push({
@@ -159,7 +138,7 @@ export const HomeSidebar = (props: Props) => {
             >
               <MdPlus {...iconSize(14)} />
             </a>
-          </span>
+          </Category>
 
           <Deferred>
             <VirtualContainer
@@ -200,6 +179,31 @@ const SidebarTitle = styled("p", {
   base: {
     paddingBlock: "var(--gap-md)",
     paddingInline: "var(--gap-lg)",
+
+    ...typography.raw({ class: "title" }),
+  },
+});
+
+/**
+ * Button title
+ */
+const ButtonTitle = styled("div", {
+  base: {
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
+});
+
+const Category = styled("div", {
+  base: {
+    display: "flex",
+    paddingTop: "var(--gap-md)",
+    paddingInline: "var(--gap-lg)",
+    alignItems: "center",
+    justifyContent: "space-between",
+
+    ...typography.raw({ class: "label", size: "small" }),
   },
 });
 
@@ -305,9 +309,9 @@ function Entry(
               <OverflowingText>
                 <TextWithEmoji content={local.channel.name!} />
               </OverflowingText>
-              <Typography variant="status">
+              <span class={typography({ class: "_status" })}>
                 {q("members", local.channel.recipients.length || 0)}
-              </Typography>
+              </span>
             </Match>
             <Match when={local.channel.type === "DirectMessage"}>
               <OverflowingText>
@@ -319,10 +323,8 @@ function Entry(
                   placement="top-start"
                   aria={status()!}
                 >
-                  <OverflowingText>
-                    <Typography variant="status">
-                      <TextWithEmoji content={status()!} />
-                    </Typography>
+                  <OverflowingText class={typography({ class: "_status" })}>
+                    <TextWithEmoji content={status()!} />
                   </OverflowingText>
                 </Tooltip>
               </Show>

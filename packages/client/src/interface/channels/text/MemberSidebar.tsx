@@ -16,11 +16,10 @@ import {
   OverflowingText,
   Row,
   Tooltip,
-  Typography,
   UserStatus,
   UserStatusGraphic,
   Username,
-  styled as styledLegacy,
+  typography,
 } from "@revolt/ui";
 import { cva } from "styled-system/css";
 
@@ -209,29 +208,27 @@ export function ServerMemberSidebar(props: Props) {
 
   return (
     <div
-      class={base()}
       ref={scrollTargetElement}
       use:scrollable={{
         direction: "y",
         showOnHover: true,
+        class: base(),
       }}
     >
       <Container>
         <MemberTitle bottomMargin="yes">
-          <Typography variant="category">
-            <Row align>
-              <UserStatus size="0.7em" status="Online" />
-              {
-                client().serverMembers.filter(
-                  (member) =>
-                    (member.id.server === props.channel.serverId &&
-                      member.user?.online) ||
-                    false
-                ).length
-              }{" "}
-              members online
-            </Row>
-          </Typography>
+          <Row align>
+            <UserStatus size="0.7em" status="Online" />
+            {
+              client().serverMembers.filter(
+                (member) =>
+                  (member.id.server === props.channel.serverId &&
+                    member.user?.online) ||
+                  false
+              ).length
+            }{" "}
+            members online
+          </Row>
         </MemberTitle>
 
         <Deferred>
@@ -250,10 +247,8 @@ export function ServerMemberSidebar(props: Props) {
                 <Switch
                   fallback={
                     <CategoryTitle>
-                      <Typography variant="category">
-                        {(item.item as { name: string }).name} {"–"}{" "}
-                        {(item.item as { count: number }).count}
-                      </Typography>
+                      {(item.item as { name: string }).name} {"–"}{" "}
+                      {(item.item as { count: number }).count}
                     </CategoryTitle>
                   }
                 >
@@ -289,9 +284,7 @@ export function GroupMemberSidebar(props: Props) {
     >
       <Container>
         <MemberTitle>
-          <Typography variant="category">
-            <Row align>{props.channel.recipientIds.size} members</Row>
-          </Typography>
+          <Row align>{props.channel.recipientIds.size} members</Row>
         </MemberTitle>
 
         <Deferred>
@@ -348,6 +341,8 @@ const Container = styled("div", {
 const CategoryTitle = styled("div", {
   base: {
     padding: "16px 14px 0",
+
+    ...typography.raw({ class: "label", size: "small" }),
   },
 });
 
@@ -358,6 +353,8 @@ const MemberTitle = styled("div", {
   base: {
     marginTop: "12px",
     marginLeft: "14px",
+
+    ...typography.raw({ class: "label", size: "small" }),
   },
   variants: {
     bottomMargin: {
@@ -436,10 +433,8 @@ function Member(props: { user?: User; member?: ServerMember }) {
               placement="top-start"
               aria={status()!}
             >
-              <OverflowingText>
-                <Typography variant="status">
-                  <TextWithEmoji content={status()!} />
-                </Typography>
+              <OverflowingText class={typography({ class: "_status" })}>
+                <TextWithEmoji content={status()!} />
               </OverflowingText>
             </Tooltip>
           </Show>

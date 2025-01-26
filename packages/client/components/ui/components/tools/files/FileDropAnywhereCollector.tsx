@@ -21,7 +21,7 @@ import { getController } from "@revolt/common";
 import { useQuantity } from "@revolt/i18n";
 
 import { PreviewStack } from "../../design";
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 
 interface Props {
   /**
@@ -47,6 +47,9 @@ const Container = styled("div", {
     position: "fixed",
     placeItems: "center",
     pointerEvents: "none",
+
+    // on dim background
+    color: "white",
   },
 });
 
@@ -69,9 +72,10 @@ const DimScreen = styled("div", {
  */
 const DropText = styled("div", {
   base: {
-    // TODO: ...generateTypographyCSS("label"),
     marginTop: "48px",
     whiteSpace: "nowrap",
+
+    ...typography.raw({ class: "label" }),
   },
 });
 

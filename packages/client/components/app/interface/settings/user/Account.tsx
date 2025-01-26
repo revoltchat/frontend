@@ -84,7 +84,7 @@ function EditAccount() {
         icon={<MdAlternateEmail {...iconSize(22)} />}
         description={client().user?.username}
       >
-        <Typography variant="label">{t("login.username")}</Typography>
+        {t("login.username")}
       </CategoryButton>
       <CategoryButton
         action="chevron"
@@ -111,7 +111,7 @@ function EditAccount() {
           </Row>
         }
       >
-        <Typography variant="label">{t("login.email")}</Typography>
+        {t("login.email")}
       </CategoryButton>
       <CategoryButton
         action="chevron"
@@ -124,7 +124,7 @@ function EditAccount() {
         icon={<MdPassword {...iconSize(22)} />}
         description={"•••••••••"}
       >
-        <Typography variant="label">{t("login.password")}</Typography>
+        {t("login.password")}
       </CategoryButton>
     </CategoryButtonGroup>
   );

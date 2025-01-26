@@ -3,7 +3,7 @@ import { JSX, Show } from "solid-js";
 import { defineKeyframes } from "@pandacss/dev";
 import { styled } from "styled-system/jsx";
 
-import { Column, Row, Typography } from "@revolt/ui";
+import { Column, Row, Text, Typography } from "@revolt/ui";
 
 import envelope from "./envelope.svg";
 import wave from "./wave.svg";
@@ -111,14 +111,12 @@ export function FlowTitle(props: {
         <Show when={props.emoji === "mail"}>
           <Mail src={envelope} />
         </Show>
-        <Typography variant="legacy-settings-title">
-          {props.children}
-        </Typography>
+        <Text class="title">{props.children}</Text>
       </Row>
       <Show when={props.subtitle}>
-        <Typography variant="legacy-settings-description">
+        <Text class="title" size="small">
           {props.subtitle}
-        </Typography>
+        </Text>
       </Show>
     </Column>
   );

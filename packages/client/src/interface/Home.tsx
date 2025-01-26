@@ -12,6 +12,7 @@ import {
   Header,
   Typography,
   iconSize,
+  typography,
 } from "@revolt/ui";
 
 import MdAddCircle from "@material-design-icons/svg/filled/add_circle.svg?component-solid";
@@ -125,9 +126,9 @@ export function HomePage() {
       </Header>
       <div use:scrollable={{ class: content() }}>
         <Column>
-          <Typography variant="home-page-title">
+          <span class={typography({ class: "headline" })}>
             {t("app.special.modals.onboarding.welcome")}
-          </Typography>
+          </span>
           <Logo />
         </Column>
         <Buttons>

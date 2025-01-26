@@ -2,7 +2,7 @@ import { Accessor, JSX, Show } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
-import { Breadcrumbs, Column, Typography, iconSize } from "@revolt/ui";
+import { Breadcrumbs, Column, iconSize, typography } from "@revolt/ui";
 
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
@@ -29,14 +29,14 @@ export function SettingsContent(props: {
     >
       <Show when={props.page()}>
         <InnerContent>
-          <InnerColumn gap="xs">
-            <Typography variant="settings-title">
+          <InnerColumn>
+            <span class={typography({ class: "title", size: "large" })}>
               <Breadcrumbs
                 elements={props.page()!.split("/")}
                 renderElement={(key) => props.title(key)}
                 navigate={(keys) => navigate(keys.join("/"))}
               />
-            </Typography>
+            </span>
             {props.children}
           </InnerColumn>
         </InnerContent>
@@ -90,9 +90,12 @@ const InnerContent = styled("div", {
 /**
  * Pane content column
  */
-const InnerColumn = styled(Column, {
+const InnerColumn = styled("div", {
   base: {
     width: "100%",
+    gap: "var(--gap-md)",
+    display: "flex",
+    flexDirection: "column",
   },
 });
 

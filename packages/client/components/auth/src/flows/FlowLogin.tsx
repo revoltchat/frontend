@@ -12,6 +12,7 @@ import {
   Row,
   Typography,
   iconSize,
+  typography,
 } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
@@ -80,14 +81,9 @@ export default function FlowLogin() {
               </Row>
             </Form>
 
-            <Column>
-              <Typography variant="legacy-settings-description">
-                <a href="/login/reset">{t("login.reset")}</a>
-              </Typography>
-
-              <Typography variant="legacy-settings-description">
-                <a href="/login/resend">{t("login.resend")}</a>
-              </Typography>
+            <Column class={typography({ class: "label" })} gap="xs">
+              <a href="/login/reset">{t("login.reset")}</a>
+              <a href="/login/resend">{t("login.resend")}</a>
             </Column>
           </>
         }

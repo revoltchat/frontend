@@ -26,7 +26,6 @@ export default function ServerOverview(props: ServerSettingsProps) {
     <Column gap="xl">
       <Show when={user().user?.privileged}>
         <Column>
-          <Typography variant="label">Platform</Typography>
           <CategoryButtonGroup>
             <CategoryCollapse
               title="Flags"

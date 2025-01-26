@@ -33,7 +33,7 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 import { iconSize } from "../../..";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Header } from "../../design/atoms/display/Header";
-import { Typography } from "../../design/atoms/display/Typography";
+import { typography, Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
 import { Tooltip } from "../../floating";
@@ -284,7 +284,7 @@ function Category(
           onClick={() => setShown((shown) => !shown)}
         >
           <BiSolidChevronRight size={12} />
-          <Typography variant="category">{props.category.title}</Typography>
+          {props.category.title}
         </CategoryBase>
       </Show>
       <For each={channels()}>
@@ -316,6 +316,7 @@ const CategoryBase = styled("div", {
     transition: "var(--transitions-fast) all",
 
     color: "var(--colours-sidebar-channels-category-foreground)",
+    ...typography.raw({ class: "label", size: "small" }),
 
     "&:hover": {
       filter: "brightness(1.1)",

@@ -4,7 +4,7 @@ import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
 
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 import { InlineIcon, Row } from "../../design/layout";
 import { cva } from "styled-system/css";
 
@@ -95,7 +95,8 @@ const input = cva({
 
     fontFamily: "var(--fonts-primary)",
     color: "var(--colours-messaging-message-box-foreground)",
-    // ...generateTypographyCSS("messages"),
+
+    ...typography.raw({ class: "_messages" }),
   },
 });
 

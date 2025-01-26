@@ -7,7 +7,7 @@ import { hoverStyles } from "@revolt/ui/directives";
 
 import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
 import { OverflowingText } from "../../design";
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 import { cva } from "styled-system/css";
 
 interface Props {
@@ -228,9 +228,10 @@ const Entry = styled("div", {
  */
 const FileName = styled("span", {
   base: {
-    // ...generateTypographyCSS("composition-file-upload-name"),
     maxWidth: "var(--layout-height-attachment-preview)",
     textAlign: "center",
+
+    ...typography.raw({ class: "label" }),
   },
 });
 
@@ -239,7 +240,7 @@ const FileName = styled("span", {
  */
 const Size = styled("span", {
   base: {
-    // ...generateTypographyCSS("composition-file-upload-size"),
+    ...typography.raw({ class: "label", size: "small" }),
   },
 });
 

@@ -1,6 +1,6 @@
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Avatar, OverflowingText, Typography } from "@revolt/ui";
+import { Avatar, OverflowingText, typography } from "@revolt/ui";
 
 // import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 import { useSettingsNavigation } from "../Settings";
@@ -26,14 +26,12 @@ export function AccountCard() {
       <SidebarButtonTitle>
         <Avatar size={36} src={client().user!.animatedAvatarURL} />
         <SidebarButtonContent>
-          <OverflowingText>
-            <Typography variant="settings-account-card-title">
-              {client().user!.displayName}
-            </Typography>
+          <OverflowingText
+            class={typography({ class: "label", size: "small" })}
+          >
+            {client().user!.displayName}
           </OverflowingText>
-          <Typography variant="settings-account-card-subtitle">
-            {t("app.settings.pages.account.title")}
-          </Typography>
+          {t("app.settings.pages.account.title")}
         </SidebarButtonContent>
       </SidebarButtonTitle>
       {/*<SidebarButtonIcon>
