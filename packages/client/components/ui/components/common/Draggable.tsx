@@ -60,10 +60,6 @@ export function Draggable<T>(props: Props<T>) {
       );
   }
 
-  /**
-   * Directives don't work with solid-styled-components.
-   * https://github.com/solidjs/solid-styled-components/issues/4
-   */
   return (
     <div
       use:dndzone={{ items: containerItems }}

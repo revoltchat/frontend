@@ -1,13 +1,14 @@
 import { BiRegularPlus, BiRegularXCircle, BiSolidFile } from "solid-icons/bi";
 import { For, Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { CONFIGURATION } from "@revolt/common";
 import { hoverStyles } from "@revolt/ui/directives";
 
 import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
 import { OverflowingText } from "../../design";
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
+import { cva } from "styled-system/css";
 
 interface Props {
   /**
@@ -58,10 +59,7 @@ export function FileCarousel(props: Props) {
   return (
     <Show when={props.files.length}>
       <Container>
-        <Carousel
-          // @ts-expect-error this is a hack; replace with plain element & panda-css
-          use:scrollable={{ direction: "x" }}
-        >
+        <div class={carousel()} use:scrollable={{ direction: "x" }}>
           <For each={props.files}>
             {(id, index) => {
               /**
@@ -121,7 +119,7 @@ export function FileCarousel(props: Props) {
           >
             <BiRegularPlus size={48} />
           </EmptyEntry>
-        </Carousel>
+        </div>
       </Container>
     </Show>
   );
@@ -130,138 +128,163 @@ export function FileCarousel(props: Props) {
 /**
  * Image preview container
  */
-const PreviewBox = styled.div<{ image: boolean }>`
-  display: grid;
-  justify-items: center;
-  grid-template: "main" ${(props) =>
-      props.theme!.layout.height["attachment-preview"]} / minmax(
-      ${(props) => props.theme!.layout.height["attachment-preview"]},
-      1fr
-    );
+const PreviewBox = styled("div", {
+  base: {
+    display: "grid",
+    justifyItems: "center",
+    gridTemplate: `"main" var(--layout-height-attachment-preview) / minmax(var(--layout-height-attachment-preview), 1fr)`,
 
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: ${(props) => props.theme!.gap.md};
+    cursor: "pointer",
+    overflow: "hidden",
+    borderRadius: "var(--gap-md)",
 
-  background: ${(props) =>
-    props.theme!.colours[`messaging-upload-file-background`]};
-  color: ${(props) => props.theme!.colours["messaging-upload-file-foreground"]};
+    background: "var(--colours-messaging-upload-file-background)",
+    color: "var(--colours-messaging-upload-file-foreground)",
 
-  > * {
-    grid-area: main;
-  }
-`;
+    "& > *": {
+      gridArea: "main",
+    },
+  },
+  variants: {
+    image: {
+      true: {},
+    },
+  },
+});
 
 /**
  * Image preview
  */
-const Image = styled.img`
-  width: 100%;
-  object-fit: cover;
-  margin-bottom: ${(props) => props.theme!.gap.md};
-  height: ${(props) => props.theme!.layout.height["attachment-preview"]};
-`;
+const Image = styled("img", {
+  base: {
+    width: "100%",
+    objectFit: "cover",
+    marginBottom: "var(--gap-md)",
+    height: "var(--layout-height-attachment-preview)",
+  },
+});
 
 /**
  * Overlay container
  */
-const Overlay = styled.div`
-  display: grid;
-  align-items: center;
-  justify-content: center;
+const Overlay = styled("div", {
+  base: {
+    display: "grid",
+    alignItems: "center",
+    justifyContent: "center",
 
-  width: 100%;
-  height: 100%;
+    width: "100%",
+    height: "100%",
 
-  opacity: 0;
-  color: white;
-  background: rgba(0, 0, 0, 0.8);
-  transition: ${(props) => props.theme!.transitions.fast} opacity;
+    opacity: 0,
+    color: "white",
+    background: "rgba(0, 0, 0, 0.8)",
+    transition: "var(--transitions-fast) opacity",
 
-  &:hover {
-    opacity: 1;
-  }
-`;
+    "&:hover": {
+      opacity: 1,
+    },
+  },
+});
 
 /**
  * Empty entry container
  */
-const EmptyEntry = styled.div`
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: ${(props) => props.theme!.layout.height["attachment-preview"]};
-  height: ${(props) => props.theme!.layout.height["attachment-preview"]};
+const EmptyEntry = styled("div", {
+  base: {
+    display: "grid",
+    flexShrink: 0,
+    placeItems: "center",
+    width: "var(--layout-height-attachment-preview)",
+    height: "var(--layout-height-attachment-preview)",
 
-  cursor: pointer;
-  border-radius: ${(props) => props.theme!.gap.md};
-  background: ${(props) => props.theme!.colours["messaging-upload-file-new"]};
-`;
+    cursor: "pointer",
+    borderRadius: "var(--gap-md)",
+    background: "var(--colours-messaging-upload-file-new)",
+  },
+});
 
 /**
  * Carousel entry container
  */
-const Entry = styled.div<{ ignored: boolean }>`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  opacity: ${(props) => (props.ignored ? "0.4" : "1")};
-`;
+const Entry = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    opacity: 1,
+  },
+  variants: {
+    ignored: {
+      true: {
+        opacity: 0.4,
+      },
+    },
+  },
+});
 
 /**
  * File name information
  */
-const FileName = styled.span`
-  ${(props) =>
-    generateTypographyCSS(props.theme!, "composition-file-upload-name")}
-  max-width: ${(props) => props.theme!.layout.height["attachment-preview"]};
-  text-align: center;
-`;
+const FileName = styled("span", {
+  base: {
+    maxWidth: "var(--layout-height-attachment-preview)",
+    textAlign: "center",
+
+    ...typography.raw({ class: "label" }),
+  },
+});
 
 /**
  * File size information
  */
-const Size = styled.span`
-  ${(props) =>
-    generateTypographyCSS(props.theme!, "composition-file-upload-size")}
-`;
+const Size = styled("span", {
+  base: {
+    ...typography.raw({ class: "label", size: "small" }),
+  },
+});
 
 /**
  * Divider between files to be uploaded and files for next upload
  */
-const Divider = styled.div`
-  height: 130px;
-  flex-shrink: 0;
-  width: ${(props) => props.theme!.gap.sm};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-  background: ${(props) => props.theme!.colours["messaging-upload-divider"]};
-`;
+const Divider = styled("div", {
+  base: {
+    height: "130px",
+    flexShrink: 0,
+    width: "var(--gap-sm)",
+    borderRadius: "var(--borderRadius-md)",
+    background: "var(--colours-messaging-upload-divider)",
+  },
+});
 
 /**
  * Inner carousel container
  */
-const Carousel = styled.div`
-  display: flex;
-  flex-shrink: 0;
-  flex-direction: row;
-  overflow-x: auto !important;
-  gap: ${(props) => props.theme!.gap.md};
-`;
+const carousel = cva({
+  base: {
+    display: "flex",
+    flexShrink: 0,
+    flexDirection: "row",
+    overflowX: "auto !important",
+    gap: "var(--gap-md)",
+  },
+});
 
 /**
  * Outer carousel container
  */
-const Container = styled.div`
-  display: flex;
-  user-select: none;
-  flex-direction: column;
+const Container = styled("div", {
+  base: {
+    display: "flex",
+    userSelect: "none",
+    flexDirection: "column",
 
-  gap: ${(props) => props.theme!.gap.md};
-  padding: ${(props) => props.theme!.gap.md};
-  margin: ${(props) => props.theme!.gap.md} 0;
-  border-radius: ${(props) => props.theme!.borderRadius.lg};
+    gap: "var(--gap-md)",
+    padding: "var(--gap-md)",
+    margin: "var(--gap-md) 0",
+    borderRadius: "var(--borderRadius-lg)",
 
-  background: ${(props) =>
-    props.theme!.colours["messaging-message-box-background"]};
-  color: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
-`;
+    background: "var(--colours-messaging-message-box-background)",
+    color: "var(--colours-messaging-message-box-foreground)",
+  },
+});

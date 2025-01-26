@@ -14,7 +14,7 @@ import { useUser } from "@revolt/client";
 import { getController } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
-import { ColouredText, useTheme } from "@revolt/ui";
+import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
 
@@ -60,7 +60,6 @@ const Config: SettingsConfiguration<Server> = {
    */
   list(server) {
     const t = useTranslation();
-    const theme = useTheme();
     const user = useUser();
 
     return {
@@ -132,11 +131,11 @@ const Config: SettingsConfiguration<Server> = {
               icon: (
                 <BiSolidTrash
                   size={20}
-                  color={theme!.customColours.error.color}
+                  color="var(--customColours-error-color)"
                 />
               ),
               title: (
-                <ColouredText colour={theme!.customColours.error.color}>
+                <ColouredText colour="var(--customColours-error-color)">
                   {t("app.context_menu.delete_server")}
                 </ColouredText>
               ),

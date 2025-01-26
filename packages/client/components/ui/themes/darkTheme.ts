@@ -1,5 +1,3 @@
-import { DefaultTheme } from "solid-styled-components";
-
 import {
   ColorGroup,
   Hct,
@@ -9,6 +7,7 @@ import {
   hexFromArgb,
   themeFromSourceColor,
 } from "@material/material-color-utilities";
+import { DefaultTheme } from "../styled";
 
 /**
  * Convert a scheme to usable hex colours
@@ -190,8 +189,6 @@ export const darkTheme: (
       "component-input-background-secondary": materialColour("background", 98),
       "component-input-hover-primary": materialColour("background", 98), // DEPRECATE?
       "component-input-hover-secondary": materialColour("background", 100), // DEPRECATE?
-      // Component: Chip
-      "component-chip-background": materialColour("secondary", 96),
       // Component: Checkbox
       "component-checkbox-background": materialColour("primary", 92),
       "component-checkbox-foreground": materialColour("primary"),
@@ -429,16 +426,13 @@ export const darkTheme: (
       primary: '"Inter", sans-serif',
       monospace: '"JetBrains Mono", monospace',
     },
-    typography: {
+    typography: {},
+    typography_depr: {
       // Form elements
       label: {
         textTransform: "capitalize",
       },
       // Common UI elements
-      chip: {
-        fontWeight: 500,
-        fontSize: "12px",
-      },
       username: {
         fontWeight: 600,
       },

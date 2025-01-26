@@ -1,103 +1,109 @@
 import { BiRegularCheck } from "solid-icons/bi";
 import { JSX, Show, createSignal, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
-const Base = styled("label")`
-  gap: 10px;
-  padding: 4px;
-  display: flex;
-  cursor: pointer;
-  user-select: none;
-  align-items: center;
-  border-radius: ${(props) => props.theme!.borderRadius["md"]};
-  transition: 0.1s ease background-color;
+const Base = styled("label", {
+  base: {
+    gap: "10px",
+    padding: "4px",
+    display: "flex",
+    cursor: "pointer",
+    userSelect: "none",
+    alignItems: "center",
+    borderRadius: "var(--borderRadius-md)",
+    transition: "0.1s ease background-color",
 
-  input {
-    display: none;
-  }
+    "& input": {
+      display: "none",
+    },
 
-  &:hover {
-    /* background: var(--unset-bg); */
+    "&:hover .check": {
+      visibility: "visible",
+      opacity: 1,
+    },
 
-    .check {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
+    "& [disabled]": {
+      opacity: 0.8,
+      cursor: "not-allowed",
+    },
+  },
+});
 
-  &[disabled] {
-    opacity: 0.8;
-    cursor: not-allowed;
-  }
-`;
+const Content = styled("div", {
+  base: {
+    flexDirection: "column",
+    display: "flex",
+    flexGrow: 1,
+    gap: "3px",
+  },
+});
 
-const Content = styled.div`
-  flex-direction: column;
-  display: flex;
-  flex-grow: 1;
-  gap: 3px;
-`;
+const TitleContent = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    color: "var(--colours-foreground)",
+  },
+});
 
-const TitleContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: ${(props) => props.theme!.colours["foreground"]};
-`;
+const Title = styled("div", {
+  base: {
+    fontSize: "0.9375rem",
+    fontWeight: 600,
+    display: "-webkit-box",
+    // WebkitBoxOrient: "vertical",
+    // WebkitLineClamp: 2,
+    overflow: "hidden",
+  },
+});
 
-const Title = styled.div`
-  font-size: 0.9375rem;
-  font-weight: 600;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-`;
+const Description = styled("div", {
+  base: {
+    fontSize: "0.75rem",
+    fontWeight: 500,
+    color: "var(--foreground)",
+    display: "-webkit-box",
+    // WebkitBoxOrient: "vertical",
+    // WebkitLineClamp: 3,
+    overflow: "hidden",
+  },
+});
 
-const Description = styled.div`
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--foreground);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-`;
+const Checkmark = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "24px",
+    height: "24px",
+    border: "2px solid var(--foreground)",
+    borderRadius: "var(--borderRadius-md)",
+    flexShrink: 0,
+    margin: "4px",
+    transition: "0.1s ease-in-out all",
 
-const Checkmark = styled.div<Pick<Props, "value">>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 2px solid var(--foreground);
-  border-radius: ${(props) => props.theme!.borderRadius["md"]};
-  /* background: var(--unset-bg); */
-  flex-shrink: 0;
-  margin: 4px;
-  transition: 0.1s ease-in-out all;
+    "& .check": {
+      transition: "inherit",
+      color: "var(--foreground)",
+      visibility: "hidden",
+      opacity: 0,
+    },
+  },
+  variants: {
+    value: {
+      true: {
+        borderColor: "var(--foreground)",
 
-  .check {
-    transition: inherit;
-    color: var(--foreground);
-    visibility: hidden;
-    opacity: 0;
-  }
-
-  ${(props) =>
-    props.value
-      ? `
-    border-color: var(--foreground);
-    /* background: var(--unset-bg); */
-
-    .check {
-      visibility: visible;
-      opacity: 1;
-      color: var(--accent-contrast);
-    }
-  `
-      : ""}
-`;
+        ".check": {
+          visibility: "visible",
+          opacity: 1,
+          color: "var(--accent-contrast)",
+        },
+      },
+    },
+  },
+});
 
 export type Props = {
   readonly disabled?: boolean;
@@ -127,7 +133,6 @@ export function LegacyCheckbox(props: Props) {
   const checked = () => local.value ?? controlledValue();
 
   return (
-    // @ts-expect-error legacy component
     <Base {...others}>
       <Content>
         <Show when={local.title}>

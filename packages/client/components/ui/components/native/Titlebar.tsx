@@ -1,7 +1,7 @@
 import { BiSolidWrench } from "solid-icons/bi";
 import type { Component } from "solid-js";
 import { Show } from "solid-js";
-import { css, styled, useTheme } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 // TODO
 // import UpdateIndicator from "../common/UpdateIndicator";
@@ -23,94 +23,92 @@ type Props = BaseProps & {
 const TITLEBAR_HEIGHT = "29px";
 const TITLEBAR_ACTION_PADDING = "8px";
 
-const TitlebarBase = styled("div", "Titlebar")<BaseProps>`
-  flex-shrink: 0;
-  height: ${TITLEBAR_HEIGHT};
-  display: flex;
-  user-select: none;
-  align-items: center;
+const TitlebarBase = styled("div", {
+  base: {
+    flexShrink: 0,
+    height: TITLEBAR_HEIGHT,
+    display: "flex",
+    userSelect: "none",
+    alignItems: "center",
 
-  ${(props) =>
-    props.overlay
-      ? css`
-          position: fixed;
-          width: 100%;
-        `
-      : undefined}
+    "& .drag": {
+      flexGrow: 1,
+      marginTop: "10px",
+      height: "100%",
+    },
 
-  .drag {
-    flex-grow: 1;
-    margin-top: 10px;
-    height: 100%;
-  }
+    "& .quick": {
+      color: "var(--unset-fg)",
 
-  .quick {
-    color: var(--unset-fg);
+      "& > div, > div > div": {
+        width: `${TITLEBAR_HEIGHT} !important`,
+      },
 
-    > div,
-    > div > div {
-      width: ${TITLEBAR_HEIGHT} !important;
-    }
+      "&.disabled": {
+        color: "var(--unset-fg)",
+      },
 
-    &.disabled {
-      color: var(--unset-fg);
-    }
+      "&.unavailable": {
+        background: "var(--unset-bg)",
+      },
+    },
 
-    &.unavailable {
-      background: var(--unset-bg);
-    }
-  }
+    "& .title": {
+      fontSize: "16px",
+      fontWeight: 600,
+      marginInlineStart: "10px",
+      marginTop: "10px",
+      gap: "6px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      zIndex: 90000,
+      color: "var(--unset-fg)",
 
-  .title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-inline-start: 10px;
-    margin-top: 10px;
-    gap: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    z-index: 90000;
-    color: var(--unset-fg);
+      "& svg": {
+        marginBottom: "10px",
+      },
 
-    svg {
-      margin-bottom: 10px;
-    }
+      "& svg:first-child": {
+        height: `calc(${TITLEBAR_HEIGHT} / 3)`,
+      },
+    },
 
-    svg:first-child {
-      height: calc(${TITLEBAR_HEIGHT} / 3);
-    }
-  }
+    "& .actions": {
+      zIndex: 100,
+      display: "flex",
+      alignItems: "center",
+      marginInlineStart: "6px",
 
-  .actions {
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    margin-inline-start: 6px;
+      "& div": {
+        width: `calc(${TITLEBAR_HEIGHT} + ${TITLEBAR_ACTION_PADDING})`,
+        height: TITLEBAR_HEIGHT,
 
-    div {
-      width: calc(${TITLEBAR_HEIGHT} + ${TITLEBAR_ACTION_PADDING});
-      height: ${TITLEBAR_HEIGHT};
+        display: "grid",
+        placeItems: "center",
+        transition: "0.2s ease color, 0.2s ease background-color",
 
-      display: grid;
-      place-items: center;
-      transition: 0.2s ease color;
-      transition: 0.2s ease background-color;
+        "&:hover": {
+          background: "var(--unset-bg)",
+        },
 
-      &:hover {
-        background: var(--unset-bg);
-      }
-
-      &.error:hover {
-        background: var(--unset-bg);
-      }
-    }
-  }
-`;
+        "&.error:hover": {
+          background: "var(--unset-bg)",
+        },
+      },
+    },
+  },
+  variants: {
+    overlay: {
+      true: {
+        position: "fixed",
+        width: "100%",
+      },
+    },
+  },
+});
 
 export const Titlebar: Component<Props> = (props) => {
-  const theme = useTheme();
-
   return (
     <TitlebarBase {...props}>
       <div data-tauri-drag-region class="title">

@@ -5,7 +5,8 @@ import { Channel } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Navigate, useParams } from "@revolt/routing";
-import { Header, Typography, styled } from "@revolt/ui";
+import { Header, Typography } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 import { AgeGate } from "./AgeGate";
 import { TextChannel } from "./text/TextChannel";
@@ -13,13 +14,15 @@ import { TextChannel } from "./text/TextChannel";
 /**
  * Channel layout
  */
-const Base = styled("div")`
-  min-width: 0;
-  flex-grow: 1;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-`;
+const Base = styled("div", {
+  base: {
+    minWidth: 0,
+    flexGrow: 1,
+    display: "flex",
+    position: "relative",
+    flexDirection: "column",
+  },
+});
 
 export interface ChannelPageProps {
   channel: Channel;

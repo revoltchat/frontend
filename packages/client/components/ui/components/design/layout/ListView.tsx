@@ -1,5 +1,5 @@
 import { JSX, createSignal, createUniqueId } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 interface Props {
   /**
@@ -110,7 +110,9 @@ export function ListView(props: Props) {
 /**
  * Reversed list container
  */
-const Reverse = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-`;
+const Reverse = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column-reverse",
+  },
+});

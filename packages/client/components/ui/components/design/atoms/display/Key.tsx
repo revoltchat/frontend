@@ -5,7 +5,7 @@ import {
   FaSolidArrowUp,
 } from "solid-icons/fa";
 import { Component, JSXElement, createMemo } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
 
@@ -16,40 +16,36 @@ export interface Props {
   simple?: boolean;
 }
 
-const Base = styled("kbd", "Key")<Pick<Props, "simple">>`
-  display: inline-flex;
-  color: var(--colours-component-key-foreground);
-  background: var(--colours-component-key-background);
-
-  padding: 0.5ch 1ch 0.35ch;
-
-  border-radius: 3px;
-  /*outline: 1px solid rgb(66 66 66 / 0.5);*/
-
-  font-weight: 700;
-  font-family: ${(props) => props.theme?.fonts.monospace};
-
-  text-transform: uppercase;
-
-  svg {
-    // change arrow scaling in svgs to better fit the text
-    transform: scale(1.5);
-  }
-
-  ${(props) =>
-    !props.simple
-      ? `
-          box-shadow: 0 1px 1px rgba(133, 133, 133, 0.2),
-            0 2.5px 0 0 rgba(0, 0, 0, 0.5);
-
-          &:active {
-            outline: 1px solid rgb(0 0 0 / 0.3);
-            transform: translateY(2px);
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-          }
-        `
-      : undefined}
-`;
+// UNCHECKED STYLES (check commit 2025-01-15)
+const Base = styled("div", {
+  base: {
+    display: "inline-flex",
+    color: "var(--colours-component-key-foreground)",
+    background: "var(--colours-component-key-background)",
+    padding: "0.5ch 1ch 0.35ch",
+    borderRadius: "3px",
+    fontWeight: 700,
+    fontFamily: "var(--fonts-monospace)",
+    textTransform: "uppercase",
+  },
+  variants: {
+    simple: {
+      true: {},
+      false: {
+        boxShadow:
+          "0 1px 1px rgba(133, 133, 133, 0.2), 0 2.5px 0 0 rgba(0, 0, 0, 0.5)",
+        "&:active": {
+          outline: "1px solid rgb(0 0 0 / 0.3)",
+          transform: "translateY(2px)",
+          boxShadow: "0 1px 1px rgba(0, 0, 0, 0.2)",
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    simple: false,
+  },
+});
 
 const REPLACEMENTS: Record<string, () => JSXElement> = {
   ArrowUp: () => <FaSolidArrowUp size="1em" />,

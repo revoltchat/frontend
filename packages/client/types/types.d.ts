@@ -18,6 +18,11 @@ declare module "solid-js" {
         | true
         | {
             /**
+             * Colour customisation
+             */
+            palette?: "default" | "settings";
+
+            /**
              * Scroll direction
              */
             direction?: "x" | "y";
@@ -36,16 +41,6 @@ declare module "solid-js" {
              * Pass-through class names
              */
             class?: string;
-
-            /**
-             * Set custom foreground on track
-             */
-            foreground?: string;
-
-            /**
-             * Set custom background on track
-             */
-            background?: string;
           };
       invisibleScrollable:
         | true

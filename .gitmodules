@@ -4,9 +4,6 @@
 [submodule "components/i18n/locales"]
 	path = packages/client/components/i18n/locales
 	url = https://github.com/revoltchat/translations
-[submodule "packages/solid-styled-components"]
-	path = packages/solid-styled-components
-	url = https://github.com/revoltchat/solid-styled-components
 [submodule "packages/client/assets"]
 	path = packages/client/assets
 	url = https://github.com/revoltchat/assets

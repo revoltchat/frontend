@@ -1,5 +1,5 @@
 import { Accessor, For, JSX, onMount } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 interface Props<T> {
   /**
@@ -62,12 +62,14 @@ function StackElement<T>(props: {
 /**
  * Element centre positioning
  */
-const Overlay = styled.div`
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-`;
+const Overlay = styled("div", {
+  base: {
+    top: "50%",
+    left: "50%",
+    position: "absolute",
+    transform: "translate(-50%, -50%)",
+  },
+});
 
 /**
  * Default transform used for children
@@ -77,22 +79,30 @@ const DEFAULT_TRANSFORM = "translate(-50%, -50%) scale(0.001)";
 /**
  * Dynamic child positioning
  */
-const Child = styled(Overlay)`
-  opacity: 0.9;
-  transform: ${DEFAULT_TRANSFORM};
-  transition: ${(props) => props.theme!.transitions.fast} all;
-`;
+const Child = styled(Overlay, {
+  base: {
+    opacity: 0.9,
+    transform: DEFAULT_TRANSFORM,
+    transition: "var(--transitions-fast) all",
+  },
+});
 
 /**
  * Container element to provide position reference
  */
-const Base = styled.div<{ hideStack: boolean }>`
-  position: relative;
-  margin: auto;
-  background: gray;
-
-  ${(props) =>
-    props.hideStack
-      ? `> * { transform: ${DEFAULT_TRANSFORM} !important; }`
-      : ""}
-`;
+const Base = styled("div", {
+  base: {
+    position: "relative",
+    margin: "auto",
+    background: "gray",
+  },
+  variants: {
+    hideStack: {
+      true: {
+        "> *": {
+          transform: `${DEFAULT_TRANSFORM} !important`,
+        },
+      },
+    },
+  },
+});

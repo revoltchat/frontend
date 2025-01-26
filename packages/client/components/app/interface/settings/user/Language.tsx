@@ -18,7 +18,6 @@ import {
   Row,
   Time,
   iconSize,
-  useTheme,
 } from "@revolt/ui";
 
 import MdErrorFill from "@material-design-icons/svg/filled/error.svg?component-solid";
@@ -55,7 +54,6 @@ export default function Language() {
  * Pick user's preferred language
  */
 function PickLanguage() {
-  const theme = useTheme();
   const t = useTranslation();
 
   /**
@@ -108,13 +106,13 @@ function PickLanguage() {
               {lang.verified && (
                 <MdVerifiedFill
                   {...iconSize(18)}
-                  fill={theme!.colours.foreground}
+                  fill="var(--colours-foreground)"
                 />
               )}{" "}
               {lang.incomplete && (
                 <MdErrorFill
                   {...iconSize(18)}
-                  fill={theme!.colours.foreground}
+                  fill="var(--colours-foreground)"
                 />
               )}
             </Row>

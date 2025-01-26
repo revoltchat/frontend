@@ -1,10 +1,9 @@
 import { BiSolidFile } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
 import { Show } from "solid-js";
-import { styled as styledL } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { type Message, RE_SPOILER } from "revolt.js";
-import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
@@ -16,10 +15,7 @@ import {
   NonBreakingText,
   OverflowingText,
 } from "../../design";
-import {
-  Typography,
-  generateTypographyCSS,
-} from "../../design/atoms/display/Typography";
+import { Typography } from "../../design/atoms/display/Typography";
 
 interface Props {
   /**
@@ -38,46 +34,55 @@ interface Props {
   noDecorations?: boolean;
 }
 
-export const Base = styledL("div", "Reply")<Pick<Props, "noDecorations">>`
-  min-width: 0;
-  flex-grow: 1;
-  display: flex;
-  user-select: none;
-  align-items: center;
+export const Base = styled("div", {
+  base: {
+    minWidth: 0,
+    flexGrow: 1,
+    display: "flex",
+    userSelect: "none",
+    alignItems: "center",
+    gap: "var(--gap-sm)",
+    "& a:link": {
+      textDecoration: "none",
+    },
+    "&::before": {
+      width: "22px",
+      height: "12px",
+      flexShrink: 0,
+      alignSelf: "flex-end",
+      borderStartStartRadius: "4px",
+      borderInlineStart:
+        "2px solid var(--colours-messaging-component-message-reply-hook)",
+      borderTop:
+        "2px solid var(--colours-messaging-component-message-reply-hook)",
+    },
+  },
+  variants: {
+    noDecorations: {
+      true: {},
+      false: {
+        "&::before": {
+          content: '""',
+          display: "block",
+          marginInlineEnd: "12px",
+          marginInlineStart: "30px",
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    noDecorations: false,
+  },
+});
 
-  margin-inline-end: ${(props) => (props.noDecorations ? "0" : "12px")};
-  margin-inline-start: ${(props) => (props.noDecorations ? "0" : "30px")};
-
-  ${(props) => generateTypographyCSS(props.theme!, "reply")}
-
-  gap: ${(props) => props.theme!.gap.sm};
-
-  a:link {
-    text-decoration: none;
-  }
-
-  &::before {
-    display: ${(props) => (props.noDecorations ? "none" : "block")};
-
-    content: "";
-    width: 22px;
-    height: 12px;
-
-    flex-shrink: 0;
-    align-self: flex-end;
-
-    border-start-start-radius: 4px;
-    border-inline-start: 2px solid var(--colours-messaging-component-message-reply-hook);
-    border-top: 2px solid var(--colours-messaging-component-message-reply-hook);
-  }
-`;
-
-const Attachments = styledL.em`
-  display: inline-flex;
-  align-items: center;
-  gap: ${(props) => props.theme!.gap.sm};
-  white-space: nowrap;
-`;
+const Attachments = styled("em", {
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "var(--gap-sm)",
+    whiteSpace: "nowrap",
+  },
+});
 
 /**
  * Link styling

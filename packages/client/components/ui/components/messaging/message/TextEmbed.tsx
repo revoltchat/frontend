@@ -1,8 +1,7 @@
 import { Match, Show, Switch } from "solid-js";
-import { styled as styledLegacy } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { TextEmbed as TextEmbedClass, WebsiteEmbed } from "revolt.js";
-import { styled } from "styled-system/jsx";
 
 import { Markdown } from "@revolt/markdown";
 
@@ -16,43 +15,44 @@ import {
 import { Attachment } from "./Attachment";
 import { SpecialEmbed } from "./SpecialEmbed";
 
-const Base = styledLegacy("div", "TextEmbed")<{ borderColour?: string }>`
-  display: flex;
-  max-width: 480px; /* TODO: theme this */
-  flex-direction: row;
-  gap: ${(props) => props.theme!.gap.md};
+const Base = styled("div", {
+  base: {
+    display: "flex",
+    maxWidth: "480px", // TODO: theme this
+    flexDirection: "row",
+    gap: "var(--gap-md)",
+    padding: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-md)",
+    color: "var(--colours-messaging-component-text-embed-foreground)",
+    background: "var(--colours-messaging-component-text-embed-background)",
+    borderInlineStart:
+      "var(--gap-sm) solid var(--colours-messaging-component-text-embed-foreground)",
+  },
+});
 
-  padding: ${(props) => props.theme!.gap.md};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
+const SiteInformation = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "var(--gap-md)",
+  },
+});
 
-  color: ${(props) =>
-    props.theme!.colours["messaging-component-text-embed-foreground"]};
-  background: ${(props) =>
-    props.theme!.colours["messaging-component-text-embed-background"]};
+const Favicon = styled("img", {
+  base: {
+    width: "14px",
+    height: "14px",
+    flexShrink: 0,
+  },
+});
 
-  border-inline-start: var(--gap-sm) solid
-    ${(props) =>
-      props.borderColour ??
-      props.theme!.colours["messaging-component-text-embed-foreground"]};
-`;
-
-const SiteInformation = styledLegacy("div", "SiteInfo")`
-  display: flex;
-  flex-direction: row;
-  gap: ${(props) => props.theme!.gap.md};
-`;
-
-const Favicon = styledLegacy("img", "Favicon")`
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-`;
-
-const PreviewImage = styledLegacy("img", "PreviewImage")`
-  max-width: 120px;
-  max-height: 120px;
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-`;
+const PreviewImage = styled("img", {
+  base: {
+    maxWidth: "120px",
+    maxHeight: "120px",
+    borderRadius: "var(--borderRadius-md)",
+  },
+});
 
 const Title = styled("a", {
   base: {
@@ -61,22 +61,26 @@ const Title = styled("a", {
   },
 });
 
-const Content = styledLegacy(Column)`
-  min-width: 0;
-`;
+const Content = styled(Column, {
+  base: {
+    minWidth: 0,
+  },
+});
 
-const Description = styledLegacy("div", "Description")`
-  font-size: 12px;
-  overflow: hidden;
-  word-wrap: break-word;
-`;
+const Description = styled("div", {
+  base: {
+    fontSize: "12px",
+    overflow: "hidden",
+    wordWrap: "break-word",
+  },
+});
 
 /**
  * Text Embed
  */
 export function TextEmbed(props: { embed: TextEmbedClass | WebsiteEmbed }) {
   return (
-    <Base borderColour={props.embed.colour!}>
+    <Base style={{ "border-color": props.embed.colour }}>
       <Content gap="md" grow>
         <Show
           when={

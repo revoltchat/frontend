@@ -1,5 +1,5 @@
 import { For, JSX, Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { ServerMember } from "revolt.js";
 
@@ -25,7 +25,7 @@ export function AutoComplete(
             }
           >
             {(match, index) => (
-              <Entry align selected={index() === props.selection()}>
+              <Entry selected={index() === props.selection()}>
                 <Switch
                   fallback={
                     <>
@@ -56,7 +56,7 @@ export function AutoComplete(
             }
           >
             {(match, index) => (
-              <Entry align selected={index() === props.selection()}>
+              <Entry selected={index() === props.selection()}>
                 <Avatar src={match.user.animatedAvatarURL} size={24} />{" "}
                 <Name>{match.user.displayName}</Name>
                 {match.user instanceof ServerMember &&
@@ -82,7 +82,7 @@ export function AutoComplete(
             }
           >
             {(match, index) => (
-              <Entry align selected={index() === props.selection()}>
+              <Entry selected={index() === props.selection()}>
                 <Name>#{match.channel.name}</Name>
               </Entry>
             )}
@@ -96,34 +96,44 @@ export function AutoComplete(
 /**
  * Individual auto complete entry
  */
-const Entry = styled(Row)<{ selected: boolean }>`
-  cursor: pointer;
-  padding: ${(props) => props.theme!.gap.sm} ${(props) => props.theme!.gap.md};
-  background: ${(props) =>
-    props.selected
-      ? props.theme!.colours["component-context-menu-item-hover-background"]
-      : "transparent"};
-`;
+const Entry = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+
+    cursor: "pointer",
+    padding: "var(--gap-sm) var(--gap-md)",
+    background: "transparent",
+  },
+  variants: {
+    selected: {
+      true: {
+        background:
+          "var(--colours-component-context-menu-item-hover-background)",
+      },
+    },
+  },
+});
 
 /**
  * Entry name
  */
-const Name = styled.div`
-  font-size: 0.9em;
-`;
+const Name = styled("div", {
+  base: {
+    fontSize: "0.9em",
+  },
+});
 
 /**
  * Auto complete container
  */
-const Base = styled(Column)`
-  --emoji-size: 1.4em;
-
-  padding: ${(props) => props.theme!.gap.md} 0;
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-
-  backdrop-filter: ${(props) => props.theme!.effects.blur.md};
-  color: ${(props) =>
-    props.theme!.colours["component-context-menu-foreground"]};
-  background: ${(props) =>
-    props.theme!.colours["component-context-menu-background"]};
-`;
+const Base = styled(Column, {
+  base: {
+    "--emoji-size": "1.4em",
+    padding: "var(--gap-md) 0",
+    borderRadius: "var(--borderRadius-md)",
+    backdropFilter: "var(--effects-blur-md)",
+    color: "var(--colours-component-context-menu-foreground)",
+    background: "var(--colours-component-context-menu-background)",
+  },
+});

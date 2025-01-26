@@ -21,8 +21,9 @@ import {
   Tooltip,
   Username,
   iconSize,
-  styled,
 } from "@revolt/ui";
+
+import { styled } from "styled-system/jsx";
 
 import MdCloud from "@material-design-icons/svg/filled/cloud.svg?component-solid";
 import MdLink from "@material-design-icons/svg/filled/link.svg?component-solid";
@@ -36,6 +37,7 @@ import {
   floatingUserMenus,
   floatingUserMenusFromMessage,
 } from "../../../menus/UserContextMenu";
+import { cva } from "styled-system/css";
 
 /**
  * Regex for matching URLs
@@ -101,12 +103,12 @@ export function Message(props: Props) {
         </div>
       }
       avatar={
-        <AvatarContainer
-          // @ts-expect-error this is a hack; replace with plain element & panda-css
+        <div
+          class={avatarContainer()}
           use:floating={floatingUserMenusFromMessage(props.message)}
         >
           <Avatar size={36} src={props.message.avatarURL} />
-        </AvatarContainer>
+        </div>
       }
       contextMenu={() => <MessageContextMenu message={props.message} />}
       timestamp={props.message.createdAt}
@@ -272,14 +274,18 @@ export function Message(props: Props) {
 /**
  * New user indicator
  */
-const NewUser = styled.div`
-  color: ${(props) => props.theme!.customColours.success.color};
-`;
+const NewUser = styled("div", {
+  base: {
+    color: "var(--customColours-success-color)",
+  },
+});
 
 /**
  * Avatar container
  */
-const AvatarContainer = styled.div`
-  height: fit-content;
-  border-radius: ${(props) => props.theme!.borderRadius.full};
-`;
+const avatarContainer = cva({
+  base: {
+    height: "fit-content",
+    borderRadius: "var(--borderRadius-full)",
+  },
+});

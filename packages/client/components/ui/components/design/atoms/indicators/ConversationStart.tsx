@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { Channel } from "revolt.js";
 
@@ -41,6 +41,8 @@ export function ConversationStart(props: Props) {
 /**
  * Base styles
  */
-const Base = styled.div`
-  margin: 18px 16px 10px 16px;
-`;
+const Base = styled("div", {
+  base: {
+    margin: "18px 16px 10px 16px",
+  },
+});

@@ -1,6 +1,6 @@
 import { BiSolidChevronRight } from "solid-icons/bi";
 import { For, JSX, Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { Row } from "../../layout";
 
@@ -57,30 +57,34 @@ export function Breadcrumbs(props: Props) {
 /**
  * Base styles
  */
-const Base = styled(Row)`
-  user-select: none;
-  color: var(--colours-component-breadcrumbs-foreground);
-`;
+const Base = styled(Row, {
+  base: {
+    userSelect: "none",
+    color: "var(--colours-component-breadcrumbs-foreground)",
+  },
+});
 
 /**
  * Unselected styles
  */
-const Unselected = styled.div`
-  cursor: pointer;
-  transition: ${(props) => props.theme!.transitions.fast} filter;
-
-  &:hover {
-    filter: ${(props) => props.theme!.effects.hover};
-  }
-
-  &:active {
-    filter: ${(props) => props.theme!.effects.active};
-  }
-`;
+const Unselected = styled("div", {
+  base: {
+    cursor: "pointer",
+    transition: "var(--transitions-fast) filter",
+    "&:hover": {
+      filter: "var(--effects-hover)",
+    },
+    "&:active": {
+      filter: "var(--effects-active)",
+    },
+  },
+});
 
 /**
  * Selected styles
  */
-const Selected = styled.div`
-  color: var(--colours-component-breadcrumbs-foreground-active);
-`;
+const Selected = styled("div", {
+  base: {
+    color: "var(--colours-component-breadcrumbs-foreground-active)",
+  },
+});

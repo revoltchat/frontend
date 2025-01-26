@@ -48,7 +48,6 @@ export default function Webhooks(props: ChannelSettingsProps) {
 
       <Show when={!webhooks() || webhooks()!.length !== 0}>
         <Column>
-          <Typography variant="label">My Bots</Typography>
           <Switch fallback={<Preloader type="ring" />}>
             <Match when={webhooks()?.length}>
               <For each={webhooks()}>

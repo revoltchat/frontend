@@ -1,12 +1,14 @@
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 /**
  * Container to prevent text breaking
  */
-export const NonBreakingText = styled("div")`
-  white-space: nowrap;
+export const NonBreakingText = styled("div", {
+  base: {
+    whiteSpace: "nowrap",
 
-  * {
-    white-space: nowrap;
-  }
-`;
+    "& *": {
+      whiteSpace: "nowrap",
+    },
+  },
+});

@@ -1,11 +1,13 @@
 import { useTranslation } from "@revolt/i18n";
-import { iconSize, styled } from "@revolt/ui";
+import { iconSize } from "@revolt/ui";
 
 import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
 import MdLink from "@material-design-icons/svg/outlined/link.svg?component-solid";
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
+
+import { styled } from "styled-system/jsx";
 
 /**
  * Modal to create or join a server
@@ -44,24 +46,21 @@ const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
 };
 
 // example
-const Base = styled.div`
-  gap: 8px;
-  padding: 8px;
-  display: flex;
-  flex-direction: row;
-
-  /* maybe use M3 Cards? TODO */
-  a {
-    width: 128px;
-    height: 128px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 8px;
-    background: ${(props) =>
-      props.theme!.colours["sidebar-channels-background"]};
-  }
-`;
+const Base = styled("div", {
+  base: {
+    gap: "8px",
+    padding: "8px",
+    display: "flex",
+    flexDirection: "row",
+    "& a": {
+      width: "128px",
+      height: "128px",
+      display: "grid",
+      placeItems: "center",
+      borderRadius: "8px",
+      background: "var(--colours-sidebar-channels-background)",
+    },
+  },
+});
 
 export default CreateOrJoinServer;

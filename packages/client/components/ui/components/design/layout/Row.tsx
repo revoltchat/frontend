@@ -1,53 +1,51 @@
-import { DefaultTheme, styled } from "solid-styled-components";
-
-interface Props {
-  /**
-   * Gap between child elements.
-   */
-  gap?: keyof DefaultTheme["gap"];
-
-  /**
-   * Item alignment
-   */
-  align?: AlignSetting | "stretch" | true;
-
-  /**
-   * Content justification
-   */
-  justify?: AlignSetting | "stretch" | true;
-
-  /**
-   * This row should grow to fit parent container.
-   */
-  grow?: boolean;
-
-  /**
-   * This row should wrap.
-   */
-  wrap?: boolean;
-}
+import { styled } from "styled-system/jsx";
 
 /**
  * Generic Flex Row
  */
-export const Row = styled("div")<Props>`
-  display: flex;
-  flex-direction: row;
-  flex-grow: ${(props) => (props.grow ? 1 : "initial")};
-  flex-wrap: ${(props) => (props.wrap ? "wrap" : "initial")};
-  gap: ${(props) => props.theme!.gap[props.gap ?? "md"]};
-
-  align-items: ${(props) =>
-    props.align
-      ? typeof props.align === "string"
-        ? props.align
-        : "center"
-      : "initial"};
-
-  justify-content: ${(props) =>
-    props.justify
-      ? typeof props.justify === "string"
-        ? props.justify
-        : "center"
-      : "initial"};
-`;
+export const Row = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "row",
+    flexGrow: "initial",
+    flexWrap: "initial",
+    gap: "var(--gap-md)",
+    alignItems: "initial",
+    justifyContent: "initial",
+  },
+  variants: {
+    grow: {
+      true: {
+        flexGrow: 1,
+      },
+    },
+    wrap: {
+      true: {
+        flexWrap: "wrap",
+      },
+    },
+    align: {
+      true: {
+        alignItems: "center",
+      },
+      stretch: {
+        alignItems: "stretch",
+      },
+    },
+    justify: {
+      true: {
+        justifyContent: "center",
+      },
+      stretch: {
+        justifyContent: "stretch",
+      },
+    },
+    gap: {
+      xs: { gap: "var(--gap-xs)" },
+      sm: { gap: "var(--gap-sm)" },
+      md: { gap: "var(--gap-md)" },
+      lg: { gap: "var(--gap-lg)" },
+      xl: { gap: "var(--gap-xl)" },
+    },
+  },
+});

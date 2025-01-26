@@ -2,30 +2,33 @@ import { createSignal } from "solid-js";
 import { QRCodeSVG } from "solid-qr-code";
 
 import { useTranslation } from "@revolt/i18n";
-import { Column, Input, Typography, styled } from "@revolt/ui";
+import { Column, Input, Typography } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
+import { styled } from "styled-system/jsx";
 
 /**
  * Wrapper element for the raw TOTP code
  */
-const Code = styled.code`
-  user-select: all;
-`;
+const Code = styled("code", {
+  base: {
+    userSelect: "all",
+  },
+});
 
 /**
  * Wrapper element for the QR code
  */
-const Qr = styled("div", "Qr")`
-  border-radius: 4px;
-  background: white;
-
-  width: 140px;
-  height: 140px;
-
-  display: grid;
-  place-items: center;
-`;
+const Qr = styled("div", {
+  base: {
+    borderRadius: "4px",
+    background: "white",
+    width: "140px",
+    height: "140px",
+    display: "grid",
+    placeItems: "center",
+  },
+});
 
 /**
  * Modal to display QR code and secret key for MFA and accept the correct code

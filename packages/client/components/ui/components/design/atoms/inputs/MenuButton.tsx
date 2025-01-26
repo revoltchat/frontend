@@ -7,6 +7,7 @@ import { Ripple } from "@revolt/ui/components/material";
 import { hoverStyles } from "@revolt/ui/directives";
 
 import { Unreads } from "../indicators";
+import { typography } from "../display";
 
 export type Props = {
   /**

@@ -1,12 +1,4 @@
-import {
-  Component,
-  JSX,
-  Match,
-  Switch,
-  createEffect,
-  onCleanup,
-  onMount,
-} from "solid-js";
+import { JSX, Match, Switch, createEffect, onCleanup, onMount } from "solid-js";
 
 import { Server } from "revolt.js";
 
@@ -17,8 +9,9 @@ import { KeybindAction } from "@revolt/keybinds";
 import { modalController } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { state } from "@revolt/state";
-import { Button, Preloader, styled } from "@revolt/ui";
+import { Preloader } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
+import { styled } from "styled-system/jsx";
 
 import { Sidebar } from "./interface/Sidebar";
 
@@ -63,57 +56,51 @@ const Interface = (props: { children: JSX.Element }) => {
   });
 
   return (
-    <Switch fallback={<Preloader grow type="spinner" />}>
-      <Match when={!clientController.isLoggedIn()}>
-        <Navigate href="/login" />
-      </Match>
-      <Match when={clientController.lifecycle.loadedOnce()}>
-        <div
-          style={{
-            display: "flex",
-            "flex-direction": "column",
-            height: "100%",
-          }}
-        >
-          <Notice>
-            ⚠️ This is beta software, things will break! State:{" "}
-            <Switch>
-              <Match
-                when={clientController.lifecycle.state() === State.Connecting}
-              >
-                Connecting
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Connected}
-              >
-                Connected
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Disconnected}
-              >
-                Disconnected{" "}
-                <a
-                  onClick={() =>
-                    clientController.lifecycle.transition({
-                      type: TransitionType.Retry,
-                    })
-                  }
-                >
-                  (reconnect now)
-                </a>
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Reconnecting}
-              >
-                Reconnecting
-              </Match>
-              <Match
-                when={clientController.lifecycle.state() === State.Offline}
-              >
-                Device is offline
-              </Match>
-            </Switch>
-          </Notice>
+    <div
+      style={{
+        display: "flex",
+        "flex-direction": "column",
+        height: "100%",
+      }}
+    >
+      <Notice>
+        ⚠️ This is beta software, things will break! State:{" "}
+        <Switch>
+          <Match when={clientController.lifecycle.state() === State.Connecting}>
+            Connecting
+          </Match>
+          <Match when={clientController.lifecycle.state() === State.Connected}>
+            Connected
+          </Match>
+          <Match
+            when={clientController.lifecycle.state() === State.Disconnected}
+          >
+            Disconnected{" "}
+            <a
+              onClick={() =>
+                clientController.lifecycle.transition({
+                  type: TransitionType.Retry,
+                })
+              }
+            >
+              (reconnect now)
+            </a>
+          </Match>
+          <Match
+            when={clientController.lifecycle.state() === State.Reconnecting}
+          >
+            Reconnecting
+          </Match>
+          <Match when={clientController.lifecycle.state() === State.Offline}>
+            Device is offline
+          </Match>
+        </Switch>
+      </Notice>
+      <Switch fallback={<Preloader grow type="spinner" />}>
+        <Match when={!clientController.isLoggedIn()}>
+          <Navigate href="/login" />
+        </Match>
+        <Match when={clientController.lifecycle.loadedOnce()}>
           <Layout
             style={{ "flex-grow": 1, "min-height": 0 }}
             onDragOver={(e) => {
@@ -138,30 +125,32 @@ const Interface = (props: { children: JSX.Element }) => {
             />
             {props.children}
           </Layout>
-        </div>
-      </Match>
-    </Switch>
+        </Match>
+      </Switch>
+    </div>
   );
 };
 
-const Notice = styled.div`
-  text-align: center;
-  font-size: 0.8em;
-  margin: ${(props) => props.theme!.gap.md} ${(props) => props.theme!.gap.md} 0
-    ${(props) => props.theme!.gap.md};
-  padding: ${(props) => props.theme!.gap.md};
-  background: ${(props) =>
-    props.theme!.colours["messaging-message-box-background"]};
-  color: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-`;
+const Notice = styled("div", {
+  base: {
+    textAlign: "center",
+    fontSize: "0.8em",
+    margin: "var(--gap-md) var(--gap-md) 0 var(--gap-md)",
+    padding: "var(--gap-md)",
+    background: "var(--colours-messaging-message-box-background)",
+    color: "var(--colours-messaging-message-box-foreground)",
+    borderRadius: "var(--borderRadius-md)",
+  },
+});
 
 /**
  * Parent container
  */
-const Layout = styled("div", "Layout")`
-  display: flex;
-  height: 100%;
-`;
+const Layout = styled("div", {
+  base: {
+    display: "flex",
+    height: "100%",
+  },
+});
 
 export default Interface;

@@ -1,10 +1,10 @@
 import { useFloating } from "solid-floating-ui";
 import { For, JSX, Ref, Show, createEffect, createSignal, on } from "solid-js";
 import { Portal } from "solid-js/web";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 
 import { scrollable } from "../../directives";
 import { Column, Input } from "../design";
@@ -12,34 +12,38 @@ import { Column, Input } from "../design";
 /**
  * Base element
  */
-const Base = styled(Column)`
-  width: 400px;
-  height: 400px;
-
-  padding-inline-end: 5px;
-`;
+const Base = styled(Column, {
+  base: {
+    width: "400px",
+    height: "400px",
+    paddingInlineEnd: "5px",
+  },
+});
 
 /**
  * Container element for the picker
  */
-const Container = styled("div", "Picker")`
-  flex-grow: 1;
-  display: flex;
-  height: 400px;
-  flex-direction: column;
+const Container = styled("div", {
+  base: {
+    flexGrow: 1,
+    display: "flex",
+    height: "400px",
+    flexDirection: "column",
+    color: "white",
+    backgroundColor: "black",
+    borderRadius: "var(--borderRadius-md)",
+  },
+});
 
-  color: white;
-  background-color: black;
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-`;
-
-const GifList = styled.div`
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  grid-template-rows: masonry;
-  overflow-y: scroll;
-`;
+const GifList = styled("div", {
+  base: {
+    display: "grid",
+    gap: "10px",
+    gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+    gridTemplateRows: "masonry",
+    overflowY: "scroll",
+  },
+});
 
 interface Props {
   /**

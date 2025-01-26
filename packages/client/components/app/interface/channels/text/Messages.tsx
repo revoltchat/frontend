@@ -26,8 +26,8 @@ import {
   JumpToBottom,
   ListView,
   MessageDivider,
-  styled,
 } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 import { Message } from "./Message";
 
@@ -793,23 +793,27 @@ export function Messages(props: Props) {
 /**
  * Anchor to the end of the messages list
  */
-const AnchorToEnd = styled.div`
-  z-index: 30;
-  position: relative;
+const AnchorToEnd = styled("div", {
+  base: {
+    zIndex: 30,
+    position: "relative",
 
-  div {
-    bottom: 0;
-    width: 100%;
-    position: absolute;
-  }
-`;
+    "& div": {
+      bottom: 0,
+      width: "100%",
+      position: "absolute",
+    },
+  },
+});
 
 /**
  * Container padding
  */
-const Padding = styled.div`
-  height: 24px;
-`;
+const Padding = styled("div", {
+  base: {
+    height: "24px",
+  },
+});
 
 /**
  * List entries

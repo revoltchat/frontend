@@ -1,11 +1,12 @@
 import { BiRegularBlock } from "solid-icons/bi";
 import { JSX, Match, Show, Switch, onMount } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
 
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 import { InlineIcon, Row } from "../../design/layout";
+import { cva } from "styled-system/css";
 
 interface Props {
   /**
@@ -65,44 +66,50 @@ interface Props {
 /**
  * Message box container
  */
-const Base = styled("div", "MessageBox")`
-  height: 48px;
-  flex-shrink: 0;
+const Base = styled("div", {
+  base: {
+    height: "48px",
+    flexShrink: 0,
 
-  margin: 0 0 ${(props) => props.theme!.gap.md} 0;
-  border-radius: ${(props) => props.theme!.borderRadius.lg};
+    margin: "0 0 var(--gap-md) 0",
+    borderRadius: "var(--borderRadius-lg)",
 
-  display: flex;
-  background: ${({ theme }) =>
-    theme!.colours["messaging-message-box-background"]};
-  color: ${({ theme }) => theme!.colours["messaging-message-box-foreground"]};
-`;
+    display: "flex",
+    background: "var(--colours-messaging-message-box-background)",
+    color: "var(--colours-messaging-message-box-foreground)",
+  },
+});
 
 /**
  * Input area
  */
-const Input = styled("textarea")`
-  border: none;
-  resize: none;
-  outline: none;
-  background: transparent;
+const input = cva({
+  base: {
+    border: "none",
+    resize: "none",
+    outline: "none",
+    background: "transparent",
 
-  flex-grow: 1;
-  padding: 14px 0;
+    flexGrow: 1,
+    padding: "14px 0",
 
-  font-family: ${(props) => props.theme!.fonts.primary};
-  color: ${({ theme }) => theme!.colours["messaging-message-box-foreground"]};
-  ${(props) => generateTypographyCSS(props.theme!, "messages")}
-`;
+    fontFamily: "var(--fonts-primary)",
+    color: "var(--colours-messaging-message-box-foreground)",
+
+    ...typography.raw({ class: "_messages" }),
+  },
+});
 
 /**
  * Blocked message
  */
-const Blocked = styled(Row)`
-  font-size: 14px;
-  flex-grow: 1;
-  user-select: none;
-`;
+const Blocked = styled(Row, {
+  base: {
+    fontSize: "14px",
+    flexGrow: 1,
+    userSelect: "none",
+  },
+});
 
 /**
  * Message box
@@ -153,13 +160,13 @@ export function MessageBox(props: Props) {
       </Switch>
       <Switch
         fallback={
-          <Input
+          <textarea
+            class={input()}
             ref={props.ref}
             onInput={onInput}
             onKeyUp={onKeyUp}
             value={props.content}
             placeholder={props.placeholder}
-            // @ts-expect-error this is a hack; replace with plain element & panda-css
             use:autoComplete={props.autoCompleteConfig ?? true}
           />
         }

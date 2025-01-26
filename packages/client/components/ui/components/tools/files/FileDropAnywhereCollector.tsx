@@ -13,15 +13,15 @@ import {
   onMount,
 } from "solid-js";
 import { Portal } from "solid-js/web";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
-import { Motion } from "@motionone/solid";
+import { Motion } from "solid-motionone";
 
 import { getController } from "@revolt/common";
 import { useQuantity } from "@revolt/i18n";
 
 import { PreviewStack } from "../../design";
-import { generateTypographyCSS } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 
 interface Props {
   /**
@@ -39,36 +39,45 @@ interface Props {
 /**
  * Stack container
  */
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  position: fixed;
-  place-items: center;
-  pointer-events: none;
-`;
+const Container = styled("div", {
+  base: {
+    width: "100%",
+    height: "100%",
+    display: "grid",
+    position: "fixed",
+    placeItems: "center",
+    pointerEvents: "none",
+
+    // on dim background
+    color: "white",
+  },
+});
 
 /**
  * Dim the screen when dropping files
  */
-const DimScreen = styled.div`
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
-  background: rgba(0, 0, 0, 0.8);
-`;
+const DimScreen = styled("div", {
+  base: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    position: "fixed",
+    background: "rgba(0, 0, 0, 0.8)",
+  },
+});
 
 /**
  * File drop information
  */
-const DropText = styled(Motion.div)`
-  ${(props) => generateTypographyCSS(props.theme!, "label")}
+const DropText = styled("div", {
+  base: {
+    marginTop: "48px",
+    whiteSpace: "nowrap",
 
-  margin-top: 48px;
-  white-space: nowrap;
-`;
+    ...typography.raw({ class: "label" }),
+  },
+});
 
 /**
  * Collect files that are dropped anywhere in the page
@@ -171,12 +180,14 @@ export function FileDropAnywhereCollector(props: Props) {
             items={previewItems()}
             hideStack={hideIndicator}
             overlay={
-              <DropText
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              >
-                {q("dropFiles", items().length)}
+              <DropText>
+                <Motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {q("dropFiles", items().length)}
+                </Motion.div>
               </DropText>
             }
           >

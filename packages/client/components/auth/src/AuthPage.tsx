@@ -10,6 +10,7 @@ import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?componen
 
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
+
 /**
  * Authentication page layout
  */
@@ -32,7 +33,7 @@ const Base = styled("div", {
     flexDirection: "column",
     justifyContent: "space-between",
 
-    mdDown: {
+    md: {
       padding: "30px 20px",
       background: "var(--colours-background)",
     },
@@ -53,7 +54,7 @@ const Nav = styled("div", {
     color: "white",
     textDecoration: "none",
 
-    mdDown: {
+    md: {
       color: "var(--colours-foreground)",
     },
   },
@@ -62,7 +63,7 @@ const Nav = styled("div", {
 /**
  * Navigation items
  */
-const NavItems = styled(`div`, {
+const NavItems = styled("div", {
   base: {
     gap: "10px",
     display: "flex",
@@ -74,12 +75,12 @@ const NavItems = styled(`div`, {
     variant: {
       default: {},
       stack: {
-        mdDown: {
+        md: {
           flexDirection: "column",
         },
       },
       hide: {
-        mdDown: {
+        md: {
           display: "none",
         },
       },
@@ -107,7 +108,7 @@ const Bullet = styled("div", {
     background: "grey",
     borderRadius: "50%",
 
-    mdDown: {
+    md: {
       display: "none",
     },
   },

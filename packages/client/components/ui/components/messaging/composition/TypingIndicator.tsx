@@ -1,5 +1,5 @@
 import { For, Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { User } from "revolt.js";
 
@@ -90,44 +90,49 @@ export function TypingIndicator(props: Props) {
 /**
  * Avatar alignment
  */
-const Avatars = styled.div`
-  display: flex;
-  flex-shrink: 0;
-  height: fit-content;
+const Avatars = styled("div", {
+  base: {
+    display: "flex",
+    flexShrink: 0,
+    height: "fit-content",
 
-  :not(:first-child) {
-    margin-inline-start: -6px;
-  }
-`;
+    "& :not(:first-child)": {
+      marginInlineStart: "-6px",
+    },
+  },
+});
 
 /**
  * Styles for the typing indicator
  */
-const Bar = styled.div`
-  bottom: 0;
-  width: 100%;
-  height: 26px;
-  position: absolute;
+const Bar = styled("div", {
+  base: {
+    bottom: 0,
+    width: "100%",
+    height: "26px",
+    position: "absolute",
 
-  padding: 0 ${(props) => props.theme!.gap.lg};
-  border-radius: ${(props) => props.theme!.borderRadius.lg};
+    padding: "0 var(--gap-lg)",
+    borderRadius: "var(--borderRadius-lg)",
 
-  display: flex;
-  gap: ${(props) => props.theme!.gap.md};
+    display: "flex",
+    gap: "var(--gap-md)",
 
-  user-select: none;
-  align-items: center;
-  flex-direction: row;
+    userSelect: "none",
+    alignItems: "center",
+    flexDirection: "row",
 
-  backdrop-filter: ${(props) => props.theme!.effects.blur.md};
-  color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
-  background: ${(props) =>
-    props.theme!.colours["messaging-indicator-background"]};
-`;
+    backdropFilter: "var(--effects-blur-md)",
+    color: "var(--colours-messaging-indicator-foreground)",
+    background: "var(--colours-messaging-indicator-background)",
+  },
+});
 
 /**
  * Position relatively to this space
  */
-const Base = styled("div", "TypingIndicator")`
-  position: relative;
-`;
+const Base = styled("div", {
+  base: {
+    position: "relative",
+  },
+});

@@ -11,7 +11,7 @@ import {
 import { Portal } from "solid-js/web";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 import { cva } from "styled-system/css";
 
 import { FloatingElement, floatingElements } from "../../directives";

@@ -1,18 +1,13 @@
 import { createEffect } from "solid-js";
-import type { JSX } from "solid-js";
-import { useTheme } from "solid-styled-components";
-import { DirectiveProvider } from "solid-styled-components";
 
 import { applyTheme } from "@material/material-color-utilities";
 import { setColorScheme } from "mdui/functions/setColorScheme.js";
 
-import { autoComplete, floating, scrollable } from "./directives";
+import { DefaultTheme } from "./styled";
+export type { DefaultTheme } from "./styled";
 
 export * from "./components";
 export { darkTheme } from "./themes/darkTheme";
-
-export { ThemeProvider, styled, useTheme } from "solid-styled-components";
-export type { DefaultTheme } from "solid-styled-components";
 
 /**
  * Generate SVG props to configure icon size
@@ -29,44 +24,28 @@ export function iconSize(size: string | number, viewBox?: string) {
 }
 
 /**
- * Provide directives
- */
-export function ProvideDirectives(props: { children: JSX.Element }) {
-  return (
-    <DirectiveProvider
-      directives={{
-        "use:floating": floating,
-        "use:scrollable": scrollable,
-        "use:autoComplete": autoComplete,
-      }}
-    >
-      {props.children}
-    </DirectiveProvider>
-  );
-}
-
-/**
  * Apply theme to document body
  */
-export function ApplyGlobalStyles() {
-  const theme = useTheme();
-
+export function ApplyGlobalStyles(props: { theme: DefaultTheme }) {
   createEffect(() => {
     // Inject common theme styles
     Object.assign(document.body.style, {
-      "font-family": theme.fonts.primary,
-      background: theme.colours.background,
-      color: theme.colours.foreground,
+      "font-family": props.theme.fonts.primary,
+      background: props.theme.colours.background,
+      color: props.theme.colours.foreground,
     });
 
     // Set default emoji size
-    document.body.style.setProperty("--emoji-size", theme.layout.emoji.small);
+    document.body.style.setProperty(
+      "--emoji-size",
+      props.theme.layout.emoji.small
+    );
 
     // Unset variables
     document.body.style.setProperty("--unset-fg", "red");
     document.body.style.setProperty(
       "--unset-bg",
-      "repeating-conic-gradient(red 0% 25%, transparent 0% 50%) 50% / 5px 5px",
+      "repeating-conic-gradient(red 0% 25%, transparent 0% 50%) 50% / 5px 5px"
     );
 
     // Inject all theme properties
@@ -80,24 +59,24 @@ export function ApplyGlobalStyles() {
       }
     }
 
-    recursivelyInject("", theme);
+    recursivelyInject("", props.theme);
 
     // Inject properties for Material Web
     document.body.style.setProperty(
       "--md-ref-typeface-brand",
-      theme.fonts.primary,
+      props.theme.fonts.primary
     );
     document.body.style.setProperty(
       "--md-ref-typeface-plain",
-      theme.fonts.primary,
+      props.theme.fonts.primary
     );
-    applyTheme(theme.materialTheme, {
+    applyTheme(props.theme.materialTheme, {
       target: document.body,
-      dark: theme.darkMode,
+      dark: props.theme.darkMode,
     });
 
     // Inject properties for MDUI library
-    setColorScheme(theme.accentColour);
+    setColorScheme(props.theme.accentColour);
   });
 
   return <></>;
