@@ -14,16 +14,6 @@ declare module "solid-js" {
     interface Directives {
       dndzone: SolidOptions;
 
-      ripple:
-        | true
-        | {
-            enable: boolean;
-
-            /**
-             * Pass-through class names
-             */
-            class?: string;
-          };
       scrollable:
         | true
         | {
@@ -123,7 +113,7 @@ declare module "solid-js" {
         | {
             client?: Client;
             onKeyDown?: (
-              event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+              event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
             ) => void;
             searchSpace?: {
               users?: User[];

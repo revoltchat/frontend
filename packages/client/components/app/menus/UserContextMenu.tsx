@@ -132,7 +132,7 @@ export function UserContextMenu(props: {
   function openAdminPanel() {
     window.open(
       `https://admin.revolt.chat/panel/inspect/user/${props.user.id}`,
-      "_blank"
+      "_blank",
     );
   }
 
@@ -145,17 +145,25 @@ export function UserContextMenu(props: {
 
   return (
     <ContextMenu>
-      <Show when={props.channel}>
+      <Show when={props.channel?.type === "DirectMessage"}>
         <ContextMenuButton icon={MdClose} onClick={closeDm}>
           {t("app.context_menu.close_dm")}
         </ContextMenuButton>
       </Show>
-      <Show when={!props.channel}>
+      <Show when={props.channel?.type === "TextChannel"}>
         <ContextMenuButton icon={MdAlternateEmail} onClick={mention}>
           {t("app.context_menu.mention")}
         </ContextMenuButton>
       </Show>
-      <ContextMenuDivider />
+      <Show
+        when={
+          props.channel &&
+          (props.channel.type === "DirectMessage" ||
+            props.channel.type === "TextChannel")
+        }
+      >
+        <ContextMenuDivider />
+      </Show>
 
       <Show
         when={
@@ -172,7 +180,7 @@ export function UserContextMenu(props: {
           {t(
             `app.context_menu.${
               props.user.self ? "edit_your_identity" : "edit_identity"
-            }`
+            }`,
           )}
         </ContextMenuButton>
       </Show>
@@ -274,7 +282,7 @@ export function UserContextMenu(props: {
 export function floatingUserMenus(
   user: User,
   member?: ServerMember,
-  contextMessage?: Message
+  contextMessage?: Message,
 ): JSX.Directives["floating"] & object {
   return {
     userCard: {

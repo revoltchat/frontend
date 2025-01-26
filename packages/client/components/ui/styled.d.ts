@@ -4,6 +4,7 @@ import type {
   ColorGroup,
   CustomColorGroup,
   Scheme,
+  Theme,
   TonalPalette,
 } from "@material/material-color-utilities";
 
@@ -15,6 +16,8 @@ declare module "solid-styled-components" {
     /* colour(base: keyof Scheme, tone?: number): string;
     scheme: Record<keyof Scheme, string>;
     tones: Record<keyof Scheme, TonalPalette>; */
+    accentColour: string;
+    materialTheme: Theme;
     darkMode: boolean;
     customColours: Record<
       | `status-${
@@ -86,6 +89,7 @@ declare module "solid-styled-components" {
             | `message-box-${"background" | "foreground"}`
             | `message-mentioned-background`
             | `message-info-text`
+            | "component-container-background"
             | "component-system-message-foreground"
             | "component-message-reply-hook"
             | `component-${`${
@@ -187,9 +191,6 @@ declare module "solid-styled-components" {
     effects: {
       blur: {
         [key in "md"]: string;
-      };
-      ripple: {
-        hover: number;
       };
       invert: {
         black: string;

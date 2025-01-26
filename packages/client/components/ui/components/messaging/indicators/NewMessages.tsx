@@ -7,7 +7,7 @@ import { hoverStyles } from "@revolt/ui/directives";
 
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
-import { iconSize, styled } from "../../..";
+import { Ripple, iconSize, styled } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
 
@@ -46,11 +46,8 @@ export function NewMessages(props: Props) {
 
   return (
     <Show when={props.lastId()}>
-      <FloatingIndicator
-        class={hoverStyles({ ripple: true })}
-        position="top"
-        onClick={props.jumpBack}
-      >
+      <FloatingIndicator position="top" onClick={props.jumpBack}>
+        <Ripple />
         <span style={{ "flex-grow": 1 }}>
           {t("app.main.channel.misc.new_messages", {
             time_ago: dayjs(decodeTime(props.lastId()!)).fromNow(),

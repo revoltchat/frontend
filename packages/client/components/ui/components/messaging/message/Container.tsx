@@ -14,6 +14,7 @@ import {
   OverflowingText,
   Row,
 } from "../../design/layout";
+import { Ripple } from "../../material";
 
 interface CommonProps {
   /**
@@ -119,11 +120,15 @@ const Base = styled(Column as Component, "Message")<
 
   ${(props) => (props.highlight ? "outline: 2px solid red;" : "")}
 
+  transition: ${(props) => props.theme!.transitions.fast} background-color;
+
   .hidden {
     display: none;
   }
 
   &:hover {
+    background: var(--colours-messaging-component-container-background);
+
     .hidden {
       display: block;
     }
@@ -181,7 +186,6 @@ export function MessageContainer(props: Props) {
   return (
     <Base
       tail={props.tail}
-      class={hoverStyles()}
       mentioned={props.mentioned}
       highlight={props.highlight}
       sendStatus={props.sendStatus}

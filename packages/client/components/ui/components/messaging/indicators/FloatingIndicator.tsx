@@ -8,6 +8,8 @@ import { generateTypographyCSS } from "../../design/atoms/display/Typography";
 export const FloatingIndicator = styled("div", "FloatingIndicator")<{
   position: "top" | "bottom";
 }>`
+  position: relative;
+
   display: flex;
   user-select: none;
   align-items: center;

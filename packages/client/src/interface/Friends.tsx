@@ -3,7 +3,9 @@ import {
   Accessor,
   For,
   JSX,
+  Match,
   Show,
+  Switch,
   createMemo,
   createSignal,
   splitProps,
@@ -13,18 +15,34 @@ import { VirtualContainer } from "@minht11/solid-virtual-container";
 import type { User } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
+import { modalController } from "@revolt/modal";
 import {
   Avatar,
+  Badge,
+  Button,
   CategoryButton,
   Deferred,
   Header,
+  List,
+  ListItem,
+  ListSubheader,
+  NavigationRail,
+  NavigationRailItem,
   OverflowingText,
+  Tabs,
   Typography,
   UserStatusGraphic,
   styled as styledLegacy,
 } from "@revolt/ui";
+
+import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
+import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
+import MdGroup from "@material-design-icons/svg/outlined/group.svg?component-solid";
+import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
+import MdWavingHand from "@material-design-icons/svg/outlined/waving_hand.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
 
@@ -37,17 +55,19 @@ const Base = styledLegacy("div")`
   flex-direction: column;
 
   .FriendsList {
-    padding-inline: ${(props) => props.theme!.gap.lg};
+    padding-inline: ${(props) => props.theme!.gap.md};
+    overflow-y: scroll;
+    height: 100%;
   }
 `;
 
-const ListBase = styled("div", {
-  base: {
-    "&:not(:first-child)": {
-      paddingTop: "var(--gap-lg)",
-    },
-  },
-});
+// const ListBase = styled("div", {
+//   base: {
+//     "&:not(:first-child)": {
+//       paddingTop: "var(--gap-lg)",
+//     },
+//   },
+// });
 
 /**
  * Typed accessor for lists
@@ -83,8 +103,8 @@ export function Friends() {
       .sort((a, b) => a.username.localeCompare(b.username));
 
     return {
+      friends,
       online: friends.filter((user) => user.online),
-      offline: friends.filter((user) => !user.online),
       incoming: list
         .filter((user) => user.relationship === "Incoming")
         .sort((a, b) => a.username.localeCompare(b.username)),
@@ -97,6 +117,13 @@ export function Friends() {
     };
   });
 
+  const pending = () => {
+    const incoming = lists().incoming;
+    return incoming.length > 99 ? "99+" : incoming.length;
+  };
+
+  const [page, setPage] = createSignal("online");
+
   return (
     // TODO: i18n
     <Base>
@@ -106,31 +133,85 @@ export function Friends() {
         </HeaderIcon>
         Friends
       </Header>
-      <Deferred>
-        <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
-          {/* <PendingRequests lists={lists} /> */}
-          <List
-            title="Outgoing"
-            users={lists().outgoing}
-            scrollTargetElement={targetSignal}
-          />
-          <List
-            title="Online"
-            users={lists().online}
-            scrollTargetElement={targetSignal}
-          />
-          <List
-            title="Offline"
-            users={lists().offline}
-            scrollTargetElement={targetSignal}
-          />
-          <List
-            title="Blocked"
-            users={lists().blocked}
-            scrollTargetElement={targetSignal}
-          />
-        </div>
-      </Deferred>
+
+      <div
+        style={{
+          position: "relative",
+          "min-height": 0,
+        }}
+      >
+        <NavigationRail contained value={page} onValue={setPage}>
+          <div style={{ "margin-top": "6px", "margin-bottom": "12px" }}>
+            <Button
+              size="fab"
+              onPress={() =>
+                modalController.push({ type: "add_friend", client: client() })
+              }
+            >
+              <MdAdd />
+            </Button>
+          </div>
+
+          <NavigationRailItem icon={<MdWavingHand />} value="online">
+            Online
+          </NavigationRailItem>
+          <NavigationRailItem icon={<MdGroup />} value="all">
+            All
+          </NavigationRailItem>
+          <NavigationRailItem icon={<MdNotifications />} value="pending">
+            Pending
+            <Show when={pending()}>
+              <Badge slot="badge" variant="large">
+                {pending()}
+              </Badge>
+            </Show>
+          </NavigationRailItem>
+          <NavigationRailItem icon={<MdBlock />} value="blocked">
+            Blocked
+          </NavigationRailItem>
+        </NavigationRail>
+
+        <Deferred>
+          <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
+            <Switch
+              fallback={
+                <People
+                  title="Online"
+                  users={lists().online}
+                  scrollTargetElement={targetSignal}
+                />
+              }
+            >
+              <Match when={page() === "all"}>
+                <People
+                  title="All"
+                  users={lists().friends}
+                  scrollTargetElement={targetSignal}
+                />
+              </Match>
+              <Match when={page() === "pending"}>
+                <People
+                  title="Incoming"
+                  users={lists().incoming}
+                  scrollTargetElement={targetSignal}
+                />
+                <People
+                  title="Outgoing"
+                  users={lists().outgoing}
+                  scrollTargetElement={targetSignal}
+                />
+              </Match>
+              <Match when={page() === "blocked"}>
+                <People
+                  title="Blocked"
+                  users={lists().blocked}
+                  scrollTargetElement={targetSignal}
+                />
+              </Match>
+            </Switch>
+          </div>
+        </Deferred>
+      </div>
     </Base>
   );
 }
@@ -138,57 +219,54 @@ export function Friends() {
 /**
  * List of users
  */
-function List(props: {
+function People(props: {
   users: User[];
   title: string;
   scrollTargetElement: Accessor<HTMLDivElement>;
 }) {
   return (
-    <ListBase>
-      <Typography variant="category">
+    <List>
+      <ListSubheader>
         {props.title} {"–"} {props.users.length}
-      </Typography>
+      </ListSubheader>
+
+      <Show when={props.users.length === 0}>
+        <ListItem disabled>Nobody here right now!</ListItem>
+      </Show>
+
       <VirtualContainer
         items={props.users}
         scrollTarget={props.scrollTargetElement()}
-        itemSize={{ height: 60, width: 240 }}
-        crossAxisCount={(measurements) =>
-          Math.floor(measurements.container.cross / measurements.itemSize.cross)
-        }
+        itemSize={{ height: 58 }}
+        // grid rendering:
+        // itemSize={{ height: 60, width: 240 }}
+        // crossAxisCount={(measurements) =>
+        //   Math.floor(measurements.container.cross / measurements.itemSize.cross)
+        // }
+        // width: 100% needs to be removed from listentry below for this to work ^^^
       >
         {(item) => (
-          <div
+          <ContainerListEntry
             style={{
               ...item.style,
             }}
           >
-            <div style={{ margin: "6px" }}>
-              <Entry
-                role="listitem"
-                tabIndex={item.tabIndex}
-                style={item.style}
-                user={item.item}
-              />
-            </div>
-          </div>
+            <Entry
+              role="listitem"
+              tabIndex={item.tabIndex}
+              style={item.style}
+              user={item.item}
+            />
+          </ContainerListEntry>
         )}
       </VirtualContainer>
-    </ListBase>
+    </List>
   );
 }
 
-/**
- * Some temporary styles for friend entries
- */
-const Friend = styled("div", {
+const ContainerListEntry = styled("div", {
   base: {
-    minWidth: 0,
-    display: "flex",
-    gap: "var(--gap-md)",
-    alignItems: "center",
-    // padding: "var(--gap-md)",
-    // borderRadius: "var(--borderRadius-lg)",
-    // background: "var(--colours-sidebar-channels-background)",
+    width: "100%",
   },
 });
 
@@ -199,14 +277,20 @@ function Entry(
   props: { user: User } & Omit<
     JSX.AnchorHTMLAttributes<HTMLAnchorElement>,
     "href"
-  >
+  >,
 ) {
   const [local, remote] = splitProps(props, ["user"]);
 
   return (
-    <a {...remote}>
-      <Friend>
+    <a
+      {...remote}
+      use:floating={{
+        contextMenu: () => <UserContextMenu user={local.user} />,
+      }}
+    >
+      <ListItem>
         <Avatar
+          slot="icon"
           size={36}
           src={local.user.animatedAvatarURL}
           holepunch={
@@ -221,7 +305,7 @@ function Entry(
           }
         />
         <OverflowingText>{local.user.username}</OverflowingText>
-      </Friend>
+      </ListItem>
     </a>
   );
 }

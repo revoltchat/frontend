@@ -1,9 +1,12 @@
-import { Component, createEffect } from "solid-js";
+import { createEffect } from "solid-js";
 import type { JSX } from "solid-js";
 import { useTheme } from "solid-styled-components";
 import { DirectiveProvider } from "solid-styled-components";
 
-import { autoComplete, floating, ripple, scrollable } from "./directives";
+import { applyTheme } from "@material/material-color-utilities";
+import { setColorScheme } from "mdui/functions/setColorScheme.js";
+
+import { autoComplete, floating, scrollable } from "./directives";
 
 export * from "./components";
 export { darkTheme } from "./themes/darkTheme";
@@ -35,7 +38,6 @@ export function ProvideDirectives(props: { children: JSX.Element }) {
         "use:floating": floating,
         "use:scrollable": scrollable,
         "use:autoComplete": autoComplete,
-        "use:ripple": ripple,
       }}
     >
       {props.children}
@@ -64,7 +66,7 @@ export function ApplyGlobalStyles() {
     document.body.style.setProperty("--unset-fg", "red");
     document.body.style.setProperty(
       "--unset-bg",
-      "repeating-conic-gradient(red 0% 25%, transparent 0% 50%) 50% / 5px 5px"
+      "repeating-conic-gradient(red 0% 25%, transparent 0% 50%) 50% / 5px 5px",
     );
 
     // Inject all theme properties
@@ -79,6 +81,23 @@ export function ApplyGlobalStyles() {
     }
 
     recursivelyInject("", theme);
+
+    // Inject properties for Material Web
+    document.body.style.setProperty(
+      "--md-ref-typeface-brand",
+      theme.fonts.primary,
+    );
+    document.body.style.setProperty(
+      "--md-ref-typeface-plain",
+      theme.fonts.primary,
+    );
+    applyTheme(theme.materialTheme, {
+      target: document.body,
+      dark: theme.darkMode,
+    });
+
+    // Inject properties for MDUI library
+    setColorScheme(theme.accentColour);
   });
 
   return <></>;
