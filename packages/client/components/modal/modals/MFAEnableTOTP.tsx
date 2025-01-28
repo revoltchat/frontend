@@ -2,7 +2,7 @@ import { createSignal } from "solid-js";
 import { QRCodeSVG } from "solid-qr-code";
 
 import { useTranslation } from "@revolt/i18n";
-import { Column, Input, Typography } from "@revolt/ui";
+import { Column, Input, Text, TextField } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 import { styled } from "styled-system/jsx";
@@ -68,7 +68,7 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
     nonDismissable: true,
     children: (
       <>
-        <Column align="center">
+        <Column align>
           <Qr>
             <QRCodeSVG
               value={uri()}
@@ -84,12 +84,9 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
           <Code>{props.secret}</Code>
         </Column>
 
-        <Typography variant="label">
-          {t("app.special.modals.mfa.enter_code")}
-        </Typography>
-
-        <Input
+        <TextField
           value={value()}
+          label={t("app.special.modals.mfa.enter_code")}
           onChange={(e) => setValue(e.currentTarget.value)}
         />
       </>

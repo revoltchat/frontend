@@ -6,7 +6,7 @@ import type { Message } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 
-import { Row } from "../../design";
+import { Row, typography } from "../../design";
 import { MessageReply } from "../message/MessageReply";
 
 interface Props {

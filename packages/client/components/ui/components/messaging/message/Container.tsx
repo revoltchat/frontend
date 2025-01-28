@@ -192,7 +192,7 @@ const InfoText = styled(Row, {
   base: {
     color: "var(--colours-messaging-message-info-text)",
 
-    ...typography.raw({ class: "label", size: "small" }),
+    ...typography.raw({ class: "body", size: "small" }),
   },
 });
 

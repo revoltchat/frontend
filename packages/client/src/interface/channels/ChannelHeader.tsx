@@ -19,6 +19,7 @@ import {
   NonBreakingText,
   OverflowingText,
   Spacer,
+  typography,
   Typography,
   UserStatus,
 } from "@revolt/ui";
@@ -80,11 +81,9 @@ export function ChannelHeader(props: Props) {
             <Divider />
             <DescriptionLink onClick={openChannelInfo}>
               <OverflowingText>
-                <Typography variant="channel-topic">
-                  <TextWithEmoji
-                    content={props.channel.description?.split("\n").shift()}
-                  />
-                </Typography>
+                <TextWithEmoji
+                  content={props.channel.description?.split("\n").shift()}
+                />
               </OverflowingText>
             </DescriptionLink>
           </Show>

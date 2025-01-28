@@ -14,8 +14,12 @@ import {
   ColouredText,
   NonBreakingText,
   OverflowingText,
+  Row,
+  Username,
 } from "../../design";
-import { Typography } from "../../design/atoms/display/Typography";
+import { Text } from "../../design/atoms/display/Typography";
+import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
+import { cva } from "styled-system/css";
 
 interface Props {
   /**
@@ -75,6 +79,10 @@ export const Base = styled("div", {
   },
 });
 
+const user = cva({
+  base: { display: "flex", gap: "var(--gap-sm)" },
+});
+
 const Attachments = styled("em", {
   base: {
     display: "inline-flex",
@@ -110,18 +118,18 @@ export function MessageReply(props: Props) {
           {t("app.main.channel.misc.blocked_user")}
         </Match>
         <Match when={props.message}>
-          <Avatar src={props.message!.avatarURL} size={14} />
-          <NonBreakingText>
-            <ColouredText
-              colour={props.message!.roleColour!}
-              clip={props.message!.roleColour?.includes("gradient")}
-            >
-              <Typography variant="username">
-                {props.mention && "@"}
-                {props.message!.username}
-              </Typography>
-            </ColouredText>
-          </NonBreakingText>
+          <div
+            class={user()}
+            use:floating={floatingUserMenusFromMessage(props.message!)}
+          >
+            <Avatar src={props.message!.avatarURL} size={14} />
+            <NonBreakingText>
+              <Username
+                colour={props.message!.roleColour!}
+                username={(props.mention ? "@" : "") + props.message!.username}
+              />
+            </NonBreakingText>
+          </div>
           <Link href={props.message!.path}>
             <Show when={props.message!.attachments}>
               <Attachments>

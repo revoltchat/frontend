@@ -3,7 +3,7 @@ import { Show } from "solid-js";
 
 import { useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
-import { Button, Column, Row, Typography } from "@revolt/ui";
+import { Button, Column, Row, Text } from "@revolt/ui";
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
@@ -16,11 +16,9 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
 
   return {
     title: (
-      <Row align="center">
+      <Row align>
         <Column grow>
-          <Typography variant="legacy-settings-title">
-            {props.server.name}
-          </Typography>
+          <Text class="title">{props.server.name}</Text>
         </Column>
         <Button size="icon" variant="plain" onPress={onClose}>
           <BiRegularX size={36} />

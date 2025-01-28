@@ -5,6 +5,7 @@ import { setColorScheme } from "mdui/functions/setColorScheme.js";
 import { setTheme } from "mdui/functions/setTheme.js";
 
 import { DefaultTheme } from "./styled";
+import { typography } from "./components";
 export type { DefaultTheme } from "./styled";
 
 export * from "./components";
@@ -34,6 +35,8 @@ export function ApplyGlobalStyles(props: { theme: DefaultTheme }) {
       "font-family": props.theme.fonts.primary,
       background: props.theme.colours.background,
       color: props.theme.colours.foreground,
+
+      ...typography.raw(),
     });
 
     // Set default emoji size

@@ -368,7 +368,7 @@ function Entry(
               </Match>
             </Switch>
             <Show when={props.channel.icon}>
-              <ChannelIcon src={props.channel.smallIconURL} />
+              <ChannelIcon src={props.channel.iconURL} />
             </Show>
           </>
         }

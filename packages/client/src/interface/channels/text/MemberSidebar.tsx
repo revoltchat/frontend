@@ -340,7 +340,7 @@ const Container = styled("div", {
  */
 const CategoryTitle = styled("div", {
   base: {
-    padding: "16px 14px 0",
+    padding: "28px 14px 0",
 
     ...typography.raw({ class: "label", size: "small" }),
   },

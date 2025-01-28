@@ -6,7 +6,7 @@ import { Motion, Presence } from "solid-motionone";
 
 import { Button } from "../inputs/Button";
 
-import { Typography } from "./Typography";
+import { Text } from "./Typography";
 
 export type Action = Omit<ComponentProps<typeof Button>, "onClick"> & {
   confirmation?: boolean;
@@ -219,14 +219,14 @@ export function Modal(props: Props) {
                 <Show when={props.title || props.description}>
                   <Title>
                     <Show when={props.title}>
-                      <Typography variant="modal-title">
+                      <Text class="headline" size="small">
                         {props.title}
-                      </Typography>
+                      </Text>
                     </Show>
                     <Show when={props.description}>
-                      <Typography variant="modal-description">
+                      <Text class="body" size="medium">
                         {props.description}
-                      </Typography>
+                      </Text>
                     </Show>
                   </Title>
                 </Show>

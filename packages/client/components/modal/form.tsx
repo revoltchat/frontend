@@ -3,7 +3,7 @@ import { createStore } from "solid-js/store";
 
 import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Column, Form, Typography } from "@revolt/ui";
+import { Column, Form, typography, Typography } from "@revolt/ui";
 import type {
   Action,
   Props as ModalProps,
@@ -110,11 +110,7 @@ export function createFormModal<
           }}
         />
         <Show when={error()}>
-          <Error>
-            <Typography variant="label">
-              {t(`error.${error()}` as any, undefined, error())}
-            </Typography>
-          </Error>
+          <Error>{t(`error.${error()}` as any, undefined, error())}</Error>
         </Show>
       </Column>
     ),
@@ -127,5 +123,7 @@ export function createFormModal<
 const Error = styled("div", {
   base: {
     color: "var(--customColours-error-color)",
+
+    ...typography.raw({ class: "label", size: "small" }),
   },
 });

@@ -11,7 +11,13 @@ import {
 import type { API } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
-import { CategoryButton, Input, Preloader, Typography } from "@revolt/ui";
+import {
+  CategoryButton,
+  Input,
+  Preloader,
+  TextField,
+  Typography,
+} from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 
@@ -119,13 +125,11 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
     children: (
       <Switch fallback={<Preloader type="ring" />}>
         <Match when={selectedMethod()}>
-          <Typography variant="label">
-            {t(`login.${selectedMethod()!.toLowerCase()}` as any)}
-          </Typography>
           <Switch>
             <Match when={selectedMethod() === "Password"}>
-              <Input
+              <TextField
                 type="password"
+                label={t("login.password")}
                 value={(response() as { password: string })?.password}
                 onChange={(e) =>
                   setResponse({ password: e.currentTarget.value })
@@ -133,8 +137,9 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
               />
             </Match>
             <Match when={selectedMethod() === "Totp"}>
-              <Input
+              <TextField
                 type="text"
+                label={t("login.totp")}
                 value={(response() as { totp_code: string })?.totp_code}
                 onChange={(e) =>
                   setResponse({ totp_code: e.currentTarget.value })
@@ -142,8 +147,9 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
               />
             </Match>
             <Match when={selectedMethod() === "Recovery"}>
-              <Input
+              <TextField
                 type="text"
+                label={t("login.recovery")}
                 value={(response() as { recovery_code: string })?.recovery_code}
                 onChange={(e) =>
                   setResponse({ recovery_code: e.currentTarget.value })

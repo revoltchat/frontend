@@ -1,7 +1,7 @@
 import { BiRegularX } from "solid-icons/bi";
 
 import { Markdown } from "@revolt/markdown";
-import { Button, Column, Row, Typography } from "@revolt/ui";
+import { Button, Column, Row, Text, Typography } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 
@@ -11,9 +11,9 @@ import { PropGenerator } from "../types";
 const ChannelInfo: PropGenerator<"channel_info"> = (props, onClose) => {
   return {
     title: (
-      <Row align="center">
+      <Row align>
         <Column grow>
-          <Typography variant="legacy-modal-title">{`#${props.channel.name}`}</Typography>
+          <Text class="title">{`#${props.channel.name}`}</Text>
         </Column>
         <Button size="icon" variant="plain" onPress={onClose}>
           <BiRegularX size={36} />

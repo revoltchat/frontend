@@ -6,7 +6,7 @@ import { User } from "revolt.js";
 import { useTranslation } from "@revolt/i18n";
 import { useUsers } from "@revolt/markdown/users";
 
-import { Avatar, OverflowingText, Typography } from "../../design";
+import { Avatar, OverflowingText, typography, Typography } from "../../design";
 
 interface Props {
   /**
@@ -61,25 +61,23 @@ export function TypingIndicator(props: Props) {
               )}
             </For>
           </Avatars>
-          <OverflowingText>
-            <Typography variant="composition-typing-indicator">
-              <Switch fallback={t("app.main.channel.typing.several")}>
-                <Match when={users().length === 1}>
-                  {t("app.main.channel.typing.single", {
-                    user: users()[0]!.username,
-                  })}
-                </Match>
-                <Match when={users().length < 5}>
-                  {t("app.main.channel.typing.multiple", {
-                    user: users().slice(-1)[0]!.username,
-                    userlist: users()
-                      .slice(0, -1)
-                      .map((user) => user!.username)
-                      .join(", "),
-                  })}
-                </Match>
-              </Switch>
-            </Typography>
+          <OverflowingText class={typography({ class: "body" })}>
+            <Switch fallback={t("app.main.channel.typing.several")}>
+              <Match when={users().length === 1}>
+                {t("app.main.channel.typing.single", {
+                  user: users()[0]!.username,
+                })}
+              </Match>
+              <Match when={users().length < 5}>
+                {t("app.main.channel.typing.multiple", {
+                  user: users().slice(-1)[0]!.username,
+                  userlist: users()
+                    .slice(0, -1)
+                    .map((user) => user!.username)
+                    .join(", "),
+                })}
+              </Match>
+            </Switch>
           </OverflowingText>
         </Bar>
       </Base>
