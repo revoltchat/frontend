@@ -319,10 +319,10 @@ const base = cva({
   base: {
     flexShrink: 0,
     width: "var(--layout-width-channel-sidebar)",
-    margin: "calc(48px + 2 * var(--gap-md)) var(--gap-md) var(--gap-md) 0",
+    // margin: "var(--gap-md)",
     borderRadius: "var(--borderRadius-lg)",
     color: "var(--colours-sidebar-channels-foreground)",
-    background: "var(--colours-sidebar-channels-background)",
+    // background: "var(--colours-sidebar-channels-background)",
   },
 });
 

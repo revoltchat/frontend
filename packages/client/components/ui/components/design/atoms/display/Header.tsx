@@ -59,9 +59,9 @@ export const Header = styled("div", {
     },
     transparent: {
       true: {
-        backgroundColor: "var(--colours-sidebar-header-transparent-background)",
-        backdropFilter: "var(--effects-blur-md)",
-        position: "absolute",
+        // backgroundColor: "var(--colours-sidebar-header-transparent-background)",
+        // backdropFilter: "var(--effects-blur-md)",
+        // position: "absolute",
         width: "calc(100% - var(--gap-md))",
         zIndex: "var(--layout-zIndex-floating-bar)",
       },
@@ -89,7 +89,7 @@ export const BelowFloatingHeader = styled("div", {
     "& > div div": {
       width: "100%",
       position: "absolute",
-      top: "calc(2 * var(--gap-md) + var(--layout-height-header))",
+      top: "var(--gap-md)",
     },
   },
 });

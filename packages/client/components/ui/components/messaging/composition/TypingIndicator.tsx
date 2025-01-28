@@ -61,7 +61,7 @@ export function TypingIndicator(props: Props) {
               )}
             </For>
           </Avatars>
-          <OverflowingText class={typography({ class: "body" })}>
+          <OverflowingText class={typography({ class: "body", size: "small" })}>
             <Switch fallback={t("app.main.channel.typing.several")}>
               <Match when={users().length === 1}>
                 {t("app.main.channel.typing.single", {
@@ -120,9 +120,9 @@ const Bar = styled("div", {
     alignItems: "center",
     flexDirection: "row",
 
-    backdropFilter: "var(--effects-blur-md)",
+    // backdropFilter: "var(--effects-blur-md)",
     color: "var(--colours-messaging-indicator-foreground)",
-    background: "var(--colours-messaging-indicator-background)",
+    // background: "var(--colours-messaging-indicator-background)",
   },
 });
 

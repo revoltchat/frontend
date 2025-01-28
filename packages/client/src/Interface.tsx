@@ -123,7 +123,16 @@ const Interface = (props: { children: JSX.Element }) => {
                 },
               })}
             />
-            {props.children}
+            <div
+              style={{
+                background: "var(--colours-messaging-message-box-background)",
+                display: "flex",
+                width: "100%",
+                "min-width": 0,
+              }}
+            >
+              {props.children}
+            </div>
           </Layout>
         </Match>
       </Switch>
@@ -135,11 +144,11 @@ const Notice = styled("div", {
   base: {
     textAlign: "center",
     fontSize: "0.8em",
-    margin: "var(--gap-md) var(--gap-md) 0 var(--gap-md)",
+    // margin: "var(--gap-md) var(--gap-md) 0 var(--gap-md)",
     padding: "var(--gap-md)",
-    background: "var(--colours-messaging-message-box-background)",
+    background: "var(--colours-testing)",
     color: "var(--colours-messaging-message-box-foreground)",
-    borderRadius: "var(--borderRadius-md)",
+    // borderRadius: "var(--borderRadius-md)",
   },
 });
 
@@ -150,6 +159,8 @@ const Layout = styled("div", {
   base: {
     display: "flex",
     height: "100%",
+    background: "var(--colours-testing)",
+    minWidth: 0,
   },
 });
 

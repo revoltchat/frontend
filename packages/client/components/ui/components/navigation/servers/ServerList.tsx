@@ -283,7 +283,7 @@ const ServerListBase = styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
-    background: "var(--colours-background)",
+    background: "var(--colours-testing)",
   },
 });
 
@@ -351,7 +351,7 @@ const Shadow = styled("div", {
       marginTop: "-12px",
       display: "absolute",
       background:
-        "linear-gradient(to bottom, transparent, var(--colours-background))",
+        "linear-gradient(to bottom, transparent, var(--colours-testing))",
     },
   },
 });

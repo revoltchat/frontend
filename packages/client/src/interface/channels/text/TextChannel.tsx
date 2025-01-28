@@ -121,7 +121,7 @@ export function TextChannel(props: ChannelPageProps) {
 
   return (
     <>
-      <Header transparent placement="primary">
+      <Header placement="primary">
         <ChannelHeader channel={props.channel} />
       </Header>
       <Content>
@@ -190,6 +190,10 @@ const MessagingStack = styled("div", {
     flexGrow: 1,
     minWidth: 0,
     minHeight: 0,
-    padding: "0 var(--gap-md) 0 0",
+    // padding: "0 var(--gap-md) 0 0",
+    paddingInline: "var(--gap-md)",
+    marginBlockEnd: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-xl)",
+    background: "var(--colours-background)",
   },
 });

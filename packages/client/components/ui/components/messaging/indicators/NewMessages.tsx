@@ -54,9 +54,9 @@ export function NewMessages(props: Props) {
           })}
         </span>
         <span>{t("app.main.channel.misc.jump_beginning")}</span>
-        <CancelIcon onClick={onCancel}>
+        {/* <CancelIcon onClick={onCancel}>
           <MdClose {...iconSize(16)} />
-        </CancelIcon>
+        </CancelIcon> */}
       </FloatingIndicator>
     </Show>
   );

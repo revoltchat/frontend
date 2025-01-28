@@ -74,13 +74,17 @@ export function ChannelHeader(props: Props) {
           <HeaderIcon>
             <BiRegularHash size={24} />
           </HeaderIcon>
-          <NonBreakingText>
+          <NonBreakingText
+            class={typography({ class: "title", size: "medium" })}
+          >
             <TextWithEmoji content={props.channel.name!} />
           </NonBreakingText>
           <Show when={props.channel.description}>
             <Divider />
             <DescriptionLink onClick={openChannelInfo}>
-              <OverflowingText>
+              <OverflowingText
+                class={typography({ class: "title", size: "small" })}
+              >
                 <TextWithEmoji
                   content={props.channel.description?.split("\n").shift()}
                 />
