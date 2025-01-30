@@ -85,18 +85,14 @@ export default function FlowVerify() {
             (state() as State & { state: "error" }).error
           )}
         </Text>
-        <Text class="label" size="small">
-          <a href="/login/auth">{t("login.remembered")}</a>
-        </Text>
+        <a href="/login/auth">{t("login.remembered")}</a>
       </Match>
       <Match when={state().state === "success"}>
         <FlowTitle>{t("login.verified_account")}</FlowTitle>
         <Show when={"mfa_ticket" in state()}>
           <Button onPress={login}>{t("login.verified_continue")}</Button>
         </Show>
-        <Text class="label" size="small">
-          <a href="/login/auth">{t("login.remembered")}</a>
-        </Text>
+        <a href="/login/auth">{t("login.remembered")}</a>
       </Match>
     </Switch>
   );

@@ -39,9 +39,7 @@ export default function FlowReset() {
         <Fields fields={["email"]} />
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
-      <Text class="label" size="small">
-        <a href="/login/auth">{t("login.remembered")}</a>
-      </Text>
+      <a href="/login/auth">{t("login.remembered")}</a>
       {import.meta.env.DEV && (
         <div
           style={{

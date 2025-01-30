@@ -38,9 +38,7 @@ export default function FlowConfirmReset() {
         <Fields fields={["new-password", "log-out"]} />
         <Button type="submit">{t("login.reset")}</Button>
       </Form>
-      <Text class="label" size="small">
-        <a href="/login/auth">{t("login.remembered")}</a>
-      </Text>
+      <a href="/login/auth">{t("login.remembered")}</a>
     </>
   );
 }

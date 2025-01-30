@@ -113,12 +113,12 @@ export function FlowTitle(props: {
         <Show when={props.emoji === "mail"}>
           <Mail src={envelope} />
         </Show>
-        <Text class="title">{props.children}</Text>
+        <Text class="title" size="large">
+          {props.children}
+        </Text>
       </Row>
       <Show when={props.subtitle}>
-        <Text class="title" size="small">
-          {props.subtitle}
-        </Text>
+        <Text class="title">{props.subtitle}</Text>
       </Show>
     </Column>
   );

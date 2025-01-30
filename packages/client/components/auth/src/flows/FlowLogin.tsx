@@ -70,11 +70,7 @@ export default function FlowLogin() {
             </FlowTitle>
             <Form onSubmit={login}>
               <Fields fields={["email", "password"]} />
-              <Column
-                class={typography({ class: "label", size: "small" })}
-                gap="xl"
-                align
-              >
+              <Column gap="xl" align>
                 <a href="/login/reset">{t("login.reset")}</a>
                 <a href="/login/resend">{t("login.resend")}</a>
               </Column>
