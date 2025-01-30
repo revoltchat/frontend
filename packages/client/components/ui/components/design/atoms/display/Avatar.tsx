@@ -1,7 +1,6 @@
 import { JSXElement, createEffect, createSignal, on } from "solid-js";
-import { styled } from "solid-styled-components";
 
-import { hoverStyles } from "@revolt/ui/directives";
+import { styled } from "styled-system/jsx";
 
 import { Initials } from "./Initials";
 
@@ -52,66 +51,108 @@ export type Props = {
    * Whether this icon is interactive
    */
   interactive?: boolean;
+
+  /**
+   * HTML Web Component slot
+   */
+  slot?: string;
 };
 
 /**
  * Avatar image
  */
-const Image = styled("img")<Pick<Props, "shape">>`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  border-radius: ${(props) =>
-    props.shape === "rounded-square"
-      ? props.theme!.borderRadius.md
-      : props.theme!.borderRadius.full};
-`;
+const Image = styled("img", {
+  base: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
+  variants: {
+    shape: {
+      circle: {
+        borderRadius: "var(--borderRadius-full)",
+      },
+      "rounded-square": {
+        borderRadius: "var(--borderRadius-md)",
+      },
+    },
+  },
+  defaultVariants: {
+    shape: "circle",
+  },
+});
 
 /**
  * Text fallback container
  */
-const FallbackBase = styled("div")<Pick<Props, "shape" | "primaryContrast">>`
-  width: 100%;
-  height: 100%;
+const FallbackBase = styled("div", {
+  base: {
+    width: "100%",
+    height: "100%",
 
-  border-radius: ${(props) =>
-    props.shape === "rounded-square"
-      ? props.theme!.borderRadius.md
-      : props.theme!.borderRadius.full};
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 600;
-  font-size: 0.75rem;
-  color: ${(props) =>
-    props.theme!.colours[
-      `component-avatar-fallback${
-        props.primaryContrast ? "-contrast" : ""
-      }-foreground`
-    ]};
-  background: ${(props) =>
-    props.theme!.colours[
-      `component-avatar-fallback${
-        props.primaryContrast ? "-contrast" : ""
-      }-background`
-    ]};
-`;
+    fontWeight: 600,
+    fontSize: "0.75rem",
+  },
+  variants: {
+    shape: {
+      circle: {
+        borderRadius: "var(--borderRadius-full)",
+      },
+      "rounded-square": {
+        borderRadius: "var(--borderRadius-md)",
+      },
+    },
+    contrast: {
+      true: {
+        color: "var(--component-avatar-fallback-contrast-foreground)",
+        background: "var(--component-avatar-fallback-contrast-foreground)",
+      },
+      false: {
+        color: "var(--component-avatar-fallback-foreground)",
+        background: "var(--component-avatar-fallback-foreground)",
+      },
+    },
+  },
+  defaultVariants: {
+    shape: "circle",
+    contrast: false,
+  },
+});
 
 /**
  * Avatar parent container
  */
-const ParentBase = styled("svg", "Avatar")<Pick<Props, "interactive">>`
-  flex-shrink: 0;
-  user-select: none;
-  cursor: ${(props) => (props.interactive ? "cursor" : "inherit")};
+const ParentBase = styled("svg", {
+  base: {
+    flexShrink: 0,
+    userSelect: "none",
+    cursor: "inherit",
+  },
+  variants: {
+    interactive: {
+      true: {
+        cursor: "pointer",
+      },
+      false: {},
+    },
+  },
+  defaultVariants: {
+    interactive: false,
+  },
+});
 
-  foreignObject {
-    transition: ${(props) => props.theme!.transitions.fast} filter;
-  }
-`;
+/**
+ * Inner SVG container
+ */
+const ForeignObject = styled("foreignObject", {
+  base: {
+    transition: "var(--transitions-fast) filter",
+  },
+});
 
 /**
  * Generic Avatar component
@@ -139,27 +180,27 @@ export function Avatar(props: Props) {
 
   return (
     <ParentBase
-      width={props.size}
-      height={props.size}
+      // TODO: why?
+      slot={props.slot}
+      style={{
+        width: props.size + "px",
+        height: props.size + "px",
+      }}
       viewBox="0 0 32 32"
       interactive={props.interactive}
     >
-      <foreignObject
+      <ForeignObject
         x="0"
         y="0"
-        width="32"
-        height="32"
-        // @ts-expect-error Solid.js typing issue
+        width="32px"
+        height="32px"
         mask={
           props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined
         }
       >
         {url() && <Image src={url()} draggable={false} shape={props.shape} />}
         {!url() && (
-          <FallbackBase
-            shape={props.shape}
-            primaryContrast={props.primaryContrast}
-          >
+          <FallbackBase shape={props.shape} contrast={props.primaryContrast}>
             {typeof props.fallback === "string" ? (
               <Initials input={props.fallback} maxLength={2} />
             ) : (
@@ -167,7 +208,7 @@ export function Avatar(props: Props) {
             )}
           </FallbackBase>
         )}
-      </foreignObject>
+      </ForeignObject>
       {props.overlay}
     </ParentBase>
   );

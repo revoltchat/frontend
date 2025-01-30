@@ -4,8 +4,8 @@ import {
   CategoryButtonGroup,
   Column,
   iconSize,
-  styled,
 } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 import MdBugReport from "@material-design-icons/svg/outlined/bug_report.svg?component-solid";
 import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
@@ -92,6 +92,8 @@ export default function Feedback() {
 /**
  * Link without decorations
  */
-const Link = styled.a`
-  text-decoration: none;
-`;
+const Link = styled("a", {
+  base: {
+    textDecoration: "none",
+  },
+});

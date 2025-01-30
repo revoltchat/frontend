@@ -1,19 +1,16 @@
-import { Component, JSX, Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
-
-import { hoverStyles } from "@revolt/ui/directives";
+import { JSX, Match, Show, Switch } from "solid-js";
+import { styled } from "styled-system/jsx";
 
 import { Time } from "../../design/atoms/display/Time";
-import {
-  Typography,
-  generateTypographyCSS,
-} from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 import {
   Column,
   NonBreakingText,
   OverflowingText,
   Row,
 } from "../../design/layout";
+import { Ripple } from "../../material";
+import { cva } from "styled-system/css";
 
 interface CommonProps {
   /**
@@ -99,97 +96,134 @@ type Props = CommonProps & {
 /**
  * Message container layout
  */
-const Base = styled(Column as Component, "Message")<
-  CommonProps & Pick<Props, "mentioned" | "highlight" | "sendStatus">
->`
-  ${(props) => generateTypographyCSS(props.theme!, "messages")}
+const base = cva({
+  base: {
+    display: "flex",
+    flexDirection: "column",
 
-  padding: 2px 0;
-  color: ${(props) =>
-    props.sendStatus === "failed"
-      ? props.theme!.customColours.error.color
-      : props.theme!.colours.foreground};
-  background: ${(props) =>
-    props.mentioned
-      ? props.theme!.colours["messaging-message-mentioned-background"]
-      : "transparent"};
-  margin-top: ${(props) => (props.tail ? 0 : "12px")} !important;
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-  min-height: 1em;
+    padding: "2px 0",
+    color: "var(--colours-foreground)",
+    background: "transparent",
+    marginTop: "12px !important",
+    borderRadius: "var(--borderRadius-md)",
+    minHeight: "1em",
 
-  ${(props) => (props.highlight ? "outline: 2px solid red;" : "")}
+    "& .hidden": {
+      display: "none",
+    },
 
-  .hidden {
-    display: none;
-  }
+    "&:hover .hidden": {
+      display: "block",
+    },
 
-  &:hover {
-    .hidden {
-      display: block;
-    }
-  }
+    "& a:hover": {
+      textDecoration: "underline",
+    },
 
-  a:hover {
-    text-decoration: underline;
-  }
-`;
+    ...typography.raw({ class: "_messages" }),
+  },
+  variants: {
+    tail: {
+      true: {
+        marginTop: 0,
+      },
+    },
+    mentioned: {
+      true: {
+        background: "var(--colours-messaging-message-mentioned-background)",
+      },
+    },
+    highlight: {
+      true: {
+        outline: "2px solid red",
+      },
+    },
+    sendStatus: {
+      failed: {
+        color: "var(--customColours-error-color)",
+      },
+      sending: {},
+    },
+  },
+});
 
 /**
  * Left-side information or avatar
  */
-const Info = styled("div", "Info")<Pick<CommonProps, "tail" | "compact">>`
-  display: flex;
-  flex-shrink: 0;
-  justify-content: center;
-  padding: ${(props) => (props.tail ? 0 : 2)}px 0;
-  ${(props) => (props.compact ? "" : "width: 62px;")}
-`;
+const Info = styled("div", {
+  base: {
+    display: "flex",
+    flexShrink: 0,
+    justifyContent: "center",
+    padding: "2px 0",
+  },
+  variants: {
+    tail: {
+      true: {
+        padding: 0,
+      },
+    },
+    compact: {
+      true: {},
+      false: {
+        width: "62px",
+      },
+    },
+  },
+});
 
 /**
  * Right-side message content
  */
-const Content = styled(Column)`
-  gap: 3px;
-  min-width: 0;
-  overflow: hidden;
-  max-height: 200vh;
-  padding-inline-end: ${(props) => props.theme!.gap.lg};
-`;
+const Content = styled(Column, {
+  base: {
+    gap: "3px",
+    minWidth: 0,
+    overflow: "hidden",
+    maxHeight: "200vh",
+    paddingInlineEnd: "var(--gap-lg)",
+  },
+});
 
 /**
  * Information text
  */
-const InfoText = styled(Row)`
-  color: var(--colours-messaging-message-info-text);
-  ${(props) => generateTypographyCSS(props.theme!, "small")}
-`;
+const InfoText = styled(Row, {
+  base: {
+    color: "var(--colours-messaging-message-info-text)",
+
+    ...typography.raw({ class: "body", size: "small" }),
+  },
+});
 
 /**
  * Additional styles for compact mode
  */
-const CompactInfo = styled(Row)`
-  flex-shrink: 0;
-  margin-top: -2px;
-  height: fit-content;
-  padding-inline: ${(props) => props.theme!.gap.lg} 0;
-`;
+const CompactInfo = styled(Row, {
+  base: {
+    flexShrink: 0,
+    marginTop: "-2px",
+    height: "fit-content",
+    paddingInline: "var(--gap-lg) 0",
+  },
+});
 
 /**
  * Component to show avatar, username, timestamp and content
  */
 export function MessageContainer(props: Props) {
   return (
-    <Base
-      tail={props.tail}
-      class={hoverStyles()}
-      mentioned={props.mentioned}
-      highlight={props.highlight}
-      sendStatus={props.sendStatus}
-      // @ts-expect-error this is a hack; replace with plain element & panda-css
+    <div
+      class={base({
+        tail: props.tail,
+        mentioned: props.mentioned,
+        highlight: props.highlight,
+        sendStatus: props.sendStatus,
+      })}
       use:floating={{ contextMenu: props.contextMenu }}
     >
       {props.header}
-      <Row gap="none">
+      <Row>
         <Info tail={props.tail} compact={props.compact}>
           <Switch fallback={props.avatar}>
             {props.infoMatch ?? <Match when={false} children={null} />}
@@ -208,16 +242,14 @@ export function MessageContainer(props: Props) {
             </Match>
             <Match when={props.tail}>
               <InfoText class={!props.edited ? "hidden" : undefined}>
-                <Typography variant="small">
-                  <Show when={props.edited}>(edited)</Show>
-                  <Show when={!props.edited}>
-                    <Time
-                      value={props.timestamp}
-                      format="time"
-                      referenceTime={props._referenceTime}
-                    />
-                  </Show>
-                </Typography>
+                <Show when={props.edited}>(edited)</Show>
+                <Show when={!props.edited}>
+                  <Time
+                    value={props.timestamp}
+                    format="time"
+                    referenceTime={props._referenceTime}
+                  />
+                </Show>
               </InfoText>
             </Match>
           </Switch>
@@ -248,6 +280,6 @@ export function MessageContainer(props: Props) {
           {props.children}
         </Content>
       </Row>
-    </Base>
+    </div>
   );
 }

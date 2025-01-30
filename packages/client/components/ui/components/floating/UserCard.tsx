@@ -1,6 +1,6 @@
 import { JSX, createMemo } from "solid-js";
 import { For, Show } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { getController } from "@revolt/common";
 
@@ -9,12 +9,14 @@ import { ColouredText, Row, Username } from "../design";
 /**
  * Base element for the card
  */
-const Base = styled("div", "Tooltip")`
-  color: white;
-  background: black;
-  width: 400px;
-  height: 400px;
-`;
+const Base = styled("div", {
+  base: {
+    color: "white",
+    background: "black",
+    width: "400px",
+    height: "400px",
+  },
+});
 
 /**
  * User Card

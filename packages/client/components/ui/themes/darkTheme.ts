@@ -1,5 +1,3 @@
-import { DefaultTheme } from "solid-styled-components";
-
 import {
   ColorGroup,
   Hct,
@@ -9,6 +7,7 @@ import {
   hexFromArgb,
   themeFromSourceColor,
 } from "@material/material-color-utilities";
+import { DefaultTheme } from "../styled";
 
 /**
  * Convert a scheme to usable hex colours
@@ -135,6 +134,8 @@ export const darkTheme: (
   }
 
   return {
+    accentColour,
+    materialTheme: theme,
     darkMode,
     colours: {
       // Global
@@ -186,8 +187,6 @@ export const darkTheme: (
       "component-input-background-secondary": materialColour("background", 98),
       "component-input-hover-primary": materialColour("background", 98), // DEPRECATE?
       "component-input-hover-secondary": materialColour("background", 100), // DEPRECATE?
-      // Component: Chip
-      "component-chip-background": materialColour("secondary", 96),
       // Component: Checkbox
       "component-checkbox-background": materialColour("primary", 92),
       "component-checkbox-foreground": materialColour("primary"),
@@ -299,6 +298,7 @@ export const darkTheme: (
       "messaging-upload-file-new": materialColour("surfaceVariant", 85),
       "messaging-upload-file-foreground": materialColour("onBackground", 98),
       "messaging-upload-divider": materialColour("primary", 85),
+      testing: materialColour("onBackground", 88),
       "messaging-message-box-background": materialColour("onBackground", 94),
       "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
       "messaging-message-mentioned-background": materialColour(
@@ -310,6 +310,10 @@ export const darkTheme: (
       // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
       // Messaging: Components
+      "messaging-component-container-background": materialColour(
+        "background",
+        95
+      ),
       "messaging-component-blocked-message-background": "transparent",
       "messaging-component-blocked-message-foreground": materialColour(
         "onBackground",
@@ -421,16 +425,13 @@ export const darkTheme: (
       primary: '"Inter", sans-serif',
       monospace: '"JetBrains Mono", monospace',
     },
-    typography: {
+    typography: {},
+    typography_depr: {
       // Form elements
       label: {
         textTransform: "capitalize",
       },
       // Common UI elements
-      chip: {
-        fontWeight: 500,
-        fontSize: "12px",
-      },
       username: {
         fontWeight: 600,
       },
@@ -577,9 +578,6 @@ export const darkTheme: (
     effects: {
       blur: {
         md: "blur(20px)",
-      },
-      ripple: {
-        hover: 0.05,
       },
       invert: {
         black: darkMode ? "invert(100%)" : "invert(0%)",

@@ -1,7 +1,7 @@
 import { For, Match, Switch, createSignal } from "solid-js";
-
 import { dayjs, useTranslation } from "@revolt/i18n";
-import { CategoryButton, Column, styled } from "@revolt/ui";
+import { CategoryButton, Column } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
 
 import { PropGenerator } from "../types";
@@ -128,8 +128,10 @@ function RenderLog(props: { post: ChangelogPost }) {
 /**
  * Image wrapper
  */
-const Image = styled.img`
-  border-radius: var(--border-radius);
-`;
+const Image = styled("img", {
+  base: {
+    borderRadius: "var(--border-radius)",
+  },
+});
 
 export default Changelog;

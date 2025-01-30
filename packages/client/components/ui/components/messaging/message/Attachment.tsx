@@ -1,5 +1,5 @@
 import { Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { File, ImageEmbed, VideoEmbed } from "revolt.js";
 
@@ -15,15 +15,14 @@ import { TextFile } from "./TextFile";
 /**
  * List of attachments
  */
-export const AttachmentContainer = styled(Column)`
-  padding: ${(props) => props.theme!.gap.md};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-
-  color: ${(props) =>
-    props.theme!.colours["messaging-component-attachment-foreground"]};
-  background: ${(props) =>
-    props.theme!.colours["messaging-component-attachment-background"]};
-`;
+export const AttachmentContainer = styled(Column, {
+  base: {
+    padding: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-md)",
+    color: "var(--colours-messaging-component-attachment-foreground)",
+    background: "var(--colours-messaging-component-attachment-background)",
+  },
+});
 
 /**
  * Print human-readable file size
@@ -61,7 +60,7 @@ export function Attachment(props: { file: File }) {
               })
             }
             loading="lazy"
-            src={props.file.createFileURL({ max_side: 512 }, true)}
+            src={props.file.createFileURL()}
           />
         </SizedContent>
       </Match>

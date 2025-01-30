@@ -1,5 +1,5 @@
 import { Component, For, createMemo } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import {
   KeybindSequence,
@@ -11,26 +11,26 @@ import { Key } from "./Key";
 export interface Props {
   sequence: string | TKeySequence;
   short?: boolean;
-  /** if the key should be styled in a more simple way */
-  simple?: boolean;
 }
 
-const Base = styled("kbd", "KeySequence")`
-  display: inline-flex;
-  place-items: center;
-  flex-wrap: wrap;
-  gap: 1ch;
+// UNCHECKED STYLES (check commit 2025-01-15)
+const Base = styled("kbd", {
+  base: {
+    display: "inline-flex",
+    placeItems: "center",
+    flexWrap: "wrap",
+    gap: "1ch",
+    lineHeight: 1,
+    fontSize: "0.85em",
+    fontFamily: "var(--fonts-monospace)",
 
-  line-height: 1;
-  font-size: 0.85em;
-  font-family: ${(props) => props.theme?.fonts.monospace};
-
-  & > kbd {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5ch;
-  }
-`;
+    "& > kbd": {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "0.5ch",
+    },
+  },
+});
 
 export const KeySequence: Component<Props> = (props) => {
   // accepting strings and parsing them isn't really needed other than a nice api?

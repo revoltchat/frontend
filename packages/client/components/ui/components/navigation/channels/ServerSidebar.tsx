@@ -17,7 +17,7 @@ import {
   onCleanup,
   onMount,
 } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
 
@@ -32,8 +32,8 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 
 import { iconSize } from "../../..";
 import { useKeybindActions } from "../../context/Keybinds";
-import { Header, HeaderWithImage } from "../../design/atoms/display/Header";
-import { Typography } from "../../design/atoms/display/Typography";
+import { Header } from "../../design/atoms/display/Header";
+import { typography, Typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
 import { Tooltip } from "../../floating";
@@ -149,7 +149,8 @@ export const ServerSidebar = (props: Props) => {
         }
       >
         <Match when={props.server.banner}>
-          <HeaderWithImage
+          <Header
+            image
             placement="secondary"
             style={{
               background: `url('${props.server.bannerURL}')`,
@@ -160,7 +161,7 @@ export const ServerSidebar = (props: Props) => {
               openServerInfo={props.openServerInfo}
               openServerSettings={props.openServerSettings}
             />
-          </HeaderWithImage>
+          </Header>
         </Match>
       </Switch>
       <div
@@ -210,20 +211,24 @@ function ServerInfo(
 /**
  * Server name
  */
-const ServerName = styled.a`
-  flex-grow: 1;
-`;
+const ServerName = styled("a", {
+  base: {
+    flexGrow: 1,
+  },
+});
 
 /**
  * Settings link
  */
-const SettingsLink = styled.a`
-  cursor: pointer;
+const SettingsLink = styled("a", {
+  base: {
+    cursor: "pointer",
 
-  > * {
-    display: block;
-  }
-`;
+    "& > *": {
+      display: "block",
+    },
+  },
+});
 
 /**
  * Server badge
@@ -277,11 +282,9 @@ function Category(
         <CategoryBase
           open={shown()}
           onClick={() => setShown((shown) => !shown)}
-          align
-          gap="sm"
         >
           <BiSolidChevronRight size={12} />
-          <Typography variant="category">{props.category.title}</Typography>
+          {props.category.title}
         </CategoryBase>
       </Show>
       <For each={channels()}>
@@ -300,29 +303,43 @@ function Category(
 /**
  * Category title styling
  */
-const CategoryBase = styled(Row)<{ open: boolean }>`
-  padding: 0 4px;
-  cursor: pointer;
-  user-select: none;
-  text-transform: uppercase;
-  transition: ${(props) => props.theme!.transitions.fast} all;
+const CategoryBase = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    gap: "var(--gap-sm)",
 
-  color: ${(props) =>
-    props.theme!.colours["sidebar-channels-category-foreground"]};
+    padding: "0 4px",
+    cursor: "pointer",
+    userSelect: "none",
+    textTransform: "uppercase",
+    transition: "var(--transitions-fast) all",
 
-  &:hover {
-    filter: brightness(1.1);
-  }
+    color: "var(--colours-sidebar-channels-category-foreground)",
+    ...typography.raw({ class: "label", size: "small" }),
 
-  &:active {
-    filter: brightness(1.2);
-  }
+    "&:hover": {
+      filter: "brightness(1.1)",
+    },
 
-  svg {
-    transition: ${(props) => props.theme!.transitions.fast} transform;
-    transform: rotateZ(${(props) => (props.open ? 90 : 0)}deg);
-  }
-`;
+    "&:active": {
+      filter: "brightness(1.2)",
+    },
+
+    "& svg": {
+      transition: "var(--transitions-fast) transform",
+    },
+  },
+  variants: {
+    open: {
+      true: {
+        svg: {
+          transform: "rotateZ(90deg)",
+        },
+      },
+    },
+  },
+});
 
 /**
  * Server channel entry
@@ -351,7 +368,7 @@ function Entry(
               </Match>
             </Switch>
             <Show when={props.channel.icon}>
-              <ChannelIcon src={props.channel.smallIconURL} />
+              <ChannelIcon src={props.channel.iconURL} />
             </Show>
           </>
         }
@@ -407,16 +424,20 @@ function Entry(
 /**
  * Channel icon styling
  */
-const ChannelIcon = styled("img")`
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-`;
+const ChannelIcon = styled("img", {
+  base: {
+    width: "16px",
+    height: "16px",
+    objectFit: "contain",
+  },
+});
 
 /**
  * Inner scrollable list
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
-const List = styled(Column)`
-  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
-`;
+const List = styled(Column, {
+  base: {
+    width: "var(--layout-width-channel-sidebar)",
+  },
+});

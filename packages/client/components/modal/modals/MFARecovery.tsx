@@ -1,7 +1,7 @@
 import { For, createSignal } from "solid-js";
 
 import { useTranslation } from "@revolt/i18n";
-import { styled } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
@@ -9,21 +9,21 @@ import { PropGenerator } from "../types";
 /**
  * List of recovery codes
  */
-const List = styled.div`
-  display: grid;
-  text-align: center;
-  grid-template-columns: 1fr 1fr;
-  font-family: var(--monospace-font), monospace;
-
-  span {
-    user-select: text;
-  }
-
-  i {
-    opacity: 0;
-    position: absolute;
-  }
-`;
+const List = styled("div", {
+  base: {
+    display: "grid",
+    textAlign: "center",
+    gridTemplateColumns: "1fr 1fr",
+    fontFamily: "var(--monospace-font), monospace",
+    "& span": {
+      userSelect: "text",
+    },
+    "& i": {
+      opacity: 0,
+      position: "absolute",
+    },
+  },
+});
 
 /**
  * Modal to display a list of recovery codes

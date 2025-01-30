@@ -1,4 +1,4 @@
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 export interface Props {
   /**
@@ -15,75 +15,60 @@ export interface Props {
 /**
  * Input element
  */
-export const Input = styled("input")<Props>`
-  width: 100%;
-  margin: 0.2em 0;
-  padding: 0.75em 1em;
-
-  font-size: 0.9375rem;
-  font-family: inherit;
-  font-weight: 500;
-
-  outline: none;
-  border: 2px solid transparent;
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
-
-  transition: ${(props) => props.theme!.transitions.fast} all;
-
-  &:disabled {
-    filter: brightness(0.9);
-  }
-
-  &:focus-visible {
-    box-shadow: 0 0 0 1.5pt
-      ${({ theme }) => theme!.colours["component-input-focus"]};
-  }
-
-  color: ${(props) => props.theme!.colours["component-input-foreground"]};
-
-  background: ${(props) =>
-    props.theme!.colours[
-      `component-input-background-${props.palette ?? "primary"}`
-    ]};
-
-  &:hover {
-    background: ${(props) =>
-      props.theme!.colours[
-        `component-input-hover-${props.palette ?? "primary"}`
-      ]};
-  }
-
-  ${(props) =>
-    props.submissionTried
-      ? `&:invalid { border-color: ${props.theme!.customColours.error.color}; }`
-      : ""}
-
-  &:focus {
-    outline-offset: 4px;
-    border-color: ${(props) => props.theme!.customColours.warning.color};
-  }
-
-  &:valid {
-    border-color: transparent;
-  }
-
-  /* Override Chrome's ugly autofill colours */
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px
-      ${(props) =>
-        props.theme!.colours[
-          `component-input-background-${props.palette ?? "primary"}`
-        ]}
-      inset !important;
-  }
-
-  &:-webkit-autofill {
-    caret-color: ${(props) =>
-      props.theme!.colours["component-input-foreground"]} !important;
-    -webkit-text-fill-color: ${(props) =>
-      props.theme!.colours["component-input-foreground"]} !important;
-  }
-`;
+export const Input = styled("input", {
+  base: {
+    width: "100%",
+    margin: "0.2em 0",
+    padding: "0.75em 1em",
+    fontSize: "0.9375rem",
+    fontFamily: "inherit",
+    fontWeight: 500,
+    outline: "none",
+    border: "2px solid transparent",
+    borderRadius: "var(--borderRadius-md)",
+    transition: "var(--transitions-fast) all",
+    "&:disabled": {
+      filter: "brightness(0.9)",
+    },
+    "&:focus-visible": {
+      boxShadow: "0 0 0 1.5pt var(--colours-component-input-focus)",
+    },
+    color: "var(--colours-component-input-foreground)",
+    "&:hover": {
+      background: "var(--colours-component-input-hover-primary)",
+    },
+    "&:focus": {
+      outlineOffset: "4px",
+      borderColor: "var(--customColours-warning-color)",
+    },
+    "&:valid": {
+      borderColor: "transparent",
+    },
+    // TODO: bring this back
+    // "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:-webkit-autofill:active":
+    //   {
+    //     "-webkit-box-shadow":
+    //       "0 0 0 30px var(--colours-component-input-background-primary) inset !important",
+    //     caretColor: "var(--colours-component-input-foreground) !important",
+    //     "-webkit-text-fill-color":
+    //       "var(--colours-component-input-foreground) !important",
+    //   },
+  },
+  variants: {
+    palette: {
+      primary: {
+        background: "var(--colours-component-input-background-primary)",
+      },
+      secondary: {
+        background: "var(--colours-component-input-background-secondary)",
+      },
+    },
+    submissionTried: {
+      true: {
+        "&:invalid": {
+          borderColor: "var(--customColours-error-color)",
+        },
+      },
+    },
+  },
+});

@@ -1,5 +1,5 @@
 import { Show, createSignal } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { useTranslation } from "@revolt/i18n";
 
@@ -7,30 +7,32 @@ interface Props {
   contentType?: "Image" | "Video";
 }
 
-const Base = styled("div")`
-  z-index: 1;
-  position: relative;
+const Base = styled("div", {
+  base: {
+    zIndex: 1,
+    position: "relative",
 
-  .Spoiler {
-    cursor: pointer;
-    position: absolute;
-    backdrop-filter: ${(props) => props.theme!.effects.spoiler};
+    "& .Spoiler": {
+      cursor: "pointer",
+      position: "absolute",
+      backdropFilter: "var(--effects-spoiler)",
 
-    display: grid;
-    place-items: center;
+      display: "grid",
+      placeItems: "center",
 
-    span {
-      padding: 0.6em;
-      font-weight: 600;
-      user-select: none;
-      text-transform: uppercase;
-      box-shadow: 0 0 8px #00000044;
-      color: ${(props) => props.theme!.colours.foreground};
-      border-radius: ${(props) => props.theme!.borderRadius.lg};
-      background: ${(props) => props.theme!.colours.background};
-    }
-  }
-`;
+      "& span": {
+        padding: "0.6em",
+        fontWeight: 600,
+        userSelect: "none",
+        textTransform: "uppercase",
+        boxShadow: "0 0 8px #00000044",
+        color: "var(--colours-foreground)",
+        borderRadius: "var(--borderRadius-lg)",
+        background: "var(--colours-background)",
+      },
+    },
+  },
+});
 
 /**
  * Spoiler Element

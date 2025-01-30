@@ -1,7 +1,7 @@
 import { For, JSX, Match, Show, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
-import { iconSize } from "@revolt/ui";
+import { Ripple, iconSize } from "@revolt/ui";
 
 import MdChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg?component-solid";
 import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
@@ -42,6 +42,8 @@ export function CategoryButton(props: Props) {
       aria-disabled={props.disabled}
       onClick={props.disabled ? undefined : props.onClick}
     >
+      <Ripple />
+
       <Show when={props.icon !== "blank"}>
         <IconWrapper>{props.icon}</IconWrapper>
       </Show>
@@ -50,7 +52,7 @@ export function CategoryButton(props: Props) {
         <BlankIconWrapper />
       </Show>
 
-      <Content grow>
+      <Content>
         <Show when={props.children}>
           <OverflowingText>{props.children}</OverflowingText>
         </Show>
@@ -91,105 +93,122 @@ export function CategoryButton(props: Props) {
 /**
  * Base container for button
  */
-const Base = styled("a", "CategoryButton")<{
-  isLink: boolean;
-  disabled?: boolean;
-}>`
-  gap: 16px;
-  padding: 13px; /*TODO: make this a prop*/
-  border-radius: ${(props) => props.theme!.borderRadius.md};
+const Base = styled("a", {
+  base: {
+    gap: "16px",
+    padding: "13px",
+    borderRadius: "var(--borderRadius-md)",
 
-  color: ${(props) => props.theme!.colours["component-categorybtn-foreground"]};
-  background: ${(props) =>
-    props.theme!.colours["component-categorybtn-background"]};
+    color: "var(--colours-component-categorybtn-foreground)",
+    background: "var(--colours-component-categorybtn-background)",
 
-  user-select: none;
-  cursor: ${(props) =>
-    props.disabled ? "not-allowed" : props.isLink ? "pointer" : "initial"};
-  transition: background-color 0.1s ease-in-out;
+    userSelect: "none",
+    cursor: "pointer",
+    transition: "background-color 0.1s ease-in-out",
 
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
 
-  > svg {
-    flex-shrink: 0;
-  }
+    "&:hover": {
+      backgroundColor: "var(--colours-component-categorybtn-background-hover)",
+    },
 
-  &:hover {
-    background-color: ${(props) =>
-      props.theme!.colours["component-categorybtn-background-hover"]};
-  }
-
-  &:active {
-    background-color: ${(props) =>
-      props.theme!.colours["component-categorybtn-background-active"]};
-  }
-`;
+    "&:active": {
+      backgroundColor: "var(--colours-component-categorybtn-background-active)",
+    },
+  },
+  variants: {
+    isLink: {
+      true: {
+        cursor: "pointer",
+      },
+      false: {
+        cursor: "initial",
+      },
+    },
+    disabled: {
+      true: {
+        cursor: "not-allowed",
+      },
+    },
+  },
+});
 
 /**
  * Title and description styles
  */
-const Content = styled(Column)`
-  font-weight: 500;
-  font-size: 14px;
-  gap: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
+const Content = styled("div", {
+  base: {
+    display: "flex",
+    flexGrow: 1,
+    flexDirection: "column",
+
+    fontWeight: 500,
+    fontSize: "14px",
+    gap: "2px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+});
 
 /**
  * Accented wrapper for the category button icons
  */
-const IconWrapper = styled.div`
-  background: ${(props) =>
-    props.theme!.colours["component-categorybtn-background-icon"]};
+const IconWrapper = styled("div", {
+  base: {
+    background: "var(--colours-component-categorybtn-background-icon)",
 
-  width: 36px;
-  height: 36px;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+    width: "36px",
+    height: "36px",
+    display: "flex",
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "50%",
 
-  svg {
-    color: ${(props) =>
-      props.theme!.colours["component-categorybtn-foreground-description"]};
-  }
-`;
+    "& svg": {
+      color: "var(--colours-component-categorybtn-foreground-description)",
+    },
+  },
+});
 
 /**
  * Category button icon wrapper for the blank state
  */
-const BlankIconWrapper = styled(IconWrapper)`
-  background: transparent;
-`;
+const BlankIconWrapper = styled(IconWrapper, {
+  base: {
+    background: "transparent",
+  },
+});
 
 /**
  * Description shown below title
  */
-const Description = styled.span`
-  font-weight: 500;
-  font-size: 12px;
-  color: ${(props) =>
-    props.theme!.colours["component-categorybtn-foreground-description"]};
-  text-wrap: wrap;
+const Description = styled("span", {
+  base: {
+    fontWeight: 500,
+    fontSize: "12px",
+    color: "var(--colours-component-categorybtn-foreground-description)",
+    textWrap: "wrap",
 
-  a:hover {
-    text-decoration: underline;
-  }
-`;
+    "& a:hover": {
+      textDecoration: "underline",
+    },
+  },
+});
 
 /**
  * Container for action icons
  */
-const Action = styled.div`
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+const Action = styled("div", {
+  base: {
+    width: "24px",
+    height: "24px",
+    flexShrink: 0,
 
-  display: grid;
-  place-items: center;
-`;
+    display: "grid",
+    placeItems: "center",
+  },
+});

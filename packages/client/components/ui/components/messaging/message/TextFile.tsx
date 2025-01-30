@@ -1,5 +1,5 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { File } from "revolt.js";
 
@@ -21,13 +21,15 @@ interface Props {
 /**
  * Text file container
  */
-const Container = styled("pre")`
-  display: flex;
-  overflow: auto;
-  scrollbar-width: thin;
-  flex-direction: column;
-  color: ${(props) => props.theme!.colours["foreground"]};
-`;
+const Container = styled("pre", {
+  base: {
+    display: "flex",
+    overflow: "auto",
+    scrollbarWidth: "thin",
+    flexDirection: "column",
+    color: "var(--colours-foreground)",
+  },
+});
 
 /**
  * Maximum permissible size in bytes for auto loading text files

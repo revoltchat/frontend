@@ -1,12 +1,12 @@
 import { ComponentProps, For, JSX, Show } from "solid-js";
 import { Portal } from "solid-js/web";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 
 import { Button } from "../inputs/Button";
 
-import { Typography } from "./Typography";
+import { Text } from "./Typography";
 
 export type Action = Omit<ComponentProps<typeof Button>, "onClick"> & {
   confirmation?: boolean;
@@ -78,96 +78,106 @@ export interface Props {
 /**
  * Fixed position container to centre the modal
  */
-const Base = styled("div", "Modal")<{ show?: boolean }>`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  position: fixed;
-  z-index: ${(props) => props.theme!.layout.zIndex["modal"]};
-
-  max-height: 100%;
-  user-select: none;
-
-  animation-duration: 0.2s;
-  animation-fill-mode: forwards;
-
-  display: grid;
-  overflow-y: auto;
-  place-items: center;
-
-  transition: ${(props) => props.theme!.transitions.medium} all;
-  pointer-events: ${(props) => (props.show ? "all" : "none")};
-
-  /** TODO: rgb value here */
-  background: ${(props) => (props.show ? "rgba(0, 0, 0, 0.6)" : "transparent")};
-`;
-
-type ContainerProps = Pick<Props, "transparent" | "maxWidth" | "maxHeight"> & {
-  actions: boolean;
-};
+const Base = styled("div", {
+  base: {
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    position: "fixed",
+    zIndex: "var(--layout-zIndex-modal)",
+    maxHeight: "100%",
+    userSelect: "none",
+    animationDuration: "0.2s",
+    animationFillMode: "forwards",
+    display: "grid",
+    overflowY: "auto",
+    placeItems: "center",
+    transition: "var(--transitions-medium) all",
+    pointerEvents: "none",
+    background: "transparent",
+  },
+  variants: {
+    show: {
+      true: {
+        pointerEvents: "all",
+        background: "rgba(0, 0, 0, 0.6)",
+      },
+    },
+  },
+  defaultVariants: {
+    show: true,
+  },
+});
 
 /**
  * Component that wraps all of the actual modal content
  */
-const Container = styled.div<ContainerProps>`
-  width: ${(props) => (props.maxWidth ? "100%" : "unset")};
-  max-width: min(calc(100vw - 20px), ${(props) => props.maxWidth ?? "450px"});
-  max-height: min(calc(100vh - 20px), ${(props) => props.maxHeight ?? "650px"});
-
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-
-  color: ${(props) => props.theme!.colours["component-modal-foreground"]};
-  background: ${(props) =>
-    props.transparent
-      ? "transparent"
-      : props.theme!.colours["component-modal-background"]};
-  border-radius: ${(props) =>
-    props.transparent ? "none" : props.theme!.borderRadius.lg};
-  overflow: ${(props) => (props.transparent ? "unset" : "hidden")};
-`;
+const Container = styled("div", {
+  base: {
+    width: "unset",
+    maxWidth: "min(calc(100vw - 20px), 450px)",
+    maxHeight: "min(calc(100vh - 20px), 650px)",
+    margin: "20px",
+    display: "flex",
+    flexDirection: "column",
+    color: "var(--colours-component-modal-foreground)",
+    background: "var(--colours-component-modal-background)",
+    borderRadius: "var(--borderRadius-lg)",
+    overflow: "hidden",
+  },
+  variants: {
+    transparent: {
+      true: {
+        background: "transparent",
+        borderRadius: "none",
+        overflow: "unset",
+      },
+    },
+  },
+});
 
 /**
  * Container for the title elements
  */
-const Title = styled.div`
-  padding: 1rem;
-  flex-shrink: 0;
-  word-break: break-word;
-  gap: 8px;
-  display: flex;
-  flex-direction: column;
-`;
+const Title = styled("div", {
+  base: {
+    padding: "1rem",
+    flexShrink: 0,
+    wordBreak: "break-word",
+    gap: "8px",
+    display: "flex",
+    flexDirection: "column",
+  },
+});
 
 /**
  * Container for the given content
  */
-const Content = styled.div<Props>`
-  flex-grow: 1;
-  padding-top: 0;
-  padding: 0 1rem 1rem;
-
-  overflow-y: auto;
-  font-size: 0.9375rem; /** FIXME */
-
-  display: flex;
-  flex-direction: column;
-`;
+const Content = styled("div", {
+  base: {
+    flexGrow: 1,
+    paddingTop: 0,
+    padding: "0 1rem 1rem",
+    overflowY: "auto",
+    fontSize: "0.9375rem",
+    display: "flex",
+    flexDirection: "column",
+  },
+});
 
 /**
  * Container for bottom modal actions
  */
-const Actions = styled("div", "Actions")`
-  flex-shrink: 0;
-
-  gap: 8px;
-  display: flex;
-  padding: 0 1rem 1rem 1rem;
-  flex-direction: row-reverse;
-`;
+const Actions = styled("div", {
+  base: {
+    flexShrink: 0,
+    gap: "8px",
+    display: "flex",
+    padding: "0 1rem 1rem 1rem",
+    flexDirection: "row-reverse",
+  },
+});
 
 /**
  * Modal component
@@ -194,20 +204,29 @@ export function Modal(props: Props) {
               transition={{ duration: 0.3, easing: [0.22, 0.54, 0.41, 1.46] }}
             >
               <Container
-                actions={showActions()}
                 onClick={(e) => e.stopPropagation()}
+                transparent={props.transparent}
+                style={{
+                  width: props.maxWidth ? "100%" : "unset",
+                  "max-width": `min(calc(100vw - 20px), ${
+                    props.maxWidth ?? "450px"
+                  })`,
+                  "max-height": `min(calc(100vh - 20px), ${
+                    props.maxHeight ?? "650px"
+                  })`,
+                }}
               >
                 <Show when={props.title || props.description}>
                   <Title>
                     <Show when={props.title}>
-                      <Typography variant="modal-title">
+                      <Text class="headline" size="small">
                         {props.title}
-                      </Typography>
+                      </Text>
                     </Show>
                     <Show when={props.description}>
-                      <Typography variant="modal-description">
+                      <Text class="body" size="medium">
                         {props.description}
-                      </Typography>
+                      </Text>
                     </Show>
                   </Title>
                 </Show>

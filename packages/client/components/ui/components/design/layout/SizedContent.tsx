@@ -1,5 +1,5 @@
 import { JSX } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 interface Props {
   /**
@@ -21,65 +21,89 @@ interface Props {
 /**
  * Sized content base container
  */
-const Base = styled("figure")`
-  margin: 0;
+const Base = styled("figure", {
+  base: {
+    margin: 0,
 
-  > :not(.container),
-  .Spoiler {
-    display: block;
-    object-fit: contain;
-    aspect-ratio: var(--width) / var(--height);
-    border-radius: ${(props) => props.theme!.borderRadius.md};
-  }
+    "& > :not(.container), .Spoiler": {
+      display: "block",
+      objectFit: "contain",
+      aspectRatio: "var(--width) / var(--height)",
+      borderRadius: "var(--borderRadius-md)",
+    },
 
-  video,
-  iframe,
-  .Spoiler.Video {
-    min-width: ${(props) => props.theme!.layout.attachments["min-width"]};
-    max-width: ${(props) => props.theme!.layout.attachments["max-width"]};
+    "& video": {
+      minWidth: "var(--layout-attachments-min-width)",
+      maxWidth: "var(--layout-attachments-max-width)",
+      minHeight: "var(--layout-attachments-min-height)",
+      maxHeight: "var(--layout-attachments-max-height)",
+    },
 
-    min-height: ${(props) => props.theme!.layout.attachments["min-height"]};
-    max-height: ${(props) => props.theme!.layout.attachments["max-height"]};
-  }
-`;
+    "& iframe": {
+      minWidth: "var(--layout-attachments-min-width)",
+      maxWidth: "var(--layout-attachments-max-width)",
+      minHeight: "var(--layout-attachments-min-height)",
+      maxHeight: "var(--layout-attachments-max-height)",
+    },
+
+    "& .Spoiler.Video": {
+      minWidth: "var(--layout-attachments-min-width)",
+      maxWidth: "var(--layout-attachments-max-width)",
+      minHeight: "var(--layout-attachments-min-height)",
+      maxHeight: "var(--layout-attachments-max-height)",
+    },
+  },
+});
 
 /**
  * Render tall content
  */
-const Tall = styled(Base)`
-  img,
-  .Spoiler.Image {
-    width: auto;
-    min-height: ${(props) => props.theme!.layout.attachments["min-height"]};
-    max-height: ${(props) => props.theme!.layout.attachments["max-height"]};
-  }
+const Tall = styled(Base, {
+  base: {
+    "& img": {
+      width: "auto",
+      minHeight: "var(--layout-attachments-min-height)",
+      maxHeight: "var(--layout-attachments-max-height)",
+    },
 
-  .Spoiler.Image {
-    height: var(--height-px);
-  }
-`;
+    "& .Spoiler.Image": {
+      width: "auto",
+      minHeight: "var(--layout-attachments-min-height)",
+      maxHeight: "var(--layout-attachments-max-height)",
+      height: "var(--height-px)",
+    },
+  },
+});
 
 /**
  * Render wide content
  */
-const Wide = styled(Base)`
-  img,
-  .Spoiler.Image {
-    height: auto;
-    min-width: ${(props) => props.theme!.layout.attachments["min-width"]};
-    max-width: ${(props) => props.theme!.layout.attachments["max-width"]};
-  }
+const Wide = styled(Base, {
+  base: {
+    "& img": {
+      height: "auto",
+      minWidth: "var(--layout-attachments-min-width)",
+      maxWidth: "var(--layout-attachments-max-width)",
+    },
 
-  .Spoiler.Image,
-  .Spoiler.Video {
-    width: var(--width-px);
-  }
+    "& .Spoiler.Image": {
+      height: "auto",
+      minWidth: "var(--layout-attachments-min-width)",
+      maxWidth: "var(--layout-attachments-max-width)",
+      width: "var(--width-px)",
+    },
 
-  video,
-  .Spoiler.Video {
-    height: auto;
-  }
-`;
+    "& .Spoiler.Video": {
+      height: "auto",
+      minWidth: "var(--layout-attachments-min-width)",
+      maxWidth: "var(--layout-attachments-max-width)",
+    },
+
+    "& video": {
+      height: "auto",
+    },
+  },
+});
 
 /**
  * Automatic message content sizing for images, videos and embeds

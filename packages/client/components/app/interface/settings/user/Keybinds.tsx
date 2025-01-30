@@ -19,8 +19,8 @@ import {
   Column,
   Input,
   KeySequence,
-  styled,
 } from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 const categories: Record<string, KeybindAction[]> = {
   navigation: [
@@ -144,7 +144,7 @@ export default function Keybinds() {
             title={t(`app.settings.pages.keybinds.category.${category}` as any)}
             // TODO: open={category !== "advanced"}
           >
-            <Column group="6px">
+            <Column>
               <For each={actions}>
                 {(action) => (
                   <ActionCategory>
@@ -230,33 +230,38 @@ export default function Keybinds() {
 }
 
 // TODO: theming
-const ActionCategory = styled("section", "ActionCategory")`
-  display: grid;
-  gap: 1px;
+const ActionCategory = styled("section", {
+  base: {
+    display: "grid",
+    gap: "1px",
+  },
+  variants: {
+    firstChild: {
+      true: {
+        borderStartStartRadius: "var(--borderRadius-md)",
+        borderStartEndRadius: "var(--borderRadius-md)",
+      },
+    },
+    notLastChild: {
+      true: {
+        borderEndEndRadius: 0,
+        borderEndStartRadius: 0,
+      },
+    },
+  },
+});
 
-  > .CategoryButton .KeySequence {
-    height: 2rem;
-    padding-inline: 2px;
-    width: 100%;
-  }
-
-  > .CategoryButton:first-child {
-    border-start-start-radius: ${({ theme }) => theme?.borderRadius.md};
-    border-start-end-radius: ${({ theme }) => theme?.borderRadius.md};
-  }
-
-  > .CategoryButton:not(:last-child) {
-    border-end-end-radius: 0;
-    border-end-start-radius: 0;
-  }
-`;
-const KeybindEntry = styled("article", "KeybindEntry")`
-  display: flex;
-  gap: ${({ theme }) => theme?.gap.lg};
-
-  padding: 10px 12px;
-
-  .KeySequence {
-    flex: 1;
-  }
-`;
+const KeybindEntry = styled("article", {
+  base: {
+    display: "flex",
+    gap: "var(--gap-lg)",
+    padding: "10px 12px",
+  },
+  variants: {
+    keySequence: {
+      true: {
+        flex: 1,
+      },
+    },
+  },
+});

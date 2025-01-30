@@ -1,29 +1,29 @@
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 /**
  * Dropdown element
  */
-export const ComboBox = styled("select")`
-  padding: 4px;
-  height: fit-content;
+export const ComboBox = styled("select", {
+  base: {
+    padding: "4px",
+    height: "fit-content",
 
-  font-weight: 500;
-  font-size: 0.9375rem;
-  font-family: inherit;
+    fontWeight: 500,
+    fontSize: "0.9375rem",
+    fontFamily: "inherit",
 
-  color: ${({ theme }) => theme!.colours["component-combo-foreground"]};
-  background: ${({ theme }) => theme!.colours["component-combo-background"]};
+    color: "var(--colours-component-combo-foreground)",
+    background: "var(--colours-component-combo-background)",
 
-  box-sizing: border-box;
-  border-radius: ${({ theme }) => theme!.borderRadius.md};
-  border: 2px solid
-    ${({ theme }) => theme!.colours["component-combo-foreground"]};
+    boxSizing: "border-box",
+    borderRadius: "var(--borderRadius-md)",
+    border: "2px solid var(--colours-component-combo-foreground)",
 
-  outline: none;
-  cursor: pointer;
+    outline: "none",
+    cursor: "pointer",
 
-  &:focus-visible {
-    box-shadow: 0 0 0 1.5pt
-      ${({ theme }) => theme!.colours["component-combo-focus"]};
-  }
-`; // TODO: re-do this and Input to work like Button
+    "&:focus-visible": {
+      boxShadow: "0 0 0 1.5pt var(--colours-component-combo-focus)",
+    },
+  },
+}); // TODO: re-do this and Input to work like Button

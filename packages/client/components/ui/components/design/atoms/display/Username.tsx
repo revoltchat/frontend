@@ -1,7 +1,7 @@
-import { ComponentProps, splitProps } from "solid-js";
+import { splitProps } from "solid-js";
 
 import { ColouredText } from "./ColouredText";
-import { Typography } from "./Typography";
+import { typography } from "./Typography";
 
 type Props = {
   /**
@@ -13,7 +13,7 @@ type Props = {
    * Text colour
    */
   colour?: string;
-} & Omit<ComponentProps<typeof Typography>, "variant">;
+};
 
 /**
  * Username
@@ -22,13 +22,13 @@ export function Username(props: Props) {
   const [local, remote] = splitProps(props, ["username", "colour"]);
 
   return (
-    <Typography {...remote} variant="username">
+    <span {...remote} class={typography({ class: "label", size: "large" })}>
       <ColouredText
         colour={local.colour!}
         clip={local.colour?.includes("gradient")}
       >
         {local.username}
       </ColouredText>
-    </Typography>
+    </span>
   );
 }

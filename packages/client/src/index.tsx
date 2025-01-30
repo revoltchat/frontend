@@ -44,8 +44,6 @@ import {
   FloatingManager,
   KeybindsProvider,
   Masks,
-  ProvideDirectives,
-  ThemeProvider,
   Titlebar,
   darkTheme,
 } from "@revolt/ui";
@@ -56,6 +54,7 @@ import "@revolt/ui/styles";
 import AuthPage from "./Auth";
 import Interface from "./Interface";
 import "./index.css";
+import 'mdui/mdui.css';
 import { DevelopmentPage } from "./interface/Development";
 import { Friends } from "./interface/Friends";
 import { HomePage } from "./interface/Home";
@@ -84,13 +83,18 @@ function MountTheme(props: { children: any }) {
     )
   );
 
-  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
+  return (
+    <>
+      {props.children}
+      <ApplyGlobalStyles theme={theme} />
+    </>
+  );
 }
 /** END TEMPORARY */
 
 /**
  * Redirect PWA start to the last active path
- */function PWARedirect() {
+ */ function PWARedirect() {
   return <Navigate href={state.layout.getLastActivePath()} />;
 }
 
@@ -118,22 +122,19 @@ function MountContext(props: { children?: JSX.Element }) {
       <QueryClientProvider client={client}>
         <Masks />
         <MountTheme>
-          <ProvideDirectives>
-            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-              <Show when={window.__TAURI__}>
-                <Titlebar
-                  isBuildDev={import.meta.env.DEV}
-                  onMinimize={() => appWindow?.minimize?.()}
-                  onMaximize={() => appWindow?.toggleMaximize?.()}
-                  onClose={() => appWindow?.hide?.()}
-                />
-              </Show>
-              {props.children}
-            </KeybindsProvider>
-            <ModalRenderer />
-            <FloatingManager />
-            <ApplyGlobalStyles />
-          </ProvideDirectives>
+          <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+            <Show when={window.__TAURI__}>
+              <Titlebar
+                isBuildDev={import.meta.env.DEV}
+                onMinimize={() => appWindow?.minimize?.()}
+                onMaximize={() => appWindow?.toggleMaximize?.()}
+                onClose={() => appWindow?.hide?.()}
+              />
+            </Show>
+            {props.children}
+          </KeybindsProvider>
+          <ModalRenderer />
+          <FloatingManager />
         </MountTheme>
       </QueryClientProvider>
     </I18nContext.Provider>

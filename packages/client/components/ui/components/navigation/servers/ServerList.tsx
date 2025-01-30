@@ -1,10 +1,9 @@
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { JSX } from "solid-js";
-import { styled as styledLegacy } from "solid-styled-components";
-
-import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
+
+import { Channel, Server, User } from "revolt.js";
 
 import { KeybindAction } from "@revolt/keybinds";
 import { useNavigate } from "@revolt/routing";
@@ -25,6 +24,7 @@ import {
 import { Tooltip } from "../../floating";
 
 import { Swoosh } from "./Swoosh";
+import { modalController } from "@revolt/modal";
 
 interface Props {
   /**
@@ -131,81 +131,74 @@ export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
       <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
-        <EntryContainer>
-          {/* <Show when={!props.selectedServer()}>
+        {/* <Show when={!props.selectedServer()}>
             <PositionSwoosh>
               <Swoosh topItem />
             </PositionSwoosh>
           </Show> */}
-          <a href="/app">
-            <Avatar size={42} fallback={<MdHome />} />
-          </a>
-        </EntryContainer>
+        <a class={entryContainer()} href="/app">
+          <Avatar size={42} fallback={<MdHome />} />
+        </a>
         <Tooltip
           placement="right"
           content={() => (
-            <Column gap="none">
+            <Column>
               <span>{props.user.username}</span>
               <Typography variant="small">{props.user.presence}</Typography>
             </Column>
           )}
           aria={props.user.username}
         >
-          <EntryContainer>
-            {/* TODO: Make this open user status context menu */}
-            <a href="/app">
-              <Avatar
-                size={42}
-                src={props.user.avatarURL}
-                holepunch={"bottom-right"}
-                overlay={<UserStatusGraphic status={props.user.presence} />}
-                interactive
-              />
-            </a>
-          </EntryContainer>
+          {/* TODO: Make this open user status context menu */}
+          <a class={entryContainer()} href="/app">
+            <Avatar
+              size={42}
+              src={props.user.avatarURL}
+              holepunch={"bottom-right"}
+              overlay={<UserStatusGraphic status={props.user.presence} />}
+              interactive
+            />
+          </a>
         </Tooltip>
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (
             <Tooltip placement="right" content={conversation.displayName}>
-              <EntryContainer
-                // @ts-expect-error this is a hack; replace with plain element & panda-css
+              <a
+                class={entryContainer()}
                 use:floating={props.menuGenerator(conversation)}
+                href={`/channel/${conversation.id}`}
               >
-                <a href={`/channel/${conversation.id}`}>
-                  <Avatar
-                    size={42}
-                    // TODO: fix this
-                    src={conversation.iconURL}
-                    holepunch={conversation.unread ? "top-right" : "none"}
-                    overlay={
-                      <>
-                        <Show when={conversation.unread}>
-                          <UnreadsGraphic
-                            count={conversation.mentions?.size ?? 0}
-                            unread
-                          />
-                        </Show>
-                      </>
-                    }
-                    fallback={
-                      conversation.name ?? conversation.recipient?.username
-                    }
-                    interactive
-                  />
-                </a>
-              </EntryContainer>
+                <Avatar
+                  size={42}
+                  // TODO: fix this
+                  src={conversation.iconURL}
+                  holepunch={conversation.unread ? "top-right" : "none"}
+                  overlay={
+                    <>
+                      <Show when={conversation.unread}>
+                        <UnreadsGraphic
+                          count={conversation.mentions?.size ?? 0}
+                          unread
+                        />
+                      </Show>
+                    </>
+                  }
+                  fallback={
+                    conversation.name ?? conversation.recipient?.username
+                  }
+                  interactive
+                />
+              </a>
             </Tooltip>
           )}
         </For>
         <Show when={props.unreadConversations.length > 9}>
-          <EntryContainer>
-            <a href={`/`}>
-              <Avatar
-                size={42}
-                fallback={<>+{props.unreadConversations.length - 9}</>}
-              />
-            </a>
-          </EntryContainer>
+          <a class={entryContainer()} href={`/`}>
+            <Avatar
+              size={42}
+              fallback={<>+{props.unreadConversations.length - 9}</>}
+            />
+          </a>
         </Show>
         <LineDivider />
         <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
@@ -214,11 +207,12 @@ export const ServerList = (props: Props) => {
               when={
                 item.$exists /** reactivity lags behind here for some reason,
                                  just check existence before continuing */
+                // TODO: check if still an issue
               }
             >
               <Tooltip placement="right" content={item.name}>
-                <EntryContainer
-                  // @ts-expect-error this is a hack; replace with plain element & panda-css
+                <div
+                  class={entryContainer()}
                   use:floating={props.menuGenerator(item)}
                 >
                   <Show when={props.selectedServer() === item.id}>
@@ -245,33 +239,38 @@ export const ServerList = (props: Props) => {
                       interactive
                     />
                   </a>
-                </EntryContainer>
+                </div>
               </Tooltip>
             </Show>
           )}
         </Draggable>
         <Tooltip placement="right" content={"Create or join a server"}>
-          <EntryContainer>
-            <a onClick={() => props.onCreateOrJoinServer()}>
-              <Avatar size={42} fallback={<MdAdd />} />
-            </a>
-          </EntryContainer>
+          <a
+            class={entryContainer()}
+            onClick={() => props.onCreateOrJoinServer()}
+          >
+            <Avatar size={42} fallback={<MdAdd />} />
+          </a>
         </Tooltip>
         <Tooltip placement="right" content={"Find new servers to join"}>
-          <EntryContainer>
+          <div class={entryContainer()}>
             <Avatar size={42} fallback={<MdExplore />} />
-          </EntryContainer>
+          </div>
         </Tooltip>
       </div>
       <Shadow>
         <div />
       </Shadow>
       <Tooltip placement="right" content="Settings">
-        <EntryContainer>
-          <a href="/settings">
-            <Avatar size={42} fallback={<MdSettings />} interactive />
-          </a>
-        </EntryContainer>
+        <a
+          class={entryContainer()}
+          onClick={() => {
+            console.info("[DEBUG] (1) Pushing to modal controller!");
+            modalController.push({ type: "settings", config: "user" });
+          }}
+        >
+          <Avatar size={42} fallback={<MdSettings />} interactive />
+        </a>
       </Tooltip>
     </ServerListBase>
   );
@@ -284,7 +283,7 @@ const ServerListBase = styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
-    background: "var(--colours-background)",
+    background: "var(--colours-testing)",
   },
 });
 
@@ -300,56 +299,59 @@ const listBase = cva({
 /**
  * Server entries
  */
-const EntryContainer = styledLegacy("div", "Entry")`
-  width: 56px;
-  height: 56px;
-  position: relative;
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-
-  a {
-    z-index: 1;
-  }
-`;
+const entryContainer = cva({
+  base: {
+    width: "56px",
+    height: "56px",
+    position: "relative",
+    display: "grid",
+    flexShrink: 0,
+    placeItems: "center",
+  },
+});
 
 /**
  * Divider line between two lists
  */
-const LineDivider = styledLegacy.div`
-  height: 1px;
-  flex-shrink: 0;
-  margin: 6px auto;
-  width: calc(100% - 24px);
-  background: ${({ theme }) =>
-    theme!.colours["sidebar-server-list-foreground"]};
-`;
+const LineDivider = styled("div", {
+  base: {
+    height: "1px",
+    flexShrink: 0,
+    margin: "6px auto",
+    width: "calc(100% - 24px)",
+    background: "var(--colours-sidebar-server-list-foreground)",
+  },
+});
 
 /**
  * Position the Swoosh correctly
  */
-const PositionSwoosh = styledLegacy.div`
-  user-select: none;
-  position: absolute;
-  pointer-events: none;
-`;
+const PositionSwoosh = styled("div", {
+  base: {
+    userSelect: "none",
+    position: "absolute",
+    pointerEvents: "none",
+    height: 0,
+    zIndex: -1,
+    marginTop: "-106px",
+  },
+});
 
 /**
  * Shadow at the bottom of the list
  */
-const Shadow = styledLegacy("div", "Shadow")`
-  height: 0;
-  z-index: 1;
-  display: relative;
+const Shadow = styled("div", {
+  base: {
+    height: 0,
+    zIndex: 1,
+    display: "relative",
 
-  div {
-    height: 12px;
-    margin-top: -12px;
-    display: absolute;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      ${(props) => props.theme!.colours["background"]}
-    );
-  }
-`;
+    "& div": {
+      height: "12px",
+      marginTop: "-12px",
+      display: "absolute",
+      background:
+        "linear-gradient(to bottom, transparent, var(--colours-testing))",
+    },
+  },
+});

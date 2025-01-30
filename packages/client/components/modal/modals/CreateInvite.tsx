@@ -3,24 +3,29 @@ import { Match, Switch, createSignal, onMount } from "solid-js";
 import { mapAnyError } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
 import { useTranslation } from "@revolt/i18n";
-import { Column, styled } from "@revolt/ui";
 
 import { modalController } from "..";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { styled } from "styled-system/jsx";
 
 /**
  * Code block which displays invite
  */
-const Invite = styled(Column)`
-  code {
-    padding: 1em;
-    user-select: all;
-    font-size: 1.4em;
-    text-align: center;
-    font-family: var(--monospace-font);
-  }
-`;
+const Invite = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+
+    "& code": {
+      padding: "1em",
+      userSelect: "all",
+      fontSize: "1.4em",
+      textAlign: "center",
+      fontFamily: "var(--fonts-monospace)",
+    },
+  },
+});
 
 /**
  * Modal to create a new invite

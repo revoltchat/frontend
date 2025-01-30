@@ -4,8 +4,12 @@ import { JSX } from "solid-js/jsx-runtime";
 import { AriaButtonProps, createButton } from "@solid-aria/button";
 import { cva } from "styled-system/css/cva";
 
+import { Ripple } from "@revolt/ui/components/material";
+
 const button = cva({
   base: {
+    position: "relative",
+
     flexShrink: 0,
     display: "flex",
     alignItems: "center",
@@ -87,10 +91,18 @@ const button = cva({
       fab: {
         width: "42px",
         height: "42px",
-        borderRadius: "var(--borderRadius-xl)",
+        borderRadius: "var(--borderRadius-lg)",
       },
       fluid: {
         borderRadius: "var(--borderRadius-md)",
+      },
+      inline: {
+        padding: "var(--gap-xs) var(--gap-md)",
+        fontSize: "0.8125rem",
+        borderRadius: "var(--borderRadius-md)",
+      },
+      none: {
+        borderRadius: "0",
       },
     },
   },
@@ -102,21 +114,35 @@ const button = cva({
 
 export function Button(
   props: Omit<
-    Parameters<typeof button>[0] & AriaButtonProps & JSX.DirectiveAttributes,
+    Parameters<typeof button>[0] &
+      AriaButtonProps &
+      JSX.DirectiveAttributes &
+      Pick<
+        JSX.ButtonHTMLAttributes<HTMLButtonElement>,
+        "role" | "tabIndex" | "aria-selected"
+      >,
     "onClick"
-  >
+  >,
 ) {
-  const [style, rest] = splitProps(props, ["size", "variant"]);
+  const [passthrough, propsRest] = splitProps(props, [
+    "aria-selected",
+    "tabIndex",
+    "role",
+  ]);
+
+  const [style, rest] = splitProps(propsRest, ["size", "variant"]);
   let ref: HTMLButtonElement | undefined;
 
   const { buttonProps } = createButton(rest, () => ref);
   return (
     <button
+      {...passthrough}
       {...buttonProps}
       ref={ref}
       class={button(style)}
       // @codegen directives props=rest include=floating
     >
+      <Ripple />
       {rest.children}
     </button>
   );

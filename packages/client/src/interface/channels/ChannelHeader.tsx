@@ -19,12 +19,13 @@ import {
   NonBreakingText,
   OverflowingText,
   Spacer,
+  typography,
   Typography,
   UserStatus,
-  styled,
 } from "@revolt/ui";
 
 import { HeaderIcon } from "../common/CommonHeader";
+import { styled } from "styled-system/jsx";
 
 interface Props {
   /**
@@ -73,18 +74,20 @@ export function ChannelHeader(props: Props) {
           <HeaderIcon>
             <BiRegularHash size={24} />
           </HeaderIcon>
-          <NonBreakingText>
+          <NonBreakingText
+            class={typography({ class: "title", size: "medium" })}
+          >
             <TextWithEmoji content={props.channel.name!} />
           </NonBreakingText>
           <Show when={props.channel.description}>
             <Divider />
             <DescriptionLink onClick={openChannelInfo}>
-              <OverflowingText>
-                <Typography variant="channel-topic">
-                  <TextWithEmoji
-                    content={props.channel.description?.split("\n").shift()}
-                  />
-                </Typography>
+              <OverflowingText
+                class={typography({ class: "title", size: "small" })}
+              >
+                <TextWithEmoji
+                  content={props.channel.description?.split("\n").shift()}
+                />
               </OverflowingText>
             </DescriptionLink>
           </Show>
@@ -133,16 +136,20 @@ export function ChannelHeader(props: Props) {
 /**
  * Vertical divider between name and topic
  */
-const Divider = styled("div", "Divider")`
-  height: 20px;
-  margin: 0px 5px;
-  padding-left: 1px;
-  background-color: var(--colours-messaging-channel-header-divider);
-`;
+const Divider = styled("div", {
+  base: {
+    height: "20px",
+    margin: "0px 5px",
+    paddingLeft: "1px",
+    backgroundColor: "var(--colours-messaging-channel-header-divider)",
+  },
+});
 
 /**
  * Link for the description
  */
-const DescriptionLink = styled.a`
-  min-width: 0;
-`;
+const DescriptionLink = styled("a", {
+  base: {
+    minWidth: 0,
+  },
+});

@@ -6,7 +6,7 @@ import {
   useContext,
 } from "solid-js";
 
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 import { Rerun } from "@solid-primitives/keyed";
 
 import { SettingsConfiguration, SettingsEntry } from ".";

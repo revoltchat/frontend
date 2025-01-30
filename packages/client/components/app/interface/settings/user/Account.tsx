@@ -14,9 +14,8 @@ import {
   createOwnProfileResource,
 } from "@revolt/client/resources";
 import { getController } from "@revolt/common";
-import { dayjs, useTranslation } from "@revolt/i18n";
+import { useTranslation } from "@revolt/i18n";
 import {
-  Avatar,
   CategoryButton,
   CategoryButtonGroup,
   CategoryCollapse,
@@ -24,8 +23,6 @@ import {
   Row,
   Typography,
   iconSize,
-  styled,
-  useTheme,
 } from "@revolt/ui";
 
 import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
@@ -87,7 +84,7 @@ function EditAccount() {
         icon={<MdAlternateEmail {...iconSize(22)} />}
         description={client().user?.username}
       >
-        <Typography variant="label">{t("login.username")}</Typography>
+        {t("login.username")}
       </CategoryButton>
       <CategoryButton
         action="chevron"
@@ -114,7 +111,7 @@ function EditAccount() {
           </Row>
         }
       >
-        <Typography variant="label">{t("login.email")}</Typography>
+        {t("login.email")}
       </CategoryButton>
       <CategoryButton
         action="chevron"
@@ -127,7 +124,7 @@ function EditAccount() {
         icon={<MdPassword {...iconSize(22)} />}
         description={"•••••••••"}
       >
-        <Typography variant="label">{t("login.password")}</Typography>
+        {t("login.password")}
       </CategoryButton>
     </CategoryButtonGroup>
   );
@@ -280,7 +277,6 @@ function MultiFactorAuth() {
  * Manage account
  */
 function ManageAccount() {
-  const theme = useTheme();
   const t = useTranslation();
   const client = useClient();
   const mfa = createMfaResource();
@@ -320,7 +316,7 @@ function ManageAccount() {
         disabled={mfa.isLoading}
         onClick={disableAccount}
         icon={
-          <MdBlock {...iconSize(22)} fill={theme!.customColours.error.color} />
+          <MdBlock {...iconSize(22)} fill="var(--customColours-error-color)" />
         }
         description={t("app.settings.pages.account.manage.disable_description")}
       >
@@ -331,7 +327,7 @@ function ManageAccount() {
         disabled={mfa.isLoading || stillOwnServers()}
         onClick={deleteAccount}
         icon={
-          <MdDelete {...iconSize(22)} fill={theme!.customColours.error.color} />
+          <MdDelete {...iconSize(22)} fill="var(--customColours-error-color)" />
         }
         description={t("app.settings.pages.account.manage.delete_description")}
       >

@@ -6,32 +6,37 @@ import {
   KEYBINDING_MODIFIER_KEYS,
   KeyComboSequence as TKeySequence,
 } from "@revolt/keybinds";
-import { Button, KeySequence, styled } from "@revolt/ui";
+import { Button, KeySequence } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
+import { styled } from "styled-system/jsx";
 
-const Container = styled("div", "EditKeybind-Container")`
-  display: flex;
-  gap: 1ch;
-  place-items: center;
-`;
+const Container = styled("div", {
+  base: {
+    display: "flex",
+    gap: "1ch",
+    placeItems: "center",
+  },
+});
 
-const KeybindInput = styled("output", "EditKeybind-KeybindInput")`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 0.875rem;
-  min-width: 0;
-  flex-grow: 1;
-  padding: 8px;
-  font-family: ${({ theme }) => theme?.fonts.monospace};
-  border-radius: ${({ theme }) => theme?.borderRadius.md};
-  background: var(--unset-bg);
-  height: 4ch;
-  kbd {
-    flex-wrap: wrap;
-  }
-`;
+const KeybindInput = styled("output", {
+  base: {
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "0.875rem",
+    minWidth: 0,
+    flexGrow: 1,
+    padding: "8px",
+    fontFamily: "var(--fonts-monospace)",
+    borderRadius: "var(--borderRadius-md)",
+    background: "var(--unset-bg)",
+    height: "4ch",
+    "& kbd": {
+      flexWrap: "wrap",
+    },
+  },
+});
 
 const REPLACEMENTS: Record<string, string> = {
   " ": "Space",
@@ -45,7 +50,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
   // temporary state for modifier keys to live in so it still feels resposive when making combos
   const [mods, setMods] = createSignal<string[]>([]);
   let okButton: HTMLButtonElement;
-  let input: HTMLOutputElement;
+  let input: HTMLOutputElement | undefined;
   // TODO: use DOM types instead
   let timer: NodeJS.Timeout;
 
@@ -113,7 +118,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
   }
 
   onMount(() => {
-    input.focus();
+    input?.focus();
   });
 
   return {

@@ -1,12 +1,12 @@
 import { BiRegularAt, BiSolidXCircle } from "solid-icons/bi";
 import { Show } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import type { Message } from "revolt.js";
 
 import { useTranslation } from "@revolt/i18n";
 
-import { Row } from "../../design";
+import { Row, typography } from "../../design";
 import { MessageReply } from "../message/MessageReply";
 
 interface Props {
@@ -39,53 +39,65 @@ interface Props {
 /**
  * Left side "replying to" text
  */
-const ReplyTo = styled.span`
-  flex-shrink: 0;
-`;
+const ReplyTo = styled("span", {
+  base: {
+    flexShrink: 0,
+  },
+});
 
 /**
  * Mention toggle
  */
-const MentionToggle = styled.a<{ mention: boolean }>`
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  flex-direction: row;
-  text-transform: uppercase;
-  gap: ${(props) => props.theme!.gap.sm};
-
-  color: ${(props) =>
-    props.theme!.colours[
-      `messaging-indicator-reply-${props.mention ? "enabled" : "disabled"}`
-    ]};
-`;
+const MentionToggle = styled("a", {
+  base: {
+    display: "flex",
+    flexShrink: 0,
+    alignItems: "center",
+    flexDirection: "row",
+    textTransform: "uppercase",
+    gap: "var(--gap-sm)",
+  },
+  variants: {
+    mention: {
+      true: {
+        color: "var(--colours-messaging-indicator-reply-enabled)",
+      },
+      false: {
+        color: "var(--colours-messaging-indicator-reply-disabled)",
+      },
+    },
+  },
+});
 
 /**
  * Dismiss reply button
  */
-const Dismiss = styled.a`
-  display: grid;
-  place-items: center;
-`;
+const Dismiss = styled("a", {
+  base: {
+    display: "grid",
+    placeItems: "center",
+  },
+});
 
 /**
  * Preview container
  */
-const Base = styled(Row)`
-  font-size: 0.8em;
-  user-select: none;
+const Base = styled(Row, {
+  base: {
+    fontSize: "0.8em",
+    userSelect: "none",
 
-  padding: ${(props) => props.theme!.gap.md} ${(props) => props.theme!.gap.lg};
-  border-radius: ${(props) => props.theme!.borderRadius.lg};
+    padding: "var(--gap-md) var(--gap-lg)",
+    borderRadius: "var(--borderRadius-lg)",
 
-  color: ${(props) => props.theme!.colours["messaging-indicator-foreground"]};
-  background: ${(props) =>
-    props.theme!.colours["messaging-indicator-background"]};
+    color: "var(--colours-messaging-indicator-foreground)",
+    background: "var(--colours-messaging-indicator-background)",
 
-  a:hover {
-    filter: brightness(1.2);
-  }
-`;
+    "& a:hover": {
+      filter: "brightness(1.2)",
+    },
+  },
+});
 
 /**
  * Preview of message reply

@@ -1,15 +1,15 @@
-import { Component, createEffect } from "solid-js";
-import type { JSX } from "solid-js";
-import { useTheme } from "solid-styled-components";
-import { DirectiveProvider } from "solid-styled-components";
+import { createEffect } from "solid-js";
 
-import { autoComplete, floating, ripple, scrollable } from "./directives";
+import { applyTheme } from "@material/material-color-utilities";
+import { setColorScheme } from "mdui/functions/setColorScheme.js";
+import { setTheme } from "mdui/functions/setTheme.js";
+
+import { DefaultTheme } from "./styled";
+import { typography } from "./components";
+export type { DefaultTheme } from "./styled";
 
 export * from "./components";
 export { darkTheme } from "./themes/darkTheme";
-
-export { ThemeProvider, styled, useTheme } from "solid-styled-components";
-export type { DefaultTheme } from "solid-styled-components";
 
 /**
  * Generate SVG props to configure icon size
@@ -26,39 +26,24 @@ export function iconSize(size: string | number, viewBox?: string) {
 }
 
 /**
- * Provide directives
- */
-export function ProvideDirectives(props: { children: JSX.Element }) {
-  return (
-    <DirectiveProvider
-      directives={{
-        "use:floating": floating,
-        "use:scrollable": scrollable,
-        "use:autoComplete": autoComplete,
-        "use:ripple": ripple,
-      }}
-    >
-      {props.children}
-    </DirectiveProvider>
-  );
-}
-
-/**
  * Apply theme to document body
  */
-export function ApplyGlobalStyles() {
-  const theme = useTheme();
-
+export function ApplyGlobalStyles(props: { theme: DefaultTheme }) {
   createEffect(() => {
     // Inject common theme styles
     Object.assign(document.body.style, {
-      "font-family": theme.fonts.primary,
-      background: theme.colours.background,
-      color: theme.colours.foreground,
+      "font-family": props.theme.fonts.primary,
+      background: props.theme.colours.background,
+      color: props.theme.colours.foreground,
+
+      ...typography.raw(),
     });
 
     // Set default emoji size
-    document.body.style.setProperty("--emoji-size", theme.layout.emoji.small);
+    document.body.style.setProperty(
+      "--emoji-size",
+      props.theme.layout.emoji.small
+    );
 
     // Unset variables
     document.body.style.setProperty("--unset-fg", "red");
@@ -78,7 +63,27 @@ export function ApplyGlobalStyles() {
       }
     }
 
-    recursivelyInject("", theme);
+    recursivelyInject("", props.theme);
+
+    // Inject properties for Material Web
+    document.body.style.setProperty(
+      "--md-ref-typeface-brand",
+      props.theme.fonts.primary
+    );
+
+    document.body.style.setProperty(
+      "--md-ref-typeface-plain",
+      props.theme.fonts.primary
+    );
+
+    applyTheme(props.theme.materialTheme, {
+      target: document.body,
+      dark: props.theme.darkMode,
+    });
+
+    // Inject properties for MDUI library
+    setColorScheme(props.theme.accentColour);
+    setTheme(props.theme.darkMode ? "dark" : "light");
   });
 
   return <></>;

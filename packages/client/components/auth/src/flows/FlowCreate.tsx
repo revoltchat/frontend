@@ -49,7 +49,7 @@ export default function FlowCreate() {
       </FlowTitle>
       <Form onSubmit={create} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email", "password"]} />
-        <Row align justify="center">
+        <Row justify>
           <a href="..">
             <Button variant="plain">
               <MdArrowBack {...iconSize("1.2em")} /> Back

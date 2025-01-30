@@ -1,105 +1,218 @@
 import { splitProps } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
-import {
-  DefaultTheme,
-  StylesArg,
-  css,
-  useTheme,
-} from "solid-styled-components";
+import { cva } from "styled-system/css";
 
 type TypographyProps = {
   /**
    * Which variant to use
    */
-  readonly variant: keyof DefaultTheme["typography"];
+  readonly variant: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } & JSX.HTMLAttributes<any>;
-
-/**
- * Generate typography (JS-mapped) CSS styles from theme and variant
- * @param theme Theme
- * @param variant Variant
- * @returns (JS-mapped) CSS styles
- */
-export function generateTypography(
-  theme: DefaultTheme,
-  variant: keyof DefaultTheme["typography"]
-) {
-  const { fontSize, fontWeight, lineHeight, margin, textTransform, colour } =
-    theme.typography[variant] ?? {};
-
-  const styles = {
-    fontSize,
-    fontWeight,
-    lineHeight,
-    margin,
-    textTransform,
-  } as Record<string, string>;
-
-  if (colour) {
-    styles.color = theme.colours[colour];
-  }
-
-  return styles as StylesArg<object>;
-}
-
-/**
- * Generate typography CSS styles from theme and variant
- * @param theme Theme
- * @param variant Variant
- * @returns CSS styles
- */
-export function generateTypographyCSS(
-  theme: DefaultTheme,
-  variant: keyof DefaultTheme["typography"]
-) {
-  const { fontSize, fontWeight, lineHeight, margin, textTransform, colour } =
-    theme.typography[variant] ?? {};
-
-  const styles = {
-    "font-size": fontSize,
-    "font-weight": fontWeight,
-    "line-height": lineHeight,
-    margin,
-    "text-transform": textTransform,
-  } as Record<string, string>;
-
-  if (colour) {
-    styles.color = theme.colours[colour];
-  }
-
-  return Object.keys(styles)
-    .filter((key) => styles[key])
-    .map((key) => `${key}:${styles[key]};`)
-    .join("");
-}
 
 /**
  * Typography component for displaying text around the app
  * @param props Text rendering options
  */
 export const Typography = (props: TypographyProps) => {
-  /* eslint-disable solid/reactivity, solid/components-return-once */
-  const [local, others] = splitProps(props, ["variant"]);
-
-  const theme = useTheme();
-  const className = css(generateTypography(theme, local.variant));
-
-  switch (theme.typography[local.variant]?.element) {
-    case "h1":
-      return <h1 class={className} {...others} />;
-    case "h2":
-      return <h2 class={className} {...others} />;
-    case "h3":
-      return <h3 class={className} {...others} />;
-    case "h4":
-      return <h4 class={className} {...others} />;
-    case "label":
-      return <label class={className} {...others} />;
-    case "div":
-      return <div class={className} {...others} />;
-    default:
-      return <span class={className} {...others} />;
-  }
-  /* eslint-enable solid/reactivity, solid/components-return-once */
+  return <span>Replace me! &lt;Typograhy/&gt; removed!</span>;
 };
+
+/**
+ * Simple span Text wrapper to apply Typography styles
+ */
+export function Text(
+  props: Parameters<typeof typography>[0] & { children: JSX.Element }
+) {
+  const [local, remote] = splitProps(props, ["children"]);
+  return <span class={typography(remote)}>{local.children}</span>;
+}
+
+/**
+ * Apply styles for chosen typography
+ */
+export const typography = cva({
+  variants: {
+    class: {
+      display: {},
+      headline: {},
+      title: {},
+      body: {},
+      label: {},
+
+      _messages: {
+        fontWeight: 400,
+        fontSize: "14px",
+      },
+
+      _status: {
+        fontWeight: 400,
+        fontSize: "11px",
+      },
+    },
+    size: {
+      large: {},
+      medium: {},
+      small: {},
+    },
+  },
+  compoundVariants: [
+    // Values derived from:
+    // https://m3.material.io/styles/typography/type-scale-tokens
+    // https://www.mdui.org/en/docs/2/styles/design-tokens
+    {
+      class: "display",
+      size: "large",
+      css: {
+        lineHeight: "4rem",
+        fontSize: "3.5625rem",
+        letterSpacing: "0",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "display",
+      size: "medium",
+      css: {
+        lineHeight: "3.25rem",
+        fontSize: "2.8125rem",
+        letterSpacing: "0",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "display",
+      size: "small",
+      css: {
+        lineHeight: "2.75rem",
+        fontSize: "2.25rem",
+        letterSpacing: "0",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "headline",
+      size: "large",
+      css: {
+        lineHeight: "2.5rem",
+        fontSize: "2rem",
+        letterSpacing: "0",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "headline",
+      size: "medium",
+      css: {
+        lineHeight: "2.25rem",
+        fontSize: "1.75rem",
+        letterSpacing: "0",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "headline",
+      size: "small",
+      css: {
+        lineHeight: "2rem",
+        fontSize: "1.5rem",
+        letterSpacing: "0",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "title",
+      size: "large",
+      css: {
+        lineHeight: "1.75rem",
+        fontSize: "1.375rem",
+        letterSpacing: "0",
+        fontWeight: 500,
+      },
+    },
+    {
+      class: "title",
+      size: "medium",
+      css: {
+        lineHeight: "1.5rem",
+        fontSize: "1rem",
+        letterSpacing: "0.009375rem",
+        fontWeight: 500,
+      },
+    },
+    {
+      class: "title",
+      size: "small",
+      css: {
+        lineHeight: "1.25rem",
+        fontSize: "0.875rem",
+        letterSpacing: "0.00625rem",
+        fontWeight: 500,
+      },
+    },
+    {
+      class: "body",
+      size: "large",
+      css: {
+        lineHeight: "1.5rem",
+        fontSize: "1rem",
+        letterSpacing: "0.009375rem",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "body",
+      size: "medium",
+      css: {
+        lineHeight: "1.25rem",
+        fontSize: "0.875rem",
+        letterSpacing: "0.015625rem",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "body",
+      size: "small",
+      css: {
+        lineHeight: "1rem",
+        fontSize: "0.75rem",
+        letterSpacing: "0.025rem",
+        fontWeight: 400,
+      },
+    },
+    {
+      class: "label",
+      size: "large",
+      css: {
+        lineHeight: "1.25rem",
+        fontSize: "0.875rem",
+        letterSpacing: "0.00625rem",
+        fontWeight: 500,
+      },
+    },
+    {
+      class: "label",
+      size: "medium",
+      css: {
+        lineHeight: "1rem",
+        fontSize: "0.75rem",
+        letterSpacing: "0.03125rem",
+        fontWeight: 500,
+      },
+    },
+    {
+      class: "label",
+      size: "small",
+      css: {
+        lineHeight: "0.375rem",
+        fontSize: "0.6875rem",
+        letterSpacing: "0.03125rem",
+        fontWeight: 500,
+      },
+    },
+  ],
+  defaultVariants: {
+    class: "body",
+    size: "medium",
+  },
+});

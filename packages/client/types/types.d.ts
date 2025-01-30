@@ -14,19 +14,14 @@ declare module "solid-js" {
     interface Directives {
       dndzone: SolidOptions;
 
-      ripple:
-        | true
-        | {
-            enable: boolean;
-
-            /**
-             * Pass-through class names
-             */
-            class?: string;
-          };
       scrollable:
         | true
         | {
+            /**
+             * Colour customisation
+             */
+            palette?: "default" | "settings";
+
             /**
              * Scroll direction
              */
@@ -46,16 +41,6 @@ declare module "solid-js" {
              * Pass-through class names
              */
             class?: string;
-
-            /**
-             * Set custom foreground on track
-             */
-            foreground?: string;
-
-            /**
-             * Set custom background on track
-             */
-            background?: string;
           };
       invisibleScrollable:
         | true
@@ -123,7 +108,7 @@ declare module "solid-js" {
         | {
             client?: Client;
             onKeyDown?: (
-              event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+              event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
             ) => void;
             searchSpace?: {
               users?: User[];

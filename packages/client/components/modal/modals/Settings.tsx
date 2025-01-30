@@ -1,7 +1,7 @@
 import { Show } from "solid-js";
 import { Portal } from "solid-js/web";
 
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 
 import { Settings, SettingsConfigurations } from "@revolt/app";
 

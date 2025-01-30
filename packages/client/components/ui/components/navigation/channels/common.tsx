@@ -1,22 +1,24 @@
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 /**
  * Common styles for sidebar
  */
-export const SidebarBase = styled("div", "Sidebar")`
-  display: flex;
-  flex-shrink: 0;
-  flex-direction: column;
+export const SidebarBase = styled("div", {
+  base: {
+    display: "flex",
+    flexShrink: 0,
+    flexDirection: "column",
+    overflow: "hidden",
+    borderTopLeftRadius: "var(--borderRadius-lg)",
+    borderBottomLeftRadius: "var(--borderRadius-lg)",
+    // borderRadius: "var(--borderRadius-lg)",
+    // margin: "var(--gap-md) var(--gap-md) var(--gap-md) 0",
+    width: "var(--layout-width-channel-sidebar)",
+    color: "var(--colours-sidebar-channels-foreground)",
+    background: "var(--colours-sidebar-channels-background)",
 
-  overflow: hidden;
-  border-radius: ${(props) => props.theme!.borderRadius.lg};
-  margin: ${(props) => (props.theme!.gap.md + " ").repeat(3)}0;
-  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
-
-  color: ${({ theme }) => theme!.colours["sidebar-channels-foreground"]};
-  background: ${({ theme }) => theme!.colours["sidebar-channels-background"]};
-
-  a {
-    text-decoration: none;
-  }
-`;
+    "& a": {
+      textDecoration: "none",
+    },
+  },
+});

@@ -1,5 +1,5 @@
 import { For, Show, createMemo } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { API } from "revolt.js";
 
@@ -199,99 +199,99 @@ function Reaction(props: {
 /**
  * Reaction styling
  */
-const ReactionBase = styled("div", "Reaction")<{ active?: boolean }>`
-  display: flex;
-  flex-direction: row;
-  gap: ${(props) => props.theme!.gap.md};
-
-  cursor: pointer;
-  user-select: none;
-  vertical-align: middle;
-
-  padding: ${(props) => props.theme!.gap.md};
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-  color: ${(props) =>
-    props.theme!.colours[
-      `messaging-component-reaction${
-        props.active ? "-selected" : ""
-      }-foreground`
-    ]};
-  background: ${(props) =>
-    props.theme!.colours[
-      `messaging-component-reaction${
-        props.active ? "-selected" : ""
-      }-background`
-    ]};
-  transition: ${(props) => props.theme!.transitions.fast} all;
-
-  font-weight: 600;
-  font-feature-settings: "tnum" 1;
-
-  img {
-    width: 1.2em;
-    height: 1.2em;
-    object-fit: contain;
-  }
-
-  &:hover {
-    filter: brightness(0.9);
-  }
-
-  &:active {
-    filter: brightness(0.75);
-  }
-`;
+const ReactionBase = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "var(--gap-md)",
+    cursor: "pointer",
+    userSelect: "none",
+    verticalAlign: "middle",
+    padding: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-md)",
+    color: "var(--colours-messaging-component-reaction-foreground)",
+    background: "var(--colours-messaging-component-reaction-background)",
+    transition: "var(--transitions-fast) all",
+    fontWeight: 600,
+    fontFeatureSettings: "'tnum' 1",
+    "& img": {
+      width: "1.2em",
+      height: "1.2em",
+      objectFit: "contain",
+    },
+    "&:hover": {
+      filter: "brightness(0.9)",
+    },
+    "&:active": {
+      filter: "brightness(0.75)",
+    },
+  },
+  variants: {
+    active: {
+      true: {
+        color:
+          "var(--colours-messaging-component-reaction-selected-foreground)",
+        background:
+          "var(--colours-messaging-component-reaction-selected-background)",
+      },
+    },
+  },
+});
 
 /**
  * Add reaction button styling
  */
-const AddReaction = styled(ReactionBase)`
-  opacity: 0;
-  justify-content: center;
-
-  font-size: var(--emoji-size);
-  background: ${(props) =>
-    props.theme!.colours["messaging-component-reaction-background"]};
-
-  height: 33px;
-  aspect-ratio: 1/1;
-  padding: ${(props) => props.theme!.gap.sm};
-`;
+const AddReaction = styled(ReactionBase, {
+  base: {
+    opacity: 0,
+    justifyContent: "center",
+    fontSize: "var(--emoji-size)",
+    background: "var(--colours-messaging-component-reaction-background)",
+    height: "33px",
+    aspectRatio: "1/1",
+    padding: "var(--gap-sm)",
+  },
+});
 
 /**
  * List divider
  */
-const Divider = styled.div`
-  width: 1px;
-  height: 14px;
-  background: ${(props) =>
-    props.theme!.colours["messaging-component-reaction-foreground"]};
-`;
+const Divider = styled("div", {
+  base: {
+    width: "1px",
+    height: "14px",
+    background: "var(--colours-messaging-component-reaction-foreground)",
+  },
+});
 
 /**
  * Base component for the reactions list
  */
-const List = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: ${(props) => props.theme!.gap.sm};
-
-  &:hover .add {
-    opacity: 1;
-  }
-`;
+const List = styled("div", {
+  base: {
+    width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: "var(--gap-sm)",
+    "&:hover .add": {
+      opacity: 1,
+    },
+  },
+});
 
 /**
  * List of people who have reacted
  */
-const PeopleList = styled(OverflowingText)`
-  line-clamp: 2;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-
-  max-width: 200px;
-  white-space: pre-wrap;
-`;
+const PeopleList = styled("span", {
+  base: {
+    lineClamp: 2,
+    // display: "-webkit-box",
+    // WebkitLineClamp: 2,
+    // WebkitBoxOrient: "vertical",
+    maxWidth: "200px",
+    overflow: "hidden",
+    whiteSpace: "pre-wrap",
+    textOverflow: "ellipsis",
+  },
+});

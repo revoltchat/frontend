@@ -1,10 +1,9 @@
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
-import { styled as styledLegacy } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel } from "revolt.js";
-import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
@@ -19,7 +18,7 @@ import MdPlus from "@material-design-icons/svg/outlined/add.svg?component-solid"
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
 import { Avatar } from "../../design/atoms/display/Avatar";
-import { Typography } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 import { UserStatusGraphic } from "../../design/atoms/indicators";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { OverflowingText } from "../../design/layout/OverflowingText";
@@ -52,14 +51,6 @@ interface Props {
   __tempDisplayFriends: () => boolean;
 }
 
-const ButtonTitle = styled("div", {
-  base: {
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-  },
-});
-
 /**
  * Display home navigation and conversations
  */
@@ -80,11 +71,7 @@ export const HomeSidebar = (props: Props) => {
         use:scrollable={{ direction: "y", showOnHover: true }}
       >
         <List>
-          <SidebarTitle>
-            <Typography variant="sidebar-title">
-              {t("app.main.categories.conversations")}
-            </Typography>
-          </SidebarTitle>
+          <SidebarTitle>{t("app.main.categories.conversations")}</SidebarTitle>
 
           <a href="/app">
             <MenuButton
@@ -139,17 +126,8 @@ export const HomeSidebar = (props: Props) => {
             </Match>
           </Switch>
 
-          <span
-            style={{
-              display: "flex",
-              "padding-top": "var(--gap-md)",
-              "padding-inline": "var(--gap-lg)",
-              "align-items": "center",
-              "justify-content": "space-between",
-              // TODO style this
-            }}
-          >
-            <Typography variant="category">Direct Messages</Typography>
+          <Category>
+            Direct Messages
             <a
               onClick={() =>
                 modalController.push({
@@ -160,7 +138,7 @@ export const HomeSidebar = (props: Props) => {
             >
               <MdPlus {...iconSize(14)} />
             </a>
-          </span>
+          </Category>
 
           <Deferred>
             <VirtualContainer
@@ -197,10 +175,37 @@ export const HomeSidebar = (props: Props) => {
 /**
  * Sidebar title
  */
-const SidebarTitle = styledLegacy.p`
-  padding-block: ${(props) => props.theme!.gap.md};
-  padding-inline: ${(props) => props.theme!.gap.lg};
-`;
+const SidebarTitle = styled("p", {
+  base: {
+    paddingBlock: "var(--gap-md)",
+    paddingInline: "var(--gap-lg)",
+
+    ...typography.raw({ class: "title" }),
+  },
+});
+
+/**
+ * Button title
+ */
+const ButtonTitle = styled("div", {
+  base: {
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
+});
+
+const Category = styled("div", {
+  base: {
+    display: "flex",
+    paddingTop: "var(--gap-md)",
+    paddingInline: "var(--gap-lg)",
+    alignItems: "center",
+    justifyContent: "space-between",
+
+    ...typography.raw({ class: "label", size: "small" }),
+  },
+});
 
 /**
  * Styles required to correctly display name and status
@@ -208,7 +213,6 @@ const SidebarTitle = styledLegacy.p`
 const NameStatusStack = styled("div", {
   base: {
     height: "100%",
-
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -305,9 +309,9 @@ function Entry(
               <OverflowingText>
                 <TextWithEmoji content={local.channel.name!} />
               </OverflowingText>
-              <Typography variant="status">
+              <span class={typography({ class: "_status" })}>
                 {q("members", local.channel.recipients.length || 0)}
-              </Typography>
+              </span>
             </Match>
             <Match when={local.channel.type === "DirectMessage"}>
               <OverflowingText>
@@ -319,10 +323,8 @@ function Entry(
                   placement="top-start"
                   aria={status()!}
                 >
-                  <OverflowingText>
-                    <Typography variant="status">
-                      <TextWithEmoji content={status()!} />
-                    </Typography>
+                  <OverflowingText class={typography({ class: "_status" })}>
+                    <TextWithEmoji content={status()!} />
                   </OverflowingText>
                 </Tooltip>
               </Show>
@@ -338,7 +340,8 @@ function Entry(
  * Inner scrollable list
  * We fix the width in order to prevent scrollbar from moving stuff around
  */
-const List = styledLegacy.div`
-  /* padding: ${(props) => props.theme!.gap.md}; */
-  width: ${(props) => props.theme!.layout.width["channel-sidebar"]};
-`;
+const List = styled("div", {
+  base: {
+    width: "var(--layout-width-channel-sidebar)",
+  },
+});

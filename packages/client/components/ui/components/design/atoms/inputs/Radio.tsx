@@ -1,6 +1,6 @@
 import { FaSolidCircle as CircleIcon } from "solid-icons/fa";
 import { JSX, Show, createSignal, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 interface Props {
   title?: JSX.Element;
@@ -14,119 +14,111 @@ interface BaseProps {
   selected: boolean;
 }
 
-const Base = styled.label<BaseProps>`
-  border: 2px solid var(--foreground);
-  padding: 10px;
-  gap: 10px;
-  display: flex;
-  cursor: pointer;
-  user-select: none;
-  transition: ${(props) => props.theme?.transitions.fast};
-  border-radius: ${(props) => props.theme?.borderRadius.md};
+const Base = styled("label", {
+  base: {
+    border: "2px solid var(--foreground)",
+    padding: "10px",
+    gap: "10px",
+    display: "flex",
+    cursor: "pointer",
+    userSelect: "none",
+    transition: "var(--transitions-fast)",
+    borderRadius: "var(--borderRadius-md)",
 
-  input {
-    display: none;
-  }
+    "& input": {
+      display: "none",
+    },
 
-  ${(props) =>
-    props.selected
-      ? `
-          color: var(--foreground);
-          cursor: default;
-          /* background: var(--unset-bg);
-          border: 2px solid var(--unset-bg); */
+    "&:hover svg": {
+      visibility: "visible",
+      opacity: 1,
+    },
+  },
+  variants: {
+    selected: {
+      true: {
+        color: "var(--foreground)",
+        cursor: "default",
 
-          div {
-            /* border-color: var(--unset-bg); */
+        div: {
+          svg: {
+            color: "var(--foreground)",
+            visibility: "visible",
+            opacity: 1,
+          },
+        },
+      },
+    },
+  },
+});
 
-            svg {
-              color: var(--foreground);
-              visibility: visible;
-              opacity: 1;
-            }
-          }
-        `
-      : undefined}
+const RadioCircle = styled("div", {
+  base: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    borderRadius: "var(--borderRadius-lg)",
+    height: "20px",
+    width: "20px",
+    transition: "inherit",
 
-  ${(props) =>
-    !props.selected
-      ? `
-          &:hover {
-            /* background:var(--unset-bg); */
+    "& svg": {
+      transition: "inherit",
+      color: "var(--foreground)",
+      flexShrink: 0,
+      visibility: "hidden",
+      opacity: 0,
+    },
+  },
+});
 
-            svg {
-              visibility: visible;
-              opacity: 1;
-            }
-          }
-        `
-      : undefined}
-`;
+const Content = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    wordBreak: "break-word",
+    transition: "inherit",
+  },
+});
 
-const RadioCircle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  /* border: 2px solid var(--unset-bg); */
-  border-radius: ${(props) => props.theme?.borderRadius.lg};
-  height: 20px;
-  width: 20px;
-  transition: inherit;
+const Title = styled("div", {
+  base: {
+    fontSize: "0.875rem",
+    fontWeight: 600,
+    color: "var(--colours-foreground)",
+    transition: "inherit",
 
-  svg {
-    transition: inherit;
-    color: var(--foreground);
-    flex-shrink: 0;
-    visibility: hidden;
-    opacity: 0;
-  }
-`;
+    lineClamp: 2,
+    overflow: "hidden",
+  },
+  variants: {
+    selected: {
+      true: {
+        color: "var(--foreground)",
+      },
+    },
+  },
+});
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  word-break: break-word;
-  transition: inherit;
-`;
+const Description = styled("div", {
+  base: {
+    fontSize: "0.6875rem",
+    fontWeight: 500,
+    color: "var(--foreground)",
+    transition: "inherit",
 
-const Title = styled.div<BaseProps>`
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: ${(props) => props.theme?.colours.foreground};
-  transition: inherit;
-
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-
-  ${(props) =>
-    props.selected
-      ? `
-          color: var(--foreground);
-        `
-      : undefined}
-`;
-
-const Description = styled.div<BaseProps>`
-  font-size: 0.6875rem;
-  font-weight: 500;
-  color: var(--foreground);
-  transition: inherit;
-
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-
-  ${(props) =>
-    props.selected
-      ? `
-          color: var(--foreground);
-        `
-      : undefined}
-`;
+    lineClamp: 3,
+    overflow: "hidden",
+  },
+  variants: {
+    selected: {
+      true: {
+        color: "var(--foreground)",
+      },
+    },
+  },
+});
 
 export function Radio(props: Props) {
   const [local, others] = splitProps(props, [

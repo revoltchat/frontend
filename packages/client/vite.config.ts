@@ -67,11 +67,11 @@ export default defineConfig({
   build: {
     target: "esnext",
     rollupOptions: {
-      external: ["hast"]
-    }
+      external: ["hast"],
+    },
   },
   optimizeDeps: {
-    exclude: ["solid-styled-components", "hast"],
+    exclude: ["hast"],
   },
   resolve: {
     alias: {

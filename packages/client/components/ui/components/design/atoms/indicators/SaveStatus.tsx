@@ -4,22 +4,24 @@ import {
   BiSolidPencil,
 } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 /**
  * Text and icon styling
  */
-const Base = styled("div")`
-  gap: 8px;
-  padding: 4px;
-  display: flex;
-  align-items: center;
+const Base = styled("div", {
+  base: {
+    gap: "8px",
+    padding: "4px",
+    display: "flex",
+    alignItems: "center",
 
-  font-weight: 500;
-  user-select: none;
-  text-transform: capitalize;
-  color: ${({ theme }) => theme!.colours.foreground};
-`;
+    fontWeight: 500,
+    userSelect: "none",
+    textTransform: "capitalize",
+    color: "var(--colours-foreground)",
+  },
+});
 
 /**
  * Possible edit states

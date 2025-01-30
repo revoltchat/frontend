@@ -5,7 +5,16 @@ import { cva } from "styled-system/css";
 
 import { mapAnyError } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
-import { Checkbox, Column, FormGroup, Input, Typography } from "@revolt/ui";
+import {
+  Checkbox,
+  Checkbox2,
+  Column,
+  FormGroup,
+  Text,
+  TextField,
+  Typography,
+} from "@revolt/ui";
+import { styled } from "styled-system/jsx";
 
 /**
  * Available field types
@@ -50,14 +59,6 @@ const useFieldConfiguration = () => {
   };
 };
 
-const labelRow = cva({
-  base: {
-    gap: "var(--gap-sm)",
-    display: "flex",
-    alignItems: "center",
-  },
-});
-
 interface FieldProps {
   /**
    * Fields to gather
@@ -70,40 +71,23 @@ interface FieldProps {
  */
 export function Fields(props: FieldProps) {
   const fieldConfiguration = useFieldConfiguration();
-  const [failedValidation, setFailedValidation] = createSignal(false);
-
-  /**
-   * If an input element notifies us it was invalid, enable live input validation.
-   */
-  function onInvalid() {
-    setFailedValidation(true);
-  }
 
   return (
     <For each={props.fields}>
       {(field) => (
         <FormGroup>
           {field === "log-out" ? (
-            <label class={labelRow()}>
-              <Checkbox name="log-out" />
-              <Typography variant="label">
-                {fieldConfiguration["log-out"].name()}
-              </Typography>
-            </label>
+            <Checkbox2 name="log-out">
+              {fieldConfiguration["log-out"].name()}
+            </Checkbox2>
           ) : (
-            <>
-              <Typography variant="label">
-                {fieldConfiguration[field].name()}
-              </Typography>
-              <Input
-                required
-                {...fieldConfiguration[field]}
-                name={field}
-                placeholder={fieldConfiguration[field].placeholder()}
-                submissionTried={failedValidation()}
-                onInvalid={onInvalid}
-              />
-            </>
+            <TextField
+              required
+              {...fieldConfiguration[field]}
+              name={field}
+              label={fieldConfiguration[field].name()}
+              placeholder={fieldConfiguration[field].placeholder()}
+            />
           )}
         </FormGroup>
       )}
@@ -160,12 +144,12 @@ export function Form(props: Props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <Column>
+      <Column gap="lg">
         {props.children}
         <Show when={error()}>
-          <Typography variant="legacy-settings-description">
+          <Text class="label" size="small">
             {t(`error.${error()}` as any, undefined, error())}
-          </Typography>
+          </Text>
         </Show>
       </Column>
       <Show when={props.captcha}>

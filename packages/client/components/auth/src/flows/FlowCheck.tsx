@@ -2,7 +2,7 @@ import { Show } from "solid-js";
 
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
-import { Button, Row, iconSize } from "@revolt/ui";
+import { Button, Column, Row, iconSize } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
@@ -33,7 +33,7 @@ export default function FlowCheck() {
       <FlowTitle subtitle={t("login.email_delay")} emoji="mail">
         {t("login.check_mail")}
       </FlowTitle>
-      <Row align justify="center">
+      <Row align justify>
         <a href="..">
           <Button variant="plain">
             <MdArrowBack {...iconSize("1.2em")} /> Back

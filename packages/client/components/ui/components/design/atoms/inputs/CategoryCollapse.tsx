@@ -6,11 +6,12 @@ import {
   createSignal,
   splitProps,
 } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { Column } from "../../layout";
 
 import { CategoryButton } from "./CategoryButton";
+import { cva } from "styled-system/css";
 
 type Props = Omit<
   ComponentProps<typeof CategoryButton>,
@@ -30,6 +31,9 @@ export function CategoryCollapse(props: Props) {
 
   const [opened, setOpened] = createSignal(false);
 
+  let details: HTMLDivElement | undefined;
+  let column: HTMLDivElement | undefined;
+
   /**
    * Toggle the opened state and scroll to the beginning of contents
    */
@@ -37,20 +41,19 @@ export function CategoryCollapse(props: Props) {
     const openedState = opened();
 
     if (!openedState) {
-      column.scroll({ top: 0 });
+      column?.scroll({ top: 0 });
     }
 
     setOpened(!openedState);
   };
 
-  let details: HTMLDivElement;
-  let column: HTMLDivElement;
-
   /**
    * Recalculate the column height for transition
    */
   const updatedHeight = () => {
-    const calculatedHeight = opened() ? Math.min(column.scrollHeight, 340) : 0;
+    const calculatedHeight = opened()
+      ? Math.min(column?.scrollHeight || 0, 340)
+      : 0;
 
     return `${calculatedHeight}px`;
   };
@@ -72,25 +75,23 @@ export function CategoryCollapse(props: Props) {
       </summary>
       <Switch
         fallback={
-          <StaticInnerColumn
-            gap="xs"
+          <div
+            class={innerColumn({ static: true })}
             ref={column!}
             style={{ height: updatedHeight() }}
           >
             {props.children}
-          </StaticInnerColumn>
+          </div>
         }
       >
         <Match when={props.scrollable}>
-          <InnerColumn
-            gap="xs"
+          <div
             ref={column!}
             style={{ height: updatedHeight() }}
-            // @ts-expect-error this is a hack; replace with plain element & panda-css
-            use:scrollable
+            use:scrollable={{ class: innerColumn() }}
           >
             {props.children}
-          </InnerColumn>
+          </div>
         </Match>
       </Switch>
     </Details>
@@ -100,69 +101,68 @@ export function CategoryCollapse(props: Props) {
 /**
  * Column with inner content
  */
-const InnerColumn = styled(Column)`
-  border-radius: ${(props) => props.theme!.borderRadius.md};
-  transition: 0.3s;
+const innerColumn = cva({
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "var(--gap-xs)",
 
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+    borderRadius: "var(--borderRadius-md)",
+    transition: "0.3s",
 
-/**
- * Non-scrollable inner column
- */
-const StaticInnerColumn = styled(InnerColumn)`
-  overflow: hidden;
-`;
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+  variants: {
+    static: {
+      true: {
+        overflow: "hidden",
+      },
+    },
+  },
+});
 
 /**
  * Parent base component
  */
-const Details = styled.div`
-  summary {
-    transition: 0.3s;
-  }
+const Details = styled("div", {
+  base: {
+    "&:not(.open) .InnerColumn": {
+      opacity: 0,
+      pointerEvents: "none",
+    },
 
-  &:not(.open) ${InnerColumn.class} {
-    opacity: 0;
-    pointer-events: none;
-  }
+    /* add transition to the icon */
+    "& summary div:last-child svg": {
+      transition: "0.3s",
+    },
 
-  /* add transition to the icon */
-  summary div:last-child svg {
-    transition: 0.3s;
-  }
+    /* rotate chevron when it is open */
+    "&.open summary div:last-child svg": {
+      transform: "rotate(180deg)",
+    },
 
-  /* rotate chevron when it is open */
-  &.open summary div:last-child svg {
-    transform: rotate(180deg);
-  }
+    /* add additional padding between top button and children when it is open */
+    "&.open summary": {
+      marginBottom: "var(--gap-xs)",
+    },
 
-  /* add additional padding between top button and children when it is open */
-  &.open summary {
-    margin-bottom: ${(props) => props.theme!.gap.xs};
-  }
+    /* hide the default details component marker */
+    "& summary": {
+      transition: "0.3s",
+      listStyle: "none",
+    },
 
-  /* hide the default details component marker */
-  summary {
-    list-style: none;
-  }
+    "& summary::marker, summary::-webkit-details-marker": {
+      display: "none",
+    },
 
-  summary::marker,
-  summary::-webkit-details-marker {
-    display: none;
-  }
-
-  /* connect elements vertically */
-  > :not(summary) .CategoryButton {
-    /* and set child backgrounds */
-    background: ${(props) =>
-      props.theme!.colours["component-categorybtn-background-collapse"]};
-  }
-
-  /*> :not(summary) > :last-child.CategoryButton {
-    margin-bottom: 8px;
-  }*/
-`;
+    /* connect elements vertically */
+    "& > :not(summary) .CategoryButton": {
+      /* and set child backgrounds */
+      background: "var(--colours-component-categorybtn-background-collapse)",
+    },
+  },
+});

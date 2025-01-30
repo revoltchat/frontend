@@ -1,57 +1,52 @@
-import { DefaultTheme, styled } from "solid-styled-components";
-
-interface Props {
-  /**
-   * Gap between child elements.
-   */
-  gap?: keyof DefaultTheme["gap"];
-
-  /**
-   * This column is a group of elements and should be visually distinct.
-   */
-  group?: string | true;
-
-  /**
-   * Item alignment
-   */
-  align?: AlignSetting | "stretch" | true;
-
-  /**
-   * Content justification
-   */
-  justify?: AlignSetting | "stretch" | true;
-
-  /**
-   * This row should grow to fit parent container.
-   */
-  grow?: boolean;
-}
+import { styled } from "styled-system/jsx";
 
 /**
  * Generic Flex Column
  */
-export const Column = styled("div")<Props>`
-  display: flex;
-  flex-direction: column;
-  flex-grow: ${(props) => (props.grow ? 1 : "initial")};
-  gap: ${(props) => props.theme!.gap[props.gap ?? "md"]};
-
-  margin: ${(props) =>
-    props.group
-      ? `${typeof props.group === "string" ? props.group : "16px"} 0`
-      : "0"};
-
-  align-items: ${(props) =>
-    props.align
-      ? typeof props.align === "string"
-        ? props.align
-        : "center"
-      : "initial"};
-
-  justify-content: ${(props) =>
-    props.justify
-      ? typeof props.justify === "string"
-        ? props.justify
-        : "center"
-      : "initial"};
-`;
+export const Column = styled("div", {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: "initial",
+    gap: "var(--gap-md)",
+    margin: "0",
+    alignItems: "initial",
+    justifyContent: "initial",
+  },
+  variants: {
+    grow: {
+      true: {
+        flexGrow: 1,
+      },
+    },
+    group: {
+      true: {
+        margin: "16px 0",
+      },
+    },
+    align: {
+      true: {
+        alignItems: "center",
+      },
+      stretch: {
+        alignItems: "stretch",
+      },
+    },
+    justify: {
+      true: {
+        justifyContent: "center",
+      },
+      stretch: {
+        justifyContent: "stretch",
+      },
+    },
+    gap: {
+      xs: { gap: "var(--gap-xs)" },
+      s: { gap: "var(--gap-s)" },
+      sm: { gap: "var(--gap-sm)" },
+      md: { gap: "var(--gap-md)" },
+      lg: { gap: "var(--gap-lg)" },
+      xl: { gap: "var(--gap-xl)" },
+    },
+  },
+});

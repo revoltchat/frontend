@@ -13,7 +13,7 @@ import {
   BiSolidXCircle,
 } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 import { SystemMessage } from "revolt.js";
 
@@ -94,17 +94,38 @@ const danger = new Set<SystemMessage["type"]>([
   "user_banned",
 ]);
 
-const Base = styled.div<{ type: SystemMessage["type"] }>`
-  width: 62px;
-  display: grid;
-  place-items: center;
-
-  color: ${(props) =>
-    danger.has(props.type)
-      ? "var(--customColours-error-color)"
-      : warning.has(props.type)
-      ? "var(--customColours-warning-color)"
-      : success.has(props.type)
-      ? "var(--customColours-success-color)"
-      : "var(--colours-foreground)"};
-`;
+const Base = styled("div", {
+  base: {
+    width: "62px",
+    display: "grid",
+    placeItems: "center",
+  },
+  variants: {
+    type: {
+      user_added: {
+        color: "var(--customColours-success-color)",
+      },
+      user_joined: {
+        color: "var(--customColours-success-color)",
+      },
+      channel_ownership_changed: {
+        color: "var(--customColours-warning-color)",
+      },
+      user_left: {
+        color: "var(--customColours-error-color)",
+      },
+      user_kicked: {
+        color: "var(--customColours-error-color)",
+      },
+      user_banned: {
+        color: "var(--customColours-error-color)",
+      },
+      default: {
+        color: "var(--colours-foreground)",
+      },
+    },
+  },
+  defaultVariants: {
+    type: "default",
+  },
+});

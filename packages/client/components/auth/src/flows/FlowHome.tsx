@@ -4,15 +4,18 @@ import { clientController } from "@revolt/client";
 import { TransitionType } from "@revolt/client/Controller";
 import { useTranslation } from "@revolt/i18n";
 import { Navigate } from "@revolt/routing";
-import { Button, Column, styled } from "@revolt/ui";
+import { Button, Column } from "@revolt/ui";
 
 import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
+import { cva } from "styled-system/css";
 
-const Logo = styled(RevoltSvg)`
-  width: 100%;
-  object-fit: contain;
-  fill: ${(props) => props.theme!.colours["messaging-message-box-foreground"]};
-`;
+const logo = cva({
+  base: {
+    width: "100%",
+    objectFit: "contain",
+    fill: "var(--colours-messaging-message-box-foreground)",
+  },
+});
 
 /**
  * Flow for logging into an account
@@ -29,7 +32,7 @@ export default function FlowHome() {
           </Show>
 
           <Column gap="xl">
-            <Logo />
+            <RevoltSvg class={logo()} />
 
             <Column>
               <b
@@ -39,11 +42,16 @@ export default function FlowHome() {
                   display: "flex",
                   "flex-direction": "column",
                   "align-items": "center",
+                  "text-align": "center",
                 }}
               >
-                <span>Find your community,</span>
-                <br />
-                <span>connect with the world.</span>
+                <span>
+                  Find your com
+                  <wbr />
+                  munity,
+                  <br />
+                  connect with the world.
+                </span>
               </b>
               <span style={{ "text-align": "center", opacity: "0.5" }}>
                 Revolt is one of the best ways to stay connected with your

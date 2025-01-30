@@ -1,26 +1,35 @@
 import { createSignal } from "solid-js";
-import { styled } from "solid-styled-components";
 
 import { Handler } from "mdast-util-to-hast";
+import { styled } from "styled-system/jsx";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
-const Spoiler = styled("span", "Spoiler")<{ shown: boolean }>`
-  padding: 0 2px;
-  border-radius: ${(props) => props.theme!.borderRadius.md};
+const Spoiler = styled("span", {
+  base: {
+    padding: "0 2px",
+    borderRadius: "var(--borderRadius-md)",
+  },
+  variants: {
+    shown: {
+      true: {
+        color: "var(--colours-background)",
+        background: "var(--colours-foreground)",
+      },
+      false: {
+        cursor: "pointer",
+        userSelect: "none",
+        color: "transparent",
+        background: "#151515",
 
-  cursor: ${(props) => (props.shown ? "auto" : "pointer")};
-  user-select: ${(props) => (props.shown ? "all" : "none")};
-  color: ${(props) =>
-    props.shown ? props.theme!.colours.background : "transparent"};
-  background: ${(props) =>
-    props.shown ? props.theme!.colours.foreground : "#151515"};
-
-  > * {
-    opacity: ${(props) => (props.shown ? 1 : 0)};
-    pointer-events: ${(props) => (props.shown ? "unset" : "none")};
-  }
-`;
+        "> *": {
+          opacity: 0,
+          pointerEvents: "none",
+        },
+      },
+    },
+  },
+});
 
 export function RenderSpoiler(props: { children: Element }) {
   const [shown, setShown] = createSignal(false);

@@ -3,13 +3,13 @@ import { Accessor, Show } from "solid-js";
 import { decodeTime } from "ulid";
 
 import { dayjs, useTranslation } from "@revolt/i18n";
-import { hoverStyles } from "@revolt/ui/directives";
 
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
-import { iconSize, styled } from "../../..";
+import { Ripple, iconSize } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
+import { styled } from "styled-system/jsx";
 
 interface Props {
   /**
@@ -46,25 +46,24 @@ export function NewMessages(props: Props) {
 
   return (
     <Show when={props.lastId()}>
-      <FloatingIndicator
-        class={hoverStyles({ ripple: true })}
-        position="top"
-        onClick={props.jumpBack}
-      >
+      <FloatingIndicator position="top" onClick={props.jumpBack}>
+        <Ripple />
         <span style={{ "flex-grow": 1 }}>
           {t("app.main.channel.misc.new_messages", {
             time_ago: dayjs(decodeTime(props.lastId()!)).fromNow(),
           })}
         </span>
         <span>{t("app.main.channel.misc.jump_beginning")}</span>
-        <CancelIcon onClick={onCancel}>
+        {/* <CancelIcon onClick={onCancel}>
           <MdClose {...iconSize(16)} />
-        </CancelIcon>
+        </CancelIcon> */}
       </FloatingIndicator>
     </Show>
   );
 }
 
-const CancelIcon = styled.div`
-  height: 16px;
-`;
+const CancelIcon = styled("div", {
+  base: {
+    height: "16px",
+  },
+});

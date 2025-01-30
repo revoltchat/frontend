@@ -5,6 +5,10 @@ const DEFAULT_API_URL =
 
 export default {
   /**
+   * Whether to emit additional debug information
+   */
+  DEBUG: import.meta.env.DEV || true,
+  /**
    * What API server to connect to by default.
    */
   DEFAULT_API_URL,

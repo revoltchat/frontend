@@ -1,6 +1,6 @@
 import { Accessor, For, Setter, Show, createMemo, onMount } from "solid-js";
 
-import { Column, OverflowingText, styled } from "@revolt/ui";
+import { Column, OverflowingText, Ripple } from "@revolt/ui";
 
 // import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 // import MdOpenInNew from "@material-design-icons/svg/filled/open_in_new.svg?component-solid";
@@ -12,6 +12,7 @@ import {
   SidebarButtonContent,
   SidebarButtonTitle,
 } from "./SidebarButton";
+import { styled } from "styled-system/jsx";
 
 /**
  * Settings Sidebar Layout
@@ -24,7 +25,6 @@ export function SettingsSidebar(props: {
   page: Accessor<string | undefined>;
 }) {
   const { navigate } = useSettingsNavigation();
-  // const theme = useTheme();
 
   /**
    * Generate list of categories / links
@@ -64,6 +64,7 @@ export function SettingsSidebar(props: {
                                 entry.id?.split("/")[0]
                               }
                             >
+                              <Ripple />
                               <SidebarButtonTitle>
                                 {entry.icon}
                                 <SidebarButtonContent>
@@ -102,40 +103,50 @@ export function SettingsSidebar(props: {
 /**
  * Base layout of the sidebar
  */
-const Base = styled("div", "Sidebar")`
-  display: flex;
-  flex: 1 0 218px;
-  padding-left: 8px;
-  justify-content: flex-end;
+const Base = styled("div", {
+  base: {
+    display: "flex",
+    flex: "1 0 218px",
+    paddingLeft: "8px",
+    justifyContent: "flex-end",
 
-  color: ${(props) => props.theme!.colours["settings-foreground"]};
-`;
+    color: "var(--colours-settings-foreground)",
+  },
+});
 
 /**
  * Aligned content within the sidebar
  */
-const Content = styled("div", "Content")`
-  min-width: 230px;
-  max-width: 300px;
-  padding: 74px 0 8px;
-  display: flex;
-  gap: 2px;
+const Content = styled("div", {
+  base: {
+    minWidth: "230px",
+    maxWidth: "300px",
+    padding: "74px 0 8px",
+    display: "flex",
+    gap: "2px",
 
-  flex-direction: column;
+    flexDirection: "column",
 
-  a > div {
-    margin: 0;
-  }
-`;
+    "& a > div": {
+      margin: 0,
+    },
+  },
+});
 
 /**
  * Titles for each category
  */
-const CategoryTitle = styled(OverflowingText)`
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  font-weight: 700;
-  margin: 0 8px;
-  margin-inline-end: 20px;
-  color: ${(props) => props.theme!.colours["settings-sidebar-category"]};
-`;
+const CategoryTitle = styled("span", {
+  base: {
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+
+    textTransform: "uppercase",
+    fontSize: "0.75rem",
+    fontWeight: 700,
+    margin: "0 8px",
+    marginInlineEnd: "20px",
+    color: "var(--colours-settings-sidebar-category)",
+  },
+});

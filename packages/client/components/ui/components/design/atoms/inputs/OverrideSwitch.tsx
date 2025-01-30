@@ -1,6 +1,6 @@
 import { BiRegularCheck, BiRegularX } from "solid-icons/bi";
 import { createSignal, splitProps } from "solid-js";
-import { styled } from "solid-styled-components";
+import { styled } from "styled-system/jsx";
 
 type State = "Allow" | "Neutral" | "Deny";
 
@@ -10,42 +10,46 @@ interface Props {
   readonly onChange?: (state: State) => void;
 }
 
-const SwitchContainer = styled.div<{ state: State }>`
-  flex-shrink: 0;
-  width: fit-content;
+const SwitchContainer = styled("div", {
+  base: {
+    flexShrink: 0,
+    width: "fit-content",
 
-  display: flex;
-  margin: 4px 0;
-  overflow: hidden;
-  border-radius: ${(props) => props.theme?.borderRadius.md};
+    display: "flex",
+    margin: "4px 0",
+    overflow: "hidden",
+    borderRadius: "var(--borderRadius-md)",
 
-  &[aria-disabled] {
-    pointer-events: none;
-    opacity: 0.6;
-  }
+    "&[aria-disabled]": {
+      pointerEvents: "none",
+      opacity: 0.6,
+    },
 
-  transition: ${(props) => props.theme!.transitions.fast} all;
-  background: var(--unset-bg);
-`;
+    transition: "var(--transitions-fast) all",
+    background: "var(--unset-bg)",
+  },
+});
 
-const Switch = styled.div<{ state: State; selected: boolean }>`
-  padding: 4px;
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  transition: ${(props) => props.theme!.transitions.fast} all;
+const Switch = styled("div", {
+  base: {
+    padding: "4px",
+    display: "flex",
+    cursor: "pointer",
+    alignItems: "center",
+    transition: "var(--transitions-fast) all",
 
-  color: var(--unset-fg);
-  fill: var(--unset-fg);
+    color: "var(--unset-fg)",
+    fill: "var(--unset-fg)",
 
-  &:hover {
-    filter: brightness(0.8);
-  }
+    "&:hover": {
+      filter: "brightness(0.8)",
+    },
 
-  svg {
-    stroke: 5px solid white;
-  }
-`;
+    "& svg": {
+      stroke: "5px solid white",
+    },
+  },
+});
 
 /**
  * Override Switch
@@ -63,7 +67,6 @@ export function OverrideSwitch(props: Props) {
       role="radiogroup"
       aria-orientiation="horizontal"
       aria-disabled={local.disabled}
-      state={currentState()}
       {...others}
     >
       <Switch
@@ -72,9 +75,7 @@ export function OverrideSwitch(props: Props) {
             ? !local.disabled && local.onChange?.("Allow")
             : setControlledValue("Allow")
         }
-        state="Allow"
         role="radio"
-        selected={currentState() === "Allow"}
       >
         <BiRegularCheck size={24} />
       </Switch>
@@ -84,9 +85,7 @@ export function OverrideSwitch(props: Props) {
             ? !local.disabled && local.onChange?.("Neutral")
             : setControlledValue("Neutral")
         }
-        state="Neutral"
         role="radio"
-        selected={currentState() === "Neutral"}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -103,9 +102,7 @@ export function OverrideSwitch(props: Props) {
             ? !local.disabled && local.onChange?.("Deny")
             : setControlledValue("Deny")
         }
-        state="Deny"
         role="radio"
-        selected={currentState() === "Deny"}
       >
         <BiRegularX size={24} />
       </Switch>

@@ -1,5 +1,3 @@
-import { useTheme } from "solid-styled-components";
-
 import type { API } from "revolt.js";
 
 export type Props = {
@@ -14,8 +12,6 @@ export type Props = {
  * Overlays user status in current SVG
  */
 export const UserStatusGraphic = (props: Props) => {
-  const theme = useTheme();
-
   /**
    * Convert status to lower case
    */
@@ -26,9 +22,7 @@ export const UserStatusGraphic = (props: Props) => {
       cx="27"
       cy="27"
       r="5"
-      fill={
-        theme.customColours[`status-${statusLowercase() as "online"}`].color
-      }
+      fill={`var(--customColours-status-${statusLowercase()}-color)`}
       mask={`url(#accessible-status-${statusLowercase()})`}
     />
   );

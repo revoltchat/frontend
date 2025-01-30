@@ -9,7 +9,10 @@ import "../ui/styled.d.ts";
 
 import { RenderModal } from "./modals";
 import { Modals } from "./types";
-import { registerKeybindWithPriority, unregisterKeybindWithPriority } from "../../src/shared/lib/priorityKeybind";
+import {
+  registerKeybindWithPriority,
+  unregisterKeybindWithPriority,
+} from "../../src/shared/lib/priorityKeybind";
 
 export type ActiveModal = {
   /**
@@ -195,9 +198,17 @@ export const modalController = new ModalControllerExtended();
 
 export function ModalRenderer() {
   createEffect(() => {
-    if (modalController.modals.length === 0) return unregisterKeybindWithPriority(keyDown);
+    if (modalController.modals.length === 0)
+      return unregisterKeybindWithPriority(keyDown);
 
     return registerKeybindWithPriority("Escape", keyDown, 1, "user-visible");
+  });
+
+  createEffect(() => {
+    console.info(
+      "[DEBUG] (2) Modal render targets updated:",
+      modalController.modals
+    );
   });
 
   return (

@@ -2,15 +2,10 @@ export { Avatar } from "./Avatar";
 export { Breadcrumbs } from "./Breadcrumbs";
 export { ColouredText } from "./ColouredText";
 export { FormGroup } from "./FormGroup";
-export {
-  Header,
-  HeaderWithImage,
-  HeaderWithTransparency,
-  BelowFloatingHeader,
-} from "./Header";
+export { Header, BelowFloatingHeader } from "./Header";
 export { Initials } from "./Initials";
 export { Time } from "./Time";
-export { Typography } from "./Typography";
+export { Typography, Text, typography } from "./Typography";
 export { Modal } from "./Modal";
 export { Username } from "./Username";
 export { Key } from "./Key";

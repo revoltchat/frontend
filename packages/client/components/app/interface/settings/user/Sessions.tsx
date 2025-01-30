@@ -27,12 +27,11 @@ import {
   Preloader,
   Time,
   iconSize,
-  styled,
-  useTheme,
 } from "@revolt/ui";
 
 import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
+import { styled } from "styled-system/jsx";
 
 /**
  * Sessions
@@ -67,7 +66,6 @@ export default function Sessions() {
  */
 function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
   const client = useClient();
-  const theme = useTheme();
 
   /**
    * Resolve current session
@@ -100,7 +98,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
         icon={
           <MdAutoMode
             {...iconSize(24)}
-            fill={theme.customColours.error.color}
+            fill="var(--customColours-error-color)"
           />
         }
         description="Keeps your last sessions active and automatically logs you out of other ones"
@@ -119,7 +117,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
           icon={
             <MdLogout
               {...iconSize(24)}
-              fill={theme.customColours.error.color}
+              fill="var(--customColours-error-color)"
             />
           }
           description="Logs you out of all sessions except this device."
@@ -181,9 +179,11 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
 /**
  * Capitalize session titles
  */
-const Capitalise = styled.div`
-  text-transform: capitalize;
-`;
+const Capitalise = styled("div", {
+  base: {
+    textTransform: "capitalize",
+  },
+});
 
 /**
  * Show icon for session

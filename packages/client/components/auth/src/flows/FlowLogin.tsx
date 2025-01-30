@@ -12,6 +12,7 @@ import {
   Row,
   Typography,
   iconSize,
+  typography,
 } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
@@ -67,10 +68,17 @@ export default function FlowLogin() {
             <FlowTitle subtitle={t("login.subtitle")} emoji="wave">
               {t("login.welcome")}
             </FlowTitle>
-
             <Form onSubmit={login}>
               <Fields fields={["email", "password"]} />
-              <Row align justify="center">
+              <Column
+                class={typography({ class: "label", size: "small" })}
+                gap="xl"
+                align
+              >
+                <a href="/login/reset">{t("login.reset")}</a>
+                <a href="/login/resend">{t("login.resend")}</a>
+              </Column>
+              <Row align justify>
                 <a href="..">
                   <Button variant="plain">
                     <MdArrowBack {...iconSize("1.2em")} /> Back
@@ -79,16 +87,6 @@ export default function FlowLogin() {
                 <Button type="submit">{t("login.title")}</Button>
               </Row>
             </Form>
-
-            <Column>
-              <Typography variant="legacy-settings-description">
-                <a href="/login/reset">{t("login.reset")}</a>
-              </Typography>
-
-              <Typography variant="legacy-settings-description">
-                <a href="/login/resend">{t("login.resend")}</a>
-              </Typography>
-            </Column>
           </>
         }
       >
@@ -107,7 +105,7 @@ export default function FlowLogin() {
 
           <Form onSubmit={select}>
             <Fields fields={["username"]} />
-            <Row align justify="center">
+            <Row align justify>
               <Button
                 variant="plain"
                 onPress={() =>
