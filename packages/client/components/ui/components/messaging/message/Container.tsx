@@ -9,7 +9,6 @@ import {
   OverflowingText,
   Row,
 } from "../../design/layout";
-import { Ripple } from "../../material";
 import { cva } from "styled-system/css";
 
 interface CommonProps {
@@ -108,14 +107,6 @@ const base = cva({
     borderRadius: "var(--borderRadius-md)",
     minHeight: "1em",
 
-    "& .hidden": {
-      display: "none",
-    },
-
-    "&:hover .hidden": {
-      display: "block",
-    },
-
     "& a:hover": {
       textDecoration: "underline",
     },
@@ -155,7 +146,7 @@ const Info = styled("div", {
     display: "flex",
     flexShrink: 0,
     justifyContent: "center",
-    padding: "2px 0",
+    padding: "2px var(--gap-sm)",
   },
   variants: {
     tail: {
@@ -194,6 +185,28 @@ const InfoText = styled(Row, {
 
     ...typography.raw({ class: "body", size: "small" }),
   },
+  variants: {
+    prefix: {
+      true: {
+        width: "calc(36px + 2 * var(--gap-sm))",
+        fontSize: "0.7em",
+
+        display: "block",
+        textAlign: "right",
+        marginTop: "0.15em",
+      },
+    },
+    hidden: {
+      true: {
+        opacity: 0,
+        transition: "var(--transitions-fast) opacity",
+
+        _groupHover: {
+          opacity: 1,
+        },
+      },
+    },
+  },
 });
 
 /**
@@ -214,12 +227,15 @@ const CompactInfo = styled(Row, {
 export function MessageContainer(props: Props) {
   return (
     <div
-      class={base({
-        tail: props.tail,
-        mentioned: props.mentioned,
-        highlight: props.highlight,
-        sendStatus: props.sendStatus,
-      })}
+      class={
+        "group " +
+        base({
+          tail: props.tail,
+          mentioned: props.mentioned,
+          highlight: props.highlight,
+          sendStatus: props.sendStatus,
+        })
+      }
       use:floating={{ contextMenu: props.contextMenu }}
     >
       {props.header}
@@ -241,7 +257,7 @@ export function MessageContainer(props: Props) {
               </CompactInfo>
             </Match>
             <Match when={props.tail}>
-              <InfoText class={!props.edited ? "hidden" : undefined}>
+              <InfoText hidden={!props.edited} prefix>
                 <Show when={props.edited}>(edited)</Show>
                 <Show when={!props.edited}>
                   <Time
