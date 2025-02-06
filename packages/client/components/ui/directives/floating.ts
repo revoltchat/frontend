@@ -43,6 +43,7 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
   if (!config) return;
 
   const [show, setShow] = createSignal<Props | undefined>();
+  // DEBUG: createEffect(() => console.info("show:", show()));
 
   registerFloatingElement({
     config: accessor,

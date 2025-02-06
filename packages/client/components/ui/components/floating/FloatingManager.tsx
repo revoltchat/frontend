@@ -120,6 +120,9 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
    * @param event Event
    */
   function onMouseDown(event: MouseEvent) {
+    const currentlyShown = props.show();
+    if (!currentlyShown?.contextMenu && !currentlyShown?.userCard) return;
+
     const parentEl = floating();
 
     let currentEl = event.target as HTMLElement | null;
@@ -141,6 +144,9 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
    * Always dismiss context menu on click
    */
   function onClick() {
+    const currentlyShown = props.show();
+    if (!currentlyShown?.contextMenu) return;
+
     props.hide();
   }
 
