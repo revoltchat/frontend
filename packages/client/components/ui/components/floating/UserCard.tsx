@@ -4,7 +4,17 @@ import { styled } from "styled-system/jsx";
 
 import { getController } from "@revolt/common";
 
-import { ColouredText, Row, Username } from "../design";
+import {
+  Avatar,
+  ColouredText,
+  Row,
+  Text,
+  Username,
+  UserStatus,
+  UserStatusGraphic,
+} from "../design";
+import { createQuery } from "@tanstack/solid-query";
+import { useTranslation } from "@revolt/i18n";
 
 /**
  * Base element for the card
@@ -12,9 +22,35 @@ import { ColouredText, Row, Username } from "../design";
 const Base = styled("div", {
   base: {
     color: "white",
-    background: "black",
+    background: "#eee",
     width: "400px",
     height: "400px",
+
+    borderRadius: "var(--borderRadius-lg)",
+  },
+});
+
+const Banner = styled("div", {
+  base: {
+    height: "120px",
+    padding: "var(--gap-lg)",
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "end",
+
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+
+    borderRadius: "var(--borderRadius-lg)",
+  },
+});
+
+const UserShort = styled("div", {
+  base: {
+    gap: "var(--gap-xs)",
+    display: "flex",
+    flexDirection: "column",
   },
 });
 
@@ -24,6 +60,13 @@ const Base = styled("div", {
 export function UserCard(
   props: JSX.Directives["floating"]["userCard"] & object
 ) {
+  const t = useTranslation();
+
+  const query = createQuery(() => ({
+    queryKey: ["profile", props.user.id],
+    queryFn: () => props.user.fetchProfile(),
+  }));
+
   const roleIds = createMemo(
     () => new Set(props.member?.orderedRoles.map((role) => role.id))
   );
@@ -33,7 +76,33 @@ export function UserCard(
 
   return (
     <Base>
-      <Show when={props.member}>
+      <Banner
+        style={{
+          "background-image": `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url('${query.data?.animatedBannerURL}')`,
+        }}
+      >
+        <Row align gap="lg">
+          <Avatar
+            src={props.user.animatedAvatarURL}
+            size={48}
+            holepunch="bottom-right"
+            overlay={<UserStatusGraphic status={props.user.presence} />}
+          />
+          <UserShort>
+            <Text>{props.member?.displayName ?? props.user.displayName}</Text>
+            <Text class="label" size="small">
+              {props.user.username}#{props.user.discriminator}
+            </Text>
+            <Text class="_status">
+              {props.user.statusMessage((s) =>
+                t(`app.status.${s.toLowerCase() as "focus"}`)
+              )}
+            </Text>
+          </UserShort>
+        </Row>
+      </Banner>
+
+      {/* <Show when={props.member}>
         <Username
           username={props.member!.nickname ?? props.user.username}
           colour={props.member!.roleColour!}
@@ -87,7 +156,7 @@ export function UserCard(
             )}
           </For>
         </Row>
-      </Show>
+      </Show> */}
     </Base>
   );
 }
