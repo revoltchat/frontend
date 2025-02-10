@@ -304,6 +304,8 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
 
         // We have to use XMLHttpRequest because modern fetch duplex streams require QUIC or HTTP/2
         const xhr = new XMLHttpRequest();
+        const [authHeader, authHeaderValue] = client.authenticationHeader;
+        xhr.setRequestHeader(authHeader, authHeaderValue);
         xhr.responseType = "json";
 
         const [success, response] = await new Promise<
@@ -325,6 +327,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
             `${client.configuration!.features.autumn.url}/attachments`,
             true
           );
+
           xhr.send(body);
         });
 
