@@ -14,10 +14,10 @@ jobs:
       - uses: docker://pandoc/core:3.5
         with:
           args: >-
-            --input=feature-matrix.html
             --from html
             --to markdown_strict+pipe_tables
             --output=doc/src/feature-matrix.md
+            feature-matrix.html
       - name: Clean up the document
         run: |
           # add title
