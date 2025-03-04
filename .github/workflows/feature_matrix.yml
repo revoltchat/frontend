@@ -10,7 +10,14 @@ jobs:
       - name: Download and parse sheet
         env:
           SHEET_ID: ${{ secrets.FEATURE_MATRIX_SHEET_ID }}
-        run: curl -s https://docs.google.com/spreadsheets/d/$SHEET_ID/gviz/tq?tqx=out:html | pandoc --from html --to markdown_strict+pipe_tables -o doc/src/feature-matrix.md
+        run: curl -s https://docs.google.com/spreadsheets/d/$SHEET_ID/gviz/tq?tqx=out:html > feature-matrix.html
+      - uses: docker://pandoc/core:3.5
+        with:
+          args: >-
+            --input=feature-matrix.html
+            --from html
+            --to markdown_strict+pipe_tables
+            --output=doc/src/feature-matrix.md
       - name: Clean up the document
         run: |
           # add title
