@@ -7,6 +7,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Download and parse sheet
         env:
           SHEET_ID: ${{ secrets.FEATURE_MATRIX_SHEET_ID }}
@@ -14,9 +18,8 @@ jobs:
       - uses: docker://pandoc/core:3.5
         with:
           args: >-
-            --from html
             --to markdown_strict+pipe_tables
-            -o doc/src/feature-matrix.md
+            --output=doc/src/feature-matrix.md
             feature-matrix.html
       - name: Clean up the document
         run: |
