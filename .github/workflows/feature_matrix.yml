@@ -16,7 +16,7 @@ jobs:
           args: >-
             --from html
             --to markdown_strict+pipe_tables
-            --output=doc/src/feature-matrix.md
+            -o doc/src/feature-matrix.md
             feature-matrix.html
       - name: Clean up the document
         run: |
