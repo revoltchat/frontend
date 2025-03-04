@@ -29,6 +29,10 @@ jobs:
 
           # set column properties again (while adding header line)
           sed -i '5i |---|---|---|---|:-:|:-:|:-:|:-:|:-:|' doc/src/feature-matrix.md
+          
+          # add width fix
+          echo '' >> doc/src/feature-matrix.md
+          echo '<style>#content main {max-width: unset !important;}</style>' >> doc/src/feature-matrix.md
       - name: Commit changes
         run: |
           git config --global user.name 'Revolt CI'
