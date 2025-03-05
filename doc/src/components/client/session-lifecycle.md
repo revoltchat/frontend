@@ -1,6 +1,6 @@
 # Session Lifecycle
 
-To ensure reliability for users on Revolt, clients should implement the following rigid specification for maintaing a session. At a high-level, it should be implemented as a state machine.
+To ensure reliability for users on Revolt, clients should implement the following rigid specification for maintaining a session. At a high-level, it should be implemented as a state machine.
 
 <style>
 .mermaid { background: white; border-radius: 4px; }
