@@ -8,13 +8,11 @@ export const OverflowingText = styled("div", {
     overflow: "hidden",
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
-    lineHeight: "unset",
 
     "& *": {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
-      lineHeight: "unset",
     },
   },
 });
