@@ -13,8 +13,6 @@
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
   // Tell `rust-analyzer` where the Tauri project is.
-  "rust-analyzer.linkedProjects": [
-    "./packages/desktop/src-tauri/Cargo.toml"
-  ],
-  "nixEnvSelector.nixFile": "${workspaceRoot}/default.nix"
+  "rust-analyzer.linkedProjects": ["./packages/desktop/src-tauri/Cargo.toml"],
+  "nixEnvSelector.nixFile": "${workspaceFolder}/default.nix"
 }

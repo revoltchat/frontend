@@ -12,11 +12,14 @@ import {
   CategoryCollapse,
   Column,
   ComboBox,
+  Form2,
   OverrideSwitch,
+  TextField,
   iconSize,
 } from "@revolt/ui";
 
 import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
+import { createFormControl, createFormGroup } from "solid-forms";
 
 const NewComponent = styled("div", {
   base: {
@@ -31,6 +34,37 @@ const newComponent = cva({
     color: "white",
   },
 });
+
+function FormTest() {
+  const group = createFormGroup({
+    name: createFormControl(""),
+    email: createFormControl("", {
+      // required: true,
+      validators: (value: string) =>
+        value.length <= 15 ? { isMissing: true } : null,
+    }),
+  });
+
+  const onSubmit = async () => {
+    console.info(group.data);
+  };
+
+  return (
+    <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+      <label for="name">Your name</label>
+      <Form2.TextField name="name" control={group.controls.name} />
+
+      <label for="email">Your email address</label>
+      <Form2.TextField
+        name="email"
+        type="email"
+        control={group.controls.email}
+      />
+
+      <button>Submit</button>
+    </form>
+  );
+}
 
 export function DevelopmentPage() {
   function open() {
@@ -67,6 +101,8 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <FormTest />
+
       <div
         style={{
           width: "480px",
@@ -78,6 +114,18 @@ export function DevelopmentPage() {
         <Face fill="red" {...iconSize(128)} />
       </div>
       <OverrideSwitch />
+
+      <TextField
+        variant="outlined"
+        label="Outlined Input"
+        placeholder="Type here :D"
+      />
+
+      <TextField
+        variant="filled"
+        label="Filled Input"
+        placeholder="Type here :D"
+      />
 
       <div
         // have to wrap the component in something that can receive a directive

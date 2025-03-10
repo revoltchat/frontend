@@ -54,7 +54,7 @@ import "@revolt/ui/styles";
 import AuthPage from "./Auth";
 import Interface from "./Interface";
 import "./index.css";
-import 'mdui/mdui.css';
+import "mdui/mdui.css";
 import { DevelopmentPage } from "./interface/Development";
 import { Friends } from "./interface/Friends";
 import { HomePage } from "./interface/Home";

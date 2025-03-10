@@ -8,6 +8,10 @@ export function TextField(
     required?: boolean;
     name?: string;
     label?: string;
+    autosize?: boolean;
+    disabled?: boolean;
+    "min-rows"?: number;
+    "max-rows"?: number;
     placeholder?: string;
     type?: "text" | "password" | "email";
     variant?: "filled" | "outlined";
