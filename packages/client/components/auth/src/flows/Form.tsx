@@ -87,6 +87,7 @@ export function Fields(props: FieldProps) {
               name={field}
               label={fieldConfiguration[field].name()}
               placeholder={fieldConfiguration[field].placeholder()}
+              variant="outlined"
             />
           )}
         </FormGroup>
