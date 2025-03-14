@@ -95,6 +95,7 @@
     "shiki": "^1.22.0",
     "solid-dnd-directive": "^0.2.0",
     "solid-floating-ui": "^0.3.1",
+    "solid-forms": "^0.5.2",
     "solid-hcaptcha": "^0.4.0",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.9.2",

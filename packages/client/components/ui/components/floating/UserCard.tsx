@@ -143,13 +143,6 @@ export function UserCard(
     queryFn: () => props.user.fetchProfile(),
   }));
 
-  const roleIds = createMemo(
-    () => new Set(props.member?.orderedRoles.map((role) => role.id))
-  );
-
-  // Disable it while it's being developed
-  if (!getController("state").experiments.isEnabled("user_card")) return null;
-
   return (
     <div use:scrollable={{ showOnHover: true, class: base() }}>
       <Grid>

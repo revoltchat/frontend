@@ -14,3 +14,6 @@
 - [Components]()
   - [Client]()
     - [Session Lifecycle](./components/client/session-lifecycle.md)
+  - [@revolt/ui]()
+    - [Tools]()
+      - [Form2](./components/ui/tools/form2.md)

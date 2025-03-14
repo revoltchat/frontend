@@ -374,9 +374,9 @@ export const darkTheme: (
         materialColour("onSurfaceVariant"),
 
       // Settings
-      "settings-background": materialColour("secondary", 96),
+      "settings-background": materialColour("secondary", 92),
       "settings-foreground": materialColour("onSecondaryContainer"),
-      "settings-content-background": materialColour("secondary", 92),
+      "settings-content-background": materialColour("secondary", 96),
       "settings-content-foreground": materialColour("onSecondary", 20),
       "settings-content-scroll-thumb": materialColour("secondary", 70),
       "settings-close-anchor": materialColour("primary"),

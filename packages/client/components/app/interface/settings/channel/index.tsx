@@ -16,6 +16,7 @@ import { ColouredText } from "@revolt/ui";
 import { SettingsConfiguration } from "..";
 
 import Webhooks, { Webhook } from "./Webhooks";
+import ChannelOverview from "./Overview";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -53,7 +54,7 @@ const Config: SettingsConfiguration<Channel> = {
       case "webhooks":
         return <Webhooks channel={channel} />;
       default:
-        return null;
+        return <ChannelOverview channel={channel} />;
     }
   },
 
