@@ -5,9 +5,12 @@ import {
   type Component,
   splitProps,
   ComponentProps,
+  type JSX,
 } from "solid-js";
 import { createFormControl, IFormGroup, type IFormControl } from "solid-forms";
 import { TextField } from "../material";
+import { mapAnyError } from "@revolt/client";
+import { Button } from "../design";
 
 const FormTextField = (
   props: {
@@ -24,7 +27,7 @@ const FormTextField = (
         oninput={(e) => {
           local.control.setValue(e.currentTarget.value);
         }}
-        onblur={() => local.control.markTouched(true)}
+        onchange={() => local.control.markDirty(true)}
         required={local.control.isRequired}
         disabled={local.control.isDisabled}
       />
@@ -35,6 +38,17 @@ const FormTextField = (
         </For>
       </Show>
     </>
+  );
+};
+
+const FormSubmitButton = (props: {
+  group: IFormGroup;
+  children: JSX.Element;
+}) => {
+  return (
+    <Button type="submit" isDisabled={!props.group.isDirty}>
+      {props.children}
+    </Button>
   );
 };
 
@@ -79,7 +93,7 @@ const SampleTextInput: Component<{
   );
 };
 
-function submitHandler(group: IFormGroup, handler: () => Promise<void>) {
+function submitHandler(group: IFormGroup, handler: () => Promise<void> | void) {
   return async (e: Event) => {
     e.preventDefault();
 
@@ -87,13 +101,30 @@ function submitHandler(group: IFormGroup, handler: () => Promise<void>) {
       control.markTouched(true);
     }
 
-    if (group.isSubmitted || !group.isValid) return;
+    if (group.isPending || !group.isValid) return;
 
-    group.markSubmitted(true);
+    group.markPending(true);
+
+    try {
+      await handler();
+    } catch (err) {
+      group.setErrors({
+        error: mapAnyError(err),
+      });
+    } finally {
+      for (const control of Object.values(group.controls)) {
+        control.markDirty(false);
+        control.markTouched(false);
+      }
+
+      group.markPending(false);
+      group.markSubmitted(true);
+    }
   };
 }
 
 export const Form2 = {
   TextField: FormTextField,
+  Submit: FormSubmitButton,
   submitHandler,
 };

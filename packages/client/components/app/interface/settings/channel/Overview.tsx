@@ -6,6 +6,7 @@ import type { ChannelWebhook } from "revolt.js";
 import { useClient } from "@revolt/client";
 import {
   Avatar,
+  Button,
   CategoryButton,
   Column,
   Form2,
@@ -31,9 +32,19 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
     description: createFormControl(props.channel.description),
   });
 
+  async function onSubmit() {
+    // TODO: fix: server shouldn't push events if values don't change!
+    // I don't think it makes sense for it to be a client-side fix
+
+    await props.channel.edit({
+      name: editGroup.controls.name.value,
+      description: editGroup.controls.description.value,
+    });
+  }
+
   return (
     <Column gap="xl">
-      <form>
+      <form onSubmit={Form2.submitHandler(editGroup, onSubmit)}>
         <Column>
           <Text class="label">Channel Info</Text>
           <Form2.TextField
@@ -49,6 +60,7 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
             label={t("app.settings.channel_pages.overview.description")}
             placeholder="This channel is about..."
           />
+          <Form2.Submit group={editGroup}>Save</Form2.Submit>
         </Column>
       </form>
     </Column>
