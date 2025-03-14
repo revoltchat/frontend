@@ -103,17 +103,17 @@ const FallbackBase = styled("div", {
         borderRadius: "var(--borderRadius-full)",
       },
       "rounded-square": {
-        borderRadius: "var(--borderRadius-md)",
+        borderRadius: "var(--borderRadius-lg)",
       },
     },
     contrast: {
       true: {
-        color: "var(--component-avatar-fallback-contrast-foreground)",
-        background: "var(--component-avatar-fallback-contrast-foreground)",
+        background: "var(--md-sys-color-primary)",
+        color: "var(--md-sys-color-on-primary)",
       },
       false: {
-        color: "var(--component-avatar-fallback-foreground)",
-        background: "var(--component-avatar-fallback-foreground)",
+        color: "rgb(var(--mdui-color-on-surface-container-low))",
+        background: "rgb(var(--mdui-color-surface-container-low))",
       },
     },
   },

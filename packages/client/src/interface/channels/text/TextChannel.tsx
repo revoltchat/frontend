@@ -194,6 +194,6 @@ const MessagingStack = styled("div", {
     paddingInline: "var(--gap-md)",
     marginBlockEnd: "var(--gap-md)",
     borderRadius: "var(--borderRadius-xl)",
-    background: "var(--colours-background)",
+    background: "var(	--md-sys-color-surface)",
   },
 });

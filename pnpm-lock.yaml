@@ -2314,10 +2314,10 @@ packages:
       react-dom:
         optional: true
 
-  '@storybook/builder-vite@9.0.0-alpha.1':
-    resolution: {integrity: sha512-uIcc85jwjZNHJuUrWqs5ADB2ge+4mMTIblJf+6gvqYMMj53MyzDtpci7pkT2daKcO03n2VB6pcjW21T/LEqL3g==}
+  '@storybook/builder-vite@9.0.0-alpha.3':
+    resolution: {integrity: sha512-N38osNsQUj8JtboHWJtGoQoltw6pzfPKBnLJlfX8CpaOFdLnT5KNkmDQBG15wbmJhBMfCt4pChhD1qnBxzsNjg==}
     peerDependencies:
-      storybook: ^9.0.0-alpha.1
+      storybook: ^9.0.0-alpha.3
       vite: ^4.0.0 || ^5.0.0 || ^6.0.0
 
   '@storybook/components@8.3.6':
@@ -2333,10 +2333,10 @@ packages:
     peerDependencies:
       storybook: ^8.3.5
 
-  '@storybook/csf-plugin@9.0.0-alpha.1':
-    resolution: {integrity: sha512-ax1VSSbm/5k2XQWe15A4VItG5iUM85pQmRP2p4tlS76bDIOLCuHwzYKuGmb4ILOQFM3UQAH3obHFeOaKpcTuog==}
+  '@storybook/csf-plugin@9.0.0-alpha.3':
+    resolution: {integrity: sha512-irWsW9+CeGLVVSK4t5ZCZwzWKkR052MGB5ni51ckI6aIJYhaeckxj5ufLkqzcCvCkL9vtn2KGhncQdP4BQfF7A==}
     peerDependencies:
-      storybook: ^9.0.0-alpha.1
+      storybook: ^9.0.0-alpha.3
 
   '@storybook/csf@0.1.11':
     resolution: {integrity: sha512-dHYFQH3mA+EtnCkHXzicbLgsvzYjcDJ1JWsogbItZogkPHgSJM/Wr71uMkcvw8v9mmCyP4NpXJuu6bPoVsOnzg==}
@@ -8511,9 +8511,9 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@9.0.0-alpha.1(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))':
+  '@storybook/builder-vite@9.0.0-alpha.3(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))':
     dependencies:
-      '@storybook/csf-plugin': 9.0.0-alpha.1(storybook@8.3.5)
+      '@storybook/csf-plugin': 9.0.0-alpha.3(storybook@8.3.5)
       browser-assert: 1.2.1
       storybook: 8.3.5
       ts-dedent: 2.2.0
@@ -8548,7 +8548,7 @@ snapshots:
       storybook: 8.3.5
       unplugin: 1.10.1
 
-  '@storybook/csf-plugin@9.0.0-alpha.1(storybook@8.3.5)':
+  '@storybook/csf-plugin@9.0.0-alpha.3(storybook@8.3.5)':
     dependencies:
       storybook: 8.3.5
       unplugin: 1.10.1
@@ -12197,7 +12197,7 @@ snapshots:
 
   storybook-solidjs-vite@1.0.0-beta.2(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2)):
     dependencies:
-      '@storybook/builder-vite': 9.0.0-alpha.1(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))
+      '@storybook/builder-vite': 9.0.0-alpha.3(storybook@8.3.5)(vite@5.4.8(@types/node@20.12.2)(lightningcss@1.25.1)(terser@5.29.2))
     transitivePeerDependencies:
       - storybook
       - vite

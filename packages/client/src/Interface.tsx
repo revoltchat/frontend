@@ -125,7 +125,7 @@ const Interface = (props: { children: JSX.Element }) => {
             />
             <div
               style={{
-                background: "var(--colours-messaging-message-box-background)",
+                background: "rgb(var(--mdui-color-surface-container))",
                 display: "flex",
                 width: "100%",
                 "min-width": 0,
@@ -146,7 +146,7 @@ const Notice = styled("div", {
     fontSize: "0.8em",
     // margin: "var(--gap-md) var(--gap-md) 0 var(--gap-md)",
     padding: "var(--gap-md)",
-    background: "var(--colours-testing)",
+    background: "rgb(var(--mdui-color-surface-dim))",
     color: "var(--colours-messaging-message-box-foreground)",
     // borderRadius: "var(--borderRadius-md)",
   },
@@ -159,7 +159,7 @@ const Layout = styled("div", {
   base: {
     display: "flex",
     height: "100%",
-    background: "var(--colours-testing)",
+    background: "rgb(var(--mdui-color-surface-dim))",
     minWidth: 0,
   },
 });
