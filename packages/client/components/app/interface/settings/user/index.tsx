@@ -32,6 +32,7 @@ import MdDesktopWindows from "@material-design-icons/svg/outlined/desktop_window
 import MdExtension from "@material-design-icons/svg/outlined/extension.svg?component-solid";
 import MdFormatListBulleted from "@material-design-icons/svg/outlined/format_list_bulleted.svg?component-solid";
 import MdKeybinds from "@material-design-icons/svg/outlined/keyboard.svg?component-solid";
+import MdLoyalty from "@material-design-icons/svg/outlined/loyalty.svg?component-solid";
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdLocalCafe from "@material-design-icons/svg/outlined/local_cafe.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
@@ -61,6 +62,7 @@ import sync from "./Sync";
 import { AccountCard } from "./_AccountCard";
 import { MyBots, ViewBot } from "./bots";
 import { EditProfile } from "./profile";
+import Subscription from "./Subscription";
 
 /**
  * All the available routes for client settings
@@ -69,6 +71,7 @@ const ClientSettingsRouting: Record<string, Component> = {
   account,
   profile: EditProfile,
   sessions,
+  subscription: Subscription,
 
   // Bots
   bots: MyBots,
@@ -190,6 +193,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               href: "https://wiki.revolt.chat/notes/project/financial-support/",
               icon: <MdLocalCafe {...iconSize(20)} />,
               title: t("app.settings.pages.donate.title"),
+            },
+            {
+              id: "subscription",
+              icon: <MdLoyalty {...iconSize(20)} />,
+              title: t("app.settings.pages.subscription.title"),
             },
           ],
         },
