@@ -8,6 +8,7 @@ import { Ripple } from "@revolt/ui/components/material";
 
 const button = cva({
   base: {
+    // for <Ripple />:
     position: "relative",
 
     flexShrink: 0,

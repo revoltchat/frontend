@@ -5,6 +5,9 @@ import { styled } from "styled-system/jsx";
  */
 export const SidebarButton = styled("a", {
   base: {
+    // for <Ripple />:
+    position: "relative",
+
     minWidth: 0,
 
     display: "flex",

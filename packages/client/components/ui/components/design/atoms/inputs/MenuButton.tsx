@@ -54,7 +54,9 @@ const base = cva({
     fontSize: "15px",
     userSelect: "none",
 
+    // for <Ripple />:
     position: "relative",
+
     display: "flex",
     margin: "0 var(--gap-md)",
     padding: "0 var(--gap-md)",
