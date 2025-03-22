@@ -1,24 +1,9 @@
-import { BiSolidCloud, BiSolidTrash } from "solid-icons/bi";
-import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
+import { Show } from "solid-js";
 
-import type { API, ChannelWebhook } from "revolt.js";
+import type { API } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import {
-  Avatar,
-  Button,
-  CategoryButton,
-  CircularProgress,
-  Column,
-  FileInput,
-  Form2,
-  Preloader,
-  Row,
-  Text,
-  Typography,
-} from "@revolt/ui";
-
-import { useSettingsNavigation } from "../Settings";
+import { CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
 
 import { ChannelSettingsProps } from ".";
 import { createFormControl, createFormGroup } from "solid-forms";

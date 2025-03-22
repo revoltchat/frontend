@@ -1,4 +1,4 @@
-import { splitProps } from "solid-js";
+import { Show, splitProps } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 
 import { AriaButtonProps, createButton } from "@solid-aria/button";
@@ -144,7 +144,9 @@ export function Button(
       class={button(style)}
       // @codegen directives props=rest include=floating
     >
-      <Ripple />
+      <Show when={!buttonProps.disabled}>
+        <Ripple />
+      </Show>
       {rest.children}
     </button>
   );

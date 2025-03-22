@@ -1,8 +1,10 @@
 import { Match, Show, splitProps, Switch } from "solid-js";
 import { Button, Row } from "../../design";
 import { styled } from "styled-system/jsx";
-import { css, cva } from "styled-system/css";
+import { css } from "styled-system/css";
 import { Ripple } from "../../material";
+
+import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
 interface Props {
   /**
@@ -86,7 +88,7 @@ export function FileInput(props: Props) {
               size="icon"
               variant="plain"
               onPress={onClear}
-              isDisabled={!Array.isArray(props.file)}
+              isDisabled={!props.file}
             >
               X
             </Button>
@@ -113,11 +115,11 @@ export function FileInput(props: Props) {
           </ImagePreview>
           <Button
             size="icon"
-            variant="primary"
+            variant="plain"
             onPress={onClear}
-            isDisabled={!Array.isArray(props.file)}
+            isDisabled={!props.file}
           >
-            X
+            <MdClose />
           </Button>
         </Row>
       </Match>
