@@ -33,6 +33,10 @@ interface Props {
    */
   accept?: "image/*";
 
+  imageAspect?: string;
+  imageRounded?: boolean;
+  imageJustify?: boolean;
+
   required: boolean;
   disabled: boolean;
 }
@@ -106,8 +110,14 @@ export function FileInput(props: Props) {
           onChange={onChange}
           {...remote}
         />
-        <Row align justify gap="lg">
-          <ImagePreview onClick={() => inputRef!.click()}>
+        <Row align justify={props.imageJustify ?? true} gap="lg">
+          <ImagePreview
+            onClick={() => inputRef!.click()}
+            style={{
+              "aspect-ratio": props.imageAspect ?? "1/1",
+            }}
+            rounded={props.imageRounded ?? true}
+          >
             <Ripple />
             <Show when={local.file}>
               <img src={imageSrc()} />
@@ -130,21 +140,35 @@ export function FileInput(props: Props) {
 const ImagePreview = styled("div", {
   base: {
     cursor: "pointer",
-    borderRadius: "50%",
     position: "relative",
-    width: "96px",
     height: "96px",
 
     backgroundColor: "var(--md-sys-color-primary-container)",
 
     "& img": {
-      borderRadius: "50%",
-
       display: "block",
-      height: "96px",
-      width: "96px",
+      height: "100%",
+      width: "100%",
 
       objectFit: "cover",
+    },
+  },
+  variants: {
+    rounded: {
+      true: {
+        borderRadius: "50%",
+
+        "& img": {
+          borderRadius: "50%",
+        },
+      },
+      false: {
+        borderRadius: "var(--borderRadius-lg)",
+
+        "& img": {
+          borderRadius: "var(--borderRadius-lg)",
+        },
+      },
     },
   },
 });

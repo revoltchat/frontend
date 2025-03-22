@@ -11,7 +11,7 @@ import { useTranslation } from "@revolt/i18n";
 import { CONFIGURATION } from "@revolt/common";
 
 /**
- * Overview
+ * Channel overview
  */
 export default function ChannelOverview(props: ChannelSettingsProps) {
   const t = useTranslation();
@@ -97,7 +97,9 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
           />
           <Row>
             <Form2.Reset group={editGroup} onReset={onReset} />
-            <Form2.Submit group={editGroup}>Save</Form2.Submit>
+            <Form2.Submit group={editGroup}>
+              {t("app.special.modals.actions.save")}
+            </Form2.Submit>
             <Show when={editGroup.isPending}>
               <CircularProgress />
             </Show>

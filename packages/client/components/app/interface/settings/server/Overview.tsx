@@ -1,133 +1,148 @@
-import { BiRegularAbacus, BiRegularGlobe, BiSolidFlag } from "solid-icons/bi";
 import { Show } from "solid-js";
 
-import { ServerFlags } from "revolt.js";
+import type { API } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import {
-  CategoryButton,
-  CategoryButtonGroup,
-  CategoryCollapse,
-  Checkbox,
-  Column,
-  FormGroup,
-  Typography,
-} from "@revolt/ui";
+import { CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
 
 import { ServerSettingsProps } from ".";
+import { createFormControl, createFormGroup } from "solid-forms";
+import { useTranslation } from "@revolt/i18n";
+import { CONFIGURATION } from "@revolt/common";
 
 /**
  * Server overview
  */
 export default function ServerOverview(props: ServerSettingsProps) {
-  const user = useClient();
+  const t = useTranslation();
+  const client = useClient();
+
+  const editGroup = createFormGroup({
+    name: createFormControl(props.server.name),
+    description: createFormControl(props.server.description || ""),
+    icon: createFormControl<string | File[] | null>(
+      props.server.animatedIconURL
+    ),
+    banner: createFormControl<string | File[] | null>(props.server.bannerURL),
+  });
+
+  function onReset() {
+    editGroup.controls.name.setValue(props.server.name);
+    editGroup.controls.description.setValue(props.server.description || "");
+    editGroup.controls.icon.setValue(props.server.animatedIconURL ?? null);
+    editGroup.controls.banner.setValue(props.server.bannerURL ?? null);
+  }
+
+  async function onSubmit() {
+    const changes: API.DataEditServer = {
+      remove: [],
+    };
+
+    if (editGroup.controls.name.isDirty) {
+      changes.name = editGroup.controls.name.value.trim();
+    }
+
+    if (editGroup.controls.description.isDirty) {
+      const description = editGroup.controls.description.value.trim();
+
+      if (description) {
+        changes.description = description;
+      } else {
+        changes.remove!.push("Description");
+      }
+    }
+
+    if (editGroup.controls.icon.isDirty) {
+      if (!editGroup.controls.icon.value) {
+        changes.remove!.push("Icon");
+      } else if (Array.isArray(editGroup.controls.icon.value)) {
+        const body = new FormData();
+        body.append("file", editGroup.controls.icon.value[0]);
+
+        const [key, value] = client().authenticationHeader;
+        const data: { id: string } = await fetch(
+          `${CONFIGURATION.DEFAULT_MEDIA_URL}/icons`,
+          {
+            method: "POST",
+            body,
+            headers: {
+              [key]: value,
+            },
+          }
+        ).then((res) => res.json());
+
+        changes.icon = data.id;
+      }
+    }
+
+    if (editGroup.controls.banner.isDirty) {
+      if (!editGroup.controls.banner.value) {
+        changes.remove!.push("Banner");
+      } else if (Array.isArray(editGroup.controls.banner.value)) {
+        const body = new FormData();
+        body.append("file", editGroup.controls.banner.value[0]);
+
+        const [key, value] = client().authenticationHeader;
+        const data: { id: string } = await fetch(
+          `${CONFIGURATION.DEFAULT_MEDIA_URL}/banners`,
+          {
+            method: "POST",
+            body,
+            headers: {
+              [key]: value,
+            },
+          }
+        ).then((res) => res.json());
+
+        changes.banner = data.id;
+      }
+    }
+
+    await props.server.edit(changes);
+  }
 
   return (
     <Column gap="xl">
-      <Show when={user().user?.privileged}>
+      <form onSubmit={Form2.submitHandler(editGroup, onSubmit, onReset)}>
         <Column>
-          <CategoryButtonGroup>
-            <CategoryCollapse
-              title="Flags"
-              icon={<BiSolidFlag size={24} />}
-              description="Set visible badges on server"
-            >
-              <FormGroup>
-                <CategoryButton
-                  icon="blank"
-                  action={
-                    <Checkbox
-                      value={!props.server.flags}
-                      onChange={() =>
-                        props.server.edit({
-                          flags: 0,
-                        })
-                      }
-                    />
-                  }
-                  onClick={() => void 0}
-                >
-                  No flags
-                </CategoryButton>
-              </FormGroup>
-              <FormGroup>
-                <CategoryButton
-                  icon="blank"
-                  action={
-                    <Checkbox
-                      value={props.server.flags === ServerFlags.Official}
-                      onChange={() =>
-                        props.server.edit({
-                          flags: ServerFlags.Official,
-                        })
-                      }
-                    />
-                  }
-                  onClick={() => void 0}
-                >
-                  Official Server
-                </CategoryButton>
-              </FormGroup>
-              <FormGroup>
-                <CategoryButton
-                  icon="blank"
-                  action={
-                    <Checkbox
-                      value={props.server.flags === ServerFlags.Verified}
-                      onChange={() =>
-                        props.server.edit({
-                          flags: ServerFlags.Verified,
-                        })
-                      }
-                    />
-                  }
-                  onClick={() => void 0}
-                >
-                  Verified Server
-                </CategoryButton>
-              </FormGroup>
-            </CategoryCollapse>
-            <FormGroup>
-              <CategoryButton
-                description="Message counts will be collected for server"
-                icon={<BiRegularAbacus size={24} />}
-                action={
-                  <Checkbox
-                    value={!!props.server.analytics}
-                    onChange={(analytics) =>
-                      props.server.edit({
-                        analytics,
-                      })
-                    }
-                  />
-                }
-                onClick={() => void 0}
-              >
-                Analytics
-              </CategoryButton>
-            </FormGroup>
-            <FormGroup>
-              <CategoryButton
-                description="Server can be joined from Discover"
-                icon={<BiRegularGlobe size={24} />}
-                action={
-                  <Checkbox
-                    value={!!props.server.discoverable}
-                    onChange={(discoverable) =>
-                      props.server.edit({
-                        discoverable,
-                      })
-                    }
-                  />
-                }
-                onClick={() => void 0}
-              >
-                Public Server
-              </CategoryButton>
-            </FormGroup>
-          </CategoryButtonGroup>
+          <Form2.FileInput
+            control={editGroup.controls.icon}
+            accept="image/*"
+            label="Server Icon"
+            imageJustify={false}
+          />
+          <Form2.FileInput
+            control={editGroup.controls.banner}
+            accept="image/*"
+            label="Server Banner"
+            imageAspect="232/100"
+            imageRounded={false}
+            imageJustify={false}
+          />
+          <Form2.TextField
+            name="name"
+            control={editGroup.controls.name}
+            label={t("app.settings.server_pages.overview.name")}
+          />
+          <Form2.TextField
+            autosize
+            min-rows={2}
+            name="description"
+            control={editGroup.controls.description}
+            label={t("app.settings.server_pages.overview.description")}
+            placeholder="This channel is about..."
+          />
+          <Row>
+            <Form2.Reset group={editGroup} onReset={onReset} />
+            <Form2.Submit group={editGroup}>
+              {t("app.special.modals.actions.save")}
+            </Form2.Submit>
+            <Show when={editGroup.isPending}>
+              <CircularProgress />
+            </Show>
+          </Row>
         </Column>
-      </Show>
+      </form>
     </Column>
   );
 }

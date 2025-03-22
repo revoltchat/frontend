@@ -2,7 +2,7 @@ import { Show, For, splitProps, ComponentProps, type JSX } from "solid-js";
 import { IFormGroup, type IFormControl } from "solid-forms";
 import { TextField } from "../material";
 import { mapAnyError } from "@revolt/client";
-import { Button } from "../design";
+import { Button, Text } from "../design";
 import { FileInput } from "./files";
 import { useTranslation } from "@revolt/i18n";
 
@@ -41,26 +41,36 @@ const FormTextField = (
 /**
  * Form wrapper for, single file, FileInput
  */
-const FormFileInput = (props: {
-  control: IFormControl<File[] | string | null>;
-  accept?: ComponentProps<typeof FileInput>["accept"];
-}) => {
+const FormFileInput = (
+  props: {
+    label?: string;
+    control: IFormControl<File[] | string | null>;
+  } & Pick<
+    ComponentProps<typeof FileInput>,
+    "accept" | "imageAspect" | "imageRounded" | "imageJustify"
+  >
+) => {
+  const [local, remote] = splitProps(props, ["label", "control"]);
+
   return (
     <>
+      <Show when={local.label}>
+        <Text class="label">{local.label}</Text>
+      </Show>
       <FileInput
-        accept={props.accept}
-        file={props.control.value}
+        {...remote}
+        file={local.control.value}
         onFiles={(files) => {
           // TODO: do validation of files here
 
-          props.control.setValue(files);
-          props.control.markDirty(true);
+          local.control.setValue(files);
+          local.control.markDirty(true);
         }}
-        required={props.control.isRequired}
-        disabled={props.control.isDisabled}
+        required={local.control.isRequired}
+        disabled={local.control.isDisabled}
       />
-      <Show when={props.control.isTouched && !props.control.isValid}>
-        <For each={Object.keys(props.control.errors!)}>
+      <Show when={local.control.isTouched && !local.control.isValid}>
+        <For each={Object.keys(local.control.errors!)}>
           {(errorMsg: string) => <small>{errorMsg}</small>}
         </For>
       </Show>
