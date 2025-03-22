@@ -13,7 +13,7 @@ export function TextField(
     "min-rows"?: number;
     "max-rows"?: number;
     placeholder?: string;
-    type?: "text" | "password" | "email";
+    type?: "text" | "password" | "email" | "file";
     variant?: "filled" | "outlined";
   }
 ) {

@@ -1,17 +1,14 @@
-import {
-  Show,
-  For,
-  mergeProps,
-  type Component,
-  splitProps,
-  ComponentProps,
-  type JSX,
-} from "solid-js";
-import { createFormControl, IFormGroup, type IFormControl } from "solid-forms";
+import { Show, For, splitProps, ComponentProps, type JSX } from "solid-js";
+import { IFormGroup, type IFormControl } from "solid-forms";
 import { TextField } from "../material";
 import { mapAnyError } from "@revolt/client";
 import { Button } from "../design";
+import { FileInput } from "./files";
+import { useTranslation } from "@revolt/i18n";
 
+/**
+ * Form wrapper for TextField
+ */
 const FormTextField = (
   props: {
     control: IFormControl<string>;
@@ -41,6 +38,63 @@ const FormTextField = (
   );
 };
 
+/**
+ * Form wrapper for, single file, FileInput
+ */
+const FormFileInput = (props: {
+  control: IFormControl<File[] | string | null>;
+  accept?: ComponentProps<typeof FileInput>["accept"];
+}) => {
+  return (
+    <>
+      <FileInput
+        accept={props.accept}
+        file={props.control.value}
+        onFiles={(files) => {
+          // TODO: do validation of files here
+
+          props.control.setValue(files);
+          props.control.markDirty(true);
+        }}
+        required={props.control.isRequired}
+        disabled={props.control.isDisabled}
+      />
+      <Show when={props.control.isTouched && !props.control.isValid}>
+        <For each={Object.keys(props.control.errors!)}>
+          {(errorMsg: string) => <small>{errorMsg}</small>}
+        </For>
+      </Show>
+    </>
+  );
+};
+
+/**
+ * Form reset button
+ */
+const FormResetButton = (props: {
+  group: IFormGroup;
+  onReset: () => void;
+  children?: JSX.Element;
+}) => {
+  const t = useTranslation();
+
+  return (
+    <Button
+      variant="plain"
+      onPress={() => {
+        resetGeneric(props.group);
+        props.onReset();
+      }}
+      isDisabled={!props.group.isDirty}
+    >
+      {props.children ?? t("app.special.modals.actions.reset")}
+    </Button>
+  );
+};
+
+/**
+ * Form submission button
+ */
 const FormSubmitButton = (props: {
   group: IFormGroup;
   children: JSX.Element;
@@ -52,48 +106,32 @@ const FormSubmitButton = (props: {
   );
 };
 
-const SampleTextInput: Component<{
-  control?: IFormControl<string>;
-  name?: string;
-  type?: string;
-}> = (props) => {
-  // here we provide a default form control in case the user doesn't supply one
-  let localProps = mergeProps(
-    { control: createFormControl(""), type: "text" },
-    props
-  );
+/**
+ * Generic 'reset' of form group
+ * @param group Form Group
+ */
+function resetGeneric(group: IFormGroup) {
+  for (const control of Object.values(group.controls)) {
+    control.markDirty(false);
+    control.markTouched(false);
+  }
 
-  return (
-    <div
-      classList={{
-        "is-invalid": !!localProps.control.errors,
-        "is-touched": localProps.control.isTouched,
-        "is-required": localProps.control.isRequired,
-        "is-disabled": localProps.control.isDisabled,
-      }}
-    >
-      <input
-        name={localProps.name}
-        type={localProps.type}
-        value={localProps.control.value}
-        oninput={(e) => {
-          localProps.control.setValue(e.currentTarget.value);
-        }}
-        onblur={() => localProps.control.markTouched(true)}
-        required={localProps.control.isRequired}
-        disabled={localProps.control.isDisabled}
-      />
+  group.markPending(false);
+  group.markSubmitted(true);
+}
 
-      <Show when={localProps.control.isTouched && !localProps.control.isValid}>
-        <For each={Object.values(localProps.control.errors!)}>
-          {(errorMsg: string) => <small>{errorMsg}</small>}
-        </For>
-      </Show>
-    </div>
-  );
-};
-
-function submitHandler(group: IFormGroup, handler: () => Promise<void> | void) {
+/**
+ * Create a new submission handler
+ * @param group Form Group
+ * @param handler Handler for submission
+ * @param onReset Handler to reset form state
+ * @returns Function for onSubmit handler of form
+ */
+function submitHandler(
+  group: IFormGroup,
+  handler: () => Promise<void> | void,
+  onReset?: () => void
+) {
   return async (e: Event) => {
     e.preventDefault();
 
@@ -112,19 +150,17 @@ function submitHandler(group: IFormGroup, handler: () => Promise<void> | void) {
         error: mapAnyError(err),
       });
     } finally {
-      for (const control of Object.values(group.controls)) {
-        control.markDirty(false);
-        control.markTouched(false);
-      }
-
       group.markPending(false);
-      group.markSubmitted(true);
+      resetGeneric(group);
+      onReset?.();
     }
   };
 }
 
 export const Form2 = {
   TextField: FormTextField,
+  FileInput: FormFileInput,
+  Reset: FormResetButton,
   Submit: FormSubmitButton,
   submitHandler,
 };

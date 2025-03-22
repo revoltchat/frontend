@@ -28,6 +28,7 @@ const button = cva({
     // },
 
     "&:disabled": {
+      filter: "saturate(0)",
       cursor: "not-allowed",
     },
   },
@@ -122,7 +123,7 @@ export function Button(
         "role" | "tabIndex" | "aria-selected"
       >,
     "onClick"
-  >,
+  >
 ) {
   const [passthrough, propsRest] = splitProps(props, [
     "aria-selected",

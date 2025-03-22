@@ -1,5 +1,6 @@
 import type { Badge } from "mdui/components/badge";
 import type { Checkbox } from "mdui/components/checkbox";
+import type { CircularProgress } from "mdui/components/circular-progress";
 import type { List } from "mdui/components/list";
 import type { ListItem } from "mdui/components/list-item";
 import type { ListSubheader } from "mdui/components/list-subheader";
@@ -18,6 +19,7 @@ declare module "solid-js" {
       "md-ripple": { disabled?: boolean };
 
       "mdui-checkbox": ComponentProps<Checkbox>;
+      "mdui-circular-progress": ComponentProps<CircularProgress>;
       "mdui-tabs": ComponentProps<Tabs>;
       "mdui-tab": ComponentProps<Tab>;
       "mdui-tab-panel": ComponentProps<TabPanel>;
