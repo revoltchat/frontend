@@ -117,6 +117,7 @@ export function HomePage() {
 
   return (
     // TODO: i18n
+    // TODO: reactivity
     <Base>
       <Header placement="primary">
         <HeaderIcon>

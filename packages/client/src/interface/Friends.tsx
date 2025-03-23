@@ -77,6 +77,7 @@ type FriendLists = Accessor<{
 /**
  * Friends menu
  */
+// TODO: fix reactivity
 export function Friends() {
   const client = useClient();
 

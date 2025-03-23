@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
+import { Match, Show, Switch, createMemo, onMount } from "solid-js";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel, ServerMember, User } from "revolt.js";
@@ -50,6 +50,8 @@ export function MemberSidebar(props: Props) {
  * Servers to not fetch all members for
  */
 const IGNORE_ALL = ["01F7ZSBSFHQ8TA81725KQCSDDP", "01F80118K1F2EYD9XAMCPQ0BCT"];
+
+// TODO: fix reactivity with revolt.js changes
 
 /**
  * Server Member Sidebar
