@@ -31,8 +31,8 @@ export type Dictionary = i18n.Flatten<RawDictionary>;
 /**
  * Currently set language
  */
-const [language, _setLanguage] = createSignal<Language>("en" as Language);
-export { language };
+const [language, setLanguage] = createSignal<Language>("en" as Language);
+export { language, setLanguage };
 
 /**
  * Use translation function as a hook
