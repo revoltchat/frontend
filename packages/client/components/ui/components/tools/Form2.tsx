@@ -1,10 +1,9 @@
 import { Show, For, splitProps, ComponentProps, type JSX } from "solid-js";
 import { IFormGroup, type IFormControl } from "solid-forms";
 import { TextField } from "../material";
-import { mapAnyError } from "@revolt/client";
 import { Button, Text } from "../design";
 import { FileInput } from "./files";
-import { useTranslation } from "@revolt/i18n";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Form wrapper for TextField
@@ -86,8 +85,6 @@ const FormResetButton = (props: {
   onReset: () => void;
   children?: JSX.Element;
 }) => {
-  const t = useTranslation();
-
   return (
     <Button
       variant="plain"
@@ -97,7 +94,7 @@ const FormResetButton = (props: {
       }}
       isDisabled={!props.group.isDirty}
     >
-      {props.children ?? t("app.special.modals.actions.reset")}
+      {props.children ?? <Trans>Reset</Trans>}
     </Button>
   );
 };
@@ -157,7 +154,7 @@ function submitHandler(
       await handler();
     } catch (err) {
       group.setErrors({
-        error: mapAnyError(err),
+        error: err,
       });
     } finally {
       group.markPending(false);

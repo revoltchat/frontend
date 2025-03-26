@@ -1,10 +1,10 @@
 import { For, createSignal } from "solid-js";
 
-import { useTranslation } from "@revolt/i18n";
 import { styled } from "styled-system/jsx";
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * List of recovery codes
@@ -29,8 +29,6 @@ const List = styled("div", {
  * Modal to display a list of recovery codes
  */
 const MFARecovery: PropGenerator<"mfa_recovery"> = (props) => {
-  const t = useTranslation();
-
   // Keep track of changes to recovery codes
   // eslint-disable-next-line solid/reactivity
   const [known, setCodes] = createSignal(props.codes);
@@ -49,18 +47,18 @@ const MFARecovery: PropGenerator<"mfa_recovery"> = (props) => {
   };
 
   return {
-    title: t("app.special.modals.mfa.recovery_codes"),
-    description: t("app.special.modals.mfa.save_codes"),
+    title: <Trans>Your recovery codes</Trans>,
+    description: <Trans>Please save these to a safe location.</Trans>,
     actions: [
       {
         palette: "primary",
-        children: t("app.special.modals.actions.done"),
+        children: <Trans>Done</Trans>,
         onClick: () => true,
         confirmation: true,
       },
       {
         palette: "plain",
-        children: t("app.special.modals.actions.reset"),
+        children: <Trans>Reset</Trans>,
         onClick: reset,
       },
     ],

@@ -17,7 +17,6 @@ import { styled } from "styled-system/jsx";
 
 import { UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
 import {
   Avatar,
@@ -320,69 +319,3 @@ const Avatars = styled("div", {
     },
   },
 });
-
-/**
- * Pending requests button
- */
-function PendingRequests(props: { lists: FriendLists }) {
-  const t = useTranslation();
-
-  /**
-   * Shorthand for generating incoming list
-   * @returns List of users
-   */
-  const incoming = () => props.lists().incoming;
-
-  /**
-   * Generate pending requests description
-   * @returns Localised string
-   */
-  const description = () => {
-    const list = incoming();
-    const length = list.length;
-
-    if (length === 1) {
-      return t("app.special.friends.from.single", { user: list[0].username });
-    } else if (length <= 3) {
-      return t("app.special.friends.from.multiple", {
-        userlist: list
-          .slice(0, 2)
-          .map((user) => user.username)
-          .join(", "),
-        user: list.slice(-1)[0].username,
-      });
-    } else {
-      return t("app.special.friends.from.several", {
-        userlist: list
-          .slice(0, 3)
-          .map((user) => user.username)
-          .join(", "),
-        count: (length - 3).toString(),
-      });
-    }
-  };
-
-  return (
-    <Show when={incoming().length}>
-      <CategoryButton
-        action="chevron"
-        icon={
-          <Avatars>
-            <For each={incoming().slice(0, 3)}>
-              {(user, index) => (
-                <Avatar
-                  src={user.animatedAvatarURL}
-                  size={64}
-                  holepunch={index() == 2 ? "none" : "overlap"}
-                />
-              )}
-            </For>
-          </Avatars>
-        }
-        description={description()}
-      >
-        {incoming().length} Pending Requests
-      </CategoryButton>
-    </Show>
-  );
-}

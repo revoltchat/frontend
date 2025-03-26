@@ -1,4 +1,3 @@
-import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 
 import { createFormModal } from "../form";
@@ -10,7 +9,6 @@ const RE_INVITE_URL = /(?:invite|rvlt.gg)\/([a-z0-9]+)/gi;
  * Modal to join a server
  */
 const JoinServer: PropGenerator<"join_server"> = (props) => {
-  const t = useTranslation();
   const navigate = useNavigate();
 
   return createFormModal({

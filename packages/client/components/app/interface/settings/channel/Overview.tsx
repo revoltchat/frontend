@@ -7,14 +7,14 @@ import { CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
 
 import { ChannelSettingsProps } from ".";
 import { createFormControl, createFormGroup } from "solid-forms";
-import { useTranslation } from "@revolt/i18n";
 import { CONFIGURATION } from "@revolt/common";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Channel overview
  */
 export default function ChannelOverview(props: ChannelSettingsProps) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const client = useClient();
 
   const editGroup = createFormGroup({
@@ -80,25 +80,27 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
     <Column gap="xl">
       <form onSubmit={Form2.submitHandler(editGroup, onSubmit, onReset)}>
         <Column>
-          <Text class="label">Channel Info</Text>
+          <Text class="label">
+            <Trans>Channel Info</Trans>
+          </Text>
           <Form2.FileInput control={editGroup.controls.icon} accept="image/*" />
           <Form2.TextField
             name="name"
             control={editGroup.controls.name}
-            label={t("app.settings.channel_pages.overview.name")}
+            label={t`Channel Name`}
           />
           <Form2.TextField
             autosize
             min-rows={2}
             name="description"
             control={editGroup.controls.description}
-            label={t("app.settings.channel_pages.overview.description")}
-            placeholder="This channel is about..."
+            label={t`Channel Description`}
+            placeholder={t`This channel is about...`}
           />
           <Row>
             <Form2.Reset group={editGroup} onReset={onReset} />
             <Form2.Submit group={editGroup}>
-              {t("app.special.modals.actions.save")}
+              <Trans>Save</Trans>
             </Form2.Submit>
             <Show when={editGroup.isPending}>
               <CircularProgress />

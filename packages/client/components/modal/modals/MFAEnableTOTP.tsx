@@ -1,11 +1,11 @@
 import { createSignal } from "solid-js";
 import { QRCodeSVG } from "solid-qr-code";
 
-import { useTranslation } from "@revolt/i18n";
-import { Column, Input, Text, TextField } from "@revolt/ui";
+import { Column, TextField } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 import { styled } from "styled-system/jsx";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Wrapper element for the raw TOTP code
@@ -34,8 +34,8 @@ const Qr = styled("div", {
  * Modal to display QR code and secret key for MFA and accept the correct code
  */
 const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
-  const t = useTranslation();
   const [value, setValue] = createSignal("");
+  const { t } = useLingui();
 
   /**
    * Generate OTP URI
@@ -44,12 +44,16 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
     `otpauth://totp/Revolt:${props.identifier}?secret=${props.secret}&issuer=Revolt`;
 
   return {
-    title: t("app.special.modals.mfa.enable_totp"),
-    description: t("app.special.modals.mfa.prompt_totp"),
+    title: <Trans>Enable authenticator app</Trans>,
+    description: (
+      <Trans>
+        Please scan or use the token below in your authenticator app.
+      </Trans>
+    ),
     actions: [
       {
         palette: "primary",
-        children: t("app.special.modals.actions.continue"),
+        children: <Trans>Continue</Trans>,
         onClick: () => {
           props.callback(value().trim().replace(/\s/g, ""));
           return true;
@@ -58,7 +62,7 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
       },
       {
         palette: "plain",
-        children: t("app.special.modals.actions.cancel"),
+        children: <Trans>Cancel</Trans>,
         onClick: () => {
           props.callback();
           return true;
@@ -86,7 +90,7 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
 
         <TextField
           value={value()}
-          label={t("app.special.modals.mfa.enter_code")}
+          label={t`Enter Code`}
           onChange={(e) => setValue(e.currentTarget.value)}
         />
       </>

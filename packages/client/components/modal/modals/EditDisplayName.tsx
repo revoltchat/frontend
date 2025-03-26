@@ -1,5 +1,4 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -7,7 +6,7 @@ import { PropGenerator } from "../types";
  * Modal for editing display name
  */
 const EditDisplayName: PropGenerator<"edit_display_name"> = (props) => {
-  const t = useTranslation();
+  const { t } = useLingui();
 
   /**
    * Apply new display name
@@ -25,26 +24,26 @@ const EditDisplayName: PropGenerator<"edit_display_name"> = (props) => {
 
   return createFormModal({
     modalProps: {
-      title: t("app.special.modals.account.change.display_name"),
+      title: <Trans>Change your display name</Trans>,
     },
     schema: {
       display_name: "text",
     },
     data: {
       display_name: {
-        field: "Display Name",
-        placeholder: "Choose a display name",
+        field: <Trans>Display Name</Trans>,
+        placeholder: t`Choose a display name`,
       },
     },
     callback: ({ display_name }) => applyName(display_name),
     submit: {
-      children: t("app.special.modals.actions.update"),
+      children: <Trans>Change</Trans>,
     },
     actions: [
       {
         type: "button",
         variant: "plain",
-        children: "Clear",
+        children: <Trans>Clear</Trans>,
         /**
          * Clear display name
          */

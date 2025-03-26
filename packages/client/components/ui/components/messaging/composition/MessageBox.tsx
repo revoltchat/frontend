@@ -2,11 +2,10 @@ import { BiRegularBlock } from "solid-icons/bi";
 import { JSX, Match, Show, Switch, onMount } from "solid-js";
 import { styled } from "styled-system/jsx";
 
-import { useTranslation } from "@revolt/i18n";
-
 import { typography } from "../../design/atoms/display/Typography";
 import { InlineIcon, Row } from "../../design/layout";
 import { cva } from "styled-system/css";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -115,8 +114,6 @@ const Blocked = styled(Row, {
  * Message box
  */
 export function MessageBox(props: Props) {
-  const t = useTranslation();
-
   /**
    * Handle changes to input
    * @param event Event
@@ -172,7 +169,11 @@ export function MessageBox(props: Props) {
         }
       >
         <Match when={!props.sendingAllowed}>
-          <Blocked align>{t("app.main.channel.misc.no_sending")}</Blocked>
+          <Blocked align>
+            <Trans>
+              You don't have permission to send messages in this channel.
+            </Trans>
+          </Blocked>
         </Match>
       </Switch>
       <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>

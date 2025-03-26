@@ -46,6 +46,7 @@ export const Row = styled("div", {
       md: { gap: "var(--gap-md)" },
       lg: { gap: "var(--gap-lg)" },
       xl: { gap: "var(--gap-xl)" },
+      none: { gap: "unset" },
     },
   },
 });

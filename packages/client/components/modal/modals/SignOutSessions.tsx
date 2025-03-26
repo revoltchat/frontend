@@ -1,30 +1,27 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans } from "@lingui-solid/solid/macro";
 import { PropGenerator } from "../types";
 
 /**
  * Modal to display server information
  */
 const SignOutSessions: PropGenerator<"sign_out_sessions"> = (props) => {
-  const t = useTranslation();
-
   /**
    * Confirm session sign out
    */
   const confirm = () => props.client.sessions.deleteAll().then(() => true);
 
   return {
-    title: t("app.special.modals.sessions.title"),
-    children: t("app.special.modals.sessions.short"),
+    title: <Trans>Are you sure you want to clear your sessions?</Trans>,
+    children: <Trans>You cannot undo this action.</Trans>,
     actions: [
       {
         palette: "accent",
         onClick: () => true,
-        children: t("app.special.modals.actions.cancel"),
+        children: <Trans>Cancel</Trans>,
       },
       {
         onClick: confirm,
-        children: t("app.special.modals.sessions.accept"),
+        children: <Trans>Accept</Trans>,
       },
     ],
   };

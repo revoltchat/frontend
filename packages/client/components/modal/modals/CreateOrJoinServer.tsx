@@ -1,4 +1,3 @@
-import { useTranslation } from "@revolt/i18n";
 import { iconSize } from "@revolt/ui";
 
 import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
@@ -13,8 +12,6 @@ import { styled } from "styled-system/jsx";
  * Modal to create or join a server
  */
 const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
-  const t = useTranslation();
-
   return {
     title: "Create or join a server",
     description: (

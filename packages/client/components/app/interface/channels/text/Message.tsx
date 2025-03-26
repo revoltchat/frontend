@@ -4,7 +4,7 @@ import { Message as MessageInterface, WebsiteEmbed } from "revolt.js";
 import { decodeTime } from "ulid";
 
 import { useClient } from "@revolt/client";
-import { dayjs, useTranslation } from "@revolt/i18n";
+import { dayjs } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
 import {
@@ -38,6 +38,7 @@ import {
   floatingUserMenusFromMessage,
 } from "../../../menus/UserContextMenu";
 import { cva } from "styled-system/css";
+import { useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Regex for matching URLs
@@ -66,7 +67,7 @@ interface Props {
  * Render a Message with or without a tail
  */
 export function Message(props: Props) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const client = useClient();
 
   /**
@@ -151,34 +152,30 @@ export function Message(props: Props) {
               props.message.authorId === "01FHGJ3NPP7XANQQH8C2BE44ZY"
             }
           >
-            <Tooltip content={t("app.main.channel.bridged")} placement="top">
+            <Tooltip
+              content={t`Message was sent on another platform`}
+              placement="top"
+            >
               <MdLink {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match when={props.message.author?.privileged}>
-            <Tooltip content={t("app.main.channel.team")} placement="top">
+            <Tooltip content={t`Official Communication`} placement="top">
               <MdShield {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match when={props.message.author?.bot}>
-            <Tooltip content={t("app.main.channel.bot")} placement="top">
+            <Tooltip content={t`Bot`} placement="top">
               <MdSmartToy {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match when={props.message.webhook}>
-            <Tooltip
-              content={
-                "Webhook"
-
-                // TODO: missing i18n
-              }
-              placement="top"
-            >
+            <Tooltip content={t`Webhook`} placement="top">
               <MdCloud {...iconSize(16)} />
             </Tooltip>
           </Match>
           <Match when={props.message.isSuppressed}>
-            <Tooltip content={"Silent" /* TODO: i18n */} placement="top">
+            <Tooltip content={t`Silent`} placement="top">
               <MdNotificationsOff {...iconSize(16)} />
             </Tooltip>
           </Match>
@@ -189,7 +186,7 @@ export function Message(props: Props) {
             }
           >
             <NewUser>
-              <Tooltip content="New to Revolt" placement="top">
+              <Tooltip content={t`New to Revolt`} placement="top">
                 <MdSpa {...iconSize(16)} />
               </Tooltip>
             </NewUser>
@@ -201,7 +198,7 @@ export function Message(props: Props) {
             }
           >
             <NewUser>
-              <Tooltip content="New to the server" placement="top">
+              <Tooltip content={t`New to the server`} placement="top">
                 <MdSpa {...iconSize(16)} />
               </Tooltip>
             </NewUser>

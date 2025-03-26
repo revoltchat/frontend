@@ -3,10 +3,10 @@ import { styled } from "styled-system/jsx";
 
 import { User } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
 import { useUsers } from "@revolt/markdown/users";
 
 import { Avatar, OverflowingText, typography, Typography } from "../../design";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -24,8 +24,6 @@ interface Props {
  * Display typing user information
  */
 export function TypingIndicator(props: Props) {
-  const t = useTranslation();
-
   /**
    * Generate list of user IDs
    * @returns User IDs
@@ -62,20 +60,18 @@ export function TypingIndicator(props: Props) {
             </For>
           </Avatars>
           <OverflowingText class={typography({ class: "body", size: "small" })}>
-            <Switch fallback={t("app.main.channel.typing.several")}>
+            <Switch fallback={<Trans>Several people are typing…</Trans>}>
               <Match when={users().length === 1}>
-                {t("app.main.channel.typing.single", {
-                  user: users()[0]!.username,
-                })}
+                <Trans>{users()[0]!.username} is typing…</Trans>
               </Match>
               <Match when={users().length < 5}>
-                {t("app.main.channel.typing.multiple", {
-                  user: users().slice(-1)[0]!.username,
-                  userlist: users()
+                <Trans>
+                  {users()
                     .slice(0, -1)
                     .map((user) => user!.username)
-                    .join(", "),
-                })}
+                    .join(", ")}{" "}
+                  and {users().slice(-1)[0]!.username} are typing…
+                </Trans>
               </Match>
             </Switch>
           </OverflowingText>

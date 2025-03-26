@@ -1,5 +1,4 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans } from "@lingui-solid/solid/macro";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -7,12 +6,10 @@ import { PropGenerator } from "../types";
  * Modal to delete a message
  */
 const DeleteMessage: PropGenerator<"delete_message"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
-      title: t("app.context_menu.delete_message"),
-      description: t("app.special.modals.prompt.confirm_delete_message_long"),
+      title: <Trans>Delete message</Trans>,
+      description: <Trans>Are you sure you want to delete this?</Trans>,
     },
     schema: {
       message: "custom",
@@ -26,7 +23,7 @@ const DeleteMessage: PropGenerator<"delete_message"> = (props) => {
     callback: () => props.message.delete(),
     submit: {
       variant: "error",
-      children: t("app.special.modals.actions.delete"),
+      children: <Trans>Delete</Trans>,
     },
   });
 };

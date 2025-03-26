@@ -54,7 +54,7 @@ type Props = CommonProps & {
   /**
    * Timestamp message was sent at
    */
-  timestamp: Date | string;
+  timestamp: Date | JSX.Element;
 
   /**
    * Date message was edited at

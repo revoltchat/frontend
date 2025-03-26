@@ -16,12 +16,12 @@ import {
   UserStatusGraphic,
 } from "../design";
 import { createQuery } from "@tanstack/solid-query";
-import { useTranslation } from "@revolt/i18n";
 import { cva } from "styled-system/css";
 import { Ripple } from "../material";
 
 import MdMoreVert from "@material-design-icons/svg/filled/more_vert.svg?component-solid";
 import { UserContextMenu } from "@revolt/app";
+import { useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Base element for the card
@@ -140,8 +140,7 @@ const RoleIcon = styled("div", {
 export function UserCard(
   props: JSX.Directives["floating"]["userCard"] & object
 ) {
-  const t = useTranslation();
-
+  const { t } = useLingui();
   const query = createQuery(() => ({
     queryKey: ["profile", props.user.id],
     queryFn: () => props.user.fetchProfile(),
@@ -171,7 +170,15 @@ export function UserCard(
               </Text>
               <Text class="_status">
                 {props.user.statusMessage((s) =>
-                  t(`app.status.${s.toLowerCase() as "focus"}`)
+                  s === "Online"
+                    ? t`Online`
+                    : s === "Busy"
+                    ? t`Busy`
+                    : s === "Focus"
+                    ? t`Focus`
+                    : s === "Idle"
+                    ? t`Idle`
+                    : t`Offline`
                 )}
               </Text>
             </UserShort>

@@ -1,12 +1,6 @@
 import { For, Match, Switch, createMemo } from "solid-js";
 
-import {
-  Languages,
-  browserPreferredLanguage,
-  language,
-  setLanguage,
-  useTranslation,
-} from "@revolt/i18n";
+import { Languages, browserPreferredLanguage, language } from "@revolt/i18n";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
 import {
   CategoryButton,
@@ -28,6 +22,7 @@ import MdKeyboardTabRtl from "@material-design-icons/svg/outlined/keyboard_tab.s
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?component-solid";
 import MdTranslate from "@material-design-icons/svg/outlined/translate.svg?component-solid";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Language
@@ -54,8 +49,6 @@ export default function Language() {
  * Pick user's preferred language
  */
 function PickLanguage() {
-  const t = useTranslation();
-
   /**
    * Determine the current language
    */
@@ -90,7 +83,7 @@ function PickLanguage() {
   return (
     <CategoryCollapse
       icon={<MdLanguage {...iconSize(22)} />}
-      title={t("app.settings.pages.language.select")}
+      title={<Trans>Select your language</Trans>}
       description={currentLanguage().display}
       scrollable
     >
@@ -143,7 +136,7 @@ function PickDateFormat() {
           action={<Checkbox value />}
           description={<Time format="date" value={LastWeek} />}
         >
-          Traditional (DD/MM/YYYY)
+          <Trans>Traditional (DD/MM/YYYY)</Trans>
         </CategoryButton>
       </FormGroup>
       <FormGroup>
@@ -153,7 +146,7 @@ function PickDateFormat() {
           action={<Checkbox />}
           description={<Time format="dateAmerican" value={LastWeek} />}
         >
-          American (MM/DD/YYYY)
+          <Trans>American (MM/DD/YYYY)</Trans>
         </CategoryButton>
       </FormGroup>
       <FormGroup>
@@ -163,7 +156,7 @@ function PickDateFormat() {
           action={<Checkbox />}
           description={<Time format="iso8601" value={LastWeek} />}
         >
-          ISO8601 (YYYY/MM/DD)
+          <Trans>ISO8601 (YYYY/MM/DD)</Trans>
         </CategoryButton>
       </FormGroup>
     </CategoryCollapse>
@@ -187,7 +180,7 @@ function PickTimeFormat() {
           action={<Checkbox value />}
           description={<Time format="time24" value={new Date()} />}
         >
-          24 hours
+          <Trans>24 hours</Trans>
         </CategoryButton>
       </FormGroup>
       <FormGroup>
@@ -197,7 +190,7 @@ function PickTimeFormat() {
           action={<Checkbox />}
           description={<Time format="time12" value={new Date()} />}
         >
-          12 hours
+          <Trans>12 hours</Trans>
         </CategoryButton>
       </FormGroup>
     </CategoryCollapse>
@@ -218,22 +211,22 @@ function ConfigureRTL() {
       fallback={
         <CategoryButton
           icon={<MdKeyboardTabRtl {...iconSize(22)} />}
-          description="Flip the user interface right to left"
+          description={<Trans>Flip the user interface right to left</Trans>}
           action={<Checkbox />}
           onClick={() => void 0}
         >
-          Enable RTL layout
+          <Trans>Enable RTL layout</Trans>
         </CategoryButton>
       }
     >
       <Match when={currentLanguage().rtl}>
         <CategoryButton
           icon={<MdKeyboardTab {...iconSize(22)} />}
-          description="Keep the user interface left to right"
+          description={<Trans>Keep the user interface left to right</Trans>}
           action={<Checkbox />}
           onClick={() => void 0}
         >
-          Force LTR layout
+          <Trans>Force LTR layout</Trans>
         </CategoryButton>
       </Match>
     </Switch>
@@ -250,9 +243,11 @@ function ContributeLanguageLink() {
         action="external"
         icon={<MdTranslate {...iconSize(22)} />}
         onClick={() => void 0}
-        description="Help contribute to an existing or new language"
+        description={
+          <Trans>Help contribute to an existing or new language</Trans>
+        }
       >
-        Contribute a language
+        <Trans>Contribute a language</Trans>
       </CategoryButton>
     </a>
   );

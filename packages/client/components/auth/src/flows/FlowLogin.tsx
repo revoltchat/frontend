@@ -1,19 +1,10 @@
-import { Match, Show, Switch } from "solid-js";
+import { Match, Switch } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
 import { State, TransitionType } from "@revolt/client/Controller";
-import { useTranslation } from "@revolt/i18n";
 import { Navigate } from "@revolt/routing";
-import {
-  Button,
-  Column,
-  Preloader,
-  Row,
-  Typography,
-  iconSize,
-  typography,
-} from "@revolt/ui";
+import { Button, Column, Preloader, Row, iconSize } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
@@ -22,6 +13,7 @@ import { clientController } from "../../../client";
 
 import { FlowTitle } from "./Flow";
 import { Fields, Form } from "./Form";
+import { Trans } from "@lingui-solid/solid/macro";
 
 const Logo = styled(RevoltSvg, {
   base: {
@@ -35,8 +27,6 @@ const Logo = styled(RevoltSvg, {
  * Flow for logging into an account
  */
 export default function FlowLogin() {
-  const t = useTranslation();
-
   /**
    * Log into account
    * @param data Form Data
@@ -65,22 +55,28 @@ export default function FlowLogin() {
       <Switch
         fallback={
           <>
-            <FlowTitle subtitle={t("login.subtitle")} emoji="wave">
-              {t("login.welcome")}
+            <FlowTitle subtitle={<Trans>Sign into Revolt</Trans>} emoji="wave">
+              <Trans>Welcome!</Trans>
             </FlowTitle>
             <Form onSubmit={login}>
               <Fields fields={["email", "password"]} />
               <Column gap="xl" align>
-                <a href="/login/reset">{t("login.reset")}</a>
-                <a href="/login/resend">{t("login.resend")}</a>
+                <a href="/login/reset">
+                  <Trans>Reset password</Trans>
+                </a>
+                <a href="/login/resend">
+                  <Trans>Resend verification</Trans>
+                </a>
               </Column>
               <Row align justify>
                 <a href="..">
                   <Button variant="plain">
-                    <MdArrowBack {...iconSize("1.2em")} /> Back
+                    <MdArrowBack {...iconSize("1.2em")} /> <Trans>Back</Trans>
                   </Button>
                 </a>
-                <Button type="submit">{t("login.title")}</Button>
+                <Button type="submit">
+                  <Trans>Login</Trans>
+                </Button>
               </Row>
             </Form>
           </>
@@ -93,9 +89,16 @@ export default function FlowLogin() {
           <Preloader type="ring" />
         </Match>
         <Match when={clientController.lifecycle.state() === State.Onboarding}>
-          <FlowTitle subtitle={t("app.special.modals.onboarding.pick")}>
+          <FlowTitle
+            subtitle={
+              <Trans>
+                Pick a username that you want people to be able to find you by.
+                This can be changed later in your user settings.
+              </Trans>
+            }
+          >
             <Row gap="sm">
-              {t("app.special.modals.onboarding.welcome")} <Logo />
+              <Trans>Welcome to</Trans> <Logo />
             </Row>
           </FlowTitle>
 
@@ -110,10 +113,10 @@ export default function FlowLogin() {
                   })
                 }
               >
-                <MdArrowBack {...iconSize("1.2em")} /> Cancel
+                <MdArrowBack {...iconSize("1.2em")} /> <Trans>Cancel</Trans>
               </Button>
               <Button type="submit">
-                {t("app.special.modals.actions.confirm")}
+                <Trans>Confirm</Trans>
               </Button>
             </Row>
           </Form>

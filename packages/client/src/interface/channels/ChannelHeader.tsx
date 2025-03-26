@@ -9,7 +9,6 @@ import { Match, Show, Switch } from "solid-js";
 
 import { Channel } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
@@ -26,6 +25,7 @@ import {
 
 import { HeaderIcon } from "../common/CommonHeader";
 import { styled } from "styled-system/jsx";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -38,8 +38,6 @@ interface Props {
  * Common channel header component
  */
 export function ChannelHeader(props: Props) {
-  const t = useTranslation();
-
   /**
    * Open channel information modal
    */
@@ -103,7 +101,7 @@ export function ChannelHeader(props: Props) {
           <HeaderIcon>
             <BiSolidNotepad size={24} />
           </HeaderIcon>
-          {t("app.navigation.tabs.saved")}
+          <Trans>Saved Notes</Trans>
         </Match>
       </Switch>
 

@@ -54,6 +54,7 @@ export function UserSummary(props: {
                 use:floating={{
                   tooltip: {
                     placement: "top",
+                    // todo
                     content: dayjs(props.user.createdAt).format(
                       "[Account created] Do MMMM YYYY [at] HH:mm"
                     ),

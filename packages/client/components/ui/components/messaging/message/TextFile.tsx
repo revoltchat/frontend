@@ -3,13 +3,12 @@ import { styled } from "styled-system/jsx";
 
 import { File } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
-
 import { Preloader } from "../../design/atoms/indicators";
 import { Button } from "../../design/atoms/inputs";
 import { Row } from "../../design/layout";
 
 import { humanFileSize } from "./Attachment";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -40,7 +39,6 @@ const AUTO_LOAD_MAX_SIZE_BYTES = 50_000;
  * Render contents of a text file
  */
 export function TextFile(props: Props) {
-  const t = useTranslation();
   const [loading, setLoading] = createSignal(false);
   const [contents, setContents] = createSignal<string | undefined>(undefined);
 
@@ -74,8 +72,7 @@ export function TextFile(props: Props) {
         >
           <Row align justify grow>
             <Button variant="secondary" onPress={load}>
-              {t("app.main.channel.misc.load_file")} (
-              {humanFileSize(props.file.size ?? 0)})
+              <Trans>Load file ({humanFileSize(props.file.size ?? 0)})</Trans>
             </Button>
           </Row>
         </Match>

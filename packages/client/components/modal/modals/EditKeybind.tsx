@@ -1,7 +1,6 @@
 import { BiRegularReset } from "solid-icons/bi";
 import { createSignal, onMount } from "solid-js";
 
-import { useTranslation } from "@revolt/i18n";
 import {
   KEYBINDING_MODIFIER_KEYS,
   KeyComboSequence as TKeySequence,
@@ -10,6 +9,7 @@ import { Button, KeySequence } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 import { styled } from "styled-system/jsx";
+import { Trans } from "@lingui-solid/solid/macro";
 
 const Container = styled("div", {
   base: {
@@ -44,8 +44,6 @@ const REPLACEMENTS: Record<string, string> = {
 
 // TODO: maybe add warning if the user doesn't have a modifier included?
 export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
-  const t = useTranslation();
-
   const [sequence, setSequence] = createSignal<TKeySequence>([]);
   // temporary state for modifier keys to live in so it still feels resposive when making combos
   const [mods, setMods] = createSignal<string[]>([]);
@@ -123,11 +121,12 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
 
   return {
     // TODO: the way this reads and looks is awkward, find a better way
-    title: t("app.special.modals.edit_keybind.title", {
-      action: t(
-        `app.settings.pages.keybinds.action.${props.action}.title` as any
-      ),
-    }),
+    // title: t("app.special.modals.edit_keybind.title", {
+    //   action: t(
+    //     `app.settings.pages.keybinds.action.${props.action}.title` as any
+    //   ),
+    // }),
+    title: "TODO",
     actions: [
       {
         ref: (el: any) => (okButton = el),
@@ -136,12 +135,12 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
           return true;
         },
         confirmation: true,
-        children: t("app.special.modals.actions.ok"),
+        children: <Trans>OK</Trans>,
       },
       {
         onClick: () => true,
         confirmation: false,
-        children: t("app.special.modals.actions.cancel"),
+        children: <Trans>Cancel</Trans>,
       },
     ],
     children: (

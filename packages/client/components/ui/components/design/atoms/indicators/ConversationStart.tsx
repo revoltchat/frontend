@@ -1,11 +1,10 @@
-import { Show } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 import { styled } from "styled-system/jsx";
 
 import { Channel } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
-
 import { Text } from "../display";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -18,8 +17,6 @@ interface Props {
  * Mark the beginning of a conversation
  */
 export function ConversationStart(props: Props) {
-  const t = useTranslation();
-
   return (
     <Base>
       <Show when={props.channel.type !== "SavedMessages"}>
@@ -28,11 +25,13 @@ export function ConversationStart(props: Props) {
         </Text>
       </Show>
       <Text class="title">
-        {t(
-          `app.main.channel.start.${
-            props.channel.type === "SavedMessages" ? "saved" : "group"
-          }`
-        )}
+        <Switch
+          fallback={<Trans>This is the start of your conversation.</Trans>}
+        >
+          <Match when={props.channel.type === "SavedMessages"}>
+            <Trans>This is the start of your notes.</Trans>
+          </Match>
+        </Switch>
       </Text>
     </Base>
   );

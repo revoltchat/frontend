@@ -2,12 +2,12 @@ import { Match, Show, Switch } from "solid-js";
 
 import { clientController } from "@revolt/client";
 import { TransitionType } from "@revolt/client/Controller";
-import { useTranslation } from "@revolt/i18n";
 import { Navigate } from "@revolt/routing";
 import { Button, Column } from "@revolt/ui";
 
 import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
 import { cva } from "styled-system/css";
+import { Trans } from "@lingui-solid/solid/macro";
 
 const logo = cva({
   base: {
@@ -21,8 +21,6 @@ const logo = cva({
  * Flow for logging into an account
  */
 export default function FlowHome() {
-  const t = useTranslation();
-
   return (
     <Switch
       fallback={
@@ -46,28 +44,36 @@ export default function FlowHome() {
                 }}
               >
                 <span>
-                  Find your com
-                  <wbr />
-                  munity,
-                  <br />
-                  connect with the world.
+                  <Trans>
+                    Find your com
+                    <wbr />
+                    munity,
+                    <br />
+                    connect with the world.
+                  </Trans>
                 </span>
               </b>
               <span style={{ "text-align": "center", opacity: "0.5" }}>
-                Revolt is one of the best ways to stay connected with your
-                friends and community, anywhere, anytime.
+                <Trans>
+                  Revolt is one of the best ways to stay connected with your
+                  friends and community, anywhere, anytime.
+                </Trans>
               </span>
             </Column>
 
             <Column>
               <a href="/login/auth">
                 <Column>
-                  <Button>Log In</Button>
+                  <Button>
+                    <Trans>Log In</Trans>
+                  </Button>
                 </Column>
               </a>
               <a href="/login/create">
                 <Column>
-                  <Button variant="secondary">Sign Up</Button>
+                  <Button variant="secondary">
+                    <Trans>Sign Up</Trans>
+                  </Button>
                 </Column>
               </a>
             </Column>
@@ -82,7 +88,9 @@ export default function FlowHome() {
               clientController.lifecycle.permanentError === "InvalidSession"
             }
           >
-            <h1>You were logged out!</h1>
+            <h1>
+              <Trans>You were logged out!</Trans>
+            </h1>
           </Match>
         </Switch>
 
@@ -94,7 +102,7 @@ export default function FlowHome() {
             })
           }
         >
-          OK
+          <Trans>OK</Trans>
         </Button>
       </Match>
     </Switch>

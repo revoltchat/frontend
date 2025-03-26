@@ -619,5 +619,5 @@ export const darkTheme: (
         "floating-element": 100,
       },
     },
-  };
+  } as never;
 };

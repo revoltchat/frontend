@@ -1,4 +1,4 @@
-import { For, JSX, Match, Show, Switch } from "solid-js";
+import { For, JSX, Match, Switch } from "solid-js";
 import { styled } from "styled-system/jsx";
 
 import { ServerMember } from "revolt.js";

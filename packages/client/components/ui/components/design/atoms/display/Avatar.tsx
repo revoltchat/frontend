@@ -180,7 +180,7 @@ export function Avatar(props: Props) {
 
   return (
     <ParentBase
-      // TODO: why?
+      // @ts-expect-error not typed for some reason
       slot={props.slot}
       style={{
         width: props.size + "px",

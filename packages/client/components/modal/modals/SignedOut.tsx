@@ -1,5 +1,4 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans } from "@lingui-solid/solid/macro";
 import { PropGenerator } from "../types";
 
 /**
@@ -7,13 +6,11 @@ import { PropGenerator } from "../types";
  * TODO: show if user is banned, etc
  */
 const SignedOut: PropGenerator<"signed_out"> = () => {
-  const t = useTranslation();
-
   return {
-    title: t("app.special.modals.signed_out"),
+    title: <Trans>You've been signed out of Revolt!</Trans>,
     actions: [
       {
-        children: t("app.special.modals.actions.ok"),
+        children: <Trans>OK</Trans>,
         palette: "secondary",
         onClick() {
           return true;

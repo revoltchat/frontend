@@ -1,13 +1,12 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 
-import { mapAnyError } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 
 import { modalController } from "..";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 import { styled } from "styled-system/jsx";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Code block which displays invite
@@ -31,8 +30,6 @@ const Invite = styled("div", {
  * Modal to create a new invite
  */
 const CreateInvite: PropGenerator<"create_invite"> = (props) => {
-  const t = useTranslation();
-
   const [processing, setProcessing] = createSignal(false);
   const [link, setLink] = createSignal("...");
 
@@ -49,15 +46,13 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
             : `${window.location.protocol}//${window.location.host}/invite/${_id}`
         )
       )
-      .catch((err) =>
-        modalController.push({ type: "error", error: mapAnyError(err) })
-      )
+      .catch((err) => modalController.push({ type: "error", error: err }))
       .finally(() => setProcessing(false));
   });
 
   return createFormModal({
     modalProps: {
-      title: t("app.context_menu.create_invite"),
+      title: <Trans>Create Invite</Trans>,
     },
     schema: {
       invite: "custom",
@@ -65,13 +60,12 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
     data: {
       invite: {
         element: (
-          <Switch
-            fallback={t("app.special.modals.prompt.create_invite_generate")}
-          >
+          <Switch fallback={<Trans>Generating invite…</Trans>}>
             <Match when={!processing()}>
               <Invite>
-                {t("app.special.modals.prompt.create_invite_created")}
-                <code>{link()}</code>
+                <Trans>
+                  Here is your new invite code: <code>{link()}</code>
+                </Trans>
               </Invite>
             </Match>
           </Switch>
@@ -80,11 +74,11 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
     },
     callback: async () => void 0,
     submit: {
-      children: t("app.special.modals.actions.ok"),
+      children: <Trans>OK</Trans>,
     },
     actions: [
       {
-        children: t("app.context_menu.copy_link"),
+        children: <Trans>Copy Link</Trans>,
         onClick: () => modalController.writeText(link()),
       },
     ],

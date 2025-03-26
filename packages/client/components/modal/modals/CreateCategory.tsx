@@ -1,45 +1,38 @@
 import { ulid } from "ulid";
 
-import { mapAndRethrowError } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
-
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to create a new category
  */
 const CreateCategory: PropGenerator<"create_category"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
-      title: t("app.context_menu.create_category"),
+      title: <Trans>Create Category</Trans>,
     },
     schema: {
       name: "text",
     },
     data: {
       name: {
-        field: t("app.main.servers.channel_name"),
+        field: <Trans>Channel Name</Trans>,
       },
     },
-    callback: async ({ name }) => {
-      await props.server
-        .edit({
-          categories: [
-            ...(props.server.categories ?? []),
-            {
-              id: ulid(),
-              title: name,
-              channels: [],
-            },
-          ],
-        })
-        .catch(mapAndRethrowError);
-    },
+    callback: ({ name }) =>
+      props.server.edit({
+        categories: [
+          ...(props.server.categories ?? []),
+          {
+            id: ulid(),
+            title: name,
+            channels: [],
+          },
+        ],
+      }),
     submit: {
-      children: t("app.special.modals.actions.create"),
+      children: <Trans>Create</Trans>,
     },
   });
 };

@@ -11,6 +11,7 @@ import {
   FormGroup,
   iconSize,
 } from "@revolt/ui";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Desktop Configuration Page
@@ -24,9 +25,11 @@ export default function Native() {
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
             icon={<MdExitToApp {...iconSize(22)} />}
-            description="Launch Revolt when you log into your computer."
+            description={
+              <Trans>Launch Revolt when you log into your computer.</Trans>
+            }
           >
-            Start with Computer
+            <Trans>Start with Computer</Trans>
           </CategoryButton>
         </FormGroup>
         <FormGroup>
@@ -34,9 +37,11 @@ export default function Native() {
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
             icon={<MdCancelPresentation {...iconSize(22)} />}
-            description="Instead of closing, Revolt will hide in your tray."
+            description={
+              <Trans>Instead of closing, Revolt will hide in your tray.</Trans>
+            }
           >
-            Minimise to Tray
+            <Trans>Minimise to Tray</Trans>
           </CategoryButton>
         </FormGroup>
       </CategoryButtonGroup>
@@ -46,9 +51,9 @@ export default function Native() {
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
             icon={<MdWebAsset {...iconSize(22)} />}
-            description="Let Revolt use its own custom titlebar."
+            description={<Trans>Let Revolt use its own custom titlebar.</Trans>}
           >
-            Custom window frame
+            <Trans>Custom window frame</Trans>
           </CategoryButton>
         </FormGroup>
       </CategoryButtonGroup>
@@ -57,7 +62,7 @@ export default function Native() {
           icon={<MdDesktopWindows {...iconSize(22)} />}
           description="Version 1.0.0"
         >
-          Revolt Desktop
+          <Trans>Revolt Desktop</Trans>
         </CategoryButton>
       </CategoryButtonGroup>
     </Column>

@@ -3,12 +3,12 @@ import { styled } from "styled-system/jsx";
 
 import { API } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
 import { Emoji } from "@revolt/markdown";
 import { useUsers } from "@revolt/markdown/users";
 
-import { OverflowingText, Row, Typography } from "../../design";
+import { Row, Typography } from "../../design";
 import { Tooltip } from "../../floating";
+import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -126,7 +126,7 @@ function Reaction(props: {
   addReaction(id: string): void;
   removeReaction(id: string): void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const users = useUsers([...(props.users?.values() ?? [])]);
 
   /**
@@ -156,21 +156,14 @@ function Reaction(props: {
 
     if (unknown) {
       if (usernames) {
-        return t("app.main.channel.reactions.others_reacted", {
-          userlist: usernames,
-          count: unknown.toString(),
-        });
+        return t`${usernames} and ${unknown} others reacted`;
       } else if (unknown === 1) {
-        return t("app.main.channel.reactions.single_reacted");
+        return t`1 person reacted`;
       } else {
-        return t("app.main.channel.reactions.unknown_reacted", {
-          count: unknown.toString(),
-        });
+        return t`${unknown} reacted`;
       }
     } else {
-      return t("app.main.channel.reactions.people_reacted", {
-        people: usernames,
-      });
+      return t`${usernames} reacted`;
     }
   };
 

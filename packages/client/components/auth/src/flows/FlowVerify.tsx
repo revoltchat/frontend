@@ -1,11 +1,11 @@
 import { Match, Show, Switch, createSignal, onMount } from "solid-js";
 
-import { clientController, mapAnyError } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
+import { clientController } from "@revolt/client";
 import { useNavigate, useParams } from "@revolt/routing";
-import { Button, Preloader, Text } from "@revolt/ui";
+import { Button, Preloader } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
+import { Trans } from "@lingui-solid/solid/macro";
 
 type State =
   | {
@@ -13,7 +13,7 @@ type State =
     }
   | {
       state: "error";
-      error: string;
+      error: unknown;
     }
   | {
       state: "success";
@@ -24,7 +24,6 @@ type State =
  * Flow for confirming email
  */
 export default function FlowVerify() {
-  const t = useTranslation();
   const params = useParams();
   const navigate = useNavigate();
 
@@ -52,7 +51,7 @@ export default function FlowVerify() {
 
       setState({ state: "success", mfa_ticket: data.ticket?.token });
     } catch (err) {
-      setState({ state: "error", error: mapAnyError(err) });
+      setState({ state: "error", error: err });
     }
   });
 
@@ -73,26 +72,38 @@ export default function FlowVerify() {
   return (
     <Switch>
       <Match when={state().state === "verifying"}>
-        <FlowTitle>{t("login.verifying_account")}</FlowTitle>
+        <FlowTitle>
+          <Trans>Verifying your account…</Trans>
+        </FlowTitle>
         <Preloader type="ring" />
       </Match>
       <Match when={state().state === "error"}>
-        <FlowTitle>{t("login.error.verify")}</FlowTitle>
-        <Text class="body" size="small">
+        <FlowTitle>
+          <Trans>Failed to verify!</Trans>
+        </FlowTitle>
+        {/* <Text class="body" size="small">
           {t(
             `error.${(state() as State & { state: "error" }).error}` as any,
             undefined,
             (state() as State & { state: "error" }).error
           )}
-        </Text>
-        <a href="/login/auth">{t("login.remembered")}</a>
+        </Text> TODO */}
+        <a href="/login/auth">
+          <Trans>Go back to login</Trans>
+        </a>
       </Match>
       <Match when={state().state === "success"}>
-        <FlowTitle>{t("login.verified_account")}</FlowTitle>
+        <FlowTitle>
+          <Trans>Your account has been verified!</Trans>
+        </FlowTitle>
         <Show when={"mfa_ticket" in state()}>
-          <Button onPress={login}>{t("login.verified_continue")}</Button>
+          <Button onPress={login}>
+            <Trans>Continue to app</Trans>
+          </Button>
         </Show>
-        <a href="/login/auth">{t("login.remembered")}</a>
+        <a href="/login/auth">
+          <Trans>Go back to login</Trans>
+        </a>
       </Match>
     </Switch>
   );

@@ -16,6 +16,7 @@ import MdLibraryBooks from "@material-design-icons/svg/outlined/library_books.sv
 import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?component-solid";
 
 import { useSettingsNavigation } from "../../Settings";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * View all owned bots
@@ -50,17 +51,23 @@ function CreateBot() {
             },
           })
         }
-        description="You agree that your bot is subject to the Acceptable Usage Policy."
+        description={
+          <Trans>
+            You agree that your bot is subject to the Acceptable Usage Policy.
+          </Trans>
+        }
       >
-        Create Bot
+        <Trans>Create Bot</Trans>
       </CategoryButton>
       <CategoryButton
         action="external"
         icon={<MdLibraryBooks {...iconSize(22)} />}
         onClick={() => window.open("https://developers.revolt.chat", "_blank")}
-        description="Learn more about how to create bots on Revolt."
+        description={
+          <Trans>Learn more about how to create bots on Revolt.</Trans>
+        }
       >
-        Developer Documentation
+        <Trans>Developer Documentation</Trans>
       </CategoryButton>
     </CategoryButtonGroup>
   );

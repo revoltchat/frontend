@@ -17,6 +17,7 @@ import MdGroups from "@material-design-icons/svg/outlined/groups.svg?component-s
 import { UserSummary } from "../account/index";
 
 import { EditProfileButtons } from "./EditProfileButtons";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Edit profile
@@ -37,8 +38,8 @@ export function EditProfile() {
       <CategoryButtonGroup>
         <CategoryCollapse
           icon={<MdGroups {...iconSize(22)} />}
-          title="Server Identities"
-          description="Change your profile per-server"
+          title={<Trans>Server Identities</Trans>}
+          description={<Trans>Change your profile per-server</Trans>}
           scrollable
         >
           <For each={client().servers.toList()}>

@@ -4,7 +4,6 @@ import { Message } from "revolt.js";
 
 import { useClient, useUser } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { state } from "@revolt/state";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
@@ -21,6 +20,7 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Context menu for messages
@@ -28,7 +28,6 @@ import {
 export function MessageContextMenu(props: { message: Message }) {
   const user = useUser();
   const client = useClient();
-  const t = useTranslation();
 
   /**
    * Reply to this message
@@ -107,18 +106,18 @@ export function MessageContextMenu(props: { message: Message }) {
   return (
     <ContextMenu>
       <ContextMenuButton icon={MdReply} onClick={reply}>
-        {t("app.context_menu.reply_message")}
+        <Trans>Reply</Trans>
       </ContextMenuButton>
       <ContextMenuButton icon={MdMarkChatUnread} onClick={markAsUnread}>
-        {t("app.context_menu.mark_unread")}
+        <Trans>Mark as unread</Trans>
       </ContextMenuButton>
       <ContextMenuButton icon={MdContentCopy} onClick={copyText}>
-        {t("app.context_menu.copy_text")}
+        <Trans>Copy text</Trans>
       </ContextMenuButton>
       <ContextMenuDivider />
       <Show when={!props.message.author?.self}>
         <ContextMenuButton icon={MdReport} onClick={report} destructive>
-          {t("app.context_menu.report_message")}
+          <Trans>Report message</Trans>
         </ContextMenuButton>
       </Show>
       <Show
@@ -128,18 +127,18 @@ export function MessageContextMenu(props: { message: Message }) {
         }
       >
         <ContextMenuButton icon={MdDelete} onClick={deleteMessage} destructive>
-          {t("app.context_menu.delete_message")}
+          <Trans>Delete message</Trans>
         </ContextMenuButton>
       </Show>
       <ContextMenuDivider />
       <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
-        Admin Panel
+        <Trans>Admin Panel</Trans>
       </ContextMenuButton>
       <ContextMenuButton icon={MdShare} onClick={copyLink}>
-        {t("app.context_menu.copy_link")}
+        <Trans>Copy link</Trans>
       </ContextMenuButton>
       <ContextMenuButton icon={MdBadge} onClick={copyId}>
-        {t("app.context_menu.copy_mid")}
+        <Trans>Copy message ID</Trans>
       </ContextMenuButton>
     </ContextMenu>
   );

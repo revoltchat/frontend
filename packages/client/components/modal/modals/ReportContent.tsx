@@ -1,13 +1,13 @@
 import { API, Server, User } from "revolt.js";
 
 import { Message } from "@revolt/app";
-import { useTranslation } from "@revolt/i18n";
 import { Avatar, Column, Initials } from "@revolt/ui";
-import { styled } from "styled-system/jsx";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 import { cva } from "styled-system/css";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
+import { Match, Switch } from "solid-js";
 
 const CONTENT_REPORT_REASONS: API.ContentReportReason[] = [
   "Illegal",
@@ -40,17 +40,48 @@ const USER_REPORT_REASONS: API.UserReportReason[] = [
  * Modal to report content
  */
 const ReportContent: PropGenerator<"report_content"> = (props) => {
-  const t = useTranslation();
+  const { t } = useLingui();
+
+  const strings: Record<
+    API.ContentReportReason | API.UserReportReason,
+    string
+  > = {
+    Illegal: t`Content breaks one or more laws`,
+    IllegalGoods: t`Drugs or illegal goods`,
+    IllegalExtortion: t`Extortion or blackmail`,
+    IllegalPornography: t`Revenge or underage pornography`,
+    IllegalHacking: t`Illegal hacking or cracking`,
+    ExtremeViolence: t`Extreme violence, gore or animal cruelty`,
+    PromotesHarm: t`Promotes harm`,
+    UnsolicitedSpam: t`Unsolicited advertising or spam`,
+    Raid: t`Raid or spam attack`,
+    SpamAbuse: t`Spam or similar platform abuse`,
+    ScamsFraud: t`Scams or fraud`,
+    Malware: t`Malware or phishing`,
+    Harassment: t`Harassment or cyberbullying`,
+    NoneSpecified: t`Other`,
+
+    InappropriateProfile: t`User's profile has inappropriate content`,
+    Impersonation: t`Impersonation`,
+    BanEvasion: t`Ban evasion`,
+    Underage: t`Not of minimum age to use the platform`,
+  };
 
   return createFormModal({
     modalProps: {
-      title: `Tell us what's wrong with this ${
-        /* TEMP TODO */ props.target instanceof User
-          ? "user"
-          : props.target instanceof Server
-          ? "server"
-          : "message"
-      }`,
+      title: (
+        <Switch>
+          <Match when={props.target instanceof User}>
+            <Trans>Tell us what's wrong with this user</Trans>
+          </Match>
+          <Match when={props.target instanceof Server}>
+            <Trans>Tell us what's wrong with this server</Trans>
+          </Match>
+          <Match when={props.target instanceof Message}>
+            <Trans>Tell us what's wrong with this message</Trans>
+          </Match>
+        </Switch>
+      ),
     },
     schema: {
       preview: "custom",
@@ -84,7 +115,7 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
       category: {
         options: [
           {
-            name: "Please select a reason",
+            name: <Trans>Please select a reason</Trans>,
             value: "",
             disabled: true,
             selected: true,
@@ -93,18 +124,14 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
             ? USER_REPORT_REASONS
             : CONTENT_REPORT_REASONS
           ).map((value) => ({
-            name: t(
-              `app.special.modals.report.content_reason.${value}` as any,
-              {},
-              value
-            ),
+            name: strings[value],
             value,
           })),
         ],
-        field: "Pick a category",
+        field: <Trans>Pick a category</Trans>,
       },
       detail: {
-        field: "Give us some detail",
+        field: <Trans>Give us some detail</Trans>,
       },
     },
     callback: async ({ category, detail }) => {
@@ -135,7 +162,7 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
       });
     },
     submit: {
-      children: "Report",
+      children: <Trans>Report</Trans>,
     },
   });
 };

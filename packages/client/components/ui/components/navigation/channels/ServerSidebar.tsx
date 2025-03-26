@@ -22,7 +22,6 @@ import { styled } from "styled-system/jsx";
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
 
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useNavigate } from "@revolt/routing";
@@ -39,6 +38,7 @@ import { Column, OverflowingText, Row } from "../../design/layout";
 import { Tooltip } from "../../floating";
 
 import { SidebarBase } from "./common";
+import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -234,16 +234,12 @@ const SettingsLink = styled("a", {
  * Server badge
  */
 function ServerBadge(props: { flags: ServerFlags }) {
-  const t = useTranslation();
+  const { t } = useLingui();
 
   return (
     <Show when={props.flags}>
       <Tooltip
-        content={
-          props.flags === 1
-            ? t("app.special.server-badges.official")
-            : t("app.special.server-badges.verified")
-        }
+        content={props.flags === 1 ? t`Official Server` : t`Verified`}
         placement="top"
       >
         {props.flags === 1 ? (

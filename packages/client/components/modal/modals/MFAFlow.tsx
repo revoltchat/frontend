@@ -10,22 +10,16 @@ import {
 
 import type { API } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
-import {
-  CategoryButton,
-  Input,
-  Preloader,
-  TextField,
-  Typography,
-} from "@revolt/ui";
+import { CategoryButton, Preloader, TextField } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to create an MFA ticket
  */
 const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
-  const t = useTranslation();
+  const { t } = useLingui();
 
   // Keep track of available methods
   const [methods, setMethods] = createSignal<API.MFAMethod[] | undefined>(
@@ -70,11 +64,15 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
   };
 
   return {
-    title: t("app.special.modals.confirm"),
+    title: <Trans>Confirm action</Trans>,
     description: (
-      <Switch fallback={t("app.special.modals.mfa.select_method")}>
+      <Switch
+        fallback={
+          <Trans>Please select a method to authenticate your request.</Trans>
+        }
+      >
         <Match when={selectedMethod()}>
-          {t("app.special.modals.mfa.confirm")}
+          <Trans>Please confirm this action using the selected method.</Trans>
         </Match>
       </Switch>
     ),
@@ -83,16 +81,18 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
         ? [
             {
               palette: "primary",
-              children: t("app.special.modals.actions.confirm"),
+              children: <Trans>Confirm</Trans>,
               onClick: generateTicket,
               confirmation: true,
             },
             {
               palette: "plain",
-              children: t(
-                `app.special.modals.actions.${
-                  methods()!.length === 1 ? "cancel" : "back"
-                }`
+              children: (
+                <Switch fallback={<Trans>Back</Trans>}>
+                  <Match when={methods()!.length === 1}>
+                    <Trans>Cancel</Trans>
+                  </Match>
+                </Switch>
               ),
               onClick: () => {
                 if (methods()!.length === 1) {
@@ -107,7 +107,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
         : [
             {
               palette: "plain",
-              children: t("app.special.modals.actions.cancel"),
+              children: <Trans>Cancel</Trans>,
               onClick: () => {
                 props.callback();
                 return true;
@@ -129,7 +129,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
             <Match when={selectedMethod() === "Password"}>
               <TextField
                 type="password"
-                label={t("login.password")}
+                label={t`Password`}
                 value={(response() as { password: string })?.password}
                 onChange={(e) =>
                   setResponse({ password: e.currentTarget.value })
@@ -139,7 +139,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
             <Match when={selectedMethod() === "Totp"}>
               <TextField
                 type="text"
-                label={t("login.totp")}
+                label={t`Authenticator App`}
                 value={(response() as { totp_code: string })?.totp_code}
                 onChange={(e) =>
                   setResponse({ totp_code: e.currentTarget.value })
@@ -149,7 +149,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
             <Match when={selectedMethod() === "Recovery"}>
               <TextField
                 type="text"
-                label={t("login.recovery")}
+                label={t`Recovery Code`}
                 value={(response() as { recovery_code: string })?.recovery_code}
                 onChange={(e) =>
                   setResponse({ recovery_code: e.currentTarget.value })
@@ -181,7 +181,17 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
                   setResponse(undefined);
                 }}
               >
-                {t(`login.${method.toLowerCase()}` as any)}
+                <Switch>
+                  <Match when={method === "Password"}>
+                    <Trans>Password</Trans>
+                  </Match>
+                  <Match when={method === "Totp"}>
+                    <Trans>Authenticator App</Trans>
+                  </Match>
+                  <Match when={method === "Recovery"}>
+                    <Trans>Recovery Code</Trans>
+                  </Match>
+                </Switch>
               </CategoryButton>
             )}
           </For>

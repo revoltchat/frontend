@@ -15,6 +15,7 @@ import MdToken from "@material-design-icons/svg/outlined/token.svg?component-sol
 import { useSettingsNavigation } from "../../Settings";
 import { UserSummary } from "../account/index";
 import { EditProfileButtons } from "../profile/EditProfileButtons";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * View a specific bot
@@ -40,30 +41,36 @@ export function ViewBot() {
 
       <CategoryButtonGroup>
         <CategoryButton
-          description="Generate a new token if it gets lost or compromised"
+          description={
+            <Trans>Generate a new token if it gets lost or compromised</Trans>
+          }
           icon={<MdToken {...iconSize(22)} />}
           action="chevron"
         >
-          Reset Token
+          <Trans>Reset Token</Trans>
         </CategoryButton>
         <CategoryButton
-          description="Allow others to add your bot to their servers from Discover"
+          description={
+            <Trans>
+              Allow others to add your bot to their servers from Discover
+            </Trans>
+          }
           icon={<MdPublic {...iconSize(22)} />}
           action="chevron"
         >
-          Submit to Discover
+          <Trans>Submit to Discover</Trans>
         </CategoryButton>
       </CategoryButtonGroup>
 
       <CategoryButtonGroup>
         <CategoryButton icon={<MdLink {...iconSize(22)} />} action="copy">
-          Copy Invite
+          <Trans>Copy Invite</Trans>
         </CategoryButton>
         <CategoryButton
           icon={<MdPersonAdd {...iconSize(22)} />}
           action="chevron"
         >
-          Invite Bot
+          <Trans>Invite Bot</Trans>
         </CategoryButton>
       </CategoryButtonGroup>
     </Column>

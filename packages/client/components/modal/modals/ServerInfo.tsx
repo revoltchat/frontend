@@ -1,19 +1,17 @@
 import { BiRegularX } from "solid-icons/bi";
 import { Show } from "solid-js";
 
-import { useTranslation } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
 import { Button, Column, Row, Text } from "@revolt/ui";
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to display server information
  */
 const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
-  const t = useTranslation();
-
   return {
     title: (
       <Row align>
@@ -34,7 +32,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
       {
         // TODO: report server
         onClick: () => true, //report(server),
-        children: t("app.special.modals.actions.report"),
+        children: <Trans>Report</Trans>,
         palette: "error",
       },
       {
@@ -45,7 +43,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
           });
           return true;
         },
-        children: "Edit Identity",
+        children: <Trans>Edit Identity</Trans>,
         palette: "secondary",
       },
       {
@@ -57,7 +55,7 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
           });
           return true;
         },
-        children: "Settings",
+        children: <Trans>Settings</Trans>,
         palette: "secondary",
       },
     ],

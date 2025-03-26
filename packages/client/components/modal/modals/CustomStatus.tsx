@@ -1,5 +1,4 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans } from "@lingui-solid/solid/macro";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -7,11 +6,9 @@ import { PropGenerator } from "../types";
  * Modal for editing user's custom status
  */
 const CustomStatus: PropGenerator<"custom_status"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
-      title: t("app.context_menu.set_custom_status"),
+      title: <Trans>Set your status</Trans>,
     },
     schema: {
       text: "text",
@@ -21,8 +18,8 @@ const CustomStatus: PropGenerator<"custom_status"> = (props) => {
     },
     data: {
       text: {
-        field: t("app.context_menu.custom_status"),
-        // @ts-expect-error this is a hack; replace with plain element & panda-css
+        field: <Trans>Custom status</Trans>,
+        // -- this is a hack; replace with plain element & panda-css
         "use:autoComplete": true,
       },
     },
@@ -34,7 +31,7 @@ const CustomStatus: PropGenerator<"custom_status"> = (props) => {
         },
       }),
     submit: {
-      children: t("app.special.modals.actions.save"),
+      children: <Trans>Save</Trans>,
     },
   });
 };

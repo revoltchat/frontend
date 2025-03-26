@@ -2,14 +2,13 @@ import { Accessor, Show } from "solid-js";
 
 import { decodeTime } from "ulid";
 
-import { dayjs, useTranslation } from "@revolt/i18n";
-
-import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
+import { dayjs } from "@revolt/i18n";
 
 import { Ripple, iconSize } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
 import { styled } from "styled-system/jsx";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -32,8 +31,6 @@ interface Props {
  * Component indicating to user there were new messages in chat
  */
 export function NewMessages(props: Props) {
-  const t = useTranslation();
-
   // TODO: hook escape button
 
   /**
@@ -49,11 +46,13 @@ export function NewMessages(props: Props) {
       <FloatingIndicator position="top" onClick={props.jumpBack}>
         <Ripple />
         <span style={{ "flex-grow": 1 }}>
-          {t("app.main.channel.misc.new_messages", {
-            time_ago: dayjs(decodeTime(props.lastId()!)).fromNow(),
-          })}
+          <Trans>
+            New messages since {dayjs(decodeTime(props.lastId()!)).fromNow()}
+          </Trans>
         </span>
-        <span>{t("app.main.channel.misc.jump_beginning")}</span>
+        <span>
+          <Trans>Jump to the beginning</Trans>
+        </span>
         {/* <CancelIcon onClick={onCancel}>
           <MdClose {...iconSize(16)} />
         </CancelIcon> */}

@@ -1,18 +1,16 @@
-import { useTranslation } from "@revolt/i18n";
 import { Avatar, Column } from "@revolt/ui";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to kick server member
  */
 const KickMember: PropGenerator<"kick_member"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
-      title: t("app.context_menu.kick_member"),
+      title: <Trans>Kick Member</Trans>,
     },
     schema: {
       member: "custom",
@@ -20,11 +18,11 @@ const KickMember: PropGenerator<"kick_member"> = (props) => {
     data: {
       member: {
         element: (
-          <Column align="center">
+          <Column align>
             <Avatar src={props.member.user?.animatedAvatarURL} size={64} />
-            {t("app.special.modals.prompt.confirm_kick", {
-              name: props.member.user?.username as string,
-            })}
+            <Trans>
+              Are you sure you want to kick {props.member.user?.username}?
+            </Trans>
           </Column>
         ),
       },
@@ -32,7 +30,7 @@ const KickMember: PropGenerator<"kick_member"> = (props) => {
     callback: () => props.member.kick(),
     submit: {
       variant: "error",
-      children: t("app.special.modals.actions.ban"),
+      children: <Trans>Kick</Trans>,
     },
   });
 };

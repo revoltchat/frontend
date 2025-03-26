@@ -2,10 +2,10 @@ import { Accessor, createEffect, createSignal } from "solid-js";
 
 import { ServerMember } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
 import { Avatar, Column, Input, MessageContainer, Username } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 function Preview(props: { nickname: Accessor<string>; member: ServerMember }) {
   createEffect(() => {
@@ -35,19 +35,16 @@ function Preview(props: { nickname: Accessor<string>; member: ServerMember }) {
  * Modal to update the user's server identity
  */
 const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
-  const t = useTranslation();
   const [nickname, setNickname] = createSignal(props.member.nickname ?? "");
 
-  const [avatarFile, setAvatarFile] = createSignal<File>();
-
   return {
-    title: t("app.special.popovers.server_identity.title", {
-      server: props.member.server!.name,
-    }),
+    title: <Trans>Change identity on {props.member.server!.name}</Trans>,
     children: (
       <Column>
         {/* <span>developer ui</span> */}
-        <span>{t("app.special.popovers.server_identity.nickname")}</span>
+        <span>
+          <Trans>Nickname</Trans>
+        </span>
         <Input
           value={nickname()}
           onChange={(e) => setNickname(e.currentTarget.value)}
@@ -59,7 +56,7 @@ const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
     ),
     actions: [
       {
-        children: t("app.special.modals.actions.save"),
+        children: <Trans>Save</Trans>,
         async onClick() {
           await props.member.edit(
             nickname()

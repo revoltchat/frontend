@@ -1,28 +1,26 @@
-import { mapAndRethrowError } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to create a new server
  */
 const CreateServer: PropGenerator<"create_server"> = (props) => {
-  const t = useTranslation();
   const navigate = useNavigate();
 
   return createFormModal({
     modalProps: {
-      title: t("app.main.servers.create"),
+      title: <Trans>Create server</Trans>,
       description: (
-        <>
+        <Trans>
           By creating this server, you agree to the{" "}
           <a href="https://revolt.chat/aup" target="_blank" rel="noreferrer">
-            Acceptable Use Policy
+            <Trans>Acceptable Use Policy</Trans>
           </a>
           .
-        </>
+        </Trans>
       ),
     },
     schema: {
@@ -30,20 +28,18 @@ const CreateServer: PropGenerator<"create_server"> = (props) => {
     },
     data: {
       name: {
-        field: t("app.main.servers.name"),
+        field: <Trans>Server Name</Trans>,
       },
     },
     callback: async ({ name }) => {
-      const server = await props.client.servers
-        .createServer({
-          name,
-        })
-        .catch(mapAndRethrowError);
+      const server = await props.client.servers.createServer({
+        name,
+      });
 
       setTimeout(() => navigate(`/server/${server.id}`));
     },
     submit: {
-      children: t("app.special.modals.actions.create"),
+      children: <Trans>Create</Trans>,
     },
   });
 };
