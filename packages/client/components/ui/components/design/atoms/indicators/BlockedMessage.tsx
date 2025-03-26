@@ -45,7 +45,7 @@ export function BlockedMessage(props: Props) {
       <Plural
         value={props.count}
         one="1 blocked message"
-        other={`${props.count} blocked messages`}
+        other="# blocked messages"
       />
     </Base>
   );

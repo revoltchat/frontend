@@ -8,7 +8,6 @@ import { Channel } from "revolt.js";
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { useQuantity } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { modalController } from "@revolt/modal";
 import { useLocation, useNavigate } from "@revolt/routing";
@@ -26,7 +25,7 @@ import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
+import { Plural, Trans, useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -240,7 +239,6 @@ function Entry(
 ) {
   const [local, remote] = splitProps(props, ["channel", "active"]);
 
-  const q = useQuantity();
   const { t } = useLingui();
 
   /**
@@ -328,7 +326,11 @@ function Entry(
                 <TextWithEmoji content={local.channel.name!} />
               </OverflowingText>
               <span class={typography({ class: "_status" })}>
-                {q("members", local.channel.recipients.length || 0)}
+                <Plural
+                  value={local.channel.recipientIds.size}
+                  one="1 Member"
+                  other="# Members"
+                />
               </span>
             </Match>
             <Match when={local.channel.type === "DirectMessage"}>

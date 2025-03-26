@@ -18,10 +18,10 @@ import { styled } from "styled-system/jsx";
 import { Motion } from "solid-motionone";
 
 import { getController } from "@revolt/common";
-import { useQuantity } from "@revolt/i18n";
 
 import { PreviewStack } from "../../design";
 import { typography } from "../../design/atoms/display/Typography";
+import { Plural } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -86,7 +86,6 @@ export function FileDropAnywhereCollector(props: Props) {
   const [showIndicator, setShowIndicator] = createSignal(false);
   const [hideIndicator, setHideIndicator] = createSignal(false);
   const [items, setItems] = createSignal<DataTransferItem[]>([]);
-  const q = useQuantity();
 
   /**
    * Since we get events from the whole DOM tree, we want to
@@ -186,7 +185,11 @@ export function FileDropAnywhereCollector(props: Props) {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {q("dropFiles", items().length)}
+                  <Plural
+                    value={items().length}
+                    one="Drop a file"
+                    other="Drop # files"
+                  />
                 </Motion.div>
               </DropText>
             }

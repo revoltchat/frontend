@@ -44,22 +44,11 @@ export const I18nContext = createContext(
 
 export const useTranslation = () => useContext(I18nContext);
 
-const [duringI18nTransition, startI18nTransition] = useTransition();
-
-export { duringI18nTransition };
-
 export async function fetchLanguage(key: Language): Promise<Dictionary> {
   const data = (await import(
     `./locales/${Languages[key].i18n}.json`
   )) as typeof dict.en;
   return i18n.flatten(data);
-}
-
-/**
- * set a language by the given key
- */
-export function setLanguage(key: Language) {
-  startI18nTransition(() => _setLanguage(key));
 }
 
 /**
@@ -84,14 +73,3 @@ export function browserPreferredLanguage() {
     Language.ENGLISH
   );
 }
-
-/**
- * Use quantity translation function as a hook
- */
-export const useQuantity = () => {
-  const t = useTranslation();
-  return (id: "members" | "dropFiles", count: number) =>
-    t(`quantities.${id}.${count > 1 ? "many" : "one"}`, {
-      count: count.toString(),
-    });
-};

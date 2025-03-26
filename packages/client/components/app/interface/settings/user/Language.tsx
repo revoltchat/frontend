@@ -1,11 +1,6 @@
 import { For, Match, Switch, createMemo } from "solid-js";
 
-import {
-  Languages,
-  browserPreferredLanguage,
-  language,
-  setLanguage,
-} from "@revolt/i18n";
+import { Languages, browserPreferredLanguage, language } from "@revolt/i18n";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
 import {
   CategoryButton,
