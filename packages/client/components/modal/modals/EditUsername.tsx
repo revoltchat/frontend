@@ -19,7 +19,7 @@ const EditUsername: PropGenerator<"edit_username"> = (props) => {
     data: {
       username: {
         field: "Username",
-        placeholder: t``,
+        placeholder: t`Enter your preferred username.`,
       },
       password: {
         field: "Current Password",
