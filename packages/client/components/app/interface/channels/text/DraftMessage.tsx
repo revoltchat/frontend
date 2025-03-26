@@ -8,6 +8,7 @@ import type { UnsentMessage } from "@revolt/state/stores/Draft";
 import { Avatar, MessageContainer, MessageReply, Username } from "@revolt/ui";
 
 import { DraftMessageContextMenu } from "../../../menus/DraftMessageContextMenu";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   draft: UnsentMessage;
@@ -29,13 +30,13 @@ export function DraftMessage(props: Props) {
       avatar={<Avatar src={userInfo().avatar} size={36} />}
       children={props.draft.content}
       timestamp={
-        // TODO
-        // i18n missing
-        props.draft.status === "sending"
-          ? "Sending..."
-          : props.draft.status === "failed"
-          ? "Failed to send" // add icons here
-          : "Unsent message" // add icons here
+        props.draft.status === "sending" ? (
+          <Trans>Sending...</Trans>
+        ) : props.draft.status === "failed" ? (
+          <Trans>Failed to send</Trans>
+        ) : (
+          <Trans>Unsent message</Trans>
+        )
       }
       sendStatus={props.draft.status === "sending" ? "sending" : "failed"}
       username={<Username username={userInfo().username} />}

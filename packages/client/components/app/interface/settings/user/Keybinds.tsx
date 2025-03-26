@@ -7,7 +7,6 @@ import { BiRegularReset } from "solid-icons/bi";
 import { For, Match, Switch, createMemo, createSignal } from "solid-js";
 
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { KeybindAction } from "@revolt/keybinds";
 import { KeyComboSequence } from "@revolt/keybinds";
 import { KeyCombo } from "@revolt/keybinds";
@@ -58,14 +57,12 @@ const categories: Record<string, KeybindAction[]> = {
  * Keybinds
  */
 export default function Keybinds() {
-  const t = useTranslation();
-
-  const translateCombo = (combo: KeyCombo, short: boolean) =>
-    combo
-      .map((key) =>
-        t(`keys.${key}.${short ? "short" : "full"}` as any, {}, key)
-      )
-      .join("+");
+  const translateCombo = (combo: KeyCombo, short: boolean) => "todo i18n";
+  // combo
+  //   .map((key) =>
+  //     t(`keys.${key}.${short ? "short" : "full"}` as any, {}, key)
+  //   )
+  //   .join("+");
 
   const translateSequence = (sequence: KeyComboSequence, short: boolean) =>
     sequence.map((combo) => translateCombo(combo, short)).join(" ");
@@ -96,12 +93,14 @@ export default function Keybinds() {
       .flat()
       .map((action) => [
         action,
-        t(
-          `app.settings.pages.keybinds.action.${action}.description` as any
-        ) as string,
-        t(
-          `app.settings.pages.keybinds.action.${action}.title` as any
-        ) as string,
+        "todo i18n",
+        "todo i18n",
+        // t(
+        //   `app.settings.pages.keybinds.action.${action}.description` as any
+        // ) as string,
+        // t(
+        //   `app.settings.pages.keybinds.action.${action}.title` as any
+        // ) as string,
         ...state.keybinds
           .getKeybinds()
           [action].flatMap((sequence) => [
@@ -136,28 +135,28 @@ export default function Keybinds() {
       <Input
         type="text"
         onInput={(e) => setSearchText(e.target.value)}
-        placeholder={t("app.settings.pages.keybinds.search")}
+        // placeholder={t("app.settings.pages.keybinds.search")}
       />
       <For each={filteredData()}>
         {([category, actions]) => (
           <CategoryCollapse
-            title={t(`app.settings.pages.keybinds.category.${category}` as any)}
-            // TODO: open={category !== "advanced"}
+          // title={t(`app.settings.pages.keybinds.category.${category}` as any)}
+          // TODO: open={category !== "advanced"}
           >
             <Column>
               <For each={actions}>
                 {(action) => (
                   <ActionCategory>
                     <CategoryButton
-                      description={t(
-                        `app.settings.pages.keybinds.action.${action}.description` as any
-                      )}
+                      // description={t(
+                      //   `app.settings.pages.keybinds.action.${action}.description` as any
+                      // )}
                       action={<BiSolidPlusCircle size={24} />}
                       onClick={() => addKeybind(action)}
                     >
-                      {t(
+                      {/* {t(
                         `app.settings.pages.keybinds.action.${action}.title` as any
-                      )}
+                      )} */}
                     </CategoryButton>
                     <For each={state.keybinds.getKeybinds()[action]}>
                       {(sequence, index) => {

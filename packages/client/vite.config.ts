@@ -6,6 +6,8 @@ import Inspect from "vite-plugin-inspect";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
 import solidSvg from "vite-plugin-solid-svg";
+import babelMacrosPlugin from "vite-plugin-babel-macros";
+import { lingui as linguiSolidPlugin } from "@lingui-solid/vite-plugin";
 
 import codegenPlugin from "./codegen.plugin";
 
@@ -17,6 +19,8 @@ export default defineConfig({
     Inspect(),
     devtools(),
     codegenPlugin(),
+    babelMacrosPlugin(),
+    linguiSolidPlugin(),
     solidPlugin(),
     solidSvg({
       defaultAsComponent: false,

@@ -108,6 +108,18 @@ function SettingsRedirect() {
 
 const client = new QueryClient();
 
+// TEMP
+import { I18nProvider } from "@lingui-solid/solid";
+import { i18n as i18nlingui } from "@lingui/core";
+// import { messages as messagesEn } from "./locales/en/messages.js";
+
+i18nlingui.load({
+  // en: messagesEn,
+  en: {},
+});
+i18nlingui.activate("en");
+// END TMEP
+
 function MountContext(props: { children?: JSX.Element }) {
   const [dictionary] = createResource(language, fetchLanguage, {
     initialValue: i18n.flatten(dict.en),
@@ -119,24 +131,26 @@ function MountContext(props: { children?: JSX.Element }) {
 
   return (
     <I18nContext.Provider value={t()}>
-      <QueryClientProvider client={client}>
-        <Masks />
-        <MountTheme>
-          <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-            <Show when={window.__TAURI__}>
-              <Titlebar
-                isBuildDev={import.meta.env.DEV}
-                onMinimize={() => appWindow?.minimize?.()}
-                onMaximize={() => appWindow?.toggleMaximize?.()}
-                onClose={() => appWindow?.hide?.()}
-              />
-            </Show>
-            {props.children}
-          </KeybindsProvider>
-          <ModalRenderer />
-          <FloatingManager />
-        </MountTheme>
-      </QueryClientProvider>
+      <I18nProvider i18n={i18nlingui}>
+        <QueryClientProvider client={client}>
+          <Masks />
+          <MountTheme>
+            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+              <Show when={window.__TAURI__}>
+                <Titlebar
+                  isBuildDev={import.meta.env.DEV}
+                  onMinimize={() => appWindow?.minimize?.()}
+                  onMaximize={() => appWindow?.toggleMaximize?.()}
+                  onClose={() => appWindow?.hide?.()}
+                />
+              </Show>
+              {props.children}
+            </KeybindsProvider>
+            <ModalRenderer />
+            <FloatingManager />
+          </MountTheme>
+        </QueryClientProvider>
+      </I18nProvider>
     </I18nContext.Provider>
   );
 }

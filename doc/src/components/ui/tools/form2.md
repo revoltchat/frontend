@@ -50,7 +50,9 @@ Then create the form itself in the JSX code:
     // if appropriate, allow the user to reset the form back to original state
     <Form2.Reset group={editGroup} onReset={onReset} />
     // in-built submission button:
-    <Form2.Submit group={editGroup}>{t("action.save")}</Form2.Submit>
+    <Form2.Submit group={editGroup}>
+      <Trans>Save</Trans>
+    </Form2.Submit>
     // you should also indicate when submission is pending:
     <Show when={editGroup.isPending}>
       <CircularProgress />

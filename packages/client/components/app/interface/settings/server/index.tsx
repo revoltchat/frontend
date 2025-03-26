@@ -19,6 +19,7 @@ import { ColouredText } from "@revolt/ui";
 import { SettingsConfiguration } from "..";
 
 import Overview from "./Overview";
+import { Trans } from "@lingui-solid/solid/macro";
 
 const Config: SettingsConfiguration<Server> = {
   /**
@@ -70,18 +71,13 @@ const Config: SettingsConfiguration<Server> = {
             {
               id: "overview",
               icon: <BiSolidInfoCircle size={20} />,
-              title: t("app.settings.server_pages.overview.title"),
+              title: <Trans>Overview</Trans>,
             },
             {
               id: "members",
               icon: <BiSolidGroup size={20} />,
-              title: t("app.settings.server_pages.members.title"),
+              title: <Trans>Members</Trans>,
             },
-            /*{ TODO: deprecate
-            id: "categories",
-            icon: <BiRegularListUl size={20} />,
-            title: t("app.settings.server_pages.categories.title"),
-          },*/
             {
               hidden: !(
                 server.havePermission("ManageRole") ||
@@ -89,18 +85,18 @@ const Config: SettingsConfiguration<Server> = {
               ),
               id: "roles",
               icon: <BiSolidFlagAlt size={20} />,
-              title: t("app.settings.server_pages.roles.title"),
+              title: <Trans>Roles</Trans>,
             },
           ],
         },
         {
           hidden: !server.havePermission("ManageCustomisation"),
-          title: t("app.settings.server_pages.customisation.title"),
+          title: <Trans>Customisation</Trans>,
           entries: [
             {
               id: "emojis",
               icon: <BiSolidHappyBeaming size={20} />,
-              title: t("app.settings.server_pages.emojis.title"),
+              title: <Trans>Emojis</Trans>,
             },
           ],
         },
@@ -108,19 +104,19 @@ const Config: SettingsConfiguration<Server> = {
           hidden:
             !server.havePermission("ManageServer") &&
             !server.havePermission("BanMembers"),
-          title: t("app.settings.server_pages.management.title"),
+          title: <Trans>User Management</Trans>,
           entries: [
             {
               hidden: !server.havePermission("ManageServer"),
               id: "invites",
               icon: <BiSolidEnvelope size={20} />,
-              title: t("app.settings.server_pages.invites.title"),
+              title: <Trans>Invites</Trans>,
             },
             {
               hidden: !server.havePermission("BanMembers"),
               id: "bans",
               icon: <BiSolidUserX size={20} />,
-              title: t("app.settings.server_pages.bans.title"),
+              title: <Trans>Bans</Trans>,
             },
           ],
         },
@@ -136,7 +132,7 @@ const Config: SettingsConfiguration<Server> = {
               ),
               title: (
                 <ColouredText colour="var(--customColours-error-color)">
-                  {t("app.context_menu.delete_server")}
+                  <Trans>Delete Server</Trans>
                 </ColouredText>
               ),
               /**

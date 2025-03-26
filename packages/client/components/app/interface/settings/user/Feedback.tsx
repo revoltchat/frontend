@@ -12,13 +12,12 @@ import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?com
 import MdFormatListNumbered from "@material-design-icons/svg/outlined/format_list_numbered.svg?component-solid";
 import MdStar from "@material-design-icons/svg/outlined/star_outline.svg?component-solid";
 import MdViewKanban from "@material-design-icons/svg/outlined/view_kanban.svg?component-solid";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Feedback
  */
 export default function Feedback() {
-  const t = useTranslation();
-
   return (
     <Column gap="lg">
       <CategoryButtonGroup>
@@ -30,9 +29,9 @@ export default function Feedback() {
             action="external"
             icon={<MdViewKanban {...iconSize(22)} />}
             onClick={() => void 0}
-            description="See what we're currently working on."
+            description={<Trans>See what we're currently working on.</Trans>}
           >
-            Roadmap
+            <Trans>Roadmap</Trans>
           </CategoryButton>
         </Link>
         <Link
@@ -43,9 +42,11 @@ export default function Feedback() {
             action="external"
             icon={<MdStar {...iconSize(22)} />}
             onClick={() => void 0}
-            description={t("app.settings.pages.feedback.suggest_desc")}
+            description={
+              <Trans>Suggest new Revolt features on GitHub discussions.</Trans>
+            }
           >
-            {t("app.settings.pages.feedback.suggest")}
+            <Trans>Submit feature suggestion</Trans>
           </CategoryButton>
         </Link>
         <Link
@@ -56,9 +57,9 @@ export default function Feedback() {
             action="external"
             icon={<MdFormatListNumbered {...iconSize(22)} />}
             onClick={() => void 0}
-            description={t("app.settings.pages.feedback.issue_desc")}
+            description={<Trans>Submit feedback</Trans>}
           >
-            {t("app.settings.pages.feedback.issue")}
+            <Trans>Feedback</Trans>
           </CategoryButton>
         </Link>
         <Link
@@ -69,9 +70,9 @@ export default function Feedback() {
             action="external"
             icon={<MdBugReport {...iconSize(22)} />}
             onClick={() => void 0}
-            description={t("app.settings.pages.feedback.bug_desc")}
+            description={<Trans>View currently active bug reports here.</Trans>}
           >
-            {t("app.settings.pages.feedback.bug")}
+            <Trans>Bug Tracker</Trans>
           </CategoryButton>
         </Link>
       </CategoryButtonGroup>
@@ -80,9 +81,14 @@ export default function Feedback() {
           action="chevron"
           icon={<MdExitToApp {...iconSize(22)} />}
           onClick={() => void 0}
-          description="You can report issues and discuss improvements with us directly here."
+          description={
+            <Trans>
+              You can report issues and discuss improvements with us directly
+              here.
+            </Trans>
+          }
         >
-          Join the Revolt Lounge
+          <Trans>Join the Revolt Lounge</Trans>
         </CategoryButton>
       </CategoryButtonGroup>
     </Column>

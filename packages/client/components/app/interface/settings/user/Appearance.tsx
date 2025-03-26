@@ -23,7 +23,7 @@ export default function Appearance() {
   const { navigate } = useSettingsNavigation();
   return (
     <Column gap="lg">
-      <Row>
+      {/* <Row>
         <ThemePreview
           src="https://app.revolt.chat/assets/dark.f38e16a0.svg"
           draggable={false}
@@ -80,7 +80,7 @@ export default function Appearance() {
         >
           Discover themes
         </CategoryButton>
-      </CategoryButtonGroup>
+      </CategoryButtonGroup> */}
     </Column>
   );
 }

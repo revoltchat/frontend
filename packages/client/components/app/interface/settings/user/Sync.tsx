@@ -12,6 +12,7 @@ import {
 import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Sync Configuration Page
@@ -27,9 +28,14 @@ export default function Sync() {
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
             icon={<MdPalette {...iconSize(22)} />}
-            description={t("app.settings.pages.sync.descriptions.appearance")}
+            description={
+              <Trans>
+                Sync appearance options, such as chosen emoji pack and message
+                density.
+              </Trans>
+            }
           >
-            {t("app.settings.pages.appearance.title")}
+            <Trans>Appearance</Trans>
           </CategoryButton>
         </FormGroup>
         <FormGroup>
@@ -37,9 +43,13 @@ export default function Sync() {
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
             icon={<MdBrush {...iconSize(22)} />}
-            description={t("app.settings.pages.sync.descriptions.theme")}
+            description={
+              <Trans>
+                Sync your chosen theme, colours, and any custom CSS.
+              </Trans>
+            }
           >
-            {t("app.settings.pages.appearance.theme")}
+            <Trans>Theme</Trans>
           </CategoryButton>
         </FormGroup>
         <FormGroup>
@@ -47,15 +57,17 @@ export default function Sync() {
             action={<Checkbox value onChange={(value) => void value} />}
             onClick={() => void 0}
             icon={<MdLanguage {...iconSize(22)} />}
-            description={t("app.settings.pages.sync.descriptions.locale")}
+            description={<Trans>Sync your currently chosen language.</Trans>}
           >
-            {t("app.settings.pages.language.title")}
+            <Trans>Language</Trans>
           </CategoryButton>
         </FormGroup>
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton>
-          Last sync <Time format="relative" value={0} />
+          <Trans>
+            Last sync <Time format="relative" value={0} />
+          </Trans>
         </CategoryButton>
       </CategoryButtonGroup>
     </Column>

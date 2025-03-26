@@ -1,13 +1,13 @@
 import { Show } from "solid-js";
 
-import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
-import { Button, Column, Row, iconSize } from "@revolt/ui";
+import { Button, Row, iconSize } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
 import { FlowTitle } from "./Flow";
 import { MailProvider } from "./MailProvider";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Keep track of email within the same session
@@ -25,18 +25,25 @@ export function setFlowCheckEmail(e: string) {
  * Flow to tell the user to check their email
  */
 export default function FlowCheck() {
-  const t = useTranslation();
   const navigate = useNavigate();
 
   return (
     <>
-      <FlowTitle subtitle={t("login.email_delay")} emoji="mail">
-        {t("login.check_mail")}
+      <FlowTitle
+        subtitle={
+          <Trans>
+            We've sent you a verification email. Please allow up to 10 minutes
+            for it to arrive.
+          </Trans>
+        }
+        emoji="mail"
+      >
+        <Trans>Check your mail!</Trans>
       </FlowTitle>
       <Row align justify>
         <a href="..">
           <Button variant="plain">
-            <MdArrowBack {...iconSize("1.2em")} /> Back
+            <MdArrowBack {...iconSize("1.2em")} /> <Trans>Back</Trans>
           </Button>
         </a>
         <Show when={email}>

@@ -3,18 +3,16 @@ import { Show } from "solid-js";
 import { Server } from "revolt.js";
 
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 
 import MdLibraryAdd from "@material-design-icons/svg/outlined/library_add.svg?component-solid";
 
 import { ContextMenu, ContextMenuButton } from "./ContextMenu";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Context menu for server sidebar
  */
 export function ServerSidebarContextMenu(props: { server: Server }) {
-  const t = useTranslation();
-
   /**
    * Create a new channel
    */
@@ -29,7 +27,7 @@ export function ServerSidebarContextMenu(props: { server: Server }) {
     <ContextMenu>
       <Show when={props.server?.havePermission("ManageChannel")}>
         <ContextMenuButton icon={MdLibraryAdd} onClick={createChannel}>
-          {t("app.context_menu.create_channel")}
+          <Trans>Create channel</Trans>
         </ContextMenuButton>
       </Show>
     </ContextMenu>

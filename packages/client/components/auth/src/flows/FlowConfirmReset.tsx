@@ -1,10 +1,11 @@
 import { clientController } from "@revolt/client";
 import { useTranslation } from "@revolt/i18n";
 import { useNavigate, useParams } from "@revolt/routing";
-import { Button, Text } from "@revolt/ui";
+import { Button } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
 import { Fields, Form } from "./Form";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Flow for confirming a new password
@@ -33,7 +34,9 @@ export default function FlowConfirmReset() {
 
   return (
     <>
-      <FlowTitle>{t("login.reset")}</FlowTitle>
+      <FlowTitle>
+        <Trans>Reset password</Trans>
+      </FlowTitle>
       <Form onSubmit={reset}>
         <Fields fields={["new-password", "log-out"]} />
         <Button type="submit">{t("login.reset")}</Button>
