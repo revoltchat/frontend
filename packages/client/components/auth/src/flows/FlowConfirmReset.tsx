@@ -1,5 +1,4 @@
 import { clientController } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { useNavigate, useParams } from "@revolt/routing";
 import { Button } from "@revolt/ui";
 
@@ -11,7 +10,6 @@ import { Trans } from "@lingui-solid/solid/macro";
  * Flow for confirming a new password
  */
 export default function FlowConfirmReset() {
-  const t = useTranslation();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -39,9 +37,13 @@ export default function FlowConfirmReset() {
       </FlowTitle>
       <Form onSubmit={reset}>
         <Fields fields={["new-password", "log-out"]} />
-        <Button type="submit">{t("login.reset")}</Button>
+        <Button type="submit">
+          <Trans>Reset</Trans>
+        </Button>
       </Form>
-      <a href="/login/auth">{t("login.remembered")}</a>
+      <a href="/login/auth">
+        <Trans>Go back to login</Trans>
+      </a>
     </>
   );
 }

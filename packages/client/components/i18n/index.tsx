@@ -1,5 +1,16 @@
-import { createContext, createSignal, useContext, useTransition } from "solid-js";
-import * as i18n from '@solid-primitives/i18n';
+/// new code:
+
+export { useError } from "./errors";
+
+/// old code:
+
+import {
+  createContext,
+  createSignal,
+  useContext,
+  useTransition,
+} from "solid-js";
+import * as i18n from "@solid-primitives/i18n";
 
 import { Language, Languages } from "./locales/Languages";
 import en from "./locales/en.json";
@@ -27,7 +38,9 @@ export { language };
  * Use translation function as a hook
  */
 
-export const I18nContext = createContext(i18n.translator(() => i18n.flatten(dict.en), i18n.resolveTemplate))
+export const I18nContext = createContext(
+  i18n.translator(() => i18n.flatten(dict.en), i18n.resolveTemplate)
+);
 
 export const useTranslation = () => useContext(I18nContext);
 
@@ -36,8 +49,10 @@ const [duringI18nTransition, startI18nTransition] = useTransition();
 export { duringI18nTransition };
 
 export async function fetchLanguage(key: Language): Promise<Dictionary> {
-  const data = await import(`./locales/${Languages[key].i18n}.json`) as typeof dict.en;
-  return i18n.flatten(data)
+  const data = (await import(
+    `./locales/${Languages[key].i18n}.json`
+  )) as typeof dict.en;
+  return i18n.flatten(data);
 }
 
 /**
@@ -75,7 +90,7 @@ export function browserPreferredLanguage() {
  */
 export const useQuantity = () => {
   const t = useTranslation();
-  return (id: 'members' | 'dropFiles', count: number) =>
+  return (id: "members" | "dropFiles", count: number) =>
     t(`quantities.${id}.${count > 1 ? "many" : "one"}`, {
       count: count.toString(),
     });

@@ -1,20 +1,9 @@
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
 import { For, JSX, Show, createSignal } from "solid-js";
 
-import { cva } from "styled-system/css";
-
-import { mapAnyError } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
-import {
-  Checkbox,
-  Checkbox2,
-  Column,
-  FormGroup,
-  Text,
-  TextField,
-  Typography,
-} from "@revolt/ui";
-import { styled } from "styled-system/jsx";
+import { Checkbox2, Column, FormGroup, Text, TextField } from "@revolt/ui";
+import { useLingui } from "@lingui-solid/solid/macro";
+import { useError } from "@revolt/i18n";
 
 /**
  * Available field types
@@ -25,36 +14,36 @@ type Field = "email" | "password" | "new-password" | "log-out" | "username";
  * Properties to apply to fields
  */
 const useFieldConfiguration = () => {
-  const t = useTranslation();
+  const { t } = useLingui();
 
   return {
     email: {
-      type: "email",
-      name: () => t("login.email"),
-      placeholder: () => t("login.enter.email"),
+      type: "email" as const,
+      name: () => t`Email`,
+      placeholder: () => t`Please enter your email.`,
     },
     password: {
       minLength: 8,
-      type: "password",
-      name: () => t("login.password"),
-      placeholder: () => t("login.enter.password"),
+      type: "password" as const,
+      name: () => t`Password`,
+      placeholder: () => t`Enter your current password.`,
     },
     "new-password": {
       minLength: 8,
-      type: "password",
+      type: "password" as const,
       autocomplete: "new-password",
-      name: () => t("login.new_password"),
-      placeholder: () => t("login.enter.new_password"),
+      name: () => t`New Password`,
+      placeholder: () => t`Enter a new password.`,
     },
     "log-out": {
-      name: () => t("login.log_out_other"),
+      name: () => t`Log out of all other sessions`,
     },
     username: {
       minLength: 2,
-      type: "text",
+      type: "text" as const,
       autocomplete: "none",
-      name: () => t("login.username"),
-      placeholder: () => t("login.enter.username"),
+      name: () => t`Username`,
+      placeholder: () => t`Enter your preferred username.`,
     },
   };
 };
@@ -116,8 +105,8 @@ interface Props {
  * Small wrapper for HTML form
  */
 export function Form(props: Props) {
-  const t = useTranslation();
-  const [error, setError] = createSignal("");
+  const [error, setError] = createSignal();
+  const err = useError();
   let hcaptcha: HCaptchaFunctions | undefined;
 
   /**
@@ -138,7 +127,7 @@ export function Form(props: Props) {
     try {
       await props.onSubmit(formData);
     } catch (err) {
-      setError(mapAnyError(err));
+      setError(err);
     }
   }
 
@@ -148,7 +137,7 @@ export function Form(props: Props) {
         {props.children}
         <Show when={error()}>
           <Text class="label" size="small">
-            {t(`error.${error()}` as any, undefined, error())}
+            {err(error())}
           </Text>
         </Show>
       </Column>

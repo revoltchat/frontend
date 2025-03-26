@@ -1,6 +1,4 @@
-import { mapAndRethrowError } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans } from "@lingui-solid/solid/macro";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -8,29 +6,24 @@ import { PropGenerator } from "../types";
  * Modal to create a new bot
  */
 const CreateBot: PropGenerator<"create_bot"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
-      title: t("app.special.popovers.create_bot.title"),
+      title: <Trans>Create Bot</Trans>,
     },
     schema: {
       name: "text",
     },
     data: {
       name: {
-        field: t("login.username"),
+        field: <Trans>Username</Trans>,
       },
     },
     callback: async ({ name }) => {
-      const bot = await props.client.bots
-        .createBot(name)
-        .catch(mapAndRethrowError);
-
+      const bot = await props.client.bots.createBot(name);
       props.onCreate(bot);
     },
     submit: {
-      children: t("app.special.modals.actions.create"),
+      children: <Trans>Create</Trans>,
     },
   });
 };

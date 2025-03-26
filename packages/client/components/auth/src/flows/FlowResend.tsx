@@ -1,18 +1,17 @@
 import { clientController } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
-import { Button, Text } from "@revolt/ui";
+import { Button } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
 import { Fields, Form } from "./Form";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Flow for resending email verification
  */
 export default function FlowResend() {
-  const t = useTranslation();
   const navigate = useNavigate();
 
   /**
@@ -34,12 +33,18 @@ export default function FlowResend() {
 
   return (
     <>
-      <FlowTitle>{t("login.resend")}</FlowTitle>
+      <FlowTitle>
+        <Trans>Resend verification</Trans>
+      </FlowTitle>
       <Form onSubmit={resend} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email"]} />
-        <Button type="submit">{t("login.resend")}</Button>
+        <Button type="submit">
+          <Trans>Resend</Trans>
+        </Button>
       </Form>
-      <a href="/login/auth">{t("login.remembered")}</a>
+      <a href="/login/auth">
+        <Trans>Go back to login</Trans>
+      </a>
     </>
   );
 }

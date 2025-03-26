@@ -1,41 +1,58 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Match, Switch } from "solid-js";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to delete a channel
  */
 const DeleteChannel: PropGenerator<"delete_channel"> = (props) => {
-  const t = useTranslation();
-  const i18nKey = `app.special.modals.prompt.${
-    props.channel.type === "DirectMessage"
-      ? "confirm_close_dm"
-      : props.channel.type === "Group"
-      ? "confirm_leave"
-      : "confirm_delete"
-  }`;
-
-  const i18nKeyAction =
-    props.channel.type === "DirectMessage"
-      ? "close"
-      : props.channel.type === "Group"
-      ? "leave"
-      : "delete";
-
   return createFormModal({
     modalProps: {
-      title: t(i18nKey as any, {
-        name: props.channel.name ?? props.channel.recipient?.displayName,
-      }),
-      description: t((i18nKey + "_long") as any),
+      title: (
+        <Switch fallback={<Trans>Delete {props.channel.name}?</Trans>}>
+          <Match when={props.channel.type === "Group"}>
+            <Trans>Leave {props.channel.name}?</Trans>
+          </Match>
+          <Match when={props.channel.type === "DirectMessage"}>
+            <Trans>
+              Close conversation with {props.channel.recipient?.displayName}?
+            </Trans>
+          </Match>
+        </Switch>
+      ),
+      description: (
+        <Switch
+          fallback={<Trans>Once it's deleted, there's no going back.</Trans>}
+        >
+          <Match when={props.channel.type === "Group"}>
+            <Trans>
+              You won't be able to rejoin unless you are re-invited.
+            </Trans>
+          </Match>
+          <Match when={props.channel.type === "DirectMessage"}>
+            <Trans>
+              You can re-open it later, but it will disappear on both sides.
+            </Trans>
+          </Match>
+        </Switch>
+      ),
     },
     schema: {},
     data: {},
     callback: () => props.channel.delete(),
     submit: {
       variant: "error",
-      children: t(`app.special.modals.actions.${i18nKeyAction}`),
+      children: (
+        <Switch fallback={<Trans>Delete</Trans>}>
+          <Match when={props.channel.type === "Group"}>
+            <Trans>Leave</Trans>
+          </Match>
+          <Match when={props.channel.type === "DirectMessage"}>
+            <Trans>Close</Trans>
+          </Match>
+        </Switch>
+      ),
     },
   });
 };

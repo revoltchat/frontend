@@ -8,7 +8,7 @@ import { Channel } from "revolt.js";
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { useQuantity, useTranslation } from "@revolt/i18n";
+import { useQuantity } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { modalController } from "@revolt/modal";
 import { useLocation, useNavigate } from "@revolt/routing";
@@ -26,6 +26,7 @@ import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -55,7 +56,6 @@ interface Props {
  * Display home navigation and conversations
  */
 export const HomeSidebar = (props: Props) => {
-  const t = useTranslation();
   const client = useClient();
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,7 +71,9 @@ export const HomeSidebar = (props: Props) => {
         use:scrollable={{ direction: "y", showOnHover: true }}
       >
         <List>
-          <SidebarTitle>{t("app.main.categories.conversations")}</SidebarTitle>
+          <SidebarTitle>
+            <Trans>Conversations</Trans>
+          </SidebarTitle>
 
           <a href="/app">
             <MenuButton
@@ -79,7 +81,9 @@ export const HomeSidebar = (props: Props) => {
               icon={<BiSolidHome size={24} />}
               attention={location.pathname === "/app" ? "selected" : "normal"}
             >
-              <ButtonTitle>{t("app.navigation.tabs.home")}</ButtonTitle>
+              <ButtonTitle>
+                <Trans>Home</Trans>
+              </ButtonTitle>
             </MenuButton>
           </a>
 
@@ -92,7 +96,9 @@ export const HomeSidebar = (props: Props) => {
                   location.pathname === "/friends" ? "selected" : "normal"
                 }
               >
-                <ButtonTitle>{t("app.navigation.tabs.friends")}</ButtonTitle>
+                <ButtonTitle>
+                  <Trans>Friends</Trans>
+                </ButtonTitle>
               </MenuButton>
             </a>
           </Show>
@@ -105,7 +111,9 @@ export const HomeSidebar = (props: Props) => {
                 icon={<BiSolidNotepad size={24} />}
                 onClick={() => props.openSavedNotes(navigate)}
               >
-                <ButtonTitle>{t("app.navigation.tabs.saved")}</ButtonTitle>
+                <ButtonTitle>
+                  <Trans>Saved Notes</Trans>
+                </ButtonTitle>
               </MenuButton>
             }
           >
@@ -120,7 +128,9 @@ export const HomeSidebar = (props: Props) => {
                       : "normal"
                   }
                 >
-                  <ButtonTitle>{t("app.navigation.tabs.saved")}</ButtonTitle>
+                  <ButtonTitle>
+                    <Trans>Saved Notes</Trans>
+                  </ButtonTitle>
                 </MenuButton>
               </a>
             </Match>
@@ -231,14 +241,22 @@ function Entry(
   const [local, remote] = splitProps(props, ["channel", "active"]);
 
   const q = useQuantity();
-  const t = useTranslation();
+  const { t } = useLingui();
 
   /**
    * Determine user status if present
    */
   const status = () =>
-    local.channel.recipient?.statusMessage((presence) =>
-      t(`app.status.${presence.toLowerCase()}` as any)
+    local.channel.recipient?.statusMessage((s) =>
+      s === "Online"
+        ? t`Online`
+        : s === "Busy"
+        ? t`Busy`
+        : s === "Focus"
+        ? t`Focus`
+        : s === "Idle"
+        ? t`Idle`
+        : t`Offline`
     );
 
   return (

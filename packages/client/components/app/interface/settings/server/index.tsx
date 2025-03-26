@@ -12,7 +12,6 @@ import { Server } from "revolt.js";
 
 import { useUser } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText } from "@revolt/ui";
 
@@ -27,12 +26,12 @@ const Config: SettingsConfiguration<Server> = {
    * @param key
    */
   title(key) {
-    const t = useTranslation();
-    return t(
-      `app.settings.server_pages.${key.replaceAll("/", ".")}.title` as any,
-      undefined,
-      key
-    );
+    return "todo";
+    // return t(
+    //   `app.settings.server_pages.${key.replaceAll("/", ".")}.title` as any,
+    //   undefined,
+    //   key
+    // );
   },
 
   /**
@@ -60,7 +59,6 @@ const Config: SettingsConfiguration<Server> = {
    * @returns List
    */
   list(server) {
-    const t = useTranslation();
     const user = useUser();
 
     return {

@@ -1,4 +1,3 @@
-import { useTranslation } from "@revolt/i18n";
 import {
   CategoryButton,
   CategoryButtonGroup,

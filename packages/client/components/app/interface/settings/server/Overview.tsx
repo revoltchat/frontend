@@ -7,7 +7,6 @@ import { CircularProgress, Column, Form2, Row } from "@revolt/ui";
 
 import { ServerSettingsProps } from ".";
 import { createFormControl, createFormGroup } from "solid-forms";
-import { useTranslation } from "@revolt/i18n";
 import { CONFIGURATION } from "@revolt/common";
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 

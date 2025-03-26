@@ -3,7 +3,6 @@ import { Show } from "solid-js";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { state } from "@revolt/state";
 import { UnsentMessage } from "@revolt/state/stores/Draft";
 
@@ -24,7 +23,6 @@ interface Props {
  */
 export function DraftMessageContextMenu(props: Props) {
   const client = useClient();
-  const t = useTranslation();
 
   /**
    * Retry sending the draft message

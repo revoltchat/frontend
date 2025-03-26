@@ -1,10 +1,11 @@
 import { For, Match, Switch, createSignal } from "solid-js";
-import { dayjs, useTranslation } from "@revolt/i18n";
+import { dayjs } from "@revolt/i18n";
 import { CategoryButton, Column } from "@revolt/ui";
 import { styled } from "styled-system/jsx";
 import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
 
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Changelog element
@@ -29,8 +30,6 @@ export interface ChangelogPost {
  * Modal to display changelog
  */
 const Changelog: PropGenerator<"changelog"> = (props) => {
-  const t = useTranslation();
-
   // eslint-disable-next-line solid/reactivity
   const [log, setLog] = createSignal(props.initial);
 
@@ -43,12 +42,12 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
 
   return {
     title: (
-      <Switch fallback={t("app.special.modals.changelogs.title")}>
+      <Switch fallback={<Trans>Changelog</Trans>}>
         <Match when={currentLog()}>{currentLog()!.title}</Match>
       </Switch>
     ),
     description: (
-      <Switch fallback={t("app.special.modals.changelogs.description")}>
+      <Switch fallback={<Trans>Read about updates to Revolt.</Trans>}>
         <Match when={currentLog()}>
           {dayjs(currentLog()!.date).calendar()}
         </Match>
@@ -58,7 +57,7 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
       const actions: Action[] = [
         {
           variant: "primary",
-          children: t("app.special.modals.actions.close"),
+          children: <Trans>Close</Trans>,
           onClick: () => true,
         },
       ];
@@ -66,7 +65,7 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
       if (currentLog()) {
         actions.push({
           variant: "plain",
-          children: t("app.special.modals.changelogs.older"),
+          children: <Trans>View older updates</Trans>,
           onClick: () => {
             setLog(undefined);
             return false;

@@ -1,20 +1,18 @@
-import { mapAndRethrowError } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to create a new server channel
  */
 const CreateChannel: PropGenerator<"create_channel"> = (props) => {
-  const t = useTranslation();
   const navigate = useNavigate();
 
   return createFormModal({
     modalProps: {
-      title: t("app.context_menu.create_channel"),
+      title: <Trans>Create channel</Trans>,
     },
     schema: {
       name: "text",
@@ -22,17 +20,17 @@ const CreateChannel: PropGenerator<"create_channel"> = (props) => {
     },
     data: {
       name: {
-        field: t("app.main.servers.channel_name"),
+        field: <Trans>Channel Name</Trans>,
       },
       type: {
-        field: t("app.main.servers.channel_type"),
+        field: <Trans>Channel Type</Trans>,
         choices: [
           {
-            name: t("app.main.servers.text_channel"),
+            name: <Trans>Text Channel</Trans>,
             value: "Text",
           },
           {
-            name: t("app.main.servers.voice_channel"),
+            name: <Trans>Voice Channel</Trans>,
             value: "Voice",
           },
         ],
@@ -42,14 +40,10 @@ const CreateChannel: PropGenerator<"create_channel"> = (props) => {
       type: "Text",
     },
     callback: async ({ name, type }) => {
-      const channel = await props.server
-        .createChannel({
-          type: type as "Text" | "Voice",
-          name,
-        })
-        .catch((err) => {
-          throw mapAndRethrowError(err);
-        });
+      const channel = await props.server.createChannel({
+        type: type as "Text" | "Voice",
+        name,
+      });
 
       if (props.cb) {
         props.cb(channel);
@@ -58,7 +52,7 @@ const CreateChannel: PropGenerator<"create_channel"> = (props) => {
       }
     },
     submit: {
-      children: t("app.special.modals.actions.create"),
+      children: <Trans>Create</Trans>,
     },
   });
 };

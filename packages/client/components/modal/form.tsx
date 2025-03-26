@@ -1,9 +1,7 @@
 import { Show, createSignal, splitProps } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { mapAnyError } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
-import { Column, Form, typography, Typography } from "@revolt/ui";
+import { Column, Form, typography } from "@revolt/ui";
 import type {
   Action,
   Props as ModalProps,
@@ -19,6 +17,8 @@ import { modalController } from ".";
 import { Modals, PropGenerator } from "./types";
 
 import { styled } from "styled-system/jsx";
+import { Trans } from "@lingui-solid/solid/macro";
+import { useError } from "@revolt/i18n";
 
 type Props<T extends FormTemplate> = Omit<
   FormProps<T>,
@@ -52,7 +52,6 @@ export function createFormModal<
   T extends FormTemplate,
   P extends Modals["type"]
 >(props: Props<T>): ReturnType<PropGenerator<P>> {
-  const t = useTranslation();
   const [localProps, formProps] = splitProps(props, [
     "callback",
     "submit",
@@ -64,7 +63,8 @@ export function createFormModal<
     getInitialValues(formProps.schema, formProps.defaults)
   );
 
-  const [error, setError] = createSignal<string>(null!);
+  const err = useError();
+  const [error, setError] = createSignal();
   const [processing, setProcessing] = createSignal(false);
 
   const onSubmit = async () => {
@@ -73,7 +73,7 @@ export function createFormModal<
       await localProps.callback(store);
       return true;
     } catch (err) {
-      setError(mapAnyError(err));
+      setError(err);
       setProcessing(false);
       return false;
     }
@@ -85,14 +85,14 @@ export function createFormModal<
     actions: [
       {
         onClick: onSubmit,
-        children: t("actions.submit"),
+        children: <Trans>Submit</Trans>,
         confirmation: true,
         ...props.submit,
       },
       ...(props.actions ?? [
         {
           onClick: () => true,
-          children: t("app.special.modals.actions.cancel"),
+          children: <Trans>Cancel</Trans>,
           variant: "plain",
         },
       ]),
@@ -110,7 +110,7 @@ export function createFormModal<
           }}
         />
         <Show when={error()}>
-          <Error>{t(`error.${error()}` as any, undefined, error())}</Error>
+          <Error>{err(error())}</Error>
         </Show>
       </Column>
     ),

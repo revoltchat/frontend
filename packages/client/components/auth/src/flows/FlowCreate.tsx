@@ -1,5 +1,4 @@
 import { CONFIGURATION } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { useNavigate } from "@revolt/routing";
 import { Button, Row, iconSize } from "@revolt/ui";
 
@@ -10,12 +9,12 @@ import { clientController } from "../../../client";
 import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
 import { Fields, Form } from "./Form";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Flow for creating a new account
  */
 export default function FlowCreate() {
-  const t = useTranslation();
   const navigate = useNavigate();
 
   /**
@@ -44,18 +43,20 @@ export default function FlowCreate() {
 
   return (
     <>
-      <FlowTitle subtitle={t("login.subtitle2")} emoji="wave">
-        {t("login.welcome2")}
+      <FlowTitle subtitle={<Trans>Create an account</Trans>} emoji="wave">
+        <Trans>Hello!</Trans>
       </FlowTitle>
       <Form onSubmit={create} captcha={CONFIGURATION.HCAPTCHA_SITEKEY}>
         <Fields fields={["email", "password"]} />
         <Row justify>
           <a href="..">
             <Button variant="plain">
-              <MdArrowBack {...iconSize("1.2em")} /> Back
+              <MdArrowBack {...iconSize("1.2em")} /> <Trans>Back</Trans>
             </Button>
           </a>
-          <Button type="submit">{t("login.register")}</Button>
+          <Button type="submit">
+            <Trans>Register</Trans>
+          </Button>
         </Row>
       </Form>
       {import.meta.env.DEV && (

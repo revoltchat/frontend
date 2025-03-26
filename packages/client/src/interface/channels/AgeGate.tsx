@@ -2,12 +2,12 @@ import { JSXElement, Match, Switch, createEffect } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
-import { useTranslation } from "@revolt/i18n";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { Button, Checkbox, iconSize } from "@revolt/ui";
 
 import MdWarning from "@material-design-icons/svg/round/warning.svg?component-solid";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Age gate filter for any content
@@ -19,7 +19,6 @@ export function AgeGate(props: {
   contentType: "channel";
   children: JSXElement;
 }) {
-  const t = useTranslation();
   const confirmed = state.layout.getSectionState(LAYOUT_SECTIONS.MATURE, false);
   const allowed = state.layout.getSectionState(
     props.contentId + "-nsfw",
@@ -33,7 +32,7 @@ export function AgeGate(props: {
           <MdWarning {...iconSize("8em")} />
           <Title>{props.contentName}</Title>
           <SubText>
-            {t(`app.main.channel.nsfw.${props.contentType}.marked`)}
+            <Trans>This channel is marked as mature.</Trans>
           </SubText>
 
           <Confirmation>
@@ -47,12 +46,12 @@ export function AgeGate(props: {
               }
             />
 
-            {t("app.main.channel.nsfw.confirm")}
+            <Trans>I confirm that I am at least 18 years old.</Trans>
           </Confirmation>
 
           <Actions>
             <Button variant="secondary" onPress={() => history.back()}>
-              {t("app.special.modals.actions.back")}
+              <Trans>Back</Trans>
             </Button>
             <Button
               variant="primary"
@@ -61,7 +60,7 @@ export function AgeGate(props: {
                 state.layout.setSectionState(props.contentId + "-nsfw", true)
               }
             >
-              {t(`app.main.channel.nsfw.${props.contentType}.confirm`)}
+              <Trans>Enter Channel</Trans>
             </Button>
           </Actions>
         </Base>

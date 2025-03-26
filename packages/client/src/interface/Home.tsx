@@ -2,7 +2,6 @@ import { Match, Show, Switch } from "solid-js";
 
 import { IS_DEV, useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 import {
@@ -107,7 +106,6 @@ const Image = styled("img", {
  * Home page
  */
 export function HomePage() {
-  const t = useTranslation();
   const navigate = useNavigate();
   const client = useClient();
 
@@ -198,7 +196,11 @@ export function HomePage() {
             <Show when={CONFIGURATION.IS_REVOLT}>
               <CategoryButton
                 onClick={() => navigate("/discover")}
-                description={t("app.home.discover_desc")}
+                description={
+                  <Trans>
+                    Find a community based on your hobbies or interests.
+                  </Trans>
+                }
                 icon={<MdExplore />}
               >
                 <Trans>Discover Revolt</Trans>

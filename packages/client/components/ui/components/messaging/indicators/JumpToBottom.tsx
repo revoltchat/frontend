@@ -1,4 +1,3 @@
-import { useTranslation } from "@revolt/i18n";
 import { hoverStyles } from "@revolt/ui/directives";
 
 import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?component-solid";
@@ -6,6 +5,7 @@ import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?
 import { iconSize } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -18,8 +18,6 @@ interface Props {
  * Component indicating user can jump back to present messages
  */
 export function JumpToBottom(props: Props) {
-  const t = useTranslation();
-
   return (
     <FloatingIndicator
       class={hoverStyles({ ripple: true })}
@@ -27,9 +25,11 @@ export function JumpToBottom(props: Props) {
       onClick={props.onClick}
     >
       <span style={{ "flex-grow": 1 }}>
-        {t("app.main.channel.misc.viewing_old")}
+        <Trans>Viewing older messages</Trans>
       </span>
-      <span>{t("app.main.channel.misc.jump_present")}</span>
+      <span>
+        <Trans>Jump to present</Trans>
+      </span>
       <MdArrowForward {...iconSize(16)} />
     </FloatingIndicator>
   );

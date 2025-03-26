@@ -1,4 +1,3 @@
-import { useTranslation } from "@revolt/i18n";
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -18,8 +17,6 @@ import { Trans } from "@lingui-solid/solid/macro";
  * Sync Configuration Page
  */
 export default function Sync() {
-  const t = useTranslation();
-
   return (
     <Column gap="lg">
       <CategoryButtonGroup>

@@ -6,7 +6,6 @@ import { styled } from "styled-system/jsx";
 
 import { floatingUserMenus } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { userInformation } from "@revolt/markdown/users";
 import {
@@ -22,6 +21,7 @@ import {
   typography,
 } from "@revolt/ui";
 import { cva } from "styled-system/css";
+import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -382,7 +382,7 @@ const NameStatusStack = styled("div", {
  * Member
  */
 function Member(props: { user?: User; member?: ServerMember }) {
-  const t = useTranslation();
+  const { t } = useLingui();
 
   /**
    * Create user information
@@ -394,8 +394,16 @@ function Member(props: { user?: User; member?: ServerMember }) {
    * Get user status
    */
   const status = () =>
-    (props.user ?? props.member?.user)?.statusMessage((presence) =>
-      t(`app.status.${presence.toLowerCase()}` as any)
+    (props.user ?? props.member?.user)?.statusMessage((s) =>
+      s === "Online"
+        ? t`Online`
+        : s === "Busy"
+        ? t`Busy`
+        : s === "Focus"
+        ? t`Focus`
+        : s === "Idle"
+        ? t`Idle`
+        : t`Offline`
     );
 
   return (

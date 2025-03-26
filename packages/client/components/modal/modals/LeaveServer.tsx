@@ -1,5 +1,4 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans } from "@lingui-solid/solid/macro";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -7,28 +6,28 @@ import { PropGenerator } from "../types";
  * Modal to leave a server
  */
 const LeaveServer: PropGenerator<"leave_server"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
-      title: t("app.special.modals.prompt.confirm_leave", {
-        name: props.server.name,
-      }),
-      description: t("app.special.modals.prompt.confirm_leave_long"),
+      title: <Trans>Leave {props.server.name}?</Trans>,
+      description: (
+        <Trans>You won't be able to rejoin unless you are re-invited.</Trans>
+      ),
     },
     schema: {
       silent: "checkbox",
     },
     data: {
       silent: {
-        title: t("app.special.modals.prompt.silent_leave"),
-        description: t("app.special.modals.prompt.members_not_notified"),
+        title: <Trans>Leave silently</Trans>,
+        description: (
+          <Trans>Other members will not be notified that you left.</Trans>
+        ),
       },
     },
     callback: (data) => props.server.delete(data.silent),
     submit: {
       variant: "error",
-      children: t("app.special.modals.actions.leave"),
+      children: <Trans>Leave</Trans>,
     },
   });
 };

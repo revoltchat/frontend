@@ -97,11 +97,7 @@ export type Modals =
     }
   | {
       type: "error";
-      error: string;
-    }
-  | {
-      type: "clipboard";
-      text: string;
+      error: any;
     }
   | {
       type: "link_warning";
