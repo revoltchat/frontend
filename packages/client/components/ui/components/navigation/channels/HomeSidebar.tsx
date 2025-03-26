@@ -328,7 +328,7 @@ function Entry(
               <span class={typography({ class: "_status" })}>
                 <Plural
                   value={local.channel.recipientIds.size}
-                  one="1 Member"
+                  one="# Member"
                   other="# Members"
                 />
               </span>

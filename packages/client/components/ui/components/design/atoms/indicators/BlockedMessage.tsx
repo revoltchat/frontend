@@ -44,7 +44,7 @@ export function BlockedMessage(props: Props) {
       <MdClose {...iconSize(16)} />{" "}
       <Plural
         value={props.count}
-        one="1 blocked message"
+        one="# blocked message"
         other="# blocked messages"
       />
     </Base>
