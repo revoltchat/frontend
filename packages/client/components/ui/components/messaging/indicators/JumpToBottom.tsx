@@ -1,8 +1,6 @@
-import { hoverStyles } from "@revolt/ui/directives";
-
 import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?component-solid";
 
-import { iconSize } from "../../..";
+import { iconSize, Ripple } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
 import { Trans } from "@lingui-solid/solid/macro";
@@ -19,11 +17,8 @@ interface Props {
  */
 export function JumpToBottom(props: Props) {
   return (
-    <FloatingIndicator
-      class={hoverStyles({ ripple: true })}
-      position="bottom"
-      onClick={props.onClick}
-    >
+    <FloatingIndicator position="bottom" onClick={props.onClick}>
+      <Ripple />
       <span style={{ "flex-grow": 1 }}>
         <Trans>Viewing older messages</Trans>
       </span>

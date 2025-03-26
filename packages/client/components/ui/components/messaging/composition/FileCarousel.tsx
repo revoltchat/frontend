@@ -3,12 +3,12 @@ import { For, Match, Show, Switch } from "solid-js";
 import { styled } from "styled-system/jsx";
 
 import { CONFIGURATION } from "@revolt/common";
-import { hoverStyles } from "@revolt/ui/directives";
 
 import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
 import { OverflowingText } from "../../design";
 import { typography } from "../../design/atoms/display/Typography";
 import { cva } from "styled-system/css";
+import { Ripple } from "../../material";
 
 interface Props {
   /**
@@ -113,10 +113,8 @@ export function FileCarousel(props: Props) {
               );
             }}
           </For>
-          <EmptyEntry
-            onClick={props.addFile}
-            class={hoverStyles({ ripple: true })}
-          >
+          <EmptyEntry onClick={props.addFile}>
+            <Ripple />
             <BiRegularPlus size={48} />
           </EmptyEntry>
         </div>
@@ -192,6 +190,8 @@ const Overlay = styled("div", {
  */
 const EmptyEntry = styled("div", {
   base: {
+    position: "relative",
+
     display: "grid",
     flexShrink: 0,
     placeItems: "center",
