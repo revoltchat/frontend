@@ -75,6 +75,7 @@ type CategoryData = Omit<API.Category, "channels"> & { channels: Channel[] };
 /**
  * Display server information and channels
  */
+// TODO: fix reactivity here on channel add/edit/delete
 export const ServerSidebar = (props: Props) => {
   const navigate = useNavigate();
   const keybinds = useKeybindActions();

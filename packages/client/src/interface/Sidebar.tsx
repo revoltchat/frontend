@@ -10,6 +10,8 @@ import { Route, useParams, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 
+// TODO: fix reactivity
+
 /**
  * Left-most channel navigation sidebar
  */

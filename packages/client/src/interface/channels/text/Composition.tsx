@@ -6,7 +6,7 @@ import {
 } from "solid-icons/bi";
 import { For, Match, Show, Switch, onCleanup, onMount } from "solid-js";
 
-import { API, Channel } from "revolt.js";
+import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
@@ -23,7 +23,10 @@ import {
   MessageBox,
   MessageReplyPreview,
 } from "@revolt/ui";
-import { registerKeybindWithPriority, unregisterKeybindWithPriority } from "../../../shared/lib/priorityKeybind";
+import {
+  registerKeybindWithPriority,
+  unregisterKeybindWithPriority,
+} from "../../../shared/lib/priorityKeybind";
 
 interface Props {
   /**
@@ -74,7 +77,7 @@ export function MessageComposition(props: Props) {
     if (typeof isTyping === "number" && +new Date() < isTyping) return;
 
     const ws = client()!.events;
-    if (ws.state() === 2) {
+    if (ws.state === 2) {
       isTyping = +new Date() + 2500;
       ws.send({
         type: "BeginTyping",
@@ -89,7 +92,7 @@ export function MessageComposition(props: Props) {
   function stopTyping() {
     if (isTyping) {
       const ws = client()!.events;
-      if (ws.state() === 2) {
+      if (ws.state === 2) {
         isTyping = undefined;
         ws.send({
           type: "EndTyping",

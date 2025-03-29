@@ -119,6 +119,8 @@ export function TextChannel(props: ChannelPageProps) {
     )
   );
 
+  // TODO: fix message unread floater, typing indicator, editing messages, member sidebar
+
   return (
     <>
       <Header placement="primary">
