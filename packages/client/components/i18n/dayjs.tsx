@@ -19,6 +19,9 @@ dayjs.extend(updateLocale);
 
 loadTimeLocale(Languages.en, {}, dayjs_en);
 
+/**
+ * Internal signal, don't try to use this unless you know what you're doing!
+ */
 const [timeLocale, setTimeLocale] = createSignal<[string, ILocale]>([
   null!,
   null!,

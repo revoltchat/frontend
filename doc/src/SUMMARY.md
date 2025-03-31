@@ -16,6 +16,7 @@
     - [Session Lifecycle](./components/client/session-lifecycle.md)
   - [@revolt/i18n]()
     - [Using Lingui](./components/i18n/using-lingui.md)
+    - [Using Dayjs](./components/i18n/using-dayjs.md)
     - [Translating Errors](./components/i18n/translating-errors.md)
   - [@revolt/ui]()
     - [Themes]()
