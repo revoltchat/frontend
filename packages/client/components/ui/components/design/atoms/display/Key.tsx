@@ -1,3 +1,4 @@
+import { useLingui } from "@lingui-solid/solid/macro";
 import {
   FaSolidArrowDown,
   FaSolidArrowLeft,
@@ -6,8 +7,6 @@ import {
 } from "solid-icons/fa";
 import { Component, JSXElement, createMemo } from "solid-js";
 import { styled } from "styled-system/jsx";
-
-import { useTranslation } from "@revolt/i18n";
 
 export interface Props {
   children: string;
@@ -55,21 +54,18 @@ const REPLACEMENTS: Record<string, () => JSXElement> = {
 };
 
 export const Key: Component<Props> = (props) => {
-  const t = useTranslation();
-
   const keyName = createMemo(() => {
-    const key = props.children;
+    // const key = props.children;
 
-    return (
-      REPLACEMENTS[key]?.() ??
-      (props.short
-        ? t(
-            `keys.${key}.short` as any,
-            {},
-            t(`keys.${key}.full` as any, {}, key)
-          )
-        : t(`keys.${key}.full` as any, {}, key))
-    );
+    return "todo";
+    // REPLACEMENTS[key]?.() ??
+    // (props.short
+    //   ? t(
+    //       `keys.${key}.short` as any,
+    //       {},
+    //       t(`keys.${key}.full` as any, {}, key)
+    //     )
+    //   : t(`keys.${key}.full` as any, {}, key))
   });
 
   return <Base simple={props.simple}>{keyName()}</Base>;

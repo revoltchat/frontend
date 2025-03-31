@@ -4,7 +4,7 @@ import { Message as MessageInterface, WebsiteEmbed } from "revolt.js";
 import { decodeTime } from "ulid";
 
 import { useClient } from "@revolt/client";
-import { dayjs } from "@revolt/i18n";
+import { useTime } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
 import { state } from "@revolt/state";
 import {
@@ -67,6 +67,7 @@ interface Props {
  * Render a Message with or without a tail
  */
 export function Message(props: Props) {
+  const dayjs = useTime();
   const { t } = useLingui();
   const client = useClient();
 

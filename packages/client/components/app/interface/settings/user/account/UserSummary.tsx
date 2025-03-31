@@ -1,9 +1,9 @@
 import { Show } from "solid-js";
 
-import dayjs from "dayjs";
 import { User } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { useTime } from "@revolt/i18n";
 import { Avatar, Button, CategoryButtonGroup, iconSize } from "@revolt/ui";
 
 import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
@@ -15,6 +15,7 @@ export function UserSummary(props: {
   bannerUrl?: string;
   onEdit?: () => void;
 }) {
+  const dayjs = useTime();
   const bannerStyle = () =>
     props.bannerUrl
       ? {

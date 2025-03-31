@@ -1,6 +1,5 @@
+import { useTime } from "@revolt/i18n";
 import { createSignal, type JSX, onCleanup } from "solid-js";
-
-import { dayjs } from "@revolt/i18n";
 
 interface Props {
   value: number | Date | string | JSX.Element;
@@ -22,6 +21,7 @@ interface Props {
  * Format a given date
  */
 export function formatTime(
+  dayjs: ReturnType<typeof useTime>,
   options: Props
 ): JSX.Element | string | undefined | null {
   if (
@@ -33,10 +33,10 @@ export function formatTime(
       case "calendar":
         return dayjs(options.value).calendar(options.referenceTime);
       case "datetime":
-        return `${formatTime({
+        return `${formatTime(dayjs, {
           format: "date",
           value: options.value,
-        })} ${formatTime({ format: "time", value: options.value })}`;
+        })} ${formatTime(dayjs, { format: "time", value: options.value })}`;
       case "date":
       case "dateNormal":
         return dayjs(options.value).format("DD/MM/YYYY");
@@ -49,8 +49,9 @@ export function formatTime(
       case "time12":
         return dayjs(options.value).format("h:mm A");
       case "time24":
-      default:
         return dayjs(options.value).format("HH:mm");
+      case "time":
+        return dayjs(options.value).format("LT");
     }
   } else {
     return options.value;
@@ -58,10 +59,11 @@ export function formatTime(
 }
 
 export function Time(props: Props) {
-  const [time, setTime] = createSignal(formatTime(props));
+  const dayjs = useTime();
+  const [time, setTime] = createSignal(formatTime(dayjs, props));
 
   const timer = setInterval(() => {
-    const value = formatTime(props);
+    const value = formatTime(dayjs, props);
     if (value !== time()) {
       setTime(value);
     }

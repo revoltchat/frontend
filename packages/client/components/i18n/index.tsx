@@ -1,54 +1,45 @@
-/// new code:
+import type { JSX } from "solid-js";
 
+import { i18n } from "@lingui/core";
+import { I18nProvider as LinguiProvider } from "@lingui-solid/solid";
+import { Language, Languages, type LocaleOptions } from "./Languages";
+import { loadTimeLocale } from "./dayjs";
+
+import { messages as en } from "./catalogs/en/messages";
+
+i18n.load({
+  en,
+});
+
+i18n.activate("en");
+
+export function I18nProvider(props: { children: JSX.Element }) {
+  return <LinguiProvider i18n={i18n}>{props.children}</LinguiProvider>;
+}
+
+export { Languages, Language } from "./Languages";
+export { useTime, timeLocale } from "./dayjs";
 export { useError } from "./errors";
 
-/// old code:
+export async function loadAndSwitchLocale(
+  key: Language,
+  localeOptions: LocaleOptions
+) {
+  if (key !== i18n.locale) {
+    const data =
+      Languages[key].i18n === "en"
+        ? en
+        : (await import(`./catalogs/${Languages[key].i18n}/messages.ts`))
+            .messages;
 
-import {
-  createContext,
-  createSignal,
-  useContext,
-  useTransition,
-} from "solid-js";
-import * as i18n from "@solid-primitives/i18n";
+    i18n.load({
+      [key]: data,
+    });
 
-import { Language, Languages } from "./locales/Languages";
-import en from "./locales/en.json";
+    i18n.activate(key);
 
-export { Language, Languages } from "./locales/Languages";
-export * from "./dayjs";
-
-/**
- * Default dictionary object
- */
-export const dict = {
-  en,
-};
-
-export type RawDictionary = typeof dict.en;
-export type Dictionary = i18n.Flatten<RawDictionary>;
-
-/**
- * Currently set language
- */
-const [language, setLanguage] = createSignal<Language>("en" as Language);
-export { language, setLanguage };
-
-/**
- * Use translation function as a hook
- */
-
-export const I18nContext = createContext(
-  i18n.translator(() => i18n.flatten(dict.en), i18n.resolveTemplate)
-);
-
-export const useTranslation = () => useContext(I18nContext);
-
-export async function fetchLanguage(key: Language): Promise<Dictionary> {
-  const data = (await import(
-    `./locales/${Languages[key].i18n}.json`
-  )) as typeof dict.en;
-  return i18n.flatten(data);
+    loadTimeLocale(Languages[key], localeOptions);
+  }
 }
 
 /**

@@ -1,6 +1,6 @@
-import { For, Match, Switch, createMemo } from "solid-js";
+import { For, Show, createMemo } from "solid-js";
 
-import { Languages, browserPreferredLanguage, language } from "@revolt/i18n";
+import { browserPreferredLanguage, Languages, Language } from "@revolt/i18n";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
 import {
   CategoryButton,
@@ -22,22 +22,26 @@ import MdKeyboardTabRtl from "@material-design-icons/svg/outlined/keyboard_tab.s
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?component-solid";
 import MdTranslate from "@material-design-icons/svg/outlined/translate.svg?component-solid";
-import { Trans } from "@lingui-solid/solid/macro";
+
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
+import type { LanguageEntry } from "@revolt/i18n/Languages";
+import { state } from "@revolt/state";
+import { dayjs, timeLocale } from "@revolt/i18n/dayjs";
 
 /**
  * Language
  */
-export default function Language() {
+export default function LanguageSettings() {
   return (
     <Column gap="lg">
       <CategoryButtonGroup>
         <PickLanguage />
         {/* <ConfigureRTL /> */}
       </CategoryButtonGroup>
-      {/* <CategoryButtonGroup>
+      <CategoryButtonGroup>
         <PickDateFormat />
         <PickTimeFormat />
-      </CategoryButtonGroup> */}
+      </CategoryButtonGroup>
       <CategoryButtonGroup>
         <ContributeLanguageLink />
       </CategoryButtonGroup>
@@ -49,10 +53,13 @@ export default function Language() {
  * Pick user's preferred language
  */
 function PickLanguage() {
+  const { i18n } = useLingui();
+
   /**
    * Determine the current language
    */
-  const currentLanguage = () => Languages[language()];
+  const currentLanguage = () =>
+    Languages[i18n().locale as never] as LanguageEntry;
 
   // Generate languages array.
   const languages = createMemo(() => {
@@ -91,8 +98,8 @@ function PickLanguage() {
         {([id, lang]) => (
           <CategoryButton
             icon={<UnicodeEmoji emoji={lang.emoji} />}
-            action={<Checkbox value={id === language()} />}
-            onClick={() => setLanguage(id as never)}
+            action={<Checkbox value={id === i18n().locale} />}
+            onClick={() => state.locale.switch(id as Language)}
           >
             <Row>
               {lang.display}{" "}
@@ -120,6 +127,8 @@ function PickLanguage() {
  * Pick user's preferred date format
  */
 function PickDateFormat() {
+  const date = () => timeLocale()[1].formats.L;
+
   const LastWeek = new Date();
   LastWeek.setDate(LastWeek.getDate() - 7);
 
@@ -127,13 +136,13 @@ function PickDateFormat() {
     <CategoryCollapse
       icon={<MdCalendarMonth {...iconSize(22)} />}
       title="Select date format"
-      description={`Traditional`}
+      description={`Traditional ` + date()}
     >
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
-          action={<Checkbox value />}
+          onClick={() => state.locale.setDateFormat("DD/MM/YYYY")}
+          action={<Checkbox value={date() === "DD/MM/YYYY"} />}
           description={<Time format="date" value={LastWeek} />}
         >
           <Trans>Traditional (DD/MM/YYYY)</Trans>
@@ -142,8 +151,8 @@ function PickDateFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
-          action={<Checkbox />}
+          onClick={() => state.locale.setDateFormat("MM/DD/YYYY")}
+          action={<Checkbox value={date() === "MM/DD/YYYY"} />}
           description={<Time format="dateAmerican" value={LastWeek} />}
         >
           <Trans>American (MM/DD/YYYY)</Trans>
@@ -152,11 +161,11 @@ function PickDateFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
-          action={<Checkbox />}
+          onClick={() => state.locale.setDateFormat("YYYY-MM-DD")}
+          action={<Checkbox value={date() === "YYYY-MM-DD"} />}
           description={<Time format="iso8601" value={LastWeek} />}
         >
-          <Trans>ISO8601 (YYYY/MM/DD)</Trans>
+          <Trans>ISO Standard (YYYY-MM-DD)</Trans>
         </CategoryButton>
       </FormGroup>
     </CategoryCollapse>
@@ -167,6 +176,8 @@ function PickDateFormat() {
  * Pick user's preferred time format
  */
 function PickTimeFormat() {
+  const time = () => timeLocale()[1].formats.LT;
+
   return (
     <CategoryCollapse
       icon={<MdSchedule {...iconSize(22)} />}
@@ -176,8 +187,8 @@ function PickTimeFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
-          action={<Checkbox value />}
+          onClick={() => state.locale.setTimeFormat("HH:mm")}
+          action={<Checkbox value={time() === "HH:mm"} />}
           description={<Time format="time24" value={new Date()} />}
         >
           <Trans>24 hours</Trans>
@@ -186,8 +197,8 @@ function PickTimeFormat() {
       <FormGroup>
         <CategoryButton
           icon={"blank"}
-          onClick={() => void 0}
-          action={<Checkbox />}
+          onClick={() => state.locale.setTimeFormat("h:mm A")}
+          action={<Checkbox value={time() === "h:mm A"} />}
           description={<Time format="time12" value={new Date()} />}
         >
           <Trans>12 hours</Trans>
@@ -197,41 +208,41 @@ function PickTimeFormat() {
   );
 }
 
-/**
- * Configure right-to-left display
- */
-function ConfigureRTL() {
-  /**
-   * Determine the current language
-   */
-  const currentLanguage = () => Languages[language()];
+// /**
+//  * Configure right-to-left display
+//  */
+// function ConfigureRTL() {
+//   /**
+//    * Determine the current language
+//    */
+//   const currentLanguage = () => Languages[language()];
 
-  return (
-    <Switch
-      fallback={
-        <CategoryButton
-          icon={<MdKeyboardTabRtl {...iconSize(22)} />}
-          description={<Trans>Flip the user interface right to left</Trans>}
-          action={<Checkbox />}
-          onClick={() => void 0}
-        >
-          <Trans>Enable RTL layout</Trans>
-        </CategoryButton>
-      }
-    >
-      <Match when={currentLanguage().rtl}>
-        <CategoryButton
-          icon={<MdKeyboardTab {...iconSize(22)} />}
-          description={<Trans>Keep the user interface left to right</Trans>}
-          action={<Checkbox />}
-          onClick={() => void 0}
-        >
-          <Trans>Force LTR layout</Trans>
-        </CategoryButton>
-      </Match>
-    </Switch>
-  );
-}
+//   return (
+//     <Switch
+//       fallback={
+//         <CategoryButton
+//           icon={<MdKeyboardTabRtl {...iconSize(22)} />}
+//           description={<Trans>Flip the user interface right to left</Trans>}
+//           action={<Checkbox />}
+//           onClick={() => void 0}
+//         >
+//           <Trans>Enable RTL layout</Trans>
+//         </CategoryButton>
+//       }
+//     >
+//       <Match when={currentLanguage().rtl}>
+//         <CategoryButton
+//           icon={<MdKeyboardTab {...iconSize(22)} />}
+//           description={<Trans>Keep the user interface left to right</Trans>}
+//           action={<Checkbox />}
+//           onClick={() => void 0}
+//         >
+//           <Trans>Force LTR layout</Trans>
+//         </CategoryButton>
+//       </Match>
+//     </Switch>
+//   );
+// }
 
 /**
  * Language contribution link

@@ -2,13 +2,12 @@ import { Accessor, Show } from "solid-js";
 
 import { decodeTime } from "ulid";
 
-import { dayjs } from "@revolt/i18n";
-
-import { Ripple, iconSize } from "../../..";
+import { Ripple } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
 import { styled } from "styled-system/jsx";
 import { Trans } from "@lingui-solid/solid/macro";
+import { useTime } from "@revolt/i18n";
 
 interface Props {
   /**
@@ -32,6 +31,8 @@ interface Props {
  */
 export function NewMessages(props: Props) {
   // TODO: hook escape button
+
+  const dayjs = useTime();
 
   /**
    * Remove the message

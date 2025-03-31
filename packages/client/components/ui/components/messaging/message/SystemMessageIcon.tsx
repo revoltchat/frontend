@@ -34,7 +34,10 @@ export function SystemMessageIcon(props: {
       <Tooltip
         content={() => <Time format="relative" value={props.createdAt} />}
         aria={
-          formatTime({ format: "relative", value: props.createdAt }) as string
+          formatTime({
+            format: "relative",
+            value: props.createdAt,
+          }) as string
         }
         placement="top"
       >

@@ -1,6 +1,6 @@
 import { For, Match, Switch, createSignal } from "solid-js";
-import { dayjs } from "@revolt/i18n";
 import { CategoryButton, Column } from "@revolt/ui";
+import { useTime } from "@revolt/i18n";
 import { styled } from "styled-system/jsx";
 import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
 
@@ -30,6 +30,8 @@ export interface ChangelogPost {
  * Modal to display changelog
  */
 const Changelog: PropGenerator<"changelog"> = (props) => {
+  const dayjs = useTime();
+
   // eslint-disable-next-line solid/reactivity
   const [log, setLog] = createSignal(props.initial);
 
