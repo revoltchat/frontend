@@ -1,6 +1,6 @@
 {
   "name": "revolt-for-web",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Revolt for Web: frontend software for Revolt",
   "scripts": {
     "test": "pnpm --filter test-runner test",
