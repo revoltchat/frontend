@@ -1,17 +1,17 @@
 import { styled } from "styled-system/jsx";
 
-import { useTranslation } from "@revolt/i18n";
-import { hoverStyles } from "@revolt/ui/directives";
-
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
-import { iconSize } from "../../../..";
+import { iconSize, Ripple } from "../../../..";
+import { Plural } from "@lingui-solid/solid/macro";
 
 /**
  * Base styles
  */
 const Base = styled("div", {
   base: {
+    position: "relative",
+
     display: "flex",
     alignItems: "center",
 
@@ -38,14 +38,15 @@ interface Props {
  * Generic message divider
  */
 export function BlockedMessage(props: Props) {
-  const t = useTranslation();
-
   return (
-    <Base class={hoverStyles()}>
+    <Base>
+      <Ripple />
       <MdClose {...iconSize(16)} />{" "}
-      {t("app.main.channel.misc.blocked_messages", {
-        count: props.count.toString(),
-      })}
+      <Plural
+        value={props.count}
+        one="# blocked message"
+        other="# blocked messages"
+      />
     </Base>
   );
 }

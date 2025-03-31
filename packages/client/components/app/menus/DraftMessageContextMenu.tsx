@@ -3,7 +3,6 @@ import { Show } from "solid-js";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { state } from "@revolt/state";
 import { UnsentMessage } from "@revolt/state/stores/Draft";
 
@@ -12,6 +11,7 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 import MdRefresh from "@material-design-icons/svg/outlined/refresh.svg?component-solid";
 
 import { ContextMenu, ContextMenuButton } from "./ContextMenu";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   draft: UnsentMessage;
@@ -23,7 +23,6 @@ interface Props {
  */
 export function DraftMessageContextMenu(props: Props) {
   const client = useClient();
-  const t = useTranslation();
 
   /**
    * Retry sending the draft message
@@ -44,7 +43,7 @@ export function DraftMessageContextMenu(props: Props) {
       <ContextMenu>
         <Show when={false}>
           <ContextMenuButton icon={MdClose} onClick={deleteMessage} destructive>
-            {t("app.context_menu.cancel_message")}
+            <Trans>Cancel message</Trans>
           </ContextMenuButton>
         </Show>
         <Show
@@ -53,14 +52,14 @@ export function DraftMessageContextMenu(props: Props) {
           }
         >
           <ContextMenuButton icon={MdRefresh} onClick={retrySend}>
-            {t("app.context_menu.retry_message")}
+            <Trans>Retry sending</Trans>
           </ContextMenuButton>
           <ContextMenuButton
             icon={MdDelete}
             onClick={deleteMessage}
             destructive
           >
-            {t("app.context_menu.delete_message")}
+            <Trans>Delete message</Trans>
           </ContextMenuButton>
         </Show>
       </ContextMenu>

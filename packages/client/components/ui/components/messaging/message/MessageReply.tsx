@@ -3,23 +3,20 @@ import { Match, Switch } from "solid-js";
 import { Show } from "solid-js";
 import { styled } from "styled-system/jsx";
 
-import { type Message, RE_SPOILER } from "revolt.js";
+import { type Message } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 
 import {
   Avatar,
-  ColouredText,
   NonBreakingText,
   OverflowingText,
-  Row,
   Username,
 } from "../../design";
-import { Text } from "../../design/atoms/display/Typography";
 import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
 import { cva } from "styled-system/css";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -108,14 +105,13 @@ const Link = styled("a", {
  * Message being replied to
  */
 export function MessageReply(props: Props) {
-  const t = useTranslation();
   const client = useClient();
 
   return (
     <Base noDecorations={props.noDecorations}>
-      <Switch fallback={<span>{t("app.main.channel.misc.not_loaded")}</span>}>
+      <Switch fallback={<Trans>Message not loaded, click to jump</Trans>}>
         <Match when={props.message?.author?.relationship === "Blocked"}>
-          {t("app.main.channel.misc.blocked_user")}
+          <Trans>Blocked User</Trans>
         </Match>
         <Match when={props.message}>
           <div
@@ -134,9 +130,11 @@ export function MessageReply(props: Props) {
             <Show when={props.message!.attachments}>
               <Attachments>
                 <BiSolidFile size={16} />
-                {props.message!.attachments!.length > 1
-                  ? t("app.main.channel.misc.sent_multiple_files")
-                  : t("app.main.channel.misc.sent_file")}
+                <Switch fallback={<Trans>Sent an attachment</Trans>}>
+                  <Match when={props.message!.attachments!.length > 1}>
+                    <Trans>Sent multiple attachments</Trans>
+                  </Match>
+                </Switch>
               </Attachments>
             </Show>
             <Show when={props.message!.content}>

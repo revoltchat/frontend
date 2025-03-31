@@ -1,22 +1,11 @@
 /**
  * Configure contexts and render App
  */
-import {
-  JSX,
-  Show,
-  createEffect,
-  createMemo,
-  createResource,
-  createSignal,
-  on,
-  onMount,
-  lazy,
-} from "solid-js";
+import { JSX, Show, createEffect, createSignal, on, onMount } from "solid-js";
 import { createStore } from "solid-js/store";
 import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
-import * as i18n from "@solid-primitives/i18n";
 import { Navigate, Route, Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { isTauri } from "@tauri-apps/api/core";
@@ -30,13 +19,7 @@ import FlowLogin from "@revolt/auth/src/flows/FlowLogin";
 import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
-import {
-  I18nContext,
-  dict,
-  fetchLanguage,
-  language,
-  setLanguage,
-} from "@revolt/i18n";
+import { I18nProvider } from "@revolt/i18n";
 import { ModalRenderer, modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import {
@@ -106,19 +89,16 @@ function SettingsRedirect() {
   return <PWARedirect />;
 }
 
+/**
+ * Tanstack Query client
+ */
 const client = new QueryClient();
 
 function MountContext(props: { children?: JSX.Element }) {
-  const [dictionary] = createResource(language, fetchLanguage, {
-    initialValue: i18n.flatten(dict.en),
-  });
-
-  const t = createMemo(() => i18n.translator(dictionary, i18n.resolveTemplate));
-
   const appWindow = isTauri() ? getCurrentWindow() : null;
 
   return (
-    <I18nContext.Provider value={t()}>
+    <I18nProvider>
       <QueryClientProvider client={client}>
         <Masks />
         <MountTheme>
@@ -137,7 +117,7 @@ function MountContext(props: { children?: JSX.Element }) {
           <FloatingManager />
         </MountTheme>
       </QueryClientProvider>
-    </I18nContext.Provider>
+    </I18nProvider>
   );
 }
 

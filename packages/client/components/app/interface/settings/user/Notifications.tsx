@@ -2,7 +2,6 @@ import MdNotifications from "@material-design-icons/svg/outlined/notifications.s
 import MdMarkUnreadChatAlt from "@material-design-icons/svg/outlined/mark_unread_chat_alt.svg?component-solid";
 import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
 
-import { useTranslation } from "@revolt/i18n";
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -11,13 +10,12 @@ import {
   FormGroup,
   iconSize,
 } from "@revolt/ui";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Notifications Page
  */
 export default function Notifications() {
-  const t = useTranslation();
-
   return (
     <CategoryButtonGroup>
       <FormGroup>
@@ -25,14 +23,16 @@ export default function Notifications() {
           action={<Checkbox value onChange={(value) => void value} />}
           onClick={() => void 0}
           icon={<MdNotifications {...iconSize(22)} />}
-          description={t(
-            "app.settings.pages.notifications.descriptions.enable_desktop"
-          )}
+          description={
+            <Trans>
+              Receive notifications while the app is open and in the background.
+            </Trans>
+          }
         >
-          {t("app.settings.pages.notifications.enable_desktop")}
+          <Trans>Enable Desktop Notifications</Trans>
         </CategoryButton>
       </FormGroup>
-      <FormGroup>
+      {/* <FormGroup>
         <CategoryButton
           action={<Checkbox value onChange={(value) => void value} />}
           onClick={() => void 0}
@@ -43,9 +43,9 @@ export default function Notifications() {
         >
           {t("app.settings.pages.notifications.enable_push")}
         </CategoryButton>
-      </FormGroup>
+      </FormGroup> */}
       <CategoryCollapse
-        title={t("app.settings.pages.notifications.sounds")}
+        title={<Trans>Sounds</Trans>}
         icon={<MdSpeaker {...iconSize(22)} />}
       >
         <FormGroup>
@@ -54,7 +54,7 @@ export default function Notifications() {
             onClick={() => void 0}
             icon="blank"
           >
-            {t("app.settings.pages.notifications.sound.message")}
+            <Trans>Message Received</Trans>
           </CategoryButton>
         </FormGroup>
         <FormGroup>
@@ -63,7 +63,7 @@ export default function Notifications() {
             onClick={() => void 0}
             icon="blank"
           >
-            {t("app.settings.pages.notifications.sound.outbound")}
+            <Trans>Message Sent</Trans>
           </CategoryButton>
         </FormGroup>
         <FormGroup>
@@ -72,7 +72,7 @@ export default function Notifications() {
             onClick={() => void 0}
             icon="blank"
           >
-            {t("app.settings.pages.notifications.sound.call_join")}
+            <Trans>User Joined Call</Trans>
           </CategoryButton>
         </FormGroup>
         <FormGroup>
@@ -81,7 +81,7 @@ export default function Notifications() {
             onClick={() => void 0}
             icon="blank"
           >
-            {t("app.settings.pages.notifications.sound.call_leave")}
+            <Trans>User Left Call</Trans>
           </CategoryButton>
         </FormGroup>
       </CategoryCollapse>

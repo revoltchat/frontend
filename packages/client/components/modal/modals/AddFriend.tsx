@@ -1,17 +1,14 @@
-import { useTranslation } from "@revolt/i18n";
-
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal for adding another user as a friend
  */
 const AddFriend: PropGenerator<"add_friend"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
-      title: t("app.context_menu.add_friend"),
+      title: <Trans>Add Friend</Trans>,
     },
     schema: {
       username: "text",
@@ -24,7 +21,7 @@ const AddFriend: PropGenerator<"add_friend"> = (props) => {
     callback: async ({ username }) =>
       void (await props.client.api.post(`/users/friend`, { username })),
     submit: {
-      children: t("app.special.modals.actions.ok"),
+      children: <Trans>Send request</Trans>,
     },
   });
 };

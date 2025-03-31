@@ -3,13 +3,13 @@ import { JSX } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
-import { useTranslation } from "@revolt/i18n";
 import { Button, iconSize } from "@revolt/ui";
 
 import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?component-solid";
 
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Authentication page layout
@@ -129,8 +129,6 @@ let a = false;
  * Authentication page
  */
 export function AuthPage(props: { children: JSX.Element }) {
-  const t = useTranslation();
-
   return (
     <Base style={{ "--url": `url('${background}')` }}>
       <Nav>
@@ -169,18 +167,18 @@ export function AuthPage(props: { children: JSX.Element }) {
           <Bullet />
           <NavItems>
             <a href="https://revolt.chat/about" target="_blank">
-              {t("general.about")}
+              <Trans>About</Trans>
             </a>
             <a href="https://revolt.chat/terms" target="_blank">
-              {t("general.tos")}
+              <Trans>Terms of Service</Trans>
             </a>
             <a href="https://revolt.chat/privacy" target="_blank">
-              {t("general.privacy")}
+              <Trans>Privacy Policy</Trans>
             </a>
           </NavItems>
         </NavItems>
         <NavItems variant="hide">
-          {t("general.image_by")} @fakurian
+          <Trans>Image by {"@fakurian"}</Trans>
           <Bullet />
           <a href="https://unsplash.com/" target="_blank" rel="noreferrer">
             unsplash.com

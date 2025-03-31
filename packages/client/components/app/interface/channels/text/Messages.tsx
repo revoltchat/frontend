@@ -18,8 +18,8 @@ import {
 import isEqual from "lodash.isequal";
 import { Channel, Message as MessageInterface } from "revolt.js";
 
+import { useTime } from "@revolt/i18n";
 import { useClient } from "@revolt/client";
-import { dayjs } from "@revolt/i18n";
 import {
   BlockedMessage,
   ConversationStart,
@@ -90,6 +90,7 @@ interface Props {
  */
 export function Messages(props: Props) {
   const client = useClient();
+  const dayjs = useTime();
 
   /**
    * Loaded messages

@@ -3,7 +3,6 @@ import { Component, Show } from "solid-js";
 import { Server } from "revolt.js";
 
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { useUser } from "@revolt/markdown/users";
 import { ColouredText, Column, iconSize } from "@revolt/ui";
 import { ColourSwatches } from "@revolt/ui/components/design/atoms/inputs/ColourSwatches";
@@ -61,6 +60,7 @@ import sync from "./Sync";
 import { AccountCard } from "./_AccountCard";
 import { MyBots, ViewBot } from "./bots";
 import { EditProfile } from "./profile";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * All the available routes for client settings
@@ -106,18 +106,12 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    * @param key
    */
   title(key) {
-    const t = useTranslation();
-
     if (key.startsWith("bots/")) {
       const user = useUser(key.substring(5));
       return user()!.username;
     }
 
-    return t(
-      `app.settings.pages.${key.replaceAll("/", ".")}.title` as any,
-      undefined,
-      key
-    );
+    return "todo " + key;
   },
 
   /**
@@ -142,8 +136,6 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    * @returns List
    */
   list() {
-    const t = useTranslation();
-
     return {
       prepend: (
         <Column gap="s">
@@ -153,7 +145,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
       ),
       entries: [
         {
-          title: t("app.settings.categories.user_settings"),
+          title: <Trans>User Settings</Trans>,
           entries: [
             {
               id: "account",
@@ -164,12 +156,12 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               id: "profile",
               icon: <MdAccountCircle {...iconSize(20)} />,
-              title: t("app.settings.pages.profile.title"),
+              title: <Trans>Profile</Trans>,
             },
             {
               id: "sessions",
               icon: <MdVerifiedUser {...iconSize(20)} />,
-              title: t("app.settings.pages.sessions.title"),
+              title: <Trans>Sessions</Trans>,
             },
           ],
         },
@@ -179,22 +171,22 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               id: "bots",
               icon: <MdSmartToy {...iconSize(20)} />,
-              title: t("app.settings.pages.bots.title"),
+              title: <Trans>My Bots</Trans>,
             },
             {
               id: "feedback",
               icon: <MdRateReview {...iconSize(20)} />,
-              title: t("app.settings.pages.feedback.title"),
+              title: <Trans>Feedback</Trans>,
             },
             {
               href: "https://wiki.revolt.chat/notes/project/financial-support/",
               icon: <MdLocalCafe {...iconSize(20)} />,
-              title: t("app.settings.pages.donate.title"),
+              title: <Trans>Donate</Trans>,
             },
           ],
         },
         {
-          title: t("app.settings.categories.client_settings"),
+          title: <Trans>Client Settings</Trans>,
           entries: [
             // {
             //   id: "audio",
@@ -232,7 +224,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               id: "language",
               icon: <MdLanguage {...iconSize(20)} />,
-              title: t("app.settings.pages.language.title"),
+              title: <Trans>Language</Trans>,
             },
             // {
             //   id: "sync",
@@ -248,7 +240,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               id: "experiments",
               icon: <MdScience {...iconSize(20)} />,
-              title: t("app.settings.pages.experiments.title"),
+              title: <Trans>Experiments</Trans>,
             },
           ],
         },
@@ -263,7 +255,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               href: "https://github.com/revoltchat",
               icon: <MdMemory {...iconSize(20)} />,
-              title: t("app.settings.pages.source_code"),
+              title: <Trans>Source Code</Trans>,
             },
             {
               id: "logout",
@@ -275,7 +267,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               ),
               title: (
                 <ColouredText colour="var(--customColours-error-color)">
-                  {t("app.settings.pages.logOut")}
+                  <Trans>Log Out</Trans>
                 </ColouredText>
               ),
               onClick: () => {

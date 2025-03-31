@@ -1,13 +1,12 @@
 import { BiRegularAt, BiSolidXCircle } from "solid-icons/bi";
-import { Show } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 import { styled } from "styled-system/jsx";
 
 import type { Message } from "revolt.js";
 
-import { useTranslation } from "@revolt/i18n";
-
-import { Row, typography } from "../../design";
+import { Row } from "../../design";
 import { MessageReply } from "../message/MessageReply";
+import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -103,17 +102,19 @@ const Base = styled(Row, {
  * Preview of message reply
  */
 export function MessageReplyPreview(props: Props) {
-  const t = useTranslation();
-
   return (
     <Base gap="md" align>
-      <ReplyTo>{t("app.main.channel.reply.replying")}</ReplyTo>
+      <Trans>Replying to</Trans>
       <MessageReply message={props.message} noDecorations />
       <Row gap="lg" align>
         <Show when={!props.self}>
           <MentionToggle mention={props.mention} onClick={props.toggle}>
             <BiRegularAt size={16} />
-            {props.mention ? t("general.on") : t("general.off")}
+            <Switch fallback={<Trans>Off</Trans>}>
+              <Match when={props.mention}>
+                <Trans>On</Trans>
+              </Match>
+            </Switch>
           </MentionToggle>
         </Show>
         <Dismiss onClick={props.dismiss}>

@@ -1,5 +1,3 @@
-import { useTranslation } from "@revolt/i18n";
-
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -9,8 +7,6 @@ import { PropGenerator } from "../types";
  * Modal to pick a new username
  */
 const Onboarding: PropGenerator<"onboarding"> = (props) => {
-  const t = useTranslation();
-
   return createFormModal({
     modalProps: {
       title: "Choose username",

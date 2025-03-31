@@ -4,17 +4,12 @@ import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 import type { ChannelWebhook } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import {
-  Avatar,
-  CategoryButton,
-  Column,
-  Preloader,
-  Typography,
-} from "@revolt/ui";
+import { Avatar, CategoryButton, Column, Preloader } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
 
 import { ChannelSettingsProps } from ".";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Webhooks
@@ -43,7 +38,7 @@ export default function Webhooks(props: ChannelSettingsProps) {
         icon={<BiSolidCloud size={24} />}
         onClick={() => void 0}
       >
-        Create Webhook
+        <Trans>Create Webhook</Trans>
       </CategoryButton>
 
       <Show when={!webhooks() || webhooks()!.length !== 0}>

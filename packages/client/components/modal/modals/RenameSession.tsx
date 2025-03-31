@@ -1,5 +1,4 @@
-import { useTranslation } from "@revolt/i18n";
-
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -7,11 +6,11 @@ import { PropGenerator } from "../types";
  * Modal for renaming session
  */
 const RenameSession: PropGenerator<"rename_session"> = (props) => {
-  const t = useTranslation();
+  const { t } = useLingui();
 
   return createFormModal({
     modalProps: {
-      title: "Rename Session",
+      title: <Trans>Rename Session</Trans>,
     },
     schema: {
       name: "text",
@@ -21,13 +20,13 @@ const RenameSession: PropGenerator<"rename_session"> = (props) => {
     },
     data: {
       name: {
-        field: "Name",
-        placeholder: "Enter a new name for this session",
+        field: <Trans>Name</Trans>,
+        placeholder: t`Enter a new name for this session`,
       },
     },
     callback: async ({ name }) => void (await props.session.rename(name)),
     submit: {
-      children: t("app.special.modals.actions.update"),
+      children: <Trans>Rename</Trans>,
     },
   });
 };

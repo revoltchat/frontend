@@ -18,6 +18,7 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 import MdReplaceImage from "@material-design-icons/svg/outlined/edit.svg?component-solid";
 import MdEditNote from "@material-design-icons/svg/outlined/edit_note.svg?component-solid";
 import MdImage from "@material-design-icons/svg/outlined/image.svg?component-solid";
+import { Trans } from "@lingui-solid/solid/macro";
 
 export function EditProfileButtons(props: { user: User }) {
   const client = useClient();
@@ -69,7 +70,7 @@ export function EditProfileButtons(props: { user: User }) {
   return (
     <CategoryButtonGroup>
       <CategoryButton
-        description="Set a global name"
+        description={<Trans>Set a global name</Trans>}
         icon={<MdBadge {...iconSize(22)} />}
         action="chevron"
         onClick={() =>
@@ -79,41 +80,41 @@ export function EditProfileButtons(props: { user: User }) {
           })
         }
       >
-        Display Name
+        <Trans>Display Name</Trans>
       </CategoryButton>
       <Switch
         fallback={
           <CategoryButton
-            description="Set a profile picture"
+            description={<Trans>Set a profile picture</Trans>}
             icon={<MdImage {...iconSize(22)} />}
             action="chevron"
             onClick={replaceAvatar}
           >
-            Avatar
+            <Trans>Avatar</Trans>
           </CategoryButton>
         }
       >
         <Match when={props.user.avatar}>
           <CategoryCollapse
             icon={<MdImage {...iconSize(22)} />}
-            title="Avatar"
-            description="Change or remove your profile picture"
+            title={<Trans>Avatar</Trans>}
+            description={<Trans>Change or remove your profile picture</Trans>}
           >
             <CategoryButton
-              description="Set a new picture"
+              description={<Trans>Set a new picture</Trans>}
               icon={<MdReplaceImage {...iconSize(22)} />}
               action="chevron"
               onClick={replaceAvatar}
             >
-              Replace Avatar
+              <Trans>Replace Avatar</Trans>
             </CategoryButton>
             <CategoryButton
-              description="Remove your current avatar"
+              description={<Trans>Remove your current avatar</Trans>}
               icon={<MdDelete {...iconSize(22)} />}
               action="chevron"
               onClick={() => props.user.edit({ remove: ["Avatar"] })}
             >
-              Remove Avatar
+              <Trans>Remove Avatar</Trans>
             </CategoryButton>
           </CategoryCollapse>
         </Match>
@@ -121,46 +122,46 @@ export function EditProfileButtons(props: { user: User }) {
       <Switch
         fallback={
           <CategoryButton
-            description="Set a profile banner"
+            description={<Trans>Set a profile banner</Trans>}
             icon={<MdCrop169 {...iconSize(22)} />}
             action="chevron"
             onClick={replaceBanner}
           >
-            Banner
+            <Trans>Banner</Trans>
           </CategoryButton>
         }
       >
         <Match when={profile.data?.banner}>
           <CategoryCollapse
             icon={<MdCrop169 {...iconSize(22)} />}
-            title="Banner"
-            description="Change or remove your profile banner"
+            title={<Trans>Banner</Trans>}
+            description={<Trans>Change or remove your profile banner</Trans>}
           >
             <CategoryButton
-              description="Set a new banner"
+              description={<Trans>Set a new banner</Trans>}
               icon={<MdReplaceImage {...iconSize(22)} />}
               action="chevron"
               onClick={replaceBanner}
             >
-              Replace Banner
+              <Trans>Replace Banner</Trans>
             </CategoryButton>
             <CategoryButton
-              description="Remove your current banner"
+              description={<Trans>Remove your current banner</Trans>}
               icon={<MdDelete {...iconSize(22)} />}
               action="chevron"
               onClick={() => props.user.edit({ remove: ["ProfileBackground"] })}
             >
-              Remove Banner
+              <Trans>Remove Banner</Trans>
             </CategoryButton>
           </CategoryCollapse>
         </Match>
       </Switch>
       <CategoryButton
-        description="Set a profile description"
+        description={<Trans>Set a profile description</Trans>}
         icon={<MdEditNote {...iconSize(22)} />}
         action="chevron"
       >
-        Bio
+        <Trans>Bio</Trans>
       </CategoryButton>
     </CategoryButtonGroup>
   );

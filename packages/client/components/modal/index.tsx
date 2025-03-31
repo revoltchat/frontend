@@ -1,4 +1,4 @@
-import { createEffect, For, onMount } from "solid-js";
+import { createEffect, For } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { MFA, MFATicket } from "revolt.js";
@@ -152,14 +152,7 @@ export class ModalControllerExtended extends ModalController {
    * @param text Text to write
    */
   writeText(text: string) {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text);
-    } else {
-      this.push({
-        type: "clipboard",
-        text,
-      });
-    }
+    navigator.clipboard.writeText(text);
   }
 
   /**

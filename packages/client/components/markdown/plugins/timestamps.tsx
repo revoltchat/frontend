@@ -1,13 +1,12 @@
 import { createEffect, createSignal } from "solid-js";
 
-import { Dayjs } from "dayjs";
 import type { Handler } from "mdast-util-to-hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
-import { dayjs } from "@revolt/i18n";
-
 import { time as Time } from "../elements";
+import { type Dayjs } from "dayjs";
+import { dayjs, timeLocale } from "@revolt/i18n/dayjs";
 
 export function RenderTimestamp(props: { format: string; date: Dayjs }) {
   /**
@@ -92,7 +91,7 @@ export const remarkTimestamps: Plugin = () => (tree) => {
       // Process all timestamps
       for (let i = 0; i < elements.length / 3; i++) {
         // Process timestamp
-        const date = dayjs.unix(parseInt(elements[i * 3]));
+        const date = dayjs.unix(parseInt(elements[i * 3])).locale(timeLocale());
 
         // Insert components
         newNodes.push({

@@ -32,6 +32,7 @@ import {
 import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
 import { styled } from "styled-system/jsx";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Sessions
@@ -75,7 +76,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
   return (
     <CategoryButtonGroup>
       <CategoryCollapse
-        title="Current Session"
+        title={<Trans>Current Session</Trans>}
         description={currentSession()?.name}
         icon={<SessionIcon session={currentSession()} />}
       >
@@ -90,10 +91,10 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
             })
           }
         >
-          Rename
+          <Trans>Rename</Trans>
         </CategoryButton>
       </CategoryCollapse>
-      <CategoryButton
+      {/* <CategoryButton
         action="chevron"
         icon={
           <MdAutoMode
@@ -101,10 +102,10 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
             fill="var(--customColours-error-color)"
           />
         }
-        description="Keeps your last sessions active and automatically logs you out of other ones"
+        description={Keeps your last sessions active and automatically logs you out of other ones"}
       >
         Keep Last Active Sessions
-      </CategoryButton>
+      </CategoryButton> */}
       <Show when={props.otherSessions().length}>
         <CategoryButton
           action="chevron"
@@ -120,9 +121,11 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
               fill="var(--customColours-error-color)"
             />
           }
-          description="Logs you out of all sessions except this device."
+          description={
+            <Trans>Logs you out of all sessions except this device.</Trans>
+          }
         >
-          Log Out Other Sessions
+          <Trans>Log Out Other Sessions</Trans>
         </CategoryButton>
       </Show>
     </CategoryButtonGroup>
@@ -143,9 +146,9 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
                 icon={<SessionIcon session={session} />}
                 title={<Capitalise>{session.name}</Capitalise>}
                 description={
-                  <>
+                  <Trans>
                     Created <Time value={session.createdAt} format="relative" />
-                  </>
+                  </Trans>
                 }
               >
                 <CategoryButton
@@ -158,14 +161,14 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
                     })
                   }
                 >
-                  Rename
+                  <Trans>Rename</Trans>
                 </CategoryButton>
                 <CategoryButton
                   icon="blank"
                   action="chevron"
                   onClick={() => session.delete()}
                 >
-                  Log Out
+                  <Trans>Log Out</Trans>
                 </CategoryButton>
               </CategoryCollapse>
             )}

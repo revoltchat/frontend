@@ -3,18 +3,18 @@ import { Show } from "solid-js";
 import type { API } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
+import { CircularProgress, Column, Form2, Row } from "@revolt/ui";
 
 import { ServerSettingsProps } from ".";
 import { createFormControl, createFormGroup } from "solid-forms";
-import { useTranslation } from "@revolt/i18n";
 import { CONFIGURATION } from "@revolt/common";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Server overview
  */
 export default function ServerOverview(props: ServerSettingsProps) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const client = useClient();
 
   const editGroup = createFormGroup({
@@ -108,13 +108,13 @@ export default function ServerOverview(props: ServerSettingsProps) {
           <Form2.FileInput
             control={editGroup.controls.icon}
             accept="image/*"
-            label="Server Icon"
+            label={t`Server Icon`}
             imageJustify={false}
           />
           <Form2.FileInput
             control={editGroup.controls.banner}
             accept="image/*"
-            label="Server Banner"
+            label={t`Server Banner`}
             imageAspect="232/100"
             imageRounded={false}
             imageJustify={false}
@@ -122,20 +122,20 @@ export default function ServerOverview(props: ServerSettingsProps) {
           <Form2.TextField
             name="name"
             control={editGroup.controls.name}
-            label={t("app.settings.server_pages.overview.name")}
+            label={t`Server Name`}
           />
           <Form2.TextField
             autosize
             min-rows={2}
             name="description"
             control={editGroup.controls.description}
-            label={t("app.settings.server_pages.overview.description")}
-            placeholder="This channel is about..."
+            label={t`Server Description`}
+            placeholder={t`This server is about...`}
           />
           <Row>
             <Form2.Reset group={editGroup} onReset={onReset} />
             <Form2.Submit group={editGroup}>
-              {t("app.special.modals.actions.save")}
+              <Trans>Save</Trans>
             </Form2.Submit>
             <Show when={editGroup.isPending}>
               <CircularProgress />

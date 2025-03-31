@@ -2,7 +2,6 @@ import { Match, Show, Switch } from "solid-js";
 
 import { IS_DEV, useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 import {
@@ -10,7 +9,6 @@ import {
   CategoryButton,
   Column,
   Header,
-  Typography,
   iconSize,
   typography,
 } from "@revolt/ui";
@@ -28,6 +26,8 @@ import RevoltSvg from "../../public/assets/wordmark_wide_500px.svg?component-sol
 import { HeaderIcon } from "./common/CommonHeader";
 import { styled } from "styled-system/jsx";
 import { cva } from "styled-system/css";
+
+import { Trans } from "@lingui-solid/solid/macro";
 
 const Logo = styled(RevoltSvg, {
   base: {
@@ -106,7 +106,6 @@ const Image = styled("img", {
  * Home page
  */
 export function HomePage() {
-  const t = useTranslation();
   const navigate = useNavigate();
   const client = useClient();
 
@@ -122,12 +121,12 @@ export function HomePage() {
         <HeaderIcon>
           <MdHome {...iconSize(22)} />
         </HeaderIcon>
-        Home
+        <Trans>Home</Trans>
       </Header>
       <div use:scrollable={{ class: content() }}>
         <Column>
           <span class={typography({ class: "headline" })}>
-            {t("app.special.modals.onboarding.welcome")}
+            <Trans>Welcome to</Trans>
           </span>
           <Logo />
         </Column>
@@ -140,27 +139,42 @@ export function HomePage() {
                   client: client()!,
                 })
               }
-              description={t("app.home.group_desc")}
+              description={
+                <Trans>
+                  Invite all of your friends, some cool bots, and throw a big
+                  party.
+                </Trans>
+              }
               icon={<MdAddCircle />}
             >
-              {t("app.home.group")}
+              <Trans>Create a group</Trans>
             </CategoryButton>
             <Switch fallback={null}>
               <Match when={showLoungeButton && isInLounge}>
                 <CategoryButton
                   onClick={() => navigate("/server/01F7ZSBSFHQ8TA81725KQCSDDP")}
-                  description={t("app.home.goto-testers_desc")}
+                  description={
+                    <Trans>
+                      You can report issues and discuss improvements with us
+                      directly here.
+                    </Trans>
+                  }
                   icon={<MdGroups3 />}
                 >
-                  {t("app.home.goto-testers")}
+                  <Trans>Go to the testers server</Trans>
                 </CategoryButton>
               </Match>
               <Match when={showLoungeButton && !isInLounge}>
                 <CategoryButton
-                  description={t("app.home.join-testers_desc")}
+                  description={
+                    <Trans>
+                      You can report issues and discuss improvements with us
+                      directly here.
+                    </Trans>
+                  }
                   icon={<MdGroups3 />}
                 >
-                  {t("app.home.join-testers")}
+                  <Trans>Go to the testers server</Trans>
                 </CategoryButton>
               </Match>
             </Switch>
@@ -170,36 +184,51 @@ export function HomePage() {
                   "https://wiki.revolt.chat/notes/project/financial-support/"
                 )
               }
-              description={t("app.home.donate_desc")}
+              description={
+                <Trans>Support the project by donating - thank you!</Trans>
+              }
               icon={<MdPayments />}
             >
-              {t("app.home.donate")}
+              <Trans>Donate to Revolt</Trans>
             </CategoryButton>
           </SeparatedColumn>
           <SeparatedColumn>
             <Show when={CONFIGURATION.IS_REVOLT}>
               <CategoryButton
                 onClick={() => navigate("/discover")}
-                description={t("app.home.discover_desc")}
+                description={
+                  <Trans>
+                    Find a community based on your hobbies or interests.
+                  </Trans>
+                }
                 icon={<MdExplore />}
               >
-                {t("app.home.discover")}
+                <Trans>Discover Revolt</Trans>
               </CategoryButton>
             </Show>
             <CategoryButton
-              description={t("app.home.feedback_desc")}
+              description={
+                <Trans>
+                  Let us know how we can improve our app by giving us feedback.
+                </Trans>
+              }
               icon={<MdRateReview {...iconSize(22)} />}
             >
-              {t("app.home.feedback")}
+              <Trans>Give feedback on Revolt</Trans>
             </CategoryButton>
             <CategoryButton
               onClick={() =>
                 modalController.push({ type: "settings", config: "user" })
               }
-              description={t("app.home.settings-tooltip")}
+              description={
+                <Trans>
+                  You can also right-click the user icon in the top left, or
+                  left click it if you're already home.
+                </Trans>
+              }
               icon={<MdSettings />}
             >
-              {t("app.home.settings")}
+              <Trans>Open settings</Trans>
             </CategoryButton>
           </SeparatedColumn>
         </Buttons>

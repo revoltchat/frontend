@@ -9,7 +9,6 @@ import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText } from "@revolt/ui";
 
@@ -17,6 +16,7 @@ import { SettingsConfiguration } from "..";
 
 import Webhooks, { Webhook } from "./Webhooks";
 import ChannelOverview from "./Overview";
+import { Trans } from "@lingui-solid/solid/macro";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -24,7 +24,6 @@ const Config: SettingsConfiguration<Channel> = {
    * @param key
    */
   title(key) {
-    const t = useTranslation();
     const client = useClient();
 
     if (key.startsWith("webhooks/")) {
@@ -32,9 +31,10 @@ const Config: SettingsConfiguration<Channel> = {
       return webhook!.name;
     }
 
-    return t(
-      `app.settings.channel_pages.${key.replaceAll("/", ".")}.title` as any
-    );
+    // return t(
+    //   `app.settings.channel_pages.${key.replaceAll("/", ".")}.title` as any
+    // );
+    return "todo";
   },
 
   /**
@@ -63,8 +63,6 @@ const Config: SettingsConfiguration<Channel> = {
    * @returns List
    */
   list(channel) {
-    const t = useTranslation();
-
     return {
       entries: [
         {
@@ -73,19 +71,19 @@ const Config: SettingsConfiguration<Channel> = {
             {
               id: "overview",
               icon: <BiSolidInfoCircle size={20} />,
-              title: t("app.settings.channel_pages.overview.title"),
+              title: <Trans>Overview</Trans>,
             },
             {
               hidden: !channel.havePermission("ManagePermissions"),
               id: "permissions",
               icon: <BiRegularListUl size={20} />,
-              title: t("app.settings.channel_pages.permissions.title"),
+              title: <Trans>Permissions</Trans>,
             },
             {
               hidden: !channel.havePermission("ManageWebhooks"),
               id: "webhooks",
               icon: <BiSolidCloud size={20} />,
-              title: t("app.settings.channel_pages.webhooks.title"),
+              title: <Trans>Webhooks</Trans>,
             },
           ],
         },
@@ -103,7 +101,7 @@ const Config: SettingsConfiguration<Channel> = {
               ),
               title: (
                 <ColouredText colour="var(--customColours-error-color)">
-                  {t("app.context_menu.delete_channel")}
+                  <Trans>Delete Channel</Trans>
                 </ColouredText>
               ),
               /**

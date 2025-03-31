@@ -1,7 +1,6 @@
+import { Trans } from "@lingui-solid/solid/macro";
 import { Show, createSignal } from "solid-js";
 import { styled } from "styled-system/jsx";
-
-import { useTranslation } from "@revolt/i18n";
 
 interface Props {
   contentType?: "Image" | "Video";
@@ -38,7 +37,6 @@ const Base = styled("div", {
  * Spoiler Element
  */
 export function Spoiler(props: Props) {
-  const t = useTranslation();
   const [shown, setShown] = createSignal(true);
 
   return (
@@ -48,7 +46,9 @@ export function Spoiler(props: Props) {
           class={`Spoiler ${props.contentType}`}
           onClick={() => setShown(false)}
         >
-          <span>{t("app.main.channel.misc.spoiler_attachment")}</span>
+          <span>
+            <Trans>Spoiler</Trans>
+          </span>
         </div>
       </Base>
     </Show>

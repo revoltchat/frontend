@@ -1,10 +1,12 @@
+import { JSX } from "solid-js";
+
 /**
  * Coloured text
  */
 export function ColouredText(props: {
   colour?: string;
   clip?: boolean;
-  children?: string | Element;
+  children?: string | JSX.Element;
 }) {
   return (
     <span

@@ -20,8 +20,7 @@ async function yourSubmitHandler() {
 
   if (somethingWrong) {
     throw "error";
-    // mapAnyError() is called on this value
-    // which is inserted into errors as 'error'
+    // inserted into errors as 'error'
   }
 }
 
@@ -41,16 +40,16 @@ Then create the form itself in the JSX code:
     control={group.controls.name}
     label={t("i18n.key")}
   />
-
   // include an image picker:
   <Form2.FileInput control={group.controls.icon} accept="image/*" />
-  
   // use the provided buttons for best integration:
   <Row>
     // if appropriate, allow the user to reset the form back to original state
     <Form2.Reset group={editGroup} onReset={onReset} />
     // in-built submission button:
-    <Form2.Submit group={editGroup}>{t("action.save")}</Form2.Submit>
+    <Form2.Submit group={editGroup}>
+      <Trans>Save</Trans>
+    </Form2.Submit>
     // you should also indicate when submission is pending:
     <Show when={editGroup.isPending}>
       <CircularProgress />

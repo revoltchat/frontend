@@ -10,7 +10,6 @@ import { API, Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 import { modalController } from "@revolt/modal";
 import { state } from "@revolt/state";
 import {
@@ -23,7 +22,11 @@ import {
   MessageBox,
   MessageReplyPreview,
 } from "@revolt/ui";
-import { registerKeybindWithPriority, unregisterKeybindWithPriority } from "../../../shared/lib/priorityKeybind";
+import {
+  registerKeybindWithPriority,
+  unregisterKeybindWithPriority,
+} from "../../../shared/lib/priorityKeybind";
+import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -46,7 +49,7 @@ const RE_CODE_DELIMITER = new RegExp("^```", "gm");
  * Message composition engine
  */
 export function MessageComposition(props: Props) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const client = useClient();
 
   /**
@@ -448,14 +451,10 @@ export function MessageComposition(props: Props) {
         }
         placeholder={
           props.channel.type === "SavedMessages"
-            ? t("app.main.channel.message_saved")
+            ? t`Save to your notes`
             : props.channel.type === "DirectMessage"
-            ? t("app.main.channel.message_who", {
-                person: props.channel.recipient?.username as string,
-              })
-            : t("app.main.channel.message_where", {
-                channel_name: props.channel.name as string,
-              })
+            ? t`Message ${props.channel.recipient?.username}`
+            : t`Message ${props.channel.name}`
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
         autoCompleteConfig={{

@@ -9,7 +9,6 @@ import add_friend from "./AddFriend";
 import ban_member from "./BanMember";
 import changelog from "./Changelog";
 import channel_info from "./ChannelInfo";
-import clipboard from "./Clipboard";
 import create_bot from "./CreateBot";
 import create_category from "./CreateCategory";
 import create_channel from "./CreateChannel";
@@ -51,7 +50,6 @@ const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   ban_member,
   changelog,
   channel_info,
-  clipboard,
   create_bot,
   create_category,
   create_channel,

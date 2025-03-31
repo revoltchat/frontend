@@ -4,7 +4,6 @@ import { Server } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { useTranslation } from "@revolt/i18n";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid";
@@ -20,13 +19,13 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
+import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Context menu for servers
  */
 export function ServerContextMenu(props: { server: Server }) {
   const client = useClient();
-  const t = useTranslation();
 
   /**
    * Mark server as read
@@ -148,24 +147,24 @@ export function ServerContextMenu(props: { server: Server }) {
     <ContextMenu>
       <Show when={props.server.unread}>
         <ContextMenuButton icon={MdMarkChatRead} onClick={markAsRead}>
-          {t("app.context_menu.mark_as_read")}
+          <Trans>Mark as read</Trans>
         </ContextMenuButton>
         <ContextMenuDivider />
       </Show>
 
       <Show when={permissionInviteOthers()}>
         <ContextMenuButton icon={MdPersonAdd} onClick={createInvite}>
-          {t("app.context_menu.create_invite")}
+          <Trans>Create invite</Trans>
         </ContextMenuButton>
       </Show>
       <Show when={permissionEditIdentity()}>
         <ContextMenuButton icon={MdFace} onClick={editIdentity}>
-          {t("app.context_menu.edit_your_identity")}
+          <Trans>Edit your identity</Trans>
         </ContextMenuButton>
       </Show>
       <Show when={permissionServerSettings()}>
         <ContextMenuButton icon={MdSettings} onClick={openSettings}>
-          {t("app.context_menu.open_server_settings")}
+          <Trans>Open server settings</Trans>
         </ContextMenuButton>
       </Show>
       <Show
@@ -179,19 +178,19 @@ export function ServerContextMenu(props: { server: Server }) {
       </Show>
 
       <ContextMenuButton icon={MdReport} onClick={report} destructive>
-        {t("app.context_menu.report_server")}
+        <Trans>Report server</Trans>
       </ContextMenuButton>
       <Show when={!props.server.owner?.self}>
         <ContextMenuButton icon={MdLogout} onClick={leave} destructive>
-          {t("app.context_menu.leave_server")}
+          <Trans>Leave server</Trans>
         </ContextMenuButton>
       </Show>
       <ContextMenuDivider />
       <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
-        Admin Panel
+        <Trans>Admin Panel</Trans>
       </ContextMenuButton>
       <ContextMenuButton icon={MdBadge} onClick={copyId}>
-        {t("app.context_menu.copy_sid")}
+        <Trans>Copy server ID</Trans>
       </ContextMenuButton>
     </ContextMenu>
   );

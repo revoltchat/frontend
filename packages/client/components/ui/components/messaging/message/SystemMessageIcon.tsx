@@ -33,7 +33,12 @@ export function SystemMessageIcon(props: {
     <Base type={props.systemMessage.type}>
       <Tooltip
         content={() => <Time format="relative" value={props.createdAt} />}
-        aria={formatTime({ format: "relative", value: props.createdAt })}
+        aria={
+          formatTime({
+            format: "relative",
+            value: props.createdAt,
+          }) as string
+        }
         placement="top"
       >
         <Switch fallback={<BiSolidInfoCircle size={16} />}>
@@ -120,12 +125,27 @@ const Base = styled("div", {
       user_banned: {
         color: "var(--customColours-error-color)",
       },
-      default: {
+      text: {
+        color: "var(--colours-foreground)",
+      },
+      user_remove: {
+        color: "var(--colours-foreground)",
+      },
+      channel_renamed: {
+        color: "var(--colours-foreground)",
+      },
+      channel_description_changed: {
+        color: "var(--colours-foreground)",
+      },
+      channel_icon_changed: {
+        color: "var(--colours-foreground)",
+      },
+      message_pinned: {
+        color: "var(--colours-foreground)",
+      },
+      message_unpinned: {
         color: "var(--colours-foreground)",
       },
     },
-  },
-  defaultVariants: {
-    type: "default",
   },
 });
