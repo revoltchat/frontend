@@ -204,7 +204,7 @@ export const typography = cva({
       class: "label",
       size: "small",
       css: {
-        lineHeight: "0.375rem",
+        lineHeight: "0.875rem",
         fontSize: "0.6875rem",
         letterSpacing: "0.03125rem",
         fontWeight: 500,
