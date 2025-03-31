@@ -3,7 +3,7 @@
 Import the macro package wherever you wish to use Lingui, prefer to use the JSX syntax:
 
 ```typescript
-import { Trans } from '@lingui-solid/solid/macro';
+import { Trans } from "@lingui-solid/solid/macro";
 
 <Trans>Hi, I am a string!</Trans>
 
@@ -22,10 +22,32 @@ t`Hello, chat!`;
 t`There are {3} people in your walls.`;
 ```
 
-## Updating source catalog
+If your use case doesn't fit here, ask a maintainer for guidance.
 
-```bash
-pnpm --filter client lingui
+## Plurals
+
+Use the Plural component:
+
+```typescript
+import { Plural } from "@lingui-solid/solid/macro";
+
+<Plural
+  value={5}
+  one="# Member"
+  other="# Members"
+/>
 ```
 
-this will be done by a mantainer once your pr is merged :)
+Learn more in the [Lingui documentation](https://lingui.dev/guides/plurals).
+
+## Updating catalogs
+
+To update the catalogs, one must run:
+
+```bash
+pnpm --filter client lingui:generate && \
+pnpm --filter client lingui:compile
+```
+
+**NB. don't run this yourself!** \
+A maintainer will do this regularly & after merge down to `main`!
