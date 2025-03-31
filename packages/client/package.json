@@ -14,7 +14,8 @@
     "coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lingui": "lingui extract && lingui compile --typescript"
+    "lingui:compile": "lingui compile --typescript",
+    "lingui:extract": "lingui extract"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",

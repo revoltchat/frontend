@@ -92,7 +92,9 @@ export const remarkTimestamps: Plugin = () => (tree) => {
       // Process all timestamps
       for (let i = 0; i < elements.length / 3; i++) {
         // Process timestamp
-        const date = dayjs.unix(parseInt(elements[i * 3])).locale(timeLocale());
+        const date = dayjs
+          .unix(parseInt(elements[i * 3]))
+          .locale(timeLocale()[1]);
 
         // Insert components
         newNodes.push({

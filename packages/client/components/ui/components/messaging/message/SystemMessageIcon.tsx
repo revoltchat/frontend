@@ -17,6 +17,8 @@ import { Match, Switch } from "solid-js";
 import { SystemMessage } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { useTime } from "@revolt/i18n";
+
 import { Time } from "../../design";
 import { formatTime } from "../../design/atoms/display/Time";
 import { Tooltip } from "../../floating";
@@ -29,12 +31,14 @@ export function SystemMessageIcon(props: {
   isServer: boolean;
   systemMessage: SystemMessage;
 }) {
+  const dayjs = useTime();
+
   return (
     <Base type={props.systemMessage.type}>
       <Tooltip
         content={() => <Time format="relative" value={props.createdAt} />}
         aria={
-          formatTime({
+          formatTime(dayjs, {
             format: "relative",
             value: props.createdAt,
           }) as string
