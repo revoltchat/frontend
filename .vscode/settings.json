@@ -14,5 +14,15 @@
   "editor.tabSize": 2,
   // Tell `rust-analyzer` where the Tauri project is.
   "rust-analyzer.linkedProjects": ["./packages/desktop/src-tauri/Cargo.toml"],
-  "nixEnvSelector.nixFile": "${workspaceFolder}/default.nix"
+  "nixEnvSelector.nixFile": "${workspaceFolder}/default.nix",
+  // Formatter
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
 }

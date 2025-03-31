@@ -2,6 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "yoavbls.pretty-ts-errors",
-    "esbenp.prettier-vscode"
+    "rvest.vs-code-prettier-eslint"
   ]
 }

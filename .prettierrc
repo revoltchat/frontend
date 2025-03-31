@@ -1,7 +1,7 @@
 {
   "tabWidth": 2,
   "useTabs": false,
-  "_plugins": [
+  "plugins": [
     "@pandabox/prettier-plugin",
     "@trivago/prettier-plugin-sort-imports"
   ],
@@ -9,7 +9,7 @@
     "^solid",
     "<THIRD_PARTY_MODULES>",
     "^@revolt",
-    "^@material-design-icons",
+    "^@material-design-icons|^solid-icons",
     "^\\.\\.",
     "^[./]"
   ],
