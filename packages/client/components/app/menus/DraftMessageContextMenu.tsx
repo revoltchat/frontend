@@ -1,5 +1,6 @@
 import { Show } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -11,7 +12,6 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 import MdRefresh from "@material-design-icons/svg/outlined/refresh.svg?component-solid";
 
 import { ContextMenu, ContextMenuButton } from "./ContextMenu";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   draft: UnsentMessage;

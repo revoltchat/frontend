@@ -1,5 +1,7 @@
 import { BiRegularPlus, BiRegularXCircle, BiSolidFile } from "solid-icons/bi";
 import { For, Match, Show, Switch } from "solid-js";
+
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { CONFIGURATION } from "@revolt/common";
@@ -7,7 +9,6 @@ import { CONFIGURATION } from "@revolt/common";
 import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
 import { OverflowingText } from "../../design";
 import { typography } from "../../design/atoms/display/Typography";
-import { cva } from "styled-system/css";
 import { Ripple } from "../../material";
 
 interface Props {

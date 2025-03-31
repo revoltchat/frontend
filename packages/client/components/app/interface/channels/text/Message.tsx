@@ -1,6 +1,9 @@
 import { For, Match, Show, Switch, onMount } from "solid-js";
 
+import { useLingui } from "@lingui-solid/solid/macro";
 import { Message as MessageInterface, WebsiteEmbed } from "revolt.js";
+import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
 import { decodeTime } from "ulid";
 
 import { useClient } from "@revolt/client";
@@ -23,8 +26,6 @@ import {
   iconSize,
 } from "@revolt/ui";
 
-import { styled } from "styled-system/jsx";
-
 import MdCloud from "@material-design-icons/svg/filled/cloud.svg?component-solid";
 import MdLink from "@material-design-icons/svg/filled/link.svg?component-solid";
 import MdNotificationsOff from "@material-design-icons/svg/filled/notifications_off.svg?component-solid";
@@ -37,8 +38,6 @@ import {
   floatingUserMenus,
   floatingUserMenusFromMessage,
 } from "../../../menus/UserContextMenu";
-import { cva } from "styled-system/css";
-import { useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Regex for matching URLs
@@ -136,7 +135,7 @@ export function Message(props: Props) {
               return (
                 <MessageReply
                   mention={props.message.mentionIds?.includes(
-                    message()!.authorId!
+                    message()!.authorId!,
                   )}
                   message={message()}
                 />
@@ -233,7 +232,7 @@ export function Message(props: Props) {
                 ? floatingUserMenus(
                     user!,
                     // TODO: try to fetch on demand member
-                    props.message.server?.getMember(user!.id)
+                    props.message.server?.getMember(user!.id),
                   )
                 : {}
             }

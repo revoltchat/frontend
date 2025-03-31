@@ -26,7 +26,7 @@ export type SettingsConfiguration<T> = {
    */
   render: (
     props: { page: Accessor<undefined | string> },
-    context: T
+    context: T,
   ) => JSX.Element;
 };
 
@@ -72,7 +72,7 @@ export const SettingsConfigurations: Record<
  * @returns
  */
 export function SettingsUsingConfiguration(
-  props: SettingsProps & { configKey: string }
+  props: SettingsProps & { configKey: string },
 ) {
   // eslint-disable-next-line solid/reactivity
   const config = SettingsConfigurations[props.configKey ?? "client"];

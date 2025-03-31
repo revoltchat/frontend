@@ -1,4 +1,3 @@
-import { useLingui } from "@lingui-solid/solid/macro";
 import {
   FaSolidArrowDown,
   FaSolidArrowLeft,
@@ -6,6 +5,8 @@ import {
   FaSolidArrowUp,
 } from "solid-icons/fa";
 import { Component, JSXElement, createMemo } from "solid-js";
+
+import { useLingui } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 export interface Props {

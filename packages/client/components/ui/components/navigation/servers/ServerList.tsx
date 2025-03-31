@@ -1,11 +1,12 @@
 import { Accessor, For, Show, onCleanup, onMount } from "solid-js";
 import { JSX } from "solid-js";
+
+import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { Channel, Server, User } from "revolt.js";
-
 import { KeybindAction } from "@revolt/keybinds";
+import { modalController } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 
 import MdAdd from "@material-design-icons/svg/filled/add.svg?component-solid";
@@ -24,7 +25,6 @@ import {
 import { Tooltip } from "../../floating";
 
 import { Swoosh } from "./Swoosh";
-import { modalController } from "@revolt/modal";
 
 interface Props {
   /**
@@ -80,14 +80,14 @@ export const ServerList = (props: Props) => {
         navigate(`/server/${props.orderedServers[0].id}`);
       } else {
         navigate(
-          `/server/${props.orderedServers[props.orderedServers.length - 1].id}`
+          `/server/${props.orderedServers[props.orderedServers.length - 1].id}`,
         );
       }
       return;
     }
 
     const currentServerIndex = props.orderedServers.findIndex(
-      (server) => server.id === serverId
+      (server) => server.id === serverId,
     );
 
     const nextIndex = currentServerIndex + byOffset;
@@ -98,7 +98,7 @@ export const ServerList = (props: Props) => {
 
     // this will wrap the index around
     const nextServer = props.orderedServers.at(
-      nextIndex % props.orderedServers.length
+      nextIndex % props.orderedServers.length,
     );
 
     if (nextServer) {
@@ -113,18 +113,18 @@ export const ServerList = (props: Props) => {
     keybinds.addEventListener(KeybindAction.NavigateServerUp, navigateServerUp);
     keybinds.addEventListener(
       KeybindAction.NavigateServerDown,
-      navigateServerDown
+      navigateServerDown,
     );
   });
 
   onCleanup(() => {
     keybinds.removeEventListener(
       KeybindAction.NavigateServerUp,
-      navigateServerUp
+      navigateServerUp,
     );
     keybinds.removeEventListener(
       KeybindAction.NavigateServerDown,
-      navigateServerDown
+      navigateServerDown,
     );
   });
 

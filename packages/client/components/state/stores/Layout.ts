@@ -146,7 +146,7 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
     this.setSectionState(
       id,
       !this.getSectionState(id, defaultValue),
-      defaultValue
+      defaultValue,
     );
   }
 }

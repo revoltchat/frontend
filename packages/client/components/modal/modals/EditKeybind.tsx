@@ -1,6 +1,9 @@
 import { BiRegularReset } from "solid-icons/bi";
 import { createSignal, onMount } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+import { styled } from "styled-system/jsx";
+
 import {
   KEYBINDING_MODIFIER_KEYS,
   KeyComboSequence as TKeySequence,
@@ -8,8 +11,6 @@ import {
 import { Button, KeySequence } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
-import { styled } from "styled-system/jsx";
-import { Trans } from "@lingui-solid/solid/macro";
 
 const Container = styled("div", {
   base: {
@@ -78,7 +79,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
     timer && clearTimeout(timer);
 
     const mods = KEYBINDING_MODIFIER_KEYS.filter((mod) =>
-      event.getModifierState(mod)
+      event.getModifierState(mod),
     );
 
     if (KEYBINDING_MODIFIER_KEYS.includes(event.key)) {
@@ -158,7 +159,7 @@ export const EditKeybind: PropGenerator<"edit_keybind"> = (props) => {
           // title="clear input"
           onPress={reset}
         >
-          <BiRegularReset size={20}></BiRegularReset>
+          <BiRegularReset size={20} />
         </Button>
       </Container>
     ),

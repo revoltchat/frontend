@@ -54,7 +54,7 @@ export type AutoCompleteState =
  */
 export function autoComplete(
   element: HTMLInputElement,
-  config: Accessor<JSX.Directives["autoComplete"]>
+  config: Accessor<JSX.Directives["autoComplete"]>,
 ) {
   if (!config()) return;
 
@@ -117,7 +117,7 @@ export function autoComplete(
    * Intercept selection
    */
   function onKeyDown(
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
   ) {
     const current = state();
     if (current.matched !== "none") {
@@ -168,7 +168,7 @@ export function autoComplete(
         .filter(([, matchedString]) => /^[^\s@:#]*$/.test(matchedString))
         // Enforce minimum length for emoji matching
         .filter(([searchType, matchedString]) =>
-          searchType === ":" ? matchedString.length > 0 : true
+          searchType === ":" ? matchedString.length > 0 : true,
         )[0];
 
       if (current) {
@@ -215,7 +215,7 @@ export function autoComplete(
 function searchMatches(
   operator: Operator,
   query: string,
-  config: JSX.Directives["autoComplete"]
+  config: JSX.Directives["autoComplete"],
 ): AutoCompleteState {
   if (operator === ":") {
     const matches: string[] = [];
@@ -268,7 +268,7 @@ function searchMatches(
               shortcode: id,
               codepoint: emojiMapping[id as keyof typeof emojiMapping],
               replacement: emojiMapping[id as keyof typeof emojiMapping],
-            }
+            },
       ),
     };
   }

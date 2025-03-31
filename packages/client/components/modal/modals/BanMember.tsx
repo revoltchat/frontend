@@ -1,8 +1,9 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { Avatar, Column } from "@revolt/ui";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to ban server member

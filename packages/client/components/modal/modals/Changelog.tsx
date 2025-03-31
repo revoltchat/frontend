@@ -1,11 +1,13 @@
 import { For, Match, Switch, createSignal } from "solid-js";
-import { CategoryButton, Column } from "@revolt/ui";
-import { useTime } from "@revolt/i18n";
+
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
+
+import { useTime } from "@revolt/i18n";
+import { CategoryButton, Column } from "@revolt/ui";
 import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
 
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Changelog element
@@ -32,7 +34,6 @@ export interface ChangelogPost {
 const Changelog: PropGenerator<"changelog"> = (props) => {
   const dayjs = useTime();
 
-  // eslint-disable-next-line solid/reactivity
   const [log, setLog] = createSignal(props.initial);
 
   /**

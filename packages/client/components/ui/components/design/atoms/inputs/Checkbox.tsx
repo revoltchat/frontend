@@ -1,5 +1,6 @@
 import { BiRegularCheck } from "solid-icons/bi";
 import { createSignal } from "solid-js";
+
 import { styled } from "styled-system/jsx";
 
 export type Props = {

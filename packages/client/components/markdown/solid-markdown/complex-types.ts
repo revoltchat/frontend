@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 /**
  * This file is provided under the MIT License
  * Copyright (c) 2015 Espen Hovlandsdal

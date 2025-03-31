@@ -1,13 +1,13 @@
+import { lingui as linguiSolidPlugin } from "@lingui-solid/vite-plugin";
 import devtools from "@solid-devtools/transform";
 import { readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
+import babelMacrosPlugin from "vite-plugin-babel-macros";
 import Inspect from "vite-plugin-inspect";
 import { VitePWA } from "vite-plugin-pwa";
 import solidPlugin from "vite-plugin-solid";
 import solidSvg from "vite-plugin-solid-svg";
-import babelMacrosPlugin from "vite-plugin-babel-macros";
-import { lingui as linguiSolidPlugin } from "@lingui-solid/vite-plugin";
 
 import codegenPlugin from "./codegen.plugin";
 
@@ -85,7 +85,7 @@ export default defineConfig({
           ...p,
           [`@revolt/${f}`]: resolve(__dirname, "components", f),
         }),
-        {}
+        {},
       ),
     },
   },

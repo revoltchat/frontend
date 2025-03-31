@@ -94,14 +94,14 @@ export interface Props<T extends FormTemplate> {
  */
 export function getInitialValues<T extends FormTemplate>(
   schema: T,
-  defaults?: Partial<MapFormToValues<T>>
+  defaults?: Partial<MapFormToValues<T>>,
 ) {
   const values: Partial<MapFormToValues<T>> = {};
 
   Object.keys(schema).forEach(
     (key) =>
       (values[key as keyof typeof values] =
-        defaults?.[key] ?? emptyValue(schema[key]))
+        defaults?.[key] ?? emptyValue(schema[key])),
   );
 
   return values as MapFormToValues<T>;
@@ -119,7 +119,7 @@ export function Form<T extends FormTemplate>(props: Props<T>) {
     setStore = props.setStore!;
   } else {
     const newStore = createStore(
-      getInitialValues(props.schema, props.defaults)
+      getInitialValues(props.schema, props.defaults),
     );
     store = newStore[0];
     setStore = newStore[1];

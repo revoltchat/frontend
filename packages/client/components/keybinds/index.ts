@@ -13,7 +13,7 @@ export type KeyComboSequence = KeyCombo[];
 export const KeyCombo = {
   fromKeyboardEvent(event: KeyboardEvent): KeyCombo {
     const pressed = KEYBINDING_MODIFIER_KEYS.filter((key) =>
-      event.getModifierState(key)
+      event.getModifierState(key),
     );
 
     if (!KEYBINDING_MODIFIER_KEYS.includes(event.key)) {
@@ -63,19 +63,22 @@ export const KeybindSequence = {
 
 // having the type be 'keybind' would be more idiomatic but this works better as an api
 export class KeybindEvent<T extends string> extends KeyboardEvent {
-  constructor(public action: T, eventInitDict?: KeyboardEventInit | undefined) {
+  constructor(
+    public action: T,
+    eventInitDict?: KeyboardEventInit | undefined,
+  ) {
     super(action, eventInitDict);
   }
 }
 
 export class KeybindEventHandler<
-  KeybindAction extends string
+  KeybindAction extends string,
 > extends EventTarget {
   possibleSequences = new Map<KeyComboSequence, KeyCombo[]>();
 
   // todo: measure memory and performance between this and manually setting a `keybinds` property
   constructor(
-    public getKeybinds: () => Record<KeybindAction, KeyComboSequence[]>
+    public getKeybinds: () => Record<KeybindAction, KeyComboSequence[]>,
   ) {
     super();
   }
@@ -108,7 +111,7 @@ export class KeybindEventHandler<
             this.possibleSequences.delete(sequence);
             console.info("dispatch", action, event);
             this.dispatchEvent(
-              new KeybindEvent(action as KeybindAction, event)
+              new KeybindEvent(action as KeybindAction, event),
             );
             break actionLoop;
           }
@@ -128,7 +131,7 @@ export class KeybindEventHandler<
       | ((event: KeybindEvent<KeybindAction>) => void)
       | EventListenerObject
       | null,
-    options?: AddEventListenerOptions | boolean
+    options?: AddEventListenerOptions | boolean,
   ) => void;
 
   /** Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise. */
@@ -141,7 +144,7 @@ export class KeybindEventHandler<
       | ((event: KeybindEvent<KeybindAction>) => void)
       | EventListenerObject
       | null,
-    options?: EventListenerOptions | boolean
+    options?: EventListenerOptions | boolean,
   ) => void;
 }
 

@@ -124,7 +124,7 @@ export function Button(
         "role" | "tabIndex" | "aria-selected"
       >,
     "onClick"
-  >
+  >,
 ) {
   const [passthrough, propsRest] = splitProps(props, [
     "aria-selected",

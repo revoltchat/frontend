@@ -1,12 +1,12 @@
 import { BiRegularAt, BiSolidXCircle } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import type { Message } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { Row } from "../../design";
 import { MessageReply } from "../message/MessageReply";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

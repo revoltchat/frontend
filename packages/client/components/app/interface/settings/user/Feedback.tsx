@@ -1,17 +1,18 @@
+import { Trans } from "@lingui-solid/solid/macro";
+import { styled } from "styled-system/jsx";
+
 import {
   CategoryButton,
   CategoryButtonGroup,
   Column,
   iconSize,
 } from "@revolt/ui";
-import { styled } from "styled-system/jsx";
 
 import MdBugReport from "@material-design-icons/svg/outlined/bug_report.svg?component-solid";
 import MdExitToApp from "@material-design-icons/svg/outlined/exit_to_app.svg?component-solid";
 import MdFormatListNumbered from "@material-design-icons/svg/outlined/format_list_numbered.svg?component-solid";
 import MdStar from "@material-design-icons/svg/outlined/star_outline.svg?component-solid";
 import MdViewKanban from "@material-design-icons/svg/outlined/view_kanban.svg?component-solid";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Feedback

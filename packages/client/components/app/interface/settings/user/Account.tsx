@@ -8,6 +8,8 @@ import {
   onMount,
 } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { clientController, useClient } from "@revolt/client";
 import {
   createMfaResource,
@@ -38,7 +40,6 @@ import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.sv
 import { useSettingsNavigation } from "../Settings";
 
 import { UserSummary } from "./account/index";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Account Page
@@ -148,7 +149,7 @@ function MultiFactorAuth() {
         type: "mfa_recovery",
         mfa: mfa.data!,
         codes,
-      })
+      }),
     );
   }
 
@@ -164,7 +165,7 @@ function MultiFactorAuth() {
         type: "mfa_recovery",
         mfa: mfa.data!,
         codes,
-      })
+      }),
     );
   }
 
@@ -181,7 +182,7 @@ function MultiFactorAuth() {
       try {
         const code = await modals.mfaEnableTOTP(
           secret,
-          client().user!.username
+          client().user!.username,
         );
 
         if (code) {
@@ -289,7 +290,7 @@ function ManageAccount() {
   const stillOwnServers = createMemo(
     () =>
       client().servers.filter((server) => server.owner?.self || false).length >
-      0
+      0,
   );
 
   /**
@@ -299,7 +300,7 @@ function ManageAccount() {
     getController("modal")
       .mfaFlow(mfa.data!)
       .then((ticket) =>
-        ticket!.disableAccount().then(() => clientController.logout())
+        ticket!.disableAccount().then(() => clientController.logout()),
       );
   }
 
@@ -310,7 +311,7 @@ function ManageAccount() {
     getController("modal")
       .mfaFlow(mfa.data!)
       .then((ticket) =>
-        ticket!.deleteAccount().then(() => clientController.logout())
+        ticket!.deleteAccount().then(() => clientController.logout()),
       );
   }
 

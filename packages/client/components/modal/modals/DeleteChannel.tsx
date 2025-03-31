@@ -1,7 +1,9 @@
 import { Match, Switch } from "solid-js";
+
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to delete a channel

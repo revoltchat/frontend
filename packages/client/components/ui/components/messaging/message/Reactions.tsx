@@ -1,14 +1,14 @@
 import { For, Show, createMemo } from "solid-js";
-import { styled } from "styled-system/jsx";
 
+import { useLingui } from "@lingui-solid/solid/macro";
 import { API } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { Emoji } from "@revolt/markdown";
 import { useUsers } from "@revolt/markdown/users";
 
 import { Row, Typography } from "../../design";
 import { Tooltip } from "../../floating";
-import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

@@ -1,13 +1,14 @@
+import { Match, Switch } from "solid-js";
+
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { API, Server, User } from "revolt.js";
+import { cva } from "styled-system/css";
 
 import { Message } from "@revolt/app";
 import { Avatar, Column, Initials } from "@revolt/ui";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { cva } from "styled-system/css";
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
-import { Match, Switch } from "solid-js";
 
 const CONTENT_REPORT_REASONS: API.ContentReportReason[] = [
   "Illegal",
@@ -148,16 +149,16 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
                 message_id: props.contextMessage?.id,
               }
             : props.target instanceof Server
-            ? {
-                type: "Server",
-                id: props.target.id,
-                report_reason: category as API.ContentReportReason,
-              }
-            : {
-                type: "Message",
-                id: props.target.id,
-                report_reason: category as API.ContentReportReason,
-              },
+              ? {
+                  type: "Server",
+                  id: props.target.id,
+                  report_reason: category as API.ContentReportReason,
+                }
+              : {
+                  type: "Message",
+                  id: props.target.id,
+                  report_reason: category as API.ContentReportReason,
+                },
         additional_context: detail,
       });
     },

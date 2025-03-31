@@ -1,9 +1,12 @@
-import { Show, For, splitProps, ComponentProps, type JSX } from "solid-js";
-import { IFormGroup, type IFormControl } from "solid-forms";
-import { TextField } from "../material";
-import { Button, Text } from "../design";
-import { FileInput } from "./files";
+import { type IFormControl, IFormGroup } from "solid-forms";
+import { ComponentProps, For, type JSX, Show, splitProps } from "solid-js";
+
 import { Trans } from "@lingui-solid/solid/macro";
+
+import { Button, Text } from "../design";
+import { TextField } from "../material";
+
+import { FileInput } from "./files";
 
 /**
  * Form wrapper for TextField
@@ -11,7 +14,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 const FormTextField = (
   props: {
     control: IFormControl<string>;
-  } & ComponentProps<typeof TextField>
+  } & ComponentProps<typeof TextField>,
 ) => {
   const [local, remote] = splitProps(props, ["control"]);
 
@@ -47,7 +50,7 @@ const FormFileInput = (
   } & Pick<
     ComponentProps<typeof FileInput>,
     "accept" | "imageAspect" | "imageRounded" | "imageJustify"
-  >
+  >,
 ) => {
   const [local, remote] = splitProps(props, ["label", "control"]);
 
@@ -137,7 +140,7 @@ function resetGeneric(group: IFormGroup) {
 function submitHandler(
   group: IFormGroup,
   handler: () => Promise<void> | void,
-  onReset?: () => void
+  onReset?: () => void,
 ) {
   return async (e: Event) => {
     e.preventDefault();

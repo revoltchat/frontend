@@ -7,7 +7,9 @@ import {
 } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { TextWithEmoji } from "@revolt/markdown";
 import { modalController } from "@revolt/modal";
@@ -18,14 +20,12 @@ import {
   NonBreakingText,
   OverflowingText,
   Spacer,
-  typography,
   Typography,
   UserStatus,
+  typography,
 } from "@revolt/ui";
 
 import { HeaderIcon } from "../common/CommonHeader";
-import { styled } from "styled-system/jsx";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

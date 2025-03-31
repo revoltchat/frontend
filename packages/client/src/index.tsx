@@ -10,6 +10,7 @@ import { Navigate, Route, Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { isTauri } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
+import "mdui/mdui.css";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
 import FlowConfirmReset from "@revolt/auth/src/flows/FlowConfirmReset";
@@ -30,14 +31,13 @@ import {
   Titlebar,
   darkTheme,
 } from "@revolt/ui";
-
 /* @refresh reload */
 import "@revolt/ui/styles";
 
 import AuthPage from "./Auth";
 import Interface from "./Interface";
 import "./index.css";
-import "mdui/mdui.css";
+import { ConfirmDelete } from "./interface/ConfirmDelete";
 import { DevelopmentPage } from "./interface/Development";
 import { Friends } from "./interface/Friends";
 import { HomePage } from "./interface/Home";
@@ -45,7 +45,6 @@ import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
 import { registerKeybindsWithPriority } from "./shared/lib/priorityKeybind";
-import { ConfirmDelete } from "./interface/ConfirmDelete";
 
 attachDevtoolsOverlay();
 
@@ -62,8 +61,8 @@ function MountTheme(props: { children: any }) {
   createEffect(
     on(
       () => [accent(), darkMode()] as [string, boolean],
-      ([accent, darkMode]) => setTheme(darkTheme(accent, darkMode))
-    )
+      ([accent, darkMode]) => setTheme(darkTheme(accent, darkMode)),
+    ),
   );
 
   return (
@@ -152,6 +151,6 @@ state.hydrate().then(() =>
         </Route>
       </Router>
     ),
-    document.getElementById("root") as HTMLElement
-  )
+    document.getElementById("root") as HTMLElement,
+  ),
 );

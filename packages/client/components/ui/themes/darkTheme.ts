@@ -7,6 +7,7 @@ import {
   hexFromArgb,
   themeFromSourceColor,
 } from "@material/material-color-utilities";
+
 import { DefaultTheme } from "../styled";
 
 /**
@@ -20,7 +21,7 @@ function schemeToHex(scheme: Scheme) {
 
   (
     Object.keys(
-      Object.getOwnPropertyDescriptors(Object.getPrototypeOf(scheme))
+      Object.getOwnPropertyDescriptors(Object.getPrototypeOf(scheme)),
     ) as (keyof Scheme)[]
   )
     .filter((key) => typeof scheme[key] === "number")
@@ -46,7 +47,7 @@ function hexToRgb(v: string) {
  */
 export const darkTheme: (
   accentColour?: string,
-  darkMode?: boolean
+  darkMode?: boolean,
 ) => DefaultTheme = (accentColour = "#FF5733", darkMode = false) => {
   // const hex = "#d59ff5";
   // const hex = "#FF7F50";
@@ -115,7 +116,7 @@ export const darkTheme: (
     >;
 
     Object.keys(source).forEach(
-      (key) => (output[key] = hexFromArgb(source[key]))
+      (key) => (output[key] = hexFromArgb(source[key])),
     );
 
     (customColours as Record<string, Record<keyof ColorGroup, string>>)[
@@ -128,7 +129,9 @@ export const darkTheme: (
   function materialColour(base: keyof Scheme, tone?: number) {
     return tone
       ? hexFromArgb(
-          materialTheme.tones[base].getHct(darkMode ? 100 - tone : tone).toInt()
+          materialTheme.tones[base]
+            .getHct(darkMode ? 100 - tone : tone)
+            .toInt(),
         )
       : materialTheme.scheme[base];
   }
@@ -148,12 +151,12 @@ export const darkTheme: (
       "component-btn-background-secondary": materialColour("surfaceVariant"),
       "component-btn-foreground-secondary": materialColour(
         "onSurfaceVariant",
-        30
+        30,
       ),
       "component-btn-foreground-plain": materialColour("onBackground"),
       "component-btn-foreground-plain-secondary": materialColour(
         "onBackground",
-        40
+        40,
       ),
       // Component: Breadcrumbs
       "component-breadcrumbs-foreground": materialColour("onBackground", 60),
@@ -162,23 +165,23 @@ export const darkTheme: (
       "component-menubtn-default-background": "transparent",
       "component-menubtn-default-foreground": materialColour(
         "onSurfaceVariant",
-        55
+        55,
       ),
       "component-menubtn-selected-background": materialColour("surfaceVariant"),
       "component-menubtn-selected-foreground": materialColour(
         "onSurfaceVariant",
-        30
+        30,
       ),
       "component-menubtn-muted-background": "transparent",
       "component-menubtn-muted-foreground": materialColour(
         "onSurfaceVariant",
-        45
+        45,
       ),
       "component-menubtn-hover-background": materialColour("surfaceVariant"), // DEPRECATE
       "component-menubtn-hover-foreground": materialColour(
         // DEPRECATE
         "onSurfaceVariant",
-        25
+        25,
       ),
       // Component: Input
       "component-input-focus": materialColour("primary"),
@@ -202,20 +205,20 @@ export const darkTheme: (
       "component-categorybtn-background-icon": materialColour("primary", 90),
       "component-categorybtn-background-collapse": materialColour(
         "background",
-        97
+        97,
       ),
       "component-categorybtn-background-hover": materialColour(
         "background",
-        100
+        100,
       ),
       "component-categorybtn-background-active": materialColour(
         "background",
-        94
+        94,
       ),
       "component-categorybtn-foreground": materialColour("onBackground", 10),
       "component-categorybtn-foreground-description": materialColour(
         "onBackground",
-        30
+        30,
       ),
       // Component: Modal
       "component-modal-background": materialColour("secondary", 96),
@@ -223,7 +226,7 @@ export const darkTheme: (
       // Component: Avatar (Fallback)
       "component-avatar-fallback-background": materialColour(
         "onBackground",
-        94
+        94,
       ),
       "component-avatar-fallback-foreground": materialColour("onBackground"),
       "component-avatar-fallback-contrast-background":
@@ -235,7 +238,7 @@ export const darkTheme: (
       "component-context-menu-foreground": materialColour("onSurface"),
       "component-context-menu-item-hover-background": materialColour(
         "surfaceVariant",
-        92
+        92,
       ),
       "component-context-menu-divider": materialColour("onSurface", 92),
       "component-context-menu-shadow": "#0004",
@@ -259,16 +262,16 @@ export const darkTheme: (
       "sidebar-header-background": materialColour("onBackground", 94),
       "sidebar-header-foreground": materialColour("onPrimaryContainer"),
       "sidebar-header-transparent-background": `rgba(${hexToRgb(
-        materialColour("onBackground", 94)
+        materialColour("onBackground", 94),
       )}, 0.75)`,
       "sidebar-header-with-image-text-background": `rgba(${hexToRgb(
-        materialColour("onBackground")
+        materialColour("onBackground"),
       )}, 0.5)`,
       "sidebar-header-with-image-text-foreground": materialColour("background"),
       "sidebar-server-list-foreground": materialColour("onBackground", 80),
       "sidebar-channels-category-foreground": materialColour(
         "onSurfaceVariant",
-        60
+        60,
       ),
       // OR balls to the wall: (but dark mode gets fucked)
       // "sidebar-channels-background": materialColour("primaryContainer", 94),
@@ -289,7 +292,7 @@ export const darkTheme: (
       // Messaging: Interface
       "messaging-channel-header-divider": materialColour("onBackground", 80),
       "messaging-indicator-background": `rgba(${hexToRgb(
-        materialColour("background", 94)
+        materialColour("background", 94),
       )}, 0.50)`,
       "messaging-indicator-foreground": materialColour("onBackground"),
       "messaging-indicator-reply-enabled": materialColour("primary"),
@@ -303,7 +306,7 @@ export const darkTheme: (
       "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
       "messaging-message-mentioned-background": materialColour(
         "surfaceVariant",
-        97
+        97,
       ),
       "messaging-message-info-text": materialColour("onBackground", 50),
       // "messaging-message-box-background": materialColour("primaryContainer"),
@@ -312,20 +315,20 @@ export const darkTheme: (
       // Messaging: Components
       "messaging-component-container-background": materialColour(
         "background",
-        95
+        95,
       ),
       "messaging-component-blocked-message-background": "transparent",
       "messaging-component-blocked-message-foreground": materialColour(
         "onBackground",
-        60
+        60,
       ),
       "messaging-component-system-message-foreground": materialColour(
         "onBackground",
-        40
+        40,
       ),
       "messaging-component-message-reply-hook": materialColour(
         "onBackground",
-        90
+        90,
       ),
       "messaging-component-code-block-background":
         materialColour("surfaceVariant"),
@@ -349,11 +352,11 @@ export const darkTheme: (
         materialColour("onSurfaceVariant"),
       "messaging-component-message-divider-background": materialColour(
         "onSurfaceVariant",
-        80
+        80,
       ),
       "messaging-component-message-divider-foreground": materialColour(
         "onSurfaceVariant",
-        60
+        60,
       ),
       "messaging-component-message-divider-unread-background":
         materialColour("primary"),
@@ -361,7 +364,7 @@ export const darkTheme: (
         materialColour("onPrimary"),
       "messaging-component-reaction-background": materialColour(
         "onBackground",
-        97
+        97,
       ),
       "messaging-component-reaction-foreground": materialColour("onBackground"),
       "messaging-component-reaction-selected-background":

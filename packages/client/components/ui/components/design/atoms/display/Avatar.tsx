@@ -174,8 +174,8 @@ export function Avatar(props: Props) {
           setTimeout(() => setUrl(src));
         }
       },
-      { defer: true }
-    )
+      { defer: true },
+    ),
   );
 
   return (

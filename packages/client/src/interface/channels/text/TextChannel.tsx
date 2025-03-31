@@ -8,6 +8,7 @@ import {
   onMount,
 } from "solid-js";
 
+import { styled } from "styled-system/jsx";
 import { decodeTime, ulid } from "ulid";
 
 import { DraftMessages, Messages } from "@revolt/app";
@@ -33,8 +34,6 @@ import { ChannelPageProps } from "../ChannelPage";
 
 import { MessageComposition } from "./Composition";
 import { MemberSidebar } from "./MemberSidebar";
-
-import { styled } from "styled-system/jsx";
 
 /**
  * Channel component
@@ -69,9 +68,9 @@ export function TextChannel(props: ChannelPageProps) {
         setLastId(
           props.channel.unread
             ? (client().channelUnreads.get(id)?.lastMessageId as string)
-            : undefined
-        )
-    )
+            : undefined,
+        ),
+    ),
   );
 
   // Mark channel as read whenever it is marked as unread
@@ -94,8 +93,8 @@ export function TextChannel(props: ChannelPageProps) {
             // TODO: ack on refocus
           }
         }
-      }
-    )
+      },
+    ),
   );
 
   // Register "jump to latest messages"
@@ -108,15 +107,15 @@ export function TextChannel(props: ChannelPageProps) {
   onMount(() =>
     keybinds.addEventListener(
       KeybindAction.MessagingScrollToBottom,
-      scrollToBottom
-    )
+      scrollToBottom,
+    ),
   );
 
   onCleanup(() =>
     keybinds.removeEventListener(
       KeybindAction.MessagingScrollToBottom,
-      scrollToBottom
-    )
+      scrollToBottom,
+    ),
   );
 
   return (
@@ -157,7 +156,7 @@ export function TextChannel(props: ChannelPageProps) {
         <Show
           when={state.layout.getSectionState(
             LAYOUT_SECTIONS.MEMBER_SIDEBAR,
-            true
+            true,
           )}
         >
           <MemberSidebar channel={props.channel} />

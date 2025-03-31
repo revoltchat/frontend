@@ -1,3 +1,5 @@
+import { styled } from "styled-system/jsx";
+
 import { iconSize } from "@revolt/ui";
 
 import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
@@ -5,8 +7,6 @@ import MdLink from "@material-design-icons/svg/outlined/link.svg?component-solid
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
-
-import { styled } from "styled-system/jsx";
 
 /**
  * Modal to create or join a server

@@ -56,7 +56,7 @@ export class State {
       Object.keys(this).filter(
         (key) =>
           (this[key as keyof State] as unknown as { _storeHint: boolean })
-            ?._storeHint
+            ?._storeHint,
       ) as (keyof Store)[]
     ).map((key) => this[key] as AbstractStore<typeof key, Store[typeof key]>);
   }
@@ -113,15 +113,15 @@ export class State {
         localforage.setItem(
           key,
           JSON.parse(
-            JSON.stringify((this.store as Record<string, unknown>)[key])
-          )
+            JSON.stringify((this.store as Record<string, unknown>)[key]),
+          ),
         );
 
         if (import.meta.env.DEV) {
           console.info("Wrote state to disk.");
         }
       },
-      IGNORE_WRITE_DELAY.includes(key) ? 0 : DISK_WRITE_WAIT_MS
+      IGNORE_WRITE_DELAY.includes(key) ? 0 : DISK_WRITE_WAIT_MS,
     ) as unknown as number;
   };
 

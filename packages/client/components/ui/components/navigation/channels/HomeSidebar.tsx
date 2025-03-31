@@ -1,9 +1,10 @@
 import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
-import { styled } from "styled-system/jsx";
 
+import { Plural, Trans, useLingui } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
@@ -25,7 +26,6 @@ import { Tooltip } from "../../floating";
 import { Deferred } from "../../tools";
 
 import { SidebarBase } from "./common";
-import { Plural, Trans, useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -42,7 +42,7 @@ interface Props {
    * Open the saved notes channel
    */
   openSavedNotes: (
-    navigate?: ReturnType<typeof useNavigate>
+    navigate?: ReturnType<typeof useNavigate>,
   ) => string | undefined;
 
   /**
@@ -235,7 +235,7 @@ function Entry(
   props: { channel: Channel; active: boolean } /*& Omit<
     ComponentProps<typeof Link>,
     "href"
-  >*/
+  >*/,
 ) {
   const [local, remote] = splitProps(props, ["channel", "active"]);
 
@@ -249,12 +249,12 @@ function Entry(
       s === "Online"
         ? t`Online`
         : s === "Busy"
-        ? t`Busy`
-        : s === "Focus"
-        ? t`Focus`
-        : s === "Idle"
-        ? t`Idle`
-        : t`Offline`
+          ? t`Busy`
+          : s === "Focus"
+            ? t`Focus`
+            : s === "Idle"
+              ? t`Idle`
+              : t`Offline`,
     );
 
   return (

@@ -1,4 +1,3 @@
-
 interface Props {
   // Whether this is being placed under the top item on the list
   topItem?: boolean;
@@ -27,7 +26,7 @@ export function Swoosh(props: Props) {
       {!props.topItem && (
         <path
           d="M27.0003 26C4.50025 26 56 53 56 53L56.0003 0C56.0003 0 49.5003 26 27.0003 26Z"
-        fill="var(--colours-sidebar-channels-background)"
+          fill="var(--colours-sidebar-channels-background)"
         />
       )}
       <rect

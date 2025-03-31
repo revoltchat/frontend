@@ -1,12 +1,13 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+import { styled } from "styled-system/jsx";
+
 import { CONFIGURATION } from "@revolt/common";
 
 import { modalController } from "..";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { styled } from "styled-system/jsx";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Code block which displays invite
@@ -43,8 +44,8 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
         setLink(
           CONFIGURATION.IS_REVOLT
             ? `https://rvlt.gg/${_id}`
-            : `${window.location.protocol}//${window.location.host}/invite/${_id}`
-        )
+            : `${window.location.protocol}//${window.location.host}/invite/${_id}`,
+        ),
       )
       .catch((err) => modalController.push({ type: "error", error: err }))
       .finally(() => setProcessing(false));

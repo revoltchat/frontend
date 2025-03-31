@@ -1,6 +1,7 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal for adding another user as a friend

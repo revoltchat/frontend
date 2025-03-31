@@ -1,5 +1,6 @@
 import { JSX, Match, Show, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Channel, Message, ServerMember, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -23,7 +24,6 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Context menu for users
@@ -131,7 +131,7 @@ export function UserContextMenu(props: {
   function openAdminPanel() {
     window.open(
       `https://admin.revolt.chat/panel/inspect/user/${props.user.id}`,
-      "_blank"
+      "_blank",
     );
   }
 
@@ -281,7 +281,7 @@ export function UserContextMenu(props: {
 export function floatingUserMenus(
   user: User,
   member?: ServerMember,
-  contextMessage?: Message
+  contextMessage?: Message,
 ): JSX.Directives["floating"] & object {
   return {
     userCard: {

@@ -1,12 +1,13 @@
 import { createEffect, createSignal } from "solid-js";
 
+import { type Dayjs } from "dayjs";
 import type { Handler } from "mdast-util-to-hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
-import { time as Time } from "../elements";
-import { type Dayjs } from "dayjs";
 import { dayjs, timeLocale } from "@revolt/i18n/dayjs";
+
+import { time as Time } from "../elements";
 
 export function RenderTimestamp(props: { format: string; date: Dayjs }) {
   /**
@@ -36,7 +37,7 @@ export function RenderTimestamp(props: { format: string; date: Dayjs }) {
   createEffect(() => {
     // Update every second if we are rendering relative time
     if (props.format === "R") {
-      let interval = setInterval(update, 1000);
+      const interval = setInterval(update, 1000);
       return () => clearInterval(interval);
     }
   });
@@ -68,9 +69,9 @@ export const remarkTimestamps: Plugin = () => (tree) => {
     (
       node: { type: "text"; value: string },
       idx,
-      parent: { children: any[] }
+      parent: { children: any[] },
     ) => {
-      let elements = node.value.split(RE_TIMESTAMP);
+      const elements = node.value.split(RE_TIMESTAMP);
       if (elements.length === 1) return; // no matches
 
       // Generate initial node
@@ -108,7 +109,7 @@ export const remarkTimestamps: Plugin = () => (tree) => {
 
       parent.children.splice(idx, 1, ...newNodes);
       return idx + newNodes.length;
-    }
+    },
   );
 };
 

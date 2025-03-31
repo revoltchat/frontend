@@ -1,5 +1,7 @@
 import { For } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { useClient } from "@revolt/client";
 import { createOwnProfileResource } from "@revolt/client/resources";
 import { modalController } from "@revolt/modal";
@@ -17,7 +19,6 @@ import MdGroups from "@material-design-icons/svg/outlined/groups.svg?component-s
 import { UserSummary } from "../account/index";
 
 import { EditProfileButtons } from "./EditProfileButtons";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Edit profile

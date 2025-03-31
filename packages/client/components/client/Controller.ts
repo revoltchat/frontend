@@ -190,7 +190,7 @@ class Lifecycle {
           console.info(
             "Will try to reconnect in",
             retryIn.toFixed(2),
-            "seconds!"
+            "seconds!",
           );
 
           this.#retryTimeout = setTimeout(() => {
@@ -332,7 +332,7 @@ class Lifecycle {
         "An unhandled transition occurred!",
         transition,
         "was received on",
-        currentState
+        currentState,
       );
     }
   }
@@ -463,7 +463,7 @@ export default class ClientController {
               state: "unknown",
               available_methods: allowed_methods,
               callback,
-            })
+            }),
         );
 
         if (typeof mfa_response === "undefined") {

@@ -24,9 +24,9 @@ export const remarkUnicodeEmoji: Plugin = () => (tree) => {
     (
       node: { type: "text"; value: string },
       idx,
-      parent: { children: any[] }
+      parent: { children: any[] },
     ) => {
-      let elements = node.value.split(RE_EMOJI);
+      const elements = node.value.split(RE_EMOJI);
       if (elements.length === 1) return; // no matches
 
       // Generate initial node
@@ -59,7 +59,7 @@ export const remarkUnicodeEmoji: Plugin = () => (tree) => {
 
       parent.children.splice(idx, 1, ...newNodes);
       return idx + newNodes.length;
-    }
+    },
   );
 };
 

@@ -1,10 +1,10 @@
 import { Match, Show, Switch } from "solid-js";
+
+import { Trans } from "@lingui-solid/solid/macro";
+import { Channel } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
-import { Channel } from "revolt.js";
-
 import { Text } from "../display";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

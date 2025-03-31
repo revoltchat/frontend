@@ -1,8 +1,15 @@
 import { JSX, createMemo } from "solid-js";
 import { For, Show } from "solid-js";
+
+import { useLingui } from "@lingui-solid/solid/macro";
+import { createQuery } from "@tanstack/solid-query";
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { UserContextMenu } from "@revolt/app";
 import { getController } from "@revolt/common";
+
+import MdMoreVert from "@material-design-icons/svg/filled/more_vert.svg?component-solid";
 
 import {
   Avatar,
@@ -10,18 +17,12 @@ import {
   ColouredText,
   Row,
   Text,
-  typography,
-  Username,
   UserStatus,
   UserStatusGraphic,
+  Username,
+  typography,
 } from "../design";
-import { createQuery } from "@tanstack/solid-query";
-import { cva } from "styled-system/css";
 import { Ripple } from "../material";
-
-import MdMoreVert from "@material-design-icons/svg/filled/more_vert.svg?component-solid";
-import { UserContextMenu } from "@revolt/app";
-import { useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Base element for the card
@@ -138,7 +139,7 @@ const RoleIcon = styled("div", {
  * User Card
  */
 export function UserCard(
-  props: JSX.Directives["floating"]["userCard"] & object
+  props: JSX.Directives["floating"]["userCard"] & object,
 ) {
   const { t } = useLingui();
   const query = createQuery(() => ({
@@ -173,12 +174,12 @@ export function UserCard(
                   s === "Online"
                     ? t`Online`
                     : s === "Busy"
-                    ? t`Busy`
-                    : s === "Focus"
-                    ? t`Focus`
-                    : s === "Idle"
-                    ? t`Idle`
-                    : t`Offline`
+                      ? t`Busy`
+                      : s === "Focus"
+                        ? t`Focus`
+                        : s === "Idle"
+                          ? t`Idle`
+                          : t`Offline`,
                 )}
               </Text>
             </UserShort>

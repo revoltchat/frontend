@@ -1,4 +1,5 @@
 import { type Accessor, type JSX, onCleanup } from "solid-js";
+
 import { cva } from "styled-system/css";
 
 const baseStyles = cva({
@@ -91,7 +92,7 @@ const hoverStyles = cva({
  */
 export function scrollable(
   el: HTMLDivElement,
-  accessor: Accessor<JSX.Directives["scrollable"] & object>
+  accessor: Accessor<JSX.Directives["scrollable"] & object>,
 ) {
   const props = accessor();
   if (!props) return;
@@ -104,13 +105,13 @@ export function scrollable(
     baseStyles({
       direction: props.direction,
       showOnHover: props.showOnHover,
-    }).split(" ")
+    }).split(" "),
   );
   el.classList.add(
     ...baseStyles({
       direction: props.direction,
       showOnHover: props.showOnHover,
-    }).split(" ")
+    }).split(" "),
   );
 
   if (props.class) {

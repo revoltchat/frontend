@@ -1,6 +1,10 @@
 import { Show, createSignal, splitProps } from "solid-js";
 import { createStore } from "solid-js/store";
 
+import { Trans } from "@lingui-solid/solid/macro";
+import { styled } from "styled-system/jsx";
+
+import { useError } from "@revolt/i18n";
 import { Column, Form, typography } from "@revolt/ui";
 import type {
   Action,
@@ -15,10 +19,6 @@ import type {
 
 import { modalController } from ".";
 import { Modals, PropGenerator } from "./types";
-
-import { styled } from "styled-system/jsx";
-import { Trans } from "@lingui-solid/solid/macro";
-import { useError } from "@revolt/i18n";
 
 type Props<T extends FormTemplate> = Omit<
   FormProps<T>,
@@ -50,7 +50,7 @@ type Props<T extends FormTemplate> = Omit<
  */
 export function createFormModal<
   T extends FormTemplate,
-  P extends Modals["type"]
+  P extends Modals["type"],
 >(props: Props<T>): ReturnType<PropGenerator<P>> {
   const [localProps, formProps] = splitProps(props, [
     "callback",
@@ -60,7 +60,7 @@ export function createFormModal<
   ]);
 
   const [store, setStore] = createStore(
-    getInitialValues(formProps.schema, formProps.defaults)
+    getInitialValues(formProps.schema, formProps.defaults),
   );
 
   const err = useError();

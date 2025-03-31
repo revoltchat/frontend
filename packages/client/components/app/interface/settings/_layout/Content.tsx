@@ -1,5 +1,6 @@
 import { Accessor, JSX, Show } from "solid-js";
 
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Breadcrumbs, iconSize, typography } from "@revolt/ui";
@@ -7,7 +8,6 @@ import { Breadcrumbs, iconSize, typography } from "@revolt/ui";
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
 import { useSettingsNavigation } from "../Settings";
-import { cva } from "styled-system/css";
 
 /**
  * Content portion of the settings menu

@@ -1,10 +1,13 @@
 import { BiSolidFile } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
 import { Show } from "solid-js";
+
+import { Trans } from "@lingui-solid/solid/macro";
+import { type Message } from "revolt.js";
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { type Message } from "revolt.js";
-
+import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 
@@ -14,9 +17,6 @@ import {
   OverflowingText,
   Username,
 } from "../../design";
-import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
-import { cva } from "styled-system/css";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

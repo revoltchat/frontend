@@ -1,3 +1,5 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -11,7 +13,6 @@ import {
 import MdBrush from "@material-design-icons/svg/outlined/brush.svg?component-solid";
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Sync Configuration Page

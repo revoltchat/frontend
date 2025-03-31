@@ -1,5 +1,6 @@
 import { BiRegularCheck, BiRegularX } from "solid-icons/bi";
 import { createSignal, splitProps } from "solid-js";
+
 import { styled } from "styled-system/jsx";
 
 type State = "Allow" | "Neutral" | "Deny";
@@ -58,7 +59,7 @@ export function OverrideSwitch(props: Props) {
   const [local, others] = splitProps(props, ["disabled", "onChange", "state"]);
 
   const [controlledValue, setControlledValue] = createSignal<State>(
-    local.state || "Neutral"
+    local.state || "Neutral",
   );
 
   const currentState = () => local.state ?? controlledValue();

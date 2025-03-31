@@ -57,7 +57,7 @@ export interface TypeNotificationOptions {
  */
 async function createNotification(
   title: string,
-  options: globalThis.NotificationOptions
+  options: globalThis.NotificationOptions,
 ) {
   try {
     return new Notification(title, options);
@@ -138,7 +138,7 @@ export class NotificationOptions extends AbstractStore<
    */
   computeForServer(server?: Server) {
     return server
-      ? this.get().server[server.id] ?? DEFAULT_SERVER_STATE
+      ? (this.get().server[server.id] ?? DEFAULT_SERVER_STATE)
       : undefined;
   }
 

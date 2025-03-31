@@ -1,14 +1,14 @@
+import { createFormControl, createFormGroup } from "solid-forms";
 import { Show } from "solid-js";
 
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import type { API } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
 import { CircularProgress, Column, Form2, Row } from "@revolt/ui";
 
 import { ServerSettingsProps } from ".";
-import { createFormControl, createFormGroup } from "solid-forms";
-import { CONFIGURATION } from "@revolt/common";
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Server overview
@@ -21,7 +21,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
     name: createFormControl(props.server.name),
     description: createFormControl(props.server.description || ""),
     icon: createFormControl<string | File[] | null>(
-      props.server.animatedIconURL
+      props.server.animatedIconURL,
     ),
     banner: createFormControl<string | File[] | null>(props.server.bannerURL),
   });
@@ -68,7 +68,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
             headers: {
               [key]: value,
             },
-          }
+          },
         ).then((res) => res.json());
 
         changes.icon = data.id;
@@ -91,7 +91,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
             headers: {
               [key]: value,
             },
-          }
+          },
         ).then((res) => res.json());
 
         changes.banner = data.id;

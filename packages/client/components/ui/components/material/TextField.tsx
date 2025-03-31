@@ -15,7 +15,7 @@ export function TextField(
     placeholder?: string;
     type?: "text" | "password" | "email" | "file";
     variant?: "filled" | "outlined";
-  }
+  },
 ) {
   return <mdui-text-field {...props} />;
 }

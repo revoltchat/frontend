@@ -8,12 +8,12 @@ import {
   onMount,
 } from "solid-js";
 
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import type { API } from "revolt.js";
 
 import { CategoryButton, Preloader, TextField } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to create an MFA ticket
@@ -24,7 +24,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
   // Keep track of available methods
   const [methods, setMethods] = createSignal<API.MFAMethod[] | undefined>(
     // eslint-disable-next-line solid/reactivity
-    props.state === "unknown" ? props.available_methods : undefined
+    props.state === "unknown" ? props.available_methods : undefined,
   );
 
   // Current state of the modal

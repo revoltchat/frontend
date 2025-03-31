@@ -1,9 +1,10 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?component-solid";
 
-import { iconSize, Ripple } from "../../..";
+import { Ripple, iconSize } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

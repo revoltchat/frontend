@@ -1,6 +1,4 @@
-import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
-import MdMarkUnreadChatAlt from "@material-design-icons/svg/outlined/mark_unread_chat_alt.svg?component-solid";
-import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
+import { Trans } from "@lingui-solid/solid/macro";
 
 import {
   CategoryButton,
@@ -10,7 +8,10 @@ import {
   FormGroup,
   iconSize,
 } from "@revolt/ui";
-import { Trans } from "@lingui-solid/solid/macro";
+
+import MdMarkUnreadChatAlt from "@material-design-icons/svg/outlined/mark_unread_chat_alt.svg?component-solid";
+import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
+import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
 
 /**
  * Notifications Page

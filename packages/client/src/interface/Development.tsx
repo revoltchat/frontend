@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { createFormControl, createFormGroup } from "solid-forms";
 import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
 
 import { cva } from "styled-system/css";
@@ -19,7 +20,6 @@ import {
 } from "@revolt/ui";
 
 import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
-import { createFormControl, createFormGroup } from "solid-forms";
 
 const NewComponent = styled("div", {
   base: {

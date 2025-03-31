@@ -54,7 +54,7 @@ export const remarkSpoiler: Plugin = () => (tree) => {
         )[];
       },
       idx,
-      parent
+      parent,
     ) => {
       // Visitor state
       let searchingForEnd = -1;
@@ -74,7 +74,7 @@ export const remarkSpoiler: Plugin = () => (tree) => {
             // Get all preceding elements
             const elements = node.children.splice(
               searchingForEnd,
-              i - searchingForEnd
+              i - searchingForEnd,
             );
 
             // Create a spoiler
@@ -122,7 +122,7 @@ export const remarkSpoiler: Plugin = () => (tree) => {
                 {
                   type: "text",
                   value: components.shift()!,
-                }
+                },
               );
 
               i += 2;
@@ -139,7 +139,7 @@ export const remarkSpoiler: Plugin = () => (tree) => {
           }
         }
       }
-    }
+    },
   );
 };
 

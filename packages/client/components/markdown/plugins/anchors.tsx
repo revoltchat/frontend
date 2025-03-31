@@ -38,14 +38,14 @@ const internalLink = cva({
 });
 
 export function RenderAnchor(
-  props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>
+  props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>,
 ) {
   const [localProps, remoteProps] = splitProps(props, ["href"]);
 
   // Pass-through no href or if anchor
   if (!localProps.href) return <a href={localProps.href} {...props} />;
 
-  let internal = false;
+  const internal = false;
   try {
     const url = new URL(localProps.href);
     if (

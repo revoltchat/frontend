@@ -1,3 +1,5 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { clientController } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
 import { useNavigate } from "@revolt/routing";
@@ -6,7 +8,6 @@ import { Button } from "@revolt/ui";
 import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
 import { Fields, Form } from "./Form";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Flow for resending email verification

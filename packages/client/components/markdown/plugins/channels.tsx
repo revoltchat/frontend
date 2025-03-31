@@ -12,13 +12,13 @@ export const remarkChannels: Plugin = () => (tree) => {
     (
       node: { type: "text"; value: string },
       idx,
-      parent: { children: any[] }
+      parent: { children: any[] },
     ) => {
-      let elements = node.value.split(RE_CHANNEL);
+      const elements = node.value.split(RE_CHANNEL);
       if (elements.length === 1) return; // no matches
 
       const client = clientController.getCurrentClient();
-      let newNodes = elements.map((value, index) => {
+      const newNodes = elements.map((value, index) => {
         if (index % 2) {
           const channel = client.channels.get(value);
           if (channel) {
@@ -39,6 +39,6 @@ export const remarkChannels: Plugin = () => (tree) => {
 
       parent.children.splice(idx, 1, ...newNodes);
       return idx + newNodes.length;
-    }
+    },
   );
 };

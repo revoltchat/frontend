@@ -1,6 +1,7 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
 
 import { Handler } from "mdast-util-to-hast";
+import { cva } from "styled-system/css";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
@@ -8,7 +9,6 @@ import { useClient } from "@revolt/client";
 import { Avatar, Column, Row } from "@revolt/ui";
 
 import { CustomEmoji, Emoji, RE_CUSTOM_EMOJI } from "../emoji";
-import { cva } from "styled-system/css";
 
 /**
  * Render a custom emoji
@@ -30,7 +30,7 @@ export function RenderCustomEmoji(props: { id: string }) {
    */
   const server = () =>
     client()!.servers.get(
-      (emoji()!.parent as { type: "Server"; id: string }).id
+      (emoji()!.parent as { type: "Server"; id: string }).id,
     )!;
 
   return (
@@ -114,9 +114,9 @@ export const remarkCustomEmoji: Plugin = () => (tree) => {
     (
       node: { type: "text"; value: string },
       idx,
-      parent: { children: any[] }
+      parent: { children: any[] },
     ) => {
-      let elements = node.value.split(RE_CUSTOM_EMOJI);
+      const elements = node.value.split(RE_CUSTOM_EMOJI);
       if (elements.length === 1) return; // no matches
 
       // Generate initial node
@@ -149,7 +149,7 @@ export const remarkCustomEmoji: Plugin = () => (tree) => {
 
       parent.children.splice(idx, 1, ...newNodes);
       return idx + newNodes.length;
-    }
+    },
   );
 };
 

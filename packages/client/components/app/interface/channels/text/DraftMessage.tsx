@@ -1,5 +1,6 @@
 import { For } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import type { Channel } from "revolt.js";
 
 import { useClient, useUser } from "@revolt/client";
@@ -8,7 +9,6 @@ import type { UnsentMessage } from "@revolt/state/stores/Draft";
 import { Avatar, MessageContainer, MessageReply, Username } from "@revolt/ui";
 
 import { DraftMessageContextMenu } from "../../../menus/DraftMessageContextMenu";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   draft: UnsentMessage;

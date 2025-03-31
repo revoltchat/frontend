@@ -1,5 +1,6 @@
 import { splitProps } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
+
 import { cva } from "styled-system/css";
 
 type TypographyProps = {
@@ -22,7 +23,7 @@ export const Typography = (props: TypographyProps) => {
  * Simple span Text wrapper to apply Typography styles
  */
 export function Text(
-  props: Parameters<typeof typography>[0] & { children: JSX.Element }
+  props: Parameters<typeof typography>[0] & { children: JSX.Element },
 ) {
   const [local, remote] = splitProps(props, ["children"]);
   return <span class={typography(remote)}>{local.children}</span>;

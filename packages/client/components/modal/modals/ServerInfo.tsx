@@ -1,12 +1,13 @@
 import { BiRegularX } from "solid-icons/bi";
 import { Show } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { Markdown } from "@revolt/markdown";
 import { Button, Column, Row, Text } from "@revolt/ui";
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to display server information

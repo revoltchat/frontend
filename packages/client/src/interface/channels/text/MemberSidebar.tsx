@@ -1,7 +1,9 @@
 import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
 
+import { useLingui } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel, ServerMember, User } from "revolt.js";
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { floatingUserMenus } from "@revolt/app/menus/UserContextMenu";
@@ -20,8 +22,6 @@ import {
   Username,
   typography,
 } from "@revolt/ui";
-import { cva } from "styled-system/css";
-import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -60,18 +60,18 @@ export function ServerMemberSidebar(props: Props) {
 
   onMount(() =>
     props.channel.server?.syncMembers(
-      IGNORE_ALL.includes(props.channel.serverId) ? true : false
-    )
+      IGNORE_ALL.includes(props.channel.serverId) ? true : false,
+    ),
   );
 
   // Stage 1: Find roles and members
   const stage1 = createMemo(() => {
     const hoistedRoles = props.channel.server!.orderedRoles.filter(
-      (role) => role.hoist
+      (role) => role.hoist,
     );
 
     const members = client().serverMembers.filter(
-      (member) => member.id.server === props.channel.serverId
+      (member) => member.id.server === props.channel.serverId,
     );
 
     return [members, hoistedRoles] as const;
@@ -82,7 +82,7 @@ export function ServerMemberSidebar(props: Props) {
     const [members] = stage1();
     if (props.channel.potentiallyRestrictedChannel) {
       return members.filter((member) =>
-        member.hasPermission(props.channel, "ViewChannel")
+        member.hasPermission(props.channel, "ViewChannel"),
       );
     } else {
       return members;
@@ -150,8 +150,8 @@ export function ServerMemberSidebar(props: Props) {
       members: [...entry.members].sort(
         (a, b) =>
           (a.nickname ?? a.user?.displayName)?.localeCompare(
-            b.nickname ?? b.user?.displayName ?? ""
-          ) || 0
+            b.nickname ?? b.user?.displayName ?? "",
+          ) || 0,
       ),
     }));
   });
@@ -224,7 +224,7 @@ export function ServerMemberSidebar(props: Props) {
                 (member) =>
                   (member.id.server === props.channel.serverId &&
                     member.user?.online) ||
-                  false
+                  false,
               ).length
             }{" "}
             members online
@@ -290,7 +290,7 @@ export function GroupMemberSidebar(props: Props) {
         <Deferred>
           <VirtualContainer
             items={props.channel.recipients.toSorted((a, b) =>
-              a.displayName.localeCompare(b.displayName)
+              a.displayName.localeCompare(b.displayName),
             )}
             scrollTarget={scrollTargetElement}
             itemSize={{ height: 42 }}
@@ -398,19 +398,19 @@ function Member(props: { user?: User; member?: ServerMember }) {
       s === "Online"
         ? t`Online`
         : s === "Busy"
-        ? t`Busy`
-        : s === "Focus"
-        ? t`Focus`
-        : s === "Idle"
-        ? t`Idle`
-        : t`Offline`
+          ? t`Busy`
+          : s === "Focus"
+            ? t`Focus`
+            : s === "Idle"
+              ? t`Idle`
+              : t`Offline`,
     );
 
   return (
     <div
       use:floating={floatingUserMenus(
         props.user ?? props.member?.user!,
-        props.member
+        props.member,
       )}
     >
       <MenuButton

@@ -8,6 +8,7 @@ import {
   BiSolidUserX,
 } from "solid-icons/bi";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
 
 import { useUser } from "@revolt/client";
@@ -18,7 +19,6 @@ import { ColouredText } from "@revolt/ui";
 import { SettingsConfiguration } from "..";
 
 import Overview from "./Overview";
-import { Trans } from "@lingui-solid/solid/macro";
 
 const Config: SettingsConfiguration<Server> = {
   /**
@@ -38,7 +38,6 @@ const Config: SettingsConfiguration<Server> = {
    * Render the current server settings page
    */
   render(props, server) {
-    // eslint-disable-next-line solid/reactivity
     const id = props.page();
 
     if (!server.$exists) {

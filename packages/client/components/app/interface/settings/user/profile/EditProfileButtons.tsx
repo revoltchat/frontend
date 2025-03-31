@@ -1,5 +1,6 @@
 import { Match, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -18,7 +19,6 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 import MdReplaceImage from "@material-design-icons/svg/outlined/edit.svg?component-solid";
 import MdEditNote from "@material-design-icons/svg/outlined/edit_note.svg?component-solid";
 import MdImage from "@material-design-icons/svg/outlined/image.svg?component-solid";
-import { Trans } from "@lingui-solid/solid/macro";
 
 export function EditProfileButtons(props: { user: User }) {
   const client = useClient();
@@ -41,7 +41,7 @@ export function EditProfileButtons(props: { user: User }) {
             {
               method: "POST",
               body,
-            }
+            },
           ).then((res) => res.json());
 
           // TODO: show progress (at least pending, use mutations from tanstack query?)
@@ -63,7 +63,9 @@ export function EditProfileButtons(props: { user: User }) {
 
   function replaceBanner() {
     selectImage("backgrounds", (background) =>
-      props.user.edit({ profile: { background } }).then(() => profile.refetch())
+      props.user
+        .edit({ profile: { background } })
+        .then(() => profile.refetch()),
     );
   }
 

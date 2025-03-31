@@ -1,3 +1,5 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { CONFIGURATION } from "@revolt/common";
 import { useNavigate } from "@revolt/routing";
 import { Button, Row, iconSize } from "@revolt/ui";
@@ -9,7 +11,6 @@ import { clientController } from "../../../client";
 import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
 import { Fields, Form } from "./Form";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Flow for creating a new account

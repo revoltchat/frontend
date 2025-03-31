@@ -6,6 +6,8 @@ import {
 import { BiRegularReset } from "solid-icons/bi";
 import { For, Match, Switch, createMemo, createSignal } from "solid-js";
 
+import { styled } from "styled-system/jsx";
+
 import { getController } from "@revolt/common";
 import { KeybindAction } from "@revolt/keybinds";
 import { KeyComboSequence } from "@revolt/keybinds";
@@ -19,7 +21,6 @@ import {
   Input,
   KeySequence,
 } from "@revolt/ui";
-import { styled } from "styled-system/jsx";
 
 const categories: Record<string, KeybindAction[]> = {
   navigation: [
@@ -103,11 +104,10 @@ export default function Keybinds() {
         // ) as string,
         ...state.keybinds
           .getKeybinds()
-          [action].flatMap((sequence) => [
-            translateSequence(sequence, false),
-            translateSequence(sequence, true),
-          ]),
-      ])
+          [
+            action
+          ].flatMap((sequence) => [translateSequence(sequence, false), translateSequence(sequence, true)]),
+      ]),
   );
 
   const [searchText, setSearchText] = createSignal("");
@@ -116,14 +116,14 @@ export default function Keybinds() {
     const foundActions = searchData()
       .filter((data) =>
         data.some((text) =>
-          text.toLocaleLowerCase().includes(searchText().toLocaleLowerCase())
-        )
+          text.toLocaleLowerCase().includes(searchText().toLocaleLowerCase()),
+        ),
       )
       .map((data) => data[0]);
 
     // fromEntries is generally pretty slow, there may be a better way if search ever feels slow
     return Object.entries(categories).map(
-      ([k, v]) => [k, v.filter((a) => foundActions.includes(a))] as const
+      ([k, v]) => [k, v.filter((a) => foundActions.includes(a))] as const,
     );
   });
 
@@ -165,7 +165,7 @@ export default function Keybinds() {
 
                         const indexIsDefault = state.keybinds.isDefaultIndex(
                           action,
-                          index()
+                          index(),
                         );
 
                         return (

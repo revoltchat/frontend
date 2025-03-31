@@ -1,5 +1,6 @@
 import { BiRegularCheck, BiSolidPalette } from "solid-icons/bi";
 import { For, Show, createSignal, splitProps } from "solid-js";
+
 import { styled } from "styled-system/jsx";
 
 interface Props {
@@ -119,7 +120,7 @@ export function ColourSwatches(props: Props) {
   const inputRef: HTMLInputElement = null!;
   const [local, others] = splitProps(props, ["onChange", "presets", "value"]);
   const [controlledValue, setControlledValue] = createSignal<string>(
-    local.value || "#FD6671"
+    local.value || "#FD6671",
   );
 
   return (

@@ -1,4 +1,6 @@
 import { JSX, Match, Show, Switch } from "solid-js";
+
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Time } from "../../design/atoms/display/Time";
@@ -9,7 +11,6 @@ import {
   OverflowingText,
   Row,
 } from "../../design/layout";
-import { cva } from "styled-system/css";
 
 interface CommonProps {
   /**

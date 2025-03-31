@@ -36,7 +36,7 @@ interface DragHandleEvent<T> {
  */
 export function Draggable<T>(props: Props<T>) {
   const [containerItems, setContainerItems] = createSignal<ContainerItem<T>[]>(
-    []
+    [],
   );
 
   createEffect(() => {
@@ -56,7 +56,7 @@ export function Draggable<T>(props: Props<T>) {
     setContainerItems(newContainerItems);
     if (e.type === "finalize")
       props.onChange(
-        newContainerItems.map((containerItems) => containerItems.id)
+        newContainerItems.map((containerItems) => containerItems.id),
       );
   }
 

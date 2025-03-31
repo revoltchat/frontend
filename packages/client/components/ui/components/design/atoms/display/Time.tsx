@@ -1,5 +1,6 @@
+import { type JSX, createSignal, onCleanup } from "solid-js";
+
 import { useTime } from "@revolt/i18n";
-import { createSignal, type JSX, onCleanup } from "solid-js";
 
 interface Props {
   value: number | Date | string | JSX.Element;
@@ -22,7 +23,7 @@ interface Props {
  */
 export function formatTime(
   dayjs: ReturnType<typeof useTime>,
-  options: Props
+  options: Props,
 ): JSX.Element | string | undefined | null {
   if (
     options.value instanceof Date ||

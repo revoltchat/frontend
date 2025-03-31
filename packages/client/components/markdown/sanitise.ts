@@ -27,7 +27,8 @@ const RE_PLUS = /^\s*\+(?:$|[^+])/gm;
 /**
  * Regex for matching non-breaking spaces in code blocks
  */
-const RE_CODEBLOCK_EMPTY_LINE_FIX = /(?<=`{3}[\s\S]*)\n\uF800\n(?=[\s\S]*`{3})/gm;
+const RE_CODEBLOCK_EMPTY_LINE_FIX =
+  /(?<=`{3}[\s\S]*)\n\uF800\n(?=[\s\S]*`{3})/gm;
 
 /**
  * Sanitise Markdown input before rendering
@@ -69,7 +70,7 @@ export function sanitise(content: string) {
  * Replace \uF800 with break elements
  */
 export function remarkInsertBreaks() {
-  return (tree: import('hast').Root) => {
+  return (tree: import("hast").Root) => {
     /**
      * Process element and sub-tree
      * @param element Element

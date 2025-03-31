@@ -1,5 +1,6 @@
 import { BiRegularCheck } from "solid-icons/bi";
 import { JSX, Show, createSignal, splitProps } from "solid-js";
+
 import { styled } from "styled-system/jsx";
 
 const Base = styled("label", {

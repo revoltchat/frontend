@@ -1,7 +1,12 @@
 import { For, Show, createMemo } from "solid-js";
 
-import { browserPreferredLanguage, Languages, Language } from "@revolt/i18n";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
+
+import { Language, Languages, browserPreferredLanguage } from "@revolt/i18n";
+import type { LanguageEntry } from "@revolt/i18n/Languages";
+import { dayjs, timeLocale } from "@revolt/i18n/dayjs";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
+import { state } from "@revolt/state";
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -22,11 +27,6 @@ import MdKeyboardTabRtl from "@material-design-icons/svg/outlined/keyboard_tab.s
 import MdLanguage from "@material-design-icons/svg/outlined/language.svg?component-solid";
 import MdSchedule from "@material-design-icons/svg/outlined/schedule.svg?component-solid";
 import MdTranslate from "@material-design-icons/svg/outlined/translate.svg?component-solid";
-
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
-import type { LanguageEntry } from "@revolt/i18n/Languages";
-import { state } from "@revolt/state";
-import { dayjs, timeLocale } from "@revolt/i18n/dayjs";
 
 /**
  * Language
@@ -64,7 +64,7 @@ function PickLanguage() {
   // Generate languages array.
   const languages = createMemo(() => {
     const languages = /*Object.keys(Languages)*/ ["en", "dev"].map(
-      (x) => [x, Languages[x as keyof typeof Languages]] as const
+      (x) => [x, Languages[x as keyof typeof Languages]] as const,
     );
 
     const preferredLanguage = browserPreferredLanguage();
@@ -72,14 +72,14 @@ function PickLanguage() {
     if (preferredLanguage) {
       // This moves the user's system language to the top of the language list
       const prefLangKey = languages.find(
-        (lang) => lang[0].replace(/_/g, "-") == preferredLanguage
+        (lang) => lang[0].replace(/_/g, "-") == preferredLanguage,
       );
 
       if (prefLangKey) {
         languages.splice(
           0,
           0,
-          languages.splice(languages.indexOf(prefLangKey), 1)[0]
+          languages.splice(languages.indexOf(prefLangKey), 1)[0],
         );
       }
     }

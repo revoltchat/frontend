@@ -1,3 +1,5 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { useClient } from "@revolt/client";
 import { createProfileResource } from "@revolt/client/resources";
 import {
@@ -15,7 +17,6 @@ import MdToken from "@material-design-icons/svg/outlined/token.svg?component-sol
 import { useSettingsNavigation } from "../../Settings";
 import { UserSummary } from "../account/index";
 import { EditProfileButtons } from "../profile/EditProfileButtons";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * View a specific bot

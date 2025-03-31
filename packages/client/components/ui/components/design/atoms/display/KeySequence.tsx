@@ -1,4 +1,5 @@
 import { Component, For, createMemo } from "solid-js";
+
 import { styled } from "styled-system/jsx";
 
 import {
@@ -37,7 +38,7 @@ export const KeySequence: Component<Props> = (props) => {
   const sequence = createMemo(() =>
     typeof props.sequence === "string"
       ? KeybindSequence.parse(props.sequence)
-      : props.sequence
+      : props.sequence,
   );
 
   return (

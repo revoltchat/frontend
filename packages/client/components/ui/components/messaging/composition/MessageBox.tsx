@@ -1,11 +1,12 @@
 import { BiRegularBlock } from "solid-icons/bi";
 import { JSX, Match, Show, Switch, onMount } from "solid-js";
+
+import { Trans } from "@lingui-solid/solid/macro";
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { typography } from "../../design/atoms/display/Typography";
 import { InlineIcon, Row } from "../../design/layout";
-import { cva } from "styled-system/css";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -22,7 +23,7 @@ interface Props {
    * Handle key presses
    */
   onKeyDown?: (
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
   ) => void;
 
   /**
@@ -129,11 +130,11 @@ export function MessageBox(props: Props) {
   function onKeyUp(
     event: KeyboardEvent & {
       currentTarget: HTMLTextAreaElement;
-    }
+    },
   ) {
     props.updateDraftSelection?.(
       event.currentTarget.selectionStart,
-      event.currentTarget.selectionEnd
+      event.currentTarget.selectionEnd,
     );
   }
 
@@ -141,7 +142,7 @@ export function MessageBox(props: Props) {
    * Set initial draft selection
    */
   onMount(() =>
-    props.updateDraftSelection?.(props.content.length, props.content.length)
+    props.updateDraftSelection?.(props.content.length, props.content.length),
   );
 
   return (

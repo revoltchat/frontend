@@ -1,11 +1,12 @@
 import { Match, Show, Switch, createSignal, onMount } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { clientController } from "@revolt/client";
 import { useNavigate, useParams } from "@revolt/routing";
 import { Button, Preloader } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
-import { Trans } from "@lingui-solid/solid/macro";
 
 type State =
   | {
@@ -46,7 +47,7 @@ export default function FlowVerify() {
       }
 
       const data = (await clientController.api.post(
-        `/auth/account/verify/${params.token}`
+        `/auth/account/verify/${params.token}`,
       )) as { ticket?: { token: string } };
 
       setState({ state: "success", mfa_ticket: data.ticket?.token });

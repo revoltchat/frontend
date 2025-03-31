@@ -1,11 +1,11 @@
 import { Accessor, createEffect, createSignal } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { ServerMember } from "revolt.js";
 
 import { Avatar, Column, Input, MessageContainer, Username } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 function Preview(props: { nickname: Accessor<string>; member: ServerMember }) {
   createEffect(() => {
@@ -65,7 +65,7 @@ const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
                 }
               : {
                   remove: ["Nickname"],
-                }
+                },
           );
 
           return true;

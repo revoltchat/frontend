@@ -1,4 +1,5 @@
 import { Accessor, For, JSX, onMount } from "solid-js";
+
 import { styled } from "styled-system/jsx";
 
 interface Props<T> {
@@ -53,7 +54,7 @@ function StackElement<T>(props: {
       if (ref) {
         ref.style.transform = `translate(-50%, -50%) rotate(${props.item[1]}deg) translate(0, -30px)`;
       }
-    })
+    }),
   );
 
   return <Child ref={ref}>{props.children(props.item[0])}</Child>;

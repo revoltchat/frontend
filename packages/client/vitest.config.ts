@@ -42,5 +42,5 @@ export default mergeConfig(
         "@test": resolve(__dirname, "test"),
       },
     },
-  })
+  }),
 );

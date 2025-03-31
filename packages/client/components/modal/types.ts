@@ -235,5 +235,5 @@ export type ReturnType =
     };
 export type PropGenerator<T extends Modals["type"]> = (
   props: ModalProps<T>,
-  onClose: () => void
+  onClose: () => void,
 ) => ReturnType;

@@ -1,5 +1,6 @@
 import { JSXElement, Match, Switch, createEffect } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 import { state } from "@revolt/state";
@@ -7,7 +8,6 @@ import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { Button, Checkbox, iconSize } from "@revolt/ui";
 
 import MdWarning from "@material-design-icons/svg/round/warning.svg?component-solid";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Age gate filter for any content
@@ -22,7 +22,7 @@ export function AgeGate(props: {
   const confirmed = state.layout.getSectionState(LAYOUT_SECTIONS.MATURE, false);
   const allowed = state.layout.getSectionState(
     props.contentId + "-nsfw",
-    false
+    false,
   );
 
   return (
@@ -39,7 +39,7 @@ export function AgeGate(props: {
             <Checkbox
               value={state.layout.getSectionState(
                 LAYOUT_SECTIONS.MATURE,
-                false
+                false,
               )}
               onChange={() =>
                 state.layout.toggleSectionState(LAYOUT_SECTIONS.MATURE, false)

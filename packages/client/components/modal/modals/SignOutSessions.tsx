@@ -1,4 +1,5 @@
 import { Trans } from "@lingui-solid/solid/macro";
+
 import { PropGenerator } from "../types";
 
 /**

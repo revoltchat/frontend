@@ -1,5 +1,6 @@
 import { Component, Show } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
 
 import { getController } from "@revolt/common";
@@ -60,7 +61,6 @@ import sync from "./Sync";
 import { AccountCard } from "./_AccountCard";
 import { MyBots, ViewBot } from "./bots";
 import { EditProfile } from "./profile";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * All the available routes for client settings

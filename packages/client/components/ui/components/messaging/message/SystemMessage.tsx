@@ -1,6 +1,6 @@
 import { JSX, Match, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import {
   ChannelEditSystemMessage,
   ChannelOwnershipChangeSystemMessage,
@@ -11,10 +11,10 @@ import {
   UserModeratedSystemMessage,
   UserSystemMessage,
 } from "revolt.js";
-
 import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
+
 import { RenderMention } from "@revolt/markdown/plugins/mentions";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

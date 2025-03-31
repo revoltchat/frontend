@@ -141,7 +141,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
         (x) =>
           typeof x !== "object" ||
           typeof x.id !== "string" ||
-          typeof x.mention !== "boolean"
+          typeof x.mention !== "boolean",
       );
 
     const messageDrafts = input.drafts;
@@ -229,7 +229,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   setDraft(
     channelId: string,
-    data?: DraftData | ((data: DraftData) => DraftData)
+    data?: DraftData | ((data: DraftData) => DraftData),
   ) {
     if (typeof data === "function") {
       data = data(this.getDraft(channelId));
@@ -325,7 +325,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
           xhr.open(
             "POST",
             `${client.configuration!.features.autumn.url}/attachments`,
-            true
+            true,
           );
 
           xhr.send(body);
@@ -356,8 +356,8 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
         "outbox",
         channel.id,
         this.getPendingMessages(channel.id).filter(
-          (entry) => entry.idempotencyKey !== idempotencyKey
-        )
+          (entry) => entry.idempotencyKey !== idempotencyKey,
+        ),
       );
     } catch (err) {
       this.set(
@@ -369,8 +369,8 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
                 ...entry,
                 status: "failed",
               }
-            : entry
-        )
+            : entry,
+        ),
       );
     }
   }
@@ -405,7 +405,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   retrySend(client: Client, channel: Channel, idempotencyKey: string) {
     batch(() => {
       const draft = this.get().outbox[channel.id].find(
-        (entry) => entry.idempotencyKey === idempotencyKey
+        (entry) => entry.idempotencyKey === idempotencyKey,
       );
       // TODO: validation?
 
@@ -424,8 +424,8 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       "outbox",
       channel.id,
       this.getPendingMessages(channel.id).filter(
-        (entry) => entry.idempotencyKey !== idempotencyKey
-      )
+        (entry) => entry.idempotencyKey !== idempotencyKey,
+      ),
     );
   }
 
@@ -492,7 +492,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     // Ignore if reply already exists
     if (
       this.getDraft(message.channelId).replies?.find(
-        (reply) => reply.id === message.id
+        (reply) => reply.id === message.id,
       )
     )
       return;
@@ -528,7 +528,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
           // Save current mention reply state as new default
           this.state.layout.setSectionState(
             LAYOUT_SECTIONS.MENTION_REPLY,
-            !reply.mention
+            !reply.mention,
           );
 
           return { ...reply, mention: !reply.mention };

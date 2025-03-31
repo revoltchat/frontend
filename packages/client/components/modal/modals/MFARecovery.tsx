@@ -1,10 +1,10 @@
 import { For, createSignal } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 import { modalController } from "..";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * List of recovery codes

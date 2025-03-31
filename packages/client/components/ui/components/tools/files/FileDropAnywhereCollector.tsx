@@ -13,15 +13,15 @@ import {
   onMount,
 } from "solid-js";
 import { Portal } from "solid-js/web";
-import { styled } from "styled-system/jsx";
-
 import { Motion } from "solid-motionone";
+
+import { Plural } from "@lingui-solid/solid/macro";
+import { styled } from "styled-system/jsx";
 
 import { getController } from "@revolt/common";
 
 import { PreviewStack } from "../../design";
 import { typography } from "../../design/atoms/display/Typography";
-import { Plural } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -165,7 +165,7 @@ export function FileDropAnywhereCollector(props: Props) {
           item,
           index * (80 / items().length) -
             (items().length - 1) * (40 / items().length),
-        ] as [DataTransferItem, number]
+        ] as [DataTransferItem, number],
     );
 
   return (

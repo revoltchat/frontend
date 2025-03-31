@@ -27,7 +27,7 @@ export default function codegenPlugin() {
                 [key]: value,
               };
             },
-            { type }
+            { type },
           ) as {
             type: "directives";
             props?: string;
@@ -52,7 +52,7 @@ export default function codegenPlugin() {
           if (!id.endsWith("client/components/ui/index.tsx"))
             src =
               `import { ${DIRECTIVES.join(
-                ", "
+                ", ",
               )} } from "@revolt/ui/directives";\n` + src;
         }
 

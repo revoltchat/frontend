@@ -30,7 +30,7 @@ export const Sidebar = (props: {
         setServerOrder={state.ordering.setServerOrder}
         unreadConversations={state.ordering.orderedConversations.filter(
           // TODO: muting channels
-          (channel) => channel.unread
+          (channel) => channel.unread,
         )}
         user={user()!}
         selectedServer={() => params.server}
@@ -66,7 +66,7 @@ const Home: Component = () => {
       openSavedNotes={(navigate) => {
         // Check whether the saved messages channel exists already
         const channelId = [...client()!.channels.values()].find(
-          (channel) => channel.type === "SavedMessages"
+          (channel) => channel.type === "SavedMessages",
         )?.id;
 
         if (navigate) {

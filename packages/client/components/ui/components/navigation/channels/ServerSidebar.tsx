@@ -17,9 +17,10 @@ import {
   onCleanup,
   onMount,
 } from "solid-js";
-import { styled } from "styled-system/jsx";
 
+import { useLingui } from "@lingui-solid/solid/macro";
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { getController } from "@revolt/common";
 import { KeybindAction } from "@revolt/keybinds/actions";
@@ -32,13 +33,12 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 import { iconSize } from "../../..";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Header } from "../../design/atoms/display/Header";
-import { typography, Typography } from "../../design/atoms/display/Typography";
+import { Typography, typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
 import { Tooltip } from "../../floating";
 
 import { SidebarBase } from "./common";
-import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -97,12 +97,12 @@ export const ServerSidebar = (props: Props) => {
     const channels = visibleChannels();
 
     const currentChannelIndex = channels.findIndex(
-      (channel) => channel.id === props.channelId
+      (channel) => channel.id === props.channelId,
     );
 
     // this will wrap the index around
     const nextChannel = channels.at(
-      (currentChannelIndex + byOffset) % channels.length
+      (currentChannelIndex + byOffset) % channels.length,
     );
 
     if (nextChannel) {
@@ -116,22 +116,22 @@ export const ServerSidebar = (props: Props) => {
   onMount(() => {
     keybinds.addEventListener(
       KeybindAction.NavigateChannelUp,
-      navigateChannelUp
+      navigateChannelUp,
     );
     keybinds.addEventListener(
       KeybindAction.NavigateChannelDown,
-      navigateChannelDown
+      navigateChannelDown,
     );
   });
 
   onCleanup(() => {
     keybinds.removeEventListener(
       KeybindAction.NavigateChannelUp,
-      navigateChannelUp
+      navigateChannelUp,
     );
     keybinds.removeEventListener(
       KeybindAction.NavigateChannelDown,
-      navigateChannelDown
+      navigateChannelDown,
     );
   });
 
@@ -191,7 +191,7 @@ export const ServerSidebar = (props: Props) => {
  * Server Information
  */
 function ServerInfo(
-  props: Pick<Props, "server" | "openServerInfo" | "openServerSettings">
+  props: Pick<Props, "server" | "openServerInfo" | "openServerSettings">,
 ) {
   return (
     <Row align grow>
@@ -259,7 +259,7 @@ function Category(
   props: {
     category: CategoryData;
     channelId: string | undefined;
-  } & Pick<Props, "menuGenerator">
+  } & Pick<Props, "menuGenerator">,
 ) {
   const [shown, setShown] = createSignal(true);
   const channels = createMemo(() =>
@@ -268,8 +268,8 @@ function Category(
         props.category.id === "default" ||
         shown() ||
         channel.unread ||
-        channel.id === props.channelId
-    )
+        channel.id === props.channelId,
+    ),
   );
 
   return (
@@ -341,7 +341,7 @@ const CategoryBase = styled("div", {
  * Server channel entry
  */
 function Entry(
-  props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">
+  props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">,
 ) {
   return (
     <a href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}>

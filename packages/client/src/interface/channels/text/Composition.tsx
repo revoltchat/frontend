@@ -6,6 +6,7 @@ import {
 } from "solid-icons/bi";
 import { For, Match, Show, Switch, onCleanup, onMount } from "solid-js";
 
+import { useLingui } from "@lingui-solid/solid/macro";
 import { API, Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -22,11 +23,11 @@ import {
   MessageBox,
   MessageReplyPreview,
 } from "@revolt/ui";
+
 import {
   registerKeybindWithPriority,
   unregisterKeybindWithPriority,
 } from "../../../shared/lib/priorityKeybind";
-import { useLingui } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**
@@ -151,7 +152,7 @@ export function MessageComposition(props: Props) {
    * @param event Keyboard Event
    */
   function onKeyDownMessageBox(
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement }
+    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
   ) {
     const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
     const usingBracketIndent =
@@ -307,7 +308,7 @@ export function MessageComposition(props: Props) {
     }
 
     const validFiles = Array.from(files).filter(
-      (file) => file.size <= 20_000_000
+      (file) => file.size <= 20_000_000,
     );
 
     for (const file of validFiles) {
@@ -453,8 +454,8 @@ export function MessageComposition(props: Props) {
           props.channel.type === "SavedMessages"
             ? t`Save to your notes`
             : props.channel.type === "DirectMessage"
-            ? t`Message ${props.channel.recipient?.username}`
-            : t`Message ${props.channel.name}`
+              ? t`Message ${props.channel.recipient?.username}`
+              : t`Message ${props.channel.name}`
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
         autoCompleteConfig={{
@@ -463,13 +464,13 @@ export function MessageComposition(props: Props) {
           searchSpace: props.channel.server
             ? {
                 members: client().serverMembers.filter(
-                  (member) => member.id.server === props.channel.serverId
+                  (member) => member.id.server === props.channel.serverId,
                 ),
                 channels: props.channel.server.channels,
               }
             : props.channel.type === "Group"
-            ? { users: props.channel.recipients, channels: [] }
-            : { channels: [] },
+              ? { users: props.channel.recipients, channels: [] }
+              : { channels: [] },
         }}
         updateDraftSelection={(start, end) =>
           state.draft.setSelection(props.channel.id, start, end)

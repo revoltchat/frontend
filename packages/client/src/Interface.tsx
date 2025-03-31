@@ -1,6 +1,7 @@
 import { JSX, Match, Switch, createEffect, onCleanup, onMount } from "solid-js";
 
 import { Server } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
 import { clientController } from "@revolt/client";
@@ -11,7 +12,6 @@ import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { Preloader } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
-import { styled } from "styled-system/jsx";
 
 import { Sidebar } from "./interface/Sidebar";
 
@@ -38,14 +38,14 @@ const Interface = (props: { children: JSX.Element }) => {
   onMount(() => {
     keybinds.addEventListener(
       KeybindAction.DeveloperToggleAllExperiments,
-      state.experiments.toggleSafeMode
+      state.experiments.toggleSafeMode,
     );
   });
 
   onCleanup(() => {
     keybinds.removeEventListener(
       KeybindAction.DeveloperToggleAllExperiments,
-      state.experiments.toggleSafeMode
+      state.experiments.toggleSafeMode,
     );
   });
 

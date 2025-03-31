@@ -178,7 +178,7 @@ export function Markdown(props: MarkdownProps) {
         schema: html,
         listDepth: 0,
       },
-      hastNode
+      hastNode,
     );
   }
 
@@ -190,8 +190,8 @@ export function Markdown(props: MarkdownProps) {
     on(
       () => props.content,
       (content) => setChildren(render(content)),
-      { defer: true }
-    )
+      { defer: true },
+    ),
   );
 
   // Give it to Solid:

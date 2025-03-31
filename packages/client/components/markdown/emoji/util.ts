@@ -12,7 +12,7 @@ export const RE_CUSTOM_EMOJI = /:([0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}):/g;
  */
 export const RE_ANY_EMOJI = new RegExp(
   RE_CUSTOM_EMOJI.source + "|" + emojiRegex().source,
-  "g"
+  "g",
 );
 
 /**
@@ -31,7 +31,7 @@ export function isOnlyEmoji(text: string) {
  */
 export function injectEmojiSize(
   props: MarkdownProps,
-  hastNode: { children?: { properties: Record<string, string> }[] }
+  hastNode: { children?: { properties: Record<string, string> }[] },
 ) {
   const content = props.content ?? "";
 
@@ -85,7 +85,7 @@ export function toCodepoint(input: string) {
           pairs.push(
             (input.charCodeAt(i) - 0xd800) * 0x400 +
               (input.charCodeAt(i + 1) - 0xdc00) +
-              0x10000
+              0x10000,
           );
         }
       } else if (input.charCodeAt(i) < 0xd800 || input.charCodeAt(i) > 0xdfff) {

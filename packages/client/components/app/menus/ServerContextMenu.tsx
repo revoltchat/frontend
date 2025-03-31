@@ -1,5 +1,6 @@
 import { Show } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -19,7 +20,6 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Context menu for servers
@@ -42,8 +42,8 @@ export function ServerContextMenu(props: { server: Server }) {
     const channel = props.server.orderedChannels
       .find((category) =>
         category.channels.find((channel) =>
-          channel.havePermission("InviteOthers")
-        )
+          channel.havePermission("InviteOthers"),
+        ),
       )!
       .channels.find((channel) => channel.havePermission("InviteOthers"))!;
 
@@ -101,7 +101,7 @@ export function ServerContextMenu(props: { server: Server }) {
   function openAdminPanel() {
     window.open(
       `https://admin.revolt.chat/panel/inspect/server/${props.server.id}`,
-      "_blank"
+      "_blank",
     );
   }
 
@@ -117,7 +117,7 @@ export function ServerContextMenu(props: { server: Server }) {
    */
   const permissionInviteOthers = () =>
     props.server.channels.find((channel) =>
-      channel.havePermission("InviteOthers")
+      channel.havePermission("InviteOthers"),
     );
 
   /**

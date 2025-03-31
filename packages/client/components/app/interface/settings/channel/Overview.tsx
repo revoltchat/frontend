@@ -1,14 +1,14 @@
+import { createFormControl, createFormGroup } from "solid-forms";
 import { Show } from "solid-js";
 
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import type { API } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
 import { CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
 
 import { ChannelSettingsProps } from ".";
-import { createFormControl, createFormGroup } from "solid-forms";
-import { CONFIGURATION } from "@revolt/common";
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Channel overview
@@ -21,7 +21,7 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
     name: createFormControl(props.channel.name),
     description: createFormControl(props.channel.description || ""),
     icon: createFormControl<string | File[] | null>(
-      props.channel.animatedIconURL
+      props.channel.animatedIconURL,
     ),
   });
 
@@ -66,7 +66,7 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
             headers: {
               [key]: value,
             },
-          }
+          },
         ).then((res) => res.json());
 
         changes.icon = data.id;

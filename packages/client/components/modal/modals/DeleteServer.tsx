@@ -1,9 +1,10 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { useClient } from "@revolt/client";
 
 import { modalController } from "..";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to delete a server

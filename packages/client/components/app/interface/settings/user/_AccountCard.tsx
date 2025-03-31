@@ -1,3 +1,5 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { useClient } from "@revolt/client";
 import { Avatar, OverflowingText, Ripple, typography } from "@revolt/ui";
 
@@ -8,7 +10,6 @@ import {
   SidebarButtonContent,
   SidebarButtonTitle,
 } from "../_layout/SidebarButton";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Account Card

@@ -1,5 +1,6 @@
 import { Match, Show, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
 import { getController } from "@revolt/common";
@@ -19,7 +20,6 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Context menu for channels
@@ -79,7 +79,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
   function openAdminPanel() {
     window.open(
       `https://admin.revolt.chat/panel/inspect/channel/${props.channel.id}`,
-      "_blank"
+      "_blank",
     );
   }
 
@@ -90,7 +90,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
     navigator.clipboard.writeText(
       `${location.origin}${
         props.channel.server ? `/server/${props.channel.server?.id}` : ""
-      }/channel/${props.channel.id}`
+      }/channel/${props.channel.id}`,
     );
   }
 

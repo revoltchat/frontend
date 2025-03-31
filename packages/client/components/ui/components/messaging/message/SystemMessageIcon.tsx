@@ -13,9 +13,9 @@ import {
   BiSolidXCircle,
 } from "solid-icons/bi";
 import { Match, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
 import { SystemMessage } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { Time } from "../../design";
 import { formatTime } from "../../design/atoms/display/Time";

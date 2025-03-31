@@ -101,7 +101,7 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
         .filter(
           (channel) =>
             (channel.type === "DirectMessage" && channel.active) ||
-            channel.type === "Group"
+            channel.type === "Group",
         )
         .sort((a, b) => +b.updatedAt - +a.updatedAt) ?? []
     );

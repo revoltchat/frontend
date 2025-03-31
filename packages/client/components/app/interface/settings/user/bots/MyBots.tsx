@@ -1,5 +1,7 @@
 import { ErrorBoundary, For, Suspense } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { useClient } from "@revolt/client";
 import { createOwnBotsResource } from "@revolt/client/resources";
 import { modalController } from "@revolt/modal";
@@ -16,7 +18,6 @@ import MdLibraryBooks from "@material-design-icons/svg/outlined/library_books.sv
 import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?component-solid";
 
 import { useSettingsNavigation } from "../../Settings";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * View all owned bots

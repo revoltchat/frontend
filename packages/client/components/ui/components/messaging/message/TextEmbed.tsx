@@ -1,7 +1,7 @@
 import { Match, Show, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
 import { TextEmbed as TextEmbedClass, WebsiteEmbed } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { Markdown } from "@revolt/markdown";
 

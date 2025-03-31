@@ -1,9 +1,9 @@
+import { Plural } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
-import { iconSize, Ripple } from "../../../..";
-import { Plural } from "@lingui-solid/solid/macro";
+import { Ripple, iconSize } from "../../../..";
 
 /**
  * Base styles

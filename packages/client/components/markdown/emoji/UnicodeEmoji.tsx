@@ -9,7 +9,7 @@ export function UnicodeEmoji(
   props: { emoji: string } & Omit<
     ComponentProps<typeof EmojiBase>,
     "loading" | "class" | "alt" | "draggable" | "src"
-  >
+  >,
 ) {
   const [local, remote] = splitProps(props, ["emoji"]);
 
@@ -21,7 +21,7 @@ export function UnicodeEmoji(
       alt={local.emoji}
       draggable={false}
       src={`https://static.revolt.chat/emoji/fluent-3d/${toCodepoint(
-        local.emoji
+        local.emoji,
       )}.svg?v=1`}
     />
   );

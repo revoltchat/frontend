@@ -1,5 +1,6 @@
 import { Show } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Message } from "revolt.js";
 
 import { useClient, useUser } from "@revolt/client";
@@ -20,7 +21,6 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Context menu for messages
@@ -81,7 +81,7 @@ export function MessageContextMenu(props: { message: Message }) {
   function openAdminPanel() {
     window.open(
       `https://admin.revolt.chat/panel/inspect/message/${props.message.id}`,
-      "_blank"
+      "_blank",
     );
   }
 
@@ -92,7 +92,7 @@ export function MessageContextMenu(props: { message: Message }) {
     navigator.clipboard.writeText(
       `${location.origin}${
         props.message.server ? `/server/${props.message.server?.id}` : ""
-      }/channel/${props.message.channelId}/${props.message.id}`
+      }/channel/${props.message.channelId}/${props.message.id}`,
     );
   }
 

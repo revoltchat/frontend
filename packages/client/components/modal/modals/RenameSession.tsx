@@ -1,4 +1,5 @@
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 

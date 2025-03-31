@@ -1,18 +1,18 @@
-import { createEffect, For } from "solid-js";
+import { For, createEffect } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { MFA, MFATicket } from "revolt.js";
 
 import { registerController } from "@revolt/common";
 
-import "../ui/styled.d.ts";
-
-import { RenderModal } from "./modals";
-import { Modals } from "./types";
 import {
   registerKeybindWithPriority,
   unregisterKeybindWithPriority,
 } from "../../src/shared/lib/priorityKeybind";
+import "../ui/styled.d.ts";
+
+import { RenderModal } from "./modals";
+import { Modals } from "./types";
 
 export type ActiveModal = {
   /**
@@ -128,7 +128,7 @@ export class ModalControllerExtended extends ModalController {
         state: "known",
         mfa,
         callback,
-      })
+      }),
     );
   }
 
@@ -143,7 +143,7 @@ export class ModalControllerExtended extends ModalController {
         identifier,
         secret,
         callback,
-      })
+      }),
     );
   }
 
@@ -200,7 +200,7 @@ export function ModalRenderer() {
   createEffect(() => {
     console.info(
       "[DEBUG] (2) Modal render targets updated:",
-      modalController.modals
+      modalController.modals,
     );
   });
 

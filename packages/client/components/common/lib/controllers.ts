@@ -32,7 +32,7 @@ const controllers = new Controllers();
  */
 export function registerController<K extends keyof typeof controllers>(
   key: K,
-  value: (typeof controllers)[K]
+  value: (typeof controllers)[K],
 ) {
   controllers[key] = value;
 }
@@ -43,7 +43,7 @@ export function registerController<K extends keyof typeof controllers>(
  * @returns Controller itself
  */
 export function getController<K extends keyof typeof controllers>(
-  key: K
+  key: K,
 ): (typeof controllers)[K] {
   return controllers[key];
 }

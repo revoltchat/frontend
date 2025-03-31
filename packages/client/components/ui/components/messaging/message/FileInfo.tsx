@@ -8,9 +8,9 @@ import {
   BiSolidVideo,
 } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
 import { File, MessageEmbed } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { Typography } from "../../design/atoms/display/Typography";
 import { Column, Row } from "../../design/layout";

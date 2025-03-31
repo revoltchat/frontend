@@ -1,12 +1,12 @@
 import { Component, Match, Switch, createMemo } from "solid-js";
 
 import { Channel } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Navigate, useParams } from "@revolt/routing";
 import { Header, Typography } from "@revolt/ui";
-import { styled } from "styled-system/jsx";
 
 import { AgeGate } from "./AgeGate";
 import { TextChannel } from "./text/TextChannel";

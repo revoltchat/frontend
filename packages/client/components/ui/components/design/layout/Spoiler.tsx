@@ -1,5 +1,6 @@
-import { Trans } from "@lingui-solid/solid/macro";
 import { Show, createSignal } from "solid-js";
+
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 interface Props {

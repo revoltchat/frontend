@@ -1,10 +1,12 @@
-import { Match, Show, splitProps, Switch } from "solid-js";
-import { Button, Row } from "../../design";
-import { styled } from "styled-system/jsx";
+import { Match, Show, Switch, splitProps } from "solid-js";
+
 import { css } from "styled-system/css";
-import { Ripple } from "../../material";
+import { styled } from "styled-system/jsx";
 
 import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
+
+import { Button, Row } from "../../design";
+import { Ripple } from "../../material";
 
 interface Props {
   /**

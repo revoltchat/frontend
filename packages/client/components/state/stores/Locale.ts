@@ -1,14 +1,15 @@
-import { State } from "..";
-
-import { AbstractStore } from ".";
 import {
-  browserPreferredLanguage,
   Language,
   Languages,
+  browserPreferredLanguage,
   loadAndSwitchLocale,
 } from "@revolt/i18n";
 import type { LocaleOptions } from "@revolt/i18n/Languages";
 import { updateTimeLocaleOptions } from "@revolt/i18n/dayjs";
+
+import { State } from "..";
+
+import { AbstractStore } from ".";
 
 export type TypeLocale = {
   /**
@@ -60,7 +61,7 @@ export class Locale extends AbstractStore<"locale", TypeLocale> {
       lang = this.default().lang;
     }
 
-    let options: LocaleOptions = {};
+    const options: LocaleOptions = {};
     if (typeof input.options?.dateFormat === "string") {
       options.dateFormat = input.options.dateFormat;
     }

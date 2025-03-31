@@ -1,13 +1,14 @@
 import { Match, Show, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+import { cva } from "styled-system/css";
+
 import { clientController } from "@revolt/client";
 import { TransitionType } from "@revolt/client/Controller";
 import { Navigate } from "@revolt/routing";
 import { Button, Column } from "@revolt/ui";
 
 import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
-import { cva } from "styled-system/css";
-import { Trans } from "@lingui-solid/solid/macro";
 
 const logo = cva({
   base: {

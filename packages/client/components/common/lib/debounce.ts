@@ -6,7 +6,7 @@
  */
 export function debounce<T, A extends T[]>(
   cb: (...args: A) => void,
-  duration: number
+  duration: number,
 ) {
   // Store the timer variable.
   let timer: number;

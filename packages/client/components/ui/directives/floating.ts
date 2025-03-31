@@ -10,7 +10,7 @@ export type FloatingElement = {
 };
 
 const [floatingElements, setFloatingElements] = createSignal<FloatingElement[]>(
-  []
+  [],
 );
 
 export { floatingElements };
@@ -29,7 +29,7 @@ export function registerFloatingElement(element: FloatingElement) {
  */
 export function unregisterFloatingElement(element: HTMLElement) {
   setFloatingElements((elements) =>
-    elements.filter((entry) => entry.element !== element)
+    elements.filter((entry) => entry.element !== element),
   );
 }
 

@@ -1,7 +1,8 @@
 import { Show } from "solid-js";
 
-import { Button } from "@revolt/ui";
 import { Trans } from "@lingui-solid/solid/macro";
+
+import { Button } from "@revolt/ui";
 
 interface Props {
   email?: string;

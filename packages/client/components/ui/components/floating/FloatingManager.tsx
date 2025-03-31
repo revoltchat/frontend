@@ -9,9 +9,9 @@ import {
   onMount,
 } from "solid-js";
 import { Portal } from "solid-js/web";
+import { Motion, Presence } from "solid-motionone";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { Motion, Presence } from "solid-motionone";
 import { cva } from "styled-system/css";
 
 import { FloatingElement, floatingElements } from "../../directives";

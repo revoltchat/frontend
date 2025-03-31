@@ -1,6 +1,5 @@
 /* eslint-disable */
 // @ts-nocheck
-
 /**
  * This file is provided under the MIT License
  * Copyright (c) 2015 Espen Hovlandsdal
@@ -42,7 +41,7 @@ type Context = {
 type TransformLink = (
   href: string,
   children: ElementContent[],
-  title?: string
+  title?: string,
 ) => string;
 type TransformImage = (src: string, alt: string, title?: string) => string;
 type TransformLinkTargetType =
@@ -55,7 +54,7 @@ type TransformLinkTargetType =
 type TransformLinkTarget = (
   href: string,
   children: ElementContent[],
-  title?: string
+  title?: string,
 ) => TransformLinkTargetType | undefined;
 
 type SolidMarkdownNames = keyof JSX.IntrinsicElements;
@@ -128,7 +127,7 @@ const tableElements = new Set(["table", "thead", "tbody", "tfoot", "tr"]);
 
 export function childrenToSolid(
   context: Context,
-  node: Element | Root
+  node: Element | Root,
 ): JSX.Element[] {
   const children: JSX.Element[] = [];
   let childIndex = -1;
@@ -168,7 +167,7 @@ function toSolid(
   context: Context,
   node: Element,
   index: number,
-  parent: Element | Root
+  parent: Element | Root,
 ): JSX.Element {
   const options = context.options;
   const parentSchema = context.schema;
@@ -236,7 +235,7 @@ function toSolid(
         ? options.linkTarget(
             String(properties.href || ""),
             node.children,
-            typeof properties.title === "string" ? properties.title : undefined
+            typeof properties.title === "string" ? properties.title : undefined,
           )
         : options.linkTarget;
   }
@@ -245,7 +244,7 @@ function toSolid(
     properties.href = options.transformLinkUri(
       String(properties.href || ""),
       node.children,
-      typeof properties.title === "string" ? properties.title : undefined
+      typeof properties.title === "string" ? properties.title : undefined,
     );
   }
 
@@ -274,7 +273,7 @@ function toSolid(
     properties.src = options.transformImageUri(
       String(properties.src || ""),
       String(properties.alt || ""),
-      typeof properties.title === "string" ? properties.title : undefined
+      typeof properties.title === "string" ? properties.title : undefined,
     );
   }
 
@@ -350,7 +349,7 @@ function getInputElement(node: Element | Root): Element | null {
 
 function getElementsBeforeCount(
   parent: Element | Root,
-  node?: Element
+  node?: Element,
 ): number {
   let index = -1;
   let count = 0;
@@ -367,13 +366,13 @@ function addProperty(
   props: Record<string, unknown>,
   prop: string,
   value: unknown,
-  ctx: Context
+  ctx: Context,
 ) {
   const info = find(ctx.schema, prop);
   let result = value;
 
   // Ignore nullish and `NaN` values.
-  // eslint-disable-next-line no-self-compare
+
   if (result === null || result === undefined || result !== result) {
     return;
   }
@@ -426,7 +425,7 @@ function flattenPosition(
     | {
         start: { line: null; column: null; offset: null };
         end: { line: null; column: null; offset: null };
-      }
+      },
 ): string {
   return [
     pos.start.line,

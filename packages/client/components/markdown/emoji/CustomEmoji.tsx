@@ -11,7 +11,7 @@ export function CustomEmoji(
   props: { id: string } & Omit<
     ComponentProps<typeof EmojiBase>,
     "loading" | "class" | "draggable" | "src"
-  >
+  >,
 ) {
   const [local, remote] = splitProps(props, ["id"]);
   const client = useClient();

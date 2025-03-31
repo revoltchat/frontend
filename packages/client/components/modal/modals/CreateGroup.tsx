@@ -1,8 +1,9 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import { useNavigate } from "@revolt/routing";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to create a new group channel

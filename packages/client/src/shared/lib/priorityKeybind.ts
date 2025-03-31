@@ -1,22 +1,27 @@
-export type SchedulePriority =
-  | 'user-blocking'
-  | 'user-visible'
-  | 'background';
+export type SchedulePriority = "user-blocking" | "user-visible" | "background";
 
 type KeybindHandler = (e: KeyboardEvent) => void | Promise<void>;
 
-const registeredHandlers = new Map<KeybindHandler, {
-  priority: number;
-  schedule: SchedulePriority;
-  key: string;
-}>();
+const registeredHandlers = new Map<
+  KeybindHandler,
+  {
+    priority: number;
+    schedule: SchedulePriority;
+    key: string;
+  }
+>();
 
-export function registerKeybindWithPriority(key: string, handler: KeybindHandler, priority = 0, schedule: SchedulePriority = 'user-blocking') {
+export function registerKeybindWithPriority(
+  key: string,
+  handler: KeybindHandler,
+  priority = 0,
+  schedule: SchedulePriority = "user-blocking",
+) {
   registeredHandlers.set(handler, {
     priority,
     key,
-    schedule
-  })
+    schedule,
+  });
 }
 
 export function unregisterKeybindWithPriority(handler: KeybindHandler) {
@@ -25,7 +30,9 @@ export function unregisterKeybindWithPriority(handler: KeybindHandler) {
 
 function catchAll(e: KeyboardEvent) {
   const entries = [...registeredHandlers.entries()];
-  const sorted = entries.toSorted(([_, { priority: a }], [__, { priority: b }]) => b - a);
+  const sorted = entries.toSorted(
+    ([_, { priority: a }], [__, { priority: b }]) => b - a,
+  );
   let maxPrio = 0;
 
   for (const [handler, { priority, key, schedule }] of sorted) {
@@ -55,7 +62,7 @@ function catchAll(e: KeyboardEvent) {
  * Needs to be called if you want to register handlers on key down
  */
 export function registerKeybindsWithPriority() {
-  document.addEventListener('keydown', catchAll)
+  document.addEventListener("keydown", catchAll);
 }
 
 /**
@@ -63,5 +70,5 @@ export function registerKeybindsWithPriority() {
  */
 export function disposeKeybindsWithPriority() {
   registeredHandlers.clear();
-  document.removeEventListener('keydown', catchAll)
+  document.removeEventListener("keydown", catchAll);
 }

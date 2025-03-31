@@ -17,9 +17,10 @@ import {
 
 import isEqual from "lodash.isequal";
 import { Channel, Message as MessageInterface } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
-import { useTime } from "@revolt/i18n";
 import { useClient } from "@revolt/client";
+import { useTime } from "@revolt/i18n";
 import {
   BlockedMessage,
   ConversationStart,
@@ -27,7 +28,6 @@ import {
   ListView,
   MessageDivider,
 } from "@revolt/ui";
-import { styled } from "styled-system/jsx";
 
 import { Message } from "./Message";
 
@@ -175,7 +175,7 @@ export function Messages(props: Props) {
    */
   function setMessagesSafely(...messagesArr: MessageInterface[][]) {
     setMessages(
-      messagesArr.flat().toSorted((a, b) => b.id.localeCompare(a.id))
+      messagesArr.flat().toSorted((a, b) => b.id.localeCompare(a.id)),
     );
   }
 
@@ -219,8 +219,8 @@ export function Messages(props: Props) {
           // If the messages fetched include the latest message,
           // then we are at the end and mark the channel as such.
           messages.findIndex(
-            (msg) => msg.id === props.channel.lastMessageId
-          ) !== -1
+            (msg) => msg.id === props.channel.lastMessageId,
+          ) !== -1,
         );
       }
       // Check if we're at the start of the conversation otherwise
@@ -233,7 +233,7 @@ export function Messages(props: Props) {
         const knownIds = new Set(collectedMessages!.map((x) => x.id));
         setMessagesSafely(
           collectedMessages!,
-          messages.filter((x) => !knownIds.has(x.id))
+          messages.filter((x) => !knownIds.has(x.id)),
         );
       }
       // Otherwise just replace the whole list
@@ -289,7 +289,7 @@ export function Messages(props: Props) {
         // Calculate how much we need to cut off the other end
         const tooManyBy = Math.max(
           0,
-          result.messages.length + messages().length - (props.limit ?? 0)
+          result.messages.length + messages().length - (props.limit ?? 0),
         );
 
         // If it's at least one element, we are no longer at the end
@@ -361,7 +361,7 @@ export function Messages(props: Props) {
         // Calculate how much we need to cut off the other end
         const tooManyBy = Math.max(
           0,
-          result.messages.length + messages().length - (props.limit ?? 0)
+          result.messages.length + messages().length - (props.limit ?? 0),
         );
 
         // If it's at least one element, we are no longer at the start
@@ -460,7 +460,7 @@ export function Messages(props: Props) {
         const knownIds = new Set(collectedMessages!.map((x) => x.id));
         setMessagesSafely(
           collectedMessages!,
-          messages.filter((x) => !knownIds.has(x.id))
+          messages.filter((x) => !knownIds.has(x.id)),
         );
 
         // Stop collecting messages
@@ -502,7 +502,7 @@ export function Messages(props: Props) {
      */
     const scrollToNearestMessage = () => {
       const index = messagesWithTail().findIndex(
-        (entry) => entry.t === 0 && entry.message.id === messageId
+        (entry) => entry.t === 0 && entry.message.id === messageId,
       ); // use localeCompare
 
       listRef!.children[index + (atStart() ? 1 : 0)].scrollIntoView({
@@ -566,8 +566,8 @@ export function Messages(props: Props) {
   createEffect(
     on(
       () => props.channel,
-      () => caseInitialLoad(props.highlightedMessageId())
-    )
+      () => caseInitialLoad(props.highlightedMessageId()),
+    ),
   );
 
   /**
@@ -581,8 +581,8 @@ export function Messages(props: Props) {
         if (messageId && messages()) {
           caseJumpToMessage(messageId);
         }
-      }
-    )
+      },
+    ),
   );
 
   /**
@@ -604,7 +604,7 @@ export function Messages(props: Props) {
       messages().find((msg) => msg.id === message.id)
     ) {
       setMessages((messages) =>
-        messages.filter((msg) => msg.id !== message.id)
+        messages.filter((msg) => msg.id !== message.id),
       );
     }
   }
@@ -695,7 +695,7 @@ export function Messages(props: Props) {
           objectCache.get(true) ?? {
             t: 1,
             unread: true,
-          }
+          },
         );
       }
 
@@ -711,7 +711,7 @@ export function Messages(props: Props) {
             t: 0,
             message,
             tail,
-          }
+          },
         );
       }
 
@@ -721,7 +721,7 @@ export function Messages(props: Props) {
           objectCache.get(date) ?? {
             t: 1,
             date: dayjs(date).format("LL"),
-          }
+          },
         );
       }
     });

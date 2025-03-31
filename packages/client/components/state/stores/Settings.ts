@@ -58,8 +58,10 @@ type ValueType<T extends keyof SettingsDefinition> =
   SettingsDefinition[T] extends boolean
     ? "boolean"
     : SettingsDefinition[T] extends string
-    ? "string"
-    : (v: Partial<SettingsDefinition[T]>) => SettingsDefinition[T] | undefined;
+      ? "string"
+      : (
+          v: Partial<SettingsDefinition[T]>,
+        ) => SettingsDefinition[T] | undefined;
 
 /**
  * Expected types of settings keys, enforce some sort of validation is present for all keys.
@@ -117,7 +119,7 @@ export class Settings extends AbstractStore<"settings", TypeSettings> {
 
       if (typeof expectedType === "function") {
         const cleanedValue = (expectedType as (value: unknown) => unknown)(
-          input[key]
+          input[key],
         );
         if (cleanedValue) {
           settings[key] = cleanedValue as never;

@@ -1,9 +1,11 @@
-import { getController } from "@revolt/common";
-import { createMemo, createResource, Show, Suspense } from "solid-js";
-import { useParams } from "@solidjs/router";
-import { Modal, Preloader } from "@revolt/ui";
-import { styled } from "styled-system/jsx";
 import { BiRegularCheck } from "solid-icons/bi";
+import { Show, Suspense, createMemo, createResource } from "solid-js";
+
+import { useParams } from "@solidjs/router";
+import { styled } from "styled-system/jsx";
+
+import { getController } from "@revolt/common";
+import { Modal, Preloader } from "@revolt/ui";
 
 const Centre = styled("div", {
   base: {
@@ -36,7 +38,7 @@ export function ConfirmDelete() {
     },
     {
       initialValue: false,
-    }
+    },
   );
 
   const title = createMemo(() => {

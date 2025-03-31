@@ -1,9 +1,10 @@
 import HCaptcha, { HCaptchaFunctions } from "solid-hcaptcha";
 import { For, JSX, Show, createSignal } from "solid-js";
 
-import { Checkbox2, Column, FormGroup, Text, TextField } from "@revolt/ui";
 import { useLingui } from "@lingui-solid/solid/macro";
+
 import { useError } from "@revolt/i18n";
+import { Checkbox2, Column, FormGroup, Text, TextField } from "@revolt/ui";
 
 /**
  * Available field types

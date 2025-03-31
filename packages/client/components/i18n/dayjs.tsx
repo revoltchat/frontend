@@ -1,21 +1,21 @@
-import dayjs from "dayjs";
 import { createSignal } from "solid-js";
-import { LanguageEntry, Languages, type LocaleOptions } from "./Languages";
 
+import { i18n } from "@lingui/core";
+import dayjs from "dayjs";
+import dayjs_en from "dayjs/esm/locale/en-gb.js";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import calendar from "dayjs/plugin/calendar";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocale from "dayjs/plugin/updateLocale";
 
+import { LanguageEntry, Languages, type LocaleOptions } from "./Languages";
+
 dayjs.extend(calendar);
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 dayjs.extend(advancedFormat);
 dayjs.extend(updateLocale);
-
-import dayjs_en from "dayjs/esm/locale/en-gb.js";
-import { i18n } from "@lingui/core";
 
 loadTimeLocale(Languages.en, {}, dayjs_en);
 
@@ -29,7 +29,7 @@ export { dayjs, timeLocale };
 export async function loadTimeLocale(
   language: LanguageEntry,
   localeOptions: LocaleOptions,
-  useLocale?: ILocale
+  useLocale?: ILocale,
 ) {
   const target = language.dayjs ?? language.i18n;
   const locale =
@@ -37,7 +37,7 @@ export async function loadTimeLocale(
     (target === "en-gb"
       ? dayjs_en
       : ((await import(`../../node_modules/dayjs/esm/locale/${target}.js`).then(
-          (module) => module.default
+          (module) => module.default,
         )) as ILocale));
 
   // merge options for calendar
@@ -68,9 +68,9 @@ export async function loadTimeLocale(
 export function updateTimeLocaleOptions(
   options: LocaleOptions,
   target?: string,
-  useLocale?: ILocale
+  useLocale?: ILocale,
 ) {
-  let [currentTarget, currentLocale] = timeLocale();
+  const [currentTarget, currentLocale] = timeLocale();
   target = target ?? currentTarget;
   useLocale = useLocale ?? currentLocale;
 

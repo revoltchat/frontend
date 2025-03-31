@@ -15,7 +15,9 @@ import {
   onMount,
 } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Session } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
@@ -31,8 +33,6 @@ import {
 
 import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
-import { styled } from "styled-system/jsx";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Sessions
@@ -47,7 +47,7 @@ export default function Sessions() {
   const otherSessions = createMemo(() =>
     client()
       .sessions.filter((session) => !session.current)
-      .sort((a, b) => +b.createdAt - +a.createdAt)
+      .sort((a, b) => +b.createdAt - +a.createdAt),
   );
 
   return (

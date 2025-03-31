@@ -57,7 +57,7 @@ export function UserSummary(props: {
                     placement: "top",
                     // todo
                     content: dayjs(props.user.createdAt).format(
-                      "[Account created] Do MMMM YYYY [at] HH:mm"
+                      "[Account created] Do MMMM YYYY [at] HH:mm",
                     ),
                   },
                 }}

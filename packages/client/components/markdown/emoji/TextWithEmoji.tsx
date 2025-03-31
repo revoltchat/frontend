@@ -38,7 +38,7 @@ export function TextWithEmoji(props: { content?: string }) {
           <CustomEmoji id={match[1]} />
         ) : (
           <UnicodeEmoji emoji={match[0]} />
-        )
+        ),
       );
 
       match = RE_ANY_EMOJI.exec(content);

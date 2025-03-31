@@ -1,7 +1,7 @@
 import { Match, Show, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
 import { File, ImageEmbed, VideoEmbed } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { getController } from "@revolt/common";
 

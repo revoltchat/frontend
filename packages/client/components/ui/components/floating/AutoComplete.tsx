@@ -1,7 +1,7 @@
 import { For, JSX, Match, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
 import { ServerMember } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
 
@@ -12,7 +12,7 @@ import { Avatar, Column, Row } from "../design";
  * Auto complete popup
  */
 export function AutoComplete(
-  props: Exclude<JSX.Directives["floating"]["autoComplete"], undefined>
+  props: Exclude<JSX.Directives["floating"]["autoComplete"], undefined>,
 ) {
   return (
     <Base>

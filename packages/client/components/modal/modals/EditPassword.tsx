@@ -1,4 +1,5 @@
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
+
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -29,7 +30,7 @@ const EditPassword: PropGenerator<"edit_password"> = (props) => {
     callback: async ({ password, currentPassword }) =>
       void (await props.client.account.changePassword(
         password,
-        currentPassword
+        currentPassword,
       )),
     submit: {
       children: <Trans>Update</Trans>,

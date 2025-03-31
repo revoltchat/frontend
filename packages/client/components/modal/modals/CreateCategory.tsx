@@ -1,8 +1,8 @@
+import { Trans } from "@lingui-solid/solid/macro";
 import { ulid } from "ulid";
 
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Modal to create a new category

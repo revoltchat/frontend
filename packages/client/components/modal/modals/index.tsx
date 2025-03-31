@@ -1,5 +1,6 @@
 import { JSX } from "solid-js";
 
+import { CONFIGURATION } from "@revolt/common";
 import { Modal } from "@revolt/ui";
 
 import { ActiveModal, modalController } from "..";
@@ -43,7 +44,6 @@ import server_info from "./ServerInfo";
 import settings from "./Settings";
 import sign_out_sessions from "./SignOutSessions";
 import signed_out from "./SignedOut";
-import { CONFIGURATION } from "@revolt/common";
 
 const Modals: Record<AllModals["type"], PropGenerator<any>> = {
   add_friend,
@@ -99,7 +99,7 @@ export function RenderModal(props: ActiveModal) {
   if (CONFIGURATION.DEBUG) {
     console.info(
       "components/modal — modal renderer created for type:",
-      props.props.type
+      props.props.type,
     );
   }
 
@@ -107,7 +107,7 @@ export function RenderModal(props: ActiveModal) {
     console.error(
       "Failed to create a modal for",
       props.props.type,
-      "as it is not registered!"
+      "as it is not registered!",
     );
     console.debug("Modals registered currently:", Modals);
     return null;

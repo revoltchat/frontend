@@ -1,13 +1,14 @@
 import { Accessor, Show } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+import { styled } from "styled-system/jsx";
 import { decodeTime } from "ulid";
+
+import { useTime } from "@revolt/i18n";
 
 import { Ripple } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
-import { styled } from "styled-system/jsx";
-import { Trans } from "@lingui-solid/solid/macro";
-import { useTime } from "@revolt/i18n";
 
 interface Props {
   /**

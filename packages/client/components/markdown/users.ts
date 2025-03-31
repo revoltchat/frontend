@@ -61,7 +61,7 @@ export function userInformation(user?: User, member?: ServerMember) {
  */
 export function useUsers(
   ids: string[] | Accessor<string[]>,
-  filterNull?: boolean
+  filterNull?: boolean,
 ): Accessor<(UserInformation | undefined)[]> {
   const clientAccessor = useClient();
 
@@ -82,7 +82,7 @@ export function useUsers(
                 server,
                 user: user.id,
               })
-            : undefined
+            : undefined,
         );
       }
     });

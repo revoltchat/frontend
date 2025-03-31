@@ -1,12 +1,12 @@
 import { For, Match, Show, Switch } from "solid-js";
-import { styled } from "styled-system/jsx";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { User } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { useUsers } from "@revolt/markdown/users";
 
-import { Avatar, OverflowingText, typography, Typography } from "../../design";
-import { Trans } from "@lingui-solid/solid/macro";
+import { Avatar, OverflowingText, Typography, typography } from "../../design";
 
 interface Props {
   /**
@@ -34,7 +34,7 @@ export function TypingIndicator(props: Props) {
         (user) =>
           typeof user !== "undefined" &&
           user.id !== props.ownId &&
-          user.relationship !== "Blocked"
+          user.relationship !== "Blocked",
       ) as User[]
     )
       .sort((a, b) => a!.id.toUpperCase().localeCompare(b!.id.toUpperCase()))

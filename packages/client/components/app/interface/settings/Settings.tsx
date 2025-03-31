@@ -5,8 +5,8 @@ import {
   untrack,
   useContext,
 } from "solid-js";
-
 import { Motion, Presence } from "solid-motionone";
+
 import { Rerun } from "@solid-primitives/keyed";
 
 import { SettingsConfiguration, SettingsEntry } from ".";
@@ -105,10 +105,10 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
                 transition() === "normal"
                   ? { opacity: 0, y: 50 }
                   : transition() === "to-child"
-                  ? {
-                      x: "100vw",
-                    }
-                  : { x: "-100vw" }
+                    ? {
+                        x: "100vw",
+                      }
+                    : { x: "-100vw" }
               }
               animate={{
                 opacity: 1,
@@ -119,10 +119,10 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
                 transition() === "normal"
                   ? undefined
                   : transition() === "to-child"
-                  ? {
-                      x: "-100vw",
-                    }
-                  : { x: "100vw" }
+                    ? {
+                        x: "-100vw",
+                      }
+                    : { x: "100vw" }
               }
               transition={{ duration: 0.2, easing: [0.17, 0.67, 0.58, 0.98] }}
             >

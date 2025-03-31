@@ -1,6 +1,6 @@
+import extractor from "@lingui-solid/babel-plugin-extract-messages/extractor";
 import { defineConfig } from "@lingui/cli";
 import { LinguiConfig } from "@lingui/conf";
-import extractor from "@lingui-solid/babel-plugin-extract-messages/extractor";
 
 export default defineConfig({
   sourceLocale: "en",

@@ -86,7 +86,7 @@ export const remarkMentions: Plugin = () => (tree) => {
           userId: match[1],
         });
       }
-    }
+    },
   );
 
   // This does not work:

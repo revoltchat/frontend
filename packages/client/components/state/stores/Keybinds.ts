@@ -12,7 +12,7 @@ import { AbstractStore } from ".";
 
 /** utility to make writing the default keybinds easier, requires all `KeybindAction` values to be filled out */
 function keybindMap(
-  obj: Record<KeybindAction, string[]>
+  obj: Record<KeybindAction, string[]>,
 ): Record<KeybindAction, KeyComboSequence[]> {
   const entries = Object.entries(obj) as [KeybindAction, string[]][];
   const parsed = entries.map(([act, seqs]) => [

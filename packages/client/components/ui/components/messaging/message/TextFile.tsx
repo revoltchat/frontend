@@ -1,14 +1,14 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
-import { styled } from "styled-system/jsx";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { File } from "revolt.js";
+import { styled } from "styled-system/jsx";
 
 import { Preloader } from "../../design/atoms/indicators";
 import { Button } from "../../design/atoms/inputs";
 import { Row } from "../../design/layout";
 
 import { humanFileSize } from "./Attachment";
-import { Trans } from "@lingui-solid/solid/macro";
 
 interface Props {
   /**

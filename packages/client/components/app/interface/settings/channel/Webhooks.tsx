@@ -1,6 +1,7 @@
 import { BiSolidCloud, BiSolidTrash } from "solid-icons/bi";
 import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import type { ChannelWebhook } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -9,7 +10,6 @@ import { Avatar, CategoryButton, Column, Preloader } from "@revolt/ui";
 import { useSettingsNavigation } from "../Settings";
 
 import { ChannelSettingsProps } from ".";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Webhooks
@@ -21,7 +21,7 @@ export default function Webhooks(props: ChannelSettingsProps) {
 
   onMount(() => {
     const existingWebhooks = client().channelWebhooks.filter(
-      (webhook) => webhook.channelId === props.channel.id
+      (webhook) => webhook.channelId === props.channel.id,
     );
 
     if (existingWebhooks.length) {

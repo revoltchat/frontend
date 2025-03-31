@@ -5,6 +5,7 @@ import {
   BiSolidTrash,
 } from "solid-icons/bi";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -14,9 +15,8 @@ import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from "..";
 
-import Webhooks, { Webhook } from "./Webhooks";
 import ChannelOverview from "./Overview";
-import { Trans } from "@lingui-solid/solid/macro";
+import Webhooks, { Webhook } from "./Webhooks";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -41,7 +41,6 @@ const Config: SettingsConfiguration<Channel> = {
    * Render the current channel settings page
    */
   render(props, channel) {
-    // eslint-disable-next-line solid/reactivity
     const id = props.page();
     const client = useClient();
 

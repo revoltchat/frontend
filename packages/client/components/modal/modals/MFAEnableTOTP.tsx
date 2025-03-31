@@ -1,11 +1,12 @@
 import { createSignal } from "solid-js";
 import { QRCodeSVG } from "solid-qr-code";
 
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
+import { styled } from "styled-system/jsx";
+
 import { Column, TextField } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
-import { styled } from "styled-system/jsx";
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
 
 /**
  * Wrapper element for the raw TOTP code

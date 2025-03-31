@@ -274,7 +274,7 @@ function Entry(
   props: { user: User } & Omit<
     JSX.AnchorHTMLAttributes<HTMLAnchorElement>,
     "href"
-  >
+  >,
 ) {
   const [local, remote] = splitProps(props, ["user"]);
 

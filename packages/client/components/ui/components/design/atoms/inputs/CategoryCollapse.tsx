@@ -6,12 +6,13 @@ import {
   createSignal,
   splitProps,
 } from "solid-js";
+
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Column } from "../../layout";
 
 import { CategoryButton } from "./CategoryButton";
-import { cva } from "styled-system/css";
 
 type Props = Omit<
   ComponentProps<typeof CategoryButton>,

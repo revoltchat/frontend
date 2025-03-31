@@ -1,3 +1,5 @@
+import { Trans } from "@lingui-solid/solid/macro";
+
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -8,7 +10,6 @@ import {
 } from "@revolt/ui";
 
 import MdAnimation from "@material-design-icons/svg/outlined/animation.svg?component-solid";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Accessibility settings page

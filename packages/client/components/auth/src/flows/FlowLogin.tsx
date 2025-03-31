@@ -1,5 +1,6 @@
 import { Match, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 import { State, TransitionType } from "@revolt/client/Controller";
@@ -13,7 +14,6 @@ import { clientController } from "../../../client";
 
 import { FlowTitle } from "./Flow";
 import { Fields, Form } from "./Form";
-import { Trans } from "@lingui-solid/solid/macro";
 
 const Logo = styled(RevoltSvg, {
   base: {

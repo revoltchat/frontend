@@ -1,7 +1,8 @@
 import { Component, ComponentProps, JSX, splitProps } from "solid-js";
 
-import { iconSize } from "@revolt/ui";
 import { styled } from "styled-system/jsx";
+
+import { iconSize } from "@revolt/ui";
 
 export const ContextMenu = styled("div", {
   base: {

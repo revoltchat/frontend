@@ -1,5 +1,9 @@
 import { Match, Show, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
+import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
+
 import { IS_DEV, useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
 import { modalController } from "@revolt/modal";
@@ -24,10 +28,6 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 import RevoltSvg from "../../public/assets/wordmark_wide_500px.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
-import { styled } from "styled-system/jsx";
-import { cva } from "styled-system/css";
-
-import { Trans } from "@lingui-solid/solid/macro";
 
 const Logo = styled(RevoltSvg, {
   base: {
@@ -181,7 +181,7 @@ export function HomePage() {
             <CategoryButton
               onClick={() =>
                 window.open(
-                  "https://wiki.revolt.chat/notes/project/financial-support/"
+                  "https://wiki.revolt.chat/notes/project/financial-support/",
                 )
               }
               description={

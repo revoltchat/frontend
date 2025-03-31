@@ -1,6 +1,7 @@
 import { BiLogosGithub, BiLogosMastodon, BiLogosTwitter } from "solid-icons/bi";
 import { JSX } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 import { Button, iconSize } from "@revolt/ui";
@@ -9,7 +10,6 @@ import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?componen
 
 import background from "./background.jpg";
 import { FlowBase } from "./flows/Flow";
-import { Trans } from "@lingui-solid/solid/macro";
 
 /**
  * Authentication page layout

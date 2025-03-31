@@ -1,7 +1,7 @@
 {
-  "name": "resolvite",
+  "name": "revolt-for-web",
   "version": "1.0.0",
-  "description": "Revolt's front-end monorepo.",
+  "description": "Revolt for Web: frontend software for Revolt",
   "scripts": {
     "test": "pnpm --filter test-runner test",
     "test:coverage": "pnpm --filter test-runner coverage",
@@ -17,8 +17,8 @@
     "build:prod": "pnpm --filter client build:prod",
     "build:desktop": "pnpm --filter desktop tauri build",
     "start": "cd packages/client && pnpm run serve",
-    "fmt": "prettier --write '**/*.{ts,tsx,json}'",
-    "fmt:check": "prettier --check '**/*.{ts,tsx,json}'",
+    "fmt": "prettier --write 'packages/client/**/*.{ts,tsx,json}'",
+    "fmt:check": "prettier --check 'packages/client/**/*.{ts,tsx,json}'",
     "typecheck": "cd packages/client && pnpm run typecheck"
   },
   "devDependencies": {
