@@ -16,9 +16,8 @@ import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText } from "@revolt/ui";
 
-import { SettingsConfiguration } from "..";
-
-import Overview from "./Overview";
+import { SettingsConfiguration } from ".";
+import Overview from "./server/Overview";
 
 const Config: SettingsConfiguration<Server> = {
   /**

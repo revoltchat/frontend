@@ -13,10 +13,9 @@ import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText } from "@revolt/ui";
 
-import { SettingsConfiguration } from "..";
-
-import ChannelOverview from "./Overview";
-import Webhooks, { Webhook } from "./Webhooks";
+import { SettingsConfiguration } from ".";
+import ChannelOverview from "./channel/Overview";
+import Webhooks, { Webhook } from "./channel/Webhooks";
 
 const Config: SettingsConfiguration<Channel> = {
   /**

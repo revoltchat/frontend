@@ -9,7 +9,7 @@ import { Avatar, CategoryButton, Column, Preloader } from "@revolt/ui";
 
 import { useSettingsNavigation } from "../Settings";
 
-import { ChannelSettingsProps } from ".";
+import { ChannelSettingsProps } from "../ChannelSettings";
 
 /**
  * Webhooks

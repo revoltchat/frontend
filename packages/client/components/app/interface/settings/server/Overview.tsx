@@ -8,7 +8,7 @@ import { useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
 import { CircularProgress, Column, Form2, Row } from "@revolt/ui";
 
-import { ServerSettingsProps } from ".";
+import { ServerSettingsProps } from "../ServerSettings";
 
 /**
  * Server overview

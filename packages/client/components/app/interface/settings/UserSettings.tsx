@@ -45,22 +45,21 @@ import MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component
 import MdSync from "@material-design-icons/svg/outlined/sync.svg?component-solid";
 import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.svg?component-solid";
 
-import { SettingsConfiguration } from "..";
-
-import accessibility from "./Accessibility";
-import account from "./Account";
-import appearance from "./Appearance";
-import experiments from "./Experiments";
-import feedback from "./Feedback";
-import keybinds from "./Keybinds";
-import language from "./Language";
-import native from "./Native";
-import notifications from "./Notifications";
-import sessions from "./Sessions";
-import sync from "./Sync";
-import { AccountCard } from "./_AccountCard";
-import { MyBots, ViewBot } from "./bots";
-import { EditProfile } from "./profile";
+import { SettingsConfiguration } from ".";
+import accessibility from "./user/Accessibility";
+import account from "./user/Account";
+import appearance from "./user/Appearance";
+import experiments from "./user/Experiments";
+import feedback from "./user/Feedback";
+import keybinds from "./user/Keybinds";
+import language from "./user/Language";
+import native from "./user/Native";
+import notifications from "./user/Notifications";
+import sessions from "./user/Sessions";
+import sync from "./user/Sync";
+import { AccountCard } from "./user/_AccountCard";
+import { MyBots, ViewBot } from "./user/bots";
+import { EditProfile } from "./user/profile";
 
 /**
  * All the available routes for client settings

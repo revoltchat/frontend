@@ -1,9 +1,9 @@
 import { Accessor, JSX } from "solid-js";
 
+import channel from "./ChannelSettings";
+import server from "./ServerSettings";
 import { Settings, SettingsProps } from "./Settings";
-import channel from "./channel";
-import server from "./server";
-import user from "./user";
+import user from "./UserSettings";
 
 export { Settings } from "./Settings";
 
