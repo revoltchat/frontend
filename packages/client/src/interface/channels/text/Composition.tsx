@@ -7,7 +7,7 @@ import {
 import { For, Match, Show, Switch, onCleanup, onMount } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
-import { API, Channel } from "revolt.js";
+import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
