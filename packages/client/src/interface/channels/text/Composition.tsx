@@ -402,7 +402,7 @@ export function MessageComposition(props: Props) {
               }
             >
               <InlineIcon size="wide">
-                <Button variant="plain" size="fluid" onPress={addFile}>
+                <Button variant="plain" size="icon" onPress={addFile}>
                   <BiRegularPlus size={24} />
                 </Button>
               </InlineIcon>
@@ -417,7 +417,7 @@ export function MessageComposition(props: Props) {
                   <InlineIcon size="normal">
                     <Button
                       variant="plain"
-                      size="fluid"
+                      size="icon"
                       onPress={triggerProps.onClickGif}
                     >
                       <BiSolidFileGif size={24} />
@@ -428,7 +428,7 @@ export function MessageComposition(props: Props) {
                   <InlineIcon size="normal">
                     <Button
                       variant="plain"
-                      size="fluid"
+                      size="icon"
                       onPress={triggerProps.onClickEmoji}
                     >
                       <BiSolidHappyBeaming size={24} />
@@ -439,7 +439,7 @@ export function MessageComposition(props: Props) {
                   when={state.settings.getValue("appearance:show_send_button")}
                 >
                   <InlineIcon size="normal">
-                    <Button variant="plain" size="fluid" onPress={sendMessage}>
+                    <Button variant="plain" size="icon" onPress={sendMessage}>
                       <BiSolidSend size={24} />
                     </Button>
                   </InlineIcon>

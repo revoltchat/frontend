@@ -113,14 +113,14 @@ export function ChannelHeader(props: Props) {
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
-        <Button variant="plain" size="fluid" onPress={openChannelSettings}>
+        <Button variant="plain" size="icon" onPress={openChannelSettings}>
           <BiSolidCog size={24} />
         </Button>
       </Show>
 
       <Button
         variant="plain"
-        size="fluid"
+        size="icon"
         onPress={() =>
           state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)
         }
