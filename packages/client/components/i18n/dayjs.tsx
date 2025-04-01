@@ -17,8 +17,6 @@ dayjs.extend(relativeTime);
 dayjs.extend(advancedFormat);
 dayjs.extend(updateLocale);
 
-loadTimeLocale(Languages.en, {}, dayjs_en);
-
 /**
  * Internal signal, don't try to use this unless you know what you're doing!
  */
@@ -87,6 +85,13 @@ export function updateTimeLocaleOptions(
   };
 
   setTimeLocale([target, locale]);
+}
+
+/**
+ * Initialisation function
+ */
+export function initTime() {
+  loadTimeLocale(Languages.en, {}, dayjs_en);
 }
 
 /**

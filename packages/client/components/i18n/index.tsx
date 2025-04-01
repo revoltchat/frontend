@@ -5,13 +5,7 @@ import { i18n } from "@lingui/core";
 
 import { Language, Languages, type LocaleOptions } from "./Languages";
 import { messages as en } from "./catalogs/en/messages";
-import { loadTimeLocale } from "./dayjs";
-
-i18n.load({
-  en,
-});
-
-i18n.activate("en");
+import { initTime, loadTimeLocale } from "./dayjs";
 
 export function I18nProvider(props: { children: JSX.Element }) {
   return <LinguiProvider i18n={i18n}>{props.children}</LinguiProvider>;
@@ -64,3 +58,18 @@ export function browserPreferredLanguage() {
     Language.ENGLISH
   );
 }
+
+/**
+ * Initialise i18n engine
+ */
+export function initI18n() {
+  i18n.load({
+    en,
+  });
+
+  i18n.activate("en");
+
+  initTime();
+}
+
+initI18n();
