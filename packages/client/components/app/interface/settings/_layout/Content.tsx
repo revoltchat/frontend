@@ -7,6 +7,7 @@ import { Breadcrumbs, iconSize, typography } from "@revolt/ui";
 
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
+import { SettingsList } from "..";
 import { useSettingsNavigation } from "../Settings";
 
 /**
@@ -15,7 +16,8 @@ import { useSettingsNavigation } from "../Settings";
 export function SettingsContent(props: {
   onClose?: () => void;
   children: JSX.Element;
-  title: (key: string) => string;
+  list: Accessor<SettingsList>;
+  title: (ctx: SettingsList, key: string) => string;
   page: Accessor<string | undefined>;
 }) {
   const { navigate } = useSettingsNavigation();
@@ -33,7 +35,7 @@ export function SettingsContent(props: {
             <span class={typography({ class: "title", size: "large" })}>
               <Breadcrumbs
                 elements={props.page()!.split("/")}
-                renderElement={(key) => props.title(key)}
+                renderElement={(key) => props.title(props.list(), key)}
                 navigate={(keys) => navigate(keys.join("/"))}
               />
             </span>

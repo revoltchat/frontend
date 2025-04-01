@@ -16,9 +16,10 @@ export type SettingsConfiguration<T> = {
 
   /**
    * Render the title of the current breadcrumb key
+   * @param ctx Context from settings list
    * @param key Key
    */
-  title: (key: string) => string;
+  title: (ctx: SettingsList, key: string) => string;
 
   /**
    * Render the current settings page

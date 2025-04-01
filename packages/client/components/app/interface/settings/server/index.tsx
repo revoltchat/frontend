@@ -25,18 +25,17 @@ const Config: SettingsConfiguration<Server> = {
    * Page titles
    * @param key
    */
-  title(key) {
-    return "todo";
-    // return t(
-    //   `app.settings.server_pages.${key.replaceAll("/", ".")}.title` as any,
-    //   undefined,
-    //   key
-    // );
+  title(ctx, key) {
+    return ctx.entries
+      .flatMap((category) => category.entries)
+      .find((entry) => entry.id === key)?.title as string;
   },
 
   /**
    * Render the current server settings page
    */
+  // we take care of the reactivity ourselves
+  /* eslint-disable solid/components-return-once */
   render(props, server) {
     const id = props.page();
 
@@ -48,10 +47,12 @@ const Config: SettingsConfiguration<Server> = {
     switch (id) {
       case "overview":
         return <Overview server={server} />;
+
       default:
         return null;
     }
   },
+  /* eslint-enable solid/components-return-once */
 
   /**
    * Generate list of categories / entries for server settings

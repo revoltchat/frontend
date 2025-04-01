@@ -105,13 +105,15 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    * Page titles
    * @param key
    */
-  title(key) {
+  title(ctx, key) {
     if (key.startsWith("bots/")) {
       const user = useUser(key.substring(5));
       return user()!.username;
     }
 
-    return "todo " + key;
+    return ctx.entries
+      .flatMap((category) => category.entries)
+      .find((entry) => entry.id === key)?.title as string;
   },
 
   /**

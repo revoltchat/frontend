@@ -1,6 +1,7 @@
 import {
   Accessor,
   createContext,
+  createMemo,
   createSignal,
   untrack,
   useContext,
@@ -77,6 +78,11 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
     setPage(id);
   }
 
+  /**
+   * Generate list of categories / links
+   */
+  const list = createMemo(() => props.list(props.context));
+
   return (
     <SettingsNavigationContext.Provider
       value={{
@@ -84,13 +90,13 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
         navigate,
       }}
     >
-      <SettingsSidebar
-        context={props.context}
-        list={props.list}
+      <SettingsSidebar list={list} page={page} setPage={setPage} />
+      <SettingsContent
         page={page}
-        setPage={setPage}
-      />
-      <SettingsContent page={page} title={props.title} onClose={props.onClose}>
+        list={list}
+        title={props.title}
+        onClose={props.onClose}
+      >
         <Presence exitBeforeEnter>
           <Rerun on={page}>
             <Motion.div

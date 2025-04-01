@@ -21,9 +21,8 @@ import Webhooks, { Webhook } from "./Webhooks";
 const Config: SettingsConfiguration<Channel> = {
   /**
    * Page titles
-   * @param key
    */
-  title(key) {
+  title(ctx, key) {
     const client = useClient();
 
     if (key.startsWith("webhooks/")) {
@@ -31,15 +30,16 @@ const Config: SettingsConfiguration<Channel> = {
       return webhook!.name;
     }
 
-    // return t(
-    //   `app.settings.channel_pages.${key.replaceAll("/", ".")}.title` as any
-    // );
-    return "todo";
+    return ctx.entries
+      .flatMap((category) => category.entries)
+      .find((entry) => entry.id === key)?.title as string;
   },
 
   /**
    * Render the current channel settings page
    */
+  // we take care of the reactivity ourselves
+  /* eslint-disable solid/components-return-once */
   render(props, channel) {
     const id = props.page();
     const client = useClient();
@@ -50,12 +50,17 @@ const Config: SettingsConfiguration<Channel> = {
     }
 
     switch (id) {
+      case "overview":
+        return <ChannelOverview channel={channel} />;
+      case "permissions":
+        return null; // todo
       case "webhooks":
         return <Webhooks channel={channel} />;
       default:
-        return <ChannelOverview channel={channel} />;
+        return null;
     }
   },
+  /* eslint-enable solid/components-return-once */
 
   /**
    * Generate list of categories / entries for channel settings
