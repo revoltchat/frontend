@@ -7,12 +7,12 @@ import { typography } from "../../design/atoms/display/Typography";
  */
 export const FloatingIndicator = styled("div", {
   base: {
+    // for <Ripple />:
+    position: "relative",
+
     display: "flex",
     userSelect: "none",
     alignItems: "center",
-
-    // for <Ripple />:
-    position: "relative",
 
     width: "100%",
     gap: "var(--gap-md)",
@@ -21,21 +21,14 @@ export const FloatingIndicator = styled("div", {
 
     cursor: "pointer",
     backdropFilter: "var(--effects-blur-md)",
-    color: "var(--colours-messaging-indicator-foreground)",
-    backgroundColor: "var(--colours-messaging-indicator-background)",
 
     ...typography.raw({ size: "small" }),
 
-    // TODO: "@keyframes anim": {
-    //   "0%": {
-    //     transform: "translateY(var(--translateY))",
-    //   },
-    //   "100%": {
-    //     transform: "translateY(0px)",
-    //   },
-    // },
+    color: "var(--colours-messaging-indicator-foreground)",
+    backgroundColor:
+      "color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent)",
 
-    animation: "anim 340ms cubic-bezier(0.2, 0.9, 0.5, 1.16) forwards",
+    animation: "slideIn 340ms cubic-bezier(0.2, 0.9, 0.5, 1.16) forwards",
   },
   variants: {
     position: {

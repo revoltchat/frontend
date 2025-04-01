@@ -1,5 +1,6 @@
 import { Show } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 /**
@@ -11,7 +12,7 @@ const Base = styled("div", {
     display: "flex",
     userSelect: "none",
     alignItems: "center",
-    margin: "17px 12px 5px",
+    margin: "17px 12px 17px 8px",
 
     "& time": {
       marginTop: "-2px",
@@ -22,20 +23,22 @@ const Base = styled("div", {
 
       borderRadius: "var(--borderRadius-md)",
 
-      color: "var(--colours-messaging-component-message-divider-foreground)",
-      background: "var(--colours-background)",
+      color: "var(--md-sys-color-outline)",
+      background: "var(--md-sys-color-surface-container-lowest)",
     },
-
-    borderTop:
-      "thin solid var(--colours-messaging-component-message-divider-background)",
   },
   variants: {
     unread: {
       true: {
-        borderTop:
-          "thin solid var(--colours-messaging-component-message-divider-unread-background)",
+        borderTop: "thin solid var(--md-sys-color-primary)",
+      },
+      false: {
+        borderTop: "thin solid var(--md-sys-color-outline-variant)",
       },
     },
+  },
+  defaultVariants: {
+    unread: false,
   },
 });
 
@@ -46,12 +49,10 @@ const Unread = styled("div", {
   base: {
     fontSize: "0.625rem",
     fontWeight: 600,
-    color:
-      "var(--colours-messaging-component-message-divider-unread-foreground)",
-    background:
-      "var(--colours-messaging-component-message-divider-unread-background)",
+    color: "var(--md-sys-color-on-primary)",
+    background: "var(--md-sys-color-primary)",
 
-    padding: "2px 6px",
+    padding: "0 6px",
     marginTop: "-1px",
     borderRadius: "60px",
   },
@@ -76,7 +77,9 @@ export function MessageDivider(props: Props) {
   return (
     <Base unread={props.unread}>
       <Show when={props.unread}>
-        <Unread>NEW</Unread>
+        <Unread>
+          <Trans>NEW</Trans>
+        </Unread>
       </Show>
       <Show when={props.date}>
         <time>{props.date}</time>

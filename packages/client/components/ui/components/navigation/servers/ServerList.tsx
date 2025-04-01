@@ -344,12 +344,12 @@ const Shadow = styled("div", {
   base: {
     height: 0,
     zIndex: 1,
-    display: "relative",
+    position: "relative",
 
     "& div": {
       height: "12px",
       marginTop: "-12px",
-      display: "absolute",
+      position: "absolute",
       background:
         "linear-gradient(to bottom, transparent, var(--md-sys-color-surface-container-highest))",
     },

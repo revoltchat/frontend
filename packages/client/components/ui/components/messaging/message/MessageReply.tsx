@@ -52,10 +52,8 @@ export const Base = styled("div", {
       flexShrink: 0,
       alignSelf: "flex-end",
       borderStartStartRadius: "4px",
-      borderInlineStart:
-        "2px solid var(--colours-messaging-component-message-reply-hook)",
-      borderTop:
-        "2px solid var(--colours-messaging-component-message-reply-hook)",
+      borderInlineStart: "2px solid var(--md-sys-color-outline-variant)",
+      borderTop: "2px solid var(--md-sys-color-outline-variant)",
     },
   },
   variants: {
@@ -65,7 +63,7 @@ export const Base = styled("div", {
         "&::before": {
           content: '""',
           display: "block",
-          marginInlineEnd: "12px",
+          marginInlineEnd: "6px",
           marginInlineStart: "30px",
         },
       },
@@ -77,7 +75,11 @@ export const Base = styled("div", {
 });
 
 const user = cva({
-  base: { display: "flex", gap: "var(--gap-sm)" },
+  base: {
+    display: "flex",
+    alignItems: "center",
+    gap: "var(--gap-sm)",
+  },
 });
 
 const Attachments = styled("em", {

@@ -139,14 +139,16 @@ export function TextChannel(props: ChannelPageProps) {
             limit={150}
             lastReadId={lastId}
             pendingMessages={<DraftMessages channel={props.channel} />}
+            typingIndicator={
+              <TypingIndicator
+                users={props.channel.typing}
+                ownId={client().user!.id}
+              />
+            }
             highlightedMessageId={highlightMessageId}
             clearHighlightedMessage={() => navigate(".")}
             atEndRef={(ref) => (atEndRef = ref)}
             jumpToBottomRef={(ref) => (jumpToBottomRef = ref)}
-          />
-          <TypingIndicator
-            users={props.channel.typing}
-            ownId={client().user!.id}
           />
           <MessageComposition
             channel={props.channel}

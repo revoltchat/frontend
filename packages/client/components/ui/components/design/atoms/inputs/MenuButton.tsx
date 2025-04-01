@@ -80,20 +80,20 @@ const base = cva({
     },
     attention: {
       normal: {
-        color: "var(--colours-component-menubtn-default-foreground)",
-        background: "var(--colours-component-menubtn-default-background)",
+        color: "var(--md-sys-color-outline)",
+        background: "transparent",
       },
       muted: {
-        color: "var(--colours-component-menubtn-muted-foreground)",
-        background: "var(--colours-component-menubtn-muted-background)",
+        color: "var(--md-sys-color-outline-variant)",
+        background: "transparent",
       },
       active: {
-        color: "var(--colours-component-menubtn-selected-foreground)",
-        background: "var(--colours-component-menubtn-default-background)",
+        color: "var(--md-sys-color-on-surface)",
+        background: "transparent",
       },
       selected: {
-        color: "var(--colours-component-menubtn-selected-foreground)",
-        background: "var(--colours-component-menubtn-selected-background)",
+        color: "var(--md-sys-color-on-primary-container)",
+        background: "var(--md-sys-color-primary-container)",
       },
     },
     hasActions: {

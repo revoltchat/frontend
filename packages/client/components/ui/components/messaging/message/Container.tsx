@@ -102,11 +102,16 @@ const base = cva({
     flexDirection: "column",
 
     padding: "2px 0",
-    color: "var(--colours-foreground)",
     background: "transparent",
     marginTop: "12px !important",
     borderRadius: "var(--borderRadius-md)",
     minHeight: "1em",
+
+    transition: "background-color var(--transitions-fast)",
+
+    "&:hover": {
+      background: "var(--md-sys-color-surface-container)",
+    },
 
     "& a:hover": {
       textDecoration: "underline",
@@ -122,12 +127,12 @@ const base = cva({
     },
     mentioned: {
       true: {
-        background: "var(--colours-messaging-message-mentioned-background)",
+        background: "var(--md-sys-color-primary-container)",
       },
     },
     highlight: {
       true: {
-        outline: "2px solid red",
+        animation: "highlightMessage 3s",
       },
     },
     sendStatus: {

@@ -87,8 +87,8 @@ const button = cva({
       //   padding: "2px 12px",
       // },
       icon: {
-        width: "38px",
-        height: "38px",
+        width: "36px",
+        height: "36px",
       },
       fab: {
         width: "42px",

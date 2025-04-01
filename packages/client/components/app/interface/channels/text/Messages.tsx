@@ -58,6 +58,11 @@ interface Props {
   pendingMessages?: JSX.Element;
 
   /**
+   * Display typing indicator instead of padding
+   */
+  typingIndicator?: JSX.Element;
+
+  /**
    * Highlighted message id
    */
   highlightedMessageId: Accessor<string | undefined>;
@@ -671,12 +676,20 @@ export function Messages(props: Props) {
 
         // Compare time and properties of messages
         if (
+          // split up different authors
           message.authorId !== next.authorId ||
+          // split up chains which are too far apart
           Math.abs(btime - atime) >= 420000 ||
+          // treat masquerade as a change in author
           !isEqual(message.masquerade, next.masquerade) ||
+          // ensure all system messages render independently
           message.systemMessage ||
           next.systemMessage ||
-          message.replyIds?.length
+          // replies present on current message
+          message.replyIds?.length ||
+          // next message in history has already been read
+          // so there will be a message divider present
+          (next.id.localeCompare(lastReadId) === -1 && !insertedUnreadDivider)
         ) {
           tail = false;
         }
@@ -777,8 +790,10 @@ export function Messages(props: Props) {
               )}
             </For>
             {/* TODO: show (loading icon) OR (load more) */}
-            <Show when={atEnd()}>{props.pendingMessages}</Show>
-            <Padding />
+            <Show when={atEnd()}>
+              {props.pendingMessages}
+              {props.typingIndicator ?? <Padding />}
+            </Show>
           </div>
         </div>
       </ListView>
@@ -799,10 +814,10 @@ const AnchorToEnd = styled("div", {
     zIndex: 30,
     position: "relative",
 
-    "& div": {
-      bottom: 0,
+    "& > div": {
       width: "100%",
       position: "absolute",
+      bottom: "var(--gap-md)",
     },
   },
 });

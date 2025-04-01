@@ -7,8 +7,9 @@ import { styled } from "styled-system/jsx";
 import { Emoji } from "@revolt/markdown";
 import { useUsers } from "@revolt/markdown/users";
 
-import { Row, Typography } from "../../design";
+import { Row, Text } from "../../design";
 import { Tooltip } from "../../floating";
+import { Ripple } from "../../material";
 
 interface Props {
   /**
@@ -110,7 +111,10 @@ export function Reactions(props: Props) {
             />
           )}
         </For>
-        <AddReaction class="add">{"+"}</AddReaction>
+        <AddReaction class="add">
+          <Ripple />
+          {"+"}
+        </AddReaction>
       </List>
     </Show>
   );
@@ -175,14 +179,15 @@ function Reaction(props: {
           <span style={{ "--emoji-size": "3em" }}>
             <Emoji emoji={props.reaction} />
           </span>
-          <Typography variant="messages">
+          <Text class="_messages">
             <PeopleList>{peopleList()}</PeopleList>
-          </Typography>
+          </Text>
         </Row>
       )}
       aria={peopleList()}
     >
       <ReactionBase active={props.active} onClick={onClick}>
+        <Ripple />
         <Emoji emoji={props.reaction} /> {props.users?.size || 0}
       </ReactionBase>
     </Tooltip>
@@ -194,6 +199,9 @@ function Reaction(props: {
  */
 const ReactionBase = styled("div", {
   base: {
+    // for <Ripple />
+    position: "relative",
+
     display: "flex",
     flexDirection: "row",
     gap: "var(--gap-md)",
@@ -202,30 +210,25 @@ const ReactionBase = styled("div", {
     verticalAlign: "middle",
     padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-md)",
-    color: "var(--colours-messaging-component-reaction-foreground)",
-    background: "var(--colours-messaging-component-reaction-background)",
+
     transition: "var(--transitions-fast) all",
     fontWeight: 600,
     fontFeatureSettings: "'tnum' 1",
+
     "& img": {
       width: "1.2em",
       height: "1.2em",
       objectFit: "contain",
     },
-    "&:hover": {
-      filter: "brightness(0.9)",
-    },
-    "&:active": {
-      filter: "brightness(0.75)",
-    },
+
+    color: "var(--md-sys-color-on-surface-variant)",
+    background: "var(--md-sys-color-surface-variant)",
   },
   variants: {
     active: {
       true: {
-        color:
-          "var(--colours-messaging-component-reaction-selected-foreground)",
-        background:
-          "var(--colours-messaging-component-reaction-selected-background)",
+        color: "var(--md-sys-color-on-primary)",
+        background: "var(--md-sys-color-primary)",
       },
     },
   },
@@ -236,10 +239,13 @@ const ReactionBase = styled("div", {
  */
 const AddReaction = styled(ReactionBase, {
   base: {
+    // for <Ripple />
+    position: "relative",
+
     opacity: 0,
     justifyContent: "center",
     fontSize: "var(--emoji-size)",
-    background: "var(--colours-messaging-component-reaction-background)",
+    background: "var(--md-sys-color-surface-bright)",
     height: "33px",
     aspectRatio: "1/1",
     padding: "var(--gap-sm)",
@@ -253,7 +259,7 @@ const Divider = styled("div", {
   base: {
     width: "1px",
     height: "14px",
-    background: "var(--colours-messaging-component-reaction-foreground)",
+    background: "var(--md-sys-color-outline-variant)",
   },
 });
 

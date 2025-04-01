@@ -12,7 +12,32 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        slideIn: {
+          "0%": {
+            transform: "translateY(var(--translateY))",
+          },
+          "100%": {
+            transform: "translateY(0px)",
+          },
+        },
+        highlightMessage: {
+          "0%": {
+            background: "transparent",
+          },
+          "5%": {
+            background: "var(--md-sys-color-primary-container)",
+          },
+          "95%": {
+            background: "var(--md-sys-color-primary-container)",
+          },
+          "100%": {
+            background: "transparent",
+          },
+        },
+      },
+    },
   },
 
   // The output directory for your css system

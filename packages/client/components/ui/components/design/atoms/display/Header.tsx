@@ -87,7 +87,7 @@ export const BelowFloatingHeader = styled("div", {
     zIndex: "var(--layout-zIndex-floating-bar)",
 
     // i guess this works, probably refactor this later
-    "& > div div": {
+    "& > div > div": {
       width: "100%",
       position: "absolute",
       top: "var(--gap-md)",

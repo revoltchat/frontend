@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch } from "solid-js";
+import { For, Match, Switch } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { User } from "revolt.js";
@@ -6,7 +6,7 @@ import { styled } from "styled-system/jsx";
 
 import { useUsers } from "@revolt/markdown/users";
 
-import { Avatar, OverflowingText, Typography, typography } from "../../design";
+import { Avatar, OverflowingText, typography } from "../../design";
 
 interface Props {
   /**
@@ -43,8 +43,8 @@ export function TypingIndicator(props: Props) {
   const users = useUsers(userIds, true);
 
   return (
-    <Show when={users().length}>
-      <Base>
+    <Switch fallback={<Bar />}>
+      <Match when={users().length}>
         <Bar>
           <Avatars>
             <For each={users()}>
@@ -76,8 +76,8 @@ export function TypingIndicator(props: Props) {
             </Switch>
           </OverflowingText>
         </Bar>
-      </Base>
-    </Show>
+      </Match>
+    </Switch>
   );
 }
 
@@ -101,10 +101,8 @@ const Avatars = styled("div", {
  */
 const Bar = styled("div", {
   base: {
-    bottom: 0,
     width: "100%",
-    height: "26px",
-    position: "absolute",
+    minHeight: "26px",
 
     padding: "0 var(--gap-lg)",
     borderRadius: "var(--borderRadius-lg)",
@@ -119,14 +117,5 @@ const Bar = styled("div", {
     // backdropFilter: "var(--effects-blur-md)",
     color: "var(--colours-messaging-indicator-foreground)",
     // background: "var(--colours-messaging-indicator-background)",
-  },
-});
-
-/**
- * Position relatively to this space
- */
-const Base = styled("div", {
-  base: {
-    position: "relative",
   },
 });

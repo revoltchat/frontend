@@ -1,12 +1,15 @@
 import { Accessor, Show } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 import { decodeTime } from "ulid";
 
 import { useTime } from "@revolt/i18n";
 
-import { Ripple } from "../../..";
+import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
+
+import { Column, Ripple, Row, iconSize } from "../../..";
 
 import { FloatingIndicator } from "./FloatingIndicator";
 
@@ -47,7 +50,7 @@ export function NewMessages(props: Props) {
     <Show when={props.lastId()}>
       <FloatingIndicator position="top" onClick={props.jumpBack}>
         <Ripple />
-        <span style={{ "flex-grow": 1 }}>
+        <span class={css({ flexGrow: 1 })}>
           <Trans>
             New messages since {dayjs(decodeTime(props.lastId()!)).fromNow()}
           </Trans>
@@ -55,9 +58,9 @@ export function NewMessages(props: Props) {
         <span>
           <Trans>Jump to the beginning</Trans>
         </span>
-        {/* <CancelIcon onClick={onCancel}>
+        <CancelIcon onClick={onCancel}>
           <MdClose {...iconSize(16)} />
-        </CancelIcon> */}
+        </CancelIcon>
       </FloatingIndicator>
     </Show>
   );

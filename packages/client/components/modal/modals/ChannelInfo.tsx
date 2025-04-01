@@ -1,7 +1,7 @@
-import { BiRegularX } from "solid-icons/bi";
-
 import { Markdown } from "@revolt/markdown";
-import { Button, Column, Row, Text, Typography } from "@revolt/ui";
+import { Button, Column, Row, Text, iconSize } from "@revolt/ui";
+
+import MdClose from "@material-design-icons/svg/filled/close.svg?component-solid";
 
 import { PropGenerator } from "../types";
 
@@ -16,7 +16,7 @@ const ChannelInfo: PropGenerator<"channel_info"> = (props, onClose) => {
           <Text class="title">{`#${props.channel.name}`}</Text>
         </Column>
         <Button size="icon" variant="plain" onPress={onClose}>
-          <BiRegularX size={36} />
+          <MdClose {...iconSize(32)} />
         </Button>
       </Row>
     ),

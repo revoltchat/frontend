@@ -3,7 +3,6 @@ import {
   BiRegularHash,
   BiRegularPhoneCall,
   BiSolidCheckCircle,
-  BiSolidChevronRight,
   BiSolidCog,
 } from "solid-icons/bi";
 import {
@@ -27,13 +26,14 @@ import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useNavigate } from "@revolt/routing";
 
+import MdChevronRight from "@material-design-icons/svg/filled/chevron_right.svg?component-solid";
 import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
 
 import { iconSize } from "../../..";
 import { useKeybindActions } from "../../context/Keybinds";
 import { Header } from "../../design/atoms/display/Header";
-import { Typography, typography } from "../../design/atoms/display/Typography";
+import { typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
 import { Column, OverflowingText, Row } from "../../design/layout";
 import { Tooltip } from "../../floating";
@@ -279,7 +279,7 @@ function Category(
           open={shown()}
           onClick={() => setShown((shown) => !shown)}
         >
-          <BiSolidChevronRight size={12} />
+          <MdChevronRight {...iconSize(12)} />
           {props.category.title}
         </CategoryBase>
       </Show>
@@ -305,21 +305,24 @@ const CategoryBase = styled("div", {
     alignItems: "center",
     gap: "var(--gap-sm)",
 
-    padding: "0 4px",
+    padding: "0 var(--gap-sm)",
     cursor: "pointer",
     userSelect: "none",
     textTransform: "uppercase",
     transition: "var(--transitions-fast) all",
 
-    color: "var(--colours-sidebar-channels-category-foreground)",
+    "--color": "var(--md-sys-color-outline)",
+    color: "var(--color)",
+    fill: "var(--color)",
+
     ...typography.raw({ class: "label", size: "small" }),
 
     "&:hover": {
-      filter: "brightness(1.1)",
+      "--color": "var(--md-sys-color-on-surface-variant)",
     },
 
     "&:active": {
-      filter: "brightness(1.2)",
+      "--color": "var(--md-sys-color-on-surface)",
     },
 
     "& svg": {
@@ -329,7 +332,7 @@ const CategoryBase = styled("div", {
   variants: {
     open: {
       true: {
-        svg: {
+        "& svg": {
           transform: "rotateZ(90deg)",
         },
       },

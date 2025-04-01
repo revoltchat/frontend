@@ -1,4 +1,4 @@
-import { Match, Show, Switch } from "solid-js";
+import { Match, Switch } from "solid-js";
 
 import { Handler } from "mdast-util-to-hast";
 import { cva } from "styled-system/css";
@@ -23,8 +23,9 @@ const mention = cva({
     cursor: "pointer",
     fontWeight: 600,
     borderRadius: "var(--borderRadius-lg)",
-    color: "var(--colours-messaging-component-mention-foreground)",
-    background: "var(--colours-messaging-component-mention-background)",
+
+    color: "var(--md-sys-color-on-primary-container)",
+    background: "var(--md-sys-color-primary-container)",
   },
   variants: {
     valid: {

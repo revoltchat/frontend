@@ -3,7 +3,7 @@ import { Accessor, JSX, Show } from "solid-js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { Breadcrumbs, iconSize, typography } from "@revolt/ui";
+import { Breadcrumbs, Button, iconSize, typography } from "@revolt/ui";
 
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
@@ -45,9 +45,9 @@ export function SettingsContent(props: {
       </Show>
       <Show when={props.onClose}>
         <CloseAction>
-          <CloseAnchor onClick={props.onClose}>
+          <Button size="icon" variant="plain" onPress={props.onClose}>
             <MdClose {...iconSize(28)} />
-          </CloseAnchor>
+          </Button>
         </CloseAction>
       </Show>
     </div>
@@ -98,36 +98,6 @@ const InnerColumn = styled("div", {
     gap: "var(--gap-md)",
     display: "flex",
     flexDirection: "column",
-  },
-});
-
-/**
- * Button for closing settings page
- */
-const CloseAnchor = styled("a", {
-  base: {
-    width: "36px",
-    height: "36px",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "var(--borderRadius-full)",
-    border: "3px solid var(--colours-settings-close-anchor)",
-    transition: "var(--transitions-fast) background-color",
-    "& svg": {
-      transition: "var(--transitions-fast) background-color",
-      color: "var(--colours-settings-close-anchor) !important",
-    },
-    "&:hover": {
-      background: "var(--colours-settings-close-anchor)",
-    },
-    "&:hover svg": {
-      color: "var(--colours-settings-close-anchor-hover) !important",
-    },
-    "&:active": {
-      transform: "translateY(2px)",
-    },
   },
 });
 
