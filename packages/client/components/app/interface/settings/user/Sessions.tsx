@@ -31,13 +31,13 @@ import {
   iconSize,
 } from "@revolt/ui";
 
-import MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
+import _MdAutoMode from "@material-design-icons/svg/outlined/auto_mode.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
 
 /**
  * Sessions
  */
-export default function Sessions() {
+export function Sessions() {
   const client = useClient();
   onMount(() => client().sessions.fetch());
 

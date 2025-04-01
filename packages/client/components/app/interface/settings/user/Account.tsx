@@ -1,12 +1,4 @@
-import {
-  type Accessor,
-  Match,
-  Show,
-  Switch,
-  createMemo,
-  createSignal,
-  onMount,
-} from "solid-js";
+import { Match, Show, Switch, createMemo, createSignal } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 
@@ -22,16 +14,12 @@ import {
   CategoryCollapse,
   Column,
   Row,
-  Typography,
   iconSize,
 } from "@revolt/ui";
 
-import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
 import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
 import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
-import MdDraw from "@material-design-icons/svg/outlined/draw.svg?component-solid";
-import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
 import MdLock from "@material-design-icons/svg/outlined/lock.svg?component-solid";
 import MdMail from "@material-design-icons/svg/outlined/mail.svg?component-solid";
 import MdPassword from "@material-design-icons/svg/outlined/password.svg?component-solid";
@@ -44,7 +32,7 @@ import { UserSummary } from "./account/index";
 /**
  * Account Page
  */
-export default function MyAccount() {
+export function MyAccount() {
   const client = useClient();
   const profile = createOwnProfileResource();
   const { navigate } = useSettingsNavigation();

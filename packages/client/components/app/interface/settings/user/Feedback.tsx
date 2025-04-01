@@ -17,7 +17,7 @@ import MdViewKanban from "@material-design-icons/svg/outlined/view_kanban.svg?co
 /**
  * Feedback
  */
-export default function Feedback() {
+export function Feedback() {
   return (
     <Column gap="lg">
       <CategoryButtonGroup>

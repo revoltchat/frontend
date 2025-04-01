@@ -3,7 +3,6 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { useClient } from "@revolt/client";
 import { Avatar, OverflowingText, Ripple, typography } from "@revolt/ui";
 
-// import MdError from "@material-design-icons/svg/filled/error.svg?component-solid";
 import { useSettingsNavigation } from "../Settings";
 import {
   SidebarButton,
