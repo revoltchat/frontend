@@ -32,7 +32,7 @@ const base = cva({
     // padding: "var(--gap-md)",
 
     color: "white",
-    background: "var(--md-sys-color-surface)",
+    background: "var(--md-sys-color-surface-variant)",
     boxShadow: "0 0 6px var(--colours-component-context-menu-shadow)",
 
     width: "280px",

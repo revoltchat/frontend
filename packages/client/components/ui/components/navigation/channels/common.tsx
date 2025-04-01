@@ -14,8 +14,9 @@ export const SidebarBase = styled("div", {
     // borderRadius: "var(--borderRadius-lg)",
     // margin: "var(--gap-md) var(--gap-md) var(--gap-md) 0",
     width: "var(--layout-width-channel-sidebar)",
-    color: "var(--colours-sidebar-channels-foreground)",
-    background: "var(--colours-sidebar-channels-background)",
+
+    color: "var(--md-sys-color-on-surface)",
+    background: "var(--md-sys-color-surface-container-low)",
 
     "& a": {
       textDecoration: "none",

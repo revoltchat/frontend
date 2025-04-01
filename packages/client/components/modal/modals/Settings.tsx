@@ -36,7 +36,7 @@ const SettingsModal: PropGenerator<"settings"> = ({
                     height: "100%",
                     "pointer-events": "all",
                     display: "flex",
-                    background: "var(--colours-settings-background)",
+                    background: "var(--md-sys-color-surface-container-highest)",
                   }}
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}

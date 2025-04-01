@@ -24,7 +24,6 @@ export const Header = styled("div", {
     height: "var(--layout-height-header)",
     borderRadius: "var(--borderRadius-lg)",
     color: "var(--colours-sidebar-header-foreground)",
-    backgroundColor: "var(--colours-sidebar-header-background)",
     backgroundSize: "cover !important",
     backgroundPosition: "center !important",
     "& svg": {
@@ -36,7 +35,10 @@ export const Header = styled("div", {
       primary: {
         margin: "var(--gap-md) var(--gap-md) var(--gap-md) 0",
       },
-      secondary: {},
+      secondary: {
+        margin: "var(--gap-md)",
+        backgroundColor: "var(--md-sys-color-surface-variant)",
+      },
     },
     image: {
       true: {
@@ -45,7 +47,6 @@ export const Header = styled("div", {
         justifyContent: "stretch",
         textShadow: "0px 0px 1px var(--colours-foreground)",
         height: "var(--layout-height-tall-header)",
-        margin: "var(--gap-md)",
 
         "& > div": {
           flexGrow: 1,

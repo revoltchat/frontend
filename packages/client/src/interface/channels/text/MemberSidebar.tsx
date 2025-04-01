@@ -321,7 +321,7 @@ const base = cva({
     width: "var(--layout-width-channel-sidebar)",
     // margin: "var(--gap-md)",
     borderRadius: "var(--borderRadius-lg)",
-    color: "var(--colours-sidebar-channels-foreground)",
+    // color: "var(--colours-sidebar-channels-foreground)",
     // background: "var(--colours-sidebar-channels-background)",
   },
 });

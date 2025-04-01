@@ -61,7 +61,7 @@ const base = cva({
     flex: "1 1 800px",
     flexDirection: "row",
     display: "flex",
-    background: "var(--colours-settings-content-background)",
+    background: "var(--md-sys-color-surface-container-low)",
     borderStartStartRadius: "30px",
     borderEndStartRadius: "30px",
 

@@ -52,15 +52,19 @@ const Base = styled("div", {
  */
 const content = cva({
   base: {
+    flexGrow: 1,
     minHeight: 0,
-    width: "100%",
-    margin: "auto",
+    margin: "0 var(--gap-md) var(--gap-md) 0",
     padding: "var(--gap-xxl) 0",
 
     display: "flex",
     gap: "var(--gap-xl)",
     alignItems: "center",
+    justifyContent: "center",
     flexDirection: "column",
+
+    borderRadius: "var(--borderRadius-lg)",
+    background: "var(--md-sys-color-surface-container-lowest)",
   },
 });
 
@@ -73,7 +77,9 @@ const Buttons = styled("div", {
     gap: "var(--gap-md)",
     padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-lg)",
-    background: "var(--colours-sidebar-channels-background)",
+
+    color: "var(--md-sys-color-on-surface-variant)",
+    background: "var(--md-sys-color-surface-variant)",
   },
 });
 

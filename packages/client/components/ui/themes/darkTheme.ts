@@ -73,6 +73,54 @@ export const darkTheme: (
     },
   ]);
 
+  // TEMP; https://github.com/material-foundation/material-color-utilities/issues/158
+  const { primary, secondary, tertiary, neutral } = theme.palettes;
+
+  const lightColors = new Map<string, string>([
+    ["--md-sys-color-primary-fixed", hexFromArgb(primary.tone(90))],
+    ["--md-sys-color-primary-fixed-dim", hexFromArgb(neutral.tone(80))],
+    ["--md-sys-color-on-primary-fixed", hexFromArgb(primary.tone(10))],
+    ["--md-sys-color-on-primary-fixed-variant", hexFromArgb(primary.tone(30))],
+    ["--md-sys-color-secondary-fixed", hexFromArgb(secondary.tone(90))],
+    ["--md-sys-color-secondary-fixed-dim", hexFromArgb(secondary.tone(80))],
+    ["--md-sys-color-on-secondary-fixed", hexFromArgb(secondary.tone(10))],
+    [
+      "--md-sys-color-on-secondary-fixed-variant",
+      hexFromArgb(secondary.tone(30)),
+    ],
+    ["--md-sys-color-tertiary-fixed", hexFromArgb(tertiary.tone(90))],
+    ["--md-sys-color-tertiary-fixed-dim", hexFromArgb(tertiary.tone(80))],
+    ["--md-sys-color-on-tertiary-fixed", hexFromArgb(tertiary.tone(10))],
+    [
+      "--md-sys-color-on-tertiary-fixed-variant",
+      hexFromArgb(tertiary.tone(30)),
+    ],
+    ["--md-sys-color-surface-dim", hexFromArgb(neutral.tone(87))],
+    ["--md-sys-color-surface-bright", hexFromArgb(neutral.tone(98))],
+    ["--md-sys-color-surface-container-lowest", hexFromArgb(neutral.tone(100))],
+    ["--md-sys-color-surface-container-low", hexFromArgb(neutral.tone(96))],
+    ["--md-sys-color-surface-container", hexFromArgb(neutral.tone(94))],
+    ["--md-sys-color-surface-container-high", hexFromArgb(neutral.tone(92))],
+    ["--md-sys-color-surface-container-highest", hexFromArgb(neutral.tone(90))],
+  ]);
+
+  const darkColors = new Map<string, string>([
+    ["--md-sys-color-surface-dim", hexFromArgb(neutral.tone(6))],
+    ["--md-sys-color-surface-bright", hexFromArgb(neutral.tone(24))],
+    ["--md-sys-color-surface-container-lowest", hexFromArgb(neutral.tone(4))],
+    ["--md-sys-color-surface-container-low", hexFromArgb(neutral.tone(10))],
+    ["--md-sys-color-surface-container", hexFromArgb(neutral.tone(12))],
+    ["--md-sys-color-surface-container-high", hexFromArgb(neutral.tone(17))],
+    ["--md-sys-color-surface-container-highest", hexFromArgb(neutral.tone(22))],
+  ]);
+
+  // if (mode === ColorMode.LIGHT) {
+  //   return lightColors;
+  // } else {
+  //   return new Map([...lightColors.entries(), ...darkColors.entries()]);
+  // }
+  // END TEMP
+
   const customColours = {
     "status-online": {
       color: "#3ABF7E",
@@ -140,6 +188,9 @@ export const darkTheme: (
     accentColour,
     materialTheme: theme,
     darkMode,
+    ...lightColors
+      .entries()
+      .reduce((d, v) => ({ ...d, [v[0].substring(2)]: v[1] }), {}),
     colours: {
       // Global
       link: "#0088ce",
