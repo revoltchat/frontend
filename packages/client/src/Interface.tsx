@@ -1,6 +1,7 @@
 import { JSX, Match, Switch, createEffect, onCleanup, onMount } from "solid-js";
 
 import { Server } from "revolt.js";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
@@ -10,7 +11,7 @@ import { KeybindAction } from "@revolt/keybinds";
 import { modalController } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { state } from "@revolt/state";
-import { Preloader } from "@revolt/ui";
+import { Button, Preloader } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
 import { Sidebar } from "./interface/Sidebar";
@@ -95,6 +96,24 @@ const Interface = (props: { children: JSX.Element }) => {
             Device is offline
           </Match>
         </Switch>
+        <div class={css({ display: "flex", gap: "4px" })}>
+          <Button
+            size="fluid"
+            onPress={() => {
+              (window as any)._demo_setDarkMode(false);
+            }}
+          >
+            Light Mode
+          </Button>
+          <Button
+            size="fluid"
+            onPress={() => {
+              (window as any)._demo_setDarkMode(true);
+            }}
+          >
+            Dark Mode
+          </Button>
+        </div>
       </Notice>
       <Switch fallback={<Preloader grow type="spinner" />}>
         <Match when={!clientController.isLoggedIn()}>
@@ -147,7 +166,7 @@ const Notice = styled("div", {
     fontSize: "0.8em",
     // margin: "var(--gap-md) var(--gap-md) 0 var(--gap-md)",
     padding: "var(--gap-md)",
-    background: "var(--md-sys-color-surface-container-highest)",
+    background: "var(--md-sys-color-surface-container-high)",
     color: "var(--colours-messaging-message-box-foreground)",
     // borderRadius: "var(--borderRadius-md)",
   },
@@ -160,7 +179,7 @@ const Layout = styled("div", {
   base: {
     display: "flex",
     height: "100%",
-    background: "var(--md-sys-color-surface-container-highest)",
+    background: "var(--md-sys-color-surface-container-high)",
     minWidth: 0,
   },
 });

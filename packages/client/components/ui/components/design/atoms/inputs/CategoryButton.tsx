@@ -9,7 +9,7 @@ import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?
 import MdKeyboardDown from "@material-design-icons/svg/outlined/keyboard_arrow_down.svg?component-solid";
 import MdOpenInNew from "@material-design-icons/svg/outlined/open_in_new.svg?component-solid";
 
-import { Column, OverflowingText } from "../../layout";
+import { OverflowingText } from "../../layout";
 
 /**
  * Permissible actions
@@ -162,7 +162,8 @@ const Content = styled("div", {
  */
 const IconWrapper = styled("div", {
   base: {
-    background: "var(--colours-component-categorybtn-background-icon)",
+    fill: "var(--md-sys-color-on-surface)",
+    background: "var(--md-sys-color-surface-dim)",
 
     width: "36px",
     height: "36px",
@@ -171,10 +172,6 @@ const IconWrapper = styled("div", {
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "50%",
-
-    "& svg": {
-      color: "var(--colours-component-categorybtn-foreground-description)",
-    },
   },
 });
 

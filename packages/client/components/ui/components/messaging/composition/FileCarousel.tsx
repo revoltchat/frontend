@@ -1,10 +1,14 @@
-import { BiRegularPlus, BiRegularXCircle, BiSolidFile } from "solid-icons/bi";
 import { For, Match, Show, Switch } from "solid-js";
 
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { CONFIGURATION } from "@revolt/common";
+import { iconSize } from "@revolt/ui";
+
+import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
+import MdCancel from "@material-design-icons/svg/outlined/cancel.svg?component-solid";
+import MdFile from "@material-design-icons/svg/outlined/description.svg?component-solid";
 
 import { ALLOWED_IMAGE_TYPES } from "../../../../state/stores/Draft";
 import { OverflowingText } from "../../design";
@@ -87,7 +91,7 @@ export function FileCarousel(props: Props) {
                       <Switch
                         fallback={
                           <EmptyEntry>
-                            <BiSolidFile size={36} />
+                            <MdFile {...iconSize(36)} />
                           </EmptyEntry>
                         }
                       >
@@ -102,7 +106,7 @@ export function FileCarousel(props: Props) {
                         </Match>
                       </Switch>
                       <Overlay>
-                        <BiRegularXCircle size={36} />
+                        <MdCancel {...iconSize(36)} />
                       </Overlay>
                     </PreviewBox>
                     <FileName>
@@ -116,7 +120,7 @@ export function FileCarousel(props: Props) {
           </For>
           <EmptyEntry onClick={props.addFile}>
             <Ripple />
-            <BiRegularPlus size={48} />
+            <MdAdd {...iconSize(48)} />
           </EmptyEntry>
         </div>
       </Container>
@@ -137,8 +141,8 @@ const PreviewBox = styled("div", {
     overflow: "hidden",
     borderRadius: "var(--gap-md)",
 
-    background: "var(--colours-messaging-upload-file-background)",
-    color: "var(--colours-messaging-upload-file-foreground)",
+    fill: "white",
+    background: "var(--md-sys-color-surface-variant)",
 
     "& > *": {
       gridArea: "main",
@@ -168,6 +172,8 @@ const Image = styled("img", {
  */
 const Overlay = styled("div", {
   base: {
+    zIndex: 1,
+
     display: "grid",
     alignItems: "center",
     justifyContent: "center",
@@ -201,7 +207,8 @@ const EmptyEntry = styled("div", {
 
     cursor: "pointer",
     borderRadius: "var(--gap-md)",
-    background: "var(--colours-messaging-upload-file-new)",
+    fill: "var(--md-sys-color-on-surface-variant)",
+    background: "var(--md-sys-color-surface-variant)",
   },
 });
 

@@ -60,6 +60,9 @@ const base = cva({
     padding: "0 var(--gap-md)",
     borderRadius: "var(--borderRadius-xl)",
 
+    color: "var(--color)",
+    fill: "var(--color)",
+
     "& > svg": {
       alignSelf: "center",
     },
@@ -80,19 +83,19 @@ const base = cva({
     },
     attention: {
       normal: {
-        color: "var(--md-sys-color-outline)",
+        "--color": "var(--md-sys-color-outline)",
         background: "transparent",
       },
       muted: {
-        color: "var(--md-sys-color-outline-variant)",
+        "--color": "var(--md-sys-color-outline-variant)",
         background: "transparent",
       },
       active: {
-        color: "var(--md-sys-color-on-surface)",
+        "--color": "var(--md-sys-color-on-surface)",
         background: "transparent",
       },
       selected: {
-        color: "var(--md-sys-color-on-primary-container)",
+        "--color": "var(--md-sys-color-on-primary-container)",
         background: "var(--md-sys-color-primary-container)",
       },
     },

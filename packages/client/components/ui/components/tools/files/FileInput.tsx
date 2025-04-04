@@ -145,7 +145,7 @@ const ImagePreview = styled("div", {
     position: "relative",
     height: "96px",
 
-    backgroundColor: "var(--md-sys-color-primary-container)",
+    backgroundColor: "var(--md-sys-color-surface-dim)",
 
     "& img": {
       display: "block",

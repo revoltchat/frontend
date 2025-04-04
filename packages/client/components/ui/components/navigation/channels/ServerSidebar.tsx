@@ -438,5 +438,6 @@ const ChannelIcon = styled("img", {
 const List = styled(Column, {
   base: {
     width: "var(--layout-width-channel-sidebar)",
+    paddingRight: "var(--gap-md)",
   },
 });

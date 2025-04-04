@@ -23,7 +23,10 @@ export const Header = styled("div", {
     overflow: "hidden",
     height: "var(--layout-height-header)",
     borderRadius: "var(--borderRadius-lg)",
-    color: "var(--colours-sidebar-header-foreground)",
+
+    color: "var(--md-sys-color-on-surface)",
+    fill: "var(--md-sys-color-on-surface)",
+
     backgroundSize: "cover !important",
     backgroundPosition: "center !important",
     "& svg": {
@@ -42,6 +45,9 @@ export const Header = styled("div", {
     },
     image: {
       true: {
+        color: "white",
+        fill: "white",
+
         padding: 0,
         alignItems: "flex-end",
         justifyContent: "stretch",
@@ -51,9 +57,7 @@ export const Header = styled("div", {
         "& > div": {
           flexGrow: 1,
           padding: "6px 14px",
-          color: "var(--colours-sidebar-header-with-image-text-foreground)",
-          background:
-            "linear-gradient(0deg, var(--colours-sidebar-header-with-image-text-background), transparent)",
+          background: "linear-gradient(0deg, black, transparent)",
         },
       },
       false: {},

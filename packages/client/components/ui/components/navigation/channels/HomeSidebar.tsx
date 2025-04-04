@@ -362,6 +362,7 @@ function Entry(
  */
 const List = styled("div", {
   base: {
+    paddingRight: "var(--gap-md)",
     width: "var(--layout-width-channel-sidebar)",
   },
 });

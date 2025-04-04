@@ -1,5 +1,4 @@
 import {
-  For,
   Show,
   createEffect,
   createSignal,
@@ -18,14 +17,10 @@ import { useNavigate, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
-  Avatar,
   BelowFloatingHeader,
   Header,
-  MessageContainer,
-  MessageReply,
   NewMessages,
   TypingIndicator,
-  Username,
 } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
@@ -195,6 +190,6 @@ const MessagingStack = styled("div", {
     paddingInline: "var(--gap-md)",
     marginBlockEnd: "var(--gap-md)",
     borderRadius: "var(--borderRadius-xl)",
-    background: "var(--colours-background)",
+    background: "var(--md-sys-color-surface-container-lowest)",
   },
 });

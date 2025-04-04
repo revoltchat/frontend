@@ -331,6 +331,7 @@ const base = cva({
  */
 const Container = styled("div", {
   base: {
+    paddingRight: "var(--gap-md)",
     width: "var(--layout-width-channel-sidebar)",
   },
 });

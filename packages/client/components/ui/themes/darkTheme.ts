@@ -188,7 +188,10 @@ export const darkTheme: (
     accentColour,
     materialTheme: theme,
     darkMode,
-    ...lightColors
+    ...(darkMode
+      ? new Map([...lightColors.entries(), ...darkColors.entries()])
+      : lightColors
+    )
       .entries()
       .reduce((d, v) => ({ ...d, [v[0].substring(2)]: v[1] }), {}),
     colours: {

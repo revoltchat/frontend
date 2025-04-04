@@ -283,7 +283,8 @@ const ServerListBase = styled("div", {
   base: {
     display: "flex",
     flexDirection: "column",
-    background: "var(--md-sys-color-surface-container-highest)",
+
+    fill: "var(--md-sys-color-on-surface)",
   },
 });
 
