@@ -77,7 +77,7 @@
     "@solid-primitives/map": "^0.4.11",
     "@solid-primitives/set": "^0.4.11",
     "@solidjs/router": "^0.14.7",
-    "@tanstack/solid-query": "^5.59.0",
+    "@tanstack/solid-query": "^5.71.10",
     "@tauri-apps/api": "^2.0.2",
     "@thisbeyond/solid-dnd": "^0.7.5",
     "color-rgba": "^3.0.0",
