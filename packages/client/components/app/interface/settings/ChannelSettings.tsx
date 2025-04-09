@@ -14,8 +14,10 @@ import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
+import GroupPermissions from "./channel/GroupPermissions";
 import ChannelOverview from "./channel/Overview";
 import Webhooks, { Webhook } from "./channel/Webhooks";
+import { ChannelPermissions } from "./channel/permissions/ChannelPermissions";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -52,7 +54,13 @@ const Config: SettingsConfiguration<Channel> = {
       case "overview":
         return <ChannelOverview channel={channel} />;
       case "permissions":
-        return null; // todo
+        // switch (channel.type) {
+        //   case "Group":
+        //     return <GroupPermissions channel={channel} />;
+        // }
+        //
+        // return null;
+        return <ChannelPermissions />;
       case "webhooks":
         return <Webhooks channel={channel} />;
       default:
@@ -77,7 +85,9 @@ const Config: SettingsConfiguration<Channel> = {
               title: <Trans>Overview</Trans>,
             },
             {
-              hidden: !channel.havePermission("ManagePermissions"),
+              hidden:
+                channel.type === "SavedMessages" ||
+                !channel.havePermission("ManagePermissions"),
               id: "permissions",
               icon: <BiRegularListUl size={20} />,
               title: <Trans>Permissions</Trans>,
