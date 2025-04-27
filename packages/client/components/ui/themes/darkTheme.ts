@@ -432,6 +432,10 @@ export const darkTheme: (
 
       // Settings
       "settings-background": materialColour("secondary", 92),
+      "settings-background-filter":
+        (darkMode)
+          ? "rgba(0, 0, 0, 0.7)"
+          : "rgba(255, 255, 255, 0.7)",
       "settings-foreground": materialColour("onSecondaryContainer"),
       "settings-content-background": materialColour("secondary", 96),
       "settings-content-foreground": materialColour("onSecondary", 20),
