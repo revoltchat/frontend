@@ -63,6 +63,9 @@ export class ModalController {
    * @param props Modal parameters
    */
   push(props: Modals) {
+    // Prevents double rendering of some modals
+    if (this.isOpen(props.type)) return;
+
     this.setModals([
       ...this.modals,
       {
@@ -97,11 +100,14 @@ export class ModalController {
   }
 
   /**
-   * Whether a modal is currently open
+   * Whether any or a specified modal is currently open
+   * @param type The optional type of modal
    * @returns Boolean
    */
-  isOpen() {
-    return !!this.modals.find((x) => x.show);
+  isOpen(type?: string) {
+    return (type)
+        ? !!this.modals.find((x) => x.props.type === type && x.show)
+        : !!this.modals.find((x) => x.show);
   }
 }
 
