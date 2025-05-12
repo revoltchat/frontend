@@ -55,6 +55,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
     );
   }
 
+  // @ts-expect-error unimplemented entries
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Modals: Record<AllModals["type"], PropGenerator<any>> = {
     add_friend,
     ban_member,
@@ -94,7 +96,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
     settings,
     signed_out,
     sign_out_sessions,
-    ...({} as any),
   };
 
   if (!Modals[props.props.type]) {

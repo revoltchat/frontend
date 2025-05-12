@@ -23,38 +23,129 @@ import { ChangelogPost } from "./modals/Changelog";
 
 export type Modals =
   | {
-      type:
-        | "add_friend"
-        | "create_group"
-        | "create_or_join_server"
-        | "create_server"
-        | "join_server"
-        | "custom_status"
-        | "edit_username"
-        | "edit_email"
-        | "edit_password";
+      type: "add_friend";
       client: Client;
+    }
+  | {
+      type: "ban_member";
+      member: ServerMember;
+    }
+  | {
+      type: "changelog";
+      initial?: number;
+      posts: ChangelogPost[];
+    }
+  | {
+      type: "channel_info";
+      channel: Channel;
+    }
+  | {
+      type: "create_bot";
+      client: Client;
+      onCreate: (bot: Bot) => void;
+    }
+  | {
+      type: "create_category";
+      server: Server;
+    }
+  | {
+      type: "create_channel";
+      server: Server;
+      cb?: (channel: Channel) => void;
+    }
+  | {
+      type: "create_group";
+      client: Client;
+    }
+  | {
+      type: "create_invite";
+      channel: Channel;
+    }
+  | {
+      type: "create_role";
+      server: Server;
+      callback: (id: string) => void;
+    }
+  | {
+      type: "create_server";
+      client: Client;
+    }
+  | {
+      type: "create_or_join_server";
+      client: Client;
+    }
+  | {
+      type: "custom_status";
+      client: Client;
+    }
+  | {
+      type: "delete_bot";
+      bot: Bot;
+    }
+  | {
+      type: "delete_channel";
+      channel: Channel;
+    }
+  | {
+      type: "delete_message";
+      message: Message;
+    }
+  | {
+      type: "delete_server";
+      server: Server;
     }
   | {
       type: "edit_display_name";
       user: User;
     }
   | {
-      type: "rename_session";
-      session: Session;
-    }
-  | {
-      type: "report_content";
+      type: "edit_email";
       client: Client;
-      target: Server | User | Message;
-      contextMessage?: Message;
     }
   | {
-      type: "report_success";
-      user?: User;
+      type: "edit_password";
+      client: Client;
     }
   | {
-      type: "signed_out";
+      type: "edit_username";
+      client: Client;
+    }
+  | {
+      /**
+       * @deprecated build proper error handling!
+       */
+      type: "error";
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      error: any;
+    }
+  | {
+      type: "image_viewer";
+      embed?: API.Image;
+      file?: File;
+    }
+  | {
+      type: "join_server";
+      client: Client;
+    }
+  | {
+      type: "edit_keybind";
+      action: KeybindAction;
+      onSubmit: (sequence: KeyComboSequence) => void;
+    }
+  | {
+      type: "kick_member";
+      member: ServerMember;
+    }
+  | {
+      type: "leave_server";
+      server: Server;
+    }
+  | {
+      type: "mfa_enable_totp";
+      identifier: string;
+      secret: string;
+      callback: (code?: string) => void;
     }
   | ({
       type: "mfa_flow";
@@ -72,23 +163,48 @@ export type Modals =
     ))
   | { type: "mfa_recovery"; codes: string[]; mfa: MFA }
   | {
-      type: "mfa_enable_totp";
-      identifier: string;
-      secret: string;
-      callback: (code?: string) => void;
+      type: "onboarding";
+      callback: (username: string, loginAfterSuccess?: true) => Promise<void>;
     }
   | {
-      type: "out_of_date";
-      version: string;
+      type: "rename_session";
+      session: Session;
     }
   | {
-      type: "changelog";
-      initial?: number;
-      posts: ChangelogPost[];
+      type: "report_content";
+      client: Client;
+      target: Server | User | Message;
+      contextMessage?: Message;
+    }
+  | {
+      type: "server_identity";
+      member: ServerMember;
+    }
+  | {
+      type: "server_info";
+      server: Server;
+    }
+  | {
+      type: "settings";
+      config: keyof typeof SettingsConfigurations;
+      // eslint-disable-next-line
+      context?: any;
+    }
+  | {
+      type: "signed_out";
     }
   | {
       type: "sign_out_sessions";
       client: Client;
+    }
+  // unimplemented: (modals.tsx#L58)
+  | {
+      type: "report_success";
+      user?: User;
+    }
+  | {
+      type: "out_of_date";
+      version: string;
     }
   | {
       type: "show_token";
@@ -96,40 +212,14 @@ export type Modals =
       token: string;
     }
   | {
-      type: "error";
-      error: any;
-    }
-  | {
       type: "link_warning";
       link: string;
       callback: () => true;
     }
-  | {
-      type: "pending_friend_requests";
-      users: User[];
-    }
-  | {
-      type: "modify_account";
-      client: Client;
-      field: "username" | "email" | "password";
-    }
-  | {
-      type: "server_identity";
-      member: ServerMember;
-    }
-  | {
-      type: "channel_info";
-      channel: Channel;
-    }
-  | {
-      type: "server_info";
-      server: Server;
-    }
-  | {
-      type: "image_viewer";
-      embed?: API.Image;
-      file?: File;
-    }
+  // | {
+  //     type: "pending_friend_requests";
+  //     users: User[];
+  //   }
   | {
       type: "user_picker";
       omit?: string[];
@@ -142,58 +232,12 @@ export type Modals =
       placeholderProfile?: API.UserProfile;
     }
   | {
-      type: "create_bot";
-      client: Client;
-      onCreate: (bot: Bot) => void;
-    }
-  | {
-      type: "onboarding";
-      callback: (username: string, loginAfterSuccess?: true) => Promise<void>;
-    }
-  | {
-      type: "create_role";
-      server: Server;
-      callback: (id: string) => void;
-    }
-  | {
       type: "leave_group";
       channel: Channel;
     }
   | {
       type: "close_dm";
       channel: Channel;
-    }
-  | {
-      type: "delete_channel";
-      channel: Channel;
-    }
-  | {
-      type: "create_invite";
-      channel: Channel;
-    }
-  | {
-      type: "leave_server";
-      server: Server;
-    }
-  | {
-      type: "delete_server";
-      server: Server;
-    }
-  | {
-      type: "delete_bot";
-      bot: Bot;
-    }
-  | {
-      type: "delete_message";
-      message: Message;
-    }
-  | {
-      type: "kick_member";
-      member: ServerMember;
-    }
-  | {
-      type: "ban_member";
-      member: ServerMember;
     }
   | {
       type: "unfriend_user";
@@ -204,27 +248,7 @@ export type Modals =
       user: User;
     }
   | {
-      type: "create_channel";
-      server: Server;
-      cb?: (channel: Channel) => void;
-    }
-  | {
-      type: "create_category";
-      server: Server;
-    }
-  | {
       type: "import_theme";
-    }
-  | {
-      type: "settings";
-      config: keyof typeof SettingsConfigurations;
-      // eslint-disable-next-line
-      context?: any;
-    }
-  | {
-      type: "edit_keybind";
-      action: KeybindAction;
-      onSubmit: (sequence: KeyComboSequence) => void;
     };
 
 export type ModalProps<T extends Modals["type"]> = Modals & { type: T };
