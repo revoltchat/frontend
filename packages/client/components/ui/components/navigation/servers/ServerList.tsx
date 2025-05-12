@@ -6,7 +6,7 @@ import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { KeybindAction } from "@revolt/keybinds";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 
 import MdAdd from "@material-design-icons/svg/filled/add.svg?component-solid";
@@ -69,6 +69,7 @@ interface Props {
  */
 export const ServerList = (props: Props) => {
   const navigate = useNavigate();
+  const { openModal } = useModals();
   const keybinds = useKeybindActions();
 
   const navigateServer = (ev: KeyboardEvent, byOffset: number) => {
@@ -264,10 +265,7 @@ export const ServerList = (props: Props) => {
       <Tooltip placement="right" content="Settings">
         <a
           class={entryContainer()}
-          onClick={() => {
-            console.info("[DEBUG] (1) Pushing to modal controller!");
-            modalController.push({ type: "settings", config: "user" });
-          }}
+          onClick={() => openModal({ type: "settings", config: "user" })}
         >
           <Avatar size={42} fallback={<MdSettings />} interactive />
         </a>

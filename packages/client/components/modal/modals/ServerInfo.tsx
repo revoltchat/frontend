@@ -6,13 +6,15 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Markdown } from "@revolt/markdown";
 import { Button, Column, Row, Text } from "@revolt/ui";
 
-import { modalController } from "..";
+import { useModals } from "..";
 import { PropGenerator } from "../types";
 
 /**
  * Modal to display server information
  */
 const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
+  const { openModal } = useModals();
+
   return {
     title: (
       <Row align>
@@ -38,10 +40,11 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
       },
       {
         onClick: () => {
-          modalController.push({
+          openModal({
             type: "server_identity",
             member: props.server.member!,
           });
+
           return true;
         },
         children: <Trans>Edit Identity</Trans>,
@@ -49,11 +52,12 @@ const ServerInfo: PropGenerator<"server_info"> = (props, onClose) => {
       },
       {
         onClick: () => {
-          modalController.push({
+          openModal({
             type: "settings",
             config: "server",
             context: props.server,
           });
+
           return true;
         },
         children: <Trans>Settings</Trans>,

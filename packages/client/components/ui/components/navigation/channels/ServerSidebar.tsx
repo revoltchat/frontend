@@ -382,7 +382,7 @@ function Entry(
               }}
               onClick={(e) => {
                 e.preventDefault();
-                getController("modal").push({
+                getController("modal").openModal({
                   type: "create_invite",
                   channel: props.channel,
                 });
@@ -400,7 +400,7 @@ function Entry(
               }}
               onClick={(e) => {
                 e.preventDefault();
-                getController("modal").push({
+                getController("modal").openModal({
                   type: "settings",
                   config: "channel",
                   context: props.channel,

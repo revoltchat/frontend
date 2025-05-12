@@ -26,7 +26,7 @@ const Interface = (props: { children: JSX.Element }) => {
     if (!e.defaultPrevented) {
       if (e.to === "/settings") {
         e.preventDefault();
-        modalController.push({
+        modalController.openModal({
           type: "settings",
           config: "user",
         });

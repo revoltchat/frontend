@@ -42,7 +42,7 @@ export function UserContextMenu(props: {
    * Delete channel
    */
   function closeDm() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "delete_channel",
       channel: props.channel!,
     });
@@ -59,7 +59,7 @@ export function UserContextMenu(props: {
    * Edit server identity for user
    */
   function editIdentity() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "server_identity",
       member: props.member!,
     });
@@ -69,7 +69,7 @@ export function UserContextMenu(props: {
    * Report the user
    */
   function reportUser() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "report_content",
       target: props.user!,
       client: client(),
@@ -81,7 +81,7 @@ export function UserContextMenu(props: {
    * Kick the member
    */
   function kickMember() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "kick_member",
       member: props.member!,
     });
@@ -91,7 +91,7 @@ export function UserContextMenu(props: {
    * Ban the member
    */
   function banMember() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "ban_member",
       member: props.member!,
     });

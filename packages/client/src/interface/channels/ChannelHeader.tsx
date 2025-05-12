@@ -12,7 +12,7 @@ import { Channel } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { TextWithEmoji } from "@revolt/markdown";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
@@ -20,7 +20,6 @@ import {
   NonBreakingText,
   OverflowingText,
   Spacer,
-  Typography,
   UserStatus,
   typography,
 } from "@revolt/ui";
@@ -38,11 +37,13 @@ interface Props {
  * Common channel header component
  */
 export function ChannelHeader(props: Props) {
+  const { openModal } = useModals();
+
   /**
    * Open channel information modal
    */
   function openChannelInfo() {
-    modalController.push({
+    openModal({
       type: "channel_info",
       channel: props.channel,
     });
@@ -52,7 +53,7 @@ export function ChannelHeader(props: Props) {
    * Open channel settings
    */
   function openChannelSettings() {
-    modalController.push({
+    openModal({
       type: "settings",
       config: "channel",
       context: props.channel,

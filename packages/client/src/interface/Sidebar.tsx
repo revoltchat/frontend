@@ -35,7 +35,7 @@ export const Sidebar = (props: {
         user={user()!}
         selectedServer={() => params.server}
         onCreateOrJoinServer={() =>
-          modalController.push({
+          modalController.openModal({
             type: "create_or_join_server",
             client: client(),
           })
@@ -106,7 +106,7 @@ const Server: Component = () => {
    * Open the server information modal
    */
   function openServerInfo() {
-    modalController.push({
+    modalController.openModal({
       type: "server_info",
       server: server(),
     });
@@ -116,7 +116,7 @@ const Server: Component = () => {
    * Open the server settings modal
    */
   function openServerSettings() {
-    modalController.push({
+    modalController.openModal({
       type: "settings",
       config: "server",
       context: server(),

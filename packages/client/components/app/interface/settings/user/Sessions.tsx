@@ -85,7 +85,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
           action="chevron"
           onClick={() =>
             currentSession() &&
-            getController("modal").push({
+            getController("modal").openModal({
               type: "rename_session",
               session: currentSession()!,
             })
@@ -110,7 +110,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
         <CategoryButton
           action="chevron"
           onClick={() =>
-            getController("modal").push({
+            getController("modal").openModal({
               type: "sign_out_sessions",
               client: client(),
             })
@@ -155,7 +155,7 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
                   icon="blank"
                   action="chevron"
                   onClick={() =>
-                    getController("modal").push({
+                    getController("modal").openModal({
                       type: "rename_session",
                       session,
                     })

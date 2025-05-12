@@ -66,24 +66,3 @@ export const SettingsConfigurations: Record<
   server,
   channel,
 };
-
-/**
- * Render using a specific set of configurations
- * @param props
- * @returns
- */
-export function SettingsUsingConfiguration(
-  props: SettingsProps & { configKey: string },
-) {
-  // eslint-disable-next-line solid/reactivity
-  const config = SettingsConfigurations[props.configKey ?? "client"];
-
-  return (
-    <Settings
-      {...props}
-      render={config.render}
-      title={config.title}
-      list={config.list}
-    />
-  );
-}

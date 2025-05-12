@@ -68,14 +68,14 @@ function FormTest() {
 
 export function DevelopmentPage() {
   function open() {
-    modalController.push({
+    modalController.openModal({
       type: "custom_status",
       client: clientController.getCurrentClient()!,
     });
   }
 
   function changelog() {
-    modalController.push({
+    modalController.openModal({
       type: "changelog",
       posts: [
         {

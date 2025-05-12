@@ -1,4 +1,10 @@
-import { For, createEffect } from "solid-js";
+import {
+  For,
+  JSXElement,
+  createContext,
+  createEffect,
+  useContext,
+} from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { MFA, MFATicket } from "revolt.js";
@@ -32,15 +38,6 @@ export type ActiveModal = {
 };
 
 /**
- * Handle key press
- * @param event Event
- */
-function keyDown(event: KeyboardEvent) {
-  event.stopPropagation();
-  modalController.pop();
-}
-
-/**
  * Global modal controller for layering and displaying one or more modal to the user
  */
 export class ModalController {
@@ -52,17 +49,21 @@ export class ModalController {
    */
   constructor() {
     const [modals, setModals] = createStore<ActiveModal[]>([]);
+    // eslint-disable-next-line solid/reactivity
     this.modals = modals;
     this.setModals = setModals;
 
+    this.openModal = this.openModal.bind(this);
     this.pop = this.pop.bind(this);
+    this.remove = this.remove.bind(this);
+    this.isOpen = this.isOpen.bind(this);
   }
 
   /**
    * Add a modal to the stack
    * @param props Modal parameters
    */
-  push(props: Modals) {
+  openModal(props: Modals) {
     this.setModals([
       ...this.modals,
       {
@@ -115,6 +116,10 @@ export class ModalControllerExtended extends ModalController {
   constructor() {
     super();
     registerController("modal", this);
+
+    this.mfaFlow = this.mfaFlow.bind(this);
+    this.mfaEnableTOTP = this.mfaEnableTOTP.bind(this);
+    this.openLink = this.openLink.bind(this);
   }
 
   /**
@@ -123,7 +128,7 @@ export class ModalControllerExtended extends ModalController {
    */
   mfaFlow(mfa: MFA) {
     return new Promise((callback: (ticket?: MFATicket) => void) =>
-      this.push({
+      this.openModal({
         type: "mfa_flow",
         state: "known",
         mfa,
@@ -138,7 +143,7 @@ export class ModalControllerExtended extends ModalController {
    */
   mfaEnableTOTP(secret: string, identifier: string) {
     return new Promise((callback: (value?: string) => void) =>
-      this.push({
+      this.openModal({
         type: "mfa_enable_totp",
         identifier,
         secret,
@@ -150,6 +155,7 @@ export class ModalControllerExtended extends ModalController {
   /**
    * Write text to the clipboard
    * @param text Text to write
+   * @deprecated use navigator clipboard directly
    */
   writeText(text: string) {
     navigator.clipboard.writeText(text);
@@ -161,7 +167,7 @@ export class ModalControllerExtended extends ModalController {
    * @param trusted Whether we trust this link
    * @returns Whether to cancel default event
    */
-  openLink(href?: string, trusted?: boolean) {
+  openLink(/*href?: string, trusted?: boolean*/) {
     /*const link = determineLink(href);
     const settings = getApplicationState().settings;
 
@@ -187,10 +193,51 @@ export class ModalControllerExtended extends ModalController {
   }
 }
 
+/**
+ * @deprecated use the context API instead, useModals
+ */
 export const modalController = new ModalControllerExtended();
 
+const ModalControllerContext = createContext<ModalControllerExtended>(
+  null as unknown as ModalControllerExtended,
+);
+
+/**
+ * Mount the modal controller
+ */
+export function ModalContext(props: { children: JSXElement }) {
+  const controller = new ModalControllerExtended();
+
+  return (
+    <ModalControllerContext.Provider value={controller}>
+      {props.children}
+    </ModalControllerContext.Provider>
+  );
+}
+
+/**
+ * Use the modal controller
+ */
+export function useModals() {
+  return useContext(ModalControllerContext);
+}
+
+/**
+ * Render modals
+ */
 export function ModalRenderer() {
+  const modalController = useModals();
+
   createEffect(() => {
+    /**
+     * Handle key press
+     * @param event Event
+     */
+    function keyDown(event: KeyboardEvent) {
+      event.stopPropagation();
+      modalController.pop();
+    }
+
     if (modalController.modals.length === 0)
       return unregisterKeybindWithPriority(keyDown);
 
@@ -206,7 +253,12 @@ export function ModalRenderer() {
 
   return (
     <For each={modalController.modals}>
-      {(entry) => <RenderModal {...entry} />}
+      {(entry) => (
+        <RenderModal
+          {...entry}
+          onClose={() => modalController.remove(entry.id)}
+        />
+      )}
     </For>
   );
 }

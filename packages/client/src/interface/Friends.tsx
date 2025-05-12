@@ -142,7 +142,7 @@ export function Friends() {
             <Button
               size="fab"
               onPress={() =>
-                modalController.push({ type: "add_friend", client: client() })
+                modalController.openModal({ type: "add_friend", client: client() })
               }
             >
               <MdAdd />

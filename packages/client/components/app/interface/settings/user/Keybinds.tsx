@@ -69,7 +69,7 @@ export default function Keybinds() {
     sequence.map((combo) => translateCombo(combo, short)).join(" ");
 
   const editKeybind = (action: KeybindAction, index: number) =>
-    getController("modal").push({
+    getController("modal").openModal({
       type: "edit_keybind",
       action,
       onSubmit: (sequence) => {
@@ -78,7 +78,7 @@ export default function Keybinds() {
     });
 
   const addKeybind = (action: KeybindAction) =>
-    getController("modal").push({
+    getController("modal").openModal({
       type: "edit_keybind",
       action,
       onSubmit: (sequence) => {

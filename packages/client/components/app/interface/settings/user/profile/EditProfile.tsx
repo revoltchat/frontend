@@ -4,7 +4,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 
 import { useClient } from "@revolt/client";
 import { createOwnProfileResource } from "@revolt/client/resources";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import {
   Avatar,
   CategoryButton,
@@ -25,6 +25,7 @@ import { EditProfileButtons } from "./EditProfileButtons";
  */
 export function EditProfile() {
   const client = useClient();
+  const { openModal } = useModals();
   const profile = createOwnProfileResource();
 
   return (
@@ -54,7 +55,7 @@ export function EditProfile() {
                   />
                 }
                 onClick={() =>
-                  modalController.push({
+                  openModal({
                     type: "server_identity",
                     member: server.member!,
                   })

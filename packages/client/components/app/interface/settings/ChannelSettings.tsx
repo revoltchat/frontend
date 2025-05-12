@@ -111,7 +111,7 @@ const Config: SettingsConfiguration<Channel> = {
                * Handle server deletion request
                */
               onClick() {
-                getController("modal").push({
+                getController("modal").openModal({
                   type: "delete_channel",
                   channel,
                 });

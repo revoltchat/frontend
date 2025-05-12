@@ -5,7 +5,7 @@ import { User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { createOwnProfileResource } from "@revolt/client/resources";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -22,6 +22,7 @@ import MdImage from "@material-design-icons/svg/outlined/image.svg?component-sol
 
 export function EditProfileButtons(props: { user: User }) {
   const client = useClient();
+  const { openModal } = useModals();
   const profile = createOwnProfileResource();
 
   function selectImage(tag: string, cb: (id: string) => void) {
@@ -76,7 +77,7 @@ export function EditProfileButtons(props: { user: User }) {
         icon={<MdBadge {...iconSize(22)} />}
         action="chevron"
         onClick={() =>
-          modalController.push({
+          openModal({
             type: "edit_display_name",
             user: props.user,
           })

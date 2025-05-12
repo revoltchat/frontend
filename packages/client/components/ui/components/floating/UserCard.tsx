@@ -148,7 +148,7 @@ export function UserCard(
   }));
 
   return (
-    <div use:scrollable={{ showOnHover: true, class: base() }}>
+    <div use:invisibleScrollable={{ class: base() }}>
       <Grid>
         <Banner
           style={{

@@ -54,7 +54,7 @@ export function MessageContextMenu(props: { message: Message }) {
    * Report the message
    */
   function report() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "report_content",
       target: props.message,
       client: client(),
@@ -68,7 +68,7 @@ export function MessageContextMenu(props: { message: Message }) {
     if (ev.shiftKey) {
       props.message.delete();
     } else {
-      getController("modal").push({
+      getController("modal").openModal({
         type: "delete_message",
         message: props.message,
       });

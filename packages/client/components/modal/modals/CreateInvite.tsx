@@ -5,7 +5,7 @@ import { styled } from "styled-system/jsx";
 
 import { CONFIGURATION } from "@revolt/common";
 
-import { modalController } from "..";
+import { useModals } from "..";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -33,6 +33,7 @@ const Invite = styled("div", {
 const CreateInvite: PropGenerator<"create_invite"> = (props) => {
   const [processing, setProcessing] = createSignal(false);
   const [link, setLink] = createSignal("...");
+  const { openModal } = useModals();
 
   // Generate an invite code
   onMount(() => {
@@ -47,7 +48,7 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
             : `${window.location.protocol}//${window.location.host}/invite/${_id}`,
         ),
       )
-      .catch((err) => modalController.push({ type: "error", error: err }))
+      .catch((err) => openModal({ type: "error", error: err }))
       .finally(() => setProcessing(false));
   });
 
@@ -80,7 +81,9 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
     actions: [
       {
         children: <Trans>Copy Link</Trans>,
-        onClick: () => modalController.writeText(link()),
+        onClick: () => {
+          navigator.clipboard.writeText(link());
+        },
       },
     ],
   });

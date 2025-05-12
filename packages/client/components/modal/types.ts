@@ -15,7 +15,7 @@ import {
   User,
 } from "revolt.js";
 
-import { SettingsConfigurations } from "@revolt/app";
+import type { SettingsConfigurations } from "@revolt/app";
 import type { KeyComboSequence, KeybindAction } from "@revolt/keybinds";
 import type { Modal } from "@revolt/ui";
 

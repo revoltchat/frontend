@@ -47,7 +47,7 @@ export function ServerContextMenu(props: { server: Server }) {
       )!
       .channels.find((channel) => channel.havePermission("InviteOthers"))!;
 
-    getController("modal").push({
+    getController("modal").openModal({
       type: "create_invite",
       channel,
     });
@@ -57,7 +57,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Open server settings
    */
   function editIdentity() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "server_identity",
       member: props.server.member!,
     });
@@ -67,7 +67,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Open server settings
    */
   function openSettings() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "settings",
       config: "server",
       context: props.server,
@@ -78,7 +78,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Report the server
    */
   function report() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "report_content",
       target: props.server,
       client: client(),
@@ -89,7 +89,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Leave the server
    */
   function leave() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "leave_server",
       server: props.server,
     });

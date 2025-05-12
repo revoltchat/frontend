@@ -140,7 +140,7 @@ export function HomePage() {
           <SeparatedColumn>
             <CategoryButton
               onClick={() =>
-                modalController.push({
+                modalController.openModal({
                   type: "create_group",
                   client: client()!,
                 })
@@ -224,7 +224,7 @@ export function HomePage() {
             </CategoryButton>
             <CategoryButton
               onClick={() =>
-                modalController.push({ type: "settings", config: "user" })
+                modalController.openModal({ type: "settings", config: "user" })
               }
               description={
                 <Trans>

@@ -17,7 +17,7 @@ import type {
   MapFormToValues,
 } from "@revolt/ui/components/tools/Form";
 
-import { modalController } from ".";
+import { modalController, useModals } from ".";
 import { Modals, PropGenerator } from "./types";
 
 type Props<T extends FormTemplate> = Omit<
@@ -52,6 +52,8 @@ export function createFormModal<
   T extends FormTemplate,
   P extends Modals["type"],
 >(props: Props<T>): ReturnType<PropGenerator<P>> {
+  const { pop } = useModals();
+
   const [localProps, formProps] = splitProps(props, [
     "callback",
     "submit",
@@ -105,7 +107,7 @@ export function createFormModal<
           setStore={setStore}
           onSubmit={async () => {
             if (await onSubmit()) {
-              modalController.pop();
+              pop();
             }
           }}
         />

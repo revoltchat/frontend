@@ -10,7 +10,7 @@ import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import { useLocation, useNavigate } from "@revolt/routing";
 import { iconSize } from "@revolt/ui";
 
@@ -58,6 +58,7 @@ export const HomeSidebar = (props: Props) => {
   const client = useClient();
   const navigate = useNavigate();
   const location = useLocation();
+  const { openModal } = useModals();
 
   const savedNotesChannelId = createMemo(() => props.openSavedNotes());
 
@@ -139,7 +140,7 @@ export const HomeSidebar = (props: Props) => {
             Direct Messages
             <a
               onClick={() =>
-                modalController.push({
+                openModal({
                   type: "create_group",
                   client: client(),
                 })
@@ -298,7 +299,7 @@ function Entry(
           <a
             onClick={(e) => {
               e.preventDefault();
-              getController("modal").push({
+              getController("modal").openModal({
                 type: "delete_channel",
                 channel: local.channel,
               });

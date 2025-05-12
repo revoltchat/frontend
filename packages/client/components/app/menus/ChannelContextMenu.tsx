@@ -36,7 +36,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Create a new invite
    */
   function createInvite() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "create_invite",
       channel: props.channel,
     });
@@ -46,7 +46,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Create a new channel
    */
   function createChannel() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "create_channel",
       server: props.channel.server!,
     });
@@ -56,7 +56,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Edit channel
    */
   function editChannel() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "settings",
       config: "channel",
       context: props.channel,
@@ -67,7 +67,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Delete channel
    */
   function deleteChannel() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "delete_channel",
       channel: props.channel,
     });

@@ -4,7 +4,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 
 import { useClient } from "@revolt/client";
 import { createOwnBotsResource } from "@revolt/client/resources";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import {
   Avatar,
   CategoryButton,
@@ -36,6 +36,7 @@ export function MyBots() {
  */
 function CreateBot() {
   const client = useClient();
+  const { openModal } = useModals();
   const { navigate } = useSettingsNavigation();
 
   return (
@@ -44,7 +45,7 @@ function CreateBot() {
         action="chevron"
         icon={<MdSmartToy {...iconSize(22)} />}
         onClick={() =>
-          modalController.push({
+          openModal({
             type: "create_bot",
             client: client(),
             onCreate(bot) {

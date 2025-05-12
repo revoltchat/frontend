@@ -2,7 +2,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 
 import { useClient } from "@revolt/client";
 
-import { modalController } from "..";
+import { useModals } from "..";
 import { createFormModal } from "../form";
 import { PropGenerator } from "../types";
 
@@ -11,6 +11,7 @@ import { PropGenerator } from "../types";
  */
 const DeleteServer: PropGenerator<"delete_server"> = (props) => {
   const client = useClient();
+  const { mfaFlow } = useModals();
 
   return createFormModal({
     modalProps: {
@@ -21,7 +22,7 @@ const DeleteServer: PropGenerator<"delete_server"> = (props) => {
     data: {},
     callback: async () => {
       const mfa = await client().account.mfa();
-      await modalController.mfaFlow(mfa as never);
+      await mfaFlow(mfa as never);
       await props.server.delete(); // TODO: should use ticket in API
     },
     submit: {

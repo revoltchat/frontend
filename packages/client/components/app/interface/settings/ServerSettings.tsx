@@ -136,7 +136,7 @@ const Config: SettingsConfiguration<Server> = {
                * Handle server deletion request
                */
               onClick() {
-                getController("modal").push({
+                getController("modal").openModal({
                   type: "delete_server",
                   server,
                 });

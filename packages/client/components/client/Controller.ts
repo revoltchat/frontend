@@ -458,7 +458,7 @@ export default class ClientController {
       while (session.result === "MFA") {
         const mfa_response: API.MFAResponse | undefined = await new Promise(
           (callback) =>
-            getController("modal").push({
+            getController("modal").openModal({
               type: "mfa_flow",
               state: "unknown",
               available_methods: allowed_methods,

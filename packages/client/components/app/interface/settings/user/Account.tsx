@@ -64,7 +64,7 @@ function EditAccount() {
       <CategoryButton
         action="chevron"
         onClick={() =>
-          getController("modal").push({
+          getController("modal").openModal({
             type: "edit_username",
             client: client(),
           })
@@ -77,7 +77,7 @@ function EditAccount() {
       <CategoryButton
         action="chevron"
         onClick={() =>
-          getController("modal").push({
+          getController("modal").openModal({
             type: "edit_email",
             client: client(),
           })
@@ -104,7 +104,7 @@ function EditAccount() {
       <CategoryButton
         action="chevron"
         onClick={() =>
-          getController("modal").push({
+          getController("modal").openModal({
             type: "edit_password",
             client: client(),
           })
@@ -133,7 +133,7 @@ function MultiFactorAuth() {
     const ticket = await modals.mfaFlow(mfa.data!);
 
     ticket!.fetchRecoveryCodes().then((codes) =>
-      getController("modal").push({
+      getController("modal").openModal({
         type: "mfa_recovery",
         mfa: mfa.data!,
         codes,
@@ -149,7 +149,7 @@ function MultiFactorAuth() {
     const ticket = await modals.mfaFlow(mfa.data!);
 
     ticket!.generateRecoveryCodes().then((codes) =>
-      getController("modal").push({
+      getController("modal").openModal({
         type: "mfa_recovery",
         mfa: mfa.data!,
         codes,

@@ -5,21 +5,23 @@ import { iconSize } from "@revolt/ui";
 import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
 import MdLink from "@material-design-icons/svg/outlined/link.svg?component-solid";
 
-import { modalController } from "..";
+import { useModals } from "..";
 import { PropGenerator } from "../types";
 
 /**
  * Modal to create or join a server
  */
 const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
+  const { pop, openModal } = useModals();
+
   return {
     title: "Create or join a server",
     description: (
       <Base>
         <a
           onClick={() => {
-            modalController.pop();
-            modalController.push({
+            pop();
+            openModal({
               type: "create_server",
               client: props.client,
             });
@@ -30,8 +32,8 @@ const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
         </a>
         <a
           onClick={() => {
-            modalController.pop();
-            modalController.push({ type: "join_server", client: props.client });
+            pop();
+            openModal({ type: "join_server", client: props.client });
           }}
         >
           <MdLink {...iconSize(48)} />

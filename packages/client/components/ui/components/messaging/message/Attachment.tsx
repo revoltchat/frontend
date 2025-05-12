@@ -54,7 +54,7 @@ export function Attachment(props: { file: File }) {
           <img
             // TODO: cursor: pointer
             onClick={() =>
-              getController("modal").push({
+              getController("modal").openModal({
                 type: "image_viewer",
                 file: props.file,
               })

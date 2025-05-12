@@ -17,7 +17,7 @@ export function ServerSidebarContextMenu(props: { server: Server }) {
    * Create a new channel
    */
   function createChannel() {
-    getController("modal").push({
+    getController("modal").openModal({
       type: "create_channel",
       server: props.server!,
     });
