@@ -16,7 +16,7 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 
 import { Draggable } from "../../common/Draggable";
 import { useKeybindActions } from "../../context/Keybinds";
-import { Column, Typography } from "../../design";
+import { Column, Text } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
   UnreadsGraphic,
@@ -145,7 +145,9 @@ export const ServerList = (props: Props) => {
           content={() => (
             <Column>
               <span>{props.user.username}</span>
-              <Typography variant="small">{props.user.presence}</Typography>
+              <Text class="label" size="small">
+                {props.user.presence}
+              </Text>
             </Column>
           )}
           aria={props.user.username}

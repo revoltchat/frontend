@@ -12,7 +12,7 @@ import { Match, Show, Switch } from "solid-js";
 import { File, MessageEmbed } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
-import { Typography } from "../../design/atoms/display/Typography";
+import { Text } from "../../design";
 import { Column, Row } from "../../design/layout";
 
 import { humanFileSize } from "./Attachment";
@@ -82,9 +82,9 @@ export function FileInfo(props: Props) {
       <Column grow>
         <span>{props.file?.filename}</span>
         <Show when={props.file?.size}>
-          <Typography variant="small">
+          <Text class="label" size="small">
             {humanFileSize(props.file!.size!)}
-          </Typography>
+          </Text>
         </Show>
       </Column>
       <Show when={props.file?.url}>

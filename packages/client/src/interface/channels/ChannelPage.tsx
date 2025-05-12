@@ -6,7 +6,7 @@ import { styled } from "styled-system/jsx";
 import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Navigate, useParams } from "@revolt/routing";
-import { Header, Typography } from "@revolt/ui";
+import { Header } from "@revolt/ui";
 
 import { AgeGate } from "./AgeGate";
 import { TextChannel } from "./text/TextChannel";
@@ -62,9 +62,7 @@ export const ChannelPage: Component = () => {
             <Header placement="primary">
               <TextWithEmoji content={channel().name!} />
             </Header>
-            <Typography variant="legacy-modal-title">
-              Legacy voice channels are not supported!
-            </Typography>
+            Legacy voice channels are not supported!
           </Match>
         </Switch>
       </AgeGate>

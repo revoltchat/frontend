@@ -3,22 +3,6 @@ import type { JSX } from "solid-js/jsx-runtime";
 
 import { cva } from "styled-system/css";
 
-type TypographyProps = {
-  /**
-   * Which variant to use
-   */
-  readonly variant: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} & JSX.HTMLAttributes<any>;
-
-/**
- * Typography component for displaying text around the app
- * @param props Text rendering options
- */
-export const Typography = (props: TypographyProps) => {
-  return <span>Replace me! &lt;Typograhy/&gt; removed!</span>;
-};
-
 /**
  * Simple span Text wrapper to apply Typography styles
  */

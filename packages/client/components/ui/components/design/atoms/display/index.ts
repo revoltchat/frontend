@@ -5,7 +5,7 @@ export { FormGroup } from "./FormGroup";
 export { Header, BelowFloatingHeader } from "./Header";
 export { Initials } from "./Initials";
 export { Time } from "./Time";
-export { Typography, Text, typography } from "./Typography";
+export { Text, typography } from "./Typography";
 export { Modal } from "./Modal";
 export { Username } from "./Username";
 export { Key } from "./Key";

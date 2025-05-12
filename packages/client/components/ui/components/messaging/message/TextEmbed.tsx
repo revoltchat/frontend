@@ -5,12 +5,7 @@ import { styled } from "styled-system/jsx";
 
 import { Markdown } from "@revolt/markdown";
 
-import {
-  Column,
-  OverflowingText,
-  SizedContent,
-  Typography,
-} from "../../design";
+import { Column, OverflowingText, SizedContent, Text } from "../../design";
 
 import { Attachment } from "./Attachment";
 import { SpecialEmbed } from "./SpecialEmbed";
@@ -98,9 +93,9 @@ export function TextEmbed(props: { embed: TextEmbedClass | WebsiteEmbed }) {
               />
             </Show>
             <OverflowingText>
-              <Typography variant="small">
+              <Text class="label" variant="small">
                 {(props.embed as WebsiteEmbed).siteName}
-              </Typography>
+              </Text>
             </OverflowingText>
           </SiteInformation>
         </Show>

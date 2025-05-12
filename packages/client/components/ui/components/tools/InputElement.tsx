@@ -18,7 +18,7 @@ import {
   Input,
   LegacyCheckbox,
   Radio,
-  Typography,
+  Text,
 } from "../design";
 
 // inputs:
@@ -126,7 +126,9 @@ export function InputElement<T extends Type>(props: Props<T>) {
   return (
     <FormGroup>
       <Show when={innerProps.field}>
-        <Typography variant="label">{innerProps.field}</Typography>
+        <Text class="label" size="small">
+          {innerProps.field}
+        </Text>
       </Show>
       <Switch>
         <Match when={localProps.type === "text"}>

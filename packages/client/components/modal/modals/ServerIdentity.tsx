@@ -1,9 +1,15 @@
 import { Accessor, createEffect, createSignal } from "solid-js";
 
-import { Trans } from "@lingui-solid/solid/macro";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { ServerMember } from "revolt.js";
 
-import { Avatar, Column, Input, MessageContainer, Username } from "@revolt/ui";
+import {
+  Avatar,
+  Column,
+  MessageContainer,
+  TextField,
+  Username,
+} from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 
@@ -35,6 +41,7 @@ function Preview(props: { nickname: Accessor<string>; member: ServerMember }) {
  * Modal to update the user's server identity
  */
 const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
+  const { t } = useLingui();
   const [nickname, setNickname] = createSignal(props.member.nickname ?? "");
 
   return {
@@ -42,10 +49,8 @@ const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
     children: (
       <Column>
         {/* <span>developer ui</span> */}
-        <span>
-          <Trans>Nickname</Trans>
-        </span>
-        <Input
+        <TextField
+          label={t`Nickname`}
           value={nickname()}
           onChange={(e) => setNickname(e.currentTarget.value)}
         />
