@@ -14,6 +14,14 @@ export default defineConfig({
   theme: {
     extend: {
       keyframes: {
+        scrimFadeIn: {
+          "0%": {
+            background: "transparent",
+          },
+          "100%": {
+            background: "rgba(0, 0, 0, 0.6)",
+          },
+        },
         slideIn: {
           "0%": {
             transform: "translateY(var(--translateY))",

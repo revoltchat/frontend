@@ -458,13 +458,23 @@ export const darkTheme: (
       xl: "1280px",
     },
     borderRadius: {
-      sm: "2px",
-      md: "6px",
-      lg: "12px",
+      // Material 3 Expressive ten-level shape scale
+      // https://m3.material.io/styles/shape/corner-radius-scale
+      none: "0px",
+      xs: "4px",
+      sm: "8px",
+      md: "12px",
+      lg: "16px",
+      li: "20px",
       xl: "16px",
-      xxl: "28px",
-      full: "100%",
+      xli: "32px",
+      xxl: "48px",
+      full: "calc(infinity * 1px)",
+      circle: "100%",
     },
+    /**
+     * @deprecated decide this at a component level
+     */
     gap: {
       none: "0",
       xxs: "1px",

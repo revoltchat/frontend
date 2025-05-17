@@ -16,7 +16,9 @@ Display breakpoints are provided as `var(--breakpoints-sm|md|lg|xl)`
 
 ## Roundness
 
-Border radius values are provided as `var(--borderRadius-sm|md|lg|xl|xxl|full)`
+Border radius values are provided as `var(--borderRadius-none|xs|sm|md|lg|li|xl|xli|xxl|full|circle)`, these correspond to the corner radius scale in Material 3 expressive design.
+
+Learn more here about how to apply the scale: https://m3.material.io/styles/shape/corner-radius-scale
 
 ## Gaps
 

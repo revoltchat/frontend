@@ -6,7 +6,7 @@ import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { clientController } from "@revolt/client";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import {
   Button,
   CategoryButton,
@@ -67,15 +67,19 @@ function FormTest() {
 }
 
 export function DevelopmentPage() {
+  const {openModal} = useModals();
+
   function open() {
-    modalController.openModal({
-      type: "custom_status",
-      client: clientController.getCurrentClient()!,
+    openModal({
+      type :'channel_toggle_mature',
+      channel: clientController.getCurrentClient()!.channels.find(x => x.name === 'Empty Test Channel')!
+      // type: "custom_status",
+      // client: clientController.getCurrentClient()!,
     });
   }
 
   function changelog() {
-    modalController.openModal({
+    openModal({
       type: "changelog",
       posts: [
         {

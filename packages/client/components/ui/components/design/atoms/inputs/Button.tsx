@@ -6,6 +6,8 @@ import { cva } from "styled-system/css/cva";
 
 import { Ripple } from "@revolt/ui/components/material";
 
+import { typography } from "../display";
+
 const button = cva({
   base: {
     // for <Ripple />:
@@ -21,7 +23,7 @@ const button = cva({
 
     cursor: "pointer",
     border: "none",
-    borderRadius: "var(--borderRadius-xxl)",
+    borderRadius: "var(--borderRadius-full)",
     transition: "var(--transitions-fast) all",
 
     // "&:hover": {
@@ -34,7 +36,13 @@ const button = cva({
     },
   },
   variants: {
+    /**
+     * Variant is equivalent to 'color' in Material spec
+     */
     variant: {
+      // todo: implement material colour types
+      // https://m3.material.io/components/buttons/specs
+
       success: {
         fill: "var(--customColours-success-onColor)",
         color: "var(--customColours-success-onColor)",
@@ -60,6 +68,9 @@ const button = cva({
         color: "var(--colours-component-btn-foreground-secondary)",
         background: "var(--colours-component-btn-background-secondary)",
       },
+      /**
+       * @deprecated use text instead
+       */
       plain: {
         fill: "var(--colours-component-btn-foreground-plain)",
         color: "var(--colours-component-btn-foreground-plain)",
@@ -72,8 +83,24 @@ const button = cva({
           textDecoration: "none",
         },
       },
+
+      // Material definitions
+
+      text: {
+        color: "var(--md-sys-color-primary)",
+      },
     },
     size: {
+      // todo: implement expressive button sizes
+      small: {
+        height: "40px",
+        paddingInline: "16px",
+        borderRadius: "12px",
+
+        ...typography.raw(),
+      },
+      // https://m3.material.io/components/buttons/specs
+
       normal: {
         height: "38px",
         minWidth: "96px",

@@ -70,7 +70,7 @@ const Image = styled("img", {
   variants: {
     shape: {
       circle: {
-        borderRadius: "var(--borderRadius-full)",
+        borderRadius: "var(--borderRadius-circle)",
       },
       "rounded-square": {
         borderRadius: "var(--borderRadius-md)",
@@ -100,7 +100,7 @@ const FallbackBase = styled("div", {
   variants: {
     shape: {
       circle: {
-        borderRadius: "var(--borderRadius-full)",
+        borderRadius: "var(--borderRadius-circle)",
       },
       "rounded-square": {
         borderRadius: "var(--borderRadius-md)",

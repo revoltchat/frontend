@@ -1,4 +1,4 @@
-import { JSX } from "solid-js";
+import { JSX, mergeProps, splitProps } from "solid-js";
 
 import { CONFIGURATION } from "@revolt/common";
 import { Modal } from "@revolt/ui";
@@ -8,6 +8,7 @@ import add_friend from "./modals/AddFriend";
 import ban_member from "./modals/BanMember";
 import changelog from "./modals/Changelog";
 import channel_info from "./modals/ChannelInfo";
+import { ChannelToggleMatureModal } from "./modals/ChannelToggleMature";
 import create_bot from "./modals/CreateBot";
 import create_category from "./modals/CreateCategory";
 import create_channel from "./modals/CreateChannel";
@@ -27,6 +28,7 @@ import edit_keybind from "./modals/EditKeybind";
 import edit_password from "./modals/EditPassword";
 import edit_username from "./modals/EditUsername";
 import error from "./modals/Error";
+import { Error2Modal } from "./modals/Error2";
 import image_viewer from "./modals/ImageViewer";
 import join_server from "./modals/JoinServer";
 import kick_member from "./modals/KickMember";
@@ -47,6 +49,8 @@ import type { Modals as AllModals, PropGenerator } from "./types";
 /**
  * Render the modal
  */
+/* eslint-disable solid/reactivity */
+/* eslint-disable solid/components-return-once */
 export function RenderModal(props: ActiveModal & { onClose: () => void }) {
   if (CONFIGURATION.DEBUG) {
     console.info(
@@ -55,84 +59,101 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
     );
   }
 
-  // @ts-expect-error unimplemented entries
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Modals: Record<AllModals["type"], PropGenerator<any>> = {
-    add_friend,
-    ban_member,
-    changelog,
-    channel_info,
-    create_bot,
-    create_category,
-    create_channel,
-    create_group,
-    create_invite,
-    create_role,
-    create_server,
-    create_or_join_server,
-    custom_status,
-    delete_bot,
-    delete_channel,
-    delete_message,
-    delete_server,
-    edit_display_name,
-    edit_email,
-    edit_password,
-    edit_username,
-    error,
-    image_viewer,
-    join_server,
-    edit_keybind,
-    kick_member,
-    leave_server,
-    mfa_enable_totp,
-    mfa_flow,
-    mfa_recovery,
-    onboarding,
-    rename_session,
-    report_content,
-    server_identity,
-    server_info,
-    settings,
-    signed_out,
-    sign_out_sessions,
-  };
+  const [modal2Props] = splitProps(props, ["show", "onClose"]);
+  const modalProps = mergeProps(props.props, modal2Props);
 
-  if (!Modals[props.props.type]) {
-    console.error(
-      "Failed to create a modal for",
-      props.props.type,
-      "as it is not registered!",
-    );
-    console.debug("Modals registered currently:", Modals);
-    return null;
-  }
+  switch (modalProps.type) {
+    case "channel_toggle_mature":
+      return <ChannelToggleMatureModal {...modalProps} />;
+    case "error2":
+      return <Error2Modal {...modalProps} />;
 
-  if (CONFIGURATION.DEBUG) {
-    console.info("components/modal — ready to render");
-  }
+    default: {
+      // legacy behaviour ('modal props')
 
-  const modalProps = Modals[props.props.type](props.props, props.onClose);
+      // @ts-expect-error unimplemented entries
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Modals: Record<AllModals["type"], PropGenerator<any>> = {
+        add_friend,
+        ban_member,
+        changelog,
+        channel_info,
+        create_bot,
+        create_category,
+        create_channel,
+        create_group,
+        create_invite,
+        create_role,
+        create_server,
+        create_or_join_server,
+        custom_status,
+        delete_bot,
+        delete_channel,
+        delete_message,
+        delete_server,
+        edit_display_name,
+        edit_email,
+        edit_password,
+        edit_username,
+        error,
+        image_viewer,
+        join_server,
+        edit_keybind,
+        kick_member,
+        leave_server,
+        mfa_enable_totp,
+        mfa_flow,
+        mfa_recovery,
+        onboarding,
+        rename_session,
+        report_content,
+        server_identity,
+        server_info,
+        settings,
+        signed_out,
+        sign_out_sessions,
+      };
 
-  if (CONFIGURATION.DEBUG) {
-    console.info("components/modal — modal props generated", modalProps);
-  }
+      if (!Modals[props.props.type]) {
+        console.error(
+          "Failed to create a modal for",
+          props.props.type,
+          "as it is not registered!",
+        );
+        console.debug("Modals registered currently:", Modals);
+        return null;
+      }
 
-  const Component = (
-    modalProps as {
-      _children: (props: { show: boolean; onClose: () => void }) => JSX.Element;
+      if (CONFIGURATION.DEBUG) {
+        console.info("components/modal — ready to render");
+      }
+
+      const modalProps = Modals[props.props.type](props.props, props.onClose);
+
+      if (CONFIGURATION.DEBUG) {
+        console.info("components/modal — modal props generated", modalProps);
+      }
+
+      const Component = (
+        modalProps as {
+          _children: (props: {
+            show: boolean;
+            onClose: () => void;
+          }) => JSX.Element;
+        }
+      )._children;
+
+      const element = Component ? (
+        <Component show={props.show} onClose={props.onClose} />
+      ) : (
+        <Modal show={props.show} onClose={props.onClose} {...modalProps} />
+      );
+
+      if (CONFIGURATION.DEBUG) {
+        console.info("components/modal — created target element:", element);
+      }
+
+      return element;
     }
-  )._children;
-
-  const element = Component ? (
-    <Component show={props.show} onClose={props.onClose} />
-  ) : (
-    <Modal show={props.show} onClose={props.onClose} {...modalProps} />
-  );
-
-  if (CONFIGURATION.DEBUG) {
-    console.info("components/modal — created target element:", element);
   }
-
-  return element;
 }

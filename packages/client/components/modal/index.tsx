@@ -64,15 +64,28 @@ export class ModalController {
    * @param props Modal parameters
    */
   openModal(props: Modals) {
-    this.setModals([
-      ...this.modals,
+    const id = Math.random().toString();
+    this.setModals((modals) => [
+      ...modals,
       {
         // just need something unique
-        id: Math.random().toString(),
+        id,
         show: true,
         props,
       },
     ]);
+
+    // after modal commits to DOM,
+    // we can begin animations!
+    // setTimeout(
+    //   () =>
+    //     this.setModals((modals) =>
+    //       modals.map((modal) =>
+    //         modal.id === id ? { ...modal, show: true } : modal,
+    //       ),
+    //     ),
+    //   0,
+    // );
   }
 
   /**

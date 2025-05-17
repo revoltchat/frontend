@@ -2,11 +2,11 @@ import { createFormControl, createFormGroup } from "solid-forms";
 import { Match, Show, Switch } from "solid-js";
 
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
-import { useMutation } from "@tanstack/solid-query";
 import type { API } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 import { Button, CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
 
 import { ChannelSettingsProps } from "../ChannelSettings";
@@ -17,6 +17,7 @@ import { ChannelSettingsProps } from "../ChannelSettings";
 export default function ChannelOverview(props: ChannelSettingsProps) {
   const { t } = useLingui();
   const client = useClient();
+  const { openModal } = useModals();
 
   /* eslint-disable solid/reactivity */
   // we want to take the initial value only
@@ -80,13 +81,6 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
     await props.channel.edit(changes);
   }
 
-  /**
-   * Mutation handler for changing channel mature status
-   */
-  const changeMature = useMutation(() => ({
-    mutationFn: (nsfw: boolean) => props.channel.edit({ nsfw }),
-  }));
-
   return (
     <Column gap="xl">
       <form onSubmit={Form2.submitHandler(editGroup, onSubmit, onReset)}>
@@ -130,9 +124,13 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
           </Trans>
         </Text>
         <div>
-          <Button // todo: confirmation modal
-            isDisabled={changeMature.isPending}
-            onPress={() => changeMature.mutate(!props.channel.mature)}
+          <Button
+            onPress={() =>
+              openModal({
+                type: "channel_toggle_mature",
+                channel: props.channel,
+              })
+            }
           >
             <Switch fallback={<Trans>Mark as Mature</Trans>}>
               <Match when={props.channel.mature}>

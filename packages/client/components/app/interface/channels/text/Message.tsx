@@ -283,6 +283,6 @@ const NewUser = styled("div", {
 const avatarContainer = cva({
   base: {
     height: "fit-content",
-    borderRadius: "var(--borderRadius-full)",
+    borderRadius: "var(--borderRadius-circle)",
   },
 });

@@ -40,6 +40,10 @@ export type Modals =
       channel: Channel;
     }
   | {
+      type: "channel_toggle_mature";
+      channel: Channel;
+    }
+  | {
       type: "create_bot";
       client: Client;
       onCreate: (bot: Bot) => void;
@@ -115,6 +119,12 @@ export type Modals =
        * @deprecated build proper error handling!
        */
       type: "error";
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      error: any;
+    }
+  | {
+      type: "error2";
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       error: any;
