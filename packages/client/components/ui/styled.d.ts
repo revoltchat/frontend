@@ -92,6 +92,7 @@ export interface DefaultTheme {
               | "mention"}-${"background" | "foreground"}`}`}`
       | `settings-${
           | "background"
+          | "background-filter"
           | "foreground"
           | `content-${"background" | "foreground" | "scroll-thumb"}`
           | `close-anchor${"" | "-hover"}`
