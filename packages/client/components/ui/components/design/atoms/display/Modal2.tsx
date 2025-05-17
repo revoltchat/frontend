@@ -43,8 +43,7 @@ export function Modal2(props: Props) {
               }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              // todo: update easing
-              transition={{ duration: 0.3, easing: [0.22, 0.54, 0.41, 1.46] }}
+              transition={{ duration: 0.3, easing: [0.05, 0.7, 0.1, 1.0] }}
             >
               <Container onClick={(e) => e.stopPropagation()}>
                 <Show when={props.icon}>
