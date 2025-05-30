@@ -22,6 +22,7 @@ import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
 import { I18nProvider } from "@revolt/i18n";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
+import { VoiceContext } from "@revolt/rtc";
 import { state } from "@revolt/state";
 import {
   ApplyGlobalStyles,
@@ -101,26 +102,28 @@ function MountContext(props: { children?: JSX.Element }) {
 
   return (
     <ModalContext>
-      <I18nProvider>
-        <QueryClientProvider client={client}>
-          <Masks />
-          <MountTheme>
-            <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-              <Show when={window.__TAURI__}>
-                <Titlebar
-                  isBuildDev={import.meta.env.DEV}
-                  onMinimize={() => appWindow?.minimize?.()}
-                  onMaximize={() => appWindow?.toggleMaximize?.()}
-                  onClose={() => appWindow?.hide?.()}
-                />
-              </Show>
-              {props.children}
-            </KeybindsProvider>
-            <ModalRenderer />
-            <FloatingManager />
-          </MountTheme>
-        </QueryClientProvider>
-      </I18nProvider>
+      <VoiceContext>
+        <I18nProvider>
+          <QueryClientProvider client={client}>
+            <Masks />
+            <MountTheme>
+              <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
+                <Show when={window.__TAURI__}>
+                  <Titlebar
+                    isBuildDev={import.meta.env.DEV}
+                    onMinimize={() => appWindow?.minimize?.()}
+                    onMaximize={() => appWindow?.toggleMaximize?.()}
+                    onClose={() => appWindow?.hide?.()}
+                  />
+                </Show>
+                {props.children}
+              </KeybindsProvider>
+              <ModalRenderer />
+              <FloatingManager />
+            </MountTheme>
+          </QueryClientProvider>
+        </I18nProvider>
+      </VoiceContext>
     </ModalContext>
   );
 }

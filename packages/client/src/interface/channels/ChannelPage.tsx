@@ -6,9 +6,11 @@ import { styled } from "styled-system/jsx";
 import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { Navigate, useParams } from "@revolt/routing";
+import { Demo } from "@revolt/rtc/Demo";
 import { Header } from "@revolt/ui";
 
 import { AgeGate } from "./AgeGate";
+import { ChannelHeader } from "./ChannelHeader";
 import { TextChannel } from "./text/TextChannel";
 
 /**
@@ -60,9 +62,9 @@ export const ChannelPage: Component = () => {
           </Match>
           <Match when={channel()!.type === "VoiceChannel"}>
             <Header placement="primary">
-              <TextWithEmoji content={channel().name!} />
+              <ChannelHeader channel={channel()} />
             </Header>
-            Legacy voice channels are not supported!
+            <Demo />
           </Match>
         </Switch>
       </AgeGate>

@@ -11,8 +11,10 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
+import { useVoice } from "@revolt/rtc";
 import { state } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
@@ -21,8 +23,11 @@ import {
   OverflowingText,
   Spacer,
   UserStatus,
+  iconSize,
   typography,
 } from "@revolt/ui";
+
+import MdCall from "@material-design-icons/svg/outlined/call.svg?component-solid";
 
 import { HeaderIcon } from "../common/CommonHeader";
 
@@ -38,6 +43,8 @@ interface Props {
  */
 export function ChannelHeader(props: Props) {
   const { openModal } = useModals();
+  const client = useClient();
+  const rtc = useVoice();
 
   /**
    * Open channel information modal
@@ -58,6 +65,29 @@ export function ChannelHeader(props: Props) {
       config: "channel",
       context: props.channel,
     });
+  }
+
+  /**
+   * Join voice call
+   */
+  async function joinCall() {
+    const [h, v] = client()!.authenticationHeader;
+
+    const { token, url } = await fetch(
+      client()!.api.config.baseURL + `/channels/${props.channel.id}/join_call`,
+      {
+        method: "POST",
+        headers: {
+          [h]: v,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ node: "worldwide" }),
+      },
+    ).then((r) => r.json());
+
+    if (token && url) {
+      rtc.connect(url, token);
+    }
   }
 
   return (
@@ -107,6 +137,12 @@ export function ChannelHeader(props: Props) {
       </Switch>
 
       <Spacer />
+
+      <Show when={props.channel.type !== "SavedMessages"}>
+        <Button variant="plain" size="icon" onPress={joinCall}>
+          <MdCall {...iconSize(24)} />
+        </Button>
+      </Show>
 
       <Show
         when={

@@ -8,3 +8,6 @@
 	path = packages/client/assets
 	url = https://github.com/revoltchat/assets
 	update = none
+[submodule "packages/solid-livekit-components"]
+	path = packages/solid-livekit-components
+	url = https://github.com/revoltchat/solid-livekit-components
