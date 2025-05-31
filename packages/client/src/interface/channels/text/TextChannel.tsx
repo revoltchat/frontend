@@ -19,6 +19,7 @@ import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   BelowFloatingHeader,
   Header,
+  main,
   NewMessages,
   TypingIndicator,
 } from "@revolt/ui";
@@ -119,7 +120,7 @@ export function TextChannel(props: ChannelPageProps) {
         <ChannelHeader channel={props.channel} />
       </Header>
       <Content>
-        <MessagingStack>
+        <main class={main()}>
           <BelowFloatingHeader>
             <div>
               <NewMessages
@@ -149,7 +150,7 @@ export function TextChannel(props: ChannelPageProps) {
             channel={props.channel}
             onMessageSend={() => jumpToBottomRef?.()}
           />
-        </MessagingStack>
+        </main>
         <Show
           when={state.layout.getSectionState(
             LAYOUT_SECTIONS.MEMBER_SIDEBAR,
@@ -176,20 +177,3 @@ const Content = styled("div", {
   },
 });
 
-/**
- * Component housing messages and composition
- */
-const MessagingStack = styled("div", {
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    flexGrow: 1,
-    minWidth: 0,
-    minHeight: 0,
-    // padding: "0 var(--gap-md) 0 0",
-    paddingInline: "var(--gap-md)",
-    marginBlockEnd: "var(--gap-md)",
-    borderRadius: "var(--borderRadius-xl)",
-    background: "var(--md-sys-color-surface-container-lowest)",
-  },
-});

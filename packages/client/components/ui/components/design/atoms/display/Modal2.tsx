@@ -63,8 +63,8 @@ export function Modal2(props: Props) {
                           // eslint-disable-next-line @typescript-eslint/no-explicit-any
                           const value = action.onClick?.() as any;
                           if (value instanceof Promise) {
-                            value.then(props.onClose);
-                          } else {
+                            value.then(props.onClose).catch(() => {});
+                          } else if (value !== false) {
                             props.onClose();
                           }
                         }}

@@ -6,7 +6,7 @@ import { styled } from "styled-system/jsx";
 
 import { IS_DEV, useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 import {
   Button,
@@ -14,6 +14,7 @@ import {
   Column,
   Header,
   iconSize,
+  main,
   typography,
 } from "@revolt/ui";
 
@@ -31,7 +32,6 @@ import { HeaderIcon } from "./common/CommonHeader";
 
 const Logo = styled(RevoltSvg, {
   base: {
-    width: "240px",
     fill: "var(--colours-foreground)",
   },
 });
@@ -52,19 +52,13 @@ const Base = styled("div", {
  */
 const content = cva({
   base: {
-    flexGrow: 1,
-    minHeight: 0,
-    margin: "0 var(--gap-md) var(--gap-md) 0",
+    ...main.raw(),
+
     padding: "var(--gap-xxl) 0",
 
-    display: "flex",
     gap: "var(--gap-xl)",
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "column",
-
-    borderRadius: "var(--borderRadius-lg)",
-    background: "var(--md-sys-color-surface-container-lowest)",
   },
 });
 
@@ -112,6 +106,7 @@ const Image = styled("img", {
  * Home page
  */
 export function HomePage() {
+  const { openModal } = useModals();
   const navigate = useNavigate();
   const client = useClient();
 
@@ -121,7 +116,6 @@ export function HomePage() {
     client()!.servers.get("01F7ZSBSFHQ8TA81725KQCSDDP") !== undefined;
 
   return (
-    // TODO: i18n
     <Base>
       <Header placement="primary">
         <HeaderIcon>
@@ -140,7 +134,7 @@ export function HomePage() {
           <SeparatedColumn>
             <CategoryButton
               onClick={() =>
-                modalController.openModal({
+                openModal({
                   type: "create_group",
                   client: client()!,
                 })
@@ -224,7 +218,7 @@ export function HomePage() {
             </CategoryButton>
             <CategoryButton
               onClick={() =>
-                modalController.openModal({ type: "settings", config: "user" })
+                openModal({ type: "settings", config: "user" })
               }
               description={
                 <Trans>

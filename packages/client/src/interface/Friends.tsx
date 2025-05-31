@@ -11,18 +11,18 @@ import {
   splitProps,
 } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import type { User } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import {
   Avatar,
   Badge,
   Button,
-  CategoryButton,
   Deferred,
   Header,
   List,
@@ -31,9 +31,8 @@ import {
   NavigationRail,
   NavigationRailItem,
   OverflowingText,
-  Tabs,
-  Typography,
   UserStatusGraphic,
+  main,
 } from "@revolt/ui";
 
 import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
@@ -52,32 +51,19 @@ const Base = styled("div", {
     width: "100%",
     display: "flex",
     flexDirection: "column",
+
     "& .FriendsList": {
       paddingInline: "var(--gap-lg)",
     },
   },
 });
 
-// const ListBase = styled("div", {
-//   base: {
-//     "&:not(:first-child)": {
-//       paddingTop: "var(--gap-lg)",
-//     },
-//   },
-// });
-
-/**
- * Typed accessor for lists
- */
-type FriendLists = Accessor<{
-  [key in "online" | "offline" | "incoming" | "outgoing" | "blocked"]: User[];
-}>;
-
 /**
  * Friends menu
  */
 export function Friends() {
   const client = useClient();
+  const { openModal } = useModals();
 
   /**
    * Reference to the parent scroll container
@@ -122,93 +108,97 @@ export function Friends() {
   const [page, setPage] = createSignal("online");
 
   return (
-    // TODO: i18n
     <Base>
       <Header placement="primary">
         <HeaderIcon>
           <BiSolidUserDetail size={24} />
         </HeaderIcon>
-        Friends
+        <Trans>Friends</Trans>
       </Header>
 
-      <div
-        style={{
-          position: "relative",
-          "min-height": 0,
-        }}
-      >
-        <NavigationRail contained value={page} onValue={setPage}>
-          <div style={{ "margin-top": "6px", "margin-bottom": "12px" }}>
-            <Button
-              size="fab"
-              onPress={() =>
-                modalController.openModal({ type: "add_friend", client: client() })
-              }
-            >
-              <MdAdd />
-            </Button>
-          </div>
+      <main class={main()}>
+        <div
+          style={{
+            position: "relative",
+            "min-height": 0,
+          }}
+        >
+          <NavigationRail contained value={page} onValue={setPage}>
+            <div style={{ "margin-top": "6px", "margin-bottom": "12px" }}>
+              <Button
+                size="fab"
+                onPress={() =>
+                  openModal({
+                    type: "add_friend",
+                    client: client(),
+                  })
+                }
+              >
+                <MdAdd />
+              </Button>
+            </div>
 
-          <NavigationRailItem icon={<MdWavingHand />} value="online">
-            Online
-          </NavigationRailItem>
-          <NavigationRailItem icon={<MdGroup />} value="all">
-            All
-          </NavigationRailItem>
-          <NavigationRailItem icon={<MdNotifications />} value="pending">
-            Pending
-            <Show when={pending()}>
-              <Badge slot="badge" variant="large">
-                {pending()}
-              </Badge>
-            </Show>
-          </NavigationRailItem>
-          <NavigationRailItem icon={<MdBlock />} value="blocked">
-            Blocked
-          </NavigationRailItem>
-        </NavigationRail>
+            <NavigationRailItem icon={<MdWavingHand />} value="online">
+              <Trans>Online</Trans>
+            </NavigationRailItem>
+            <NavigationRailItem icon={<MdGroup />} value="all">
+              <Trans>All</Trans>
+            </NavigationRailItem>
+            <NavigationRailItem icon={<MdNotifications />} value="pending">
+              <Trans>Pending</Trans>
+              <Show when={pending()}>
+                <Badge slot="badge" variant="large">
+                  {pending()}
+                </Badge>
+              </Show>
+            </NavigationRailItem>
+            <NavigationRailItem icon={<MdBlock />} value="blocked">
+              <Trans>Blocked</Trans>
+            </NavigationRailItem>
+          </NavigationRail>
 
-        <Deferred>
-          <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
-            <Switch
-              fallback={
-                <People
-                  title="Online"
-                  users={lists().online}
-                  scrollTargetElement={targetSignal}
-                />
-              }
-            >
-              <Match when={page() === "all"}>
-                <People
-                  title="All"
-                  users={lists().friends}
-                  scrollTargetElement={targetSignal}
-                />
-              </Match>
-              <Match when={page() === "pending"}>
-                <People
-                  title="Incoming"
-                  users={lists().incoming}
-                  scrollTargetElement={targetSignal}
-                />
-                <People
-                  title="Outgoing"
-                  users={lists().outgoing}
-                  scrollTargetElement={targetSignal}
-                />
-              </Match>
-              <Match when={page() === "blocked"}>
-                <People
-                  title="Blocked"
-                  users={lists().blocked}
-                  scrollTargetElement={targetSignal}
-                />
-              </Match>
-            </Switch>
-          </div>
-        </Deferred>
-      </div>
+          <Deferred>
+            <div class="FriendsList" ref={scrollTargetElement} use:scrollable>
+              <Switch
+                fallback={
+                  <People
+                    title="Online"
+                    users={lists().online}
+                    scrollTargetElement={targetSignal}
+                  />
+                }
+              >
+                <Match when={page() === "all"}>
+                  <People
+                    title="All"
+                    users={lists().friends}
+                    scrollTargetElement={targetSignal}
+                  />
+                </Match>
+                <Match when={page() === "pending"}>
+                  <People
+                    title="Incoming"
+                    users={lists().incoming}
+                    scrollTargetElement={targetSignal}
+                  />
+                  <People
+                    title="Outgoing"
+                    users={lists().outgoing}
+                    scrollTargetElement={targetSignal}
+                  />
+                </Match>
+                <Match when={page() === "blocked"}>
+                  <People
+                    title="Blocked"
+                    users={lists().blocked}
+                    scrollTargetElement={targetSignal}
+                  />
+                </Match>
+              </Switch>
+            </div>
+          </Deferred>
+        </div>
+      </main>
     </Base>
   );
 }
@@ -228,7 +218,9 @@ function People(props: {
       </ListSubheader>
 
       <Show when={props.users.length === 0}>
-        <ListItem disabled>Nobody here right now!</ListItem>
+        <ListItem disabled>
+          <Trans>Nobody here right now!</Trans>
+        </ListItem>
       </Show>
 
       <VirtualContainer

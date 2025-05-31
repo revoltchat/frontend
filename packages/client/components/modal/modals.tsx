@@ -4,7 +4,7 @@ import { CONFIGURATION } from "@revolt/common";
 import { Modal } from "@revolt/ui";
 
 import { type ActiveModal } from ".";
-import add_friend from "./modals/AddFriend";
+import add_friend, { AddFriend } from "./modals/AddFriend";
 import ban_member from "./modals/BanMember";
 import changelog from "./modals/Changelog";
 import channel_info from "./modals/ChannelInfo";
@@ -63,6 +63,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
   const modalProps = mergeProps(props.props, modal2Props);
 
   switch (modalProps.type) {
+    case "add_friend":
+      return <AddFriend {...modalProps} />;
     case "channel_toggle_mature":
       return <ChannelToggleMatureModal {...modalProps} />;
     case "error2":
@@ -74,7 +76,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       // @ts-expect-error unimplemented entries
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const Modals: Record<AllModals["type"], PropGenerator<any>> = {
-        add_friend,
         ban_member,
         changelog,
         channel_info,
