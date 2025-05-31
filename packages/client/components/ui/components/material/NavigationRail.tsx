@@ -26,6 +26,8 @@ export function NavigationRail(props: Props) {
 
 const rail = cva({
   base: {
+    background: 'transparent',
+    paddingBlock: '8px',
     width: "56px",
   },
 });

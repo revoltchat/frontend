@@ -53,6 +53,7 @@ const Base = styled("div", {
     flexDirection: "column",
 
     "& .FriendsList": {
+      height: '100%',
       paddingInline: "var(--gap-lg)",
     },
   },
