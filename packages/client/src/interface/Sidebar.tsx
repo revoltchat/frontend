@@ -5,7 +5,7 @@ import { Channel, Server as ServerI } from "revolt.js";
 
 import { ChannelContextMenu, ServerSidebarContextMenu } from "@revolt/app";
 import { useClient, useUser } from "@revolt/client";
-import { modalController } from "@revolt/modal";
+import { modalController, useModals } from "@revolt/modal";
 import { Route, useParams, useSmartParams } from "@revolt/routing";
 import { state } from "@revolt/state";
 import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
@@ -21,6 +21,7 @@ export const Sidebar = (props: {
 }) => {
   const user = useUser();
   const client = useClient();
+  const { openModal } = useModals();
   const params = useParams<{ server: string }>();
 
   return (
@@ -35,7 +36,7 @@ export const Sidebar = (props: {
         user={user()!}
         selectedServer={() => params.server}
         onCreateOrJoinServer={() =>
-          modalController.openModal({
+          openModal({
             type: "create_or_join_server",
             client: client(),
           })
@@ -93,6 +94,7 @@ const Home: Component = () => {
  * Render sidebar for a server
  */
 const Server: Component = () => {
+  const { openModal } = useModals();
   const params = useSmartParams();
   const client = useClient();
 
@@ -106,7 +108,7 @@ const Server: Component = () => {
    * Open the server information modal
    */
   function openServerInfo() {
-    modalController.openModal({
+    openModal({
       type: "server_info",
       server: server(),
     });
@@ -116,7 +118,7 @@ const Server: Component = () => {
    * Open the server settings modal
    */
   function openServerSettings() {
-    modalController.openModal({
+    openModal({
       type: "settings",
       config: "server",
       context: server(),

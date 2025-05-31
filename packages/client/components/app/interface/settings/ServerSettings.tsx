@@ -4,6 +4,7 @@ import {
   BiSolidGroup,
   BiSolidHappyBeaming,
   BiSolidInfoCircle,
+  BiSolidKey,
   BiSolidTrash,
   BiSolidUserX,
 } from "solid-icons/bi";
@@ -17,6 +18,7 @@ import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
+import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
 import Overview from "./server/Overview";
 
 const Config: SettingsConfiguration<Server> = {
@@ -46,6 +48,10 @@ const Config: SettingsConfiguration<Server> = {
     switch (id) {
       case "overview":
         return <Overview server={server} />;
+      case "permissions":
+        return (
+          <ChannelPermissionsEditor type="server_default" context={server} />
+        );
 
       default:
         return null;
@@ -74,6 +80,12 @@ const Config: SettingsConfiguration<Server> = {
               id: "members",
               icon: <BiSolidGroup size={20} />,
               title: <Trans>Members</Trans>,
+            },
+            {
+              hidden: !server.havePermission("ManagePermissions"),
+              id: "permissions",
+              icon: <BiSolidKey size={20} />,
+              title: <Trans>Default Permissions</Trans>,
             },
             {
               hidden: !(

@@ -1,23 +1,31 @@
+import type { JSXElement } from "solid-js";
+
 import "mdui/components/segmented-button-group.js";
 import "mdui/components/segmented-button.js";
 import { cva } from "styled-system/css";
 
-export function SingleSelectSegmentedButton() {
+export function SegmentedButton(props: {
+  value: string;
+  children: JSXElement;
+}) {
+  return (
+    <mdui-segmented-button class={styles()} value={props.value}>
+      {props.children}
+    </mdui-segmented-button>
+  );
+}
+
+export function SingleSelectSegmentedButtonGroup(props: {
+  onSelect: (value: string) => void;
+  children: JSXElement;
+}) {
   return (
     <mdui-segmented-button-group
       selects="single"
       value="allow"
-      onChange={() => {}}
+      onChange={props.onSelect}
     >
-      <mdui-segmented-button class={styles()} value="allow">
-        Allow
-      </mdui-segmented-button>
-      <mdui-segmented-button class={styles()} value="inherit">
-        Inherit
-      </mdui-segmented-button>
-      <mdui-segmented-button class={styles()} value="disallow">
-        Disallow
-      </mdui-segmented-button>
+      {props.children}
     </mdui-segmented-button-group>
   );
 }

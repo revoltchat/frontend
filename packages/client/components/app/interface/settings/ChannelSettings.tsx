@@ -14,10 +14,9 @@ import { TextWithEmoji } from "@revolt/markdown";
 import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
-import GroupPermissions from "./channel/GroupPermissions";
 import ChannelOverview from "./channel/Overview";
 import Webhooks, { Webhook } from "./channel/Webhooks";
-import { ChannelPermissions } from "./channel/permissions/ChannelPermissions";
+import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -54,13 +53,13 @@ const Config: SettingsConfiguration<Channel> = {
       case "overview":
         return <ChannelOverview channel={channel} />;
       case "permissions":
-        // switch (channel.type) {
-        //   case "Group":
-        //     return <GroupPermissions channel={channel} />;
-        // }
-        //
-        // return null;
-        return <ChannelPermissions />;
+        switch (channel.type) {
+          case "Group":
+            return <ChannelPermissionsEditor type="group" context={channel} />;
+          default:
+            return null;
+        }
+
       case "webhooks":
         return <Webhooks channel={channel} />;
       default:

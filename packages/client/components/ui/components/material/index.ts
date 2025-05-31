@@ -6,3 +6,4 @@ export { NavigationRail, NavigationRailItem } from "./NavigationRail";
 export { Ripple } from "./Ripple";
 export { Tabs } from "./Tabs";
 export { TextField } from "./TextField";
+export { SegmentedButton, SingleSelectSegmentedButtonGroup } from './SegmentedButton'

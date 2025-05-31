@@ -26,7 +26,7 @@ export default {
   },
   effects: {
     onChange: (_, state) => ({
-      state,
+      value: state,
     }),
   },
 } as ComponentStory<typeof OverrideSwitch>;

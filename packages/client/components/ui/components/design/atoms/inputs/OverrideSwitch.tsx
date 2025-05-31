@@ -1,93 +1,43 @@
 import { BiRegularCheck, BiRegularX } from "solid-icons/bi";
-import { createSignal, splitProps } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
-type State = "Allow" | "Neutral" | "Deny";
+import { Ripple } from "@revolt/ui";
+
+type State = "allow" | "neutral" | "deny";
 
 interface Props {
-  readonly state?: State;
+  readonly value: State;
   readonly disabled?: boolean;
-  readonly onChange?: (state: State) => void;
+  readonly onChange: (state: State) => void;
 }
-
-const SwitchContainer = styled("div", {
-  base: {
-    flexShrink: 0,
-    width: "fit-content",
-
-    display: "flex",
-    margin: "4px 0",
-    overflow: "hidden",
-    borderRadius: "var(--borderRadius-md)",
-
-    "&[aria-disabled]": {
-      pointerEvents: "none",
-      opacity: 0.6,
-    },
-
-    transition: "var(--transitions-fast) all",
-    background: "var(--unset-bg)",
-  },
-});
-
-const Switch = styled("div", {
-  base: {
-    padding: "4px",
-    display: "flex",
-    cursor: "pointer",
-    alignItems: "center",
-    transition: "var(--transitions-fast) all",
-
-    color: "var(--unset-fg)",
-    fill: "var(--unset-fg)",
-
-    "&:hover": {
-      filter: "brightness(0.8)",
-    },
-
-    "& svg": {
-      stroke: "5px solid white",
-    },
-  },
-});
 
 /**
  * Override Switch
  */
 export function OverrideSwitch(props: Props) {
-  const [local, others] = splitProps(props, ["disabled", "onChange", "state"]);
-
-  const [controlledValue, setControlledValue] = createSignal<State>(
-    local.state || "Neutral",
-  );
-
-  const currentState = () => local.state ?? controlledValue();
   return (
     <SwitchContainer
       role="radiogroup"
       aria-orientiation="horizontal"
-      aria-disabled={local.disabled}
-      {...others}
+      aria-disabled={props.disabled}
     >
       <Switch
-        onClick={() =>
-          typeof local.state !== "undefined"
-            ? !local.disabled && local.onChange?.("Allow")
-            : setControlledValue("Allow")
-        }
+        type="allow"
+        selected={props.value}
+        onClick={() => !props.disabled && props.onChange("allow")}
         role="radio"
       >
+        <Ripple />
         <BiRegularCheck size={24} />
       </Switch>
       <Switch
-        onClick={() =>
-          typeof local.state !== "undefined"
-            ? !local.disabled && local.onChange?.("Neutral")
-            : setControlledValue("Neutral")
-        }
+        type="neutral"
+        selected={props.value}
+        onClick={() => !props.disabled && props.onChange("neutral")}
         role="radio"
       >
+        <Ripple />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24"
@@ -98,15 +48,94 @@ export function OverrideSwitch(props: Props) {
         </svg>
       </Switch>
       <Switch
-        onClick={() =>
-          typeof local.state !== "undefined"
-            ? !local.disabled && local.onChange?.("Deny")
-            : setControlledValue("Deny")
-        }
+        type="deny"
+        selected={props.value}
+        onClick={() => !props.disabled && props.onChange("deny")}
         role="radio"
       >
+        <Ripple />
         <BiRegularX size={24} />
       </Switch>
     </SwitchContainer>
   );
 }
+
+const SwitchContainer = styled("div", {
+  base: {
+    flexShrink: 0,
+    width: "fit-content",
+    // height: 'fit-content',
+
+    display: "flex",
+    margin: "4px 0",
+    overflow: "hidden",
+    borderRadius: "var(--borderRadius-md)",
+
+    // "&[aria-disabled]": {
+    //   pointerEvents: "none",
+    //   opacity: 0.6,
+    // },
+
+    transition: "var(--transitions-fast) all",
+    background: "var(--md-sys-color-primary-container)",
+  },
+});
+
+const Switch = styled("div", {
+  base: {
+    // for <Ripple />:
+    position: "relative",
+    
+    padding: "4px",
+    display: "flex",
+    cursor: "pointer",
+    alignItems: "center",
+    transition: "var(--transitions-fast) all",
+
+    "&:hover": {
+      // filter: "brightness(0.8)",
+    },
+
+    "& svg": {
+      stroke: "5px solid red",
+    },
+  },
+  variants: {
+    selected: {
+      allow: {},
+      neutral: {},
+      deny: {},
+    },
+    type: {
+      allow: {},
+      neutral: {},
+      deny: {},
+    },
+  },
+  compoundVariants: [
+    {
+      type: "allow",
+      selected: "allow",
+      css: {
+        color: "var(--customColours-success-onColor)",
+        background: "var(--customColours-success-color)",
+      },
+    },
+    {
+      type: "neutral",
+      selected: "neutral",
+      css: {
+        fill: "var(--md-sys-color-inverse-on-surface)",
+        background: "var(--md-sys-color-inverse-surface)",
+      },
+    },
+    {
+      type: "deny",
+      selected: "deny",
+      css: {
+        color: "var(--md-sys-color-on-error)",
+        background: "var(--md-sys-color-error)",
+      },
+    },
+  ],
+});

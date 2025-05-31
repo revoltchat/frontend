@@ -1,18 +1,70 @@
-import { For, Show } from "solid-js";
+import { For, Match, Show, Switch, createSignal } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
-import { API } from "revolt.js";
+import { API, Channel, Server } from "revolt.js";
 import { css } from "styled-system/css";
 
-import { Checkbox2, Text } from "@revolt/ui";
-import { SingleSelectSegmentedButton } from "@revolt/ui/components/material/SegmentedButton";
+import {
+  Checkbox2,
+  OverrideSwitch,
+  Text,
+} from "@revolt/ui";
+import { DEFAULT_PERMISSION_DIRECT_MESSAGE } from "revolt.js";
+
+type Props = { type: "server_default"; context: Server } | { type: "group"; context: Channel };
 
 type Context = API.Channel["channel_type"] | "Server";
 
-export function ChannelPermissionsEditor(/* props: { context:  } */) {
+/**
+ * Generic editor for any channel permissions
+ */
+export function ChannelPermissionsEditor(props: Props) {
   const { t } = useLingui();
 
-  const context: Context = "Server";
+  const context: Context = props.context instanceof Server ? 'Server' : props.context.type;
+
+  /**
+   * Current permission value, normalised to [allow, deny]
+   * @returns [allow, deny] BigInts
+   */
+  function currentValue() {
+    switch (props.type) {
+      case "server_default":
+        return [BigInt(props.context.defaultPermissions), BigInt(0)];
+      case 'group':
+        return [BigInt(props.context.permissions ?? DEFAULT_PERMISSION_DIRECT_MESSAGE), BigInt(0)];
+    }
+  }
+
+  /**
+   * Current edited values
+   */
+  const [value, setValue] = createSignal(currentValue());
+
+  /**
+   * Whether there is a pending save
+   */
+  function unsavedChanges() {
+    const [a1, a2] = currentValue(),
+      [b1, b2] = value();
+
+    return a1 !== b1 || a2 !== b2;
+  }
+
+  /**
+   * Commit changes
+   * @todo mutator
+   */
+  function save() {
+    switch (props.type) {
+      case "server_default":
+        props.context.setPermissions(undefined, Number(value()[0]));
+        break;
+      case 'group':
+        props.context.setPermissions(undefined, Number(value()[0]));
+        break;
+    }
+  }
 
   const Permissions: {
     heading?: string;
@@ -293,6 +345,13 @@ export function ChannelPermissionsEditor(/* props: { context:  } */) {
 
   return (
     <div class={css({ display: "flex", flexDirection: "column" })}>
+      <Show when={unsavedChanges()}>
+        <h1>
+          unsaved changes!
+          <a onclick={() => save()}>click to save</a>
+        </h1>
+      </Show>
+
       <For each={Permissions}>
         {(entry) => (
           <Show when={description(entry)}>
@@ -301,11 +360,30 @@ export function ChannelPermissionsEditor(/* props: { context:  } */) {
                 <Text class="label">{entry.heading}</Text>
               </span>
             </Show>
-            <ChannelPermissionOverride
-              key={entry.key}
-              title={entry.title}
-              description={description(entry) as string}
-            />
+
+            <Switch
+              fallback={
+                <ChannelPermissionToggle
+                  key={entry.key}
+                  title={entry.title}
+                  description={description(entry) as string}
+                  value={
+                    (value()[0] & BigInt(entry.value)) == BigInt(entry.value)
+                  }
+                  onChange={() =>
+                    setValue((v) => [v[0] ^ BigInt(entry.value), v[1]])
+                  }
+                />
+              }
+            >
+              <Match when={false /* editing override */}>
+                <ChannelPermissionOverride
+                  key={entry.key}
+                  title={entry.title}
+                  description={description(entry) as string}
+                />
+              </Match>
+            </Switch>
           </Show>
         )}
       </For>
@@ -317,9 +395,12 @@ function ChannelPermissionToggle(props: {
   key: string;
   title: string;
   description: string;
+
+  value: boolean;
+  onChange: (value: boolean) => void;
 }) {
   return (
-    <Checkbox2 name={props.key}>
+    <Checkbox2 name={props.key} checked={props.value} onChange={props.onChange}>
       <div
         class={css({
           marginStart: "var(--gap-md)",
@@ -356,7 +437,17 @@ function ChannelPermissionOverride(props: {
         <Text size="large">{props.title}</Text>
         <Text>{props.description}</Text>
       </div>
-      <SingleSelectSegmentedButton />
+      <OverrideSwitch
+        value={
+          Math.random() > 0.5
+            ? "allow"
+            : Math.random() > 0.5
+              ? "deny"
+              : "neutral"
+        }
+        onChange={() => void 0}
+        disabled={false}
+      />
     </div>
   );
 }
