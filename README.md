@@ -9,7 +9,8 @@
   [![Contributors](https://img.shields.io/github/contributors/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/graphs/contributors)
   [![License](https://img.shields.io/github/license/revoltchat/frontend?style=flat-square&logoColor=white)](https://github.com/revoltchat/frontend/blob/main/LICENSE)
 </h1>
-The official web client powering https://revolt.chat/app, built with <a href="https://www.solidjs.com/">Solid.js</a> 💖.
+The official web client powering https://revolt.chat/app, built with <a href="https://www.solidjs.com/">Solid.js</a> 💖. <br/>
+Track the project roadmap on <a href="https://op.revolt.wtf/projects/revolt-for-web/roadmap">OpenProject</a>.
 </div>
 <br/>
 
