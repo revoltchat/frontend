@@ -29,6 +29,9 @@ export default defineConfig({
       srcDir: "src",
       filename: "sw.ts",
       strategies: "injectManifest",
+      injectManifest: {
+        maximumFileSizeToCacheInBytes: 3000000
+      },
       manifest: {
         name: "Revolt",
         short_name: "Revolt",
