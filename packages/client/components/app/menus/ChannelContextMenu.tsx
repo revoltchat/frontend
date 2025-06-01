@@ -3,7 +3,7 @@ import { Match, Show, Switch } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
-import { getController } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
@@ -25,6 +25,8 @@ import {
  * Context menu for channels
  */
 export function ChannelContextMenu(props: { channel: Channel }) {
+  const { openModal } = useModals();
+
   /**
    * Mark channel as read
    */
@@ -36,7 +38,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Create a new invite
    */
   function createInvite() {
-    getController("modal").openModal({
+    openModal({
       type: "create_invite",
       channel: props.channel,
     });
@@ -46,7 +48,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Create a new channel
    */
   function createChannel() {
-    getController("modal").openModal({
+    openModal({
       type: "create_channel",
       server: props.channel.server!,
     });
@@ -56,7 +58,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Edit channel
    */
   function editChannel() {
-    getController("modal").openModal({
+    openModal({
       type: "settings",
       config: "channel",
       context: props.channel,
@@ -67,7 +69,7 @@ export function ChannelContextMenu(props: { channel: Channel }) {
    * Delete channel
    */
   function deleteChannel() {
-    getController("modal").openModal({
+    openModal({
       type: "delete_channel",
       channel: props.channel,
     });

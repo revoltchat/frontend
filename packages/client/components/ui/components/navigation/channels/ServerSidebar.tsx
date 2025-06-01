@@ -21,9 +21,9 @@ import { useLingui } from "@lingui-solid/solid/macro";
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
-import { getController } from "@revolt/common";
 import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
+import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 
 import MdChevronRight from "@material-design-icons/svg/filled/chevron_right.svg?component-solid";
@@ -346,6 +346,8 @@ const CategoryBase = styled("div", {
 function Entry(
   props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">,
 ) {
+  const { openModal } = useModals();
+
   return (
     <a href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}>
       <MenuButton
@@ -382,7 +384,7 @@ function Entry(
               }}
               onClick={(e) => {
                 e.preventDefault();
-                getController("modal").openModal({
+                openModal({
                   type: "create_invite",
                   channel: props.channel,
                 });
@@ -400,7 +402,7 @@ function Entry(
               }}
               onClick={(e) => {
                 e.preventDefault();
-                getController("modal").openModal({
+                openModal({
                   type: "settings",
                   config: "channel",
                   context: props.channel,

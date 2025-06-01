@@ -1,9 +1,8 @@
-import { getController } from "@revolt/common";
+import { Client } from "revolt.js";
 
 import { State } from "..";
 
 import { AbstractStore } from ".";
-import { Client } from "revolt.js";
 
 export interface TypeOrdering {
   /**

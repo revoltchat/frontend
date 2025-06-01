@@ -9,8 +9,8 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
+import { useModals } from "@revolt/modal";
 import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
@@ -73,6 +73,8 @@ const Config: SettingsConfiguration<Channel> = {
    * @returns List
    */
   list(channel) {
+    const { openModal } = useModals();
+
     return {
       entries: [
         {
@@ -92,7 +94,9 @@ const Config: SettingsConfiguration<Channel> = {
               title: <Trans>Permissions</Trans>,
             },
             {
-              hidden: !channel.havePermission("ManageWebhooks") && import.meta.env.PROD,
+              hidden:
+                !channel.havePermission("ManageWebhooks") &&
+                import.meta.env.PROD,
               id: "webhooks",
               icon: <BiSolidCloud size={20} />,
               title: <Trans>Webhooks</Trans>,
@@ -116,11 +120,8 @@ const Config: SettingsConfiguration<Channel> = {
                   <Trans>Delete Channel</Trans>
                 </ColouredText>
               ),
-              /**
-               * Handle server deletion request
-               */
               onClick() {
-                getController("modal").openModal({
+                openModal({
                   type: "delete_channel",
                   channel,
                 });

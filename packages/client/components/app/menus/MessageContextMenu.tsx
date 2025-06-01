@@ -4,7 +4,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Message } from "revolt.js";
 
 import { useClient, useUser } from "@revolt/client";
-import { getController } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
@@ -29,6 +29,7 @@ export function MessageContextMenu(props: { message: Message }) {
   const user = useUser();
   const state = useState();
   const client = useClient();
+  const { openModal } = useModals();
 
   /**
    * Reply to this message
@@ -55,7 +56,7 @@ export function MessageContextMenu(props: { message: Message }) {
    * Report the message
    */
   function report() {
-    getController("modal").openModal({
+    openModal({
       type: "report_content",
       target: props.message,
       client: client(),
@@ -69,7 +70,7 @@ export function MessageContextMenu(props: { message: Message }) {
     if (ev.shiftKey) {
       props.message.delete();
     } else {
-      getController("modal").openModal({
+      openModal({
         type: "delete_message",
         message: props.message,
       });

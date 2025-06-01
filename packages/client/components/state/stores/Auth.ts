@@ -1,5 +1,4 @@
-import { TransitionType } from "@revolt/client/Controller";
-import { CONFIGURATION, getController } from "@revolt/common";
+import { CONFIGURATION } from "@revolt/common";
 
 import { State } from "..";
 

@@ -3,6 +3,7 @@ import { Match, Show, Switch, createSignal, onMount } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 
 import { useApi, useClientLifecycle } from "@revolt/client";
+import { useModals } from "@revolt/modal";
 import { useNavigate, useParams } from "@revolt/routing";
 import { Button, Preloader } from "@revolt/ui";
 
@@ -27,6 +28,7 @@ type State =
 export default function FlowVerify() {
   const api = useApi();
   const params = useParams();
+  const modals = useModals();
   const navigate = useNavigate();
   const { login } = useClientLifecycle();
 
@@ -64,9 +66,12 @@ export default function FlowVerify() {
   async function performLogin() {
     const v = state();
     if (v.state === "success" && v.mfa_ticket) {
-      await login({
-        mfa_ticket: v.mfa_ticket,
-      });
+      await login(
+        {
+          mfa_ticket: v.mfa_ticket,
+        },
+        modals,
+      );
 
       navigate("/login/auth", { replace: true });
     }

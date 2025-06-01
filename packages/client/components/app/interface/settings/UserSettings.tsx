@@ -3,6 +3,7 @@ import { Server } from "revolt.js";
 
 import { useClient, useClientLifecycle } from "@revolt/client";
 import { useUser } from "@revolt/markdown/users";
+import { useModals } from "@revolt/modal";
 import { ColouredText, Column, iconSize } from "@revolt/ui";
 
 import MdAccountCircle from "@material-design-icons/svg/outlined/account_circle.svg?component-solid";
@@ -31,7 +32,6 @@ import { Sessions } from "./user/Sessions";
 import { AccountCard } from "./user/_AccountCard";
 import { MyBots, ViewBot } from "./user/bots";
 import { EditProfile } from "./user/profile";
-import { useModals } from "@revolt/modal";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -89,6 +89,9 @@ const Config: SettingsConfiguration<{ server: Server }> = {
    * @returns List
    */
   list() {
+    const { pop } = useModals();
+    const { logout } = useClientLifecycle();
+
     return {
       prepend: (
         <Column gap="s">
@@ -223,10 +226,9 @@ const Config: SettingsConfiguration<{ server: Server }> = {
                   <Trans>Log Out</Trans>
                 </ColouredText>
               ),
-              onClick: () => {
-                // TODO: probably doesn't work
-                useModals().pop();
-                useClientLifecycle().logout();
+              onClick() {
+                pop();
+                logout();
               },
             },
           ],

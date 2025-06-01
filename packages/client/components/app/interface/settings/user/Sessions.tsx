@@ -20,7 +20,7 @@ import { Session } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
-import { getController } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -67,6 +67,7 @@ export function Sessions() {
  */
 function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
   const client = useClient();
+  const { openModal } = useModals();
 
   /**
    * Resolve current session
@@ -85,7 +86,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
           action="chevron"
           onClick={() =>
             currentSession() &&
-            getController("modal").openModal({
+            openModal({
               type: "rename_session",
               session: currentSession()!,
             })
@@ -110,7 +111,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
         <CategoryButton
           action="chevron"
           onClick={() =>
-            getController("modal").openModal({
+            openModal({
               type: "sign_out_sessions",
               client: client(),
             })
@@ -136,6 +137,8 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
  * List other logged in sessions
  */
 function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
+  const { openModal } = useModals();
+
   return (
     <Show when={props.otherSessions().length}>
       <Column>
@@ -155,7 +158,7 @@ function ListOtherSessions(props: { otherSessions: Accessor<Session[]> }) {
                   icon="blank"
                   action="chevron"
                   onClick={() =>
-                    getController("modal").openModal({
+                    openModal({
                       type: "rename_session",
                       session,
                     })

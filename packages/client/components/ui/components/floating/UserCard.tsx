@@ -1,25 +1,19 @@
-import { JSX, createMemo } from "solid-js";
-import { For, Show } from "solid-js";
+import { JSX } from "solid-js";
+import { For } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
-import { createQuery } from "@tanstack/solid-query";
+import { useQuery } from "@tanstack/solid-query";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
-
-import { UserContextMenu } from "@revolt/app";
-import { getController } from "@revolt/common";
 
 import MdMoreVert from "@material-design-icons/svg/filled/more_vert.svg?component-solid";
 
 import {
   Avatar,
   Button,
-  ColouredText,
   Row,
   Text,
-  UserStatus,
   UserStatusGraphic,
-  Username,
   typography,
 } from "../design";
 import { Ripple } from "../material";
@@ -142,7 +136,7 @@ export function UserCard(
   props: JSX.Directives["floating"]["userCard"] & object,
 ) {
   const { t } = useLingui();
-  const query = createQuery(() => ({
+  const query = useQuery(() => ({
     queryKey: ["profile", props.user.id],
     queryFn: () => props.user.fetchProfile(),
   }));

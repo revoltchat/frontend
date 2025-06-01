@@ -4,7 +4,6 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Channel, Message, ServerMember, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { getController } from "@revolt/common";
 
 import MdAddCircleOutline from "@material-design-icons/svg/outlined/add_circle_outline.svg?component-solid";
 import MdAdminPanelSettings from "@material-design-icons/svg/outlined/admin_panel_settings.svg?component-solid";
@@ -24,6 +23,8 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
+import { useModals } from "@revolt/modal";
+import { useState } from "@revolt/state";
 
 /**
  * Context menu for users
@@ -36,13 +37,15 @@ export function UserContextMenu(props: {
 }) {
   // TODO: if we take serverId instead, we could dynamically fetch server member here
   // same for the floating menu I guess?
+  const state = useState();
   const client = useClient();
+  const { openModal } = useModals();
 
   /**
    * Delete channel
    */
   function closeDm() {
-    getController("modal").openModal({
+    openModal({
       type: "delete_channel",
       channel: props.channel!,
     });
@@ -52,14 +55,14 @@ export function UserContextMenu(props: {
    * Mention the user
    */
   function mention() {
-    getController("state").draft.insertText(props.user.toString());
+    state.draft.insertText(props.user.toString());
   }
 
   /**
    * Edit server identity for user
    */
   function editIdentity() {
-    getController("modal").openModal({
+    openModal({
       type: "server_identity",
       member: props.member!,
     });
@@ -69,7 +72,7 @@ export function UserContextMenu(props: {
    * Report the user
    */
   function reportUser() {
-    getController("modal").openModal({
+    openModal({
       type: "report_content",
       target: props.user!,
       client: client(),
@@ -81,7 +84,7 @@ export function UserContextMenu(props: {
    * Kick the member
    */
   function kickMember() {
-    getController("modal").openModal({
+    openModal({
       type: "kick_member",
       member: props.member!,
     });
@@ -91,7 +94,7 @@ export function UserContextMenu(props: {
    * Ban the member
    */
   function banMember() {
-    getController("modal").openModal({
+    openModal({
       type: "ban_member",
       member: props.member!,
     });

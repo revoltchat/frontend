@@ -9,8 +9,6 @@ import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { MFA, MFATicket } from "revolt.js";
 
-import { registerController } from "@revolt/common";
-
 import {
   registerKeybindWithPriority,
   unregisterKeybindWithPriority,
@@ -128,7 +126,6 @@ export class ModalControllerExtended extends ModalController {
    */
   constructor() {
     super();
-    registerController("modal", this);
 
     this.mfaFlow = this.mfaFlow.bind(this);
     this.mfaEnableTOTP = this.mfaEnableTOTP.bind(this);

@@ -5,9 +5,8 @@ import { API, Client, ConnectionState } from "revolt.js";
 
 import {
   CONFIGURATION,
-  getController,
-  registerController,
 } from "@revolt/common";
+import { ModalControllerExtended } from "@revolt/modal";
 import type { State as ApplicationState } from "@revolt/state";
 import type { Session } from "@revolt/state/stores/Auth";
 
@@ -409,8 +408,6 @@ export default class ClientController {
 
     this.lifecycle = new Lifecycle(this);
 
-    registerController("client", this);
-
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.selectUsername = this.selectUsername.bind(this);
@@ -448,7 +445,7 @@ export default class ClientController {
    * Login given a set of credentials
    * @param credentials Credentials
    */
-  async login(credentials: API.DataLogin) {
+  async login(credentials: API.DataLogin, modals: ModalControllerExtended) {
     const browser = detect();
 
     // Generate a friendly name for this browser
@@ -482,7 +479,7 @@ export default class ClientController {
       while (session.result === "MFA") {
         const mfa_response: API.MFAResponse | undefined = await new Promise(
           (callback) =>
-            getController("modal").openModal({
+            modals.openModal({
               type: "mfa_flow",
               state: "unknown",
               available_methods: allowed_methods,

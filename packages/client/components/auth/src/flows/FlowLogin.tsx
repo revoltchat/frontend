@@ -5,6 +5,7 @@ import { styled } from "styled-system/jsx";
 
 import { useClientLifecycle } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
+import { useModals } from "@revolt/modal";
 import { Navigate } from "@revolt/routing";
 import { Button, Column, Preloader, Row, iconSize } from "@revolt/ui";
 
@@ -27,6 +28,7 @@ const Logo = styled(RevoltSvg, {
  * Flow for logging into an account
  */
 export default function FlowLogin() {
+  const modals = useModals();
   const { lifecycle, isLoggedIn, login, selectUsername } = useClientLifecycle();
 
   /**
@@ -37,10 +39,13 @@ export default function FlowLogin() {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
 
-    await login({
-      email,
-      password,
-    });
+    await login(
+      {
+        email,
+        password,
+      },
+      modals,
+    );
   }
 
   /**

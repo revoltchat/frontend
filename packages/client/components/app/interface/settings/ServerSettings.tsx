@@ -13,8 +13,8 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
 
 import { useUser } from "@revolt/client";
-import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
+import { useModals } from "@revolt/modal";
 import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
@@ -41,7 +41,7 @@ const Config: SettingsConfiguration<Server> = {
     const id = props.page();
 
     if (!server.$exists) {
-      getController("modal").pop();
+      useModals().pop();
       return null;
     }
 
@@ -65,6 +65,7 @@ const Config: SettingsConfiguration<Server> = {
    */
   list(server) {
     const user = useUser();
+    const { openModal } = useModals();
 
     return {
       entries: [
@@ -148,7 +149,7 @@ const Config: SettingsConfiguration<Server> = {
                * Handle server deletion request
                */
               onClick() {
-                getController("modal").openModal({
+                openModal({
                   type: "delete_server",
                   server,
                 });

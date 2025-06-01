@@ -8,7 +8,6 @@ import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
-import { getController } from "@revolt/common";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
 import { useLocation, useNavigate } from "@revolt/routing";
@@ -241,6 +240,7 @@ function Entry(
   const [local, remote] = splitProps(props, ["channel", "active"]);
 
   const { t } = useLingui();
+  const { openModal } = useModals();
 
   /**
    * Determine user status if present
@@ -299,7 +299,7 @@ function Entry(
           <a
             onClick={(e) => {
               e.preventDefault();
-              getController("modal").openModal({
+              openModal({
                 type: "delete_channel",
                 channel: local.channel,
               });

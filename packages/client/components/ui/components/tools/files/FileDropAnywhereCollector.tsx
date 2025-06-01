@@ -18,7 +18,7 @@ import { Motion } from "solid-motionone";
 import { Plural } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
-import { getController } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 
 import { PreviewStack } from "../../design";
 import { typography } from "../../design/atoms/display/Typography";
@@ -83,6 +83,7 @@ const DropText = styled("div", {
  * Collect files that are dropped anywhere in the page
  */
 export function FileDropAnywhereCollector(props: Props) {
+  const { isOpen } = useModals();
   const [showIndicator, setShowIndicator] = createSignal(false);
   const [hideIndicator, setHideIndicator] = createSignal(false);
   const [items, setItems] = createSignal<DataTransferItem[]>([]);
@@ -99,7 +100,7 @@ export function FileDropAnywhereCollector(props: Props) {
    * @param event Drag event
    */
   function onDragOver(event: DragEvent) {
-    if (getController("modal").isOpen()) return;
+    if (isOpen()) return;
 
     event.preventDefault();
     clearTimeout(deferredHide);

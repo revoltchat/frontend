@@ -8,10 +8,10 @@ import { For, Match, Switch, createMemo, createSignal } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
-import { getController } from "@revolt/common";
 import { KeybindAction } from "@revolt/keybinds";
 import { KeyComboSequence } from "@revolt/keybinds";
 import { KeyCombo } from "@revolt/keybinds";
+import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
 import {
   Button,
@@ -59,6 +59,7 @@ const categories: Record<string, KeybindAction[]> = {
  */
 export default function Keybinds() {
   const state = useState();
+  const { openModal } = useModals();
 
   const translateCombo = (combo: KeyCombo, short: boolean) => "todo i18n";
   // combo
@@ -71,7 +72,7 @@ export default function Keybinds() {
     sequence.map((combo) => translateCombo(combo, short)).join(" ");
 
   const editKeybind = (action: KeybindAction, index: number) =>
-    getController("modal").openModal({
+    openModal({
       type: "edit_keybind",
       action,
       onSubmit: (sequence) => {
@@ -80,7 +81,7 @@ export default function Keybinds() {
     });
 
   const addKeybind = (action: KeybindAction) =>
-    getController("modal").openModal({
+    openModal({
       type: "edit_keybind",
       action,
       onSubmit: (sequence) => {

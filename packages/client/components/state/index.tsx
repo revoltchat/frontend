@@ -11,8 +11,6 @@ import { SetStoreFunction, createStore } from "solid-js/store";
 import equal from "fast-deep-equal";
 import localforage from "localforage";
 
-import { registerController } from "@revolt/common";
-
 import { AbstractStore, Store } from "./stores";
 import { Auth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
@@ -91,8 +89,6 @@ export class State {
     this.store = store as never;
     this.setStore = setStore;
     this.writeQueue = {};
-
-    registerController("state", this);
   }
 
   /**

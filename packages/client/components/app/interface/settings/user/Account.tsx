@@ -7,7 +7,7 @@ import {
   createMfaResource,
   createOwnProfileResource,
 } from "@revolt/client/resources";
-import { getController } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -57,6 +57,7 @@ export function MyAccount() {
  */
 function EditAccount() {
   const client = useClient();
+  const { openModal } = useModals();
   const [email, setEmail] = createSignal("•••••••••••@•••••••••••");
 
   return (
@@ -64,7 +65,7 @@ function EditAccount() {
       <CategoryButton
         action="chevron"
         onClick={() =>
-          getController("modal").openModal({
+          openModal({
             type: "edit_username",
             client: client(),
           })
@@ -77,7 +78,7 @@ function EditAccount() {
       <CategoryButton
         action="chevron"
         onClick={() =>
-          getController("modal").openModal({
+          openModal({
             type: "edit_email",
             client: client(),
           })
@@ -104,7 +105,7 @@ function EditAccount() {
       <CategoryButton
         action="chevron"
         onClick={() =>
-          getController("modal").openModal({
+          openModal({
             type: "edit_password",
             client: client(),
           })
@@ -124,16 +125,16 @@ function EditAccount() {
 function MultiFactorAuth() {
   const client = useClient();
   const mfa = createMfaResource();
+  const { openModal, mfaFlow, mfaEnableTOTP } = useModals();
 
   /**
    * Show recovery codes
    */
   async function showRecoveryCodes() {
-    const modals = getController("modal");
-    const ticket = await modals.mfaFlow(mfa.data!);
+    const ticket = await mfaFlow(mfa.data!);
 
     ticket!.fetchRecoveryCodes().then((codes) =>
-      getController("modal").openModal({
+      openModal({
         type: "mfa_recovery",
         mfa: mfa.data!,
         codes,
@@ -145,11 +146,10 @@ function MultiFactorAuth() {
    * Generate recovery codes
    */
   async function generateRecoveryCodes() {
-    const modals = getController("modal");
-    const ticket = await modals.mfaFlow(mfa.data!);
+    const ticket = await mfaFlow(mfa.data!);
 
     ticket!.generateRecoveryCodes().then((codes) =>
-      getController("modal").openModal({
+      openModal({
         type: "mfa_recovery",
         mfa: mfa.data!,
         codes,
@@ -161,17 +161,13 @@ function MultiFactorAuth() {
    * Configure authenticator app
    */
   async function setupAuthenticatorApp() {
-    const modals = getController("modal");
-    const ticket = await modals.mfaFlow(mfa.data!);
+    const ticket = await mfaFlow(mfa.data!);
     const secret = await ticket!.generateAuthenticatorSecret();
 
     let success;
     while (!success) {
       try {
-        const code = await modals.mfaEnableTOTP(
-          secret,
-          client().user!.username,
-        );
+        const code = await mfaEnableTOTP(secret, client().user!.username);
 
         if (code) {
           await mfa.data!.enableAuthenticator(code);
@@ -187,9 +183,7 @@ function MultiFactorAuth() {
    * Disable authenticator app
    */
   function disableAuthenticatorApp() {
-    getController("modal")
-      .mfaFlow(mfa.data!)
-      .then((ticket) => ticket!.disableAuthenticator());
+    mfaFlow(mfa.data!).then((ticket) => ticket!.disableAuthenticator());
   }
 
   return (
@@ -274,6 +268,7 @@ function MultiFactorAuth() {
 function ManageAccount() {
   const client = useClient();
   const mfa = createMfaResource();
+  const { mfaFlow } = useModals();
   const { logout } = useClientLifecycle();
 
   const stillOwnServers = createMemo(
@@ -286,18 +281,18 @@ function ManageAccount() {
    * Disable account
    */
   function disableAccount() {
-    getController("modal")
-      .mfaFlow(mfa.data!)
-      .then((ticket) => ticket!.disableAccount().then(() => logout()));
+    mfaFlow(mfa.data!).then((ticket) =>
+      ticket!.disableAccount().then(() => logout()),
+    );
   }
 
   /**
    * Delete account
    */
   function deleteAccount() {
-    getController("modal")
-      .mfaFlow(mfa.data!)
-      .then((ticket) => ticket!.deleteAccount().then(() => logout()));
+    mfaFlow(mfa.data!).then((ticket) =>
+      ticket!.deleteAccount().then(() => logout()),
+    );
   }
 
   return (

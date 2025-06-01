@@ -4,7 +4,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { getController } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid";
@@ -26,6 +26,7 @@ import {
  */
 export function ServerContextMenu(props: { server: Server }) {
   const client = useClient();
+  const { openModal } = useModals();
 
   /**
    * Mark server as read
@@ -47,7 +48,7 @@ export function ServerContextMenu(props: { server: Server }) {
       )!
       .channels.find((channel) => channel.havePermission("InviteOthers"))!;
 
-    getController("modal").openModal({
+    openModal({
       type: "create_invite",
       channel,
     });
@@ -57,7 +58,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Open server settings
    */
   function editIdentity() {
-    getController("modal").openModal({
+    openModal({
       type: "server_identity",
       member: props.server.member!,
     });
@@ -67,7 +68,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Open server settings
    */
   function openSettings() {
-    getController("modal").openModal({
+    openModal({
       type: "settings",
       config: "server",
       context: props.server,
@@ -78,7 +79,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Report the server
    */
   function report() {
-    getController("modal").openModal({
+    openModal({
       type: "report_content",
       target: props.server,
       client: client(),
@@ -89,7 +90,7 @@ export function ServerContextMenu(props: { server: Server }) {
    * Leave the server
    */
   function leave() {
-    getController("modal").openModal({
+    openModal({
       type: "leave_server",
       server: props.server,
     });

@@ -3,7 +3,7 @@ import { Match, Show, Switch } from "solid-js";
 import { File, ImageEmbed, VideoEmbed } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
-import { getController } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 
 import { Column } from "../../design/layout";
 import { SizedContent } from "../../design/layout/SizedContent";
@@ -41,6 +41,8 @@ export function humanFileSize(size: number) {
  * Render a given list of files
  */
 export function Attachment(props: { file: File }) {
+  const { openModal } = useModals();
+
   return (
     <Switch fallback={`Could not render ${props.file.metadata.type}!`}>
       <Match when={props.file.metadata.type === "Image"}>
@@ -54,7 +56,7 @@ export function Attachment(props: { file: File }) {
           <img
             // TODO: cursor: pointer
             onClick={() =>
-              getController("modal").openModal({
+              openModal({
                 type: "image_viewer",
                 file: props.file,
               })
