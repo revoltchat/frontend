@@ -43,11 +43,6 @@ interface Props {
   openSavedNotes: (
     navigate?: ReturnType<typeof useNavigate>,
   ) => string | undefined;
-
-  /**
-   * Whether to display friends menu
-   */
-  __tempDisplayFriends: () => boolean;
 }
 
 /**
@@ -86,21 +81,19 @@ export const HomeSidebar = (props: Props) => {
             </MenuButton>
           </a>
 
-          <Show when={props.__tempDisplayFriends()}>
-            <a href="/friends">
-              <MenuButton
-                size="normal"
-                icon={<BiSolidUserDetail size={24} />}
-                attention={
-                  location.pathname === "/friends" ? "selected" : "normal"
-                }
-              >
-                <ButtonTitle>
-                  <Trans>Friends</Trans>
-                </ButtonTitle>
-              </MenuButton>
-            </a>
-          </Show>
+          <a href="/friends">
+            <MenuButton
+              size="normal"
+              icon={<BiSolidUserDetail size={24} />}
+              attention={
+                location.pathname === "/friends" ? "selected" : "normal"
+              }
+            >
+              <ButtonTitle>
+                <Trans>Friends</Trans>
+              </ButtonTitle>
+            </MenuButton>
+          </a>
 
           <Switch
             fallback={

@@ -55,12 +55,12 @@ export function Attachment(props: { file: File }) {
           </Show>
           <img
             // TODO: cursor: pointer
-            onClick={() =>
-              openModal({
-                type: "image_viewer",
-                file: props.file,
-              })
-            }
+            // onClick={() =>
+            //   openModal({
+            //     type: "image_viewer",
+            //     file: props.file,
+            //   })
+            // }
             loading="lazy"
             src={props.file.createFileURL()}
           />

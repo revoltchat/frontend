@@ -33,7 +33,7 @@ export default {
   DEFAULT_MEDIA_URL:
     (import.meta.env.DEV ? import.meta.env.VITE_DEV_MEDIA_URL : undefined) ??
     (import.meta.env.VITE_MEDIA_URL as string) ??
-    "https://autumn.revolt.chat",
+    "https://cdn.revoltusercontent.com",
   /**
    * What proxy server to connect to by default.
    */

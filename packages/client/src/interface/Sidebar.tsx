@@ -30,10 +30,12 @@ export const Sidebar = (props: {
       <ServerList
         orderedServers={state.ordering.orderedServers(client())}
         setServerOrder={state.ordering.setServerOrder}
-        unreadConversations={state.ordering.orderedConversations(client()).filter(
-          // TODO: muting channels
-          (channel) => channel.unread,
-        )}
+        unreadConversations={state.ordering
+          .orderedConversations(client())
+          .filter(
+            // TODO: muting channels
+            (channel) => channel.unread,
+          )}
         user={user()!}
         selectedServer={() => params.server}
         onCreateOrJoinServer={() =>
@@ -60,7 +62,9 @@ const Home: Component = () => {
   const params = useSmartParams();
   const client = useClient();
   const state = useState();
-  const conversations = createMemo(() => state.ordering.orderedConversations(client()));
+  const conversations = createMemo(() =>
+    state.ordering.orderedConversations(client()),
+  );
 
   return (
     <HomeSidebar
@@ -87,7 +91,6 @@ const Home: Component = () => {
         // Otherwise return channel ID if available
         return channelId;
       }}
-      __tempDisplayFriends={() => state.experiments.isEnabled("friends")}
     />
   );
 };

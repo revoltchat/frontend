@@ -397,12 +397,7 @@ export function MessageComposition(props: Props) {
         setContent={setContent}
         actionsStart={
           <Switch fallback={<InlineIcon size="short" />}>
-            <Match
-              when={
-                props.channel.havePermission("UploadFiles") &&
-                state.experiments.isEnabled("file_uploads")
-              }
-            >
+            <Match when={props.channel.havePermission("UploadFiles")}>
               <InlineIcon size="wide">
                 <Button variant="plain" size="icon" onPress={addFile}>
                   <BiRegularPlus size={24} />

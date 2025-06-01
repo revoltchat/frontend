@@ -6,8 +6,6 @@ import { AbstractStore } from ".";
  * Union type of available experiments.
  */
 export type Experiment =
-  | "file_uploads"
-  | "friends"
   | "account_switcher"
   | "gif_picker"
   | "emoji_picker"
@@ -18,8 +16,6 @@ export type Experiment =
  * Currently active experiments.
  */
 export const AVAILABLE_EXPERIMENTS: Experiment[] = [
-  "file_uploads",
-  "friends",
   "account_switcher",
   "gif_picker",
   "emoji_picker",
@@ -30,16 +26,12 @@ export const AVAILABLE_EXPERIMENTS: Experiment[] = [
 /**
  * Experiments enabled by default.
  */
-export const DEFAULT_EXPERIMENTS: Experiment[] = ["file_uploads"];
+export const DEFAULT_EXPERIMENTS: Experiment[] = [];
 
 /**
  * Always-on development-mode experiments.
  */
-export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [
-  "file_uploads",
-  "friends",
-  "gif_picker",
-];
+export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = ["gif_picker"];
 
 /**
  * Definitions for experiments listed by {@link Experiment}.
@@ -47,14 +39,6 @@ export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [
 export const EXPERIMENTS: {
   [key in Experiment]: { title: string; description: string };
 } = {
-  file_uploads: {
-    title: "File Uploads",
-    description: "Enable file uploads when messaging.",
-  },
-  friends: {
-    title: "Friends Menu",
-    description: "Enable the friends menu in home.",
-  },
   account_switcher: {
     title: "Account Switcher",
     description: "Enable the account switcher on the login page.",

@@ -20,109 +20,41 @@ interface Props {
 }
 
 /**
- * Sized content base container
- */
-const Base = styled("figure", {
-  base: {
-    margin: 0,
-
-    "& > :not(.container), .Spoiler": {
-      display: "block",
-      objectFit: "contain",
-      aspectRatio: "var(--width) / var(--height)",
-      borderRadius: "var(--borderRadius-md)",
-    },
-
-    "& video": {
-      minWidth: "var(--layout-attachments-min-width)",
-      maxWidth: "var(--layout-attachments-max-width)",
-      minHeight: "var(--layout-attachments-min-height)",
-      maxHeight: "var(--layout-attachments-max-height)",
-    },
-
-    "& iframe": {
-      minWidth: "var(--layout-attachments-min-width)",
-      maxWidth: "var(--layout-attachments-max-width)",
-      minHeight: "var(--layout-attachments-min-height)",
-      maxHeight: "var(--layout-attachments-max-height)",
-    },
-
-    "& .Spoiler.Video": {
-      minWidth: "var(--layout-attachments-min-width)",
-      maxWidth: "var(--layout-attachments-max-width)",
-      minHeight: "var(--layout-attachments-min-height)",
-      maxHeight: "var(--layout-attachments-max-height)",
-    },
-  },
-});
-
-/**
- * Render tall content
- */
-const Tall = styled(Base, {
-  base: {
-    "& img": {
-      width: "auto",
-      minHeight: "var(--layout-attachments-min-height)",
-      maxHeight: "var(--layout-attachments-max-height)",
-    },
-
-    "& .Spoiler.Image": {
-      width: "auto",
-      minHeight: "var(--layout-attachments-min-height)",
-      maxHeight: "var(--layout-attachments-max-height)",
-      height: "var(--height-px)",
-    },
-  },
-});
-
-/**
- * Render wide content
- */
-const Wide = styled(Base, {
-  base: {
-    "& img": {
-      height: "auto",
-      minWidth: "var(--layout-attachments-min-width)",
-      maxWidth: "var(--layout-attachments-max-width)",
-    },
-
-    "& .Spoiler.Image": {
-      height: "auto",
-      minWidth: "var(--layout-attachments-min-width)",
-      maxWidth: "var(--layout-attachments-max-width)",
-      width: "var(--width-px)",
-    },
-
-    "& .Spoiler.Video": {
-      height: "auto",
-      minWidth: "var(--layout-attachments-min-width)",
-      maxWidth: "var(--layout-attachments-max-width)",
-    },
-
-    "& video": {
-      height: "auto",
-    },
-  },
-});
-
-/**
  * Automatic message content sizing for images, videos and embeds
  */
 export function SizedContent(props: Props) {
-  // Height and width should never update? (maybe if we add removable attachments)
-  // eslint-disable-next-line solid/reactivity
-  const Base = props.height > props.width ? Tall : Wide;
-  return (
-    <Base
-      style={{
-        "--width": props.width,
-        "--height": props.height,
-        "--width-px": props.width + "px",
-        "--height-px": props.height + "px",
-      }}
-    >
-      {props.children}
-    </Base>
-  );
+  return <Container style={{
+    "--width": props.width,
+    "--height": props.height
+  }}>{props.children}</Container>;
 }
+
+const Container = styled('div', {
+  base: {
+    display: 'grid',
+    // min. render size or chat width, whichever is smaller
+    minWidth: "calc(min(100%, var(--layout-attachments-min-width)))",
+    // max. render size or chat width, whichever is smaller
+    maxWidth: "calc(min(100%, var(--layout-attachments-max-width)))",
+    // min. render size, whichever is smaller
+    minHeight: "calc(var(--layout-attachments-min-height)))",
+    // max. render size
+    maxHeight: "calc(min(70vh, var(--layout-attachments-max-height)))",
+    aspectRatio: "var(--width)/var(--height)",
+
+    overflow: 'hidden',
+    borderRadius: 'var(--borderRadius-md)',
+
+    // scale to size of container
+    "& > *": {
+      gridArea: '1/1'
+    },
+    "& img": {
+      width: "100%"
+    },
+    "& .Spoiler": {
+      width: "100%",
+      height: "100%"
+    }
+  }
+});

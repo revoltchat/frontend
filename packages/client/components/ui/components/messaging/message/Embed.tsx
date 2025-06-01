@@ -41,6 +41,15 @@ export function Embed(props: { embed: MessageEmbed }) {
 
   return (
     <Switch fallback={`Could not render ${props.embed.type}!`}>
+      <Match when={image()}>
+        <SizedContent width={image()!.width} height={image()!.height}>
+          <img
+            // bypass proxy for known GIF providers
+            src={isGIF() ? image()!.url : image()!.proxiedURL}
+            loading="lazy"
+          />
+        </SizedContent>
+      </Match>
       <Match when={video()}>
         <SizedContent width={video()!.width} height={video()!.height}>
           <video
@@ -51,15 +60,6 @@ export function Embed(props: { embed: MessageEmbed }) {
             preload="metadata"
             // bypass proxy for known GIF providers
             src={isGIF() ? video()!.url : video()!.proxiedURL}
-          />
-        </SizedContent>
-      </Match>
-      <Match when={image()}>
-        <SizedContent width={image()!.width} height={image()!.height}>
-          <img
-            // bypass proxy for known GIF providers
-            src={isGIF() ? image()!.url : image()!.proxiedURL}
-            loading="lazy"
           />
         </SizedContent>
       </Match>
