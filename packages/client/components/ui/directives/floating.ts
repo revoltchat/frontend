@@ -147,7 +147,7 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
   }
 
   if (config.contextMenu) {
-    element.addEventListener("contextmenu", onContextMenu);
+    element.addEventListener(config.contextMenuHandler ?? "contextmenu", onContextMenu);
     // TODO: iOS events for touch
   }
 
@@ -164,7 +164,7 @@ export function floating(element: HTMLElement, accessor: Accessor<Props>) {
     }
 
     if (config.contextMenu) {
-      element.removeEventListener("contextmenu", onContextMenu);
+      element.removeEventListener(config.contextMenuHandler ?? "contextmenu", onContextMenu);
     }
   });
 }

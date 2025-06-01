@@ -16,13 +16,16 @@ export interface Modal2Props {
 
 type Props = Modal2Props & {
   icon?: JSX.Element;
-  title: JSX.Element;
+  title?: JSX.Element;
   children: JSX.Element;
-  actions: {
+  actions?: {
     text: JSX.Element;
     onClick?: () => void;
   }[];
   isDisabled?: boolean;
+
+  minWidth?: number;
+  padding?: number;
 };
 
 /**
@@ -45,36 +48,50 @@ export function Modal2(props: Props) {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, easing: [0.05, 0.7, 0.1, 1.0] }}
             >
-              <Container onClick={(e) => e.stopPropagation()}>
+              <Container
+                style={{
+                  "min-width": props.minWidth
+                    ? `${props.minWidth}px`
+                    : undefined,
+                  "padding": props.padding
+                    ? `${props.padding}px`
+                    : undefined,
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
                 <Show when={props.icon}>
                   <Icon>{props.icon}</Icon>
                 </Show>
-                <Title withIcon={typeof props.icon !== "undefined"}>
-                  {props.title}
-                </Title>
+                <Show when={props.title}>
+                  <Title withIcon={typeof props.icon !== "undefined"}>
+                    {props.title}
+                  </Title>
+                </Show>
                 <Content class={typography()}>{props.children}</Content>
-                <Actions>
-                  <For each={props.actions}>
-                    {(action) => (
-                      <Button
-                        variant="text"
-                        size="small"
-                        onPress={() => {
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          const value = action.onClick?.() as any;
-                          if (value instanceof Promise) {
-                            value.then(props.onClose).catch(() => {});
-                          } else if (value !== false) {
-                            props.onClose();
-                          }
-                        }}
-                        isDisabled={props.isDisabled}
-                      >
-                        {action.text}
-                      </Button>
-                    )}
-                  </For>
-                </Actions>
+                <Show when={props.actions}>
+                  <Actions>
+                    <For each={props.actions}>
+                      {(action) => (
+                        <Button
+                          variant="text"
+                          size="small"
+                          onPress={() => {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            const value = action.onClick?.() as any;
+                            if (value instanceof Promise) {
+                              value.then(props.onClose).catch(() => {});
+                            } else if (value !== false) {
+                              props.onClose();
+                            }
+                          }}
+                          isDisabled={props.isDisabled}
+                        >
+                          {action.text}
+                        </Button>
+                      )}
+                    </For>
+                  </Actions>
+                </Show>
               </Container>
             </Motion.div>
           </Show>
@@ -91,6 +108,7 @@ const Scrim = styled("div", {
     right: 0,
     bottom: 0,
     position: "fixed",
+    padding: '80px',
     zIndex: "var(--layout-zIndex-modal)",
 
     maxHeight: "100%",
@@ -147,6 +165,7 @@ const Icon = styled("div", {
 const Title = styled("span", {
   base: {
     ...typography.raw({ class: "headline", size: "small" }),
+    marginBlockEnd: "16px",
   },
   variants: {
     withIcon: {
@@ -162,9 +181,6 @@ const Title = styled("span", {
 
 const Content = styled("div", {
   base: {
-    marginBlockStart: "16px",
-    marginBlockEnd: "24px",
-
     color: "var(--md-sys-color-on-surface-variant)",
   },
 });
@@ -174,5 +190,6 @@ const Actions = styled("div", {
     gap: "8px",
     display: "flex",
     justifyContent: "end",
+    marginBlockStart: "24px",
   },
 });

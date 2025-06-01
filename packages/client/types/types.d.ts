@@ -97,6 +97,7 @@ declare module "solid-js" {
           member?: ServerMember;
         };
         contextMenu?: Component;
+        contextMenuHandler?: 'click' | 'contextmenu';
         autoComplete?: {
           state: Accessor<AutoCompleteState>;
           selection: Accessor<number>;

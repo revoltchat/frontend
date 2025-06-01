@@ -1,22 +1,20 @@
 import { JSX } from "solid-js";
-import { For } from "solid-js";
 
-import { useLingui } from "@lingui-solid/solid/macro";
 import { useQuery } from "@tanstack/solid-query";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import MdMoreVert from "@material-design-icons/svg/filled/more_vert.svg?component-solid";
+import { useModals } from "@revolt/modal";
 
 import {
-  Avatar,
-  Button,
-  Row,
-  Text,
-  UserStatusGraphic,
-  typography,
-} from "../design";
-import { Ripple } from "../material";
+  ProfileActions,
+  ProfileBadges,
+  ProfileBanner,
+  ProfileBio,
+  ProfileRoles,
+  ProfileStatus,
+} from "../profiles";
+import { ProfileJoined } from "../profiles/ProfileJoined";
 
 /**
  * Base element for the card
@@ -25,107 +23,14 @@ const base = cva({
   base: {
     // padding: "var(--gap-md)",
 
-    color: "white",
-    background: "var(--md-sys-color-surface-variant)",
+    color: "var(--md-sys-color-on-surface)",
+    background: "var(--md-sys-color-surface-container-high)",
     boxShadow: "0 0 6px var(--colours-component-context-menu-shadow)",
 
-    width: "280px",
+    width: "340px",
     height: "400px",
 
     borderRadius: "var(--borderRadius-xl)",
-  },
-});
-
-const Banner = styled("div", {
-  base: {
-    // for <Ripple />:
-    position: "relative",
-
-    userSelect: "none",
-    cursor: "pointer",
-
-    gridColumn: "1 / 3",
-
-    height: "120px",
-    padding: "var(--gap-lg)",
-
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "end",
-
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-
-    borderRadius: "var(--borderRadius-xl)",
-  },
-});
-
-const UserShort = styled("div", {
-  base: {
-    gap: "var(--gap-xs)",
-    display: "flex",
-    flexDirection: "column",
-  },
-});
-
-const Grid = styled("div", {
-  base: {
-    display: "grid",
-    gap: "var(--gap-md)",
-    padding: "var(--gap-md)",
-    gridTemplateColumns: "repeat(2, 1fr)",
-  },
-});
-
-const Actions = styled("div", {
-  base: {
-    gridColumn: "1 / 3",
-
-    display: "flex",
-    gap: "var(--gap-md)",
-    justifyContent: "flex-end",
-  },
-});
-
-const ProfileCard = styled("div", {
-  base: {
-    // for <Ripple />:
-    position: "relative",
-
-    userSelect: "none",
-    cursor: "pointer",
-
-    color: "var(--md-sys-color-on-surface-variant)",
-    background: "var(--md-sys-color-surface-variant)",
-    aspectRatio: "1/1",
-    padding: "var(--gap-md)",
-    borderRadius: "var(--borderRadius-lg)",
-
-    display: "flex",
-    flexDirection: "column",
-  },
-
-  variants: {
-    wide: {
-      true: {
-        gridColumn: "1 / 3",
-      },
-    },
-  },
-});
-
-const Role = styled("span", {
-  base: {
-    flexGrow: 1,
-    ...typography.raw({ class: "label" }),
-  },
-});
-
-const RoleIcon = styled("div", {
-  base: {
-    width: "8px",
-    height: "8px",
-    borderRadius: "100%",
   },
 });
 
@@ -133,119 +38,37 @@ const RoleIcon = styled("div", {
  * User Card
  */
 export function UserCard(
-  props: JSX.Directives["floating"]["userCard"] & object,
+  props: JSX.Directives["floating"]["userCard"] &
+    object & { onClose: () => void },
 ) {
-  const { t } = useLingui();
+  const { openModal } = useModals();
   const query = useQuery(() => ({
     queryKey: ["profile", props.user.id],
     queryFn: () => props.user.fetchProfile(),
   }));
 
+  function openFull() {
+    openModal({ type: "user_profile", user: props.user });
+    props.onClose();
+  }
+
   return (
     <div use:invisibleScrollable={{ class: base() }}>
       <Grid>
-        <Banner
-          style={{
-            "background-image": `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url('${query.data?.animatedBannerURL}')`,
-          }}
-        >
-          <Ripple />
+        <ProfileBanner
+          width={2}
+          user={props.user}
+          member={props.member}
+          bannerUrl={query.data?.animatedBannerURL}
+          onClick={openFull}
+        />
 
-          <Row align gap="lg">
-            <Avatar
-              src={props.user.animatedAvatarURL}
-              size={48}
-              holepunch="bottom-right"
-              overlay={<UserStatusGraphic status={props.user.presence} />}
-            />
-            <UserShort>
-              <Text>{props.member?.displayName ?? props.user.displayName}</Text>
-              <Text class="label" size="small">
-                {props.user.username}#{props.user.discriminator}
-              </Text>
-              <Text class="_status">
-                {props.user.statusMessage((s) =>
-                  s === "Online"
-                    ? t`Online`
-                    : s === "Busy"
-                      ? t`Busy`
-                      : s === "Focus"
-                        ? t`Focus`
-                        : s === "Idle"
-                          ? t`Idle`
-                          : t`Offline`,
-                )}
-              </Text>
-            </UserShort>
-          </Row>
-        </Banner>
-
-        <Actions>
-          <Button>Add Friend</Button>
-          <Button size="icon">
-            <MdMoreVert />
-          </Button>
-        </Actions>
-
-        <ProfileCard>
-          <Ripple />
-          <Text class="title" size="large">
-            Roles
-          </Text>
-          <div use:invisibleScrollable>
-            <For each={props.member!.orderedRoles.toReversed()}>
-              {(role) => (
-                <Row align>
-                  <Role>{role.name}</Role>
-                  <RoleIcon
-                    style={{
-                      "background-color":
-                        role.colour ?? "var(--colours-foreground)",
-                    }}
-                  />
-                </Row>
-                // <div
-                //   onClick={() =>
-                //     props.member!.edit({
-                //       roles: [...roleIds()].filter((id) => id !== role.id),
-                //     })
-                //   }
-                // >
-                //   <ColouredText
-                //     colour={role.colour!}
-                //     clip={role.colour?.includes("gradient")}
-                //   >
-                //     {role.name}
-                //   </ColouredText>
-                // </div>
-              )}
-            </For>
-          </div>
-        </ProfileCard>
-        <ProfileCard>
-          <Text class="title" size="large">
-            Joined
-          </Text>
-          <Text class="label">Account Created</Text>
-          <Text>date</Text>
-          <Text class="label">Member Since</Text>
-          <Text>date</Text>
-        </ProfileCard>
-        <ProfileCard>
-          <Text class="title" size="large">
-            Badges
-          </Text>
-        </ProfileCard>
-        <ProfileCard>
-          <Text class="title" size="large">
-            Status
-          </Text>
-        </ProfileCard>
-        <ProfileCard wide>
-          <Text class="title" size="large">
-            Bio
-          </Text>
-        </ProfileCard>
+        <ProfileActions user={props.user} member={props.member} width={2} />
+        <ProfileRoles member={props.member} />
+        <ProfileBadges user={props.user} />
+        <ProfileStatus user={props.user} />
+        <ProfileJoined user={props.user} member={props.member} />
+        <ProfileBio content={query.data?.content} onClick={openFull} />
 
         {/* TODO: MUTUALS */}
       </Grid>
@@ -308,3 +131,12 @@ export function UserCard(
     </div>
   );
 }
+
+const Grid = styled("div", {
+  base: {
+    display: "grid",
+    gap: "var(--gap-md)",
+    padding: "var(--gap-md)",
+    gridTemplateColumns: "repeat(2, 1fr)",
+  },
+});

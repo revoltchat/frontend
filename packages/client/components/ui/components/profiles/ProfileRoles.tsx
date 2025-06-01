@@ -1,0 +1,54 @@
+import { For, Show } from "solid-js";
+
+import { Trans } from "@lingui-solid/solid/macro";
+import { ServerMember } from "revolt.js";
+import { styled } from "styled-system/jsx";
+
+import { Row, Text, typography } from "../design";
+
+import { ProfileCard } from "./ProfileCard";
+
+export function ProfileRoles(props: { member?: ServerMember }) {
+  return (
+    <Show when={props.member?.roles.length}>
+      <ProfileCard>
+        <Text class="title" size="large">
+          <Trans>Roles</Trans>
+        </Text>
+        <div use:invisibleScrollable>
+          <For each={props.member!.orderedRoles.toReversed()}>
+            {(role) => (
+              <Row align>
+                <Role>{role.name}</Role>
+                <RoleIcon
+                  style={{
+                    background: role.colour ?? "var(--colours-foreground)",
+                  }}
+                />
+              </Row>
+            )}
+          </For>
+        </div>
+      </ProfileCard>
+    </Show>
+  );
+}
+
+const Role = styled("span", {
+  base: {
+    flexGrow: 1,
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    ...typography.raw({ class: "label" }),
+  },
+});
+
+const RoleIcon = styled("div", {
+  base: {
+    width: "8px",
+    height: "8px",
+    aspectRatio: "1/1",
+    borderRadius: "100%",
+  },
+});

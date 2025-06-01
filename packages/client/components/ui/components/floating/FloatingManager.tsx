@@ -123,6 +123,48 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
     const currentlyShown = props.show();
     if (!currentlyShown?.contextMenu && !currentlyShown?.userCard) return;
 
+    // Check if we've clicked inside of the user card / context menu
+    const parentEl = floating();
+
+    let currentEl = event.target as HTMLElement | null;
+    while (currentEl && currentEl !== parentEl) {
+      currentEl = currentEl.parentElement;
+    }
+
+    if (currentEl === null) {
+      // If we're operating in card mode, don't hide yet if we click on the context menu
+      // jank alert!
+      if (currentlyShown.userCard) {
+        const targetEl = document.querySelector(".UserContextMenu");
+
+        if (targetEl) {
+          let currentEl = event.target as HTMLElement | null;
+          while (currentEl && currentEl !== targetEl) {
+            currentEl = currentEl.parentElement;
+          }
+
+          if (currentEl) return;
+        }
+      }
+
+      props.hide();
+    }
+  }
+
+  if (props.config().contextMenu || props.config().userCard) {
+    onMount(() => document.addEventListener("mousedown", onMouseDown));
+    onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
+  }
+
+  /**
+   * Jank catcher 9000
+   * @param event Event
+   */
+  function onMouseUp(event: MouseEvent) {
+    const currentlyShown = props.show();
+    if (!currentlyShown?.userCard) return;
+
+    // Check if we've clicked inside of the user card
     const parentEl = floating();
 
     let currentEl = event.target as HTMLElement | null;
@@ -135,9 +177,11 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
     }
   }
 
-  if (props.config().contextMenu) {
-    onMount(() => document.addEventListener("mousedown", onMouseDown));
-    onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
+  if (props.config().userCard) {
+    onMount(() =>
+      setTimeout(() => document.addEventListener("click", onMouseUp), 0),
+    );
+    onCleanup(() => document.removeEventListener("click", onMouseUp));
   }
 
   /**
@@ -182,6 +226,7 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
             <UserCard
               user={props.show()!.userCard!.user}
               member={props.show()!.userCard!.member}
+              onClose={props.hide}
             />
           </Match>
           <Match when={props.show()?.contextMenu}>

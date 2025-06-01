@@ -295,6 +295,7 @@ function Entry(
           }
         />
         <OverflowingText>{local.user.username}</OverflowingText>
+        <div use:floating={{ userCard: { user: local.user } }}>click me</div>
       </ListItem>
     </a>
   );

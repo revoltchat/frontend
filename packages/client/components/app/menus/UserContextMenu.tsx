@@ -1,9 +1,12 @@
 import { JSX, Match, Show, Switch } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { useNavigate } from "@solidjs/router";
 import { Channel, Message, ServerMember, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { useModals } from "@revolt/modal";
+import { useState } from "@revolt/state";
 
 import MdAddCircleOutline from "@material-design-icons/svg/outlined/add_circle_outline.svg?component-solid";
 import MdAdminPanelSettings from "@material-design-icons/svg/outlined/admin_panel_settings.svg?component-solid";
@@ -11,6 +14,7 @@ import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_emai
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
 import MdCancel from "@material-design-icons/svg/outlined/cancel.svg?component-solid";
+import MdChat from "@material-design-icons/svg/outlined/chat.svg?component-solid";
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 import MdDoNotDisturbOn from "@material-design-icons/svg/outlined/do_not_disturb_on.svg?component-solid";
 import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid";
@@ -23,8 +27,6 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
-import { useModals } from "@revolt/modal";
-import { useState } from "@revolt/state";
 
 /**
  * Context menu for users
@@ -39,7 +41,15 @@ export function UserContextMenu(props: {
   // same for the floating menu I guess?
   const state = useState();
   const client = useClient();
+  const navigate = useNavigate();
   const { openModal } = useModals();
+
+  /**
+   * Open direct message channel
+   */
+  function openDm() {
+    props.user.openDM().then((channel) => navigate(channel.url));
+  }
 
   /**
    * Delete channel
@@ -146,7 +156,7 @@ export function UserContextMenu(props: {
   }
 
   return (
-    <ContextMenu>
+    <ContextMenu class="UserContextMenu">
       <Show when={props.channel?.type === "DirectMessage"}>
         <ContextMenuButton icon={MdClose} onClick={closeDm}>
           <Trans>Close chat</Trans>
@@ -157,11 +167,17 @@ export function UserContextMenu(props: {
           <Trans>Mention</Trans>
         </ContextMenuButton>
       </Show>
+      <Show when={props.user.relationship === "Friend"}>
+        <ContextMenuButton icon={MdChat} onClick={openDm}>
+          <Trans>Message</Trans>
+        </ContextMenuButton>
+      </Show>
       <Show
         when={
-          props.channel &&
-          (props.channel.type === "DirectMessage" ||
-            props.channel.type === "TextChannel")
+          props.user.relationship === "Friend" ||
+          (props.channel &&
+            (props.channel.type === "DirectMessage" ||
+              props.channel.type === "TextChannel"))
         }
       >
         <ContextMenuDivider />

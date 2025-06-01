@@ -44,6 +44,7 @@ import server_info from "./modals/ServerInfo";
 import settings from "./modals/Settings";
 import sign_out_sessions from "./modals/SignOutSessions";
 import signed_out from "./modals/SignedOut";
+import { UserProfileModal } from "./modals/UserProfile";
 import type { Modals as AllModals, PropGenerator } from "./types";
 
 /**
@@ -69,6 +70,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <ChannelToggleMatureModal {...modalProps} />;
     case "error2":
       return <Error2Modal {...modalProps} />;
+    case "user_profile":
+      return <UserProfileModal {...modalProps} />;
 
     default: {
       // legacy behaviour ('modal props')
