@@ -93,7 +93,7 @@ export function TextEmbed(props: { embed: TextEmbedClass | WebsiteEmbed }) {
               />
             </Show>
             <OverflowingText>
-              <Text class="label" variant="small">
+              <Text class="label" size="small">
                 {(props.embed as WebsiteEmbed).siteName}
               </Text>
             </OverflowingText>

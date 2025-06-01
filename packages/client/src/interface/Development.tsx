@@ -117,7 +117,6 @@ export function DevelopmentPage() {
       >
         <Face fill="red" {...iconSize(128)} />
       </div>
-      <OverrideSwitch />
 
       <TextField
         variant="outlined"

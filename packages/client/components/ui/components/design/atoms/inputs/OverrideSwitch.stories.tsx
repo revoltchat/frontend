@@ -7,7 +7,7 @@ export default {
   component: OverrideSwitch,
   stories: [
     {
-      title: "Default",
+      title: "Default"
     },
     {
       title: "Disabled",
@@ -18,15 +18,16 @@ export default {
   ],
   propTypes: {
     disabled: "boolean",
-    state: ["Allow", "Neutral", "Deny"],
+    value: ["allow", "neutral", "deny"],
     onChange: "function",
   },
   props: {
-    state: "Neutral",
+    value: "neutral",
   },
   effects: {
-    onChange: (_, state) => ({
-      value: state,
+    onChange: (_, value) => ({
+      value,
     }),
   },
-} as ComponentStory<typeof OverrideSwitch>;
+} as ComponentStory<any>;
+// } as ComponentStory<typeof OverrideSwitch>;

@@ -50,11 +50,10 @@ export function SpecialEmbed(props: { embed: WebsiteEmbed }) {
     <SizedContent width={getSize()?.width} height={getSize()?.height}>
       <iframe
         loading="lazy"
-        // @ts-expect-error attributes are not recognised
         scrolling="no"
-        allowFullScreen
-        allowTransparency
-        frameBorder={0}
+        allowfullscreen
+        allowtransparency
+        frameborder={0}
         style={{ width: getSize()?.width + "px" }}
         src={props.embed.embedURL}
       />

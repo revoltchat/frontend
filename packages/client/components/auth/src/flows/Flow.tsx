@@ -3,7 +3,7 @@ import { JSX, Show } from "solid-js";
 import { defineKeyframes } from "@pandacss/dev";
 import { styled } from "styled-system/jsx";
 
-import { Column, Row, Text, Typography } from "@revolt/ui";
+import { Column, Row, Text } from "@revolt/ui";
 
 import envelope from "./envelope.svg";
 import wave from "./wave.svg";

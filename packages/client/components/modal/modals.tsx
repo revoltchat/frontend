@@ -4,7 +4,7 @@ import { CONFIGURATION } from "@revolt/common";
 import { Modal } from "@revolt/ui";
 
 import { type ActiveModal } from ".";
-import add_friend, { AddFriend } from "./modals/AddFriend";
+import { AddFriend } from "./modals/AddFriend";
 import ban_member from "./modals/BanMember";
 import changelog from "./modals/Changelog";
 import channel_info from "./modals/ChannelInfo";

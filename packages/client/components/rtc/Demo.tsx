@@ -1,11 +1,9 @@
-import { BiRegularHeadphone, BiSolidMicrophoneOff } from "solid-icons/bi";
-import { For, Match, Show, Switch, createEffect, onMount } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 import {
   TrackLoop,
   TrackReference,
   VideoTrack,
   isTrackReference,
-  useConnectionState,
   useEnsureParticipant,
   useIsMuted,
   useIsSpeaking,
@@ -45,22 +43,20 @@ export function RoomParticipants() {
   return (
     <div
       class={css({
-        base: {
-          gap: "0.8em",
-          padding: "1.6em",
+        gap: "0.8em",
+        padding: "1.6em",
 
-          minHeight: 0,
-          overflowX: "hidden",
-          overflowY: "scroll",
+        minHeight: 0,
+        overflowX: "hidden",
+        overflowY: "scroll",
 
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
 
-          // display: 'grid',
-          // gridAutoRows:'1fr',
-          // gridTemplateColumns:'repeat(auto-fill, minmax(0, 1fr))',
-        },
+        // display: 'grid',
+        // gridAutoRows:'1fr',
+        // gridTemplateColumns:'repeat(auto-fill, minmax(0, 1fr))',
       })}
     >
       <TrackLoop tracks={tracks}>{() => <LeParticipant />}</TrackLoop>
@@ -72,17 +68,15 @@ export function FakeParticipants() {
   return (
     <div
       class={css({
-        base: {
-          gap: "0.8em",
-          padding: "1.6em",
+        gap: "0.8em",
+        padding: "1.6em",
 
-          minHeight: 0,
-          overflowX: "hidden",
-          overflowY: "scroll",
-          display: "grid",
-          gridAutoRows: "1fr",
-          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-        },
+        minHeight: 0,
+        overflowX: "hidden",
+        overflowY: "scroll",
+        display: "grid",
+        gridAutoRows: "1fr",
+        gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
       })}
     >
       <Tile />
@@ -256,7 +250,7 @@ export function Demo() {
           flexGrow: 1,
         })}
       />
-      <Row justify="center">
+      <Row justify>
         <Actions>
           <Show when={voice.state() !== "READY"}>
             <Button variant="secondary" onPress={() => voice.toggleMute()}>
