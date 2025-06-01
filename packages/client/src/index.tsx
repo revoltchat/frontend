@@ -109,7 +109,6 @@ function MountContext(props: { children?: JSX.Element }) {
         <VoiceContext>
           <I18nProvider>
             <QueryClientProvider client={client}>
-              <Masks />
               <MountTheme>
                 <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
                   <Show when={window.__TAURI__}>
@@ -164,6 +163,8 @@ render(
           <Route path="/*" component={HomePage} />
         </Route>
       </Router>
+
+      <Masks />
     </StateContext>
   ),
   document.getElementById("root") as HTMLElement,

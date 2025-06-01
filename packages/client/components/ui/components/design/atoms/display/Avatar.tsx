@@ -152,6 +152,27 @@ const ForeignObject = styled("foreignObject", {
   base: {
     transition: "var(--transitions-fast) filter",
   },
+  variants: {
+    holepunch: {
+      'bottom-right': {
+        'mask': 'url(#holepunch-bottom-right)'
+      },
+      'top-right': {
+        'mask': 'url(#holepunch-top-right)'
+      },
+      'right': {
+        'mask': 'url(#holepunch-right)'
+      },
+      'overlap': {
+        'mask': 'url(#holepunch-overlap)'
+      },
+      'overlap-subtle': {
+        'mask': 'url(#holepunch-overlap-subtle)'
+      },
+      none: {},
+      false: {}
+    }
+  }
 });
 
 /**
@@ -194,9 +215,7 @@ export function Avatar(props: Props) {
         y="0"
         width="32px"
         height="32px"
-        mask={
-          props.holepunch ? `url(#holepunch-${props.holepunch})` : undefined
-        }
+        holepunch={props.holepunch}
       >
         {url() && <Image src={url()} draggable={false} shape={props.shape} />}
         {!url() && (
