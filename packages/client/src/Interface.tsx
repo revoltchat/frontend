@@ -5,7 +5,7 @@ import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
-import { clientController } from "@revolt/client";
+import { useClientLifecycle } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
 import { KeybindAction } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
@@ -20,9 +20,10 @@ import { Sidebar } from "./interface/Sidebar";
  * Application layout
  */
 const Interface = (props: { children: JSX.Element }) => {
-  const { openModal } = useModals();
   const state = useState();
+  const { openModal } = useModals();
   const keybinds = useKeybindActions();
+  const { isLoggedIn, lifecycle } = useClientLifecycle();
 
   useBeforeLeave((e) => {
     if (!e.defaultPrevented) {
@@ -53,8 +54,8 @@ const Interface = (props: { children: JSX.Element }) => {
   });
 
   createEffect(() => {
-    if (!clientController.isLoggedIn()) {
-      console.info("WAITING... currently", clientController.lifecycle.state());
+    if (!isLoggedIn()) {
+      console.info("WAITING... currently", lifecycle.state());
     }
   });
 
@@ -69,19 +70,15 @@ const Interface = (props: { children: JSX.Element }) => {
       <Notice>
         ⚠️ This is beta software, things will break! State:{" "}
         <Switch>
-          <Match when={clientController.lifecycle.state() === State.Connecting}>
+          <Match when={lifecycle.state() === State.Connecting}>
             Connecting
           </Match>
-          <Match when={clientController.lifecycle.state() === State.Connected}>
-            Connected
-          </Match>
-          <Match
-            when={clientController.lifecycle.state() === State.Disconnected}
-          >
+          <Match when={lifecycle.state() === State.Connected}>Connected</Match>
+          <Match when={lifecycle.state() === State.Disconnected}>
             Disconnected{" "}
             <a
               onClick={() =>
-                clientController.lifecycle.transition({
+                lifecycle.transition({
                   type: TransitionType.Retry,
                 })
               }
@@ -89,12 +86,10 @@ const Interface = (props: { children: JSX.Element }) => {
               (reconnect now)
             </a>
           </Match>
-          <Match
-            when={clientController.lifecycle.state() === State.Reconnecting}
-          >
+          <Match when={lifecycle.state() === State.Reconnecting}>
             Reconnecting
           </Match>
-          <Match when={clientController.lifecycle.state() === State.Offline}>
+          <Match when={lifecycle.state() === State.Offline}>
             Device is offline
           </Match>
         </Switch>
@@ -118,10 +113,10 @@ const Interface = (props: { children: JSX.Element }) => {
         </div>
       </Notice>
       <Switch fallback={<Preloader grow type="spinner" />}>
-        <Match when={!clientController.isLoggedIn()}>
+        <Match when={!isLoggedIn()}>
           <Navigate href="/login" />
         </Match>
-        <Match when={clientController.lifecycle.loadedOnce()}>
+        <Match when={lifecycle.loadedOnce()}>
           <Layout
             style={{ "flex-grow": 1, "min-height": 0 }}
             onDragOver={(e) => {

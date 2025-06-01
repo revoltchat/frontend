@@ -28,9 +28,9 @@ export const Sidebar = (props: {
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>
       <ServerList
-        orderedServers={state.ordering.orderedServers}
+        orderedServers={state.ordering.orderedServers(client())}
         setServerOrder={state.ordering.setServerOrder}
-        unreadConversations={state.ordering.orderedConversations.filter(
+        unreadConversations={state.ordering.orderedConversations(client()).filter(
           // TODO: muting channels
           (channel) => channel.unread,
         )}
@@ -60,7 +60,7 @@ const Home: Component = () => {
   const params = useSmartParams();
   const client = useClient();
   const state = useState();
-  const conversations = createMemo(() => state.ordering.orderedConversations);
+  const conversations = createMemo(() => state.ordering.orderedConversations(client()));
 
   return (
     <HomeSidebar

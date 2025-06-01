@@ -1,6 +1,6 @@
 import { Trans } from "@lingui-solid/solid/macro";
 
-import { clientController } from "@revolt/client";
+import { useApi } from "@revolt/client";
 import { useNavigate, useParams } from "@revolt/routing";
 import { Button } from "@revolt/ui";
 
@@ -11,6 +11,7 @@ import { Fields, Form } from "./Form";
  * Flow for confirming a new password
  */
 export default function FlowConfirmReset() {
+  const api = useApi();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ export default function FlowConfirmReset() {
     const password = data.get("new-password") as string;
     const remove_sessions = !!(data.get("log-out") as "on" | undefined);
 
-    await clientController.api.patch("/auth/account/reset_password", {
+    await api.patch("/auth/account/reset_password", {
       password,
       token,
       remove_sessions,

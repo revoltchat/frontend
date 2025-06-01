@@ -1,6 +1,6 @@
 import { Trans } from "@lingui-solid/solid/macro";
 
-import { clientController } from "@revolt/client";
+import { useApi } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
 import { useNavigate } from "@revolt/routing";
 import { Button } from "@revolt/ui";
@@ -13,6 +13,7 @@ import { Fields, Form } from "./Form";
  * Flow for resending email verification
  */
 export default function FlowResend() {
+  const api = useApi();
   const navigate = useNavigate();
 
   /**
@@ -23,7 +24,7 @@ export default function FlowResend() {
     const email = data.get("email") as string;
     const captcha = data.get("captcha") as string;
 
-    await clientController.api.post("/auth/account/reverify", {
+    await api.post("/auth/account/reverify", {
       email,
       captcha,
     });

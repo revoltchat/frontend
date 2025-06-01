@@ -2,7 +2,7 @@ import { Match, Show, Switch, createMemo, createSignal } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 
-import { clientController, useClient } from "@revolt/client";
+import { useClient, useClientLifecycle } from "@revolt/client";
 import {
   createMfaResource,
   createOwnProfileResource,
@@ -274,6 +274,7 @@ function MultiFactorAuth() {
 function ManageAccount() {
   const client = useClient();
   const mfa = createMfaResource();
+  const { logout } = useClientLifecycle();
 
   const stillOwnServers = createMemo(
     () =>
@@ -287,9 +288,7 @@ function ManageAccount() {
   function disableAccount() {
     getController("modal")
       .mfaFlow(mfa.data!)
-      .then((ticket) =>
-        ticket!.disableAccount().then(() => clientController.logout()),
-      );
+      .then((ticket) => ticket!.disableAccount().then(() => logout()));
   }
 
   /**
@@ -298,9 +297,7 @@ function ManageAccount() {
   function deleteAccount() {
     getController("modal")
       .mfaFlow(mfa.data!)
-      .then((ticket) =>
-        ticket!.deleteAccount().then(() => clientController.logout()),
-      );
+      .then((ticket) => ticket!.deleteAccount().then(() => logout()));
   }
 
   return (

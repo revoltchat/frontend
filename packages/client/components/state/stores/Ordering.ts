@@ -3,6 +3,7 @@ import { getController } from "@revolt/common";
 import { State } from "..";
 
 import { AbstractStore } from ".";
+import { Client } from "revolt.js";
 
 export interface TypeOrdering {
   /**
@@ -61,8 +62,7 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
    * All known servers with ordering applied
    * @returns List of Server objects
    */
-  get orderedServers() {
-    const client = getController("client").getCurrentClient();
+  orderedServers(client: Client) {
     const known = new Set(client?.servers.keys() ?? []);
     const ordered = [...this.get().servers];
 
@@ -92,11 +92,9 @@ export class Ordering extends AbstractStore<"ordering", TypeOrdering> {
    * All known active DM conversations ordered by last updated
    * @returns List of Channel objects
    */
-  get orderedConversations() {
-    const client = getController("client").getCurrentClient();
-
+  orderedConversations(client: Client) {
     return (
-      client?.channels
+      client.channels
         .toList()
         .filter(
           (channel) =>

@@ -5,7 +5,7 @@ import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { clientController } from "@revolt/client";
+import { useClient } from "@revolt/client";
 import { useModals } from "@revolt/modal";
 import {
   Button,
@@ -67,12 +67,13 @@ function FormTest() {
 }
 
 export function DevelopmentPage() {
-  const {openModal} = useModals();
+  const client = useClient();
+  const { openModal } = useModals();
 
   function open() {
     openModal({
-      type :'channel_toggle_mature',
-      channel: clientController.getCurrentClient()!.channels.find(x => x.name === 'Empty Test Channel')!
+      type: "channel_toggle_mature",
+      channel: client().channels.find((x) => x.name === "Empty Test Channel")!,
       // type: "custom_status",
       // client: clientController.getCurrentClient()!,
     });

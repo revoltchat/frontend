@@ -4,8 +4,8 @@ import { Show, Suspense, createMemo, createResource } from "solid-js";
 import { useParams } from "@solidjs/router";
 import { styled } from "styled-system/jsx";
 
-import { getController } from "@revolt/common";
 import { Modal, Preloader } from "@revolt/ui";
+import { useApi } from "@revolt/client";
 
 const Centre = styled("div", {
   base: {
@@ -15,12 +15,13 @@ const Centre = styled("div", {
 });
 
 export function ConfirmDelete() {
+  const api = useApi();
   const params = useParams<{ token: string }>();
-  const clientController = getController("client");
+
   const [deleted] = createResource<boolean | null>(
     async () => {
       try {
-        await clientController.api.put("/auth/account/delete", {
+        await api.put("/auth/account/delete", {
           token: params.token,
         });
         return true;

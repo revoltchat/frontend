@@ -1,8 +1,7 @@
 import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
 
-import { useClient } from "@revolt/client";
-import { getController } from "@revolt/common";
+import { useClient, useClientLifecycle } from "@revolt/client";
 import { useUser } from "@revolt/markdown/users";
 import { ColouredText, Column, iconSize } from "@revolt/ui";
 
@@ -32,6 +31,7 @@ import { Sessions } from "./user/Sessions";
 import { AccountCard } from "./user/_AccountCard";
 import { MyBots, ViewBot } from "./user/bots";
 import { EditProfile } from "./user/profile";
+import { useModals } from "@revolt/modal";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -224,8 +224,9 @@ const Config: SettingsConfiguration<{ server: Server }> = {
                 </ColouredText>
               ),
               onClick: () => {
-                getController("modal").pop();
-                getController("client").logout();
+                // TODO: probably doesn't work
+                useModals().pop();
+                useClientLifecycle().logout();
               },
             },
           ],

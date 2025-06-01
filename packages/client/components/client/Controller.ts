@@ -8,6 +8,7 @@ import {
   getController,
   registerController,
 } from "@revolt/common";
+import type { State as ApplicationState } from "@revolt/state";
 import type { Session } from "@revolt/state/stores/Auth";
 
 export enum State {
@@ -67,6 +68,8 @@ export type Transition =
     };
 
 class Lifecycle {
+  #controller: ClientController;
+
   readonly state: Accessor<State>;
   #setStateSetter: Setter<State>;
 
@@ -79,7 +82,9 @@ class Lifecycle {
   #permanentError: string | undefined;
   #retryTimeout: number | undefined;
 
-  constructor() {
+  constructor(controller: ClientController) {
+    this.#controller = controller;
+
     this.onState = this.onState.bind(this);
     this.onReady = this.onReady.bind(this);
 
@@ -163,7 +168,7 @@ class Lifecycle {
         this.client.connect();
         break;
       case State.Connected:
-        // TODO: state.auth.markValid();
+        this.#controller.state.auth.markValid();
         this.#setLoadedOnce(true);
         this.#connectionFailures = 0;
         break;
@@ -389,16 +394,36 @@ export default class ClientController {
   readonly lifecycle: Lifecycle;
 
   /**
+   * Reference to application state
+   */
+  readonly state: ApplicationState;
+
+  /**
    * Construct new client controller
    */
-  constructor() {
+  constructor(state: ApplicationState) {
+    this.state = state;
     this.api = new API.API({
       baseURL: CONFIGURATION.DEFAULT_API_URL,
     });
 
-    this.lifecycle = new Lifecycle();
+    this.lifecycle = new Lifecycle(this);
 
     registerController("client", this);
+
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.selectUsername = this.selectUsername.bind(this);
+    this.isLoggedIn = this.isLoggedIn.bind(this);
+    this.isError = this.isError.bind(this);
+
+    const session = state.auth.getSession();
+    if (session) {
+      this.lifecycle.transition({
+        type: TransitionType.LoginCached,
+        session,
+      });
+    }
   }
 
   getCurrentClient() {
@@ -498,7 +523,7 @@ export default class ClientController {
       valid: false,
     };
 
-    // TODO: state.auth.setSession(createdSession);
+    this.state.auth.setSession(createdSession);
     this.lifecycle.transition({
       type: TransitionType.LoginUncached,
       session: createdSession,
@@ -516,7 +541,7 @@ export default class ClientController {
   }
 
   logout() {
-    // TODO: state.auth.removeSession();
+    this.state.auth.removeSession();
     this.lifecycle.transition({
       type: TransitionType.Logout,
     });

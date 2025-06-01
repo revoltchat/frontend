@@ -3,6 +3,7 @@ import { Match, Switch } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
+import { useClientLifecycle } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
 import { Navigate } from "@revolt/routing";
 import { Button, Column, Preloader, Row, iconSize } from "@revolt/ui";
@@ -10,7 +11,6 @@ import { Button, Column, Preloader, Row, iconSize } from "@revolt/ui";
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
 import RevoltSvg from "../../../../public/assets/wordmark_wide_500px.svg?component-solid";
-import { clientController } from "../../../client";
 
 import { FlowTitle } from "./Flow";
 import { Fields, Form } from "./Form";
@@ -27,15 +27,17 @@ const Logo = styled(RevoltSvg, {
  * Flow for logging into an account
  */
 export default function FlowLogin() {
+  const { lifecycle, isLoggedIn, login, selectUsername } = useClientLifecycle();
+
   /**
    * Log into account
    * @param data Form Data
    */
-  async function login(data: FormData) {
+  async function performLogin(data: FormData) {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
 
-    await clientController.login({
+    await login({
       email,
       password,
     });
@@ -47,7 +49,7 @@ export default function FlowLogin() {
    */
   async function select(data: FormData) {
     const username = data.get("username") as string;
-    await clientController.selectUsername(username);
+    await selectUsername(username);
   }
 
   return (
@@ -58,7 +60,7 @@ export default function FlowLogin() {
             <FlowTitle subtitle={<Trans>Sign into Revolt</Trans>} emoji="wave">
               <Trans>Welcome!</Trans>
             </FlowTitle>
-            <Form onSubmit={login}>
+            <Form onSubmit={performLogin}>
               <Fields fields={["email", "password"]} />
               <Column gap="xl" align>
                 <a href="/login/reset">
@@ -82,13 +84,13 @@ export default function FlowLogin() {
           </>
         }
       >
-        <Match when={clientController.isLoggedIn()}>
+        <Match when={isLoggedIn()}>
           <Navigate href="/app" />
         </Match>
-        <Match when={clientController.lifecycle.state() === State.LoggingIn}>
+        <Match when={lifecycle.state() === State.LoggingIn}>
           <Preloader type="ring" />
         </Match>
-        <Match when={clientController.lifecycle.state() === State.Onboarding}>
+        <Match when={lifecycle.state() === State.Onboarding}>
           <FlowTitle
             subtitle={
               <Trans>
@@ -108,7 +110,7 @@ export default function FlowLogin() {
               <Button
                 variant="plain"
                 onPress={() =>
-                  clientController.lifecycle.transition({
+                  lifecycle.transition({
                     type: TransitionType.Cancel,
                   })
                 }

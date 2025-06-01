@@ -3,7 +3,7 @@ import { Match, Show, Switch } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { cva } from "styled-system/css";
 
-import { clientController } from "@revolt/client";
+import { useClientLifecycle } from "@revolt/client";
 import { TransitionType } from "@revolt/client/Controller";
 import { Navigate } from "@revolt/routing";
 import { Button, Column } from "@revolt/ui";
@@ -22,11 +22,13 @@ const logo = cva({
  * Flow for logging into an account
  */
 export default function FlowHome() {
+  const { lifecycle, isLoggedIn, isError } = useClientLifecycle();
+
   return (
     <Switch
       fallback={
         <>
-          <Show when={clientController.isLoggedIn()}>
+          <Show when={isLoggedIn()}>
             <Navigate href="/app" />
           </Show>
 
@@ -82,13 +84,9 @@ export default function FlowHome() {
         </>
       }
     >
-      <Match when={clientController.isError()}>
+      <Match when={isError()}>
         <Switch fallback={"an unknown error occurred"}>
-          <Match
-            when={
-              clientController.lifecycle.permanentError === "InvalidSession"
-            }
-          >
+          <Match when={lifecycle.permanentError === "InvalidSession"}>
             <h1>
               <Trans>You were logged out!</Trans>
             </h1>
@@ -98,7 +96,7 @@ export default function FlowHome() {
         <Button
           variant="secondary"
           onPress={() =>
-            clientController.lifecycle.transition({
+            lifecycle.transition({
               type: TransitionType.Dismiss,
             })
           }

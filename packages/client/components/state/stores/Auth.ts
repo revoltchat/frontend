@@ -43,15 +43,6 @@ export class Auth extends AbstractStore<"auth", TypeAuth> {
         valid: true,
       });
     }
-
-    const session = this.getSession();
-    if (session) {
-      const clientController = getController("client");
-      clientController.lifecycle.transition({
-        type: TransitionType.LoginCached,
-        session,
-      });
-    }
   }
 
   /**

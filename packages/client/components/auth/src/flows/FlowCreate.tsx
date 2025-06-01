@@ -6,7 +6,7 @@ import { Button, Row, iconSize } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
-import { clientController } from "../../../client";
+import { useApi } from "../../../client";
 
 import { FlowTitle } from "./Flow";
 import { setFlowCheckEmail } from "./FlowCheck";
@@ -16,6 +16,7 @@ import { Fields, Form } from "./Form";
  * Flow for creating a new account
  */
 export default function FlowCreate() {
+  const api = useApi();
   const navigate = useNavigate();
 
   /**
@@ -27,7 +28,7 @@ export default function FlowCreate() {
     const password = data.get("password") as string;
     const captcha = data.get("captcha") as string;
 
-    await clientController.api.post("/auth/account/create", {
+    await api.post("/auth/account/create", {
       email,
       password,
       captcha,

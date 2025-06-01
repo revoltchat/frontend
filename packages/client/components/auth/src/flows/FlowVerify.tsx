@@ -2,7 +2,7 @@ import { Match, Show, Switch, createSignal, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 
-import { clientController } from "@revolt/client";
+import { useApi, useClientLifecycle } from "@revolt/client";
 import { useNavigate, useParams } from "@revolt/routing";
 import { Button, Preloader } from "@revolt/ui";
 
@@ -25,8 +25,10 @@ type State =
  * Flow for confirming email
  */
 export default function FlowVerify() {
+  const api = useApi();
   const params = useParams();
   const navigate = useNavigate();
+  const { login } = useClientLifecycle();
 
   const [state, setState] = createSignal<State>({
     state: "verifying",
@@ -46,9 +48,9 @@ export default function FlowVerify() {
         }
       }
 
-      const data = (await clientController.api.post(
-        `/auth/account/verify/${params.token}`,
-      )) as { ticket?: { token: string } };
+      const data = (await api.post(`/auth/account/verify/${params.token}`)) as {
+        ticket?: { token: string };
+      };
 
       setState({ state: "success", mfa_ticket: data.ticket?.token });
     } catch (err) {
@@ -59,10 +61,10 @@ export default function FlowVerify() {
   /**
    * Use MFA ticket to log into Revolt
    */
-  async function login() {
+  async function performLogin() {
     const v = state();
     if (v.state === "success" && v.mfa_ticket) {
-      await clientController.login({
+      await login({
         mfa_ticket: v.mfa_ticket,
       });
 
@@ -98,7 +100,7 @@ export default function FlowVerify() {
           <Trans>Your account has been verified!</Trans>
         </FlowTitle>
         <Show when={"mfa_ticket" in state()}>
-          <Button onPress={login}>
+          <Button onPress={performLogin}>
             <Trans>Continue to app</Trans>
           </Button>
         </Show>
