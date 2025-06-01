@@ -24,7 +24,7 @@ import { ClientContext } from "@revolt/client";
 import { I18nProvider } from "@revolt/i18n";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
 import { VoiceContext } from "@revolt/rtc";
-import { StateContext, useState } from "@revolt/state";
+import { StateContext, SyncWorker, useState } from "@revolt/state";
 import {
   ApplyGlobalStyles,
   FloatingManager,
@@ -129,6 +129,7 @@ function MountContext(props: { children?: JSX.Element }) {
           </I18nProvider>
         </VoiceContext>
       </ModalContext>
+      <SyncWorker />
     </ClientContext>
   );
 }

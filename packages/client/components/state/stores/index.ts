@@ -11,6 +11,7 @@ import { TypeLocale } from "./Locale";
 import { TypeNotificationOptions } from "./NotificationOptions";
 import { TypeOrdering } from "./Ordering";
 import { TypeSettings } from "./Settings";
+import { TypeSynchronisation } from "./Sync";
 
 export type Store = {
   auth: TypeAuth;
@@ -22,6 +23,7 @@ export type Store = {
   notifications: TypeNotificationOptions;
   ordering: TypeOrdering;
   settings: TypeSettings;
+  sync: TypeSynchronisation;
 };
 
 /**

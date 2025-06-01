@@ -21,6 +21,9 @@ import { Locale } from "./stores/Locale";
 import { NotificationOptions } from "./stores/NotificationOptions";
 import { Ordering } from "./stores/Ordering";
 import { Settings } from "./stores/Settings";
+import { Sync } from "./stores/Sync";
+
+export { SyncWorker } from "./SyncWorker";
 
 /**
  * Introduce some delay before writing state to disk
@@ -51,6 +54,7 @@ export class State {
   notifications = new NotificationOptions(this);
   ordering = new Ordering(this);
   settings = new Settings(this);
+  sync = new Sync(this);
 
   /**
    * Iterate over all available stores
@@ -101,6 +105,9 @@ export class State {
     // resolve key
     const key = args[0] as string;
 
+    // touch the key if syncable
+    this.sync.touchIfSyncable(key);
+
     // remove existing queued task if it exists
     if (this.writeQueue[key]) {
       clearTimeout(this.writeQueue[key]);
@@ -121,7 +128,7 @@ export class State {
         );
 
         if (import.meta.env.DEV) {
-          console.info("Wrote state to disk.");
+          console.info("[store.save] Wrote state to disk.");
         }
       },
       IGNORE_WRITE_DELAY.includes(key) ? 0 : DISK_WRITE_WAIT_MS,
