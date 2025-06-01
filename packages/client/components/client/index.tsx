@@ -1,4 +1,4 @@
-import { Accessor, createContext, useContext, type JSXElement } from "solid-js";
+import { Accessor, createContext, onCleanup, useContext, type JSXElement } from "solid-js";
 
 import type { Client, User } from "revolt.js";
 
@@ -14,6 +14,7 @@ const clientContext = createContext(null! as ClientController);
  */
 export function ClientContext(props: { state: State, children: JSXElement }) {
   const controller = new ClientController(props.state);
+  onCleanup(() => controller.dispose());
 
   return (
     <clientContext.Provider value={controller}>

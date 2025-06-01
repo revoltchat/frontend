@@ -204,10 +204,10 @@ export function Message(props: Props) {
               </Tooltip>
             </NewUser>
           </Match>
-          <Match when={props.message.authorId === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}>
+          {/* <Match when={props.message.authorId === "01EX2NCWQ0CHS3QJF0FEQS1GR4"}>
             <span />
-            <span>he/him &middot; </span>
-          </Match>
+            <span>placeholder &middot; </span>
+          </Match> */}
         </Switch>
       }
       compact={

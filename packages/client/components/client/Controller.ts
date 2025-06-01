@@ -3,9 +3,7 @@ import { Accessor, Setter, createSignal } from "solid-js";
 import { detect } from "detect-browser";
 import { API, Client, ConnectionState } from "revolt.js";
 
-import {
-  CONFIGURATION,
-} from "@revolt/common";
+import { CONFIGURATION } from "@revolt/common";
 import { ModalControllerExtended } from "@revolt/modal";
 import type { State as ApplicationState } from "@revolt/state";
 import type { Session } from "@revolt/state/stores/Auth";
@@ -35,6 +33,7 @@ export enum TransitionType {
   NoUser = "no user",
   Cancel = "cancel",
   Dispose = "dispose",
+  DisposeOnly = "dispose only",
   Dismiss = "dismiss",
   Ready = "ready",
   Retry = "retry",
@@ -63,6 +62,7 @@ export type Transition =
         | TransitionType.Ready
         | TransitionType.Retry
         | TransitionType.Dispose
+        | TransitionType.DisposeOnly
         | TransitionType.Logout;
     };
 
@@ -140,7 +140,10 @@ class Lifecycle {
   }
 
   #enter(nextState: State) {
-    console.debug("Entering state", nextState);
+    if (import.meta.env.DEV) {
+      console.info("[lifecycle] entering state", nextState);
+    }
+
     this.#setStateSetter(nextState);
 
     // Clean up retry timer
@@ -209,6 +212,11 @@ class Lifecycle {
 
   transition(transition: Transition) {
     console.debug("Received transition", transition.type);
+
+    if (transition.type === TransitionType.DisposeOnly) {
+      this.dispose();
+      return;
+    } 
 
     const currentState = this.state();
     switch (currentState) {
@@ -541,6 +549,12 @@ export default class ClientController {
     this.state.auth.removeSession();
     this.lifecycle.transition({
       type: TransitionType.Logout,
+    });
+  }
+
+  dispose() {
+    this.lifecycle.transition({
+      type: TransitionType.DisposeOnly,
     });
   }
 }
