@@ -12,7 +12,7 @@ import { getController } from "@revolt/common";
 import { KeybindAction } from "@revolt/keybinds";
 import { KeyComboSequence } from "@revolt/keybinds";
 import { KeyCombo } from "@revolt/keybinds";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import {
   Button,
   CategoryButton,
@@ -58,6 +58,8 @@ const categories: Record<string, KeybindAction[]> = {
  * Keybinds
  */
 export default function Keybinds() {
+  const state = useState();
+
   const translateCombo = (combo: KeyCombo, short: boolean) => "todo i18n";
   // combo
   //   .map((key) =>

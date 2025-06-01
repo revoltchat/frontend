@@ -6,7 +6,7 @@ import { Language, Languages, browserPreferredLanguage } from "@revolt/i18n";
 import type { LanguageEntry } from "@revolt/i18n/Languages";
 import { timeLocale } from "@revolt/i18n/dayjs";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import {
   CategoryButton,
   CategoryButtonGroup,
@@ -53,6 +53,7 @@ export function LanguageSettings() {
  * Pick user's preferred language
  */
 function PickLanguage() {
+  const state = useState();
   const { i18n } = useLingui();
 
   /**
@@ -127,6 +128,7 @@ function PickLanguage() {
  * Pick user's preferred date format
  */
 function PickDateFormat() {
+  const state = useState();
   const date = () => timeLocale()[1].formats.L;
 
   const LastWeek = new Date();
@@ -176,6 +178,7 @@ function PickDateFormat() {
  * Pick user's preferred time format
  */
 function PickTimeFormat() {
+  const state = useState();
   const time = () => timeLocale()[1].formats.LT;
 
   return (

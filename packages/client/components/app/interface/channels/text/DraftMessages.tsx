@@ -2,7 +2,7 @@ import { For } from "solid-js";
 
 import { Channel } from "revolt.js";
 
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 
 import { DraftMessage } from "./DraftMessage";
 
@@ -16,6 +16,8 @@ interface Props {
  * @returns
  */
 export function DraftMessages(props: Props) {
+  const state = useState();
+
   const unsent = () =>
     state.draft
       .getPendingMessages(props.channel.id)

@@ -4,7 +4,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import { UnsentMessage } from "@revolt/state/stores/Draft";
 
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
@@ -22,6 +22,7 @@ interface Props {
  * Context menu for draft messages
  */
 export function DraftMessageContextMenu(props: Props) {
+  const state = useState();
   const client = useClient();
 
   /**

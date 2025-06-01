@@ -1,6 +1,6 @@
 import { For } from "solid-js";
 
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import {
   AVAILABLE_EXPERIMENTS,
   EXPERIMENTS,
@@ -16,6 +16,8 @@ import {
  * Experiments
  */
 export default function Experiments() {
+  const state = useState();
+
   return (
     <CategoryButtonGroup>
       <For each={AVAILABLE_EXPERIMENTS}>

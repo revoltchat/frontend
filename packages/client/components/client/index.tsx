@@ -8,6 +8,7 @@ export type { default as ClientController } from "./Controller";
 
 /**
  * Global client controller
+ * @deprecated
  */
 export const clientController = new ClientController();
 

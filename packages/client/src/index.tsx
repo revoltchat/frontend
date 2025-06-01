@@ -23,7 +23,7 @@ import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
 import { I18nProvider } from "@revolt/i18n";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
 import { VoiceContext } from "@revolt/rtc";
-import { state } from "@revolt/state";
+import { StateContext, useState } from "@revolt/state";
 import {
   ApplyGlobalStyles,
   FloatingManager,
@@ -79,6 +79,7 @@ function MountTheme(props: { children: any }) {
  * Redirect PWA start to the last active path
  */
 function PWARedirect() {
+  const state = useState();
   return <Navigate href={state.layout.getLastActivePath()} />;
 }
 
@@ -93,6 +94,7 @@ function SettingsRedirect() {
 }
 
 function MountContext(props: { children?: JSX.Element }) {
+  const state = useState();
   const appWindow = isTauri() ? getCurrentWindow() : null;
 
   /**
@@ -130,9 +132,9 @@ function MountContext(props: { children?: JSX.Element }) {
 
 registerKeybindsWithPriority();
 
-state.hydrate().then(() =>
-  render(
-    () => (
+render(
+  () => (
+    <StateContext>
       <Router root={MountContext}>
         <Route path="/login" component={AuthPage as never}>
           <Route path="/delete/:token" component={ConfirmDelete} />
@@ -158,7 +160,7 @@ state.hydrate().then(() =>
           <Route path="/*" component={HomePage} />
         </Route>
       </Router>
-    ),
-    document.getElementById("root") as HTMLElement,
+    </StateContext>
   ),
+  document.getElementById("root") as HTMLElement,
 );

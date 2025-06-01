@@ -1,13 +1,15 @@
 import { For } from "solid-js";
 
 import { Language, Languages } from "@revolt/i18n/locales/Languages";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import { ComboBox } from "@revolt/ui";
 
 /**
  * Dropdown box for selecting the current language
  */
 export function LocaleSelector() {
+  const state = useState();
+
   return (
     <ComboBox
       value={state.get("locale").lang}

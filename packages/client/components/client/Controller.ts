@@ -8,7 +8,6 @@ import {
   getController,
   registerController,
 } from "@revolt/common";
-import { state } from "@revolt/state";
 import type { Session } from "@revolt/state/stores/Auth";
 
 export enum State {
@@ -164,7 +163,7 @@ class Lifecycle {
         this.client.connect();
         break;
       case State.Connected:
-        state.auth.markValid();
+        // TODO: state.auth.markValid();
         this.#setLoadedOnce(true);
         this.#connectionFailures = 0;
         break;
@@ -499,7 +498,7 @@ export default class ClientController {
       valid: false,
     };
 
-    state.auth.setSession(createdSession);
+    // TODO: state.auth.setSession(createdSession);
     this.lifecycle.transition({
       type: TransitionType.LoginUncached,
       session: createdSession,
@@ -517,7 +516,7 @@ export default class ClientController {
   }
 
   logout() {
-    state.auth.removeSession();
+    // TODO: state.auth.removeSession();
     this.lifecycle.transition({
       type: TransitionType.Logout,
     });

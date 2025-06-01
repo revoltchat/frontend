@@ -17,7 +17,7 @@ import type {
   MapFormToValues,
 } from "@revolt/ui/components/tools/Form";
 
-import { modalController, useModals } from ".";
+import { useModals } from ".";
 import { Modals, PropGenerator } from "./types";
 
 type Props<T extends FormTemplate> = Omit<

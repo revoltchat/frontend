@@ -5,9 +5,9 @@ import { Channel, Server as ServerI } from "revolt.js";
 
 import { ChannelContextMenu, ServerSidebarContextMenu } from "@revolt/app";
 import { useClient, useUser } from "@revolt/client";
-import { modalController, useModals } from "@revolt/modal";
-import { Route, useParams, useSmartParams } from "@revolt/routing";
-import { state } from "@revolt/state";
+import { useModals } from "@revolt/modal";
+import { useParams, useSmartParams } from "@revolt/routing";
+import { useState } from "@revolt/state";
 import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 
 /**
@@ -20,6 +20,7 @@ export const Sidebar = (props: {
   menuGenerator: (t: ServerI | Channel) => JSX.Directives["floating"];
 }) => {
   const user = useUser();
+  const state = useState();
   const client = useClient();
   const { openModal } = useModals();
   const params = useParams<{ server: string }>();
@@ -58,6 +59,7 @@ export const Sidebar = (props: {
 const Home: Component = () => {
   const params = useSmartParams();
   const client = useClient();
+  const state = useState();
   const conversations = createMemo(() => state.ordering.orderedConversations);
 
   return (

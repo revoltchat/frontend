@@ -8,9 +8,9 @@ import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
 import { clientController } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
 import { KeybindAction } from "@revolt/keybinds";
-import { modalController } from "@revolt/modal";
+import { useModals } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import { Button, Preloader } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
@@ -20,13 +20,15 @@ import { Sidebar } from "./interface/Sidebar";
  * Application layout
  */
 const Interface = (props: { children: JSX.Element }) => {
+  const { openModal } = useModals();
+  const state = useState();
   const keybinds = useKeybindActions();
 
   useBeforeLeave((e) => {
     if (!e.defaultPrevented) {
       if (e.to === "/settings") {
         e.preventDefault();
-        modalController.openModal({
+        openModal({
           type: "settings",
           config: "user",
         });

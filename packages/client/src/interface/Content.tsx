@@ -1,11 +1,7 @@
-import { Component, Match, Switch, onMount } from "solid-js";
+import { Component, Match, Switch } from "solid-js";
 
-import { modalController } from "@revolt/modal";
-import { Navigate, Route, useParams } from "@revolt/routing";
-import { state } from "@revolt/state";
+import { useParams } from "@revolt/routing";
 
-import { DevelopmentPage } from "./Development";
-import { Friends } from "./Friends";
 import { HomePage } from "./Home";
 import { ServerHome } from "./ServerHome";
 import { ChannelPage } from "./channels/ChannelPage";

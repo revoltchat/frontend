@@ -14,14 +14,14 @@ import { DraftMessages, Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { KeybindAction } from "@revolt/keybinds";
 import { useNavigate, useSmartParams } from "@revolt/routing";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   BelowFloatingHeader,
   Header,
-  main,
   NewMessages,
   TypingIndicator,
+  main,
 } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
@@ -35,6 +35,7 @@ import { MemberSidebar } from "./MemberSidebar";
  * Channel component
  */
 export function TextChannel(props: ChannelPageProps) {
+  const state = useState();
   const client = useClient();
 
   // Last unread message id
@@ -176,4 +177,3 @@ const Content = styled("div", {
     minHeight: 0,
   },
 });
-

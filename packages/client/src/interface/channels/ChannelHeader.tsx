@@ -15,7 +15,7 @@ import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
 import { useVoice } from "@revolt/rtc";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   Button,
@@ -44,6 +44,7 @@ interface Props {
 export function ChannelHeader(props: Props) {
   const { openModal } = useModals();
   const client = useClient();
+  const state = useState();
   const rtc = useVoice();
 
   /**

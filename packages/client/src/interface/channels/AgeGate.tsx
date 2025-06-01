@@ -3,7 +3,7 @@ import { JSXElement, Match, Switch, createEffect } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { Button, Checkbox, iconSize } from "@revolt/ui";
 
@@ -19,6 +19,8 @@ export function AgeGate(props: {
   contentType: "channel";
   children: JSXElement;
 }) {
+  const state = useState();
+
   const confirmed = state.layout.getSectionState(LAYOUT_SECTIONS.MATURE, false);
   const allowed = state.layout.getSectionState(
     props.contentId + "-nsfw",

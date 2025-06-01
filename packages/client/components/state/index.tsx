@@ -1,4 +1,11 @@
-import { JSX, Show, createSignal, onMount } from "solid-js";
+import {
+  JSX,
+  Show,
+  createContext,
+  createSignal,
+  onMount,
+  useContext,
+} from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
 import equal from "fast-deep-equal";
@@ -176,6 +183,29 @@ export class State {
 }
 
 /**
- * Global application state
+ * State context
  */
-export const state = new State();
+const stateContext = createContext<State>(null! as State);
+
+/**
+ * Mount state context
+ */
+export function StateContext(props: { children: JSX.Element }) {
+  const stateLocal = new State();
+  const [ready, setReady] = createSignal(false);
+
+  onMount(() => stateLocal.hydrate().then(() => setReady(true)));
+
+  return (
+    <stateContext.Provider value={stateLocal}>
+      <Show when={ready()}>{props.children}</Show>
+    </stateContext.Provider>
+  );
+}
+
+/**
+ * Use application state
+ */
+export function useState() {
+  return useContext(stateContext);
+}

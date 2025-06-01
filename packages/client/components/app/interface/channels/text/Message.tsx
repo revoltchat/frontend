@@ -9,7 +9,7 @@ import { decodeTime } from "ulid";
 import { useClient } from "@revolt/client";
 import { useTime } from "@revolt/i18n";
 import { Markdown } from "@revolt/markdown";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 import {
   Attachment,
   Avatar,
@@ -67,6 +67,7 @@ interface Props {
  */
 export function Message(props: Props) {
   const dayjs = useTime();
+  const state = useState();
   const { t } = useLingui();
   const client = useClient();
 

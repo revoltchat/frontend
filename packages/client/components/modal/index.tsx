@@ -206,11 +206,6 @@ export class ModalControllerExtended extends ModalController {
   }
 }
 
-/**
- * @deprecated use the context API instead, useModals
- */
-export const modalController = new ModalControllerExtended();
-
 const ModalControllerContext = createContext<ModalControllerExtended>(
   null as unknown as ModalControllerExtended,
 );

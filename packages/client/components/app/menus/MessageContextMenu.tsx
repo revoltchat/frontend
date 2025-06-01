@@ -5,7 +5,7 @@ import { Message } from "revolt.js";
 
 import { useClient, useUser } from "@revolt/client";
 import { getController } from "@revolt/common";
-import { state } from "@revolt/state";
+import { useState } from "@revolt/state";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
@@ -27,6 +27,7 @@ import {
  */
 export function MessageContextMenu(props: { message: Message }) {
   const user = useUser();
+  const state = useState();
   const client = useClient();
 
   /**

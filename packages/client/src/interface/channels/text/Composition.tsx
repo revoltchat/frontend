@@ -11,8 +11,8 @@ import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
-import { modalController } from "@revolt/modal";
-import { state } from "@revolt/state";
+import { useModals } from "@revolt/modal";
+import { useState } from "@revolt/state";
 import {
   Button,
   CompositionPicker,
@@ -50,8 +50,10 @@ const RE_CODE_DELIMITER = new RegExp("^```", "gm");
  * Message composition engine
  */
 export function MessageComposition(props: Props) {
+  const state = useState();
   const { t } = useLingui();
   const client = useClient();
+  const modals = useModals();
 
   /**
    * Reference to the message input box
@@ -284,7 +286,7 @@ export function MessageComposition(props: Props) {
       // Don't take focus from other input elements
       !(event.target instanceof HTMLInputElement) &&
       // Don't take focus from modals
-      !modalController.isOpen() &&
+      !modals.isOpen() &&
       // Only focus if pasting to allow copying of text elsewhere
       (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() === "v")
     ) {
