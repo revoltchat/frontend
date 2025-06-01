@@ -245,6 +245,8 @@ export function Modal(props: Props) {
                       {(action) => (
                         <Button
                           {...action}
+                          {...{onClick: () => void 0}} // HACK: prevent onClick from being
+                                                       // Modal2 doesn't have this issue :)
                           isDisabled={props.disabled}
                           onPress={async () => {
                             if (await action.onClick()) {
