@@ -245,6 +245,14 @@ export type Modals =
       type: 'user_profile_roles';
       member: ServerMember;
     }
+    | {
+      type: 'user_profile_mutual_friends';
+      users: User[];
+    }
+    | {
+      type: 'user_profile_mutual_groups';
+      groups: (Server | Channel)[];
+    }
   | {
       type: "leave_group";
       channel: Channel;

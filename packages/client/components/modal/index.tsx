@@ -1,6 +1,7 @@
 import {
   For,
   JSXElement,
+  batch,
   createContext,
   createEffect,
   useContext,
@@ -55,6 +56,7 @@ export class ModalController {
     this.pop = this.pop.bind(this);
     this.remove = this.remove.bind(this);
     this.isOpen = this.isOpen.bind(this);
+    this.closeAll = this.closeAll.bind(this);
   }
 
   /**
@@ -95,6 +97,17 @@ export class ModalController {
     if (modal) {
       this.remove(modal.id);
     }
+  }
+
+  /**
+   * Remove all modals
+   */
+  closeAll() {
+    batch(() => {
+      for (const modal of this.modals) {
+        this.remove(modal.id);
+      }
+    });
   }
 
   /**

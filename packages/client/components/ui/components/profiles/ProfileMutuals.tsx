@@ -5,17 +5,22 @@ import { User } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
+import { useModals } from "@revolt/modal";
 
 import { Avatar, Text } from "../design";
+import { dismissFloatingElements } from "../floating";
+import { Ripple } from "../material";
 
 import { ProfileCard } from "./ProfileCard";
 
 export function ProfileMutuals(props: { user: User }) {
   const client = useClient();
+  const { openModal } = useModals();
+
   const query = useQuery(() => ({
     queryKey: ["mutual", props.user.id],
     queryFn: async () => {
-      if (props.user.self) {
+      if (props.user.self || props.user.bot) {
         return {
           users: [],
           groups: [],
@@ -27,7 +32,7 @@ export function ProfileMutuals(props: { user: User }) {
 
       return {
         users: users
-          .map((userId) => clnt.users.get(userId))
+          .map((userId) => clnt.users.get(userId)!)
           .filter((user) => user),
         groups: [
           ...servers
@@ -43,10 +48,36 @@ export function ProfileMutuals(props: { user: User }) {
     },
   }));
 
+  /**
+   * Open friends modal
+   */
+  function openFriends() {
+    openModal({
+      type: "user_profile_mutual_friends",
+      users: query.data!.users,
+    });
+
+    dismissFloatingElements();
+  }
+
+  /**
+   * Open groups modal
+   */
+  function openGroups() {
+    openModal({
+      type: "user_profile_mutual_groups",
+      groups: query.data!.groups,
+    });
+
+    dismissFloatingElements();
+  }
+
   return (
     <>
       <Show when={query.data?.users.length}>
-        <ProfileCard>
+        <ProfileCard isLink onClick={openFriends}>
+          <Ripple />
+
           <Text class="title" size="large">
             Mutuals
           </Text>
@@ -64,7 +95,9 @@ export function ProfileMutuals(props: { user: User }) {
         </ProfileCard>
       </Show>
       <Show when={query.data?.users.length}>
-        <ProfileCard>
+        <ProfileCard isLink onClick={openGroups}>
+          <Ripple />
+
           <Text class="title" size="large">
             Groups
           </Text>

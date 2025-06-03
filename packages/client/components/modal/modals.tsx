@@ -45,8 +45,10 @@ import settings from "./modals/Settings";
 import sign_out_sessions from "./modals/SignOutSessions";
 import signed_out from "./modals/SignedOut";
 import { UserProfileModal } from "./modals/UserProfile";
-import type { Modals as AllModals, PropGenerator } from "./types";
+import { UserProfileMutualFriendsModal } from "./modals/UserProfileMutualFriends";
+import { UserProfileMutualGroupsModal } from "./modals/UserProfileMutualGroups";
 import { UserProfileRolesModal } from "./modals/UserProfileRoles";
+import type { Modals as AllModals, PropGenerator } from "./types";
 
 /**
  * Render the modal
@@ -73,8 +75,12 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <Error2Modal {...modalProps} />;
     case "user_profile":
       return <UserProfileModal {...modalProps} />;
-    case 'user_profile_roles':
-      return <UserProfileRolesModal {...modalProps} />
+    case "user_profile_roles":
+      return <UserProfileRolesModal {...modalProps} />;
+    case "user_profile_mutual_friends":
+      return <UserProfileMutualFriendsModal {...modalProps} />;
+    case "user_profile_mutual_groups":
+      return <UserProfileMutualGroupsModal {...modalProps} />;
 
     default: {
       // legacy behaviour ('modal props')

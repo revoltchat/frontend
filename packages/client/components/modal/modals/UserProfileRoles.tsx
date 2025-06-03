@@ -23,7 +23,7 @@ export function UserProfileRolesModal(
 
   return (
     <Modal2
-      minWidth={320}
+      minWidth={420}
       show={props.show}
       onClose={props.onClose}
       title={
