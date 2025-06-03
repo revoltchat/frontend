@@ -24,6 +24,9 @@ export function EditMessage(props: { message: Message }) {
 
   function saveMessage(content: string) {
     if (content.length) {
+      // bring focus back to main composition
+      document.getElementById("msgbox")?.focus();
+
       change.mutate(content);
     } else {
       openModal({

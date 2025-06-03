@@ -159,6 +159,7 @@ export function MessageBox(props: Props) {
       <Switch
         fallback={
           <textarea
+            id="msgbox"
             class={input()}
             ref={props.ref}
             onInput={onInput}

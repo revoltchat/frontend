@@ -96,7 +96,8 @@ export function keybindFilter(
     // don't allow focusing if another input element is currently being typed into
     if (
       target instanceof HTMLInputElement ||
-      target instanceof HTMLTextAreaElement
+      target instanceof HTMLTextAreaElement ||
+      target?.nodeName === "MDUI-TEXT-FIELD"
     )
       return false;
 
