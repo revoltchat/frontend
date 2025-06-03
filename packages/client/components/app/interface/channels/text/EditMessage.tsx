@@ -57,6 +57,10 @@ export function EditMessage(props: { message: Message }) {
             e.preventDefault();
             saveMessage(e.currentTarget.value);
           }
+
+          if (e.key === "Escape") {
+            state.draft.setEditingMessage(undefined);
+          }
         }}
       />
 
