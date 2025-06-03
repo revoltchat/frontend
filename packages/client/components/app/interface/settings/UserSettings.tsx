@@ -23,6 +23,7 @@ import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?compon
 import _MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?component-solid";
 import _MdSync from "@material-design-icons/svg/outlined/sync.svg?component-solid";
 import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.svg?component-solid";
+import MdWorkspacePremium from "@material-design-icons/svg/outlined/workspace_premium.svg?component-solid";
 
 import { SettingsConfiguration } from ".";
 import { MyAccount } from "./user/Account";
@@ -32,6 +33,7 @@ import { Sessions } from "./user/Sessions";
 import { AccountCard } from "./user/_AccountCard";
 import { MyBots, ViewBot } from "./user/bots";
 import { EditProfile } from "./user/profile";
+import { EditSubscription } from "./user/subscriptions";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -77,6 +79,8 @@ const Config: SettingsConfiguration<{ server: Server }> = {
         return <LanguageSettings />;
       case "feedback":
         return <Feedback />;
+      case "subscribe":
+        return <EditSubscription />;
       default:
         return null;
     }
@@ -138,6 +142,17 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               href: "https://wiki.revolt.chat/notes/project/financial-support/",
               icon: <MdLocalCafe {...iconSize(20)} />,
               title: <Trans>Donate</Trans>,
+            },
+          ],
+        },
+        {
+          title: <Trans>Subscriptions</Trans>,
+          hidden: import.meta.env.PROD,
+          entries: [
+            {
+              id: "subscribe",
+              icon: <MdWorkspacePremium {...iconSize(20)} />,
+              title: "[premium subscription name here]",
             },
           ],
         },

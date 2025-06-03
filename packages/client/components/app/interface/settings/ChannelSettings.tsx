@@ -96,7 +96,7 @@ const Config: SettingsConfiguration<Channel> = {
             {
               hidden:
                 !channel.havePermission("ManageWebhooks") &&
-                import.meta.env.PROD,
+                import.meta.env.DEV,
               id: "webhooks",
               icon: <BiSolidCloud size={20} />,
               title: <Trans>Webhooks</Trans>,
