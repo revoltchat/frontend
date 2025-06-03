@@ -8,6 +8,7 @@ import { useClient, useUser } from "@revolt/client";
 import { useModals } from "@revolt/modal";
 import { useParams, useSmartParams } from "@revolt/routing";
 import { useState } from "@revolt/state";
+import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { HomeSidebar, ServerList, ServerSidebar } from "@revolt/ui";
 
 /**
@@ -46,11 +47,15 @@ export const Sidebar = (props: {
         }
         menuGenerator={props.menuGenerator}
       />
-      <Switch fallback={<Home />}>
-        <Match when={params.server}>
-          <Server />
-        </Match>
-      </Switch>
+      <Show
+        when={state.layout.getSectionState(LAYOUT_SECTIONS.PRIMARY_SIDEBAR, true)}
+      >
+        <Switch fallback={<Home />}>
+          <Match when={params.server}>
+            <Server />
+          </Match>
+        </Switch>
+      </Show>
     </div>
   );
 };

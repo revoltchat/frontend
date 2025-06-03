@@ -11,6 +11,7 @@ import { KeybindAction } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { useState } from "@revolt/state";
+import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { Button, Preloader } from "@revolt/ui";
 import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
@@ -139,17 +140,14 @@ const Interface = (props: { children: JSX.Element }) => {
                 },
               })}
             />
-            <div
-              style={{
-                background: "var(--md-sys-color-surface-container-low)",
-
-                display: "flex",
-                width: "100%",
-                "min-width": 0,
-              }}
+            <Content
+              sidebar={state.layout.getSectionState(
+                LAYOUT_SECTIONS.PRIMARY_SIDEBAR,
+                true,
+              )}
             >
               {props.children}
-            </div>
+            </Content>
           </Layout>
         </Match>
       </Switch>
@@ -178,6 +176,28 @@ const Layout = styled("div", {
     height: "100%",
     background: "var(--md-sys-color-surface-container-high)",
     minWidth: 0,
+  },
+});
+
+/**
+ * Main content container
+ */
+const Content = styled("div", {
+  base: {
+    background: "var(--md-sys-color-surface-container-low)",
+
+    display: "flex",
+    width: "100%",
+    minWidth: 0,
+  },
+  variants: {
+    sidebar: {
+      false: {
+        borderTopLeftRadius: "var(--borderRadius-lg)",
+        borderBottomLeftRadius: "var(--borderRadius-lg)",
+        overflow: "hidden",
+      },
+    },
   },
 });
 

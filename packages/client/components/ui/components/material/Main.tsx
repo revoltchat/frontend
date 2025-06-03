@@ -11,8 +11,8 @@ export const main = cva({
     flexDirection: "column",
 
     paddingInline: "var(--gap-md)",
+    marginInline: "var(--gap-md)",
     marginBlockEnd: "var(--gap-md)",
-    marginInlineEnd: "var(--gap-md)",
     borderRadius: "var(--borderRadius-xl)",
     background: "var(--md-sys-color-surface-container-lowest)",
   },
