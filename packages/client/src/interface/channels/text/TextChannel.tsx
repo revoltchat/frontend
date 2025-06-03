@@ -1,17 +1,11 @@
-import {
-  Show,
-  createEffect,
-  createSignal,
-  on,
-  onCleanup,
-  onMount,
-} from "solid-js";
+import { Show, createEffect, createSignal, on } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 import { decodeTime, ulid } from "ulid";
 
 import { DraftMessages, Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
+import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useNavigate, useSmartParams } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -28,7 +22,6 @@ import { ChannelPageProps } from "../ChannelPage";
 
 import { MessageComposition } from "./Composition";
 import { MemberSidebar } from "./MemberSidebar";
-import { createKeybind, KeybindAction } from "@revolt/keybinds";
 
 /**
  * Channel component
@@ -93,7 +86,7 @@ export function TextChannel(props: ChannelPageProps) {
     ),
   );
 
-  // Register "jump to latest messages"
+  // Register ack/jump latest
   createKeybind(KeybindAction.CHAT_JUMP_END, () => {
     // Mark channel as read if not already
     if (props.channel.unread) {

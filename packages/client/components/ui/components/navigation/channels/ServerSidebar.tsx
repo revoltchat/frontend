@@ -112,6 +112,12 @@ export const ServerSidebar = (props: Props) => {
     navigateChannel(1),
   );
 
+  createKeybind(KeybindAction.CHAT_MARK_SERVER_AS_READ, () => {
+    if (props.server.unread) {
+      props.server.ack();
+    }
+  });
+
   return (
     <SidebarBase>
       <Switch

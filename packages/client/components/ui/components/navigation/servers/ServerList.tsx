@@ -5,6 +5,7 @@ import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 
@@ -69,9 +70,7 @@ export const ServerList = (props: Props) => {
   const navigate = useNavigate();
   const { openModal } = useModals();
 
-  const navigateServer = (ev: KeyboardEvent, byOffset: number) => {
-    ev.preventDefault();
-
+  const navigateServer = (byOffset: number) => {
     const serverId = props.selectedServer();
     if (serverId == null && props.orderedServers.length) {
       if (byOffset === 1) {
@@ -104,8 +103,8 @@ export const ServerList = (props: Props) => {
     }
   };
 
-  const navigateServerUp = (ev: KeyboardEvent) => navigateServer(ev, -1);
-  const navigateServerDown = (ev: KeyboardEvent) => navigateServer(ev, 1);
+  createKeybind(KeybindAction.NAVIGATION_SERVER_UP, () => navigateServer(-1));
+  createKeybind(KeybindAction.NAVIGATION_SERVER_DOWN, () => navigateServer(1));
 
   return (
     <ServerListBase>

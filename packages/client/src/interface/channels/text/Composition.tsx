@@ -4,14 +4,14 @@ import {
   BiSolidHappyBeaming,
   BiSolidSend,
 } from "solid-icons/bi";
-import { For, Match, Show, Switch, onCleanup, onMount } from "solid-js";
+import { For, Match, Show, Switch } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { debounce } from "@revolt/common";
-import { useModals } from "@revolt/modal";
+import { Keybind, KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useState } from "@revolt/state";
 import {
   Button,
@@ -48,12 +48,14 @@ export function MessageComposition(props: Props) {
   const state = useState();
   const { t } = useLingui();
   const client = useClient();
-  const modals = useModals();
 
   /**
    * Reference to the message input box
    */
   let ref: HTMLTextAreaElement | undefined;
+
+  createKeybind(KeybindAction.CHAT_JUMP_END, () => ref?.focus());
+  createKeybind(KeybindAction.CHAT_FOCUS_COMPOSITION, () => ref?.focus());
 
   /**
    * Get the draft for the current channel
@@ -269,27 +271,6 @@ export function MessageComposition(props: Props) {
   }
 
   /**
-   * Handle ESC key being pressed
-   * @param event Keyboard Event
-   */
-  function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      if (state.draft.popFromDraft(props.channel.id)) {
-        event.preventDefault();
-      }
-    } else if (
-      // Don't take focus from other input elements
-      !(event.target instanceof HTMLInputElement) &&
-      // Don't take focus from modals
-      !modals.isOpen() &&
-      // Only focus if pasting to allow copying of text elsewhere
-      (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() === "v")
-    ) {
-      ref?.focus();
-    }
-  }
-
-  /**
    * Handle files being added to the draft.
    * @param files List of files
    */
@@ -347,6 +328,12 @@ export function MessageComposition(props: Props) {
 
   return (
     <>
+      <Show when={state.draft.hasAdditionalElements(props.channel.id)}>
+        <Keybind
+          keybind={KeybindAction.CHAT_REMOVE_COMPOSITION_ELEMENT}
+          onPressed={() => state.draft.popFromDraft(props.channel.id)}
+        />
+      </Show>
       <FileCarousel
         files={draft().files ?? []}
         getFile={state.draft.getFile}

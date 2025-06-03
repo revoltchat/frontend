@@ -605,6 +605,16 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   }
 
   /**
+   * Whether additional elements (attachment/reply) are present
+   * @param channelId Channel ID
+   * @returns Whether information is present
+   */
+  hasAdditionalElements(channelId: string): boolean {
+    const draft = this.getDraft(channelId);
+    return !!(draft.replies?.length || draft.files?.length);
+  }
+
+  /**
    * Remove additional information from a draft (file or reply)
    * @param channelId Channel ID
    * @returns Whether information was removed
