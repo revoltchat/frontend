@@ -16,7 +16,6 @@ import {
 } from "revolt.js";
 
 import type { SettingsConfigurations } from "@revolt/app";
-import type { KeyComboSequence, KeybindAction } from "@revolt/keybinds";
 import type { Modal } from "@revolt/ui";
 
 import { ChangelogPost } from "./modals/Changelog";
@@ -139,11 +138,6 @@ export type Modals =
       client: Client;
     }
   | {
-      type: "edit_keybind";
-      action: KeybindAction;
-      onSubmit: (sequence: KeyComboSequence) => void;
-    }
-  | {
       type: "kick_member";
       member: ServerMember;
     }
@@ -241,16 +235,16 @@ export type Modals =
       isPlaceholder?: boolean;
       placeholderProfile?: API.UserProfile;
     }
-    | {
-      type: 'user_profile_roles';
+  | {
+      type: "user_profile_roles";
       member: ServerMember;
     }
-    | {
-      type: 'user_profile_mutual_friends';
+  | {
+      type: "user_profile_mutual_friends";
       users: User[];
     }
-    | {
-      type: 'user_profile_mutual_groups';
+  | {
+      type: "user_profile_mutual_groups";
       groups: (Server | Channel)[];
     }
   | {

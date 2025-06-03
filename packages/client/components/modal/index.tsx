@@ -10,10 +10,6 @@ import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { MFA, MFATicket } from "revolt.js";
 
-import {
-  registerKeybindWithPriority,
-  unregisterKeybindWithPriority,
-} from "../../src/shared/lib/priorityKeybind";
 import "../ui/styled.d.ts";
 
 import { RenderModal } from "./modals";
@@ -255,11 +251,6 @@ export function ModalRenderer() {
       event.stopPropagation();
       modalController.pop();
     }
-
-    if (modalController.modals.length === 0)
-      return unregisterKeybindWithPriority(keyDown);
-
-    return registerKeybindWithPriority("Escape", keyDown, 1, "user-visible");
   });
 
   createEffect(() => {

@@ -5,6 +5,5 @@ export * from "./floating";
 export * from "./material";
 export * from "./messaging";
 export * from "./navigation";
-export * from "./context";
 export * from "./native";
 export * from "./profiles";

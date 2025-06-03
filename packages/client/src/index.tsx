@@ -28,7 +28,6 @@ import { StateContext, SyncWorker, useState } from "@revolt/state";
 import {
   ApplyGlobalStyles,
   FloatingManager,
-  KeybindsProvider,
   Masks,
   Titlebar,
   darkTheme,
@@ -46,7 +45,6 @@ import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
-import { registerKeybindsWithPriority } from "./shared/lib/priorityKeybind";
 
 attachDevtoolsOverlay();
 
@@ -110,17 +108,15 @@ function MountContext(props: { children?: JSX.Element }) {
           <I18nProvider>
             <QueryClientProvider client={client}>
               <MountTheme>
-                <KeybindsProvider keybinds={() => state.keybinds.getKeybinds()}>
-                  <Show when={window.__TAURI__}>
-                    <Titlebar
-                      isBuildDev={import.meta.env.DEV}
-                      onMinimize={() => appWindow?.minimize?.()}
-                      onMaximize={() => appWindow?.toggleMaximize?.()}
-                      onClose={() => appWindow?.hide?.()}
-                    />
-                  </Show>
-                  {props.children}
-                </KeybindsProvider>
+                <Show when={window.__TAURI__}>
+                  <Titlebar
+                    isBuildDev={import.meta.env.DEV}
+                    onMinimize={() => appWindow?.minimize?.()}
+                    onMaximize={() => appWindow?.toggleMaximize?.()}
+                    onClose={() => appWindow?.hide?.()}
+                  />
+                </Show>
+                {props.children}
                 <ModalRenderer />
                 <FloatingManager />
               </MountTheme>
@@ -132,8 +128,6 @@ function MountContext(props: { children?: JSX.Element }) {
     </ClientContext>
   );
 }
-
-registerKeybindsWithPriority();
 
 render(
   () => (

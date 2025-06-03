@@ -24,7 +24,6 @@ import delete_message from "./modals/DeleteMessage";
 import delete_server from "./modals/DeleteServer";
 import edit_display_name from "./modals/EditDisplayName";
 import edit_email from "./modals/EditEmail";
-import edit_keybind from "./modals/EditKeybind";
 import edit_password from "./modals/EditPassword";
 import edit_username from "./modals/EditUsername";
 import error from "./modals/Error";
@@ -111,7 +110,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
         error,
         image_viewer,
         join_server,
-        edit_keybind,
         kick_member,
         leave_server,
         mfa_enable_totp,

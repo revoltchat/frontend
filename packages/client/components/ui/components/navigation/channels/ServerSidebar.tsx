@@ -13,15 +13,12 @@ import {
   Switch,
   createMemo,
   createSignal,
-  onCleanup,
-  onMount,
 } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
-import { KeybindAction } from "@revolt/keybinds/actions";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
@@ -31,7 +28,6 @@ import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?compon
 import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
 
 import { iconSize } from "../../..";
-import { useKeybindActions } from "../../context/Keybinds";
 import { Header } from "../../design/atoms/display/Header";
 import { typography } from "../../design/atoms/display/Typography";
 import { MenuButton } from "../../design/atoms/inputs/MenuButton";
@@ -77,7 +73,6 @@ type CategoryData = Omit<API.Category, "channels"> & { channels: Channel[] };
  */
 export const ServerSidebar = (props: Props) => {
   const navigate = useNavigate();
-  const keybinds = useKeybindActions();
 
   // TODO: this does not filter visible channels at the moment because the state for categories is not stored anywhere
   /** Gets a list of channels that are currently not hidden inside a closed category */
@@ -112,28 +107,6 @@ export const ServerSidebar = (props: Props) => {
 
   const navigateChannelUp = () => navigateChannel(-1);
   const navigateChannelDown = () => navigateChannel(1);
-
-  onMount(() => {
-    keybinds.addEventListener(
-      KeybindAction.NavigateChannelUp,
-      navigateChannelUp,
-    );
-    keybinds.addEventListener(
-      KeybindAction.NavigateChannelDown,
-      navigateChannelDown,
-    );
-  });
-
-  onCleanup(() => {
-    keybinds.removeEventListener(
-      KeybindAction.NavigateChannelUp,
-      navigateChannelUp,
-    );
-    keybinds.removeEventListener(
-      KeybindAction.NavigateChannelDown,
-      navigateChannelDown,
-    );
-  });
 
   return (
     <SidebarBase>

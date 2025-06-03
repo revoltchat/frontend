@@ -5,7 +5,6 @@ import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { KeybindAction } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 
@@ -15,7 +14,6 @@ import MdHome from "@material-design-icons/svg/filled/home.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
 
 import { Draggable } from "../../common/Draggable";
-import { useKeybindActions } from "../../context/Keybinds";
 import { Column, Text } from "../../design";
 import { Avatar } from "../../design/atoms/display/Avatar";
 import {
@@ -70,7 +68,6 @@ interface Props {
 export const ServerList = (props: Props) => {
   const navigate = useNavigate();
   const { openModal } = useModals();
-  const keybinds = useKeybindActions();
 
   const navigateServer = (ev: KeyboardEvent, byOffset: number) => {
     ev.preventDefault();
@@ -109,25 +106,6 @@ export const ServerList = (props: Props) => {
 
   const navigateServerUp = (ev: KeyboardEvent) => navigateServer(ev, -1);
   const navigateServerDown = (ev: KeyboardEvent) => navigateServer(ev, 1);
-
-  onMount(() => {
-    keybinds.addEventListener(KeybindAction.NavigateServerUp, navigateServerUp);
-    keybinds.addEventListener(
-      KeybindAction.NavigateServerDown,
-      navigateServerDown,
-    );
-  });
-
-  onCleanup(() => {
-    keybinds.removeEventListener(
-      KeybindAction.NavigateServerUp,
-      navigateServerUp,
-    );
-    keybinds.removeEventListener(
-      KeybindAction.NavigateServerDown,
-      navigateServerDown,
-    );
-  });
 
   return (
     <ServerListBase>

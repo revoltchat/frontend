@@ -30,7 +30,7 @@ export function TempMountStripe(props: { children: JSXElement }) {
       "pk_test_51QeG4NQS9UmC2GH3zIQp8F8hpOtSiq1Cix94Xjf0giCm6MW5qj0Wtdf4RY5HpvtG2Z8CmlR1W5ELLAqjSxgZjTAn00899Z6cfd",
     );
 
-    setStripe(_stripe);
+    setStripe(_stripe as never);
   });
 
   const theme = window.getComputedStyle(document.body);

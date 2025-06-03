@@ -12,7 +12,6 @@ import { decodeTime, ulid } from "ulid";
 
 import { DraftMessages, Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
-import { KeybindAction } from "@revolt/keybinds";
 import { useNavigate, useSmartParams } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -23,7 +22,6 @@ import {
   TypingIndicator,
   main,
 } from "@revolt/ui";
-import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
 import { ChannelHeader } from "../ChannelHeader";
 import { ChannelPageProps } from "../ChannelPage";
@@ -95,25 +93,9 @@ export function TextChannel(props: ChannelPageProps) {
   );
 
   // Register "jump to latest messages"
-  const keybinds = useKeybindActions();
-
   function scrollToBottom() {
     jumpToBottomRef?.();
   }
-
-  onMount(() =>
-    keybinds.addEventListener(
-      KeybindAction.MessagingScrollToBottom,
-      scrollToBottom,
-    ),
-  );
-
-  onCleanup(() =>
-    keybinds.removeEventListener(
-      KeybindAction.MessagingScrollToBottom,
-      scrollToBottom,
-    ),
-  );
 
   return (
     <>

@@ -7,13 +7,11 @@ import { styled } from "styled-system/jsx";
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
 import { useClientLifecycle } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
-import { KeybindAction } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { Button, Preloader } from "@revolt/ui";
-import { useKeybindActions } from "@revolt/ui/components/context/Keybinds";
 
 import { Sidebar } from "./interface/Sidebar";
 
@@ -23,7 +21,6 @@ import { Sidebar } from "./interface/Sidebar";
 const Interface = (props: { children: JSX.Element }) => {
   const state = useState();
   const { openModal } = useModals();
-  const keybinds = useKeybindActions();
   const { isLoggedIn, lifecycle } = useClientLifecycle();
 
   useBeforeLeave((e) => {
@@ -38,20 +35,6 @@ const Interface = (props: { children: JSX.Element }) => {
         state.layout.setLastActivePath(e.to);
       }
     }
-  });
-
-  onMount(() => {
-    keybinds.addEventListener(
-      KeybindAction.DeveloperToggleAllExperiments,
-      state.experiments.toggleSafeMode,
-    );
-  });
-
-  onCleanup(() => {
-    keybinds.removeEventListener(
-      KeybindAction.DeveloperToggleAllExperiments,
-      state.experiments.toggleSafeMode,
-    );
   });
 
   createEffect(() => {

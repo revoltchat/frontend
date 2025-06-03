@@ -9,5 +9,3 @@ export { Text, typography } from "./Typography";
 export { Modal } from "./Modal";
 export { Modal2, type Modal2Props } from "./Modal2";
 export { Username } from "./Username";
-export { Key } from "./Key";
-export { KeySequence } from "./KeySequence";

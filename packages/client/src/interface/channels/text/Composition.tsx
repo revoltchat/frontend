@@ -24,11 +24,6 @@ import {
   MessageReplyPreview,
 } from "@revolt/ui";
 
-import {
-  registerKeybindWithPriority,
-  unregisterKeybindWithPriority,
-} from "../../../shared/lib/priorityKeybind";
-
 interface Props {
   /**
    * Channel to compose for
@@ -293,10 +288,6 @@ export function MessageComposition(props: Props) {
       ref?.focus();
     }
   }
-
-  // Bind onKeyDown to the document
-  onMount(() => registerKeybindWithPriority("Escape", onKeyDown));
-  onCleanup(() => unregisterKeybindWithPriority(onKeyDown));
 
   /**
    * Handle files being added to the draft.
