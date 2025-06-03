@@ -19,6 +19,7 @@ import { useLingui } from "@lingui-solid/solid/macro";
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
@@ -105,8 +106,11 @@ export const ServerSidebar = (props: Props) => {
     }
   };
 
-  const navigateChannelUp = () => navigateChannel(-1);
-  const navigateChannelDown = () => navigateChannel(1);
+  createKeybind(KeybindAction.NAVIGATION_CHANNEL_UP, () => navigateChannel(-1));
+
+  createKeybind(KeybindAction.NAVIGATION_CHANNEL_DOWN, () =>
+    navigateChannel(1),
+  );
 
   return (
     <SidebarBase>

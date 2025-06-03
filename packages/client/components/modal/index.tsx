@@ -1,14 +1,16 @@
 import {
   For,
   JSXElement,
+  Show,
   batch,
   createContext,
-  createEffect,
   useContext,
 } from "solid-js";
 import { SetStoreFunction, createStore } from "solid-js/store";
 
 import type { MFA, MFATicket } from "revolt.js";
+
+import { Keybind, KeybindAction } from "@revolt/keybinds";
 
 import "../ui/styled.d.ts";
 
@@ -242,32 +244,22 @@ export function useModals() {
 export function ModalRenderer() {
   const modalController = useModals();
 
-  createEffect(() => {
-    /**
-     * Handle key press
-     * @param event Event
-     */
-    function keyDown(event: KeyboardEvent) {
-      event.stopPropagation();
-      modalController.pop();
-    }
-  });
-
-  createEffect(() => {
-    console.info(
-      "[DEBUG] (2) Modal render targets updated:",
-      modalController.modals,
-    );
-  });
-
   return (
-    <For each={modalController.modals}>
-      {(entry) => (
-        <RenderModal
-          {...entry}
-          onClose={() => modalController.remove(entry.id)}
+    <>
+      <For each={modalController.modals}>
+        {(entry) => (
+          <RenderModal
+            {...entry}
+            onClose={() => modalController.remove(entry.id)}
+          />
+        )}
+      </For>
+      <Show when={modalController.isOpen()}>
+        <Keybind
+          keybind={KeybindAction.CLOSE_MODAL}
+          onPressed={() => modalController.pop()}
         />
-      )}
-    </For>
+      </Show>
+    </>
   );
 }

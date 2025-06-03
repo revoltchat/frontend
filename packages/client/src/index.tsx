@@ -22,6 +22,7 @@ import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
 import { ClientContext } from "@revolt/client";
 import { I18nProvider } from "@revolt/i18n";
+import { KeybindContext } from "@revolt/keybinds";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
 import { VoiceContext } from "@revolt/rtc";
 import { StateContext, SyncWorker, useState } from "@revolt/state";
@@ -102,30 +103,32 @@ function MountContext(props: { children?: JSX.Element }) {
   const client = new QueryClient();
 
   return (
-    <ClientContext state={state}>
-      <ModalContext>
-        <VoiceContext>
-          <I18nProvider>
-            <QueryClientProvider client={client}>
-              <MountTheme>
-                <Show when={window.__TAURI__}>
-                  <Titlebar
-                    isBuildDev={import.meta.env.DEV}
-                    onMinimize={() => appWindow?.minimize?.()}
-                    onMaximize={() => appWindow?.toggleMaximize?.()}
-                    onClose={() => appWindow?.hide?.()}
-                  />
-                </Show>
-                {props.children}
-                <ModalRenderer />
-                <FloatingManager />
-              </MountTheme>
-            </QueryClientProvider>
-          </I18nProvider>
-        </VoiceContext>
-      </ModalContext>
-      <SyncWorker />
-    </ClientContext>
+    <KeybindContext>
+      <ClientContext state={state}>
+        <ModalContext>
+          <VoiceContext>
+            <I18nProvider>
+              <QueryClientProvider client={client}>
+                <MountTheme>
+                  <Show when={window.__TAURI__}>
+                    <Titlebar
+                      isBuildDev={import.meta.env.DEV}
+                      onMinimize={() => appWindow?.minimize?.()}
+                      onMaximize={() => appWindow?.toggleMaximize?.()}
+                      onClose={() => appWindow?.hide?.()}
+                    />
+                  </Show>
+                  {props.children}
+                  <ModalRenderer />
+                  <FloatingManager />
+                </MountTheme>
+              </QueryClientProvider>
+            </I18nProvider>
+          </VoiceContext>
+        </ModalContext>
+        <SyncWorker />
+      </ClientContext>
+    </KeybindContext>
   );
 }
 

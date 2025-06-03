@@ -12,10 +12,12 @@ import { Portal } from "solid-js/web";
 import { Motion, Presence } from "solid-motionone";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
-import { cva } from "styled-system/css";
+
+import { Keybind, KeybindAction } from "@revolt/keybinds";
 
 import { FloatingElement, floatingElements } from "../../directives";
 
+import { dismissFloatingElements } from ".";
 import { AutoComplete } from "./AutoComplete";
 import { TooltipBase } from "./Tooltip";
 import { UserCard } from "./UserCard";
@@ -38,6 +40,13 @@ export function FloatingManager() {
   onMount(() => document.addEventListener("mousemove", onMouseMove));
   onCleanup(() => document.addEventListener("mousemove", onMouseMove));
 
+  /**
+   * Whether a floating element is visible
+   */
+  function anyVisible() {
+    return floatingElements().find((el) => el.show());
+  }
+
   return (
     <Portal mount={document.getElementById("floating")!}>
       <For each={floatingElements()}>
@@ -49,6 +58,13 @@ export function FloatingManager() {
           </Presence>
         )}
       </For>
+
+      <Show when={anyVisible()}>
+        <Keybind
+          keybind={KeybindAction.CLOSE_FLOATING}
+          onPressed={dismissFloatingElements}
+        />
+      </Show>
     </Portal>
   );
 }

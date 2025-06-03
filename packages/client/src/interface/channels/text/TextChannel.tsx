@@ -28,6 +28,7 @@ import { ChannelPageProps } from "../ChannelPage";
 
 import { MessageComposition } from "./Composition";
 import { MemberSidebar } from "./MemberSidebar";
+import { createKeybind, KeybindAction } from "@revolt/keybinds";
 
 /**
  * Channel component
@@ -93,9 +94,20 @@ export function TextChannel(props: ChannelPageProps) {
   );
 
   // Register "jump to latest messages"
-  function scrollToBottom() {
+  createKeybind(KeybindAction.CHAT_JUMP_END, () => {
+    // Mark channel as read if not already
+    if (props.channel.unread) {
+      props.channel.ack();
+    }
+
+    // Clear the last unread id
+    if (lastId()) {
+      setLastId(undefined);
+    }
+
+    // Scroll to the bottom
     jumpToBottomRef?.();
-  }
+  });
 
   return (
     <>
