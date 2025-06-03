@@ -4,14 +4,27 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { ServerMember } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { useModals } from "@revolt/modal";
+
 import { Row, Text, typography } from "../design";
+import { dismissFloatingElements } from "../floating";
+import { Ripple } from "../material";
 
 import { ProfileCard } from "./ProfileCard";
 
 export function ProfileRoles(props: { member?: ServerMember }) {
+  const { openModal } = useModals();
+
+  function openRoles() {
+    openModal({ type: "user_profile_roles", member: props.member! });
+    dismissFloatingElements();
+  }
+
   return (
     <Show when={props.member?.roles.length}>
-      <ProfileCard>
+      <ProfileCard isLink onClick={openRoles}>
+        <Ripple />
+
         <Text class="title" size="large">
           <Trans>Roles</Trans>
         </Text>

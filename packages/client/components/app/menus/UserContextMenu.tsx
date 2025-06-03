@@ -21,6 +21,7 @@ import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid
 import MdPersonAddAlt from "@material-design-icons/svg/outlined/person_add_alt.svg?component-solid";
 import MdPersonRemove from "@material-design-icons/svg/outlined/person_remove.svg?component-solid";
 import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
+import MdAssignmentInd from "@material-design-icons/svg/outlined/assignment_ind.svg?component-solid";
 
 import {
   ContextMenu,
@@ -87,6 +88,16 @@ export function UserContextMenu(props: {
       target: props.user!,
       client: client(),
       contextMessage: props.contextMessage,
+    });
+  }
+
+  /**
+   * Edit this user's roles
+   */
+  function editRoles() {
+    openModal({
+      type: 'user_profile_roles',
+      member: props.member!
     });
   }
 
@@ -203,6 +214,20 @@ export function UserContextMenu(props: {
         </ContextMenuButton>
       </Show>
       <Show when={props.member}>
+        <Show
+          when={
+    props.member?.server?.owner ||
+            props.member?.server?.havePermission("AssignRoles") &&
+            props.member.inferiorTo(props.member.server.member!)
+          }
+        >
+          <ContextMenuButton
+            icon={MdAssignmentInd}
+            onClick={editRoles}
+          >
+            <Trans>Edit roles</Trans>
+          </ContextMenuButton>
+        </Show>
         {/** TODO: #287 timeout users */}
         <Show
           when={

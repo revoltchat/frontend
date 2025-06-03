@@ -46,6 +46,7 @@ import sign_out_sessions from "./modals/SignOutSessions";
 import signed_out from "./modals/SignedOut";
 import { UserProfileModal } from "./modals/UserProfile";
 import type { Modals as AllModals, PropGenerator } from "./types";
+import { UserProfileRolesModal } from "./modals/UserProfileRoles";
 
 /**
  * Render the modal
@@ -72,6 +73,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <Error2Modal {...modalProps} />;
     case "user_profile":
       return <UserProfileModal {...modalProps} />;
+    case 'user_profile_roles':
+      return <UserProfileRolesModal {...modalProps} />
 
     default: {
       // legacy behaviour ('modal props')

@@ -6,7 +6,7 @@ import { styled } from "styled-system/jsx";
 
 import { UserContextMenu } from "@revolt/app";
 import { useModals } from "@revolt/modal";
-import { iconSize } from "@revolt/ui";
+import { dismissFloatingElements, iconSize } from "@revolt/ui";
 
 import MdCancel from "@material-design-icons/svg/filled/cancel.svg?component-solid";
 import MdEdit from "@material-design-icons/svg/filled/edit.svg?component-solid";
@@ -41,8 +41,7 @@ export function ProfileActions(props: {
       ? openModal({ type: "server_identity", member: props.member })
       : openModal({ type: "settings", config: "user" });
 
-    // we have to manually trigger floating close
-    document.dispatchEvent(new Event("mousedown"));
+    dismissFloatingElements();
   }
 
   return (

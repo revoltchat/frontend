@@ -241,6 +241,10 @@ export type Modals =
       isPlaceholder?: boolean;
       placeholderProfile?: API.UserProfile;
     }
+    | {
+      type: 'user_profile_roles';
+      member: ServerMember;
+    }
   | {
       type: "leave_group";
       channel: Channel;

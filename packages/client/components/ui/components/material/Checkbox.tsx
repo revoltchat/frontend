@@ -8,6 +8,7 @@ export function Checkbox2(
     required?: boolean;
     name?: string;
     checked?: boolean;
+    disabled?: boolean;
     indeterminate?: boolean;
     onChange?: (value: boolean) => void;
   },
