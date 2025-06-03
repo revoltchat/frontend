@@ -1,5 +1,3 @@
-import { Show } from "solid-js";
-
 import { useQuery } from "@tanstack/solid-query";
 import { styled } from "styled-system/jsx";
 
@@ -11,6 +9,7 @@ import {
   ProfileBanner,
   ProfileBio,
   ProfileJoined,
+  ProfileMutuals,
   ProfileStatus,
 } from "@revolt/ui";
 
@@ -28,7 +27,7 @@ export function UserProfileModal(
     <Modal2
       show={props.show}
       onClose={props.onClose}
-      minWidth={480}
+      minWidth={560}
       padding={8}
     >
       <Grid>
@@ -42,6 +41,7 @@ export function UserProfileModal(
         <ProfileStatus user={props.user} />
         <ProfileBadges user={props.user} />
         <ProfileJoined user={props.user} />
+        <ProfileMutuals user={props.user} />
         <ProfileBio content={query.data?.content} full />
       </Grid>
     </Modal2>

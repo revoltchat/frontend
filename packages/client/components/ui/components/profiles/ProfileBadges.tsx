@@ -168,8 +168,8 @@ const BadgeRow = styled("div", {
     gap: "var(--gap-md)",
     display: "flex",
     flexWrap: "wrap",
-
-    "& img": {
+    
+    "& img, & svg": {
       width: "24px",
       height: "24px",
       aspectRatio: "1/1",
