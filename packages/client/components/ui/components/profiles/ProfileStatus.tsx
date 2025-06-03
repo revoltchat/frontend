@@ -3,9 +3,10 @@ import { Show } from "solid-js";
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { User } from "revolt.js";
 
-import { Text } from "../design";
+import { Text, typography } from "../design";
 
 import { ProfileCard } from "./ProfileCard";
+import { styled } from "styled-system/jsx";
 
 export function ProfileStatus(props: { user: User }) {
   const { t } = useLingui();
@@ -16,7 +17,7 @@ export function ProfileStatus(props: { user: User }) {
         <Text class="title" size="large">
           <Trans>Status</Trans>
         </Text>
-        <Text class="body">
+        <Status>
           {props.user.statusMessage((s) =>
             s === "Online"
               ? t`Online`
@@ -28,8 +29,15 @@ export function ProfileStatus(props: { user: User }) {
                     ? t`Idle`
                     : t`Offline`,
           )}
-        </Text>
+        </Status>
       </ProfileCard>
     </Show>
   );
 }
+
+const Status = styled('span', {
+  base: {
+    ...typography.raw(),
+    userSelect: 'text'
+  }
+});

@@ -4,10 +4,11 @@ import { css } from "styled-system/css";
 
 import { Markdown } from "@revolt/markdown";
 
-import { Text } from "../design";
+import { Text, typography } from "../design";
 import { Ripple } from "../material";
 
 import { ProfileCard } from "./ProfileCard";
+import { styled } from "styled-system/jsx";
 
 interface Props {
   full?: boolean;
@@ -35,10 +36,17 @@ export function ProfileBio(props: Props) {
         Bio
       </Text>
 
-      <div class={css({ userSelect: "unset" })}>
+      <Bio>
         <Markdown content={props.content} />
-      </div>
+      </Bio>
     </ProfileCard>
     </Show>
   );
 }
+
+const Bio = styled('span', {
+  base: {
+    ...typography.raw({ class: '_messages' }),
+    userSelect: 'text'
+  }
+});
