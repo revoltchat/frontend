@@ -53,7 +53,7 @@ const Base = styled("div", {
     flexDirection: "column",
 
     "& .FriendsList": {
-      height: '100%',
+      height: "100%",
       paddingInline: "var(--gap-lg)",
     },
   },
@@ -269,6 +269,7 @@ function Entry(
     "href"
   >,
 ) {
+  const { openModal } = useModals();
   const [local, remote] = splitProps(props, ["user"]);
 
   return (
@@ -277,6 +278,7 @@ function Entry(
       use:floating={{
         contextMenu: () => <UserContextMenu user={local.user} />,
       }}
+      onClick={() => openModal({ type: "user_profile", user: local.user })}
     >
       <ListItem>
         <Avatar
@@ -295,7 +297,6 @@ function Entry(
           }
         />
         <OverflowingText>{local.user.username}</OverflowingText>
-        <div use:floating={{ userCard: { user: local.user } }}>click me</div>
       </ListItem>
     </a>
   );

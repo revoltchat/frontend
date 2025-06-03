@@ -426,8 +426,6 @@ importers:
         specifier: ^8.32.0
         version: 8.32.0(eslint@9.26.0(jiti@1.21.7))(typescript@5.8.3)
 
-  packages/revolt.js/lib/esm: {}
-
   packages/solid-livekit-components:
     dependencies:
       '@livekit/components-core':
