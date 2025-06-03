@@ -21,6 +21,7 @@ import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { useTime } from "@revolt/i18n";
+import { useState } from "@revolt/state";
 import {
   BlockedMessage,
   ConversationStart,
@@ -95,6 +96,7 @@ interface Props {
  */
 export function Messages(props: Props) {
   const client = useClient();
+  const state = useState();
   const dayjs = useTime();
 
   /**
@@ -768,6 +770,20 @@ export function Messages(props: Props) {
     }
   }
 
+  /**
+   * Select last message for editing if signal is true
+   */
+  createEffect(
+    on(
+      () => state.draft.editingMessageId,
+      (shouldSetEditingMessageId) =>
+        shouldSetEditingMessageId === true &&
+        state.draft.setEditingMessage(
+          messages().find((message) => message.author?.self),
+        ),
+    ),
+  );
+
   return (
     <>
       <ListView
@@ -786,6 +802,11 @@ export function Messages(props: Props) {
                 <Entry
                   {...entry}
                   highlightedMessageId={props.highlightedMessageId}
+                  editingMessageId={
+                    typeof state.draft.editingMessageId === "string"
+                      ? state.draft.editingMessageId
+                      : undefined
+                  }
                 />
               )}
             </For>
@@ -857,8 +878,15 @@ type ListEntry =
 /**
  * Render individual list entry
  */
-function Entry(props: ListEntry & Pick<Props, "highlightedMessageId">) {
-  const [local, other] = splitProps(props, ["t", "highlightedMessageId"]);
+function Entry(
+  props: ListEntry &
+    Pick<Props, "highlightedMessageId"> & { editingMessageId?: string },
+) {
+  const [local, other] = splitProps(props, [
+    "t",
+    "highlightedMessageId",
+    "editingMessageId",
+  ]);
 
   return (
     <Switch>
@@ -868,6 +896,10 @@ function Entry(props: ListEntry & Pick<Props, "highlightedMessageId">) {
           highlight={
             (other as ListEntry & { t: 0 }).message.id ===
             local.highlightedMessageId()
+          }
+          editing={
+            (other as ListEntry & { t: 0 }).message.id ===
+            local.editingMessageId
           }
         />
       </Match>

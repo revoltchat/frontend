@@ -65,6 +65,17 @@ export type TypeDraft = {
    * Unsent messages
    */
   outbox: Record<string, UnsentMessage[]>;
+
+  /**
+   * Current message being edited
+   * or used as a marker to load newest message as editor
+   */
+  editingMessageId?: string | true;
+
+  /**
+   * Value of message currently being edited
+   */
+  editingMessageContent?: string;
 };
 
 /**
@@ -639,5 +650,44 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     }
 
     return false;
+  }
+
+  /**
+   * Set message ID
+   * @param message Message ID
+   */
+  setEditingMessage(message: Message | true | undefined) {
+    batch(() => {
+      if (message instanceof Message)
+        this.set("editingMessageContent", message.content);
+      else this.set("editingMessageContent", undefined);
+
+      this.set(
+        "editingMessageId",
+        message instanceof Message ? message.id : message,
+      );
+    });
+  }
+
+  /**
+   * Set editing message content
+   * @param content Content
+   */
+  setEditingMessageContent(content: string) {
+    this.set("editingMessageContent", content);
+  }
+
+  /**
+   * Message that is currently being edited
+   */
+  get editingMessageId() {
+    return this.get().editingMessageId;
+  }
+
+  /**
+   * Message edit content
+   */
+  get editingMessageContent() {
+    return this.get().editingMessageContent;
   }
 }

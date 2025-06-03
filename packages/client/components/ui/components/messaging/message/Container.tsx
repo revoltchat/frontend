@@ -73,6 +73,11 @@ type Props = CommonProps & {
   highlight?: boolean;
 
   /**
+   * Whether this message is being edited
+   */
+  editing?: boolean;
+
+  /**
    * Send status of this message
    */
   sendStatus?: "sending" | "failed";
@@ -99,6 +104,7 @@ type Props = CommonProps & {
 const base = cva({
   base: {
     display: "flex",
+    gap: "var(--gap-md)",
     flexDirection: "column",
 
     padding: "2px 0",
@@ -179,6 +185,13 @@ const Content = styled(Column, {
     overflow: "hidden",
     maxHeight: "200vh",
     paddingInlineEnd: "var(--gap-lg)",
+  },
+  variants: {
+    editing: {
+      true: {
+        flexGrow: 1,
+      },
+    },
   },
 });
 
@@ -276,7 +289,7 @@ export function MessageContainer(props: Props) {
             </Match>
           </Switch>
         </Info>
-        <Content>
+        <Content editing={props.editing}>
           <Show when={!props.tail && !props.compact}>
             <Row gap="sm" align>
               <OverflowingText>{props.username}</OverflowingText>

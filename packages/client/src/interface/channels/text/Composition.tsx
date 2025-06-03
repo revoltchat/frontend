@@ -153,6 +153,11 @@ export function MessageComposition(props: Props) {
   function onKeyDownMessageBox(
     event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
   ) {
+    if (event.key === "ArrowUp") {
+      state.draft.setEditingMessage(true);
+      return;
+    }
+
     const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
     const usingBracketIndent =
       (event.ctrlKey || event.metaKey) &&

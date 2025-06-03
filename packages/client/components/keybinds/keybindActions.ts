@@ -94,7 +94,11 @@ export function keybindFilter(
       return false;
 
     // don't allow focusing if another input element is currently being typed into
-    if (target instanceof HTMLInputElement) return false;
+    if (
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement
+    )
+      return false;
 
     // don't allow focusing if modifier key is pressed... except for paste
     if (

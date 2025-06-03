@@ -10,6 +10,7 @@ import { useState } from "@revolt/state";
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
+import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
 import MdMarkChatUnread from "@material-design-icons/svg/outlined/mark_chat_unread.svg?component-solid";
 import MdReply from "@material-design-icons/svg/outlined/reply.svg?component-solid";
 import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
@@ -120,6 +121,19 @@ export function MessageContextMenu(props: { message: Message }) {
       <Show when={!props.message.author?.self}>
         <ContextMenuButton icon={MdReport} onClick={report} destructive>
           <Trans>Report message</Trans>
+        </ContextMenuButton>
+      </Show>
+      <Show
+        when={
+          props.message.author?.self ||
+          props.message.channel?.havePermission("SendMessage")
+        }
+      >
+        <ContextMenuButton
+          icon={MdEdit}
+          onClick={() => state.draft.setEditingMessage(props.message)}
+        >
+          <Trans>Edit message</Trans>
         </ContextMenuButton>
       </Show>
       <Show

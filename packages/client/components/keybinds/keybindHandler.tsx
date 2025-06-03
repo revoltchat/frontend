@@ -128,7 +128,7 @@ export function KeybindContext(props: { children: JSXElement }) {
    * Handle key up event by removing it from active keys
    */
   function onKeyUp(event: KeyboardEvent) {
-    target = null;
+    target = event.target as HTMLElement;
     activeKeys.delete(event.key);
   }
 

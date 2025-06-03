@@ -14,7 +14,6 @@ import {
   Attachment,
   Avatar,
   BreakText,
-  Column,
   Embed,
   MessageContainer,
   MessageReply,
@@ -39,6 +38,8 @@ import {
   floatingUserMenusFromMessage,
 } from "../../../menus/UserContextMenu";
 
+import { EditMessage } from "./EditMessage";
+
 /**
  * Regex for matching URLs
  */
@@ -60,6 +61,11 @@ interface Props {
    * Whether to highlight this message
    */
   highlight?: boolean;
+
+  /**
+   * Whether to replace content with editor
+   */
+  editing?: boolean;
 }
 
 /**
@@ -117,6 +123,7 @@ export function Message(props: Props) {
       edited={props.message.editedAt}
       mentioned={props.message.mentioned}
       highlight={props.highlight}
+      editing={props.editing}
       tail={props.tail || state.settings.getValue("appearance:compact_mode")}
       header={
         <Show when={props.message.replyIds}>
@@ -224,47 +231,48 @@ export function Message(props: Props) {
         </Match>
       }
     >
-      <Column gap="sm">
-        <Show when={props.message.systemMessage}>
-          <SystemMessage
-            systemMessage={props.message.systemMessage!}
-            menuGenerator={(user) =>
-              user
-                ? floatingUserMenus(
-                    user!,
-                    // TODO: try to fetch on demand member
-                    props.message.server?.getMember(user!.id),
-                  )
-                : {}
-            }
-            isServer={!!props.message.server}
-          />
-        </Show>
-        <Show when={props.message.content && !isOnlyGIF()}>
+      <Show when={props.message.systemMessage}>
+        <SystemMessage
+          systemMessage={props.message.systemMessage!}
+          menuGenerator={(user) =>
+            user
+              ? floatingUserMenus(
+                  user!,
+                  // TODO: try to fetch on demand member
+                  props.message.server?.getMember(user!.id),
+                )
+              : {}
+          }
+          isServer={!!props.message.server}
+        />
+      </Show>
+      <Switch>
+        <Match when={props.editing}>
+          <EditMessage message={props.message} />
+        </Match>
+        <Match when={props.message.content && !isOnlyGIF()}>
           <BreakText>
             <Markdown content={props.message.content!} />
           </BreakText>
-        </Show>
-        <Show when={props.message.attachments}>
-          <For each={props.message.attachments}>
-            {(attachment) => <Attachment file={attachment} />}
-          </For>
-        </Show>
-        <Show when={props.message.embeds}>
-          <For each={props.message.embeds}>
-            {(embed) => <Embed embed={embed} />}
-          </For>
-        </Show>
-        <Reactions
-          reactions={
-            props.message.reactions as never as Map<string, Set<string>>
-          }
-          interactions={props.message.interactions}
-          userId={client().user!.id}
-          addReaction={react}
-          removeReaction={unreact}
-        />
-      </Column>
+        </Match>
+      </Switch>
+      <Show when={props.message.attachments}>
+        <For each={props.message.attachments}>
+          {(attachment) => <Attachment file={attachment} />}
+        </For>
+      </Show>
+      <Show when={props.message.embeds}>
+        <For each={props.message.embeds}>
+          {(embed) => <Embed embed={embed} />}
+        </For>
+      </Show>
+      <Reactions
+        reactions={props.message.reactions as never as Map<string, Set<string>>}
+        interactions={props.message.interactions}
+        userId={client().user!.id}
+        addReaction={react}
+        removeReaction={unreact}
+      />
     </MessageContainer>
   );
 }
