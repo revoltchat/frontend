@@ -11,6 +11,7 @@ import { useState } from "@revolt/state";
 import MdAddCircleOutline from "@material-design-icons/svg/outlined/add_circle_outline.svg?component-solid";
 import MdAdminPanelSettings from "@material-design-icons/svg/outlined/admin_panel_settings.svg?component-solid";
 import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
+import MdAssignmentInd from "@material-design-icons/svg/outlined/assignment_ind.svg?component-solid";
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
 import MdCancel from "@material-design-icons/svg/outlined/cancel.svg?component-solid";
@@ -21,7 +22,6 @@ import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid
 import MdPersonAddAlt from "@material-design-icons/svg/outlined/person_add_alt.svg?component-solid";
 import MdPersonRemove from "@material-design-icons/svg/outlined/person_remove.svg?component-solid";
 import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
-import MdAssignmentInd from "@material-design-icons/svg/outlined/assignment_ind.svg?component-solid";
 
 import {
   ContextMenu,
@@ -96,8 +96,8 @@ export function UserContextMenu(props: {
    */
   function editRoles() {
     openModal({
-      type: 'user_profile_roles',
-      member: props.member!
+      type: "user_profile_roles",
+      member: props.member!,
     });
   }
 
@@ -216,15 +216,12 @@ export function UserContextMenu(props: {
       <Show when={props.member}>
         <Show
           when={
-    props.member?.server?.owner ||
-            props.member?.server?.havePermission("AssignRoles") &&
-            props.member.inferiorTo(props.member.server.member!)
+            props.member?.server?.owner?.self ||
+            (props.member?.server?.havePermission("AssignRoles") &&
+              props.member.inferiorTo(props.member.server.member!))
           }
         >
-          <ContextMenuButton
-            icon={MdAssignmentInd}
-            onClick={editRoles}
-          >
+          <ContextMenuButton icon={MdAssignmentInd} onClick={editRoles}>
             <Trans>Edit roles</Trans>
           </ContextMenuButton>
         </Show>

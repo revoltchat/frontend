@@ -3,13 +3,7 @@ import { For, Match, Switch } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
-import {
-  Checkbox2,
-  Column,
-  Modal2,
-  Modal2Props,
-  Row,
-} from "@revolt/ui";
+import { Checkbox2, Column, Modal2, Modal2Props, Row } from "@revolt/ui";
 
 import { Modals } from "../types";
 
@@ -17,7 +11,7 @@ export function UserProfileRolesModal(
   props: Modal2Props & Modals & { type: "user_profile_roles" },
 ) {
   const editMode = () =>
-    props.member.server?.owner ||
+    props.member.server?.owner?.self ||
     (props.member.server?.havePermission("AssignRoles") &&
       props.member.inferiorTo(props.member.server.member!));
 
@@ -52,7 +46,7 @@ export function UserProfileRolesModal(
           </For>
         }
       >
-        <Match when={editMode}>
+        <Match when={editMode()}>
           <Column>
             <For each={props.member.server?.orderedRoles}>
               {(role) => (
@@ -63,7 +57,7 @@ export function UserProfileRolesModal(
                     // not sure if this actually works
                     (role.rank ?? 0) <
                     (props.member.server?.member?.orderedRoles.toReversed()[0]
-                      .rank ?? 0)
+                      ?.rank ?? 0)
                   }
                   onChange={() =>
                     props.member.edit({
