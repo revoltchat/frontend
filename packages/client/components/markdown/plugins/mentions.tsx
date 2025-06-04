@@ -2,6 +2,7 @@ import { Match, Switch } from "solid-js";
 
 import { Handler } from "mdast-util-to-hast";
 import { cva } from "styled-system/css";
+import { styled } from "styled-system/jsx";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
@@ -85,7 +86,11 @@ export function RoleMention(props: { roleId: string }) {
     >
       <Match when={role()}>
         <div class={mention()}>
-          <MdAt {...iconSize(16)} />
+          <RoleIcon
+            style={{
+              background: role()!.colour ?? "var(--colours-foreground)",
+            }}
+          />
           <ColouredText
             colour={role()!.colour!}
             clip={role()!.colour?.includes("gradient")}
@@ -97,6 +102,16 @@ export function RoleMention(props: { roleId: string }) {
     </Switch>
   );
 }
+
+const RoleIcon = styled("div", {
+  base: {
+    margin: "1px",
+    width: "14px",
+    height: "14px",
+    aspectRatio: "1/1",
+    borderRadius: "100%",
+  },
+});
 
 const RE_MENTION =
   /^(<@[0-9ABCDEFGHJKMNPQRSTVWXYZ]{26}>|@everyone|@online|<%[0-9ABCDEFGHJKMNPQRSTVWXYZ]{26}>)$/;
