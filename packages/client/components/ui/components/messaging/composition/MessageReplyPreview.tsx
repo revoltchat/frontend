@@ -104,7 +104,9 @@ const Base = styled(Row, {
 export function MessageReplyPreview(props: Props) {
   return (
     <Base gap="md" align>
-      <Trans>Replying to</Trans>
+      <ReplyTo>
+        <Trans>Replying to</Trans>
+      </ReplyTo>
       <MessageReply message={props.message} noDecorations />
       <Row gap="lg" align>
         <Show when={!props.self}>

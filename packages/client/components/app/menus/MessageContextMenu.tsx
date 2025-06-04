@@ -125,7 +125,7 @@ export function MessageContextMenu(props: { message: Message }) {
       </Show>
       <Show
         when={
-          props.message.author?.self ||
+          props.message.author?.self &&
           props.message.channel?.havePermission("SendMessage")
         }
       >
