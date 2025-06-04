@@ -6,6 +6,7 @@ import {
   Channel,
   Client,
   File,
+  ImageEmbed,
   MFA,
   MFATicket,
   Message,
@@ -130,7 +131,7 @@ export type Modals =
     }
   | {
       type: "image_viewer";
-      embed?: API.Image;
+      embed?: ImageEmbed;
       file?: File;
     }
   | {

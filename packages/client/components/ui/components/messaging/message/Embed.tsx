@@ -7,6 +7,9 @@ import {
   VideoEmbed,
   WebsiteEmbed,
 } from "revolt.js";
+import { css } from "styled-system/css";
+
+import { useModals } from "@revolt/modal";
 
 import { SizedContent } from "../../design/layout/SizedContent";
 
@@ -16,6 +19,8 @@ import { TextEmbed } from "./TextEmbed";
  * Render a given embed
  */
 export function Embed(props: { embed: MessageEmbed }) {
+  const { openModal } = useModals();
+
   /**
    * Whether the embed is a GIF
    */
@@ -47,6 +52,13 @@ export function Embed(props: { embed: MessageEmbed }) {
             // bypass proxy for known GIF providers
             src={isGIF() ? image()!.url : image()!.proxiedURL}
             loading="lazy"
+            class={css({ cursor: "pointer" })}
+            onClick={() =>
+              openModal({
+                type: "image_viewer",
+                embed: image(),
+              })
+            }
           />
         </SizedContent>
       </Match>

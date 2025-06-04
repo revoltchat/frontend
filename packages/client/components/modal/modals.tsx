@@ -28,7 +28,7 @@ import edit_password from "./modals/EditPassword";
 import edit_username from "./modals/EditUsername";
 import error from "./modals/Error";
 import { Error2Modal } from "./modals/Error2";
-import image_viewer from "./modals/ImageViewer";
+import { ImageViewerModal } from "./modals/ImageViewer";
 import join_server from "./modals/JoinServer";
 import kick_member from "./modals/KickMember";
 import leave_server from "./modals/LeaveServer";
@@ -72,6 +72,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <ChannelToggleMatureModal {...modalProps} />;
     case "error2":
       return <Error2Modal {...modalProps} />;
+    case "image_viewer":
+      return <ImageViewerModal {...modalProps} />;
     case "user_profile":
       return <UserProfileModal {...modalProps} />;
     case "user_profile_roles":
@@ -108,7 +110,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
         edit_password,
         edit_username,
         error,
-        image_viewer,
         join_server,
         kick_member,
         leave_server,

@@ -36,7 +36,7 @@ type Props = Modal2Props & {
 export function Modal2(props: Props) {
   return (
     <Portal mount={document.getElementById("floating")!}>
-      <Scrim show={props.show} onClick={props.onClose}>
+      <ModalScrim show={props.show} onClick={props.onClose}>
         <Presence>
           <Show when={props.show}>
             <Motion.div
@@ -53,9 +53,7 @@ export function Modal2(props: Props) {
                   "min-width": props.minWidth
                     ? `${props.minWidth}px`
                     : undefined,
-                  "padding": props.padding
-                    ? `${props.padding}px`
-                    : undefined,
+                  padding: props.padding ? `${props.padding}px` : undefined,
                 }}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -96,23 +94,21 @@ export function Modal2(props: Props) {
             </Motion.div>
           </Show>
         </Presence>
-      </Scrim>
+      </ModalScrim>
     </Portal>
   );
 }
 
-const Scrim = styled("div", {
+export const ModalScrim = styled("div", {
   base: {
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
     position: "fixed",
-    padding: '80px',
     zIndex: "var(--layout-zIndex-modal)",
 
     maxHeight: "100%",
-    overflowY: "auto",
 
     display: "grid",
     userSelect: "none",
@@ -134,9 +130,21 @@ const Scrim = styled("div", {
         background: "transparent",
       },
     },
+    padding: {
+      true: {
+        padding: "80px",
+      },
+    },
+    overflow: {
+      true: {
+        overflowY: "auto",
+      },
+    },
   },
   defaultVariants: {
     show: true,
+    padding: true,
+    overflow: true,
   },
 });
 

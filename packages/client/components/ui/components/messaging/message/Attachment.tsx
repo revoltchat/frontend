@@ -1,6 +1,7 @@
 import { Match, Show, Switch } from "solid-js";
 
 import { File, ImageEmbed, VideoEmbed } from "revolt.js";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { useModals } from "@revolt/modal";
@@ -54,13 +55,13 @@ export function Attachment(props: { file: File }) {
             <Spoiler contentType="Image" />
           </Show>
           <img
-            // TODO: cursor: pointer
-            // onClick={() =>
-            //   openModal({
-            //     type: "image_viewer",
-            //     file: props.file,
-            //   })
-            // }
+            class={css({ cursor: "pointer" })}
+            onClick={() =>
+              openModal({
+                type: "image_viewer",
+                file: props.file,
+              })
+            }
             loading="lazy"
             src={props.file.createFileURL()}
           />

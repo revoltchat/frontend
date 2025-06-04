@@ -1,9 +1,11 @@
 import { Match, Show, Switch } from "solid-js";
 
 import { TextEmbed as TextEmbedClass, WebsiteEmbed } from "revolt.js";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Markdown } from "@revolt/markdown";
+import { useModals } from "@revolt/modal";
 
 import { Column, OverflowingText, SizedContent, Text } from "../../design";
 
@@ -74,6 +76,8 @@ const Description = styled("div", {
  * Text Embed
  */
 export function TextEmbed(props: { embed: TextEmbedClass | WebsiteEmbed }) {
+  const { openModal } = useModals();
+
   return (
     <Base style={{ "border-color": props.embed.colour }}>
       <Content gap="md" grow>
@@ -154,6 +158,13 @@ export function TextEmbed(props: { embed: TextEmbedClass | WebsiteEmbed }) {
                 <img
                   src={(props.embed as WebsiteEmbed).image!.proxiedURL}
                   loading="lazy"
+                  class={css({ cursor: "pointer" })}
+                  onClick={() =>
+                    openModal({
+                      type: "image_viewer",
+                      embed: (props.embed as WebsiteEmbed).image!,
+                    })
+                  }
                 />
               </SizedContent>
             </Match>
