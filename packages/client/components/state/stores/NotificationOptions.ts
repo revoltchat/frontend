@@ -1,4 +1,4 @@
-import { Channel, Server } from "revolt.js";
+import { Channel, Message, Server } from "revolt.js";
 
 import { State } from "..";
 
@@ -35,7 +35,7 @@ export const DEFAULT_STATES: {
 /**
  * Default state for servers
  */
-export const DEFAULT_SERVER_STATE: NotificationState = "mention";
+export const DEFAULT_SERVER_STATE: NotificationState = "all"; // todo : mention
 
 export interface TypeNotificationOptions {
   /**
@@ -47,24 +47,6 @@ export interface TypeNotificationOptions {
    * Per-channel settings
    */
   channel: Record<string, NotificationState>;
-}
-
-/**
- * Create a notification either directly or using service worker
- * @param title Notification Title
- * @param options Notification Options
- * @returns Notification
- */
-async function createNotification(
-  title: string,
-  options: globalThis.NotificationOptions,
-) {
-  try {
-    return new Notification(title, options);
-  } catch (err) {
-    const sw = await navigator.serviceWorker.getRegistration();
-    sw?.showNotification(title, options);
-  }
 }
 
 /**

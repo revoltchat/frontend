@@ -1,4 +1,4 @@
-import { JSX, Match, Switch, createEffect, onCleanup, onMount } from "solid-js";
+import { JSX, Match, Switch, createEffect } from "solid-js";
 
 import { Server } from "revolt.js";
 import { css } from "styled-system/css";
@@ -7,6 +7,7 @@ import { styled } from "styled-system/jsx";
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
 import { useClientLifecycle } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
+import { NotificationsWorker } from "@revolt/client/NotificationsWorker";
 import { useModals } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { useState } from "@revolt/state";
@@ -134,6 +135,8 @@ const Interface = (props: { children: JSX.Element }) => {
           </Layout>
         </Match>
       </Switch>
+
+      <NotificationsWorker />
     </div>
   );
 };
