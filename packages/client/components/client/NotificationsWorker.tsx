@@ -11,7 +11,7 @@ import {
   UserSystemMessage,
 } from "revolt.js";
 
-import { useSmartParams } from "@revolt/routing";
+import { useNavigate, useSmartParams } from "@revolt/routing";
 import { useState } from "@revolt/state";
 
 import { useClient } from ".";
@@ -23,6 +23,7 @@ export function NotificationsWorker() {
   const state = useState();
   const { t } = useLingui();
   const client = useClient();
+  const navigate = useNavigate();
   const params = useSmartParams();
 
   /**
@@ -150,7 +151,7 @@ export function NotificationsWorker() {
 
     console.info(`[notification] ${title} ${icon} ${body}`);
 
-    new Notification(title!, {
+    const notification = new Notification(title!, {
       icon,
       // @ts-expect-error this does exist on some platforms
       image,
@@ -159,6 +160,11 @@ export function NotificationsWorker() {
       tag: message.channelId,
       badge: "/assets/icons/android-chrome-512x512.png",
       silent: true,
+    });
+
+    notification.addEventListener("click", () => {
+      window.focus();
+      navigate(message.path);
     });
   }
 

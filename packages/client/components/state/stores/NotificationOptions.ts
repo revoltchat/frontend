@@ -35,7 +35,7 @@ export const DEFAULT_STATES: {
 /**
  * Default state for servers
  */
-export const DEFAULT_SERVER_STATE: NotificationState = "all"; // todo : mention
+export const DEFAULT_SERVER_STATE: NotificationState = "mention";
 
 export interface TypeNotificationOptions {
   /**
