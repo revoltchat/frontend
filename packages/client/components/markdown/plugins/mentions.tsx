@@ -8,7 +8,9 @@ import { visit } from "unist-util-visit";
 import { UserContextMenu } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { useSmartParams } from "@revolt/routing";
-import { Avatar, ColouredText } from "@revolt/ui";
+import { Avatar, ColouredText, iconSize } from "@revolt/ui";
+
+import MdAt from "@material-design-icons/svg/filled/alternate_email.svg?component-solid";
 
 import { useUser } from "../users";
 
@@ -19,10 +21,16 @@ export function RenderMention(props: { mentions: string }) {
         <UserMention userId={props.mentions.substring(5)} />
       </Match>
       <Match when={props.mentions === "everyone"}>
-        <span class={mention({ generic: true })}>everyone</span>
+        <span class={mention()}>
+          <MdAt {...iconSize(16)} />
+          everyone
+        </span>
       </Match>
       <Match when={props.mentions === "online"}>
-        <span class={mention({ generic: true })}>online</span>
+        <span class={mention()}>
+          <MdAt {...iconSize(16)} />
+          online
+        </span>
       </Match>
       <Match when={props.mentions.startsWith("role:")}>
         <RoleMention roleId={props.mentions.substring(5)} />
@@ -40,7 +48,7 @@ export function UserMention(props: { userId: string }) {
     >
       <Match when={user().user}>
         <div
-          class={mention()}
+          class={mention({ isLink: true })}
           use:floating={{
             userCard: user().user
               ? {
@@ -76,7 +84,8 @@ export function RoleMention(props: { roleId: string }) {
       fallback={<span class={mention({ valid: false })}>Unknown Role</span>}
     >
       <Match when={role()}>
-        <div class={mention({ generic: true })}>
+        <div class={mention()}>
+          <MdAt {...iconSize(16)} />
           <ColouredText
             colour={role()!.colour!}
             clip={role()!.colour?.includes("gradient")}
@@ -158,7 +167,6 @@ const mention = cva({
     alignItems: "center",
     display: "inline-flex",
 
-    cursor: "pointer",
     fontWeight: 600,
     borderRadius: "var(--borderRadius-lg)",
 
@@ -166,9 +174,9 @@ const mention = cva({
     background: "var(--md-sys-color-primary-container)",
   },
   variants: {
-    generic: {
+    isLink: {
       true: {
-        paddingLeft: "6px",
+        cursor: "pointer",
       },
     },
     valid: {
