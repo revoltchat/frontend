@@ -102,6 +102,7 @@ export function ImageViewerModal(
 const Image = styled("img", {
   base: {
     minHeight: 0,
+    alignSelf: "center",
     objectFit: "contain",
   },
 });
