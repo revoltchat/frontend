@@ -6,7 +6,7 @@ import { styled } from "styled-system/jsx";
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
 
 import { AutoCompleteState } from "../../directives";
-import { Avatar, Column, Row } from "../design";
+import { Avatar, Column } from "../design";
 
 /**
  * Auto complete popup
@@ -25,7 +25,11 @@ export function AutoComplete(
             }
           >
             {(match, index) => (
-              <Entry selected={index() === props.selection()}>
+              <Entry
+                selected={index() === props.selection()}
+                onMouseDown={() => props.select(index())}
+                onMouseEnter={() => props.setSelection(index())}
+              >
                 <Switch
                   fallback={
                     <>
@@ -56,7 +60,11 @@ export function AutoComplete(
             }
           >
             {(match, index) => (
-              <Entry selected={index() === props.selection()}>
+              <Entry
+                selected={index() === props.selection()}
+                onMouseDown={() => props.select(index())}
+                onMouseEnter={() => props.setSelection(index())}
+              >
                 <Avatar src={match.user.animatedAvatarURL} size={24} />{" "}
                 <Name>{match.user.displayName}</Name>
                 {match.user instanceof ServerMember &&
@@ -82,7 +90,11 @@ export function AutoComplete(
             }
           >
             {(match, index) => (
-              <Entry selected={index() === props.selection()}>
+              <Entry
+                selected={index() === props.selection()}
+                onMouseDown={() => props.select(index())}
+                onMouseEnter={() => props.setSelection(index())}
+              >
                 <Name>#{match.channel.name}</Name>
               </Entry>
             )}

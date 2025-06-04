@@ -1,4 +1,5 @@
 import type { SolidOptions } from "solid-dnd-directive";
+import { Setter } from "solid-js";
 
 import type { Placement } from "@floating-ui/dom";
 import type { Channel, Client, ServerMember, User } from "revolt.js";
@@ -97,10 +98,11 @@ declare module "solid-js" {
           member?: ServerMember;
         };
         contextMenu?: Component;
-        contextMenuHandler?: 'click' | 'contextmenu';
+        contextMenuHandler?: "click" | "contextmenu";
         autoComplete?: {
           state: Accessor<AutoCompleteState>;
           selection: Accessor<number>;
+          setSelection: Setter<number>;
           select: (index: number) => void;
         };
       };

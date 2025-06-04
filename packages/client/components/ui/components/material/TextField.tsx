@@ -27,5 +27,10 @@ export function TextField(
       | "find";
   },
 ) {
-  return <mdui-text-field {...props} />;
+  return (
+    <mdui-text-field
+      {...props}
+      // @codegen directives props=props include=autoComplete
+    />
+  );
 }

@@ -69,10 +69,18 @@ export function autoComplete(
    * @param index Entry
    */
   function select(index: number) {
+    const realElement = element.shadowRoot
+      ? element.shadowRoot.querySelector("input") ||
+        element.shadowRoot.querySelector("textarea")
+      : element;
+
+    if (!realElement) return;
+
     const info = state() as AutoCompleteState & {
       matched: "emoji" | "user" | "member";
     };
-    const currentPosition = element.selectionStart;
+
+    const currentPosition = realElement.selectionStart;
     if (!currentPosition) return;
 
     const match = info.matches[index];
@@ -102,6 +110,7 @@ export function autoComplete(
     autoComplete: {
       state,
       selection,
+      setSelection,
       select,
     },
   });
@@ -126,6 +135,20 @@ export function autoComplete(
         select(selection());
         return;
       }
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setSelection((index) =>
+          index === 0 ? current.matches.length - 1 : index - 1,
+        );
+        return;
+      }
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setSelection((index) => (index + 1) % current.matches.length);
+        return;
+      }
     }
 
     const value = config();
@@ -147,34 +170,41 @@ export function autoComplete(
       }
     }
 
-    const cursor = element.selectionStart;
-    if (cursor && cursor === element.selectionEnd) {
-      const content = element.value.slice(0, cursor);
+    const realElement = element.shadowRoot
+      ? element.shadowRoot.querySelector("input") ||
+        element.shadowRoot.querySelector("textarea")
+      : element;
 
-      // Try to figure out what we're matching
-      const current = (["@", ":", "#"] as Operator[])
-        // First find any applicable string
-        .map((searchType) => {
-          const index = content.lastIndexOf(searchType);
-          return (
-            index === -1
-              ? undefined
-              : [searchType, content.slice(index + 1).toLowerCase()]
-          ) as [Operator, string];
-        })
-        // Filter by found strings
-        .filter((match) => match)
-        // Make sure there's no spaces nor other matching characters
-        .filter(([, matchedString]) => /^[^\s@:#]*$/.test(matchedString))
-        // Enforce minimum length for emoji matching
-        .filter(([searchType, matchedString]) =>
-          searchType === ":" ? matchedString.length > 0 : true,
-        )[0];
+    if (realElement) {
+      const cursor = realElement.selectionStart;
+      if (cursor && cursor === realElement.selectionEnd) {
+        const content = realElement.value.slice(0, cursor);
 
-      if (current) {
-        setSelection(0);
-        setState(searchMatches(...current, config()));
-        return;
+        // Try to figure out what we're matching
+        const current = (["@", ":", "#"] as Operator[])
+          // First find any applicable string
+          .map((searchType) => {
+            const index = content.lastIndexOf(searchType);
+            return (
+              index === -1
+                ? undefined
+                : [searchType, content.slice(index + 1).toLowerCase()]
+            ) as [Operator, string];
+          })
+          // Filter by found strings
+          .filter((match) => match)
+          // Make sure there's no spaces nor other matching characters
+          .filter(([, matchedString]) => /^[^\s@:#]*$/.test(matchedString))
+          // Enforce minimum length for emoji matching
+          .filter(([searchType, matchedString]) =>
+            searchType === ":" ? matchedString.length > 0 : true,
+          )[0];
+
+        if (current) {
+          setSelection(0);
+          setState(searchMatches(...current, config()));
+          return;
+        }
       }
     }
 

@@ -4,12 +4,14 @@ import { useMutation } from "@tanstack/solid-query";
 import { Message } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { useClient } from "@revolt/client";
 import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
 import { Text, TextField } from "@revolt/ui";
 
 export function EditMessage(props: { message: Message }) {
   const state = useState();
+  const client = useClient();
   const { openModal } = useModals();
 
   const change = useMutation(() => ({
@@ -55,15 +57,29 @@ export function EditMessage(props: { message: Message }) {
         onChange={(e) =>
           state.draft.setEditingMessageContent(e.currentTarget.value)
         }
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            saveMessage(e.currentTarget.value);
-          }
+        use:autoComplete={{
+          client: client(),
+          onKeyDown(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              saveMessage(e.currentTarget.value);
+            }
 
-          if (e.key === "Escape") {
-            state.draft.setEditingMessage(undefined);
-          }
+            if (e.key === "Escape") {
+              state.draft.setEditingMessage(undefined);
+            }
+          },
+          searchSpace: props.message.channel?.server
+            ? {
+                members: client().serverMembers.filter(
+                  (member) =>
+                    member.id.server === props.message.channel!.serverId,
+                ),
+                channels: props.message.channel!.server.channels,
+              }
+            : props.message.channel?.type === "Group"
+              ? { users: props.message.channel.recipients, channels: [] }
+              : { channels: [] },
         }}
       />
 
