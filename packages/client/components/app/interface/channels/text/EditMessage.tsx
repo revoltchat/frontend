@@ -76,6 +76,7 @@ export function EditMessage(props: { message: Message }) {
                     member.id.server === props.message.channel!.serverId,
                 ),
                 channels: props.message.channel!.server.channels,
+                roles: [...props.message.channel!.server.roles.values()],
               }
             : props.message.channel?.type === "Group"
               ? { users: props.message.channel.recipients, channels: [] }

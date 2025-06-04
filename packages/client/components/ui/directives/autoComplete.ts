@@ -1,6 +1,6 @@
 import { Accessor, JSX, createSignal, onCleanup } from "solid-js";
 
-import { Channel, Client, ServerMember, User } from "revolt.js";
+import { Channel, Client, ServerMember, ServerRole, User } from "revolt.js";
 
 import emojiMapping from "../emojiMapping.json";
 
@@ -9,7 +9,7 @@ import { registerFloatingElement, unregisterFloatingElement } from "./floating";
 const EMOJI_KEYS = Object.keys(emojiMapping).sort();
 const MAPPED_EMOJI_KEYS = EMOJI_KEYS.map((id) => ({ id, name: id }));
 
-type Operator = "@" | ":" | "#";
+type Operator = "@" | ":" | "#" | "%";
 
 export type AutoCompleteState =
   | {
@@ -35,6 +35,13 @@ export type AutoCompleteState =
           matched: "user";
           matches: {
             user: User | ServerMember;
+            replacement: string;
+          }[];
+        }
+      | {
+          matched: "role";
+          matches: {
+            role: ServerRole;
             replacement: string;
           }[];
         }
@@ -181,7 +188,7 @@ export function autoComplete(
         const content = realElement.value.slice(0, cursor);
 
         // Try to figure out what we're matching
-        const current = (["@", ":", "#"] as Operator[])
+        const current = (["@", ":", "#", "%"] as Operator[])
           // First find any applicable string
           .map((searchType) => {
             const index = content.lastIndexOf(searchType);
@@ -195,9 +202,11 @@ export function autoComplete(
           .filter((match) => match)
           // Make sure there's no spaces nor other matching characters
           .filter(([, matchedString]) => /^[^\s@:#]*$/.test(matchedString))
-          // Enforce minimum length for emoji matching
+          // Enforce minimum length for emoji and role matching
           .filter(([searchType, matchedString]) =>
-            searchType === ":" ? matchedString.length > 0 : true,
+            searchType === ":" || searchType === "%"
+              ? matchedString.length > 0
+              : true,
           )[0];
 
         if (current) {
@@ -333,6 +342,35 @@ function searchMatches(
           matches: matches.map((user) => ({
             user,
             replacement: user.toString(),
+          })),
+        };
+      }
+    }
+
+    if (operator === "%") {
+      const matches: ServerRole[] = [];
+      const searchSpace =
+        config.searchSpace?.roles?.toSorted((a, b) =>
+          a.name!.localeCompare(b.name!),
+        ) ?? [];
+
+      let i = 0;
+      while (matches.length < 10 && i < searchSpace.length) {
+        const role = searchSpace[i];
+        if (role.name?.toLowerCase().includes(query)) {
+          matches.push(searchSpace[i]);
+        }
+
+        i++;
+      }
+
+      if (matches.length) {
+        return {
+          matched: "role",
+          length: query.length + 1,
+          matches: matches.map((role) => ({
+            role,
+            replacement: role.toString(),
           })),
         };
       }

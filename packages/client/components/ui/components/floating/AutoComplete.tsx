@@ -6,7 +6,7 @@ import { styled } from "styled-system/jsx";
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
 
 import { AutoCompleteState } from "../../directives";
-import { Avatar, Column } from "../design";
+import { Avatar, ColouredText, Column } from "../design";
 
 /**
  * Auto complete popup
@@ -79,6 +79,34 @@ export function AutoComplete(
             )}
           </For>
         </Match>
+        <Match when={props.state().matched === "role"}>
+          <For
+            each={
+              (
+                props.state() as AutoCompleteState & {
+                  matched: "role";
+                }
+              ).matches
+            }
+          >
+            {(match, index) => (
+              <Entry
+                selected={index() === props.selection()}
+                onMouseDown={() => props.select(index())}
+                onMouseEnter={() => props.setSelection(index())}
+              >
+                <Name>
+                  <ColouredText
+                    colour={match.role.colour}
+                    clip={match.role.colour?.includes("gradient")}
+                  >
+                    {match.role.name}
+                  </ColouredText>
+                </Name>
+              </Entry>
+            )}
+          </For>
+        </Match>
         <Match when={props.state().matched === "channel"}>
           <For
             each={
@@ -147,5 +175,6 @@ const Base = styled(Column, {
     backdropFilter: "var(--effects-blur-md)",
     color: "var(--colours-component-context-menu-foreground)",
     background: "var(--colours-component-context-menu-background)",
+    boxShadow: "0 0 3px var(--colours-component-context-menu-shadow)",
   },
 });

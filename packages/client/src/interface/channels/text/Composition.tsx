@@ -447,6 +447,7 @@ export function MessageComposition(props: Props) {
                   (member) => member.id.server === props.channel.serverId,
                 ),
                 channels: props.channel.server.channels,
+                roles: [...props.channel.server.roles.values()],
               }
             : props.channel.type === "Group"
               ? { users: props.channel.recipients, channels: [] }

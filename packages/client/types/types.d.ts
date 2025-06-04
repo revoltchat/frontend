@@ -2,7 +2,13 @@ import type { SolidOptions } from "solid-dnd-directive";
 import { Setter } from "solid-js";
 
 import type { Placement } from "@floating-ui/dom";
-import type { Channel, Client, ServerMember, User } from "revolt.js";
+import type {
+  Channel,
+  Client,
+  ServerMember,
+  ServerRole,
+  User,
+} from "revolt.js";
 
 declare global {
   interface Window {
@@ -117,6 +123,7 @@ declare module "solid-js" {
               users?: User[];
               members?: ServerMember[];
               channels?: Channel[];
+              roles?: ServerRole[];
             };
           };
     }
