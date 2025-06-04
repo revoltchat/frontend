@@ -104,7 +104,7 @@ export function keybindFilter(
     // don't allow focusing if modifier key is pressed... except for paste
     if (
       (activeKeys.has("Control") || activeKeys.has("Meta")) &&
-      !activeKeys.has("v")
+      !(activeKeys.has("v") || activeKeys.has("a"))
     )
       return false;
   }

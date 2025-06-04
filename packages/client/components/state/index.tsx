@@ -144,7 +144,7 @@ export class State {
 
     // run side-effects
     if (import.meta.env.DEV) {
-      console.info("[store] updated data", args[0]);
+      console.debug("[store] updated data", args[0]);
     }
   };
 

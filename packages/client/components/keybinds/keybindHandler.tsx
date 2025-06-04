@@ -2,7 +2,6 @@ import {
   type JSXElement,
   createContext,
   createEffect,
-  on,
   onCleanup,
   useContext,
 } from "solid-js";
@@ -32,8 +31,6 @@ export function KeybindContext(props: { children: JSXElement }) {
    * Keep track of pressed keys to match sequences
    */
   const activeKeys = new ReactiveSet<string>();
-
-  // TODO: clear on successful match
 
   /**
    * Keep track of which keybinds are currently bound
@@ -147,12 +144,12 @@ export function KeybindContext(props: { children: JSXElement }) {
           currentlyBound[keybind]++;
           onCleanup(() => currentlyBound[keybind]--);
 
-          createEffect(
-            on(
-              () => isFired(keybind),
-              (fired) => fired && callback(),
-            ),
-          );
+          createEffect(() => {
+            const _ = [...activeKeys]; // track dependency
+            if (isFired(keybind)) {
+              callback();
+            }
+          });
         },
       }}
     >
