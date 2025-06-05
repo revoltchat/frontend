@@ -346,5 +346,7 @@ export function floatingUserMenus(
 }
 
 export function floatingUserMenusFromMessage(message: Message) {
-  return floatingUserMenus(message.author!, message.member, message);
+  return message.author
+    ? floatingUserMenus(message.author!, message.member, message)
+    : {}; // TODO: webhook menu
 }

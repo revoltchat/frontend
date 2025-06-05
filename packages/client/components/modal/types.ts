@@ -67,21 +67,26 @@ export type Modals =
       client: Client;
     }
   | {
-      type: "create_invite";
-      channel: Channel;
-    }
-  | {
       type: "create_role";
       server: Server;
       callback: (id: string) => void;
+    }
+  | {
+      type: "create_or_join_server";
+      client: Client;
+    }
+  | {
+      type: "create_invite";
+      channel: Channel;
     }
   | {
       type: "create_server";
       client: Client;
     }
   | {
-      type: "create_or_join_server";
-      client: Client;
+      type: "create_webhook";
+      channel: Channel;
+      callback: (id: string) => void;
     }
   | {
       type: "custom_status";

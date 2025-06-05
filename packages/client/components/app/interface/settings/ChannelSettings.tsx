@@ -15,8 +15,8 @@ import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
 import ChannelOverview from "./channel/Overview";
-import Webhooks, { Webhook } from "./channel/Webhooks";
 import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
+import { ViewWebhook, WebhooksList } from "./channel/webhooks";
 
 const Config: SettingsConfiguration<Channel> = {
   /**
@@ -46,7 +46,7 @@ const Config: SettingsConfiguration<Channel> = {
 
     if (id?.startsWith("webhooks/")) {
       const webhook = client().channelWebhooks.get(id.substring(9));
-      return <Webhook webhook={webhook!} />;
+      return <ViewWebhook webhook={webhook!} />;
     }
 
     switch (id) {
@@ -61,7 +61,7 @@ const Config: SettingsConfiguration<Channel> = {
         }
 
       case "webhooks":
-        return <Webhooks channel={channel} />;
+        return <WebhooksList channel={channel} />;
       default:
         return null;
     }

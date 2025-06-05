@@ -18,6 +18,7 @@ import create_invite from "./modals/CreateInvite";
 import create_or_join_server from "./modals/CreateOrJoinServer";
 import create_role from "./modals/CreateRole";
 import create_server from "./modals/CreateServer";
+import { CreateWebhookModal } from "./modals/CreateWebhook";
 import custom_status from "./modals/CustomStatus";
 import delete_bot from "./modals/DeleteBot";
 import delete_channel from "./modals/DeleteChannel";
@@ -77,6 +78,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <ChannelToggleMatureModal {...modalProps} />;
     case "create_group":
       return <CreateGroupModal {...modalProps} />;
+    case "create_webhook":
+      return <CreateWebhookModal {...modalProps} />;
     case "error2":
       return <Error2Modal {...modalProps} />;
     case "image_viewer":

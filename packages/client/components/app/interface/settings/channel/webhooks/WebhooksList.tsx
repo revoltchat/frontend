@@ -1,42 +1,49 @@
-import { BiSolidCloud, BiSolidTrash } from "solid-icons/bi";
-import { For, Match, Show, Switch, createSignal, onMount } from "solid-js";
+import { BiSolidCloud } from "solid-icons/bi";
+import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
-import type { ChannelWebhook } from "revolt.js";
 
 import { useClient } from "@revolt/client";
+import { useModals } from "@revolt/modal";
 import { Avatar, CategoryButton, Column, Preloader } from "@revolt/ui";
 
-import { useSettingsNavigation } from "../Settings";
-
-import { ChannelSettingsProps } from "../ChannelSettings";
+import { ChannelSettingsProps } from "../../ChannelSettings";
+import { useSettingsNavigation } from "../../Settings";
 
 /**
  * Webhooks
  */
-export default function Webhooks(props: ChannelSettingsProps) {
+export function WebhooksList(props: ChannelSettingsProps) {
   const client = useClient();
+  const { openModal } = useModals();
   const { navigate } = useSettingsNavigation();
-  const [webhooks, setWebhooks] = createSignal<ChannelWebhook[]>();
+
+  const webhooks = createMemo(() =>
+    client().channelWebhooks.filter(
+      (webhook) => webhook.channelId === props.channel.id,
+    ),
+  );
 
   onMount(() => {
-    const existingWebhooks = client().channelWebhooks.filter(
-      (webhook) => webhook.channelId === props.channel.id,
-    );
-
-    if (existingWebhooks.length) {
-      setWebhooks(client().channelWebhooks.toList());
-    } else {
-      props.channel.fetchWebhooks().then(setWebhooks);
+    if (!webhooks.length) {
+      props.channel.fetchWebhooks();
     }
   });
 
   return (
-    <Column gap="xl">
+    <Column gap="lg">
       <CategoryButton
         action="chevron"
         icon={<BiSolidCloud size={24} />}
-        onClick={() => void 0}
+        onClick={() =>
+          openModal({
+            type: "create_webhook",
+            channel: props.channel,
+            callback(webhookId) {
+              navigate(`webhooks/${webhookId}`);
+            },
+          })
+        }
       >
         <Trans>Create Webhook</Trans>
       </CategoryButton>
@@ -48,7 +55,13 @@ export default function Webhooks(props: ChannelSettingsProps) {
               <For each={webhooks()}>
                 {(webhook) => (
                   <CategoryButton
-                    icon={<Avatar src={webhook.avatarURL} size={24} />}
+                    icon={
+                      <Avatar
+                        src={webhook.avatarURL}
+                        fallback={webhook.name}
+                        size={24}
+                      />
+                    }
                     description={webhook.id}
                     onClick={() => navigate(`webhooks/${webhook.id}`)}
                     action="chevron"
@@ -61,23 +74,6 @@ export default function Webhooks(props: ChannelSettingsProps) {
           </Switch>
         </Column>
       </Show>
-    </Column>
-  );
-}
-
-/**
- * Webhook
- */
-export function Webhook(props: { webhook: ChannelWebhook }) {
-  return (
-    <Column gap="xl">
-      <CategoryButton
-        action="chevron"
-        icon={<BiSolidTrash size={24} />}
-        onClick={() => void 0}
-      >
-        Delete
-      </CategoryButton>
     </Column>
   );
 }
