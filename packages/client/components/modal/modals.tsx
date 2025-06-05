@@ -5,14 +5,15 @@ import { Modal } from "@revolt/ui";
 
 import { type ActiveModal } from ".";
 import { AddFriend } from "./modals/AddFriend";
+import { AddMembersToGroupModal } from "./modals/AddMembersToGroup";
 import ban_member from "./modals/BanMember";
 import changelog from "./modals/Changelog";
-import channel_info from "./modals/ChannelInfo";
+import { ChannelInfoModal } from "./modals/ChannelInfo";
 import { ChannelToggleMatureModal } from "./modals/ChannelToggleMature";
 import create_bot from "./modals/CreateBot";
 import create_category from "./modals/CreateCategory";
 import create_channel from "./modals/CreateChannel";
-import create_group from "./modals/CreateGroup";
+import { CreateGroupModal } from "./modals/CreateGroup";
 import create_invite from "./modals/CreateInvite";
 import create_or_join_server from "./modals/CreateOrJoinServer";
 import create_role from "./modals/CreateRole";
@@ -68,8 +69,14 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
   switch (modalProps.type) {
     case "add_friend":
       return <AddFriend {...modalProps} />;
+    case "add_members_to_group":
+      return <AddMembersToGroupModal {...modalProps} />;
+    case "channel_info":
+      return <ChannelInfoModal {...modalProps} />;
     case "channel_toggle_mature":
       return <ChannelToggleMatureModal {...modalProps} />;
+    case "create_group":
+      return <CreateGroupModal {...modalProps} />;
     case "error2":
       return <Error2Modal {...modalProps} />;
     case "image_viewer":
@@ -91,11 +98,9 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       const Modals: Record<AllModals["type"], PropGenerator<any>> = {
         ban_member,
         changelog,
-        channel_info,
         create_bot,
         create_category,
         create_channel,
-        create_group,
         create_invite,
         create_role,
         create_server,

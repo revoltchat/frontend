@@ -1,7 +1,8 @@
 import { BiRegularChevronLeft, BiRegularChevronRight } from "solid-icons/bi";
 import { JSX, Match, Switch } from "solid-js";
 
-import { styled } from "styled-system/jsx";
+import { useLingui } from "@lingui-solid/solid/macro";
+import { css } from "styled-system/css";
 
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -13,12 +14,20 @@ import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
  */
 export function HeaderIcon(props: { children: JSX.Element }) {
   const state = useState();
+  const { t } = useLingui();
 
   return (
-    <Container
+    <div
+      class={container}
       onClick={() =>
         state.layout.toggleSectionState(LAYOUT_SECTIONS.PRIMARY_SIDEBAR, true)
       }
+      use:floating={{
+        tooltip: {
+          placement: "bottom",
+          content: t`Toggle main sidebar`,
+        },
+      }}
     >
       <Switch fallback={<BiRegularChevronRight size={20} />}>
         <Match
@@ -31,14 +40,12 @@ export function HeaderIcon(props: { children: JSX.Element }) {
         </Match>
       </Switch>
       {props.children}
-    </Container>
+    </div>
   );
 }
 
-const Container = styled("div", {
-  base: {
-    display: "flex",
-    cursor: "pointer",
-    alignItems: "center",
-  },
+const container = css({
+  display: "flex",
+  cursor: "pointer",
+  alignItems: "center",
 });

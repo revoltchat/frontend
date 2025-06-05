@@ -27,6 +27,11 @@ export type Modals =
       client: Client;
     }
   | {
+      type: "add_members_to_group";
+      client: Client;
+      group: Channel;
+    }
+  | {
       type: "ban_member";
       member: ServerMember;
     }

@@ -80,7 +80,7 @@ const Interface = (props: { children: JSX.Element }) => {
         </Switch>
         <div class={css({ display: "flex", gap: "4px" })}>
           <Button
-            size="fluid"
+            size="small"
             onPress={() => {
               (window as any)._demo_setDarkMode(false);
             }}
@@ -88,7 +88,7 @@ const Interface = (props: { children: JSX.Element }) => {
             Light Mode
           </Button>
           <Button
-            size="fluid"
+            size="small"
             onPress={() => {
               (window as any)._demo_setDarkMode(true);
             }}

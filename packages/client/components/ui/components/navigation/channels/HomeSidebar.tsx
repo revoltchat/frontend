@@ -49,6 +49,7 @@ interface Props {
  * Display home navigation and conversations
  */
 export const HomeSidebar = (props: Props) => {
+  const { t } = useLingui();
   const client = useClient();
   const navigate = useNavigate();
   const location = useLocation();
@@ -137,6 +138,12 @@ export const HomeSidebar = (props: Props) => {
                   client: client(),
                 })
               }
+              use:floating={{
+                tooltip: {
+                  placement: "right",
+                  content: t`Create a new group`,
+                },
+              }}
             >
               <MdPlus {...iconSize(14)} />
             </a>

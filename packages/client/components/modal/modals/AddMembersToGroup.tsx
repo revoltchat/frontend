@@ -22,28 +22,29 @@ import { useModals } from "..";
 import { Modals } from "../types";
 
 /**
- * Create a new group and optionally add members
+ * Add members to an existing group
  */
-export function CreateGroupModal(
-  props: Modal2Props & Modals & { type: "create_group" },
+export function AddMembersToGroupModal(
+  props: Modal2Props & Modals & { type: "add_members_to_group" },
 ) {
   const client = useClient();
   const { openModal } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl(""),
     users: createFormControl([] as string[]),
   });
 
   const change = useMutation(() => ({
-    mutationFn: ({ name, users }: { name: string; users: string[] }) =>
-      props.client.channels.createGroup(name, users),
+    mutationFn: async ({ users }: { users: string[] }) => {
+      for (const user of users) {
+        await props.group.addMember(user);
+      }
+    },
     onError: (error) => openModal({ type: "error2", error }),
   }));
 
   async function onSubmit() {
     await change.mutateAsync({
-      name: group.controls.name.value,
       users: group.controls.users.value,
     });
 
@@ -57,6 +58,7 @@ export function CreateGroupModal(
   const users = createMemo(() =>
     client()
       .users.filter((user) => user.relationship === "Friend")
+      .filter((user) => !props.group.recipientIds.has(user.id))
       .filter((user) =>
         user.displayName.toLowerCase().includes(filterLowercase()),
       )
@@ -69,11 +71,11 @@ export function CreateGroupModal(
       minWidth={420}
       show={props.show}
       onClose={props.onClose}
-      title={<Trans>Create a new group</Trans>}
+      title={<Trans>Add friends to group</Trans>}
       actions={[
         { text: <Trans>Close</Trans> },
         {
-          text: <Trans>Create</Trans>,
+          text: <Trans>Add</Trans>,
           onClick: () => {
             onSubmit();
             return false;
@@ -84,16 +86,6 @@ export function CreateGroupModal(
     >
       <form onSubmit={Form2.submitHandler(group, onSubmit)}>
         <Column>
-          <Form2.TextField
-            name="name"
-            control={group.controls.name}
-            label={t`Group Name`}
-          />
-
-          <Text class="label">
-            <Trans>Select members to add</Trans>
-          </Text>
-
           <TextField
             value={filter()}
             variant="outlined"

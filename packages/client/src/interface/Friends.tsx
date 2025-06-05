@@ -84,20 +84,20 @@ export function Friends() {
 
     const friends = list
       .filter((user) => user.relationship === "Friend")
-      .sort((a, b) => a.username.localeCompare(b.username));
+      .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
     return {
       friends,
       online: friends.filter((user) => user.online),
       incoming: list
         .filter((user) => user.relationship === "Incoming")
-        .sort((a, b) => a.username.localeCompare(b.username)),
+        .sort((a, b) => a.displayName.localeCompare(b.displayName)),
       outgoing: list
         .filter((user) => user.relationship === "Outgoing")
-        .sort((a, b) => a.username.localeCompare(b.username)),
+        .sort((a, b) => a.displayName.localeCompare(b.displayName)),
       blocked: list
         .filter((user) => user.relationship === "Blocked")
-        .sort((a, b) => a.username.localeCompare(b.username)),
+        .sort((a, b) => a.displayName.localeCompare(b.displayName)),
     };
   });
 
@@ -296,7 +296,7 @@ function Entry(
             </Show>
           }
         />
-        <OverflowingText>{local.user.username}</OverflowingText>
+        <OverflowingText>{local.user.displayName}</OverflowingText>
       </ListItem>
     </a>
   );

@@ -1,14 +1,9 @@
-import {
-  BiRegularAt,
-  BiRegularHash,
-  BiSolidCog,
-  BiSolidGroup,
-  BiSolidNotepad,
-} from "solid-icons/bi";
+import { BiRegularAt, BiRegularHash, BiSolidNotepad } from "solid-icons/bi";
 import { Match, Show, Switch } from "solid-js";
 
-import { Trans } from "@lingui-solid/solid/macro";
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
@@ -23,11 +18,13 @@ import {
   OverflowingText,
   Spacer,
   UserStatus,
-  iconSize,
   typography,
 } from "@revolt/ui";
 
 import MdCall from "@material-design-icons/svg/outlined/call.svg?component-solid";
+import MdGroup from "@material-design-icons/svg/outlined/group.svg?component-solid";
+import MdPersonAdd from "@material-design-icons/svg/outlined/person_add.svg?component-solid";
+import MdSettings from "@material-design-icons/svg/outlined/settings.svg?component-solid";
 
 import { HeaderIcon } from "../common/CommonHeader";
 
@@ -44,29 +41,9 @@ interface Props {
 export function ChannelHeader(props: Props) {
   const { openModal } = useModals();
   const client = useClient();
+  const { t } = useLingui();
   const state = useState();
   const rtc = useVoice();
-
-  /**
-   * Open channel information modal
-   */
-  function openChannelInfo() {
-    openModal({
-      type: "channel_info",
-      channel: props.channel,
-    });
-  }
-
-  /**
-   * Open channel settings
-   */
-  function openChannelSettings() {
-    openModal({
-      type: "settings",
-      config: "channel",
-      context: props.channel,
-    });
-  }
 
   /**
    * Join voice call
@@ -111,7 +88,21 @@ export function ChannelHeader(props: Props) {
           </NonBreakingText>
           <Show when={props.channel.description}>
             <Divider />
-            <DescriptionLink onClick={openChannelInfo}>
+            <a
+              class={descriptionLink}
+              onClick={() =>
+                openModal({
+                  type: "channel_info",
+                  channel: props.channel,
+                })
+              }
+              use:floating={{
+                tooltip: {
+                  placement: "bottom",
+                  content: t`Click to show full description`,
+                },
+              }}
+            >
               <OverflowingText
                 class={typography({ class: "title", size: "small" })}
               >
@@ -119,7 +110,7 @@ export function ChannelHeader(props: Props) {
                   content={props.channel.description?.split("\n").shift()}
                 />
               </OverflowingText>
-            </DescriptionLink>
+            </a>
           </Show>
         </Match>
         <Match when={props.channel.type === "DirectMessage"}>
@@ -139,9 +130,21 @@ export function ChannelHeader(props: Props) {
 
       <Spacer />
 
-      <Show when={props.channel.type !== "SavedMessages"}>
-        <Button variant="plain" size="icon" onPress={joinCall}>
-          <MdCall {...iconSize(24)} />
+      <Show
+        when={import.meta.env.DEV && props.channel.type !== "SavedMessages"}
+      >
+        <Button
+          variant="plain"
+          size="icon"
+          onPress={joinCall}
+          use:floating={{
+            tooltip: {
+              placement: "bottom",
+              content: t`Join call`,
+            },
+          }}
+        >
+          <MdCall />
         </Button>
       </Show>
 
@@ -151,8 +154,46 @@ export function ChannelHeader(props: Props) {
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
-        <Button variant="plain" size="icon" onPress={openChannelSettings}>
-          <BiSolidCog size={24} />
+        <Button
+          variant="plain"
+          size="icon"
+          onPress={() =>
+            openModal({
+              type: "settings",
+              config: "channel",
+              context: props.channel,
+            })
+          }
+          use:floating={{
+            tooltip: {
+              placement: "bottom",
+              content: t`Channel settings`,
+            },
+          }}
+        >
+          <MdSettings />
+        </Button>
+      </Show>
+
+      <Show when={props.channel.type === "Group"}>
+        <Button
+          variant="plain"
+          size="icon"
+          onPress={() =>
+            openModal({
+              type: "add_members_to_group",
+              group: props.channel,
+              client: client(),
+            })
+          }
+          use:floating={{
+            tooltip: {
+              placement: "bottom",
+              content: t`Add friends to group`,
+            },
+          }}
+        >
+          <MdPersonAdd />
         </Button>
       </Show>
 
@@ -162,8 +203,14 @@ export function ChannelHeader(props: Props) {
         onPress={() =>
           state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)
         }
+        use:floating={{
+          tooltip: {
+            placement: "bottom",
+            content: t`View members`,
+          },
+        }}
       >
-        <BiSolidGroup size={24} />
+        <MdGroup />
       </Button>
     </>
   );
@@ -184,8 +231,6 @@ const Divider = styled("div", {
 /**
  * Link for the description
  */
-const DescriptionLink = styled("a", {
-  base: {
-    minWidth: 0,
-  },
+const descriptionLink = css({
+  minWidth: 0,
 });

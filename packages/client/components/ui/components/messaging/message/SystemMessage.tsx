@@ -14,7 +14,7 @@ import {
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { RenderMention } from "@revolt/markdown/plugins/mentions";
+import { UserMention } from "@revolt/markdown/plugins/mentions";
 
 interface Props {
   /**
@@ -54,13 +54,13 @@ export function SystemMessage(props: Props) {
       <Switch fallback={props.systemMessage.type}>
         <Match when={props.systemMessage.type === "user_added"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={
                 (props.systemMessage as UserModeratedSystemMessage).userId
               }
-            />
-            has been added by
-            <RenderMention
+            />{" "}
+            has been added by{" "}
+            <UserMention
               userId={(props.systemMessage as UserModeratedSystemMessage).byId}
             />
           </Trans>
@@ -69,46 +69,46 @@ export function SystemMessage(props: Props) {
           when={props.systemMessage.type === "user_left" && !props.isServer}
         >
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as UserSystemMessage).userId}
-            />
+            />{" "}
             left the group
           </Trans>
         </Match>
         <Match when={props.systemMessage.type === "user_remove"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={
                 (props.systemMessage as UserModeratedSystemMessage).userId
               }
-            />
-            has been removed by
-            <RenderMention
+            />{" "}
+            has been removed by{" "}
+            <UserMention
               userId={(props.systemMessage as UserModeratedSystemMessage).byId}
             />
           </Trans>
         </Match>
         <Match when={props.systemMessage.type === "user_kicked"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as UserSystemMessage).userId}
-            />
+            />{" "}
             has been kicked from the server
           </Trans>
         </Match>
         <Match when={props.systemMessage.type === "user_banned"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as UserSystemMessage).userId}
-            />
+            />{" "}
             has been banned from the server
           </Trans>
         </Match>
         <Match when={props.systemMessage.type === "user_joined"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as UserSystemMessage).userId}
-            />
+            />{" "}
             joined the server
           </Trans>
         </Match>
@@ -116,17 +116,17 @@ export function SystemMessage(props: Props) {
           when={props.systemMessage.type === "user_left" && props.isServer}
         >
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as UserSystemMessage).userId}
-            />
+            />{" "}
             left the server
           </Trans>
         </Match>
         <Match when={props.systemMessage.type === "channel_renamed"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as ChannelRenamedSystemMessage).byId}
-            />
+            />{" "}
             updated the group name to{" "}
             <div class={username()}>
               {(props.systemMessage as ChannelRenamedSystemMessage).name}
@@ -137,30 +137,30 @@ export function SystemMessage(props: Props) {
           when={props.systemMessage.type === "channel_description_changed"}
         >
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as ChannelEditSystemMessage).byId}
-            />
+            />{" "}
             updated the group description
           </Trans>
         </Match>
         <Match when={props.systemMessage.type === "channel_icon_changed"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={(props.systemMessage as ChannelEditSystemMessage).byId}
-            />
-            updated the group icon
+            />{" "}
+            updated the group icon{" "}
           </Trans>
         </Match>
         <Match when={props.systemMessage.type === "channel_ownership_changed"}>
           <Trans>
-            <RenderMention
+            <UserMention
               userId={
                 (props.systemMessage as ChannelOwnershipChangeSystemMessage)
                   .fromId
               }
-            />
-            transferred group ownership to
-            <RenderMention
+            />{" "}
+            transferred group ownership to{" "}
+            <UserMention
               userId={
                 (props.systemMessage as ChannelOwnershipChangeSystemMessage)
                   .toId
@@ -178,9 +178,7 @@ export function SystemMessage(props: Props) {
 
 const Base = styled("div", {
   base: {
-    display: "flex",
     minHeight: "20px",
-    gap: "var(--gap-sm)",
     alignItems: "center",
     color: "var(--colours-messaging-component-system-message-foreground)",
   },

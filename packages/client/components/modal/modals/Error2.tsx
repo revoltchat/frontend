@@ -16,7 +16,7 @@ export function Error2Modal(props: Modal2Props & Modals & { type: "error2" }) {
       show={props.show}
       onClose={props.onClose}
       title={<Trans>An error occurred.</Trans>}
-      actions={[{ text: <Trans>OK</Trans>, onClick: props.onClose }]}
+      actions={[{ text: <Trans>OK</Trans> }]}
     >
       {err(props.error)}
     </Modal2>

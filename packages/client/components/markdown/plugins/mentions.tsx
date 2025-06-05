@@ -15,11 +15,11 @@ import MdAt from "@material-design-icons/svg/filled/alternate_email.svg?componen
 
 import { useUser } from "../users";
 
-export function RenderMention(props: { mentions: string }) {
+export function RenderMention(props: { mentions?: string }) {
   return (
-    <Switch>
-      <Match when={props.mentions.startsWith("user:")}>
-        <UserMention userId={props.mentions.substring(5)} />
+    <Switch fallback={<span>Invalid Mention Element</span>}>
+      <Match when={props.mentions?.startsWith("user:")}>
+        <UserMention userId={props.mentions!.substring(5)} />
       </Match>
       <Match when={props.mentions === "everyone"}>
         <span class={mention()}>
@@ -33,8 +33,8 @@ export function RenderMention(props: { mentions: string }) {
           online
         </span>
       </Match>
-      <Match when={props.mentions.startsWith("role:")}>
-        <RoleMention roleId={props.mentions.substring(5)} />
+      <Match when={props.mentions?.startsWith("role:")}>
+        <RoleMention roleId={props.mentions!.substring(5)} />
       </Match>
     </Switch>
   );

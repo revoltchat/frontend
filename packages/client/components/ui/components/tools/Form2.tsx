@@ -2,9 +2,11 @@ import { type IFormControl, IFormGroup } from "solid-forms";
 import { ComponentProps, For, type JSX, Show, splitProps } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { VirtualContainer } from "@minht11/solid-virtual-container";
+import { css } from "styled-system/css";
 
 import { Button, Text } from "../design";
-import { TextField } from "../material";
+import { Checkbox2, TextField } from "../material";
 
 import { FileInput } from "./files";
 
@@ -79,6 +81,52 @@ const FormFileInput = (
     </>
   );
 };
+
+/**
+ * Form element for virtual selection
+ */
+function FormVirtualSelect<K, T>(props: {
+  control: IFormControl<K[]>;
+  items: { item: T; value: K }[];
+  children: (item: T) => JSX.Element;
+  itemHeight?: number;
+}) {
+  let ref;
+
+  return (
+    <div ref={ref} use:scrollable={{ class: css({ height: "320px" }) }}>
+      <VirtualContainer
+        items={props.items}
+        scrollTarget={ref}
+        itemSize={{ height: props.itemHeight ?? 40 }}
+      >
+        {(item) => (
+          <div
+            style={{
+              ...item.style,
+              width: "100%",
+            }}
+          >
+            <Checkbox2
+              class={css({ width: "100%" })}
+              onChange={(checked) =>
+                props.control.setValue([
+                  ...props.control.value.filter(
+                    (entry) => entry !== item.item.value,
+                  ),
+                  ...(checked ? [item.item.value] : []),
+                ])
+              }
+              checked={props.control.value.includes(item.item.value)}
+            >
+              {props.children(item.item.item)}
+            </Checkbox2>
+          </div>
+        )}
+      </VirtualContainer>
+    </div>
+  );
+}
 
 /**
  * Form reset button
@@ -170,6 +218,7 @@ function submitHandler(
 export const Form2 = {
   TextField: FormTextField,
   FileInput: FormFileInput,
+  VirtualSelect: FormVirtualSelect,
   Reset: FormResetButton,
   Submit: FormSubmitButton,
   submitHandler,
