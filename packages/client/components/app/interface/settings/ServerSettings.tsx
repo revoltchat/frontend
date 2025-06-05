@@ -4,12 +4,12 @@ import {
   BiSolidGroup,
   BiSolidHappyBeaming,
   BiSolidInfoCircle,
-  BiSolidKey,
   BiSolidTrash,
   BiSolidUserX,
 } from "solid-icons/bi";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 import { Server } from "revolt.js";
 
 import { useUser } from "@revolt/client";
@@ -20,6 +20,7 @@ import { ColouredText } from "@revolt/ui";
 import { SettingsConfiguration } from ".";
 import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
 import Overview from "./server/Overview";
+import { ServerRoleOverview } from "./server/roles/ServerRoleOverview";
 
 const Config: SettingsConfiguration<Server> = {
   /**
@@ -27,6 +28,12 @@ const Config: SettingsConfiguration<Server> = {
    * @param key
    */
   title(ctx, key) {
+    if (key.startsWith("permissions/")) {
+      if (key === "permissions/default") return t`Default Permissions`;
+
+      // todo
+    }
+
     return ctx.entries
       .flatMap((category) => category.entries)
       .find((entry) => entry.id === key)?.title as string;
@@ -45,13 +52,21 @@ const Config: SettingsConfiguration<Server> = {
       return null;
     }
 
-    switch (id) {
-      case "overview":
-        return <Overview server={server} />;
-      case "permissions":
+    if (id?.startsWith("roles/")) {
+      if (id === "roles/default") {
         return (
           <ChannelPermissionsEditor type="server_default" context={server} />
         );
+      }
+
+      // todo
+    }
+
+    switch (id) {
+      case "overview":
+        return <Overview server={server} />;
+      case "roles":
+        return <ServerRoleOverview context={server} />;
 
       default:
         return null;
@@ -83,15 +98,10 @@ const Config: SettingsConfiguration<Server> = {
               title: <Trans>Members</Trans>,
             },
             {
-              hidden: !server.havePermission("ManagePermissions"),
-              id: "permissions",
-              icon: <BiSolidKey size={20} />,
-              title: <Trans>Default Permissions</Trans>,
-            },
-            {
               hidden: !(
                 server.havePermission("ManageRole") ||
-                server.havePermission("AssignRoles")
+                server.havePermission("AssignRoles") ||
+                server.havePermission("ManagePermissions")
               ),
               id: "roles",
               icon: <BiSolidFlagAlt size={20} />,

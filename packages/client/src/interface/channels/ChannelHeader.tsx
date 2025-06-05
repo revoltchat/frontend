@@ -150,7 +150,7 @@ export function ChannelHeader(props: Props) {
 
       <Show
         when={
-          props.channel.type === "Group" ||
+          (props.channel.type === "Group" || props.channel.serverId) &&
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
@@ -167,7 +167,7 @@ export function ChannelHeader(props: Props) {
           use:floating={{
             tooltip: {
               placement: "bottom",
-              content: t`Channel settings`,
+              content: t`Channel Settings`,
             },
           }}
         >
@@ -197,21 +197,26 @@ export function ChannelHeader(props: Props) {
         </Button>
       </Show>
 
-      <Button
-        variant="plain"
-        size="icon"
-        onPress={() =>
-          state.layout.toggleSectionState(LAYOUT_SECTIONS.MEMBER_SIDEBAR, true)
-        }
-        use:floating={{
-          tooltip: {
-            placement: "bottom",
-            content: t`View members`,
-          },
-        }}
-      >
-        <MdGroup />
-      </Button>
+      <Show when={props.channel.type !== "SavedMessages"}>
+        <Button
+          variant="plain"
+          size="icon"
+          onPress={() =>
+            state.layout.toggleSectionState(
+              LAYOUT_SECTIONS.MEMBER_SIDEBAR,
+              true,
+            )
+          }
+          use:floating={{
+            tooltip: {
+              placement: "bottom",
+              content: t`View members`,
+            },
+          }}
+        >
+          <MdGroup />
+        </Button>
+      </Show>
     </>
   );
 }

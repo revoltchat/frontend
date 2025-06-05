@@ -6,6 +6,7 @@ import {
 } from "solid-icons/bi";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -16,6 +17,7 @@ import { ColouredText } from "@revolt/ui";
 import { SettingsConfiguration } from ".";
 import ChannelOverview from "./channel/Overview";
 import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
+import { ChannelPermissionsOverview } from "./channel/permissions/ChannelPermissionsOverview";
 import { ViewWebhook, WebhooksList } from "./channel/webhooks";
 
 const Config: SettingsConfiguration<Channel> = {
@@ -27,7 +29,13 @@ const Config: SettingsConfiguration<Channel> = {
 
     if (key.startsWith("webhooks/")) {
       const webhook = client().channelWebhooks.get(key.substring(9));
-      return webhook!.name;
+      if (webhook) return webhook.name;
+    }
+
+    if (key.startsWith("permissions/")) {
+      if (key === "permissions/default") return t`Default Permissions`;
+
+      // todo
     }
 
     return ctx.entries
@@ -49,6 +57,22 @@ const Config: SettingsConfiguration<Channel> = {
       return <ViewWebhook webhook={webhook!} />;
     }
 
+    if (id?.startsWith("permissions/")) {
+      if (id === "permissions/default") {
+        return (
+          <ChannelPermissionsEditor type="channel_default" context={channel} />
+        );
+      }
+
+      return (
+        <ChannelPermissionsEditor
+          type="channel_role"
+          context={channel}
+          roleId={id.substring(12)}
+        />
+      );
+    }
+
     switch (id) {
       case "overview":
         return <ChannelOverview channel={channel} />;
@@ -56,10 +80,11 @@ const Config: SettingsConfiguration<Channel> = {
         switch (channel.type) {
           case "Group":
             return <ChannelPermissionsEditor type="group" context={channel} />;
+          case "TextChannel":
+            return <ChannelPermissionsOverview context={channel} />;
           default:
             return null;
         }
-
       case "webhooks":
         return <WebhooksList channel={channel} />;
       default:

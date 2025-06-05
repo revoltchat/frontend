@@ -2,16 +2,16 @@ import { For, Match, Show, Switch, createSignal } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import { API, Channel, Server } from "revolt.js";
+import { DEFAULT_PERMISSION_DIRECT_MESSAGE } from "revolt.js";
 import { css } from "styled-system/css";
 
-import {
-  Checkbox2,
-  OverrideSwitch,
-  Text,
-} from "@revolt/ui";
-import { DEFAULT_PERMISSION_DIRECT_MESSAGE } from "revolt.js";
+import { Button, Checkbox2, OverrideSwitch, Text } from "@revolt/ui";
 
-type Props = { type: "server_default"; context: Server } | { type: "group"; context: Channel };
+type Props =
+  | { type: "server_default"; context: Server }
+  | { type: "channel_default"; context: Channel }
+  | { type: "channel_role"; context: Channel; roleId: string }
+  | { type: "group"; context: Channel };
 
 type Context = API.Channel["channel_type"] | "Server";
 
@@ -21,7 +21,8 @@ type Context = API.Channel["channel_type"] | "Server";
 export function ChannelPermissionsEditor(props: Props) {
   const { t } = useLingui();
 
-  const context: Context = props.context instanceof Server ? 'Server' : props.context.type;
+  const context: Context =
+    props.context instanceof Server ? "Server" : props.context.type;
 
   /**
    * Current permission value, normalised to [allow, deny]
@@ -31,8 +32,23 @@ export function ChannelPermissionsEditor(props: Props) {
     switch (props.type) {
       case "server_default":
         return [BigInt(props.context.defaultPermissions), BigInt(0)];
-      case 'group':
-        return [BigInt(props.context.permissions ?? DEFAULT_PERMISSION_DIRECT_MESSAGE), BigInt(0)];
+      case "channel_default":
+        return [
+          BigInt(props.context.defaultPermissions?.a || 0),
+          BigInt(props.context.defaultPermissions?.d || 0),
+        ];
+      case "channel_role":
+        return [
+          BigInt(props.context.rolePermissions?.[props.roleId]?.a || 0),
+          BigInt(props.context.rolePermissions?.[props.roleId]?.d || 0),
+        ];
+      case "group":
+        return [
+          BigInt(
+            props.context.permissions ?? DEFAULT_PERMISSION_DIRECT_MESSAGE,
+          ),
+          BigInt(0),
+        ];
     }
   }
 
@@ -60,7 +76,19 @@ export function ChannelPermissionsEditor(props: Props) {
       case "server_default":
         props.context.setPermissions(undefined, Number(value()[0]));
         break;
-      case 'group':
+      case "channel_default":
+        props.context.setPermissions(undefined, {
+          allow: Number(value()[0]),
+          deny: Number(value()[1]),
+        });
+        break;
+      case "channel_role":
+        props.context.setPermissions(props.roleId, {
+          allow: Number(value()[0]),
+          deny: Number(value()[1]),
+        });
+        break;
+      case "group":
         props.context.setPermissions(undefined, Number(value()[0]));
         break;
     }
@@ -346,10 +374,7 @@ export function ChannelPermissionsEditor(props: Props) {
   return (
     <div class={css({ display: "flex", flexDirection: "column" })}>
       <Show when={unsavedChanges()}>
-        <h1>
-          unsaved changes!
-          <a onclick={() => save()}>click to save</a>
-        </h1>
+        <Button onPress={save}>Save Pending Changes</Button>
       </Show>
 
       <For each={Permissions}>
@@ -376,11 +401,28 @@ export function ChannelPermissionsEditor(props: Props) {
                 />
               }
             >
-              <Match when={false /* editing override */}>
+              <Match when={props.type.startsWith("channel_")}>
                 <ChannelPermissionOverride
                   key={entry.key}
                   title={entry.title}
                   description={description(entry) as string}
+                  value={
+                    (value()[0] & BigInt(entry.value)) == BigInt(entry.value)
+                      ? "allow"
+                      : (value()[1] & BigInt(entry.value)) ==
+                          BigInt(entry.value)
+                        ? "deny"
+                        : "neutral"
+                  }
+                  onChange={(target) => {
+                    let allow = value()[0] & ~BigInt(entry.value);
+                    let deny = value()[1] & ~BigInt(entry.value);
+
+                    if (target === "allow") allow |= BigInt(entry.value);
+                    if (target === "deny") deny |= BigInt(entry.value);
+
+                    setValue([allow, deny]);
+                  }}
                 />
               </Match>
             </Switch>
@@ -419,6 +461,9 @@ function ChannelPermissionOverride(props: {
   key: string;
   title: string;
   description: string;
+
+  value: "allow" | "deny" | "neutral";
+  onChange: (value: "allow" | "deny" | "neutral") => void;
 }) {
   return (
     <div
@@ -438,15 +483,9 @@ function ChannelPermissionOverride(props: {
         <Text>{props.description}</Text>
       </div>
       <OverrideSwitch
-        value={
-          Math.random() > 0.5
-            ? "allow"
-            : Math.random() > 0.5
-              ? "deny"
-              : "neutral"
-        }
-        onChange={() => void 0}
         disabled={false}
+        value={props.value}
+        onChange={props.onChange}
       />
     </div>
   );
