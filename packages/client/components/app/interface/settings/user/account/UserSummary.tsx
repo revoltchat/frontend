@@ -19,7 +19,7 @@ export function UserSummary(props: {
   const bannerStyle = () =>
     props.bannerUrl
       ? {
-          "background-image": `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("${props.bannerUrl}")`,
+          "background-image": `linear-gradient(var(--colours-settings-background-filter), var(--colours-settings-background-filter)), url("${props.bannerUrl}")`,
         }
       : {
           background: `var(--colours-settings-background)`,
@@ -62,7 +62,7 @@ export function UserSummary(props: {
                   },
                 }}
               >
-                <MdCakeFill {...iconSize(18)} />
+                <MdCakeFill {...iconSize(18)} fill={"currentColor"} />
               </span>
             </ProfileBadges>
           </BottomBar>
