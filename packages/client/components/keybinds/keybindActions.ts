@@ -50,6 +50,11 @@ export enum KeybindAction {
    * Close the currently floating element
    */
   CLOSE_FLOATING = "close_floating",
+
+  /**
+   * Close the open and ephemeral sidebar
+   */
+  CLOSE_SIDEBAR = "close_sidebar",
 }
 
 /**
@@ -59,6 +64,7 @@ export const ACTION_PRIORITY: KeybindAction[] = [
   // 'Escape' bindings
   KeybindAction.CLOSE_FLOATING,
   KeybindAction.CLOSE_MODAL,
+  KeybindAction.CLOSE_SIDEBAR,
   KeybindAction.CHAT_REMOVE_COMPOSITION_ELEMENT,
   KeybindAction.CHAT_MARK_SERVER_AS_READ,
   KeybindAction.CHAT_JUMP_END,

@@ -11,6 +11,7 @@ import {
   OverflowingText,
   Row,
 } from "../../design/layout";
+import { Ripple } from "../../material";
 
 interface CommonProps {
   /**
@@ -24,6 +25,11 @@ interface CommonProps {
    * If you want to hide it completely, add a <Match when={true} /> to infoMatch
    */
   compact?: boolean;
+
+  /**
+   * Whether this message should be treated as a link
+   */
+  isLink?: boolean;
 }
 
 type Props = CommonProps & {
@@ -115,10 +121,6 @@ const base = cva({
 
     transition: "background-color var(--transitions-fast)",
 
-    "&:hover": {
-      background: "var(--md-sys-color-surface-container)",
-    },
-
     "& a:hover": {
       textDecoration: "underline",
     },
@@ -147,6 +149,25 @@ const base = cva({
       },
       sending: {},
     },
+    isLink: {
+      true: {
+        cursor: "pointer",
+        userSelect: "none",
+        position: "relative",
+
+        "& *": {
+          pointerEvents: "none",
+        },
+      },
+      false: {
+        "&:hover": {
+          background: "var(--md-sys-color-surface-container)",
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    isLink: false,
   },
 });
 
@@ -253,10 +274,15 @@ export function MessageContainer(props: Props) {
           mentioned: props.mentioned,
           highlight: props.highlight,
           sendStatus: props.sendStatus,
+          isLink: props.isLink,
         })
       }
       use:floating={{ contextMenu: props.contextMenu }}
     >
+      <Show when={props.isLink}>
+        <Ripple />
+      </Show>
+
       {props.header}
       <Row>
         <Info tail={props.tail} compact={props.compact}>

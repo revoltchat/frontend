@@ -6,6 +6,7 @@ import {
   ChannelOwnershipChangeSystemMessage,
   ChannelRenamedSystemMessage,
   Message,
+  MessagePinnedSystemMessage,
   TextSystemMessage,
   UserModeratedSystemMessage,
   UserSystemMessage,
@@ -138,6 +139,16 @@ export function NotificationsWorker() {
           body = t`${(message.systemMessage as ChannelOwnershipChangeSystemMessage).from?.username} made ${(message.systemMessage as ChannelOwnershipChangeSystemMessage).to?.username} the new group owner`;
           icon = (message.systemMessage as ChannelOwnershipChangeSystemMessage)
             .from?.avatarURL;
+          break;
+        case "message_pinned":
+          body = t`${(message.systemMessage as MessagePinnedSystemMessage).by?.username} pinned a message`;
+          icon = (message.systemMessage as MessagePinnedSystemMessage).by
+            ?.avatarURL;
+          break;
+        case "message_unpinned":
+          body = t`${(message.systemMessage as MessagePinnedSystemMessage).by?.username} unpinned a message`;
+          icon = (message.systemMessage as MessagePinnedSystemMessage).by
+            ?.avatarURL;
           break;
       }
     } else if (message.attachments?.length) {

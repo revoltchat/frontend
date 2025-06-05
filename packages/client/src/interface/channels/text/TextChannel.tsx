@@ -1,11 +1,12 @@
-import { Show, createEffect, createSignal, on } from "solid-js";
+import { Match, Show, Switch, createEffect, createSignal, on } from "solid-js";
 
+import { css, cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 import { decodeTime, ulid } from "ulid";
 
 import { DraftMessages, Messages } from "@revolt/app";
 import { useClient } from "@revolt/client";
-import { KeybindAction, createKeybind } from "@revolt/keybinds";
+import { Keybind, KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useNavigate, useSmartParams } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
@@ -13,6 +14,7 @@ import {
   BelowFloatingHeader,
   Header,
   NewMessages,
+  Text,
   TypingIndicator,
   main,
 } from "@revolt/ui";
@@ -22,6 +24,22 @@ import { ChannelPageProps } from "../ChannelPage";
 
 import { MessageComposition } from "./Composition";
 import { MemberSidebar } from "./MemberSidebar";
+import { TextSearchSidebar } from "./TextSearchSidebar";
+
+/**
+ * State of the channel sidebar
+ */
+export type SidebarState =
+  | {
+      state: "search";
+      query: string;
+    }
+  | {
+      state: "pins";
+    }
+  | {
+      state: "default";
+    };
 
 /**
  * Channel component
@@ -102,10 +120,30 @@ export function TextChannel(props: ChannelPageProps) {
     jumpToBottomRef?.();
   });
 
+  // Sidebar scroll target
+  let sidebarScrollTargetElement!: HTMLDivElement;
+
+  // Sidebar state
+  const [sidebarState, setSidebarState] = createSignal<SidebarState>({
+    state: "default",
+  });
+
+  // todo: in the future maybe persist per ID?
+  createEffect(
+    on(
+      () => props.channel.id,
+      () => setSidebarState({ state: "default" }),
+    ),
+  );
+
   return (
     <>
       <Header placement="primary">
-        <ChannelHeader channel={props.channel} />
+        <ChannelHeader
+          channel={props.channel}
+          sidebarState={sidebarState}
+          setSidebarState={setSidebarState}
+        />
       </Header>
       <Content>
         <main class={main()}>
@@ -140,12 +178,69 @@ export function TextChannel(props: ChannelPageProps) {
           />
         </main>
         <Show
-          when={state.layout.getSectionState(
-            LAYOUT_SECTIONS.MEMBER_SIDEBAR,
-            true,
-          )}
+          when={
+            state.layout.getSectionState(
+              LAYOUT_SECTIONS.MEMBER_SIDEBAR,
+              true,
+            ) || sidebarState().state !== "default"
+          }
         >
-          <MemberSidebar channel={props.channel} />
+          <div
+            ref={sidebarScrollTargetElement}
+            use:scrollable={{
+              direction: "y",
+              showOnHover: true,
+              class: sidebar(),
+            }}
+            style={{
+              width: sidebarState().state !== "default" ? "360px" : "",
+            }}
+          >
+            <Switch
+              fallback={
+                <MemberSidebar
+                  channel={props.channel}
+                  scrollTargetElement={sidebarScrollTargetElement}
+                />
+              }
+            >
+              <Match when={sidebarState().state === "search"}>
+                <WideSidebarContainer>
+                  <SidebarTitle>
+                    <Text class="label" size="large">
+                      Search Results
+                    </Text>
+                  </SidebarTitle>
+                  <TextSearchSidebar
+                    channel={props.channel}
+                    query={{
+                      query: (sidebarState() as { query: string }).query,
+                    }}
+                  />
+                </WideSidebarContainer>
+              </Match>
+              <Match when={sidebarState().state === "pins"}>
+                <WideSidebarContainer>
+                  <SidebarTitle>
+                    <Text class="label" size="large">
+                      Pinned Messages
+                    </Text>
+                  </SidebarTitle>
+                  <TextSearchSidebar
+                    channel={props.channel}
+                    query={{ pinned: true, sort: "Latest" }}
+                  />
+                </WideSidebarContainer>
+              </Match>
+            </Switch>
+
+            <Show when={sidebarState().state !== "default"}>
+              <Keybind
+                keybind={KeybindAction.CLOSE_SIDEBAR}
+                onPressed={() => setSidebarState({ state: "default" })}
+              />
+            </Show>
+          </div>
         </Show>
       </Content>
     </>
@@ -162,5 +257,38 @@ const Content = styled("div", {
     flexGrow: 1,
     minWidth: 0,
     minHeight: 0,
+  },
+});
+
+/**
+ * Base styles
+ */
+const sidebar = cva({
+  base: {
+    flexShrink: 0,
+    width: "var(--layout-width-channel-sidebar)",
+    // margin: "var(--gap-md)",
+    borderRadius: "var(--borderRadius-lg)",
+    // color: "var(--colours-sidebar-channels-foreground)",
+    // background: "var(--colours-sidebar-channels-background)",
+  },
+});
+
+/**
+ * Container styles
+ */
+const WideSidebarContainer = styled("div", {
+  base: {
+    paddingRight: "var(--gap-md)",
+    width: "360px",
+  },
+});
+
+/**
+ * Sidebar title
+ */
+const SidebarTitle = styled("div", {
+  base: {
+    padding: "var(--gap-md)",
   },
 });

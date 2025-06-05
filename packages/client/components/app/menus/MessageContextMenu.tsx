@@ -1,4 +1,4 @@
-import { Show } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { Message } from "revolt.js";
@@ -12,6 +12,7 @@ import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
 import MdMarkChatUnread from "@material-design-icons/svg/outlined/mark_chat_unread.svg?component-solid";
+import MdPin from "@material-design-icons/svg/outlined/pin_invoke.svg?component-solid";
 import MdReply from "@material-design-icons/svg/outlined/reply.svg?component-solid";
 import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
 import MdShare from "@material-design-icons/svg/outlined/share.svg?component-solid";
@@ -30,7 +31,7 @@ export function MessageContextMenu(props: { message: Message }) {
   const user = useUser();
   const state = useState();
   const client = useClient();
-  const { openModal } = useModals();
+  const { openModal, showError } = useModals();
 
   /**
    * Reply to this message
@@ -118,11 +119,6 @@ export function MessageContextMenu(props: { message: Message }) {
         <Trans>Copy text</Trans>
       </ContextMenuButton>
       <ContextMenuDivider />
-      <Show when={!props.message.author?.self}>
-        <ContextMenuButton icon={MdReport} onClick={report} destructive>
-          <Trans>Report message</Trans>
-        </ContextMenuButton>
-      </Show>
       <Show
         when={
           props.message.author?.self &&
@@ -142,8 +138,36 @@ export function MessageContextMenu(props: { message: Message }) {
           props.message.channel?.havePermission("ManageMessages")
         }
       >
+        <ContextMenuButton
+          icon={MdPin}
+          onClick={() => {
+            if (props.message.pinned) {
+              props.message.unpin().catch(showError);
+            } else {
+              props.message.pin().catch(showError);
+            }
+          }}
+        >
+          <Switch fallback={<Trans>Pin message</Trans>}>
+            <Match when={props.message.pinned}>
+              <Trans>Unpin message</Trans>
+            </Match>
+          </Switch>
+        </ContextMenuButton>
+      </Show>
+      <Show
+        when={
+          props.message.author?.self ||
+          props.message.channel?.havePermission("ManageMessages")
+        }
+      >
         <ContextMenuButton icon={MdDelete} onClick={deleteMessage} destructive>
           <Trans>Delete message</Trans>
+        </ContextMenuButton>
+      </Show>
+      <Show when={!props.message.author?.self}>
+        <ContextMenuButton icon={MdReport} onClick={report} destructive>
+          <Trans>Report message</Trans>
         </ContextMenuButton>
       </Show>
       <ContextMenuDivider />

@@ -1,5 +1,5 @@
 import { BiRegularAt, BiRegularHash, BiSolidNotepad } from "solid-icons/bi";
-import { Match, Show, Switch } from "solid-js";
+import { Accessor, Match, Setter, Show, Switch, createSignal } from "solid-js";
 
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
@@ -26,13 +26,26 @@ import MdGroup from "@material-design-icons/svg/outlined/group.svg?component-sol
 import MdPersonAdd from "@material-design-icons/svg/outlined/person_add.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/outlined/settings.svg?component-solid";
 
+import MdKeep from "../../svg/keep.svg?component-solid";
 import { HeaderIcon } from "../common/CommonHeader";
+
+import { SidebarState } from "./text/TextChannel";
 
 interface Props {
   /**
    * Channel to render header for
    */
   channel: Channel;
+
+  /**
+   * Sidebar state
+   */
+  sidebarState: Accessor<SidebarState>;
+
+  /**
+   * Set sidebar state
+   */
+  setSidebarState: Setter<SidebarState>;
 }
 
 /**
@@ -68,6 +81,15 @@ export function ChannelHeader(props: Props) {
     }
   }
 
+  const searchValue = () => {
+    const state = props.sidebarState();
+    if (state.state === "search") {
+      return state.query;
+    } else {
+      return "";
+    }
+  };
+
   return (
     <>
       <Switch>
@@ -83,6 +105,12 @@ export function ChannelHeader(props: Props) {
           </HeaderIcon>
           <NonBreakingText
             class={typography({ class: "title", size: "medium" })}
+            onClick={() =>
+              openModal({
+                type: "channel_info",
+                channel: props.channel,
+              })
+            }
           >
             <TextWithEmoji content={props.channel.name!} />
           </NonBreakingText>
@@ -197,16 +225,50 @@ export function ChannelHeader(props: Props) {
         </Button>
       </Show>
 
+      <Button
+        variant="plain"
+        size="icon"
+        use:floating={{
+          tooltip: {
+            placement: "bottom",
+            content: t`View pinned messages`,
+          },
+        }}
+        onPress={() =>
+          props.sidebarState().state === "pins"
+            ? props.setSidebarState({
+                state: "default",
+              })
+            : props.setSidebarState({
+                state: "pins",
+              })
+        }
+      >
+        <MdKeep />
+      </Button>
+
       <Show when={props.channel.type !== "SavedMessages"}>
         <Button
           variant="plain"
           size="icon"
-          onPress={() =>
-            state.layout.toggleSectionState(
-              LAYOUT_SECTIONS.MEMBER_SIDEBAR,
-              true,
-            )
-          }
+          onPress={() => {
+            if (props.sidebarState().state === "default") {
+              state.layout.toggleSectionState(
+                LAYOUT_SECTIONS.MEMBER_SIDEBAR,
+                true,
+              );
+            } else {
+              state.layout.setSectionState(
+                LAYOUT_SECTIONS.MEMBER_SIDEBAR,
+                true,
+                true,
+              );
+
+              props.setSidebarState({
+                state: "default",
+              });
+            }
+          }}
           use:floating={{
             tooltip: {
               placement: "bottom",
@@ -217,6 +279,28 @@ export function ChannelHeader(props: Props) {
           <MdGroup />
         </Button>
       </Show>
+
+      <input
+        class={css({
+          height: "40px",
+          width: "240px",
+          paddingInline: "16px",
+          borderRadius: "var(--borderRadius-full)",
+          background: "var(--md-sys-color-surface-container-high)",
+        })}
+        placeholder="Search messages..."
+        value={searchValue()}
+        onChange={(e) =>
+          e.currentTarget.value
+            ? props.setSidebarState({
+                state: "search",
+                query: e.currentTarget.value,
+              })
+            : props.setSidebarState({
+                state: "default",
+              })
+        }
+      />
     </>
   );
 }

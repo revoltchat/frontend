@@ -66,6 +66,11 @@ interface Props {
    * Whether to replace content with editor
    */
   editing?: boolean;
+
+  /**
+   * Whether this message is a link
+   */
+  isLink?: boolean;
 }
 
 /**
@@ -124,6 +129,7 @@ export function Message(props: Props) {
       mentioned={props.message.mentioned}
       highlight={props.highlight}
       editing={props.editing}
+      isLink={props.isLink}
       tail={props.tail || state.settings.getValue("appearance:compact_mode")}
       header={
         <Show when={props.message.replyIds}>

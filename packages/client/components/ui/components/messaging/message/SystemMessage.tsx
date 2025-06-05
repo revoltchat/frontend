@@ -5,6 +5,7 @@ import {
   ChannelEditSystemMessage,
   ChannelOwnershipChangeSystemMessage,
   ChannelRenamedSystemMessage,
+  MessagePinnedSystemMessage,
   SystemMessage as SystemMessageClass,
   TextSystemMessage,
   User,
@@ -14,7 +15,9 @@ import {
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { RenderAnchor } from "@revolt/markdown/plugins/anchors";
 import { UserMention } from "@revolt/markdown/plugins/mentions";
+import { useSmartParams } from "@revolt/routing";
 
 interface Props {
   /**
@@ -48,7 +51,8 @@ function Usr(props: { user?: User } & Pick<Props, "menuGenerator">) {
  * System Message
  */
 export function SystemMessage(props: Props) {
-  // TODO: i18n with components
+  const params = useSmartParams();
+
   return (
     <Base>
       <Switch fallback={props.systemMessage.type}>
@@ -164,6 +168,36 @@ export function SystemMessage(props: Props) {
               userId={
                 (props.systemMessage as ChannelOwnershipChangeSystemMessage)
                   .toId
+              }
+            />
+          </Trans>
+        </Match>
+        <Match when={props.systemMessage.type === "message_pinned"}>
+          <Trans>
+            <UserMention
+              userId={(props.systemMessage as MessagePinnedSystemMessage).byId}
+            />{" "}
+            pinned{" "}
+            <RenderAnchor
+              href={
+                location.origin +
+                (params().serverId ? `/server/${params().serverId}` : "") +
+                `/channel/${params().channelId}/${(props.systemMessage as MessagePinnedSystemMessage).messageId}`
+              }
+            />
+          </Trans>
+        </Match>
+        <Match when={props.systemMessage.type === "message_unpinned"}>
+          <Trans>
+            <UserMention
+              userId={(props.systemMessage as MessagePinnedSystemMessage).byId}
+            />{" "}
+            unpinned{" "}
+            <RenderAnchor
+              href={
+                location.origin +
+                (params().serverId ? `/server/${params().serverId}` : "") +
+                `/channel/${params().channelId}/${(props.systemMessage as MessagePinnedSystemMessage).messageId}`
               }
             />
           </Trans>

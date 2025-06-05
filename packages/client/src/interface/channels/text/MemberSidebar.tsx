@@ -1,4 +1,4 @@
-import { For, Match, Show, Switch, createMemo, onMount } from "solid-js";
+import { Match, Show, Switch, createMemo, onMount } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
@@ -28,6 +28,11 @@ interface Props {
    * Channel
    */
   channel: Channel;
+
+  /**
+   * Scroll target element
+   */
+  scrollTargetElement: HTMLDivElement;
 }
 
 /**
@@ -37,10 +42,16 @@ export function MemberSidebar(props: Props) {
   return (
     <Switch>
       <Match when={props.channel.type === "Group"}>
-        <GroupMemberSidebar channel={props.channel} />
+        <GroupMemberSidebar
+          channel={props.channel}
+          scrollTargetElement={props.scrollTargetElement}
+        />
       </Match>
       <Match when={props.channel.type === "TextChannel"}>
-        <ServerMemberSidebar channel={props.channel} />
+        <ServerMemberSidebar
+          channel={props.channel}
+          scrollTargetElement={props.scrollTargetElement}
+        />
       </Match>
     </Switch>
   );
@@ -56,7 +67,6 @@ const IGNORE_ALL = ["01F7ZSBSFHQ8TA81725KQCSDDP", "01F80118K1F2EYD9XAMCPQ0BCT"];
  */
 export function ServerMemberSidebar(props: Props) {
   const client = useClient();
-  let scrollTargetElement!: HTMLDivElement;
 
   onMount(() =>
     props.channel.server?.syncMembers(
@@ -207,63 +217,54 @@ export function ServerMemberSidebar(props: Props) {
   });
 
   return (
-    <div
-      ref={scrollTargetElement}
-      use:scrollable={{
-        direction: "y",
-        showOnHover: true,
-        class: base(),
-      }}
-    >
-      <Container>
-        <MemberTitle bottomMargin="yes">
-          <Row align>
-            <UserStatus size="0.7em" status="Online" />
-            {
-              client().serverMembers.filter(
-                (member) =>
-                  (member.id.server === props.channel.serverId &&
-                    member.user?.online) ||
-                  false,
-              ).length
-            }{" "}
-            members online
-          </Row>
-        </MemberTitle>
+    <Container>
+      <MemberTitle bottomMargin="yes">
+        <Row align>
+          <UserStatus size="0.7em" status="Online" />
+          {
+            client().serverMembers.filter(
+              (member) =>
+                (member.id.server === props.channel.serverId &&
+                  member.user?.online) ||
+                false,
+            ).length
+          }{" "}
+          members online
+        </Row>
+      </MemberTitle>
 
-        <Deferred>
-          <VirtualContainer
-            items={elements()}
-            scrollTarget={scrollTargetElement}
-            itemSize={{ height: 42 }}
-          >
-            {(item) => (
-              <div
-                style={{
-                  ...item.style,
-                  width: "100%",
-                }}
+      <Deferred>
+        <VirtualContainer
+          items={elements()}
+          scrollTarget={props.scrollTargetElement}
+          itemSize={{ height: 42 }}
+        >
+          {(item) => (
+            <div
+              style={{
+                ...item.style,
+                width: "100%",
+              }}
+            >
+              <Switch
+                fallback={
+                  <CategoryTitle>
+                    {(item.item as { name: string }).name} {"–"}{" "}
+                    {(item.item as { count: number }).count}
+                  </CategoryTitle>
+                }
               >
-                <Switch
-                  fallback={
-                    <CategoryTitle>
-                      {(item.item as { name: string }).name} {"–"}{" "}
-                      {(item.item as { count: number }).count}
-                    </CategoryTitle>
-                  }
-                >
-                  <Match when={item.item.t === 1}>
-                    <Member
-                      member={(item.item as { member: ServerMember }).member}
-                    />
-                  </Match>
-                </Switch>
-              </div>
-            )}
-          </VirtualContainer>
-        </Deferred>
-      </Container>
-    </div>
+                <Match when={item.item.t === 1}>
+                  <Member
+                    member={(item.item as { member: ServerMember }).member}
+                  />
+                </Match>
+              </Switch>
+            </div>
+          )}
+        </VirtualContainer>
+      </Deferred>
+    </Container>
   );
 }
 
@@ -271,60 +272,35 @@ export function ServerMemberSidebar(props: Props) {
  * Group Member Sidebar
  */
 export function GroupMemberSidebar(props: Props) {
-  let scrollTargetElement!: HTMLDivElement;
-
   return (
-    <div
-      class={base()}
-      ref={scrollTargetElement}
-      use:scrollable={{
-        direction: "y",
-        showOnHover: true,
-      }}
-    >
-      <Container>
-        <MemberTitle>
-          <Row align>{props.channel.recipientIds.size} members</Row>
-        </MemberTitle>
+    <Container>
+      <MemberTitle>
+        <Row align>{props.channel.recipientIds.size} members</Row>
+      </MemberTitle>
 
-        <Deferred>
-          <VirtualContainer
-            items={props.channel.recipients.toSorted((a, b) =>
-              a.displayName.localeCompare(b.displayName),
-            )}
-            scrollTarget={scrollTargetElement}
-            itemSize={{ height: 42 }}
-          >
-            {(item) => (
-              <div
-                style={{
-                  ...item.style,
-                  width: "100%",
-                }}
-              >
-                <Member user={item.item} />
-              </div>
-            )}
-          </VirtualContainer>
-        </Deferred>
-      </Container>
-    </div>
+      <Deferred>
+        <VirtualContainer
+          items={props.channel.recipients.toSorted((a, b) =>
+            a.displayName.localeCompare(b.displayName),
+          )}
+          scrollTarget={props.scrollTargetElement}
+          itemSize={{ height: 42 }}
+        >
+          {(item) => (
+            <div
+              style={{
+                ...item.style,
+                width: "100%",
+              }}
+            >
+              <Member user={item.item} />
+            </div>
+          )}
+        </VirtualContainer>
+      </Deferred>
+    </Container>
   );
 }
-
-/**
- * Base styles
- */
-const base = cva({
-  base: {
-    flexShrink: 0,
-    width: "var(--layout-width-channel-sidebar)",
-    // margin: "var(--gap-md)",
-    borderRadius: "var(--borderRadius-lg)",
-    // color: "var(--colours-sidebar-channels-foreground)",
-    // background: "var(--colours-sidebar-channels-background)",
-  },
-});
 
 /**
  * Container styles

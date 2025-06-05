@@ -2,6 +2,7 @@ import {
   BiRegularAlignLeft,
   BiRegularLeftArrowAlt,
   BiRegularMinus,
+  BiRegularPin,
   BiRegularPlus,
   BiRegularRightArrowAlt,
   BiRegularX,
@@ -86,6 +87,14 @@ export function SystemMessageIcon(props: {
             when={props.systemMessage.type === "channel_ownership_changed"}
           >
             <BiSolidKey size={16} />
+          </Match>
+          <Match
+            when={
+              props.systemMessage.type === "message_pinned" ||
+              props.systemMessage.type === "message_unpinned"
+            }
+          >
+            <BiRegularPin size={16} />
           </Match>
         </Switch>
       </Tooltip>

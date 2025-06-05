@@ -7,9 +7,9 @@ import { State } from "..";
 
 import { AbstractStore } from ".";
 
-type SynchronisedStores = "ordering";
+type SynchronisedStores = "ordering" | "notifications";
 
-const STORE_KEYS: SynchronisedStores[] = ["ordering"];
+const STORE_KEYS: SynchronisedStores[] = ["ordering", "notifications"];
 
 export interface TypeSynchronisation {
   revision: Record<SynchronisedStores, number>;
@@ -51,6 +51,7 @@ export class Sync extends AbstractStore<"sync", TypeSynchronisation> {
     return {
       revision: {
         ordering: 0,
+        notifications: 0,
       },
     };
   }
@@ -159,6 +160,9 @@ export class Sync extends AbstractStore<"sync", TypeSynchronisation> {
    * @param data Data to merge
    */
   merge(ts: number, key: SynchronisedStores, data: string) {
+    if (import.meta.env.DEV)
+      console.info(`[sync] merge ${key} at ${ts} with`, data);
+
     if (ts > this.ts(key)) {
       // if ts is newer, hydrate the store with it
       const parsed = this.state[key].clean(JSON.parse(data));

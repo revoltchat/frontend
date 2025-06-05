@@ -1,4 +1,4 @@
-import { Channel, Message, Server } from "revolt.js";
+import { Channel, Server } from "revolt.js";
 
 import { State } from "..";
 

@@ -140,6 +140,7 @@ export class ModalControllerExtended extends ModalController {
 
     this.mfaFlow = this.mfaFlow.bind(this);
     this.mfaEnableTOTP = this.mfaEnableTOTP.bind(this);
+    this.showError = this.showError.bind(this);
     this.openLink = this.openLink.bind(this);
   }
 
@@ -171,6 +172,18 @@ export class ModalControllerExtended extends ModalController {
         callback,
       }),
     );
+  }
+
+  /**
+   * Show any error
+   * @param error Error
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  showError(error: any) {
+    this.openModal({
+      type: "error2",
+      error,
+    });
   }
 
   /**
