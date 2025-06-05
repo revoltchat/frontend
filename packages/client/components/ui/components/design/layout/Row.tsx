@@ -48,5 +48,10 @@ export const Row = styled("div", {
       xl: { gap: "var(--gap-xl)" },
       none: { gap: "unset" },
     },
+    minWidth: {
+      0: {
+        minWidth: 0,
+      },
+    },
   },
 });

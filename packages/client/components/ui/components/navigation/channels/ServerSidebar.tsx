@@ -177,12 +177,10 @@ function ServerInfo(
   props: Pick<Props, "server" | "openServerInfo" | "openServerSettings">,
 ) {
   return (
-    <Row align grow>
+    <Row align grow minWidth={0}>
       <ServerBadge flags={props.server.flags} />
       <ServerName onClick={props.openServerInfo}>
-        <OverflowingText>
-          <TextWithEmoji content={props.server.name} />
-        </OverflowingText>
+        <TextWithEmoji content={props.server.name} />
       </ServerName>
       <SettingsLink onClick={props.openServerSettings}>
         <BiSolidCog size={18} />
@@ -197,6 +195,11 @@ function ServerInfo(
 const ServerName = styled("a", {
   base: {
     flexGrow: 1,
+    minWidth: 0,
+
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
   },
 });
 
