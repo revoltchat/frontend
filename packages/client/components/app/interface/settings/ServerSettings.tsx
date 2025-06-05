@@ -100,7 +100,6 @@ const Config: SettingsConfiguration<Server> = {
             {
               hidden: !(
                 server.havePermission("ManageRole") ||
-                server.havePermission("AssignRoles") ||
                 server.havePermission("ManagePermissions")
               ),
               id: "roles",

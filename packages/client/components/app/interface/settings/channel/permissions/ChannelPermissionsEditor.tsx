@@ -398,6 +398,9 @@ export function ChannelPermissionsEditor(props: Props) {
                   onChange={() =>
                     setValue((v) => [v[0] ^ BigInt(entry.value), v[1]])
                   }
+                  havePermission={
+                    (props.context.permission & entry.value) === entry.value
+                  }
                 />
               }
             >
@@ -423,6 +426,9 @@ export function ChannelPermissionsEditor(props: Props) {
 
                     setValue([allow, deny]);
                   }}
+                  havePermission={
+                    (props.context.permission & entry.value) === entry.value
+                  }
                 />
               </Match>
             </Switch>
@@ -440,9 +446,16 @@ function ChannelPermissionToggle(props: {
 
   value: boolean;
   onChange: (value: boolean) => void;
+
+  havePermission: boolean;
 }) {
   return (
-    <Checkbox2 name={props.key} checked={props.value} onChange={props.onChange}>
+    <Checkbox2
+      name={props.key}
+      checked={props.value}
+      onChange={props.onChange}
+      disabled={!props.havePermission}
+    >
       <div
         class={css({
           marginStart: "var(--gap-md)",
@@ -464,6 +477,8 @@ function ChannelPermissionOverride(props: {
 
   value: "allow" | "deny" | "neutral";
   onChange: (value: "allow" | "deny" | "neutral") => void;
+
+  havePermission: boolean;
 }) {
   return (
     <div
@@ -483,7 +498,7 @@ function ChannelPermissionOverride(props: {
         <Text>{props.description}</Text>
       </div>
       <OverrideSwitch
-        disabled={false}
+        disabled={!props.havePermission}
         value={props.value}
         onChange={props.onChange}
       />
