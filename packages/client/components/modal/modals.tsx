@@ -41,7 +41,7 @@ import onboarding from "./modals/Onboarding";
 import rename_session from "./modals/RenameSession";
 import report_content from "./modals/ReportContent";
 import server_identity from "./modals/ServerIdentity";
-import server_info from "./modals/ServerInfo";
+import { ServerInfoModal } from "./modals/ServerInfo";
 import settings from "./modals/Settings";
 import sign_out_sessions from "./modals/SignOutSessions";
 import signed_out from "./modals/SignedOut";
@@ -84,6 +84,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <Error2Modal {...modalProps} />;
     case "image_viewer":
       return <ImageViewerModal {...modalProps} />;
+    case "server_info":
+      return <ServerInfoModal {...modalProps} />;
     case "user_profile":
       return <UserProfileModal {...modalProps} />;
     case "user_profile_roles":
@@ -128,7 +130,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
         rename_session,
         report_content,
         server_identity,
-        server_info,
         settings,
         signed_out,
         sign_out_sessions,
