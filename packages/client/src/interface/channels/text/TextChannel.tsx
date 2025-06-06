@@ -179,10 +179,12 @@ export function TextChannel(props: ChannelPageProps) {
         </main>
         <Show
           when={
-            state.layout.getSectionState(
+            (state.layout.getSectionState(
               LAYOUT_SECTIONS.MEMBER_SIDEBAR,
               true,
-            ) || sidebarState().state !== "default"
+            ) &&
+              props.channel.type !== "SavedMessages") ||
+            sidebarState().state !== "default"
           }
         >
           <div
