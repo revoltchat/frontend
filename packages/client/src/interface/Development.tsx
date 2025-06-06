@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { createFormControl, createFormGroup } from "solid-forms";
 import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
+import { For } from "solid-js";
 
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
@@ -15,9 +16,11 @@ import {
   ComboBox,
   Form2,
   OverrideSwitch,
+  Text,
   TextField,
   iconSize,
 } from "@revolt/ui";
+import { DataTable } from "@revolt/ui/components/material/DataTable";
 
 import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
 
@@ -104,8 +107,33 @@ export function DevelopmentPage() {
     });
   }
 
+  const manyData = new Array(1000).fill(0).map((_, idx) => idx);
+
   return (
     <Column>
+      <DataTable
+        header={<Text class="title">Table Title</Text>}
+        columns={["idx", "hello", "2"]}
+        itemCount={manyData.length}
+      >
+        {(page, itemsPerPage) => (
+          <For
+            each={manyData.slice(
+              page * itemsPerPage,
+              page * itemsPerPage + itemsPerPage,
+            )}
+          >
+            {(item) => (
+              <DataTable.Row>
+                <DataTable.Cell>{item}</DataTable.Cell>
+                <DataTable.Cell>rahh</DataTable.Cell>
+                <DataTable.Cell>123</DataTable.Cell>
+              </DataTable.Row>
+            )}
+          </For>
+        )}
+      </DataTable>
+
       <FormTest />
 
       <div

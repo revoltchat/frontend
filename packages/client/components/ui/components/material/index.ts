@@ -11,3 +11,4 @@ export {
   SingleSelectSegmentedButtonGroup,
 } from "./SegmentedButton";
 export { main } from "./Main";
+export { Select, MenuItem } from "./Select";

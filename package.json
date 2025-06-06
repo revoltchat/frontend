@@ -11,6 +11,7 @@
     "lint": "eslint --ext .ts,.tsx packages/client",
     "lint:fix": "eslint --fix --ext .ts,.tsx packages/client",
     "dev:web": "pnpm --filter client dev",
+    "dev:storybook": "pnpm --filter client storybook",
     "dev:desktop": "pnpm --filter desktop tauri dev",
     "build:deps": "pnpm --filter revolt.js build && pnpm --filter solid-livekit-components build && pnpm --filter client lingui:compile",
     "build:web": "pnpm --filter client build",

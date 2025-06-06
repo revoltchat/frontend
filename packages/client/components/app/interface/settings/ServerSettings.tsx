@@ -20,7 +20,9 @@ import { ColouredText } from "@revolt/ui";
 import { SettingsConfiguration } from ".";
 import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
 import Overview from "./server/Overview";
+import { ListServerBans } from "./server/bans/ListBans";
 import { EmojiList } from "./server/emojis/EmojiList";
+import { ListServerInvites } from "./server/invites/ListServerInvites";
 import { ServerRoleOverview } from "./server/roles/ServerRoleOverview";
 
 const Config: SettingsConfiguration<Server> = {
@@ -70,6 +72,10 @@ const Config: SettingsConfiguration<Server> = {
         return <EmojiList server={server} />;
       case "roles":
         return <ServerRoleOverview context={server} />;
+      case "invites":
+        return <ListServerInvites server={server} />;
+      case "bans":
+        return <ListServerBans server={server} />;
 
       default:
         return null;
