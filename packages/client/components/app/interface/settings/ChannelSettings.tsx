@@ -18,7 +18,8 @@ import { SettingsConfiguration } from ".";
 import ChannelOverview from "./channel/Overview";
 import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
 import { ChannelPermissionsOverview } from "./channel/permissions/ChannelPermissionsOverview";
-import { ViewWebhook, WebhooksList } from "./channel/webhooks";
+import { ViewWebhook } from "./channel/webhooks/ViewWebhook";
+import { WebhooksList } from "./channel/webhooks/WebhooksList";
 
 const Config: SettingsConfiguration<Channel> = {
   /**

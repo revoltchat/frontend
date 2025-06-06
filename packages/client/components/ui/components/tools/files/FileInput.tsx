@@ -38,6 +38,7 @@ interface Props {
   imageAspect?: string;
   imageRounded?: boolean;
   imageJustify?: boolean;
+  allowRemoval?: boolean;
 
   required: boolean;
   disabled: boolean;
@@ -125,14 +126,16 @@ export function FileInput(props: Props) {
               <img src={imageSrc()} />
             </Show>
           </ImagePreview>
-          <Button
-            size="icon"
-            variant="plain"
-            onPress={onClear}
-            isDisabled={!props.file}
-          >
-            <MdClose />
-          </Button>
+          <Show when={props.allowRemoval !== false}>
+            <Button
+              size="icon"
+              variant="plain"
+              onPress={onClear}
+              isDisabled={!props.file}
+            >
+              <MdClose />
+            </Button>
+          </Show>
         </Row>
       </Match>
     </Switch>

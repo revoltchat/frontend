@@ -23,6 +23,7 @@ import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
+import { useState } from "@revolt/state";
 
 import MdChevronRight from "@material-design-icons/svg/filled/chevron_right.svg?component-solid";
 import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
@@ -247,12 +248,13 @@ function Category(
     channelId: string | undefined;
   } & Pick<Props, "menuGenerator">,
 ) {
-  const [shown, setShown] = createSignal(true);
+  const state = useState();
+
   const channels = createMemo(() =>
     props.category.channels.filter(
       (channel) =>
         props.category.id === "default" ||
-        shown() ||
+        state.layout.getSectionState(props.category.id, true) ||
         channel.unread ||
         channel.id === props.channelId,
     ),
@@ -262,8 +264,10 @@ function Category(
     <Column gap="sm">
       <Show when={props.category.id !== "default"}>
         <CategoryBase
-          open={shown()}
-          onClick={() => setShown((shown) => !shown)}
+          open={state.layout.getSectionState(props.category.id, true)}
+          onClick={() =>
+            state.layout.toggleSectionState(props.category.id, true)
+          }
         >
           <MdChevronRight {...iconSize(12)} />
           {props.category.title}

@@ -8,7 +8,6 @@ export const Column = styled("div", {
     display: "flex",
     flexDirection: "column",
     flexGrow: "initial",
-    gap: "var(--gap-md)",
     margin: "0",
     alignItems: "initial",
     justifyContent: "initial",
@@ -47,6 +46,10 @@ export const Column = styled("div", {
       md: { gap: "var(--gap-md)" },
       lg: { gap: "var(--gap-lg)" },
       xl: { gap: "var(--gap-xl)" },
+      none: {},
     },
+  },
+  defaultVariants: {
+    gap: "md",
   },
 });

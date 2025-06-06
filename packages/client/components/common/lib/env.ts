@@ -54,6 +54,10 @@ export default {
    */
   MAX_ATTACHMENTS: (import.meta.env.VITE_CFG_MAX_ATTACHMENTS as number) ?? 5,
   /**
+   * Maximum number of emoji a server can have
+   */
+  MAX_EMOJI: (import.meta.env.VITE_CFG_MAX_EMOJI as number) ?? 100,
+  /**
    * Session ID to set during development.
    */
   DEVELOPMENT_SESSION_ID: import.meta.env.DEV

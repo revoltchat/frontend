@@ -5,6 +5,7 @@ import {
   Bot,
   Channel,
   Client,
+  Emoji,
   File,
   ImageEmbed,
   MFA,
@@ -123,6 +124,10 @@ export type Modals =
   | {
       type: "edit_username";
       client: Client;
+    }
+  | {
+      type: "emoji_preview";
+      emoji: Emoji;
     }
   | {
       /**

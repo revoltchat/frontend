@@ -30,6 +30,8 @@ export interface Props {
   readonly disabled?: boolean;
   readonly onClick?: () => void;
   readonly action?: Action | Action[];
+
+  readonly roundedIcon?: boolean;
 }
 
 /**
@@ -46,7 +48,7 @@ export function CategoryButton(props: Props) {
       <Ripple />
 
       <Show when={props.icon !== "blank"}>
-        <IconWrapper>{props.icon}</IconWrapper>
+        <IconWrapper rounded={props.roundedIcon}>{props.icon}</IconWrapper>
       </Show>
 
       <Show when={props.icon === "blank"}>
@@ -171,7 +173,19 @@ const IconWrapper = styled("div", {
     flexShrink: 0,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: "50%",
+  },
+  variants: {
+    rounded: {
+      true: {
+        borderRadius: "var(--borderRadius-full)",
+      },
+      false: {
+        borderRadius: "var(--borderRadius-md)",
+      },
+    },
+  },
+  defaultVariants: {
+    rounded: true,
   },
 });
 

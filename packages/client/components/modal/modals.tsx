@@ -28,6 +28,7 @@ import edit_display_name from "./modals/EditDisplayName";
 import edit_email from "./modals/EditEmail";
 import edit_password from "./modals/EditPassword";
 import edit_username from "./modals/EditUsername";
+import { EmojiPreviewModal } from "./modals/EmojiPreview";
 import error from "./modals/Error";
 import { Error2Modal } from "./modals/Error2";
 import { ImageViewerModal } from "./modals/ImageViewer";
@@ -80,6 +81,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <CreateGroupModal {...modalProps} />;
     case "create_webhook":
       return <CreateWebhookModal {...modalProps} />;
+    case "emoji_preview":
+      return <EmojiPreviewModal {...modalProps} />;
     case "error2":
       return <Error2Modal {...modalProps} />;
     case "image_viewer":

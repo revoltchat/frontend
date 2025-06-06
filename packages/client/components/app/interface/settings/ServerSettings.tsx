@@ -20,6 +20,7 @@ import { ColouredText } from "@revolt/ui";
 import { SettingsConfiguration } from ".";
 import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
 import Overview from "./server/Overview";
+import { EmojiList } from "./server/emojis/EmojiList";
 import { ServerRoleOverview } from "./server/roles/ServerRoleOverview";
 
 const Config: SettingsConfiguration<Server> = {
@@ -65,6 +66,8 @@ const Config: SettingsConfiguration<Server> = {
     switch (id) {
       case "overview":
         return <Overview server={server} />;
+      case "emojis":
+        return <EmojiList server={server} />;
       case "roles":
         return <ServerRoleOverview context={server} />;
 
@@ -92,20 +95,6 @@ const Config: SettingsConfiguration<Server> = {
               icon: <BiSolidInfoCircle size={20} />,
               title: <Trans>Overview</Trans>,
             },
-            {
-              id: "members",
-              icon: <BiSolidGroup size={20} />,
-              title: <Trans>Members</Trans>,
-            },
-            {
-              hidden: !(
-                server.havePermission("ManageRole") ||
-                server.havePermission("ManagePermissions")
-              ),
-              id: "roles",
-              icon: <BiSolidFlagAlt size={20} />,
-              title: <Trans>Roles</Trans>,
-            },
           ],
         },
         {
@@ -125,6 +114,21 @@ const Config: SettingsConfiguration<Server> = {
             !server.havePermission("BanMembers"),
           title: <Trans>User Management</Trans>,
           entries: [
+            {
+              hidden: true,
+              id: "members",
+              icon: <BiSolidGroup size={20} />,
+              title: <Trans>Members</Trans>,
+            },
+            {
+              hidden: !(
+                server.havePermission("ManageRole") ||
+                server.havePermission("ManagePermissions")
+              ),
+              id: "roles",
+              icon: <BiSolidFlagAlt size={20} />,
+              title: <Trans>Roles</Trans>,
+            },
             {
               hidden: !server.havePermission("ManageServer"),
               id: "invites",

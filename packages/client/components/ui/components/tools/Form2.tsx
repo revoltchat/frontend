@@ -51,7 +51,7 @@ const FormFileInput = (
     control: IFormControl<File[] | string | null>;
   } & Pick<
     ComponentProps<typeof FileInput>,
-    "accept" | "imageAspect" | "imageRounded" | "imageJustify"
+    "accept" | "imageAspect" | "imageRounded" | "imageJustify" | "allowRemoval"
   >,
 ) => {
   const [local, remote] = splitProps(props, ["label", "control"]);
@@ -140,7 +140,7 @@ const FormResetButton = (props: {
     <Button
       variant="plain"
       onPress={() => {
-        resetGeneric(props.group);
+        resetGeneric(props.group, true);
         props.onReset();
       }}
       isDisabled={!props.group.isDirty}
@@ -157,8 +157,20 @@ const FormSubmitButton = (props: {
   group: IFormGroup;
   children: JSX.Element;
 }) => {
+  function canSubmit() {
+    if (props.group.isDisabled) return false;
+    if (!props.group.isDirty) return false;
+
+    for (const control in props.group.controls) {
+      const element = props.group.controls[control];
+      if (element.isRequired && !element.value) return false;
+    }
+
+    return true;
+  }
+
   return (
-    <Button type="submit" isDisabled={!props.group.isDirty}>
+    <Button type="submit" isDisabled={!canSubmit()}>
       {props.children}
     </Button>
   );
@@ -167,11 +179,14 @@ const FormSubmitButton = (props: {
 /**
  * Generic 'reset' of form group
  * @param group Form Group
+ * @param includingFields Whether to also reset fields
  */
-function resetGeneric(group: IFormGroup) {
-  for (const control of Object.values(group.controls)) {
-    control.markDirty(false);
-    control.markTouched(false);
+function resetGeneric(group: IFormGroup, includingFields: boolean) {
+  if (includingFields) {
+    for (const control of Object.values(group.controls)) {
+      control.markDirty(false);
+      control.markTouched(false);
+    }
   }
 
   group.markPending(false);
@@ -203,14 +218,16 @@ function submitHandler(
 
     try {
       await handler();
+      resetGeneric(group, true);
+      onReset?.();
     } catch (err) {
       group.setErrors({
         error: err,
       });
+
+      resetGeneric(group, false);
     } finally {
       group.markPending(false);
-      resetGeneric(group);
-      onReset?.();
     }
   };
 }
