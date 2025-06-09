@@ -106,7 +106,7 @@ export const ModalScrim = styled("div", {
     right: 0,
     bottom: 0,
     position: "fixed",
-    zIndex: "var(--layout-zIndex-modal)",
+    zIndex: "100",
 
     maxHeight: "100%",
 

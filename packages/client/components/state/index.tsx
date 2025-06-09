@@ -22,6 +22,7 @@ import { NotificationOptions } from "./stores/NotificationOptions";
 import { Ordering } from "./stores/Ordering";
 import { Settings } from "./stores/Settings";
 import { Sync } from "./stores/Sync";
+import { Theme } from "./stores/Theme";
 
 export { SyncWorker } from "./SyncWorker";
 
@@ -55,6 +56,7 @@ export class State {
   ordering = new Ordering(this);
   settings = new Settings(this);
   sync = new Sync(this);
+  theme = new Theme(this);
 
   /**
    * Iterate over all available stores

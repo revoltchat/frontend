@@ -1,9 +1,16 @@
-import { Accessor, createContext, onCleanup, useContext, type JSXElement } from "solid-js";
+import {
+  Accessor,
+  type JSXElement,
+  createContext,
+  onCleanup,
+  useContext,
+} from "solid-js";
 
 import type { Client, User } from "revolt.js";
 
-import ClientController from "./Controller";
 import { State } from "@revolt/state";
+
+import ClientController from "./Controller";
 
 export type { default as ClientController } from "./Controller";
 
@@ -12,7 +19,7 @@ const clientContext = createContext(null! as ClientController);
 /**
  * Mount the modal controller
  */
-export function ClientContext(props: { state: State, children: JSXElement }) {
+export function ClientContext(props: { state: State; children: JSXElement }) {
   const controller = new ClientController(props.state);
   onCleanup(() => controller.dispose());
 
@@ -28,11 +35,17 @@ export function ClientContext(props: { state: State, children: JSXElement }) {
  * @returns Lifecycle information
  */
 export function useClientLifecycle() {
-  const { login, logout, selectUsername, lifecycle, isLoggedIn, isError } = useContext(clientContext);
+  const { login, logout, selectUsername, lifecycle, isLoggedIn, isError } =
+    useContext(clientContext);
 
   return {
-    login, logout, selectUsername, lifecycle, isLoggedIn, isError
-  }
+    login,
+    logout,
+    selectUsername,
+    lifecycle,
+    isLoggedIn,
+    isError,
+  };
 }
 
 /**

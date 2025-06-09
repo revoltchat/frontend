@@ -18,13 +18,13 @@ export const paragraph = styled("p", {
   variants: {
     emojiSize: {
       small: {
-        "--emoji-size": "var(--layout-emoji-small)",
+        // inherit default
       },
       medium: {
-        "--emoji-size": "var(--layout-emoji-medium)",
+        "--emoji-size": "var(--emoji-size-medium)",
       },
       large: {
-        "--emoji-size": "var(--layout-emoji-large)",
+        "--emoji-size": "var(--emoji-size-large)",
       },
     },
   },

@@ -12,6 +12,7 @@ import { TypeNotificationOptions } from "./NotificationOptions";
 import { TypeOrdering } from "./Ordering";
 import { TypeSettings } from "./Settings";
 import { TypeSynchronisation } from "./Sync";
+import { TypeTheme } from "./Theme";
 
 export type Store = {
   auth: TypeAuth;
@@ -24,6 +25,7 @@ export type Store = {
   ordering: TypeOrdering;
   settings: TypeSettings;
   sync: TypeSynchronisation;
+  theme: TypeTheme;
 };
 
 /**

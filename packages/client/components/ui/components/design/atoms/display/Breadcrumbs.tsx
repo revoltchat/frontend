@@ -72,12 +72,6 @@ const Unselected = styled("div", {
   base: {
     cursor: "pointer",
     transition: "var(--transitions-fast) filter",
-    "&:hover": {
-      filter: "var(--effects-hover)",
-    },
-    "&:active": {
-      filter: "var(--effects-active)",
-    },
   },
 });
 

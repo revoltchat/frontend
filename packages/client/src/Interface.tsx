@@ -1,7 +1,6 @@
 import { JSX, Match, Switch, createEffect } from "solid-js";
 
 import { Server } from "revolt.js";
-import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
@@ -12,7 +11,7 @@ import { useModals } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { Button, Preloader } from "@revolt/ui";
+import { Preloader } from "@revolt/ui";
 
 import { Sidebar } from "./interface/Sidebar";
 
@@ -78,24 +77,6 @@ const Interface = (props: { children: JSX.Element }) => {
             Device is offline
           </Match>
         </Switch>
-        <div class={css({ display: "flex", gap: "4px" })}>
-          <Button
-            size="small"
-            onPress={() => {
-              (window as any)._demo_setDarkMode(false);
-            }}
-          >
-            Light Mode
-          </Button>
-          <Button
-            size="small"
-            onPress={() => {
-              (window as any)._demo_setDarkMode(true);
-            }}
-          >
-            Dark Mode
-          </Button>
-        </div>
       </Notice>
       <Switch fallback={<Preloader grow type="spinner" />}>
         <Match when={!isLoggedIn()}>
@@ -145,8 +126,7 @@ const Notice = styled("div", {
   base: {
     textAlign: "center",
     fontSize: "0.8em",
-    // margin: "var(--gap-md) var(--gap-md) 0 var(--gap-md)",
-    padding: "var(--gap-md)",
+    padding: "8px",
     background: "var(--md-sys-color-surface-container-high)",
     color: "var(--colours-messaging-message-box-foreground)",
     // borderRadius: "var(--borderRadius-md)",

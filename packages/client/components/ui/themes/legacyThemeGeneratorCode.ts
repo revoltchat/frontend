@@ -45,7 +45,7 @@ function hexToRgb(v: string) {
 /**
  * Create dark theme
  */
-export const darkTheme: (
+export const legacyThemeUnsetShim: (
   accentColour?: string,
   darkMode?: boolean,
 ) => DefaultTheme = (accentColour = "#FF5733", darkMode = false) => {
@@ -95,6 +95,7 @@ export const darkTheme: (
       "--md-sys-color-on-tertiary-fixed-variant",
       hexFromArgb(tertiary.tone(30)),
     ],
+
     ["--md-sys-color-surface-dim", hexFromArgb(neutral.tone(87))],
     ["--md-sys-color-surface-bright", hexFromArgb(neutral.tone(98))],
     ["--md-sys-color-surface-container-lowest", hexFromArgb(neutral.tone(100))],
@@ -185,15 +186,6 @@ export const darkTheme: (
   }
 
   return {
-    accentColour,
-    materialTheme: theme,
-    darkMode,
-    ...(darkMode
-      ? new Map([...lightColors.entries(), ...darkColors.entries()])
-      : lightColors
-    )
-      .entries()
-      .reduce((d, v) => ({ ...d, [v[0].substring(2)]: v[1] }), {}),
     colours: {
       // Global
       link: "#0088ce",
@@ -307,8 +299,6 @@ export const darkTheme: (
       "preloader-foreground": materialColour("primary"),
 
       // Sidebar
-      // TODO: figure this out
-      // works better for both dark and light theme but more muted:
       "sidebar-channels-background": materialColour("onBackground", 94),
       "sidebar-channels-foreground": materialColour("onPrimaryContainer"),
       "sidebar-members-background": materialColour("onBackground", 94),
@@ -327,21 +317,6 @@ export const darkTheme: (
         "onSurfaceVariant",
         60,
       ),
-      // OR balls to the wall: (but dark mode gets fucked)
-      // "sidebar-channels-background": materialColour("primaryContainer", 94),
-      // "sidebar-channels-foreground": materialColour("onPrimaryContainer"),
-      // "sidebar-members-background": materialColour("primaryContainer", 94),
-      // "sidebar-members-foreground": materialColour("onPrimaryContainer"),
-      // "sidebar-header-background": materialColour("primaryContainer", 94),
-      // "sidebar-header-foreground": materialColour("onPrimaryContainer"),
-      // "sidebar-header-transparent-background": `rgba(${hexToRgb(
-      //   materialColour("primaryContainer")
-      // )}, 0.75)`,
-      // "sidebar-header-with-image-text-background": `rgba(${hexToRgb(
-      //   materialColour("onBackground")
-      // )}, 0.5)`,
-      // "sidebar-header-with-image-text-foreground": materialColour("background"),
-      // "sidebar-server-list-foreground": materialColour("onBackground", 80),
 
       // Messaging: Interface
       "messaging-channel-header-divider": materialColour("onBackground", 80),
@@ -363,8 +338,6 @@ export const darkTheme: (
         97,
       ),
       "messaging-message-info-text": materialColour("onBackground", 50),
-      // "messaging-message-box-background": materialColour("primaryContainer"),
-      // "messaging-message-box-foreground": materialColour("onPrimaryContainer"),
 
       // Messaging: Components
       "messaging-component-container-background": materialColour(
@@ -444,247 +417,6 @@ export const darkTheme: (
       "settings-sidebar-button-active": materialColour("secondary", 82),
       // Temporary Colours
       "temp-1": materialColour("secondary", 85),
-    },
-    customColours,
-    // TODO: deprecate, provide hexToRgb utility instead
-    rgb: {
-      header: "54,54,54",
-      "typing-indicator": "30,30,30",
-    },
-    breakpoints: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-    },
-    borderRadius: {
-      // Material 3 Expressive ten-level shape scale
-      // https://m3.material.io/styles/shape/corner-radius-scale
-      none: "0px",
-      xs: "4px",
-      sm: "8px",
-      md: "12px",
-      lg: "16px",
-      li: "20px",
-      xl: "16px",
-      xli: "32px",
-      xxl: "48px",
-      full: "calc(infinity * 1px)",
-      circle: "100%",
-    },
-    /**
-     * @deprecated decide this at a component level
-     */
-    gap: {
-      none: "0",
-      xxs: "1px",
-      xs: "2px",
-      s: "6px",
-      sm: "4px",
-      md: "8px",
-      l: "12px",
-      lg: "15px",
-      x: "28px",
-      xl: "32px",
-      xxl: "64px",
-    },
-    fonts: {
-      primary: '"Inter", sans-serif',
-      monospace: '"JetBrains Mono", monospace',
-    },
-    typography: {},
-    typography_depr: {
-      // Form elements
-      label: {
-        textTransform: "capitalize",
-      },
-      // Common UI elements
-      username: {
-        fontWeight: 600,
-      },
-      status: {
-        fontSize: "11px",
-        fontWeight: 400,
-      },
-      tooltip: {
-        fontWeight: 600,
-        fontSize: "13px",
-      },
-      category: {
-        fontWeight: 600,
-        fontSize: "0.7rem",
-      },
-      "menu-button": {
-        fontWeight: 600,
-        fontSize: "0.90625rem",
-      },
-      "sidebar-title": {
-        margin: 0,
-        element: "h1",
-        fontWeight: 600,
-        fontSize: "1.2rem",
-      },
-      "channel-topic": {
-        fontWeight: 400,
-        fontSize: "0.8em",
-      },
-      // Messaging specific
-      messages: {
-        fontSize: "14px",
-        fontWeight: 400,
-      },
-      reply: {
-        fontSize: "0.8rem",
-      },
-      "composition-file-upload-name": {
-        fontSize: "0.8em",
-      },
-      "composition-file-upload-size": {
-        fontSize: "0.6em",
-      },
-      "composition-typing-indicator": {
-        element: "div",
-        fontSize: "13px",
-      },
-      "conversation-channel-name": {
-        element: "h1",
-        fontSize: "23px",
-        margin: "0 0 8px 0",
-      },
-      "conversation-start": {
-        element: "h4",
-        fontWeight: 400,
-        margin: 0,
-        fontSize: "14px",
-      },
-      "conversation-indicator": {
-        fontSize: "12px",
-        fontWeight: 600,
-      },
-      "system-message": {
-        fontWeight: 700,
-      },
-      // Settings
-      "settings-title": {
-        element: "h1",
-        margin: 0,
-        fontWeight: 500,
-        fontSize: "1.75rem",
-      },
-      "settings-account-username": {
-        fontSize: "20px",
-        fontWeight: 600,
-      },
-      "settings-account-card-title": {
-        fontWeight: 600,
-      },
-      "settings-account-card-subtitle": {
-        fontSize: "12px",
-      },
-      // Modal
-      "modal-title": {
-        element: "h2",
-        margin: 0,
-        fontWeight: 700,
-        fontSize: "1.2rem",
-      },
-      "modal-description": {
-        element: "h2",
-        margin: 0,
-        fontWeight: 500,
-        fontSize: "0.9rem",
-      },
-      // Home
-      "home-page-title": {
-        element: "h1",
-        margin: 0,
-        lineHeight: "1rem",
-        fontWeight: 600,
-        fontSize: "1.4rem",
-      },
-      // Legacy
-      "legacy-settings-title": {
-        element: "h1",
-        margin: 0,
-        lineHeight: "1rem",
-        fontWeight: 600,
-        fontSize: "1.2rem",
-      },
-      small: {
-        fontSize: "0.7rem",
-      },
-      "legacy-modal-title": {
-        element: "h2",
-        margin: 0,
-        fontWeight: 700,
-        fontSize: "0.9375rem",
-      },
-      "legacy-settings-section-title": {
-        element: "h3",
-        margin: 0,
-        fontWeight: 700,
-        fontSize: "0.75rem",
-      },
-      "legacy-modal-title-2": {
-        element: "h4",
-        margin: 0,
-        fontWeight: 500,
-        fontSize: "0.8125rem",
-      },
-      "legacy-settings-description": {
-        element: "span",
-        margin: 0,
-        fontWeight: 500,
-        fontSize: "0.8rem",
-      },
-    },
-    transitions: {
-      fast: ".1s ease-in-out",
-      medium: ".2s ease",
-    },
-    effects: {
-      blur: {
-        md: "blur(20px)",
-      },
-      invert: {
-        black: darkMode ? "invert(100%)" : "invert(0%)",
-        white: darkMode ? "invert(0%)" : "invert(100%)",
-      },
-      muted: "brightness(0)", // DEPRECATE
-      hover: "brightness(0)", // DEPRECATE
-      active: "brightness(0)", // DEPRECATE
-      // muted: "brightness(0.5) saturate(0.75)",
-      // hover: "brightness(1.1)",
-      // active: "brightness(0.9)",
-      spoiler: "brightness(0.2) contrast(0.8) blur(24px)",
-    },
-    layout: {
-      width: {
-        // "channel-sidebar": "232px", (without margins)
-        "channel-sidebar": "248px",
-      },
-      height: {
-        header: "48px",
-        "tall-header": "120px",
-        "message-box": "48px",
-        "attachment-preview": "100px",
-      },
-      attachments: {
-        "min-width": "240px",
-        "max-width": "420px",
-        "min-height": "120px",
-        "max-height": "420px",
-      },
-      emoji: {
-        small: "1.4em",
-        medium: "48px",
-        large: "96px",
-      },
-      zIndex: {
-        "floating-bar": 20,
-        modal: 50,
-        "floating-element": 100,
-      },
     },
   } as never;
 };

@@ -10,10 +10,6 @@ The following Material colour roles are accessible through the CSS variables `va
 
 TODO: extension with online,idle,focus,busy,invisible
 
-## Breakpoints
-
-Display breakpoints are provided as `var(--breakpoints-sm|md|lg|xl)`
-
 ## Roundness
 
 Border radius values are provided as `var(--borderRadius-none|xs|sm|md|lg|li|xl|xli|xxl|full|circle)`, these correspond to the corner radius scale in Material 3 expressive design.
@@ -41,7 +37,3 @@ Two transition speeds are specified (in format, `<time> <easing>`):
 
 - Fast: `var(--transitions-fast)`
 - Medium: `var(--transitions-medium)`
-
-## Misc.
-
-... missing effects, layout

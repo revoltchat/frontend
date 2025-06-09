@@ -2,6 +2,7 @@ import { Show, createSignal } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
+
 import { Text } from "../atoms";
 
 interface Props {
@@ -13,7 +14,7 @@ const Base = styled("div", {
     zIndex: 1,
 
     cursor: "pointer",
-    backdropFilter: "var(--effects-spoiler)",
+    backdropFilter: "brightness(0.2) contrast(0.8) blur(24px)",
 
     display: "grid",
     placeItems: "center",
@@ -24,7 +25,7 @@ const Base = styled("div", {
       userSelect: "none",
       boxShadow: "0 0 8px #00000044",
       borderRadius: "var(--borderRadius-lg)",
-      
+
       color: "var(--colours-foreground)",
       background: "var(--colours-background)",
     },

@@ -288,7 +288,7 @@ export function Message(props: Props) {
  */
 const NewUser = styled("div", {
   base: {
-    color: "var(--customColours-success-color)",
+    color: "var(--md-sys-color-primary)",
   },
 });
 

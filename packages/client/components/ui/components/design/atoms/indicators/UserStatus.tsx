@@ -22,7 +22,7 @@ export const UserStatusGraphic = (props: Props) => {
       cx="27"
       cy="27"
       r="5"
-      fill={`var(--customColours-status-${statusLowercase()}-color)`}
+      fill={`var(--brand-presence-${statusLowercase()})`}
       mask={`url(#accessible-status-${statusLowercase()})`}
     />
   );

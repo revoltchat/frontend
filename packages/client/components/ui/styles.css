@@ -13,6 +13,7 @@
 body {
   margin: 0;
   background: #191919;
+  font-family: var(--fonts-primary);
 }
 
 #root {

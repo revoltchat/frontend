@@ -135,7 +135,7 @@ const PreviewBox = styled("div", {
   base: {
     display: "grid",
     justifyItems: "center",
-    gridTemplate: `"main" var(--layout-height-attachment-preview) / minmax(var(--layout-height-attachment-preview), 1fr)`,
+    gridTemplate: `"main" var(--preview-size) / minmax(var(--preview-size), 1fr)`,
 
     cursor: "pointer",
     overflow: "hidden",
@@ -163,7 +163,7 @@ const Image = styled("img", {
     width: "100%",
     objectFit: "cover",
     marginBottom: "var(--gap-md)",
-    height: "var(--layout-height-attachment-preview)",
+    height: "var(--preview-size)",
   },
 });
 
@@ -202,8 +202,8 @@ const EmptyEntry = styled("div", {
     display: "grid",
     flexShrink: 0,
     placeItems: "center",
-    width: "var(--layout-height-attachment-preview)",
-    height: "var(--layout-height-attachment-preview)",
+    width: "var(--preview-size)",
+    height: "var(--preview-size)",
 
     cursor: "pointer",
     borderRadius: "var(--gap-md)",
@@ -236,7 +236,7 @@ const Entry = styled("div", {
  */
 const FileName = styled("span", {
   base: {
-    maxWidth: "var(--layout-height-attachment-preview)",
+    maxWidth: "var(--preview-size)",
     textAlign: "center",
 
     ...typography.raw({ class: "label" }),
@@ -294,5 +294,7 @@ const Container = styled("div", {
 
     background: "var(--colours-messaging-message-box-background)",
     color: "var(--colours-messaging-message-box-foreground)",
+
+    "--preview-size": "100px",
   },
 });

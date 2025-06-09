@@ -1,8 +1,7 @@
 /**
  * Configure contexts and render App
  */
-import { JSX, Show, createEffect, createSignal, on, onMount } from "solid-js";
-import { createStore } from "solid-js/store";
+import { JSX, Show, onMount } from "solid-js";
 import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
@@ -26,13 +25,7 @@ import { KeybindContext } from "@revolt/keybinds";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
 import { VoiceContext } from "@revolt/rtc";
 import { StateContext, SyncWorker, useState } from "@revolt/state";
-import {
-  ApplyGlobalStyles,
-  FloatingManager,
-  Masks,
-  Titlebar,
-  darkTheme,
-} from "@revolt/ui";
+import { FloatingManager, LoadTheme, Masks, Titlebar } from "@revolt/ui";
 /* @refresh reload */
 import "@revolt/ui/styles";
 
@@ -48,32 +41,6 @@ import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
 
 attachDevtoolsOverlay();
-
-/** TEMPORARY */
-function MountTheme(props: { children: any }) {
-  const [accent, setAccent] = createSignal("#FF5733");
-  const [darkMode, setDarkMode] = createSignal(false);
-
-  (window as any)._demo_setAccent = setAccent;
-  (window as any)._demo_setDarkMode = setDarkMode;
-
-  const [theme, setTheme] = createStore(darkTheme(accent(), darkMode()));
-
-  createEffect(
-    on(
-      () => [accent(), darkMode()] as [string, boolean],
-      ([accent, darkMode]) => setTheme(darkTheme(accent, darkMode)),
-    ),
-  );
-
-  return (
-    <>
-      {props.children}
-      <ApplyGlobalStyles theme={theme} />
-    </>
-  );
-}
-/** END TEMPORARY */
 
 /**
  * Redirect PWA start to the last active path
@@ -109,19 +76,17 @@ function MountContext(props: { children?: JSX.Element }) {
           <VoiceContext>
             <I18nProvider>
               <QueryClientProvider client={client}>
-                <MountTheme>
-                  <Show when={window.__TAURI__}>
-                    <Titlebar
-                      isBuildDev={import.meta.env.DEV}
-                      onMinimize={() => appWindow?.minimize?.()}
-                      onMaximize={() => appWindow?.toggleMaximize?.()}
-                      onClose={() => appWindow?.hide?.()}
-                    />
-                  </Show>
-                  {props.children}
-                  <ModalRenderer />
-                  <FloatingManager />
-                </MountTheme>
+                <Show when={window.__TAURI__}>
+                  <Titlebar
+                    isBuildDev={import.meta.env.DEV}
+                    onMinimize={() => appWindow?.minimize?.()}
+                    onMaximize={() => appWindow?.toggleMaximize?.()}
+                    onClose={() => appWindow?.hide?.()}
+                  />
+                </Show>
+                {props.children}
+                <ModalRenderer />
+                <FloatingManager />
               </QueryClientProvider>
             </I18nProvider>
           </VoiceContext>
@@ -161,6 +126,7 @@ render(
         </Route>
       </Router>
 
+      <LoadTheme />
       <Masks />
     </StateContext>
   ),

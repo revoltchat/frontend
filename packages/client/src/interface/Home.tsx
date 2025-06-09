@@ -32,7 +32,7 @@ import { HeaderIcon } from "./common/CommonHeader";
 
 const Logo = styled(RevoltSvg, {
   base: {
-    fill: "var(--colours-foreground)",
+    fill: "var(--md-sys-color-on-surface)",
   },
 });
 
@@ -54,9 +54,9 @@ const content = cva({
   base: {
     ...main.raw(),
 
-    padding: "var(--gap-xxl) 0",
+    padding: "48px 0",
 
-    gap: "var(--gap-xl)",
+    gap: "32px",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -67,9 +67,9 @@ const content = cva({
  */
 const Buttons = styled("div", {
   base: {
+    gap: "8px",
+    padding: "8px",
     display: "flex",
-    gap: "var(--gap-md)",
-    padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-lg)",
 
     color: "var(--md-sys-color-on-surface-variant)",
@@ -217,9 +217,7 @@ export function HomePage() {
               <Trans>Give feedback on Revolt</Trans>
             </CategoryButton>
             <CategoryButton
-              onClick={() =>
-                openModal({ type: "settings", config: "user" })
-              }
+              onClick={() => openModal({ type: "settings", config: "user" })}
               description={
                 <Trans>
                   You can also right-click the user icon in the top left, or

@@ -21,7 +21,7 @@ export const Header = styled("div", {
     fontWeight: 600,
     userSelect: "none",
     overflow: "hidden",
-    height: "var(--layout-height-header)",
+    height: "48px",
     borderRadius: "var(--borderRadius-lg)",
 
     color: "var(--md-sys-color-on-surface)",
@@ -52,7 +52,7 @@ export const Header = styled("div", {
         alignItems: "flex-end",
         justifyContent: "stretch",
         textShadow: "0px 0px 1px var(--colours-foreground)",
-        height: "var(--layout-height-tall-header)",
+        height: "120px",
 
         "& > div": {
           flexGrow: 1,
@@ -68,7 +68,7 @@ export const Header = styled("div", {
         // backdropFilter: "var(--effects-blur-md)",
         // position: "absolute",
         width: "calc(100% - var(--gap-md))",
-        zIndex: "var(--layout-zIndex-floating-bar)",
+        zIndex: "10",
       },
       false: {},
     },
@@ -88,7 +88,7 @@ export const Header = styled("div", {
 export const BelowFloatingHeader = styled("div", {
   base: {
     position: "relative",
-    zIndex: "var(--layout-zIndex-floating-bar)",
+    zIndex: "10",
 
     // i guess this works, probably refactor this later
     "& > div > div": {

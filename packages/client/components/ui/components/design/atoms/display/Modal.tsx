@@ -85,7 +85,7 @@ const Base = styled("div", {
     width: "100%",
     height: "100%",
     position: "fixed",
-    zIndex: "var(--layout-zIndex-modal)",
+    zIndex: "100",
     maxHeight: "100%",
     userSelect: "none",
     animationDuration: "0.2s",
@@ -245,8 +245,8 @@ export function Modal(props: Props) {
                       {(action) => (
                         <Button
                           {...action}
-                          {...{onClick: () => void 0}} // HACK: prevent onClick from being
-                                                       // Modal2 doesn't have this issue :)
+                          {...{ onClick: () => void 0 }} // HACK: prevent onClick from being
+                          // Modal2 doesn't have this issue :)
                           isDisabled={props.disabled}
                           onPress={async () => {
                             if (await action.onClick()) {
