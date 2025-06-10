@@ -26,6 +26,21 @@ export type TypeTheme = {
    * (Material You)
    */
   m3Contrast: number;
+
+  /**
+   * Variant
+   * (Material You)
+   */
+  m3Variant:
+    | "monochrome"
+    | "neutral"
+    | "tonal_spot"
+    | "vibrant"
+    | "expressive"
+    | "fidelity"
+    | "content"
+    | "rainbow"
+    | "fruit_salad";
 };
 
 export type SelectedTheme =
@@ -39,6 +54,7 @@ export type SelectedTheme =
 
       accent: string;
       contrast: number;
+      variant: TypeTheme["m3Variant"];
     };
 
 /**
@@ -84,6 +100,7 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
 
       m3Accent: "#FF5733",
       m3Contrast: 0.0,
+      m3Variant: "tonal_spot",
     };
   }
 
@@ -139,6 +156,7 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
 
           accent: opts.m3Accent,
           contrast: opts.m3Contrast,
+          variant: opts.m3Variant,
         };
     }
   }
@@ -201,5 +219,20 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
    */
   setM3Contrast(contrast: number) {
     this.set("m3Contrast", contrast);
+  }
+
+  /**
+   * Get current variant
+   */
+  get m3Variant() {
+    return this.get().m3Variant;
+  }
+
+  /**
+   * Set the variant of the Material You theme
+   * @param variant Variant
+   */
+  setM3Variant(variant: TypeTheme["m3Variant"]) {
+    this.set("m3Variant", variant);
   }
 }

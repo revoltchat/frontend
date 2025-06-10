@@ -4,10 +4,14 @@ import { css } from "styled-system/css";
 
 import { useState } from "@revolt/state";
 import {
+  Badge,
+  Button,
   Column,
   Row,
   SegmentedButton,
   SingleSelectSegmentedButtonGroup,
+  Text,
+  TextField,
 } from "@revolt/ui";
 
 import MdColorize from "@material-design-icons/svg/filled/colorize.svg?component-solid";
@@ -93,6 +97,24 @@ export function AppearanceMenu() {
           <SegmentedButton value="0.0">Normal</SegmentedButton>
           <SegmentedButton value="0.5">High</SegmentedButton>
           <SegmentedButton value="1.0">Highest</SegmentedButton>
+        </SingleSelectSegmentedButtonGroup>
+
+        <SingleSelectSegmentedButtonGroup
+          value={state.theme.m3Variant}
+          onSelect={(e) =>
+            e.currentTarget.value &&
+            state.theme.setM3Variant(e.currentTarget.value as never)
+          }
+        >
+          <SegmentedButton value="monochrome">Monochrome</SegmentedButton>
+          <SegmentedButton value="neutral">Neutral</SegmentedButton>
+          <SegmentedButton value="tonal_spot">Tonal Spot</SegmentedButton>
+          <SegmentedButton value="vibrant">Vibrant</SegmentedButton>
+          <SegmentedButton value="expressive">Expressive</SegmentedButton>
+          <SegmentedButton value="fidelity">Fidelity</SegmentedButton>
+          <SegmentedButton value="content">Content</SegmentedButton>
+          <SegmentedButton value="rainbow">Rainbow</SegmentedButton>
+          <SegmentedButton value="fruit_salad">Fruit Salad</SegmentedButton>
         </SingleSelectSegmentedButtonGroup>
       </Show>
     </Column>

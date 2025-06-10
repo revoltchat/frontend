@@ -1,11 +1,19 @@
 import {
   Hct,
+  SchemeContent,
+  SchemeExpressive,
+  SchemeFidelity,
+  SchemeFruitSalad,
+  SchemeMonochrome,
+  SchemeNeutral,
+  SchemeRainbow,
   SchemeTonalSpot,
+  SchemeVibrant,
   argbFromHex,
   hexFromArgb,
 } from "@material/material-color-utilities";
 
-import { SelectedTheme } from "@revolt/state/stores/Theme";
+import { SelectedTheme, TypeTheme } from "@revolt/state/stores/Theme";
 
 /**
  * Generate the Material variables from the given properties
@@ -31,7 +39,12 @@ export function createMaterialColourVariables<P extends string>(
         ) as never;
     case "you":
       return Object.entries(
-        generateMaterialYouScheme(theme.accent, theme.darkMode, theme.contrast),
+        generateMaterialYouScheme(
+          theme.accent,
+          theme.darkMode,
+          theme.contrast,
+          theme.variant,
+        ),
       ).reduce(
         (d, [key, value]) => ({
           ...d,
@@ -137,12 +150,42 @@ type MaterialColours = {
 function generateMaterialYouScheme(
   accent: string,
   darkMode: boolean,
-  contrast: number = 0.0,
+  contrast: number,
+  variant: TypeTheme["m3Variant"],
 ): MaterialColours {
   const hct = Hct.fromInt(argbFromHex(accent));
 
-  const scheme = new SchemeTonalSpot(hct, darkMode, contrast);
-  // const scheme = new SchemeExpressive(hct, darkMode, contrast);
+  let scheme;
+  switch (variant) {
+    case "content":
+      scheme = new SchemeContent(hct, darkMode, contrast);
+      break;
+    case "expressive":
+      scheme = new SchemeExpressive(hct, darkMode, contrast);
+      break;
+    case "fidelity":
+      scheme = new SchemeFidelity(hct, darkMode, contrast);
+      break;
+    case "fruit_salad":
+      scheme = new SchemeFruitSalad(hct, darkMode, contrast);
+      break;
+    case "monochrome":
+      scheme = new SchemeMonochrome(hct, darkMode, contrast);
+      break;
+    case "neutral":
+      scheme = new SchemeNeutral(hct, darkMode, contrast);
+      break;
+    case "rainbow":
+      scheme = new SchemeRainbow(hct, darkMode, contrast);
+      break;
+    case "vibrant":
+      scheme = new SchemeVibrant(hct, darkMode, contrast);
+      break;
+    case "tonal_spot":
+    default:
+      scheme = new SchemeTonalSpot(hct, darkMode, contrast);
+      break;
+  }
 
   return {
     primary: hexFromArgb(scheme.primary),
