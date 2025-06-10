@@ -67,7 +67,7 @@ const themeConstants = {
     md: "12px",
     lg: "16px",
     li: "20px",
-    xl: "16px",
+    xl: "28px",
     xli: "32px",
     xxl: "48px",
     full: "calc(infinity * 1px)",

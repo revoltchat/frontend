@@ -16,6 +16,7 @@ import {
   ComboBox,
   Form2,
   OverrideSwitch,
+  Row,
   Text,
   TextField,
   iconSize,
@@ -111,6 +112,21 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <Row align>
+        <Button variant="elevated">Elevated</Button>
+        <Button variant="filled">Filled</Button>
+        <Button variant="tonal">Tonal</Button>
+        <Button variant="outlined">Outlined</Button>
+        <Button variant="text">Text</Button>
+      </Row>
+      <Row align>
+        <Button size="xs" shape="square">xs</Button>
+        <Button size="sm" shape="square">s</Button>
+        <Button size="md" shape="square">md</Button>
+        <Button size="lg" shape="square">lg</Button>
+        <Button size="xl" shape="square">xl</Button>
+      </Row>
+
       <DataTable
         header={<Text class="title">Table Title</Text>}
         columns={["idx", "hello", "2"]}

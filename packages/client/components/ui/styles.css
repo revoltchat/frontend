@@ -24,17 +24,6 @@ body {
   bottom: env(safe-area-inset-bottom);
 }
 
-a {
-  cursor: pointer;
-}
-
-a,
-a:link,
-a:visited,
-a:hover {
-  color: inherit;
-}
-
 /* HighlightJs */
 /*!
   Theme: GitHub Dark

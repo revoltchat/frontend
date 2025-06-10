@@ -6,12 +6,19 @@ const baseStyles = cva({
   base: {
     willChange: "transform",
 
+    scrollbarColor: "var(--md-sys-color-primary) transparent",
+
     "&::-webkit-scrollbar": {
       width: "8px",
       height: "8px",
     },
 
+    "&::-webkit-scrollbar-track": {
+      background: "transparent",
+    },
+
     "&::-webkit-scrollbar-thumb": {
+      background: "var(--md-sys-color-primary)",
       backgroundClip: "content-box",
 
       border: "1px solid transparent",
@@ -20,34 +27,6 @@ const baseStyles = cva({
     },
   },
   variants: {
-    palette: {
-      default: {
-        scrollbarColor:
-          "var(--colours-component-scrollbar-foreground)" +
-          " var(--colours-component-scrollbar-background)",
-
-        "&::-webkit-scrollbar-track": {
-          background: "var(--colours-component-scrollbar-background)",
-        },
-
-        "&::-webkit-scrollbar-thumb": {
-          background: "var(--colours-component-scrollbar-foreground)",
-        },
-      },
-      settings: {
-        scrollbarColor:
-          "var(--colours-settings-content-scroll-thumb)" +
-          " var(--colours-settings-content-background)",
-
-        "&::-webkit-scrollbar-track": {
-          background: "var(--colours-settings-content-background)",
-        },
-
-        "&::-webkit-scrollbar-thumb": {
-          background: "var(--colours-settings-content-scroll-thumb)",
-        },
-      },
-    },
     direction: {
       x: {
         overflowX: "scroll",
@@ -69,7 +48,6 @@ const baseStyles = cva({
     },
   },
   defaultVariants: {
-    palette: "default",
     direction: "y",
     showOnHover: false,
   },

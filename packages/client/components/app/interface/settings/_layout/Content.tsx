@@ -25,7 +25,6 @@ export function SettingsContent(props: {
   return (
     <div
       use:scrollable={{
-        palette: "settings",
         class: base(),
       }}
     >

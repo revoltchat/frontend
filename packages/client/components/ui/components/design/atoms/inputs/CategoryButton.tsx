@@ -105,8 +105,8 @@ const Base = styled("a", {
     padding: "13px",
     borderRadius: "var(--borderRadius-md)",
 
-    color: "var(--colours-component-categorybtn-foreground)",
-    background: "var(--colours-component-categorybtn-background)",
+    color: "var(--md-sys-color-on-primary)",
+    background: "var(--md-sys-color-primary)",
 
     userSelect: "none",
     cursor: "pointer",
@@ -115,14 +115,6 @@ const Base = styled("a", {
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
-
-    "&:hover": {
-      backgroundColor: "var(--colours-component-categorybtn-background-hover)",
-    },
-
-    "&:active": {
-      backgroundColor: "var(--colours-component-categorybtn-background-active)",
-    },
   },
   variants: {
     isLink: {

@@ -10,6 +10,8 @@ import { typography } from "../display";
 
 const button = cva({
   base: {
+    ...typography.raw(),
+
     // for <Ripple />:
     position: "relative",
 
@@ -23,46 +25,71 @@ const button = cva({
 
     cursor: "pointer",
     border: "none",
-    borderRadius: "var(--borderRadius-full)",
     transition: "var(--transitions-fast) all",
-
-    // "&:hover": {
-    //   filter: "brightness(1.2)",
-    // },
-
-    "&:disabled": {
-      filter: "saturate(0)",
-      cursor: "not-allowed",
-    },
   },
   variants: {
     /**
      * Variant is equivalent to 'color' in Material spec
      */
     variant: {
-      // todo: implement material colour types
-      // https://m3.material.io/components/buttons/specs
+      elevated: {
+        boxShadow: "0 0.5px 1.5px #0004",
+        background: "var(--md-sys-color-surface-container-low)",
+        color: "var(--md-sys-color-primary)",
+      },
+      filled: {
+        background: "var(--md-sys-color-primary)",
+        color: "var(--md-sys-color-on-primary)",
+      },
+      tonal: {
+        background: "var(--md-sys-color-secondary-container)",
+        color: "var(--md-sys-color-on-secondary-container)",
+      },
+      outlined: {
+        border: "1px solid var(--md-sys-color-outline-variant)",
+        color: "var(--md-sys-color-on-surface-variant)",
+      },
+      text: {
+        color: "var(--md-sys-color-primary)",
+      },
 
+      // Old entries:
+
+      /**
+       * @deprecated
+       */
       success: {
         fill: "var(--customColours-success-onColor)",
         color: "var(--customColours-success-onColor)",
         background: "var(--customColours-success-color)",
       },
+      /**
+       * @deprecated
+       */
       warning: {
         fill: "var(--customColours-warning-onColor)",
         color: "var(--customColours-warning-onColor)",
         background: "var(--customColours-warning-color)",
       },
+      /**
+       * @deprecated
+       */
       error: {
         fill: "var(--customColours-error-onColor)",
         color: "var(--customColours-error-onColor)",
         background: "var(--customColours-error-color)",
       },
+      /**
+       * @deprecated use filled
+       */
       primary: {
         fill: "var(--colours-component-btn-foreground-primary)",
         color: "var(--colours-component-btn-foreground-primary)",
         background: "var(--colours-component-btn-background-primary)",
       },
+      /**
+       * @deprecated use tonal
+       */
       secondary: {
         fill: "var(--colours-component-btn-foreground-secondary)",
         color: "var(--colours-component-btn-foreground-secondary)",
@@ -83,15 +110,49 @@ const button = cva({
           textDecoration: "none",
         },
       },
-
-      // Material definitions
-
-      text: {
-        color: "var(--md-sys-color-primary)",
-      },
     },
+    /**
+     * Expressive shapes
+     */
+    shape: {
+      round: {
+        borderRadius: "var(--borderRadius-full)",
+      },
+      square: {},
+    },
+    /**
+     * Expressive sizes
+     */
     size: {
-      // todo: implement expressive button sizes
+      xs: {
+        height: "32px",
+        paddingInline: "12px",
+      },
+      sm: {
+        height: "40px",
+        paddingInline: "16px",
+      },
+      md: {
+        height: "56px",
+        paddingInline: "24px",
+      },
+      lg: {
+        height: "96px",
+        paddingInline: "48px",
+      },
+      xl: {
+        height: "136px",
+        paddingInline: "64px",
+      },
+
+      // Old code:
+      icon: {
+        width: "36px",
+        height: "36px",
+      },
+      /**
+       * @deprecated
+       */
       small: {
         height: "40px",
         paddingInline: "16px",
@@ -99,48 +160,81 @@ const button = cva({
 
         ...typography.raw(),
       },
-      // https://m3.material.io/components/buttons/specs
-
+      /**
+       * @deprecated
+       */
       normal: {
         height: "38px",
         minWidth: "96px",
         padding: "2px 16px",
         fontSize: "0.8125rem",
       },
-      // compact: {
-      //   minWidth: "96px",
-      //   fontSize: "0.8125rem",
-      //   height: "32px",
-      //   padding: "2px 12px",
-      // },
-      icon: {
-        width: "36px",
-        height: "36px",
-      },
+      /**
+       * @deprecated
+       */
       fab: {
         width: "42px",
         height: "42px",
         borderRadius: "var(--borderRadius-lg)",
       },
+      /**
+       * @deprecated
+       */
       fluid: {
         borderRadius: "var(--borderRadius-md)",
       },
+      /**
+       * @deprecated
+       */
       inline: {
         padding: "var(--gap-xs) var(--gap-md)",
         fontSize: "0.8125rem",
         borderRadius: "var(--borderRadius-md)",
       },
+      /**
+       * @deprecated
+       */
       none: {
         borderRadius: "0",
       },
     },
   },
   defaultVariants: {
-    size: "normal",
-    variant: "primary",
+    size: "sm",
+    shape: "round",
+    variant: "filled",
   },
+  compoundVariants: [
+    {
+      shape: "square",
+      size: ["sm", "xs"],
+      css: {
+        borderRadius: "var(--borderRadius-md)",
+      },
+    },
+    {
+      shape: "square",
+      size: "md",
+      css: {
+        borderRadius: "var(--borderRadius-lg)",
+      },
+    },
+    {
+      shape: "square",
+      size: ["xl", "lg"],
+      css: {
+        borderRadius: "var(--borderRadius-xl)",
+      },
+    },
+  ],
 });
 
+/**
+ * Material 3 Button
+ *
+ * Made more-or-less according to:
+ * https://m3.material.io/components/buttons/specs
+ */
 export function Button(
   props: Omit<
     Parameters<typeof button>[0] &
