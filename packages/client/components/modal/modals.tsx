@@ -39,6 +39,7 @@ import mfa_enable_totp from "./modals/MFAEnableTOTP";
 import mfa_flow from "./modals/MFAFlow";
 import mfa_recovery from "./modals/MFARecovery";
 import onboarding from "./modals/Onboarding";
+import { PolicyChangeModal } from "./modals/PolicyChange";
 import rename_session from "./modals/RenameSession";
 import report_content from "./modals/ReportContent";
 import server_identity from "./modals/ServerIdentity";
@@ -87,6 +88,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <Error2Modal {...modalProps} />;
     case "image_viewer":
       return <ImageViewerModal {...modalProps} />;
+    case "policy_change":
+      return <PolicyChangeModal {...modalProps} />;
     case "server_info":
       return <ServerInfoModal {...modalProps} />;
     case "user_profile":

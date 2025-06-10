@@ -16,6 +16,7 @@ import {
   Session,
   User,
 } from "revolt.js";
+import { ProtocolV1 } from "revolt.js/lib/events/v1";
 
 import type { SettingsConfigurations } from "@revolt/app";
 import type { Modal } from "@revolt/ui";
@@ -185,6 +186,11 @@ export type Modals =
   | {
       type: "onboarding";
       callback: (username: string, loginAfterSuccess?: true) => Promise<void>;
+    }
+  | {
+      type: "policy_change";
+      changes: ProtocolV1["types"]["policyChange"][];
+      acknowledge: () => Promise<void>;
     }
   | {
       type: "rename_session";

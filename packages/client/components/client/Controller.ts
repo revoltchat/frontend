@@ -2,6 +2,7 @@ import { Accessor, Setter, createSignal } from "solid-js";
 
 import { detect } from "detect-browser";
 import { API, Client, ConnectionState } from "revolt.js";
+import { ProtocolV1 } from "revolt.js/lib/events/v1";
 
 import { CONFIGURATION } from "@revolt/common";
 import { ModalControllerExtended } from "@revolt/modal";
@@ -66,6 +67,11 @@ export type Transition =
         | TransitionType.Logout;
     };
 
+type PolicyAttentionRequired = [
+  ProtocolV1["types"]["policyChange"][],
+  () => Promise<void>,
+];
+
 class Lifecycle {
   #controller: ClientController;
 
@@ -74,6 +80,11 @@ class Lifecycle {
 
   readonly loadedOnce: Accessor<boolean>;
   #setLoadedOnce: Setter<boolean>;
+
+  readonly policyAttentionRequired: Accessor<
+    undefined | PolicyAttentionRequired
+  >;
+  #policyAttentionRequired: Setter<undefined | PolicyAttentionRequired>;
 
   client: Client;
 
@@ -86,6 +97,7 @@ class Lifecycle {
 
     this.onState = this.onState.bind(this);
     this.onReady = this.onReady.bind(this);
+    this.onPolicyChanges = this.onPolicyChanges.bind(this);
 
     const [state, setState] = createSignal(State.Ready);
     this.state = state;
@@ -94,6 +106,13 @@ class Lifecycle {
     const [loadedOnce, setLoadedOnce] = createSignal(false);
     this.loadedOnce = loadedOnce;
     this.#setLoadedOnce = setLoadedOnce;
+
+    const [policyAttentionRequired, setPolicyAttentionRequired] = createSignal<
+      undefined | PolicyAttentionRequired
+    >(undefined);
+
+    this.policyAttentionRequired = policyAttentionRequired;
+    this.#policyAttentionRequired = setPolicyAttentionRequired;
 
     this.client = null!;
     this.dispose();
@@ -137,6 +156,7 @@ class Lifecycle {
 
     this.client.events.on("state", this.onState);
     this.client.on("ready", this.onReady);
+    this.client.on("policyChanges", this.onPolicyChanges);
   }
 
   #enter(nextState: State) {
@@ -216,7 +236,7 @@ class Lifecycle {
     if (transition.type === TransitionType.DisposeOnly) {
       this.dispose();
       return;
-    } 
+    }
 
     const currentState = this.state();
     switch (currentState) {
@@ -352,6 +372,16 @@ class Lifecycle {
     this.transition({
       type: TransitionType.SocketConnected,
     });
+  }
+
+  private onPolicyChanges(
+    changes: ProtocolV1["types"]["policyChange"][],
+    ack: () => Promise<void>,
+  ) {
+    this.#policyAttentionRequired([
+      changes,
+      () => ack().then(() => this.#policyAttentionRequired(undefined)),
+    ]);
   }
 
   private onState(state: ConnectionState) {

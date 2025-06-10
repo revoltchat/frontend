@@ -21,6 +21,7 @@ type Props = Modal2Props & {
   actions?: {
     text: JSX.Element;
     onClick?: () => void;
+    isDisabled?: boolean;
   }[];
   isDisabled?: boolean;
 
@@ -74,6 +75,8 @@ export function Modal2(props: Props) {
                           variant="text"
                           size="small"
                           onPress={() => {
+                            if (action.isDisabled) return;
+
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             const value = action.onClick?.() as any;
                             if (value instanceof Promise) {
@@ -82,7 +85,7 @@ export function Modal2(props: Props) {
                               props.onClose();
                             }
                           }}
-                          isDisabled={props.isDisabled}
+                          isDisabled={action.isDisabled || props.isDisabled}
                         >
                           {action.text}
                         </Button>

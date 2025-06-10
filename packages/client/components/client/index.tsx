@@ -2,12 +2,15 @@ import {
   Accessor,
   type JSXElement,
   createContext,
+  createEffect,
+  on,
   onCleanup,
   useContext,
 } from "solid-js";
 
 import type { Client, User } from "revolt.js";
 
+import { useModals } from "@revolt/modal";
 import { State } from "@revolt/state";
 
 import ClientController from "./Controller";
@@ -20,8 +23,27 @@ const clientContext = createContext(null! as ClientController);
  * Mount the modal controller
  */
 export function ClientContext(props: { state: State; children: JSXElement }) {
+  const { openModal } = useModals();
+
   const controller = new ClientController(props.state);
   onCleanup(() => controller.dispose());
+
+  createEffect(
+    on(
+      () => controller.lifecycle.policyAttentionRequired(),
+      (attentionRequired) => {
+        if (typeof attentionRequired !== "undefined") {
+          const [changes, acknowledge] = attentionRequired;
+
+          openModal({
+            type: "policy_change",
+            changes,
+            acknowledge,
+          });
+        }
+      },
+    ),
+  );
 
   return (
     <clientContext.Provider value={controller}>

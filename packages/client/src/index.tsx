@@ -71,8 +71,8 @@ function MountContext(props: { children?: JSX.Element }) {
 
   return (
     <KeybindContext>
-      <ClientContext state={state}>
-        <ModalContext>
+      <ModalContext>
+        <ClientContext state={state}>
           <VoiceContext>
             <I18nProvider>
               <QueryClientProvider client={client}>
@@ -90,9 +90,9 @@ function MountContext(props: { children?: JSX.Element }) {
               </QueryClientProvider>
             </I18nProvider>
           </VoiceContext>
-        </ModalContext>
-        <SyncWorker />
-      </ClientContext>
+          <SyncWorker />
+        </ClientContext>
+      </ModalContext>
     </KeybindContext>
   );
 }
