@@ -16,7 +16,7 @@ import MdLocalCafe from "@material-design-icons/svg/outlined/local_cafe.svg?comp
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
 import MdMemory from "@material-design-icons/svg/outlined/memory.svg?component-solid";
 import _MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
-import _MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
+import MdPalette from "@material-design-icons/svg/outlined/palette.svg?component-solid";
 import MdRateReview from "@material-design-icons/svg/outlined/rate_review.svg?component-solid";
 import MdScience from "@material-design-icons/svg/outlined/science.svg?component-solid";
 import MdSmartToy from "@material-design-icons/svg/outlined/smart_toy.svg?component-solid";
@@ -31,6 +31,7 @@ import { Feedback } from "./user/Feedback";
 import { LanguageSettings } from "./user/Language";
 import { Sessions } from "./user/Sessions";
 import { AccountCard } from "./user/_AccountCard";
+import { AppearanceMenu } from "./user/appearance";
 import { MyBots, ViewBot } from "./user/bots";
 import { EditProfile } from "./user/profile";
 import { EditSubscription } from "./user/subscriptions";
@@ -69,6 +70,8 @@ const Config: SettingsConfiguration<{ server: Server }> = {
     switch (id) {
       case "account":
         return <MyAccount />;
+      case "appearance":
+        return <AppearanceMenu />;
       case "profile":
         return <EditProfile />;
       case "sessions":
@@ -166,11 +169,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             //   hidden:
             //     !getController("state").experiments.isEnabled("voice_chat"),
             // },
-            // {
-            //   id: "appearance",
-            //   icon: <MdPalette {...iconSize(20)} />,
-            //   title: t("app.settings.pages.appearance.title"),
-            // },
+            {
+              id: "appearance",
+              icon: <MdPalette {...iconSize(20)} />,
+              title: <Trans>Appearance</Trans>,
+            },
             // {
             //   id: "accessibility",
             //   icon: <MdAccessibility {...iconSize(20)} />,

@@ -61,7 +61,7 @@ export function Breadcrumbs(props: Props) {
 const Base = styled(Row, {
   base: {
     userSelect: "none",
-    color: "var(--colours-component-breadcrumbs-foreground)",
+    color: "var(--md-sys-color-outline)",
   },
 });
 
@@ -80,6 +80,6 @@ const Unselected = styled("div", {
  */
 const Selected = styled("div", {
   base: {
-    color: "var(--colours-component-breadcrumbs-foreground-active)",
+    color: "var(--md-sys-color-on-surface)",
   },
 });

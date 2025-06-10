@@ -1,7 +1,8 @@
 import {
+  Hct,
+  SchemeTonalSpot,
   argbFromHex,
   hexFromArgb,
-  themeFromSourceColor,
 } from "@material/material-color-utilities";
 
 import { SelectedTheme } from "@revolt/state/stores/Theme";
@@ -30,7 +31,7 @@ export function createMaterialColourVariables<P extends string>(
         ) as never;
     case "you":
       return Object.entries(
-        generateMaterialYouScheme(theme.accent, theme.darkMode),
+        generateMaterialYouScheme(theme.accent, theme.darkMode, theme.contrast),
       ).reduce(
         (d, [key, value]) => ({
           ...d,
@@ -53,7 +54,6 @@ export function createMduiColourTriplets<P extends string>(
   const variables = createMaterialColourVariables(theme, prefix);
 
   for (const key in variables) {
-    console.info(variables, key);
     const [_, r, g, b] = /#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})/i.exec(
       variables[key as keyof typeof variables] as string,
     )!;
@@ -131,67 +131,72 @@ type MaterialColours = {
  * Generate a Material You colour scheme
  * @param accent Accent colour in hex format
  * @param darkMode Dark mode
+ * @param constrat Constrast level
  * @returns Material colours
  */
-function generateMaterialYouScheme(accent: string, darkMode: boolean) {
-  // Do most of the work using external library
-  const theme = themeFromSourceColor(argbFromHex(accent));
+function generateMaterialYouScheme(
+  accent: string,
+  darkMode: boolean,
+  contrast: number = 0.0,
+): MaterialColours {
+  const hct = Hct.fromInt(argbFromHex(accent));
 
-  // Select the scheme we want and reformat (scheme is camelCase)
-  const scheme = Object.entries(
-    theme.schemes[darkMode ? "dark" : "light"].toJSON(),
-  ).reduce(
-    (d, [k, v]) => ({
-      ...d,
-      [k.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()]: hexFromArgb(v),
-    }),
-    {},
-  );
-
-  // Generate fixed variants and surface variants
-  // https://github.com/material-foundation/material-color-utilities/issues/158
-  const { primary, secondary, tertiary, neutral } = theme.palettes;
-
-  const fixed = {
-    "primary-fixed": hexFromArgb(primary.tone(90)),
-    "primary-fixed-dim": hexFromArgb(neutral.tone(80)),
-    "on-primary-fixed": hexFromArgb(primary.tone(10)),
-    "on-primary-fixed-variant": hexFromArgb(primary.tone(30)),
-    "secondary-fixed": hexFromArgb(secondary.tone(90)),
-    "secondary-fixed-dim": hexFromArgb(secondary.tone(80)),
-    "on-secondary-fixed": hexFromArgb(secondary.tone(10)),
-    "on-secondary-fixed-variant": hexFromArgb(secondary.tone(30)),
-    "tertiary-fixed": hexFromArgb(tertiary.tone(90)),
-    "tertiary-fixed-dim": hexFromArgb(tertiary.tone(80)),
-    "on-tertiary-fixed": hexFromArgb(tertiary.tone(10)),
-    "on-tertiary-fixed-variant": hexFromArgb(tertiary.tone(30)),
-  };
-
-  const surface = darkMode
-    ? {
-        "surface-dim": hexFromArgb(neutral.tone(6)),
-        "surface-bright": hexFromArgb(neutral.tone(24)),
-        "container-lowest": hexFromArgb(neutral.tone(4)),
-        "surface-container-low": hexFromArgb(neutral.tone(10)),
-        "surface-container": hexFromArgb(neutral.tone(12)),
-        "surface-container-high": hexFromArgb(neutral.tone(17)),
-        "surface-container-highest": hexFromArgb(neutral.tone(22)),
-      }
-    : {
-        "surface-dim": hexFromArgb(neutral.tone(87)),
-        "surface-bright": hexFromArgb(neutral.tone(98)),
-        "surface-container-lowest": hexFromArgb(neutral.tone(100)),
-        "surface-container-low": hexFromArgb(neutral.tone(96)),
-        "surface-container": hexFromArgb(neutral.tone(94)),
-        "surface-container-high": hexFromArgb(neutral.tone(92)),
-        "surface-container-highest": hexFromArgb(neutral.tone(90)),
-      };
+  const scheme = new SchemeTonalSpot(hct, darkMode, contrast);
+  // const scheme = new SchemeExpressive(hct, darkMode, contrast);
 
   return {
-    ...scheme,
-    ...fixed,
-    ...surface,
-  } as MaterialColours;
+    primary: hexFromArgb(scheme.primary),
+    "on-primary": hexFromArgb(scheme.onPrimary),
+    "primary-container": hexFromArgb(scheme.primaryContainer),
+    "on-primary-container": hexFromArgb(scheme.onPrimaryContainer),
+    secondary: hexFromArgb(scheme.secondary),
+    "on-secondary": hexFromArgb(scheme.onSecondary),
+    "secondary-container": hexFromArgb(scheme.secondaryContainer),
+    "on-secondary-container": hexFromArgb(scheme.onSecondaryContainer),
+    tertiary: hexFromArgb(scheme.tertiary),
+    "on-tertiary": hexFromArgb(scheme.onTertiary),
+    "tertiary-container": hexFromArgb(scheme.tertiaryContainer),
+    "on-tertiary-container": hexFromArgb(scheme.onTertiaryContainer),
+    error: hexFromArgb(scheme.error),
+    "on-error": hexFromArgb(scheme.onError),
+    "error-container": hexFromArgb(scheme.errorContainer),
+    "on-error-container": hexFromArgb(scheme.onErrorContainer),
+
+    "primary-fixed": hexFromArgb(scheme.primaryFixed),
+    "primary-fixed-dim": hexFromArgb(scheme.primaryFixedDim),
+    "on-primary-fixed": hexFromArgb(scheme.onPrimaryFixed),
+    "on-primary-fixed-variant": hexFromArgb(scheme.onPrimaryFixedVariant),
+    "secondary-fixed": hexFromArgb(scheme.secondaryFixed),
+    "secondary-fixed-dim": hexFromArgb(scheme.onSecondaryFixed),
+    "on-secondary-fixed": hexFromArgb(scheme.onSecondaryFixed),
+    "on-secondary-fixed-variant": hexFromArgb(scheme.onSecondaryFixedVariant),
+    "tertiary-fixed": hexFromArgb(scheme.tertiaryFixed),
+    "tertiary-fixed-dim": hexFromArgb(scheme.tertiaryFixedDim),
+    "on-tertiary-fixed": hexFromArgb(scheme.onTertiaryFixed),
+    "on-tertiary-fixed-variant": hexFromArgb(scheme.onTertiaryFixedVariant),
+
+    "surface-dim": hexFromArgb(scheme.surfaceDim),
+    surface: hexFromArgb(scheme.surface),
+    "surface-bright": hexFromArgb(scheme.surfaceBright),
+
+    "surface-container-lowest": hexFromArgb(scheme.surfaceContainerLowest),
+    "surface-container-low": hexFromArgb(scheme.surfaceContainerLow),
+    "surface-container": hexFromArgb(scheme.surfaceContainer),
+    "surface-container-high": hexFromArgb(scheme.surfaceContainerHigh),
+    "surface-container-highest": hexFromArgb(scheme.surfaceContainerHighest),
+
+    "on-surface": hexFromArgb(scheme.onSurface),
+    "on-surface-variant": hexFromArgb(scheme.onSurfaceVariant),
+    outline: hexFromArgb(scheme.outline),
+    "outline-variant": hexFromArgb(scheme.outlineVariant),
+
+    "inverse-surface": hexFromArgb(scheme.inverseSurface),
+    "inverse-on-surface": hexFromArgb(scheme.inverseOnSurface),
+    "inverse-primary": hexFromArgb(scheme.inversePrimary),
+
+    scrim: hexFromArgb(scheme.scrim),
+    shadow: hexFromArgb(scheme.shadow),
+  };
 }
 
 /**

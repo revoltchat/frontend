@@ -16,14 +16,17 @@ export function SegmentedButton(props: {
 }
 
 export function SingleSelectSegmentedButtonGroup(props: {
-  onSelect: (value: string) => void;
+  onSelect: (e: Event & { currentTarget: HTMLInputElement }) => void;
   children: JSXElement;
+  value: string;
+  required?: boolean;
 }) {
   return (
     <mdui-segmented-button-group
       selects="single"
-      value="allow"
+      value={props.value}
       onChange={props.onSelect}
+      required={props.required}
     >
       {props.children}
     </mdui-segmented-button-group>
