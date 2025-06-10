@@ -1,7 +1,6 @@
 import { BiSolidUserDetail } from "solid-icons/bi";
 import {
   Accessor,
-  For,
   JSX,
   Match,
   Show,
@@ -31,7 +30,7 @@ import {
   NavigationRail,
   NavigationRailItem,
   OverflowingText,
-  UserStatusGraphic,
+  UserStatus,
   main,
 } from "@revolt/ui";
 
@@ -290,7 +289,7 @@ function Entry(
           }
           overlay={
             <Show when={props.user.relationship === "Friend"}>
-              <UserStatusGraphic
+              <UserStatus.Graphic
                 status={props.user.status?.presence ?? "Online"}
               />
             </Show>

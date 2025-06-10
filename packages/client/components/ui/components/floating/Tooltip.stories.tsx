@@ -1,7 +1,7 @@
 import type { ComponentProps } from "solid-js";
 
 import { Button } from "../design";
-import type { ComponentStory } from "../stories";
+import type { ComponentStory } from "../../componentsOld/stories";
 
 import { Tooltip } from "./Tooltip";
 

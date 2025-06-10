@@ -13,7 +13,6 @@ import {
   CategoryCollapse,
   Checkbox,
   Column,
-  FormGroup,
   Row,
   Time,
   iconSize,
@@ -140,36 +139,30 @@ function PickDateFormat() {
       title="Select date format"
       description={`Traditional ` + date()}
     >
-      <FormGroup>
-        <CategoryButton
-          icon={"blank"}
-          onClick={() => state.locale.setDateFormat("DD/MM/YYYY")}
-          action={<Checkbox value={date() === "DD/MM/YYYY"} />}
-          description={<Time format="date" value={LastWeek} />}
-        >
-          <Trans>Traditional (DD/MM/YYYY)</Trans>
-        </CategoryButton>
-      </FormGroup>
-      <FormGroup>
-        <CategoryButton
-          icon={"blank"}
-          onClick={() => state.locale.setDateFormat("MM/DD/YYYY")}
-          action={<Checkbox value={date() === "MM/DD/YYYY"} />}
-          description={<Time format="dateAmerican" value={LastWeek} />}
-        >
-          <Trans>American (MM/DD/YYYY)</Trans>
-        </CategoryButton>
-      </FormGroup>
-      <FormGroup>
-        <CategoryButton
-          icon={"blank"}
-          onClick={() => state.locale.setDateFormat("YYYY-MM-DD")}
-          action={<Checkbox value={date() === "YYYY-MM-DD"} />}
-          description={<Time format="iso8601" value={LastWeek} />}
-        >
-          <Trans>ISO Standard (YYYY-MM-DD)</Trans>
-        </CategoryButton>
-      </FormGroup>
+      <CategoryButton
+        icon={"blank"}
+        onClick={() => state.locale.setDateFormat("DD/MM/YYYY")}
+        action={<Checkbox value={date() === "DD/MM/YYYY"} />}
+        description={<Time format="date" value={LastWeek} />}
+      >
+        <Trans>Traditional (DD/MM/YYYY)</Trans>
+      </CategoryButton>
+      <CategoryButton
+        icon={"blank"}
+        onClick={() => state.locale.setDateFormat("MM/DD/YYYY")}
+        action={<Checkbox value={date() === "MM/DD/YYYY"} />}
+        description={<Time format="dateAmerican" value={LastWeek} />}
+      >
+        <Trans>American (MM/DD/YYYY)</Trans>
+      </CategoryButton>
+      <CategoryButton
+        icon={"blank"}
+        onClick={() => state.locale.setDateFormat("YYYY-MM-DD")}
+        action={<Checkbox value={date() === "YYYY-MM-DD"} />}
+        description={<Time format="iso8601" value={LastWeek} />}
+      >
+        <Trans>ISO Standard (YYYY-MM-DD)</Trans>
+      </CategoryButton>
     </CategoryCollapse>
   );
 }
@@ -187,26 +180,22 @@ function PickTimeFormat() {
       title="Select time format"
       description={`24 hours`}
     >
-      <FormGroup>
-        <CategoryButton
-          icon={"blank"}
-          onClick={() => state.locale.setTimeFormat("HH:mm")}
-          action={<Checkbox value={time() === "HH:mm"} />}
-          description={<Time format="time24" value={new Date()} />}
-        >
-          <Trans>24 hours</Trans>
-        </CategoryButton>
-      </FormGroup>
-      <FormGroup>
-        <CategoryButton
-          icon={"blank"}
-          onClick={() => state.locale.setTimeFormat("h:mm A")}
-          action={<Checkbox value={time() === "h:mm A"} />}
-          description={<Time format="time12" value={new Date()} />}
-        >
-          <Trans>12 hours</Trans>
-        </CategoryButton>
-      </FormGroup>
+      <CategoryButton
+        icon={"blank"}
+        onClick={() => state.locale.setTimeFormat("HH:mm")}
+        action={<Checkbox value={time() === "HH:mm"} />}
+        description={<Time format="time24" value={new Date()} />}
+      >
+        <Trans>24 hours</Trans>
+      </CategoryButton>
+      <CategoryButton
+        icon={"blank"}
+        onClick={() => state.locale.setTimeFormat("h:mm A")}
+        action={<Checkbox value={time() === "h:mm A"} />}
+        description={<Time format="time12" value={new Date()} />}
+      >
+        <Trans>12 hours</Trans>
+      </CategoryButton>
     </CategoryCollapse>
   );
 }

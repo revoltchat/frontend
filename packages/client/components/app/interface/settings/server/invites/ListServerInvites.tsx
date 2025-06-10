@@ -11,10 +11,10 @@ import {
   Button,
   CircularProgress,
   Column,
+  DataTable,
   Row,
   Text,
 } from "@revolt/ui";
-import { DataTable } from "@revolt/ui/components/material/DataTable";
 
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 

@@ -13,7 +13,6 @@ import { useState } from "@revolt/state";
 import {
   Attachment,
   Avatar,
-  BreakText,
   Embed,
   MessageContainer,
   MessageReply,
@@ -299,5 +298,20 @@ const avatarContainer = cva({
   base: {
     height: "fit-content",
     borderRadius: "var(--borderRadius-circle)",
+  },
+});
+
+/**
+ * Break all text and prevent overflow from math blocks
+ */
+const BreakText = styled("div", {
+  base: {
+    wordBreak: "break-word",
+
+    "& .math": {
+      overflowX: "auto",
+      overflowY: "hidden",
+      maxHeight: "100vh",
+    },
   },
 });

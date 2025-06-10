@@ -19,7 +19,6 @@ import {
   FileCarousel,
   FileDropAnywhereCollector,
   FilePasteCollector,
-  InlineIcon,
   MessageBox,
   MessageReplyPreview,
 } from "@revolt/ui";
@@ -379,13 +378,13 @@ export function MessageComposition(props: Props) {
         content={draft()?.content ?? ""}
         setContent={setContent}
         actionsStart={
-          <Switch fallback={<InlineIcon size="short" />}>
+          <Switch fallback={<MessageBox.InlineIcon size="short" />}>
             <Match when={props.channel.havePermission("UploadFiles")}>
-              <InlineIcon size="wide">
+              <MessageBox.InlineIcon size="wide">
                 <Button variant="plain" size="icon" onPress={addFile}>
                   <BiRegularPlus size={24} />
                 </Button>
-              </InlineIcon>
+              </MessageBox.InlineIcon>
             </Match>
           </Switch>
         }
@@ -394,7 +393,7 @@ export function MessageComposition(props: Props) {
             {(triggerProps) => (
               <>
                 <Show when={state.experiments.isEnabled("gif_picker")}>
-                  <InlineIcon size="normal">
+                  <MessageBox.InlineIcon size="normal">
                     <Button
                       variant="plain"
                       size="icon"
@@ -402,10 +401,10 @@ export function MessageComposition(props: Props) {
                     >
                       <BiSolidFileGif size={24} />
                     </Button>
-                  </InlineIcon>
+                  </MessageBox.InlineIcon>
                 </Show>
                 <Show when={state.experiments.isEnabled("emoji_picker")}>
-                  <InlineIcon size="normal">
+                  <MessageBox.InlineIcon size="normal">
                     <Button
                       variant="plain"
                       size="icon"
@@ -413,16 +412,16 @@ export function MessageComposition(props: Props) {
                     >
                       <BiSolidHappyBeaming size={24} />
                     </Button>
-                  </InlineIcon>
+                  </MessageBox.InlineIcon>
                 </Show>
                 <Show
                   when={state.settings.getValue("appearance:show_send_button")}
                 >
-                  <InlineIcon size="normal">
+                  <MessageBox.InlineIcon size="normal">
                     <Button variant="plain" size="icon" onPress={sendMessage}>
                       <BiSolidSend size={24} />
                     </Button>
-                  </InlineIcon>
+                  </MessageBox.InlineIcon>
                 </Show>
 
                 <div ref={triggerProps.ref} />

@@ -3,7 +3,7 @@ import { Accessor, JSX, Show } from "solid-js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { Breadcrumbs, Button, iconSize, typography } from "@revolt/ui";
+import { Breadcrumbs, Button, Text, iconSize } from "@revolt/ui";
 
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
@@ -31,13 +31,13 @@ export function SettingsContent(props: {
       <Show when={props.page()}>
         <InnerContent>
           <InnerColumn>
-            <span class={typography({ class: "title", size: "large" })}>
+            <Text class="title" size="large">
               <Breadcrumbs
                 elements={props.page()!.split("/")}
                 renderElement={(key) => props.title(props.list(), key)}
                 navigate={(keys) => navigate(keys.join("/"))}
               />
-            </span>
+            </Text>
             {props.children}
           </InnerColumn>
         </InnerContent>

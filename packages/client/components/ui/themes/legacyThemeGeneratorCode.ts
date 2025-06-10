@@ -8,7 +8,7 @@ import {
   themeFromSourceColor,
 } from "@material/material-color-utilities";
 
-import { DefaultTheme } from "../styled";
+import { DefaultTheme } from "./legacyStyled";
 
 /**
  * Convert a scheme to usable hex colours

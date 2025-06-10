@@ -20,8 +20,8 @@ import {
   Text,
   TextField,
   iconSize,
+  DataTable
 } from "@revolt/ui";
-import { DataTable } from "@revolt/ui/components/material/DataTable";
 
 import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
 

@@ -5,7 +5,6 @@ import {
   CategoryButtonGroup,
   Checkbox,
   Column,
-  FormGroup,
   Time,
   iconSize,
 } from "@revolt/ui";
@@ -21,45 +20,37 @@ export default function Sync() {
   return (
     <Column gap="lg">
       <CategoryButtonGroup>
-        <FormGroup>
-          <CategoryButton
-            action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
-            icon={<MdPalette {...iconSize(22)} />}
-            description={
-              <Trans>
-                Sync appearance options, such as chosen emoji pack and message
-                density.
-              </Trans>
-            }
-          >
-            <Trans>Appearance</Trans>
-          </CategoryButton>
-        </FormGroup>
-        <FormGroup>
-          <CategoryButton
-            action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
-            icon={<MdBrush {...iconSize(22)} />}
-            description={
-              <Trans>
-                Sync your chosen theme, colours, and any custom CSS.
-              </Trans>
-            }
-          >
-            <Trans>Theme</Trans>
-          </CategoryButton>
-        </FormGroup>
-        <FormGroup>
-          <CategoryButton
-            action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
-            icon={<MdLanguage {...iconSize(22)} />}
-            description={<Trans>Sync your currently chosen language.</Trans>}
-          >
-            <Trans>Language</Trans>
-          </CategoryButton>
-        </FormGroup>
+        <CategoryButton
+          action={<Checkbox value onChange={(value) => void value} />}
+          onClick={() => void 0}
+          icon={<MdPalette {...iconSize(22)} />}
+          description={
+            <Trans>
+              Sync appearance options, such as chosen emoji pack and message
+              density.
+            </Trans>
+          }
+        >
+          <Trans>Appearance</Trans>
+        </CategoryButton>
+        <CategoryButton
+          action={<Checkbox value onChange={(value) => void value} />}
+          onClick={() => void 0}
+          icon={<MdBrush {...iconSize(22)} />}
+          description={
+            <Trans>Sync your chosen theme, colours, and any custom CSS.</Trans>
+          }
+        >
+          <Trans>Theme</Trans>
+        </CategoryButton>
+        <CategoryButton
+          action={<Checkbox value onChange={(value) => void value} />}
+          onClick={() => void 0}
+          icon={<MdLanguage {...iconSize(22)} />}
+          description={<Trans>Sync your currently chosen language.</Trans>}
+        >
+          <Trans>Language</Trans>
+        </CategoryButton>
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton>

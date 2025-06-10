@@ -4,7 +4,7 @@ import { For, JSX, Show, createSignal } from "solid-js";
 import { useLingui } from "@lingui-solid/solid/macro";
 
 import { useError } from "@revolt/i18n";
-import { Checkbox2, Column, FormGroup, Text, TextField } from "@revolt/ui";
+import { Checkbox2, Column, Text, TextField } from "@revolt/ui";
 
 /**
  * Available field types
@@ -65,7 +65,7 @@ export function Fields(props: FieldProps) {
   return (
     <For each={props.fields}>
       {(field) => (
-        <FormGroup>
+        <label>
           {field === "log-out" ? (
             <Checkbox2 name="log-out">
               {fieldConfiguration["log-out"].name()}
@@ -79,7 +79,7 @@ export function Fields(props: FieldProps) {
               placeholder={fieldConfiguration[field].placeholder()}
             />
           )}
-        </FormGroup>
+        </label>
       )}
     </For>
   );

@@ -6,8 +6,7 @@ import { useQuery, useQueryClient } from "@tanstack/solid-query";
 import { Server, ServerBan } from "revolt.js";
 
 import { useModals } from "@revolt/modal";
-import { Avatar, Button, CircularProgress, Row } from "@revolt/ui";
-import { DataTable } from "@revolt/ui/components/material/DataTable";
+import { Avatar, Button, CircularProgress, DataTable, Row } from "@revolt/ui";
 
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 

@@ -1,6 +1,6 @@
 import { Match, Show, Switch, createEffect, createSignal, on } from "solid-js";
 
-import { css, cva } from "styled-system/css";
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 import { decodeTime, ulid } from "ulid";
 

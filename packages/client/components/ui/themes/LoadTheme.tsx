@@ -7,6 +7,7 @@ import {
   createMduiColourTriplets,
   createRevoltWebVariables,
 } from ".";
+import { Masks } from "./Masks";
 import { legacyThemeUnsetShim } from "./legacyThemeGeneratorCode";
 
 /**
@@ -40,5 +41,5 @@ export function LoadTheme() {
     }
   });
 
-  return null;
+  return <Masks />;
 }

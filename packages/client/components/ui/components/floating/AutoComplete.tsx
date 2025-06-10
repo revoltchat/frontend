@@ -6,7 +6,9 @@ import { styled } from "styled-system/jsx";
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
 
 import { AutoCompleteState } from "../../directives";
-import { Avatar, ColouredText, Column } from "../design";
+import { Avatar } from "../design";
+import { Column } from "../layout";
+import { ColouredText } from "../utils";
 
 /**
  * Auto complete popup
@@ -96,10 +98,7 @@ export function AutoComplete(
                 onMouseEnter={() => props.setSelection(index())}
               >
                 <Name>
-                  <ColouredText
-                    colour={match.role.colour}
-                    clip={match.role.colour?.includes("gradient")}
-                  >
+                  <ColouredText colour={match.role.colour}>
                     {match.role.name}
                   </ColouredText>
                 </Name>

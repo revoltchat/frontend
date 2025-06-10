@@ -12,8 +12,6 @@ import type { MFA, MFATicket } from "revolt.js";
 
 import { Keybind, KeybindAction } from "@revolt/keybinds";
 
-import "../ui/styled.d.ts";
-
 import { RenderModal } from "./modals";
 import { Modals } from "./types";
 

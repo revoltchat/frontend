@@ -5,7 +5,6 @@ import {
   CategoryButtonGroup,
   Checkbox,
   Column,
-  FormGroup,
   iconSize,
 } from "@revolt/ui";
 
@@ -21,42 +20,36 @@ export default function Native() {
   return (
     <Column gap="lg">
       <CategoryButtonGroup>
-        <FormGroup>
-          <CategoryButton
-            action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
-            icon={<MdExitToApp {...iconSize(22)} />}
-            description={
-              <Trans>Launch Revolt when you log into your computer.</Trans>
-            }
-          >
-            <Trans>Start with Computer</Trans>
-          </CategoryButton>
-        </FormGroup>
-        <FormGroup>
-          <CategoryButton
-            action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
-            icon={<MdCancelPresentation {...iconSize(22)} />}
-            description={
-              <Trans>Instead of closing, Revolt will hide in your tray.</Trans>
-            }
-          >
-            <Trans>Minimise to Tray</Trans>
-          </CategoryButton>
-        </FormGroup>
+        <CategoryButton
+          action={<Checkbox value onChange={(value) => void value} />}
+          onClick={() => void 0}
+          icon={<MdExitToApp {...iconSize(22)} />}
+          description={
+            <Trans>Launch Revolt when you log into your computer.</Trans>
+          }
+        >
+          <Trans>Start with Computer</Trans>
+        </CategoryButton>
+        <CategoryButton
+          action={<Checkbox value onChange={(value) => void value} />}
+          onClick={() => void 0}
+          icon={<MdCancelPresentation {...iconSize(22)} />}
+          description={
+            <Trans>Instead of closing, Revolt will hide in your tray.</Trans>
+          }
+        >
+          <Trans>Minimise to Tray</Trans>
+        </CategoryButton>
       </CategoryButtonGroup>
       <CategoryButtonGroup>
-        <FormGroup>
-          <CategoryButton
-            action={<Checkbox value onChange={(value) => void value} />}
-            onClick={() => void 0}
-            icon={<MdWebAsset {...iconSize(22)} />}
-            description={<Trans>Let Revolt use its own custom titlebar.</Trans>}
-          >
-            <Trans>Custom window frame</Trans>
-          </CategoryButton>
-        </FormGroup>
+        <CategoryButton
+          action={<Checkbox value onChange={(value) => void value} />}
+          onClick={() => void 0}
+          icon={<MdWebAsset {...iconSize(22)} />}
+          description={<Trans>Let Revolt use its own custom titlebar.</Trans>}
+        >
+          <Trans>Custom window frame</Trans>
+        </CategoryButton>
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton

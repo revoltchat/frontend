@@ -6,15 +6,7 @@ import { styled } from "styled-system/jsx";
 
 import { useModals } from "@revolt/modal";
 
-import {
-  ProfileActions,
-  ProfileBadges,
-  ProfileBanner,
-  ProfileBio,
-  ProfileRoles,
-  ProfileStatus,
-} from "../profiles";
-import { ProfileJoined } from "../profiles/ProfileJoined";
+import { Profile } from "../features";
 
 /**
  * Base element for the card
@@ -55,7 +47,7 @@ export function UserCard(
   return (
     <div use:invisibleScrollable={{ class: base() }}>
       <Grid>
-        <ProfileBanner
+        <Profile.Banner
           width={2}
           user={props.user}
           member={props.member}
@@ -63,71 +55,13 @@ export function UserCard(
           onClick={openFull}
         />
 
-        <ProfileActions user={props.user} member={props.member} width={2} />
-        <ProfileRoles member={props.member} />
-        <ProfileBadges user={props.user} />
-        <ProfileStatus user={props.user} />
-        <ProfileJoined user={props.user} member={props.member} />
-        <ProfileBio content={query.data?.content} onClick={openFull} />
-
-        {/* TODO: MUTUALS */}
+        <Profile.Actions user={props.user} member={props.member} width={2} />
+        <Profile.Roles member={props.member} />
+        <Profile.Badges user={props.user} />
+        <Profile.Status user={props.user} />
+        <Profile.Joined user={props.user} member={props.member} />
+        <Profile.Bio content={query.data?.content} onClick={openFull} />
       </Grid>
-
-      {/* <Show when={props.member}>
-        <Username
-          username={props.member!.nickname ?? props.user.username}
-          colour={props.member!.roleColour!}
-        />
-        <br />
-      </Show>
-      {props.user.username}
-      <Show when={props.member}>
-        <br />
-        <br />
-        <For each={props.member!.orderedRoles}>
-          {(role) => (
-            <div
-              onClick={() =>
-                props.member!.edit({
-                  roles: [...roleIds()].filter((id) => id !== role.id),
-                })
-              }
-            >
-              <ColouredText
-                colour={role.colour!}
-                clip={role.colour?.includes("gradient")}
-              >
-                {role.name}
-              </ColouredText>
-            </div>
-          )}
-        </For>
-        <br />
-        <Row wrap>
-          <For
-            each={props.member?.server?.orderedRoles.filter(
-              (role) => !roleIds().has(role.id)
-            )}
-          >
-            {(role) => (
-              <span
-                onClick={() =>
-                  props.member!.edit({
-                    roles: [...roleIds(), role.id],
-                  })
-                }
-              >
-                <ColouredText
-                  colour={role.colour!}
-                  clip={role.colour?.includes("gradient")}
-                >
-                  {role.name}
-                </ColouredText>
-              </span>
-            )}
-          </For>
-        </Row>
-      </Show> */}
     </div>
   );
 }

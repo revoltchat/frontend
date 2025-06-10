@@ -3,7 +3,6 @@ import { Match, Show, Switch, createMemo, onMount } from "solid-js";
 import { useLingui } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel, ServerMember, User } from "revolt.js";
-import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { floatingUserMenus } from "@revolt/app/menus/UserContextMenu";
@@ -18,7 +17,6 @@ import {
   Row,
   Tooltip,
   UserStatus,
-  UserStatusGraphic,
   Username,
   typography,
 } from "@revolt/ui";
@@ -401,7 +399,7 @@ function Member(props: { user?: User; member?: ServerMember }) {
             size={32}
             holepunch="bottom-right"
             overlay={
-              <UserStatusGraphic
+              <UserStatus.Graphic
                 status={(props.user ?? props.member?.user)?.presence}
               />
             }

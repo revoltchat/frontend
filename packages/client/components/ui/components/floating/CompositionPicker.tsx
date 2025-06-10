@@ -6,8 +6,8 @@ import { Motion, Presence } from "solid-motionone";
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { styled } from "styled-system/jsx";
 
-import { scrollable } from "../../directives";
-import { Column, Input } from "../design";
+import { Input } from "../features";
+import { Column } from "../layout";
 
 /**
  * Base element

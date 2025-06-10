@@ -25,7 +25,7 @@ import { KeybindContext } from "@revolt/keybinds";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
 import { VoiceContext } from "@revolt/rtc";
 import { StateContext, SyncWorker, useState } from "@revolt/state";
-import { FloatingManager, LoadTheme, Masks, Titlebar } from "@revolt/ui";
+import { FloatingManager, LoadTheme, Titlebar } from "@revolt/ui";
 /* @refresh reload */
 import "@revolt/ui/styles";
 
@@ -127,7 +127,6 @@ render(
       </Router>
 
       <LoadTheme />
-      <Masks />
     </StateContext>
   ),
   document.getElementById("root") as HTMLElement,

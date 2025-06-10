@@ -5,7 +5,6 @@ import {
   CategoryButtonGroup,
   Checkbox,
   Column,
-  FormGroup,
   iconSize,
 } from "@revolt/ui";
 

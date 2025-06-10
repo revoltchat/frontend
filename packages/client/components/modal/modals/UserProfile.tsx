@@ -1,17 +1,7 @@
 import { useQuery } from "@tanstack/solid-query";
 import { styled } from "styled-system/jsx";
 
-import {
-  Modal2,
-  Modal2Props,
-  ProfileActions,
-  ProfileBadges,
-  ProfileBanner,
-  ProfileBio,
-  ProfileJoined,
-  ProfileMutuals,
-  ProfileStatus,
-} from "@revolt/ui";
+import { Modal2, Modal2Props, Profile } from "@revolt/ui";
 
 import { Modals } from "../types";
 
@@ -31,18 +21,18 @@ export function UserProfileModal(
       padding={8}
     >
       <Grid>
-        <ProfileBanner
+        <Profile.Banner
           width={3}
           user={props.user}
           bannerUrl={query.data?.animatedBannerURL}
         />
 
-        <ProfileActions user={props.user} width={3} />
-        <ProfileStatus user={props.user} />
-        <ProfileBadges user={props.user} />
-        <ProfileJoined user={props.user} />
-        <ProfileMutuals user={props.user} />
-        <ProfileBio content={query.data?.content} full />
+        <Profile.Actions user={props.user} width={3} />
+        <Profile.Status user={props.user} />
+        <Profile.Badges user={props.user} />
+        <Profile.Joined user={props.user} />
+        <Profile.Mutuals user={props.user} />
+        <Profile.Bio content={query.data?.content} full />
       </Grid>
     </Modal2>
   );
