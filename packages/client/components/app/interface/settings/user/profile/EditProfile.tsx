@@ -5,20 +5,13 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { useClient } from "@revolt/client";
 import { createOwnProfileResource } from "@revolt/client/resources";
 import { useModals } from "@revolt/modal";
-import {
-  Avatar,
-  CategoryButton,
-  CategoryButtonGroup,
-  CategoryCollapse,
-  Column,
-  iconSize,
-} from "@revolt/ui";
+import { Avatar, CategoryButton, Column, Text, iconSize } from "@revolt/ui";
 
 import MdGroups from "@material-design-icons/svg/outlined/groups.svg?component-solid";
 
 import { UserSummary } from "../account/index";
 
-import { EditProfileButtons } from "./EditProfileButtons";
+import { UserProfileEditor } from "./UserProfileEditor";
 
 /**
  * Edit profile
@@ -35,10 +28,8 @@ export function EditProfile() {
         bannerUrl={profile.data?.animatedBannerURL}
       />
 
-      <EditProfileButtons user={client().user!} />
-
-      <CategoryButtonGroup>
-        <CategoryCollapse
+      <CategoryButton.Group>
+        <CategoryButton.Collapse
           icon={<MdGroups {...iconSize(22)} />}
           title={<Trans>Server Identities</Trans>}
           description={<Trans>Change your profile per-server</Trans>}
@@ -65,8 +56,15 @@ export function EditProfile() {
               </CategoryButton>
             )}
           </For>
-        </CategoryCollapse>
-      </CategoryButtonGroup>
+        </CategoryButton.Collapse>
+      </CategoryButton.Group>
+
+      <Column>
+        <Text class="title" size="large">
+          <Trans>Edit Global Profile</Trans>
+        </Text>
+        <UserProfileEditor user={client().user!} />
+      </Column>
     </Column>
   );
 }
