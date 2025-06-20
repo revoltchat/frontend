@@ -7,7 +7,6 @@
  * - Extended FAB
  * - FAB
  * - FAB menu
- * - Icon buttons (we want this!)
  * - Split button
  * - Cards
  * - Carousel
@@ -37,6 +36,7 @@ export { CategoryButton } from "./CategoryButton";
 export { Checkbox } from "./Checkbox";
 export { DataTable } from "./DataTable";
 export { Dialog, type DialogProps } from "./Dialog";
+export { IconButton } from "./IconButton";
 export { List } from "./List";
 export { CircularProgress } from "./LoadingProgress";
 export { MenuItem } from "./Menu";

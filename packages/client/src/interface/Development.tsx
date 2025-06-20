@@ -20,7 +20,8 @@ import {
   Text,
   TextField,
   iconSize,
-  DataTable
+  DataTable,
+  IconButton
 } from "@revolt/ui";
 
 import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
@@ -125,6 +126,20 @@ export function DevelopmentPage() {
         <Button size="md" shape="square">md</Button>
         <Button size="lg" shape="square">lg</Button>
         <Button size="xl" shape="square">xl</Button>
+      </Row>
+
+      <Row align>
+        <IconButton variant="filled"><Face /></IconButton>
+        <IconButton variant="tonal"><Face /></IconButton>
+        <IconButton variant="outlined"><Face /></IconButton>
+        <IconButton variant="standard"><Face /></IconButton>
+      </Row>
+      <Row align>
+        <IconButton size="xs" shape="square"><Face /></IconButton>
+        <IconButton size="sm" shape="square"><Face /></IconButton>
+        <IconButton size="md" shape="square"><Face /></IconButton>
+        <IconButton size="lg" shape="square"><Face /></IconButton>
+        <IconButton size="xl" shape="square"><Face /></IconButton>
       </Row>
 
       <DataTable
