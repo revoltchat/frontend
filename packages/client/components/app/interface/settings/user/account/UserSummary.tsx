@@ -4,7 +4,7 @@ import { User } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { useTime } from "@revolt/i18n";
-import { Avatar, Button, CategoryButtonGroup, iconSize } from "@revolt/ui";
+import { Avatar, CategoryButton, IconButton, iconSize } from "@revolt/ui";
 
 import MdCakeFill from "@material-design-icons/svg/filled/cake.svg?component-solid";
 import MdEdit from "@material-design-icons/svg/outlined/edit.svg?component-solid";
@@ -26,7 +26,7 @@ export function UserSummary(props: {
         };
 
   return (
-    <CategoryButtonGroup>
+    <CategoryButton.Group>
       <AccountBox style={bannerStyle()}>
         <ProfileDetails>
           <Avatar src={props.user.animatedAvatarURL} size={58} />
@@ -37,9 +37,9 @@ export function UserSummary(props: {
             </span>
           </Username>
           <Show when={props.onEdit}>
-            <Button size="fab" onPress={props.onEdit}>
+            <IconButton shape="square" onPress={props.onEdit}>
               <MdEdit />
-            </Button>
+            </IconButton>
           </Show>
         </ProfileDetails>
         <Show when={props.showBadges}>
@@ -62,13 +62,13 @@ export function UserSummary(props: {
                   },
                 }}
               >
-                <MdCakeFill {...iconSize(18)} />
+                <MdCakeFill {...iconSize(14)} />
               </span>
             </ProfileBadges>
           </BottomBar>
         </Show>
       </AccountBox>
-    </CategoryButtonGroup>
+    </CategoryButton.Group>
   );
 }
 
@@ -133,9 +133,10 @@ const ProfileBadges = styled("div", {
     display: "flex",
     gap: "var(--gap-sm)",
     width: "fit-content",
-    padding: "var(--gap-sm) var(--gap-sm)",
+    padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-md)",
 
-    background: "var(--colours-settings-background)",
+    fill: "var(--md-sys-color-on-secondary)",
+    background: "var(--md-sys-color-secondary)",
   },
 });

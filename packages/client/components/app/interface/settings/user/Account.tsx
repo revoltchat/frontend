@@ -8,14 +8,7 @@ import {
   createOwnProfileResource,
 } from "@revolt/client/resources";
 import { useModals } from "@revolt/modal";
-import {
-  CategoryButton,
-  CategoryButtonGroup,
-  CategoryCollapse,
-  Column,
-  Row,
-  iconSize,
-} from "@revolt/ui";
+import { CategoryButton, Column, Row, iconSize } from "@revolt/ui";
 
 import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
 import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
@@ -61,7 +54,7 @@ function EditAccount() {
   const [email, setEmail] = createSignal("•••••••••••@•••••••••••");
 
   return (
-    <CategoryButtonGroup>
+    <CategoryButton.Group>
       <CategoryButton
         action="chevron"
         onClick={() =>
@@ -115,7 +108,7 @@ function EditAccount() {
       >
         <Trans>Password</Trans>
       </CategoryButton>
-    </CategoryButtonGroup>
+    </CategoryButton.Group>
   );
 }
 
@@ -125,7 +118,7 @@ function EditAccount() {
 function MultiFactorAuth() {
   const client = useClient();
   const mfa = createMfaResource();
-  const { openModal, mfaFlow, mfaEnableTOTP } = useModals();
+  const { openModal, mfaFlow, mfaEnableTOTP, showError } = useModals();
 
   /**
    * Show recovery codes
@@ -174,7 +167,7 @@ function MultiFactorAuth() {
           success = true;
         }
       } catch (err) {
-        /* no-op */
+        showError(err);
       }
     }
   }
@@ -187,8 +180,8 @@ function MultiFactorAuth() {
   }
 
   return (
-    <CategoryButtonGroup>
-      <CategoryCollapse
+    <CategoryButton.Group>
+      <CategoryButton.Collapse
         icon={<MdVerifiedUser {...iconSize(22)} />}
         title={<Trans>Recovery Codes</Trans>}
         description={
@@ -227,8 +220,8 @@ function MultiFactorAuth() {
             </CategoryButton>
           </Match>
         </Switch>
-      </CategoryCollapse>
-      <CategoryCollapse
+      </CategoryButton.Collapse>
+      <CategoryButton.Collapse
         icon={<MdLock {...iconSize(22)} />}
         title={<Trans>Authenticator App</Trans>}
         description={<Trans>Configure one-time password authentication</Trans>}
@@ -257,8 +250,8 @@ function MultiFactorAuth() {
             </CategoryButton>
           </Match>
         </Switch>
-      </CategoryCollapse>
-    </CategoryButtonGroup>
+      </CategoryButton.Collapse>
+    </CategoryButton.Group>
   );
 }
 
@@ -296,7 +289,7 @@ function ManageAccount() {
   }
 
   return (
-    <CategoryButtonGroup>
+    <CategoryButton.Group>
       <CategoryButton
         action="chevron"
         disabled={mfa.isLoading}
@@ -336,6 +329,6 @@ function ManageAccount() {
           </Match>
         </Switch>
       </CategoryButton>
-    </CategoryButtonGroup>
+    </CategoryButton.Group>
   );
 }

@@ -1,6 +1,6 @@
 import { Accessor, JSX, Show } from "solid-js";
 
-import { cva } from "styled-system/css";
+import { css, cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Breadcrumbs, Button, Text, iconSize } from "@revolt/ui";
@@ -39,6 +39,7 @@ export function SettingsContent(props: {
               />
             </Text>
             {props.children}
+            <div class={css({ minHeight: "80px" })} />
           </InnerColumn>
         </InnerContent>
       </Show>
@@ -97,6 +98,7 @@ const InnerColumn = styled("div", {
     gap: "var(--gap-md)",
     display: "flex",
     flexDirection: "column",
+    marginBlockEnd: "80px",
   },
 });
 

@@ -112,8 +112,8 @@ const Base = styled("a", {
     padding: "13px",
     borderRadius: "var(--borderRadius-md)",
 
-    color: "var(--md-sys-color-on-primary)",
-    background: "var(--md-sys-color-primary)",
+    color: "var(--md-sys-color-on-secondary-container)",
+    background: "var(--md-sys-color-secondary-container)",
 
     userSelect: "none",
     cursor: "pointer",

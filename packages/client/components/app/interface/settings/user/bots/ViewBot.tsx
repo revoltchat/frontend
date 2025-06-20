@@ -29,7 +29,6 @@ export function ViewBot(props: { bot: Bot }) {
       />
 
       <UserProfileEditor user={props.bot.user!} />
-      {/* <EditProfileButtons user={props.bot.user!} /> */}
       {/* <ErrorBoundary fallback={<>Failed to load profile</>}>
         <Suspense fallback={<>loading...</>}>{profile.data?.content}</Suspense>
       </ErrorBoundary> */}

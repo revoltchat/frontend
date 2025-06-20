@@ -4,6 +4,7 @@ import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
 import { Plural, Trans, useLingui } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Channel } from "revolt.js";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, UserContextMenu } from "@revolt/app";
@@ -133,6 +134,9 @@ export const HomeSidebar = (props: Props) => {
           <Category>
             Direct Messages
             <a
+              class={css({
+                cursor: "pointer",
+              })}
               onClick={() =>
                 openModal({
                   type: "create_group",
