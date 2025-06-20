@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/solid-query";
 import { styled } from "styled-system/jsx";
 
-import { Modal2, Modal2Props, Profile } from "@revolt/ui";
+import { Dialog, DialogProps, Profile } from "@revolt/ui";
 
 import { Modals } from "../types";
 
 export function UserProfileModal(
-  props: Modal2Props & Modals & { type: "user_profile" },
+  props: DialogProps & Modals & { type: "user_profile" },
 ) {
   const query = useQuery(() => ({
     queryKey: ["profile", props.user.id],
@@ -14,7 +14,7 @@ export function UserProfileModal(
   }));
 
   return (
-    <Modal2
+    <Dialog
       show={props.show}
       onClose={props.onClose}
       minWidth={560}
@@ -34,7 +34,7 @@ export function UserProfileModal(
         <Profile.Mutuals user={props.user} />
         <Profile.Bio content={query.data?.content} full />
       </Grid>
-    </Modal2>
+    </Dialog>
   );
 }
 

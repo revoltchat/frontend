@@ -3,12 +3,11 @@ import { For, createSignal } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 
 import {
-  Checkbox2,
+  Checkbox,
   Column,
+  Dialog,
+  DialogProps,
   List,
-  ListItem,
-  Modal2,
-  Modal2Props,
   Text,
   Time,
 } from "@revolt/ui";
@@ -19,13 +18,13 @@ import { useModals } from "..";
 import { Modals } from "../types";
 
 export function PolicyChangeModal(
-  props: Modal2Props & Modals & { type: "policy_change" },
+  props: DialogProps & Modals & { type: "policy_change" },
 ) {
   const { showError } = useModals();
   const [confirm, setConfirm] = createSignal(false);
 
   return (
-    <Modal2
+    <Dialog
       icon={<MdPolicy />}
       show={props.show}
       onClose={props.onClose}
@@ -47,7 +46,7 @@ export function PolicyChangeModal(
       <List>
         <For each={props.changes}>
           {(change) => (
-            <ListItem onClick={() => window.open(change.url, "_blank")}>
+            <List.Item onClick={() => window.open(change.url, "_blank")}>
               <Column gap="none">
                 <Text class="title">{change.description}</Text>
                 <Text class="label">
@@ -58,16 +57,16 @@ export function PolicyChangeModal(
                   </Trans>
                 </Text>
               </Column>
-            </ListItem>
+            </List.Item>
           )}
         </For>
       </List>
-      <Checkbox2
+      <Checkbox
         checked={confirm()}
         onChange={() => setConfirm((checked) => !checked)}
       >
         I've read and reviewed the changes.
-      </Checkbox2>
-    </Modal2>
+      </Checkbox>
+    </Dialog>
   );
 }

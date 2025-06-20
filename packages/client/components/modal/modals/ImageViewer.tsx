@@ -5,7 +5,7 @@ import { Motion, Presence } from "solid-motionone";
 import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { Button, Column, Modal2Props, ModalScrim, Text } from "@revolt/ui";
+import { Button, Column, Dialog, DialogProps, Text } from "@revolt/ui";
 
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 import MdDownload from "@material-design-icons/svg/outlined/download.svg?component-solid";
@@ -13,11 +13,11 @@ import MdDownload from "@material-design-icons/svg/outlined/download.svg?compone
 import { Modals } from "../types";
 
 export function ImageViewerModal(
-  props: Modal2Props & Modals & { type: "image_viewer" },
+  props: DialogProps & Modals & { type: "image_viewer" },
 ) {
   return (
     <Portal mount={document.getElementById("floating")!}>
-      <ModalScrim
+      <Dialog.Scrim
         padding={false}
         overflow={false}
         show={props.show}
@@ -94,7 +94,7 @@ export function ImageViewerModal(
             </Motion.div>
           </Show>
         </Presence>
-      </ModalScrim>
+      </Dialog.Scrim>
     </Portal>
   );
 }

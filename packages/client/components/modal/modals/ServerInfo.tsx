@@ -2,19 +2,19 @@ import { Trans } from "@lingui-solid/solid/macro";
 
 import { useClient } from "@revolt/client";
 import { Markdown } from "@revolt/markdown";
-import { Modal2, Modal2Props } from "@revolt/ui";
+import { Dialog, DialogProps } from "@revolt/ui";
 
 import { useModals } from "..";
 import { Modals } from "../types";
 
 export function ServerInfoModal(
-  props: Modal2Props & Modals & { type: "server_info" },
+  props: DialogProps & Modals & { type: "server_info" },
 ) {
   const client = useClient();
   const { openModal } = useModals();
 
   return (
-    <Modal2
+    <Dialog
       show={props.show}
       onClose={props.onClose}
       title={props.server.name}
@@ -52,6 +52,6 @@ export function ServerInfoModal(
       ]}
     >
       <Markdown content={props.server.description!} />
-    </Modal2>
+    </Dialog>
   );
 }

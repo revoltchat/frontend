@@ -111,10 +111,6 @@ export type Modals =
       server: Server;
     }
   | {
-      type: "edit_display_name";
-      user: User;
-    }
-  | {
       type: "edit_email";
       client: Client;
     }

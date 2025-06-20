@@ -1,14 +1,14 @@
 import { Trans } from "@lingui-solid/solid/macro";
 
-import { Avatar, Modal2, Modal2Props } from "@revolt/ui";
+import { Avatar, Dialog, DialogProps } from "@revolt/ui";
 
 import { Modals } from "../types";
 
 export function EmojiPreviewModal(
-  props: Modal2Props & Modals & { type: "emoji_preview" },
+  props: DialogProps & Modals & { type: "emoji_preview" },
 ) {
   return (
-    <Modal2
+    <Dialog
       show={props.show}
       onClose={props.onClose}
       title={`:${props.emoji.name}:`}
@@ -23,6 +23,6 @@ export function EmojiPreviewModal(
       ]}
     >
       <Avatar src={props.emoji.url} shape="rounded-square" />
-    </Modal2>
+    </Dialog>
   );
 }

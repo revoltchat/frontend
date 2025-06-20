@@ -24,10 +24,9 @@ import delete_bot from "./modals/DeleteBot";
 import delete_channel from "./modals/DeleteChannel";
 import delete_message from "./modals/DeleteMessage";
 import delete_server from "./modals/DeleteServer";
-import edit_display_name from "./modals/EditDisplayName";
-import edit_email from "./modals/EditEmail";
-import edit_password from "./modals/EditPassword";
-import edit_username from "./modals/EditUsername";
+import { EditEmailModal } from "./modals/EditEmail";
+import { EditPasswordModal } from "./modals/EditPassword";
+import { EditUsernameModal } from "./modals/EditUsername";
 import { EmojiPreviewModal } from "./modals/EmojiPreview";
 import error from "./modals/Error";
 import { Error2Modal } from "./modals/Error2";
@@ -82,6 +81,12 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <CreateGroupModal {...modalProps} />;
     case "create_webhook":
       return <CreateWebhookModal {...modalProps} />;
+    case "edit_email":
+      return <EditEmailModal {...modalProps} />;
+    case "edit_password":
+      return <EditPasswordModal {...modalProps} />;
+    case "edit_username":
+      return <EditUsernameModal {...modalProps} />;
     case "emoji_preview":
       return <EmojiPreviewModal {...modalProps} />;
     case "error2":
@@ -121,10 +126,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
         delete_channel,
         delete_message,
         delete_server,
-        edit_display_name,
-        edit_email,
-        edit_password,
-        edit_username,
         error,
         join_server,
         kick_member,

@@ -3,16 +3,14 @@ import { createMemo, createSignal } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { t } from "@lingui/core/macro";
-import { useMutation } from "@tanstack/solid-query";
-import { css } from "styled-system/css";
 
 import { useClient } from "@revolt/client";
 import {
   Avatar,
   Column,
+  Dialog,
+  DialogProps,
   Form2,
-  Modal2,
-  Modal2Props,
   Row,
   Text,
   TextField,
@@ -25,29 +23,27 @@ import { Modals } from "../types";
  * Create a new group and optionally add members
  */
 export function CreateGroupModal(
-  props: Modal2Props & Modals & { type: "create_group" },
+  props: DialogProps & Modals & { type: "create_group" },
 ) {
   const client = useClient();
-  const { openModal } = useModals();
+  const { showError } = useModals();
 
   const group = createFormGroup({
     name: createFormControl(""),
     users: createFormControl([] as string[]),
   });
 
-  const change = useMutation(() => ({
-    mutationFn: ({ name, users }: { name: string; users: string[] }) =>
-      props.client.channels.createGroup(name, users),
-    onError: (error) => openModal({ type: "error2", error }),
-  }));
-
   async function onSubmit() {
-    await change.mutateAsync({
-      name: group.controls.name.value,
-      users: group.controls.users.value,
-    });
+    try {
+      await props.client.channels.createGroup(
+        group.controls.name.value,
+        group.controls.users.value,
+      );
 
-    props.onClose();
+      props.onClose();
+    } catch (err) {
+      showError(err);
+    }
   }
 
   const [filter, setFilter] = createSignal("");
@@ -65,7 +61,7 @@ export function CreateGroupModal(
   );
 
   return (
-    <Modal2
+    <Dialog
       minWidth={420}
       show={props.show}
       onClose={props.onClose}
@@ -80,7 +76,7 @@ export function CreateGroupModal(
           },
         },
       ]}
-      isDisabled={change.isPending}
+      isDisabled={group.isPending}
     >
       <form onSubmit={Form2.submitHandler(group, onSubmit)}>
         <Column>
@@ -115,6 +111,6 @@ export function CreateGroupModal(
           </Form2.VirtualSelect>
         </Column>
       </form>
-    </Modal2>
+    </Dialog>
   );
 }

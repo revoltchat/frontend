@@ -3,12 +3,12 @@ import { For, Match, Switch } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
-import { Checkbox2, Column, Modal2, Modal2Props, Row } from "@revolt/ui";
+import { Checkbox, Column, Dialog, DialogProps, Row } from "@revolt/ui";
 
 import { Modals } from "../types";
 
 export function UserProfileRolesModal(
-  props: Modal2Props & Modals & { type: "user_profile_roles" },
+  props: DialogProps & Modals & { type: "user_profile_roles" },
 ) {
   const editMode = () =>
     props.member.server?.owner?.self ||
@@ -16,7 +16,7 @@ export function UserProfileRolesModal(
       props.member.inferiorTo(props.member.server.member!));
 
   return (
-    <Modal2
+    <Dialog
       minWidth={420}
       show={props.show}
       onClose={props.onClose}
@@ -50,7 +50,7 @@ export function UserProfileRolesModal(
           <Column>
             <For each={props.member.server?.orderedRoles}>
               {(role) => (
-                <Checkbox2
+                <Checkbox
                   checked={props.member.roles.includes(role.id)}
                   disabled={
                     // this needs a better API
@@ -80,13 +80,13 @@ export function UserProfileRolesModal(
                       }}
                     />
                   </Row>
-                </Checkbox2>
+                </Checkbox>
               )}
             </For>
           </Column>
         </Match>
       </Switch>
-    </Modal2>
+    </Dialog>
   );
 }
 
