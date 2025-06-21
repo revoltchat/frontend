@@ -97,7 +97,9 @@ export default function FlowVerify() {
           )}
         </Text> TODO */}
         <a href="/login/auth">
-          <Trans>Go back to login</Trans>
+          <Button variant="text">
+            <Trans>Go back to login</Trans>
+          </Button>
         </a>
       </Match>
       <Match when={state().state === "success"}>
@@ -110,7 +112,9 @@ export default function FlowVerify() {
           </Button>
         </Show>
         <a href="/login/auth">
-          <Trans>Go back to login</Trans>
+          <Button variant="text">
+            <Trans>Go back to login</Trans>
+          </Button>
         </a>
       </Match>
     </Switch>

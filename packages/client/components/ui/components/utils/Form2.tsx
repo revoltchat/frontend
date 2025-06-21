@@ -137,7 +137,7 @@ const FormResetButton = (props: {
 }) => {
   return (
     <Button
-      variant="plain"
+      variant="text"
       onPress={() => {
         resetGeneric(props.group, true);
         props.onReset();

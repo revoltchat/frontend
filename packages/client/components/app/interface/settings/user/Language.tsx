@@ -106,13 +106,13 @@ function PickLanguage() {
               {lang.verified && (
                 <MdVerifiedFill
                   {...iconSize(18)}
-                  fill="var(--colours-foreground)"
+                  fill="var(--md-sys-color-on-surface)"
                 />
               )}{" "}
               {lang.incomplete && (
                 <MdErrorFill
                   {...iconSize(18)}
-                  fill="var(--colours-foreground)"
+                  fill="var(--md-sys-color-on-surface)"
                 />
               )}
             </Row>

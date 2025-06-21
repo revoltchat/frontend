@@ -381,7 +381,7 @@ export function MessageComposition(props: Props) {
           <Switch fallback={<MessageBox.InlineIcon size="short" />}>
             <Match when={props.channel.havePermission("UploadFiles")}>
               <MessageBox.InlineIcon size="wide">
-                <Button variant="plain" size="icon" onPress={addFile}>
+                <Button variant="text" size="icon" onPress={addFile}>
                   <BiRegularPlus size={24} />
                 </Button>
               </MessageBox.InlineIcon>
@@ -395,7 +395,7 @@ export function MessageComposition(props: Props) {
                 <Show when={state.experiments.isEnabled("gif_picker")}>
                   <MessageBox.InlineIcon size="normal">
                     <Button
-                      variant="plain"
+                      variant="text"
                       size="icon"
                       onPress={triggerProps.onClickGif}
                     >
@@ -406,7 +406,7 @@ export function MessageComposition(props: Props) {
                 <Show when={state.experiments.isEnabled("emoji_picker")}>
                   <MessageBox.InlineIcon size="normal">
                     <Button
-                      variant="plain"
+                      variant="text"
                       size="icon"
                       onPress={triggerProps.onClickEmoji}
                     >
@@ -418,7 +418,7 @@ export function MessageComposition(props: Props) {
                   when={state.settings.getValue("appearance:show_send_button")}
                 >
                   <MessageBox.InlineIcon size="normal">
-                    <Button variant="plain" size="icon" onPress={sendMessage}>
+                    <Button variant="text" size="icon" onPress={sendMessage}>
                       <BiSolidSend size={24} />
                     </Button>
                   </MessageBox.InlineIcon>

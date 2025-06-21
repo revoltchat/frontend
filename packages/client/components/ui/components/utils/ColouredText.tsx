@@ -1,5 +1,7 @@
 import { JSX, Match, Switch } from "solid-js";
 
+import { css } from "styled-system/css";
+
 /**
  * Coloured text
  */
@@ -17,11 +19,12 @@ export function ColouredText(props: {
         <span
           style={{
             background: props.colour!,
-            "-webkit-text-fill-color": "transparent",
-            "background-clip": "text",
-            "-webkit-background-clip": "text",
-            "text-decoration": "none",
           }}
+          class={css({
+            backgroundClip: "text !important",
+            WebkitTextFillColor: "transparent",
+            textDecoration: "none",
+          })}
           children={props.children}
         />
       </Match>

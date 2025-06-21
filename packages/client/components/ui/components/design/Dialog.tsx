@@ -174,6 +174,7 @@ const Icon = styled("div", {
   base: {
     alignSelf: "center",
     marginBottom: "16px",
+    fill: "var(--md-sys-color-on-surface)",
   },
 });
 

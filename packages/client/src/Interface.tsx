@@ -127,8 +127,8 @@ const Notice = styled("div", {
     textAlign: "center",
     fontSize: "0.8em",
     padding: "8px",
+    color: "var(--md-sys-color-outline)",
     background: "var(--md-sys-color-surface-container-high)",
-    color: "var(--colours-messaging-message-box-foreground)",
     // borderRadius: "var(--borderRadius-md)",
   },
 });

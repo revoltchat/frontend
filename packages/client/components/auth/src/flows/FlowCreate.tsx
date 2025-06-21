@@ -52,7 +52,7 @@ export default function FlowCreate() {
         <Fields fields={["email", "password"]} />
         <Row justify>
           <a href="..">
-            <Button variant="plain">
+            <Button variant="text">
               <MdArrowBack {...iconSize("1.2em")} /> <Trans>Back</Trans>
             </Button>
           </a>

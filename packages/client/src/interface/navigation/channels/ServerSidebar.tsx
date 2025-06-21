@@ -3,7 +3,6 @@ import {
   BiRegularHash,
   BiRegularPhoneCall,
   BiSolidCheckCircle,
-  BiSolidCog,
 } from "solid-icons/bi";
 import { For, JSX, Match, Show, Switch, createMemo } from "solid-js";
 
@@ -19,6 +18,7 @@ import { useState } from "@revolt/state";
 import {
   Column,
   Header,
+  IconButton,
   MenuButton,
   OverflowingText,
   Row,
@@ -178,9 +178,14 @@ function ServerInfo(
       <ServerName onClick={props.openServerInfo}>
         <TextWithEmoji content={props.server.name} />
       </ServerName>
-      <SettingsLink onClick={props.openServerSettings}>
-        <BiSolidCog size={18} />
-      </SettingsLink>
+      <IconButton
+        size="xs"
+        width="narrow"
+        variant="_header"
+        onPress={props.openServerSettings}
+      >
+        <MdSettings />
+      </IconButton>
     </Row>
   );
 }
@@ -196,19 +201,6 @@ const ServerName = styled("a", {
     overflow: "hidden",
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
-  },
-});
-
-/**
- * Settings link
- */
-const SettingsLink = styled("a", {
-  base: {
-    cursor: "pointer",
-
-    "& > *": {
-      display: "block",
-    },
   },
 });
 

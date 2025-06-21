@@ -20,7 +20,7 @@ const Logo = styled(RevoltSvg, {
   base: {
     height: "0.8em",
     display: "inline",
-    fill: "var(--colours-messaging-message-box-foreground)",
+    fill: "var(--md-sys-color-on-surface)",
   },
 });
 
@@ -69,15 +69,19 @@ export default function FlowLogin() {
               <Fields fields={["email", "password"]} />
               <Column gap="xl" align>
                 <a href="/login/reset">
-                  <Trans>Reset password</Trans>
+                  <Button variant="text">
+                    <Trans>Reset password</Trans>
+                  </Button>
                 </a>
                 <a href="/login/resend">
-                  <Trans>Resend verification</Trans>
+                  <Button variant="text">
+                    <Trans>Resend verification</Trans>
+                  </Button>
                 </a>
               </Column>
               <Row align justify>
                 <a href="..">
-                  <Button variant="plain">
+                  <Button variant="text">
                     <MdArrowBack {...iconSize("1.2em")} /> <Trans>Back</Trans>
                   </Button>
                 </a>
@@ -113,7 +117,7 @@ export default function FlowLogin() {
             <Fields fields={["username"]} />
             <Row align justify>
               <Button
-                variant="plain"
+                variant="text"
                 onPress={() =>
                   lifecycle.transition({
                     type: TransitionType.Cancel,

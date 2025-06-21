@@ -45,7 +45,9 @@ export default function FlowReset() {
         </Button>
       </Form>
       <a href="/login/auth">
-        <Trans>Go back to login</Trans>
+        <Button variant="text">
+          <Trans>Go back to login</Trans>
+        </Button>
       </a>
       {import.meta.env.DEV && (
         <div

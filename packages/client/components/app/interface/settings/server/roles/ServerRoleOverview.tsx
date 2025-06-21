@@ -47,7 +47,8 @@ export function ServerRoleOverview(props: { context: Server }) {
                 icon={
                   <RoleIcon
                     style={{
-                      background: role.colour ?? "var(--colours-foreground)",
+                      background:
+                        role.colour ?? "var(--md-sys-color-outline-variant)",
                     }}
                   />
                 }

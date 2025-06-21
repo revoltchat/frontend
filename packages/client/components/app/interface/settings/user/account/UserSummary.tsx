@@ -22,7 +22,7 @@ export function UserSummary(props: {
           "background-image": `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("${props.bannerUrl}")`,
         }
       : {
-          background: `var(--colours-settings-background)`,
+          background: `var(--md-sys-color-primary-container)`,
         };
 
   return (
@@ -37,7 +37,7 @@ export function UserSummary(props: {
             </span>
           </Username>
           <Show when={props.onEdit}>
-            <IconButton shape="square" onPress={props.onEdit}>
+            <IconButton variant="filled" shape="square" onPress={props.onEdit}>
               <MdEdit />
             </IconButton>
           </Show>

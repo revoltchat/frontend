@@ -292,7 +292,7 @@ const LineDivider = styled("div", {
     flexShrink: 0,
     margin: "6px auto",
     width: "calc(100% - 24px)",
-    background: "var(--colours-sidebar-server-list-foreground)",
+    background: "var(--md-sys-color-outline-variant)",
   },
 });
 

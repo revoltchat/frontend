@@ -14,6 +14,7 @@ import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   Button,
+  IconButton,
   NonBreakingText,
   OverflowingText,
   Spacer,
@@ -161,9 +162,8 @@ export function ChannelHeader(props: Props) {
       <Show
         when={import.meta.env.DEV && props.channel.type !== "SavedMessages"}
       >
-        <Button
-          variant="plain"
-          size="icon"
+        <IconButton
+          variant="standard"
           onPress={joinCall}
           use:floating={{
             tooltip: {
@@ -173,7 +173,7 @@ export function ChannelHeader(props: Props) {
           }}
         >
           <MdCall />
-        </Button>
+        </IconButton>
       </Show>
 
       <Show
@@ -182,9 +182,7 @@ export function ChannelHeader(props: Props) {
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
-        <Button
-          variant="plain"
-          size="icon"
+        <IconButton
           onPress={() =>
             openModal({
               type: "settings",
@@ -200,12 +198,12 @@ export function ChannelHeader(props: Props) {
           }}
         >
           <MdSettings />
-        </Button>
+        </IconButton>
       </Show>
 
       <Show when={props.channel.type === "Group"}>
         <Button
-          variant="plain"
+          variant="text"
           size="icon"
           onPress={() =>
             openModal({
@@ -225,9 +223,7 @@ export function ChannelHeader(props: Props) {
         </Button>
       </Show>
 
-      <Button
-        variant="plain"
-        size="icon"
+      <IconButton
         use:floating={{
           tooltip: {
             placement: "bottom",
@@ -245,12 +241,10 @@ export function ChannelHeader(props: Props) {
         }
       >
         <MdKeep />
-      </Button>
+      </IconButton>
 
       <Show when={props.channel.type !== "SavedMessages"}>
-        <Button
-          variant="plain"
-          size="icon"
+        <IconButton
           onPress={() => {
             if (props.sidebarState().state === "default") {
               state.layout.toggleSectionState(
@@ -277,7 +271,7 @@ export function ChannelHeader(props: Props) {
           }}
         >
           <MdGroup />
-        </Button>
+        </IconButton>
       </Show>
 
       <input
@@ -313,7 +307,7 @@ const Divider = styled("div", {
     height: "20px",
     margin: "0px 5px",
     paddingLeft: "1px",
-    backgroundColor: "var(--colours-messaging-channel-header-divider)",
+    backgroundColor: "var(--md-sys-color-outline-variant)",
   },
 });
 

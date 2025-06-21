@@ -45,7 +45,9 @@ export default function FlowResend() {
         </Button>
       </Form>
       <a href="/login/auth">
-        <Trans>Go back to login</Trans>
+        <Button variant="text">
+          <Trans>Go back to login</Trans>
+        </Button>
       </a>
     </>
   );

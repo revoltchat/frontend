@@ -91,6 +91,10 @@ const iconButton2 = cva({
       standard: {
         fill: "var(--md-sys-color-on-surface-variant)",
       },
+
+      _header: {
+        fill: "white",
+      },
     },
     size: {
       xs: {
@@ -122,7 +126,7 @@ const iconButton2 = cva({
     },
   },
   defaultVariants: {
-    variant: "filled",
+    variant: "standard",
     width: "default",
     shape: "round",
     size: "sm",

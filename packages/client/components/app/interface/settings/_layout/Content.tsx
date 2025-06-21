@@ -3,7 +3,7 @@ import { Accessor, JSX, Show } from "solid-js";
 import { css, cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { Breadcrumbs, Button, Text, iconSize } from "@revolt/ui";
+import { Breadcrumbs, IconButton, Text } from "@revolt/ui";
 
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
@@ -45,9 +45,9 @@ export function SettingsContent(props: {
       </Show>
       <Show when={props.onClose}>
         <CloseAction>
-          <Button size="icon" variant="plain" onPress={props.onClose}>
-            <MdClose {...iconSize(28)} />
-          </Button>
+          <IconButton variant="tonal" onPress={props.onClose}>
+            <MdClose />
+          </IconButton>
         </CloseAction>
       </Show>
     </div>
@@ -113,6 +113,7 @@ const CloseAction = styled("div", {
     visibility: "visible",
     position: "sticky",
     top: 0,
+
     "&:after": {
       content: '"ESC"',
       marginTop: "4px",
@@ -120,7 +121,7 @@ const CloseAction = styled("div", {
       justifyContent: "center",
       width: "36px",
       fontWeight: 600,
-      color: "var(--colours-settings-content-foreground)",
+      color: "var(--md-sys-color-on-surface)",
       fontSize: "0.75rem",
     },
   },

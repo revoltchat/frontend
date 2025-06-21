@@ -68,6 +68,9 @@ const button = cva({
     cursor: "pointer",
     border: "none",
     transition: "var(--transitions-fast) all",
+
+    color: "var(--color)",
+    fill: "var(--color)",
   },
   variants: {
     /**
@@ -77,22 +80,22 @@ const button = cva({
       elevated: {
         boxShadow: "0 0.5px 1.5px #0004",
         background: "var(--md-sys-color-surface-container-low)",
-        color: "var(--md-sys-color-primary)",
+        "--color": "var(--md-sys-color-primary)",
       },
       filled: {
         background: "var(--md-sys-color-primary)",
-        color: "var(--md-sys-color-on-primary)",
+        "--color": "var(--md-sys-color-on-primary)",
       },
       tonal: {
         background: "var(--md-sys-color-secondary-container)",
-        color: "var(--md-sys-color-on-secondary-container)",
+        "--color": "var(--md-sys-color-on-secondary-container)",
       },
       outlined: {
         border: "1px solid var(--md-sys-color-outline-variant)",
-        color: "var(--md-sys-color-on-surface-variant)",
+        "--color": "var(--md-sys-color-on-surface-variant)",
       },
       text: {
-        color: "var(--md-sys-color-primary)",
+        "--color": "var(--md-sys-color-primary)",
       },
 
       // Old entries:
