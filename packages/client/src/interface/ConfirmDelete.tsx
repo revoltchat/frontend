@@ -4,7 +4,7 @@ import { Show, Suspense, createMemo, createResource } from "solid-js";
 import { useParams } from "@solidjs/router";
 import { styled } from "styled-system/jsx";
 
-import { Modal, Preloader } from "@revolt/ui";
+import { CircularProgress, Modal } from "@revolt/ui";
 import { useApi } from "@revolt/client";
 
 const Centre = styled("div", {
@@ -67,7 +67,7 @@ export function ConfirmDelete() {
 
   return (
     <Modal show title={title()} description={description()} nonDismissable>
-      <Suspense fallback={<Preloader type="ring" />}>
+      <Suspense fallback={<CircularProgress />}>
         <Show when={deleted()} keyed>
           <Centre>
             <BiRegularCheck size={48} />

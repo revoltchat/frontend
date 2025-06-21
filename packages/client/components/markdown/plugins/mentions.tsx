@@ -88,7 +88,7 @@ export function RoleMention(props: { roleId: string }) {
         <div class={mention()}>
           <RoleIcon
             style={{
-              background: role()!.colour ?? "var(--colours-foreground)",
+              background: role()!.colour ?? "var(--md-sys-color-outline-variant)",
             }}
           />
           <ColouredText

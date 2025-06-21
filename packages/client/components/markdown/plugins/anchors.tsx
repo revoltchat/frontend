@@ -14,7 +14,7 @@ import MdTag from "@material-design-icons/svg/outlined/tag.svg?component-solid";
 
 const link = cva({
   base: {
-    color: "var(--colours-link) !important",
+    color: "var(--md-sys-color-primary) !important",
   },
 });
 
@@ -32,8 +32,9 @@ const internalLink = cva({
     cursor: "pointer",
     fontWeight: 600,
     borderRadius: "var(--borderRadius-lg)",
-    color: "var(--colours-messaging-component-mention-foreground)",
-    background: "var(--colours-messaging-component-mention-background)",
+    fill: "var(--md-sys-color-on-primary)",
+    color: "var(--md-sys-color-on-primary)",
+    background: "var(--md-sys-color-primary)",
   },
 });
 

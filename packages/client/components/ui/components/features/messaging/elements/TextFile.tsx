@@ -24,7 +24,6 @@ const Container = styled("pre", {
     overflow: "auto",
     scrollbarWidth: "thin",
     flexDirection: "column",
-    color: "var(--colours-foreground)",
   },
 });
 

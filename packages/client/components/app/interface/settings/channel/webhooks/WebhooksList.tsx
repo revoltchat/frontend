@@ -5,7 +5,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 
 import { useClient } from "@revolt/client";
 import { useModals } from "@revolt/modal";
-import { Avatar, CategoryButton, Column, Preloader } from "@revolt/ui";
+import { Avatar, CategoryButton, CircularProgress, Column } from "@revolt/ui";
 
 import { ChannelSettingsProps } from "../../ChannelSettings";
 import { useSettingsNavigation } from "../../Settings";
@@ -50,7 +50,7 @@ export function WebhooksList(props: ChannelSettingsProps) {
 
       <Show when={!webhooks() || webhooks()!.length !== 0}>
         <Column>
-          <Switch fallback={<Preloader type="ring" />}>
+          <Switch fallback={<CircularProgress />}>
             <Match when={webhooks()?.length}>
               <For each={webhooks()}>
                 {(webhook) => (

@@ -408,9 +408,9 @@ const Details = styled("div", {
     },
 
     /* connect elements vertically */
-    "& > :not(summary) .CategoryButton": {
-      /* and set child backgrounds */
-      background: "var(--colours-component-categorybtn-background-collapse)",
-    },
+    // "& > :not(summary) .CategoryButton": {
+    //   /* and set child backgrounds */
+    //   background: "var(--unset-bg)",
+    // },
   },
 });

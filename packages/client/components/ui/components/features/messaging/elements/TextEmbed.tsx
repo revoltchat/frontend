@@ -21,10 +21,10 @@ const Base = styled("div", {
     gap: "var(--gap-md)",
     padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-md)",
-    color: "var(--colours-messaging-component-text-embed-foreground)",
-    background: "var(--colours-messaging-component-text-embed-background)",
+    color: "var(--md-sys-color-on-primary-container)",
+    background: "var(--md-sys-color-primary-container)",
     borderInlineStart:
-      "var(--gap-sm) solid var(--colours-messaging-component-text-embed-foreground)",
+      "var(--gap-sm) solid var(--md-sys-color-primary)",
   },
 });
 
@@ -55,7 +55,7 @@ const PreviewImage = styled("img", {
 const Title = styled("a", {
   base: {
     fontSize: "16px",
-    color: "var(--colours-link) !important",
+    color: "var(--md-sys-color-primary) !important",
   },
 });
 

@@ -7,7 +7,7 @@ import { useClientLifecycle } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
 import { useModals } from "@revolt/modal";
 import { Navigate } from "@revolt/routing";
-import { Button, Column, Preloader, Row, iconSize } from "@revolt/ui";
+import { Button, CircularProgress, Column, Row, iconSize } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
@@ -97,7 +97,7 @@ export default function FlowLogin() {
           <Navigate href="/app" />
         </Match>
         <Match when={lifecycle.state() === State.LoggingIn}>
-          <Preloader type="ring" />
+          <CircularProgress />
         </Match>
         <Match when={lifecycle.state() === State.Onboarding}>
           <FlowTitle

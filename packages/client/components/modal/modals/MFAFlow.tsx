@@ -11,7 +11,7 @@ import {
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import type { API } from "revolt.js";
 
-import { CategoryButton, Preloader, TextField } from "@revolt/ui";
+import { CategoryButton, CircularProgress, TextField } from "@revolt/ui";
 
 import { PropGenerator } from "../types";
 
@@ -123,7 +123,7 @@ const MFAFlow: PropGenerator<"mfa_flow"> = (props) => {
       // eslint-disable-next-line solid/reactivity
       props.state === "unknown" || typeof selectedMethod !== "undefined",
     children: (
-      <Switch fallback={<Preloader type="ring" />}>
+      <Switch fallback={<CircularProgress />}>
         <Match when={selectedMethod()}>
           <Switch>
             <Match when={selectedMethod() === "Password"}>

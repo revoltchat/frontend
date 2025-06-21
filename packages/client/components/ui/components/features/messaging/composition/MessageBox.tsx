@@ -8,6 +8,7 @@ import { styled } from "styled-system/jsx";
 import { typography } from "@revolt/ui/components/design";
 import { Row } from "@revolt/ui/components/layout";
 
+
 interface Props {
   /**
    * Ref to the input element
@@ -68,15 +69,28 @@ interface Props {
  */
 const Base = styled("div", {
   base: {
-    height: "48px",
+    flexGrow: 1,
     flexShrink: 0,
 
+    paddingInlineEnd: 'var(--gap-md)',
     margin: "0 0 var(--gap-md) 0",
-    borderRadius: "var(--borderRadius-lg)",
+    borderRadius: "var(--borderRadius-full)",
 
     display: "flex",
-    background: "var(--colours-messaging-message-box-background)",
-    color: "var(--colours-messaging-message-box-foreground)",
+    background: "var(--md-sys-color-primary-container)",
+    color: "var(--md-sys-color-on-primary-container)",
+  },
+});
+
+const InputArea = styled("div", {
+  base: {
+    flexGrow: 1,
+    marginBlock: "8px",
+    borderRadius: "var(--borderRadius-full)",
+    background: "var(--md-sys-color-surface)",
+
+    display: "flex",
+    gap: "var(--gap-sm)",
   },
 });
 
@@ -85,17 +99,17 @@ const Base = styled("div", {
  */
 const input = cva({
   base: {
+    flexGrow: 1,
+
     border: "none",
     resize: "none",
     outline: "none",
-    background: "transparent",
+    paddingInline: "14px",
 
-    flexGrow: 1,
-    padding: "14px 0",
+    background: "transparent",
+    color: "var(--md-sys-color-on-surface)",
 
     fontFamily: "var(--fonts-primary)",
-    color: "var(--colours-messaging-message-box-foreground)",
-
     ...typography.raw({ class: "_messages" }),
   },
 });
@@ -182,16 +196,19 @@ export function MessageBox(props: Props) {
       </Switch>
       <Switch
         fallback={
-          <textarea
-            id="msgbox"
-            class={input()}
-            ref={props.ref}
-            onInput={onInput}
-            onKeyUp={onKeyUp}
-            value={props.content}
-            placeholder={props.placeholder}
-            use:autoComplete={props.autoCompleteConfig ?? true}
-          />
+          <InputArea>
+            <textarea
+              id="msgbox"
+              class={input()}
+              ref={props.ref}
+              onInput={onInput}
+              onKeyUp={onKeyUp}
+              value={props.content}
+              placeholder={props.placeholder}
+              use:autoComplete={props.autoCompleteConfig ?? true}
+            />
+            <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
+          </InputArea>
         }
       >
         <Match when={!props.sendingAllowed}>
@@ -202,7 +219,6 @@ export function MessageBox(props: Props) {
           </Blocked>
         </Match>
       </Switch>
-      <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
     </Base>
   );
 }

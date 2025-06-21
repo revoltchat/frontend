@@ -25,8 +25,8 @@ import {
   CategoryButton,
   CategoryButtonGroup,
   CategoryCollapse,
+  CircularProgress,
   Column,
-  Preloader,
   Time,
   iconSize,
 } from "@revolt/ui";
@@ -52,7 +52,7 @@ export function Sessions() {
 
   return (
     <Column gap="lg">
-      <Switch fallback={<Preloader type="ring" />}>
+      <Switch fallback={<CircularProgress />}>
         <Match when={client().sessions.size()}>
           <ManageCurrentSession otherSessions={otherSessions} />
           <ListOtherSessions otherSessions={otherSessions} />

@@ -119,43 +119,43 @@ const Base = styled("div", {
   variants: {
     type: {
       user_added: {
-        color: "var(--customColours-success-color)",
+        color: "var(--md-sys-color-primary)",
       },
       user_joined: {
-        color: "var(--customColours-success-color)",
+        color: "var(--md-sys-color-primary)",
       },
       channel_ownership_changed: {
-        color: "var(--customColours-warning-color)",
+        color: "var(--md-sys-color-primary)",
       },
       user_left: {
-        color: "var(--customColours-error-color)",
+        color: "var(--md-sys-color-error)",
       },
       user_kicked: {
-        color: "var(--customColours-error-color)",
+        color: "var(--md-sys-color-error)",
       },
       user_banned: {
-        color: "var(--customColours-error-color)",
+        color: "var(--md-sys-color-error)",
       },
       text: {
-        color: "var(--colours-foreground)",
+        color: "var(--md-sys-color-primary)",
       },
       user_remove: {
-        color: "var(--colours-foreground)",
+        color: "var(--md-sys-color-primary)",
       },
       channel_renamed: {
-        color: "var(--colours-foreground)",
+        color: "var(--md-sys-color-primary)",
       },
       channel_description_changed: {
-        color: "var(--colours-foreground)",
+        color: "var(--md-sys-color-primary)",
       },
       channel_icon_changed: {
-        color: "var(--colours-foreground)",
+        color: "var(--md-sys-color-primary)",
       },
       message_pinned: {
-        color: "var(--colours-foreground)",
+        color: "var(--md-sys-color-primary)",
       },
       message_unpinned: {
-        color: "var(--colours-foreground)",
+        color: "var(--md-sys-color-primary)",
       },
     },
   },

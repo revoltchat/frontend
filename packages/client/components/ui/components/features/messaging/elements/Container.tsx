@@ -108,7 +108,6 @@ type Props = CommonProps & {
 const base = cva({
   base: {
     display: "flex",
-    gap: "var(--gap-md)",
     flexDirection: "column",
 
     padding: "2px 0",
@@ -197,9 +196,11 @@ const Info = styled("div", {
 /**
  * Right-side message content
  */
-const Content = styled(Column, {
+const Content = styled('div', {
   base: {
-    gap: "3px",
+    display: 'flex',
+    flexDirection: 'column',
+
     minWidth: 0,
     overflow: "hidden",
     maxHeight: "200vh",
@@ -219,7 +220,7 @@ const Content = styled(Column, {
  */
 const InfoText = styled(Row, {
   base: {
-    color: "var(--colours-messaging-message-info-text)",
+    color: "var(--md-sys-color-outline)",
 
     ...typography.raw({ class: "body", size: "small" }),
   },
