@@ -1,4 +1,4 @@
-import { For, createSignal } from "solid-js";
+import { For, createSignal, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 
@@ -17,16 +17,23 @@ import MdPolicy from "@material-design-icons/svg/outlined/policy.svg?component-s
 import { useModals } from "..";
 import { Modals } from "../types";
 
+let shownForSession = false;
+
 export function PolicyChangeModal(
   props: DialogProps & Modals & { type: "policy_change" },
 ) {
   const { showError } = useModals();
   const [confirm, setConfirm] = createSignal(false);
+  
+  // automatically close if we've already shown this modal in this session
+  let allowDisplay = !shownForSession;
+  shownForSession = true;
+  onMount(() => !allowDisplay && props.onClose());
 
   return (
     <Dialog
       icon={<MdPolicy />}
-      show={props.show}
+      show={allowDisplay && props.show}
       onClose={props.onClose}
       title={<Trans>Review policy changes</Trans>}
       actions={[
