@@ -122,20 +122,23 @@ const Base = styled("a", {
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
+
+    "color": "var(--color)",
+    "fill": "var(--color)"
   },
   variants: {
     variant: {
       filled: {
         background: "var(--md-sys-color-primary)",
-        color: "var(--md-sys-color-on-primary)",
+        "--color": "var(--md-sys-color-on-primary)",
       },
       tonal: {
         background: "var(--md-sys-color-secondary-container)",
-        color: "var(--md-sys-color-on-secondary-container)",
+        "--color": "var(--md-sys-color-on-secondary-container)",
       },
       tertiary: {
         background: "var(--md-sys-color-tertiary-container)",
-        color: "var(--md-sys-color-on-tertiary-container)",
+        "--color": "var(--md-sys-color-on-tertiary-container)",
       },
     },
     isLink: {

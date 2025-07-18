@@ -201,6 +201,8 @@ const Content = styled('div', {
     display: 'flex',
     flexDirection: 'column',
 
+    color: 'var(--md-sys-color-on-surface)',
+
     minWidth: 0,
     overflow: "hidden",
     maxHeight: "200vh",

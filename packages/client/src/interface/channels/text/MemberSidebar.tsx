@@ -316,6 +316,7 @@ const Container = styled("div", {
 const CategoryTitle = styled("div", {
   base: {
     padding: "28px 14px 0",
+    color: 'var(--md-sys-color-on-surface)',
 
     ...typography.raw({ class: "label", size: "small" }),
   },
@@ -328,6 +329,7 @@ const MemberTitle = styled("div", {
   base: {
     marginTop: "12px",
     marginLeft: "14px",
+    color: 'var(--md-sys-color-on-surface)',
 
     ...typography.raw({ class: "label", size: "small" }),
   },

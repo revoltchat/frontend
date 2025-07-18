@@ -292,5 +292,6 @@ const WideSidebarContainer = styled("div", {
 const SidebarTitle = styled("div", {
   base: {
     padding: "var(--gap-md)",
+    color: 'var(--md-sys-color-on-surface)'
   },
 });

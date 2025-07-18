@@ -20,9 +20,11 @@ export function UserSummary(props: {
     props.bannerUrl
       ? {
           "background-image": `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("${props.bannerUrl}")`,
+          color: 'black'
         }
       : {
           background: `var(--md-sys-color-primary-container)`,
+          color: 'var(--md-sys-color-on-primary)'
         };
 
   return (

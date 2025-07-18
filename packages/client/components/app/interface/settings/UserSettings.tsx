@@ -211,11 +211,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             //   icon: <MdDesktopWindows {...iconSize(20)} />,
             //   title: t("app.settings.pages.native.title"),
             // },
-            {
-              id: "experiments",
-              icon: <MdScience {...iconSize(20)} />,
-              title: <Trans>Experiments</Trans>,
-            },
+            // {
+            //   id: "experiments",
+            //   icon: <MdScience {...iconSize(20)} />,
+            //   title: <Trans>Experiments</Trans>,
+            // },
           ],
         },
         {
