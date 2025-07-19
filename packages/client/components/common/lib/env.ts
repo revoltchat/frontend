@@ -58,6 +58,10 @@ export default {
    */
   MAX_EMOJI: (import.meta.env.VITE_CFG_MAX_EMOJI as number) ?? 100,
   /**
+   * Maximum number of bots a user can have
+   */
+  MAX_BOTS: (import.meta.env.VITE_CFG_MAX_BOTS as number) ?? 5,
+  /**
    * Session ID to set during development.
    */
   DEVELOPMENT_SESSION_ID: import.meta.env.DEV

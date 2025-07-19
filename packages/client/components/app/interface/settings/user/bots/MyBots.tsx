@@ -1,9 +1,10 @@
-import { ErrorBoundary, For, Suspense } from "solid-js";
+import { ErrorBoundary, For, Match, Suspense, Switch } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 
 import { useClient } from "@revolt/client";
 import { createOwnBotsResource } from "@revolt/client/resources";
+import env from "@revolt/common/lib/env";
 import { useModals } from "@revolt/modal";
 import {
   Avatar,
@@ -37,30 +38,49 @@ export function MyBots() {
 function CreateBot() {
   const client = useClient();
   const { openModal } = useModals();
+  const bots = createOwnBotsResource();
   const { navigate } = useSettingsNavigation();
 
   return (
     <CategoryButtonGroup>
-      <CategoryButton
-        action="chevron"
-        icon={<MdSmartToy {...iconSize(22)} />}
-        onClick={() =>
-          openModal({
-            type: "create_bot",
-            client: client(),
-            onCreate(bot) {
-              navigate(`bots/${bot.id}`);
-            },
-          })
-        }
-        description={
-          <Trans>
-            You agree that your bot is subject to the Acceptable Usage Policy.
-          </Trans>
+      <Switch
+        fallback={
+          <CategoryButton
+            action="chevron"
+            icon={<MdSmartToy {...iconSize(22)} />}
+            onClick={() =>
+              openModal({
+                type: "create_bot",
+                client: client(),
+                onCreate(bot) {
+                  navigate(`bots/${bot.id}`);
+                },
+              })
+            }
+            description={
+              <Trans>
+                You agree that your bot is subject to the Acceptable Usage
+                Policy.
+              </Trans>
+            }
+          >
+            <Trans>Create Bot</Trans>
+          </CategoryButton>
         }
       >
-        <Trans>Create Bot</Trans>
-      </CategoryButton>
+        <Match when={(bots.data?.length || 0) >= env.MAX_BOTS}>
+          <CategoryButton
+            icon={<MdSmartToy {...iconSize(22)} />}
+            description={
+              <Trans>
+                Users can currently create up to {env.MAX_BOTS} bots!
+              </Trans>
+            }
+          >
+            <Trans>You've reached your bot limit.</Trans>
+          </CategoryButton>
+        </Match>
+      </Switch>
       <CategoryButton
         action="external"
         icon={<MdLibraryBooks {...iconSize(22)} />}
