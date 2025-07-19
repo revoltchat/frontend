@@ -1,12 +1,19 @@
 import { createFormControl, createFormGroup } from "solid-forms";
-import { Show, createEffect, on } from "solid-js";
+import { For, Show, createEffect, on } from "solid-js";
 
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import type { API } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
-import { CircularProgress, Column, Form2, Row } from "@revolt/ui";
+import {
+  CircularProgress,
+  Column,
+  Form2,
+  MenuItem,
+  Row,
+  Text,
+} from "@revolt/ui";
 
 import { ServerSettingsProps } from "../ServerSettings";
 
@@ -25,6 +32,18 @@ export default function ServerOverview(props: ServerSettingsProps) {
       props.server.animatedIconURL,
     ),
     banner: createFormControl<string | File[] | null>(props.server.bannerURL),
+    systemMessageJoin: createFormControl<string>(
+      props.server.systemMessages?.user_joined ?? "disabled",
+    ),
+    systemMessageLeft: createFormControl<string>(
+      props.server.systemMessages?.user_left ?? "disabled",
+    ),
+    systemMessageKicked: createFormControl<string>(
+      props.server.systemMessages?.user_kicked ?? "disabled",
+    ),
+    systemMessageBanned: createFormControl<string>(
+      props.server.systemMessages?.user_banned ?? "disabled",
+    ),
   });
   /* eslint-enable solid/reactivity */
 
@@ -70,11 +89,48 @@ export default function ServerOverview(props: ServerSettingsProps) {
     ),
   );
 
+  createEffect(
+    on(
+      () => props.server.systemMessages,
+      (systemMessages) => {
+        !editGroup.controls.systemMessageJoin.isDirty &&
+          editGroup.controls.systemMessageJoin.setValue(
+            systemMessages?.user_joined ?? 'disabled',
+          );
+        !editGroup.controls.systemMessageLeft.isDirty &&
+          editGroup.controls.systemMessageLeft.setValue(
+            systemMessages?.user_left ?? 'disabled',
+          );
+        !editGroup.controls.systemMessageKicked.isDirty &&
+          editGroup.controls.systemMessageKicked.setValue(
+            systemMessages?.user_kicked ?? 'disabled',
+          );
+        !editGroup.controls.systemMessageBanned.isDirty &&
+          editGroup.controls.systemMessageBanned.setValue(
+            systemMessages?.user_banned ?? 'disabled',
+          );
+      },
+      { defer: true },
+    ),
+  );
+
   function onReset() {
     editGroup.controls.name.setValue(props.server.name);
     editGroup.controls.description.setValue(props.server.description || "");
     editGroup.controls.icon.setValue(props.server.animatedIconURL ?? null);
     editGroup.controls.banner.setValue(props.server.bannerURL ?? null);
+    editGroup.controls.systemMessageJoin.setValue(
+      props.server.systemMessages?.user_joined ?? "disabled",
+    );
+    editGroup.controls.systemMessageLeft.setValue(
+      props.server.systemMessages?.user_left ?? "disabled",
+    );
+    editGroup.controls.systemMessageKicked.setValue(
+      props.server.systemMessages?.user_kicked ?? "disabled",
+    );
+    editGroup.controls.systemMessageBanned.setValue(
+      props.server.systemMessages?.user_banned ?? "disabled",
+    );
   }
 
   async function onSubmit() {
@@ -120,6 +176,32 @@ export default function ServerOverview(props: ServerSettingsProps) {
       }
     }
 
+    if (
+      editGroup.controls.systemMessageJoin.isDirty ||
+      editGroup.controls.systemMessageLeft.isDirty ||
+      editGroup.controls.systemMessageKicked.isDirty ||
+      editGroup.controls.systemMessageBanned.isDirty
+    ) {
+      changes.system_messages = {
+        user_joined: editGroup.controls.systemMessageJoin.value,
+        user_left: editGroup.controls.systemMessageLeft.value,
+        user_kicked: editGroup.controls.systemMessageKicked.value,
+        user_banned: editGroup.controls.systemMessageBanned.value,
+      };
+
+      // filter out disabled values
+      for (const key in changes.system_messages) {
+        if (changes.system_messages[key as keyof typeof changes.system_messages] === 'disabled') {
+          delete changes.system_messages[key as keyof typeof changes.system_messages];
+        }
+      }
+    }
+
+    // TODO: API currently expects one or more items here
+    if (changes.remove!.length === 0) {
+      delete changes.remove;
+    }
+
     await props.server.edit(changes);
   }
 
@@ -154,6 +236,77 @@ export default function ServerOverview(props: ServerSettingsProps) {
             label={t`Server Description`}
             placeholder={t`This server is about...`}
           />
+
+          <Text class="label">System Message Channels</Text>
+          <Form2.Select
+            label={t`User Joined`}
+            control={editGroup.controls.systemMessageJoin}
+          >
+            <MenuItem value="disabled">
+              <Trans>Don't send a message anywhere</Trans>
+            </MenuItem>
+            <For
+              each={props.server.orderedChannels.flatMap(
+                (category) => category.channels,
+              )}
+            >
+              {(channel) => (
+                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+              )}
+            </For>
+          </Form2.Select>
+          <Form2.Select
+            label={t`User Left`}
+            control={editGroup.controls.systemMessageLeft}
+          >
+            <MenuItem value="disabled">
+              <Trans>Don't send a message anywhere</Trans>
+            </MenuItem>
+            <For
+              each={props.server.orderedChannels.flatMap(
+                (category) => category.channels,
+              )}
+            >
+              {(channel) => (
+                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+              )}
+            </For>
+          </Form2.Select>
+          <Form2.Select
+            label={t`User Kicked`}
+            control={editGroup.controls.systemMessageKicked}
+          >
+            <MenuItem value="disabled">
+              <Trans>Don't send a message anywhere</Trans>
+            </MenuItem>
+            <For
+              each={props.server.orderedChannels.flatMap(
+                (category) => category.channels,
+              )}
+            >
+              {(channel) => (
+                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+              )}
+            </For>
+          </Form2.Select>
+          <Form2.Select
+            label={t`User Banned`}
+            control={editGroup.controls.systemMessageBanned}
+          >
+            <MenuItem value="disabled">
+              <Trans>Don't send a message anywhere</Trans>
+            </MenuItem>
+            <For
+              each={props.server.orderedChannels.flatMap(
+                (category) => category.channels,
+              )}
+            >
+              {(channel) => (
+                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+              )}
+            </For>
+          </Form2.Select>
+
           <Row>
             <Form2.Reset group={editGroup} onReset={onReset} />
             <Form2.Submit group={editGroup}>

@@ -42,6 +42,47 @@ const FormTextField = (
 };
 
 /**
+ * Form wrapper for TextField.Select
+ * 
+ * Use the `MenuItem` component as the child:
+ * ```tsx
+ * <Form2.Select>
+ *   <MenuItem value="itemA">hello!</MenuItem>
+ *   <MenuItem value="itemB">world!</MenuItem>
+ * </Form2.Select>
+ * ```
+ */
+const FormSelect = (
+  props: {
+    control: IFormControl<string | null>;
+  } & ComponentProps<typeof TextField.Select>,
+) => {
+  const [local, remote] = splitProps(props, ["control"]);
+
+  return (
+    <>
+      <TextField.Select
+        {...remote}
+        value={local.control.value}
+        onchange={e => {
+          local.control.setValue(e.currentTarget.value);
+          local.control.markDirty(true)
+        }}
+        // TODO: missing items:
+        // required={local.control.isRequired}
+        // disabled={local.control.isDisabled}
+      />
+
+      <Show when={local.control.isTouched && !local.control.isValid}>
+        <For each={Object.keys(local.control.errors!)}>
+          {(errorMsg: string) => <small>{errorMsg}</small>}
+        </For>
+      </Show>
+    </>
+  );
+};
+
+/**
  * Form wrapper for, single file, FileInput
  */
 const FormFileInput = (
@@ -234,6 +275,7 @@ function submitHandler(
 export const Form2 = {
   TextField: FormTextField,
   FileInput: FormFileInput,
+  Select: FormSelect,
   VirtualSelect: FormVirtualSelect,
   Reset: FormResetButton,
   Submit: FormSubmitButton,

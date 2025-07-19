@@ -43,6 +43,18 @@ export function TextField(props: Props) {
   );
 }
 
+function Select(
+  props: JSX.HTMLAttributes<HTMLInputElement> & {
+    value?: string | null;
+    label?: string;
+    required?: boolean;
+    disabled?: boolean;
+    variant?: "filled" | "outlined";
+  },
+) {
+  return <mdui-select {...props} />;
+}
+
 /**
  * Select menu allows the user to pick a menu item
  *
@@ -57,13 +69,4 @@ export function TextField(props: Props) {
  * @library MDUI
  * @specification https://m3.material.io/components/menus
  */
-function Select(
-  props: JSX.HTMLAttributes<HTMLInputElement> & {
-    value?: string;
-    variant?: "filled" | "outlined";
-  },
-) {
-  return <mdui-select {...props} />;
-}
-
 TextField.Select = Select;
