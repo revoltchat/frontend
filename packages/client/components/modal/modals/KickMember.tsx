@@ -1,39 +1,56 @@
+import { createFormControl, createFormGroup } from "solid-forms";
+
 import { Trans } from "@lingui-solid/solid/macro";
 
-import { Avatar, Column } from "@revolt/ui";
+import { Avatar, Column, Dialog, DialogProps, Text } from "@revolt/ui";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
- * Modal to kick server member
+ * Kick a server member
  */
-const KickMember: PropGenerator<"kick_member"> = (props) => {
-  return createFormModal({
-    modalProps: {
-      title: <Trans>Kick Member</Trans>,
-    },
-    schema: {
-      member: "custom",
-    },
-    data: {
-      member: {
-        element: (
-          <Column align>
-            <Avatar src={props.member.user?.animatedAvatarURL} size={64} />
-            <Trans>
-              Are you sure you want to kick {props.member.user?.username}?
-            </Trans>
-          </Column>
-        ),
-      },
-    },
-    callback: () => props.member.kick(),
-    submit: {
-      variant: "error",
-      children: <Trans>Kick</Trans>,
-    },
-  });
-};
+export function KickMember(
+  props: DialogProps & Modals & { type: "kick_member" },
+) {
+  const { showError } = useModals();
 
-export default KickMember;
+  const group = createFormGroup({
+    reason: createFormControl(""),
+  });
+
+  async function onSubmit() {
+    try {
+      await props.member.kick();
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Kick Member</Trans>}
+      actions={[
+        { text: <Trans>Cancel</Trans> },
+        {
+          text: <Trans>Kick</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <Column align>
+        <Avatar src={props.member.user?.animatedAvatarURL} size={64} />
+        <Text>
+          <Trans>You are about to kick {props.member.user?.username}</Trans>
+        </Text>
+      </Column>
+    </Dialog>
+  );
+}

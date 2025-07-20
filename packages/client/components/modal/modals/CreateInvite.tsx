@@ -48,7 +48,7 @@ const CreateInvite: PropGenerator<"create_invite"> = (props) => {
             : `${window.location.protocol}//${window.location.host}/invite/${_id}`,
         ),
       )
-      .catch((err) => openModal({ type: "error", error: err }))
+      .catch((err) => openModal({ type: "error2", error: err }))
       .finally(() => setProcessing(false));
   });
 

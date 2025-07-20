@@ -6,12 +6,12 @@ import { Modal } from "@revolt/ui";
 import { type ActiveModal } from ".";
 import { AddFriend } from "./modals/AddFriend";
 import { AddMembersToGroupModal } from "./modals/AddMembersToGroup";
-import ban_member from "./modals/BanMember";
+import { BanMember } from "./modals/BanMember";
 import changelog from "./modals/Changelog";
 import { ChannelInfoModal } from "./modals/ChannelInfo";
 import { ChannelToggleMatureModal } from "./modals/ChannelToggleMature";
-import create_bot from "./modals/CreateBot";
-import create_category from "./modals/CreateCategory";
+import { CreateBot } from "./modals/CreateBot";
+import { CreateCategory } from "./modals/CreateCategory";
 import create_channel from "./modals/CreateChannel";
 import { CreateGroupModal } from "./modals/CreateGroup";
 import create_invite from "./modals/CreateInvite";
@@ -32,7 +32,7 @@ import error from "./modals/Error";
 import { Error2Modal } from "./modals/Error2";
 import { ImageViewerModal } from "./modals/ImageViewer";
 import join_server from "./modals/JoinServer";
-import kick_member from "./modals/KickMember";
+import { KickMember } from "./modals/KickMember";
 import leave_server from "./modals/LeaveServer";
 import mfa_enable_totp from "./modals/MFAEnableTOTP";
 import mfa_flow from "./modals/MFAFlow";
@@ -71,12 +71,18 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
   switch (modalProps.type) {
     case "add_friend":
       return <AddFriend {...modalProps} />;
+    case "ban_member":
+      return <BanMember {...modalProps} />;
     case "add_members_to_group":
       return <AddMembersToGroupModal {...modalProps} />;
     case "channel_info":
       return <ChannelInfoModal {...modalProps} />;
     case "channel_toggle_mature":
       return <ChannelToggleMatureModal {...modalProps} />;
+    case "create_bot":
+      return <CreateBot {...modalProps} />;
+    case "create_category":
+      return <CreateCategory {...modalProps} />;
     case "create_group":
       return <CreateGroupModal {...modalProps} />;
     case "create_webhook":
@@ -93,6 +99,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <Error2Modal {...modalProps} />;
     case "image_viewer":
       return <ImageViewerModal {...modalProps} />;
+    case "kick_member":
+      return <KickMember {...modalProps} />;
     case "policy_change":
       return <PolicyChangeModal {...modalProps} />;
     case "server_info":
@@ -112,10 +120,7 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       // @ts-expect-error unimplemented entries
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const Modals: Record<AllModals["type"], PropGenerator<any>> = {
-        ban_member,
         changelog,
-        create_bot,
-        create_category,
         create_channel,
         create_invite,
         create_role,
@@ -128,7 +133,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
         delete_server,
         error,
         join_server,
-        kick_member,
         leave_server,
         mfa_enable_totp,
         mfa_flow,
