@@ -6,21 +6,19 @@ import { AbstractStore } from ".";
  * Union type of available experiments.
  */
 export type Experiment =
-  | "account_switcher"
   | "gif_picker"
   | "emoji_picker"
-  | "plugins"
-  | "voice_chat";
+  | "voice_chat"
+  | "permissions_and_roles";
 
 /**
  * Currently active experiments.
  */
 export const AVAILABLE_EXPERIMENTS: Experiment[] = [
-  "account_switcher",
   "gif_picker",
   "emoji_picker",
-  "plugins",
   "voice_chat",
+  "permissions_and_roles"
 ];
 
 /**
@@ -31,7 +29,9 @@ export const DEFAULT_EXPERIMENTS: Experiment[] = [];
 /**
  * Always-on development-mode experiments.
  */
-export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = ["gif_picker"];
+export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [
+  "voice_chat"
+];
 
 /**
  * Definitions for experiments listed by {@link Experiment}.
@@ -39,25 +39,21 @@ export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = ["gif_picker"];
 export const EXPERIMENTS: {
   [key in Experiment]: { title: string; description: string };
 } = {
-  account_switcher: {
-    title: "Account Switcher",
-    description: "Enable the account switcher on the login page.",
-  },
   gif_picker: {
     title: "GIF Picker",
-    description: "Search and send GIFs from GIFBox!",
+    description: "Non-working GIF picker",
   },
   emoji_picker: {
     title: "Emoji Picker Placeholder",
-    description: "Search and add emoji to your messages.",
-  },
-  plugins: {
-    title: "Plugins v2 Placeholder",
-    description: "Not available yet.",
+    description: "Search and add emoji to your messages",
   },
   voice_chat: {
-    title: "Voice Chat Placeholder",
-    description: "Not available yet.",
+    title: "Voice Chat v2",
+    description: "Only available on Revolt team staging server right now",
+  },
+  permissions_and_roles: {
+    title: "Permission & Role Settings",
+    description: "Work in progress implementation",
   },
 };
 
@@ -165,6 +161,7 @@ export class Experiments extends AbstractStore<"experiments", TypeExperiments> {
    * @param enabled Whether this experiment is enabled.
    */
   setEnabled(key: Experiment, enabled: boolean): void {
+    console.info(key, enabled);
     if (enabled) {
       this.enable(key);
     } else {

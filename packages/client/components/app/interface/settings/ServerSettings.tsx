@@ -15,6 +15,7 @@ import { Server } from "revolt.js";
 import { useUser } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
+import { useState } from "@revolt/state";
 import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
@@ -89,6 +90,7 @@ const Config: SettingsConfiguration<Server> = {
    */
   list(server) {
     const user = useUser();
+    const state = useState();
     const { openModal } = useModals();
 
     return {
@@ -127,10 +129,12 @@ const Config: SettingsConfiguration<Server> = {
               title: <Trans>Members</Trans>,
             },
             {
-              hidden: !(
-                server.havePermission("ManageRole") ||
-                server.havePermission("ManagePermissions")
-              ),
+              hidden:
+                !state.experiments.isEnabled("permissions_and_roles") ||
+                !(
+                  server.havePermission("ManageRole") ||
+                  server.havePermission("ManagePermissions")
+                ),
               id: "roles",
               icon: <BiSolidFlagAlt size={20} />,
               title: <Trans>Roles</Trans>,
@@ -154,10 +158,7 @@ const Config: SettingsConfiguration<Server> = {
           entries: [
             {
               icon: (
-                <BiSolidTrash
-                  size={20}
-                  color="var(--md-sys-color-error)"
-                />
+                <BiSolidTrash size={20} color="var(--md-sys-color-error)" />
               ),
               title: (
                 <ColouredText colour="var(--md-sys-color-error)">

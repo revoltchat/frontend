@@ -35,6 +35,7 @@ import { AppearanceMenu } from "./user/appearance";
 import { MyBots, ViewBot } from "./user/bots";
 import { EditProfile } from "./user/profile";
 import { EditSubscription } from "./user/subscriptions";
+import Experiments from "./user/Experiments";
 
 const Config: SettingsConfiguration<{ server: Server }> = {
   /**
@@ -84,6 +85,8 @@ const Config: SettingsConfiguration<{ server: Server }> = {
         return <Feedback />;
       case "subscribe":
         return <EditSubscription />;
+      case "experiments":
+        return <Experiments />;
       default:
         return null;
     }
@@ -211,11 +214,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             //   icon: <MdDesktopWindows {...iconSize(20)} />,
             //   title: t("app.settings.pages.native.title"),
             // },
-            // {
-            //   id: "experiments",
-            //   icon: <MdScience {...iconSize(20)} />,
-            //   title: <Trans>Experiments</Trans>,
-            // },
+            {
+              id: "experiments",
+              icon: <MdScience {...iconSize(20)} />,
+              title: <Trans>Experiments</Trans>,
+            },
           ],
         },
         {

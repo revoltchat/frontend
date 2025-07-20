@@ -12,6 +12,7 @@ import { Channel } from "revolt.js";
 import { useClient } from "@revolt/client";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
+import { useState } from "@revolt/state";
 import { ColouredText } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
@@ -99,6 +100,7 @@ const Config: SettingsConfiguration<Channel> = {
    * @returns List
    */
   list(channel) {
+    const state = useState();
     const { openModal } = useModals();
 
     return {
@@ -113,6 +115,7 @@ const Config: SettingsConfiguration<Channel> = {
             },
             {
               hidden:
+                !state.experiments.isEnabled("permissions_and_roles") ||
                 channel.type === "SavedMessages" ||
                 !channel.havePermission("ManagePermissions"),
               id: "permissions",
@@ -136,10 +139,7 @@ const Config: SettingsConfiguration<Channel> = {
           entries: [
             {
               icon: (
-                <BiSolidTrash
-                  size={20}
-                  color="var(--md-sys-color-error)"
-                />
+                <BiSolidTrash size={20} color="var(--md-sys-color-error)" />
               ),
               title: (
                 <ColouredText colour="var(--md-sys-color-error)">

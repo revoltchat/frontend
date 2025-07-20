@@ -251,7 +251,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
               )}
             >
               {(channel) => (
-                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+                <MenuItem value={channel.id}>#{channel.name}</MenuItem>
               )}
             </For>
           </Form2.Select>
@@ -268,7 +268,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
               )}
             >
               {(channel) => (
-                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+                <MenuItem value={channel.id}>#{channel.name}</MenuItem>
               )}
             </For>
           </Form2.Select>
@@ -285,7 +285,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
               )}
             >
               {(channel) => (
-                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+                <MenuItem value={channel.id}>#{channel.name}</MenuItem>
               )}
             </For>
           </Form2.Select>
@@ -302,7 +302,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
               )}
             >
               {(channel) => (
-                <MenuItem value={channel.id}>{channel.name}</MenuItem>
+                <MenuItem value={channel.id}>#{channel.name}</MenuItem>
               )}
             </For>
           </Form2.Select>

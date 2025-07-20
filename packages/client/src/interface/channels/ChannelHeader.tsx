@@ -160,7 +160,7 @@ export function ChannelHeader(props: Props) {
       <Spacer />
 
       <Show
-        when={import.meta.env.DEV && props.channel.type !== "SavedMessages"}
+        when={state.experiments.isEnabled('voice_chat') && props.channel.type !== "SavedMessages"}
       >
         <IconButton
           variant="standard"

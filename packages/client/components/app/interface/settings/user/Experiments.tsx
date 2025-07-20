@@ -5,7 +5,7 @@ import {
   AVAILABLE_EXPERIMENTS,
   EXPERIMENTS,
 } from "@revolt/state/stores/Experiments";
-import { CategoryButton, CategoryButtonGroup, Checkbox } from "@revolt/ui";
+import { CategoryButton, Checkbox } from "@revolt/ui";
 
 /**
  * Experiments
@@ -14,25 +14,23 @@ export default function Experiments() {
   const state = useState();
 
   return (
-    <CategoryButtonGroup>
+    <CategoryButton.Group>
       <For each={AVAILABLE_EXPERIMENTS}>
         {(key) => (
           <CategoryButton
-            action={
-              <Checkbox
-                value={state.experiments.isEnabled(key)}
-                onChange={(enabled) =>
-                  state.experiments.setEnabled(key, enabled)
-                }
-              />
-            }
+            action={<Checkbox checked={state.experiments.isEnabled(key)} />}
             description={EXPERIMENTS[key].description}
-            onClick={() => void 0}
+            onClick={() =>
+              state.experiments.setEnabled(
+                key,
+                !state.experiments.isEnabled(key),
+              )
+            }
           >
             {EXPERIMENTS[key].title}
           </CategoryButton>
         )}
       </For>
-    </CategoryButtonGroup>
+    </CategoryButton.Group>
   );
 }
