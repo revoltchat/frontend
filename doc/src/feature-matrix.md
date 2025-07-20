@@ -44,7 +44,7 @@ Comparison of implemented features across Revolt's clients.
 |   | Settings | Basic Information | Update Information | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Icon | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Banner | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
-|   |   |   | Update System Message Targets | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Update System Message Targets | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Categories | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
 |   |   | Roles | Create Role | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
 |   |   |   | List Roles | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
@@ -76,13 +76,14 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Inline Pronouns | ⛔ | 🚧 | ❌ | ❌ | Unapplicable |
 |   |   |   | Masquerade | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   |   | Show Mentions | ✅ | ✅ | ✅ | ✅ | P0 Must |
+|   |   |   | Show @ Role/Everyone/Online | ❌ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   |   | Show Channel Links | ✅ | ✅ | ✅ | ✅ | P0 Must |
-|   |   |   | Show Server Links | ⛔ | 🚧 | ❌ | ❌ | P3 Unimportant |
+|   |   |   | Show Server Links | ⛔ | ✅ | ❌ | ❌ | P3 Unimportant |
 |   |   |   | Show Message Links | ⛔ | ✅ | ❌ | ❌ | P3 Unimportant |
 |   |   |   | Show Replies | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Show Reactions | ✅ | ✅ | ✅ | ✅ | P0 Must |
-|   |   |   | Attachments | ✅ | 🚧 | ✅ | ✅ | P0 Must |
-|   |   |   | Embeds | ✅ | 🚧 | ✅ | ✅ | P0 Must |
+|   |   |   | Attachments | ✅ | ✅ | ✅ | ✅ | P0 Must |
+|   |   |   | Embeds | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | System | ✅ | ✅ | ✅ | 🚧 | P1 Preferred |
 |   |   |   | Invites | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
 |   |   | Quick Actions | Reply | ✅ | ✅ | ✅ | ✅ | P0 Must |
@@ -132,7 +133,7 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Copy Webhook URLs | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 | Markdown | RSM |   | Basic Styles | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Code Blocks | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
-|   |   |   | Code Formatting | ✅ | ❌ | ✅ | ❌ | P1 Preferred |
+|   |   |   | Code Formatting | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
 |   |   |   | Block Quotes | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Spoilers | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Links | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
@@ -148,28 +149,28 @@ Comparison of implemented features across Revolt's clients.
 | User Safety | Reporting |   | Report Message | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Report Server | ✅ | ✅ | ✅ | ❌ | P0 Must |
 |   |   |   | Report User | ✅ | ✅ | ✅ | ❌ | P0 Must |
-| Settings | User | Account | Update Username | ✅ | ❌ | ❌ | ✅ | P1 Preferred |
-|   |   |   | Update Email | ✅ | ❌ | ❌ | ✅ | P1 Preferred |
-|   |   |   | Update Password | ✅ | ❌ | ❌ | ✅ | P1 Preferred |
-|   |   |   | Configure MFA Recovery | ✅ | ❌ | ❌ | ✅ | P2 Best Effort |
-|   |   |   | Configure MFA TOTP | ✅ | ❌ | ❌ | ✅ | P2 Best Effort |
+| Settings | User | Account | Update Username | ✅ | ✅ | ❌ | ✅ | P1 Preferred |
+|   |   |   | Update Email | ✅ | ✅ | ❌ | ✅ | P1 Preferred |
+|   |   |   | Update Password | ✅ | ✅ | ❌ | ✅ | P1 Preferred |
+|   |   |   | Configure MFA Recovery | ✅ | ✅ | ❌ | ✅ | P2 Best Effort |
+|   |   |   | Configure MFA TOTP | ✅ | ✅ | ❌ | ✅ | P2 Best Effort |
 |   |   |   | Disable Account | ✅ | ✅ | ❌ | ✅ | P0 Must |
 |   |   |   | Delete Account | ✅ | ✅ | ❌ | ✅ | P0 Must |
-|   |   | Profile | Update Avatar | ✅ | ❌ | ✅ | ❌ | P1 Preferred |
-|   |   |   | Update Background | ✅ | ❌ | ✅ | ❌ | P1 Preferred |
-|   |   |   | Update Bio | ✅ | ❌ | ✅ | ❌ | P1 Preferred |
-|   |   | Sessions | List Sessions | ✅ | ❌ | ✅ | ✅ | P2 Best Effort |
-|   |   |   | Delete Session | ✅ | ❌ | ✅ | ✅ | P2 Best Effort |
-|   |   |   | Log out all other sessions | ✅ | ❌ | ✅ | ❌ | P2 Best Effort |
-|   | Client | Appearance | Customise Theme | ✅ | ❌ | ✅ | ✅ | P2 Best Effort |
+|   |   | Profile | Update Avatar | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
+|   |   |   | Update Background | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
+|   |   |   | Update Bio | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
+|   |   | Sessions | List Sessions | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
+|   |   |   | Delete Session | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
+|   |   |   | Log out all other sessions | ✅ | ✅ | ✅ | ❌ | P2 Best Effort |
+|   | Client | Appearance | Customise Theme | ✅ | 🚧 | ✅ | ✅ | P2 Best Effort |
 |   |   |   | Customise Font | ✅ | ❌ | ⛔ | ⛔ | P3 Unimportant |
 |   |   |   | Customise Emoji Pack | ✅ | ❌ | ⛔ | ⛔ | P3 Unimportant |
 |   |   | Notifications | Desktop | ✅ | 🚧 | ⛔ | ⛔ | P0 Must |
 |   |   |   | Web Push | ✅ | ⛔ | N/A | N/A | P0 Must |
-|   |   |   | Desktop Native Push | ⛔ | ❌ | ⛔ | ⛔ | P3 Unimportant |
+|   |   |   | Desktop Native Push | ⛔ | ⛔ | ⛔ | ⛔ | P3 Unimportant |
 |   |   |   | Mobile Native Push | ⛔ | ⛔ | ✅ | ✅ | P0 Must |
-|   |   | Language |   | ✅ | ❌ | ✅ | ✅ | P2 Best Effort |
-|   |   | Settings Sync |   | ✅ | ❌ | ✅ | ❌ | P0 Must |
+|   |   | Language |   | ✅ | 🚧 | ✅ | ✅ | P2 Best Effort |
+|   |   | Settings Sync |   | ✅ | ✅ | ✅ | ❌ | P0 Must |
 |   |   | Desktop | Start with Computer | ✅ | ❌ | N/A | N/A | P2 Best Effort |
 |   |   |   | Minimise to Tray | ✅ | ❌ | N/A | N/A | P2 Best Effort |
 |   | Revolt | Bots | Create Bot | ✅ | ✅ | ❌ | ✅ | P3 Unimportant |
