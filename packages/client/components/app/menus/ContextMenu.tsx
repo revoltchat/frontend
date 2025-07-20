@@ -49,8 +49,8 @@ export const ContextMenuItem = styled("a", {
     },
     destructive: {
       true: {
-        fill: "var(--customColours-error-color)",
-        color: "var(--customColours-error-color)",
+        fill: "var(--md-sys-color-error)",
+        color: "var(--md-sys-color-error)",
       },
     },
   },

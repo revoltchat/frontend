@@ -5,7 +5,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
 import { useError } from "@revolt/i18n";
-import { Column, Form, FormTemplate, typography } from "@revolt/ui";
+import { Column, Form, FormTemplate, getInitialValues, typography } from "@revolt/ui";
 
 import { useModals } from ".";
 import { Modals, PropGenerator } from "./types";
@@ -91,6 +91,6 @@ export function createFormModal<
  */
 const Error = styled("div", {
   base: {
-    color: "var(--customColours-error-color)",
+    color: "var(--md-sys-color-error)",
   },
 });

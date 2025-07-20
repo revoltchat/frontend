@@ -105,7 +105,7 @@ const ThemeProperties = styled("div", {
     display: "flex",
     width: "100%",
     padding: "20px",
-    background: "var(--colours-temp-1)",
+    background: "var(--unset-bg)",
     borderRadius: "var(--borderRadius-xl)",
   },
 });

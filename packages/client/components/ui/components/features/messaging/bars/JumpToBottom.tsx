@@ -5,6 +5,7 @@ import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?
 import { Ripple } from "../../../../components/design";
 
 import { FloatingIndicator } from "./FloatingIndicator";
+import { iconSize } from "@revolt/ui/components/utils";
 
 interface Props {
   /**

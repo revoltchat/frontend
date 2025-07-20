@@ -236,11 +236,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               icon: (
                 <MdLogout
                   {...iconSize(20)}
-                  fill="var(--customColours-error-color)"
+                  fill="var(--md-sys-color-error)"
                 />
               ),
               title: (
-                <ColouredText colour="var(--customColours-error-color)">
+                <ColouredText colour="var(--md-sys-color-error)">
                   <Trans>Log Out</Trans>
                 </ColouredText>
               ),

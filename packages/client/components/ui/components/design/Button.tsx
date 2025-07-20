@@ -104,56 +104,49 @@ const button = cva({
        * @deprecated
        */
       success: {
-        fill: "var(--customColours-success-onColor)",
-        color: "var(--customColours-success-onColor)",
-        background: "var(--customColours-success-color)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated
        */
       warning: {
-        fill: "var(--customColours-warning-onColor)",
-        color: "var(--customColours-warning-onColor)",
-        background: "var(--customColours-warning-color)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated
        */
       error: {
-        fill: "var(--customColours-error-onColor)",
-        color: "var(--customColours-error-onColor)",
-        background: "var(--customColours-error-color)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated use filled
        */
       primary: {
-        fill: "var(--colours-component-btn-foreground-primary)",
-        color: "var(--colours-component-btn-foreground-primary)",
-        background: "var(--colours-component-btn-background-primary)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated use tonal
        */
       secondary: {
-        fill: "var(--colours-component-btn-foreground-secondary)",
-        color: "var(--colours-component-btn-foreground-secondary)",
-        background: "var(--colours-component-btn-background-secondary)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated use text instead
        */
       plain: {
-        fill: "var(--colours-component-btn-foreground-plain)",
-        color: "var(--colours-component-btn-foreground-plain)",
-
-        "&:hover": {
-          textDecoration: "underline",
-        },
-
-        "&:disabled": {
-          textDecoration: "none",
-        },
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
     },
     /**

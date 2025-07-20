@@ -142,7 +142,7 @@ const base = cva({
     },
     sendStatus: {
       failed: {
-        color: "var(--customColours-error-color)",
+        color: "var(--md-sys-color-error)",
       },
       sending: {},
     },
