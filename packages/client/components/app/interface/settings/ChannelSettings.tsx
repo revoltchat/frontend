@@ -138,11 +138,11 @@ const Config: SettingsConfiguration<Channel> = {
               icon: (
                 <BiSolidTrash
                   size={20}
-                  color="var(--customColours-error-color)"
+                  color="var(--md-sys-color-error)"
                 />
               ),
               title: (
-                <ColouredText colour="var(--customColours-error-color)">
+                <ColouredText colour="var(--md-sys-color-error)">
                   <Trans>Delete Channel</Trans>
                 </ColouredText>
               ),

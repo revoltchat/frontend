@@ -84,7 +84,8 @@ const Base = styled("div", {
     overflowY: "auto",
 
     "& svg": {
-      fill: "var(--customColours-warning-color)",
+      // TODO
+      fill: "orange",
     },
 
     gap: "var(--gap-sm)",

@@ -100,7 +100,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
         icon={
           <MdAutoMode
             {...iconSize(24)}
-            fill="var(--customColours-error-color)"
+            fill="var(--md-sys-color-error)"
           />
         }
         description={Keeps your last sessions active and automatically logs you out of other ones"}
@@ -119,7 +119,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
           icon={
             <MdLogout
               {...iconSize(24)}
-              fill="var(--customColours-error-color)"
+              fill="var(--md-sys-color-error)"
             />
           }
           description={

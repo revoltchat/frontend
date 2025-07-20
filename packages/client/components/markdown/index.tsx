@@ -129,7 +129,7 @@ const pipeline = unified()
     trust: false,
     strict: false,
     output: "html",
-    errorColor: "var(--customColours-error-color)",
+    errorColor: "var(--md-sys-color-error)",
   })
   .use(rehypeHighlight);
 

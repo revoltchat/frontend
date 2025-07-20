@@ -295,7 +295,7 @@ function ManageAccount() {
         disabled={mfa.isLoading}
         onClick={disableAccount}
         icon={
-          <MdBlock {...iconSize(22)} fill="var(--customColours-error-color)" />
+          <MdBlock {...iconSize(22)} fill="var(--md-sys-color-error)" />
         }
         description={
           <Trans>
@@ -311,7 +311,7 @@ function ManageAccount() {
         disabled={mfa.isLoading || stillOwnServers()}
         onClick={deleteAccount}
         icon={
-          <MdDelete {...iconSize(22)} fill="var(--customColours-error-color)" />
+          <MdDelete {...iconSize(22)} fill="var(--md-sys-color-error)" />
         }
         description={
           <Trans>
