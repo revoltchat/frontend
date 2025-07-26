@@ -39,7 +39,7 @@ export function AgeGate(props: {
 
           <Confirmation>
             <Checkbox
-              value={state.layout.getSectionState(
+              checked={state.layout.getSectionState(
                 LAYOUT_SECTIONS.MATURE,
                 false,
               )}

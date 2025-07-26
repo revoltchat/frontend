@@ -21,7 +21,7 @@ export default function Sync() {
     <Column gap="lg">
       <CategoryButtonGroup>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon={<MdPalette {...iconSize(22)} />}
           description={
@@ -34,7 +34,7 @@ export default function Sync() {
           <Trans>Appearance</Trans>
         </CategoryButton>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon={<MdBrush {...iconSize(22)} />}
           description={
@@ -44,7 +44,7 @@ export default function Sync() {
           <Trans>Theme</Trans>
         </CategoryButton>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon={<MdLanguage {...iconSize(22)} />}
           description={<Trans>Sync your currently chosen language.</Trans>}

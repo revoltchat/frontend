@@ -61,12 +61,7 @@ export function UserMention(props: { userId: string }) {
           }}
         >
           <Avatar size={16} src={user().avatar} fallback={user().username} />
-          <ColouredText
-            colour={user().colour!}
-            clip={user().colour?.includes("gradient")}
-          >
-            {user().username}
-          </ColouredText>
+          <ColouredText colour={user().colour!}>{user().username}</ColouredText>
         </div>
       </Match>
     </Switch>
@@ -88,15 +83,11 @@ export function RoleMention(props: { roleId: string }) {
         <div class={mention()}>
           <RoleIcon
             style={{
-              background: role()!.colour ?? "var(--md-sys-color-outline-variant)",
+              background:
+                role()!.colour ?? "var(--md-sys-color-outline-variant)",
             }}
           />
-          <ColouredText
-            colour={role()!.colour!}
-            clip={role()!.colour?.includes("gradient")}
-          >
-            {role()!.name}
-          </ColouredText>
+          <ColouredText colour={role()!.colour!}>{role()!.name}</ColouredText>
         </div>
       </Match>
     </Switch>

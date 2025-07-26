@@ -41,12 +41,12 @@ interface Props {
   /**
    * Sidebar state
    */
-  sidebarState: Accessor<SidebarState>;
+  sidebarState?: Accessor<SidebarState>;
 
   /**
    * Set sidebar state
    */
-  setSidebarState: Setter<SidebarState>;
+  setSidebarState?: Setter<SidebarState>;
 }
 
 /**
@@ -83,6 +83,8 @@ export function ChannelHeader(props: Props) {
   }
 
   const searchValue = () => {
+    if (!props.sidebarState) return null;
+
     const state = props.sidebarState();
     if (state.state === "search") {
       return state.query;
@@ -223,30 +225,32 @@ export function ChannelHeader(props: Props) {
         </Button>
       </Show>
 
-      <IconButton
-        use:floating={{
-          tooltip: {
-            placement: "bottom",
-            content: t`View pinned messages`,
-          },
-        }}
-        onPress={() =>
-          props.sidebarState().state === "pins"
-            ? props.setSidebarState({
-                state: "default",
-              })
-            : props.setSidebarState({
-                state: "pins",
-              })
-        }
-      >
-        <MdKeep />
-      </IconButton>
+      <Show when={props.sidebarState}>
+        <IconButton
+          use:floating={{
+            tooltip: {
+              placement: "bottom",
+              content: t`View pinned messages`,
+            },
+          }}
+          onPress={() =>
+            props.sidebarState!().state === "pins"
+              ? props.setSidebarState!({
+                  state: "default",
+                })
+              : props.setSidebarState!({
+                  state: "pins",
+                })
+          }
+        >
+          <MdKeep />
+        </IconButton>
+      </Show>
 
-      <Show when={props.channel.type !== "SavedMessages"}>
+      <Show when={props.sidebarState && props.channel.type !== "SavedMessages"}>
         <IconButton
           onPress={() => {
-            if (props.sidebarState().state === "default") {
+            if (props.sidebarState!().state === "default") {
               state.layout.toggleSectionState(
                 LAYOUT_SECTIONS.MEMBER_SIDEBAR,
                 true,
@@ -258,7 +262,7 @@ export function ChannelHeader(props: Props) {
                 true,
               );
 
-              props.setSidebarState({
+              props.setSidebarState!({
                 state: "default",
               });
             }
@@ -274,27 +278,29 @@ export function ChannelHeader(props: Props) {
         </IconButton>
       </Show>
 
-      <input
-        class={css({
-          height: "40px",
-          width: "240px",
-          paddingInline: "16px",
-          borderRadius: "var(--borderRadius-full)",
-          background: "var(--md-sys-color-surface-container-high)",
-        })}
-        placeholder="Search messages..."
-        value={searchValue()}
-        onChange={(e) =>
-          e.currentTarget.value
-            ? props.setSidebarState({
-                state: "search",
-                query: e.currentTarget.value,
-              })
-            : props.setSidebarState({
-                state: "default",
-              })
-        }
-      />
+      <Show when={searchValue() !== null}>
+        <input
+          class={css({
+            height: "40px",
+            width: "240px",
+            paddingInline: "16px",
+            borderRadius: "var(--borderRadius-full)",
+            background: "var(--md-sys-color-surface-container-high)",
+          })}
+          placeholder="Search messages..."
+          value={searchValue()!}
+          onChange={(e) =>
+            e.currentTarget.value
+              ? props.setSidebarState!({
+                  state: "search",
+                  query: e.currentTarget.value,
+                })
+              : props.setSidebarState!({
+                  state: "default",
+                })
+          }
+        />
+      </Show>
     </>
   );
 }

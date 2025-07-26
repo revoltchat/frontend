@@ -32,6 +32,7 @@ const CreateServer: PropGenerator<"create_server"> = (props) => {
         field: <Trans>Server Name</Trans>,
       },
     },
+    // @ts-expect-error legacy
     callback: async ({ name }) => {
       const server = await props.client.servers.createServer({
         name,

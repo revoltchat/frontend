@@ -19,6 +19,7 @@ const CreateInvite: PropGenerator<"create_role"> = (props) => {
         field: <Trans>Role Name</Trans>,
       },
     },
+    // @ts-expect-error legacy
     callback: async ({ name }) => {
       const role = await props.server.createRole(name);
       props.callback(role.id);

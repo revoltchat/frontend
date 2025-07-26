@@ -24,6 +24,7 @@ const CustomStatus: PropGenerator<"custom_status"> = (props) => {
         "use:autoComplete": true,
       },
     },
+    // @ts-expect-error legacy
     callback: ({ text }) =>
       props.client.user!.edit({
         status: {

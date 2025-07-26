@@ -25,6 +25,7 @@ const LeaveServer: PropGenerator<"leave_server"> = (props) => {
         ),
       },
     },
+    // @ts-expect-error legacy
     callback: (data) => props.server.delete(data.silent),
     submit: {
       variant: "error",

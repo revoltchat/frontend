@@ -25,6 +25,7 @@ const JoinServer: PropGenerator<"join_server"> = (props) => {
         placeholder: "rvlt.gg/wVEJDGVs",
       },
     },
+    // @ts-expect-error legacy
     callback: async ({ link }) => {
       let code = link;
       const match = RE_INVITE_URL.exec(link);

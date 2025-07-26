@@ -21,7 +21,7 @@ export default function Native() {
     <Column gap="lg">
       <CategoryButtonGroup>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon={<MdExitToApp {...iconSize(22)} />}
           description={
@@ -31,7 +31,7 @@ export default function Native() {
           <Trans>Start with Computer</Trans>
         </CategoryButton>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon={<MdCancelPresentation {...iconSize(22)} />}
           description={
@@ -43,7 +43,7 @@ export default function Native() {
       </CategoryButtonGroup>
       <CategoryButtonGroup>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon={<MdWebAsset {...iconSize(22)} />}
           description={<Trans>Let Revolt use its own custom titlebar.</Trans>}

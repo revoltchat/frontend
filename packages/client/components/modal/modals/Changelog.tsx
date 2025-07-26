@@ -5,7 +5,6 @@ import { styled } from "styled-system/jsx";
 
 import { useTime } from "@revolt/i18n";
 import { CategoryButton, Column } from "@revolt/ui";
-import type { Action } from "@revolt/ui/components/design/atoms/display/Modal";
 
 import { PropGenerator } from "../types";
 
@@ -57,7 +56,8 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
       </Switch>
     ),
     actions: () => {
-      const actions: Action[] = [
+      // eslint-disable-next-line
+      const actions: any[] = [
         {
           variant: "primary",
           children: <Trans>Close</Trans>,

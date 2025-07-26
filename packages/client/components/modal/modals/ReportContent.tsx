@@ -135,6 +135,7 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
         field: <Trans>Give us some detail</Trans>,
       },
     },
+    // @ts-expect-error legacy
     callback: async ({ category, detail }) => {
       if (!category || (category === "NoneSpecified" && !detail))
         throw "NoReasonProvided";

@@ -40,6 +40,7 @@ const CreateChannel: PropGenerator<"create_channel"> = (props) => {
     defaults: {
       type: "Text",
     },
+    // @ts-expect-error legacy
     callback: async ({ name, type }) => {
       const channel = await props.server.createChannel({
         type: type as "Text" | "Voice",

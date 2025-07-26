@@ -19,6 +19,7 @@ const Onboarding: PropGenerator<"onboarding"> = (props) => {
         field: "Username",
       },
     },
+    // @ts-expect-error legacy
     callback: async ({ username }) => await props.callback(username),
     submit: {
       children: "Good",

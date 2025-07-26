@@ -25,6 +25,7 @@ const RenameSession: PropGenerator<"rename_session"> = (props) => {
         placeholder: t`Enter a new name for this session`,
       },
     },
+    // @ts-expect-error legacy
     callback: async ({ name }) => void (await props.session.rename(name)),
     submit: {
       children: <Trans>Rename</Trans>,
