@@ -5,15 +5,18 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { typography } from "@revolt/ui/components/design";
-import { Row } from "@revolt/ui/components/layout";
-
+import { Row, TextEditor, typography } from "@revolt/ui";
 
 interface Props {
   /**
    * Ref to the input element
    */
   ref: HTMLTextAreaElement | undefined;
+
+  /**
+   * Initial content
+   */
+  initialValue: string;
 
   /**
    * Text content
@@ -72,9 +75,9 @@ const Base = styled("div", {
     flexGrow: 1,
     flexShrink: 0,
 
-    paddingInlineEnd: 'var(--gap-md)',
+    paddingInlineEnd: "var(--gap-md)",
     margin: "0 0 var(--gap-md) 0",
-    borderRadius: "var(--borderRadius-full)",
+    borderRadius: "var(--borderRadius-xl)",
 
     display: "flex",
     background: "var(--md-sys-color-primary-container)",
@@ -196,19 +199,28 @@ export function MessageBox(props: Props) {
       </Switch>
       <Switch
         fallback={
-          <InputArea>
-            <textarea
-              id="msgbox"
-              class={input()}
-              ref={props.ref}
-              onInput={onInput}
-              onKeyUp={onKeyUp}
-              value={props.content}
+          // https://github.com/curvenote/editor/tree/main/packages/prosemirror-autocomplete
+          // https://github.com/curvenote/editor/tree/main/packages/prosemirror-codemark
+          <>
+            <TextEditor
               placeholder={props.placeholder}
-              use:autoComplete={props.autoCompleteConfig ?? true}
+              initialValue={props.initialValue}
+              onChange={props.setContent}
             />
             <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
-          </InputArea>
+          </>
+          // <InputArea>
+          //   <textarea
+          //     id="msgbox"
+          //     class={input()}
+          //     ref={props.ref}
+          //     onInput={onInput}
+          //     onKeyUp={onKeyUp}
+          //     value={props.content}
+          //     placeholder={props.placeholder}
+          //     use:autoComplete={props.autoCompleteConfig ?? true}
+          //   />
+          // </InputArea>
         }
       >
         <Match when={!props.sendingAllowed}>

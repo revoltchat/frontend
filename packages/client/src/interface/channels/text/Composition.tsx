@@ -2,9 +2,16 @@ import {
   BiRegularPlus,
   BiSolidFileGif,
   BiSolidHappyBeaming,
-  BiSolidSend,
 } from "solid-icons/bi";
-import { For, Match, Show, Switch } from "solid-js";
+import {
+  For,
+  Match,
+  Show,
+  Switch,
+  createEffect,
+  createSignal,
+  on,
+} from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
@@ -14,7 +21,6 @@ import { debounce } from "@revolt/common";
 import { Keybind, KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useState } from "@revolt/state";
 import {
-  Button,
   CompositionPicker,
   FileCarousel,
   FileDropAnywhereCollector,
@@ -67,6 +73,22 @@ export function MessageComposition(props: Props) {
   function draft() {
     return state.draft.getDraft(props.channel.id);
   }
+
+  // TEMP
+  function currentValue() {
+    return draft()?.content ?? "";
+  }
+
+  const [initialValue, setInitialValue] = createSignal(currentValue());
+
+  createEffect(
+    on(
+      () => props.channel,
+      () => setInitialValue(currentValue()),
+      { defer: true },
+    ),
+  );
+  // END TEMP
 
   /**
    * Keep track of last time we sent a typing packet
@@ -380,6 +402,7 @@ export function MessageComposition(props: Props) {
       <Row>
         <MessageBox
           ref={ref}
+          initialValue={initialValue()}
           content={draft()?.content ?? ""}
           setContent={setContent}
           actionsStart={
@@ -447,7 +470,12 @@ export function MessageComposition(props: Props) {
         {/* // <Show
           //   when={state.settings.getValue("appearance:show_send_button")}
           // > */}
-        <IconButton size="md" variant="filled" shape="square" onPress={sendMessage}>
+        <IconButton
+          size="md"
+          variant="filled"
+          shape="square"
+          onPress={sendMessage}
+        >
           <MdSend />
         </IconButton>
         {/* // </Show> */}
