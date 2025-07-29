@@ -30,7 +30,7 @@ export default defineConfig({
       filename: "sw.ts",
       strategies: "injectManifest",
       injectManifest: {
-        maximumFileSizeToCacheInBytes: 3000000
+        maximumFileSizeToCacheInBytes: 3000000,
       },
       manifest: {
         name: "Revolt",
@@ -78,7 +78,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ["hast"],
+    exclude: ["hast", "prosemirror-markdown"],
   },
   resolve: {
     alias: {

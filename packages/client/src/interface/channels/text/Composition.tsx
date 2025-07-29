@@ -448,10 +448,8 @@ export function MessageComposition(props: Props) {
                 : t`Message ${props.channel.name}`
           }
           sendingAllowed={props.channel.havePermission("SendMessage")}
-          autoCompleteConfig={{
-            onKeyDown: onKeyDownMessageBox,
-            client: client(),
-            searchSpace: props.channel.server
+          autoCompleteSearchSpace={
+            props.channel.server
               ? {
                   members: client().serverMembers.filter(
                     (member) => member.id.server === props.channel.serverId,
@@ -461,8 +459,8 @@ export function MessageComposition(props: Props) {
                 }
               : props.channel.type === "Group"
                 ? { users: props.channel.recipients, channels: [] }
-                : { channels: [] },
-          }}
+                : { channels: [] }
+          }
           updateDraftSelection={(start, end) =>
             state.draft.setSelection(props.channel.id, start, end)
           }

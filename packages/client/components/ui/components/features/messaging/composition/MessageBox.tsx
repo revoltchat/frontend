@@ -6,6 +6,7 @@ import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Row, TextEditor, typography } from "@revolt/ui";
+import { AutoCompleteSearchSpace } from "@revolt/ui/components/design/TextEditor";
 
 interface Props {
   /**
@@ -59,7 +60,7 @@ interface Props {
   /**
    * Auto complete config
    */
-  autoCompleteConfig?: JSX.Directives["autoComplete"];
+  autoCompleteSearchSpace?: AutoCompleteSearchSpace;
 
   /**
    * Update the current draft selection
@@ -82,38 +83,6 @@ const Base = styled("div", {
     display: "flex",
     background: "var(--md-sys-color-primary-container)",
     color: "var(--md-sys-color-on-primary-container)",
-  },
-});
-
-const InputArea = styled("div", {
-  base: {
-    flexGrow: 1,
-    marginBlock: "8px",
-    borderRadius: "var(--borderRadius-full)",
-    background: "var(--md-sys-color-surface)",
-
-    display: "flex",
-    gap: "var(--gap-sm)",
-  },
-});
-
-/**
- * Input area
- */
-const input = cva({
-  base: {
-    flexGrow: 1,
-
-    border: "none",
-    resize: "none",
-    outline: "none",
-    paddingInline: "14px",
-
-    background: "transparent",
-    color: "var(--md-sys-color-on-surface)",
-
-    fontFamily: "var(--fonts-primary)",
-    ...typography.raw({ class: "_messages" }),
   },
 });
 
@@ -156,28 +125,10 @@ export const InlineIcon = styled("div", {
  * Message box
  */
 export function MessageBox(props: Props) {
-  /**
-   * Handle changes to input
-   * @param event Event
-   */
-  function onInput(event: InputEvent & { currentTarget: HTMLTextAreaElement }) {
-    props.setContent(event.currentTarget!.value);
-  }
-
-  /**
-   * Handle key up event
-   * @param event Event
-   */
-  function onKeyUp(
-    event: KeyboardEvent & {
-      currentTarget: HTMLTextAreaElement;
-    },
-  ) {
-    props.updateDraftSelection?.(
-      event.currentTarget.selectionStart,
-      event.currentTarget.selectionEnd,
-    );
-  }
+  // props.updateDraftSelection?.(
+  //   event.currentTarget.selectionStart,
+  //   event.currentTarget.selectionEnd,
+  // );
 
   /**
    * Set initial draft selection
@@ -206,18 +157,12 @@ export function MessageBox(props: Props) {
               placeholder={props.placeholder}
               initialValue={props.initialValue}
               onChange={props.setContent}
+              autoCompleteSearchSpace={props.autoCompleteSearchSpace}
             />
             <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
           </>
           // <InputArea>
           //   <textarea
-          //     id="msgbox"
-          //     class={input()}
-          //     ref={props.ref}
-          //     onInput={onInput}
-          //     onKeyUp={onKeyUp}
-          //     value={props.content}
-          //     placeholder={props.placeholder}
           //     use:autoComplete={props.autoCompleteConfig ?? true}
           //   />
           // </InputArea>
