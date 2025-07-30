@@ -97,7 +97,7 @@ const components = () => ({
 /**
  * Unified Markdown renderer
  */
-const pipeline = unified()
+export const unifiedPipeline = unified()
   .use(remarkParse)
   .use(remarkBreaks)
   .use(remarkGfm)
@@ -111,7 +111,9 @@ const pipeline = unified()
   .use(remarkUnicodeEmoji)
   .use(remarkCustomEmoji)
   .use(remarkSpoiler)
-  .use(remarkHtmlToText)
+  .use(remarkHtmlToText);
+
+const htmlPipeline = unifiedPipeline
   // @ts-expect-error non-standard elements not recognised by typing
   .use(remarkRehype, {
     handlers: {
@@ -160,7 +162,7 @@ export function Markdown(props: MarkdownProps) {
     const file = new VFile();
     file.value = sanitise(content);
 
-    const hastNode = pipeline.runSync(pipeline.parse(file), file);
+    const hastNode = htmlPipeline.runSync(htmlPipeline.parse(file), file);
 
     if (hastNode.type !== "root") {
       throw new TypeError("Expected a `root` node");

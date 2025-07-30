@@ -163,7 +163,7 @@ export const mentionHandler: Handler = (h, node) => {
   };
 };
 
-const mention = cva({
+export const mention = cva({
   base: {
     verticalAlign: "bottom",
 
@@ -189,6 +189,19 @@ const mention = cva({
       false: {
         paddingLeft: "6px",
         cursor: "not-allowed",
+      },
+    },
+    inEditor: {
+      true: {
+        color: "var(--md-sys-color-on-primary)",
+        background: "var(--md-sys-color-primary)",
+
+        "& img": {
+          width: "16px",
+          height: "16px",
+          objectFit: "cover",
+          borderRadius: "var(--borderRadius-full)",
+        },
       },
     },
   },

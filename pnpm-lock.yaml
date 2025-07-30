@@ -140,6 +140,9 @@ importers:
       lodash.isequal:
         specifier: ^4.5.0
         version: 4.5.0
+      mdast:
+        specifier: ^3.0.0
+        version: 3.0.0
       mdast-util-to-hast:
         specifier: ^13.2.0
         version: 13.2.0
@@ -197,6 +200,9 @@ importers:
       remark-rehype:
         specifier: ^11.1.2
         version: 11.1.2
+      remark-stringify:
+        specifier: ^11.0.0
+        version: 11.0.0
       revolt.js:
         specifier: workspace:^
         version: link:../revolt.js
@@ -321,6 +327,9 @@ importers:
       '@types/lodash.isequal':
         specifier: ^4.5.8
         version: 4.5.8
+      '@types/mdast':
+        specifier: ^4.0.4
+        version: 4.0.4
       '@types/unist':
         specifier: ^3.0.3
         version: 3.0.3
@@ -5565,6 +5574,10 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
+  mdast@3.0.0:
+    resolution: {integrity: sha512-xySmf8g4fPKMeC07jXGz971EkLbWAJ83s4US2Tj9lEdnZ142UP5grN73H1Xd3HzrdbU5o9GYYP/y8F9ZSwLE9g==}
+    deprecated: '`mdast` was renamed to `remark`'
+
   mdn-data@2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
 
@@ -6722,6 +6735,7 @@ packages:
   source-map@0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
+    deprecated: The work that was done in this beta branch won't be included in future versions
 
   sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
@@ -13473,6 +13487,8 @@ snapshots:
   mdast-util-to-string@4.0.0:
     dependencies:
       '@types/mdast': 4.0.4
+
+  mdast@3.0.0: {}
 
   mdn-data@2.0.28: {}
 

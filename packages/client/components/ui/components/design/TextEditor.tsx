@@ -19,11 +19,6 @@ import { baseKeymap } from "prosemirror-commands";
 import { toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
-import {
-  defaultMarkdownParser,
-  defaultMarkdownSerializer,
-  schema,
-} from "prosemirror-markdown";
 import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { Channel, ServerMember, ServerRole, User } from "revolt.js";
@@ -32,9 +27,15 @@ import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
+import {
+  markdownFromProseMirrorModel,
+  markdownToProseMirrorModel,
+  schema,
+} from "@revolt/markdown/prosemirror";
 
 import emojiMapping from "../../emojiMapping.json";
 
+import { Avatar } from "./Avatar";
 import { typography } from "./Text";
 
 const EMOJI_KEYS = Object.keys(emojiMapping).sort();
@@ -59,10 +60,23 @@ interface AutoCompleteView {
   element: HTMLDivElement;
   // query: string;
   selected: number;
-  result: {
-    type: "emoji";
-    matches: MatchEmoji[];
-  };
+  result:
+    | {
+        type: "emoji";
+        matches: MatchEmoji[];
+      }
+    | {
+        type: "user";
+        matches: MatchUser[];
+      }
+    | {
+        type: "role";
+        matches: ServerRole[];
+      }
+    | {
+        type: "channel";
+        matches: Channel[];
+      };
 }
 
 type MatchEmoji =
@@ -76,6 +90,8 @@ type MatchEmoji =
       id: string;
       name: string;
     };
+
+type MatchUser = User | ServerMember;
 
 /**
  * Rich text editor powered by ProseMirror
@@ -122,6 +138,10 @@ export function TextEditor(props: Props) {
   const searchSpace = createMemo(() => {
     return {
       emoji: [MAPPED_EMOJI_KEYS, client().emojis.toList()].flat(),
+      users:
+        props.autoCompleteSearchSpace?.members ??
+        props.autoCompleteSearchSpace?.users ??
+        client().users.toList(),
     };
   });
 
@@ -136,6 +156,7 @@ export function TextEditor(props: Props) {
 
       // perform query
       const space = searchSpace();
+      let result: AutoCompleteView["result"] | null = null;
       switch (trigger) {
         case "emoji": {
           const matches: MatchEmoji[] = [];
@@ -143,47 +164,72 @@ export function TextEditor(props: Props) {
             a.name.localeCompare(b.name),
           );
 
-          let i = 0;
+          let i = -1;
           while (matches.length < 10 && i < emoji.length) {
-            const name = emoji[i].name;
-            if (name.includes(query)) {
-              const id = emoji[i].id;
+            const emote = emoji[++i];
+            if (emote.name.includes(query)) {
+              const id = emote.id;
               matches.push(
                 id.length === 26
                   ? {
                       type: "custom",
                       id,
-                      name,
+                      name: emote.name,
                     }
                   : {
                       type: "unicode",
                       codepoint: emojiMapping[id as keyof typeof emojiMapping],
-                      name,
+                      name: emote.name,
                     },
               );
             }
-
-            i++;
           }
 
-          if (matches.length === 0) break;
-
-          const result: AutoCompleteView["result"] = {
+          result = {
             type: "emoji",
             matches,
           };
 
-          setAutoComplete((ac) => ({
-            element,
-            // query,
-            result,
-
-            // ensure selected is within range
-            selected: ac?.selected ? ac.selected % matches.length : 0,
-          }));
-
-          return;
+          break;
         }
+        case "user": {
+          const matches: MatchUser[] = [];
+          const users = space.users.sort((a, b) =>
+            a.displayName!.localeCompare(b.displayName!),
+          );
+
+          let i = -1;
+          while (matches.length < 10 && i + 1 < users.length) {
+            const user = users[++i];
+            if (
+              user.displayName!.toLowerCase().includes(query) ||
+              (user instanceof ServerMember &&
+                user.user?.username.toLowerCase().includes(query))
+            ) {
+              matches.push(users[i]);
+            }
+          }
+
+          result = {
+            type: "user",
+            matches,
+          };
+
+          break;
+        }
+      }
+
+      if (result?.matches.length) {
+        setAutoComplete((ac) => ({
+          element,
+          // query,
+          result,
+
+          // ensure selected is within range
+          selected: ac?.selected ? ac.selected % result.matches.length : 0,
+        }));
+
+        return;
       }
     }
 
@@ -195,7 +241,8 @@ export function TextEditor(props: Props) {
     ? autocomplete({
         triggers: [
           { name: "channel", trigger: "#" },
-          { name: "mention", trigger: "@" },
+          { name: "user", trigger: "@" },
+          { name: "role", trigger: "%" },
           { name: "emoji", trigger: ":" },
         ],
         reducer(action) {
@@ -235,28 +282,43 @@ export function TextEditor(props: Props) {
                 case "emoji": {
                   const match = ac.result.matches[ac.selected];
 
-                  const tr = action.view.state.tr.deleteRange(
+                  let tr = action.view.state.tr.deleteRange(
                     action.range.from,
                     action.range.to,
                   );
 
-                  tr.insertText(
-                    match.type === "unicode"
-                      ? match.codepoint
-                      : `:${match.id}:`,
+                  if (match.type == "unicode") {
+                    tr = tr.insertText(match.codepoint);
+                  } else {
+                    tr = tr.insert(
+                      action.range.from,
+                      schema.nodes.rfm_custom_emoji.createAndFill({
+                        id: match.id,
+                        src: `https://cdn.revoltusercontent.com/emojis/${match.id}`,
+                      })!,
+                    );
+                  }
+
+                  action.view.dispatch(tr);
+
+                  return true;
+                }
+                case "user": {
+                  const match = ac.result.matches[ac.selected];
+
+                  let tr = action.view.state.tr.deleteRange(
+                    action.range.from,
+                    action.range.to,
                   );
 
-                  // todo fork the library
-                  // if (match.type == "unicode") {
-                  // tr = tr.insertText(match.codepoint);
-                  // } else {
-                  //   tr = tr.insert(
-                  //     0,
-                  //     schema.nodes.custom_emoji.createAndFill({
-                  //       id: match.id,
-                  //     })!,
-                  //   );
-                  // }
+                  tr = tr.insert(
+                    action.range.from,
+                    schema.nodes.rfm_user_mention.createAndFill({
+                      id: match.id,
+                      username: match.displayName,
+                      avatar: match.animatedAvatarURL,
+                    })!,
+                  );
 
                   action.view.dispatch(tr);
 
@@ -277,7 +339,7 @@ export function TextEditor(props: Props) {
   // configure prosemirror
   const state = EditorState.create({
     schema,
-    doc: defaultMarkdownParser.parse(props.initialValue ?? ""),
+    doc: markdownToProseMirrorModel(props.initialValue ?? ""),
     plugins: [
       history(),
       keymap({
@@ -299,8 +361,10 @@ export function TextEditor(props: Props) {
 
   const view = new EditorView(proseMirror, {
     state,
-    handleTextInput(view) {
-      const value = defaultMarkdownSerializer.serialize(view.state.doc);
+    dispatchTransaction(tr) {
+      view.updateState(this.state.applyTransaction(tr).state);
+
+      const value = markdownFromProseMirrorModel(view.state.doc);
       setValue(value);
       props.onChange?.(value);
     },
@@ -315,7 +379,7 @@ export function TextEditor(props: Props) {
     on(
       () => props.initialValue,
       (value) => {
-        state.doc = defaultMarkdownParser.parse(value ?? "");
+        state.doc = markdownToProseMirrorModel(value ?? "");
         view.updateState(state);
         setValue(value ?? "");
       },
@@ -370,7 +434,7 @@ function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
     >
       <Switch>
         <Match when={props.state()!.result.type === "emoji"}>
-          <For each={props.state()!.result.matches}>
+          <For each={props.state()!.result.matches as MatchEmoji[]}>
             {(match, idx) => (
               <Entry selected={props.state()!.selected === idx()}>
                 <Switch
@@ -388,6 +452,23 @@ function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
                     <Name>:{match.name}:</Name>
                   </Match>
                 </Switch>
+              </Entry>
+            )}
+          </For>
+        </Match>
+        <Match when={props.state()!.result.type === "user"}>
+          <For each={props.state()!.result.matches as MatchUser[]}>
+            {(match, idx) => (
+              <Entry selected={props.state()!.selected === idx()}>
+                <Avatar src={match.animatedAvatarURL} size={24} />{" "}
+                <Name>{match.displayName}</Name>
+                {match instanceof ServerMember &&
+                  match.displayName !== match.user?.username && (
+                    <>
+                      {" "}
+                      @{match.user?.username}#{match.user?.discriminator}
+                    </>
+                  )}
               </Entry>
             )}
           </For>
