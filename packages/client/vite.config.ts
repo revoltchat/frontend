@@ -78,7 +78,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ["hast", "prosemirror-markdown"],
+    exclude: ["hast"],
   },
   resolve: {
     alias: {
