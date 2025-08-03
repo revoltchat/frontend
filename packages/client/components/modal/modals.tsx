@@ -16,7 +16,7 @@ import create_channel from "./modals/CreateChannel";
 import { CreateGroupModal } from "./modals/CreateGroup";
 import create_invite from "./modals/CreateInvite";
 import create_or_join_server from "./modals/CreateOrJoinServer";
-import create_role from "./modals/CreateRole";
+import { CreateRoleModal } from "./modals/CreateRole";
 import create_server from "./modals/CreateServer";
 import { CreateWebhookModal } from "./modals/CreateWebhook";
 import custom_status from "./modals/CustomStatus";
@@ -82,6 +82,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <CreateGroupModal {...modalProps} />;
     case "create_webhook":
       return <CreateWebhookModal {...modalProps} />;
+    case "create_role":
+      return <CreateRoleModal {...modalProps} />;
     case "emoji_preview":
       return <EmojiPreviewModal {...modalProps} />;
     case "error2":
@@ -113,7 +115,6 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
         create_category,
         create_channel,
         create_invite,
-        create_role,
         create_server,
         create_or_join_server,
         custom_status,

@@ -1,6 +1,7 @@
 import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
 import { styled } from "styled-system/jsx";
+import { useModals } from "@revolt/modal";
 
 import { CategoryButton, Column, Draggable, Text } from "@revolt/ui";
 
@@ -13,6 +14,20 @@ import { useSettingsNavigation } from "../../Settings";
  */
 export function ServerRoleOverview(props: { context: Server }) {
   const { navigate } = useSettingsNavigation();
+  const { openModal } = useModals();
+
+/**
+  * Create a new role
+  */
+function createRole() {
+  openModal({
+    type: "create_role",
+    server: props.context,
+    callback(roleId) {
+      navigate(`roles/${roleId}`);
+    },
+  });
+}
 
   return (
     <Column gap="lg">
@@ -29,6 +44,7 @@ export function ServerRoleOverview(props: { context: Server }) {
           icon="blank"
           action="chevron"
           description={<Trans>Create a new role</Trans>}
+          onClick={createRole}
         >
           <Trans>Create Role</Trans>
         </CategoryButton>
