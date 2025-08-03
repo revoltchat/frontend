@@ -70,6 +70,21 @@ function map(node: Node): RootContent {
         type: "text",
         value: `:${node.attrs.id}:`,
       };
+    case "rfm_user_mention":
+      return {
+        type: "text",
+        value: `<@${node.attrs.id}>`,
+      };
+    case "rfm_role_mention":
+      return {
+        type: "text",
+        value: `<%${node.attrs.id}>`,
+      };
+    case "rfm_channel_mention":
+      return {
+        type: "text",
+        value: `<#${node.attrs.id}>`,
+      };
     default:
       return {
         type: "text",

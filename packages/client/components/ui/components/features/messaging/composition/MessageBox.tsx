@@ -1,11 +1,10 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Show, Switch, onMount } from "solid-js";
+import { JSX, Match, Show, Switch, createEffect, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
-import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { Row, TextEditor, typography } from "@revolt/ui";
+import { Row, TextEditor } from "@revolt/ui";
 import { AutoCompleteSearchSpace } from "@revolt/ui/components/design/TextEditor";
 
 interface Props {
@@ -17,7 +16,7 @@ interface Props {
   /**
    * Initial content
    */
-  initialValue: string;
+  initialValue: [string];
 
   /**
    * Text content

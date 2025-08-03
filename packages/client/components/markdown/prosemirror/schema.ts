@@ -243,6 +243,68 @@ export const schema = new Schema({
         ];
       },
     },
+
+    rfm_role_mention: {
+      inline: true,
+      attrs: {
+        id: {},
+        name: {},
+      },
+      group: "inline",
+      draggable: true,
+      parseDOM: [
+        {
+          tag: "span[role-id]",
+          getAttrs(dom) {
+            return {
+              id: (dom as HTMLElement).getAttribute("role-id"),
+              name: (dom as HTMLElement).innerText,
+            };
+          },
+        },
+      ],
+      toDOM(node) {
+        return [
+          "span",
+          {
+            "role-id": node.attrs.id,
+            class: mention({ inEditor: true }),
+          },
+          "%" + node.attrs.name,
+        ];
+      },
+    },
+
+    rfm_channel_mention: {
+      inline: true,
+      attrs: {
+        id: {},
+        name: {},
+      },
+      group: "inline",
+      draggable: true,
+      parseDOM: [
+        {
+          tag: "span[channel-id]",
+          getAttrs(dom) {
+            return {
+              id: (dom as HTMLElement).getAttribute("channel-id"),
+              name: (dom as HTMLElement).innerText,
+            };
+          },
+        },
+      ],
+      toDOM(node) {
+        return [
+          "span",
+          {
+            "channel-id": node.attrs.id,
+            class: mention({ inEditor: true }),
+          },
+          "#" + node.attrs.name,
+        ];
+      },
+    },
   },
 
   marks: {
@@ -307,3 +369,5 @@ export const schema = new Schema({
     },
   },
 });
+
+window.schema = schema;

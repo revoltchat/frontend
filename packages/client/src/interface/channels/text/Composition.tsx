@@ -79,12 +79,24 @@ export function MessageComposition(props: Props) {
     return draft()?.content ?? "";
   }
 
-  const [initialValue, setInitialValue] = createSignal(currentValue());
+  const [initialValue, setInitialValue] = createSignal([currentValue()]);
 
   createEffect(
     on(
       () => props.channel,
-      () => setInitialValue(currentValue()),
+      () => setInitialValue([currentValue()]),
+      { defer: true },
+    ),
+  );
+
+  createEffect(
+    on(
+      () => currentValue(),
+      (value) => {
+        if (value === "") {
+          setInitialValue([""]);
+        }
+      },
       { defer: true },
     ),
   );

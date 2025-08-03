@@ -1,9 +1,17 @@
 import { schema } from "./schema";
 
+export function blankModel() {
+  return schema.nodes.doc.createChecked(
+    null,
+    schema.nodes.paragraph.createChecked(null),
+  );
+}
+
 export function markdownToProseMirrorModel(content: string) {
-  return schema.nodes.doc.createAndFill(null, [
-    schema.nodes.text.createAndFill({
-      text: content,
-    })!,
-  ])!;
+  if (!content) return blankModel();
+
+  return schema.nodes.doc.createChecked(
+    null,
+    schema.nodes.paragraph.createChecked(null, schema.text(content)),
+  );
 }

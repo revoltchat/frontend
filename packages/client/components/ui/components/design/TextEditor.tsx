@@ -19,7 +19,7 @@ import { baseKeymap } from "prosemirror-commands";
 import { toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
 import { keymap } from "prosemirror-keymap";
-import { EditorState } from "prosemirror-state";
+import { EditorState, EditorStateConfig } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { Channel, ServerMember, ServerRole, User } from "revolt.js";
 import { css, cva } from "styled-system/css";
@@ -28,6 +28,7 @@ import { styled } from "styled-system/jsx";
 import { useClient } from "@revolt/client";
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
 import {
+  blankModel,
   markdownFromProseMirrorModel,
   markdownToProseMirrorModel,
   schema,
@@ -43,7 +44,7 @@ const MAPPED_EMOJI_KEYS = EMOJI_KEYS.map((id) => ({ id, name: id }));
 
 interface Props {
   placeholder?: string;
-  initialValue?: string;
+  initialValue?: [string];
   onChange: (value: string) => void;
 
   autoCompleteSearchSpace?: AutoCompleteSearchSpace;
@@ -142,10 +143,15 @@ export function TextEditor(props: Props) {
         props.autoCompleteSearchSpace?.members ??
         props.autoCompleteSearchSpace?.users ??
         client().users.toList(),
+      roles: props.autoCompleteSearchSpace?.roles ?? [],
+      channels:
+        props.autoCompleteSearchSpace?.channels ?? client().channels.toList(),
     };
   });
 
   function updateAutoComplete(trigger: string, query?: string) {
+    query = query?.toLowerCase();
+
     if (query) {
       // find the autocomplete element
       const element = document.getElementsByClassName(
@@ -212,6 +218,48 @@ export function TextEditor(props: Props) {
 
           result = {
             type: "user",
+            matches,
+          };
+
+          break;
+        }
+        case "role": {
+          const matches: ServerRole[] = [];
+          const roles = space.roles.sort((a, b) =>
+            a.name.localeCompare(b.name),
+          );
+
+          let i = -1;
+          while (matches.length < 10 && i + 1 < roles.length) {
+            const role = roles[++i];
+            if (role.name.toLowerCase().includes(query)) {
+              matches.push(roles[i]);
+            }
+          }
+
+          result = {
+            type: "role",
+            matches,
+          };
+
+          break;
+        }
+        case "channel": {
+          const matches: Channel[] = [];
+          const channels = space.channels.sort((a, b) =>
+            a.name.localeCompare(b.name),
+          );
+
+          let i = -1;
+          while (matches.length < 10 && i + 1 < channels.length) {
+            const role = channels[++i];
+            if (role.name.toLowerCase().includes(query)) {
+              matches.push(channels[i]);
+            }
+          }
+
+          result = {
+            type: "channel",
             matches,
           };
 
@@ -324,6 +372,46 @@ export function TextEditor(props: Props) {
 
                   return true;
                 }
+                case "role": {
+                  const match = ac.result.matches[ac.selected];
+
+                  let tr = action.view.state.tr.deleteRange(
+                    action.range.from,
+                    action.range.to,
+                  );
+
+                  tr = tr.insert(
+                    action.range.from,
+                    schema.nodes.rfm_role_mention.createAndFill({
+                      id: match.id,
+                      name: match.name,
+                    })!,
+                  );
+
+                  action.view.dispatch(tr);
+
+                  return true;
+                }
+                case "channel": {
+                  const match = ac.result.matches[ac.selected];
+
+                  let tr = action.view.state.tr.deleteRange(
+                    action.range.from,
+                    action.range.to,
+                  );
+
+                  tr = tr.insert(
+                    action.range.from,
+                    schema.nodes.rfm_channel_mention.createAndFill({
+                      id: match.id,
+                      name: match.name,
+                    })!,
+                  );
+
+                  action.view.dispatch(tr);
+
+                  return true;
+                }
               }
 
               return false;
@@ -337,9 +425,8 @@ export function TextEditor(props: Props) {
     : [];
 
   // configure prosemirror
-  const state = EditorState.create({
+  const config: EditorStateConfig = {
     schema,
-    doc: markdownToProseMirrorModel(props.initialValue ?? ""),
     plugins: [
       history(),
       keymap({
@@ -357,6 +444,11 @@ export function TextEditor(props: Props) {
       keymap({ "Mod-z": undo, "Mod-y": redo }),
       keymap(baseKeymap),
     ],
+  };
+
+  const state = EditorState.create({
+    ...config,
+    doc: markdownToProseMirrorModel(props.initialValue?.[0] ?? ""),
   });
 
   const view = new EditorView(proseMirror, {
@@ -365,8 +457,8 @@ export function TextEditor(props: Props) {
       view.updateState(this.state.applyTransaction(tr).state);
 
       const value = markdownFromProseMirrorModel(view.state.doc);
-      setValue(value);
       props.onChange?.(value);
+      setValue(value);
     },
     handleDOMEvents: {
       focus: () => setFocused(true),
@@ -379,9 +471,18 @@ export function TextEditor(props: Props) {
     on(
       () => props.initialValue,
       (value) => {
-        state.doc = markdownToProseMirrorModel(value ?? "");
-        view.updateState(state);
-        setValue(value ?? "");
+        if (value) {
+          view.updateState(
+            EditorState.create({
+              ...config,
+              doc: value[0]
+                ? markdownToProseMirrorModel(value[0])
+                : blankModel(),
+            }),
+          );
+
+          setValue(value[0]);
+        }
       },
       {
         defer: true,
@@ -469,6 +570,24 @@ function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
                       @{match.user?.username}#{match.user?.discriminator}
                     </>
                   )}
+              </Entry>
+            )}
+          </For>
+        </Match>
+        <Match when={props.state()!.result.type === "role"}>
+          <For each={props.state()!.result.matches as ServerRole[]}>
+            {(match, idx) => (
+              <Entry selected={props.state()!.selected === idx()}>
+                <Name>{match.name}</Name>
+              </Entry>
+            )}
+          </For>
+        </Match>
+        <Match when={props.state()!.result.type === "channel"}>
+          <For each={props.state()!.result.matches as Channel[]}>
+            {(match, idx) => (
+              <Entry selected={props.state()!.selected === idx()}>
+                <Name>#{match.name}</Name>
               </Entry>
             )}
           </For>
