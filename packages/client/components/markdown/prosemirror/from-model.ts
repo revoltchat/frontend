@@ -65,6 +65,9 @@ function map(node: Node): RootContent {
         type: "text",
         value: node.text!,
       };
+
+    // RFM
+
     case "rfm_custom_emoji":
       return {
         type: "text",
@@ -85,7 +88,9 @@ function map(node: Node): RootContent {
         type: "text",
         value: `<#${node.attrs.id}>`,
       };
+
     default:
+      console.info("Failing node:", node);
       return {
         type: "text",
         value: `[missing ${node.type.name} serializer]`,

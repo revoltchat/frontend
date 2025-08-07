@@ -448,7 +448,7 @@ export function TextEditor(props: Props) {
 
   const state = EditorState.create({
     ...config,
-    doc: markdownToProseMirrorModel(props.initialValue?.[0] ?? ""),
+    doc: markdownToProseMirrorModel(props.initialValue?.[0] ?? "", client()),
   });
 
   const view = new EditorView(proseMirror, {
@@ -476,7 +476,7 @@ export function TextEditor(props: Props) {
             EditorState.create({
               ...config,
               doc: value[0]
-                ? markdownToProseMirrorModel(value[0])
+                ? markdownToProseMirrorModel(value[0], client())
                 : blankModel(),
             }),
           );

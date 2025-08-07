@@ -104,16 +104,22 @@ export const unifiedPipeline = unified()
   .use(remarkMath, {
     // TODO: fork for \[\] support
     singleDollarTextMath: false,
-  })
-  .use(remarkMentions)
-  .use(remarkTimestamps)
-  .use(remarkChannels)
-  .use(remarkUnicodeEmoji)
-  .use(remarkCustomEmoji)
-  .use(remarkSpoiler)
-  .use(remarkHtmlToText);
+  });
 
-const htmlPipeline = unifiedPipeline
+export const UNIFIED_PLUGINS = [
+  remarkMentions,
+  remarkTimestamps,
+  remarkChannels,
+  remarkUnicodeEmoji,
+  remarkCustomEmoji,
+  remarkSpoiler,
+  remarkHtmlToText,
+];
+
+const htmlPipeline = UNIFIED_PLUGINS.reduce(
+  (pipeline, plugin) => pipeline.use(plugin) as never,
+  unifiedPipeline,
+)
   // @ts-expect-error non-standard elements not recognised by typing
   .use(remarkRehype, {
     handlers: {
