@@ -20,6 +20,7 @@ import codeMirrorBlockPlugin, {
   codeBlockKeymap,
   defaultSettings,
   languageLoaders,
+  legacyLanguageLoaders,
 } from "prosemirror-codemirror-block";
 import { baseKeymap, toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
@@ -475,7 +476,7 @@ export function TextEditor(props: Props) {
       }),
       codeMirrorBlockPlugin({
         ...defaultSettings,
-        languageLoaders: { ...languageLoaders },
+        languageLoaders: { ...languageLoaders, ...legacyLanguageLoaders },
         undo,
         redo,
       }),
