@@ -530,6 +530,9 @@ export function TextEditor(props: Props) {
       focus: () => setFocused(true),
       blur: () => setFocused(false),
       keydown: (_, event) => {
+        if (event.key === "ArrowUp" && !value().length)
+          return props.onPreviousContext?.();
+
         if (event.key === "Enter" && !event.shiftKey && props.onComplete)
           return;
 

@@ -15,6 +15,8 @@ import { SpecialEmbed } from "./SpecialEmbed";
 
 const Base = styled("div", {
   base: {
+    width: "fit-content",
+
     display: "flex",
     maxWidth: "480px", // TODO: theme this
     flexDirection: "row",
@@ -23,8 +25,7 @@ const Base = styled("div", {
     borderRadius: "var(--borderRadius-md)",
     color: "var(--md-sys-color-on-primary-container)",
     background: "var(--md-sys-color-primary-container)",
-    borderInlineStart:
-      "var(--gap-sm) solid var(--md-sys-color-primary)",
+    borderInlineStart: "var(--gap-sm) solid var(--md-sys-color-primary)",
   },
 });
 
@@ -54,6 +55,8 @@ const PreviewImage = styled("img", {
 
 const Title = styled("a", {
   base: {
+    width: "fit-content",
+
     fontSize: "16px",
     color: "var(--md-sys-color-primary) !important",
   },

@@ -196,12 +196,13 @@ const Info = styled("div", {
 /**
  * Right-side message content
  */
-const Content = styled('div', {
+const Content = styled("div", {
   base: {
-    display: 'flex',
-    flexDirection: 'column',
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "column",
 
-    color: 'var(--md-sys-color-on-surface)',
+    color: "var(--md-sys-color-on-surface)",
 
     minWidth: 0,
     overflow: "hidden",

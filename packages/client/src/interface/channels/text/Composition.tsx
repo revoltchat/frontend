@@ -170,19 +170,6 @@ export function MessageComposition(props: Props) {
   }
 
   /**
-   * Handle key presses in input box
-   * @param event Keyboard Event
-   */
-  function onKeyDownMessageBox(
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
-  ) {
-    if (event.key === "ArrowUp") {
-      state.draft.setEditingMessage(true);
-      return;
-    }
-  }
-
-  /**
    * Handle files being added to the draft.
    * @param files List of files
    */
@@ -287,6 +274,7 @@ export function MessageComposition(props: Props) {
           initialValue={initialValue()}
           onSendMessage={sendMessage}
           onTyping={delayedStopTyping}
+          onEditLastMessage={() => state.draft.setEditingMessage(true)}
           content={draft()?.content ?? ""}
           setContent={setContent}
           actionsStart={

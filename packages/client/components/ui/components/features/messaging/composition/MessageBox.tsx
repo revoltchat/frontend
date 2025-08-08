@@ -34,6 +34,11 @@ interface Props {
   onTyping: () => void;
 
   /**
+   * Handle event when user wants to edit the last message in chat
+   */
+  onEditLastMessage: () => void;
+
+  /**
    * Update text content
    * @param v New content
    */
@@ -161,6 +166,7 @@ export function MessageBox(props: Props) {
               onChange={props.setContent}
               onComplete={props.onSendMessage}
               onTyping={props.onTyping}
+              onPreviousContext={props.onEditLastMessage}
               autoCompleteSearchSpace={props.autoCompleteSearchSpace}
             />
             <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>

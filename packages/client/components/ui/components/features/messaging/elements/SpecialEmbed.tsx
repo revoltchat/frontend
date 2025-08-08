@@ -21,19 +21,23 @@ export function SpecialEmbed(props: { embed: WebsiteEmbed }) {
         break;
       }
       case "Twitch": {
-        (width = 1280), (height = 720);
+        width = 1280;
+        height = 720;
         break;
       }
       case "Lightspeed": {
-        (width = 1280), (height = 720);
+        width = 1280;
+        height = 720;
         break;
       }
       case "Spotify": {
-        (width = 420), (height = 355);
+        width = 420;
+        height = 355;
         break;
       }
       case "Soundcloud": {
-        (width = 480), (height = 460);
+        width = 480;
+        height = 460;
         break;
       }
       case "Bandcamp": {
@@ -54,7 +58,7 @@ export function SpecialEmbed(props: { embed: WebsiteEmbed }) {
         allowfullscreen
         allowtransparency
         frameborder={0}
-        style={{ width: getSize()?.width + "px" }}
+        // style={{ width: getSize()?.width + "px" }}
         src={props.embed.embedURL}
       />
     </SizedContent>
