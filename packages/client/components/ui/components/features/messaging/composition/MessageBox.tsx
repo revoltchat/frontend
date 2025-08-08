@@ -67,7 +67,7 @@ interface Props {
   /**
    * Update the current draft selection
    *
-   * @deprecated have to hook into editorprose instance now!
+   * @deprecated have to hook into ProseMirror instance now!
    */
   updateDraftSelection?: (start: number, end: number) => void;
 }

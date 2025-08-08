@@ -15,9 +15,15 @@ import { Portal } from "solid-js/web";
 
 import { autoUpdate, flip, shift } from "@floating-ui/dom";
 import autocomplete, { ActionKind } from "prosemirror-autocomplete";
-import { baseKeymap } from "prosemirror-commands";
-import { toggleMark } from "prosemirror-commands";
+import codemark from "prosemirror-codemark";
+import codeMirrorBlockPlugin, {
+  codeBlockKeymap,
+  defaultSettings,
+  languageLoaders,
+} from "prosemirror-codemirror-block";
+import { baseKeymap, toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
+import { InputRule, inputRules } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
 import { EditorState, EditorStateConfig } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
@@ -163,6 +169,7 @@ export function TextEditor(props: Props) {
   const client = useClient();
   const [autoComplete, setAutoComplete] = createSignal<AutoCompleteView>();
 
+  // (AC1.) define what items will be searched through
   const searchSpace = createMemo(() => {
     return {
       emoji: [MAPPED_EMOJI_KEYS, client().emojis.toList()].flat(),
@@ -176,6 +183,7 @@ export function TextEditor(props: Props) {
     };
   });
 
+  // (AC2.) define search mechanism for the new trigger
   function updateAutoComplete(trigger: string, query?: string) {
     query = query?.toLowerCase();
 
@@ -313,7 +321,8 @@ export function TextEditor(props: Props) {
 
   // eslint-disable-next-line solid/reactivity
   const autoCompletePlugin = props.autoCompleteSearchSpace
-    ? autocomplete({
+    ? // (AC3.) define the triggers
+      autocomplete({
         triggers: [
           { name: "channel", trigger: "#" },
           { name: "user", trigger: "@" },
@@ -352,6 +361,7 @@ export function TextEditor(props: Props) {
               );
               return true;
             case ActionKind.enter: {
+              // (AC4.) define how to insert the new node
               const ac = autoComplete();
               switch (ac?.result?.type) {
                 case "emoji": {
@@ -456,8 +466,18 @@ export function TextEditor(props: Props) {
     schema,
     plugins: [
       history(),
+      keymap(codeBlockKeymap),
       keymap({
         "Shift-Enter": baseKeymap["Enter"],
+      }),
+      ...codemark({
+        markType: schema.marks.code,
+      }),
+      codeMirrorBlockPlugin({
+        ...defaultSettings,
+        languageLoaders: { ...languageLoaders },
+        undo,
+        redo,
       }),
       ...autoCompletePlugin,
       keymap({
@@ -477,6 +497,17 @@ export function TextEditor(props: Props) {
       }),
       keymap({ "Mod-z": undo, "Mod-y": redo }),
       keymap(baseKeymap),
+      inputRules({
+        rules: [
+          new InputRule(/^```$/, (state, match, start, end) => {
+            return state.tr.replaceRangeWith(
+              start,
+              end,
+              schema.nodes.code_block.createAndFill()!,
+            );
+          }),
+        ],
+      }),
     ],
   };
 
@@ -530,7 +561,7 @@ export function TextEditor(props: Props) {
     ),
   );
 
-  function onClick() {
+  function onClick(event: MouseEvent) {
     if (!focused()) {
       view.dom.focus();
     }
@@ -552,6 +583,11 @@ export function TextEditor(props: Props) {
   );
 }
 
+/**
+ * Component to render all of the auto complete suggestions
+ *
+ * (AC5.) include visual rendering for auto complete
+ */
 function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
   const element = () => props.state()!.element;
   const [floating, setFloating] = createSignal<HTMLDivElement>();

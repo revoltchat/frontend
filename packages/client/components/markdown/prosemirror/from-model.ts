@@ -1,4 +1,5 @@
 import type { PhrasingContent, Root, RootContent } from "mdast";
+import { CodeBlockNodeName } from "prosemirror-codemirror-block";
 import { Node } from "prosemirror-model";
 import remarkStringify from "remark-stringify";
 
@@ -47,7 +48,7 @@ function map(node: Node): RootContent {
         };
       case "code":
         return {
-          type: "code",
+          type: "inlineCode",
           value: node.text ?? "",
         };
     }
@@ -64,6 +65,12 @@ function map(node: Node): RootContent {
       return {
         type: "text",
         value: node.text!,
+      };
+    case CodeBlockNodeName:
+      return {
+        type: "code",
+        lang: node.attrs.lang,
+        value: node.textContent,
       };
 
     // RFM

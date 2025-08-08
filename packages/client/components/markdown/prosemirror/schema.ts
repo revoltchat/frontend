@@ -1,3 +1,4 @@
+import { CodeBlockNodeName } from "prosemirror-codemirror-block";
 import { MarkSpec, Schema } from "prosemirror-model";
 
 import { mention } from "../plugins/mentions";
@@ -53,13 +54,13 @@ export const schema = new Schema({
       },
     },
 
-    code_block: {
+    [CodeBlockNodeName]: {
       content: "text*",
       group: "block",
       code: true,
       defining: true,
       marks: "",
-      attrs: { params: { default: "" } },
+      attrs: { params: { default: "" }, lang: { default: null } },
       parseDOM: [
         {
           tag: "pre",
