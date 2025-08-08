@@ -104,12 +104,12 @@ export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
       <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
-        {/* <Show when={!props.selectedServer()}>
-            <PositionSwoosh>
-              <Swoosh topItem />
-            </PositionSwoosh>
-          </Show> */}
-        <a class={entryContainer()} href="/app">
+        <a
+          class={entryContainer({
+            indicator: !props.selectedServer() ? "selected" : undefined,
+          })}
+          href="/app"
+        >
           <Avatar size={42} fallback={<MdHome />} />
         </a>
         <Tooltip
@@ -187,22 +187,34 @@ export const ServerList = (props: Props) => {
             >
               <Tooltip placement="right" content={item.name}>
                 <div
-                  class={entryContainer()}
+                  class={entryContainer({
+                    indicator:
+                      props.selectedServer() === item.id
+                        ? "selected"
+                        : item.unread
+                          ? "alert"
+                          : undefined,
+                  })}
                   use:floating={props.menuGenerator(item)}
                 >
-                  <Show when={props.selectedServer() === item.id}>
+                  {/* <Show when={props.selectedServer() === item.id}>
                     <PositionSwoosh>
                       <Swoosh />
                     </PositionSwoosh>
-                  </Show>
+                  </Show> */}
                   <a href={`/server/${item.id}`}>
                     <Avatar
                       size={42}
                       src={item.iconURL}
-                      holepunch={item.unread ? "top-right" : "none"}
+                      holepunch={item.mentions.length ? "top-right" : "none"}
                       overlay={
                         <>
-                          <Show when={item.unread}>
+                          <Show
+                            when={
+                              item.mentions
+                                .length /* as opposed to item.unread */
+                            }
+                          >
                             <Unreads.Graphic
                               count={item.mentions.length}
                               unread
@@ -280,6 +292,35 @@ const entryContainer = cva({
     display: "grid",
     flexShrink: 0,
     placeItems: "center",
+
+    "&:before": {
+      content: "' '",
+      position: "absolute",
+      width: "12px",
+      height: "0px",
+      transition: "var(--transitions-fast) all",
+      left: "-8px",
+      borderRadius: "4px",
+      background: "var(--md-sys-color-on-surface)",
+    },
+
+    "&:hover:before": {
+      height: "16px",
+    },
+  },
+  variants: {
+    indicator: {
+      selected: {
+        "&:before": {
+          height: "32px !important",
+        },
+      },
+      alert: {
+        "&:before": {
+          height: "8px",
+        },
+      },
+    },
   },
 });
 
