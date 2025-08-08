@@ -43,9 +43,37 @@ const EMOJI_KEYS = Object.keys(emojiMapping).sort();
 const MAPPED_EMOJI_KEYS = EMOJI_KEYS.map((id) => ({ id, name: id }));
 
 interface Props {
+  /**
+   * Placeholder to show when no text is shown
+   */
   placeholder?: string;
-  initialValue?: [string];
+
+  /**
+   * Initial value to show in the text box
+   */
+  initialValue?: readonly [string];
+
+  /**
+   * Event is fired when the text content changes
+   * @param value Text value
+   */
   onChange: (value: string) => void;
+
+  /**
+   * Event is fired when user submits (Enter) content
+   */
+  onComplete?: () => void;
+
+  /**
+   * Event is fired when any keys are input
+   */
+  onTyping?: () => void;
+
+  /**
+   * Event is fired when 'previous context' is requested
+   * i.e. edit the last message (given current is empty)
+   */
+  onPreviousContext?: () => void;
 
   autoCompleteSearchSpace?: AutoCompleteSearchSpace;
 }
@@ -102,15 +130,13 @@ export function TextEditor(props: Props) {
   const placeholder = document.createElement("span");
   proseMirror.prepend(placeholder);
 
-  const [value, setValue] = createSignal(props.initialValue ?? "");
+  const [value, setValue] = createSignal(props.initialValue?.[0] ?? "");
   const [focused, setFocused] = createSignal(false);
 
   createEffect(() => (placeholder.innerText = props.placeholder ?? ""));
 
   createEffect(
-    () =>
-      (placeholder.style.display =
-        value().length || focused() ? "none" : "block"),
+    () => (placeholder.style.display = value().length ? "none" : "block"),
   );
 
   proseMirror.className = css({
@@ -128,6 +154,7 @@ export function TextEditor(props: Props) {
   placeholder.className = css({
     ...typography.raw({ class: "_messages" }),
     color: "var(--md-color-outline)",
+    position: "absolute",
     whiteSpace: "nowrap",
     userSelect: "none",
   });
@@ -435,8 +462,15 @@ export function TextEditor(props: Props) {
       ...autoCompletePlugin,
       keymap({
         Enter: () => {
-          // send message
-          return true;
+          // note: unsure if EditorProse correctly handles
+          //       event.isComposing, it is assumed that it does!
+
+          if (props.onComplete) {
+            props.onComplete();
+            return true;
+          }
+
+          return false;
         },
         "Ctrl-b": toggleMark(schema.marks.strong),
         "Ctrl-i": toggleMark(schema.marks.em),
@@ -463,6 +497,12 @@ export function TextEditor(props: Props) {
     handleDOMEvents: {
       focus: () => setFocused(true),
       blur: () => setFocused(false),
+      keydown: (_, event) => {
+        if (event.key === "Enter" && !event.shiftKey && props.onComplete)
+          return;
+
+        props.onTyping?.();
+      },
     },
     nodeViews: {},
   });

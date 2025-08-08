@@ -79,7 +79,9 @@ export function MessageComposition(props: Props) {
     return draft()?.content ?? "";
   }
 
-  const [initialValue, setInitialValue] = createSignal([currentValue()]);
+  const [initialValue, setInitialValue] = createSignal([
+    currentValue(),
+  ] as const);
 
   createEffect(
     on(
@@ -149,6 +151,7 @@ export function MessageComposition(props: Props) {
    * @param useContent Content to send
    */
   async function sendMessage(useContent?: unknown) {
+    stopTyping();
     props.onMessageSend?.();
 
     if (typeof useContent === "string") {
@@ -167,23 +170,6 @@ export function MessageComposition(props: Props) {
   }
 
   /**
-   * Determine whether we are in a code block
-   * @param cursor Cursor position
-   * @returns Whether we are in a code block
-   */
-  function isInCodeBlock(cursor: number): boolean {
-    const contentBeforeCursor = (draft().content ?? "").substring(0, cursor);
-
-    let delimiterCount = 0;
-    for (const _delimiter of contentBeforeCursor.matchAll(RE_CODE_DELIMITER)) {
-      delimiterCount++;
-    }
-
-    // Odd number of ``` delimiters before cursor => we are in code block
-    return delimiterCount % 2 === 1;
-  }
-
-  /**
    * Handle key presses in input box
    * @param event Keyboard Event
    */
@@ -193,122 +179,6 @@ export function MessageComposition(props: Props) {
     if (event.key === "ArrowUp") {
       state.draft.setEditingMessage(true);
       return;
-    }
-
-    const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
-    const usingBracketIndent =
-      (event.ctrlKey || event.metaKey) &&
-      (event.key === "[" || event.key === "]");
-
-    if (
-      (event.key === "Tab" || usingBracketIndent) &&
-      !event.isComposing &&
-      insideCodeBlock
-    ) {
-      // Handle code block indentation.
-      event.preventDefault();
-
-      const indent = "  "; // 2 spaces
-
-      const selectStart = event.currentTarget.selectionStart;
-      const selectEnd = event.currentTarget.selectionEnd;
-      let selectionStartColumn = 0;
-      let selectionEndColumn = 0;
-
-      const lines = (draft().content ?? "").split("\n");
-      const selectLines = [];
-
-      // Get indexes of selected lines
-      let selectionBegun = false;
-      let lineIndex = 0;
-      for (let i = 0; i < lines.length; i++) {
-        const currentLine = lines[i];
-        const endOfLine = lineIndex + currentLine.length;
-
-        if (selectStart >= lineIndex && selectStart <= endOfLine) {
-          selectionBegun = true;
-          selectionStartColumn = selectStart - lineIndex;
-        }
-
-        if (selectionBegun) selectLines.push(i);
-
-        if (selectEnd <= endOfLine) {
-          selectionEndColumn = selectEnd - lineIndex;
-          break;
-        }
-
-        lineIndex += currentLine.length + 1; // add 1 to account for missing newline char
-      }
-
-      if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
-        const whitespaceRegex = new RegExp(`(?<=^ *) {1,${indent.length}}`);
-
-        // Used to ensure selection remains the same after indentation changes
-        let charsRemoved = 0;
-        let charsRemovedFirstLine = 0;
-
-        // Remove indentation on selected lines, where possible.
-        for (let i = 0; i < selectLines.length; i++) {
-          const selectedLineIndex = selectLines[i];
-          const currentLine = lines[selectedLineIndex];
-          const result = whitespaceRegex.exec(currentLine);
-
-          // If result == null, there's no more spacing to remove on this line.
-          if (result != null) {
-            lines[selectedLineIndex] = currentLine.substring(result[0].length);
-            charsRemoved += result[0].length;
-            if (i === 0) charsRemovedFirstLine = result[0].length;
-          }
-        }
-
-        setContent(lines.join("\n"));
-
-        // Update selection positions.
-        event.currentTarget.selectionStart =
-          selectStart - charsRemovedFirstLine;
-        event.currentTarget.selectionEnd = selectEnd - charsRemoved;
-      } else {
-        // Used to ensure selection remains the same after indentation changes
-        let indentsAdded = 0;
-
-        // Add indentation to selected lines.
-        for (const selectedLineIndex of selectLines) {
-          const currentLine = lines[selectedLineIndex];
-
-          if (selectStart === selectEnd && event.key === "Tab") {
-            // Insert spacing at current position instead of line start
-            const beforeIndent = currentLine.slice(0, selectionStartColumn);
-            const afterIndent = currentLine.slice(selectionEndColumn);
-
-            lines[selectedLineIndex] = beforeIndent + indent + afterIndent;
-          } else {
-            // Insert spacing at beginning of selected line
-            lines[selectedLineIndex] = indent + currentLine;
-          }
-
-          indentsAdded++;
-        }
-
-        setContent(lines.join("\n"));
-
-        // Update selection positions.
-        event.currentTarget.selectionStart = selectStart + indent.length;
-        event.currentTarget.selectionEnd =
-          selectEnd + indent.length * indentsAdded;
-      }
-    }
-
-    if (
-      event.key === "Enter" &&
-      !event.shiftKey &&
-      !event.isComposing &&
-      !insideCodeBlock /*&& props.ref*/
-    ) {
-      event.preventDefault();
-      sendMessage();
-      stopTyping();
-    } else {
-      delayedStopTyping();
     }
   }
 
@@ -415,6 +285,8 @@ export function MessageComposition(props: Props) {
         <MessageBox
           ref={ref}
           initialValue={initialValue()}
+          onSendMessage={sendMessage}
+          onTyping={delayedStopTyping}
           content={draft()?.content ?? ""}
           setContent={setContent}
           actionsStart={

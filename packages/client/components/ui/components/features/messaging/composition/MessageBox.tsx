@@ -1,5 +1,5 @@
 import { BiRegularBlock } from "solid-icons/bi";
-import { JSX, Match, Show, Switch, createEffect, onMount } from "solid-js";
+import { JSX, Match, Show, Switch, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
@@ -16,7 +16,7 @@ interface Props {
   /**
    * Initial content
    */
-  initialValue: [string];
+  initialValue: readonly [string];
 
   /**
    * Text content
@@ -24,11 +24,14 @@ interface Props {
   content: string;
 
   /**
-   * Handle key presses
+   * Handle event to send message
    */
-  onKeyDown?: (
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
-  ) => void;
+  onSendMessage: () => void;
+
+  /**
+   * Handle event when user is typing
+   */
+  onTyping: () => void;
 
   /**
    * Update text content
@@ -63,6 +66,8 @@ interface Props {
 
   /**
    * Update the current draft selection
+   *
+   * @deprecated have to hook into editorprose instance now!
    */
   updateDraftSelection?: (start: number, end: number) => void;
 }
@@ -149,22 +154,17 @@ export function MessageBox(props: Props) {
       </Switch>
       <Switch
         fallback={
-          // https://github.com/curvenote/editor/tree/main/packages/prosemirror-autocomplete
-          // https://github.com/curvenote/editor/tree/main/packages/prosemirror-codemark
           <>
             <TextEditor
               placeholder={props.placeholder}
               initialValue={props.initialValue}
               onChange={props.setContent}
+              onComplete={props.onSendMessage}
+              onTyping={props.onTyping}
               autoCompleteSearchSpace={props.autoCompleteSearchSpace}
             />
             <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
           </>
-          // <InputArea>
-          //   <textarea
-          //     use:autoComplete={props.autoCompleteConfig ?? true}
-          //   />
-          // </InputArea>
         }
       >
         <Match when={!props.sendingAllowed}>
