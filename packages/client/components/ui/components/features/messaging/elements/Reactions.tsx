@@ -202,6 +202,7 @@ const ReactionBase = styled("div", {
     position: "relative",
 
     display: "flex",
+    overflow: "hidden",
     flexDirection: "row",
     gap: "var(--gap-md)",
     cursor: "pointer",
