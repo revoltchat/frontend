@@ -17,6 +17,8 @@ export function EditUsernameModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
+    // we don't expect it to change nor want it to
+    // eslint-disable-next-line solid/reactivity
     username: createFormControl(props.client.user!.username, {
       required: true,
     }),
@@ -36,6 +38,10 @@ export function EditUsernameModal(
       if (props.client.user!.discriminator !== previousDiscriminator) {
         // open modal alerting user that discirminator changed
         // or just open a modal anyways with new uname?
+        alert(
+          // temporary solution
+          `Your discriminator changed to ${props.client.user!.discriminator}`,
+        );
       }
     } catch (err) {
       showError(err);

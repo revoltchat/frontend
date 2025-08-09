@@ -3,10 +3,10 @@ import { For, Match, Switch, createSignal } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
-import { useTime } from "@revolt/i18n";
-import { CategoryButton, Column } from "@revolt/ui";
+import { CategoryButton, Column, Dialog, DialogProps } from "@revolt/ui";
+import type { DialogAction } from "@revolt/ui/components/design/Dialog";
 
-import { PropGenerator } from "../types";
+import { Modals } from "../types";
 
 /**
  * Changelog element
@@ -30,9 +30,9 @@ export interface ChangelogPost {
 /**
  * Modal to display changelog
  */
-const Changelog: PropGenerator<"changelog"> = (props) => {
-  const dayjs = useTime();
-
+export function ChangelogModal(
+  props: DialogProps & Modals & { type: "changelog" },
+) {
   const [log, setLog] = createSignal(props.initial);
 
   /**
@@ -42,43 +42,33 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
   const currentLog = () =>
     typeof log() !== "undefined" ? props.posts[log()!] : undefined;
 
-  return {
-    title: (
-      <Switch fallback={<Trans>Changelog</Trans>}>
-        <Match when={currentLog()}>{currentLog()!.title}</Match>
-      </Switch>
-    ),
-    description: (
-      <Switch fallback={<Trans>Read about updates to Revolt.</Trans>}>
-        <Match when={currentLog()}>
-          {dayjs(currentLog()!.date).calendar()}
-        </Match>
-      </Switch>
-    ),
-    actions: () => {
-      // eslint-disable-next-line
-      const actions: any[] = [
-        {
-          variant: "primary",
-          children: <Trans>Close</Trans>,
-          onClick: () => true,
+  const actions = () => {
+    const actionList: DialogAction[] = [{ text: <Trans>Close</Trans> }];
+
+    if (currentLog()) {
+      actionList.push({
+        text: <Trans>View older updates</Trans>,
+        onClick: () => {
+          setLog(undefined);
+          return false;
         },
-      ];
+      });
+    }
 
-      if (currentLog()) {
-        actions.push({
-          variant: "plain",
-          children: <Trans>View older updates</Trans>,
-          onClick: () => {
-            setLog(undefined);
-            return false;
-          },
-        });
+    return actionList;
+  };
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={
+        <Switch fallback={<Trans>Changelog</Trans>}>
+          <Match when={currentLog()}>{currentLog()!.title}</Match>
+        </Switch>
       }
-
-      return actions;
-    },
-    children: (
+      actions={actions()}
+    >
       <Switch
         fallback={
           <Column>
@@ -103,9 +93,9 @@ const Changelog: PropGenerator<"changelog"> = (props) => {
           <RenderLog post={currentLog()!} />
         </Match>
       </Switch>
-    ),
-  };
-};
+    </Dialog>
+  );
+}
 
 /**
  * Render a single changelog post
@@ -135,5 +125,3 @@ const Image = styled("img", {
     borderRadius: "var(--border-radius)",
   },
 });
-
-export default Changelog;

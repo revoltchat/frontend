@@ -1,12 +1,14 @@
-import { createSignal } from "solid-js";
+import { createFormControl, createFormGroup } from "solid-forms";
 import { QRCodeSVG } from "solid-qr-code";
 
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
+import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 import { styled } from "styled-system/jsx";
 
-import { Column, TextField } from "@revolt/ui";
+import { Column, Dialog, DialogProps, Form2, Text } from "@revolt/ui";
 
-import { PropGenerator } from "../types";
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
  * Wrapper element for the raw TOTP code
@@ -34,9 +36,14 @@ const Qr = styled("div", {
 /**
  * Modal to display QR code and secret key for MFA and accept the correct code
  */
-const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
-  const [value, setValue] = createSignal("");
-  const { t } = useLingui();
+export function MFAEnableTOTPModal(
+  props: DialogProps & Modals & { type: "mfa_enable_totp" },
+) {
+  const { showError } = useModals();
+
+  const group = createFormGroup({
+    code: createFormControl(""),
+  });
 
   /**
    * Generate OTP URI
@@ -44,59 +51,72 @@ const MFAEnableTOTP: PropGenerator<"mfa_enable_totp"> = (props) => {
   const uri = () =>
     `otpauth://totp/Revolt:${props.identifier}?secret=${props.secret}&issuer=Revolt`;
 
-  return {
-    title: <Trans>Enable authenticator app</Trans>,
-    description: (
-      <Trans>
-        Please scan or use the token below in your authenticator app.
-      </Trans>
-    ),
-    actions: [
-      {
-        palette: "primary",
-        children: <Trans>Continue</Trans>,
-        onClick: () => {
-          props.callback(value().trim().replace(/\s/g, ""));
-          return true;
+  async function onSubmit() {
+    try {
+      const code = group.controls.code.value.trim().replace(/\s/g, "");
+      await props.callback(code);
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={() => {
+        props.callback();
+        props.onClose();
+      }}
+      title={<Trans>Enable authenticator app</Trans>}
+      actions={[
+        {
+          text: <Trans>Cancel</Trans>,
+          onClick() {
+            props.callback();
+          },
         },
-        confirmation: true,
-      },
-      {
-        palette: "plain",
-        children: <Trans>Cancel</Trans>,
-        onClick: () => {
-          props.callback();
-          return true;
+        {
+          text: <Trans>Continue</Trans>,
+          onClick() {
+            onSubmit();
+            return false;
+          },
         },
-      },
-    ],
-    nonDismissable: true,
-    children: (
-      <>
-        <Column align>
-          <Qr>
-            <QRCodeSVG
-              value={uri()}
-              backgroundColor="white"
-              foregroundColor="black"
-              level="medium"
-              height={140}
-              width={140}
-              backgroundAlpha={1}
-              foregroundAlpha={1}
-            />
-          </Qr>
-          <Code>{props.secret}</Code>
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column>
+          <Text>
+            <Trans>
+              Please scan or use the token below in your authenticator app.
+            </Trans>
+          </Text>
+
+          <Column align>
+            <Qr>
+              <QRCodeSVG
+                value={uri()}
+                backgroundColor="white"
+                foregroundColor="black"
+                level="medium"
+                height={140}
+                width={140}
+                backgroundAlpha={1}
+                foregroundAlpha={1}
+              />
+            </Qr>
+            <Code>{props.secret}</Code>
+          </Column>
+
+          <Form2.TextField
+            name="code"
+            control={group.controls.code}
+            label={t`Enter Code`}
+          />
         </Column>
-
-        <TextField
-          value={value()}
-          label={t`Enter Code`}
-          onChange={(e) => setValue(e.currentTarget.value)}
-        />
-      </>
-    ),
-  };
-};
-
-export default MFAEnableTOTP;
+      </form>
+    </Dialog>
+  );
+}

@@ -11,7 +11,7 @@ import { Modals } from "../types";
 /**
  * Create a new bot
  */
-export function CreateBot(
+export function CreateBotModal(
   props: DialogProps & Modals & { type: "create_bot" },
 ) {
   const { showError } = useModals();

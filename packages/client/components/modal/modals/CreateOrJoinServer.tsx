@@ -1,65 +1,48 @@
+import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
-import { iconSize } from "@revolt/ui";
+import { Dialog, DialogProps, iconSize } from "@revolt/ui";
 
 import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
 import MdLink from "@material-design-icons/svg/outlined/link.svg?component-solid";
 
 import { useModals } from "..";
-import { PropGenerator } from "../types";
+import { Modals } from "../types";
 
 /**
  * Modal to create or join a server
  */
-const CreateOrJoinServer: PropGenerator<"create_or_join_server"> = (props) => {
-  const { pop, openModal } = useModals();
+export function CreateOrJoinServerModal(
+  props: DialogProps & Modals & { type: "create_or_join_server" },
+) {
+  const { openModal } = useModals();
 
-  return {
-    title: "Create or join a server",
-    description: (
-      <Base>
-        <a
-          onClick={() => {
-            pop();
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title="Create or join a server"
+      actions={[
+        {
+          text: "Create",
+          onClick: () => {
             openModal({
               type: "create_server",
               client: props.client,
             });
-          }}
-        >
-          <MdAdd {...iconSize(48)} />
-          Create
-        </a>
-        <a
-          onClick={() => {
-            pop();
+          },
+        },
+        {
+          text: "Join",
+          onClick: () => {
             openModal({ type: "join_server", client: props.client });
-          }}
-        >
-          <MdLink {...iconSize(48)} />
-          Join
-        </a>
-      </Base>
-    ),
-  };
-};
-
-// example
-const Base = styled("div", {
-  base: {
-    gap: "8px",
-    padding: "8px",
-    display: "flex",
-    flexDirection: "row",
-    "& a": {
-      width: "128px",
-      height: "128px",
-      display: "grid",
-      placeItems: "center",
-      borderRadius: "8px",
-      background: "var(--colours-sidebar-channels-background)",
-    },
-  },
-});
-
-export default CreateOrJoinServer;
+          },
+        },
+      ]}
+    >
+      <Trans>
+        Would you like to create a new server or join an existing one?
+      </Trans>
+    </Dialog>
+  );
+}

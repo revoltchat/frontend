@@ -24,9 +24,9 @@ export function PolicyChangeModal(
 ) {
   const { showError } = useModals();
   const [confirm, setConfirm] = createSignal(false);
-  
+
   // automatically close if we've already shown this modal in this session
-  let allowDisplay = !shownForSession;
+  const allowDisplay = !shownForSession;
   shownForSession = true;
   onMount(() => !allowDisplay && props.onClose());
 

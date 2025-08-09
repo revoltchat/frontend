@@ -11,7 +11,7 @@ import { Modals } from "../types";
 /**
  * Add a new friend by username
  */
-export function AddFriend(
+export function AddFriendModal(
   props: DialogProps & Modals & { type: "add_friend" },
 ) {
   const { showError } = useModals();

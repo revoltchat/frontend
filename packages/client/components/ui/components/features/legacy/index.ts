@@ -63,7 +63,6 @@ export * from "./Form";
 export * from "./Input";
 export * from "./InputElement";
 export * from "./LegacyCheckbox";
-export * from "./Modal";
 export * from "./Radio";
 export * from "./SegmentedButton";
 export * from "./Titlebar";

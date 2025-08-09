@@ -113,6 +113,8 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <Button onPress={changelog}>Changelog Modal</Button>
+      
       <Row align>
         <Button variant="elevated">Elevated</Button>
         <Button variant="filled">Filled</Button>
@@ -205,7 +207,6 @@ export function DevelopmentPage() {
       </div>
 
       <Button onPress={open}>Open Modal</Button>
-      <Button onPress={changelog}>Changelog Modal</Button>
       <Button
         use:floating={{ tooltip: { content: "hi", placement: "bottom" } }}
       >

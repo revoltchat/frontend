@@ -5,7 +5,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { css } from "styled-system/css";
 
-import { Button, Checkbox, Text, TextField } from "../design";
+import { Button, Checkbox, Radio2, Text, TextField } from "../design";
 
 import { FileInput } from "./files";
 
@@ -28,6 +28,38 @@ const FormTextField = (
           local.control.setValue(e.currentTarget.value);
         }}
         onchange={() => local.control.markDirty(true)}
+        required={local.control.isRequired}
+        disabled={local.control.isDisabled}
+      />
+
+      <Show when={local.control.isTouched && !local.control.isValid}>
+        <For each={Object.keys(local.control.errors!)}>
+          {(errorMsg: string) => <small>{errorMsg}</small>}
+        </For>
+      </Show>
+    </>
+  );
+};
+
+/**
+ * Form wrapper for TextField.Select
+ */
+FormTextField.Select = (
+  props: {
+    control: IFormControl<string>;
+  } & ComponentProps<typeof TextField.Select>,
+) => {
+  const [local, remote] = splitProps(props, ["control"]);
+
+  return (
+    <>
+      <TextField.Select
+        {...remote}
+        value={local.control.value}
+        onChange={(e) => {
+          local.control.setValue(e.currentTarget.value);
+          local.control.markDirty(true);
+        }}
         required={local.control.isRequired}
         disabled={local.control.isDisabled}
       />
@@ -72,6 +104,70 @@ const FormFileInput = (
         required={local.control.isRequired}
         disabled={local.control.isDisabled}
       />
+      <Show when={local.control.isTouched && !local.control.isValid}>
+        <For each={Object.keys(local.control.errors!)}>
+          {(errorMsg: string) => <small>{errorMsg}</small>}
+        </For>
+      </Show>
+    </>
+  );
+};
+
+/**
+ * Form wrapper for Checkbox
+ */
+const FormCheckbox = (
+  props: {
+    control: IFormControl<boolean>;
+  } & ComponentProps<typeof Checkbox>,
+) => {
+  const [local, remote] = splitProps(props, ["control"]);
+
+  return (
+    <>
+      <Checkbox
+        {...remote}
+        checked={local.control.value}
+        onChange={(value) => {
+          local.control.setValue(value);
+          local.control.markDirty(true);
+        }}
+        required={local.control.isRequired}
+        disabled={local.control.isDisabled}
+      />
+
+      <Show when={local.control.isTouched && !local.control.isValid}>
+        <For each={Object.keys(local.control.errors!)}>
+          {(errorMsg: string) => <small>{errorMsg}</small>}
+        </For>
+      </Show>
+    </>
+  );
+};
+
+/**
+ * Form wrapper for Radio2
+ */
+const FormRadio = (
+  props: {
+    control: IFormControl<string>;
+  } & ComponentProps<typeof Radio2>,
+) => {
+  const [local, remote] = splitProps(props, ["control"]);
+
+  return (
+    <>
+      <Radio2
+        {...remote}
+        value={local.control.value}
+        onChange={(value) => {
+          local.control.setValue(value);
+          local.control.markDirty(true);
+        }}
+        required={local.control.isRequired}
+        disabled={local.control.isDisabled}
+      />
+
       <Show when={local.control.isTouched && !local.control.isValid}>
         <For each={Object.keys(local.control.errors!)}>
           {(errorMsg: string) => <small>{errorMsg}</small>}
@@ -234,6 +330,8 @@ function submitHandler(
 export const Form2 = {
   TextField: FormTextField,
   FileInput: FormFileInput,
+  Checkbox: FormCheckbox,
+  Radio: FormRadio,
   VirtualSelect: FormVirtualSelect,
   Reset: FormResetButton,
   Submit: FormSubmitButton,

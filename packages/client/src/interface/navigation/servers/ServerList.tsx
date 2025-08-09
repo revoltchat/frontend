@@ -5,6 +5,7 @@ import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { useClient } from "@revolt/client";
 import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
@@ -17,8 +18,6 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 
 import { Tooltip } from "../../../../components/ui/components/floating";
 import { Draggable } from "../../../../components/ui/components/utils/Draggable";
-
-import { Swoosh } from "./Swoosh";
 
 interface Props {
   /**
@@ -62,6 +61,7 @@ interface Props {
  * Server list sidebar component
  */
 export const ServerList = (props: Props) => {
+  const client = useClient();
   const navigate = useNavigate();
   const { openModal } = useModals();
 
@@ -125,7 +125,12 @@ export const ServerList = (props: Props) => {
           aria={props.user.username}
         >
           {/* TODO: Make this open user status context menu */}
-          <a class={entryContainer()} href="/app">
+          <a
+            class={entryContainer()}
+            onClick={() =>
+              openModal({ type: "custom_status", client: client() })
+            }
+          >
             <Avatar
               size={42}
               src={props.user.avatarURL}

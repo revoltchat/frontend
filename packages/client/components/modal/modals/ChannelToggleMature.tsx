@@ -11,11 +11,11 @@ import { Modals } from "../types";
 export function ChannelToggleMatureModal(
   props: DialogProps & Modals & { type: "channel_toggle_mature" },
 ) {
-  const { openModal } = useModals();
+  const { showError } = useModals();
 
   const change = useMutation(() => ({
     mutationFn: (nsfw: boolean) => props.channel.edit({ nsfw }),
-    onError: (error) => openModal({ type: "error2", error }),
+    onError: showError,
   }));
 
   return (
@@ -39,7 +39,7 @@ export function ChannelToggleMatureModal(
               </Match>
             </Switch>
           ),
-          onClick: () => change.mutate(!props.channel.mature),
+          onClick: () => change.mutateAsync(!props.channel.mature),
         },
       ]}
       isDisabled={change.isPending}

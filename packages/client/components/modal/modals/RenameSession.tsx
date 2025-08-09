@@ -1,36 +1,61 @@
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
+import { createFormControl, createFormGroup } from "solid-forms";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
+
+import { Column, Dialog, DialogProps, Form2 } from "@revolt/ui";
+
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
  * Modal for renaming session
  */
-const RenameSession: PropGenerator<"rename_session"> = (props) => {
-  const { t } = useLingui();
+export function RenameSessionModal(
+  props: DialogProps & Modals & { type: "rename_session" },
+) {
+  const { showError } = useModals();
 
-  return createFormModal({
-    modalProps: {
-      title: <Trans>Rename Session</Trans>,
-    },
-    schema: {
-      name: "text",
-    },
-    defaults: {
-      name: props.session.name,
-    },
-    data: {
-      name: {
-        field: <Trans>Name</Trans>,
-        placeholder: t`Enter a new name for this session`,
-      },
-    },
-    // @ts-expect-error legacy
-    callback: async ({ name }) => void (await props.session.rename(name)),
-    submit: {
-      children: <Trans>Rename</Trans>,
-    },
+  const group = createFormGroup({
+    name: createFormControl(props.session.name),
   });
-};
 
-export default RenameSession;
+  async function onSubmit() {
+    try {
+      await props.session.rename(group.controls.name.value);
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Rename Session</Trans>}
+      actions={[
+        { text: <Trans>Cancel</Trans> },
+        {
+          text: <Trans>Rename</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column>
+          <Form2.TextField
+            name="name"
+            control={group.controls.name}
+            label={t`Name`}
+            placeholder={t`Enter a new name for this session`}
+          />
+        </Column>
+      </form>
+    </Dialog>
+  );
+}

@@ -1,52 +1,82 @@
-import { useNavigate } from "@revolt/routing";
+import { createFormControl, createFormGroup } from "solid-forms";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
+
+import { useNavigate } from "@revolt/routing";
+import { Column, Dialog, DialogProps, Form2, Text } from "@revolt/ui";
+
+import { useModals } from "..";
+import { Modals } from "../types";
 
 const RE_INVITE_URL = /(?:invite|rvlt.gg)\/([a-z0-9]+)/gi;
 
 /**
  * Modal to join a server
  */
-const JoinServer: PropGenerator<"join_server"> = (props) => {
+export function JoinServerModal(
+  props: DialogProps & Modals & { type: "join_server" },
+) {
   const navigate = useNavigate();
+  const { showError } = useModals();
 
-  return createFormModal({
-    modalProps: {
-      title: "Join a server",
-      description: <>Use a code or invite link</>,
-    },
-    schema: {
-      link: "text",
-    },
-    data: {
-      link: {
-        field: "code",
-        placeholder: "rvlt.gg/wVEJDGVs",
-      },
-    },
-    // @ts-expect-error legacy
-    callback: async ({ link }) => {
-      let code = link;
-      const match = RE_INVITE_URL.exec(link);
+  const group = createFormGroup({
+    link: createFormControl(""),
+  });
+
+  async function onSubmit() {
+    try {
+      let code = group.controls.link.value;
+      const match = RE_INVITE_URL.exec(code);
       if (match) code = match[1];
 
       // fetch invite and display
-      // console.info(code);
+      // const invite = await props.client.api.get(`/invites/${code}`);
 
       // TODO: replace
-      const result = await props.client.api.post(`/invites/${code}`);
-      if (result.type === "Server") {
-        navigate(`/server/${result.server._id}`);
+      const acceptedInvite = await props.client.api.post(`/invites/${code}`);
+      if (acceptedInvite.type === "Server") {
+        navigate(`/server/${acceptedInvite.server._id}`);
       } else {
         // TODO: group
         // navigate(`/channel/${result.channels}`);
       }
-    },
-    submit: {
-      children: "Join",
-    },
-  });
-};
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
 
-export default JoinServer;
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Join a server</Trans>}
+      actions={[
+        { text: <Trans>Close</Trans> },
+        {
+          text: <Trans>Join</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column>
+          <Text>
+            <Trans>Use a code or invite link</Trans>
+          </Text>
+          <Form2.TextField
+            name="link"
+            control={group.controls.link}
+            label={t`Code`}
+            placeholder="rvlt.gg/wVEJDGVs"
+          />
+        </Column>
+      </form>
+    </Dialog>
+  );
+}

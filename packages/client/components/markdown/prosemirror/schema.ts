@@ -370,5 +370,3 @@ export const schema = new Schema({
     },
   },
 });
-
-window.schema = schema;

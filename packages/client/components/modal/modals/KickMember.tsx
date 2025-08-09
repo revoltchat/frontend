@@ -10,7 +10,7 @@ import { Modals } from "../types";
 /**
  * Kick a server member
  */
-export function KickMember(
+export function KickMemberModal(
   props: DialogProps & Modals & { type: "kick_member" },
 ) {
   const { showError } = useModals();

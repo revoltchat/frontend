@@ -11,7 +11,7 @@ import { Modals } from "../types";
 /**
  * Ban a server member with reason
  */
-export function BanMember(
+export function BanMemberModal(
   props: DialogProps & Modals & { type: "ban_member" },
 ) {
   const { showError } = useModals();

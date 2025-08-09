@@ -18,7 +18,6 @@
  * - Menus
  * - Navigation bar
  * - Navigation drawer
- * - Radio button
  * - Search
  * - Sheets (N/A desktop)
  * - Sliders
@@ -41,6 +40,7 @@ export { List } from "./List";
 export { CircularProgress } from "./LoadingProgress";
 export { MenuItem } from "./Menu";
 export { MenuButton } from "./MenuButton";
+export { Radio2 } from "./Radio";
 export { Ripple } from "./Ripple";
 export { Switch } from "./Switch";
 export { Text, typography } from "./Text";
