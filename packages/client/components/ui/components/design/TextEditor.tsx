@@ -26,6 +26,7 @@ import { baseKeymap, toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
 import { InputRule, inputRules } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
+import { MarkType, Node } from "prosemirror-model";
 import { EditorState, EditorStateConfig } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { Channel, ServerMember, ServerRole, User } from "revolt.js";
@@ -525,12 +526,7 @@ export function TextEditor(props: Props) {
                   end,
                   schema.text(text, [
                     schema.marks.strikethrough.create(),
-                    ...(state.doc.rangeHasMark(start, end, schema.marks.strong)
-                      ? [schema.marks.strong.create()]
-                      : []),
-                    ...(state.doc.rangeHasMark(start, end, schema.marks.em)
-                      ? [schema.marks.em.create()]
-                      : []),
+                    ...activeMarks(state.doc, start, end),
                   ]),
                 )
                 .setStoredMarks([]);
@@ -554,13 +550,7 @@ export function TextEditor(props: Props) {
                     end,
                     schema.text(text, [
                       schema.marks.em.create(),
-                      ...(state.doc.rangeHasMark(
-                        start,
-                        end,
-                        schema.marks.strong,
-                      )
-                        ? [schema.marks.strong.create()]
-                        : []),
+                      ...activeMarks(state.doc, start, end),
                     ]),
                   )
                   .setStoredMarks([]);
@@ -585,9 +575,7 @@ export function TextEditor(props: Props) {
                     end,
                     schema.text(text, [
                       schema.marks.strong.create(),
-                      ...(state.doc.rangeHasMark(start, end, schema.marks.em)
-                        ? [schema.marks.em.create()]
-                        : []),
+                      ...activeMarks(state.doc, start, end),
                     ]),
                   )
                   .setStoredMarks([]);
@@ -674,6 +662,18 @@ export function TextEditor(props: Props) {
       </Portal>
     </>
   );
+}
+
+/**
+ * Get a list of active marks in a range
+ * @param doc Document
+ * @param start Start of range
+ * @param end End of range
+ */
+function activeMarks(doc: Node, start: number, end: number) {
+  return Object.values(schema.marks)
+    .filter((mark) => doc.rangeHasMark(start, end, mark))
+    .map((mark) => mark.create());
 }
 
 /**
