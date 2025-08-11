@@ -11,7 +11,7 @@ import { useModals } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { Preloader } from "@revolt/ui";
+import { CircularProgress } from "@revolt/ui";
 
 import { Sidebar } from "./interface/Sidebar";
 
@@ -78,7 +78,7 @@ const Interface = (props: { children: JSX.Element }) => {
           </Match>
         </Switch>
       </Notice>
-      <Switch fallback={<Preloader grow type="spinner" />}>
+      <Switch fallback={<CircularProgress />}>
         <Match when={!isLoggedIn()}>
           <Navigate href="/login" />
         </Match>
@@ -127,8 +127,8 @@ const Notice = styled("div", {
     textAlign: "center",
     fontSize: "0.8em",
     padding: "8px",
+    color: "var(--md-sys-color-outline)",
     background: "var(--md-sys-color-surface-container-high)",
-    color: "var(--colours-messaging-message-box-foreground)",
     // borderRadius: "var(--borderRadius-md)",
   },
 });

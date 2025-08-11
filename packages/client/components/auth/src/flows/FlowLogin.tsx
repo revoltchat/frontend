@@ -7,7 +7,7 @@ import { useClientLifecycle } from "@revolt/client";
 import { State, TransitionType } from "@revolt/client/Controller";
 import { useModals } from "@revolt/modal";
 import { Navigate } from "@revolt/routing";
-import { Button, Column, Preloader, Row, iconSize } from "@revolt/ui";
+import { Button, CircularProgress, Column, Row, iconSize } from "@revolt/ui";
 
 import MdArrowBack from "@material-design-icons/svg/filled/arrow_back.svg?component-solid";
 
@@ -20,7 +20,7 @@ const Logo = styled(RevoltSvg, {
   base: {
     height: "0.8em",
     display: "inline",
-    fill: "var(--colours-messaging-message-box-foreground)",
+    fill: "var(--md-sys-color-on-surface)",
   },
 });
 
@@ -69,15 +69,19 @@ export default function FlowLogin() {
               <Fields fields={["email", "password"]} />
               <Column gap="xl" align>
                 <a href="/login/reset">
-                  <Trans>Reset password</Trans>
+                  <Button variant="text">
+                    <Trans>Reset password</Trans>
+                  </Button>
                 </a>
                 <a href="/login/resend">
-                  <Trans>Resend verification</Trans>
+                  <Button variant="text">
+                    <Trans>Resend verification</Trans>
+                  </Button>
                 </a>
               </Column>
               <Row align justify>
                 <a href="..">
-                  <Button variant="plain">
+                  <Button variant="text">
                     <MdArrowBack {...iconSize("1.2em")} /> <Trans>Back</Trans>
                   </Button>
                 </a>
@@ -93,7 +97,7 @@ export default function FlowLogin() {
           <Navigate href="/app" />
         </Match>
         <Match when={lifecycle.state() === State.LoggingIn}>
-          <Preloader type="ring" />
+          <CircularProgress />
         </Match>
         <Match when={lifecycle.state() === State.Onboarding}>
           <FlowTitle
@@ -113,7 +117,7 @@ export default function FlowLogin() {
             <Fields fields={["username"]} />
             <Row align justify>
               <Button
-                variant="plain"
+                variant="text"
                 onPress={() =>
                   lifecycle.transition({
                     type: TransitionType.Cancel,

@@ -2,9 +2,16 @@ import {
   BiRegularPlus,
   BiSolidFileGif,
   BiSolidHappyBeaming,
-  BiSolidSend,
 } from "solid-icons/bi";
-import { For, Match, Show, Switch } from "solid-js";
+import {
+  For,
+  Match,
+  Show,
+  Switch,
+  createEffect,
+  createSignal,
+  on,
+} from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
@@ -14,14 +21,17 @@ import { debounce } from "@revolt/common";
 import { Keybind, KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useState } from "@revolt/state";
 import {
-  Button,
   CompositionPicker,
   FileCarousel,
   FileDropAnywhereCollector,
   FilePasteCollector,
+  IconButton,
   MessageBox,
   MessageReplyPreview,
+  Row,
 } from "@revolt/ui";
+
+import MdSend from "@material-design-icons/svg/filled/send.svg?component-solid";
 
 interface Props {
   /**
@@ -63,6 +73,36 @@ export function MessageComposition(props: Props) {
   function draft() {
     return state.draft.getDraft(props.channel.id);
   }
+
+  // TEMP
+  function currentValue() {
+    return draft()?.content ?? "";
+  }
+
+  const [initialValue, setInitialValue] = createSignal([
+    currentValue(),
+  ] as const);
+
+  createEffect(
+    on(
+      () => props.channel,
+      () => setInitialValue([currentValue()]),
+      { defer: true },
+    ),
+  );
+
+  createEffect(
+    on(
+      () => currentValue(),
+      (value) => {
+        if (value === "") {
+          setInitialValue([""]);
+        }
+      },
+      { defer: true },
+    ),
+  );
+  // END TEMP
 
   /**
    * Keep track of last time we sent a typing packet
@@ -111,6 +151,7 @@ export function MessageComposition(props: Props) {
    * @param useContent Content to send
    */
   async function sendMessage(useContent?: unknown) {
+    stopTyping();
     props.onMessageSend?.();
 
     if (typeof useContent === "string") {
@@ -126,152 +167,6 @@ export function MessageComposition(props: Props) {
   function setContent(content: string) {
     state.draft.setDraft(props.channel.id, { content });
     startTyping();
-  }
-
-  /**
-   * Determine whether we are in a code block
-   * @param cursor Cursor position
-   * @returns Whether we are in a code block
-   */
-  function isInCodeBlock(cursor: number): boolean {
-    const contentBeforeCursor = (draft().content ?? "").substring(0, cursor);
-
-    let delimiterCount = 0;
-    for (const _delimiter of contentBeforeCursor.matchAll(RE_CODE_DELIMITER)) {
-      delimiterCount++;
-    }
-
-    // Odd number of ``` delimiters before cursor => we are in code block
-    return delimiterCount % 2 === 1;
-  }
-
-  /**
-   * Handle key presses in input box
-   * @param event Keyboard Event
-   */
-  function onKeyDownMessageBox(
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
-  ) {
-    if (event.key === "ArrowUp") {
-      state.draft.setEditingMessage(true);
-      return;
-    }
-
-    const insideCodeBlock = isInCodeBlock(event.currentTarget.selectionStart);
-    const usingBracketIndent =
-      (event.ctrlKey || event.metaKey) &&
-      (event.key === "[" || event.key === "]");
-
-    if (
-      (event.key === "Tab" || usingBracketIndent) &&
-      !event.isComposing &&
-      insideCodeBlock
-    ) {
-      // Handle code block indentation.
-      event.preventDefault();
-
-      const indent = "  "; // 2 spaces
-
-      const selectStart = event.currentTarget.selectionStart;
-      const selectEnd = event.currentTarget.selectionEnd;
-      let selectionStartColumn = 0;
-      let selectionEndColumn = 0;
-
-      const lines = (draft().content ?? "").split("\n");
-      const selectLines = [];
-
-      // Get indexes of selected lines
-      let selectionBegun = false;
-      let lineIndex = 0;
-      for (let i = 0; i < lines.length; i++) {
-        const currentLine = lines[i];
-        const endOfLine = lineIndex + currentLine.length;
-
-        if (selectStart >= lineIndex && selectStart <= endOfLine) {
-          selectionBegun = true;
-          selectionStartColumn = selectStart - lineIndex;
-        }
-
-        if (selectionBegun) selectLines.push(i);
-
-        if (selectEnd <= endOfLine) {
-          selectionEndColumn = selectEnd - lineIndex;
-          break;
-        }
-
-        lineIndex += currentLine.length + 1; // add 1 to account for missing newline char
-      }
-
-      if ((event.shiftKey && event.key === "Tab") || event.key === "[") {
-        const whitespaceRegex = new RegExp(`(?<=^ *) {1,${indent.length}}`);
-
-        // Used to ensure selection remains the same after indentation changes
-        let charsRemoved = 0;
-        let charsRemovedFirstLine = 0;
-
-        // Remove indentation on selected lines, where possible.
-        for (let i = 0; i < selectLines.length; i++) {
-          const selectedLineIndex = selectLines[i];
-          const currentLine = lines[selectedLineIndex];
-          const result = whitespaceRegex.exec(currentLine);
-
-          // If result == null, there's no more spacing to remove on this line.
-          if (result != null) {
-            lines[selectedLineIndex] = currentLine.substring(result[0].length);
-            charsRemoved += result[0].length;
-            if (i === 0) charsRemovedFirstLine = result[0].length;
-          }
-        }
-
-        setContent(lines.join("\n"));
-
-        // Update selection positions.
-        event.currentTarget.selectionStart =
-          selectStart - charsRemovedFirstLine;
-        event.currentTarget.selectionEnd = selectEnd - charsRemoved;
-      } else {
-        // Used to ensure selection remains the same after indentation changes
-        let indentsAdded = 0;
-
-        // Add indentation to selected lines.
-        for (const selectedLineIndex of selectLines) {
-          const currentLine = lines[selectedLineIndex];
-
-          if (selectStart === selectEnd && event.key === "Tab") {
-            // Insert spacing at current position instead of line start
-            const beforeIndent = currentLine.slice(0, selectionStartColumn);
-            const afterIndent = currentLine.slice(selectionEndColumn);
-
-            lines[selectedLineIndex] = beforeIndent + indent + afterIndent;
-          } else {
-            // Insert spacing at beginning of selected line
-            lines[selectedLineIndex] = indent + currentLine;
-          }
-
-          indentsAdded++;
-        }
-
-        setContent(lines.join("\n"));
-
-        // Update selection positions.
-        event.currentTarget.selectionStart = selectStart + indent.length;
-        event.currentTarget.selectionEnd =
-          selectEnd + indent.length * indentsAdded;
-      }
-    }
-
-    if (
-      event.key === "Enter" &&
-      !event.shiftKey &&
-      !event.isComposing &&
-      !insideCodeBlock /*&& props.ref*/
-    ) {
-      event.preventDefault();
-      sendMessage();
-      stopTyping();
-    } else {
-      delayedStopTyping();
-    }
   }
 
   /**
@@ -373,89 +268,88 @@ export function MessageComposition(props: Props) {
           );
         }}
       </For>
-      <MessageBox
-        ref={ref}
-        content={draft()?.content ?? ""}
-        setContent={setContent}
-        actionsStart={
-          <Switch fallback={<MessageBox.InlineIcon size="short" />}>
-            <Match when={props.channel.havePermission("UploadFiles")}>
-              <MessageBox.InlineIcon size="wide">
-                <Button variant="plain" size="icon" onPress={addFile}>
-                  <BiRegularPlus size={24} />
-                </Button>
-              </MessageBox.InlineIcon>
-            </Match>
-          </Switch>
-        }
-        actionsEnd={
-          <CompositionPicker sendGIFMessage={sendMessage}>
-            {(triggerProps) => (
-              <>
-                <Show when={state.experiments.isEnabled("gif_picker")}>
-                  <MessageBox.InlineIcon size="normal">
-                    <Button
-                      variant="plain"
-                      size="icon"
-                      onPress={triggerProps.onClickGif}
-                    >
-                      <BiSolidFileGif size={24} />
-                    </Button>
-                  </MessageBox.InlineIcon>
-                </Show>
-                <Show when={state.experiments.isEnabled("emoji_picker")}>
-                  <MessageBox.InlineIcon size="normal">
-                    <Button
-                      variant="plain"
-                      size="icon"
-                      onPress={triggerProps.onClickEmoji}
-                    >
-                      <BiSolidHappyBeaming size={24} />
-                    </Button>
-                  </MessageBox.InlineIcon>
-                </Show>
-                <Show
-                  when={state.settings.getValue("appearance:show_send_button")}
-                >
-                  <MessageBox.InlineIcon size="normal">
-                    <Button variant="plain" size="icon" onPress={sendMessage}>
-                      <BiSolidSend size={24} />
-                    </Button>
-                  </MessageBox.InlineIcon>
-                </Show>
+      <Row>
+        <MessageBox
+          ref={ref}
+          initialValue={initialValue()}
+          onSendMessage={sendMessage}
+          onTyping={delayedStopTyping}
+          onEditLastMessage={() => state.draft.setEditingMessage(true)}
+          content={draft()?.content ?? ""}
+          setContent={setContent}
+          actionsStart={
+            <Switch fallback={<MessageBox.InlineIcon size="short" />}>
+              <Match when={props.channel.havePermission("UploadFiles")}>
+                <MessageBox.InlineIcon size="wide">
+                  <IconButton onPress={addFile}>
+                    <BiRegularPlus size={24} />
+                  </IconButton>
+                </MessageBox.InlineIcon>
+              </Match>
+            </Switch>
+          }
+          actionsEnd={
+            <CompositionPicker sendGIFMessage={sendMessage}>
+              {(triggerProps) => (
+                <>
+                  <Show when={state.experiments.isEnabled("gif_picker")}>
+                    <MessageBox.InlineIcon size="normal">
+                      <IconButton onPress={triggerProps.onClickGif}>
+                        <BiSolidFileGif size={24} />
+                      </IconButton>
+                    </MessageBox.InlineIcon>
+                  </Show>
+                  <Show when={state.experiments.isEnabled("emoji_picker")}>
+                    <MessageBox.InlineIcon size="normal">
+                      <IconButton onPress={triggerProps.onClickEmoji}>
+                        <BiSolidHappyBeaming size={24} />
+                      </IconButton>
+                    </MessageBox.InlineIcon>
+                  </Show>
 
-                <div ref={triggerProps.ref} />
-              </>
-            )}
-          </CompositionPicker>
-        }
-        placeholder={
-          props.channel.type === "SavedMessages"
-            ? t`Save to your notes`
-            : props.channel.type === "DirectMessage"
-              ? t`Message ${props.channel.recipient?.username}`
-              : t`Message ${props.channel.name}`
-        }
-        sendingAllowed={props.channel.havePermission("SendMessage")}
-        autoCompleteConfig={{
-          onKeyDown: onKeyDownMessageBox,
-          client: client(),
-          searchSpace: props.channel.server
-            ? {
-                members: client().serverMembers.filter(
-                  (member) => member.id.server === props.channel.serverId,
-                ),
-                channels: props.channel.server.channels,
-                roles: [...props.channel.server.roles.values()],
-              }
-            : props.channel.type === "Group"
-              ? { users: props.channel.recipients, channels: [] }
-              : { channels: [] },
-        }}
-        updateDraftSelection={(start, end) =>
-          state.draft.setSelection(props.channel.id, start, end)
-        }
-      />
+                  <div ref={triggerProps.ref} />
+                </>
+              )}
+            </CompositionPicker>
+          }
+          placeholder={
+            props.channel.type === "SavedMessages"
+              ? t`Save to your notes`
+              : props.channel.type === "DirectMessage"
+                ? t`Message ${props.channel.recipient?.username}`
+                : t`Message ${props.channel.name}`
+          }
+          sendingAllowed={props.channel.havePermission("SendMessage")}
+          autoCompleteSearchSpace={
+            props.channel.server
+              ? {
+                  members: client().serverMembers.filter(
+                    (member) => member.id.server === props.channel.serverId,
+                  ),
+                  channels: props.channel.server.channels,
+                  roles: [...props.channel.server.roles.values()],
+                }
+              : props.channel.type === "Group"
+                ? { users: props.channel.recipients, channels: [] }
+                : { channels: [] }
+          }
+          updateDraftSelection={(start, end) =>
+            state.draft.setSelection(props.channel.id, start, end)
+          }
+        />
+        {/* // <Show
+          //   when={state.settings.getValue("appearance:show_send_button")}
+          // > */}
+        <IconButton
+          size="sm"
+          variant="filled"
+          shape="square"
+          onPress={sendMessage}
+        >
+          <MdSend />
+        </IconButton>
+        {/* // </Show> */}
+      </Row>
       <FilePasteCollector onFiles={onFiles} />
       <FileDropAnywhereCollector onFiles={onFiles} />
     </>

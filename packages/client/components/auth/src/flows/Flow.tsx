@@ -17,8 +17,8 @@ export const FlowBase = styled("div", {
     flexDirection: "column",
     gap: "var(--gap-lg)",
     flexGrow: 0,
-    background: "var(--colours-messaging-message-box-background)",
-    color: "var(--colours-messaging-message-box-foreground)",
+    background: "var(--md-sys-color-surface-container)",
+    color: "var(--md-sys-color-on-surface)",
     width: "360px",
     maxWidth: "360px",
     maxHeight: "600px",
@@ -28,11 +28,6 @@ export const FlowBase = styled("div", {
     marginBottom: "20px",
     justifySelf: "center",
     marginInline: "auto",
-
-    // "a, a:link, a:visited, a:active": {
-    //   textDecoration: "none",
-    //   color: "var(--colours-link)",
-    // },
   },
 });
 

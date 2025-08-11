@@ -39,7 +39,7 @@ export function AgeGate(props: {
 
           <Confirmation>
             <Checkbox
-              value={state.layout.getSectionState(
+              checked={state.layout.getSectionState(
                 LAYOUT_SECTIONS.MATURE,
                 false,
               )}
@@ -84,7 +84,8 @@ const Base = styled("div", {
     overflowY: "auto",
 
     "& svg": {
-      fill: "var(--customColours-warning-color)",
+      // TODO
+      fill: "orange",
     },
 
     gap: "var(--gap-sm)",

@@ -26,8 +26,8 @@ const Base = styled("div", {
       boxShadow: "0 0 8px #00000044",
       borderRadius: "var(--borderRadius-lg)",
 
-      color: "var(--colours-foreground)",
-      background: "var(--colours-background)",
+      color: "var(--md-sys-color-inverse-on-surface)",
+      background: "var(--md-sys-color-inverse-surface)",
     },
   },
 });

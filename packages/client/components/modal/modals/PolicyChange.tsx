@@ -1,14 +1,13 @@
-import { For, createSignal } from "solid-js";
+import { For, createSignal, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 
 import {
-  Checkbox2,
+  Checkbox,
   Column,
+  Dialog,
+  DialogProps,
   List,
-  ListItem,
-  Modal2,
-  Modal2Props,
   Text,
   Time,
 } from "@revolt/ui";
@@ -18,16 +17,23 @@ import MdPolicy from "@material-design-icons/svg/outlined/policy.svg?component-s
 import { useModals } from "..";
 import { Modals } from "../types";
 
+let shownForSession = false;
+
 export function PolicyChangeModal(
-  props: Modal2Props & Modals & { type: "policy_change" },
+  props: DialogProps & Modals & { type: "policy_change" },
 ) {
   const { showError } = useModals();
   const [confirm, setConfirm] = createSignal(false);
 
+  // automatically close if we've already shown this modal in this session
+  const allowDisplay = !shownForSession;
+  shownForSession = true;
+  onMount(() => !allowDisplay && props.onClose());
+
   return (
-    <Modal2
+    <Dialog
       icon={<MdPolicy />}
-      show={props.show}
+      show={allowDisplay && props.show}
       onClose={props.onClose}
       title={<Trans>Review policy changes</Trans>}
       actions={[
@@ -47,7 +53,7 @@ export function PolicyChangeModal(
       <List>
         <For each={props.changes}>
           {(change) => (
-            <ListItem onClick={() => window.open(change.url, "_blank")}>
+            <List.Item onClick={() => window.open(change.url, "_blank")}>
               <Column gap="none">
                 <Text class="title">{change.description}</Text>
                 <Text class="label">
@@ -58,16 +64,16 @@ export function PolicyChangeModal(
                   </Trans>
                 </Text>
               </Column>
-            </ListItem>
+            </List.Item>
           )}
         </For>
       </List>
-      <Checkbox2
+      <Checkbox
         checked={confirm()}
         onChange={() => setConfirm((checked) => !checked)}
       >
         I've read and reviewed the changes.
-      </Checkbox2>
-    </Modal2>
+      </Checkbox>
+    </Dialog>
   );
 }

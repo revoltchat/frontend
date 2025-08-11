@@ -1,83 +1,82 @@
-import { Accessor, createEffect, createSignal } from "solid-js";
+import { createFormControl, createFormGroup } from "solid-forms";
 
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
-import { ServerMember } from "revolt.js";
+import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 
-import {
-  Avatar,
-  Column,
-  MessageContainer,
-  TextField,
-  Username,
-} from "@revolt/ui";
+import { Column, Dialog, DialogProps, Form2 } from "@revolt/ui";
 
-import { PropGenerator } from "../types";
-
-function Preview(props: { nickname: Accessor<string>; member: ServerMember }) {
-  createEffect(() => {
-    console.info("n:", props.nickname());
-  });
-
-  return (
-    <>
-      <span>Preview</span>
-      <MessageContainer
-        avatar={<Avatar size={36} src={props.member.animatedAvatarURL} />}
-        timestamp={new Date()}
-        username={
-          <Username
-            username={props.nickname()}
-            colour={props.member.roleColour!}
-          />
-        }
-      >
-        Hello {props.nickname()}!
-      </MessageContainer>
-    </>
-  );
-}
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
  * Modal to update the user's server identity
  */
-const ServerIdentity: PropGenerator<"server_identity"> = (props) => {
-  const { t } = useLingui();
-  const [nickname, setNickname] = createSignal(props.member.nickname ?? "");
+export function ServerIdentityModal(
+  props: DialogProps & Modals & { type: "server_identity" },
+) {
+  const { showError } = useModals();
 
-  return {
-    title: <Trans>Change identity on {props.member.server!.name}</Trans>,
-    children: (
-      <Column>
-        {/* <span>developer ui</span> */}
-        <TextField
-          label={t`Nickname`}
-          value={nickname()}
-          onChange={(e) => setNickname(e.currentTarget.value)}
-        />
-        {/* <span>{t("app.special.popovers.server_identity.avatar")}</span> */}
-        {/* <Avatar size={64} src={props.member.animatedAvatarURL} interactive /> */}
-        {/* <Preview nickname={nickname} member={props.member} /> */}
-      </Column>
-    ),
-    actions: [
-      {
-        children: <Trans>Save</Trans>,
-        async onClick() {
-          await props.member.edit(
-            nickname()
-              ? {
-                  nickname: nickname(),
-                }
-              : {
-                  remove: ["Nickname"],
-                },
-          );
+  const group = createFormGroup({
+    nickname: createFormControl(props.member.nickname ?? ""),
+  });
 
-          return true;
+  async function onSubmit() {
+    try {
+      const nickname = group.controls.nickname.value;
+      await props.member.edit(
+        nickname
+          ? {
+              nickname,
+            }
+          : {
+              remove: ["Nickname"],
+            },
+      );
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Change identity on {props.member.server!.name}</Trans>}
+      actions={[
+        { text: <Trans>Cancel</Trans> },
+        {
+          text: <Trans>Save</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
         },
-      },
-    ],
-  };
-};
-
-export default ServerIdentity;
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column>
+          <Form2.TextField
+            name="nickname"
+            control={group.controls.nickname}
+            label={t`Nickname`}
+          />
+          {/* TODO: Add preview back */}
+          {/* <MessageContainer
+            avatar={<Avatar size={36} src={props.member.animatedAvatarURL} />}
+            timestamp={new Date()}
+            username={
+              <Username
+                username={group.controls.nickname.value || props.member.user!.displayName}
+                colour={props.member.roleColour!}
+              />
+            }
+          >
+            Hello {group.controls.nickname.value || props.member.user!.displayName}!
+          </MessageContainer> */}
+        </Column>
+      </form>
+    </Dialog>
+  );
+}

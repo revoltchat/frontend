@@ -19,7 +19,7 @@ export default function Notifications() {
   return (
     <CategoryButtonGroup>
       <CategoryButton
-        action={<Checkbox value onChange={(value) => void value} />}
+        action={<Checkbox checked onChange={(value) => void value} />}
         onClick={() => void 0}
         icon={<MdNotifications {...iconSize(22)} />}
         description={
@@ -47,7 +47,7 @@ export default function Notifications() {
         icon={<MdSpeaker {...iconSize(22)} />}
       >
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon="blank"
         >
@@ -61,14 +61,14 @@ export default function Notifications() {
           <Trans>Message Sent</Trans>
         </CategoryButton>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon="blank"
         >
           <Trans>User Joined Call</Trans>
         </CategoryButton>
         <CategoryButton
-          action={<Checkbox value onChange={(value) => void value} />}
+          action={<Checkbox checked onChange={(value) => void value} />}
           onClick={() => void 0}
           icon="blank"
         >

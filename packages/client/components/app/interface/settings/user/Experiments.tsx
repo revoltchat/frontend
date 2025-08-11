@@ -20,7 +20,7 @@ export default function Experiments() {
           <CategoryButton
             action={
               <Checkbox
-                value={state.experiments.isEnabled(key)}
+                checked={state.experiments.isEnabled(key)}
                 onChange={(enabled) =>
                   state.experiments.setEnabled(key, enabled)
                 }

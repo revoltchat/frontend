@@ -1,32 +1,61 @@
-import { Trans } from "@lingui-solid/solid/macro";
+import { createFormControl, createFormGroup } from "solid-forms";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
+
+import { Column, Dialog, DialogProps, Form2 } from "@revolt/ui";
+
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
  * Modal to create a new server role
  */
-const CreateInvite: PropGenerator<"create_role"> = (props) => {
-  return createFormModal({
-    modalProps: {
-      title: <Trans>Create Role</Trans>,
-    },
-    schema: {
-      name: "text",
-    },
-    data: {
-      name: {
-        field: <Trans>Role Name</Trans>,
-      },
-    },
-    callback: async ({ name }) => {
-      const role = await props.server.createRole(name);
-      props.callback(role.id);
-    },
-    submit: {
-      children: <Trans>Create</Trans>,
-    },
-  });
-};
+export function CreateRoleModal(
+  props: DialogProps & Modals & { type: "create_role" },
+) {
+  const { showError } = useModals();
 
-export default CreateInvite;
+  const group = createFormGroup({
+    name: createFormControl(""),
+  });
+
+  async function onSubmit() {
+    try {
+      const role = await props.server.createRole(group.controls.name.value);
+      props.callback(role.id);
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Create Role</Trans>}
+      actions={[
+        { text: <Trans>Close</Trans> },
+        {
+          text: <Trans>Create</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column>
+          <Form2.TextField
+            name="name"
+            control={group.controls.name}
+            label={t`Role Name`}
+          />
+        </Column>
+      </form>
+    </Dialog>
+  );
+}

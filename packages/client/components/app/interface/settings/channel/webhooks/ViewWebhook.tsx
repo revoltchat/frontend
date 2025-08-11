@@ -3,10 +3,12 @@ import { Show } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { t } from "@lingui/core/macro";
+import { useMutation } from "@tanstack/solid-query";
 import { API, ChannelWebhook } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
+import { useModals } from "@revolt/modal";
 import {
   CategoryButton,
   CircularProgress,
@@ -18,16 +20,28 @@ import {
 import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 
+import { useSettingsNavigation } from "../../Settings";
+
 /**
  * Webhook
  */
 export function ViewWebhook(props: { webhook: ChannelWebhook }) {
   const client = useClient();
+  const { showError } = useModals();
+  const { navigate } = useSettingsNavigation();
 
   const editGroup = createFormGroup({
     name: createFormControl(props.webhook.name),
     avatar: createFormControl<string | File[] | null>(props.webhook.avatarURL),
   });
+
+  const deleteWebhook = useMutation(() => ({
+    mutationFn: () => props.webhook.delete(),
+    onSuccess() {
+      navigate("webhooks");
+    },
+    onError: showError,
+  }));
 
   async function onSubmit() {
     const changes: API.DataEditWebhook = {
@@ -111,7 +125,8 @@ export function ViewWebhook(props: { webhook: ChannelWebhook }) {
         <CategoryButton
           action="chevron"
           icon={<MdDelete />}
-          onClick={() => props.webhook.delete()}
+          disabled={deleteWebhook.isPending}
+          onClick={() => deleteWebhook.mutate()}
         >
           Delete webhook
         </CategoryButton>

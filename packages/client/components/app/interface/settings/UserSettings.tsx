@@ -155,7 +155,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               id: "subscribe",
               icon: <MdWorkspacePremium {...iconSize(20)} />,
-              title: "[premium subscription name here]",
+              title: "[premium]",
             },
           ],
         },
@@ -211,11 +211,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             //   icon: <MdDesktopWindows {...iconSize(20)} />,
             //   title: t("app.settings.pages.native.title"),
             // },
-            {
-              id: "experiments",
-              icon: <MdScience {...iconSize(20)} />,
-              title: <Trans>Experiments</Trans>,
-            },
+            // {
+            //   id: "experiments",
+            //   icon: <MdScience {...iconSize(20)} />,
+            //   title: <Trans>Experiments</Trans>,
+            // },
           ],
         },
         {
@@ -236,11 +236,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               icon: (
                 <MdLogout
                   {...iconSize(20)}
-                  fill="var(--customColours-error-color)"
+                  fill="var(--md-sys-color-error)"
                 />
               ),
               title: (
-                <ColouredText colour="var(--customColours-error-color)">
+                <ColouredText colour="var(--md-sys-color-error)">
                   <Trans>Log Out</Trans>
                 </ColouredText>
               ),

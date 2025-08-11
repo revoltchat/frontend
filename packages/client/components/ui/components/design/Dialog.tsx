@@ -13,15 +13,17 @@ export interface DialogProps {
   onClose: () => void;
 }
 
+export interface DialogAction {
+  text: JSX.Element;
+  onClick?: () => void | Promise<unknown> | true | false;
+  isDisabled?: boolean;
+}
+
 type Props = DialogProps & {
   icon?: JSX.Element;
   title?: JSX.Element;
   children: JSX.Element;
-  actions?: {
-    text: JSX.Element;
-    onClick?: () => void;
-    isDisabled?: boolean;
-  }[];
+  actions?: DialogAction[];
   isDisabled?: boolean;
 
   minWidth?: number;
@@ -174,6 +176,7 @@ const Icon = styled("div", {
   base: {
     alignSelf: "center",
     marginBottom: "16px",
+    fill: "var(--md-sys-color-on-surface)",
   },
 });
 

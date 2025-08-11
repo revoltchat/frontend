@@ -3,23 +3,23 @@ import { Match, Switch } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { useMutation } from "@tanstack/solid-query";
 
-import { Modal2, Modal2Props } from "@revolt/ui";
+import { Dialog, DialogProps } from "@revolt/ui";
 
 import { useModals } from "..";
 import { Modals } from "../types";
 
 export function ChannelToggleMatureModal(
-  props: Modal2Props & Modals & { type: "channel_toggle_mature" },
+  props: DialogProps & Modals & { type: "channel_toggle_mature" },
 ) {
-  const { openModal } = useModals();
+  const { showError } = useModals();
 
   const change = useMutation(() => ({
     mutationFn: (nsfw: boolean) => props.channel.edit({ nsfw }),
-    onError: (error) => openModal({ type: "error2", error }),
+    onError: showError,
   }));
 
   return (
-    <Modal2
+    <Dialog
       show={props.show}
       onClose={props.onClose}
       title={
@@ -39,7 +39,7 @@ export function ChannelToggleMatureModal(
               </Match>
             </Switch>
           ),
-          onClick: () => change.mutate(!props.channel.mature),
+          onClick: () => change.mutateAsync(!props.channel.mature),
         },
       ]}
       isDisabled={change.isPending}
@@ -60,6 +60,6 @@ export function ChannelToggleMatureModal(
           </Trans>
         </Match>
       </Switch>
-    </Modal2>
+    </Dialog>
   );
 }

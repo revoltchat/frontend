@@ -32,7 +32,6 @@ import "@revolt/ui/styles";
 import AuthPage from "./Auth";
 import Interface from "./Interface";
 import "./index.css";
-import { ConfirmDelete } from "./interface/ConfirmDelete";
 import { DevelopmentPage } from "./interface/Development";
 import { Friends } from "./interface/Friends";
 import { HomePage } from "./interface/Home";
@@ -102,7 +101,10 @@ render(
     <StateContext>
       <Router root={MountContext}>
         <Route path="/login" component={AuthPage as never}>
-          <Route path="/delete/:token" component={ConfirmDelete} />
+          <Route
+            path="/delete/:token"
+            component={() => <span>TODO OP#238</span>}
+          />
           <Route path="/check" component={FlowCheck} />
           <Route path="/create" component={FlowCreate} />
           <Route path="/auth" component={FlowLogin} />

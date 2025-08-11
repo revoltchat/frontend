@@ -1,5 +1,3 @@
-import type { ComponentProps, JSX } from "solid-js";
-
 import {
   API,
   Bot,
@@ -19,7 +17,6 @@ import {
 import { ProtocolV1 } from "revolt.js/lib/events/v1";
 
 import type { SettingsConfigurations } from "@revolt/app";
-import type { Modal } from "@revolt/ui";
 
 import { ChangelogPost } from "./modals/Changelog";
 
@@ -109,10 +106,6 @@ export type Modals =
   | {
       type: "delete_server";
       server: Server;
-    }
-  | {
-      type: "edit_display_name";
-      user: User;
     }
   | {
       type: "edit_email";
@@ -288,14 +281,3 @@ export type Modals =
   | {
       type: "import_theme";
     };
-
-export type ModalProps<T extends Modals["type"]> = Modals & { type: T };
-export type ReturnType =
-  | ComponentProps<typeof Modal>
-  | {
-      _children: (props: { show: boolean; onClose: () => void }) => JSX.Element;
-    };
-export type PropGenerator<T extends Modals["type"]> = (
-  props: ModalProps<T>,
-  onClose: () => void,
-) => ReturnType;

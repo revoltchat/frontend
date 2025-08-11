@@ -114,8 +114,6 @@ const Bar = styled("div", {
     alignItems: "center",
     flexDirection: "row",
 
-    // backdropFilter: "var(--effects-blur-md)",
-    color: "var(--colours-messaging-indicator-foreground)",
-    // background: "var(--colours-messaging-indicator-background)",
+    color: "var(--md-sys-color-on-surface)",
   },
 });

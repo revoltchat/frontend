@@ -1,5 +1,7 @@
 import { Trans } from "@lingui-solid/solid/macro";
 
+import { iconSize } from "@revolt/ui";
+
 import MdArrowForward from "@material-design-icons/svg/filled/arrow_forward.svg?component-solid";
 
 import { Ripple } from "../../../../components/design";

@@ -14,7 +14,7 @@ const logo = cva({
   base: {
     width: "100%",
     objectFit: "contain",
-    fill: "var(--colours-messaging-message-box-foreground)",
+    fill: "var(--md-sys-color-on-surface)",
   },
 });
 
@@ -74,7 +74,7 @@ export default function FlowHome() {
               </a>
               <a href="/login/create">
                 <Column>
-                  <Button variant="secondary">
+                  <Button variant="tonal">
                     <Trans>Sign Up</Trans>
                   </Button>
                 </Column>

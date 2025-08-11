@@ -13,8 +13,8 @@ const Spoiler = styled("span", {
   variants: {
     shown: {
       true: {
-        color: "var(--colours-background)",
-        background: "var(--colours-foreground)",
+        color: "var(--md-sys-color-inverse-on-surface)",
+        background: "var(--md-sys-color-inverse-surface)",
       },
       false: {
         cursor: "pointer",

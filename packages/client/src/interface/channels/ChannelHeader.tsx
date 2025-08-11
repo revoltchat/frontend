@@ -14,6 +14,7 @@ import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import {
   Button,
+  IconButton,
   NonBreakingText,
   OverflowingText,
   Spacer,
@@ -40,12 +41,12 @@ interface Props {
   /**
    * Sidebar state
    */
-  sidebarState: Accessor<SidebarState>;
+  sidebarState?: Accessor<SidebarState>;
 
   /**
    * Set sidebar state
    */
-  setSidebarState: Setter<SidebarState>;
+  setSidebarState?: Setter<SidebarState>;
 }
 
 /**
@@ -82,6 +83,8 @@ export function ChannelHeader(props: Props) {
   }
 
   const searchValue = () => {
+    if (!props.sidebarState) return null;
+
     const state = props.sidebarState();
     if (state.state === "search") {
       return state.query;
@@ -161,9 +164,8 @@ export function ChannelHeader(props: Props) {
       <Show
         when={import.meta.env.DEV && props.channel.type !== "SavedMessages"}
       >
-        <Button
-          variant="plain"
-          size="icon"
+        <IconButton
+          variant="standard"
           onPress={joinCall}
           use:floating={{
             tooltip: {
@@ -173,7 +175,7 @@ export function ChannelHeader(props: Props) {
           }}
         >
           <MdCall />
-        </Button>
+        </IconButton>
       </Show>
 
       <Show
@@ -182,9 +184,7 @@ export function ChannelHeader(props: Props) {
           props.channel.orPermission("ManageChannel", "ManagePermissions")
         }
       >
-        <Button
-          variant="plain"
-          size="icon"
+        <IconButton
           onPress={() =>
             openModal({
               type: "settings",
@@ -200,12 +200,12 @@ export function ChannelHeader(props: Props) {
           }}
         >
           <MdSettings />
-        </Button>
+        </IconButton>
       </Show>
 
       <Show when={props.channel.type === "Group"}>
         <Button
-          variant="plain"
+          variant="text"
           size="icon"
           onPress={() =>
             openModal({
@@ -225,34 +225,32 @@ export function ChannelHeader(props: Props) {
         </Button>
       </Show>
 
-      <Button
-        variant="plain"
-        size="icon"
-        use:floating={{
-          tooltip: {
-            placement: "bottom",
-            content: t`View pinned messages`,
-          },
-        }}
-        onPress={() =>
-          props.sidebarState().state === "pins"
-            ? props.setSidebarState({
-                state: "default",
-              })
-            : props.setSidebarState({
-                state: "pins",
-              })
-        }
-      >
-        <MdKeep />
-      </Button>
+      <Show when={props.sidebarState}>
+        <IconButton
+          use:floating={{
+            tooltip: {
+              placement: "bottom",
+              content: t`View pinned messages`,
+            },
+          }}
+          onPress={() =>
+            props.sidebarState!().state === "pins"
+              ? props.setSidebarState!({
+                  state: "default",
+                })
+              : props.setSidebarState!({
+                  state: "pins",
+                })
+          }
+        >
+          <MdKeep />
+        </IconButton>
+      </Show>
 
-      <Show when={props.channel.type !== "SavedMessages"}>
-        <Button
-          variant="plain"
-          size="icon"
+      <Show when={props.sidebarState && props.channel.type !== "SavedMessages"}>
+        <IconButton
           onPress={() => {
-            if (props.sidebarState().state === "default") {
+            if (props.sidebarState!().state === "default") {
               state.layout.toggleSectionState(
                 LAYOUT_SECTIONS.MEMBER_SIDEBAR,
                 true,
@@ -264,7 +262,7 @@ export function ChannelHeader(props: Props) {
                 true,
               );
 
-              props.setSidebarState({
+              props.setSidebarState!({
                 state: "default",
               });
             }
@@ -277,30 +275,32 @@ export function ChannelHeader(props: Props) {
           }}
         >
           <MdGroup />
-        </Button>
+        </IconButton>
       </Show>
 
-      <input
-        class={css({
-          height: "40px",
-          width: "240px",
-          paddingInline: "16px",
-          borderRadius: "var(--borderRadius-full)",
-          background: "var(--md-sys-color-surface-container-high)",
-        })}
-        placeholder="Search messages..."
-        value={searchValue()}
-        onChange={(e) =>
-          e.currentTarget.value
-            ? props.setSidebarState({
-                state: "search",
-                query: e.currentTarget.value,
-              })
-            : props.setSidebarState({
-                state: "default",
-              })
-        }
-      />
+      <Show when={searchValue() !== null}>
+        <input
+          class={css({
+            height: "40px",
+            width: "240px",
+            paddingInline: "16px",
+            borderRadius: "var(--borderRadius-full)",
+            background: "var(--md-sys-color-surface-container-high)",
+          })}
+          placeholder="Search messages..."
+          value={searchValue()!}
+          onChange={(e) =>
+            e.currentTarget.value
+              ? props.setSidebarState!({
+                  state: "search",
+                  query: e.currentTarget.value,
+                })
+              : props.setSidebarState!({
+                  state: "default",
+                })
+          }
+        />
+      </Show>
     </>
   );
 }
@@ -313,7 +313,7 @@ const Divider = styled("div", {
     height: "20px",
     margin: "0px 5px",
     paddingLeft: "1px",
-    backgroundColor: "var(--colours-messaging-channel-header-divider)",
+    backgroundColor: "var(--md-sys-color-outline-variant)",
   },
 });
 

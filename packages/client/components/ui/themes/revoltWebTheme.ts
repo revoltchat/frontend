@@ -91,9 +91,5 @@ const themeConstants = {
   },
   layout: {
     "width-channel-sidebar": "248px",
-    "attachments-min-width": "240px",
-    "attachments-max-width": "420px",
-    "attachments-min-height": "120px",
-    "attachments-max-height": "420px",
   },
 };

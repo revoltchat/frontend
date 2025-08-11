@@ -40,6 +40,7 @@ export const Base = styled("div", {
     userSelect: "none",
     alignItems: "center",
     gap: "var(--gap-sm)",
+    color: 'var(--md-sys-color-on-surface)',
     "& a:link": {
       textDecoration: "none",
     },

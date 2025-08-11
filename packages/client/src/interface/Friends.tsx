@@ -11,6 +11,7 @@ import {
 } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import type { User } from "revolt.js";
 import { styled } from "styled-system/jsx";
@@ -24,6 +25,7 @@ import {
   Button,
   Deferred,
   Header,
+  IconButton,
   List,
   ListItem,
   ListSubheader,
@@ -125,17 +127,24 @@ export function Friends() {
         >
           <NavigationRail contained value={page} onValue={setPage}>
             <div style={{ "margin-top": "6px", "margin-bottom": "12px" }}>
-              <Button
-                size="fab"
+              <IconButton
+                variant="filled"
+                shape="square"
                 onPress={() =>
                   openModal({
                     type: "add_friend",
                     client: client(),
                   })
                 }
+                use:floating={{
+                  tooltip: {
+                    placement: "right",
+                    content: t`Add a new friend`,
+                  },
+                }}
               >
                 <MdAdd />
-              </Button>
+              </IconButton>
             </div>
 
             <NavigationRailItem icon={<MdWavingHand />} value="online">

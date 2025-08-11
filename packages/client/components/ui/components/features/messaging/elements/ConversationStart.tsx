@@ -46,5 +46,7 @@ const Base = styled("div", {
     userSelect: "none",
     flexDirection: "column",
     margin: "18px 16px 10px 16px",
+
+    color: 'var(--md-sys-color-on-surface)'
   },
 });

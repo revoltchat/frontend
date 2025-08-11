@@ -1,5 +1,5 @@
 import { createFormControl, createFormGroup } from "solid-forms";
-import { Show } from "solid-js";
+import { Show, createEffect, on } from "solid-js";
 
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import type { API } from "revolt.js";
@@ -17,6 +17,7 @@ export default function ServerOverview(props: ServerSettingsProps) {
   const { t } = useLingui();
   const client = useClient();
 
+  /* eslint-disable solid/reactivity */
   const editGroup = createFormGroup({
     name: createFormControl(props.server.name),
     description: createFormControl(props.server.description || ""),
@@ -25,6 +26,49 @@ export default function ServerOverview(props: ServerSettingsProps) {
     ),
     banner: createFormControl<string | File[] | null>(props.server.bannerURL),
   });
+  /* eslint-enable solid/reactivity */
+
+  // update fields (if they are not dirty) ourselves:
+  createEffect(
+    on(
+      () => props.server.name,
+      (name) =>
+        !editGroup.controls.name.isDirty &&
+        editGroup.controls.name.setValue(name),
+      { defer: true },
+    ),
+  );
+
+  createEffect(
+    on(
+      () => props.server.description,
+      (description) =>
+        description &&
+        !editGroup.controls.description.isDirty &&
+        editGroup.controls.description.setValue(description),
+      { defer: true },
+    ),
+  );
+
+  createEffect(
+    on(
+      () => props.server.animatedIconURL,
+      (icon) =>
+        !editGroup.controls.icon.isDirty &&
+        editGroup.controls.icon.setValue(icon ?? null),
+      { defer: true },
+    ),
+  );
+
+  createEffect(
+    on(
+      () => props.server.bannerURL,
+      (banner) =>
+        !editGroup.controls.banner.isDirty &&
+        editGroup.controls.banner.setValue(banner ?? null),
+      { defer: true },
+    ),
+  );
 
   function onReset() {
     editGroup.controls.name.setValue(props.server.name);
@@ -56,22 +100,11 @@ export default function ServerOverview(props: ServerSettingsProps) {
       if (!editGroup.controls.icon.value) {
         changes.remove!.push("Icon");
       } else if (Array.isArray(editGroup.controls.icon.value)) {
-        const body = new FormData();
-        body.append("file", editGroup.controls.icon.value[0]);
-
-        const [key, value] = client().authenticationHeader;
-        const data: { id: string } = await fetch(
-          `${CONFIGURATION.DEFAULT_MEDIA_URL}/icons`,
-          {
-            method: "POST",
-            body,
-            headers: {
-              [key]: value,
-            },
-          },
-        ).then((res) => res.json());
-
-        changes.icon = data.id;
+        changes.icon = await client().uploadFile(
+          "icons",
+          editGroup.controls.icon.value[0],
+          CONFIGURATION.DEFAULT_MEDIA_URL,
+        );
       }
     }
 
@@ -79,22 +112,11 @@ export default function ServerOverview(props: ServerSettingsProps) {
       if (!editGroup.controls.banner.value) {
         changes.remove!.push("Banner");
       } else if (Array.isArray(editGroup.controls.banner.value)) {
-        const body = new FormData();
-        body.append("file", editGroup.controls.banner.value[0]);
-
-        const [key, value] = client().authenticationHeader;
-        const data: { id: string } = await fetch(
-          `${CONFIGURATION.DEFAULT_MEDIA_URL}/banners`,
-          {
-            method: "POST",
-            body,
-            headers: {
-              [key]: value,
-            },
-          },
-        ).then((res) => res.json());
-
-        changes.banner = data.id;
+        changes.banner = await client().uploadFile(
+          "banners",
+          editGroup.controls.banner.value[0],
+          CONFIGURATION.DEFAULT_MEDIA_URL,
+        );
       }
     }
 

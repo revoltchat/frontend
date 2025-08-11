@@ -3,18 +3,15 @@ import { createMemo, createSignal } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { t } from "@lingui/core/macro";
-import { useMutation } from "@tanstack/solid-query";
-import { css } from "styled-system/css";
 
 import { useClient } from "@revolt/client";
 import {
   Avatar,
   Column,
+  Dialog,
+  DialogProps,
   Form2,
-  Modal2,
-  Modal2Props,
   Row,
-  Text,
   TextField,
 } from "@revolt/ui";
 
@@ -25,30 +22,25 @@ import { Modals } from "../types";
  * Add members to an existing group
  */
 export function AddMembersToGroupModal(
-  props: Modal2Props & Modals & { type: "add_members_to_group" },
+  props: DialogProps & Modals & { type: "add_members_to_group" },
 ) {
   const client = useClient();
-  const { openModal } = useModals();
+  const { showError } = useModals();
 
   const group = createFormGroup({
     users: createFormControl([] as string[]),
   });
 
-  const change = useMutation(() => ({
-    mutationFn: async ({ users }: { users: string[] }) => {
-      for (const user of users) {
+  async function onSubmit() {
+    try {
+      for (const user of group.controls.users.value) {
         await props.group.addMember(user);
       }
-    },
-    onError: (error) => openModal({ type: "error2", error }),
-  }));
 
-  async function onSubmit() {
-    await change.mutateAsync({
-      users: group.controls.users.value,
-    });
-
-    props.onClose();
+      props.onClose();
+    } catch (err) {
+      showError(err);
+    }
   }
 
   const [filter, setFilter] = createSignal("");
@@ -67,7 +59,7 @@ export function AddMembersToGroupModal(
   );
 
   return (
-    <Modal2
+    <Dialog
       minWidth={420}
       show={props.show}
       onClose={props.onClose}
@@ -82,7 +74,7 @@ export function AddMembersToGroupModal(
           },
         },
       ]}
-      isDisabled={change.isPending}
+      isDisabled={group.isPending}
     >
       <form onSubmit={Form2.submitHandler(group, onSubmit)}>
         <Column>
@@ -107,6 +99,6 @@ export function AddMembersToGroupModal(
           </Form2.VirtualSelect>
         </Column>
       </form>
-    </Modal2>
+    </Dialog>
   );
 }

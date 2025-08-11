@@ -18,8 +18,8 @@ export const AttachmentContainer = styled(Column, {
   base: {
     padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-md)",
-    color: "var(--colours-messaging-component-attachment-foreground)",
-    background: "var(--colours-messaging-component-attachment-background)",
+    color: "var(--md-sys-color-inverse-on-surface)",
+    background: "var(--md-sys-color-inverse-surface)",
   },
 });
 

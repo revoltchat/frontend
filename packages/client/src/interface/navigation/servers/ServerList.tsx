@@ -5,6 +5,7 @@ import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
+import { useClient } from "@revolt/client";
 import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
@@ -17,8 +18,6 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 
 import { Tooltip } from "../../../../components/ui/components/floating";
 import { Draggable } from "../../../../components/ui/components/utils/Draggable";
-
-import { Swoosh } from "./Swoosh";
 
 interface Props {
   /**
@@ -62,6 +61,7 @@ interface Props {
  * Server list sidebar component
  */
 export const ServerList = (props: Props) => {
+  const client = useClient();
   const navigate = useNavigate();
   const { openModal } = useModals();
 
@@ -104,12 +104,12 @@ export const ServerList = (props: Props) => {
   return (
     <ServerListBase>
       <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
-        {/* <Show when={!props.selectedServer()}>
-            <PositionSwoosh>
-              <Swoosh topItem />
-            </PositionSwoosh>
-          </Show> */}
-        <a class={entryContainer()} href="/app">
+        <a
+          class={entryContainer({
+            indicator: !props.selectedServer() ? "selected" : undefined,
+          })}
+          href="/app"
+        >
           <Avatar size={42} fallback={<MdHome />} />
         </a>
         <Tooltip
@@ -125,7 +125,12 @@ export const ServerList = (props: Props) => {
           aria={props.user.username}
         >
           {/* TODO: Make this open user status context menu */}
-          <a class={entryContainer()} href="/app">
+          <a
+            class={entryContainer()}
+            onClick={() =>
+              openModal({ type: "custom_status", client: client() })
+            }
+          >
             <Avatar
               size={42}
               src={props.user.avatarURL}
@@ -187,22 +192,34 @@ export const ServerList = (props: Props) => {
             >
               <Tooltip placement="right" content={item.name}>
                 <div
-                  class={entryContainer()}
+                  class={entryContainer({
+                    indicator:
+                      props.selectedServer() === item.id
+                        ? "selected"
+                        : item.unread
+                          ? "alert"
+                          : undefined,
+                  })}
                   use:floating={props.menuGenerator(item)}
                 >
-                  <Show when={props.selectedServer() === item.id}>
+                  {/* <Show when={props.selectedServer() === item.id}>
                     <PositionSwoosh>
                       <Swoosh />
                     </PositionSwoosh>
-                  </Show>
+                  </Show> */}
                   <a href={`/server/${item.id}`}>
                     <Avatar
                       size={42}
                       src={item.iconURL}
-                      holepunch={item.unread ? "top-right" : "none"}
+                      holepunch={item.mentions.length ? "top-right" : "none"}
                       overlay={
                         <>
-                          <Show when={item.unread}>
+                          <Show
+                            when={
+                              item.mentions
+                                .length /* as opposed to item.unread */
+                            }
+                          >
                             <Unreads.Graphic
                               count={item.mentions.length}
                               unread
@@ -280,6 +297,35 @@ const entryContainer = cva({
     display: "grid",
     flexShrink: 0,
     placeItems: "center",
+
+    "&:before": {
+      content: "' '",
+      position: "absolute",
+      width: "12px",
+      height: "0px",
+      transition: "var(--transitions-fast) all",
+      left: "-8px",
+      borderRadius: "4px",
+      background: "var(--md-sys-color-on-surface)",
+    },
+
+    "&:hover:before": {
+      height: "16px",
+    },
+  },
+  variants: {
+    indicator: {
+      selected: {
+        "&:before": {
+          height: "32px !important",
+        },
+      },
+      alert: {
+        "&:before": {
+          height: "8px",
+        },
+      },
+    },
   },
 });
 
@@ -292,7 +338,7 @@ const LineDivider = styled("div", {
     flexShrink: 0,
     margin: "6px auto",
     width: "calc(100% - 24px)",
-    background: "var(--colours-sidebar-server-list-foreground)",
+    background: "var(--md-sys-color-outline-variant)",
   },
 });
 

@@ -56,14 +56,12 @@ const MentionToggle = styled("a", {
     flexDirection: "row",
     textTransform: "uppercase",
     gap: "var(--gap-sm)",
+    cursor: "pointer",
   },
   variants: {
     mention: {
-      true: {
-        color: "var(--colours-messaging-indicator-reply-enabled)",
-      },
       false: {
-        color: "var(--colours-messaging-indicator-reply-disabled)",
+        color: "var(--md-sys-color-outline)",
       },
     },
   },
@@ -76,6 +74,7 @@ const Dismiss = styled("a", {
   base: {
     display: "grid",
     placeItems: "center",
+    cursor: "pointer",
   },
 });
 
@@ -87,11 +86,12 @@ const Base = styled(Row, {
     fontSize: "0.8em",
     userSelect: "none",
 
+    marginBlockEnd: "var(--gap-md)",
     padding: "var(--gap-md) var(--gap-lg)",
     borderRadius: "var(--borderRadius-lg)",
 
-    color: "var(--colours-messaging-indicator-foreground)",
-    background: "var(--colours-messaging-indicator-background)",
+    background: "var(--md-sys-color-primary-container)",
+    color: "var(--md-sys-color-on-primary-container)",
 
     "& a:hover": {
       filter: "brightness(1.2)",

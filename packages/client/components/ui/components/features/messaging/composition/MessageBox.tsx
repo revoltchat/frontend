@@ -2,11 +2,10 @@ import { BiRegularBlock } from "solid-icons/bi";
 import { JSX, Match, Show, Switch, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
-import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
-import { typography } from "@revolt/ui/components/design";
-import { Row } from "@revolt/ui/components/layout";
+import { Row, TextEditor } from "@revolt/ui";
+import { AutoCompleteSearchSpace } from "@revolt/ui/components/design/TextEditor";
 
 interface Props {
   /**
@@ -15,16 +14,29 @@ interface Props {
   ref: HTMLTextAreaElement | undefined;
 
   /**
+   * Initial content
+   */
+  initialValue: readonly [string];
+
+  /**
    * Text content
    */
   content: string;
 
   /**
-   * Handle key presses
+   * Handle event to send message
    */
-  onKeyDown?: (
-    event: KeyboardEvent & { currentTarget: HTMLTextAreaElement },
-  ) => void;
+  onSendMessage: () => void;
+
+  /**
+   * Handle event when user is typing
+   */
+  onTyping: () => void;
+
+  /**
+   * Handle event when user wants to edit the last message in chat
+   */
+  onEditLastMessage: () => void;
 
   /**
    * Update text content
@@ -55,10 +67,12 @@ interface Props {
   /**
    * Auto complete config
    */
-  autoCompleteConfig?: JSX.Directives["autoComplete"];
+  autoCompleteSearchSpace?: AutoCompleteSearchSpace;
 
   /**
    * Update the current draft selection
+   *
+   * @deprecated have to hook into ProseMirror instance now!
    */
   updateDraftSelection?: (start: number, end: number) => void;
 }
@@ -68,35 +82,16 @@ interface Props {
  */
 const Base = styled("div", {
   base: {
-    height: "48px",
+    flexGrow: 1,
     flexShrink: 0,
 
+    paddingInlineEnd: "var(--gap-md)",
     margin: "0 0 var(--gap-md) 0",
-    borderRadius: "var(--borderRadius-lg)",
+    borderRadius: "var(--borderRadius-xl)",
 
     display: "flex",
-    background: "var(--colours-messaging-message-box-background)",
-    color: "var(--colours-messaging-message-box-foreground)",
-  },
-});
-
-/**
- * Input area
- */
-const input = cva({
-  base: {
-    border: "none",
-    resize: "none",
-    outline: "none",
-    background: "transparent",
-
-    flexGrow: 1,
-    padding: "14px 0",
-
-    fontFamily: "var(--fonts-primary)",
-    color: "var(--colours-messaging-message-box-foreground)",
-
-    ...typography.raw({ class: "_messages" }),
+    background: "var(--md-sys-color-primary-container)",
+    color: "var(--md-sys-color-on-primary-container)",
   },
 });
 
@@ -139,28 +134,10 @@ export const InlineIcon = styled("div", {
  * Message box
  */
 export function MessageBox(props: Props) {
-  /**
-   * Handle changes to input
-   * @param event Event
-   */
-  function onInput(event: InputEvent & { currentTarget: HTMLTextAreaElement }) {
-    props.setContent(event.currentTarget!.value);
-  }
-
-  /**
-   * Handle key up event
-   * @param event Event
-   */
-  function onKeyUp(
-    event: KeyboardEvent & {
-      currentTarget: HTMLTextAreaElement;
-    },
-  ) {
-    props.updateDraftSelection?.(
-      event.currentTarget.selectionStart,
-      event.currentTarget.selectionEnd,
-    );
-  }
+  // props.updateDraftSelection?.(
+  //   event.currentTarget.selectionStart,
+  //   event.currentTarget.selectionEnd,
+  // );
 
   /**
    * Set initial draft selection
@@ -182,16 +159,18 @@ export function MessageBox(props: Props) {
       </Switch>
       <Switch
         fallback={
-          <textarea
-            id="msgbox"
-            class={input()}
-            ref={props.ref}
-            onInput={onInput}
-            onKeyUp={onKeyUp}
-            value={props.content}
-            placeholder={props.placeholder}
-            use:autoComplete={props.autoCompleteConfig ?? true}
-          />
+          <>
+            <TextEditor
+              placeholder={props.placeholder}
+              initialValue={props.initialValue}
+              onChange={props.setContent}
+              onComplete={props.onSendMessage}
+              onTyping={props.onTyping}
+              onPreviousContext={props.onEditLastMessage}
+              autoCompleteSearchSpace={props.autoCompleteSearchSpace}
+            />
+            <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
+          </>
         }
       >
         <Match when={!props.sendingAllowed}>
@@ -202,7 +181,6 @@ export function MessageBox(props: Props) {
           </Blocked>
         </Match>
       </Switch>
-      <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
     </Base>
   );
 }

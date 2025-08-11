@@ -104,8 +104,6 @@ const Base = styled("div", {
     flex: "1 0 218px",
     paddingLeft: "8px",
     justifyContent: "flex-end",
-
-    color: "var(--colours-settings-foreground)",
   },
 });
 
@@ -142,6 +140,7 @@ const CategoryTitle = styled("span", {
     fontWeight: 700,
     margin: "0 8px",
     marginInlineEnd: "20px",
-    color: "var(--colours-settings-sidebar-category)",
+
+    color: "var(--md-sys-color-outline)",
   },
 });

@@ -1,14 +1,24 @@
-import { Match, Switch } from "solid-js";
+import { createFormControl, createFormGroup } from "solid-forms";
+import { For, Match, Switch } from "solid-js";
 
-import { Trans, useLingui } from "@lingui-solid/solid/macro";
-import { API, Server, User } from "revolt.js";
+import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
+import { API, Message as MessageI, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 
 import { Message } from "@revolt/app";
-import { Avatar, Column, Initials } from "@revolt/ui";
+import {
+  Avatar,
+  Column,
+  Dialog,
+  DialogProps,
+  Form2,
+  Initials,
+  MenuItem,
+} from "@revolt/ui";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { useModals } from "..";
+import { Modals } from "../types";
 
 const CONTENT_REPORT_REASONS: API.ContentReportReason[] = [
   "Illegal",
@@ -40,8 +50,10 @@ const USER_REPORT_REASONS: API.UserReportReason[] = [
 /**
  * Modal to report content
  */
-const ReportContent: PropGenerator<"report_content"> = (props) => {
-  const { t } = useLingui();
+export function ReportContentModal(
+  props: DialogProps & Modals & { type: "report_content" },
+) {
+  const { showError } = useModals();
 
   const strings: Record<
     API.ContentReportReason | API.UserReportReason,
@@ -68,76 +80,22 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
     Underage: t`Not of minimum age to use the platform`,
   };
 
-  return createFormModal({
-    modalProps: {
-      title: (
-        <Switch>
-          <Match when={props.target instanceof User}>
-            <Trans>Tell us what's wrong with this user</Trans>
-          </Match>
-          <Match when={props.target instanceof Server}>
-            <Trans>Tell us what's wrong with this server</Trans>
-          </Match>
-          <Match when={props.target instanceof Message}>
-            <Trans>Tell us what's wrong with this message</Trans>
-          </Match>
-        </Switch>
-      ),
-    },
-    schema: {
-      preview: "custom",
-      category: "combo",
-      detail: "text",
-    },
-    data: {
-      preview: {
-        element: (
-          <div class={contentContainer()} use:scrollable>
-            {props.target instanceof User ? (
-              <Column align>
-                <Avatar src={props.target.animatedAvatarURL} size={64} />
-                {props.target.displayName}
-              </Column>
-            ) : props.target instanceof Server ? (
-              <Column align>
-                <Avatar
-                  src={props.target.animatedIconURL}
-                  fallback={<Initials input={props.target.name} />}
-                  size={64}
-                />
-                {props.target.name}
-              </Column>
-            ) : (
-              <Message message={props.target as never} />
-            )}
-          </div>
-        ),
-      },
-      category: {
-        options: [
-          {
-            name: <Trans>Please select a reason</Trans>,
-            value: "",
-            disabled: true,
-            selected: true,
-          },
-          ...(props.target instanceof User
-            ? USER_REPORT_REASONS
-            : CONTENT_REPORT_REASONS
-          ).map((value) => ({
-            name: strings[value],
-            value,
-          })),
-        ],
-        field: <Trans>Pick a category</Trans>,
-      },
-      detail: {
-        field: <Trans>Give us some detail</Trans>,
-      },
-    },
-    callback: async ({ category, detail }) => {
-      if (!category || (category === "NoneSpecified" && !detail))
-        throw "NoReasonProvided";
+  const group = createFormGroup({
+    category: createFormControl("", { required: true }),
+    detail: createFormControl("", { required: true }),
+  });
+
+  const reasons =
+    props.target instanceof User ? USER_REPORT_REASONS : CONTENT_REPORT_REASONS;
+
+  async function onSubmit() {
+    try {
+      const category = group.controls.category.value;
+      const detail = group.controls.detail.value;
+
+      if (!category || (category === "NoneSpecified" && !detail)) {
+        throw new Error("NoReasonProvided");
+      }
 
       await props.client.api.post("/safety/report", {
         content:
@@ -161,12 +119,83 @@ const ReportContent: PropGenerator<"report_content"> = (props) => {
                 },
         additional_context: detail,
       });
-    },
-    submit: {
-      children: <Trans>Report</Trans>,
-    },
-  });
-};
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={
+        <Switch>
+          <Match when={props.target instanceof User}>
+            <Trans>Tell us what's wrong with this user</Trans>
+          </Match>
+          <Match when={props.target instanceof Server}>
+            <Trans>Tell us what's wrong with this server</Trans>
+          </Match>
+          <Match when={props.target instanceof MessageI}>
+            <Trans>Tell us what's wrong with this message</Trans>
+          </Match>
+        </Switch>
+      }
+      actions={[
+        { text: <Trans>Cancel</Trans> },
+        {
+          text: <Trans>Report</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column>
+          <div class={contentContainer()}>
+            {props.target instanceof User ? (
+              <Column align>
+                <Avatar src={props.target.animatedAvatarURL} size={64} />
+                {props.target.displayName}
+              </Column>
+            ) : props.target instanceof Server ? (
+              <Column align>
+                <Avatar
+                  src={props.target.animatedIconURL}
+                  fallback={<Initials input={props.target.name} />}
+                  size={64}
+                />
+                {props.target.name}
+              </Column>
+            ) : (
+              <Message message={props.target as never} />
+            )}
+          </div>
+
+          <Form2.TextField.Select control={group.controls.category}>
+            <MenuItem value="">
+              <Trans>Please select a reason</Trans>
+            </MenuItem>
+            <For each={reasons}>
+              {(value) => <MenuItem value={value}>{strings[value]}</MenuItem>}
+            </For>
+          </Form2.TextField.Select>
+
+          {/* TODO: use TextEditor? */}
+          <Form2.TextField
+            name="detail"
+            control={group.controls.detail}
+            label={t`Give us some detail`}
+          />
+        </Column>
+      </form>
+    </Dialog>
+  );
+}
 
 const contentContainer = cva({
   base: {
@@ -179,5 +208,3 @@ const contentContainer = cva({
     },
   },
 });
-
-export default ReportContent;

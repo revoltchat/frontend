@@ -121,8 +121,9 @@ const Override = styled("div", {
       type: "allow",
       selected: "allow",
       css: {
-        color: "var(--customColours-success-onColor)",
-        background: "var(--customColours-success-color)",
+        // TODO
+        color: "green",
+        background: "green",
       },
     },
     {
@@ -137,8 +138,9 @@ const Override = styled("div", {
       type: "deny",
       selected: "deny",
       css: {
-        color: "var(--md-sys-color-on-error)",
-        background: "var(--md-sys-color-error)",
+        // TODO
+        color: "red",
+        background: "red",
       },
     },
   ],

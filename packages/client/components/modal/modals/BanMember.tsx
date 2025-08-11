@@ -1,44 +1,68 @@
+import { createFormControl, createFormGroup } from "solid-forms";
+
 import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 
-import { Avatar, Column } from "@revolt/ui";
+import { Avatar, Column, Dialog, DialogProps, Form2, Text } from "@revolt/ui";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
- * Modal to ban server member
+ * Ban a server member with reason
  */
-const BanMember: PropGenerator<"ban_member"> = (props) => {
-  return createFormModal({
-    modalProps: {
-      title: <Trans>Ban Member</Trans>,
-    },
-    schema: {
-      member: "custom",
-      reason: "text",
-    },
-    data: {
-      member: {
-        element: (
-          <Column align>
-            <Avatar src={props.member.user?.animatedAvatarURL} size={64} />
-            <Trans>You are about to ban {props.member.user?.username}</Trans>
-          </Column>
-        ),
-      },
-      reason: {
-        field: <Trans>Ban Reason</Trans>,
-      },
-    },
-    callback: async ({ reason }) =>
-      void (await props.member.server!.banUser(props.member.id.user, {
-        reason,
-      })),
-    submit: {
-      variant: "error",
-      children: <Trans>Ban</Trans>,
-    },
-  });
-};
+export function BanMemberModal(
+  props: DialogProps & Modals & { type: "ban_member" },
+) {
+  const { showError } = useModals();
 
-export default BanMember;
+  const group = createFormGroup({
+    reason: createFormControl(""),
+  });
+
+  async function onSubmit() {
+    try {
+      await props.member.ban({
+        reason: group.controls.reason.value,
+      });
+
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Ban Member</Trans>}
+      actions={[
+        { text: <Trans>Cancel</Trans> },
+        {
+          text: <Trans>Ban</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column align>
+          <Avatar src={props.member.user?.animatedAvatarURL} size={64} />
+          <Text>
+            <Trans>You are about to ban {props.member.user?.username}</Trans>
+          </Text>
+          <Form2.TextField
+            name="reason"
+            control={group.controls.reason}
+            label={t`Reason`}
+            placeholder={t`User broke a certain rule…`}
+          />
+        </Column>
+      </form>
+    </Dialog>
+  );
+}

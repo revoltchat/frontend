@@ -61,12 +61,7 @@ export function UserMention(props: { userId: string }) {
           }}
         >
           <Avatar size={16} src={user().avatar} fallback={user().username} />
-          <ColouredText
-            colour={user().colour!}
-            clip={user().colour?.includes("gradient")}
-          >
-            {user().username}
-          </ColouredText>
+          <ColouredText colour={user().colour!}>{user().username}</ColouredText>
         </div>
       </Match>
     </Switch>
@@ -88,15 +83,11 @@ export function RoleMention(props: { roleId: string }) {
         <div class={mention()}>
           <RoleIcon
             style={{
-              background: role()!.colour ?? "var(--colours-foreground)",
+              background:
+                role()!.colour ?? "var(--md-sys-color-outline-variant)",
             }}
           />
-          <ColouredText
-            colour={role()!.colour!}
-            clip={role()!.colour?.includes("gradient")}
-          >
-            {role()!.name}
-          </ColouredText>
+          <ColouredText colour={role()!.colour!}>{role()!.name}</ColouredText>
         </div>
       </Match>
     </Switch>
@@ -114,7 +105,7 @@ const RoleIcon = styled("div", {
 });
 
 const RE_MENTION =
-  /^(<@[0-9ABCDEFGHJKMNPQRSTVWXYZ]{26}>|@everyone|@online|<%[0-9ABCDEFGHJKMNPQRSTVWXYZ]{26}>)$/;
+  /(<@[0-9ABCDEFGHJKMNPQRSTVWXYZ]{26}>|@everyone|@online|<%[0-9ABCDEFGHJKMNPQRSTVWXYZ]{26}>)/;
 
 export const remarkMentions: Plugin = () => (tree) => {
   visit(
@@ -172,7 +163,7 @@ export const mentionHandler: Handler = (h, node) => {
   };
 };
 
-const mention = cva({
+export const mention = cva({
   base: {
     verticalAlign: "bottom",
 
@@ -198,6 +189,19 @@ const mention = cva({
       false: {
         paddingLeft: "6px",
         cursor: "not-allowed",
+      },
+    },
+    inEditor: {
+      true: {
+        color: "var(--md-sys-color-on-primary)",
+        background: "var(--md-sys-color-primary)",
+
+        "& img": {
+          width: "16px",
+          height: "16px",
+          objectFit: "cover",
+          borderRadius: "var(--borderRadius-full)",
+        },
       },
     },
   },

@@ -1,57 +1,53 @@
-import { JSX, mergeProps, splitProps } from "solid-js";
+import { mergeProps, splitProps } from "solid-js";
 
 import { CONFIGURATION } from "@revolt/common";
-import { Modal } from "@revolt/ui";
 
 import { type ActiveModal } from ".";
-import { AddFriend } from "./modals/AddFriend";
+import { AddFriendModal } from "./modals/AddFriend";
 import { AddMembersToGroupModal } from "./modals/AddMembersToGroup";
-import ban_member from "./modals/BanMember";
-import changelog from "./modals/Changelog";
+import { BanMemberModal } from "./modals/BanMember";
+import { ChangelogModal } from "./modals/Changelog";
 import { ChannelInfoModal } from "./modals/ChannelInfo";
 import { ChannelToggleMatureModal } from "./modals/ChannelToggleMature";
-import create_bot from "./modals/CreateBot";
-import create_category from "./modals/CreateCategory";
-import create_channel from "./modals/CreateChannel";
+import { CreateBotModal } from "./modals/CreateBot";
+import { CreateCategoryModal } from "./modals/CreateCategory";
+import { CreateChannelModal } from "./modals/CreateChannel";
 import { CreateGroupModal } from "./modals/CreateGroup";
-import create_invite from "./modals/CreateInvite";
-import create_or_join_server from "./modals/CreateOrJoinServer";
-import create_role from "./modals/CreateRole";
-import create_server from "./modals/CreateServer";
+import { CreateInviteModal } from "./modals/CreateInvite";
+import { CreateOrJoinServerModal } from "./modals/CreateOrJoinServer";
+import { CreateRoleModal } from "./modals/CreateRole";
+import { CreateServerModal } from "./modals/CreateServer";
 import { CreateWebhookModal } from "./modals/CreateWebhook";
-import custom_status from "./modals/CustomStatus";
-import delete_bot from "./modals/DeleteBot";
-import delete_channel from "./modals/DeleteChannel";
-import delete_message from "./modals/DeleteMessage";
-import delete_server from "./modals/DeleteServer";
-import edit_display_name from "./modals/EditDisplayName";
-import edit_email from "./modals/EditEmail";
-import edit_password from "./modals/EditPassword";
-import edit_username from "./modals/EditUsername";
+import { CustomStatusModal } from "./modals/CustomStatus";
+import { DeleteBotModal } from "./modals/DeleteBot";
+import { DeleteChannelModal } from "./modals/DeleteChannel";
+import { DeleteMessageModal } from "./modals/DeleteMessage";
+import { DeleteServerModal } from "./modals/DeleteServer";
+import { EditEmailModal } from "./modals/EditEmail";
+import { EditPasswordModal } from "./modals/EditPassword";
+import { EditUsernameModal } from "./modals/EditUsername";
 import { EmojiPreviewModal } from "./modals/EmojiPreview";
-import error from "./modals/Error";
 import { Error2Modal } from "./modals/Error2";
 import { ImageViewerModal } from "./modals/ImageViewer";
-import join_server from "./modals/JoinServer";
-import kick_member from "./modals/KickMember";
-import leave_server from "./modals/LeaveServer";
-import mfa_enable_totp from "./modals/MFAEnableTOTP";
-import mfa_flow from "./modals/MFAFlow";
-import mfa_recovery from "./modals/MFARecovery";
-import onboarding from "./modals/Onboarding";
+import { JoinServerModal } from "./modals/JoinServer";
+import { KickMemberModal } from "./modals/KickMember";
+import { LeaveServerModal } from "./modals/LeaveServer";
+import { MFAEnableTOTPModal } from "./modals/MFAEnableTOTP";
+import { MFAFlowModal } from "./modals/MFAFlow";
+import { MFARecoveryModal } from "./modals/MFARecovery";
+import { OnboardingModal } from "./modals/Onboarding";
 import { PolicyChangeModal } from "./modals/PolicyChange";
-import rename_session from "./modals/RenameSession";
-import report_content from "./modals/ReportContent";
-import server_identity from "./modals/ServerIdentity";
+import { RenameSessionModal } from "./modals/RenameSession";
+import { ReportContentModal } from "./modals/ReportContent";
+import { ServerIdentityModal } from "./modals/ServerIdentity";
 import { ServerInfoModal } from "./modals/ServerInfo";
-import settings from "./modals/Settings";
-import sign_out_sessions from "./modals/SignOutSessions";
-import signed_out from "./modals/SignedOut";
+import { SettingsModal } from "./modals/Settings";
+import { SignOutSessionsModal } from "./modals/SignOutSessions";
+import { SignedOutModal } from "./modals/SignedOut";
 import { UserProfileModal } from "./modals/UserProfile";
 import { UserProfileMutualFriendsModal } from "./modals/UserProfileMutualFriends";
 import { UserProfileMutualGroupsModal } from "./modals/UserProfileMutualGroups";
 import { UserProfileRolesModal } from "./modals/UserProfileRoles";
-import type { Modals as AllModals, PropGenerator } from "./types";
 
 /**
  * Render the modal
@@ -71,27 +67,87 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
 
   switch (modalProps.type) {
     case "add_friend":
-      return <AddFriend {...modalProps} />;
+      return <AddFriendModal {...modalProps} />;
+    case "ban_member":
+      return <BanMemberModal {...modalProps} />;
+    case "changelog":
+      return <ChangelogModal {...modalProps} />;
     case "add_members_to_group":
       return <AddMembersToGroupModal {...modalProps} />;
     case "channel_info":
       return <ChannelInfoModal {...modalProps} />;
     case "channel_toggle_mature":
       return <ChannelToggleMatureModal {...modalProps} />;
+    case "create_bot":
+      return <CreateBotModal {...modalProps} />;
+    case "create_category":
+      return <CreateCategoryModal {...modalProps} />;
+    case "create_channel":
+      return <CreateChannelModal {...modalProps} />;
     case "create_group":
       return <CreateGroupModal {...modalProps} />;
+    case "create_invite":
+      return <CreateInviteModal {...modalProps} />;
+    case "create_or_join_server":
+      return <CreateOrJoinServerModal {...modalProps} />;
+    case "create_role":
+      return <CreateRoleModal {...modalProps} />;
+    case "create_server":
+      return <CreateServerModal {...modalProps} />;
     case "create_webhook":
       return <CreateWebhookModal {...modalProps} />;
+    case "custom_status":
+      return <CustomStatusModal {...modalProps} />;
+    case "delete_bot":
+      return <DeleteBotModal {...modalProps} />;
+    case "delete_channel":
+      return <DeleteChannelModal {...modalProps} />;
+    case "delete_message":
+      return <DeleteMessageModal {...modalProps} />;
+    case "delete_server":
+      return <DeleteServerModal {...modalProps} />;
+    case "edit_email":
+      return <EditEmailModal {...modalProps} />;
+    case "edit_password":
+      return <EditPasswordModal {...modalProps} />;
+    case "edit_username":
+      return <EditUsernameModal {...modalProps} />;
     case "emoji_preview":
       return <EmojiPreviewModal {...modalProps} />;
     case "error2":
       return <Error2Modal {...modalProps} />;
     case "image_viewer":
       return <ImageViewerModal {...modalProps} />;
+    case "join_server":
+      return <JoinServerModal {...modalProps} />;
+    case "kick_member":
+      return <KickMemberModal {...modalProps} />;
+    case "leave_server":
+      return <LeaveServerModal {...modalProps} />;
+    case "mfa_enable_totp":
+      return <MFAEnableTOTPModal {...modalProps} />;
+    case "mfa_flow":
+      return <MFAFlowModal {...modalProps} />;
+    case "mfa_recovery":
+      return <MFARecoveryModal {...modalProps} />;
+    case "onboarding":
+      return <OnboardingModal {...modalProps} />;
     case "policy_change":
       return <PolicyChangeModal {...modalProps} />;
+    case "rename_session":
+      return <RenameSessionModal {...modalProps} />;
+    case "report_content":
+      return <ReportContentModal {...modalProps} />;
+    case "server_identity":
+      return <ServerIdentityModal {...modalProps} />;
     case "server_info":
       return <ServerInfoModal {...modalProps} />;
+    case "settings":
+      return <SettingsModal {...modalProps} />;
+    case "signed_out":
+      return <SignedOutModal {...modalProps} />;
+    case "sign_out_sessions":
+      return <SignOutSessionsModal {...modalProps} />;
     case "user_profile":
       return <UserProfileModal {...modalProps} />;
     case "user_profile_roles":
@@ -101,86 +157,11 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
     case "user_profile_mutual_groups":
       return <UserProfileMutualGroupsModal {...modalProps} />;
 
-    default: {
-      // legacy behaviour ('modal props')
-
-      // @ts-expect-error unimplemented entries
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const Modals: Record<AllModals["type"], PropGenerator<any>> = {
-        ban_member,
-        changelog,
-        create_bot,
-        create_category,
-        create_channel,
-        create_invite,
-        create_role,
-        create_server,
-        create_or_join_server,
-        custom_status,
-        delete_bot,
-        delete_channel,
-        delete_message,
-        delete_server,
-        edit_display_name,
-        edit_email,
-        edit_password,
-        edit_username,
-        error,
-        join_server,
-        kick_member,
-        leave_server,
-        mfa_enable_totp,
-        mfa_flow,
-        mfa_recovery,
-        onboarding,
-        rename_session,
-        report_content,
-        server_identity,
-        settings,
-        signed_out,
-        sign_out_sessions,
-      };
-
-      if (!Modals[props.props.type]) {
-        console.error(
-          "Failed to create a modal for",
-          props.props.type,
-          "as it is not registered!",
-        );
-        console.debug("Modals registered currently:", Modals);
-        return null;
-      }
-
-      if (CONFIGURATION.DEBUG) {
-        console.info("components/modal — ready to render");
-      }
-
-      const modalProps = Modals[props.props.type](props.props, props.onClose);
-
-      if (CONFIGURATION.DEBUG) {
-        console.info("components/modal — modal props generated", modalProps);
-      }
-
-      const Component = (
-        modalProps as {
-          _children: (props: {
-            show: boolean;
-            onClose: () => void;
-          }) => JSX.Element;
-        }
-      )._children;
-
-      const element = Component ? (
-        <Component show={props.show} onClose={props.onClose} />
-      ) : (
-        <Modal show={props.show} onClose={props.onClose} {...modalProps} />
+    default:
+      console.error(
+        "Failed to create modal for",
+        props.props.type,
+        "as it is not registered.",
       );
-
-      if (CONFIGURATION.DEBUG) {
-        console.info("components/modal — created target element:", element);
-      }
-
-      return element;
-    }
   }
 }

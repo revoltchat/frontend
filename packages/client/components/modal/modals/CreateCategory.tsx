@@ -1,40 +1,69 @@
+import { createFormControl, createFormGroup } from "solid-forms";
+
 import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 import { ulid } from "ulid";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { Dialog, DialogProps, Form2 } from "@revolt/ui";
+
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
- * Modal to create a new category
+ * Create a new bot
  */
-const CreateCategory: PropGenerator<"create_category"> = (props) => {
-  return createFormModal({
-    modalProps: {
-      title: <Trans>Create Category</Trans>,
-    },
-    schema: {
-      name: "text",
-    },
-    data: {
-      name: {
-        field: <Trans>Channel Name</Trans>,
-      },
-    },
-    callback: ({ name }) =>
+export function CreateCategoryModal(
+  props: DialogProps & Modals & { type: "create_category" },
+) {
+  const { showError } = useModals();
+
+  const group = createFormGroup({
+    name: createFormControl(""),
+  });
+
+  async function onSubmit() {
+    try {
       props.server.edit({
         categories: [
           ...(props.server.categories ?? []),
           {
             id: ulid(),
-            title: name,
+            title: group.controls.name.value,
             channels: [],
           },
         ],
-      }),
-    submit: {
-      children: <Trans>Create</Trans>,
-    },
-  });
-};
+      });
 
-export default CreateCategory;
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Create a new category</Trans>}
+      actions={[
+        { text: <Trans>Close</Trans> },
+        {
+          text: <Trans>Create</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Form2.TextField
+          name="name"
+          control={group.controls.name}
+          label={t`Name`}
+        />
+      </form>
+    </Dialog>
+  );
+}

@@ -1,31 +1,39 @@
 import { Trans } from "@lingui-solid/solid/macro";
+import { useMutation } from "@tanstack/solid-query";
 
-import { PropGenerator } from "../types";
+import { Dialog, DialogProps } from "@revolt/ui";
+
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
- * Modal to display server information
+ * Modal to sign out of all sessions
  */
-const SignOutSessions: PropGenerator<"sign_out_sessions"> = (props) => {
-  /**
-   * Confirm session sign out
-   */
-  const confirm = () => props.client.sessions.deleteAll().then(() => true);
+export function SignOutSessionsModal(
+  props: DialogProps & Modals & { type: "sign_out_sessions" },
+) {
+  const { showError } = useModals();
 
-  return {
-    title: <Trans>Are you sure you want to clear your sessions?</Trans>,
-    children: <Trans>You cannot undo this action.</Trans>,
-    actions: [
-      {
-        palette: "accent",
-        onClick: () => true,
-        children: <Trans>Cancel</Trans>,
-      },
-      {
-        onClick: confirm,
-        children: <Trans>Accept</Trans>,
-      },
-    ],
-  };
-};
+  const signOutSessions = useMutation(() => ({
+    mutationFn: () => props.client.sessions.deleteAll(),
+    onError: showError,
+  }));
 
-export default SignOutSessions;
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Are you sure you want to clear your sessions?</Trans>}
+      actions={[
+        { text: <Trans>Cancel</Trans> },
+        {
+          text: <Trans>Accept</Trans>,
+          onClick: () => signOutSessions.mutateAsync(),
+        },
+      ]}
+      isDisabled={signOutSessions.isPending}
+    >
+      <Trans>You cannot undo this action.</Trans>
+    </Dialog>
+  );
+}

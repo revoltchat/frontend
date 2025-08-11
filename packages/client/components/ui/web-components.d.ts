@@ -9,6 +9,8 @@ import type { ListSubheader } from "mdui/components/list-subheader";
 import type { MenuItem } from "mdui/components/menu-item";
 import type { NavigationRail } from "mdui/components/navigation-rail";
 import type { NavigationRailItem } from "mdui/components/navigation-rail-item";
+import type { Radio } from "mdui/components/radio";
+import type { RadioGroup } from "mdui/components/radio-group";
 import type { SegmentedButton } from "mdui/components/segmented-button";
 import type { SegmentedButtonGroup } from "mdui/components/segmented-button-group";
 import type { Select } from "mdui/components/select";
@@ -32,6 +34,8 @@ declare module "solid-js" {
       "mdui-list-item": ComponentProps<ListItem>;
       "mdui-list-subheader": ComponentProps<ListSubheader>;
       "mdui-text-field": ComponentProps<TextField>;
+      "mdui-radio": ComponentProps<Radio>;
+      "mdui-radio-group": ComponentProps<RadioGroup>;
     }
   }
 }

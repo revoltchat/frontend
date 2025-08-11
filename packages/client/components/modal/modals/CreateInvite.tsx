@@ -1,13 +1,15 @@
 import { Match, Switch, createSignal, onMount } from "solid-js";
+import { Show } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { useMutation } from "@tanstack/solid-query";
 import { styled } from "styled-system/jsx";
 
 import { CONFIGURATION } from "@revolt/common";
+import { Dialog, DialogProps } from "@revolt/ui";
 
 import { useModals } from "..";
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { Modals } from "../types";
 
 /**
  * Code block which displays invite
@@ -30,63 +32,54 @@ const Invite = styled("div", {
 /**
  * Modal to create a new invite
  */
-const CreateInvite: PropGenerator<"create_invite"> = (props) => {
-  const [processing, setProcessing] = createSignal(false);
+export function CreateInviteModal(
+  props: DialogProps & Modals & { type: "create_invite" },
+) {
+  const { showError } = useModals();
   const [link, setLink] = createSignal("...");
-  const { openModal } = useModals();
 
-  // Generate an invite code
-  onMount(() => {
-    setProcessing(true);
-
-    props.channel
-      .createInvite()
-      .then(({ _id }) =>
-        setLink(
-          CONFIGURATION.IS_REVOLT
-            ? `https://rvlt.gg/${_id}`
-            : `${window.location.protocol}//${window.location.host}/invite/${_id}`,
+  const fetchInvite = useMutation(() => ({
+    mutationFn: () =>
+      props.channel
+        .createInvite()
+        .then(({ _id }) =>
+          setLink(
+            CONFIGURATION.IS_REVOLT
+              ? `https://rvlt.gg/${_id}`
+              : `${window.location.protocol}//${window.location.host}/invite/${_id}`,
+          ),
         ),
-      )
-      .catch((err) => openModal({ type: "error", error: err }))
-      .finally(() => setProcessing(false));
-  });
+    onError: showError,
+  }));
 
-  return createFormModal({
-    modalProps: {
-      title: <Trans>Create Invite</Trans>,
-    },
-    schema: {
-      invite: "custom",
-    },
-    data: {
-      invite: {
-        element: (
-          <Switch fallback={<Trans>Generating invite…</Trans>}>
-            <Match when={!processing()}>
-              <Invite>
-                <Trans>
-                  Here is your new invite code: <code>{link()}</code>
-                </Trans>
-              </Invite>
-            </Match>
-          </Switch>
-        ),
-      },
-    },
-    callback: async () => void 0,
-    submit: {
-      children: <Trans>OK</Trans>,
-    },
-    actions: [
-      {
-        children: <Trans>Copy Link</Trans>,
-        onClick: () => {
-          navigator.clipboard.writeText(link());
+  onMount(() => fetchInvite.mutate());
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Create Invite</Trans>}
+      actions={[
+        { text: <Trans>OK</Trans> },
+        {
+          text: <Trans>Copy Link</Trans>,
+          onClick: () => {
+            navigator.clipboard.writeText(link());
+            return false;
+          },
         },
-      },
-    ],
-  });
-};
-
-export default CreateInvite;
+      ]}
+    >
+      <Show
+        when={!fetchInvite.isPending}
+        fallback={<Trans>Generating invite…</Trans>}
+      >
+        <Invite>
+          <Trans>
+            Here is your new invite code: <code>{link()}</code>
+          </Trans>
+        </Invite>
+      </Show>
+    </Dialog>
+  );
+}

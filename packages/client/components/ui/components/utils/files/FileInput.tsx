@@ -93,7 +93,7 @@ export function FileInput(props: Props) {
           <Show when={local.file?.length || 0 > 0}>
             <Button
               size="icon"
-              variant="plain"
+              variant="text"
               onPress={onClear}
               isDisabled={!props.file}
             >
@@ -129,7 +129,7 @@ export function FileInput(props: Props) {
           <Show when={props.allowRemoval !== false}>
             <Button
               size="icon"
-              variant="plain"
+              variant="text"
               onPress={onClear}
               isDisabled={!props.file}
             >

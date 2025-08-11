@@ -23,9 +23,8 @@ const Base = styled("div", {
     padding: "var(--gap-sm) var(--gap-xxl)",
 
     fontSize: "0.8em" /* TODO should be in typography */,
-    color: "var(--colours-messaging-component-blocked-message-foreground)",
-    fill: "var(--colours-messaging-component-blocked-message-foreground)",
-    background: "var(--colours-messaging-component-blocked-message-background)",
+    color: "var(--md-sys-color-outline)",
+    fill: "var(--md-sys-color-outline)",
   },
 });
 

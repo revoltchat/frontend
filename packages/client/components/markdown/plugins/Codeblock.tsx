@@ -7,6 +7,8 @@ const Codeblock = styled("pre", {
     color: "#c9d1d9",
     background: "#0d1117",
 
+    width: "fit-content",
+
     padding: "var(--gap-md)",
     marginY: "var(--gap-sm)",
     borderRadius: "var(--borderRadius-md)",

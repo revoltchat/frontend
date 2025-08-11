@@ -44,6 +44,8 @@ const Base = styled("div", {
     width: "100%",
     display: "flex",
     flexDirection: "column",
+
+    color: "var(--md-sys-color-on-surface)",
   },
 });
 
@@ -88,17 +90,6 @@ const SeparatedColumn = styled(Column, {
     "& > *": {
       flexGrow: 1,
     },
-  },
-});
-
-/**
- * Make sure the image is separated from the welcome text
- */
-const Image = styled("img", {
-  base: {
-    marginTop: "0.5em",
-    height: "36px",
-    filter: "var(--effects-invert-black)",
   },
 });
 
@@ -179,6 +170,7 @@ export function HomePage() {
               </Match>
             </Switch>
             <CategoryButton
+              variant="tertiary"
               onClick={() =>
                 window.open(
                   "https://wiki.revolt.chat/notes/project/financial-support/",

@@ -97,21 +97,29 @@ const components = () => ({
 /**
  * Unified Markdown renderer
  */
-const pipeline = unified()
+export const unifiedPipeline = unified()
   .use(remarkParse)
   .use(remarkBreaks)
   .use(remarkGfm)
   .use(remarkMath, {
     // TODO: fork for \[\] support
     singleDollarTextMath: false,
-  })
-  .use(remarkMentions)
-  .use(remarkTimestamps)
-  .use(remarkChannels)
-  .use(remarkUnicodeEmoji)
-  .use(remarkCustomEmoji)
-  .use(remarkSpoiler)
-  .use(remarkHtmlToText)
+  });
+
+export const UNIFIED_PLUGINS = [
+  remarkMentions,
+  remarkTimestamps,
+  remarkChannels,
+  remarkUnicodeEmoji,
+  remarkCustomEmoji,
+  remarkSpoiler,
+  remarkHtmlToText,
+];
+
+const htmlPipeline = UNIFIED_PLUGINS.reduce(
+  (pipeline, plugin) => pipeline.use(plugin) as never,
+  unifiedPipeline,
+)
   // @ts-expect-error non-standard elements not recognised by typing
   .use(remarkRehype, {
     handlers: {
@@ -129,7 +137,7 @@ const pipeline = unified()
     trust: false,
     strict: false,
     output: "html",
-    errorColor: "var(--customColours-error-color)",
+    errorColor: "var(--md-sys-color-error)",
   })
   .use(rehypeHighlight);
 
@@ -160,7 +168,7 @@ export function Markdown(props: MarkdownProps) {
     const file = new VFile();
     file.value = sanitise(content);
 
-    const hastNode = pipeline.runSync(pipeline.parse(file), file);
+    const hastNode = htmlPipeline.runSync(htmlPipeline.parse(file), file);
 
     if (hastNode.type !== "root") {
       throw new TypeError("Expected a `root` node");

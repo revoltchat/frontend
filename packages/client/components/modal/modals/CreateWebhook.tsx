@@ -2,9 +2,8 @@ import { createFormControl, createFormGroup } from "solid-forms";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { t } from "@lingui/core/macro";
-import { useMutation } from "@tanstack/solid-query";
 
-import { Form2, Modal2, Modal2Props } from "@revolt/ui";
+import { Dialog, DialogProps, Form2 } from "@revolt/ui";
 
 import { useModals } from "..";
 import { Modals } from "../types";
@@ -13,28 +12,29 @@ import { Modals } from "../types";
  * Create a new group and optionally add members
  */
 export function CreateWebhookModal(
-  props: Modal2Props & Modals & { type: "create_webhook" },
+  props: DialogProps & Modals & { type: "create_webhook" },
 ) {
-  const { openModal } = useModals();
+  const { showError } = useModals();
 
   const group = createFormGroup({
     name: createFormControl(""),
   });
 
-  const change = useMutation(() => ({
-    mutationFn: (name: string) => props.channel.createWebhook(name),
-    onSuccess: (webhook) => props.callback(webhook.id),
-    onError: (error) => openModal({ type: "error2", error }),
-  }));
-
   async function onSubmit() {
-    await change.mutateAsync(group.controls.name.value);
+    try {
+      const webhook = await props.channel.createWebhook(
+        group.controls.name.value,
+      );
 
-    props.onClose();
+      props.onClose();
+      props.callback(webhook.id);
+    } catch (err) {
+      showError(err);
+    }
   }
 
   return (
-    <Modal2
+    <Dialog
       minWidth={420}
       show={props.show}
       onClose={props.onClose}
@@ -49,7 +49,7 @@ export function CreateWebhookModal(
           },
         },
       ]}
-      isDisabled={change.isPending}
+      isDisabled={group.isPending}
     >
       <form onSubmit={Form2.submitHandler(group, onSubmit)}>
         <Form2.TextField
@@ -58,6 +58,6 @@ export function CreateWebhookModal(
           label={t`Webhook Name`}
         />
       </form>
-    </Modal2>
+    </Dialog>
   );
 }

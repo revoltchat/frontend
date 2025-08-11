@@ -1,0 +1,164 @@
+import { createFormControl, createFormGroup } from "solid-forms";
+import { Show, createEffect, on } from "solid-js";
+
+import { Trans, useLingui } from "@lingui-solid/solid/macro";
+import { useQuery } from "@tanstack/solid-query";
+import { API, User } from "revolt.js";
+
+import { useClient } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
+import { CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
+
+interface Props {
+  user: User;
+}
+
+export function UserProfileEditor(props: Props) {
+  const { t } = useLingui();
+  const client = useClient();
+  const profile = useQuery(() => ({
+    queryKey: ["profile", props.user.id],
+    queryFn: () => props.user.fetchProfile(),
+  }));
+
+  /* eslint-disable solid/reactivity */
+  const editGroup = createFormGroup({
+    displayName: createFormControl(props.user.displayName),
+    // username: createFormControl(props.user.username),
+    avatar: createFormControl<string | File[] | null>(
+      props.user.animatedAvatarURL,
+    ),
+    banner: createFormControl<string | File[] | null>(null),
+    bio: createFormControl(""),
+  });
+  /* eslint-enable solid/reactivity */
+
+  // unlike the other forms, this one does not react to
+  // further changes outside of our control because it's
+  // unlikely that the user is going to be doing this
+
+  // once profile data is loaded, copy it into the form
+  createEffect(
+    on(
+      () => profile.data,
+      (profileData) => {
+        if (profileData) {
+          editGroup.controls.banner.setValue(
+            profileData.animatedBannerURL || null,
+          );
+
+          editGroup.controls.bio.setValue(profileData.content || "");
+        }
+      },
+    ),
+  );
+
+  function onReset() {
+    editGroup.controls.displayName.setValue(props.user.displayName);
+    // editGroup.controls.username.setValue(props.user.username);
+    editGroup.controls.avatar.setValue(props.user.animatedAvatarURL);
+
+    if (profile.data) {
+      editGroup.controls.banner.setValue(
+        profile.data.animatedBannerURL || null,
+      );
+
+      editGroup.controls.bio.setValue(profile.data.content || "");
+    }
+  }
+
+  async function onSubmit() {
+    const changes: API.DataEditUser = {
+      remove: [],
+    };
+
+    // if (editGroup.controls.username.isDirty) {
+    //   changes.
+    // }
+
+    if (editGroup.controls.displayName.isDirty) {
+      changes.display_name = editGroup.controls.displayName.value.trim();
+    }
+
+    if (editGroup.controls.avatar.isDirty) {
+      if (!editGroup.controls.avatar.value) {
+        changes.remove!.push("Avatar");
+      } else if (Array.isArray(editGroup.controls.avatar.value)) {
+        changes.avatar = await client().uploadFile(
+          "avatars",
+          editGroup.controls.avatar.value[0],
+          CONFIGURATION.DEFAULT_MEDIA_URL,
+        );
+      }
+    }
+
+    if (editGroup.controls.bio.isDirty) {
+      if (!editGroup.controls.bio.value) {
+        changes.remove!.push("ProfileContent");
+      } else {
+        changes.profile ??= {};
+        changes.profile.content = editGroup.controls.bio.value;
+      }
+    }
+
+    if (editGroup.controls.banner.isDirty) {
+      if (!editGroup.controls.banner.value) {
+        changes.remove!.push("ProfileBackground");
+      } else if (Array.isArray(editGroup.controls.banner.value)) {
+        changes.profile ??= {};
+        changes.profile.background = await client().uploadFile(
+          "backgrounds",
+          editGroup.controls.banner.value[0],
+          CONFIGURATION.DEFAULT_MEDIA_URL,
+        );
+      }
+    }
+
+    await props.user.edit(changes);
+  }
+
+  return (
+    <form onSubmit={Form2.submitHandler(editGroup, onSubmit, onReset)}>
+      <Column>
+        <Form2.FileInput
+          control={editGroup.controls.avatar}
+          accept="image/*"
+          label={t`Avatar`}
+          imageJustify={false}
+        />
+        <Form2.FileInput
+          control={editGroup.controls.banner}
+          accept="image/*"
+          label={t`Banner`}
+          imageAspect="232/100"
+          imageRounded={false}
+          imageJustify={false}
+        />
+        <Form2.TextField
+          name="displayName"
+          control={editGroup.controls.displayName}
+          label={t`Display Name`}
+        />
+        <Text>Looking to change username? --link to account--</Text>
+        <Form2.TextField
+          autosize
+          min-rows={5}
+          max-rows={10}
+          name="bio"
+          control={editGroup.controls.bio}
+          label={t`Profile Bio`}
+          placeholder={t`Something cool about me...`}
+        />
+        <Row>
+          <Form2.Reset group={editGroup} onReset={onReset} />
+          <Form2.Submit group={editGroup}>
+            <Trans>Save</Trans>
+          </Form2.Submit>
+          <Show when={editGroup.isPending}>
+            <CircularProgress />
+          </Show>
+        </Row>
+      </Column>
+    </form>
+  );
+}

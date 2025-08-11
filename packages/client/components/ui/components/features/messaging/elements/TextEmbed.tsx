@@ -15,16 +15,17 @@ import { SpecialEmbed } from "./SpecialEmbed";
 
 const Base = styled("div", {
   base: {
+    width: "fit-content",
+
     display: "flex",
     maxWidth: "480px", // TODO: theme this
     flexDirection: "row",
     gap: "var(--gap-md)",
     padding: "var(--gap-md)",
     borderRadius: "var(--borderRadius-md)",
-    color: "var(--colours-messaging-component-text-embed-foreground)",
-    background: "var(--colours-messaging-component-text-embed-background)",
-    borderInlineStart:
-      "var(--gap-sm) solid var(--colours-messaging-component-text-embed-foreground)",
+    color: "var(--md-sys-color-on-primary-container)",
+    background: "var(--md-sys-color-primary-container)",
+    borderInlineStart: "var(--gap-sm) solid var(--md-sys-color-primary)",
   },
 });
 
@@ -54,8 +55,10 @@ const PreviewImage = styled("img", {
 
 const Title = styled("a", {
   base: {
+    width: "fit-content",
+
     fontSize: "16px",
-    color: "var(--colours-link) !important",
+    color: "var(--md-sys-color-primary) !important",
   },
 });
 

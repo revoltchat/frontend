@@ -51,7 +51,7 @@ export const Header = styled("div", {
         padding: 0,
         alignItems: "flex-end",
         justifyContent: "stretch",
-        textShadow: "0px 0px 1px var(--colours-foreground)",
+        textShadow: "0px 0px 1px var(--md-sys-color-shadow)",
         height: "120px",
 
         "& > div": {

@@ -1,49 +1,33 @@
+import { createFormControl, createFormGroup } from "solid-forms";
+
 import { Trans } from "@lingui-solid/solid/macro";
+import { t } from "@lingui/core/macro";
 
 import { useNavigate } from "@revolt/routing";
+import { Column, Dialog, DialogProps, Form2, Radio2 } from "@revolt/ui";
 
-import { createFormModal } from "../form";
-import { PropGenerator } from "../types";
+import { useModals } from "..";
+import { Modals } from "../types";
 
 /**
  * Modal to create a new server channel
  */
-const CreateChannel: PropGenerator<"create_channel"> = (props) => {
+export function CreateChannelModal(
+  props: DialogProps & Modals & { type: "create_channel" },
+) {
   const navigate = useNavigate();
+  const { showError } = useModals();
 
-  return createFormModal({
-    modalProps: {
-      title: <Trans>Create channel</Trans>,
-    },
-    schema: {
-      name: "text",
-      type: "radio",
-    },
-    data: {
-      name: {
-        field: <Trans>Channel Name</Trans>,
-      },
-      type: {
-        field: <Trans>Channel Type</Trans>,
-        choices: [
-          {
-            name: <Trans>Text Channel</Trans>,
-            value: "Text",
-          },
-          {
-            name: <Trans>Voice Channel</Trans>,
-            value: "Voice",
-          },
-        ],
-      },
-    },
-    defaults: {
-      type: "Text",
-    },
-    callback: async ({ name, type }) => {
+  const group = createFormGroup({
+    name: createFormControl(""),
+    type: createFormControl("Text"),
+  });
+
+  async function onSubmit() {
+    try {
       const channel = await props.server.createChannel({
-        type: type as "Text" | "Voice",
-        name,
+        type: group.controls.type.value as "Text" | "Voice",
+        name: group.controls.name.value,
       });
 
       if (props.cb) {
@@ -51,11 +35,48 @@ const CreateChannel: PropGenerator<"create_channel"> = (props) => {
       } else {
         navigate(`/server/${props.server.id}/channel/${channel.id}`);
       }
-    },
-    submit: {
-      children: <Trans>Create</Trans>,
-    },
-  });
-};
 
-export default CreateChannel;
+      props.onClose();
+    } catch (error) {
+      showError(error);
+    }
+  }
+
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>Create channel</Trans>}
+      actions={[
+        { text: <Trans>Close</Trans> },
+        {
+          text: <Trans>Create</Trans>,
+          onClick: () => {
+            onSubmit();
+            return false;
+          },
+        },
+      ]}
+      isDisabled={group.isPending}
+    >
+      <form onSubmit={Form2.submitHandler(group, onSubmit)}>
+        <Column>
+          <Form2.TextField
+            name="name"
+            control={group.controls.name}
+            label={t`Channel Name`}
+          />
+
+          <Form2.Radio control={group.controls.type}>
+            <Radio2.Option value="Text">
+              <Trans>Text Channel</Trans>
+            </Radio2.Option>
+            <Radio2.Option value="Voice">
+              <Trans>Voice Channel</Trans>
+            </Radio2.Option>
+          </Form2.Radio>
+        </Column>
+      </form>
+    </Dialog>
+  );
+}

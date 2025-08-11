@@ -9,8 +9,8 @@ import {
   Avatar,
   CategoryButton,
   CategoryButtonGroup,
+  CircularProgress,
   Column,
-  Preloader,
   iconSize,
 } from "@revolt/ui";
 
@@ -84,7 +84,7 @@ function ListBots() {
 
   return (
     <ErrorBoundary fallback="Failed to load bots...">
-      <Suspense fallback={<Preloader type="ring" />}>
+      <Suspense fallback={<CircularProgress />}>
         <CategoryButtonGroup>
           <For each={bots.data}>
             {(bot) => (

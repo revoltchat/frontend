@@ -4,7 +4,8 @@ import { JSX } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
-import { Button, iconSize } from "@revolt/ui";
+import { useState } from "@revolt/state";
+import { Button, IconButton, iconSize } from "@revolt/ui";
 
 import MdDarkMode from "@material-design-icons/svg/filled/dark_mode.svg?component-solid";
 
@@ -23,8 +24,8 @@ const Base = styled("div", {
     userSelect: "none",
     overflowY: "scroll",
 
-    color: "white",
-    background: "var(--colours-background)",
+    color: "var(--md-sys-color-on-surface)",
+    background: "var(--md-sys-color-surface)",
     // background: `var(--url)`,
     // backgroundPosition: "center",
     // backgroundRepeat: "no-repeat",
@@ -51,12 +52,7 @@ const Nav = styled("div", {
     flexDirection: "row",
     justifyContent: "space-between",
 
-    color: "white",
     textDecoration: "none",
-
-    md: {
-      color: "var(--colours-foreground)",
-    },
   },
 });
 
@@ -123,25 +119,26 @@ const Logo = styled("img", {
   },
 });
 
-let a = false;
-
 /**
  * Authentication page
  */
 export function AuthPage(props: { children: JSX.Element }) {
+  const state = useState();
+
   return (
     <Base style={{ "--url": `url('${background}')` }}>
       <Nav>
         <div />
-        <Button
-          size="icon"
-          onPress={() => {
-            a = !a;
-            (window as any)._demo_setDarkMode(a);
-          }}
+        <IconButton
+          variant="tonal"
+          onPress={() =>
+            state.theme.setMode(
+              state.theme.activeTheme.darkMode ? "light" : "dark",
+            )
+          }
         >
           <MdDarkMode {...iconSize("24px")} />
-        </Button>
+        </IconButton>
       </Nav>
       {/*<Nav>
         <Logo src={wideSvg} />

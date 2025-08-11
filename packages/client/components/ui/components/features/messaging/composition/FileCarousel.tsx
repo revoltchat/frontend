@@ -258,7 +258,7 @@ const Divider = styled("div", {
     flexShrink: 0,
     width: "var(--gap-sm)",
     borderRadius: "var(--borderRadius-md)",
-    background: "var(--colours-messaging-upload-divider)",
+    background: "var(--md-sys-color-outline)",
   },
 });
 
@@ -289,8 +289,8 @@ const Container = styled("div", {
     margin: "var(--gap-md) 0",
     borderRadius: "var(--borderRadius-lg)",
 
-    background: "var(--colours-messaging-message-box-background)",
-    color: "var(--colours-messaging-message-box-foreground)",
+    background: "var(--md-sys-color-primary-container)",
+    color: "var(--md-sys-color-on-primary-container)",
 
     "--preview-size": "100px",
   },

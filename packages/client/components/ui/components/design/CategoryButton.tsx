@@ -37,6 +37,8 @@ export interface Props {
   readonly action?: Action | Action[];
 
   readonly roundedIcon?: boolean;
+
+  readonly variant?: "filled" | "tonal" | "tertiary";
 }
 
 /**
@@ -47,6 +49,7 @@ export interface Props {
 export function CategoryButton(props: Props) {
   return (
     <Base
+      variant={props.variant}
       isLink={!!props.onClick}
       disabled={props.disabled}
       aria-disabled={props.disabled}
@@ -112,9 +115,6 @@ const Base = styled("a", {
     padding: "13px",
     borderRadius: "var(--borderRadius-md)",
 
-    color: "var(--md-sys-color-on-primary)",
-    background: "var(--md-sys-color-primary)",
-
     userSelect: "none",
     cursor: "pointer",
     transition: "background-color 0.1s ease-in-out",
@@ -122,8 +122,25 @@ const Base = styled("a", {
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
+
+    "color": "var(--color)",
+    "fill": "var(--color)"
   },
   variants: {
+    variant: {
+      filled: {
+        background: "var(--md-sys-color-primary)",
+        "--color": "var(--md-sys-color-on-primary)",
+      },
+      tonal: {
+        background: "var(--md-sys-color-secondary-container)",
+        "--color": "var(--md-sys-color-on-secondary-container)",
+      },
+      tertiary: {
+        background: "var(--md-sys-color-tertiary-container)",
+        "--color": "var(--md-sys-color-on-tertiary-container)",
+      },
+    },
     isLink: {
       true: {
         cursor: "pointer",
@@ -137,6 +154,9 @@ const Base = styled("a", {
         cursor: "not-allowed",
       },
     },
+  },
+  defaultVariants: {
+    variant: "tonal",
   },
 });
 
@@ -391,9 +411,9 @@ const Details = styled("div", {
     },
 
     /* connect elements vertically */
-    "& > :not(summary) .CategoryButton": {
-      /* and set child backgrounds */
-      background: "var(--colours-component-categorybtn-background-collapse)",
-    },
+    // "& > :not(summary) .CategoryButton": {
+    //   /* and set child backgrounds */
+    //   background: "var(--unset-bg)",
+    // },
   },
 });

@@ -68,6 +68,9 @@ const button = cva({
     cursor: "pointer",
     border: "none",
     transition: "var(--transitions-fast) all",
+
+    color: "var(--color)",
+    fill: "var(--color)",
   },
   variants: {
     /**
@@ -77,22 +80,22 @@ const button = cva({
       elevated: {
         boxShadow: "0 0.5px 1.5px #0004",
         background: "var(--md-sys-color-surface-container-low)",
-        color: "var(--md-sys-color-primary)",
+        "--color": "var(--md-sys-color-primary)",
       },
       filled: {
         background: "var(--md-sys-color-primary)",
-        color: "var(--md-sys-color-on-primary)",
+        "--color": "var(--md-sys-color-on-primary)",
       },
       tonal: {
         background: "var(--md-sys-color-secondary-container)",
-        color: "var(--md-sys-color-on-secondary-container)",
+        "--color": "var(--md-sys-color-on-secondary-container)",
       },
       outlined: {
         border: "1px solid var(--md-sys-color-outline-variant)",
-        color: "var(--md-sys-color-on-surface-variant)",
+        "--color": "var(--md-sys-color-on-surface-variant)",
       },
       text: {
-        color: "var(--md-sys-color-primary)",
+        "--color": "var(--md-sys-color-primary)",
       },
 
       // Old entries:
@@ -101,56 +104,49 @@ const button = cva({
        * @deprecated
        */
       success: {
-        fill: "var(--customColours-success-onColor)",
-        color: "var(--customColours-success-onColor)",
-        background: "var(--customColours-success-color)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated
        */
       warning: {
-        fill: "var(--customColours-warning-onColor)",
-        color: "var(--customColours-warning-onColor)",
-        background: "var(--customColours-warning-color)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated
        */
       error: {
-        fill: "var(--customColours-error-onColor)",
-        color: "var(--customColours-error-onColor)",
-        background: "var(--customColours-error-color)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated use filled
        */
       primary: {
-        fill: "var(--colours-component-btn-foreground-primary)",
-        color: "var(--colours-component-btn-foreground-primary)",
-        background: "var(--colours-component-btn-background-primary)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated use tonal
        */
       secondary: {
-        fill: "var(--colours-component-btn-foreground-secondary)",
-        color: "var(--colours-component-btn-foreground-secondary)",
-        background: "var(--colours-component-btn-background-secondary)",
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
       /**
        * @deprecated use text instead
        */
       plain: {
-        fill: "var(--colours-component-btn-foreground-plain)",
-        color: "var(--colours-component-btn-foreground-plain)",
-
-        "&:hover": {
-          textDecoration: "underline",
-        },
-
-        "&:disabled": {
-          textDecoration: "none",
-        },
+        fill: "var(--unset-fg)",
+        color: "var(--unset-fg)",
+        background: "var(--unset-bg)",
       },
     },
     /**

@@ -12,6 +12,8 @@ import { ColouredText } from "../utils";
 
 /**
  * Auto complete popup
+ *
+ * @deprecated use TextEditor instead
  */
 export function AutoComplete(
   props: Exclude<JSX.Directives["floating"]["autoComplete"], undefined>,

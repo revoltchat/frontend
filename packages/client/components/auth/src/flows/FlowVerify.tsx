@@ -5,7 +5,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { useApi, useClientLifecycle } from "@revolt/client";
 import { useModals } from "@revolt/modal";
 import { useNavigate, useParams } from "@revolt/routing";
-import { Button, Preloader } from "@revolt/ui";
+import { Button, CircularProgress } from "@revolt/ui";
 
 import { FlowTitle } from "./Flow";
 
@@ -83,7 +83,7 @@ export default function FlowVerify() {
         <FlowTitle>
           <Trans>Verifying your account…</Trans>
         </FlowTitle>
-        <Preloader type="ring" />
+        <CircularProgress />
       </Match>
       <Match when={state().state === "error"}>
         <FlowTitle>
@@ -97,7 +97,9 @@ export default function FlowVerify() {
           )}
         </Text> TODO */}
         <a href="/login/auth">
-          <Trans>Go back to login</Trans>
+          <Button variant="text">
+            <Trans>Go back to login</Trans>
+          </Button>
         </a>
       </Match>
       <Match when={state().state === "success"}>
@@ -110,7 +112,9 @@ export default function FlowVerify() {
           </Button>
         </Show>
         <a href="/login/auth">
-          <Trans>Go back to login</Trans>
+          <Button variant="text">
+            <Trans>Go back to login</Trans>
+          </Button>
         </a>
       </Match>
     </Switch>

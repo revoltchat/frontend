@@ -37,17 +37,6 @@ interface Props {
 }
 
 /**
- * Render the actual user
- */
-function Usr(props: { user?: User } & Pick<Props, "menuGenerator">) {
-  return (
-    <div class={username()} use:floating={props.menuGenerator(props.user)}>
-      {props.user?.username}
-    </div>
-  );
-}
-
-/**
  * System Message
  */
 export function SystemMessage(props: Props) {
@@ -131,10 +120,7 @@ export function SystemMessage(props: Props) {
             <UserMention
               userId={(props.systemMessage as ChannelRenamedSystemMessage).byId}
             />{" "}
-            updated the group name to{" "}
-            <div class={username()}>
-              {(props.systemMessage as ChannelRenamedSystemMessage).name}
-            </div>
+            updated the group name to{" "}<strong>{(props.systemMessage as ChannelRenamedSystemMessage).name}</strong>
           </Trans>
         </Match>
         <Match
@@ -214,12 +200,5 @@ const Base = styled("div", {
   base: {
     minHeight: "20px",
     alignItems: "center",
-    color: "var(--colours-messaging-component-system-message-foreground)",
-  },
-});
-
-const username = cva({
-  base: {
-    color: "var(--colours-foreground)",
   },
 });

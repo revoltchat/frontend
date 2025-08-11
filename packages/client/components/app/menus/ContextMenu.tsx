@@ -2,7 +2,7 @@ import { Component, ComponentProps, JSX, splitProps } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
-import { iconSize } from "@revolt/ui";
+import { Text, iconSize } from "@revolt/ui";
 
 export const ContextMenu = styled("div", {
   base: {
@@ -10,11 +10,11 @@ export const ContextMenu = styled("div", {
     flexDirection: "column",
     padding: "var(--gap-md) 0",
     overflow: "hidden",
-    borderRadius: "var(--borderRadius-md)",
-    background: "var(--colours-component-context-menu-background)",
-    color: "var(--colours-component-context-menu-foreground)",
-    fill: "var(--colours-component-context-menu-foreground)",
-    boxShadow: "0 0 3px var(--colours-component-context-menu-shadow)",
+    borderRadius: "var(--borderRadius-xs)",
+    background: "var(--md-sys-color-surface-container)",
+    color: "var(--md-sys-color-on-surface)",
+    fill: "var(--md-sys-color-on-surface)",
+    boxShadow: "0 0 3px var(--md-sys-color-shadow)",
   },
 });
 
@@ -22,7 +22,7 @@ export const ContextMenuDivider = styled("div", {
   base: {
     height: "1px",
     margin: "var(--gap-sm) 0",
-    background: "var(--colours-component-context-menu-divider)",
+    background: "var(--md-sys-color-outline-variant)",
   },
 });
 
@@ -31,7 +31,8 @@ export const ContextMenuItem = styled("a", {
     display: "block",
     padding: "var(--gap-md) var(--gap-lg)",
     "&:hover": {
-      background: "var(--colours-component-context-menu-item-hover-background)",
+      background:
+        "color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent)",
     },
   },
   variants: {
@@ -48,8 +49,8 @@ export const ContextMenuItem = styled("a", {
     },
     destructive: {
       true: {
-        fill: "var(--customColours-error-color)",
-        color: "var(--customColours-error-color)",
+        fill: "var(--md-sys-color-error)",
+        color: "var(--md-sys-color-error)",
       },
     },
   },
@@ -65,8 +66,8 @@ export function ContextMenuButton(props: ButtonProps) {
 
   return (
     <ContextMenuItem button {...remote}>
-      {local.icon?.(iconSize("1.2em"))}
-      <span>{local.children}</span>
+      {local.icon?.(iconSize(16))}
+      <Text>{local.children}</Text>
     </ContextMenuItem>
   );
 }

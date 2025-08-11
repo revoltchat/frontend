@@ -1,24 +1,24 @@
 import { Trans } from "@lingui-solid/solid/macro";
 
-import { PropGenerator } from "../types";
+import { Dialog, DialogProps } from "@revolt/ui";
+
+import { Modals } from "../types";
 
 /**
  * Modal to notify the user they've been signed out
  * TODO: show if user is banned, etc
  */
-const SignedOut: PropGenerator<"signed_out"> = () => {
-  return {
-    title: <Trans>You've been signed out of Revolt!</Trans>,
-    actions: [
-      {
-        children: <Trans>OK</Trans>,
-        palette: "secondary",
-        onClick() {
-          return true;
-        },
-      },
-    ],
-  };
-};
-
-export default SignedOut;
+export function SignedOutModal(
+  props: DialogProps & Modals & { type: "signed_out" },
+) {
+  return (
+    <Dialog
+      show={props.show}
+      onClose={props.onClose}
+      title={<Trans>You've been signed out of Revolt!</Trans>}
+      actions={[{ text: <Trans>OK</Trans> }]}
+    >
+      <></>
+    </Dialog>
+  );
+}

@@ -43,7 +43,7 @@ export default function FlowCheck() {
       </FlowTitle>
       <Row align justify>
         <a href="..">
-          <Button variant="plain">
+          <Button variant="text">
             <MdArrowBack {...iconSize("1.2em")} /> <Trans>Back</Trans>
           </Button>
         </a>

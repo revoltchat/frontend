@@ -26,8 +26,7 @@ export function EditMessage(props: { message: Message }) {
 
   function saveMessage(content: string) {
     if (content.length) {
-      // bring focus back to main composition
-      document.getElementById("msgbox")?.focus();
+      // todo: refocus the message box
 
       change.mutate(content);
     } else {
