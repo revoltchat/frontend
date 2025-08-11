@@ -1,8 +1,4 @@
-import {
-  BiRegularPlus,
-  BiSolidFileGif,
-  BiSolidHappyBeaming,
-} from "solid-icons/bi";
+import { BiRegularPlus, BiSolidFileGif } from "solid-icons/bi";
 import {
   For,
   Match,
@@ -21,7 +17,7 @@ import { debounce } from "@revolt/common";
 import { Keybind, KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useState } from "@revolt/state";
 import {
-  CompositionPicker,
+  CompositionMediaPicker,
   FileCarousel,
   FileDropAnywhereCollector,
   FilePasteCollector,
@@ -31,6 +27,7 @@ import {
   Row,
 } from "@revolt/ui";
 
+import MdEmoji from "@material-design-icons/svg/filled/emoji_emotions.svg?component-solid";
 import MdSend from "@material-design-icons/svg/filled/send.svg?component-solid";
 
 interface Props {
@@ -44,11 +41,6 @@ interface Props {
    */
   onMessageSend?: () => void;
 }
-
-/**
- * Tests for code block delimiters (``` at start of line)
- */
-const RE_CODE_DELIMITER = new RegExp("^```", "gm");
 
 /**
  * Message composition engine
@@ -289,7 +281,7 @@ export function MessageComposition(props: Props) {
             </Switch>
           }
           actionsEnd={
-            <CompositionPicker sendGIFMessage={sendMessage}>
+            <CompositionMediaPicker sendGIFMessage={sendMessage}>
               {(triggerProps) => (
                 <>
                   <Show when={state.experiments.isEnabled("gif_picker")}>
@@ -302,7 +294,7 @@ export function MessageComposition(props: Props) {
                   <Show when={state.experiments.isEnabled("emoji_picker")}>
                     <MessageBox.InlineIcon size="normal">
                       <IconButton onPress={triggerProps.onClickEmoji}>
-                        <BiSolidHappyBeaming size={24} />
+                        <MdEmoji />
                       </IconButton>
                     </MessageBox.InlineIcon>
                   </Show>
@@ -310,7 +302,7 @@ export function MessageComposition(props: Props) {
                   <div ref={triggerProps.ref} />
                 </>
               )}
-            </CompositionPicker>
+            </CompositionMediaPicker>
           }
           placeholder={
             props.channel.type === "SavedMessages"

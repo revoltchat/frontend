@@ -1,4 +1,4 @@
-import { Show, splitProps } from "solid-js";
+import { Show, createRenderEffect, on, splitProps } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 
 import { AriaButtonProps, createButton } from "@solid-aria/button";
@@ -15,11 +15,73 @@ type Props = Omit<
       JSX.ButtonHTMLAttributes<HTMLButtonElement>,
       "role" | "tabIndex" | "aria-selected"
     >,
-  "onClick"
+  "onClick" | "_permitAnimation"
 >;
 
 /**
  * Buttons prompt most actions in a UI
+ *
+ * If you wish to create standard button groups:
+ *
+ * ```tsx
+ * <Row>
+ *   <Button
+ *     variant={activeA() ? "filled" : "tonal"}
+ *     shape={activeA() ? "square" : "round"}
+ *     onPress={() => setActiveA()}
+ *     group="standard"
+ *   >
+ *     Button A
+ *   </Button>
+ *   <Button
+ *     variant={activeB() ? "filled" : "tonal"}
+ *     shape={activeB() ? "square" : "round"}
+ *     onPress={() => setActiveB()}
+ *     group="standard"
+ *   >
+ *     Button B
+ *   </Button>
+ *   <Button
+ *     variant={activeC() ? "filled" : "tonal"}
+ *     shape={activeC() ? "square" : "round"}
+ *     onPress={() => setActiveC()}
+ *     group="standard"
+ *   >
+ *     Button C
+ *   </Button>
+ * </Row>
+ * ```
+ *
+ * If you wish to create connected button groups:
+ *
+ * ```tsx
+ * <Row>
+ *   <Button
+ *     variant={activeA() ? "filled" : "tonal"}
+ *     shape={activeA() ? "round" : "square"}
+ *     onPress={() => setActiveA()}
+ *     group="connected-start"
+ *   >
+ *     Button A
+ *   </Button>
+ *   <Button
+ *     variant={activeB() ? "filled" : "tonal"}
+ *     shape={activeB() ? "round" : "square"}
+ *     onPress={() => setActiveB()}
+ *     group="connected"
+ *   >
+ *     Button B
+ *   </Button>
+ *   <Button
+ *     variant={activeC() ? "filled" : "tonal"}
+ *     shape={activeC() ? "round" : "square"}
+ *     onPress={() => setActiveC()}
+ *     group="connected-end"
+ *   >
+ *     Button C
+ *   </Button>
+ * </Row>
+ * ```
  *
  * @specification https://m3.material.io/components/buttons
  */
@@ -30,8 +92,22 @@ export function Button(props: Props) {
     "role",
   ]);
 
-  const [style, rest] = splitProps(propsRest, ["size", "variant"]);
+  const [style, rest] = splitProps(propsRest, [
+    "size",
+    "shape",
+    "variant",
+    "group",
+  ]);
   let ref: HTMLButtonElement | undefined;
+
+  let _permitAnimation = false;
+  createRenderEffect(
+    on(
+      () => props.shape,
+      () => (_permitAnimation = true),
+      { defer: true },
+    ),
+  );
 
   const { buttonProps } = createButton(rest, () => ref);
   return (
@@ -39,7 +115,7 @@ export function Button(props: Props) {
       {...passthrough}
       {...buttonProps}
       ref={ref}
-      class={button(style)}
+      class={button({ ...style, _permitAnimation })}
       // @codegen directives props=rest include=floating
     >
       <Show when={!buttonProps.disabled}>
@@ -57,6 +133,8 @@ const button = cva({
     // for <Ripple />:
     position: "relative",
 
+    paddingInline: "var(--padding-inline)",
+
     flexShrink: 0,
     display: "flex",
     alignItems: "center",
@@ -67,7 +145,7 @@ const button = cva({
 
     cursor: "pointer",
     border: "none",
-    transition: "var(--transitions-fast) all",
+    transition: "var(--transitions-medium) all",
 
     color: "var(--color)",
     fill: "var(--color)",
@@ -159,28 +237,44 @@ const button = cva({
       square: {},
     },
     /**
+     * Expressive button groups
+     */
+    group: {
+      "connected-start": {},
+      "connected-end": {},
+      connected: {},
+      standard: {},
+    },
+    /**
+     * Internal helper for expressive button animation
+     */
+    _permitAnimation: {
+      true: {},
+      false: {},
+    },
+    /**
      * Expressive sizes
      */
     size: {
       xs: {
         height: "32px",
-        paddingInline: "12px",
+        "--padding-inline": "12px",
       },
       sm: {
         height: "40px",
-        paddingInline: "16px",
+        "--padding-inline": "16px",
       },
       md: {
         height: "56px",
-        paddingInline: "24px",
+        "--padding-inline": "24px",
       },
       lg: {
         height: "96px",
-        paddingInline: "48px",
+        "--padding-inline": "48px",
       },
       xl: {
         height: "136px",
-        paddingInline: "64px",
+        "--padding-inline": "64px",
       },
 
       // Old code:
@@ -262,6 +356,105 @@ const button = cva({
       size: ["xl", "lg"],
       css: {
         borderRadius: "var(--borderRadius-xl)",
+      },
+    },
+
+    // hard-code values for rounded connected group shapes
+    {
+      shape: "round",
+      size: ["sm", "xs"],
+      css: {
+        borderRadius: "48px",
+      },
+    },
+    {
+      shape: "round",
+      size: ["md"],
+      css: {
+        borderRadius: "64px",
+      },
+    },
+    {
+      shape: "round",
+      size: ["xl", "lg"],
+      css: {
+        borderRadius: "160px",
+      },
+    },
+
+    // left-side connected group
+    {
+      shape: "square",
+      size: ["sm", "xs"],
+      group: "connected-start",
+      css: {
+        borderRadius: "48px var(--borderRadius-md) var(--borderRadius-md) 48px",
+      },
+    },
+    {
+      shape: "square",
+      size: "md",
+      group: "connected-start",
+      css: {
+        borderRadius: "64px var(--borderRadius-lg) var(--borderRadius-lg) 64px",
+      },
+    },
+    {
+      shape: "square",
+      size: ["xl", "lg"],
+      group: "connected-start",
+      css: {
+        borderRadius:
+          "160px var(--borderRadius-xl) var(--borderRadius-xl) 160px",
+      },
+    },
+
+    // right-side connected group
+    {
+      shape: "square",
+      size: ["sm", "xs"],
+      group: "connected-end",
+      css: {
+        borderRadius: "var(--borderRadius-md) 48px 48px var(--borderRadius-md)",
+      },
+    },
+    {
+      shape: "square",
+      size: "md",
+      group: "connected-end",
+      css: {
+        borderRadius: "var(--borderRadius-lg) 64px 64px var(--borderRadius-lg)",
+      },
+    },
+    {
+      shape: "square",
+      size: ["xl", "lg"],
+      group: "connected-end",
+      css: {
+        borderRadius:
+          "var(--borderRadius-xl) 160px 160px var(--borderRadius-xl)",
+      },
+    },
+
+    // run animation when connected group element activates
+    {
+      shape: "round",
+      group: ["connected-start", "connected-end", "connected"],
+      _permitAnimation: true,
+      css: {
+        animationName: "materialPhysicsButtonSelect",
+        animationDuration: "0.3s",
+        animationFillMode: "forwards",
+      },
+    },
+    {
+      shape: "square",
+      group: ["standard"],
+      _permitAnimation: true,
+      css: {
+        animationName: "materialPhysicsButtonSelect",
+        animationDuration: "0.3s",
+        animationFillMode: "forwards",
       },
     },
   ],

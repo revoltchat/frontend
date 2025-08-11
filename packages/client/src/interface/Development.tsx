@@ -123,11 +123,11 @@ export function DevelopmentPage() {
         <Button variant="text">Text</Button>
       </Row>
       <Row align>
-        <Button size="xs" shape="square">xs</Button>
-        <Button size="sm" shape="square">s</Button>
-        <Button size="md" shape="square">md</Button>
-        <Button size="lg" shape="square">lg</Button>
-        <Button size="xl" shape="square">xl</Button>
+        <Button size="xs" shape="square" connected="start">xs</Button>
+        <Button size="sm" shape="square" connected="start">s</Button>
+        <Button size="md" shape="square" connected="start">md</Button>
+        <Button size="lg" shape="square" connected="start">lg</Button>
+        <Button size="xl" shape="square" connected="start">xl</Button>
       </Row>
 
       <Row align>

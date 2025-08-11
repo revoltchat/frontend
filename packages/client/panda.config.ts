@@ -14,6 +14,17 @@ export default defineConfig({
   theme: {
     extend: {
       keyframes: {
+        materialPhysicsButtonSelect: {
+          "0%": {
+            paddingInline: "var(--padding-inline)",
+          },
+          "50%": {
+            paddingInline: "calc(var(--padding-inline) + 8px)",
+          },
+          "100%": {
+            paddingInline: "var(--padding-inline)",
+          },
+        },
         scrimFadeIn: {
           "0%": {
             background: "transparent",

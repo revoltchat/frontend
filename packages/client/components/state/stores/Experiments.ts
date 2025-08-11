@@ -31,7 +31,7 @@ export const DEFAULT_EXPERIMENTS: Experiment[] = [];
 /**
  * Always-on development-mode experiments.
  */
-export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = ["gif_picker"];
+export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = ["emoji_picker"];
 
 /**
  * Definitions for experiments listed by {@link Experiment}.
