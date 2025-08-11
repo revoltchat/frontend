@@ -1,9 +1,9 @@
 name: Update Locales
 
 on:
-  schedule:
-    # run every wednesday at 13:00
-    - cron: 00 13 * * 3
+  # schedule:
+  #   # run every wednesday at 13:00
+  #   - cron: 00 13 * * 3
   workflow_dispatch:
 
 jobs:
@@ -23,4 +23,3 @@ jobs:
           author_name: Revolt CI
           author_email: revolt-ci@users.noreply.github.com
           message: "chore: update locale strings"
-          
