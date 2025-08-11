@@ -1,14 +1,17 @@
 import { useFloating } from "solid-floating-ui";
-import { createSignal } from "solid-js";
+import { Match, Switch, createSignal } from "solid-js";
 import { JSX, Ref, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 import { Motion, Presence } from "solid-motionone";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
+import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Button } from "@revolt/ui/components/design";
 import { Row } from "@revolt/ui/components/layout";
+
+import { EmojiPicker } from "./EmojiPicker";
 
 interface Props {
   /**
@@ -85,6 +88,12 @@ export function CompositionMediaPicker(props: Props) {
                       Emoji
                     </Button>
                   </Row>
+
+                  <Switch>
+                    <Match when={show() === "emoji"}>
+                      <EmojiPicker />
+                    </Match>
+                  </Switch>
                 </Container>
               </Base>
             </Motion>
@@ -102,7 +111,7 @@ const Base = styled("div", {
   base: {
     width: "400px",
     height: "400px",
-    paddingInlineEnd: "5px",
+    // paddingInlineEnd: "5px",
   },
 });
 
@@ -111,15 +120,30 @@ const Base = styled("div", {
  */
 const Container = styled("div", {
   base: {
+    width: "100%",
+    height: "100%",
+
     display: "flex",
     flexDirection: "column",
 
     alignItems: "stretch",
 
+    padding: "var(--gap-md) 0",
+    overflow: "hidden",
+    borderRadius: "var(--borderRadius-lg)",
+    color: "var(--md-sys-color-on-surface)",
+    fill: "var(--md-sys-color-on-surface)",
+    boxShadow: "0 0 3px var(--md-sys-color-shadow)",
+    background: "var(--md-sys-color-surface-container)",
+  },
+});
+
+/**
+ * Styles for the content container
+ */
+export const compositionContent = cva({
+  base: {
     flexGrow: 1,
-    height: "400px",
-    color: "white",
-    backgroundColor: "black",
-    borderRadius: "var(--borderRadius-md)",
+    minHeight: 0,
   },
 });
