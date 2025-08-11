@@ -341,7 +341,7 @@ export function MessageComposition(props: Props) {
           //   when={state.settings.getValue("appearance:show_send_button")}
           // > */}
         <IconButton
-          size="md"
+          size="sm"
           variant="filled"
           shape="square"
           onPress={sendMessage}
