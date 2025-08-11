@@ -57,6 +57,15 @@ function map(
           marks: [...(context.marks ?? []), schema.marks.em.create()],
         }),
       );
+    case "delete":
+      return node.children.flatMap((child) =>
+        map(child, client, {
+          marks: [
+            ...(context.marks ?? []),
+            schema.marks.strikethrough.create(),
+          ],
+        }),
+      );
 
     // RFM
     case "mention":

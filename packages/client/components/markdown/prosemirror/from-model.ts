@@ -34,11 +34,9 @@ function map(node: Node): RootContent {
             } as never) as PhrasingContent,
           ],
         };
-      case "link":
+      case "strikethrough":
         return {
-          type: "link",
-          url: node.attrs.href,
-          title: node.attrs.title ?? node.attrs.href,
+          type: "delete",
           children: [
             map({
               ...node,
@@ -46,6 +44,18 @@ function map(node: Node): RootContent {
             } as never) as PhrasingContent,
           ],
         };
+      // case "link":
+      //   return {
+      //     type: "link",
+      //     url: node.attrs.href,
+      //     title: node.attrs.title ?? node.attrs.href,
+      //     children: [
+      //       map({
+      //         ...node,
+      //         marks: node.marks.slice(1),
+      //       } as never) as PhrasingContent,
+      //     ],
+      //   };
       case "code":
         return {
           type: "inlineCode",

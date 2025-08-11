@@ -495,6 +495,7 @@ export function TextEditor(props: Props) {
         },
         "Ctrl-b": toggleMark(schema.marks.strong),
         "Ctrl-i": toggleMark(schema.marks.em),
+        "Ctrl-s": toggleMark(schema.marks.strikethrough),
       }),
       keymap({ "Mod-z": undo, "Mod-y": redo }),
       keymap(baseKeymap),
@@ -507,6 +508,94 @@ export function TextEditor(props: Props) {
               schema.nodes.code_block.createAndFill()!,
             );
           }),
+          new InputRule(
+            /(?<![^\\]\\|^\\)(?:~{2})([^*]*)(?<![^\\]\\|^\\)(?:~{2})/,
+            (state, match, start, end) => {
+              const [_, text] = match;
+              if (!text.length) return null;
+
+              if (
+                state.doc.rangeHasMark(start, end, schema.marks.strikethrough)
+              )
+                return null;
+
+              return state.tr
+                .replaceRangeWith(
+                  start,
+                  end,
+                  schema.text(text, [
+                    schema.marks.strikethrough.create(),
+                    ...(state.doc.rangeHasMark(start, end, schema.marks.strong)
+                      ? [schema.marks.strong.create()]
+                      : []),
+                    ...(state.doc.rangeHasMark(start, end, schema.marks.em)
+                      ? [schema.marks.em.create()]
+                      : []),
+                  ]),
+                )
+                .setStoredMarks([]);
+            },
+          ),
+          new InputRule(
+            /(?<![^\\]\\|^\\)(\*{1,2})([^*]*)(?<![^\\]\\|^\\)(\*{1,2})/,
+            (state, match, start, end) => {
+              const [_, operatorBegin, text, operatorEnd] = match;
+              if (!text.length) return null;
+
+              if (operatorBegin.length === operatorEnd.length) {
+                if (operatorBegin.length === 2) return null;
+
+                if (state.doc.rangeHasMark(start, end, schema.marks.em))
+                  return null;
+
+                return state.tr
+                  .replaceRangeWith(
+                    start,
+                    end,
+                    schema.text(text, [
+                      schema.marks.em.create(),
+                      ...(state.doc.rangeHasMark(
+                        start,
+                        end,
+                        schema.marks.strong,
+                      )
+                        ? [schema.marks.strong.create()]
+                        : []),
+                    ]),
+                  )
+                  .setStoredMarks([]);
+              }
+
+              return null;
+            },
+          ),
+          new InputRule(
+            /(?<![^\\]\\|^\\)(\*{2})([^*]*)(?<![^\\]\\|^\\)(\*{2})/,
+            (state, match, start, end) => {
+              const [_, operatorBegin, text, operatorEnd] = match;
+              if (!text.length) return null;
+
+              if (operatorBegin.length === operatorEnd.length) {
+                if (state.doc.rangeHasMark(start, end, schema.marks.strong))
+                  return null;
+
+                return state.tr
+                  .replaceRangeWith(
+                    start,
+                    end,
+                    schema.text(text, [
+                      schema.marks.strong.create(),
+                      ...(state.doc.rangeHasMark(start, end, schema.marks.em)
+                        ? [schema.marks.em.create()]
+                        : []),
+                    ]),
+                  )
+                  .setStoredMarks([]);
+              }
+
+              return null;
+            },
+          ),
         ],
       }),
     ],
