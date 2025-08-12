@@ -29,6 +29,7 @@ import { EditUsernameModal } from "./modals/EditUsername";
 import { EmojiPreviewModal } from "./modals/EmojiPreview";
 import { Error2Modal } from "./modals/Error2";
 import { ImageViewerModal } from "./modals/ImageViewer";
+import { InviteModal } from "./modals/Invite";
 import { JoinServerModal } from "./modals/JoinServer";
 import { KickMemberModal } from "./modals/KickMember";
 import { LeaveServerModal } from "./modals/LeaveServer";
@@ -118,6 +119,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <Error2Modal {...modalProps} />;
     case "image_viewer":
       return <ImageViewerModal {...modalProps} />;
+    case "invite":
+      return <InviteModal {...modalProps} />;
     case "join_server":
       return <JoinServerModal {...modalProps} />;
     case "kick_member":

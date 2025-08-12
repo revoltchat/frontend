@@ -9,6 +9,7 @@ import {
   MFA,
   MFATicket,
   Message,
+  PublicChannelInvite,
   Server,
   ServerMember,
   Session,
@@ -202,6 +203,10 @@ export type Modals =
   | {
       type: "server_info";
       server: Server;
+    }
+  | {
+      type: "invite";
+      invite: PublicChannelInvite;
     }
   | {
       type: "settings";

@@ -26,6 +26,8 @@ type Props = DialogProps & {
   actions?: DialogAction[];
   isDisabled?: boolean;
 
+  scrimBackground?: string;
+
   minWidth?: number;
   padding?: number;
 };
@@ -38,7 +40,15 @@ type Props = DialogProps & {
 export function Dialog(props: Props) {
   return (
     <Portal mount={document.getElementById("floating")!}>
-      <Dialog.Scrim show={props.show} onClick={props.onClose}>
+      <Dialog.Scrim
+        show={props.show}
+        onClick={props.onClose}
+        style={{
+          "--background": props.scrimBackground
+            ? `url('${props.scrimBackground}')`
+            : "rgba(0, 0, 0, 0.6)",
+        }}
+      >
         <Presence>
           <Show when={props.show}>
             <Motion.div
@@ -124,7 +134,8 @@ Dialog.Scrim = styled("div", {
     placeItems: "center",
 
     pointerEvents: "all",
-    background: "rgba(0, 0, 0, 0.6)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
 
     animationName: "scrimFadeIn",
     animationDuration: "0.1s",
