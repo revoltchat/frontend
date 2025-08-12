@@ -15,6 +15,8 @@ export const ContextMenu = styled("div", {
     color: "var(--md-sys-color-on-surface)",
     fill: "var(--md-sys-color-on-surface)",
     boxShadow: "0 0 3px var(--md-sys-color-shadow)",
+
+    userSelect: "none",
   },
 });
 
@@ -36,8 +38,14 @@ export const ContextMenuItem = styled("a", {
     },
   },
   variants: {
+    action: {
+      true: {
+        cursor: "pointer",
+      },
+    },
     button: {
       true: {
+        cursor: "pointer",
         display: "flex",
         alignItems: "center",
         gap: "var(--gap-md)",
@@ -47,6 +55,10 @@ export const ContextMenuItem = styled("a", {
         },
       },
     },
+    _titleCase: {
+      true: {},
+      false: {},
+    },
     destructive: {
       true: {
         fill: "var(--md-sys-color-error)",
@@ -54,10 +66,22 @@ export const ContextMenuItem = styled("a", {
       },
     },
   },
+  defaultVariants: {
+    _titleCase: true,
+  },
+  compoundVariants: [
+    {
+      _titleCase: true,
+      button: true,
+      css: {
+        textTransform: "capitalize",
+      },
+    },
+  ],
 });
 
 type ButtonProps = ComponentProps<typeof ContextMenuItem> & {
-  icon?: Component<JSX.SvgSVGAttributes<SVGSVGElement>>;
+  icon?: JSX.Element | Component<JSX.SvgSVGAttributes<SVGSVGElement>>;
   destructive?: boolean;
 };
 
@@ -66,7 +90,9 @@ export function ContextMenuButton(props: ButtonProps) {
 
   return (
     <ContextMenuItem button {...remote}>
-      {local.icon?.(iconSize(16))}
+      {typeof local.icon === "function"
+        ? local.icon?.(iconSize(16))
+        : local.icon}
       <Text>{local.children}</Text>
     </ContextMenuItem>
   );

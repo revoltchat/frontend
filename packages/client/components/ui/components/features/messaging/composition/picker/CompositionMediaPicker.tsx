@@ -77,7 +77,6 @@ export function CompositionMediaPicker(props: Props) {
                   top: `${position.y ?? 0}px`,
                   left: `${position.x ?? 0}px`,
                 }}
-                role="tooltip"
               >
                 <Container>
                   <Row justify>

@@ -1,8 +1,10 @@
-import { JSXElement, createEffect, createSignal, on } from "solid-js";
+import { JSXElement, Show } from "solid-js";
 
 import { styled } from "styled-system/jsx";
 
 import { Initials } from "../utils";
+
+import { Ripple } from "./Ripple";
 
 export type Props = {
   /**
@@ -67,19 +69,6 @@ const Image = styled("img", {
     height: "100%",
     objectFit: "cover",
   },
-  variants: {
-    shape: {
-      circle: {
-        borderRadius: "var(--borderRadius-circle)",
-      },
-      "rounded-square": {
-        borderRadius: "var(--borderRadius-md)",
-      },
-    },
-  },
-  defaultVariants: {
-    shape: "circle",
-  },
 });
 
 /**
@@ -98,14 +87,6 @@ const FallbackBase = styled("div", {
     fontSize: "0.75rem",
   },
   variants: {
-    shape: {
-      circle: {
-        borderRadius: "var(--borderRadius-circle)",
-      },
-      "rounded-square": {
-        borderRadius: "var(--borderRadius-md)",
-      },
-    },
     contrast: {
       true: {
         color: "var(--md-sys-color-on-primary)",
@@ -119,7 +100,6 @@ const FallbackBase = styled("div", {
     },
   },
   defaultVariants: {
-    shape: "circle",
     contrast: false,
   },
 });
@@ -130,25 +110,6 @@ const FallbackBase = styled("div", {
  * Partially inspired by Adw.Avatar API, we allow users to specify a fallback component (usually just text) to display in case the URL is invalid.
  */
 export function Avatar(props: Props) {
-  // eslint-disable-next-line solid/reactivity
-  const [url, setUrl] = createSignal(props.src);
-
-  // Clear the source URL on change before applying new to avoid
-  // the stale image remaining on screen and hence causing weird
-  // visual issues in virtual containers.
-  createEffect(
-    on(
-      () => props.src,
-      (src) => {
-        if (url() !== src) {
-          setUrl("");
-          setTimeout(() => setUrl(src));
-        }
-      },
-      { defer: true },
-    ),
-  );
-
   return (
     <ParentBase
       // @ts-expect-error not typed for some reason
@@ -167,16 +128,26 @@ export function Avatar(props: Props) {
         height="32px"
         holepunch={props.holepunch}
       >
-        {url() && <Image src={url()} draggable={false} shape={props.shape} />}
-        {!url() && (
-          <FallbackBase shape={props.shape} contrast={props.primaryContrast}>
-            {typeof props.fallback === "string" ? (
-              <Initials input={props.fallback} maxLength={2} />
-            ) : (
-              props.fallback
-            )}
-          </FallbackBase>
-        )}
+        <Shape shape={props.shape}>
+          <Show when={props.interactive}>
+            <Ripple />
+          </Show>
+          <Show
+            when={props.src}
+            keyed
+            fallback={
+              <FallbackBase contrast={props.primaryContrast}>
+                {typeof props.fallback === "string" ? (
+                  <Initials input={props.fallback} maxLength={2} />
+                ) : (
+                  props.fallback
+                )}
+              </FallbackBase>
+            }
+          >
+            <Image src={props.src} draggable={false} />
+          </Show>
+        </Shape>
       </ForeignObject>
       {props.overlay}
     </ParentBase>
@@ -206,10 +177,35 @@ const ParentBase = styled("svg", {
 });
 
 /**
+ * Shape container (for Ripple support)
+ */
+const Shape = styled("div", {
+  base: {
+    overflow: "hidden",
+    width: "100%",
+    height: "100%",
+  },
+  variants: {
+    shape: {
+      circle: {
+        borderRadius: "var(--borderRadius-circle)",
+      },
+      "rounded-square": {
+        borderRadius: "var(--borderRadius-md)",
+      },
+    },
+  },
+  defaultVariants: {
+    shape: "circle",
+  },
+});
+
+/**
  * Inner SVG container
  */
 const ForeignObject = styled("foreignObject", {
   base: {
+    overflow: "hidden",
     transition: "var(--transitions-fast) filter",
   },
   variants: {
