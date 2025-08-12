@@ -1,9 +1,11 @@
-import { JSX, splitProps } from "solid-js";
+import { JSX, Show, splitProps } from "solid-js";
 
 import { cva } from "styled-system/css";
 
 import { useClient } from "@revolt/client";
+import { useModals } from "@revolt/modal";
 import { paramsFromPathname } from "@revolt/routing";
+import { useState } from "@revolt/state";
 import { Avatar, iconSize } from "@revolt/ui";
 import { Invite } from "@revolt/ui/components/features/messaging/elements/Invite";
 
@@ -15,6 +17,7 @@ import MdTag from "@material-design-icons/svg/outlined/tag.svg?component-solid";
 
 const link = cva({
   base: {
+    cursor: "pointer",
     color: "var(--md-sys-color-primary) !important",
   },
 });
@@ -97,32 +100,41 @@ export function RenderAnchor(
       }
     }
 
+    // ... all other links:
+    const state = useState();
+    const { openModal } = useModals();
+
+    return (
+      <Show
+        when={state.linkSafety.isTrusted(url)}
+        fallback={
+          <a
+            {...remoteProps}
+            class={link()}
+            onClick={(event) => {
+              event.preventDefault();
+              openModal({
+                type: "link_warning",
+                url,
+                display: event.currentTarget.innerText,
+              });
+            }}
+          />
+        }
+      >
+        <a
+          {...remoteProps}
+          class={link()}
+          href={localProps.href}
+          target={"_blank"}
+          rel="noreferrer"
+        />
+      </Show>
+    );
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_) {
-    // failure
+    // invalid URL
+    return <span>{props.children}</span>;
   }
-
-  // ... all other links:
-
-  // TODO: link warning
-  // Determine type of link
-
-  /*const link = determineLink(localProps.href);
-  if (link.type === "none") return <a {...props} />;
-
-  // Render direct link if internal
-  if (link.type === "navigate") {
-    return <Link to={link.path} children={props.children} />;
-  }*/
-
-  return (
-    <a
-      {...remoteProps}
-      class={link()}
-      href={localProps.href}
-      target={"_blank"}
-      rel="noreferrer"
-      // onClick={(ev) => modalController.openLink(href) && ev.preventDefault()}
-    />
-  );
 }

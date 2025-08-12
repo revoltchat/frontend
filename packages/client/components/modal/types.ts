@@ -237,8 +237,8 @@ export type Modals =
     }
   | {
       type: "link_warning";
-      link: string;
-      callback: () => true;
+      url: URL;
+      display: string;
     }
   // | {
   //     type: "pending_friend_requests";

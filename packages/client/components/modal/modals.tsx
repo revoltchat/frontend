@@ -33,6 +33,7 @@ import { InviteModal } from "./modals/Invite";
 import { JoinServerModal } from "./modals/JoinServer";
 import { KickMemberModal } from "./modals/KickMember";
 import { LeaveServerModal } from "./modals/LeaveServer";
+import { LinkWarningModal } from "./modals/LinkWarning";
 import { MFAEnableTOTPModal } from "./modals/MFAEnableTOTP";
 import { MFAFlowModal } from "./modals/MFAFlow";
 import { MFARecoveryModal } from "./modals/MFARecovery";
@@ -127,6 +128,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <KickMemberModal {...modalProps} />;
     case "leave_server":
       return <LeaveServerModal {...modalProps} />;
+    case "link_warning":
+      return <LinkWarningModal {...modalProps} />;
     case "mfa_enable_totp":
       return <MFAEnableTOTPModal {...modalProps} />;
     case "mfa_flow":
