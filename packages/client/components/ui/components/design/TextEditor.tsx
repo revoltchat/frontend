@@ -26,7 +26,7 @@ import { baseKeymap, toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
 import { InputRule, inputRules } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
-import { MarkType, Node } from "prosemirror-model";
+import { Node } from "prosemirror-model";
 import { EditorState, EditorStateConfig } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { Channel, ServerMember, ServerRole, User } from "revolt.js";
@@ -60,6 +60,11 @@ interface Props {
    * Initial value to show in the text box
    */
   initialValue?: readonly [string];
+
+  /**
+   * Signal for sending a node replacement to the editor
+   */
+  nodeReplacement?: Node;
 
   /**
    * Event is fired when the text content changes
@@ -637,6 +642,26 @@ export function TextEditor(props: Props) {
           );
 
           setValue(value[0]);
+        }
+      },
+      {
+        defer: true,
+      },
+    ),
+  );
+
+  createEffect(
+    on(
+      () => props.nodeReplacement,
+      (value) => {
+        if (value) {
+          view.updateState(
+            view.state.applyTransaction(
+              view.state.tr.replaceSelectionWith(value),
+            ).state,
+          );
+
+          setValue(markdownFromProseMirrorModel(view.state.doc));
         }
       },
       {

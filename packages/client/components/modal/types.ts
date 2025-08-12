@@ -9,6 +9,7 @@ import {
   MFA,
   MFATicket,
   Message,
+  PublicChannelInvite,
   Server,
   ServerMember,
   Session,
@@ -204,6 +205,10 @@ export type Modals =
       server: Server;
     }
   | {
+      type: "invite";
+      invite: PublicChannelInvite;
+    }
+  | {
       type: "settings";
       config: keyof typeof SettingsConfigurations;
       // eslint-disable-next-line
@@ -232,8 +237,8 @@ export type Modals =
     }
   | {
       type: "link_warning";
-      link: string;
-      callback: () => true;
+      url: URL;
+      display: string;
     }
   // | {
   //     type: "pending_friend_requests";

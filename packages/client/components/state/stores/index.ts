@@ -7,6 +7,7 @@ import { TypeDraft } from "./Draft";
 import { TypeExperiments } from "./Experiments";
 import { TypeKeybinds } from "./Keybinds";
 import { TypeLayout } from "./Layout";
+import { TypeLinkSafety } from "./LinkSafety";
 import { TypeLocale } from "./Locale";
 import { TypeNotificationOptions } from "./NotificationOptions";
 import { TypeOrdering } from "./Ordering";
@@ -20,6 +21,7 @@ export type Store = {
   experiments: TypeExperiments;
   keybinds: TypeKeybinds;
   layout: TypeLayout;
+  linkSafety: TypeLinkSafety;
   locale: TypeLocale;
   notifications: TypeNotificationOptions;
   ordering: TypeOrdering;

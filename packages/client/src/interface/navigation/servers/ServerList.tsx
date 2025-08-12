@@ -1,6 +1,9 @@
-import { Accessor, For, Show } from "solid-js";
+import { useFloating } from "solid-floating-ui";
+import { Accessor, For, Show, createMemo } from "solid-js";
 import { JSX } from "solid-js";
+import { createSignal } from "solid-js";
 
+import { autoUpdate, offset, shift } from "@floating-ui/dom";
 import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
@@ -18,6 +21,8 @@ import MdSettings from "@material-design-icons/svg/filled/settings.svg?component
 
 import { Tooltip } from "../../../../components/ui/components/floating";
 import { Draggable } from "../../../../components/ui/components/utils/Draggable";
+
+import { UserMenu } from "./UserMenu";
 
 interface Props {
   /**
@@ -101,6 +106,14 @@ export const ServerList = (props: Props) => {
   createKeybind(KeybindAction.NAVIGATION_SERVER_UP, () => navigateServer(-1));
   createKeybind(KeybindAction.NAVIGATION_SERVER_DOWN, () => navigateServer(1));
 
+  const homeNotifications = createMemo(() => {
+    return client().users.filter((user) => user.relationship === "Incoming")
+      .length;
+  });
+
+  // Ref for floating menu
+  const [menuButton, setMenuButton] = createSignal<HTMLDivElement>();
+
   return (
     <ServerListBase>
       <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
@@ -109,8 +122,26 @@ export const ServerList = (props: Props) => {
             indicator: !props.selectedServer() ? "selected" : undefined,
           })}
           href="/app"
+          use:floating={{
+            tooltip: {
+              content: `You have ${homeNotifications()} pending friend requests.`,
+              placement: "right",
+            },
+          }}
         >
-          <Avatar size={42} fallback={<MdHome />} />
+          <Avatar
+            size={42}
+            fallback={<MdHome />}
+            holepunch={homeNotifications() ? "top-right" : undefined}
+            overlay={
+              <Show when={homeNotifications()}>
+                <Unreads.Graphic
+                  unread={homeNotifications() !== 0}
+                  count={homeNotifications()}
+                />
+              </Show>
+            }
+          />
         </a>
         <Tooltip
           placement="right"
@@ -124,13 +155,7 @@ export const ServerList = (props: Props) => {
           )}
           aria={props.user.username}
         >
-          {/* TODO: Make this open user status context menu */}
-          <a
-            class={entryContainer()}
-            onClick={() =>
-              openModal({ type: "custom_status", client: client() })
-            }
-          >
+          <a ref={setMenuButton} class={entryContainer()}>
             <Avatar
               size={42}
               src={props.user.avatarURL}
@@ -139,6 +164,7 @@ export const ServerList = (props: Props) => {
               interactive
             />
           </a>
+          <UserMenu anchor={menuButton} />
         </Tooltip>
         <For each={props.unreadConversations.slice(0, 9)}>
           {(conversation) => (

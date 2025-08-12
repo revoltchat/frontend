@@ -3,6 +3,7 @@ import { createFormControl, createFormGroup } from "solid-forms";
 import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
 import { For } from "solid-js";
 
+import { PublicChannelInvite } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
@@ -14,14 +15,14 @@ import {
   CategoryCollapse,
   Column,
   ComboBox,
+  DataTable,
   Form2,
+  IconButton,
   OverrideSwitch,
   Row,
   Text,
   TextField,
   iconSize,
-  DataTable,
-  IconButton
 } from "@revolt/ui";
 
 import Face from "@material-design-icons/svg/filled/face.svg?component-solid";
@@ -113,8 +114,19 @@ export function DevelopmentPage() {
 
   return (
     <Column>
+      <Button
+        onPress={() => {
+          client()
+            .api.get("/invites/Testers")
+            .then((invite) => PublicChannelInvite.from(client(), invite))
+            .then((invite) => openModal({ type: 'invite', invite }));
+        }}
+      >
+        test
+      </Button>
+
       <Button onPress={changelog}>Changelog Modal</Button>
-      
+
       <Row align>
         <Button variant="elevated">Elevated</Button>
         <Button variant="filled">Filled</Button>
@@ -123,25 +135,53 @@ export function DevelopmentPage() {
         <Button variant="text">Text</Button>
       </Row>
       <Row align>
-        <Button size="xs" shape="square" connected="start">xs</Button>
-        <Button size="sm" shape="square" connected="start">s</Button>
-        <Button size="md" shape="square" connected="start">md</Button>
-        <Button size="lg" shape="square" connected="start">lg</Button>
-        <Button size="xl" shape="square" connected="start">xl</Button>
+        <Button size="xs" shape="square" connected="start">
+          xs
+        </Button>
+        <Button size="sm" shape="square" connected="start">
+          s
+        </Button>
+        <Button size="md" shape="square" connected="start">
+          md
+        </Button>
+        <Button size="lg" shape="square" connected="start">
+          lg
+        </Button>
+        <Button size="xl" shape="square" connected="start">
+          xl
+        </Button>
       </Row>
 
       <Row align>
-        <IconButton variant="filled"><Face /></IconButton>
-        <IconButton variant="tonal"><Face /></IconButton>
-        <IconButton variant="outlined"><Face /></IconButton>
-        <IconButton variant="standard"><Face /></IconButton>
+        <IconButton variant="filled">
+          <Face />
+        </IconButton>
+        <IconButton variant="tonal">
+          <Face />
+        </IconButton>
+        <IconButton variant="outlined">
+          <Face />
+        </IconButton>
+        <IconButton variant="standard">
+          <Face />
+        </IconButton>
       </Row>
       <Row align>
-        <IconButton size="xs" shape="square"><Face /></IconButton>
-        <IconButton size="sm" shape="square"><Face /></IconButton>
-        <IconButton size="md" shape="square"><Face /></IconButton>
-        <IconButton size="lg" shape="square"><Face /></IconButton>
-        <IconButton size="xl" shape="square"><Face /></IconButton>
+        <IconButton size="xs" shape="square">
+          <Face />
+        </IconButton>
+        <IconButton size="sm" shape="square">
+          <Face />
+        </IconButton>
+        <IconButton size="md" shape="square">
+          <Face />
+        </IconButton>
+        <IconButton size="lg" shape="square">
+          <Face />
+        </IconButton>
+        <IconButton size="xl" shape="square">
+          <Face />
+        </IconButton>
       </Row>
 
       <DataTable

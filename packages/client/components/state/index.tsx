@@ -17,6 +17,7 @@ import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
 import { Keybinds } from "./stores/Keybinds";
 import { Layout } from "./stores/Layout";
+import { LinkSafety } from "./stores/LinkSafety";
 import { Locale } from "./stores/Locale";
 import { NotificationOptions } from "./stores/NotificationOptions";
 import { Ordering } from "./stores/Ordering";
@@ -51,6 +52,7 @@ export class State {
   experiments = new Experiments(this);
   keybinds = new Keybinds(this);
   layout = new Layout(this);
+  linkSafety = new LinkSafety(this);
   locale = new Locale(this);
   notifications = new NotificationOptions(this);
   ordering = new Ordering(this);

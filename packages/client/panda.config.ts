@@ -30,7 +30,10 @@ export default defineConfig({
             background: "transparent",
           },
           "100%": {
-            background: "rgba(0, 0, 0, 0.6)",
+            background: "var(--background)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           },
         },
         slideIn: {

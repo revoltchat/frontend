@@ -1,10 +1,11 @@
 import { useFloating } from "solid-floating-ui";
-import { Match, Switch, createSignal } from "solid-js";
+import { Match, Switch, createContext, createSignal } from "solid-js";
 import { JSX, Ref, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 import { Motion, Presence } from "solid-motionone";
 
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
+import { Node } from "prosemirror-model";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
@@ -28,8 +29,17 @@ interface Props {
   /**
    * Send a message
    */
-  sendGIFMessage: (content: string) => void;
+  onMessage: (content: string) => void;
+
+  /**
+   * Text replacement
+   */
+  onTextReplacement: (node: Node) => void;
 }
+
+export const CompositionMediaPickerContext = createContext(
+  null as unknown as Pick<Props, "onMessage" | "onTextReplacement">,
+);
 
 export function CompositionMediaPicker(props: Props) {
   const [anchor, setAnchor] = createSignal<HTMLElement>();
@@ -43,7 +53,7 @@ export function CompositionMediaPicker(props: Props) {
   });
 
   return (
-    <>
+    <CompositionMediaPickerContext.Provider value={props}>
       {props.children({
         ref: setAnchor,
         onClickGif: () =>
@@ -67,7 +77,6 @@ export function CompositionMediaPicker(props: Props) {
                   top: `${position.y ?? 0}px`,
                   left: `${position.x ?? 0}px`,
                 }}
-                role="tooltip"
               >
                 <Container>
                   <Row justify>
@@ -89,7 +98,7 @@ export function CompositionMediaPicker(props: Props) {
                     </Button>
                   </Row>
 
-                  <Switch>
+                  <Switch fallback={<span>Not available yet.</span>}>
                     <Match when={show() === "emoji"}>
                       <EmojiPicker />
                     </Match>
@@ -100,7 +109,7 @@ export function CompositionMediaPicker(props: Props) {
           </Show>
         </Presence>
       </Portal>
-    </>
+    </CompositionMediaPickerContext.Provider>
   );
 }
 
@@ -123,13 +132,17 @@ const Container = styled("div", {
     width: "100%",
     height: "100%",
 
+    userSelect: "none",
+
     display: "flex",
     flexDirection: "column",
+    gap: "var(--gap-md)",
 
     alignItems: "stretch",
 
-    padding: "var(--gap-md) 0",
     overflow: "hidden",
+    padding: "var(--gap-md) 0",
+
     borderRadius: "var(--borderRadius-lg)",
     color: "var(--md-sys-color-on-surface)",
     fill: "var(--md-sys-color-on-surface)",

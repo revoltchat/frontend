@@ -1,10 +1,13 @@
-import { JSX, Switch, splitProps } from "solid-js";
+import { JSX, Show, splitProps } from "solid-js";
 
 import { cva } from "styled-system/css";
 
 import { useClient } from "@revolt/client";
+import { useModals } from "@revolt/modal";
 import { paramsFromPathname } from "@revolt/routing";
+import { useState } from "@revolt/state";
 import { Avatar, iconSize } from "@revolt/ui";
+import { Invite } from "@revolt/ui/components/features/messaging/elements/Invite";
 
 import MdChat from "@material-design-icons/svg/outlined/chat.svg?component-solid";
 import MdChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg?component-solid";
@@ -14,6 +17,7 @@ import MdTag from "@material-design-icons/svg/outlined/tag.svg?component-solid";
 
 const link = cva({
   base: {
+    cursor: "pointer",
     color: "var(--md-sys-color-primary) !important",
   },
 });
@@ -41,14 +45,24 @@ const internalLink = cva({
 export function RenderAnchor(
   props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>,
 ) {
-  const [localProps, remoteProps] = splitProps(props, ["href"]);
+  /* eslint-disable solid/reactivity */
+  /* eslint-disable solid/components-return-once */
 
-  // Pass-through no href or if anchor
-  if (!localProps.href) return <a href={localProps.href} {...props} />;
+  const [localProps, remoteProps] = splitProps(props, ["href", "target"]);
 
-  const internal = false;
+  // Handle case where there is no link
+  if (!localProps.href) return <span>{remoteProps.children}</span>;
+
+  // Handle links that navigate internally
   try {
-    const url = new URL(localProps.href);
+    let url = new URL(localProps.href);
+
+    // Remap Revolt discover links to native invite links
+    if (url.origin === "https://rvlt.gg" && /^\/[\w\d]+$/.test(url.pathname)) {
+      url = new URL(`/invite${url.pathname}`, location.origin);
+    }
+
+    // Determine whether it's in our scope
     if (
       [
         location.origin,
@@ -56,13 +70,12 @@ export function RenderAnchor(
         "https://revolt.chat",
       ].includes(url.origin)
     ) {
-      const newUrl = new URL(url.pathname, location.origin);
-
       const client = useClient();
       const params = paramsFromPathname(url.pathname);
+
       if (params.exactChannel) {
         return (
-          <a class={internalLink()} href={newUrl.toString()}>
+          <a class={internalLink()} href={url.toString()}>
             <MdTag {...iconSize("1em")} />
             {client().channels.get(params.channelId!)?.name}
             {params.exactMessage && (
@@ -76,42 +89,52 @@ export function RenderAnchor(
       } else if (params.exactServer) {
         const server = () => client().servers.get(params.serverId!);
         return (
-          <a class={internalLink()} href={newUrl.toString()}>
+          <a class={internalLink()} href={url.toString()}>
             <Avatar size={16} src={server()?.iconURL} /> {server()?.name}
           </a>
         );
+      } else if (params.inviteId) {
+        return <Invite code={params.inviteId} />;
       } else {
-        return (
+        return <a {...remoteProps} class={link()} href={url.toString()} />;
+      }
+    }
+
+    // ... all other links:
+    const state = useState();
+    const { openModal } = useModals();
+
+    return (
+      <Show
+        when={state.linkSafety.isTrusted(url)}
+        fallback={
           <a
             {...remoteProps}
             class={link()}
-            href={newUrl.toString()}
-            rel="noreferrer"
+            onClick={(event) => {
+              event.preventDefault();
+              openModal({
+                type: "link_warning",
+                url,
+                display: event.currentTarget.innerText,
+              });
+            }}
           />
-        );
-      }
-    }
-  } catch (e) {}
+        }
+      >
+        <a
+          {...remoteProps}
+          class={link()}
+          href={localProps.href}
+          target={"_blank"}
+          rel="noreferrer"
+        />
+      </Show>
+    );
 
-  // TODO: link warning
-  // Determine type of link
-
-  /*const link = determineLink(localProps.href);
-  if (link.type === "none") return <a {...props} />;
-
-  // Render direct link if internal
-  if (link.type === "navigate") {
-    return <Link to={link.path} children={props.children} />;
-  }*/
-
-  return (
-    <a
-      {...remoteProps}
-      class={link()}
-      href={localProps.href}
-      target={"_blank"}
-      rel="noreferrer"
-      // onClick={(ev) => modalController.openLink(href) && ev.preventDefault()}
-    />
-  );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_) {
+    // invalid URL
+    return <span>{props.children}</span>;
+  }
 }

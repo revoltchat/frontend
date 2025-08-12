@@ -23,6 +23,8 @@ const RE_SERVER = /\/server\/([A-Z0-9]{26})/;
 const RE_CHANNEL = /\/channel\/([A-Z0-9]{26})/;
 const RE_MESSAGE_ID = /\/channel\/[A-Z0-9]{26}\/([A-Z0-9]{26})/;
 
+const RE_INVITE_EXACT = /^\/invite\/([\w\d]+)$/;
+
 const RE_SERVER_EXACT = /^\/server\/([A-Z0-9]{26})$/;
 const RE_CHANNEL_EXACT =
   /^(?:\/server\/[A-Z0-9]{26})?\/channel\/([A-Z0-9]{26})(?:\/[A-Z0-9]{26})?$/;
@@ -33,6 +35,11 @@ const RE_MESSAGE_ID_EXACT =
  * Route parameters available globally
  */
 type GlobalParams = {
+  /**
+   * Invite ID
+   */
+  inviteId?: string;
+
   /**
    * Server ID
    */
@@ -75,6 +82,12 @@ export function paramsFromPathname(pathname: string): GlobalParams {
     exactChannel: !!pathname.match(RE_CHANNEL_EXACT),
     exactMessage: !!pathname.match(RE_MESSAGE_ID_EXACT),
   };
+
+  // Check for invite ID
+  const invite = pathname.match(RE_INVITE_EXACT);
+  if (invite) {
+    params.inviteId = invite[1];
+  }
 
   // Check for server ID
   const server = pathname.match(RE_SERVER);

@@ -5,11 +5,12 @@ import { JSX, Show, onMount } from "solid-js";
 import { render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
-import { Navigate, Route, Router } from "@solidjs/router";
+import { Navigate, Route, Router, useParams } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { isTauri } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import "mdui/mdui.css";
+import { PublicChannelInvite } from "revolt.js";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
 import FlowConfirmReset from "@revolt/auth/src/flows/FlowConfirmReset";
@@ -19,7 +20,7 @@ import FlowLogin from "@revolt/auth/src/flows/FlowLogin";
 import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
 import FlowVerify from "@revolt/auth/src/flows/FlowVerify";
-import { ClientContext } from "@revolt/client";
+import { ClientContext, useClient } from "@revolt/client";
 import { I18nProvider } from "@revolt/i18n";
 import { KeybindContext } from "@revolt/keybinds";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
@@ -56,6 +57,28 @@ function SettingsRedirect() {
   const { openModal } = useModals();
 
   onMount(() => openModal({ type: "settings", config: "user" }));
+  return <PWARedirect />;
+}
+
+/**
+ * Open invite and redirect to last active path
+ */
+function InviteRedirect() {
+  const params = useParams();
+  const client = useClient();
+  const { openModal, showError } = useModals();
+
+  onMount(() => {
+    if (params.code) {
+      client()
+        // TODO: add a helper to revolt.js for this
+        .api.get(`/invites/${params.code as ""}`)
+        .then((invite) => PublicChannelInvite.from(client(), invite))
+        .then((invite) => openModal({ type: "invite", invite }))
+        .catch(showError);
+    }
+  });
+
   return <PWARedirect />;
 }
 
@@ -118,6 +141,7 @@ render(
           <Route path="/pwa" component={PWARedirect} />
           <Route path="/dev" component={DevelopmentPage} />
           <Route path="/settings" component={SettingsRedirect} />
+          <Route path="/invite/:code" component={InviteRedirect} />
           <Route path="/friends" component={Friends} />
           <Route path="/server/:server/*">
             <Route path="/channel/:channel/*" component={ChannelPage} />
