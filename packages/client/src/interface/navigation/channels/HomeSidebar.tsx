@@ -61,6 +61,11 @@ export const HomeSidebar = (props: Props) => {
 
   let scrollTargetElement!: HTMLDivElement;
 
+  const pendingRequests = createMemo(() => {
+    return client().users.filter((user) => user.relationship === "Incoming")
+      .length;
+  });
+
   return (
     <SidebarBase>
       <div
@@ -93,7 +98,10 @@ export const HomeSidebar = (props: Props) => {
               }
             >
               <ButtonTitle>
-                <Trans>Friends</Trans>
+                <Trans>Friends</Trans>{" "}
+                <Show when={pendingRequests()}>
+                  <PendingBadge>{pendingRequests()} requests</PendingBadge>
+                </Show>
               </ButtonTitle>
             </MenuButton>
           </a>
@@ -203,9 +211,20 @@ const SidebarTitle = styled("p", {
  */
 const ButtonTitle = styled("div", {
   base: {
+    gap: "var(--gap-md)",
     height: "100%",
     display: "flex",
     alignItems: "center",
+  },
+});
+
+const PendingBadge = styled("div", {
+  base: {
+    ...typography.raw({ class: "label", size: "small" }),
+    padding: "var(--gap-sm) var(--gap-md)",
+    color: "var(--md-sys-color-on-error)",
+    background: "var(--md-sys-color-error)",
+    borderRadius: "var(--borderRadius-md)",
   },
 });
 

@@ -1,5 +1,5 @@
 import { useFloating } from "solid-floating-ui";
-import { Accessor, For, Show } from "solid-js";
+import { Accessor, For, Show, createMemo } from "solid-js";
 import { JSX } from "solid-js";
 import { createSignal } from "solid-js";
 
@@ -66,6 +66,7 @@ interface Props {
  * Server list sidebar component
  */
 export const ServerList = (props: Props) => {
+  const client = useClient();
   const navigate = useNavigate();
   const { openModal } = useModals();
 
@@ -105,6 +106,11 @@ export const ServerList = (props: Props) => {
   createKeybind(KeybindAction.NAVIGATION_SERVER_UP, () => navigateServer(-1));
   createKeybind(KeybindAction.NAVIGATION_SERVER_DOWN, () => navigateServer(1));
 
+  const homeNotifications = createMemo(() => {
+    return client().users.filter((user) => user.relationship === "Incoming")
+      .length;
+  });
+
   // Ref for floating menu
   const [menuButton, setMenuButton] = createSignal<HTMLDivElement>();
 
@@ -117,7 +123,19 @@ export const ServerList = (props: Props) => {
           })}
           href="/app"
         >
-          <Avatar size={42} fallback={<MdHome />} />
+          <Avatar
+            size={42}
+            fallback={<MdHome />}
+            holepunch={homeNotifications() ? "top-right" : undefined}
+            overlay={
+              <Show when={homeNotifications()}>
+                <Unreads.Graphic
+                  unread={homeNotifications() !== 0}
+                  count={homeNotifications()}
+                />
+              </Show>
+            }
+          />
         </a>
         <Tooltip
           placement="right"
