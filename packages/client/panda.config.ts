@@ -31,6 +31,9 @@ export default defineConfig({
           },
           "100%": {
             background: "var(--background)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           },
         },
         slideIn: {

@@ -1,10 +1,11 @@
-import { JSX, Switch, splitProps } from "solid-js";
+import { JSX, splitProps } from "solid-js";
 
 import { cva } from "styled-system/css";
 
 import { useClient } from "@revolt/client";
 import { paramsFromPathname } from "@revolt/routing";
 import { Avatar, iconSize } from "@revolt/ui";
+import { Invite } from "@revolt/ui/components/features/messaging/elements/Invite";
 
 import MdChat from "@material-design-icons/svg/outlined/chat.svg?component-solid";
 import MdChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg?component-solid";
@@ -41,14 +42,24 @@ const internalLink = cva({
 export function RenderAnchor(
   props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>,
 ) {
-  const [localProps, remoteProps] = splitProps(props, ["href"]);
+  /* eslint-disable solid/reactivity */
+  /* eslint-disable solid/components-return-once */
 
-  // Pass-through no href or if anchor
-  if (!localProps.href) return <a href={localProps.href} {...props} />;
+  const [localProps, remoteProps] = splitProps(props, ["href", "target"]);
 
-  const internal = false;
+  // Handle case where there is no link
+  if (!localProps.href) return <span>{remoteProps.children}</span>;
+
+  // Handle links that navigate internally
   try {
-    const url = new URL(localProps.href);
+    let url = new URL(localProps.href);
+
+    // Remap Revolt discover links to native invite links
+    if (url.origin === "https://rvlt.gg" && /^\/[\w\d]+$/.test(url.pathname)) {
+      url = new URL(`/invite${url.pathname}`, location.origin);
+    }
+
+    // Determine whether it's in our scope
     if (
       [
         location.origin,
@@ -56,13 +67,12 @@ export function RenderAnchor(
         "https://revolt.chat",
       ].includes(url.origin)
     ) {
-      const newUrl = new URL(url.pathname, location.origin);
-
       const client = useClient();
       const params = paramsFromPathname(url.pathname);
+
       if (params.exactChannel) {
         return (
-          <a class={internalLink()} href={newUrl.toString()}>
+          <a class={internalLink()} href={url.toString()}>
             <MdTag {...iconSize("1em")} />
             {client().channels.get(params.channelId!)?.name}
             {params.exactMessage && (
@@ -76,22 +86,23 @@ export function RenderAnchor(
       } else if (params.exactServer) {
         const server = () => client().servers.get(params.serverId!);
         return (
-          <a class={internalLink()} href={newUrl.toString()}>
+          <a class={internalLink()} href={url.toString()}>
             <Avatar size={16} src={server()?.iconURL} /> {server()?.name}
           </a>
         );
+      } else if (params.inviteId) {
+        return <Invite code={params.inviteId} />;
       } else {
-        return (
-          <a
-            {...remoteProps}
-            class={link()}
-            href={newUrl.toString()}
-            rel="noreferrer"
-          />
-        );
+        return <a {...remoteProps} class={link()} href={url.toString()} />;
       }
     }
-  } catch (e) {}
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_) {
+    // failure
+  }
+
+  // ... all other links:
 
   // TODO: link warning
   // Determine type of link

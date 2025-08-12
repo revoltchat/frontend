@@ -112,6 +112,9 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
    * Set the last active path in the app
    */
   setLastActivePath(pathname: string) {
+    if (pathname.startsWith("/settings") || pathname.startsWith("/invite"))
+      return;
+
     const params = paramsFromPathname(pathname);
     const section = params.serverId ?? "home";
     this.set("activeInterface", section);

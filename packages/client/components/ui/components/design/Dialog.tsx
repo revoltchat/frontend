@@ -134,8 +134,6 @@ Dialog.Scrim = styled("div", {
     placeItems: "center",
 
     pointerEvents: "all",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
 
     animationName: "scrimFadeIn",
     animationDuration: "0.1s",

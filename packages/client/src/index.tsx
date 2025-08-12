@@ -141,13 +141,13 @@ render(
           <Route path="/pwa" component={PWARedirect} />
           <Route path="/dev" component={DevelopmentPage} />
           <Route path="/settings" component={SettingsRedirect} />
+          <Route path="/invite/:code" component={InviteRedirect} />
           <Route path="/friends" component={Friends} />
           <Route path="/server/:server/*">
             <Route path="/channel/:channel/*" component={ChannelPage} />
             <Route path="/*" component={ServerHome} />
           </Route>
           <Route path="/channel/:channel/*" component={ChannelPage} />
-          <Route path="/invite/:code" component={InviteRedirect} />
           <Route path="/*" component={HomePage} />
         </Route>
       </Router>
