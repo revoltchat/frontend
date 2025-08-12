@@ -2,6 +2,7 @@ import { BiRegularBlock } from "solid-icons/bi";
 import { JSX, Match, Show, Switch, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { Node } from "prosemirror-model";
 import { styled } from "styled-system/jsx";
 
 import { Row, TextEditor } from "@revolt/ui";
@@ -17,6 +18,11 @@ interface Props {
    * Initial content
    */
   initialValue: readonly [string];
+
+  /**
+   * Node replacement
+   */
+  nodeReplacement?: Node;
 
   /**
    * Text content
@@ -163,6 +169,7 @@ export function MessageBox(props: Props) {
             <TextEditor
               placeholder={props.placeholder}
               initialValue={props.initialValue}
+              nodeReplacement={props.nodeReplacement}
               onChange={props.setContent}
               onComplete={props.onSendMessage}
               onTyping={props.onTyping}

@@ -10,6 +10,7 @@ import {
 } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
+import { Node } from "prosemirror-model";
 import { Channel } from "revolt.js";
 
 import { useClient } from "@revolt/client";
@@ -74,6 +75,8 @@ export function MessageComposition(props: Props) {
   const [initialValue, setInitialValue] = createSignal([
     currentValue(),
   ] as const);
+
+  const [nodeReplacement, setNodeReplacement] = createSignal<Node>();
 
   createEffect(
     on(
@@ -264,6 +267,7 @@ export function MessageComposition(props: Props) {
         <MessageBox
           ref={ref}
           initialValue={initialValue()}
+          nodeReplacement={nodeReplacement()}
           onSendMessage={sendMessage}
           onTyping={delayedStopTyping}
           onEditLastMessage={() => state.draft.setEditingMessage(true)}
@@ -281,7 +285,10 @@ export function MessageComposition(props: Props) {
             </Switch>
           }
           actionsEnd={
-            <CompositionMediaPicker sendGIFMessage={sendMessage}>
+            <CompositionMediaPicker
+              onMessage={sendMessage}
+              onTextReplacement={setNodeReplacement}
+            >
               {(triggerProps) => (
                 <>
                   <Show when={state.experiments.isEnabled("gif_picker")}>
