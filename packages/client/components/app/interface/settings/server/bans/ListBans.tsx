@@ -1,12 +1,18 @@
-import { For, Match, Switch } from "solid-js";
+import { For, Match, Switch, createMemo, createSignal } from "solid-js";
 
-import { Trans } from "@lingui-solid/solid/macro";
 import { t } from "@lingui/core/macro";
 import { useQuery, useQueryClient } from "@tanstack/solid-query";
 import { Server, ServerBan } from "revolt.js";
 
 import { useModals } from "@revolt/modal";
-import { Avatar, Button, CircularProgress, DataTable, Row } from "@revolt/ui";
+import {
+  Avatar,
+  Button,
+  CircularProgress,
+  DataTable,
+  Row,
+  TextField,
+} from "@revolt/ui";
 
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
 
@@ -16,6 +22,7 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 export function ListServerBans(props: { server: Server }) {
   const client = useQueryClient();
   const { showError } = useModals();
+
   const query = useQuery(() => ({
     queryKey: ["bans", props.server.id],
     queryFn: () => props.server.fetchBans() as Promise<ServerBan[]>,
@@ -33,9 +40,41 @@ export function ListServerBans(props: { server: Server }) {
       .catch(showError);
   }
 
+  const [filterName, setFilterName] = createSignal("");
+  const [filterDesc, setFilterDesc] = createSignal("");
+
+  const data = createMemo(() => {
+    if (query.data) {
+      const name = filterName().toLowerCase(),
+        desc = filterDesc().toLowerCase();
+
+      if (name || desc) {
+        return query.data.filter(
+          (entry) =>
+            (entry.user?.username ?? "").toLowerCase().includes(name) &&
+            (entry.reason ?? "").toLowerCase().includes(desc),
+        );
+      }
+
+      return query.data;
+    }
+  });
+
   return (
     <DataTable
-      columns={[<Trans>User</Trans>, <Trans>Reason</Trans>, <></>]}
+      columns={[
+        <TextField
+          label={t`User`}
+          value={filterName()}
+          onChange={(e) => setFilterName(e.currentTarget.value)}
+        />,
+        <TextField
+          label={t`Reason`}
+          value={filterDesc()}
+          onChange={(e) => setFilterDesc(e.currentTarget.value)}
+        />,
+        <></>,
+      ]}
       itemCount={query.data?.length}
     >
       {(page, itemsPerPage) => (
@@ -49,7 +88,7 @@ export function ListServerBans(props: { server: Server }) {
           </Match>
           <Match when={query.data}>
             <For
-              each={query.data!.slice(
+              each={data()!.slice(
                 page * itemsPerPage,
                 page * itemsPerPage + itemsPerPage,
               )}
