@@ -57,9 +57,13 @@ export function RenderAnchor(
   try {
     let url = new URL(localProps.href);
 
-    // Remap Revolt discover links to native invite links
-    if (url.origin === "https://rvlt.gg" && /^\/[\w\d]+$/.test(url.pathname)) {
-      url = new URL(`/invite${url.pathname}`, location.origin);
+    // Remap Revolt discover links to native links
+    if (url.origin === "https://rvlt.gg") {
+      if (/^\/[\w\d]+$/.test(url.pathname)) {
+        url = new URL(`/invite${url.pathname}`, location.origin);
+      } else if (url.pathname.startsWith("/discover")) {
+        url = new URL(url.pathname, location.origin);
+      }
     }
 
     // Determine whether it's in our scope

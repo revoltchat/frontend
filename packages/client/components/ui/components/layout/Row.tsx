@@ -37,7 +37,9 @@ export const Row = styled("div", {
         justifyContent: "center",
       },
       stretch: {
-        justifyContent: "stretch",
+        "& *": {
+          flex: 1,
+        },
       },
     },
     gap: {

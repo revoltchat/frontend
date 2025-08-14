@@ -109,6 +109,13 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
   }
 
   /**
+   * Get the last active discover path in the app
+   */
+  getLastActiveDiscoverPath() {
+    return this.get().activePath["discover"];
+  }
+
+  /**
    * Set the last active path in the app
    */
   setLastActivePath(pathname: string) {
@@ -116,7 +123,9 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
       return;
 
     const params = paramsFromPathname(pathname);
-    const section = params.serverId ?? "home";
+    const section = pathname.startsWith("/discover")
+      ? "discover"
+      : (params.serverId ?? "home");
     this.set("activeInterface", section);
     this.set("activePath", section, pathname);
   }

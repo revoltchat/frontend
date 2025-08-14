@@ -1,17 +1,17 @@
-import { useFloating } from "solid-floating-ui";
 import { Accessor, For, Show, createMemo } from "solid-js";
 import { JSX } from "solid-js";
 import { createSignal } from "solid-js";
 
-import { autoUpdate, offset, shift } from "@floating-ui/dom";
 import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
 import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
+import { useState } from "@revolt/state";
 import { Avatar, Column, Text, Unreads, UserStatus } from "@revolt/ui";
 
 import MdAdd from "@material-design-icons/svg/filled/add.svg?component-solid";
@@ -66,6 +66,7 @@ interface Props {
  * Server list sidebar component
  */
 export const ServerList = (props: Props) => {
+  const state = useState();
   const client = useClient();
   const navigate = useNavigate();
   const { openModal } = useModals();
@@ -270,11 +271,16 @@ export const ServerList = (props: Props) => {
             <Avatar size={42} fallback={<MdAdd />} />
           </a>
         </Tooltip>
-        <Tooltip placement="right" content={"Find new servers to join"}>
-          <div class={entryContainer()}>
-            <Avatar size={42} fallback={<MdExplore />} />
-          </div>
-        </Tooltip>
+        <Show when={CONFIGURATION.IS_REVOLT}>
+          <Tooltip placement="right" content={"Find new servers to join"}>
+            <a
+              href={state.layout.getLastActiveDiscoverPath()}
+              class={entryContainer()}
+            >
+              <Avatar size={42} fallback={<MdExplore />} />
+            </a>
+          </Tooltip>
+        </Show>
       </div>
       <Shadow>
         <div />

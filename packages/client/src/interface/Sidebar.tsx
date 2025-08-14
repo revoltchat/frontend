@@ -6,7 +6,7 @@ import { Channel, Server as ServerI } from "revolt.js";
 import { ChannelContextMenu, ServerSidebarContextMenu } from "@revolt/app";
 import { useClient, useUser } from "@revolt/client";
 import { useModals } from "@revolt/modal";
-import { useParams, useSmartParams } from "@revolt/routing";
+import { useLocation, useParams, useSmartParams } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 
@@ -25,7 +25,9 @@ export const Sidebar = (props: {
   const state = useState();
   const client = useClient();
   const { openModal } = useModals();
+
   const params = useParams<{ server: string }>();
+  const location = useLocation();
 
   return (
     <div style={{ display: "flex", "flex-shrink": 0 }}>
@@ -49,10 +51,10 @@ export const Sidebar = (props: {
         menuGenerator={props.menuGenerator}
       />
       <Show
-        when={state.layout.getSectionState(
-          LAYOUT_SECTIONS.PRIMARY_SIDEBAR,
-          true,
-        )}
+        when={
+          state.layout.getSectionState(LAYOUT_SECTIONS.PRIMARY_SIDEBAR, true) &&
+          !location.pathname.startsWith("/discover")
+        }
       >
         <Switch fallback={<Home />}>
           <Match when={params.server}>

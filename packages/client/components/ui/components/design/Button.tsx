@@ -16,7 +16,10 @@ type Props = Omit<
       "role" | "tabIndex" | "aria-selected"
     >,
   "onClick" | "_permitAnimation"
->;
+> & {
+  groupActive?: boolean;
+  bg?: string;
+};
 
 /**
  * Buttons prompt most actions in a UI
@@ -26,25 +29,22 @@ type Props = Omit<
  * ```tsx
  * <Row>
  *   <Button
- *     variant={activeA() ? "filled" : "tonal"}
- *     shape={activeA() ? "square" : "round"}
  *     onPress={() => setActiveA()}
+ *     groupActive={activeA()}
  *     group="standard"
  *   >
  *     Button A
  *   </Button>
  *   <Button
- *     variant={activeB() ? "filled" : "tonal"}
- *     shape={activeB() ? "square" : "round"}
  *     onPress={() => setActiveB()}
+ *     groupActive={activeB()}
  *     group="standard"
  *   >
  *     Button B
  *   </Button>
  *   <Button
- *     variant={activeC() ? "filled" : "tonal"}
- *     shape={activeC() ? "square" : "round"}
  *     onPress={() => setActiveC()}
+ *     groupActive={activeC()}
  *     group="standard"
  *   >
  *     Button C
@@ -57,25 +57,22 @@ type Props = Omit<
  * ```tsx
  * <Row>
  *   <Button
- *     variant={activeA() ? "filled" : "tonal"}
- *     shape={activeA() ? "round" : "square"}
  *     onPress={() => setActiveA()}
+ *     groupActive={activeA()}
  *     group="connected-start"
  *   >
  *     Button A
  *   </Button>
  *   <Button
- *     variant={activeB() ? "filled" : "tonal"}
- *     shape={activeB() ? "round" : "square"}
  *     onPress={() => setActiveB()}
+ *     groupActive={activeB()}
  *     group="connected"
  *   >
  *     Button B
  *   </Button>
  *   <Button
- *     variant={activeC() ? "filled" : "tonal"}
- *     shape={activeC() ? "round" : "square"}
  *     onPress={() => setActiveC()}
+ *     groupActive={activeC()}
  *     group="connected-end"
  *   >
  *     Button C
@@ -93,17 +90,29 @@ export function Button(props: Props) {
   ]);
 
   const [style, rest] = splitProps(propsRest, [
+    "bg",
     "size",
     "shape",
     "variant",
     "group",
+    "groupActive",
   ]);
   let ref: HTMLButtonElement | undefined;
+
+  const shape = () =>
+    style.group
+      ? style.groupActive !== (style.group === "standard")
+        ? "round"
+        : "square"
+      : style.shape;
+
+  const variant = () =>
+    style.group ? (style.groupActive ? "filled" : "tonal") : style.variant;
 
   let _permitAnimation = false;
   createRenderEffect(
     on(
-      () => props.shape,
+      () => shape(),
       () => (_permitAnimation = true),
       { defer: true },
     ),
@@ -115,7 +124,16 @@ export function Button(props: Props) {
       {...passthrough}
       {...buttonProps}
       ref={ref}
-      class={button({ ...style, _permitAnimation })}
+      class={button({
+        shape: shape(),
+        variant: variant(),
+        size: style.size,
+        group: style.group,
+        _permitAnimation,
+      })}
+      style={{
+        "background-color": style.bg,
+      }}
       // @codegen directives props=rest include=floating
     >
       <Show when={!buttonProps.disabled}>
@@ -436,17 +454,18 @@ const button = cva({
       },
     },
 
-    // run animation when connected group element activates
-    {
-      shape: "round",
-      group: ["connected-start", "connected-end", "connected"],
-      _permitAnimation: true,
-      css: {
-        animationName: "materialPhysicsButtonSelect",
-        animationDuration: "0.3s",
-        animationFillMode: "forwards",
-      },
-    },
+    // run animation when group activates
+    // connected doesn't actually animate:
+    // {
+    //   shape: "round",
+    //   group: ["connected-start", "connected-end", "connected"],
+    //   _permitAnimation: true,
+    //   css: {
+    //     animationName: "materialPhysicsButtonSelect",
+    //     animationDuration: "0.3s",
+    //     animationFillMode: "forwards",
+    //   },
+    // },
     {
       shape: "square",
       group: ["standard"],
