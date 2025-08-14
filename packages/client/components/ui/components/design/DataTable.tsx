@@ -8,7 +8,6 @@ import {
 } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
-import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import MdChevronLeft from "@material-design-icons/svg/outlined/chevron_left.svg?component-solid";
@@ -19,8 +18,6 @@ import MdLastPage from "@material-design-icons/svg/outlined/last_page.svg?compon
 import { Row } from "../layout";
 
 import { Button } from "./Button";
-import { MenuItem } from "./Menu";
-import { TextField } from "./TextField";
 
 interface Props {
   itemCount?: number;
@@ -49,7 +46,9 @@ export function DataTable(props: Props) {
   );
 
   const lastPage = () =>
-    props.itemCount ? Math.floor(props.itemCount / itemsPerPage() - 1) : 0;
+    props.itemCount
+      ? Math.max(0, Math.floor(props.itemCount / itemsPerPage() - 1))
+      : 0;
 
   return (
     <Container>
@@ -70,7 +69,7 @@ export function DataTable(props: Props) {
             <TableRow>
               <Cell colspan={props.columns.length}>
                 <Pagination>
-                  <Row align>
+                  {/* <Row align>
                     <Trans>Rows per page:</Trans>
                     <TextField.Select
                       value="12"
@@ -85,7 +84,7 @@ export function DataTable(props: Props) {
                       <MenuItem value="50">50</MenuItem>
                       <MenuItem value="100">100</MenuItem>
                     </TextField.Select>
-                  </Row>
+                  </Row> */}
 
                   <Trans>
                     {page() * itemsPerPage() + 1}-
@@ -98,32 +97,28 @@ export function DataTable(props: Props) {
 
                   <Row>
                     <Button
-                      size="icon"
-                      variant="secondary"
+                      shape="round"
                       isDisabled={page() === 0}
                       onPress={() => setPage(0)}
                     >
                       <MdFirstPage />
                     </Button>
                     <Button
-                      size="icon"
-                      variant="secondary"
+                      shape="round"
                       isDisabled={page() === 0}
                       onPress={() => setPage((page) => page - 1)}
                     >
                       <MdChevronLeft />
                     </Button>
                     <Button
-                      size="icon"
-                      variant="secondary"
+                      shape="round"
                       isDisabled={page() === lastPage()}
                       onPress={() => setPage((page) => page + 1)}
                     >
                       <MdChevronRight />
                     </Button>
                     <Button
-                      size="icon"
-                      variant="secondary"
+                      shape="round"
                       isDisabled={page() === lastPage()}
                       onPress={() => setPage(lastPage())}
                     >
