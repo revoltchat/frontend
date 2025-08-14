@@ -1,6 +1,7 @@
 import { batch } from "solid-js";
 
 import { API, Channel, Client, Message } from "revolt.js";
+import { ulid } from "ulid";
 
 import { CONFIGURATION, insecureUniqueId } from "@revolt/common";
 
@@ -97,7 +98,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   private fileCache: Record<
     string,
-    { file: File; dataUri: string | undefined }
+    { file: File; dataUri: string | undefined; autumnId?: string }
   >;
 
   /**
@@ -279,8 +280,11 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
   async sendDraft(client: Client, channel: Channel, existingDraft?: DraftData) {
     const draft = existingDraft ?? this.popDraft(channel.id);
 
-    // TODO: const idempotencyKey = ulid();
-    const idempotencyKey = Math.random().toString();
+    // Check if this is something we can even send
+    if (!draft.content && !draft.files?.length) return;
+
+    // Add message to the outbox
+    const idempotencyKey = ulid();
     this.set("outbox", channel.id, [
       ...this.getPendingMessages(channel.id),
       {
@@ -310,7 +314,14 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       for (const fileId of files) {
         // Prepare for upload
         const body = new FormData();
-        const { file } = this.getFile(fileId);
+        const { file, autumnId } = this.getFile(fileId);
+
+        // Use ID if already uploaded
+        if (autumnId) {
+          attachments.push(autumnId);
+          continue;
+        }
+
         body.set("file", file);
 
         // We have to use XMLHttpRequest because modern fetch duplex streams require QUIC or HTTP/2
@@ -343,9 +354,10 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
           xhr.send(body);
         });
 
-        // TODO: keep track of uploaded files (and don't reupload those that succeded if message or something else fails)
         if (!success) throw "Upload Error";
+
         attachments.push(response.id);
+        this.fileCache[fileId].autumnId = response.id;
       }
     }
 
