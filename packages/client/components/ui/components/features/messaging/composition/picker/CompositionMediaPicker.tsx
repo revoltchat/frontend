@@ -81,16 +81,14 @@ export function CompositionMediaPicker(props: Props) {
                 <Container>
                   <Row justify>
                     <Button
-                      variant={show() === "gif" ? "filled" : "tonal"}
-                      shape={show() === "gif" ? "round" : "square"}
+                      groupActive={show() === "gif"}
                       onPress={() => setShow("gif")}
                       group="connected-start"
                     >
                       GIFs
                     </Button>
                     <Button
-                      variant={show() === "emoji" ? "filled" : "tonal"}
-                      shape={show() === "emoji" ? "round" : "square"}
+                      groupActive={show() === "emoji"}
                       onPress={() => setShow("emoji")}
                       group="connected-end"
                     >
