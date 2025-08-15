@@ -1,5 +1,6 @@
 import { JSX, Match, Show, Switch } from "solid-js";
 
+import { Message } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
@@ -33,6 +34,8 @@ interface CommonProps {
 }
 
 type Props = CommonProps & {
+  message: Message;
+
   /**
    * Avatar URL
    */
@@ -289,7 +292,7 @@ export function MessageContainer(props: Props) {
       }
       use:floating={{ contextMenu: props.contextMenu }}
     >
-      <MessageToolbar />
+      <MessageToolbar message={props.message} />
 
       <Show when={props.isLink}>
         <Ripple />

@@ -107,6 +107,7 @@ export function Message(props: Props) {
 
   return (
     <MessageContainer
+      message={props.message}
       username={
         <div use:floating={floatingUserMenusFromMessage(props.message)}>
           <Username
