@@ -12,3 +12,4 @@ export { SystemMessage } from "./SystemMessage";
 export { SystemMessageIcon } from "./SystemMessageIcon";
 export { TextEmbed } from "./TextEmbed";
 export { TextFile } from "./TextFile";
+export { MessageToolbar } from "./MessageToolbar";

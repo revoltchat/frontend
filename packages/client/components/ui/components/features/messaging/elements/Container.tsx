@@ -4,12 +4,14 @@ import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Ripple, typography } from "@revolt/ui/components/design";
-import { Column, Row } from "@revolt/ui/components/layout";
+import { Row } from "@revolt/ui/components/layout";
 import {
   NonBreakingText,
   OverflowingText,
   Time,
 } from "@revolt/ui/components/utils";
+
+import { MessageToolbar } from "./MessageToolbar";
 
 interface CommonProps {
   /**
@@ -107,6 +109,8 @@ type Props = CommonProps & {
  */
 const base = cva({
   base: {
+    position: "relative",
+
     display: "flex",
     flexDirection: "column",
 
@@ -120,6 +124,10 @@ const base = cva({
 
     "& a:hover": {
       textDecoration: "underline",
+    },
+
+    "&:hover .Toolbar": {
+      display: "flex",
     },
 
     ...typography.raw({ class: "_messages" }),
@@ -281,6 +289,8 @@ export function MessageContainer(props: Props) {
       }
       use:floating={{ contextMenu: props.contextMenu }}
     >
+      <MessageToolbar />
+
       <Show when={props.isLink}>
         <Ripple />
       </Show>

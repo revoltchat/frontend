@@ -16,6 +16,7 @@ import {
   Embed,
   MessageContainer,
   MessageReply,
+  MessageToolbar,
   Reactions,
   SystemMessage,
   SystemMessageIcon,

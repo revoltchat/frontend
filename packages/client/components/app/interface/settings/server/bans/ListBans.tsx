@@ -1,6 +1,6 @@
 import { For, Match, Switch, createMemo, createSignal } from "solid-js";
 
-import { t } from "@lingui/core/macro";
+import { useLingui } from "@lingui-solid/solid/macro";
 import { useQuery, useQueryClient } from "@tanstack/solid-query";
 import { Server, ServerBan } from "revolt.js";
 
@@ -20,6 +20,7 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
  * List and invalidate server bans
  */
 export function ListServerBans(props: { server: Server }) {
+  const { t } = useLingui();
   const client = useQueryClient();
   const { showError } = useModals();
 
