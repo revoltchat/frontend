@@ -1,7 +1,11 @@
+import { Show } from "solid-js";
+
 import { Trans } from "@lingui-solid/solid/macro";
+import { useMutation } from "@tanstack/solid-query";
 import { Server } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
+import { useModals } from "@revolt/modal";
 import { CategoryButton, Column, Draggable, Text } from "@revolt/ui";
 
 import MdDragIndicator from "@material-design-icons/svg/outlined/drag_indicator.svg?component-solid";
@@ -13,6 +17,12 @@ import { useSettingsNavigation } from "../../Settings";
  */
 export function ServerRoleOverview(props: { context: Server }) {
   const { navigate } = useSettingsNavigation();
+  const { showError } = useModals();
+
+  const change = useMutation(() => ({
+    mutationFn: (order: string[]) => props.context.setRoleOrdering(order),
+    onError: showError,
+  }));
 
   return (
     <Column gap="lg">
@@ -35,10 +45,10 @@ export function ServerRoleOverview(props: { context: Server }) {
       </Column>
 
       <Column gap="sm">
-        <Text class="label">
-          Note: the drag and drop doesn't do anything yet
-        </Text>
-        <Draggable items={props.context.orderedRoles} onChange={() => void 0}>
+        <Show when={change.isPending}>
+          <Text>Saving... (i am TEMPORARY UI)</Text>
+        </Show>
+        <Draggable items={props.context.orderedRoles} onChange={change.mutate}>
           {(role) => (
             <ItemContainer>
               <MdDragIndicator />

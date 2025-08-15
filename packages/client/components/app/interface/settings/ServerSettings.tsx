@@ -23,6 +23,7 @@ import Overview from "./server/Overview";
 import { ListServerBans } from "./server/bans/ListBans";
 import { EmojiList } from "./server/emojis/EmojiList";
 import { ListServerInvites } from "./server/invites/ListServerInvites";
+import { ServerRoleEditor } from "./server/roles/ServerRoleEditor";
 import { ServerRoleOverview } from "./server/roles/ServerRoleOverview";
 
 const Config: SettingsConfiguration<Server> = {
@@ -31,10 +32,10 @@ const Config: SettingsConfiguration<Server> = {
    * @param key
    */
   title(ctx, key) {
-    if (key.startsWith("permissions/")) {
-      if (key === "permissions/default") return t`Default Permissions`;
+    if (key.startsWith("roles/")) {
+      if (key === "roles/default") return t`Default Permissions`;
 
-      // todo
+      return ctx.context.roles.get(key.substring(6))?.name ?? "";
     }
 
     return ctx.entries
@@ -62,7 +63,7 @@ const Config: SettingsConfiguration<Server> = {
         );
       }
 
-      // todo
+      return <ServerRoleEditor context={server} roleId={id.substring(6)} />;
     }
 
     switch (id) {
@@ -92,6 +93,7 @@ const Config: SettingsConfiguration<Server> = {
     const { openModal } = useModals();
 
     return {
+      context: server,
       entries: [
         {
           title: <TextWithEmoji content={server.name} />,
@@ -154,10 +156,7 @@ const Config: SettingsConfiguration<Server> = {
           entries: [
             {
               icon: (
-                <BiSolidTrash
-                  size={20}
-                  color="var(--md-sys-color-error)"
-                />
+                <BiSolidTrash size={20} color="var(--md-sys-color-error)" />
               ),
               title: (
                 <ColouredText colour="var(--md-sys-color-error)">

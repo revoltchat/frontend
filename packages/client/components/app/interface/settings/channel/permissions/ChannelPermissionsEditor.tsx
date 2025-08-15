@@ -9,6 +9,7 @@ import { Button, Checkbox2, OverrideSwitch, Text } from "@revolt/ui";
 
 type Props =
   | { type: "server_default"; context: Server }
+  | { type: "server_role"; context: Server; roleId: string }
   | { type: "channel_default"; context: Channel }
   | { type: "channel_role"; context: Channel; roleId: string }
   | { type: "group"; context: Channel };
@@ -32,6 +33,11 @@ export function ChannelPermissionsEditor(props: Props) {
     switch (props.type) {
       case "server_default":
         return [BigInt(props.context.defaultPermissions), BigInt(0)];
+      case "server_role":
+        return [
+          BigInt(props.context.roles?.get(props.roleId)?.permissions.a || 0),
+          BigInt(props.context.roles?.get(props.roleId)?.permissions.d || 0),
+        ];
       case "channel_default":
         return [
           BigInt(props.context.defaultPermissions?.a || 0),
@@ -75,6 +81,12 @@ export function ChannelPermissionsEditor(props: Props) {
     switch (props.type) {
       case "server_default":
         props.context.setPermissions(undefined, Number(value()[0]));
+        break;
+      case "server_role":
+        props.context.setPermissions(props.roleId, {
+          allow: Number(value()[0]),
+          deny: Number(value()[1]),
+        });
         break;
       case "channel_default":
         props.context.setPermissions(undefined, {
@@ -374,7 +386,7 @@ export function ChannelPermissionsEditor(props: Props) {
   return (
     <div class={css({ display: "flex", flexDirection: "column" })}>
       <Show when={unsavedChanges()}>
-        <Button onPress={save}>Save Pending Changes</Button>
+        <Button onPress={save}>Save Pending Changes (i am TEMPORARY UI)</Button>
       </Show>
 
       <For each={Permissions}>

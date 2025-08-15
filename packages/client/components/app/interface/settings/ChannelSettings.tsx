@@ -36,7 +36,7 @@ const Config: SettingsConfiguration<Channel> = {
     if (key.startsWith("permissions/")) {
       if (key === "permissions/default") return t`Default Permissions`;
 
-      // todo
+      return ctx.context.server?.roles.get(key.substring(12))?.name ?? "";
     }
 
     return ctx.entries
@@ -102,6 +102,7 @@ const Config: SettingsConfiguration<Channel> = {
     const { openModal } = useModals();
 
     return {
+      context: channel,
       entries: [
         {
           title: <TextWithEmoji content={channel.name} />,
@@ -136,10 +137,7 @@ const Config: SettingsConfiguration<Channel> = {
           entries: [
             {
               icon: (
-                <BiSolidTrash
-                  size={20}
-                  color="var(--md-sys-color-error)"
-                />
+                <BiSolidTrash size={20} color="var(--md-sys-color-error)" />
               ),
               title: (
                 <ColouredText colour="var(--md-sys-color-error)">

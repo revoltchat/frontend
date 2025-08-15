@@ -100,6 +100,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
     const { logout } = useClientLifecycle();
 
     return {
+      context: null!,
       prepend: (
         <Column gap="s">
           <AccountCard />
@@ -234,10 +235,7 @@ const Config: SettingsConfiguration<{ server: Server }> = {
             {
               id: "logout",
               icon: (
-                <MdLogout
-                  {...iconSize(20)}
-                  fill="var(--md-sys-color-error)"
-                />
+                <MdLogout {...iconSize(20)} fill="var(--md-sys-color-error)" />
               ),
               title: (
                 <ColouredText colour="var(--md-sys-color-error)">

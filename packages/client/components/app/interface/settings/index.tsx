@@ -12,14 +12,14 @@ export type SettingsConfiguration<T> = {
    * Generate list of categories and entries
    * @returns List
    */
-  list: (context: T) => SettingsList;
+  list: (context: T) => SettingsList<T>;
 
   /**
    * Render the title of the current breadcrumb key
    * @param ctx Context from settings list
    * @param key Key
    */
-  title: (ctx: SettingsList, key: string) => string;
+  title: (ctx: SettingsList<T>, key: string) => string;
 
   /**
    * Render the current settings page
@@ -34,7 +34,8 @@ export type SettingsConfiguration<T> = {
 /**
  * List of categories and entries
  */
-export type SettingsList = {
+export type SettingsList<T> = {
+  context: T;
   prepend?: JSX.Element;
   append?: JSX.Element;
   entries: {
