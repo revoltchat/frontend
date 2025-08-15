@@ -7,7 +7,17 @@ import { API, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { CONFIGURATION } from "@revolt/common";
-import { CircularProgress, Column, Form2, Row, Text } from "@revolt/ui";
+import {
+  CategoryButton,
+  CircularProgress,
+  Column,
+  Form2,
+  Row,
+} from "@revolt/ui";
+
+import MdBadge from "@material-design-icons/svg/filled/badge.svg?component-solid";
+
+import { useSettingsNavigation } from "../../Settings";
 
 interface Props {
   user: User;
@@ -20,6 +30,8 @@ export function UserProfileEditor(props: Props) {
     queryKey: ["profile", props.user.id],
     queryFn: () => props.user.fetchProfile(),
   }));
+
+  const { navigate } = useSettingsNavigation();
 
   /* eslint-disable solid/reactivity */
   const editGroup = createFormGroup({
@@ -139,7 +151,20 @@ export function UserProfileEditor(props: Props) {
           control={editGroup.controls.displayName}
           label={t`Display Name`}
         />
-        <Text>Looking to change username? --link to account--</Text>
+
+        <Show when={!props.user.bot}>
+          <CategoryButton
+            icon={<MdBadge />}
+            action="chevron"
+            description={
+              <Trans>Go to account settings to edit your username</Trans>
+            }
+            onClick={() => navigate("account")}
+          >
+            <Trans>Want to change username?</Trans>
+          </CategoryButton>
+        </Show>
+
         <Form2.TextField
           autosize
           min-rows={5}
