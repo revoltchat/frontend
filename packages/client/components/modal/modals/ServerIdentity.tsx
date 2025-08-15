@@ -2,7 +2,10 @@ import { createFormControl, createFormGroup } from "solid-forms";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { t } from "@lingui/core/macro";
+import { API } from "revolt.js";
 
+import { useClient } from "@revolt/client";
+import { CONFIGURATION } from "@revolt/common";
 import { Column, Dialog, DialogProps, Form2 } from "@revolt/ui";
 
 import { useModals } from "..";
@@ -14,24 +17,45 @@ import { Modals } from "../types";
 export function ServerIdentityModal(
   props: DialogProps & Modals & { type: "server_identity" },
 ) {
+  const client = useClient();
   const { showError } = useModals();
 
   const group = createFormGroup({
+    avatar: createFormControl<string | File[] | null>(
+      props.member.animatedAvatarURL,
+    ),
     nickname: createFormControl(props.member.nickname ?? ""),
   });
 
   async function onSubmit() {
     try {
-      const nickname = group.controls.nickname.value;
-      await props.member.edit(
-        nickname
-          ? {
-              nickname,
-            }
-          : {
-              remove: ["Nickname"],
-            },
-      );
+      const changes: API.DataMemberEdit = {
+        remove: [],
+      };
+
+      if (group.controls.nickname.isDirty) {
+        const nickname = group.controls.nickname.value.trim();
+        if (nickname) {
+          changes.nickname = nickname;
+        } else {
+          changes.remove!.push("Nickname");
+        }
+      }
+
+      if (group.controls.avatar.isDirty) {
+        if (!group.controls.avatar.value) {
+          changes.remove!.push("Avatar");
+        } else if (Array.isArray(group.controls.avatar.value)) {
+          changes.avatar = await client().uploadFile(
+            "avatars",
+            group.controls.avatar.value[0],
+            CONFIGURATION.DEFAULT_MEDIA_URL,
+          );
+        }
+      }
+
+      await props.member.edit(changes);
+
       props.onClose();
     } catch (error) {
       showError(error);
@@ -57,24 +81,18 @@ export function ServerIdentityModal(
     >
       <form onSubmit={Form2.submitHandler(group, onSubmit)}>
         <Column>
+          <Form2.FileInput
+            control={group.controls.avatar}
+            accept="image/*"
+            label={t`Server Avatar`}
+            imageJustify={false}
+          />
           <Form2.TextField
             name="nickname"
-            control={group.controls.nickname}
             label={t`Nickname`}
+            control={group.controls.nickname}
+            placeholder={props.member.user?.displayName}
           />
-          {/* TODO: Add preview back */}
-          {/* <MessageContainer
-            avatar={<Avatar size={36} src={props.member.animatedAvatarURL} />}
-            timestamp={new Date()}
-            username={
-              <Username
-                username={group.controls.nickname.value || props.member.user!.displayName}
-                colour={props.member.roleColour!}
-              />
-            }
-          >
-            Hello {group.controls.nickname.value || props.member.user!.displayName}!
-          </MessageContainer> */}
         </Column>
       </form>
     </Dialog>
