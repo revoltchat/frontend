@@ -16,7 +16,6 @@ import {
   Embed,
   MessageContainer,
   MessageReply,
-  MessageToolbar,
   Reactions,
   SystemMessage,
   SystemMessageIcon,
@@ -295,7 +294,7 @@ export function Message(props: Props) {
  */
 const NewUser = styled("div", {
   base: {
-    color: "var(--md-sys-color-primary)",
+    fill: "var(--md-sys-color-primary)",
   },
 });
 
