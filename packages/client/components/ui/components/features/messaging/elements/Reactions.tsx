@@ -246,17 +246,21 @@ const ReactionBase = styled("div", {
       height: "1.2em",
       objectFit: "contain",
     },
-
-    color: "var(--md-sys-color-on-surface-variant)",
-    background: "var(--md-sys-color-surface-variant)",
   },
   variants: {
     active: {
       true: {
-        color: "var(--md-sys-color-on-primary)",
-        background: "var(--md-sys-color-primary)",
+        color: "var(--md-sys-color-on-secondary-container)",
+        background: "var(--md-sys-color-secondary-container)",
+      },
+      false: {
+        color: "var(--md-sys-color-on-surface)",
+        background: "var(--md-sys-color-surface-container-low)",
       },
     },
+  },
+  defaultVariants: {
+    active: false,
   },
 });
 
