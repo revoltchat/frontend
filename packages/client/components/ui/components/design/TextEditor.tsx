@@ -406,8 +406,11 @@ export function TextEditor(props: Props) {
                   tr = tr.insert(
                     action.range.from,
                     schema.nodes.rfm_user_mention.createAndFill({
-                      id: match.id,
-                      username: match.displayName,
+                      id:
+                        match instanceof ServerMember
+                          ? match.id.user
+                          : match.id,
+                      username: match.displayName ?? match.username,
                       avatar: match.animatedAvatarURL,
                     })!,
                   );
