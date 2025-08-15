@@ -1,10 +1,19 @@
 import { useFloating } from "solid-floating-ui";
-import { Match, Switch, createContext, createSignal } from "solid-js";
+import {
+  Accessor,
+  Match,
+  Setter,
+  Switch,
+  createContext,
+  createSignal,
+  onCleanup,
+  onMount,
+} from "solid-js";
 import { JSX, Ref, Show } from "solid-js";
 import { Portal } from "solid-js/web";
 import { Motion, Presence } from "solid-motionone";
 
-import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
+import { flip, offset, shift } from "@floating-ui/dom";
 import { Node } from "prosemirror-model";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
@@ -43,14 +52,7 @@ export const CompositionMediaPickerContext = createContext(
 
 export function CompositionMediaPicker(props: Props) {
   const [anchor, setAnchor] = createSignal<HTMLElement>();
-  const [floating, setFloating] = createSignal<HTMLDivElement>();
   const [show, setShow] = createSignal<"gif" | "emoji">();
-
-  const position = useFloating(anchor, floating, {
-    placement: "top-end",
-    whileElementsMounted: autoUpdate,
-    middleware: [offset(5), flip(), shift()],
-  });
 
   return (
     <CompositionMediaPickerContext.Provider value={props}>
@@ -70,44 +72,76 @@ export function CompositionMediaPicker(props: Props) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
             >
-              <Base
-                ref={setFloating}
-                style={{
-                  position: position.strategy,
-                  top: `${position.y ?? 0}px`,
-                  left: `${position.x ?? 0}px`,
-                }}
-              >
-                <Container>
-                  <Row justify>
-                    <Button
-                      groupActive={show() === "gif"}
-                      onPress={() => setShow("gif")}
-                      group="connected-start"
-                    >
-                      GIFs
-                    </Button>
-                    <Button
-                      groupActive={show() === "emoji"}
-                      onPress={() => setShow("emoji")}
-                      group="connected-end"
-                    >
-                      Emoji
-                    </Button>
-                  </Row>
-
-                  <Switch fallback={<span>Not available yet.</span>}>
-                    <Match when={show() === "emoji"}>
-                      <EmojiPicker />
-                    </Match>
-                  </Switch>
-                </Container>
-              </Base>
+              <Picker
+                anchor={anchor}
+                show={show}
+                setShow={setShow}
+                onMessage={props.onMessage}
+                onTextReplacement={props.onTextReplacement}
+              />
             </Motion>
           </Show>
         </Presence>
       </Portal>
     </CompositionMediaPickerContext.Provider>
+  );
+}
+
+function Picker(
+  props: Pick<Props, "onMessage" | "onTextReplacement"> & {
+    anchor: Accessor<HTMLElement | undefined>;
+    show: Accessor<"gif" | "emoji" | undefined>;
+    setShow: Setter<"gif" | "emoji" | undefined>;
+  },
+) {
+  const [floating, setFloating] = createSignal<HTMLDivElement>();
+
+  const position = useFloating(() => props.anchor(), floating, {
+    placement: "top-end",
+    middleware: [offset(5), flip(), shift()],
+  });
+
+  function onMouseDown() {
+    props.setShow();
+  }
+
+  onMount(() => document.addEventListener("mousedown", onMouseDown));
+  onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
+
+  return (
+    <Base
+      ref={setFloating}
+      style={{
+        position: position.strategy,
+        top: `${position.y ?? 0}px`,
+        left: `${position.x ?? 0}px`,
+      }}
+    >
+      <Container>
+        <Row justify class="CompositionButton">
+          <Button
+            groupActive={props.show() === "gif"}
+            onPress={() => props.setShow("gif")}
+            group="connected-start"
+          >
+            GIFs
+          </Button>
+          <Button
+            groupActive={props.show() === "emoji"}
+            onPress={() => props.setShow("emoji")}
+            group="connected-end"
+          >
+            Emoji
+          </Button>
+        </Row>
+
+        <Switch fallback={<span>Not available yet.</span>}>
+          <Match when={props.show() === "emoji"}>
+            <EmojiPicker />
+          </Match>
+        </Switch>
+      </Container>
+    </Base>
   );
 }
 

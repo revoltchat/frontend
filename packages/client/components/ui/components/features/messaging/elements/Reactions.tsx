@@ -5,10 +5,15 @@ import { API } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { Emoji } from "@revolt/markdown";
+import { schema } from "@revolt/markdown/prosemirror";
 import { useUsers } from "@revolt/markdown/users";
 import { Ripple, Text } from "@revolt/ui/components/design";
 import { Tooltip } from "@revolt/ui/components/floating";
 import { Row } from "@revolt/ui/components/layout";
+
+import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
+
+import { CompositionMediaPicker } from "../composition";
 
 interface Props {
   /**
@@ -31,6 +36,12 @@ interface Props {
    * @param reaction ID
    */
   addReaction(reaction: string): void;
+
+  /**
+   * Send a GIF reaction
+   * @param text Message
+   */
+  sendGIF(text: string): void;
 
   /**
    * Remove a reaction
@@ -110,10 +121,25 @@ export function Reactions(props: Props) {
             />
           )}
         </For>
-        <AddReaction class="add">
-          <Ripple />
-          {"+"}
-        </AddReaction>
+        <CompositionMediaPicker
+          onMessage={props.sendGIF}
+          onTextReplacement={(emoji) =>
+            props.addReaction(
+              emoji.type === schema.nodes.rfm_custom_emoji
+                ? emoji.attrs.id
+                : emoji.textContent,
+            )
+          }
+        >
+          {(triggerProps) => (
+            <div ref={triggerProps.ref} onClick={triggerProps.onClickEmoji}>
+              <AddReaction class="add">
+                <Ripple />
+                <MdAdd />
+              </AddReaction>
+            </div>
+          )}
+        </CompositionMediaPicker>
       </List>
     </Show>
   );

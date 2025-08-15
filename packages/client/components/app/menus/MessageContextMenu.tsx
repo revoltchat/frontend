@@ -109,9 +109,11 @@ export function MessageContextMenu(props: { message: Message }) {
 
   return (
     <ContextMenu>
-      <ContextMenuButton icon={MdReply} onClick={reply}>
-        <Trans>Reply</Trans>
-      </ContextMenuButton>
+      <Show when={props.message.channel?.havePermission("SendMessage")}>
+        <ContextMenuButton icon={MdReply} onClick={reply}>
+          <Trans>Reply</Trans>
+        </ContextMenuButton>
+      </Show>
       <ContextMenuButton icon={MdMarkChatUnread} onClick={markAsUnread}>
         <Trans>Mark as unread</Trans>
       </ContextMenuButton>

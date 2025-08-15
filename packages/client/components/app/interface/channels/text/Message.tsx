@@ -279,6 +279,12 @@ export function Message(props: Props) {
         userId={client().user!.id}
         addReaction={react}
         removeReaction={unreact}
+        sendGIF={(content) =>
+          props.message?.channel?.sendMessage({
+            content,
+            replies: [{ id: props.message.id, mention: true }],
+          })
+        }
       />
     </MessageContainer>
   );
