@@ -64,9 +64,6 @@ export const Header = styled("div", {
     },
     transparent: {
       true: {
-        // backgroundColor: "var(--colours-sidebar-header-transparent-background)",
-        // backdropFilter: "var(--effects-blur-md)",
-        // position: "absolute",
         width: "calc(100% - var(--gap-md))",
         zIndex: "10",
       },

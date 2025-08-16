@@ -20,7 +20,7 @@
  * - Navigation drawer
  * - Search
  * - Sheets (N/A desktop)
- * - Sliders
+ * - Range Sliders
  * - Snackbar
  * - Switch
  * - Tabs
@@ -42,6 +42,7 @@ export { MenuItem } from "./Menu";
 export { MenuButton } from "./MenuButton";
 export { Radio2 } from "./Radio";
 export { Ripple } from "./Ripple";
+export { Slider } from "./Slider";
 export { Switch } from "./Switch";
 export { Text, typography } from "./Text";
 export { TextEditor } from "./TextEditor";

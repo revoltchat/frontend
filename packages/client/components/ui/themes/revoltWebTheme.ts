@@ -11,13 +11,17 @@ export function createRevoltWebVariables(theme: SelectedTheme) {
     "--unset-fg": "red",
     "--unset-bg": "linear-gradient(to right, red, blue)",
 
+    // message size
+    "--message-size": `${theme.messageSize}px`,
+    "--message-group-spacing": `${theme.messageGroupSpacing}px`,
+
     // emoji size
     "--emoji-size": "1.4em",
     "--emoji-size-medium": "48px",
     "--emoji-size-large": "96px",
 
     // effects
-    "--effects-blur-md": "blur(20px)",
+    "--effects-blur-md": theme.blur ? "blur(20px)" : "unset",
     "--effects-invert-black": theme.darkMode ? "invert(100%)" : "invert(0%)",
     "--effects-invert-light": theme.darkMode ? "invert(0%)" : "invert(1000%)",
 

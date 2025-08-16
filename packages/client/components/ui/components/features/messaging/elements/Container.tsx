@@ -30,11 +30,11 @@ interface CommonProps {
   /**
    * Whether this message should be treated as a link
    */
-  isLink?: boolean;
+  isLink?: boolean | "hide";
 }
 
 type Props = CommonProps & {
-  message: Message;
+  message?: Message;
 
   /**
    * Avatar URL
@@ -119,7 +119,6 @@ const base = cva({
 
     padding: "2px 0",
     background: "transparent",
-    marginTop: "12px !important",
     borderRadius: "var(--borderRadius-md)",
     minHeight: "1em",
 
@@ -132,8 +131,6 @@ const base = cva({
     "&:hover .Toolbar": {
       display: "flex",
     },
-
-    ...typography.raw({ class: "_messages" }),
   },
   variants: {
     tail: {
@@ -168,10 +165,13 @@ const base = cva({
         },
       },
       false: {
+        marginTop: "var(--message-group-spacing) !important",
+
         "&:hover": {
           background: "var(--md-sys-color-surface-container)",
         },
       },
+      hide: {},
     },
   },
   defaultVariants: {
@@ -207,7 +207,7 @@ const Info = styled("div", {
 /**
  * Right-side message content
  */
-const Content = styled("div", {
+const Body = styled("div", {
   base: {
     flexGrow: 1,
     display: "flex",
@@ -226,6 +226,16 @@ const Content = styled("div", {
         flexGrow: 1,
       },
     },
+  },
+});
+
+const Content = styled("div", {
+  base: {
+    minWidth: 0,
+    display: "flex",
+    flexDirection: "column",
+
+    ...typography.raw({ class: "_messages" }),
   },
 });
 
@@ -292,7 +302,11 @@ export function MessageContainer(props: Props) {
       }
       use:floating={{ contextMenu: props.contextMenu }}
     >
-      <MessageToolbar message={props.message} />
+      <Show
+        when={props.message && props.isLink !== true && props.isLink !== "hide"}
+      >
+        <MessageToolbar message={props.message} />
+      </Show>
 
       <Show when={props.isLink}>
         <Ripple />
@@ -330,7 +344,7 @@ export function MessageContainer(props: Props) {
             </Match>
           </Switch>
         </Info>
-        <Content editing={props.editing}>
+        <Body editing={props.editing}>
           <Show when={!props.tail && !props.compact}>
             <Row gap="sm" align>
               <OverflowingText>{props.username}</OverflowingText>
@@ -353,8 +367,8 @@ export function MessageContainer(props: Props) {
               </NonBreakingText>
             </Row>
           </Show>
-          {props.children}
-        </Content>
+          <Content>{props.children}</Content>
+        </Body>
       </Row>
     </div>
   );

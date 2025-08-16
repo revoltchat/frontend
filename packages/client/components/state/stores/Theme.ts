@@ -41,9 +41,28 @@ export type TypeTheme = {
     | "content"
     | "rainbow"
     | "fruit_salad";
+
+  /**
+   * Whether to permit blurry surfaces
+   */
+  blur: boolean;
+
+  /**
+   * Message size
+   */
+  messageSize: number;
+
+  /**
+   * Spacing between message groups
+   */
+  messageGroupSpacing: number;
 };
 
-export type SelectedTheme =
+export type SelectedTheme = {
+  blur: boolean;
+  messageSize: number;
+  messageGroupSpacing: number;
+} & (
   | {
       preset: "neutral" | "revolt";
       darkMode: boolean;
@@ -55,7 +74,8 @@ export type SelectedTheme =
       accent: string;
       contrast: number;
       variant: TypeTheme["m3Variant"];
-    };
+    }
+);
 
 /**
  * Manages theme information
@@ -81,6 +101,8 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (event) => setPrefersDark(event.matches));
+
+    this.toggleBlur = this.toggleBlur.bind(this);
   }
 
   /**
@@ -101,6 +123,10 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       m3Accent: "#FF5733",
       m3Contrast: 0.0,
       m3Variant: "tonal_spot",
+
+      blur: true,
+      messageSize: 14,
+      messageGroupSpacing: 12,
     };
   }
 
@@ -129,6 +155,18 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       data.m3Accent = input.m3Accent;
     }
 
+    if (typeof input.blur === "boolean") {
+      data.blur = input.blur;
+    }
+
+    if (typeof input.messageSize === "number") {
+      data.messageSize = input.messageSize;
+    }
+
+    if (typeof input.messageGroupSpacing === "number") {
+      data.messageGroupSpacing = input.messageGroupSpacing;
+    }
+
     return data;
   }
 
@@ -142,6 +180,9 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       case "neutral":
       case "revolt":
         return {
+          blur: opts.blur,
+          messageSize: opts.messageSize,
+          messageGroupSpacing: opts.messageGroupSpacing,
           preset: opts.preset,
           darkMode:
             opts.mode === "dark" ||
@@ -149,6 +190,9 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
         };
       case "you":
         return {
+          blur: opts.blur,
+          messageSize: opts.messageSize,
+          messageGroupSpacing: opts.messageGroupSpacing,
           preset: "you",
           darkMode:
             opts.mode === "dark" ||
@@ -234,5 +278,47 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
    */
   setM3Variant(variant: TypeTheme["m3Variant"]) {
     this.set("m3Variant", variant);
+  }
+
+  /**
+   * Get current blur state
+   */
+  get blur() {
+    return this.get().blur;
+  }
+
+  /**
+   * Toggle blur state
+   */
+  toggleBlur() {
+    this.set("blur", !this.blur);
+  }
+
+  /**
+   * Get current message size
+   */
+  get messageSize() {
+    return this.get().messageSize;
+  }
+
+  /**
+   * Set message size
+   */
+  set messageSize(size: number) {
+    this.set("messageSize", size);
+  }
+
+  /**
+   * Get current message group spacing
+   */
+  get messageGroupSpacing() {
+    return this.get().messageGroupSpacing;
+  }
+
+  /**
+   * Set message group spacing
+   */
+  set messageGroupSpacing(space: number) {
+    this.set("messageGroupSpacing", space);
   }
 }

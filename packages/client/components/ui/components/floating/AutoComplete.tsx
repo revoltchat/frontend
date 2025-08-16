@@ -173,7 +173,6 @@ const Base = styled(Column, {
     "--emoji-size": "1.4em",
     padding: "var(--gap-md) 0",
     borderRadius: "var(--borderRadius-md)",
-    backdropFilter: "var(--effects-blur-md)",
     color: "var(--colours-component-context-menu-foreground)",
     background: "var(--colours-component-context-menu-background)",
     boxShadow: "0 0 3px var(--colours-component-context-menu-shadow)",
