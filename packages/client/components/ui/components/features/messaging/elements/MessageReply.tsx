@@ -107,6 +107,15 @@ const Link = styled("a", {
 export function MessageReply(props: Props) {
   const client = useClient();
 
+  const stripComplexMarkdown = (content: string) => {
+    return content
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/!\[([^\]]*)\]\([^)]+\)/g, '')
+      .replace(/```[\s\S]*?```/g, '')
+      .replace(/^>\s+/gm, '')
+      .replace(/^#{1,6}\s+/gm, '');
+  };
+
   return (
     <Base noDecorations={props.noDecorations}>
       <Switch fallback={<Trans>Message not loaded, click to jump</Trans>}>
@@ -139,7 +148,7 @@ export function MessageReply(props: Props) {
             </Show>
             <Show when={props.message!.content}>
               <OverflowingText>
-                <Markdown content={props.message!.content!} />
+                <Markdown content={stripComplexMarkdown(props.message!.content!)} />
               </OverflowingText>
             </Show>
           </Link>
