@@ -110,10 +110,17 @@ export function MessageReply(props: Props) {
   const stripComplexMarkdown = (content: string) => {
     return content
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/https?:\/\/[^\s]+/g, '')
       .replace(/!\[([^\]]*)\]\([^)]+\)/g, '')
-      .replace(/```[\s\S]*?```/g, '')
+      .replace(/```[\s\S]*?```/g, '[code block]')
       .replace(/^>\s+/gm, '')
-      .replace(/^#{1,6}\s+/gm, '');
+      .replace(/^#{1,6}\s+/gm, '')
+      .trim();
+  };
+
+  const getDisplayContent = (content: string) => {
+    const stripped = stripComplexMarkdown(content);
+    return stripped || '[complex content]';
   };
 
   return (
@@ -148,7 +155,7 @@ export function MessageReply(props: Props) {
             </Show>
             <Show when={props.message!.content}>
               <OverflowingText>
-                <Markdown content={stripComplexMarkdown(props.message!.content!)} />
+                <Markdown content={getDisplayContent(props.message!.content!)} />
               </OverflowingText>
             </Show>
           </Link>
