@@ -9,7 +9,7 @@ import { styled } from "styled-system/jsx";
 
 import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
-import { TextWithEmoji } from "@revolt/markdown";
+import { Markdown } from "@revolt/markdown";
 import { Avatar } from "@revolt/ui/components/design";
 import { NonBreakingText, OverflowingText } from "@revolt/ui/components/utils";
 
@@ -139,9 +139,7 @@ export function MessageReply(props: Props) {
             </Show>
             <Show when={props.message!.content}>
               <OverflowingText>
-                <TextWithEmoji
-                  content={client().markdownToText(props.message!.content!)}
-                />
+                <Markdown content={props.message!.content!} />
               </OverflowingText>
             </Show>
           </Link>
