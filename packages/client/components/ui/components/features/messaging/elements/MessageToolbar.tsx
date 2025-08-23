@@ -79,7 +79,9 @@ export function MessageToolbar(props: { message?: Message }) {
           props.message?.channel?.havePermission("ManageMessages")
         }
       >
-        <div class={tool()}>
+        <div class={tool()}
+        onclick={() => props.message?.delete()}
+        >
           <Ripple />
           <MdDelete {...iconSize(20)} />
         </div>
