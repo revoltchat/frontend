@@ -1,4 +1,4 @@
-import { Suspense } from "solid-js";
+import { Suspense, createMemo } from "solid-js";
 
 import { useNavigate } from "@solidjs/router";
 import { useMutation, useQuery } from "@tanstack/solid-query";
@@ -37,6 +37,12 @@ export function Invite(props: Props) {
     refetchOnWindowFocus: false,
   }));
 
+  const joined = createMemo(() => {
+    if (!(query.data instanceof ServerPublicInvite)) return false;
+  
+    return client().servers?.has(query.data.serverId) ?? false;
+  });
+
   const join = useMutation(() => ({
     mutationFn: () => (query.data as ServerPublicInvite).join(),
     onSuccess(server) {
@@ -74,8 +80,8 @@ export function Invite(props: Props) {
             members
           </Text>
         </Column>
-        <Button onPress={() => join.mutate()} isDisabled={join.isPending}>
-          Join
+        <Button onPress={() => join.mutate()} isDisabled={join.isPending || joined()}>
+          {joined() ? "Joined" : "Join"}
         </Button>
       </Suspense>
     </Base>
@@ -84,7 +90,7 @@ export function Invite(props: Props) {
 
 const Base = styled("div", {
   base: {
-    display: "inline-flex",
+    display: "flex",
     alignItems: "center",
 
     width: "320px",
