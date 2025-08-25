@@ -172,6 +172,9 @@ render(
 );
 
 function ReportBug() {
+  const [first, setFirst] = createSignal(
+    localStorage.getItem("bug-reporter-shown") !== "yes",
+  );
   const [shown, setShown] = createSignal(true);
 
   return (
@@ -188,9 +191,12 @@ function ReportBug() {
             zIndex: 999999,
             padding: "8px",
             borderRadius: "20px",
-            boxShadow: "0 0 3px var(--md-sys-color-shadow)",
             background: "var(--md-sys-color-surface-container-lowest)",
           })}
+          onMouseEnter={() => {
+            setFirst(false);
+            localStorage.setItem("bug-reporter-shown", "yes");
+          }}
         >
           <Button
             size="xs"
@@ -222,6 +228,19 @@ function ReportBug() {
               <MdBugReport />
             </Button>
           </a>
+          <Show when={first()}>
+            <span
+              class={css({
+                position: "absolute",
+                top: "-28px",
+                left: "-24px",
+                fontSize: "32px",
+                transform: "rotateZ(24deg)",
+              })}
+            >
+              🌟
+            </span>
+          </Show>
         </div>
       </Portal>
     </Show>
