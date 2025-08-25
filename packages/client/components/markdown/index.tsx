@@ -65,6 +65,8 @@ const components = () => ({
   a: RenderAnchor,
   p: elements.paragraph,
   em: elements.emphasis,
+  strong: elements.emphasis,
+  del: elements.strikethrough,
   h1: elements.heading1,
   h2: elements.heading2,
   h3: elements.heading3,
@@ -92,6 +94,45 @@ const components = () => ({
   audio: Null,
   script: Null,
   style: Null,
+});
+
+const replyComponents = () => ({
+  unicodeEmoji: RenderUnicodeEmoji,
+  customEmoji: RenderCustomEmoji,
+  mention: RenderMention,
+  spoiler: RenderSpoiler,
+  
+  strong: elements.emphasis,
+  em: elements.emphasis,
+  code: elements.code,
+  del: elements.strikethrough,
+  
+  p: (props: any) => <>{props.children}</>,
+  h1: Null,
+  h2: Null,
+  h3: Null,
+  h4: Null,
+  h5: Null,
+  h6: Null,
+  pre: Null,
+  li: Null,
+  ul: Null,
+  ol: Null,
+  blockquote: Null,
+  table: Null,
+  th: Null,
+  td: Null,
+  a: Null,
+  img: Null,
+  video: Null,
+  figure: Null,
+  picture: Null,
+  source: Null,
+  audio: Null,
+  script: Null,
+  style: Null,
+  time: Null,
+  timestamp: Null,
 });
 
 /**
@@ -141,6 +182,25 @@ const htmlPipeline = UNIFIED_PLUGINS.reduce(
   })
   .use(rehypeHighlight);
 
+const replyPipeline = unified()
+  .use(remarkParse)
+  .use(remarkBreaks)
+  .use(remarkGfm)
+  .use(remarkMentions)
+  .use(remarkUnicodeEmoji)
+  .use(remarkCustomEmoji)
+  .use(remarkSpoiler)
+  // @ts-expect-error non-standard elements not recognized by typing
+  .use(remarkRehype, {
+    handlers: {
+      unicodeEmoji: unicodeEmojiHandler,
+      customEmoji: customEmojiHandler,
+      mention: mentionHandler,
+      spoiler: spoilerHandler,
+    },
+  })
+  .use(remarkInsertBreaks);
+
 export interface MarkdownProps {
   /**
    * Content to render
@@ -155,6 +215,31 @@ export interface MarkdownProps {
 
 export { TextWithEmoji } from "./emoji/TextWithEmoji";
 export { Emoji } from "./emoji/Emoji";
+
+
+export function renderSimpleMarkdown(content: string) {
+  const file = new VFile();
+  file.value = sanitise(content);
+
+  const hastNode = replyPipeline.runSync(replyPipeline.parse(file), file);
+
+  if (hastNode.type !== "root") {
+    throw new TypeError("Expected a `root` node");
+  }
+
+  return childrenToSolid(
+    {
+      options: {
+        ...defaults,
+        // @ts-expect-error it doesn't like the td component
+        components: replyComponents(),
+      },
+      schema: html,
+      listDepth: 0,
+    },
+    hastNode,
+  );
+}
 
 /**
  * Remark renderer component
