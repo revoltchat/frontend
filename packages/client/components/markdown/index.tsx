@@ -65,6 +65,7 @@ const components = () => ({
   a: RenderAnchor,
   p: elements.paragraph,
   em: elements.emphasis,
+  strong: elements.strong,
   del: elements.strikethrough,
   h1: elements.heading1,
   h2: elements.heading2,
@@ -101,6 +102,7 @@ const replyComponents = () => ({
   mention: RenderMention,
   spoiler: RenderSpoiler,
   
+  strong: elements.strong,
   em: elements.emphasis,
   code: elements.code,
   del: elements.strikethrough,
