@@ -12,10 +12,10 @@ export default defineConfig({
       exclude: ["**/node_modules/**", "**/i18n/locales/**"],
     },
   ],
-  macro: {
-    corePackage: ["@lingui-solid/solid"],
-    jsxPackage: ["@lingui-solid/solid/macro"],
-  },
+  // macro: {
+  //   corePackage: ["@lingui-solid/solid"],
+  //   jsxPackage: ["@lingui-solid/solid/macro"],
+  // },
   runtimeConfigModule: {
     Trans: ["@lingui-solid/solid", "Trans"],
     useLingui: ["@lingui-solid/solid", "useLingui"],

@@ -1,2 +1,8 @@
 packages:
-  - "packages/**"
+  - "packages/client"
+  - "packages/desktop"
+  - "packages/revolt.js"
+  - "packages/solid-livekit-components"
+  - "packages/js-lingui-solid/packages/jest-mocks"
+  - "packages/js-lingui-solid/packages/babel-plugin-extract-messages"
+  - "packages/js-lingui-solid/packages/babel-plugin-lingui-macro"

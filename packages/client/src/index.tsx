@@ -1,8 +1,8 @@
 /**
  * Configure contexts and render App
  */
-import { JSX, Show, onMount } from "solid-js";
-import { render } from "solid-js/web";
+import { JSX, Show, createSignal, onMount } from "solid-js";
+import { Portal, render } from "solid-js/web";
 
 import { attachDevtoolsOverlay } from "@solid-devtools/overlay";
 import { Navigate, Route, Router, useParams } from "@solidjs/router";
@@ -11,6 +11,7 @@ import { isTauri } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import "mdui/mdui.css";
 import { PublicChannelInvite } from "revolt.js";
+import { css } from "styled-system/css";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
 import FlowConfirmReset from "@revolt/auth/src/flows/FlowConfirmReset";
@@ -26,9 +27,18 @@ import { KeybindContext } from "@revolt/keybinds";
 import { ModalContext, ModalRenderer, useModals } from "@revolt/modal";
 import { VoiceContext } from "@revolt/rtc";
 import { StateContext, SyncWorker, useState } from "@revolt/state";
-import { FloatingManager, LoadTheme, Titlebar } from "@revolt/ui";
+import {
+  Button,
+  FloatingManager,
+  LoadTheme,
+  Titlebar,
+  iconSize,
+} from "@revolt/ui";
 /* @refresh reload */
 import "@revolt/ui/styles";
+
+import MdBugReport from "@material-design-icons/svg/outlined/bug_report.svg?component-solid";
+import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
 import AuthPage from "./Auth";
 import Interface from "./Interface";
@@ -155,7 +165,84 @@ render(
       </Router>
 
       <LoadTheme />
+      <ReportBug />
     </StateContext>
   ),
   document.getElementById("root") as HTMLElement,
 );
+
+function ReportBug() {
+  const [first, setFirst] = createSignal(
+    localStorage.getItem("bug-reporter-shown") !== "yes",
+  );
+  const [shown, setShown] = createSignal(true);
+
+  return (
+    <Show when={shown()}>
+      <Portal mount={document.getElementById("floating")!}>
+        <div
+          class={css({
+            position: "fixed",
+            bottom: "64px",
+            right: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+            zIndex: 999999,
+            padding: "8px",
+            borderRadius: "20px",
+            background: "var(--md-sys-color-surface-container-lowest)",
+          })}
+          onMouseEnter={() => {
+            setFirst(false);
+            localStorage.setItem("bug-reporter-shown", "yes");
+          }}
+        >
+          <Button
+            size="xs"
+            variant="tonal"
+            onPress={() => setShown(false)}
+            use:floating={{
+              tooltip: {
+                placement: "left",
+                content: "Hide bug report button",
+              },
+            }}
+          >
+            <MdClose {...iconSize(16)} />
+          </Button>
+          <a
+            href="https://survey.revolt.chat/index.php/432644?lang=en"
+            target="_blank"
+          >
+            <Button
+              shape="square"
+              size="md"
+              use:floating={{
+                tooltip: {
+                  placement: "left",
+                  content: "Report a bug",
+                },
+              }}
+            >
+              <MdBugReport />
+            </Button>
+          </a>
+          <Show when={first()}>
+            <span
+              class={css({
+                position: "absolute",
+                top: "-28px",
+                left: "-24px",
+                fontSize: "32px",
+                transform: "rotateZ(24deg)",
+              })}
+            >
+              🌟
+            </span>
+          </Show>
+        </div>
+      </Portal>
+    </Show>
+  );
+}

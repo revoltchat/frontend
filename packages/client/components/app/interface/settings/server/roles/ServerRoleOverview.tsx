@@ -17,12 +17,22 @@ import { useSettingsNavigation } from "../../Settings";
  */
 export function ServerRoleOverview(props: { context: Server }) {
   const { navigate } = useSettingsNavigation();
-  const { showError } = useModals();
+  const { openModal, showError } = useModals();
 
   const change = useMutation(() => ({
     mutationFn: (order: string[]) => props.context.setRoleOrdering(order),
     onError: showError,
   }));
+
+  function createRole() {
+    openModal({
+      type: "create_role",
+      server: props.context,
+      callback(roleId) {
+        navigate(`roles/${roleId}`)
+      }
+    })
+  }
 
   return (
     <Column gap="lg">
@@ -39,6 +49,7 @@ export function ServerRoleOverview(props: { context: Server }) {
           icon="blank"
           action="chevron"
           description={<Trans>Create a new role</Trans>}
+          onClick={createRole}
         >
           <Trans>Create Role</Trans>
         </CategoryButton>
