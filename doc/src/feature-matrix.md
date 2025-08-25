@@ -37,9 +37,9 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Reorder Servers | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Create Server | ✅ | ✅ | ✅ | ❌ | P0 Must |
 |   |   |   | Join Server | ✅ | ✅ | ✅ | ✅ | P0 Must |
-|   |   |   | Revolt Discover | ✅ | ❌ | ✅ | ✅ | P0 Must |
+|   |   |   | Revolt Discover | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   | Roles |   | Coloured Usernames | ✅ | ✅ | ✅ | ✅ | P0 Must |
-|   | Users |   | Change Server Avatar | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
+|   | Users |   | Change Server Avatar | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Change Nickname | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   | Settings | Basic Information | Update Information | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Icon | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
@@ -47,14 +47,14 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Update System Message Targets | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Categories | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
 |   |   | Roles | Create Role | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
-|   |   |   | List Roles | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
+|   |   |   | List Roles | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Delete Role | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
-|   |   |   | Update Role Information | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
-|   |   |   | Update Permissions | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Update Role Information | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Update Permissions | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   | Customisation | Create Emoji | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | List Emoji | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Delete Emoji | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
-|   |   | Users | List Members | ✅ | ⛔ | ❌ | ❌ | P2 Best Effort |
+|   |   | Users | List Members | ✅ | ❌ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Set Roles | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Create Invite | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | List Invite | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
@@ -73,7 +73,7 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Hoisted Roles | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   | Messaging (Text Channel) | Read Messages | Load Recent Messages | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Inline Badges | 🚧 | ✅ | ✅ | 🚧 | P1 Preferred |
-|   |   |   | Inline Pronouns | ⛔ | 🚧 | ❌ | ❌ | Unapplicable |
+|   |   |   | Inline Pronouns | ⛔ | ❌ | ❌ | ❌ | Unapplicable |
 |   |   |   | Masquerade | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   |   | Show Mentions | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Show @ Role/Everyone/Online | ❌ | ✅ | ❌ | ❌ | PX New Feature |
@@ -85,9 +85,9 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Attachments | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Embeds | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | System | ✅ | ✅ | ✅ | 🚧 | P1 Preferred |
-|   |   |   | Invites | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Invites | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   | Quick Actions | Reply | ✅ | ✅ | ✅ | ✅ | P0 Must |
-|   |   |   | React | ✅ | ❌ | ✅ | ✅ | P1 Preferred |
+|   |   |   | React | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   |   | Copy Text | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Copy Link | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Copy ID | ✅ | ✅ | ✅ | ✅ | P0 Must |
@@ -99,19 +99,19 @@ Comparison of implemented features across Revolt's clients.
 |   |   | Read Chat History | Load Older Messages | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Jump to End | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
 |   |   |   | Jump to Message | ✅ | ✅ | ❌ | ✅ | P2 Best Effort |
-|   |   |   | Search Messages | ✅ | 🚧 | ❌ | ❌ | P2 Best Effort |
+|   |   |   | Search Messages | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | View Pinned Messages | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   | Message Composition | Send Messages | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Reply to Messages | ✅ | ✅ | ✅ | ✅ | P0 Must |
-|   |   |   | Pick Emoji | ✅ | ❌ | ✅ | ✅ | P2 Best Effort |
+|   |   |   | Pick Emoji | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
 |   |   |   | Pick GIF | ❌ | 🚧 | ❌ | ❌ | P3 Unimportant |
 |   |   |   | Autocomplete Channel | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   |   | Autocomplete User | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   |   | Autocomplete Emoji | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   |   | Send Files | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Preview files to send | ✅ | ✅ | ❌ | ✅ | P1 Preferred |
-|   |   |   | Show messages being sent | ✅ | 🚧 | ❌ | ❌ | P1 Preferred |
-|   |   |   | Retry sending failed messages | ✅ | 🚧 | ❌ | ❌ | P2 Best Effort |
+|   |   |   | Show messages being sent | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Retry sending failed messages | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Show attachments being sent | ✅ | ❌ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Cancel message being sent | ⛔ | ❌ | ❌ | ❌ | P3 Unimportant |
 |   | Talking (Voice Channels) | Base Voice | Voice Chats v2 (LiveKit) | ⛔ | 🚧 | ❌ | ❌ | PX New Feature |
@@ -175,12 +175,13 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Minimise to Tray | ✅ | ❌ | N/A | N/A | P2 Best Effort |
 |   | Revolt | Bots | Create Bot | ✅ | ✅ | ❌ | ✅ | P3 Unimportant |
 |   |   |   | List Bots | ✅ | ✅ | ❌ | ✅ | P3 Unimportant |
-|   |   |   | Update Information | ✅ | 🚧 | ❌ | ❌ | P3 Unimportant |
-|   |   |   | Update Icon | ✅ | 🚧 | ❌ | ❌ | P3 Unimportant |
+|   |   |   | Update Information | ✅ | ✅ | ❌ | ❌ | P3 Unimportant |
+|   |   |   | Update Icon | ✅ | ✅ | ❌ | ❌ | P3 Unimportant |
 |   |   |   | Invite to Server / Group | ✅ | ❌ | ❌ | ❌ | P3 Unimportant |
 |   | Misc | Feedback Information |   | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   | Changelogs |   | ✅ | ❌ | ✅ | ❌ | P2 Best Effort |
 |   |   | Source code |   | ✅ | ✅ | ✅ | ✅ | Unapplicable |
+|   |   | Update Indicator |   | ✅ | ❌ | N/A | N/A | P0 Must |
 |   |   | Log out |   | ✅ | ✅ | ✅ | ✅ | P0 Must |
 
 <style>#content main {max-width: unset !important;}</style>

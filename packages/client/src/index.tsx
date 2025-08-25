@@ -184,7 +184,7 @@ function ReportBug() {
           class={css({
             position: "fixed",
             bottom: "64px",
-            right: "16px",
+            right: "24px",
             display: "flex",
             flexDirection: "column",
             gap: "8px",
