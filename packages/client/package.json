@@ -17,16 +17,11 @@
     "lingui:compile": "lingui compile --typescript",
     "lingui:extract": "lingui extract"
   },
-  "_comment": {
-    "@lingui-solid/babel-plugin-extract-messages": "workspace:^",
-    "@lingui-solid/babel-plugin-lingui-macro": "workspace:^",
-    "@lingui-solid/vite-plugin": "workspace:^"
-  },
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",
-    "@lingui-solid/babel-plugin-extract-messages": "^5.1.3",
-    "@lingui-solid/babel-plugin-lingui-macro": "^5.1.3",
-    "@lingui-solid/vite-plugin": "^5.1.3",
+    "@lingui-solid/babel-plugin-extract-messages": "workspace:^",
+    "@lingui-solid/babel-plugin-lingui-macro": "workspace:^",
+    "@lingui-solid/vite-plugin": "workspace:^",
     "@lingui/cli": "^5.3.1",
     "@lingui/conf": "^5.3.1",
     "@lingui/core": "^5.3.1",
