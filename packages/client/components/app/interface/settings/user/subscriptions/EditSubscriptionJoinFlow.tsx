@@ -1,7 +1,7 @@
 import { JSXElement, createSignal, onMount } from "solid-js";
 import { Elements, PaymentElement, useElements, useStripe } from "solid-stripe";
 
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
 
 /**
  * Tier selection and purchase flow
