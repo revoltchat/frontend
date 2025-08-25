@@ -1,6 +1,7 @@
 import { JSX, Match, Switch, createEffect } from "solid-js";
 
 import { Server } from "revolt.js";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
@@ -52,7 +53,13 @@ const Interface = (props: { children: JSX.Element }) => {
       }}
     >
       <Notice>
-        ⚠️ This is beta software, things will break! State:{" "}
+        ⚠️ Beta software, things will break!{" "}
+        {/*<strong class={css({ color: "var(--md-sys-color-on-surface)" })}>
+          <a href="#" target="_blank">
+            📣 Click here to give us feedback!
+          </a>
+        </strong>{" "}*/}
+        State:{" "}
         <Switch>
           <Match when={lifecycle.state() === State.Connecting}>
             Connecting
