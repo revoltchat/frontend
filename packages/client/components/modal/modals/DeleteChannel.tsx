@@ -15,11 +15,23 @@ export function DeleteChannelModal(
   props: DialogProps & Modals & { type: "delete_channel" },
 ) {
   const { showError } = useModals();
-
-  const deleteChannel = useMutation(() => ({
-    mutationFn: () => props.channel.delete(),
-    onError: showError,
-  }));
+  
+const deleteChannel = useMutation(() => ({
+  mutationFn: async () => {
+    if (!props.channel) return;
+    try {
+      await props.channel.delete();
+    } catch (err: any) {
+      console.error("Failed to delete channel:", err);
+      if (err?.message?.includes("Unexpected end of JSON")) {
+        return;
+      }
+      throw err;
+    }
+  },
+  onSettled: () => props.onClose?.(),
+  onError: showError,
+}));
 
   return (
     <Dialog
