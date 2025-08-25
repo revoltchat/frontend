@@ -128,8 +128,8 @@ const FormCheckbox = (
       <Checkbox
         {...remote}
         checked={local.control.value}
-        onChange={(value) => {
-          local.control.setValue(value);
+        onChange={(event) => {
+          local.control.setValue(event.currentTarget.checked);
           local.control.markDirty(true);
         }}
         required={local.control.isRequired}
