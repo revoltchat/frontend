@@ -2,7 +2,7 @@ import type { JSX } from "solid-js";
 
 import "mdui/components/checkbox.js";
 
-interface Props {
+type Props = {
   children?: JSX.Element;
   required?: boolean;
   name?: string;
@@ -10,8 +10,8 @@ interface Props {
   disabled?: boolean;
   indeterminate?: boolean;
   class?: string;
-  onChange?: (value: boolean) => void;
-}
+  onChange?: (event: { currentTarget: { checked: boolean } }) => void;
+};
 
 /**
  * Checkboxes let users select one or more items from a list, or turn an item on or off
