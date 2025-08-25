@@ -9,7 +9,7 @@ import { styled } from "styled-system/jsx";
 
 import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
-import { Markdown } from "@revolt/markdown";
+import { renderSimpleMarkdown } from "@revolt/markdown";
 import { Avatar } from "@revolt/ui/components/design";
 import { NonBreakingText, OverflowingText } from "@revolt/ui/components/utils";
 
@@ -107,20 +107,8 @@ const Link = styled("a", {
 export function MessageReply(props: Props) {
   const client = useClient();
 
-  const stripComplexMarkdown = (content: string) => {
-    return content
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-      .replace(/https?:\/\/[^\s]+/g, '')
-      .replace(/!\[([^\]]*)\]\([^)]+\)/g, '')
-      .replace(/```[\s\S]*?```/g, '[code block]')
-      .replace(/^>\s+/gm, '')
-      .replace(/^#{1,6}\s+/gm, '')
-      .trim();
-  };
-
-  const getDisplayContent = (content: string) => {
-    const stripped = stripComplexMarkdown(content);
-    return stripped || '[complex content]';
+  const renderReplyContent = (content: string) => {
+    return renderSimpleMarkdown(content);
   };
 
   return (
@@ -155,7 +143,7 @@ export function MessageReply(props: Props) {
             </Show>
             <Show when={props.message!.content}>
               <OverflowingText>
-                <Markdown content={getDisplayContent(props.message!.content!)} />
+                {renderReplyContent(props.message!.content!)}
               </OverflowingText>
             </Show>
           </Link>
