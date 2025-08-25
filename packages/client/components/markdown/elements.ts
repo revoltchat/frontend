@@ -36,6 +36,12 @@ export const emphasis = styled("em", {
   },
 });
 
+export const strong = styled("strong", {
+  base: {
+    fontWeight: "bold",
+  },
+});
+
 export const strikethrough = styled("del", {
   base: {
     textDecoration: "line-through",
