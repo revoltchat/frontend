@@ -370,26 +370,25 @@ function Entry(
               <MdPersonAdd {...iconSize("14px")} />
             </a>
 
-            <a
-              use:floating={{
-                tooltip: {
-                  placement: "top",
-                  content: "Edit Channel",
-                },
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                openModal({
-                  type: "settings",
-                  config: "channel",
-                  context: props.channel,
-                });
-              }}
-            >
-              <MdSettings {...iconSize("14px")} />
-            </a>
-          </>
-        }
+    <Show when={props.channel.server?.havePermission("ManageChannel")}>
+      <a
+        use:floating={{
+          tooltip: { placement: "top", content: "Edit Channel" },
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          openModal({
+            type: "settings",
+            config: "channel",
+            context: props.channel,
+          });
+        }}
+      >
+        <MdSettings {...iconSize("14px")} />
+      </a>
+    </Show>
+  </>
+}
       >
         <OverflowingText>
           <TextWithEmoji content={props.channel.name!} />
