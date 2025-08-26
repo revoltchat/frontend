@@ -3,8 +3,7 @@ import { defineConfig } from "@lingui/cli";
 import { LinguiConfig } from "@lingui/conf";
 
 /* eslint-disable */
-const supressWarningIfWereNotInLinguiExtract = !
-// @ts-expect-error
+const supressWarningIfWereNotInLinguiExtract = !// @ts-expect-error
 (process as any)?.argv[1]?.includes("lingui-extract.js");
 /* eslint-enable */
 

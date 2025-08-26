@@ -294,9 +294,7 @@ function ManageAccount() {
         action="chevron"
         disabled={mfa.isLoading}
         onClick={disableAccount}
-        icon={
-          <MdBlock {...iconSize(22)} fill="var(--md-sys-color-error)" />
-        }
+        icon={<MdBlock {...iconSize(22)} fill="var(--md-sys-color-error)" />}
         description={
           <Trans>
             You won't be able to access your account unless you contact support
@@ -310,9 +308,7 @@ function ManageAccount() {
         action={stillOwnServers() ? undefined : "chevron"}
         disabled={mfa.isLoading || stillOwnServers()}
         onClick={deleteAccount}
-        icon={
-          <MdDelete {...iconSize(22)} fill="var(--md-sys-color-error)" />
-        }
+        icon={<MdDelete {...iconSize(22)} fill="var(--md-sys-color-error)" />}
         description={
           <Trans>
             Your account and all of your data (including your messages and

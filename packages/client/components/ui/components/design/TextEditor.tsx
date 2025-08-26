@@ -410,7 +410,7 @@ export function TextEditor(props: Props) {
                         match instanceof ServerMember
                           ? match.id.user
                           : match.id,
-                      username: match.displayName ?? match.username,
+                      username: match.displayName,
                       avatar: match.animatedAvatarURL,
                     })!,
                   );

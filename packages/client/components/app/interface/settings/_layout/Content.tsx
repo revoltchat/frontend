@@ -16,8 +16,8 @@ import { useSettingsNavigation } from "../Settings";
 export function SettingsContent(props: {
   onClose?: () => void;
   children: JSX.Element;
-  list: Accessor<SettingsList>;
-  title: (ctx: SettingsList, key: string) => string;
+  list: Accessor<SettingsList<unknown>>;
+  title: (ctx: SettingsList<never>, key: string) => string;
   page: Accessor<string | undefined>;
 }) {
   const { navigate } = useSettingsNavigation();
@@ -34,7 +34,9 @@ export function SettingsContent(props: {
             <Text class="title" size="large">
               <Breadcrumbs
                 elements={props.page()!.split("/")}
-                renderElement={(key) => props.title(props.list(), key)}
+                renderElement={(key) =>
+                  props.title(props.list() as SettingsList<never>, key)
+                }
                 navigate={(keys) => navigate(keys.join("/"))}
               />
             </Text>

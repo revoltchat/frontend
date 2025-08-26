@@ -39,7 +39,7 @@ export function Invite(props: Props) {
 
   const joined = createMemo(() => {
     if (!(query.data instanceof ServerPublicInvite)) return false;
-  
+
     return client().servers?.has(query.data.serverId) ?? false;
   });
 
@@ -80,7 +80,10 @@ export function Invite(props: Props) {
             members
           </Text>
         </Column>
-        <Button onPress={() => join.mutate()} isDisabled={join.isPending || joined()}>
+        <Button
+          onPress={() => join.mutate()}
+          isDisabled={join.isPending || joined()}
+        >
           {joined() ? "Joined" : "Join"}
         </Button>
       </Suspense>

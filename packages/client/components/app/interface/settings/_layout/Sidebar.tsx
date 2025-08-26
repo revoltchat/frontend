@@ -19,7 +19,7 @@ import {
  * Settings Sidebar Layout
  */
 export function SettingsSidebar(props: {
-  list: Accessor<SettingsList>;
+  list: Accessor<SettingsList<unknown>>;
 
   setPage: Setter<string | undefined>;
   page: Accessor<string | undefined>;

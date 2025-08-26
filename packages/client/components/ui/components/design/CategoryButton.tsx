@@ -123,8 +123,8 @@ const Base = styled("a", {
     alignItems: "center",
     flexDirection: "row",
 
-    "color": "var(--color)",
-    "fill": "var(--color)"
+    color: "var(--color)",
+    fill: "var(--color)",
   },
   variants: {
     variant: {

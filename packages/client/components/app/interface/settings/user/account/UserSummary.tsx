@@ -20,11 +20,11 @@ export function UserSummary(props: {
     props.bannerUrl
       ? {
           "background-image": `linear-gradient(color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent), color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)), url("${props.bannerUrl}")`,
-          color: 'black'
+          color: "black",
         }
       : {
           background: `var(--md-sys-color-primary-container)`,
-          color: 'var(--md-sys-color-on-primary)'
+          color: "var(--md-sys-color-on-primary)",
         };
 
   return (

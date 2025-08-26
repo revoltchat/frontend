@@ -6,8 +6,8 @@ import { styled } from "styled-system/jsx";
 
 import { MessageContextMenu } from "@revolt/app";
 import { useUser } from "@revolt/client";
-import { useModals } from "@revolt/modal";
 import { schema } from "@revolt/markdown/prosemirror";
+import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
 import { Ripple } from "@revolt/ui/components/design";
 import { iconSize } from "@revolt/ui/components/utils";
@@ -27,13 +27,13 @@ export function MessageToolbar(props: { message?: Message }) {
 
   // todo: a11y for buttons; tabindex
 
-    /**
+  /**
    * Delete the message
    */
   function deleteMessage(ev: MouseEvent) {
     if (ev.shiftKey) {
       props.message?.delete();
-    } else if (props.message){
+    } else if (props.message) {
       openModal({
         type: "delete_message",
         message: props.message,
@@ -95,9 +95,7 @@ export function MessageToolbar(props: { message?: Message }) {
           props.message?.channel?.havePermission("ManageMessages")
         }
       >
-        <div class={tool()}
-        onclick={deleteMessage}
-        >
+        <div class={tool()} onclick={deleteMessage}>
           <Ripple />
           <MdDelete {...iconSize(20)} />
         </div>

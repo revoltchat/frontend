@@ -184,23 +184,23 @@ msgstr "<0/> left the group"
 msgid "<0/> left the server"
 msgstr "<0/> left the server"
 
-#: components/ui/components/features/messaging/elements/SystemMessage.tsx:162
+#: components/ui/components/features/messaging/elements/SystemMessage.tsx:165
 msgid "<0/> pinned <1/>"
 msgstr "<0/> pinned <1/>"
 
-#: components/ui/components/features/messaging/elements/SystemMessage.tsx:145
+#: components/ui/components/features/messaging/elements/SystemMessage.tsx:148
 msgid "<0/> transferred group ownership to <1/>"
 msgstr "<0/> transferred group ownership to <1/>"
 
-#: components/ui/components/features/messaging/elements/SystemMessage.tsx:177
+#: components/ui/components/features/messaging/elements/SystemMessage.tsx:180
 msgid "<0/> unpinned <1/>"
 msgstr "<0/> unpinned <1/>"
 
-#: components/ui/components/features/messaging/elements/SystemMessage.tsx:129
+#: components/ui/components/features/messaging/elements/SystemMessage.tsx:132
 msgid "<0/> updated the group description"
 msgstr "<0/> updated the group description"
 
-#: components/ui/components/features/messaging/elements/SystemMessage.tsx:137
+#: components/ui/components/features/messaging/elements/SystemMessage.tsx:140
 msgid "<0/> updated the group icon "
 msgstr "<0/> updated the group icon "
 
@@ -257,6 +257,12 @@ msgstr "<0/> updated the group name to <1>{0}</1>"
 msgid "<0>Be careful!</0><1/>This is not the same as the link that was displayed:"
 msgstr "<0>Be careful!</0><1/>This is not the same as the link that was displayed:"
 
+#. placeholder {0}: pkg.version
+#. placeholder {1}: pkg["version-date"]
+#: components/app/interface/settings/UserSettings.tsx:115
+msgid "<0>Version: </0><1>{0} ({1})</1>"
+msgstr "<0>Version: </0><1>{0} ({1})</1>"
+
 #: components/ui/components/features/messaging/elements/Reactions.tsx:190
 msgid "1 person reacted"
 msgstr "1 person reacted"
@@ -278,7 +284,7 @@ msgstr "Able to access channels on this server"
 msgid "Able to access this channel"
 msgstr "Able to access this channel"
 
-#: components/auth/src/AuthPage.tsx:167
+#: components/auth/src/AuthPage.tsx:163
 msgid "About"
 msgstr "About"
 
@@ -375,7 +381,7 @@ msgstr "American (MM/DD/YYYY)"
 msgid "An error occurred."
 msgstr "An error occurred."
 
-#: components/app/interface/settings/UserSettings.tsx:176
+#: components/app/interface/settings/UserSettings.tsx:191
 #: components/app/interface/settings/user/Sync.tsx:34
 msgid "Appearance"
 msgstr "Appearance"
@@ -532,7 +538,7 @@ msgstr "Cancel friend request"
 msgid "Cancel message"
 msgstr "Cancel message"
 
-#: components/app/interface/settings/user/Account.tsx:326
+#: components/app/interface/settings/user/Account.tsx:322
 msgid "Cannot delete account until servers are deleted or transferred"
 msgstr "Cannot delete account until servers are deleted or transferred"
 
@@ -666,7 +672,7 @@ msgstr "Click to show full description"
 msgid "Click to show spoiler"
 msgstr "Click to show spoiler"
 
-#: components/app/interface/settings/UserSettings.tsx:164
+#: components/app/interface/settings/UserSettings.tsx:179
 msgid "Client Settings"
 msgstr "Client Settings"
 
@@ -896,7 +902,7 @@ msgstr "Create server emoji"
 msgid "Create Webhook"
 msgstr "Create Webhook"
 
-#: components/app/interface/settings/user/Sessions.tsx:152
+#: components/app/interface/settings/user/Sessions.tsx:147
 msgid "Created <0/>"
 msgstr "Created <0/>"
 
@@ -952,7 +958,7 @@ msgstr "Delete"
 msgid "Delete {0}?"
 msgstr "Delete {0}?"
 
-#: components/app/interface/settings/user/Account.tsx:324
+#: components/app/interface/settings/user/Account.tsx:320
 msgid "Delete Account"
 msgstr "Delete Account"
 
@@ -992,7 +998,7 @@ msgstr "Delete Server"
 msgid "Developer Documentation"
 msgstr "Developer Documentation"
 
-#: components/app/interface/settings/user/Account.tsx:307
+#: components/app/interface/settings/user/Account.tsx:305
 msgid "Disable Account"
 msgstr "Disable Account"
 
@@ -1021,7 +1027,7 @@ msgstr "Don't ask me again for <0>{0}</0>"
 msgid "Don't notify others that you've left"
 msgstr "Don't notify others that you've left"
 
-#: components/app/interface/settings/UserSettings.tsx:148
+#: components/app/interface/settings/UserSettings.tsx:163
 msgid "Donate"
 msgstr "Donate"
 
@@ -1177,7 +1183,7 @@ msgstr "Failed to send"
 msgid "Failed to verify!"
 msgstr "Failed to verify!"
 
-#: components/app/interface/settings/UserSettings.tsx:143
+#: components/app/interface/settings/UserSettings.tsx:158
 #: components/app/interface/settings/user/Feedback.tsx:62
 msgid "Feedback"
 msgstr "Feedback"
@@ -1314,7 +1320,7 @@ msgstr "Idle"
 #~ msgid "Illegal hacking or cracking"
 #~ msgstr "Illegal hacking or cracking"
 
-#: components/auth/src/AuthPage.tsx:178
+#: components/auth/src/AuthPage.tsx:174
 msgid "Image by @fakurian"
 msgstr "Image by @fakurian"
 
@@ -1419,7 +1425,7 @@ msgstr "Kick Member"
 msgid "Kick Members"
 msgstr "Kick Members"
 
-#: components/app/interface/settings/UserSettings.tsx:202
+#: components/app/interface/settings/UserSettings.tsx:217
 #: components/app/interface/settings/user/Sync.tsx:52
 msgid "Language"
 msgstr "Language"
@@ -1505,8 +1511,8 @@ msgstr "Load file ({0})"
 msgid "Log In"
 msgstr "Log In"
 
-#: components/app/interface/settings/UserSettings.tsx:242
-#: components/app/interface/settings/user/Sessions.tsx:174
+#: components/app/interface/settings/UserSettings.tsx:257
+#: components/app/interface/settings/user/Sessions.tsx:169
 msgid "Log Out"
 msgstr "Log Out"
 
@@ -1514,7 +1520,7 @@ msgstr "Log Out"
 msgid "Log out of all other sessions"
 msgstr "Log out of all other sessions"
 
-#: components/app/interface/settings/user/Sessions.tsx:129
+#: components/app/interface/settings/user/Sessions.tsx:124
 msgid "Log Out Other Sessions"
 msgstr "Log Out Other Sessions"
 
@@ -1522,7 +1528,7 @@ msgstr "Log Out Other Sessions"
 msgid "Login"
 msgstr "Login"
 
-#: components/app/interface/settings/user/Sessions.tsx:126
+#: components/app/interface/settings/user/Sessions.tsx:121
 msgid "Logs you out of all sessions except this device."
 msgstr "Logs you out of all sessions except this device."
 
@@ -1664,7 +1670,7 @@ msgstr "Mutual Groups"
 msgid "My Account"
 msgstr "My Account"
 
-#: components/app/interface/settings/UserSettings.tsx:138
+#: components/app/interface/settings/UserSettings.tsx:153
 msgid "My Bots"
 msgstr "My Bots"
 
@@ -1866,11 +1872,11 @@ msgstr "Please select a method to authenticate your request."
 msgid "Please select a reason"
 msgstr "Please select a reason"
 
-#: components/auth/src/AuthPage.tsx:173
+#: components/auth/src/AuthPage.tsx:169
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
-#: components/app/interface/settings/UserSettings.tsx:123
+#: components/app/interface/settings/UserSettings.tsx:138
 msgid "Profile"
 msgstr "Profile"
 
@@ -1976,7 +1982,7 @@ msgstr "Remove other members' avatars"
 
 #: components/modal/modals/RenameSession.tsx:40
 #: components/app/interface/settings/user/Sessions.tsx:95
-#: components/app/interface/settings/user/Sessions.tsx:167
+#: components/app/interface/settings/user/Sessions.tsx:162
 msgid "Rename"
 msgstr "Rename"
 
@@ -2219,7 +2225,7 @@ msgstr "Server Identities"
 msgid "Server Name"
 msgstr "Server Name"
 
-#: components/app/interface/settings/UserSettings.tsx:128
+#: components/app/interface/settings/UserSettings.tsx:143
 msgid "Sessions"
 msgstr "Sessions"
 
@@ -2295,7 +2301,7 @@ msgstr "Something went wrong! Try again later."
 msgid "Sounds"
 msgstr "Sounds"
 
-#: components/app/interface/settings/UserSettings.tsx:233
+#: components/app/interface/settings/UserSettings.tsx:248
 msgid "Source Code"
 msgstr "Source Code"
 
@@ -2335,7 +2341,7 @@ msgstr "Submit feedback"
 msgid "Submit to Discover"
 msgstr "Submit to Discover"
 
-#: components/app/interface/settings/UserSettings.tsx:153
+#: components/app/interface/settings/UserSettings.tsx:168
 msgid "Subscriptions"
 msgstr "Subscriptions"
 
@@ -2379,7 +2385,7 @@ msgstr "Tell us what's wrong with this user"
 msgid "Temporarily prevent lower-ranking members from interacting"
 msgstr "Temporarily prevent lower-ranking members from interacting"
 
-#: components/auth/src/AuthPage.tsx:170
+#: components/auth/src/AuthPage.tsx:166
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
@@ -2488,7 +2494,7 @@ msgstr "User Left Call"
 msgid "User Management"
 msgstr "User Management"
 
-#: components/app/interface/settings/UserSettings.tsx:112
+#: components/app/interface/settings/UserSettings.tsx:127
 msgid "User Settings"
 msgstr "User Settings"
 
@@ -2657,7 +2663,7 @@ msgstr "You were logged out!"
 #~ msgid "You will not receive any notifications"
 #~ msgstr "You will not receive any notifications"
 
-#: components/app/interface/settings/user/Account.tsx:301
+#: components/app/interface/settings/user/Account.tsx:299
 msgid "You won't be able to access your account unless you contact support - however, your data will not be deleted."
 msgstr "You won't be able to access your account unless you contact support - however, your data will not be deleted."
 
@@ -2678,7 +2684,7 @@ msgstr "You've been invited to join this server.<0/>Would you like to join?"
 msgid "You've been signed out of Revolt!"
 msgstr "You've been signed out of Revolt!"
 
-#: components/app/interface/settings/user/Account.tsx:317
+#: components/app/interface/settings/user/Account.tsx:313
 msgid "Your account and all of your data (including your messages and friends list) will be queued for deletion. A confirmation email will be sent - you can cancel this within 7 days by contacting support."
 msgstr "Your account and all of your data (including your messages and friends list) will be queued for deletion. A confirmation email will be sent - you can cancel this within 7 days by contacting support."
 

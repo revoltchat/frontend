@@ -2,7 +2,6 @@ import { Accessor, JSX } from "solid-js";
 
 import channel from "./ChannelSettings";
 import server from "./ServerSettings";
-import { Settings, SettingsProps } from "./Settings";
 import user from "./UserSettings";
 
 export { Settings } from "./Settings";
@@ -59,10 +58,8 @@ export type SettingsEntry = {
   title: JSX.Element;
 };
 
-export const SettingsConfigurations: Record<
-  string,
-  SettingsConfiguration<never>
-> = {
+// eslint-disable-next-line
+export const SettingsConfigurations: Record<string, any> = {
   user,
   server,
   channel,

@@ -111,8 +111,7 @@ export const blockquote = styled("blockquote", {
     margin: "var(--gap-sm) 0",
     padding: "var(--gap-sm) var(--gap-md)",
     borderRadius: "var(--borderRadius-sm)",
-      borderInlineStart:
-        "var(--gap-sm) solid var(--border)",
+    borderInlineStart: "var(--gap-sm) solid var(--border)",
 
     "&, & > blockquote > blockquote": {
       color: "var(--md-sys-color-on-secondary-container)",
@@ -127,9 +126,9 @@ export const blockquote = styled("blockquote", {
     },
 
     "& blockquote": {
-      borderBlock: '1px solid var(--border)',
-      borderInlineEnd: '1px solid var(--border)'
-    }
+      borderBlock: "1px solid var(--border)",
+      borderInlineEnd: "1px solid var(--border)",
+    },
   },
 });
 

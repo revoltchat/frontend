@@ -21,8 +21,8 @@ export default function Experiments() {
             action={
               <Checkbox
                 checked={state.experiments.isEnabled(key)}
-                onChange={(enabled) =>
-                  state.experiments.setEnabled(key, enabled)
+                onChange={(event) =>
+                  state.experiments.setEnabled(key, event.currentTarget.checked)
                 }
               />
             }

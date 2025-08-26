@@ -29,9 +29,9 @@ export function ServerRoleOverview(props: { context: Server }) {
       type: "create_role",
       server: props.context,
       callback(roleId) {
-        navigate(`roles/${roleId}`)
-      }
-    })
+        navigate(`roles/${roleId}`);
+      },
+    });
   }
 
   return (

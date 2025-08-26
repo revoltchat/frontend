@@ -140,10 +140,6 @@ export function AuthPage(props: { children: JSX.Element }) {
           <MdDarkMode {...iconSize("24px")} />
         </IconButton>
       </Nav>
-      {/*<Nav>
-        <Logo src={wideSvg} />
-        <LocaleSelector />
-      </Nav>*/}
       <FlowBase>{props.children}</FlowBase>
       <Nav>
         <NavItems variant="stack">

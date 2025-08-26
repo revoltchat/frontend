@@ -120,7 +120,10 @@ export function SystemMessage(props: Props) {
             <UserMention
               userId={(props.systemMessage as ChannelRenamedSystemMessage).byId}
             />{" "}
-            updated the group name to{" "}<strong>{(props.systemMessage as ChannelRenamedSystemMessage).name}</strong>
+            updated the group name to{" "}
+            <strong>
+              {(props.systemMessage as ChannelRenamedSystemMessage).name}
+            </strong>
           </Trans>
         </Match>
         <Match

@@ -116,12 +116,7 @@ function ManageCurrentSession(props: { otherSessions: Accessor<Session[]> }) {
               client: client(),
             })
           }
-          icon={
-            <MdLogout
-              {...iconSize(24)}
-              fill="var(--md-sys-color-error)"
-            />
-          }
+          icon={<MdLogout {...iconSize(24)} fill="var(--md-sys-color-error)" />}
           description={
             <Trans>Logs you out of all sessions except this device.</Trans>
           }

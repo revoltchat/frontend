@@ -119,7 +119,7 @@ export function DevelopmentPage() {
           client()
             .api.get("/invites/Testers")
             .then((invite) => PublicChannelInvite.from(client(), invite))
-            .then((invite) => openModal({ type: 'invite', invite }));
+            .then((invite) => openModal({ type: "invite", invite }));
         }}
       >
         test
@@ -133,23 +133,6 @@ export function DevelopmentPage() {
         <Button variant="tonal">Tonal</Button>
         <Button variant="outlined">Outlined</Button>
         <Button variant="text">Text</Button>
-      </Row>
-      <Row align>
-        <Button size="xs" shape="square" connected="start">
-          xs
-        </Button>
-        <Button size="sm" shape="square" connected="start">
-          s
-        </Button>
-        <Button size="md" shape="square" connected="start">
-          md
-        </Button>
-        <Button size="lg" shape="square" connected="start">
-          lg
-        </Button>
-        <Button size="xl" shape="square" connected="start">
-          xl
-        </Button>
       </Row>
 
       <Row align>

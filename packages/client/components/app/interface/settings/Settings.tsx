@@ -153,8 +153,8 @@ export function Settings(props: SettingsProps & SettingsConfiguration<never>) {
  */
 function MemoisedList(props: {
   context: never;
-  list: (context: never) => SettingsList;
-  children: (list: Accessor<SettingsList>) => JSX.Element;
+  list: (context: never) => SettingsList<unknown>;
+  children: (list: Accessor<SettingsList<unknown>>) => JSX.Element;
 }) {
   /**
    * Generate list of categories / links

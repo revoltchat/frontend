@@ -465,7 +465,7 @@ function ChannelPermissionToggle(props: {
     <Checkbox2
       name={props.key}
       checked={props.value}
-      onChange={props.onChange}
+      onChange={(event) => props.onChange(event.currentTarget.checked)}
       disabled={!props.havePermission}
     >
       <div

@@ -5,7 +5,6 @@
 //   KeybindActions,
 //   KeybindSequence,
 // } from "@revolt/keybinds";
-
 import { State } from "..";
 
 import { AbstractStore } from ".";
@@ -48,9 +47,7 @@ import { AbstractStore } from ".";
 //   [KeybindAction.DeveloperToggleAllExperiments]: [],
 // });
 
-export type TypeKeybinds = {
-  
-};
+export type TypeKeybinds = {};
 
 export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
   /**
@@ -72,14 +69,13 @@ export class Keybinds extends AbstractStore<"keybinds", TypeKeybinds> {
    * Generate default values
    */
   default() {
-    return {
-    };
+    return {};
   }
 
   /**
    * Validate the given data to see if it is compliant and return a compliant object
    */
   clean(input: Partial<TypeKeybinds>): TypeKeybinds {
-    return { };
+    return {};
   }
 }
