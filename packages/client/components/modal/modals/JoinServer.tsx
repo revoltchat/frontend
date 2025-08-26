@@ -10,7 +10,7 @@ import { Column, Dialog, DialogProps, Form2, Text, Avatar } from "@revolt/ui";
 import { useModals } from "..";
 import { Modals } from "../types";
 
-const RE_INVITE_URL = /(?:invite|rvlt.gg)\/([a-z0-9]+)/gi;
+const RE_INVITE_URL = /(?:invite|rvlt.gg)\/([a-z0-9]+)/i;
 
 /**
  * Modal to join a server
@@ -19,68 +19,66 @@ export function JoinServerModal(
   props: DialogProps & Modals & { type: "join_server" },
 ) {
   const navigate = useNavigate();
-  const modals = useModals();
-  const showError = modals?.showError;
+  const { showError } = useModals();
 
-  const group = createFormGroup({
-    link: createFormControl(""),
-  });
+  // form group for the input
+  const group = createFormGroup({ link: createFormControl("") });
 
+  // signals for invite preview, confirmation state, and invalid input
   const [invitePreview, setInvitePreview] = createSignal<any | null>(null);
   const [awaitingConfirm, setAwaitingConfirm] = createSignal(false);
+  const [invalid, setInvalid] = createSignal(false);
   let fetchTimeout: NodeJS.Timeout;
 
+  // handle input changes with debounce
   const onInputChange = () => {
     clearTimeout(fetchTimeout);
     fetchTimeout = setTimeout(async () => {
       try {
-        let code = group.controls.link.value;
-        const match = RE_INVITE_URL.exec(code);
-        if (match) code = match[1];
+        let code = group.controls.link.value.match(RE_INVITE_URL)?.[1] ?? group.controls.link.value;
+
         if (!code) {
           setInvitePreview(null);
           setAwaitingConfirm(false);
+          setInvalid(false);
           return;
         }
 
+        // preview 
         const invite = await props.client.api.get(`/invites/${code}`);
         setInvitePreview(invite);
         setAwaitingConfirm(true);
+        setInvalid(false);
       } catch {
         setInvitePreview(null);
         setAwaitingConfirm(false);
+        setInvalid(true); // mark as invalid if fetch fails
       }
     }, 300);
   };
 
   onCleanup(() => clearTimeout(fetchTimeout));
 
-  async function onSubmit() {
+  /**
+   * Attempt to join the server using the invite
+   */
+  const onSubmit = async () => {
+    if (!invitePreview()) return;
+    const code = group.controls.link.value.match(RE_INVITE_URL)?.[1] ?? group.controls.link.value;
+
     try {
-      if (!invitePreview()) return;
-      const code = group.controls.link.value.match(RE_INVITE_URL)?.[1] ?? group.controls.link.value;
-
-      // attempt to join, ignore "already joined"
-      try {
-        await props.client.api.post(`/invites/${code}`);
-      } catch (joinError: any) {
-        const message = joinError?.message || joinError?.toString() || "";
-        if (!message.includes("Conflict")) throw joinError;
-      }
-
-      // navigate to the invite's channel
-      navigate(`/channel/${invitePreview().channel_id}`);
-
-      // close modal if defined
-      props.onClose?.();
-    } catch (error: any) {
-      if (typeof showError === "function") {
-        showError(error.message || error);
-      } else {
-        console.error(error);
-      }
+      // attempt join
+      await props.client.api.post(`/invites/${code}`);
+    } catch (err: any) {
+      if (!(err?.message || "").includes("Conflict")) return showError?.(err.message || err);
     }
-  }
+
+    // navigate to invite channel
+    navigate(`/channel/${invitePreview().channel_id}`);
+
+    // close modal if defined
+    props.onClose?.();
+  };
 
   return (
     <Dialog
@@ -95,10 +93,9 @@ export function JoinServerModal(
     >
       <form onInput={onInputChange} onSubmit={Form2.submitHandler(group, () => {})}>
         <Column>
-          <Text>
-            <Trans>Use a code or invite link</Trans>
-          </Text>
+          <Text><Trans>Use a code or invite link</Trans></Text>
 
+          {/* input field */}
           <Form2.TextField
             name="link"
             control={group.controls.link}
@@ -106,36 +103,41 @@ export function JoinServerModal(
             placeholder="rvlt.gg/wVEJDGVs"
           />
 
+          {/* show invalid message if invite fetch failed */}
+          {invalid() && (
+            <Text size="small" style={{ color: "var(--danger-color)", marginTop: "0.25rem" }}>
+              😢 <Trans>Invalid invite code</Trans>
+            </Text>
+          )}
+
+          {/* show preview if invite is valid */}
           {awaitingConfirm() && invitePreview() && (
-            <Column
-              style={{
-                padding: "0.5rem",
-                border: "1px solid var(--border-color)",
-                borderRadius: "6px",
-                marginTop: "0.5rem",
-                gap: "0.5rem",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
+            <Column style={{
+              padding: "0.5rem",
+              border: "1px solid var(--border-color)",
+              borderRadius: "6px",
+              marginTop: "0.5rem",
+              gap: "0.5rem",
+              flexDirection: "row",
+              alignItems: "center",
+            }}>
               <Avatar
-                src={
-                  invitePreview().server_icon
-                    ? `https://cdn.revoltusercontent.com/icons/${invitePreview().server_icon._id}?max_side=256`
-                    : invitePreview().user_avatar
+                src={invitePreview().server_icon
+                  ? `https://cdn.revoltusercontent.com/icons/${invitePreview().server_icon._id}?max_side=256`
+                  : invitePreview().user_avatar
                     ? `https://cdn.revoltusercontent.com/avatars/${invitePreview().user_avatar._id}?max_side=256`
                     : undefined
                 }
                 size={32}
               />
-              <Column>
-                <Text weight="bold">
-                  {invitePreview().server_name || invitePreview().channel_name}
-                </Text>
-                {invitePreview().member_count && (
-                  <Text size="small">{invitePreview().member_count} members</Text>
-                )}
+              <Column style={{ flex: 1, gap: "0.25rem" }}>
+                <Text weight="bold">{invitePreview().server_name || invitePreview().channel_name}</Text>
               </Column>
+              {invitePreview().member_count && (
+                <Text size="small" style={{ marginLeft: "auto" }}>
+                  {invitePreview().member_count} members
+                </Text>
+              )}
             </Column>
           )}
         </Column>
