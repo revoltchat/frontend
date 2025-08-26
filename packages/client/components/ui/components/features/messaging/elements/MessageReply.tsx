@@ -108,6 +108,9 @@ export function MessageReply(props: Props) {
   const client = useClient();
 
   const renderReplyContent = (content: string) => {
+    if (content.length > 128) {
+      content = content.slice(0, 128) + "...";
+    }
     return renderSimpleMarkdown(content);
   };
 
