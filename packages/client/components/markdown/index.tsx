@@ -101,12 +101,12 @@ const replyComponents = () => ({
   customEmoji: RenderCustomEmoji,
   mention: RenderMention,
   spoiler: RenderSpoiler,
-  
+
   strong: elements.strong,
   em: elements.emphasis,
   code: elements.code,
   del: elements.strikethrough,
-  
+
   p: (props: any) => <>{props.children}</>,
   h1: (props: any) => <>{props.children}</>,
   h2: (props: any) => <>{props.children}</>,
