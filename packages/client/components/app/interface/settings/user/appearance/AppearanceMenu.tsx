@@ -284,6 +284,18 @@ export function AppearanceMenu() {
           (state.theme.messageGroupSpacing = event.currentTarget.value)
         }
       />
+      <Column>
+        <Text class="title" size="small">
+          Chat Input
+        </Text>
+
+        <Checkbox 
+          checked={state.settings.getValue("appearance:show_send_button")}
+          onChange={(event) => state.settings.setValue("appearance:show_send_button", event.currentTarget.checked)}
+          >
+          Show send message button
+        </Checkbox>
+      </Column>
     </Column>
   );
 }
