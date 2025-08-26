@@ -1,10 +1,11 @@
 import { Trans } from "@lingui-solid/solid/macro";
 import { Server } from "revolt.js";
+import { css } from "styled-system/css";
 
 import { useClient, useClientLifecycle } from "@revolt/client";
 import { useUser } from "@revolt/markdown/users";
 import { useModals } from "@revolt/modal";
-import { ColouredText, Column, iconSize } from "@revolt/ui";
+import { ColouredText, Column, Text, iconSize } from "@revolt/ui";
 
 import MdAccountCircle from "@material-design-icons/svg/outlined/account_circle.svg?component-solid";
 import _MdDesktopWindows from "@material-design-icons/svg/outlined/desktop_windows.svg?component-solid";
@@ -24,6 +25,8 @@ import _MdSpeaker from "@material-design-icons/svg/outlined/speaker.svg?componen
 import _MdSync from "@material-design-icons/svg/outlined/sync.svg?component-solid";
 import MdVerifiedUser from "@material-design-icons/svg/outlined/verified_user.svg?component-solid";
 import MdWorkspacePremium from "@material-design-icons/svg/outlined/workspace_premium.svg?component-solid";
+
+import pkg from "../../../../../../package.json";
 
 import { SettingsConfiguration } from ".";
 import { MyAccount } from "./user/Account";
@@ -106,6 +109,18 @@ const Config: SettingsConfiguration<{ server: Server }> = {
           <AccountCard />
           <div />
         </Column>
+      ),
+      append: (
+        <Text class="label">
+          <Trans>
+            <span class={css({ userSelect: "none", fontWeight: "bold" })}>
+              Version:{" "}
+            </span>
+            <span class={css({ userSelect: "all" })}>
+              {pkg.version} ({pkg["version-date"]})
+            </span>
+          </Trans>
+        </Text>
       ),
       entries: [
         {
