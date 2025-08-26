@@ -317,6 +317,7 @@ const CategoryBase = styled("div", {
   },
 });
 
+
 /**
  * Server channel entry
  */
@@ -324,6 +325,16 @@ function Entry(
   props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">,
 ) {
   const { openModal } = useModals();
+
+  // determine if user can edit channel (any relevant permission)
+  const canEditChannel = [
+    "ManageChannel",
+    "ManagePermissions",
+    "ManageWebhooks",
+  ].some((perm) => props.channel.server?.havePermission(perm));
+
+  // user can create invites??
+  const canInvite = props.channel.server?.havePermission("InviteOthers");
 
   return (
     <a href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}>
@@ -352,42 +363,43 @@ function Entry(
         }
         actions={
           <>
-            <a
-              use:floating={{
-                tooltip: {
-                  placement: "top",
-                  content: "Create Invite",
-                },
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                openModal({
-                  type: "create_invite",
-                  channel: props.channel,
-                });
-              }}
-            >
-              <MdPersonAdd {...iconSize("14px")} />
-            </a>
+            <Show when={canInvite}>
+              <a
+                use:floating={{
+                  tooltip: {
+                    placement: "top",
+                    content: "Create Invite",
+                  },
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openModal({
+                    type: "create_invite",
+                    channel: props.channel,
+                  });
+                }}
+              >
+                <MdPersonAdd {...iconSize("14px")} />
+              </a>
+            </Show>
 
-            <a
-              use:floating={{
-                tooltip: {
-                  placement: "top",
-                  content: "Edit Channel",
-                },
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                openModal({
-                  type: "settings",
-                  config: "channel",
-                  context: props.channel,
-                });
-              }}
-            >
-              <MdSettings {...iconSize("14px")} />
-            </a>
+            <Show when={canEditChannel}>
+              <a
+                use:floating={{
+                  tooltip: { placement: "top", content: "Edit Channel" },
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openModal({
+                    type: "settings",
+                    config: "channel",
+                    context: props.channel,
+                  });
+                }}
+              >
+                <MdSettings {...iconSize("14px")} />
+              </a>
+            </Show>
           </>
         }
       >
