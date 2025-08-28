@@ -70,7 +70,7 @@ export function LinkWarningModal(
         >
           <Match when={scrutiny() === 1}>
             <Trans>
-              You clicked on "<Link>{props.display}</Link>"
+              You clicked on "{props.display}"
             </Trans>
           </Match>
           <Match when={scrutiny() === 2}>
