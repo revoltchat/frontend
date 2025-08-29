@@ -134,12 +134,7 @@ export function MessageContextMenu(props: { message: Message }) {
           <Trans>Edit message</Trans>
         </ContextMenuButton>
       </Show>
-      <Show
-        when={
-          props.message.author?.self ||
-          props.message.channel?.havePermission("ManageMessages")
-        }
-      >
+      <Show when={props.message.channel?.havePermission("ManageMessages")}>
         <ContextMenuButton
           icon={MdPin}
           onClick={() => {
