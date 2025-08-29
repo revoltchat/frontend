@@ -9,7 +9,7 @@ import { styled } from "styled-system/jsx";
 
 import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
-import { TextWithEmoji } from "@revolt/markdown";
+import { renderSimpleMarkdown } from "@revolt/markdown";
 import { Avatar } from "@revolt/ui/components/design";
 import { NonBreakingText, OverflowingText } from "@revolt/ui/components/utils";
 
@@ -107,6 +107,13 @@ const Link = styled("a", {
 export function MessageReply(props: Props) {
   const client = useClient();
 
+  const renderReplyContent = (content: string) => {
+    if (content.length > 128) {
+      content = content.slice(0, 128) + "...";
+    }
+    return renderSimpleMarkdown(content);
+  };
+
   return (
     <Base noDecorations={props.noDecorations}>
       <Switch fallback={<Trans>Message not loaded, click to jump</Trans>}>
@@ -139,9 +146,7 @@ export function MessageReply(props: Props) {
             </Show>
             <Show when={props.message!.content}>
               <OverflowingText>
-                <TextWithEmoji
-                  content={client().markdownToText(props.message!.content!)}
-                />
+                {renderReplyContent(props.message!.content!)}
               </OverflowingText>
             </Show>
           </Link>
