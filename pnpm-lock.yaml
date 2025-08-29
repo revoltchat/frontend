@@ -494,8 +494,8 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6
       revolt-api:
-        specifier: 0.8.8
-        version: 0.8.8
+        specifier: 0.8.8-1
+        version: 0.8.8-1
       solid-js:
         specifier: ^1.9.6
         version: 1.9.6
@@ -6894,8 +6894,8 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  revolt-api@0.8.8:
-    resolution: {integrity: sha512-/DLA9qaljrnf6LeksdgO7hKWF4oNny672ywyxCxvivmVkOYZuQkhtgdYanvFBUJKngbCecLAjD6IaC6GJ01Xag==}
+  revolt-api@0.8.8-1:
+    resolution: {integrity: sha512-g1IcggLP6H0LyJMmNT/2jPufo/Jgpe0ClmZqGOijMqCmm6nQ3FT4qNdl1Ze08X7sO/tfSpgupdRKs4kNUg9YEw==}
 
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
@@ -15352,7 +15352,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  revolt-api@0.8.8: {}
+  revolt-api@0.8.8-1: {}
 
   rimraf@2.7.1:
     dependencies:
