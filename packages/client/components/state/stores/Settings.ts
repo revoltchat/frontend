@@ -105,7 +105,9 @@ export class Settings extends AbstractStore<"settings", TypeSettings> {
    * Generate default values
    */
   default(): TypeSettings {
-    return {};
+    return {
+      "appearance:show_send_button": true
+    };
   }
 
   /**

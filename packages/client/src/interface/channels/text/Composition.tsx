@@ -336,9 +336,7 @@ export function MessageComposition(props: Props) {
             state.draft.setSelection(props.channel.id, start, end)
           }
         />
-        {/* // <Show
-          //   when={state.settings.getValue("appearance:show_send_button")}
-          // > */}
+        <Show when={state.settings.getValue("appearance:show_send_button")}>
         <IconButton
           size="sm"
           variant="filled"
@@ -347,7 +345,7 @@ export function MessageComposition(props: Props) {
         >
           <MdSend />
         </IconButton>
-        {/* // </Show> */}
+        </Show>
       </Row>
       <FilePasteCollector onFiles={onFiles} />
       <FileDropAnywhereCollector onFiles={onFiles} />
