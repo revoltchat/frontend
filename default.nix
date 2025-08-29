@@ -14,6 +14,7 @@ pkgs.mkShell {
     # Tools
     pkgs.git
     pkgs.gh
+    pkgs.deno
 
     # Node
     pkgs.nodejs
