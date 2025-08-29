@@ -212,9 +212,8 @@ export function TextEditor(props: Props) {
             a.name.localeCompare(b.name),
           );
 
-          let i = -1;
-          while (matches.length < 10 && i < emoji.length) {
-            const emote = emoji[++i];
+          for (let i = 0; i < emoji.length && matches.length < 10; i++) {
+            const emote = emoji[i];
             if (emote.name.includes(query)) {
               const id = emote.id;
               matches.push(
