@@ -7,6 +7,7 @@ import { styled } from "styled-system/jsx";
 
 import { useModals } from "@revolt/modal";
 import { CategoryButton, Column, Draggable, Text } from "@revolt/ui";
+import { createDragHandle } from "@revolt/ui/components/utils/Draggable";
 
 import MdDragIndicator from "@material-design-icons/svg/outlined/drag_indicator.svg?component-solid";
 
@@ -59,10 +60,16 @@ export function ServerRoleOverview(props: { context: Server }) {
         <Show when={change.isPending}>
           <Text>Saving... (i am TEMPORARY UI)</Text>
         </Show>
-        <Draggable items={props.context.orderedRoles} onChange={change.mutate}>
+        <Draggable
+          dragHandles
+          items={props.context.orderedRoles}
+          onChange={change.mutate}
+        >
           {(entry) => (
             <ItemContainer>
-              <MdDragIndicator />
+              <MdDragIndicator
+                {...createDragHandle(entry.dragDisabled, entry.setDragDisabled)}
+              />
 
               <CategoryButton
                 icon={
