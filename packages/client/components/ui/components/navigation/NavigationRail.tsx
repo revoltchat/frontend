@@ -40,6 +40,12 @@ const rail = cva({
   },
 });
 
+const Icon = cva({
+  base: {
+    fill: "var(--md-sys-color-on-surface-variant)",
+  }
+});
+
 interface ItemProps {
   value: string;
   icon: JSXElement;
@@ -52,7 +58,7 @@ interface ItemProps {
 function NavigationRailItem(props: ItemProps) {
   return (
     <mdui-navigation-rail-item value={props.value}>
-      {props.children} <div slot="icon">{props.icon}</div>
+      {props.children} <div slot="icon" class={Icon()}>{props.icon}</div>
     </mdui-navigation-rail-item>
   );
 }
