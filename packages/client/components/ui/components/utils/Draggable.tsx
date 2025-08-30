@@ -19,6 +19,7 @@ interface Props<T> {
     setDragDisabled: Setter<boolean>;
   }) => JSX.Element;
   onChange: (ids: string[]) => void;
+  minimumDropAreaHeight?: string;
 }
 
 type Item<T> = { id: string } & T;
@@ -49,14 +50,16 @@ void dndzone;
  * Draggable list container
  */
 export function Draggable<T>(props: Props<T>) {
-  const [dragDisabled, setDragDisabled] = createSignal(false);
+  const [dragDisabled, setDragDisabled] = createSignal(
+    // eslint-disable-next-line solid/reactivity
+    props.dragHandles || false,
+  );
+
   const [containerItems, setContainerItems] = createSignal<ContainerItem<T>[]>(
     [],
   );
 
-  createEffect(() => {
-    setDragDisabled(props.dragHandles || false);
-  });
+  createEffect(() => setDragDisabled(props.dragHandles || false));
 
   createEffect(() => {
     const newContainerItems = props.items.map((item) => ({
@@ -72,6 +75,8 @@ export function Draggable<T>(props: Props<T>) {
    * @param e
    */
   function handleDndEvent(e: DragHandleEvent<T>) {
+    setDragDisabled(props.dragHandles || false);
+
     const { items: newContainerItems } = e.detail;
     setContainerItems(newContainerItems);
 
@@ -93,6 +98,20 @@ export function Draggable<T>(props: Props<T>) {
         items: containerItems,
         dragDisabled: isDisabled,
         flipDurationMs: 0,
+        transformDraggedElement: (el?: HTMLElement) => {
+          console.info("trans", el);
+          if (el) {
+            el.style.cursor = "grabbing !important";
+            el.style.outline = "1px solid red";
+          }
+        },
+        dropTargetStyle: {
+          outline:
+            "2px solid color-mix(in srgb, 40% var(--md-sys-color-primary), transparent)",
+          borderRadius: "4px",
+          outlineOffset: "-2px",
+          minHeight: "24px",
+        },
       }}
       // @ts-expect-error missing jsx typing
       on:consider={handleDndEvent}
@@ -120,6 +139,10 @@ export function createDragHandle(
     setDragDisabled(false);
   }
 
+  function endDrag() {
+    setDragDisabled(true);
+  }
+
   function handleKeyDown(e: KeyboardEvent) {
     if ((e.key === "Enter" || e.key === " ") && dragDisabled())
       setDragDisabled(false);
@@ -127,10 +150,10 @@ export function createDragHandle(
 
   return {
     tabindex: dragDisabled() ? 0 : -1,
-    onmousedown: startDrag,
+    onmouseenter: startDrag,
     ontouchstart: startDrag,
+    onmouseleave: endDrag,
     onkeydown: handleKeyDown,
     "aria-label": "drag-handle",
-    style: dragDisabled() ? { cursor: "grabbing" } : { cursor: "grab" },
   };
 }

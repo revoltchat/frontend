@@ -307,12 +307,13 @@ function Category(
     },
 ) {
   const state = useState();
+  const isOpen = () => state.layout.getSectionState(props.category.id, true);
 
   const channels = createMemo(() =>
     props.category.channels.filter(
       (channel) =>
         props.category.id === "default" ||
-        state.layout.getSectionState(props.category.id, true) ||
+        isOpen() ||
         channel.unread ||
         channel.id === props.channelId,
     ),
@@ -322,7 +323,7 @@ function Category(
     <CategorySection>
       <Show when={props.category.id !== "default"}>
         <CategoryBase
-          open={state.layout.getSectionState(props.category.id, true)}
+          open={isOpen()}
           onClick={() =>
             state.layout.toggleSectionState(props.category.id, true)
           }
@@ -344,7 +345,8 @@ function Category(
             moved: channelIds.length !== current.length,
           });
         }}
-        disabled={props.noOrdering()}
+        disabled={props.noOrdering() || !isOpen()}
+        minimumDropAreaHeight="32px"
       >
         {(entry) => (
           <Entry
