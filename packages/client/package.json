@@ -137,6 +137,7 @@
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.3",
     "workbox-precaching": "^7.3.0",
+    "workbox-window": "^7.3.0",
     "zod": "3.23.8"
   },
   "private": true

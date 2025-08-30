@@ -50,6 +50,7 @@ import { HomePage } from "./interface/Home";
 import { ServerHome } from "./interface/ServerHome";
 import { ChannelPage } from "./interface/channels/ChannelPage";
 import "./sentry";
+import "./serviceWorkerInterface";
 
 attachDevtoolsOverlay();
 

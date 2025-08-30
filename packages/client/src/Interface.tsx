@@ -1,7 +1,6 @@
-import { JSX, Match, Switch, createEffect } from "solid-js";
+import { JSX, Match, Show, Switch, createEffect } from "solid-js";
 
 import { Server } from "revolt.js";
-import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { ChannelContextMenu, ServerContextMenu } from "@revolt/app";
@@ -12,9 +11,10 @@ import { useModals } from "@revolt/modal";
 import { Navigate, useBeforeLeave } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { CircularProgress } from "@revolt/ui";
+import { Button, CircularProgress } from "@revolt/ui";
 
 import { Sidebar } from "./interface/Sidebar";
+import { pendingUpdate } from "./serviceWorkerInterface";
 
 /**
  * Application layout
@@ -84,6 +84,12 @@ const Interface = (props: { children: JSX.Element }) => {
             Device is offline
           </Match>
         </Switch>
+        <Show when={pendingUpdate()}>
+          {" "}
+          <Button size="sm" onPress={pendingUpdate()}>
+            Update
+          </Button>
+        </Show>
       </Notice>
       <Switch fallback={<CircularProgress />}>
         <Match when={!isLoggedIn()}>

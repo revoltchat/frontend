@@ -27,7 +27,8 @@ export default defineConfig({
     }),
     VitePWA({
       srcDir: "src",
-      filename: "sw.ts",
+      registerType: "autoUpdate",
+      filename: "serviceWorker.ts",
       strategies: "injectManifest",
       injectManifest: {
         maximumFileSizeToCacheInBytes: 3000000,

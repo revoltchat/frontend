@@ -266,6 +266,9 @@ importers:
       workbox-precaching:
         specifier: ^7.3.0
         version: 7.3.0
+      workbox-window:
+        specifier: ^7.3.0
+        version: 7.3.0
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -377,7 +380,7 @@ importers:
         version: 0.8.9(rollup@2.79.2)(vite@5.4.19(@types/node@22.15.17)(lightningcss@1.25.1)(terser@5.43.1))
       vite-plugin-pwa:
         specifier: ^0.20.5
-        version: 0.20.5(vite@5.4.19(@types/node@22.15.17)(lightningcss@1.25.1)(terser@5.43.1))(workbox-build@7.1.1(@types/babel__core@7.20.5))(workbox-window@7.1.0)
+        version: 0.20.5(vite@5.4.19(@types/node@22.15.17)(lightningcss@1.25.1)(terser@5.43.1))(workbox-build@7.1.1(@types/babel__core@7.20.5))(workbox-window@7.3.0)
       vite-plugin-solid:
         specifier: ^2.11.6
         version: 2.11.6(@testing-library/jest-dom@6.6.3)(solid-js@1.9.6)(vite@5.4.19(@types/node@22.15.17)(lightningcss@1.25.1)(terser@5.43.1))
@@ -8616,6 +8619,9 @@ packages:
 
   workbox-window@7.1.0:
     resolution: {integrity: sha512-ZHeROyqR+AS5UPzholQRDttLFqGMwP0Np8MKWAdyxsDETxq3qOAyXvqessc3GniohG6e0mAqSQyKOHmT8zPF7g==}
+
+  workbox-window@7.3.0:
+    resolution: {integrity: sha512-qW8PDy16OV1UBaUNGlTVcepzrlzyzNW/ZJvFQQs2j2TzGsg6IKjcpZC1RSquqQnTOafl5pCj5bGfAHlCjOOjdA==}
 
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
@@ -17742,14 +17748,14 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-pwa@0.20.5(vite@5.4.19(@types/node@22.15.17)(lightningcss@1.25.1)(terser@5.43.1))(workbox-build@7.1.1(@types/babel__core@7.20.5))(workbox-window@7.1.0):
+  vite-plugin-pwa@0.20.5(vite@5.4.19(@types/node@22.15.17)(lightningcss@1.25.1)(terser@5.43.1))(workbox-build@7.1.1(@types/babel__core@7.20.5))(workbox-window@7.3.0):
     dependencies:
       debug: 4.4.0
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.13
       vite: 5.4.19(@types/node@22.15.17)(lightningcss@1.25.1)(terser@5.43.1)
       workbox-build: 7.1.1(@types/babel__core@7.20.5)
-      workbox-window: 7.1.0
+      workbox-window: 7.3.0
     transitivePeerDependencies:
       - supports-color
 
@@ -18074,6 +18080,11 @@ snapshots:
     dependencies:
       '@types/trusted-types': 2.0.7
       workbox-core: 7.1.0
+
+  workbox-window@7.3.0:
+    dependencies:
+      '@types/trusted-types': 2.0.7
+      workbox-core: 7.3.0
 
   wrap-ansi@7.0.0:
     dependencies:

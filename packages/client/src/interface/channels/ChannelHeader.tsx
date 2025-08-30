@@ -1,5 +1,5 @@
 import { BiRegularAt, BiRegularHash, BiSolidNotepad } from "solid-icons/bi";
-import { Accessor, Match, Setter, Show, Switch, createSignal } from "solid-js";
+import { Accessor, Match, Setter, Show, Switch } from "solid-js";
 
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
