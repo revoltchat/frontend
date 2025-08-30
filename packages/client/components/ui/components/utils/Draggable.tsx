@@ -98,13 +98,12 @@ export function Draggable<T>(props: Props<T>) {
         items: containerItems,
         dragDisabled: isDisabled,
         flipDurationMs: 0,
-        transformDraggedElement: (el?: HTMLElement) => {
-          console.info("trans", el);
-          if (el) {
-            el.style.cursor = "grabbing !important";
-            el.style.outline = "1px solid red";
-          }
-        },
+        // transformDraggedElement: (el?: HTMLElement) => {
+        //   if (el) {
+        //     el.style.cursor = "grabbing !important";
+        //     el.style.outline = "1px solid red";
+        //   }
+        // },
         dropTargetStyle: {
           outline:
             "2px solid color-mix(in srgb, 40% var(--md-sys-color-primary), transparent)",
