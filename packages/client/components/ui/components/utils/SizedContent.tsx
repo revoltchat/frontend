@@ -40,33 +40,33 @@ export function SizedContent(props: Props) {
     let width = props.width,
       height = props.height;
 
-    console.info("1", width, height);
+    // console.info("1", width, height);
 
     // ensure min. size
     if (width < MIN_W) {
       height *= MIN_W / width;
       width = MIN_W;
     }
-    console.info("2", width, height);
+    // console.info("2", width, height);
 
     if (height < MIN_H) {
       width *= MIN_H / height;
       height = MIN_H;
     }
-    console.info("3", width, height);
+    // console.info("3", width, height);
 
     // scale down to required size
     if (width > MAX_S) {
       height /= width / MAX_S;
       width = MAX_S;
     }
-    console.info("4", width, height);
+    // console.info("4", width, height);
 
     if (height > MAX_S) {
       width /= height / MAX_S;
       height = MAX_S;
     }
-    console.info("5", width, height);
+    // console.info("5", width, height);
 
     return {
       width,

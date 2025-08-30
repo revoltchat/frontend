@@ -208,59 +208,57 @@ export const ServerList = (props: Props) => {
           </a>
         </Show>
         <LineDivider />
-        <Draggable items={props.orderedServers} onChange={props.setServerOrder}>
-          {(item) => (
-            <Show
-              when={
-                item.$exists /** reactivity lags behind here for some reason,
-                                 just check existence before continuing */
-                // TODO: check if still an issue
-              }
-            >
-              <Tooltip placement="right" content={item.name}>
-                <div
-                  class={entryContainer({
-                    indicator:
-                      props.selectedServer() === item.id
-                        ? "selected"
-                        : item.unread
-                          ? "alert"
-                          : undefined,
-                  })}
-                  use:floating={props.menuGenerator(item)}
-                >
-                  {/* <Show when={props.selectedServer() === item.id}>
+        <Draggable
+          type="servers"
+          items={props.orderedServers}
+          onChange={props.setServerOrder}
+        >
+          {(entry) => (
+            <Tooltip placement="right" content={entry.item.name}>
+              <div
+                class={entryContainer({
+                  indicator:
+                    props.selectedServer() === entry.item.id
+                      ? "selected"
+                      : entry.item.unread
+                        ? "alert"
+                        : undefined,
+                })}
+                use:floating={props.menuGenerator(entry.item)}
+              >
+                {/* <Show when={props.selectedServer() === item.id}>
                     <PositionSwoosh>
                       <Swoosh />
                     </PositionSwoosh>
                   </Show> */}
-                  <a href={`/server/${item.id}`}>
-                    <Avatar
-                      size={42}
-                      src={item.iconURL}
-                      holepunch={item.mentions.length ? "top-right" : "none"}
-                      overlay={
-                        <>
-                          <Show
-                            when={
-                              item.mentions
-                                .length /* as opposed to item.unread */
-                            }
-                          >
-                            <Unreads.Graphic
-                              count={item.mentions.length}
-                              unread
-                            />
-                          </Show>
-                        </>
-                      }
-                      fallback={item.name}
-                      interactive
-                    />
-                  </a>
-                </div>
-              </Tooltip>
-            </Show>
+                <a href={`/server/${entry.item.id}`}>
+                  <Avatar
+                    size={42}
+                    src={entry.item.iconURL}
+                    holepunch={
+                      entry.item.mentions.length ? "top-right" : "none"
+                    }
+                    overlay={
+                      <>
+                        <Show
+                          when={
+                            entry.item.mentions
+                              .length /* as opposed to item.unread */
+                          }
+                        >
+                          <Unreads.Graphic
+                            count={entry.item.mentions.length}
+                            unread
+                          />
+                        </Show>
+                      </>
+                    }
+                    fallback={entry.item.name}
+                    interactive
+                  />
+                </a>
+              </div>
+            </Tooltip>
           )}
         </Draggable>
         <Tooltip placement="right" content={"Create or join a server"}>

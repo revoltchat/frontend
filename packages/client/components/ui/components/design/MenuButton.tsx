@@ -95,6 +95,7 @@ const base = cva({
     fontWeight: 500,
     fontSize: "15px",
     userSelect: "none",
+    cursor: "pointer",
 
     // for <Ripple />:
     position: "relative",

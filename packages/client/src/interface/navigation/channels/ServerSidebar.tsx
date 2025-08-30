@@ -4,7 +4,8 @@ import {
   BiRegularPhoneCall,
   BiSolidCheckCircle,
 } from "solid-icons/bi";
-import { For, JSX, Match, Show, Switch, createMemo } from "solid-js";
+import { Accessor, For, JSX, Match, Show, Switch, createMemo } from "solid-js";
+import { Setter } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import type { API, Channel, Server, ServerFlags } from "revolt.js";
@@ -17,6 +18,7 @@ import { useNavigate } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import {
   Column,
+  Draggable,
   Header,
   IconButton,
   MenuButton,
@@ -26,6 +28,7 @@ import {
   iconSize,
   typography,
 } from "@revolt/ui";
+import { createDragHandle } from "@revolt/ui/components/utils/Draggable";
 
 import MdChevronRight from "@material-design-icons/svg/filled/chevron_right.svg?component-solid";
 import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
@@ -64,6 +67,18 @@ interface Props {
  * Ordered category data returned from server
  */
 type CategoryData = Omit<API.Category, "channels"> & { channels: Channel[] };
+
+type OrderingEvent =
+  | {
+      type: "categories";
+      ids: string[];
+    }
+  | {
+      type: "category";
+      id: string;
+      channelIds: string[];
+      moved: boolean;
+    };
 
 /**
  * Display server information and channels
@@ -114,6 +129,51 @@ export const ServerSidebar = (props: Props) => {
     }
   });
 
+  const noOrdering = () => !props.server.havePermission("ManageChannel");
+
+  let heldEvent: OrderingEvent & { type: "category" } = null!;
+  function handleOrdering(event: OrderingEvent) {
+    if (event.type === "category" && event.moved && !heldEvent) {
+      heldEvent = event;
+      return;
+    }
+
+    const normalisedCategories = props.server.orderedChannels.map(
+      (category) => ({
+        ...category,
+        channels: category.channels.map((channel) => channel.id),
+      }),
+    );
+
+    if (event.type === "categories") {
+      props.server.edit({
+        categories: event.ids
+          .map((id) => normalisedCategories.find((cat) => cat.id === id)!)
+          .filter((cat) => cat),
+      });
+    } else {
+      props.server.edit({
+        categories: normalisedCategories.map((category) => {
+          if (heldEvent && category.id === heldEvent.id) {
+            return {
+              ...category,
+              channels: heldEvent.channelIds,
+            };
+          } else if (category.id === event.id) {
+            return {
+              ...category,
+              channels: event.channelIds,
+            };
+          } else {
+            return category;
+          }
+        }),
+      });
+
+      heldEvent = null!;
+    }
+  }
+
   return (
     <SidebarBase>
       <Switch
@@ -148,19 +208,25 @@ export const ServerSidebar = (props: Props) => {
         style={{ "flex-grow": 1 }}
         use:floating={props.menuGenerator(props.server)}
       >
-        <List gap="lg">
-          <div />
-          <For each={props.server.orderedChannels}>
-            {(category) => (
-              <Category
-                category={category}
-                channelId={props.channelId}
-                menuGenerator={props.menuGenerator}
-              />
-            )}
-          </For>
-          <div />
-        </List>
+        <Draggable
+          dragHandles
+          type="category"
+          disabled={noOrdering()}
+          items={props.server.orderedChannels}
+          onChange={(ids) => handleOrdering({ type: "categories", ids })}
+        >
+          {(entry) => (
+            <Category
+              category={entry.item}
+              channelId={props.channelId}
+              menuGenerator={props.menuGenerator}
+              dragDisabled={entry.dragDisabled}
+              setDragDisabled={entry.setDragDisabled}
+              noOrdering={noOrdering}
+              handleOrdering={handleOrdering}
+            />
+          )}
+        </Draggable>
       </div>
     </SidebarBase>
   );
@@ -233,7 +299,12 @@ function Category(
   props: {
     category: CategoryData;
     channelId: string | undefined;
-  } & Pick<Props, "menuGenerator">,
+    noOrdering: Accessor<boolean>;
+    handleOrdering: (event: OrderingEvent) => void;
+  } & Pick<Props, "menuGenerator"> & {
+      dragDisabled: Accessor<boolean>;
+      setDragDisabled: Setter<boolean>;
+    },
 ) {
   const state = useState();
 
@@ -248,30 +319,55 @@ function Category(
   );
 
   return (
-    <Column gap="sm">
+    <CategorySection>
       <Show when={props.category.id !== "default"}>
         <CategoryBase
           open={state.layout.getSectionState(props.category.id, true)}
           onClick={() =>
             state.layout.toggleSectionState(props.category.id, true)
           }
+          {...createDragHandle(props.dragDisabled, props.setDragDisabled)}
         >
           <MdChevronRight {...iconSize(12)} />
           {props.category.title}
         </CategoryBase>
       </Show>
-      <For each={channels()}>
-        {(channel) => (
+      <Draggable
+        type="channels"
+        items={channels()}
+        onChange={(channelIds) => {
+          const current = channels();
+          props.handleOrdering({
+            type: "category",
+            id: props.category.id,
+            channelIds,
+            moved: channelIds.length !== current.length,
+          });
+        }}
+        disabled={props.noOrdering()}
+      >
+        {(entry) => (
           <Entry
-            channel={channel}
-            active={channel.id === props.channelId}
+            channel={entry.item}
+            active={entry.item.id === props.channelId}
             menuGenerator={props.menuGenerator}
           />
         )}
-      </For>
-    </Column>
+      </Draggable>
+    </CategorySection>
   );
 }
+
+const CategorySection = styled("div", {
+  base: {
+    display: "flex",
+    gap: "var(--gap-md)",
+    flexDirection: "column",
+    paddingBlock: "var(--gap-sm)",
+    borderRadius: "var(--borderRadius-sm)",
+    background: "var(--md-sys-color-surface-container-low)",
+  },
+});
 
 /**
  * Category title styling

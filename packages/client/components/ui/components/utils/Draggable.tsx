@@ -1,9 +1,23 @@
 import { dndzone } from "solid-dnd-directive";
-import { For, JSX, createEffect, createSignal } from "solid-js";
+import {
+  Accessor,
+  For,
+  JSX,
+  Setter,
+  createEffect,
+  createSignal,
+} from "solid-js";
 
 interface Props<T> {
+  type?: string;
   items: Item<T>[];
-  children: (item: T) => JSX.Element;
+  disabled?: boolean;
+  dragHandles?: boolean;
+  children: (item: {
+    item: T;
+    dragDisabled: Accessor<boolean>;
+    setDragDisabled: Setter<boolean>;
+  }) => JSX.Element;
   onChange: (ids: string[]) => void;
 }
 
@@ -35,15 +49,21 @@ void dndzone;
  * Draggable list container
  */
 export function Draggable<T>(props: Props<T>) {
+  const [dragDisabled, setDragDisabled] = createSignal(false);
   const [containerItems, setContainerItems] = createSignal<ContainerItem<T>[]>(
     [],
   );
+
+  createEffect(() => {
+    setDragDisabled(props.dragHandles || false);
+  });
 
   createEffect(() => {
     const newContainerItems = props.items.map((item) => ({
       id: item.id,
       item,
     }));
+
     setContainerItems(newContainerItems);
   });
 
@@ -54,22 +74,63 @@ export function Draggable<T>(props: Props<T>) {
   function handleDndEvent(e: DragHandleEvent<T>) {
     const { items: newContainerItems } = e.detail;
     setContainerItems(newContainerItems);
-    if (e.type === "finalize")
+
+    if (e.type === "finalize") {
       props.onChange(
         newContainerItems.map((containerItems) => containerItems.id),
       );
+    }
+  }
+
+  function isDisabled() {
+    return props.disabled || dragDisabled();
   }
 
   return (
     <div
-      use:dndzone={{ items: containerItems, flipDurationMs: 0 }}
+      use:dndzone={{
+        type: props.type,
+        items: containerItems,
+        dragDisabled: isDisabled,
+        flipDurationMs: 0,
+      }}
       // @ts-expect-error missing jsx typing
       on:consider={handleDndEvent}
       on:finalize={handleDndEvent}
     >
       <For each={containerItems()}>
-        {(containerItem) => props.children(containerItem.item)}
+        {(containerItem) =>
+          props.children({
+            item: containerItem.item,
+            dragDisabled,
+            setDragDisabled,
+          })
+        }
       </For>
     </div>
   );
+}
+
+export function createDragHandle(
+  dragDisabled: Accessor<boolean>,
+  setDragDisabled: Setter<boolean>,
+) {
+  function startDrag(e: Event) {
+    e.preventDefault();
+    setDragDisabled(false);
+  }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if ((e.key === "Enter" || e.key === " ") && dragDisabled())
+      setDragDisabled(false);
+  }
+
+  return {
+    tabindex: dragDisabled() ? 0 : -1,
+    onmousedown: startDrag,
+    ontouchstart: startDrag,
+    onkeydown: handleKeyDown,
+    "aria-label": "drag-handle",
+    style: dragDisabled() ? { cursor: "grabbing" } : { cursor: "grab" },
+  };
 }
