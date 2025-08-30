@@ -470,6 +470,23 @@ export function TextEditor(props: Props) {
       })
     : [];
 
+  function selectAutoCompleteItem(selected: number) {
+    setAutoComplete((ac) =>
+      ac
+        ? {
+            ...ac,
+            selected,
+          }
+        : undefined,
+    );
+  }
+
+  function confirmAutoCompleteItem() {
+    // send a fake Enter event to trigger the AC plugin handler
+    const event = new KeyboardEvent("keydown", { key: "Enter" });
+    view.someProp("handleKeyDown", (f) => f(view, event));
+  }
+
   // configure prosemirror
   const config: EditorStateConfig = {
     schema,
@@ -669,7 +686,7 @@ export function TextEditor(props: Props) {
     ),
   );
 
-  function onClick(event: MouseEvent) {
+  function onClick() {
     if (!focused()) {
       view.dom.focus();
     }
@@ -684,7 +701,11 @@ export function TextEditor(props: Props) {
       {proseMirror}
       <Portal mount={document.getElementById("floating")!}>
         <Show when={autoComplete()}>
-          <Suggestions state={autoComplete} />
+          <Suggestions
+            state={autoComplete}
+            selectAutoCompleteItem={selectAutoCompleteItem}
+            confirmAutoCompleteItem={confirmAutoCompleteItem}
+          />
         </Show>
       </Portal>
     </>
@@ -708,7 +729,11 @@ function activeMarks(doc: Node, start: number, end: number) {
  *
  * (AC5.) include visual rendering for auto complete
  */
-function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
+function Suggestions(props: {
+  state: Accessor<AutoCompleteView | undefined>;
+  selectAutoCompleteItem: (idx: number) => void;
+  confirmAutoCompleteItem: () => void;
+}) {
   const element = () => props.state()!.element;
   const [floating, setFloating] = createSignal<HTMLDivElement>();
 
@@ -733,7 +758,12 @@ function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
         <Match when={props.state()!.result.type === "emoji"}>
           <For each={props.state()!.result.matches as MatchEmoji[]}>
             {(match, idx) => (
-              <Entry selected={props.state()!.selected === idx()}>
+              <Entry
+                selected={props.state()!.selected === idx()}
+                onMouseEnter={() => props.selectAutoCompleteItem(idx())}
+                onMouseDown={(e) => e.preventDefault()} // don't lose editor focus
+                onClick={props.confirmAutoCompleteItem}
+              >
                 <Switch
                   fallback={
                     <>
@@ -756,7 +786,12 @@ function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
         <Match when={props.state()!.result.type === "user"}>
           <For each={props.state()!.result.matches as MatchUser[]}>
             {(match, idx) => (
-              <Entry selected={props.state()!.selected === idx()}>
+              <Entry
+                selected={props.state()!.selected === idx()}
+                onMouseEnter={() => props.selectAutoCompleteItem(idx())}
+                onMouseDown={(e) => e.preventDefault()} // don't lose editor focus
+                onClick={props.confirmAutoCompleteItem}
+              >
                 <Avatar src={match.animatedAvatarURL} size={24} />{" "}
                 <Name>{match.displayName}</Name>
                 {match instanceof ServerMember &&
@@ -773,7 +808,12 @@ function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
         <Match when={props.state()!.result.type === "role"}>
           <For each={props.state()!.result.matches as ServerRole[]}>
             {(match, idx) => (
-              <Entry selected={props.state()!.selected === idx()}>
+              <Entry
+                selected={props.state()!.selected === idx()}
+                onMouseEnter={() => props.selectAutoCompleteItem(idx())}
+                onMouseDown={(e) => e.preventDefault()} // don't lose editor focus
+                onClick={props.confirmAutoCompleteItem}
+              >
                 <Name>{match.name}</Name>
               </Entry>
             )}
@@ -782,7 +822,12 @@ function Suggestions(props: { state: Accessor<AutoCompleteView | undefined> }) {
         <Match when={props.state()!.result.type === "channel"}>
           <For each={props.state()!.result.matches as Channel[]}>
             {(match, idx) => (
-              <Entry selected={props.state()!.selected === idx()}>
+              <Entry
+                selected={props.state()!.selected === idx()}
+                onMouseEnter={() => props.selectAutoCompleteItem(idx())}
+                onMouseDown={(e) => e.preventDefault()} // don't lose editor focus
+                onClick={props.confirmAutoCompleteItem}
+              >
                 <Name>#{match.name}</Name>
               </Entry>
             )}
