@@ -60,7 +60,7 @@ export function ServerRoleOverview(props: { context: Server }) {
           <Text>Saving... (i am TEMPORARY UI)</Text>
         </Show>
         <Draggable items={props.context.orderedRoles} onChange={change.mutate}>
-          {(role) => (
+          {(entry) => (
             <ItemContainer>
               <MdDragIndicator />
 
@@ -69,14 +69,15 @@ export function ServerRoleOverview(props: { context: Server }) {
                   <RoleIcon
                     style={{
                       background:
-                        role.colour ?? "var(--md-sys-color-outline-variant)",
+                        entry.item.colour ??
+                        "var(--md-sys-color-outline-variant)",
                     }}
                   />
                 }
                 action="chevron"
-                onClick={() => navigate(`roles/${role.id}`)}
+                onClick={() => navigate(`roles/${entry.item.id}`)}
               >
-                {role.name}
+                {entry.item.name}
               </CategoryButton>
             </ItemContainer>
           )}
