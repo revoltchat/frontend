@@ -335,7 +335,7 @@ msgstr "Admin"
 
 #: components/app/menus/UserContextMenu.tsx:308
 #: components/app/menus/ServerContextMenu.tsx:191
-#: components/app/menus/MessageContextMenu.tsx:177
+#: components/app/menus/MessageContextMenu.tsx:172
 #: components/app/menus/ChannelContextMenu.tsx:158
 msgid "Admin Panel"
 msgstr "Admin Panel"
@@ -344,7 +344,7 @@ msgstr "Admin Panel"
 #~ msgid "Advanced Options"
 #~ msgstr "Advanced Options"
 
-#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:43
+#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:44
 #: components/app/interface/settings/channel/permissions/ChannelPermissionsOverview.tsx:55
 msgid "Affects all roles and users"
 msgstr "Affects all roles and users"
@@ -484,7 +484,7 @@ msgstr "Block user"
 msgid "Blocked"
 msgstr "Blocked"
 
-#: components/ui/components/features/messaging/elements/MessageReply.tsx:114
+#: components/ui/components/features/messaging/elements/MessageReply.tsx:121
 msgid "Blocked User"
 msgstr "Blocked User"
 
@@ -771,7 +771,7 @@ msgstr "Copy channel ID"
 msgid "Copy Invite"
 msgstr "Copy Invite"
 
-#: components/app/menus/MessageContextMenu.tsx:180
+#: components/app/menus/MessageContextMenu.tsx:175
 #: components/app/menus/ChannelContextMenu.tsx:161
 msgid "Copy link"
 msgstr "Copy link"
@@ -780,7 +780,7 @@ msgstr "Copy link"
 msgid "Copy Link"
 msgstr "Copy Link"
 
-#: components/app/menus/MessageContextMenu.tsx:183
+#: components/app/menus/MessageContextMenu.tsx:178
 msgid "Copy message ID"
 msgstr "Copy message ID"
 
@@ -832,7 +832,7 @@ msgstr "Create a new category"
 msgid "Create a new group"
 msgstr "Create a new group"
 
-#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:51
+#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:52
 msgid "Create a new role"
 msgstr "Create a new role"
 
@@ -886,7 +886,7 @@ msgid "Create invites for others to use"
 msgstr "Create invites for others to use"
 
 #: components/modal/modals/CreateRole.tsx:37
-#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:54
+#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:55
 msgid "Create Role"
 msgstr "Create Role"
 
@@ -936,7 +936,7 @@ msgstr "Dark"
 msgid "Deafen Members"
 msgstr "Deafen Members"
 
-#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:46
+#: components/app/interface/settings/server/roles/ServerRoleOverview.tsx:47
 #: components/app/interface/settings/channel/permissions/ChannelPermissionsOverview.tsx:58
 msgid "Default Permissions"
 msgstr "Default Permissions"
@@ -981,7 +981,7 @@ msgstr "Delete Channel"
 #~ msgstr "Delete Invite"
 
 #: components/modal/modals/DeleteMessage.tsx:26
-#: components/app/menus/MessageContextMenu.tsx:167
+#: components/app/menus/MessageContextMenu.tsx:162
 #: components/app/menus/DraftMessageContextMenu.tsx:63
 msgid "Delete message"
 msgstr "Delete message"
@@ -1618,7 +1618,7 @@ msgstr "Message"
 msgid "Message {0}"
 msgstr "Message {0}"
 
-#: components/ui/components/features/messaging/elements/MessageReply.tsx:112
+#: components/ui/components/features/messaging/elements/MessageReply.tsx:119
 msgid "Message not loaded, click to jump"
 msgstr "Message not loaded, click to jump"
 
@@ -1733,7 +1733,7 @@ msgstr "Off"
 msgid "Official Communication"
 msgstr "Official Communication"
 
-#: src/interface/navigation/channels/ServerSidebar.tsx:216
+#: src/interface/navigation/channels/ServerSidebar.tsx:282
 msgid "Official Server"
 msgstr "Official Server"
 
@@ -1840,7 +1840,7 @@ msgstr "Permissions"
 msgid "Pick a username that you want people to be able to find you by. This can be changed later in your user settings."
 msgstr "Pick a username that you want people to be able to find you by. This can be changed later in your user settings."
 
-#: components/app/menus/MessageContextMenu.tsx:153
+#: components/app/menus/MessageContextMenu.tsx:148
 msgid "Pin message"
 msgstr "Pin message"
 
@@ -2011,7 +2011,7 @@ msgstr "Replying to"
 msgid "Report"
 msgstr "Report"
 
-#: components/app/menus/MessageContextMenu.tsx:172
+#: components/app/menus/MessageContextMenu.tsx:167
 msgid "Report message"
 msgstr "Report message"
 
@@ -2193,11 +2193,11 @@ msgstr "Sending..."
 msgid "Sent {0} attachments"
 msgstr "Sent {0} attachments"
 
-#: components/ui/components/features/messaging/elements/MessageReply.tsx:133
+#: components/ui/components/features/messaging/elements/MessageReply.tsx:140
 msgid "Sent an attachment"
 msgstr "Sent an attachment"
 
-#: components/ui/components/features/messaging/elements/MessageReply.tsx:135
+#: components/ui/components/features/messaging/elements/MessageReply.tsx:142
 msgid "Sent multiple attachments"
 msgstr "Sent multiple attachments"
 
@@ -2449,7 +2449,7 @@ msgstr "Unmark as Mature"
 msgid "Unmark this channel as mature?"
 msgstr "Unmark this channel as mature?"
 
-#: components/app/menus/MessageContextMenu.tsx:155
+#: components/app/menus/MessageContextMenu.tsx:150
 msgid "Unpin message"
 msgstr "Unpin message"
 
@@ -2524,7 +2524,7 @@ msgstr "Users will be asked to confirm their age before opening this channel."
 msgid "Users will no longer be asked to confirm their age before joining this channel.<0/> Please ensure the content is appropriate for all ages."
 msgstr "Users will no longer be asked to confirm their age before joining this channel.<0/> Please ensure the content is appropriate for all ages."
 
-#: src/interface/navigation/channels/ServerSidebar.tsx:216
+#: src/interface/navigation/channels/ServerSidebar.tsx:282
 msgid "Verified"
 msgstr "Verified"
 
@@ -2648,8 +2648,12 @@ msgstr "You cannot undo this action."
 
 #. placeholder {0}: props.display
 #: components/modal/modals/LinkWarning.tsx:72
-msgid "You clicked on \"<0>{0}</0>\""
-msgstr "You clicked on \"<0>{0}</0>\""
+msgid "You clicked on \"{0}\""
+msgstr "You clicked on \"{0}\""
+
+#: components/modal/modals/LinkWarning.tsx:72
+#~ msgid "You clicked on \"<0>{0}</0>\""
+#~ msgstr "You clicked on \"<0>{0}</0>\""
 
 #: components/ui/components/features/messaging/composition/MessageBox.tsx:185
 msgid "You don't have permission to send messages in this channel."
