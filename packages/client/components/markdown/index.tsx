@@ -216,7 +216,6 @@ export interface MarkdownProps {
 export { TextWithEmoji } from "./emoji/TextWithEmoji";
 export { Emoji } from "./emoji/Emoji";
 
-
 export function renderSimpleMarkdown(content: string) {
   const file = new VFile();
   file.value = sanitise(content);

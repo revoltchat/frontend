@@ -97,7 +97,12 @@ export function RenderAnchor(
             <Avatar size={16} src={server()?.iconURL} /> {server()?.name}
           </a>
         );
-      } else if (params.inviteId) {
+      } else if (
+        params.inviteId &&
+        // only display invites if it is just the plain link:
+        Array.isArray(remoteProps.children) &&
+        remoteProps.children[0] === localProps.href
+      ) {
         return <Invite code={params.inviteId} />;
       } else {
         return <a {...remoteProps} class={link()} href={url.toString()} />;
