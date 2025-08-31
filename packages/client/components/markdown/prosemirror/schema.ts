@@ -38,7 +38,8 @@ export const schema = new Schema({
 
     heading: {
       attrs: { level: { default: 1 } },
-      content: "(text | image)*",
+      content:
+        "(text | image | rfm_custom_emoji | rfm_user_mention | rfm_role_mention | rfm_channel_mention)*",
       group: "block",
       defining: true,
       parseDOM: [

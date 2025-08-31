@@ -14,7 +14,10 @@ import { onCleanup } from "solid-js";
 import { Portal } from "solid-js/web";
 
 import { autoUpdate, flip, shift } from "@floating-ui/dom";
-import autocomplete, { ActionKind } from "prosemirror-autocomplete";
+import autocomplete, {
+  ActionKind,
+  closeAutocomplete,
+} from "prosemirror-autocomplete";
 import codemark from "prosemirror-codemark";
 import codeMirrorBlockPlugin, {
   codeBlockKeymap,
@@ -22,7 +25,7 @@ import codeMirrorBlockPlugin, {
   languageLoaders,
   legacyLanguageLoaders,
 } from "prosemirror-codemirror-block";
-import { baseKeymap, toggleMark } from "prosemirror-commands";
+import { baseKeymap, setBlockType, toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
 import { InputRule, inputRules } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
@@ -161,6 +164,32 @@ export function TextEditor(props: Props) {
 
     "& > .ProseMirror": {
       width: "100%",
+    },
+
+    // copied from elements.ts:
+    "& h1": {
+      fontSize: "2em",
+      fontWeight: 600,
+    },
+    "& h2": {
+      fontSize: "1.6em",
+      fontWeight: 600,
+    },
+    "& h3": {
+      fontSize: "1.4em",
+      fontWeight: 600,
+    },
+    "& h4": {
+      fontSize: "1.2em",
+      fontWeight: 600,
+    },
+    "& h5": {
+      fontSize: "1em",
+      fontWeight: 600,
+    },
+    "& h6": {
+      fontSize: "0.8em",
+      fontWeight: 600,
     },
   });
 
@@ -495,6 +524,12 @@ export function TextEditor(props: Props) {
       keymap(codeBlockKeymap),
       keymap({
         "Shift-Enter": baseKeymap["Enter"],
+        Space: () => {
+          // typing a space should cancel autocomplete
+          closeAutocomplete(view);
+
+          return false;
+        },
       }),
       ...codemark({
         markType: schema.marks.code,
@@ -505,25 +540,6 @@ export function TextEditor(props: Props) {
         undo,
         redo,
       }),
-      ...autoCompletePlugin,
-      keymap({
-        Enter: () => {
-          // note: unsure if EditorProse correctly handles
-          //       event.isComposing, it is assumed that it does!
-
-          if (props.onComplete) {
-            props.onComplete();
-            return true;
-          }
-
-          return false;
-        },
-        "Ctrl-b": toggleMark(schema.marks.strong),
-        "Ctrl-i": toggleMark(schema.marks.em),
-        "Ctrl-s": toggleMark(schema.marks.strikethrough),
-      }),
-      keymap({ "Mod-z": undo, "Mod-y": redo }),
-      keymap(baseKeymap),
       inputRules({
         rules: [
           new InputRule(/^```$/, (state, match, start, end) => {
@@ -533,8 +549,17 @@ export function TextEditor(props: Props) {
               schema.nodes.code_block.createAndFill()!,
             );
           }),
+          new InputRule(/^#{1,6}\s$/, (state, match, start, end) => {
+            return state.tr.replaceRangeWith(
+              start,
+              end,
+              schema.nodes.heading.createAndFill({
+                level: match[0].length - 1,
+              })!,
+            );
+          }),
           new InputRule(
-            /(?<![^\\]\\|^\\)(?:~{2})([^*]*)(?<![^\\]\\|^\\)(?:~{2})/,
+            /(?<![^\\]\\|^\\)(?:~{2})([^*]*)(?<![^\\]\\|^\\)(?:~{2})$/,
             (state, match, start, end) => {
               const [_, text] = match;
               if (!text.length) return null;
@@ -557,7 +582,7 @@ export function TextEditor(props: Props) {
             },
           ),
           new InputRule(
-            /(?<![^\\]\\|^\\)(\*{1,2})([^*]*)(?<![^\\]\\|^\\)(\*{1,2})/,
+            /(?<![^\\]\\|^\\)(\*{1,2})([^*]*)(?<![^\\]\\|^\\)(\*{1,2})$/,
             (state, match, start, end) => {
               const [_, operatorBegin, text, operatorEnd] = match;
               if (!text.length) return null;
@@ -584,7 +609,7 @@ export function TextEditor(props: Props) {
             },
           ),
           new InputRule(
-            /(?<![^\\]\\|^\\)(\*{2})([^*]*)(?<![^\\]\\|^\\)(\*{2})/,
+            /(?<![^\\]\\|^\\)(\*{2})([^*]*)(?<![^\\]\\|^\\)(\*{2})$/,
             (state, match, start, end) => {
               const [_, operatorBegin, text, operatorEnd] = match;
               if (!text.length) return null;
@@ -610,6 +635,25 @@ export function TextEditor(props: Props) {
           ),
         ],
       }),
+      ...autoCompletePlugin,
+      keymap({
+        Enter: () => {
+          // note: unsure if ProseMirror correctly handles
+          //       event.isComposing, it is assumed that it does!
+
+          if (props.onComplete) {
+            props.onComplete();
+            return true;
+          }
+
+          return false;
+        },
+        "Ctrl-b": toggleMark(schema.marks.strong),
+        "Ctrl-i": toggleMark(schema.marks.em),
+        "Ctrl-s": toggleMark(schema.marks.strikethrough),
+      }),
+      keymap({ "Mod-z": undo, "Mod-y": redo }),
+      keymap(baseKeymap),
     ],
   };
 

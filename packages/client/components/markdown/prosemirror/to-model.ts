@@ -66,6 +66,13 @@ function map(
           ],
         }),
       );
+    case "heading":
+      return schema.nodes.heading.createChecked(
+        { level: node.depth },
+        node.children.flatMap((child) =>
+          map(child, client, { parent: "heading" }),
+        ),
+      );
 
     // RFM
     case "mention":

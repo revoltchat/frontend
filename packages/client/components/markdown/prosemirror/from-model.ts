@@ -82,6 +82,12 @@ function map(node: Node): RootContent {
         lang: node.attrs.lang,
         value: node.textContent,
       };
+    case "heading":
+      return {
+        type: "heading",
+        depth: node.attrs.level,
+        children: node.children.map(map) as PhrasingContent[],
+      };
 
     // RFM
 
