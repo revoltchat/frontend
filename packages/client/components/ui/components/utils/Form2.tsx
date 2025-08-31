@@ -1,5 +1,13 @@
 import { type IFormControl, IFormGroup } from "solid-forms";
-import { ComponentProps, For, type JSX, Show, splitProps } from "solid-js";
+import {
+  ComponentProps,
+  For,
+  type JSX,
+  Match,
+  Show,
+  Switch,
+  splitProps,
+} from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
@@ -183,13 +191,21 @@ const FormRadio = (
 function FormVirtualSelect<K, T>(props: {
   control: IFormControl<K[]>;
   items: { item: T; value: K }[];
-  children: (item: T) => JSX.Element;
+  children: (item: T, selected?: boolean) => JSX.Element;
   itemHeight?: number;
+  selectHeight?: string;
+  multiple?: boolean;
 }) {
   let ref;
 
   return (
-    <div ref={ref} use:scrollable={{ class: css({ height: "320px" }) }}>
+    <div
+      ref={ref}
+      use:scrollable
+      style={{
+        height: props.selectHeight ?? "320px",
+      }}
+    >
       <VirtualContainer
         items={props.items}
         scrollTarget={ref}
@@ -201,21 +217,39 @@ function FormVirtualSelect<K, T>(props: {
               ...item.style,
               width: "100%",
             }}
-          >
-            <Checkbox
-              class={css({ width: "100%" })}
-              onChange={(checked) =>
-                props.control.setValue([
-                  ...props.control.value.filter(
-                    (entry) => entry !== item.item.value,
-                  ),
-                  ...(checked ? [item.item.value] : []),
-                ])
+            onClick={() => {
+              if (!props.multiple) {
+                props.control.setValue(
+                  props.control.value[0] === item.item.value
+                    ? []
+                    : [item.item.value],
+                );
               }
-              checked={props.control.value.includes(item.item.value)}
+            }}
+          >
+            <Switch
+              fallback={props.children(
+                item.item.item,
+                props.control.value.includes(item.item.value),
+              )}
             >
-              {props.children(item.item.item)}
-            </Checkbox>
+              <Match when={props.multiple}>
+                <Checkbox
+                  class={css({ width: "100%" })}
+                  onChange={(checked) =>
+                    props.control.setValue([
+                      ...props.control.value.filter(
+                        (entry) => entry !== item.item.value,
+                      ),
+                      ...(checked ? [item.item.value] : []),
+                    ])
+                  }
+                  checked={props.control.value.includes(item.item.value)}
+                >
+                  {props.children(item.item.item)}
+                </Checkbox>
+              </Match>
+            </Switch>
           </div>
         )}
       </VirtualContainer>

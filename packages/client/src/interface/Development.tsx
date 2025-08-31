@@ -3,7 +3,7 @@ import { createFormControl, createFormGroup } from "solid-forms";
 import { BiSolidPalette, BiSolidSpeaker } from "solid-icons/bi";
 import { For } from "solid-js";
 
-import { PublicChannelInvite } from "revolt.js";
+import { PublicBot, PublicChannelInvite } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
@@ -122,7 +122,17 @@ export function DevelopmentPage() {
             .then((invite) => openModal({ type: "invite", invite }));
         }}
       >
-        test
+        invite test
+      </Button>
+      <Button
+        onPress={() => {
+          client()
+            .api.get("/bots/01FHGJ3NPP7XANQQH8C2BE44ZY/invite")
+            .then((bot) => new PublicBot(client(), bot))
+            .then((bot) => openModal({ type: "add_bot", invite: bot }));
+        }}
+      >
+        bot test
       </Button>
 
       <Button onPress={changelog}>Changelog Modal</Button>

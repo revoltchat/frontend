@@ -1,9 +1,11 @@
 import { Trans } from "@lingui-solid/solid/macro";
-import { Bot } from "revolt.js";
+import { Bot, PublicBot } from "revolt.js";
 
 import { createProfileResource } from "@revolt/client/resources";
+import { useModals } from "@revolt/modal";
 import { CategoryButton, Column, iconSize } from "@revolt/ui";
 
+import MdContentCopy from "@material-design-icons/svg/outlined/content_copy.svg?component-solid";
 import MdLink from "@material-design-icons/svg/outlined/link.svg?component-solid";
 import MdPersonAdd from "@material-design-icons/svg/outlined/person_add.svg?component-solid";
 import MdPublic from "@material-design-icons/svg/outlined/public.svg?component-solid";
@@ -19,6 +21,7 @@ export function ViewBot(props: { bot: Bot }) {
   // `bot` will never change, so we don't care about reactivity here
   // eslint-disable-next-line solid/reactivity
   const profile = createProfileResource(props.bot.user!);
+  const { openModal } = useModals();
 
   return (
     <Column gap="lg">
@@ -57,14 +60,35 @@ export function ViewBot(props: { bot: Bot }) {
       </CategoryButton.Group>
 
       <CategoryButton.Group>
-        <CategoryButton icon={<MdLink {...iconSize(22)} />} action="copy">
-          <Trans>Copy Invite</Trans>
-        </CategoryButton>
         <CategoryButton
           icon={<MdPersonAdd {...iconSize(22)} />}
           action="chevron"
+          onClick={() =>
+            openModal({
+              type: "add_bot",
+              invite: props.bot.publicBot,
+            })
+          }
         >
           <Trans>Invite Bot</Trans>
+        </CategoryButton>
+        <CategoryButton
+          icon={<MdLink {...iconSize(22)} />}
+          action="copy"
+          onClick={() =>
+            navigator.clipboard.writeText(
+              new URL(`/bot/${props.bot.id}`, window.origin).toString(),
+            )
+          }
+        >
+          <Trans>Copy Invite URL</Trans>
+        </CategoryButton>
+        <CategoryButton
+          icon={<MdContentCopy {...iconSize(22)} />}
+          action="copy"
+          onClick={() => navigator.clipboard.writeText(props.bot.id)}
+        >
+          <Trans>Copy ID</Trans>
         </CategoryButton>
       </CategoryButton.Group>
     </Column>

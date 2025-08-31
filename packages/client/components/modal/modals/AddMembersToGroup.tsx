@@ -80,12 +80,16 @@ export function AddMembersToGroupModal(
         <Column>
           <TextField
             value={filter()}
-            variant="outlined"
+            variant="filled"
             placeholder={t`Search for users...`}
             onKeyUp={(e) => setFilter(e.currentTarget.value)}
           />
 
-          <Form2.VirtualSelect items={users()} control={group.controls.users}>
+          <Form2.VirtualSelect
+            items={users()}
+            control={group.controls.users}
+            multiple
+          >
             {(item) => (
               <Row align>
                 <Avatar

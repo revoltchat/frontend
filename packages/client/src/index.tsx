@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { isTauri } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import "mdui/mdui.css";
-import { PublicChannelInvite } from "revolt.js";
+import { PublicBot, PublicChannelInvite } from "revolt.js";
 import { css } from "styled-system/css";
 
 import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
@@ -94,6 +94,28 @@ function InviteRedirect() {
   return <PWARedirect />;
 }
 
+/**
+ * Open bot invite and redirect to last active path
+ */
+function BotRedirect() {
+  const params = useParams();
+  const client = useClient();
+  const { openModal, showError } = useModals();
+
+  onMount(() => {
+    if (params.code) {
+      client()
+        // TODO: add a helper to revolt.js for this
+        .api.get(`/bots/${params.code as ""}/invite`)
+        .then((invite) => new PublicBot(client(), invite))
+        .then((invite) => openModal({ type: "add_bot", invite }))
+        .catch(showError);
+    }
+  });
+
+  return <PWARedirect />;
+}
+
 function MountContext(props: { children?: JSX.Element }) {
   const state = useState();
   const appWindow = isTauri() ? getCurrentWindow() : null;
@@ -155,6 +177,7 @@ render(
           <Route path="/discover/*" component={Discover} />
           <Route path="/settings" component={SettingsRedirect} />
           <Route path="/invite/:code" component={InviteRedirect} />
+          <Route path="/bot/:code" component={BotRedirect} />
           <Route path="/friends" component={Friends} />
           <Route path="/server/:server/*">
             <Route path="/channel/:channel/*" component={ChannelPage} />

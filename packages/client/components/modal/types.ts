@@ -9,6 +9,7 @@ import {
   MFA,
   MFATicket,
   Message,
+  PublicBot,
   PublicChannelInvite,
   Server,
   ServerMember,
@@ -22,6 +23,10 @@ import type { SettingsConfigurations } from "@revolt/app";
 import { ChangelogPost } from "./modals/Changelog";
 
 export type Modals =
+  | {
+      type: "add_bot";
+      invite: PublicBot;
+    }
   | {
       type: "add_friend";
       client: Client;

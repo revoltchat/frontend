@@ -3,6 +3,7 @@ import { mergeProps, splitProps } from "solid-js";
 import { CONFIGURATION } from "@revolt/common";
 
 import { type ActiveModal } from ".";
+import { AddBotModal } from "./modals/AddBot";
 import { AddFriendModal } from "./modals/AddFriend";
 import { AddMembersToGroupModal } from "./modals/AddMembersToGroup";
 import { BanMemberModal } from "./modals/BanMember";
@@ -68,6 +69,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
   const modalProps = mergeProps(props.props, modal2Props);
 
   switch (modalProps.type) {
+    case "add_bot":
+      return <AddBotModal {...modalProps} />;
     case "add_friend":
       return <AddFriendModal {...modalProps} />;
     case "ban_member":
