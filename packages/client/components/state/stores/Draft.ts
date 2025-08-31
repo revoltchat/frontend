@@ -1,5 +1,6 @@
-import { batch } from "solid-js";
+import { Setter, batch } from "solid-js";
 
+import { Node } from "prosemirror-model";
 import { API, Channel, Client, Message } from "revolt.js";
 import { ulid } from "ulid";
 
@@ -105,6 +106,8 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * Current text selection
    */
   private textSelection?: TextSelection;
+
+  _setNodeReplacement?: Setter<Node | readonly ["_focus"] | undefined>;
 
   /**
    * Construct store
@@ -513,6 +516,8 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param selfId Own user ID
    */
   addReply(message: Message, selfId: string) {
+    this._setNodeReplacement?.(["_focus"]);
+
     // Ignore if reply already exists
     if (
       this.getDraft(message.channelId).replies?.find(

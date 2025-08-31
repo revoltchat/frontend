@@ -66,9 +66,9 @@ interface Props {
   initialValue?: readonly [string];
 
   /**
-   * Signal for sending a node replacement to the editor
+   * Signal for sending a node replacement or focus request to the editor
    */
-  nodeReplacement?: Node;
+  nodeReplacement?: Node | readonly ["_focus"];
 
   /**
    * Event is fired when the text content changes
@@ -728,13 +728,17 @@ export function TextEditor(props: Props) {
       () => props.nodeReplacement,
       (value) => {
         if (value) {
-          view.updateState(
-            view.state.applyTransaction(
-              view.state.tr.replaceSelectionWith(value),
-            ).state,
-          );
+          view.dom.focus();
 
-          setValue(markdownFromProseMirrorModel(view.state.doc));
+          if (value instanceof Node) {
+            view.updateState(
+              view.state.applyTransaction(
+                view.state.tr.replaceSelectionWith(value),
+              ).state,
+            );
+
+            setValue(markdownFromProseMirrorModel(view.state.doc));
+          }
         }
       },
       {

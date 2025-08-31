@@ -23,7 +23,7 @@ interface Props {
   /**
    * Node replacement
    */
-  nodeReplacement?: Node;
+  nodeReplacement?: Node | readonly ["_focus"];
 
   /**
    * Text content

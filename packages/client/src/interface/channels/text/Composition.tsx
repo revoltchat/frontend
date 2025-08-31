@@ -7,6 +7,7 @@ import {
   createEffect,
   createSignal,
   on,
+  onCleanup,
 } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
@@ -76,7 +77,13 @@ export function MessageComposition(props: Props) {
     currentValue(),
   ] as const);
 
-  const [nodeReplacement, setNodeReplacement] = createSignal<Node>();
+  const [nodeReplacement, setNodeReplacement] = createSignal<
+    Node | readonly ["_focus"]
+  >();
+
+  // bind this composition instance to the global node replacement signal
+  state.draft._setNodeReplacement = setNodeReplacement;
+  onCleanup(() => (state.draft._setNodeReplacement = undefined));
 
   createEffect(
     on(
