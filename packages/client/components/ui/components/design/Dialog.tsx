@@ -139,6 +139,8 @@ Dialog.Scrim = styled("div", {
     animationDuration: "0.1s",
     animationFillMode: "forwards",
     transition: "var(--transitions-medium) all",
+
+    "--background": "rgba(0, 0, 0, 0.6)",
   },
   variants: {
     show: {

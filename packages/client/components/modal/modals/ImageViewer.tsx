@@ -63,7 +63,7 @@ export function ImageViewerModal(
                     style={{
                       "aspect-ratio": `${(props.file!.metadata as { width: number }).width}/${(props.file!.metadata as { height: number }).height}`,
                     }}
-                    src={props.file!.url}
+                    src={props.file!.originalUrl}
                     onClick={(e) => e.stopPropagation()}
                   />
                 </Match>
@@ -104,6 +104,8 @@ const Image = styled("img", {
     minHeight: 0,
     alignSelf: "center",
     objectFit: "contain",
+
+    background: "rgba(0, 0, 0, 0.6)",
   },
 });
 
