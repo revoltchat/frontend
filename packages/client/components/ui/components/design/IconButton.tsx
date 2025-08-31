@@ -35,6 +35,7 @@ export function IconButton(props: Props) {
     "shape",
     "width",
     "variant",
+    "_fullHeight",
   ]);
   let ref: HTMLButtonElement | undefined;
 
@@ -124,12 +125,18 @@ const iconButton2 = cva({
       default: {},
       wide: {},
     },
+    _fullHeight: {
+      true: {
+        height: "100% !important",
+      },
+    },
   },
   defaultVariants: {
     variant: "standard",
     width: "default",
     shape: "round",
     size: "sm",
+    _fullHeight: false,
   },
   compoundVariants: [
     {

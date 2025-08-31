@@ -35,6 +35,9 @@ importers:
 
   packages/client:
     dependencies:
+      '@dschz/solid-auto-sizer':
+        specifier: ^0.1.3
+        version: 0.1.3(solid-js@1.9.6)
       '@floating-ui/dom':
         specifier: ^1.7.0
         version: 1.7.0
@@ -1431,6 +1434,11 @@ packages:
     engines: {node: ^14 || ^16 || >=18}
     peerDependencies:
       postcss-selector-parser: ^6.0.13
+
+  '@dschz/solid-auto-sizer@0.1.3':
+    resolution: {integrity: sha512-KvgvrZRiqe0qU1e1K91MqMVuzr1McptHX+LEkmaek8bwETSNXvLbPDgQQSkvPtVq26/pv4pdIIDJ/JpHVMS0ag==}
+    peerDependencies:
+      solid-js: '>=1.6.0'
 
   '@esbuild/aix-ppc64@0.19.12':
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -9851,6 +9859,10 @@ snapshots:
   '@csstools/selector-specificity@3.1.1(postcss-selector-parser@6.1.1)':
     dependencies:
       postcss-selector-parser: 6.1.1
+
+  '@dschz/solid-auto-sizer@0.1.3(solid-js@1.9.6)':
+    dependencies:
+      solid-js: 1.9.6
 
   '@esbuild/aix-ppc64@0.19.12':
     optional: true

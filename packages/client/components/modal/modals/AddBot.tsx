@@ -152,8 +152,12 @@ export function AddBotModal(props: DialogProps & Modals & { type: "add_bot" }) {
           </Form2.VirtualSelect>
 
           <Column gap="sm" align>
-            <Text>Bots are not verified by Revolt.</Text>
-            <Text>The bot will not be granted any permissions.</Text>
+            <Text class="label" size="small">
+              Bots are not verified by Revolt.
+            </Text>
+            <Text class="label" size="small">
+              The bot will not be granted any permissions.
+            </Text>
           </Column>
         </Column>
       </form>

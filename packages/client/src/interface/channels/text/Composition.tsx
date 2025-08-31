@@ -263,90 +263,91 @@ export function MessageComposition(props: Props) {
           );
         }}
       </For>
-      <Row>
-        <MessageBox
-          ref={ref}
-          initialValue={initialValue()}
-          nodeReplacement={nodeReplacement()}
-          onSendMessage={sendMessage}
-          onTyping={delayedStopTyping}
-          onEditLastMessage={() => state.draft.setEditingMessage(true)}
-          content={draft()?.content ?? ""}
-          setContent={setContent}
-          actionsStart={
-            <Switch fallback={<MessageBox.InlineIcon size="short" />}>
-              <Match when={props.channel.havePermission("UploadFiles")}>
-                <MessageBox.InlineIcon size="wide">
-                  <IconButton onPress={addFile}>
-                    <BiRegularPlus size={24} />
-                  </IconButton>
-                </MessageBox.InlineIcon>
-              </Match>
-            </Switch>
-          }
-          actionsEnd={
-            <CompositionMediaPicker
-              onMessage={sendMessage}
-              onTextReplacement={setNodeReplacement}
-            >
-              {(triggerProps) => (
-                <>
-                  <Show when={state.experiments.isEnabled("gif_picker")}>
-                    <MessageBox.InlineIcon size="normal">
-                      <IconButton onPress={triggerProps.onClickGif}>
-                        <BiSolidFileGif size={24} />
-                      </IconButton>
-                    </MessageBox.InlineIcon>
-                  </Show>
-                  <Show when={state.experiments.isEnabled("emoji_picker")}>
-                    <MessageBox.InlineIcon size="normal">
-                      <IconButton onPress={triggerProps.onClickEmoji}>
-                        <MdEmoji />
-                      </IconButton>
-                    </MessageBox.InlineIcon>
-                  </Show>
+      <MessageBox
+        ref={ref}
+        initialValue={initialValue()}
+        nodeReplacement={nodeReplacement()}
+        onSendMessage={sendMessage}
+        onTyping={delayedStopTyping}
+        onEditLastMessage={() => state.draft.setEditingMessage(true)}
+        content={draft()?.content ?? ""}
+        setContent={setContent}
+        actionsStart={
+          <Switch fallback={<MessageBox.InlineIcon size="short" />}>
+            <Match when={props.channel.havePermission("UploadFiles")}>
+              <MessageBox.InlineIcon size="wide">
+                <IconButton onPress={addFile}>
+                  <BiRegularPlus size={24} />
+                </IconButton>
+              </MessageBox.InlineIcon>
+            </Match>
+          </Switch>
+        }
+        actionsEnd={
+          <CompositionMediaPicker
+            onMessage={sendMessage}
+            onTextReplacement={setNodeReplacement}
+          >
+            {(triggerProps) => (
+              <>
+                <Show when={state.experiments.isEnabled("gif_picker")}>
+                  <MessageBox.InlineIcon size="normal">
+                    <IconButton onPress={triggerProps.onClickGif}>
+                      <BiSolidFileGif size={24} />
+                    </IconButton>
+                  </MessageBox.InlineIcon>
+                </Show>
+                <Show when={state.experiments.isEnabled("emoji_picker")}>
+                  <MessageBox.InlineIcon size="normal">
+                    <IconButton onPress={triggerProps.onClickEmoji}>
+                      <MdEmoji />
+                    </IconButton>
+                  </MessageBox.InlineIcon>
+                </Show>
 
-                  <div ref={triggerProps.ref} />
-                </>
-              )}
-            </CompositionMediaPicker>
-          }
-          placeholder={
-            props.channel.type === "SavedMessages"
-              ? t`Save to your notes`
-              : props.channel.type === "DirectMessage"
-                ? t`Message ${props.channel.recipient?.username}`
-                : t`Message ${props.channel.name}`
-          }
-          sendingAllowed={props.channel.havePermission("SendMessage")}
-          autoCompleteSearchSpace={
-            props.channel.server
-              ? {
-                  members: client().serverMembers.filter(
-                    (member) => member.id.server === props.channel.serverId,
-                  ),
-                  channels: props.channel.server.channels,
-                  roles: [...props.channel.server.roles.values()],
-                }
-              : props.channel.type === "Group"
-                ? { users: props.channel.recipients, channels: [] }
-                : { channels: [] }
-          }
-          updateDraftSelection={(start, end) =>
-            state.draft.setSelection(props.channel.id, start, end)
-          }
-        />
-        <Show when={state.settings.getValue("appearance:show_send_button")}>
-        <IconButton
-          size="sm"
-          variant="filled"
-          shape="square"
-          onPress={sendMessage}
-        >
-          <MdSend />
-        </IconButton>
-        </Show>
-      </Row>
+                <div ref={triggerProps.ref} />
+              </>
+            )}
+          </CompositionMediaPicker>
+        }
+        placeholder={
+          props.channel.type === "SavedMessages"
+            ? t`Save to your notes`
+            : props.channel.type === "DirectMessage"
+              ? t`Message ${props.channel.recipient?.username}`
+              : t`Message ${props.channel.name}`
+        }
+        sendingAllowed={props.channel.havePermission("SendMessage")}
+        autoCompleteSearchSpace={
+          props.channel.server
+            ? {
+                members: client().serverMembers.filter(
+                  (member) => member.id.server === props.channel.serverId,
+                ),
+                channels: props.channel.server.channels,
+                roles: [...props.channel.server.roles.values()],
+              }
+            : props.channel.type === "Group"
+              ? { users: props.channel.recipients, channels: [] }
+              : { channels: [] }
+        }
+        updateDraftSelection={(start, end) =>
+          state.draft.setSelection(props.channel.id, start, end)
+        }
+        actionsAppend={
+          <Show when={state.settings.getValue("appearance:show_send_button")}>
+            <IconButton
+              _fullHeight
+              size="sm"
+              variant="filled"
+              shape="square"
+              onPress={sendMessage}
+            >
+              <MdSend />
+            </IconButton>
+          </Show>
+        }
+      />
       <FilePasteCollector onFiles={onFiles} />
       <FileDropAnywhereCollector onFiles={onFiles} />
     </>

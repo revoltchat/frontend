@@ -13,6 +13,7 @@ import {
 import { onCleanup } from "solid-js";
 import { Portal } from "solid-js/web";
 
+import { AutoSizer } from "@dschz/solid-auto-sizer";
 import { autoUpdate, flip, shift } from "@floating-ui/dom";
 import autocomplete, {
   ActionKind,
@@ -25,7 +26,7 @@ import codeMirrorBlockPlugin, {
   languageLoaders,
   legacyLanguageLoaders,
 } from "prosemirror-codemirror-block";
-import { baseKeymap, setBlockType, toggleMark } from "prosemirror-commands";
+import { baseKeymap, toggleMark } from "prosemirror-commands";
 import { history, redo, undo } from "prosemirror-history";
 import { InputRule, inputRules } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
@@ -140,9 +141,22 @@ type MatchUser = User | ServerMember;
 
 /**
  * Rich text editor powered by ProseMirror
+ *
+ * Will fill the width of the parent, e.g. wrap the editor:
+ * ```ts
+ * <div class={css({ flexGrow: 1 })}>
+ *   <TextEditor />
+ * </div>
+ * ```
  */
 export function TextEditor(props: Props) {
   const proseMirror = document.createElement("div");
+  proseMirror.style.width = "0px"; // initial width
+
+  // don't show the editor to start (messes with auto sizing)
+  proseMirror.style.height = "0px";
+  proseMirror.style.display = "none";
+
   const placeholder = document.createElement("span");
   proseMirror.prepend(placeholder);
 
@@ -157,7 +171,6 @@ export function TextEditor(props: Props) {
 
   proseMirror.className = css({
     flexGrow: 1,
-    display: "flex",
     alignItems: "center",
 
     cursor: "text",
@@ -742,7 +755,16 @@ export function TextEditor(props: Props) {
 
   return (
     <>
-      {proseMirror}
+      <AutoSizer initialWidth={0}>
+        {(size) => {
+          createEffect(() => {
+            proseMirror.style.width = size.width + "px";
+            proseMirror.style.height = "100%";
+            proseMirror.style.display = "flex";
+          });
+          return proseMirror;
+        }}
+      </AutoSizer>
       <Portal mount={document.getElementById("floating")!}>
         <Show when={autoComplete()}>
           <Suggestions

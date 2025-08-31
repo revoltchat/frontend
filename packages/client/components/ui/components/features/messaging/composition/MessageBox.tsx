@@ -3,6 +3,7 @@ import { JSX, Match, Show, Switch, onMount } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { Node } from "prosemirror-model";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Row, TextEditor } from "@revolt/ui";
@@ -61,6 +62,11 @@ interface Props {
   actionsEnd: JSX.Element;
 
   /**
+   * Elements appended after the message box row
+   */
+  actionsAppend: JSX.Element;
+
+  /**
    * Placeholder in message box
    */
   placeholder: string;
@@ -92,12 +98,22 @@ const Base = styled("div", {
     flexShrink: 0,
 
     paddingInlineEnd: "var(--gap-md)",
-    margin: "0 0 var(--gap-md) 0",
     borderRadius: "var(--borderRadius-xl)",
 
     display: "flex",
     background: "var(--md-sys-color-primary-container)",
     color: "var(--md-sys-color-on-primary-container)",
+  },
+});
+
+const Parent = styled("div", {
+  base: {
+    flexGrow: 1,
+    flexShrink: 0,
+
+    display: "flex",
+    gap: "var(--gap-md)",
+    margin: "0 0 var(--gap-md) 0",
   },
 });
 
@@ -153,42 +169,47 @@ export function MessageBox(props: Props) {
   );
 
   return (
-    <Base>
-      <Switch fallback={props.actionsStart}>
-        <Match when={!props.sendingAllowed}>
-          <InlineIcon size="wide">
-            <Blocked>
-              <BiRegularBlock size={24} />
+    <Parent>
+      <Base>
+        <Switch fallback={props.actionsStart}>
+          <Match when={!props.sendingAllowed}>
+            <InlineIcon size="wide">
+              <Blocked>
+                <BiRegularBlock size={24} />
+              </Blocked>
+            </InlineIcon>
+          </Match>
+        </Switch>
+        <Switch
+          fallback={
+            <>
+              <div class={css({ flexGrow: 1 })}>
+                <TextEditor
+                  placeholder={props.placeholder}
+                  initialValue={props.initialValue}
+                  nodeReplacement={props.nodeReplacement}
+                  onChange={props.setContent}
+                  onComplete={props.onSendMessage}
+                  onTyping={props.onTyping}
+                  onPreviousContext={props.onEditLastMessage}
+                  autoCompleteSearchSpace={props.autoCompleteSearchSpace}
+                />
+              </div>
+              <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
+            </>
+          }
+        >
+          <Match when={!props.sendingAllowed}>
+            <Blocked align>
+              <Trans>
+                You don't have permission to send messages in this channel.
+              </Trans>
             </Blocked>
-          </InlineIcon>
-        </Match>
-      </Switch>
-      <Switch
-        fallback={
-          <>
-            <TextEditor
-              placeholder={props.placeholder}
-              initialValue={props.initialValue}
-              nodeReplacement={props.nodeReplacement}
-              onChange={props.setContent}
-              onComplete={props.onSendMessage}
-              onTyping={props.onTyping}
-              onPreviousContext={props.onEditLastMessage}
-              autoCompleteSearchSpace={props.autoCompleteSearchSpace}
-            />
-            <Show when={props.sendingAllowed}>{props.actionsEnd}</Show>
-          </>
-        }
-      >
-        <Match when={!props.sendingAllowed}>
-          <Blocked align>
-            <Trans>
-              You don't have permission to send messages in this channel.
-            </Trans>
-          </Blocked>
-        </Match>
-      </Switch>
-    </Base>
+          </Match>
+        </Switch>
+      </Base>
+      <Show when={props.sendingAllowed}>{props.actionsAppend}</Show>
+    </Parent>
   );
 }
 
