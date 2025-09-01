@@ -1,11 +1,12 @@
-import { JSXElement, Match, Switch, onMount, createSignal } from "solid-js";
+import { JSXElement, Match, Switch, Suspense} from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { styled } from "styled-system/jsx";
 
+import { useQuery } from "@tanstack/solid-query";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { Button, Checkbox, iconSize, Text } from "@revolt/ui";
+import { Button, Checkbox, iconSize, Text, CircularProgress } from "@revolt/ui";
 
 import MdWarning from "@material-design-icons/svg/round/warning.svg?component-solid";
 
@@ -32,82 +33,92 @@ export function AgeGate(props: {
     false,
   );
 
-  const [geoBlock, setGeoBlock] = createSignal<GeoBlock | null>(null);
-
-  onMount(() => {
-    fetch("https://geo.revolt.chat")
-      .then((res) => res.json())
-      .then((data) => setGeoBlock(data))
-      .catch(() => setGeoBlock(null));
-  });
+  const geoQuery = useQuery(() => ({
+    queryKey: ["geoblock"],
+    queryFn: async (): Promise<GeoBlock> => {
+      const response = await fetch("https://geo.revolt.chat");
+      if (!response.ok) {
+        throw new Error("Failed to fetch geo data");
+      }
+      return response.json();
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    throwOnError: true
+  }));
 
   return (
-    <Switch fallback={props.children}>
-      <Match when={geoBlock() && geoBlock()!.isAgeRestrictedGeo && props.enabled}>
-        <Base>
-          <MdWarning {...iconSize("8em")} />
-          <Text class="headline" size="large">
-            {props.contentName}
-          </Text>
-
-          <Text class="body" size="large">
-            {geoBlock()!.countryCode === "GB" ? (
-            <Trans>
-              This channel is not available in your region while we review options on legalcompliance.
-            </Trans>
-            ) : (
-              <Trans>This content is not available in your region.</Trans>
-            )}
-          </Text>
-
-          <Button variant="text" onPress={() => history.back()}>
-            <Trans>Back</Trans>
-          </Button>
-        </Base>
-      </Match>
-      <Match when={props.enabled && (!confirmed() || !allowed())}>
-        <Base>
-          <MdWarning {...iconSize("8em")} />
-          <Text class="headline" size="large">
-            {props.contentName}
-          </Text>
-
-          <Text class="body" size="large">
-            <Trans>This channel is marked as mature.</Trans>
-          </Text>
-
-          <Confirmation>
-            <Checkbox
-              checked={state.layout.getSectionState(
-                LAYOUT_SECTIONS.MATURE,
-                false,
-              )}
-              onChange={() =>
-                state.layout.toggleSectionState(LAYOUT_SECTIONS.MATURE, false)
-              }
-            />
-            <Text class="body" size="large">
-              <Trans>I confirm that I am at least 18 years old.</Trans>
+    <Suspense fallback={<CircularProgress />}>
+      <Switch fallback={props.children}>
+        <Match when={props.enabled && (
+           geoQuery.isLoading ||
+           geoQuery.error||
+          (geoQuery.data && geoQuery.data.isAgeRestrictedGeo))
+        }>
+          <Base>
+            <MdWarning {...iconSize("8em")} />
+            <Text class="headline" size="large">
+              {props.contentName}
             </Text>
-          </Confirmation>
 
-          <Actions>
+            <Text class="body" size="large">
+              {geoQuery.data?.countryCode == "GB" ? (
+              <Trans>
+                This channel is not available in your region while we review options on legalcompliance.
+              </Trans>
+              ) : (
+                <Trans>This content is not available in your region.</Trans>
+              )}
+            </Text>
+
             <Button variant="text" onPress={() => history.back()}>
               <Trans>Back</Trans>
             </Button>
-            <Button
-              variant="filled"
-              onPress={() =>
-                confirmed() &&
-                state.layout.setSectionState(props.contentId + "-nsfw", true)
-              }
-            >
-              <Trans>Enter Channel</Trans>
-            </Button>
-          </Actions>
-        </Base>
-      </Match>
-    </Switch>
+          </Base>
+        </Match>
+        <Match when={props.enabled && (!confirmed() || !allowed())}>
+          <Base>
+            <MdWarning {...iconSize("8em")} />
+            <Text class="headline" size="large">
+              {props.contentName}
+            </Text>
+
+            <Text class="body" size="large">
+              <Trans>This channel is marked as mature.</Trans>
+            </Text>
+
+            <Confirmation>
+              <Checkbox
+                checked={state.layout.getSectionState(
+                  LAYOUT_SECTIONS.MATURE,
+                  false,
+                )}
+                onChange={() =>
+                  state.layout.toggleSectionState(LAYOUT_SECTIONS.MATURE, false)
+                }
+              />
+              <Text class="body" size="large">
+                <Trans>I confirm that I am at least 18 years old.</Trans>
+              </Text>
+            </Confirmation>
+
+            <Actions>
+              <Button variant="text" onPress={() => history.back()}>
+                <Trans>Back</Trans>
+              </Button>
+              <Button
+                variant="filled"
+                onPress={() =>
+                  confirmed() &&
+                  state.layout.setSectionState(props.contentId + "-nsfw", true)
+                }
+              >
+                <Trans>Enter Channel</Trans>
+              </Button>
+            </Actions>
+          </Base>
+        </Match>
+      </Switch>
+    </Suspense>
   );
 }
 
