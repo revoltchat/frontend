@@ -73,6 +73,31 @@ function map(
           map(child, client, { parent: "heading" }),
         ),
       );
+    case "list":
+      if (node.ordered) {
+        return schema.nodes.ordered_list.createChecked(
+          {
+            start: node.start,
+          },
+          node.children.flatMap((child) =>
+            map(child, client, { parent: "list" }),
+          ),
+        );
+      } else {
+        return schema.nodes.bullet_list.createChecked(
+          null,
+          node.children.flatMap((child) =>
+            map(child, client, { parent: "list" }),
+          ),
+        );
+      }
+    case "listItem":
+      return schema.nodes.list_item.createChecked(
+        null,
+        node.children.flatMap((child) =>
+          map(child, client, { parent: "listItem" }),
+        ),
+      );
 
     // RFM
     case "mention":

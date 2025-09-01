@@ -1,9 +1,11 @@
-import type { PhrasingContent, Root, RootContent } from "mdast";
+import type { ListItem, PhrasingContent, Root, RootContent } from "mdast";
 import { CodeBlockNodeName } from "prosemirror-codemirror-block";
 import { Node } from "prosemirror-model";
 import remarkStringify from "remark-stringify";
 
 import { unifiedPipeline } from "..";
+
+import { schema } from "./schema";
 
 const pipeline = unifiedPipeline.use(remarkStringify);
 
@@ -13,7 +15,7 @@ function map(node: Node): RootContent {
   // apply marks
   if (node.marks.length) {
     const mark = node.marks[0];
-    switch (mark.type.name) {
+    switch (mark.type.name as keyof (typeof schema)["marks"]) {
       case "strong":
         return {
           type: "strong",
@@ -65,7 +67,7 @@ function map(node: Node): RootContent {
   }
 
   // apply node
-  switch (node.type.name) {
+  switch (node.type.name as keyof (typeof schema)["nodes"]) {
     case "paragraph":
       return {
         type: "paragraph",
@@ -87,6 +89,24 @@ function map(node: Node): RootContent {
         type: "heading",
         depth: node.attrs.level,
         children: node.children.map(map) as PhrasingContent[],
+      };
+    case "bullet_list":
+      return {
+        type: "list",
+        ordered: false,
+        children: node.children.map(map) as ListItem[],
+      };
+    case "ordered_list":
+      return {
+        type: "list",
+        ordered: true,
+        start: node.attrs.order,
+        children: node.children.map(map) as ListItem[],
+      };
+    case "list_item":
+      return {
+        type: "listItem",
+        children: node.children.map(map) as never,
       };
 
     // RFM

@@ -204,6 +204,24 @@ export function TextEditor(props: Props) {
       fontSize: "0.8em",
       fontWeight: 600,
     },
+    "& ul": {
+      listStylePosition: "outside",
+      paddingLeft: "1.5em",
+
+      "& li": {
+        listStyleType: "disc",
+      },
+
+      "& li li": {
+        listStyleType: "circle",
+      },
+    },
+    "& ol": {
+      listStylePosition: "outside",
+      paddingLeft: "1.5em",
+
+      listStyleType: "decimal",
+    },
   });
 
   placeholder.className = css({
@@ -569,6 +587,27 @@ export function TextEditor(props: Props) {
               schema.nodes.heading.createAndFill({
                 level: match[0].length - 1,
               })!,
+            );
+          }),
+          new InputRule(/^(?:-|\*)\s$/, (state, match, start, end) => {
+            return state.tr.replaceRangeWith(
+              start,
+              end,
+              schema.nodes.bullet_list.createAndFill(null, [
+                schema.nodes.list_item.createAndFill(null)!,
+              ])!,
+            );
+          }),
+          new InputRule(/^(\d*)\.\s$/, (state, match, start, end) => {
+            return state.tr.replaceRangeWith(
+              start,
+              end,
+              schema.nodes.ordered_list.createAndFill(
+                {
+                  order: parseInt(match[1]),
+                },
+                [schema.nodes.list_item.createAndFill(null)!],
+              )!,
             );
           }),
           new InputRule(
