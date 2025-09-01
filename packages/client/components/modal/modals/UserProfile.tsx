@@ -3,11 +3,14 @@ import { styled } from "styled-system/jsx";
 
 import { Dialog, DialogProps, Profile } from "@revolt/ui";
 
+import { useModals } from "..";
 import { Modals } from "../types";
 
 export function UserProfileModal(
   props: DialogProps & Modals & { type: "user_profile" },
 ) {
+  const { openModal } = useModals();
+
   const query = useQuery(() => ({
     queryKey: ["profile", props.user.id],
     queryFn: () => props.user.fetchProfile(),
@@ -25,6 +28,19 @@ export function UserProfileModal(
           width={3}
           user={props.user}
           bannerUrl={query.data?.animatedBannerURL}
+          onClick={
+            query.data?.banner
+              ? () =>
+                  openModal({ type: "image_viewer", file: query.data!.banner! })
+              : undefined
+          }
+          onClickAvatar={(e) => {
+            e.stopPropagation();
+
+            if (props.user.avatar) {
+              openModal({ type: "image_viewer", file: props.user.avatar });
+            }
+          }}
         />
 
         <Profile.Actions user={props.user} width={3} />

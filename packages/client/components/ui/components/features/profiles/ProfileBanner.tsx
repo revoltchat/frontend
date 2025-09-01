@@ -11,7 +11,8 @@ export function ProfileBanner(props: {
   user: User;
   member?: ServerMember;
   bannerUrl?: string;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
+  onClickAvatar?: (e: MouseEvent) => void;
   width: 2 | 3;
 }) {
   return (
@@ -32,6 +33,8 @@ export function ProfileBanner(props: {
           src={props.user.animatedAvatarURL}
           size={48}
           holepunch="bottom-right"
+          onClick={props.onClickAvatar}
+          interactive={props.user.avatar && !!props.onClickAvatar}
           overlay={<UserStatus.Graphic status={props.user.presence} />}
         />
         <UserShort>

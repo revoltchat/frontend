@@ -55,6 +55,11 @@ export type Props = {
   interactive?: boolean;
 
   /**
+   * Click handler
+   */
+  onClick?: () => void;
+
+  /**
    * HTML Web Component slot
    */
   slot?: string;
@@ -120,6 +125,7 @@ export function Avatar(props: Props) {
       }}
       viewBox="0 0 32 32"
       interactive={props.interactive}
+      onClick={props.onClick}
     >
       <ForeignObject
         x="0"
