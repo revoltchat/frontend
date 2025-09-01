@@ -10,7 +10,7 @@ import { styled } from "styled-system/jsx";
 import { floatingUserMenusFromMessage } from "@revolt/app/menus/UserContextMenu";
 import { useClient } from "@revolt/client";
 import { renderSimpleMarkdown } from "@revolt/markdown";
-import { Avatar } from "@revolt/ui/components/design";
+import { Avatar, typography } from "@revolt/ui/components/design";
 import { NonBreakingText, OverflowingText } from "@revolt/ui/components/utils";
 
 import { Username } from "../../legacy";
@@ -34,6 +34,9 @@ interface Props {
 
 export const Base = styled("div", {
   base: {
+    ...typography.raw({ class: "_messages" }),
+    maxHeight: "1.5em",
+    overflow: "hidden",
     minWidth: 0,
     flexGrow: 1,
     display: "flex",
@@ -109,7 +112,7 @@ export function MessageReply(props: Props) {
 
   const renderReplyContent = (content: string) => {
     if (content.length > 128) {
-      content = content.slice(0, 128) + "...";
+      content = content.slice(0, 128).replace(/\n/g, "") + "...";
     }
     return renderSimpleMarkdown(content);
   };
