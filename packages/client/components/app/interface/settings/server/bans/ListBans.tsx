@@ -112,7 +112,7 @@ export function ListServerBans(props: { server: Server }) {
                   <DataTable.Cell width="40px">
                     <Button
                       size="icon"
-                      variant="secondary"
+                      variant="filled"
                       use:floating={{
                         tooltip: {
                           placement: "bottom",
