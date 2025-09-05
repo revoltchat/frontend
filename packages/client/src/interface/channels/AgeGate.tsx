@@ -1,12 +1,12 @@
-import { JSXElement, Match, Switch, Suspense} from "solid-js";
+import { JSXElement, Match, Suspense, Switch } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { useQuery } from "@tanstack/solid-query";
 import { styled } from "styled-system/jsx";
 
-import { useQuery } from "@tanstack/solid-query";
 import { useState } from "@revolt/state";
 import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
-import { Button, Checkbox, iconSize, Text, CircularProgress } from "@revolt/ui";
+import { Button, Checkbox, CircularProgress, Text, iconSize } from "@revolt/ui";
 
 import MdWarning from "@material-design-icons/svg/round/warning.svg?component-solid";
 
@@ -27,11 +27,10 @@ export function AgeGate(props: {
 }) {
   const state = useState();
 
-  const confirmed = () => state.layout.getSectionState(LAYOUT_SECTIONS.MATURE, false);
-  const allowed = () => state.layout.getSectionState(
-    props.contentId + "-nsfw",
-    false,
-  );
+  const confirmed = () =>
+    state.layout.getSectionState(LAYOUT_SECTIONS.MATURE, false);
+  const allowed = () =>
+    state.layout.getSectionState(props.contentId + "-nsfw", false);
 
   const geoQuery = useQuery(() => ({
     queryKey: ["geoblock"],
@@ -43,17 +42,20 @@ export function AgeGate(props: {
       return response.json();
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
-    throwOnError: true
+    throwOnError: true,
   }));
 
   return (
     <Suspense fallback={<CircularProgress />}>
       <Switch fallback={props.children}>
-        <Match when={props.enabled && (
-           geoQuery.isLoading ||
-           geoQuery.error||
-          (geoQuery.data && geoQuery.data.isAgeRestrictedGeo))
-        }>
+        <Match
+          when={
+            props.enabled &&
+            (geoQuery.isLoading ||
+              geoQuery.error ||
+              (geoQuery.data && geoQuery.data.isAgeRestrictedGeo))
+          }
+        >
           <Base>
             <MdWarning {...iconSize("8em")} />
             <Text class="headline" size="large">
@@ -62,9 +64,10 @@ export function AgeGate(props: {
 
             <Text class="body" size="large">
               {geoQuery.data?.countryCode == "GB" ? (
-              <Trans>
-                This channel is not available in your region while we review options on legalcompliance.
-              </Trans>
+                <Trans>
+                  This channel is not available in your region while we review
+                  options on legal compliance.
+                </Trans>
               ) : (
                 <Trans>This content is not available in your region.</Trans>
               )}
