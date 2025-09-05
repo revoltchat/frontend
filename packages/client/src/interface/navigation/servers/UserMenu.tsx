@@ -224,6 +224,13 @@ export function UserMenu(props: Props) {
                   <Trans>Clear status</Trans>
                 </ContextMenuButton>
               </Show>
+
+              <ContextMenuButton
+                icon={MdInfo}
+                onClick={() => navigator.clipboard.writeText(user()!.id)}
+              >
+                <Trans>Copy User ID</Trans>
+              </ContextMenuButton>
             </ContextMenu>
           </Motion>
         </Show>
