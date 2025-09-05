@@ -18,7 +18,7 @@ const Base = styled("div", {
     width: "fit-content",
 
     display: "flex",
-    maxWidth: "480px", // TODO: theme this
+    maxWidth: "480px",
     flexDirection: "row",
     gap: "var(--gap-md)",
     padding: "var(--gap-md)",
@@ -55,7 +55,8 @@ const PreviewImage = styled("img", {
 
 const Title = styled("a", {
   base: {
-    width: "fit-content",
+    minWidth: 0,
+    flexShrink: 1,
 
     fontSize: "16px",
     color: "var(--md-sys-color-primary) !important",
