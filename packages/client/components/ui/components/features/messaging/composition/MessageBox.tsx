@@ -122,9 +122,10 @@ const Parent = styled("div", {
  */
 const Blocked = styled(Row, {
   base: {
-    fontSize: "14px",
     flexGrow: 1,
+    fontSize: "14px",
     userSelect: "none",
+    padding: "var(--gap-md)",
   },
 });
 
