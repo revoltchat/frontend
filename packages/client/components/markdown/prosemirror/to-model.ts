@@ -98,6 +98,11 @@ function map(
           map(child, client, { parent: "listItem" }),
         ),
       );
+    case "inlineCode":
+      return schema.text(node.value, [
+        ...(context.marks ?? []),
+        schema.marks.code.create(),
+      ]);
 
     // RFM
     case "mention":
