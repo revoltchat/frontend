@@ -113,6 +113,20 @@ export function RenderAnchor(
     const state = useState();
     const { openModal } = useModals();
 
+    function onHandleWarning(
+      event: MouseEvent & { currentTarget: HTMLAnchorElement },
+    ) {
+      if (event.button === 0 || event.button === 1) {
+        event.preventDefault();
+
+        openModal({
+          type: "link_warning",
+          url,
+          display: event.currentTarget!.innerText,
+        });
+      }
+    }
+
     return (
       <Show
         when={state.linkSafety.isTrusted(url)}
@@ -120,14 +134,8 @@ export function RenderAnchor(
           <a
             {...remoteProps}
             class={link()}
-            onClick={(event) => {
-              event.preventDefault();
-              openModal({
-                type: "link_warning",
-                url,
-                display: event.currentTarget.innerText,
-              });
-            }}
+            onClick={onHandleWarning}
+            onAuxClick={onHandleWarning}
           />
         }
       >
