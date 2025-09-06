@@ -2,7 +2,9 @@ import LinkifyIt from "linkify-it";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
-const linkify = new LinkifyIt();
+const linkify = new LinkifyIt({
+  fuzzyLink: false,
+});
 
 export const remarkLinkify: Plugin = () => (tree) => {
   visit(
