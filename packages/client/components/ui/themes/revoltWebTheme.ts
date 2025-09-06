@@ -34,7 +34,7 @@ export function createRevoltWebVariables(theme: SelectedTheme) {
     "--brand-presence-idle": "#F39F00",
     "--brand-presence-busy": "#F84848",
     "--brand-presence-focus": "#4799F0",
-    "--brand-presence-offline": "#A5A5A5",
+    "--brand-presence-invisible": "#A5A5A5",
 
     // load constants
     ...reduceWithPrefix(themeConstants.fonts, "--fonts-"),
