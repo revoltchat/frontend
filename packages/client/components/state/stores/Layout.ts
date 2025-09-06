@@ -116,6 +116,13 @@ export class Layout extends AbstractStore<"layout", TypeLayout> {
   }
 
   /**
+   * Get the last active server path
+   */
+  getLastActiveServerPath(serverId: string) {
+    return this.get().activePath[serverId] ?? `/server/${serverId}`;
+  }
+
+  /**
    * Set the last active path in the app
    */
   setLastActivePath(pathname: string) {

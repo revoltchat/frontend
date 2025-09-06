@@ -231,7 +231,7 @@ export const ServerList = (props: Props) => {
                       <Swoosh />
                     </PositionSwoosh>
                   </Show> */}
-                <a href={`/server/${entry.item.id}`}>
+                <a href={state.layout.getLastActiveServerPath(entry.item.id)}>
                   <Avatar
                     size={42}
                     src={entry.item.iconURL}
