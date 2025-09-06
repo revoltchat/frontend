@@ -177,6 +177,8 @@ export function TextEditor(props: Props) {
 
     "& > .ProseMirror": {
       width: "100%",
+      // todo: consider alternative, nicer looking indication that it's selected
+      outline: "none",
     },
 
     // copied from elements.ts:
