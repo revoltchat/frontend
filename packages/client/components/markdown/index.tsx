@@ -28,6 +28,7 @@ import {
   mentionHandler,
   remarkMentions,
 } from "./plugins/mentions";
+import { remarkLinkify } from "./plugins/remarkLinkify";
 import {
   RenderSpoiler,
   remarkSpoiler,
@@ -141,7 +142,7 @@ const replyComponents = () => ({
 export const unifiedPipeline = unified()
   .use(remarkParse)
   .use(remarkBreaks)
-  .use(remarkGfm)
+  // .use(remarkGfm)
   .use(remarkMath, {
     // TODO: fork for \[\] support
     singleDollarTextMath: false,
@@ -154,6 +155,7 @@ export const UNIFIED_PLUGINS = [
   remarkUnicodeEmoji,
   remarkCustomEmoji,
   remarkSpoiler,
+  remarkLinkify,
   remarkHtmlToText,
 ];
 
@@ -185,11 +187,12 @@ const htmlPipeline = UNIFIED_PLUGINS.reduce(
 const replyPipeline = unified()
   .use(remarkParse)
   .use(remarkBreaks)
-  .use(remarkGfm)
+  // .use(remarkGfm)
   .use(remarkMentions)
   .use(remarkUnicodeEmoji)
   .use(remarkCustomEmoji)
   .use(remarkSpoiler)
+  .use(remarkLinkify)
   // @ts-expect-error non-standard elements not recognized by typing
   .use(remarkRehype, {
     handlers: {
