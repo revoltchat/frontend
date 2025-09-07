@@ -152,7 +152,12 @@ const base = cva({
       failed: {
         color: "var(--md-sys-color-error)",
       },
-      sending: {},
+      sending: {
+        color: "var(--md-sys-color-outline)",
+      },
+      sent: {
+        color: "var(--md-sys-color-on-surface)",
+      },
     },
     isLink: {
       true: {
@@ -176,6 +181,7 @@ const base = cva({
   },
   defaultVariants: {
     isLink: false,
+    sendStatus: "sent",
   },
 });
 
@@ -212,8 +218,6 @@ const Body = styled("div", {
     flexGrow: 1,
     display: "flex",
     flexDirection: "column",
-
-    color: "var(--md-sys-color-on-surface)",
 
     minWidth: 0,
     overflow: "hidden",

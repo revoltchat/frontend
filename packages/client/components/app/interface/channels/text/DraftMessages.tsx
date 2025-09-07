@@ -8,6 +8,7 @@ import { DraftMessage } from "./DraftMessage";
 
 interface Props {
   channel: Channel;
+  tail: boolean;
 }
 
 /**
@@ -35,7 +36,7 @@ export function DraftMessages(props: Props) {
           <DraftMessage
             draft={draft}
             channel={props.channel}
-            tail={index() !== 0}
+            tail={index() !== 0 || props.tail}
           />
         )}
       </For>

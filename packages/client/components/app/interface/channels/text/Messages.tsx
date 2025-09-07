@@ -56,7 +56,7 @@ interface Props {
   /**
    * Pending messages to render at the end of the list
    */
-  pendingMessages?: JSX.Element;
+  pendingMessages?: (props: { tail: boolean }) => JSX.Element;
 
   /**
    * Display typing indicator instead of padding
@@ -744,6 +744,12 @@ export function Messages(props: Props) {
     // Push remainder of blocked messages
     createBlockedMessageCount();
 
+    // Strip unread divider if it is the first item
+    // (hence would show alone at the bottom of messages)
+    if (messagesWithTail[0]?.t === 1) {
+      messagesWithTail.shift();
+    }
+
     // Flush cache
     objectCache.clear();
 
@@ -784,6 +790,24 @@ export function Messages(props: Props) {
     ),
   );
 
+  /**
+   * Check whether to trail the currently pending messages
+   * @returns Whether to trail pending message
+   */
+  function pendingMessageIsTrailing() {
+    const messages = messagesWithTail();
+    const lastMessage = messages[messages.length - 1];
+
+    return lastMessage &&
+      lastMessage.t === 0 &&
+      // check if last message is authored by us
+      lastMessage.message.author?.self &&
+      // split up chains that are too far apart
+      Math.abs(+new Date() - +lastMessage.message.createdAt) < 420000
+      ? true
+      : false;
+  }
+
   return (
     <>
       <ListView
@@ -812,7 +836,7 @@ export function Messages(props: Props) {
             </For>
             {/* TODO: show (loading icon) OR (load more) */}
             <Show when={atEnd()}>
-              {props.pendingMessages}
+              {props.pendingMessages?.({ tail: pendingMessageIsTrailing() })}
               {props.typingIndicator ?? <Padding />}
             </Show>
           </div>

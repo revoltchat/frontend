@@ -1,4 +1,4 @@
-import { Setter, batch } from "solid-js";
+import { Accessor, Setter, batch, createSignal } from "solid-js";
 
 import { Node } from "prosemirror-model";
 import { API, Channel, Client, Message } from "revolt.js";
@@ -99,7 +99,13 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    */
   private fileCache: Record<
     string,
-    { file: File; dataUri: string | undefined; autumnId?: string }
+    {
+      file: File;
+      dataUri?: string;
+      dimensions?: [number, number];
+      autumnId?: string;
+      uploadProgress: [Accessor<number>, Setter<number>];
+    }
   >;
 
   /**
@@ -317,7 +323,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
       for (const fileId of files) {
         // Prepare for upload
         const body = new FormData();
-        const { file, autumnId } = this.getFile(fileId);
+        const { file, autumnId, uploadProgress } = this.getFile(fileId);
 
         // Use ID if already uploaded
         if (autumnId) {
@@ -335,12 +341,12 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
         >((resolve) => {
           xhr.upload.addEventListener("progress", (event) => {
             if (event.lengthComputable) {
-              // TODO: show this to users
-              console.log("upload progress:", event.loaded / event.total);
+              uploadProgress[1](event.loaded / event.total);
             }
           });
 
           xhr.addEventListener("loadend", () => {
+            uploadProgress[1](1);
             resolve([xhr.readyState === 4 && xhr.status === 200, xhr.response]);
           });
 
@@ -584,14 +590,33 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
    * @param channelId Channel ID
    * @param file File to add
    */
-  addFile(channelId: string, file: File) {
+  async addFile(channelId: string, file: File) {
     const id = insecureUniqueId();
     this.fileCache[id] = {
       file,
       dataUri: ALLOWED_IMAGE_TYPES.includes(file.type)
         ? URL.createObjectURL(file)
         : undefined,
+      // we know what we're doing here...
+      // eslint-disable-next-line solid/reactivity
+      uploadProgress: createSignal(0),
     };
+
+    if (this.fileCache[id].dataUri) {
+      await new Promise((resolve, reject) => {
+        const image = new Image();
+
+        image.onload = () => {
+          this.fileCache[id].dimensions = [image.width, image.height];
+          resolve(void 0);
+        };
+
+        image.onerror = reject;
+        image.src = this.fileCache[id].dataUri!;
+      })
+        // ignore errors
+        .catch(() => {});
+    }
 
     this.setDraft(channelId, (data) => ({
       files: [...(data.files ?? []), id],
