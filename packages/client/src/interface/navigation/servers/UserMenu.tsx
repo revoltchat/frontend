@@ -16,6 +16,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { t } from "@lingui/core/macro";
 import { API } from "revolt.js";
 import { styled } from "styled-system/jsx";
+import { useState } from "@revolt/state";
 
 import {
   ContextMenu,
@@ -31,6 +32,7 @@ import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-s
 import MdEditNote from "@material-design-icons/svg/outlined/edit_note.svg?component-solid";
 import MdInfo from "@material-design-icons/svg/outlined/info.svg?component-solid";
 import MdNotificationsOff from "@material-design-icons/svg/outlined/notifications_off.svg?component-solid";
+import MdContactPage from "@material-design-icons/svg/outlined/contact_page.svg?component-solid";
 
 interface Props {
   anchor: Accessor<HTMLDivElement | undefined>;
@@ -43,6 +45,7 @@ export function UserMenu(props: Props) {
   const { openModal } = useModals();
   const client = useClient();
   const user = useUser();
+  const state = useState();
 
   const [show, setShow] = createSignal(false);
   const [ref, setRef] = createSignal<HTMLDivElement>();
@@ -76,9 +79,12 @@ export function UserMenu(props: Props) {
     ),
   );
 
-  const setPresence = (
-    presence: (API.DataEditUser["status"] & {})["presence"],
-  ) => user()?.edit({ status: { presence } });
+  const setPresence = (presence: (API.DataEditUser["status"] & {})["presence"]) =>
+    user()?.edit({ status: { presence } });
+
+  function copyId() {
+    navigator.clipboard.writeText(user()!.id);
+  }
 
   return (
     <Portal mount={document.getElementById("floating")!}>
@@ -222,6 +228,12 @@ export function UserMenu(props: Props) {
                   onClick={() => user()?.edit({ remove: ["StatusText"] })}
                 >
                   <Trans>Clear status</Trans>
+                </ContextMenuButton>
+              </Show>
+              
+              <Show when={state.settings.getValue("advanced:copy_id")}>
+                <ContextMenuButton icon={MdContactPage} onClick={copyId}>
+                  <Trans>Copy user ID</Trans>
                 </ContextMenuButton>
               </Show>
             </ContextMenu>
