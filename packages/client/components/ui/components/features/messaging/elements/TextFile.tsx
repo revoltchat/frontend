@@ -45,7 +45,7 @@ export function TextFile(props: Props) {
   async function load() {
     setLoading(true);
 
-    const res = await fetch(props.file.url);
+    const res = await fetch(props.file.originalUrl);
     const data = await res.text();
 
     setContents(data);
@@ -68,7 +68,7 @@ export function TextFile(props: Props) {
           }
         >
           <Row align justify grow>
-            <Button variant="secondary" onPress={load}>
+            <Button variant="filled" onPress={load}>
               <Trans>Load file ({humanFileSize(props.file.size ?? 0)})</Trans>
             </Button>
           </Row>

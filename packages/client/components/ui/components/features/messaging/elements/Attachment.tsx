@@ -60,14 +60,14 @@ export function Attachment(props: { file: File }) {
           <Show when={props.file.isSpoiler}>
             <Spoiler contentType="Video" />
           </Show>
-          <video controls preload="metadata" src={props.file.url} />
+          <video controls preload="metadata" src={props.file.originalUrl} />
         </SizedContent>
       </Match>
       <Match when={props.file.metadata.type === "Audio"}>
         <AttachmentContainer>
           <FileInfo file={props.file} />
           <SizedContent width={360} height={48}>
-            <audio controls src={props.file.url} />
+            <audio controls src={props.file.originalUrl} />
           </SizedContent>
         </AttachmentContainer>
       </Match>
