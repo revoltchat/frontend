@@ -72,5 +72,17 @@ export function Time(props: Props) {
 
   onCleanup(() => clearInterval(timer));
 
-  return <>{time}</>;
+  return (
+    <time
+      datetime={
+        props.value instanceof Date ||
+        typeof props.value === "number" ||
+        typeof props.value === "string"
+          ? new Date(props.value).toISOString()
+          : undefined
+      }
+    >
+      {time()}
+    </time>
+  );
 }
