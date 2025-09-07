@@ -1,4 +1,11 @@
-import { Match, Show, Switch, createMemo, useContext } from "solid-js";
+import {
+  Match,
+  Show,
+  Switch,
+  createMemo,
+  createSignal,
+  useContext,
+} from "solid-js";
 
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { Emoji, Server } from "revolt.js";
@@ -9,7 +16,7 @@ import { useClient } from "@revolt/client";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
 import { schema } from "@revolt/markdown/prosemirror";
 import { useState } from "@revolt/state";
-import { Avatar, Ripple } from "@revolt/ui/components/design";
+import { Avatar, Ripple, TextField } from "@revolt/ui/components/design";
 import { Row } from "@revolt/ui/components/layout";
 
 import emojiMapping from "../../../../../emojiMapping.json";
@@ -62,14 +69,34 @@ export function EmojiPicker() {
   const client = useClient();
   const state = useState();
 
+  const [filter, setFilter] = createSignal("");
+
   let serverScrollTargetElement!: HTMLDivElement;
   let emojiScrollTargetElement!: HTMLDivElement;
 
   const items = createMemo(() => {
+    const filterText = filter().toLowerCase();
+
+    if (filterText) {
+      return [
+        ...state.ordering
+          .orderedServers(client())
+          .flatMap((server) =>
+            server.emojis
+              .filter((emoji) => emoji.name.toLowerCase().includes(filterText))
+              .map((emoji) => ({ t: 2, emoji })),
+          ),
+        ...Object.entries(emojiMapping)
+          .filter(([name]) => name.toLowerCase().includes(filterText))
+          .map(([name, text]) => ({ t: 4, name, text })),
+      ] as Item[];
+    }
+
     const items: Item[] = [];
 
     for (const server of state.ordering.orderedServers(client())) {
       const emojis = server.emojis;
+
       if (emojis.length === 0) continue;
 
       items.push({
@@ -111,44 +138,62 @@ export function EmojiPicker() {
   });
 
   return (
-    <Row class={compositionContent()}>
-      <div
-        ref={serverScrollTargetElement}
-        use:invisibleScrollable={{
-          class: scrollContainer({ component: "serverRail" }),
-        }}
-      >
-        <VirtualContainer
-          items={[1, 2, 3]}
-          scrollTarget={serverScrollTargetElement}
-          itemSize={{ height: 40 }}
+    <Stack>
+      <TextField
+        autoFocus
+        variant="filled"
+        placeholder="Search for emojis..."
+        value={filter()}
+        onClick={(e) => e.stopPropagation()}
+        onInput={(e) => setFilter(e.currentTarget.value)}
+      />
+      <Row class={compositionContent()}>
+        <div
+          ref={serverScrollTargetElement}
+          use:invisibleScrollable={{
+            class: scrollContainer({ component: "serverRail" }),
+          }}
         >
-          {ServerItem}
-        </VirtualContainer>
-      </div>
-      <div
-        ref={emojiScrollTargetElement}
-        use:scrollable={{
-          class: scrollContainer({ component: "emoji" }),
-          showOnHover: true,
-        }}
-      >
-        <VirtualContainer
-          items={items()}
-          scrollTarget={emojiScrollTargetElement}
-          itemSize={{ height: 40, width: 40 }}
-          crossAxisCount={(measurements) =>
-            Math.floor(
-              measurements.container.cross / measurements.itemSize.cross,
-            )
-          }
+          <VirtualContainer
+            items={[1, 2, 3]}
+            scrollTarget={serverScrollTargetElement}
+            itemSize={{ height: 40 }}
+          >
+            {ServerItem}
+          </VirtualContainer>
+        </div>
+        <div
+          ref={emojiScrollTargetElement}
+          use:scrollable={{
+            class: scrollContainer({ component: "emoji" }),
+            showOnHover: true,
+          }}
         >
-          {EmojiItem}
-        </VirtualContainer>
-      </div>
-    </Row>
+          <VirtualContainer
+            items={items()}
+            scrollTarget={emojiScrollTargetElement}
+            itemSize={{ height: 40, width: 40 }}
+            crossAxisCount={(measurements) =>
+              Math.floor(
+                measurements.container.cross / measurements.itemSize.cross,
+              )
+            }
+          >
+            {EmojiItem}
+          </VirtualContainer>
+        </div>
+      </Row>
+    </Stack>
   );
 }
+
+const Stack = styled("div", {
+  base: {
+    minHeight: 0,
+    display: "flex",
+    flexDirection: "column",
+  },
+});
 
 const scrollContainer = cva({
   base: {},
