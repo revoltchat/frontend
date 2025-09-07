@@ -30,6 +30,7 @@ import pkg from "../../../../../../package.json";
 
 import { SettingsConfiguration } from ".";
 import { MyAccount } from "./user/Account";
+import AdvancedSettings from "./user/Advanced";
 import { Feedback } from "./user/Feedback";
 import { LanguageSettings } from "./user/Language";
 import { Sessions } from "./user/Sessions";
@@ -75,6 +76,8 @@ const Config: SettingsConfiguration<{ server: Server }> = {
         return <MyAccount />;
       case "appearance":
         return <AppearanceMenu />;
+      case "advanced":
+        return <AdvancedSettings />;
       case "profile":
         return <EditProfile />;
       case "sessions":
@@ -246,6 +249,11 @@ const Config: SettingsConfiguration<{ server: Server }> = {
               href: "https://github.com/revoltchat",
               icon: <MdMemory {...iconSize(20)} />,
               title: <Trans>Source Code</Trans>,
+            },
+            {
+              id: "advanced",
+              icon: <MdScience {...iconSize(20)} />,
+              title: <Trans>Advanced</Trans>,
             },
             {
               id: "logout",

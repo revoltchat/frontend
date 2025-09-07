@@ -5,20 +5,13 @@ import { AbstractStore } from ".";
 /**
  * Union type of available experiments.
  */
-export type Experiment =
-  | "account_switcher"
-  | "gif_picker"
-  | "emoji_picker"
-  | "plugins"
-  | "voice_chat";
+export type Experiment = "gif_picker" | "plugins" | "voice_chat";
 
 /**
  * Currently active experiments.
  */
 export const AVAILABLE_EXPERIMENTS: Experiment[] = [
-  "account_switcher",
   "gif_picker",
-  "emoji_picker",
   "plugins",
   "voice_chat",
 ];
@@ -31,7 +24,7 @@ export const DEFAULT_EXPERIMENTS: Experiment[] = [];
 /**
  * Always-on development-mode experiments.
  */
-export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = ["emoji_picker"];
+export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = [];
 
 /**
  * Definitions for experiments listed by {@link Experiment}.
@@ -39,17 +32,9 @@ export const ALWAYS_ON_DEVELOPMENT_EXPERIMENTS: Experiment[] = ["emoji_picker"];
 export const EXPERIMENTS: {
   [key in Experiment]: { title: string; description: string };
 } = {
-  account_switcher: {
-    title: "Account Switcher",
-    description: "Enable the account switcher on the login page.",
-  },
   gif_picker: {
-    title: "GIF Picker",
-    description: "Search and send GIFs from GIFBox!",
-  },
-  emoji_picker: {
-    title: "Emoji Picker Placeholder",
-    description: "Search and add emoji to your messages.",
+    title: "GIF Picker Placeholder",
+    description: "Not available yet.",
   },
   plugins: {
     title: "Plugins v2 Placeholder",
