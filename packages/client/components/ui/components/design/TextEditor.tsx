@@ -179,6 +179,9 @@ export function TextEditor(props: Props) {
       width: "100%",
       // todo: consider alternative, nicer looking indication that it's selected
       outline: "none",
+
+      fontWeight: 400,
+      fontSize: "var(--message-size)",
     },
 
     // copied from elements.ts:
