@@ -16,6 +16,9 @@ export const EmojiBase = styled("img", {
     margin: "0 0.05em 0 0.1em",
     verticalAlign: "-0.3em",
 
+    // hide alt text
+    color: "transparent",
+
     "&:before": {
       content: "' '",
       display: "block",
