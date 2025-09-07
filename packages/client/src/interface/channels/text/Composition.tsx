@@ -304,13 +304,11 @@ export function MessageComposition(props: Props) {
                     </IconButton>
                   </MessageBox.InlineIcon>
                 </Show>
-                <Show when={state.experiments.isEnabled("emoji_picker")}>
-                  <MessageBox.InlineIcon size="normal">
-                    <IconButton onPress={triggerProps.onClickEmoji}>
-                      <MdEmoji />
-                    </IconButton>
-                  </MessageBox.InlineIcon>
-                </Show>
+                <MessageBox.InlineIcon size="normal">
+                  <IconButton onPress={triggerProps.onClickEmoji}>
+                    <MdEmoji />
+                  </IconButton>
+                </MessageBox.InlineIcon>
 
                 <div ref={triggerProps.ref} />
               </>
