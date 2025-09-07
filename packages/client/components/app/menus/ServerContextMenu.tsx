@@ -5,6 +5,7 @@ import { Server } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { useModals } from "@revolt/modal";
+import { useState } from "@revolt/state";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid";
@@ -25,6 +26,7 @@ import {
  * Context menu for servers
  */
 export function ServerContextMenu(props: { server: Server }) {
+  const state = useState();
   const client = useClient();
   const { openModal } = useModals();
 
@@ -186,13 +188,26 @@ export function ServerContextMenu(props: { server: Server }) {
           <Trans>Leave server</Trans>
         </ContextMenuButton>
       </Show>
-      <ContextMenuDivider />
-      <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
-        <Trans>Admin Panel</Trans>
-      </ContextMenuButton>
-      <ContextMenuButton icon={MdBadge} onClick={copyId}>
-        <Trans>Copy server ID</Trans>
-      </ContextMenuButton>
+
+      <Show
+        when={
+          state.settings.getValue("advanced:admin_panel") &&
+          state.settings.getValue("advanced:copy_id")
+        }
+      >
+        <ContextMenuDivider />
+      </Show>
+
+      <Show when={state.settings.getValue("advanced:admin_panel")}>
+        <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
+          <Trans>Admin Panel</Trans>
+        </ContextMenuButton>
+      </Show>
+      <Show when={state.settings.getValue("advanced:copy_id")}>
+        <ContextMenuButton icon={MdBadge} onClick={copyId}>
+          <Trans>Copy server ID</Trans>
+        </ContextMenuButton>
+      </Show>
     </ContextMenu>
   );
 }

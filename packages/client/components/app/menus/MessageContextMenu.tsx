@@ -168,15 +168,19 @@ export function MessageContextMenu(props: { message: Message }) {
         </ContextMenuButton>
       </Show>
       <ContextMenuDivider />
-      <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
-        <Trans>Admin Panel</Trans>
-      </ContextMenuButton>
+      <Show when={state.settings.getValue("advanced:admin_panel")}>
+        <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
+          <Trans>Admin Panel</Trans>
+        </ContextMenuButton>
+      </Show>
       <ContextMenuButton icon={MdShare} onClick={copyLink}>
         <Trans>Copy link</Trans>
       </ContextMenuButton>
-      <ContextMenuButton icon={MdBadge} onClick={copyId}>
-        <Trans>Copy message ID</Trans>
-      </ContextMenuButton>
+      <Show when={state.settings.getValue("advanced:copy_id")}>
+        <ContextMenuButton icon={MdBadge} onClick={copyId}>
+          <Trans>Copy message ID</Trans>
+        </ContextMenuButton>
+      </Show>
     </ContextMenu>
   );
 }

@@ -4,6 +4,7 @@ import { Trans } from "@lingui-solid/solid/macro";
 import { Channel } from "revolt.js";
 
 import { useModals } from "@revolt/modal";
+import { useState } from "@revolt/state";
 
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdDelete from "@material-design-icons/svg/outlined/delete.svg?component-solid";
@@ -25,6 +26,7 @@ import {
  * Context menu for channels
  */
 export function ChannelContextMenu(props: { channel: Channel }) {
+  const state = useState();
   const { openModal } = useModals();
 
   /**
@@ -154,15 +156,19 @@ export function ChannelContextMenu(props: { channel: Channel }) {
         <ContextMenuDivider />
       </Show>
 
-      <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
-        <Trans>Admin Panel</Trans>
-      </ContextMenuButton>
+      <Show when={state.settings.getValue("advanced:admin_panel")}>
+        <ContextMenuButton icon={MdShield} onClick={openAdminPanel}>
+          <Trans>Admin Panel</Trans>
+        </ContextMenuButton>
+      </Show>
       <ContextMenuButton icon={MdShare} onClick={copyLink}>
         <Trans>Copy link</Trans>
       </ContextMenuButton>
-      <ContextMenuButton icon={MdBadge} onClick={copyId}>
-        <Trans>Copy channel ID</Trans>
-      </ContextMenuButton>
+      <Show when={state.settings.getValue("advanced:copy_id")}>
+        <ContextMenuButton icon={MdBadge} onClick={copyId}>
+          <Trans>Copy channel ID</Trans>
+        </ContextMenuButton>
+      </Show>
     </ContextMenu>
   );
 }

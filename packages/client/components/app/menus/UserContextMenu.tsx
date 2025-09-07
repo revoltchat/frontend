@@ -304,12 +304,16 @@ export function UserContextMenu(props: {
         <ContextMenuDivider />
       </Show>
 
-      <ContextMenuButton icon={MdAdminPanelSettings} onClick={openAdminPanel}>
-        <Trans>Admin Panel</Trans>
-      </ContextMenuButton>
-      <ContextMenuButton icon={MdBadge} onClick={copyId}>
-        <Trans>Copy user ID</Trans>
-      </ContextMenuButton>
+      <Show when={state.settings.getValue("advanced:admin_panel")}>
+        <ContextMenuButton icon={MdAdminPanelSettings} onClick={openAdminPanel}>
+          <Trans>Admin Panel</Trans>
+        </ContextMenuButton>
+      </Show>
+      <Show when={state.settings.getValue("advanced:copy_id")}>
+        <ContextMenuButton icon={MdBadge} onClick={copyId}>
+          <Trans>Copy user ID</Trans>
+        </ContextMenuButton>
+      </Show>
     </ContextMenu>
   );
 }

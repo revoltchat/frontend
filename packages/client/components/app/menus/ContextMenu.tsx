@@ -49,7 +49,6 @@ export const ContextMenuItem = styled("a", {
         display: "flex",
         alignItems: "center",
         gap: "var(--gap-md)",
-        textTransform: "capitalize",
         "& span": {
           marginTop: "1px",
         },
