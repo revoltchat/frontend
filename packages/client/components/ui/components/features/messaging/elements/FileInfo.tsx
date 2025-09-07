@@ -20,9 +20,7 @@ import { humanFileSize } from "@revolt/ui/components/utils";
  * Base container
  */
 const Base = styled(Row, {
-  base: {
-    color: "var(--md-sys-color-on-surface)",
-  },
+  base: {},
 });
 
 /**
@@ -30,7 +28,6 @@ const Base = styled(Row, {
  */
 const Action = styled("a", {
   base: {
-    color: "var(--md-sys-color-on-surface)",
     display: "grid",
     placeItems: "center",
   },
