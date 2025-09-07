@@ -15,19 +15,12 @@ export const remarkChannels: Plugin = () => (tree) => {
       const elements = node.value.split(RE_CHANNEL);
       if (elements.length === 1) return; // no matches
 
-      // TODO: plugin needs client
-      // const client = clientController.getCurrentClient();
       const newNodes = elements.map((value, index) => {
         if (index % 2) {
-          // const channel = client.channels.get(value);
-          // if (channel) {
-          //   return {
-          //     type: "link",
-          //     url: `${location.origin}${
-          //       channel.server ? `/server/${channel.serverId}` : ""
-          //     }/channel/${channel.id}`,
-          //   };
-          // }
+          return {
+            type: "link",
+            url: `${location.origin}/channel/${value}`,
+          };
         }
 
         return {
