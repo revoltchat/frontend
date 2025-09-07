@@ -11,7 +11,7 @@ import MdCancel from "@material-design-icons/svg/filled/cancel.svg?component-sol
 import MdEdit from "@material-design-icons/svg/filled/edit.svg?component-solid";
 import MdMoreVert from "@material-design-icons/svg/filled/more_vert.svg?component-solid";
 
-import { Button } from "../../design";
+import { Button, IconButton } from "../../design";
 import { dismissFloatingElements } from "../../floating";
 import { iconSize } from "../../utils";
 
@@ -38,9 +38,11 @@ export function ProfileActions(props: {
    * Open edit menu
    */
   function openEdit() {
-    props.member
-      ? openModal({ type: "server_identity", member: props.member })
-      : openModal({ type: "settings", config: "user" });
+    if (props.member) {
+      openModal({ type: "server_identity", member: props.member });
+    } else {
+      openModal({ type: "settings", config: "user" });
+    }
 
     dismissFloatingElements();
   }
@@ -54,9 +56,9 @@ export function ProfileActions(props: {
         <Button onPress={() => props.user.addFriend()}>
           Accept friend request
         </Button>
-        <Button size="icon" onPress={() => props.user.removeFriend()}>
+        <IconButton onPress={() => props.user.removeFriend()}>
           <MdCancel />
-        </Button>
+        </IconButton>
       </Show>
       <Show when={props.user.relationship === "Outgoing"}>
         <Button onPress={() => props.user.addFriend()}>
@@ -79,13 +81,12 @@ export function ProfileActions(props: {
             : props.user.self
         }
       >
-        <Button size="icon" onPress={openEdit}>
+        <IconButton onPress={openEdit}>
           <MdEdit {...iconSize(16)} />
-        </Button>
+        </IconButton>
       </Show>
 
-      <Button
-        size="icon"
+      <IconButton
         use:floating={{
           contextMenu: () => (
             <UserContextMenu user={props.user} member={props.member} />
@@ -94,7 +95,7 @@ export function ProfileActions(props: {
         }}
       >
         <MdMoreVert />
-      </Button>
+      </IconButton>
     </Actions>
   );
 }
