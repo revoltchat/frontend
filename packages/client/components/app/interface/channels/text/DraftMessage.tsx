@@ -65,6 +65,7 @@ export function DraftMessage(props: Props) {
       contextMenu={() => (
         <DraftMessageContextMenu draft={props.draft} channel={props.channel} />
       )}
+      compact={state.settings.getValue("appearance:compact_mode")}
     >
       <BreakText>
         <Markdown content={props.draft.content!} />

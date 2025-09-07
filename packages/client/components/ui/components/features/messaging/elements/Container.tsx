@@ -1,11 +1,12 @@
 import { JSX, Match, Show, Switch } from "solid-js";
 
+import { useLingui } from "@lingui-solid/solid/macro";
 import { Message } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Ripple, typography } from "@revolt/ui/components/design";
-import { Row } from "@revolt/ui/components/layout";
+import { Column, Row } from "@revolt/ui/components/layout";
 import {
   NonBreakingText,
   OverflowingText,
@@ -192,7 +193,7 @@ const Info = styled("div", {
   base: {
     display: "flex",
     flexShrink: 0,
-    justifyContent: "center",
+    justifyContent: "end",
     padding: "2px var(--gap-sm)",
   },
   variants: {
@@ -204,9 +205,12 @@ const Info = styled("div", {
     compact: {
       true: {},
       false: {
-        width: "62px",
+        width: "52px",
       },
     },
+  },
+  defaultVariants: {
+    compact: false,
   },
 });
 
@@ -237,6 +241,7 @@ const Content = styled("div", {
   base: {
     minWidth: 0,
     display: "flex",
+    gap: "var(--gap-sm)",
     flexDirection: "column",
 
     ...typography.raw({ class: "_messages" }),
@@ -246,8 +251,12 @@ const Content = styled("div", {
 /**
  * Information text
  */
-const InfoText = styled(Row, {
+const infoText = cva({
   base: {
+    display: "flex",
+    alignItems: "center",
+    gap: "var(--gap-sm)",
+
     color: "var(--md-sys-color-outline)",
 
     ...typography.raw({ class: "body", size: "small" }),
@@ -292,6 +301,8 @@ const CompactInfo = styled(Row, {
  * Component to show avatar, username, timestamp and content
  */
 export function MessageContainer(props: Props) {
+  const { t } = useLingui();
+
   return (
     <div
       class={
@@ -323,19 +334,65 @@ export function MessageContainer(props: Props) {
             {props.infoMatch ?? <Match when={false} children={null} />}
             <Match when={props.compact}>
               <CompactInfo gap="sm" align>
-                <InfoText gap="sm">
+                <div
+                  class={infoText()}
+                  use:floating={{
+                    tooltip: {
+                      placement: "top",
+                      content: (
+                        <>
+                          {t`Sent`}{" "}
+                          <Time
+                            format="datetime"
+                            value={props.timestamp}
+                            referenceTime={props._referenceTime}
+                          />
+                        </>
+                      ) as string, // ignore aria requirement
+                    },
+                  }}
+                >
                   <Time
                     format="time"
                     value={props.timestamp}
                     referenceTime={props._referenceTime}
                   />
-                </InfoText>
+                </div>
                 {props.username}
                 {props.info}
               </CompactInfo>
             </Match>
             <Match when={props.tail}>
-              <InfoText hidden={!props.edited} prefix>
+              <div
+                class={infoText({ hidden: !props.edited, prefix: true })}
+                use:floating={{
+                  tooltip: {
+                    placement: "top",
+                    content: (
+                      <Column>
+                        <span>
+                          {t`Sent`}{" "}
+                          <Time
+                            format="datetime"
+                            value={props.timestamp}
+                            referenceTime={props._referenceTime}
+                          />
+                        </span>
+                        <Show when={props.edited}>
+                          <span>
+                            {t`Edited`}{" "}
+                            <Time
+                              format="datetime"
+                              value={props.edited}
+                              referenceTime={props._referenceTime}
+                            />
+                          </span>
+                        </Show>
+                      </Column>
+                    ) as string, // ignore aria requirement
+                  },
+                }}
+              >
                 <Show when={props.edited}>(edited)</Show>
                 <Show when={!props.edited}>
                   <Time
@@ -344,7 +401,7 @@ export function MessageContainer(props: Props) {
                     referenceTime={props._referenceTime}
                   />
                 </Show>
-              </InfoText>
+              </div>
             </Match>
           </Switch>
         </Info>
@@ -353,21 +410,57 @@ export function MessageContainer(props: Props) {
             <Row gap="sm" align>
               <OverflowingText>{props.username}</OverflowingText>
               <NonBreakingText>
-                <InfoText gap="sm" align>
+                <div class={infoText()}>
                   {props.info}
                   <Switch fallback={props.timestamp as string}>
                     <Match when={props.timestamp instanceof Date}>
-                      <Time
-                        format="calendar"
-                        value={props.timestamp}
-                        referenceTime={props._referenceTime}
-                      />
+                      <span
+                        use:floating={{
+                          tooltip: {
+                            placement: "top",
+                            content: (
+                              <>
+                                {t`Sent`}{" "}
+                                <Time
+                                  format="datetime"
+                                  value={props.timestamp}
+                                  referenceTime={props._referenceTime}
+                                />
+                              </>
+                            ) as string, // ignore aria requirement
+                          },
+                        }}
+                      >
+                        <Time
+                          format="calendar"
+                          value={props.timestamp}
+                          referenceTime={props._referenceTime}
+                        />
+                      </span>
                     </Match>
                   </Switch>
                   <Show when={props.edited}>
-                    <span>(edited)</span>
+                    <span
+                      use:floating={{
+                        tooltip: {
+                          placement: "top",
+                          content: (
+                            <>
+                              {t`Edited`}{" "}
+                              <Time
+                                format="datetime"
+                                value={props.edited}
+                                referenceTime={props._referenceTime}
+                              />
+                            </>
+                          ) as string, // ignore aria requirement
+                        },
+                      }}
+                    >
+                      (edited)
+                    </span>
                   </Show>
-                </InfoText>
+                </div>
               </NonBreakingText>
             </Row>
           </Show>
