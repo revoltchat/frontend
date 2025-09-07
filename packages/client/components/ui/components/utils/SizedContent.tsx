@@ -78,7 +78,8 @@ export function SizedContent(props: Props) {
     <Container
       style={{
         width: size().width + "px",
-        height: size().height + "px",
+        // height: size().height + "px",
+        "aspect-ratio": `${size().width} / ${size().height}`,
       }}
     >
       {props.children}
@@ -89,6 +90,10 @@ export function SizedContent(props: Props) {
 const Container = styled("div", {
   base: {
     display: "grid",
+
+    height: "auto",
+    maxWidth: "100%",
+
     // // min. render size or chat width, whichever is smaller
     // // minWidth: "calc(min(100%, var(--layout-attachments-min-width)))",
     // minWidth: "var(--layout-attachments-min-width)",
