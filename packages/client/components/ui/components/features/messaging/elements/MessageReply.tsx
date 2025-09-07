@@ -108,13 +108,12 @@ const Link = styled("a", {
  * Message being replied to
  */
 export function MessageReply(props: Props) {
-  const client = useClient();
-
   const renderReplyContent = (content: string) => {
     if (content.length > 128) {
-      content = content.slice(0, 128).replace(/\n/g, "") + "...";
+      content = content.slice(0, 128) + "...";
     }
-    return renderSimpleMarkdown(content);
+
+    return renderSimpleMarkdown(content.replace(/\n/g, ""));
   };
 
   return (
@@ -148,9 +147,9 @@ export function MessageReply(props: Props) {
               </Attachments>
             </Show>
             <Show when={props.message!.content}>
-              <OverflowingText>
+              <ReplyContent>
                 {renderReplyContent(props.message!.content!)}
-              </OverflowingText>
+              </ReplyContent>
             </Show>
           </Link>
         </Match>
@@ -158,3 +157,13 @@ export function MessageReply(props: Props) {
     </Base>
   );
 }
+
+const ReplyContent = styled("div", {
+  base: {
+    display: "flex",
+    overflow: "hidden",
+    alignItems: "center",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+  },
+});
