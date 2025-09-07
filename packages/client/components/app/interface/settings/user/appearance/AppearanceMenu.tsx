@@ -54,7 +54,7 @@ export function AppearanceMenu() {
           </Button>
         </Row>
 
-        <Row justify="stretch">
+        {/* <Row justify="stretch">
           <Button
             group="connected-start"
             groupActive={state.theme.preset === "revolt"}
@@ -69,7 +69,7 @@ export function AppearanceMenu() {
           >
             <Trans>Material You</Trans>
           </Button>
-        </Row>
+        </Row> */}
 
         <Show when={state.theme.preset === "you"}>
           <Row justify>
@@ -289,10 +289,15 @@ export function AppearanceMenu() {
           Chat Input
         </Text>
 
-        <Checkbox 
+        <Checkbox
           checked={state.settings.getValue("appearance:show_send_button")}
-          onChange={(event) => state.settings.setValue("appearance:show_send_button", event.currentTarget.checked)}
-          >
+          onChange={(event) =>
+            state.settings.setValue(
+              "appearance:show_send_button",
+              event.currentTarget.checked,
+            )
+          }
+        >
           Show send message button
         </Checkbox>
       </Column>
