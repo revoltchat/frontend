@@ -1,5 +1,6 @@
-import { JSX, Show, splitProps } from "solid-js";
+import { JSX, Match, Show, Switch, splitProps } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { cva } from "styled-system/css";
 
 import { useClient } from "@revolt/client";
@@ -11,6 +12,7 @@ import { Invite } from "@revolt/ui/components/features/messaging/elements/Invite
 
 import MdChat from "@material-design-icons/svg/outlined/chat.svg?component-solid";
 import MdChevronRight from "@material-design-icons/svg/outlined/chevron_right.svg?component-solid";
+import MdPeople from "@material-design-icons/svg/outlined/people.svg?component-solid";
 // import { determineLink } from "../../../lib/links";
 // import { modalController } from "../../../controllers/modals/ModalController";
 import MdTag from "@material-design-icons/svg/outlined/tag.svg?component-solid";
@@ -78,24 +80,59 @@ export function RenderAnchor(
       const params = paramsFromPathname(url.pathname);
 
       if (params.exactChannel) {
+        const channel = () => client().channels.get(params.channelId!);
+
+        const internalUrl = () =>
+          new URL(
+            channel()!.serverId
+              ? `/server/${channel()!.serverId}/channel/${channel()!.id}`
+              : `/channel/${channel()!.id}`,
+            location.origin,
+          ).toString();
+
         return (
-          <a class={internalLink()} href={url.toString()}>
-            <MdTag {...iconSize("1em")} />
-            {client().channels.get(params.channelId!)?.name}
-            {params.exactMessage && (
-              <>
-                <MdChevronRight {...iconSize("1em")} />
-                <MdChat {...iconSize("1em")} />
-              </>
-            )}
-          </a>
+          <Switch
+            fallback={
+              <span class={internalLink()}>
+                <MdTag {...iconSize("1em")} />
+                <Trans>Private Channel</Trans>
+              </span>
+            }
+          >
+            <Match when={channel()}>
+              <a class={internalLink()} href={internalUrl()}>
+                <MdTag {...iconSize("1em")} />
+                {channel()!.name}
+                {params.exactMessage && (
+                  <>
+                    <MdChevronRight {...iconSize("1em")} />
+                    <MdChat {...iconSize("1em")} />
+                  </>
+                )}
+              </a>
+            </Match>
+          </Switch>
         );
       } else if (params.exactServer) {
         const server = () => client().servers.get(params.serverId!);
+        const internalUrl = () =>
+          new URL(`/server/${server()!.id}`, location.origin).toString();
+
         return (
-          <a class={internalLink()} href={url.toString()}>
-            <Avatar size={16} src={server()?.iconURL} /> {server()?.name}
-          </a>
+          <Switch
+            fallback={
+              <span class={internalLink()}>
+                <MdPeople {...iconSize("1em")} />
+                <Trans>Unknown Server</Trans>
+              </span>
+            }
+          >
+            <Match when={server()}>
+              <a class={internalLink()} href={internalUrl()}>
+                <Avatar size={16} src={server()?.iconURL} /> {server()?.name}
+              </a>
+            </Match>
+          </Switch>
         );
       } else if (
         params.inviteId &&
@@ -105,7 +142,10 @@ export function RenderAnchor(
       ) {
         return <Invite code={params.inviteId} />;
       } else {
-        return <a {...remoteProps} class={link()} href={url.toString()} />;
+        const internalUrl = () =>
+          new URL(url.pathname, location.origin).toString();
+
+        return <a {...remoteProps} class={link()} href={internalUrl()} />;
       }
     }
 
