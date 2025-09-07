@@ -9,6 +9,7 @@ import { DraftMessage } from "./DraftMessage";
 interface Props {
   channel: Channel;
   tail: boolean;
+  sentIds: string[];
 }
 
 /**
@@ -22,7 +23,8 @@ export function DraftMessages(props: Props) {
   const unsent = () =>
     state.draft
       .getPendingMessages(props.channel.id)
-      .filter((draft) => draft.status === "sending");
+      .filter((draft) => draft.status === "sending")
+      .filter((draft) => !props.sentIds.includes(draft.idempotencyKey));
 
   const failed = () =>
     state.draft

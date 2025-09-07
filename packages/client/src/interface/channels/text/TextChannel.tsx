@@ -161,7 +161,11 @@ export function TextChannel(props: ChannelPageProps) {
             limit={150}
             lastReadId={lastId}
             pendingMessages={(pendingProps) => (
-              <DraftMessages channel={props.channel} tail={pendingProps.tail} />
+              <DraftMessages
+                channel={props.channel}
+                tail={pendingProps.tail}
+                sentIds={pendingProps.ids}
+              />
             )}
             typingIndicator={
               <TypingIndicator

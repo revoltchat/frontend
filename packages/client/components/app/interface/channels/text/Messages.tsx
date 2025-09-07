@@ -56,7 +56,7 @@ interface Props {
   /**
    * Pending messages to render at the end of the list
    */
-  pendingMessages?: (props: { tail: boolean }) => JSX.Element;
+  pendingMessages?: (props: { tail: boolean; ids: string[] }) => JSX.Element;
 
   /**
    * Display typing indicator instead of padding
@@ -808,6 +808,14 @@ export function Messages(props: Props) {
       : false;
   }
 
+  /**
+   * Message ids
+   * @returns List of message ids
+   */
+  function sentMessageIdempotency() {
+    return messages().map((msg) => msg.nonce!);
+  }
+
   return (
     <>
       <ListView
@@ -836,7 +844,10 @@ export function Messages(props: Props) {
             </For>
             {/* TODO: show (loading icon) OR (load more) */}
             <Show when={atEnd()}>
-              {props.pendingMessages?.({ tail: pendingMessageIsTrailing() })}
+              {props.pendingMessages?.({
+                tail: pendingMessageIsTrailing(),
+                ids: sentMessageIdempotency(),
+              })}
               {props.typingIndicator ?? <Padding />}
             </Show>
           </div>
