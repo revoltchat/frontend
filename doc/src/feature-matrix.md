@@ -45,8 +45,9 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Update Icon | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Banner | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update System Message Targets | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
-|   |   |   | Update Categories | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
-|   |   | Roles | Create Role | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Update Categories | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Re-order Channels and Categories | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
+|   |   | Roles | Create Role | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | List Roles | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Delete Role | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Role Information | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
@@ -112,7 +113,7 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Preview files to send | ✅ | ✅ | ❌ | ✅ | P1 Preferred |
 |   |   |   | Show messages being sent | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Retry sending failed messages | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
-|   |   |   | Show attachments being sent | ✅ | ❌ | ❌ | ❌ | P2 Best Effort |
+|   |   |   | Show attachments being sent | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Cancel message being sent | ⛔ | ❌ | ❌ | ❌ | P3 Unimportant |
 |   | Talking (Voice Channels) | Base Voice | Voice Chats v2 (LiveKit) | ⛔ | 🚧 | ❌ | ❌ | PX New Feature |
 |   |   |   | Screen sharing | ⛔ | 🚧 | ❌ | ❌ | PX New Feature |
@@ -124,13 +125,14 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Server mute members | ⛔ | ❌ | ❌ | ❌ | PX New Feature |
 |   | Settings | Basic Information | Update Information | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Set Icon | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
-|   |   |   | Edit Role Permissions | ✅ | 🚧 | ❌ | ❌ | P2 Best Effort |
+|   |   |   | Edit Role Permissions | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Edit Group Permissions | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   | Webhooks | List Webhooks | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   |   | Create Webhook | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   |   | Update Webhook Information | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   |   | Delete Webhook | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   |   | Copy Webhook URLs | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
+|   |   | Notifications | Mute channels | ✅ | ❌ | ❌ | ❌ | P0 Must |
 | Markdown | RSM |   | Basic Styles | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Code Blocks | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
 |   |   |   | Code Formatting | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
@@ -162,7 +164,7 @@ Comparison of implemented features across Revolt's clients.
 |   |   | Sessions | List Sessions | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
 |   |   |   | Delete Session | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
 |   |   |   | Log out all other sessions | ✅ | ✅ | ✅ | ❌ | P2 Best Effort |
-|   | Client | Appearance | Customise Theme | ✅ | 🚧 | ✅ | ✅ | P2 Best Effort |
+|   | Client | Appearance | Customise Theme | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
 |   |   |   | Customise Font | ✅ | ❌ | ⛔ | ⛔ | P3 Unimportant |
 |   |   |   | Customise Emoji Pack | ✅ | ❌ | ⛔ | ⛔ | P3 Unimportant |
 |   |   | Notifications | Desktop | ✅ | 🚧 | ⛔ | ⛔ | P0 Must |
@@ -171,13 +173,14 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Mobile Native Push | ⛔ | ⛔ | ✅ | ✅ | P0 Must |
 |   |   | Language |   | ✅ | 🚧 | ✅ | ✅ | P2 Best Effort |
 |   |   | Settings Sync |   | ✅ | ✅ | ✅ | ❌ | P0 Must |
-|   |   | Desktop | Start with Computer | ✅ | ❌ | N/A | N/A | P2 Best Effort |
+|   |   | Desktop | App | ✅ | ❌ | N/A | N/A | P1 Preferred |
+|   |   |   | Start with Computer | ✅ | ❌ | N/A | N/A | P2 Best Effort |
 |   |   |   | Minimise to Tray | ✅ | ❌ | N/A | N/A | P2 Best Effort |
 |   | Revolt | Bots | Create Bot | ✅ | ✅ | ❌ | ✅ | P3 Unimportant |
 |   |   |   | List Bots | ✅ | ✅ | ❌ | ✅ | P3 Unimportant |
 |   |   |   | Update Information | ✅ | ✅ | ❌ | ❌ | P3 Unimportant |
 |   |   |   | Update Icon | ✅ | ✅ | ❌ | ❌ | P3 Unimportant |
-|   |   |   | Invite to Server / Group | ✅ | ❌ | ❌ | ❌ | P3 Unimportant |
+|   |   |   | Invite to Server / Group | ✅ | ✅ | ❌ | ❌ | P3 Unimportant |
 |   | Misc | Feedback Information |   | ✅ | ✅ | ✅ | ✅ | P1 Preferred |
 |   |   | Changelogs |   | ✅ | ❌ | ✅ | ❌ | P2 Best Effort |
 |   |   | Source code |   | ✅ | ✅ | ✅ | ✅ | Unapplicable |
