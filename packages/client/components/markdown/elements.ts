@@ -113,8 +113,17 @@ export const orderedList = styled("ol", {
   base: {
     listStylePosition: "outside",
     paddingLeft: "1.5em",
-
-    listStyleType: "decimal",
+    listStyleType: "none",
+    
+    "& li": {
+      display: "list-item",
+      counterIncrement: "list-counter",
+      
+      "&::before": {
+        content: 'counter(list-counter) ". "',
+        fontWeight: "inherit",
+      },
+    },
   },
 });
 

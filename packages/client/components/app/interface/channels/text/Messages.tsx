@@ -824,7 +824,7 @@ export function Messages(props: Props) {
         fetchBottom={caseFetchDownwards}
       >
         <div>
-          <div ref={listRef}>
+          <div ref={listRef} style={{ "counter-reset": "list-counter" }}>
             <Show when={atStart()}>
               <ConversationStart channel={props.channel} />
             </Show>
