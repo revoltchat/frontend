@@ -257,9 +257,11 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     }
 
     if (typeof data === "undefined") {
+      console.info("[draft] cleared!");
       return this.clearDraft(channelId);
     }
 
+    console.info("[draft] updated to ", data);
     this.set("drafts", channelId, data);
   }
 
