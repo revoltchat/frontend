@@ -1,5 +1,6 @@
-import { Suspense, createMemo } from "solid-js";
+import { Match, Suspense, Switch } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { useNavigate } from "@solidjs/router";
 import { useMutation, useQuery } from "@tanstack/solid-query";
 import { PublicChannelInvite, ServerPublicInvite } from "revolt.js";
@@ -37,12 +38,6 @@ export function Invite(props: Props) {
     refetchOnWindowFocus: false,
   }));
 
-  const joined = createMemo(() => {
-    if (!(query.data instanceof ServerPublicInvite)) return false;
-
-    return client().servers?.has(query.data.serverId) ?? false;
-  });
-
   const join = useMutation(() => ({
     mutationFn: () => (query.data as ServerPublicInvite).join(),
     onSuccess(server) {
@@ -58,7 +53,7 @@ export function Invite(props: Props) {
           size={42}
           src={
             query.data instanceof ServerPublicInvite
-              ? query.data.serverIcon?.url
+              ? query.data.serverIcon?.previewUrl
               : undefined
           }
           fallback={
@@ -80,12 +75,18 @@ export function Invite(props: Props) {
             members
           </Text>
         </Column>
-        <Button
-          onPress={() => join.mutate()}
-          isDisabled={join.isPending || joined()}
-        >
-          {joined() ? "Joined" : "Join"}
-        </Button>
+        <Switch fallback={<Button onPress={() => join.mutate()}>Join</Button>}>
+          <Match
+            when={
+              query.data instanceof ServerPublicInvite &&
+              client().servers?.has(query.data.serverId)
+            }
+          >
+            <Button isDisabled>
+              <Trans>Joined</Trans>
+            </Button>
+          </Match>
+        </Switch>
       </Suspense>
     </Base>
   );
