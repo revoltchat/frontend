@@ -4,7 +4,7 @@ import {
   BiRegularPhoneCall,
   BiSolidCheckCircle,
 } from "solid-icons/bi";
-import { Accessor, For, JSX, Match, Show, Switch, createMemo } from "solid-js";
+import { Accessor, JSX, Match, Show, Switch, createMemo } from "solid-js";
 import { Setter } from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
@@ -204,7 +204,7 @@ export const ServerSidebar = (props: Props) => {
         </Match>
       </Switch>
       <div
-        use:scrollable={{ showOnHover: true }}
+        use:invisibleScrollable
         style={{ "flex-grow": 1 }}
         use:floating={props.menuGenerator(props.server)}
       >
@@ -415,7 +415,6 @@ const CategoryBase = styled("div", {
   },
 });
 
-
 /**
  * Server channel entry
  */
@@ -425,8 +424,8 @@ function Entry(
   const { openModal } = useModals();
 
   const canEditChannel = createMemo(() =>
-    ["ManageChannel", "ManagePermissions", "ManageWebhooks"].some(
-      (perm) => props.channel.server?.havePermission(perm),
+    ["ManageChannel", "ManagePermissions", "ManageWebhooks"].some((perm) =>
+      props.channel.server?.havePermission(perm),
     ),
   );
 
@@ -434,8 +433,11 @@ function Entry(
     props.channel.server?.havePermission("InviteOthers"),
   );
 
-  const alertState = createMemo(() =>
-    !props.active && props.channel.unread && (props.channel.mentions?.size || true),
+  const alertState = createMemo(
+    () =>
+      !props.active &&
+      props.channel.unread &&
+      (props.channel.mentions?.size || true),
   );
 
   const attentionState = createMemo(() =>
@@ -465,7 +467,9 @@ function Entry(
           <>
             <Show when={canInvite()}>
               <a
-                use:floating={{ tooltip: { placement: "top", content: "Create Invite" } }}
+                use:floating={{
+                  tooltip: { placement: "top", content: "Create Invite" },
+                }}
                 onClick={(e) => {
                   e.preventDefault();
                   openModal({ type: "create_invite", channel: props.channel });
@@ -477,10 +481,16 @@ function Entry(
 
             <Show when={canEditChannel()}>
               <a
-                use:floating={{ tooltip: { placement: "top", content: "Edit Channel" } }}
+                use:floating={{
+                  tooltip: { placement: "top", content: "Edit Channel" },
+                }}
                 onClick={(e) => {
                   e.preventDefault();
-                  openModal({ type: "settings", config: "channel", context: props.channel });
+                  openModal({
+                    type: "settings",
+                    config: "channel",
+                    context: props.channel,
+                  });
                 }}
               >
                 <MdSettings {...iconSize("14px")} />

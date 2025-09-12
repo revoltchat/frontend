@@ -164,9 +164,8 @@ export function EmojiPicker() {
         </div>
         <div
           ref={emojiScrollTargetElement}
-          use:scrollable={{
+          use:invisibleScrollable={{
             class: scrollContainer({ component: "emoji" }),
-            showOnHover: true,
           }}
         >
           <VirtualContainer

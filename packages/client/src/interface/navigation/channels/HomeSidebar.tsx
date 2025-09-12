@@ -68,10 +68,7 @@ export const HomeSidebar = (props: Props) => {
 
   return (
     <SidebarBase>
-      <div
-        ref={scrollTargetElement}
-        use:scrollable={{ direction: "y", showOnHover: true }}
-      >
+      <div ref={scrollTargetElement} use:invisibleScrollable>
         <List>
           <SidebarTitle>
             <Trans>Conversations</Trans>
