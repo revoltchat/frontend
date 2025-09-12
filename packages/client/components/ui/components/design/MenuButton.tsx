@@ -61,7 +61,6 @@ export function MenuButton(props: Props & JSX.HTMLAttributes<HTMLDivElement>) {
         [base({
           attention: local.attention,
           size: local.size,
-          hasActions: local.actions ? "yes" : "no",
         })]: true,
       }}
       // @codegen directives props=other include=floating
@@ -71,14 +70,18 @@ export function MenuButton(props: Props & JSX.HTMLAttributes<HTMLDivElement>) {
       {local.icon}
       <Content>{local.children}</Content>
       <Show when={local.alert}>
-        <Unreads
-          count={typeof local.alert === "number" ? local.alert : 0}
-          size={typeof local.alert === "number" ? "0.85rem" : "0.4rem"}
-          unread
-        />
+        <span class="hover-hide">
+          <Unreads
+            count={typeof local.alert === "number" ? local.alert : 0}
+            size={typeof local.alert === "number" ? "0.85rem" : "0.4rem"}
+            unread
+          />
+        </span>
       </Show>
       {local.actions && (
-        <Actions onClick={(e) => e.stopPropagation()}>{local.actions}</Actions>
+        <Actions class="hover-show" onClick={(e) => e.stopPropagation()}>
+          {local.actions}
+        </Actions>
       )}
       {/* </Base> */}
     </div>
@@ -110,6 +113,11 @@ const base = cva({
 
     "& > svg": {
       alignSelf: "center",
+    },
+
+    // swap `.hover-hide` elements w/  `.hover-show` elements on hover
+    "&:hover .hover-hide, &:not(:hover) .hover-show": {
+      display: "none",
     },
   },
   variants: {
@@ -148,19 +156,10 @@ const base = cva({
         background: "var(--md-sys-color-primary-container)",
       },
     },
-    hasActions: {
-      no: {},
-      yes: {
-        "&:hover :last-child": {
-          display: "flex",
-        },
-      },
-    },
   },
   defaultVariants: {
     size: "normal",
     attention: "normal",
-    hasActions: "no",
   },
 });
 
@@ -181,7 +180,7 @@ const Actions = styled("div", {
   base: {
     alignSelf: "center",
 
-    display: "none",
+    display: "flex",
     alignItems: "center",
     flexDirection: "row",
     gap: "var(--gap-sm)",
