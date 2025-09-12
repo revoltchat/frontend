@@ -1,4 +1,12 @@
-import { Match, Show, Switch, createMemo, onMount } from "solid-js";
+import {
+  Match,
+  Show,
+  Switch,
+  createEffect,
+  createMemo,
+  on,
+  onMount,
+} from "solid-js";
 
 import { useLingui } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
@@ -66,9 +74,14 @@ const IGNORE_ALL = ["01F7ZSBSFHQ8TA81725KQCSDDP", "01F80118K1F2EYD9XAMCPQ0BCT"];
 export function ServerMemberSidebar(props: Props) {
   const client = useClient();
 
-  onMount(() =>
-    props.channel.server?.syncMembers(
-      IGNORE_ALL.includes(props.channel.serverId) ? true : false,
+  // todo: useQuery
+  createEffect(
+    on(
+      () => props.channel.serverId,
+      (serverId) =>
+        props.channel.server?.syncMembers(
+          IGNORE_ALL.includes(serverId) ? true : false,
+        ),
     ),
   );
 
