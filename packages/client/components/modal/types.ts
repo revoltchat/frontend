@@ -13,6 +13,7 @@ import {
   PublicChannelInvite,
   Server,
   ServerMember,
+  ServerRole,
   Session,
   User,
 } from "revolt.js";
@@ -112,6 +113,11 @@ export type Modals =
   | {
       type: "delete_server";
       server: Server;
+    }
+  | {
+      type: "delete_role";
+      role: ServerRole;
+      cb: () => void;
     }
   | {
       type: "edit_email";

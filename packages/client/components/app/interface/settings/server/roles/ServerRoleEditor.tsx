@@ -2,8 +2,7 @@ import { createFormControl, createFormGroup } from "solid-forms";
 import { For, Show, createMemo, createSignal } from "solid-js";
 
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
-import { useMutation } from "@tanstack/solid-query";
-import { API, Server } from "revolt.js";
+import { API, Server, ServerRole } from "revolt.js";
 import { styled } from "styled-system/jsx";
 
 import { useModals } from "@revolt/modal";
@@ -30,11 +29,14 @@ import { ChannelPermissionsEditor } from "../../channel/permissions/ChannelPermi
  */
 export function ServerRoleEditor(props: { context: Server; roleId: string }) {
   const { t } = useLingui();
-  const { showError } = useModals();
+  const { openModal } = useModals();
   const { navigate } = useSettingsNavigation();
 
-  const role = createMemo(() =>
-    props.context.orderedRoles.find((r) => r.id == props.roleId),
+  const role = createMemo(
+    () =>
+      props.context.orderedRoles.find(
+        (r) => r.id == props.roleId,
+      ) as ServerRole,
   );
 
   const editGroup = createFormGroup({
@@ -42,14 +44,6 @@ export function ServerRoleEditor(props: { context: Server; roleId: string }) {
     colour: createFormControl(role()?.colour),
     hoist: createFormControl(role()?.hoist == true),
   });
-
-  const deleteRole = useMutation(() => ({
-    mutationFn: () => props.context.deleteRole(props.roleId),
-    onSuccess() {
-      navigate("roles");
-    },
-    onError: showError,
-  }));
 
   const [pickerRef, setPickerRef] = createSignal<HTMLDivElement>();
 
@@ -214,8 +208,13 @@ export function ServerRoleEditor(props: { context: Server; roleId: string }) {
         <CategoryButton
           action="chevron"
           icon={<MdDelete />}
-          disabled={deleteRole.isPending}
-          onClick={() => deleteRole.mutate()}
+          onClick={() =>
+            openModal({
+              type: "delete_role",
+              role: role(),
+              cb: () => navigate("roles"),
+            })
+          }
         >
           <Trans>Delete Role</Trans>
         </CategoryButton>

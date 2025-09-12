@@ -23,6 +23,7 @@ import { CustomStatusModal } from "./modals/CustomStatus";
 import { DeleteBotModal } from "./modals/DeleteBot";
 import { DeleteChannelModal } from "./modals/DeleteChannel";
 import { DeleteMessageModal } from "./modals/DeleteMessage";
+import { DeleteRoleModal } from "./modals/DeleteRole";
 import { DeleteServerModal } from "./modals/DeleteServer";
 import { EditEmailModal } from "./modals/EditEmail";
 import { EditPasswordModal } from "./modals/EditPassword";
@@ -109,6 +110,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <DeleteChannelModal {...modalProps} />;
     case "delete_message":
       return <DeleteMessageModal {...modalProps} />;
+    case "delete_role":
+      return <DeleteRoleModal {...modalProps} />;
     case "delete_server":
       return <DeleteServerModal {...modalProps} />;
     case "edit_email":
