@@ -1,4 +1,4 @@
-import { For, Show, createSignal } from "solid-js";
+import { For, Show, Suspense, createSignal } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { useQuery } from "@tanstack/solid-query";
@@ -58,16 +58,15 @@ export function TextSearchSidebar(props: {
           </Button>
         </Row>
       </Show>
-      <Show when={query.isLoading}>
-        <CircularProgress />
-      </Show>
-      <For each={query.data}>
-        {(message) => (
-          <a href={message.path}>
-            <Message message={message} isLink />
-          </a>
-        )}
-      </For>
+      <Suspense fallback={<CircularProgress />}>
+        <For each={query.data}>
+          {(message) => (
+            <a href={message.path}>
+              <Message message={message} isLink />
+            </a>
+          )}
+        </For>
+      </Suspense>
     </>
   );
 }
