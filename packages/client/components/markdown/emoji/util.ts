@@ -11,7 +11,7 @@ export const RE_CUSTOM_EMOJI = /:([0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}):/g;
  * Regex for any emoji
  */
 export const RE_ANY_EMOJI = new RegExp(
-  RE_CUSTOM_EMOJI.source + "|" + emojiRegex().source,
+  RE_CUSTOM_EMOJI.source + "|[\uE0E0-\uE0E6]?(?:" + emojiRegex().source + ")",
   "g",
 );
 

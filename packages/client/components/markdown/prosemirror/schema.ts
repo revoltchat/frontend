@@ -208,6 +208,41 @@ export const schema = new Schema({
       },
     },
 
+    rfm_unicode_emoji: {
+      inline: true,
+      attrs: {
+        id: {},
+        pack: {},
+        src: {},
+      },
+      group: "inline",
+      draggable: true,
+      parseDOM: [
+        {
+          tag: "img[unicode]",
+          getAttrs(dom) {
+            return {
+              id: (dom as HTMLElement).getAttribute("unicode"),
+              pack: (dom as HTMLElement).getAttribute("pack"),
+              src: (dom as HTMLElement).getAttribute("src"),
+            };
+          },
+        },
+      ],
+      toDOM(node) {
+        return [
+          "img",
+          {
+            unicode: node.attrs.id,
+            pack: node.attrs.pack,
+            src: node.attrs.src,
+            style:
+              "width: var(--emoji-size); height: var(--emoji-size); display: inline",
+          },
+        ];
+      },
+    },
+
     rfm_user_mention: {
       inline: true,
       attrs: {

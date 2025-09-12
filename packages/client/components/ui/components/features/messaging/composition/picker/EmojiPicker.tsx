@@ -14,6 +14,7 @@ import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { UnicodeEmoji } from "@revolt/markdown/emoji";
+import { unicodeEmojiUrl } from "@revolt/markdown/emoji/UnicodeEmoji";
 import { schema } from "@revolt/markdown/prosemirror";
 import { useState } from "@revolt/state";
 import { Avatar, Ripple, TextField } from "@revolt/ui/components/design";
@@ -119,7 +120,7 @@ export function EmojiPicker() {
 
     items.push({
       t: 3,
-      title: "Fluent",
+      title: "Default",
     });
 
     while (items.length % COLUMNS) {
@@ -231,6 +232,7 @@ const ServerOption = styled("div", {
 });
 
 const EmojiItem = (props: { style: unknown; tabIndex: number; item: Item }) => {
+  const state = useState();
   const { onTextReplacement } = useContext(CompositionMediaPickerContext);
 
   return (
@@ -250,7 +252,17 @@ const EmojiItem = (props: { style: unknown; tabIndex: number; item: Item }) => {
         }
 
         if (props.item.t === 4) {
-          onTextReplacement(schema.text(props.item.text));
+          // onTextReplacement(schema.text(props.item.text));
+          onTextReplacement(
+            schema.nodes.rfm_unicode_emoji.createAndFill({
+              id: props.item.text,
+              pack: state.settings.getValue("appearance:unicode_emoji"),
+              src: unicodeEmojiUrl(
+                state.settings.getValue("appearance:unicode_emoji"),
+                props.item.text,
+              ),
+            })!,
+          );
         }
       }}
     >
@@ -270,7 +282,10 @@ const EmojiItem = (props: { style: unknown; tabIndex: number; item: Item }) => {
         <Match when={props.item.t === 4}>
           <Ripple />
           <Show keyed when={(props.item as Item & { t: 4 }).text}>
-            <UnicodeEmoji emoji={(props.item as Item & { t: 4 }).text} />
+            <UnicodeEmoji
+              emoji={(props.item as Item & { t: 4 }).text}
+              pack={state.settings.getValue("appearance:unicode_emoji")}
+            />
           </Show>
         </Match>
       </Switch>

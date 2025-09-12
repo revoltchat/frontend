@@ -1,3 +1,5 @@
+import { UnicodeEmojiPacks } from "@revolt/markdown/emoji/UnicodeEmoji";
+
 import { State } from "..";
 
 import { AbstractStore } from ".";
@@ -17,10 +19,9 @@ interface SettingsDefinition {
   // "notifications:sounds": SoundOptions;
 
   /**
-   * Selected emoji pack
-   * TODO: implement
+   * Selected unicode emoji
    */
-  // "appearance:emoji": EmojiPack;
+  "appearance:unicode_emoji": UnicodeEmojiPacks;
 
   // TODO: this should be part of theme
   // "appearance:ligatures": boolean;
@@ -78,6 +79,7 @@ type ValueType<T extends keyof SettingsDefinition> =
  * If we cannot validate the value as a primitive, clean it up using a function.
  */
 const EXPECTED_TYPES: { [K in keyof SettingsDefinition]: ValueType<K> } = {
+  "appearance:unicode_emoji": "string",
   "appearance:show_send_button": "boolean",
   "appearance:compact_mode": "boolean",
   "advanced:copy_id": "boolean",
@@ -118,6 +120,7 @@ export class Settings extends AbstractStore<"settings", TypeSettings> {
    */
   default(): TypeSettings {
     return {
+      "appearance:unicode_emoji": "fluent-3d",
       "appearance:show_send_button": true,
       "appearance:compact_mode": false,
       "advanced:copy_id": false,

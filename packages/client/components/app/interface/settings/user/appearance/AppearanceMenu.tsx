@@ -1,10 +1,15 @@
-import { For, Show } from "solid-js";
+import { For, Match, Show, Switch } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
 import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { useUser } from "@revolt/client";
+import {
+  UNICODE_EMOJI_PACKS,
+  UnicodeEmoji,
+  UnicodeEmojiPacks,
+} from "@revolt/markdown/emoji/UnicodeEmoji";
 import { useState } from "@revolt/state";
 import {
   Avatar,
@@ -348,8 +353,52 @@ export function AppearanceMenu() {
         >
           <Trans>Show send message button</Trans>
         </Checkbox>
+
+        <Text class="label">
+          <Trans>Emoji Pack (affects your messages only)</Trans>
+        </Text>
+        <TextField.Select
+          value={state.settings.getValue("appearance:unicode_emoji")}
+          onChange={(e) =>
+            state.settings.setValue(
+              "appearance:unicode_emoji",
+              e.currentTarget.value as never,
+            )
+          }
+        >
+          <For each={UNICODE_EMOJI_PACKS}>
+            {(pack) => <EmojiPack pack={pack} />}
+          </For>
+        </TextField.Select>
       </Column>
     </Column>
+  );
+}
+
+/**
+ * Render an individual emoji pack
+ * @param pack Pack
+ */
+function EmojiPack(props: { pack: UnicodeEmojiPacks }) {
+  return (
+    <MenuItem value={props.pack}>
+      <Row>
+        <UnicodeEmoji emoji="😃" pack={props.pack} />
+        <UnicodeEmoji emoji="😂" pack={props.pack} />
+        <UnicodeEmoji emoji="😶‍🌫️" pack={props.pack} />
+        <UnicodeEmoji emoji="🤨" pack={props.pack} />
+        <UnicodeEmoji emoji="🤔" pack={props.pack} />
+        <Switch>
+          <Match when={props.pack === "fluent-3d"}>Fluent 3D</Match>
+          <Match when={props.pack === "fluent-color"}>Fluent Color</Match>
+          <Match when={props.pack === "fluent-flat"}>Fluent Flat</Match>
+          <Match when={props.pack === "mutant"}>Mutant Remix</Match>
+          <Match when={props.pack === "noto"}>Noto</Match>
+          <Match when={props.pack === "openmoji"}>OpenMoji</Match>
+          <Match when={props.pack === "twemoji"}>Twemoji</Match>
+        </Switch>
+      </Row>
+    </MenuItem>
   );
 }
 

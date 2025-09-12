@@ -4,6 +4,7 @@ import { Node } from "prosemirror-model";
 import remarkStringify from "remark-stringify";
 
 import { unifiedPipeline } from "..";
+import { UNICODE_EMOJI_PACK_PUA } from "../emoji/UnicodeEmoji";
 
 import { schema } from "./schema";
 
@@ -115,6 +116,11 @@ function map(node: Node): RootContent {
       return {
         type: "text",
         value: `:${node.attrs.id}:`,
+      };
+    case "rfm_unicode_emoji":
+      return {
+        type: "text",
+        value: `${UNICODE_EMOJI_PACK_PUA[node.attrs.pack as never] ?? ""}${node.attrs.id}`,
       };
     case "rfm_user_mention":
       return {
