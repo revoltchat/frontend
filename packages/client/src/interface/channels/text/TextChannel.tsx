@@ -1,4 +1,12 @@
-import { Match, Show, Switch, createEffect, createSignal, on } from "solid-js";
+import {
+  Match,
+  Show,
+  Switch,
+  createEffect,
+  createSignal,
+  on,
+  onCleanup,
+} from "solid-js";
 
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
@@ -96,13 +104,21 @@ export function TextChannel(props: ChannelPageProps) {
               // (taking away one second from the seed)
               setLastId(ulid(decodeTime(props.channel.lastMessageId!) - 1));
             }
-
-            // TODO: ack on refocus
           }
         }
       },
     ),
   );
+
+  // Mark as read on re-focus
+  function onFocus() {
+    if (props.channel.unread && (atEndRef ? atEndRef() : true)) {
+      props.channel.ack();
+    }
+  }
+
+  document.addEventListener("focus", onFocus);
+  onCleanup(() => document.removeEventListener("focus", onFocus));
 
   // Register ack/jump latest
   createKeybind(KeybindAction.CHAT_JUMP_END, () => {
