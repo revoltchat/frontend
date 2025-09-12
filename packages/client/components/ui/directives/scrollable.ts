@@ -5,26 +5,7 @@ import { cva } from "styled-system/css";
 const baseStyles = cva({
   base: {
     willChange: "transform",
-
     scrollbarColor: "var(--md-sys-color-primary) transparent",
-
-    "&::-webkit-scrollbar": {
-      width: "8px",
-      height: "8px",
-    },
-
-    "&::-webkit-scrollbar-track": {
-      background: "transparent",
-    },
-
-    "&::-webkit-scrollbar-thumb": {
-      background: "var(--md-sys-color-primary)",
-      backgroundClip: "content-box",
-
-      border: "1px solid transparent",
-      borderRadius: "var(--borderRadius-lg)",
-      // TODO: border-top: ${(props?.offsetTop || 0).toString()}px solid transparent;
-    },
   },
   variants: {
     direction: {
@@ -39,11 +20,8 @@ const baseStyles = cva({
     },
     showOnHover: {
       true: {
-        scrollbarWidth: "none",
-
-        "&::-webkit-scrollbar": {
-          display: "none",
-        },
+        overflow: "hidden !important",
+        scrollbarGutter: "stable",
       },
     },
   },
@@ -54,12 +32,20 @@ const baseStyles = cva({
 });
 
 const hoverStyles = cva({
-  base: {
-    scrollbarWidth: "initial !important",
-
-    "&::-webkit-scrollbar": {
-      display: "unset !important",
+  variants: {
+    direction: {
+      x: {
+        overflowX: "scroll !important",
+        overflowY: "hidden !important",
+      },
+      y: {
+        overflowY: "scroll !important",
+        overflowX: "hidden !important",
+      },
     },
+  },
+  defaultVariants: {
+    direction: "y",
   },
 });
 
@@ -91,7 +77,7 @@ export function scrollable(
   }
 
   if (props.showOnHover) {
-    const showClass = hoverStyles().split(" ");
+    const showClass = hoverStyles({ direction: props.direction }).split(" ");
 
     /**
      * Handle mouse entry
