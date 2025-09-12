@@ -1,5 +1,7 @@
 import { ComponentProps, splitProps } from "solid-js";
 
+import emojiRegex from "emoji-regex";
+
 import { EmojiBase, toCodepoint } from ".";
 
 export type UnicodeEmojiPacks =
@@ -22,13 +24,33 @@ export const UNICODE_EMOJI_PACKS: UnicodeEmojiPacks[] = [
 ];
 
 export const UNICODE_EMOJI_PACK_PUA: Record<string, string> = {
-  // omit fluent-3d as it is the default
-  "fluent-color": "\uE0E1",
+  // omit fluent-3d as it is the default (canonically \uE0E1)
   "fluent-flat": "\uE0E2",
   mutant: "\uE0E3",
   noto: "\uE0E4",
   openmoji: "\uE0E5",
   twemoji: "\uE0E6",
+};
+
+/**
+ * Regex for matching emoji
+ */
+export const RE_UNICODE_EMOJI = new RegExp(
+  "([\uE0E0-\uE0E6]?(?:" + emojiRegex().source + "))",
+  "g",
+);
+
+export const UNICODE_EMOJI_MIN_PACK = "\uE0E0".codePointAt(0)!;
+export const UNICODE_EMOJI_MAX_PACK = "\uE0E6".codePointAt(0)!;
+
+export const UNICODE_EMOJI_PUA_PACK: Record<string, UnicodeEmojiPacks> = {
+  ["\uE0E0"]: "fluent-3d", // default entry
+  ["\uE0E1"]: "fluent-3d",
+  ["\uE0E2"]: "fluent-flat",
+  ["\uE0E3"]: "mutant",
+  ["\uE0E4"]: "noto",
+  ["\uE0E5"]: "openmoji",
+  ["\uE0E6"]: "twemoji",
 };
 
 export function unicodeEmojiUrl(

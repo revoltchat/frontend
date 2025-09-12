@@ -252,7 +252,6 @@ const EmojiItem = (props: { style: unknown; tabIndex: number; item: Item }) => {
         }
 
         if (props.item.t === 4) {
-          // onTextReplacement(schema.text(props.item.text));
           onTextReplacement(
             schema.nodes.rfm_unicode_emoji.createAndFill({
               id: props.item.text,

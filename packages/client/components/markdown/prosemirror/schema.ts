@@ -202,7 +202,7 @@ export const schema = new Schema({
             "emoji-id": node.attrs.id,
             src: node.attrs.src,
             style:
-              "width: var(--emoji-size); height: var(--emoji-size); display: inline",
+              "width: var(--emoji-size); height: var(--emoji-size); display: inline; object-fit: contain",
           },
         ];
       },
@@ -212,7 +212,7 @@ export const schema = new Schema({
       inline: true,
       attrs: {
         id: {},
-        pack: {},
+        pack: { default: null },
         src: {},
       },
       group: "inline",
@@ -237,7 +237,7 @@ export const schema = new Schema({
             pack: node.attrs.pack,
             src: node.attrs.src,
             style:
-              "width: var(--emoji-size); height: var(--emoji-size); display: inline",
+              "width: var(--emoji-size); height: var(--emoji-size); display: inline; object-fit: contain",
           },
         ];
       },

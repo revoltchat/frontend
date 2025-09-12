@@ -1,4 +1,7 @@
-import { UnicodeEmojiPacks } from "@revolt/markdown/emoji/UnicodeEmoji";
+import {
+  UNICODE_EMOJI_PACKS,
+  UnicodeEmojiPacks,
+} from "@revolt/markdown/emoji/UnicodeEmoji";
 
 import { State } from "..";
 
@@ -143,6 +146,10 @@ export class Settings extends AbstractStore<"settings", TypeSettings> {
         );
         if (cleanedValue) {
           settings[key] = cleanedValue as never;
+        }
+      } else if (key === "appearance:unicode_emoji") {
+        if (UNICODE_EMOJI_PACKS.includes(input[key] as never)) {
+          settings[key] = input[key];
         }
       } else if (typeof input[key] === expectedType) {
         settings[key] = input[key];

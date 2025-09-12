@@ -3,6 +3,7 @@ import { Mark, Node } from "prosemirror-model";
 import { Client } from "revolt.js";
 
 import { UNIFIED_PLUGINS, unifiedPipeline } from "..";
+import { UnicodeEmojiPacks, unicodeEmojiUrl } from "../emoji/UnicodeEmoji";
 
 import { schema } from "./schema";
 
@@ -26,6 +27,11 @@ type RfmComponents =
   | {
       type: "customEmoji";
       id: string;
+    }
+  | {
+      type: "unicodeEmoji";
+      str: string;
+      pack?: UnicodeEmojiPacks;
     };
 
 function map(
@@ -125,6 +131,12 @@ function map(
       return schema.nodes.rfm_custom_emoji.createAndFill({
         id: node.id,
         src: `https://cdn.revoltusercontent.com/emojis/${node.id}`,
+      })!;
+    case "unicodeEmoji":
+      return schema.nodes.rfm_unicode_emoji.createAndFill({
+        id: node.str,
+        pack: node.pack,
+        src: unicodeEmojiUrl(node.pack, node.str),
       })!;
 
     default: {

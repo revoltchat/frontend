@@ -39,12 +39,14 @@ import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
 import { CustomEmoji, UnicodeEmoji } from "@revolt/markdown/emoji";
+import { unicodeEmojiUrl } from "@revolt/markdown/emoji/UnicodeEmoji";
 import {
   blankModel,
   markdownFromProseMirrorModel,
   markdownToProseMirrorModel,
   schema,
 } from "@revolt/markdown/prosemirror";
+import { useState } from "@revolt/state";
 
 import emojiMapping from "../../emojiMapping.json";
 
@@ -150,6 +152,8 @@ type MatchUser = User | ServerMember;
  * ```
  */
 export function TextEditor(props: Props) {
+  const applicationState = useState();
+
   const proseMirror = document.createElement("div");
   proseMirror.style.width = "0px"; // initial width
 
@@ -444,7 +448,21 @@ export function TextEditor(props: Props) {
                   );
 
                   if (match.type == "unicode") {
-                    tr = tr.insertText(match.codepoint);
+                    tr = tr.insert(
+                      action.range.from,
+                      schema.nodes.rfm_unicode_emoji.createAndFill({
+                        id: match.codepoint,
+                        pack: applicationState.settings.getValue(
+                          "appearance:unicode_emoji",
+                        ),
+                        src: unicodeEmojiUrl(
+                          applicationState.settings.getValue(
+                            "appearance:unicode_emoji",
+                          ),
+                          match.codepoint,
+                        ),
+                      })!,
+                    );
                   } else {
                     tr = tr.insert(
                       action.range.from,

@@ -1,10 +1,15 @@
-import emojiRegex from "emoji-regex";
 import { Handler } from "mdast-util-to-hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
 import { UnicodeEmoji } from "../emoji";
-import { UnicodeEmojiPacks } from "../emoji/UnicodeEmoji";
+import {
+  RE_UNICODE_EMOJI,
+  UNICODE_EMOJI_MAX_PACK,
+  UNICODE_EMOJI_MIN_PACK,
+  UNICODE_EMOJI_PUA_PACK,
+  UnicodeEmojiPacks,
+} from "../emoji/UnicodeEmoji";
 
 /**
  * Render Unicode emoji
@@ -16,27 +21,6 @@ export function RenderUnicodeEmoji(props: {
   return <UnicodeEmoji emoji={props.str} pack={props.pack} />;
 }
 
-/**
- * Regex for matching emoji
- */
-const RE_EMOJI = new RegExp(
-  "([\uE0E0-\uE0E6]?(?:" + emojiRegex().source + "))",
-  "g",
-);
-
-const MIN_PACK = "\uE0E0".codePointAt(0)!;
-const MAX_PACK = "\uE0E6".codePointAt(0)!;
-
-const PACK_MAPPING: Record<string, UnicodeEmojiPacks> = {
-  ["\uE0E0"]: "fluent-3d",
-  ["\uE0E1"]: "fluent-color",
-  ["\uE0E2"]: "fluent-flat",
-  ["\uE0E3"]: "mutant",
-  ["\uE0E4"]: "noto",
-  ["\uE0E5"]: "openmoji",
-  ["\uE0E6"]: "twemoji",
-};
-
 export const remarkUnicodeEmoji: Plugin = () => (tree) => {
   visit(
     tree,
@@ -46,7 +30,7 @@ export const remarkUnicodeEmoji: Plugin = () => (tree) => {
       idx,
       parent: { children: any[] },
     ) => {
-      const elements = node.value.split(RE_EMOJI);
+      const elements = node.value.split(RE_UNICODE_EMOJI);
       if (elements.length === 1) return; // no matches
 
       // Generate initial node
@@ -68,11 +52,15 @@ export const remarkUnicodeEmoji: Plugin = () => (tree) => {
       for (let i = 0; i < elements.length / 2; i++) {
         const selectorChar = elements[i * 2][0];
         const selector = selectorChar.codePointAt(0);
-        if (selector && selector >= MIN_PACK && selector <= MAX_PACK) {
+        if (
+          selector &&
+          selector >= UNICODE_EMOJI_MIN_PACK &&
+          selector <= UNICODE_EMOJI_MAX_PACK
+        ) {
           newNodes.push({
             type: "unicodeEmoji",
             str: elements[i * 2].substring(1),
-            pack: PACK_MAPPING[selectorChar],
+            pack: UNICODE_EMOJI_PUA_PACK[selectorChar],
           });
         } else {
           newNodes.push({
