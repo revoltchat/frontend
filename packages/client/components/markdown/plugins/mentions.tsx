@@ -57,7 +57,9 @@ export function UserMention(props: { userId: string }) {
                   member: user().member,
                 }
               : undefined,
-            contextMenu: () => <UserContextMenu user={user().user!} />,
+            contextMenu: () => (
+              <UserContextMenu user={user().user!} member={user().member} />
+            ),
           }}
         >
           <Avatar size={16} src={user().avatar} fallback={user().username} />

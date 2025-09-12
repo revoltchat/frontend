@@ -42,6 +42,11 @@ export type Modals =
       member: ServerMember;
     }
   | {
+      type: "ban_non_member";
+      user: User;
+      server: Server;
+    }
+  | {
       type: "changelog";
       initial?: number;
       posts: ChangelogPost[];

@@ -6,6 +6,7 @@ import { Channel, Message, ServerMember, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { useModals } from "@revolt/modal";
+import { useSmartParams } from "@revolt/routing";
 import { useState } from "@revolt/state";
 
 import MdAddCircleOutline from "@material-design-icons/svg/outlined/add_circle_outline.svg?component-solid";
@@ -44,6 +45,9 @@ export function UserContextMenu(props: {
   const client = useClient();
   const navigate = useNavigate();
   const { openModal } = useModals();
+
+  // server context
+  const params = useSmartParams();
 
   /**
    * Open direct message channel
@@ -122,6 +126,17 @@ export function UserContextMenu(props: {
   }
 
   /**
+   * Ban the user
+   */
+  function banUser() {
+    openModal({
+      type: "ban_non_member",
+      user: props.user!,
+      server: client().servers.get(params().serverId!)!,
+    });
+  }
+
+  /**
    * Add friend
    */
   function addFriend() {
@@ -183,6 +198,7 @@ export function UserContextMenu(props: {
           <Trans>Message</Trans>
         </ContextMenuButton>
       </Show>
+
       <Show
         when={
           props.user.relationship === "Friend" ||
@@ -213,6 +229,7 @@ export function UserContextMenu(props: {
           </Switch>
         </ContextMenuButton>
       </Show>
+
       <Show when={props.member}>
         <Show
           when={
@@ -257,8 +274,22 @@ export function UserContextMenu(props: {
           </ContextMenuButton>
         </Show>
       </Show>
-      <Show when={props.member}>
-        <ContextMenuDivider />
+
+      <Show
+        when={
+          !props.user.self &&
+          props.member?.server?.havePermission("BanMembers") &&
+          params().serverId &&
+          !props.member
+        }
+      >
+        <ContextMenuButton
+          icon={MdDoNotDisturbOn}
+          onClick={banUser}
+          destructive
+        >
+          <Trans>Ban user</Trans>
+        </ContextMenuButton>
       </Show>
 
       <Show when={!props.user.self}>
@@ -301,6 +332,14 @@ export function UserContextMenu(props: {
             <Trans>Unblock user</Trans>
           </ContextMenuButton>
         </Show>
+      </Show>
+
+      <Show
+        when={
+          state.settings.getValue("advanced:admin_panel") ||
+          state.settings.getValue("advanced:copy_id")
+        }
+      >
         <ContextMenuDivider />
       </Show>
 

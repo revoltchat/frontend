@@ -7,6 +7,7 @@ import { AddBotModal } from "./modals/AddBot";
 import { AddFriendModal } from "./modals/AddFriend";
 import { AddMembersToGroupModal } from "./modals/AddMembersToGroup";
 import { BanMemberModal } from "./modals/BanMember";
+import { BanNonMemberModal } from "./modals/BanNonMember";
 import { ChangelogModal } from "./modals/Changelog";
 import { ChannelInfoModal } from "./modals/ChannelInfo";
 import { ChannelToggleMatureModal } from "./modals/ChannelToggleMature";
@@ -76,6 +77,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <AddFriendModal {...modalProps} />;
     case "ban_member":
       return <BanMemberModal {...modalProps} />;
+    case "ban_non_member":
+      return <BanNonMemberModal {...modalProps} />;
     case "changelog":
       return <ChangelogModal {...modalProps} />;
     case "add_members_to_group":

@@ -3,7 +3,7 @@ import { Accessor, createMemo } from "solid-js";
 import { ServerMember, User } from "revolt.js";
 
 import { useClient } from "@revolt/client";
-import { useParams } from "@revolt/routing";
+import { useParams, useSmartParams } from "@revolt/routing";
 
 // TODO: move to @revolt/common?
 
@@ -66,7 +66,7 @@ export function useUsers(
   const clientAccessor = useClient();
 
   // TODO: use a context here for when we do multi view :)
-  const { server } = useParams<{ server: string }>();
+  const params = useSmartParams();
 
   // eslint-disable-next-line solid/reactivity
   return createMemo(() => {
@@ -77,9 +77,9 @@ export function useUsers(
       if (user) {
         return userInformation(
           user,
-          server
+          params().serverId
             ? client.serverMembers.getByKey({
-                server,
+                server: params().serverId!,
                 user: user.id,
               })
             : undefined,
