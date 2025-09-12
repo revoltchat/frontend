@@ -129,6 +129,7 @@ export function Button(props: Props) {
         variant: variant(),
         size: style.size,
         group: style.group,
+        disabled: buttonProps.disabled,
         _permitAnimation,
       })}
       style={{
@@ -348,13 +349,46 @@ const button = cva({
         borderRadius: "0",
       },
     },
+    /**
+     * Whether the button is disabled
+     */
+    disabled: {
+      true: {
+        cursor: "not-allowed",
+      },
+      false: {},
+    },
   },
   defaultVariants: {
     size: "sm",
     shape: "round",
     variant: "filled",
+    disabled: false,
   },
   compoundVariants: [
+    // disabled styles
+    {
+      variant: ["elevated", "filled", "tonal", "outlined"],
+      disabled: true,
+      css: {
+        "--color":
+          "color-mix(in srgb, 38% var(--md-sys-color-outline-variant), transparent)",
+        background:
+          "color-mix(in srgb, 10% var(--md-sys-color-on-surface), transparent)",
+      },
+    },
+    {
+      variant: "text",
+      disabled: true,
+      css: {
+        "--color":
+          "color-mix(in srgb, 38% var(--md-sys-color-on-surface), transparent)",
+        background:
+          "color-mix(in srgb, 10% var(--md-sys-color-on-surface), transparent)",
+      },
+    },
+
+    // border radius for different squared sizes
     {
       shape: "square",
       size: ["sm", "xs"],
