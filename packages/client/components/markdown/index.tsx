@@ -53,6 +53,24 @@ import { defaults } from "./solid-markdown/defaults";
  */
 const Null = () => null;
 
+function RenderOrderedList(props: {
+  start?: string;
+  style?: any;
+  [key: string]: any;
+}) {
+  return (
+    <elements.orderedList
+      {...props}
+      style={{
+        ...(props.start
+          ? { "--start-number": (parseInt(props.start, 10) - 1).toString() }
+          : {}),
+        ...props.style,
+      }}
+    />
+  );
+}
+
 /**
  * Custom Markdown components
  */
@@ -77,7 +95,7 @@ const components = () => ({
   pre: RenderCodeblock,
   li: elements.listItem,
   ul: elements.unorderedList,
-  ol: elements.orderedList,
+  ol: RenderOrderedList,
   blockquote: elements.blockquote,
   table: elements.table,
   th: elements.tableHeader,
