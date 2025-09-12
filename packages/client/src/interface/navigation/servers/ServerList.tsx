@@ -2,6 +2,7 @@ import { Accessor, For, Show, createMemo } from "solid-js";
 import { JSX } from "solid-js";
 import { createSignal } from "solid-js";
 
+import { Trans } from "@lingui-solid/solid/macro";
 import { Channel, Server, User } from "revolt.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
@@ -12,7 +13,7 @@ import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useNavigate } from "@revolt/routing";
 import { useState } from "@revolt/state";
-import { Avatar, Column, Text, Unreads, UserStatus } from "@revolt/ui";
+import { Avatar, Column, Text, Time, Unreads, UserStatus } from "@revolt/ui";
 
 import MdAdd from "@material-design-icons/svg/filled/add.svg?component-solid";
 import MdExplore from "@material-design-icons/svg/filled/explore.svg?component-solid";
@@ -214,7 +215,38 @@ export const ServerList = (props: Props) => {
           onChange={props.setServerOrder}
         >
           {(entry) => (
-            <Tooltip placement="right" content={entry.item.name}>
+            <Tooltip
+              placement="right"
+              content={() => (
+                <Column>
+                  <Text class="label" size="large">
+                    {entry.item.name}
+                  </Text>{" "}
+                  <Show when={state.notifications.isMuted(entry.item)}>
+                    <Text class="label" size="small">
+                      <Show
+                        when={
+                          state.notifications.getServerMute(entry.item)!.until
+                        }
+                        fallback={<Trans>Muted</Trans>}
+                      >
+                        <Trans>
+                          Muted until{" "}
+                          <Time
+                            format="datetime"
+                            value={
+                              state.notifications.getServerMute(entry.item)!
+                                .until
+                            }
+                          />
+                        </Trans>
+                      </Show>
+                    </Text>
+                  </Show>
+                </Column>
+              )}
+              aria={entry.item.name}
+            >
               <div
                 class={entryContainer({
                   indicator:

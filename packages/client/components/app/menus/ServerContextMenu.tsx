@@ -178,7 +178,7 @@ export function ServerContextMenu(props: { server: Server }) {
             _titleCase={false}
           >
             <Column gap="none">
-              <Trans>Unmute Channel</Trans>
+              <Trans>Unmute Server</Trans>
               <Show
                 when={state.notifications.getServerMute(props.server)?.until}
               >

@@ -132,6 +132,8 @@ class Lifecycle {
       debug: import.meta.env.DEV,
       channelIsMuted: (channel) =>
         this.#controller.state.notifications.isMuted(channel),
+      channelExclusiveMuted: (channel) =>
+        this.#controller.state.notifications.isChannelMuted(channel),
     });
 
     this.client.configuration = {
