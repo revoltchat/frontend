@@ -424,8 +424,8 @@ function Entry(
   const { openModal } = useModals();
 
   const canEditChannel = createMemo(() =>
-    ["ManageChannel", "ManagePermissions", "ManageWebhooks"].some((perm) =>
-      props.channel.server?.havePermission(perm),
+    (["ManageChannel", "ManagePermissions", "ManageWebhooks"] as const).some(
+      (perm) => props.channel.server?.havePermission(perm),
     ),
   );
 
@@ -441,7 +441,13 @@ function Entry(
   );
 
   const attentionState = createMemo(() =>
-    props.active ? "selected" : props.channel.unread ? "active" : "normal",
+    props.active
+      ? "selected"
+      : props.channel.muted
+        ? "muted"
+        : props.channel.unread
+          ? "active"
+          : "normal",
   );
 
   return (

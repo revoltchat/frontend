@@ -289,7 +289,13 @@ function Entry(
           (local.channel.mentions?.size || true)
         }
         attention={
-          local.active ? "selected" : local.channel.unread ? "active" : "normal"
+          local.active
+            ? "selected"
+            : local.channel.muted
+              ? "muted"
+              : local.channel.unread
+                ? "active"
+                : "normal"
         }
         icon={
           <Switch>

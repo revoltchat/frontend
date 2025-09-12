@@ -130,6 +130,8 @@ class Lifecycle {
       autoReconnect: false,
       syncUnreads: true,
       debug: import.meta.env.DEV,
+      channelIsMuted: (channel) =>
+        this.#controller.state.notifications.isMuted(channel),
     });
 
     this.client.configuration = {
