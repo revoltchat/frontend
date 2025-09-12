@@ -94,7 +94,7 @@ export default function FlowHome() {
         </Switch>
 
         <Button
-          variant="secondary"
+          variant="filled"
           onPress={() =>
             lifecycle.transition({
               type: TransitionType.Dismiss,
