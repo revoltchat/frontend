@@ -61,6 +61,7 @@ export function EditUsernameModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

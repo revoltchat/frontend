@@ -1,6 +1,5 @@
-import { createFormControl, createFormGroup } from "solid-forms";
-
 import { Trans } from "@lingui-solid/solid/macro";
+import { useMutation } from "@tanstack/solid-query";
 
 import { Avatar, Column, Dialog, DialogProps, Text } from "@revolt/ui";
 
@@ -15,18 +14,10 @@ export function KickMemberModal(
 ) {
   const { showError } = useModals();
 
-  const group = createFormGroup({
-    reason: createFormControl(""),
-  });
-
-  async function onSubmit() {
-    try {
-      await props.member.kick();
-      props.onClose();
-    } catch (error) {
-      showError(error);
-    }
-  }
+  const kick = useMutation(() => ({
+    mutationFn: () => props.member.kick(),
+    onError: showError,
+  }));
 
   return (
     <Dialog
@@ -37,13 +28,10 @@ export function KickMemberModal(
         { text: <Trans>Cancel</Trans> },
         {
           text: <Trans>Kick</Trans>,
-          onClick: () => {
-            onSubmit();
-            return false;
-          },
+          onClick: kick.mutateAsync,
         },
       ]}
-      isDisabled={group.isPending}
+      isDisabled={kick.isPending}
     >
       <Column align>
         <Avatar src={props.member.user?.animatedAvatarURL} size={64} />

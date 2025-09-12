@@ -19,7 +19,7 @@ export function CreateServerModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl(""),
+    name: createFormControl("", { required: true }),
   });
 
   async function onSubmit() {
@@ -48,6 +48,7 @@ export function CreateServerModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

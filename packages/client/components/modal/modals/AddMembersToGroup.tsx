@@ -28,7 +28,7 @@ export function AddMembersToGroupModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    users: createFormControl([] as string[]),
+    users: createFormControl([] as string[], { required: true }),
   });
 
   async function onSubmit() {
@@ -72,6 +72,7 @@ export function AddMembersToGroupModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

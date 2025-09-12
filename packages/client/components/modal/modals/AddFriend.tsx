@@ -17,7 +17,7 @@ export function AddFriendModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    username: createFormControl(""),
+    username: createFormControl("", { required: true }),
   });
 
   async function onSubmit() {
@@ -45,6 +45,7 @@ export function AddFriendModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

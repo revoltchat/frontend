@@ -35,7 +35,9 @@ export function InviteModal(props: DialogProps & Modals & { type: "invite" }) {
             <Row>
               <Avatar
                 size={32}
-                src={(props.invite as ServerPublicInvite).serverIcon?.url}
+                src={
+                  (props.invite as ServerPublicInvite).serverIcon?.previewUrl
+                }
                 fallback={(props.invite as ServerPublicInvite).serverName}
               />
               <span>{(props.invite as ServerPublicInvite).serverName}</span>
@@ -64,7 +66,7 @@ export function InviteModal(props: DialogProps & Modals & { type: "invite" }) {
       isDisabled={join.isPending}
       scrimBackground={
         props.invite instanceof ServerPublicInvite
-          ? props.invite.serverBanner?.url
+          ? props.invite.serverBanner?.originalUrl
           : undefined
       }
     >

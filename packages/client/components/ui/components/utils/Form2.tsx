@@ -299,8 +299,7 @@ const FormSubmitButton = (props: {
  * @returns Whether we can submit
  */
 function canSubmit(group: IFormGroup) {
-  if (group.isDisabled || group.isPending || !group.isDirty || !group.isValid)
-    return false;
+  if (group.isDisabled || group.isPending || !group.isValid) return false;
 
   for (const control in group.controls) {
     const element = group.controls[control];

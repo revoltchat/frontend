@@ -82,7 +82,7 @@ export function ReportContentModal(
 
   const group = createFormGroup({
     category: createFormControl("", { required: true }),
-    detail: createFormControl("", { required: true }),
+    detail: createFormControl(""),
   });
 
   const reasons =
@@ -150,6 +150,7 @@ export function ReportContentModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

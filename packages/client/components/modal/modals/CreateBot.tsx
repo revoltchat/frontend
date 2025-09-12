@@ -17,7 +17,7 @@ export function CreateBotModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    username: createFormControl(""),
+    username: createFormControl("", { required: true }),
   });
 
   async function onSubmit() {
@@ -46,6 +46,7 @@ export function CreateBotModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

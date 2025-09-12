@@ -47,6 +47,7 @@ export function EditEmailModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}
@@ -55,8 +56,9 @@ export function EditEmailModal(
         <Column>
           <Form2.TextField
             name="email"
-            control={group.controls.email}
+            type="email"
             label={t`Email`}
+            control={group.controls.email}
             placeholder={t`someone@example.com`}
           />
           <Form2.TextField

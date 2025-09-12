@@ -19,7 +19,7 @@ export function CreateChannelModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl(""),
+    name: createFormControl("", { required: true }),
     type: createFormControl("Text"),
   });
 
@@ -55,6 +55,7 @@ export function CreateChannelModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

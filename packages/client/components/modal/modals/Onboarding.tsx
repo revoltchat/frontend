@@ -19,7 +19,7 @@ export function OnboardingModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    username: createFormControl(""),
+    username: createFormControl("", { required: true }),
   });
 
   async function onSubmit() {
@@ -44,6 +44,7 @@ export function OnboardingModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

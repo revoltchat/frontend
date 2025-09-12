@@ -17,7 +17,7 @@ export function RenameSessionModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl(props.session.name),
+    name: createFormControl(props.session.name, { required: true }),
   });
 
   async function onSubmit() {
@@ -42,6 +42,7 @@ export function RenameSessionModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

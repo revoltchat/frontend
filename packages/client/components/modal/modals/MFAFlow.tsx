@@ -111,11 +111,21 @@ export function MFAFlowModal(
       onCancel();
     } else {
       setSelected(undefined);
+
       // Clear form values
       group.controls.password.setValue("");
       group.controls.totp_code.setValue("");
       group.controls.recovery_code.setValue("");
     }
+  }
+
+  function canSubmit() {
+    return (
+      !Form2.canSubmit(group) &&
+      (group.controls.password ||
+        group.controls.totp_code ||
+        group.controls.recovery_code)
+    );
   }
 
   const getActions = () => {
@@ -140,6 +150,7 @@ export function MFAFlowModal(
             onSubmit();
             return false;
           },
+          isDisabled: !canSubmit(),
         },
       ];
     }

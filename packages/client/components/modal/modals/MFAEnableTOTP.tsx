@@ -42,7 +42,7 @@ export function MFAEnableTOTPModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    code: createFormControl(""),
+    code: createFormControl("", { required: true }),
   });
 
   /**
@@ -82,6 +82,7 @@ export function MFAEnableTOTPModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

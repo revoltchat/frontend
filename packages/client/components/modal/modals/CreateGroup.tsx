@@ -29,7 +29,7 @@ export function CreateGroupModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl(""),
+    name: createFormControl("", { required: true }),
     users: createFormControl([] as string[]),
   });
 
@@ -74,6 +74,7 @@ export function CreateGroupModal(
             onSubmit();
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}

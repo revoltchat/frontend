@@ -90,6 +90,7 @@ export function AddBotModal(props: DialogProps & Modals & { type: "add_bot" }) {
             //             much like other modals don't either
             return false;
           },
+          isDisabled: !Form2.canSubmit(group),
         },
       ]}
       isDisabled={group.isPending}
