@@ -36,8 +36,11 @@ export function createRevoltWebVariables(theme: SelectedTheme) {
     "--brand-presence-focus": "#4799F0",
     "--brand-presence-invisible": "#A5A5A5",
 
+    // font
+    "--fonts-primary": `"${theme.interfaceFont}", "Inter", sans-serif`,
+    "--fonts-monospace": `"${theme.monospaceFont}", "Jetbrains Mono", sans-serif`,
+
     // load constants
-    ...reduceWithPrefix(themeConstants.fonts, "--fonts-"),
     ...reduceWithPrefix(themeConstants.borderRadius, "--borderRadius-"),
     ...reduceWithPrefix(themeConstants.gap, "--gap-"),
     ...reduceWithPrefix(themeConstants.layout, "--layout-"),
@@ -58,10 +61,6 @@ function reduceWithPrefix(object: Record<string, string>, prefix: string) {
 }
 
 const themeConstants = {
-  fonts: {
-    primary: '"Inter", sans-serif',
-    monospace: '"JetBrains Mono", monospace',
-  },
   borderRadius: {
     // Material 3 Expressive ten-level shape scale
     // https://m3.material.io/styles/shape/corner-radius-scale

@@ -1,5 +1,7 @@
 import { Accessor, createSignal } from "solid-js";
 
+import { Fonts, MonospaceFonts } from "@revolt/ui/themes/fonts";
+
 import { State } from "..";
 
 import { AbstractStore } from ".";
@@ -8,7 +10,7 @@ export type TypeTheme = {
   /**
    * Base theme preset
    */
-  preset: "neutral" | "revolt" | "you";
+  preset: "you";
 
   /**
    * Light/dark mode
@@ -48,6 +50,16 @@ export type TypeTheme = {
   blur: boolean;
 
   /**
+   * Interface font
+   */
+  interfaceFont: Fonts;
+
+  /**
+   * Monospace font
+   */
+  monospaceFont: MonospaceFonts;
+
+  /**
    * Message size
    */
   messageSize: number;
@@ -58,24 +70,21 @@ export type TypeTheme = {
   messageGroupSpacing: number;
 };
 
-export type SelectedTheme = {
-  blur: boolean;
-  messageSize: number;
-  messageGroupSpacing: number;
-} & (
-  | {
-      preset: "neutral" | "revolt";
-      darkMode: boolean;
-    }
-  | {
-      preset: "you";
-      darkMode: boolean;
+export type SelectedTheme = Pick<
+  TypeTheme,
+  | "blur"
+  | "interfaceFont"
+  | "monospaceFont"
+  | "messageSize"
+  | "messageGroupSpacing"
+> & {
+  preset: "you";
+  darkMode: boolean;
 
-      accent: string;
-      contrast: number;
-      variant: TypeTheme["m3Variant"];
-    }
-);
+  accent: string;
+  contrast: number;
+  variant: TypeTheme["m3Variant"];
+};
 
 /**
  * Manages theme information
@@ -123,6 +132,9 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
       m3Accent: "#FF5733",
       m3Contrast: 0.0,
       m3Variant: "tonal_spot",
+
+      interfaceFont: "Inter",
+      monospaceFont: "Fira Code",
 
       blur: true,
       messageSize: 14,
@@ -177,20 +189,11 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
     const opts = this.get();
 
     switch (opts.preset) {
-      case "neutral":
-      case "revolt":
-        return {
-          blur: opts.blur,
-          messageSize: opts.messageSize,
-          messageGroupSpacing: opts.messageGroupSpacing,
-          preset: opts.preset,
-          darkMode:
-            opts.mode === "dark" ||
-            (opts.mode === "system" && this.prefersDark()),
-        };
       case "you":
         return {
           blur: opts.blur,
+          interfaceFont: opts.interfaceFont,
+          monospaceFont: opts.monospaceFont,
           messageSize: opts.messageSize,
           messageGroupSpacing: opts.messageGroupSpacing,
           preset: "you",
@@ -292,6 +295,34 @@ export class Theme extends AbstractStore<"theme", TypeTheme> {
    */
   toggleBlur() {
     this.set("blur", !this.blur);
+  }
+
+  /**
+   * Get current interface font
+   */
+  get interfaceFont() {
+    return this.get().interfaceFont;
+  }
+
+  /**
+   * Set interface font
+   */
+  setInterfaceFont(font: Fonts) {
+    return this.set("interfaceFont", font);
+  }
+
+  /**
+   * Get current monospace font
+   */
+  get monospaceFont() {
+    return this.get().monospaceFont;
+  }
+
+  /**
+   * Set monospace font
+   */
+  setMonospaceFont(font: MonospaceFonts) {
+    return this.set("monospaceFont", font);
   }
 
   /**

@@ -1,6 +1,7 @@
 import { For, Show } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { useUser } from "@revolt/client";
@@ -10,11 +11,19 @@ import {
   Button,
   Checkbox,
   Column,
+  MenuItem,
   MessageContainer,
   Row,
   Slider,
   Text,
+  TextField,
 } from "@revolt/ui";
+import {
+  FONT_KEYS,
+  Fonts,
+  MONOSPACE_FONT_KEYS,
+  MonospaceFonts,
+} from "@revolt/ui/themes/fonts";
 
 /**
  * All appearance options for the client
@@ -230,11 +239,13 @@ export function AppearanceMenu() {
 
       <Column>
         <Text class="title" size="small">
-          Display & Text
+          <Trans>Display & Text</Trans>
         </Text>
 
         <Checkbox checked={state.theme.blur} onChange={state.theme.toggleBlur}>
-          Enable transparency glass/blur effects (slow on older machines)
+          <Trans>
+            Enable transparency glass/blur effects (slow on older machines)
+          </Trans>
         </Checkbox>
 
         <Preview>
@@ -259,12 +270,16 @@ export function AppearanceMenu() {
               username={"MysticPixie"}
               isLink="hide"
             >
-              The quick brown fox jumped over the lazy dog
+              <code class={css({ fontFamily: `var(--fonts-monospace)` })}>
+                The quick brown fox jumped over the lazy dog
+              </code>
             </MessageContainer>
           </MessagePreview>
         </Preview>
 
-        <Text class="label">Message Size</Text>
+        <Text class="label">
+          <Trans>Message Size</Trans>
+        </Text>
         <Slider
           min={12}
           max={24}
@@ -275,7 +290,9 @@ export function AppearanceMenu() {
         />
       </Column>
 
-      <Text class="label">Message Group Spacing</Text>
+      <Text class="label">
+        <Trans>Message Group Spacing</Trans>
+      </Text>
       <Slider
         min={0}
         max={16}
@@ -284,9 +301,40 @@ export function AppearanceMenu() {
           (state.theme.messageGroupSpacing = event.currentTarget.value)
         }
       />
+
+      <Text class="label">
+        <Trans>Interface Font</Trans>
+      </Text>
+      <TextField.Select
+        title="Interface Font"
+        value={state.theme.interfaceFont}
+        onChange={(e) =>
+          state.theme.setInterfaceFont(e.currentTarget.value as Fonts)
+        }
+      >
+        <For each={FONT_KEYS}>
+          {(key) => <MenuItem value={key}>{key}</MenuItem>}
+        </For>
+      </TextField.Select>
+
+      <Text class="label">
+        <Trans>Monospace Font</Trans>
+      </Text>
+      <TextField.Select
+        title="Monospace Font"
+        value={state.theme.monospaceFont}
+        onChange={(e) =>
+          state.theme.setMonospaceFont(e.currentTarget.value as MonospaceFonts)
+        }
+      >
+        <For each={MONOSPACE_FONT_KEYS}>
+          {(key) => <MenuItem value={key}>{key}</MenuItem>}
+        </For>
+      </TextField.Select>
+
       <Column>
         <Text class="title" size="small">
-          Chat Input
+          <Trans>Chat Input</Trans>
         </Text>
 
         <Checkbox
@@ -298,7 +346,7 @@ export function AppearanceMenu() {
             )
           }
         >
-          Show send message button
+          <Trans>Show send message button</Trans>
         </Checkbox>
       </Column>
     </Column>

@@ -8,6 +8,7 @@ import {
   createRevoltWebVariables,
 } from ".";
 import { Masks } from "./Masks";
+import { FONTS, MONOSPACE_FONTS } from "./fonts";
 import { legacyThemeUnsetShim } from "./legacyThemeGeneratorCode";
 
 /**
@@ -18,6 +19,10 @@ export function LoadTheme() {
 
   createEffect(() => {
     const activeTheme = state.theme.activeTheme;
+
+    // load fonts
+    FONTS[state.theme.interfaceFont].load();
+    MONOSPACE_FONTS[state.theme.monospaceFont].load();
 
     for (const [key, value] of Object.entries({
       // create unset variables to indicate where colours need replacing
