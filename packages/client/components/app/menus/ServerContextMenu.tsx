@@ -1,25 +1,37 @@
-import { Show } from "solid-js";
+import { For, Show } from "solid-js";
 
 import { Trans } from "@lingui-solid/solid/macro";
+import dayjs from "dayjs";
 import { Server } from "revolt.js";
 
 import { useClient } from "@revolt/client";
 import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
+import { Column, Text, Time } from "@revolt/ui";
 
+import MdAlternateEmail from "@material-design-icons/svg/outlined/alternate_email.svg?component-solid";
 import MdBadge from "@material-design-icons/svg/outlined/badge.svg?component-solid";
 import MdFace from "@material-design-icons/svg/outlined/face.svg?component-solid";
 import MdLogout from "@material-design-icons/svg/outlined/logout.svg?component-solid";
 import MdMarkChatRead from "@material-design-icons/svg/outlined/mark_chat_read.svg?component-solid";
+import MdNotificationsActive from "@material-design-icons/svg/outlined/notifications_active.svg?component-solid";
+import MdNotificationsOff from "@material-design-icons/svg/outlined/notifications_off.svg?component-solid";
 import MdPersonAdd from "@material-design-icons/svg/outlined/person_add.svg?component-solid";
 import MdReport from "@material-design-icons/svg/outlined/report.svg?component-solid";
 import MdSettings from "@material-design-icons/svg/outlined/settings.svg?component-solid";
 import MdShield from "@material-design-icons/svg/outlined/shield.svg?component-solid";
 
+import MdDoNotDisturbOff from "@material-symbols/svg-400/outlined/do_not_disturb_off.svg?component-solid";
+import MdDoNotDisturbOn from "@material-symbols/svg-400/outlined/do_not_disturb_on.svg?component-solid";
+import MdNotificationSettings from "@material-symbols/svg-400/outlined/notification_settings.svg?component-solid";
+import MdRadioButtonChecked from "@material-symbols/svg-400/outlined/radio_button_checked-fill.svg?component-solid";
+import MdRadioButtonUnchecked from "@material-symbols/svg-400/outlined/radio_button_unchecked.svg?component-solid";
+
 import {
   ContextMenu,
   ContextMenuButton,
   ContextMenuDivider,
+  ContextMenuSubMenu,
 } from "./ContextMenu";
 
 /**
@@ -154,6 +166,112 @@ export function ServerContextMenu(props: { server: Server }) {
         </ContextMenuButton>
         <ContextMenuDivider />
       </Show>
+
+      <Show
+        when={!state.notifications.isMuted(props.server)}
+        fallback={
+          <ContextMenuButton
+            onClick={() =>
+              state.notifications.setServerMute(props.server, undefined)
+            }
+            symbol={MdDoNotDisturbOff}
+            _titleCase={false}
+          >
+            <Column gap="none">
+              <Trans>Unmute Channel</Trans>
+              <Show
+                when={state.notifications.getServerMute(props.server)?.until}
+              >
+                <Text class="label" size="small">
+                  <Trans>
+                    Muted until{" "}
+                    <Time
+                      format="datetime"
+                      value={
+                        state.notifications.getServerMute(props.server)!.until
+                      }
+                    />
+                  </Trans>
+                </Text>
+              </Show>
+            </Column>
+          </ContextMenuButton>
+        }
+      >
+        <ContextMenuSubMenu
+          onClick={() => state.notifications.setServerMute(props.server, {})}
+          buttonContent={<Trans>Mute Server</Trans>}
+          symbol={MdDoNotDisturbOn}
+        >
+          <For
+            each={
+              [
+                [15, <Trans>For 15 minutes</Trans>],
+                [60, <Trans>For 1 hour</Trans>],
+                [180, <Trans>For 3 hours</Trans>],
+                [480, <Trans>For 8 hours</Trans>],
+                [1440, <Trans>For 24 hours</Trans>],
+                [undefined, <Trans>Until I turn it back on</Trans>],
+              ] as const
+            }
+          >
+            {([timeMin, i18n]) => (
+              <ContextMenuButton
+                onClick={() =>
+                  state.notifications.setServerMute(props.server, {
+                    until: timeMin
+                      ? +dayjs().add(timeMin, "minutes")
+                      : undefined,
+                  })
+                }
+                _titleCase={false}
+              >
+                {i18n}
+              </ContextMenuButton>
+            )}
+          </For>
+        </ContextMenuSubMenu>
+      </Show>
+
+      <ContextMenuSubMenu
+        symbol={MdNotificationSettings}
+        buttonContent={<Trans>Notifications</Trans>}
+      >
+        <ContextMenuButton
+          icon={MdNotificationsActive}
+          onClick={() => state.notifications.setServer(props.server, "all")}
+          actionSymbol={
+            state.notifications.computeForServer(props.server) === "all"
+              ? MdRadioButtonChecked
+              : MdRadioButtonUnchecked
+          }
+        >
+          <Trans>All Messages</Trans>
+        </ContextMenuButton>
+        <ContextMenuButton
+          icon={MdAlternateEmail}
+          onClick={() => state.notifications.setServer(props.server, "mention")}
+          actionSymbol={
+            state.notifications.computeForServer(props.server) === "mention"
+              ? MdRadioButtonChecked
+              : MdRadioButtonUnchecked
+          }
+        >
+          <Trans>Mentions Only</Trans>
+        </ContextMenuButton>
+        <ContextMenuButton
+          icon={MdNotificationsOff}
+          onClick={() => state.notifications.setServer(props.server, "none")}
+          actionSymbol={
+            state.notifications.computeForServer(props.server) === "none"
+              ? MdRadioButtonChecked
+              : MdRadioButtonUnchecked
+          }
+        >
+          <Trans>None</Trans>
+        </ContextMenuButton>
+      </ContextMenuSubMenu>
+      <ContextMenuDivider />
 
       <Show when={permissionInviteOthers()}>
         <ContextMenuButton icon={MdPersonAdd} onClick={createInvite}>

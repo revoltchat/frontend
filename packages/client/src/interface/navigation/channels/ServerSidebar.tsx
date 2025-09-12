@@ -421,6 +421,7 @@ const CategoryBase = styled("div", {
 function Entry(
   props: { channel: Channel; active: boolean } & Pick<Props, "menuGenerator">,
 ) {
+  const state = useState();
   const { openModal } = useModals();
 
   const canEditChannel = createMemo(() =>
@@ -443,7 +444,7 @@ function Entry(
   const attentionState = createMemo(() =>
     props.active
       ? "selected"
-      : props.channel.muted
+      : state.notifications.isChannelMuted(props.channel)
         ? "muted"
         : props.channel.unread
           ? "active"
