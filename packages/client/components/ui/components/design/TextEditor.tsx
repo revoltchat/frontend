@@ -781,7 +781,9 @@ export function TextEditor(props: Props) {
               ).state,
             );
 
-            setValue(markdownFromProseMirrorModel(view.state.doc));
+            const text = markdownFromProseMirrorModel(view.state.doc);
+            setValue(text);
+            props.onChange(text);
           }
         }
       },
