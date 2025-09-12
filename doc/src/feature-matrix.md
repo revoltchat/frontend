@@ -49,13 +49,13 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Re-order Channels and Categories | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   | Roles | Create Role | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | List Roles | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
-|   |   |   | Delete Role | ✅ | ❌ | ❌ | ❌ | P1 Preferred |
+|   |   |   | Delete Role | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Role Information | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   |   | Update Permissions | ✅ | ✅ | ❌ | ❌ | P1 Preferred |
 |   |   | Customisation | Create Emoji | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | List Emoji | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Delete Emoji | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
-|   |   | Users | List Members | ✅ | ❌ | ❌ | ❌ | P2 Best Effort |
+|   |   | Users | List Members | ✅ | 🚧 | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Set Roles | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
 |   |   |   | Create Invite | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | List Invite | ✅ | ✅ | ❌ | ❌ | P2 Best Effort |
@@ -132,7 +132,8 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Update Webhook Information | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   |   | Delete Webhook | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
 |   |   |   | Copy Webhook URLs | ⛔ | ✅ | ❌ | ❌ | PX New Feature |
-|   |   | Notifications | Mute channels | ✅ | ❌ | ❌ | ❌ | P0 Must |
+|   |   | Notifications | Filter all, mention notifications | ✅ | ✅ | ❌ | ❌ | P0 Must |
+|   |   |   | Mute channels indefinite or period | 🚧 | ✅ | ❌ | ❌ |   |
 | Markdown | RSM |   | Basic Styles | ✅ | ✅ | ✅ | ✅ | P0 Must |
 |   |   |   | Code Blocks | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
 |   |   |   | Code Formatting | ✅ | ✅ | ✅ | ❌ | P1 Preferred |
@@ -165,8 +166,8 @@ Comparison of implemented features across Revolt's clients.
 |   |   |   | Delete Session | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
 |   |   |   | Log out all other sessions | ✅ | ✅ | ✅ | ❌ | P2 Best Effort |
 |   | Client | Appearance | Customise Theme | ✅ | ✅ | ✅ | ✅ | P2 Best Effort |
-|   |   |   | Customise Font | ✅ | ❌ | ⛔ | ⛔ | P3 Unimportant |
-|   |   |   | Customise Emoji Pack | ✅ | ❌ | ⛔ | ⛔ | P3 Unimportant |
+|   |   |   | Customise Font | ✅ | ✅ | ⛔ | ⛔ | P3 Unimportant |
+|   |   |   | Customise Emoji Pack | ✅ | ✅ | ⛔ | ⛔ | P3 Unimportant |
 |   |   | Notifications | Desktop | ✅ | 🚧 | ⛔ | ⛔ | P0 Must |
 |   |   |   | Web Push | ✅ | ⛔ | N/A | N/A | P0 Must |
 |   |   |   | Desktop Native Push | ⛔ | ⛔ | ⛔ | ⛔ | P3 Unimportant |
