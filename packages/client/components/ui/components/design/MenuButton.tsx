@@ -134,6 +134,10 @@ const base = cva({
       muted: {
         "--color": "var(--md-sys-color-outline-variant)",
         background: "transparent",
+
+        "& img": {
+          opacity: "0.3",
+        },
       },
       active: {
         "--color": "var(--md-sys-color-on-surface)",
