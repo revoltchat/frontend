@@ -111,10 +111,18 @@ export class NotificationOptions extends AbstractStore<
   clean(input: Partial<TypeNotificationOptions>): TypeNotificationOptions {
     const server: TypeNotificationOptions["server"] = {};
     const channel: TypeNotificationOptions["channel"] = {};
+    const server_mutes: TypeNotificationOptions["server_mutes"] = {};
+    const channel_mutes: TypeNotificationOptions["channel_mutes"] = {};
 
     if (typeof input.server === "object") {
       for (const serverId of Object.keys(input.server)) {
         const entry = input.server[serverId];
+
+        // migrate legacy muted channels to new dict.
+        if ((entry as unknown) === "muted") {
+          server_mutes[serverId] = {};
+        }
+
         if (entry && NotificationStates.includes(entry)) {
           server[serverId] = entry;
         }
@@ -124,14 +132,18 @@ export class NotificationOptions extends AbstractStore<
     if (typeof input.channel === "object") {
       for (const channelId of Object.keys(input.channel)) {
         const entry = input.channel[channelId];
+
+        // migrate legacy muted channels to new dict.
+        if ((entry as unknown) === "muted") {
+          channel_mutes[channelId] = {};
+        }
+
         if (entry && NotificationStates.includes(entry)) {
           channel[channelId] = entry;
         }
       }
     }
 
-    const server_mutes: TypeNotificationOptions["server_mutes"] = {};
-    const channel_mutes: TypeNotificationOptions["channel_mutes"] = {};
     const now = +new Date();
 
     if (typeof input.server_mutes === "object") {
