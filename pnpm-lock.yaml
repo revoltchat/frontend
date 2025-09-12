@@ -119,6 +119,9 @@ importers:
       '@material-design-icons/svg':
         specifier: ^0.14.15
         version: 0.14.15
+      '@material-symbols/svg-400':
+        specifier: ^0.35.1
+        version: 0.35.1
       '@material/material-color-utilities':
         specifier: ^0.3.0
         version: 0.3.0
@@ -2631,6 +2634,9 @@ packages:
 
   '@material-design-icons/svg@0.14.15':
     resolution: {integrity: sha512-6nbjwGwyJnphwQUscJAYqw1Tk6+W8KvsgOAeyVgzIFXVsHfgX5XyplTUcZ29wbcTUysMMyCUi1LYpmFKA/e61g==}
+
+  '@material-symbols/svg-400@0.35.1':
+    resolution: {integrity: sha512-QPZ8u678SSUm5f3wDIsT4x95SrW9CLRAHBwcavgEPyYWUmhLP/YYp9UsVUZfDbudzBc148L/zp7zoWo7nx9qxw==}
 
   '@material/material-color-utilities@0.3.0':
     resolution: {integrity: sha512-ztmtTd6xwnuh2/xu+Vb01btgV8SQWYCaK56CkRK8gEkWe5TuDyBcYJ0wgkMRn+2VcE9KUmhvkz+N9GHrqw/C0g==}
@@ -10270,6 +10276,8 @@ snapshots:
   '@marijn/find-cluster-break@1.0.2': {}
 
   '@material-design-icons/svg@0.14.15': {}
+
+  '@material-symbols/svg-400@0.35.1': {}
 
   '@material/material-color-utilities@0.3.0': {}
 

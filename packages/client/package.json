@@ -89,6 +89,7 @@
     "@lingui-solid/solid": "^5.1.4",
     "@livekit/components-core": "^0.9.3",
     "@material-design-icons/svg": "^0.14.15",
+    "@material-symbols/svg-400": "^0.35.1",
     "@material/material-color-utilities": "^0.3.0",
     "@material/web": "^2.3.0",
     "@minht11/solid-virtual-container": "^0.2.1",

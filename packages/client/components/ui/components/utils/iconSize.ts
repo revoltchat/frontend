@@ -11,3 +11,15 @@ export function iconSize(size: string | number, viewBox?: string) {
     viewBox: viewBox ?? "0 0 24 24",
   };
 }
+
+/**
+ * Generate SVG props to configure symbol icon size
+ * @param size Target size
+ * @returns Props
+ */
+export function symbolSize(size: string | number) {
+  return {
+    width: size,
+    height: size,
+  };
+}

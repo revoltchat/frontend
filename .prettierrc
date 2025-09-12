@@ -10,6 +10,7 @@
     "<THIRD_PARTY_MODULES>",
     "^@revolt",
     "^@material-design-icons|^solid-icons",
+    "^@material-symbols",
     "^\\.\\.",
     "^[./]"
   ],
