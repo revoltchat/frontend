@@ -286,24 +286,37 @@ const FormSubmitButton = (props: {
   group: IFormGroup;
   children: JSX.Element;
 }) => {
-  function canSubmit() {
-    if (props.group.isDisabled) return false;
-    if (!props.group.isDirty) return false;
-
-    for (const control in props.group.controls) {
-      const element = props.group.controls[control];
-      if (element.isRequired && !element.value) return false;
-    }
-
-    return true;
-  }
-
   return (
-    <Button type="submit" isDisabled={!canSubmit()}>
+    <Button type="submit" isDisabled={!canSubmit(props.group)}>
       {props.children}
     </Button>
   );
 };
+
+/**
+ * Compute whether we can submit this group
+ * @param group Group
+ * @returns Whether we can submit
+ */
+function canSubmit(group: IFormGroup) {
+  if (group.isDisabled || group.isPending || !group.isDirty || !group.isValid)
+    return false;
+
+  for (const control in group.controls) {
+    const element = group.controls[control];
+    if (element.isRequired) {
+      const value = element.value;
+
+      if (Array.isArray(value) && value.length === 0) {
+        return false;
+      } else if (!value) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
 
 /**
  * Generic 'reset' of form group
@@ -341,7 +354,7 @@ function submitHandler(
       control.markTouched(true);
     }
 
-    if (group.isPending || !group.isValid) return;
+    if (!canSubmit(group)) return;
 
     group.markPending(true);
 
@@ -369,5 +382,6 @@ export const Form2 = {
   VirtualSelect: FormVirtualSelect,
   Reset: FormResetButton,
   Submit: FormSubmitButton,
+  canSubmit,
   submitHandler,
 };

@@ -59,3 +59,7 @@ Then create the form itself in the JSX code:
 ```
 
 There are examples provided throughout the code, just search for `<Form2` in the codebase.
+
+@todo explain this but...
+
+when using with Modals, use !Form2.canSubmit for action
