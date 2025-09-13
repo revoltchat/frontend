@@ -904,7 +904,9 @@ function Suggestions(props: {
                     <>
                       <UnicodeEmoji
                         emoji={(match as { codepoint: string }).codepoint}
-			pack={state.settings.getValue("appearance:unicode_emoji")}
+                        pack={state.settings.getValue(
+                          "appearance:unicode_emoji",
+                        )}
                       />{" "}
                       <Name>:{match.name}:</Name>
                     </>

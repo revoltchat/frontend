@@ -43,7 +43,7 @@ export function AutoComplete(
                     <>
                       <UnicodeEmoji
                         emoji={(match as { codepoint: string }).codepoint}
-			pack={emoji_pack}
+                        pack={emoji_pack}
                       />{" "}
                       <Name>:{match.shortcode}:</Name>
                     </>
@@ -155,7 +155,7 @@ const Entry = styled("div", {
     selected: {
       true: {
         background:
-        "color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent)",
+          "color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent)",
       },
     },
   },
