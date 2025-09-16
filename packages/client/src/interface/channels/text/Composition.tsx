@@ -200,7 +200,7 @@ export function MessageComposition(props: Props) {
 
     if (rejectedFiles.length > 0) {
       const maxSizeFormatted = humanFileSize(MAX_FILE_SIZE);
-      
+
       if (rejectedFiles.length === 1) {
         const file = rejectedFiles[0];
         const fileSize = humanFileSize(file.size);
