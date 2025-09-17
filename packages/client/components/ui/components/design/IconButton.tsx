@@ -63,6 +63,9 @@ const iconButton2 = cva({
     // for <Ripple />:
     position: "relative",
 
+    // ensure it's always 1:1
+    aspectRatio: "1/1",
+
     flexShrink: 0,
     display: "flex",
     alignItems: "center",
