@@ -2,17 +2,21 @@ import { Match, Switch } from "solid-js";
 
 import { useMutation } from "@tanstack/solid-query";
 import { Message } from "revolt.js";
+import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { useClient } from "@revolt/client";
+import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
-import { Text, TextField } from "@revolt/ui";
+import { Text, TextEditor } from "@revolt/ui";
 
 export function EditMessage(props: { message: Message }) {
   const state = useState();
   const client = useClient();
   const { openModal } = useModals();
+
+  const initialValue = [state.draft.editingMessageContent || ""] as const;
 
   const change = useMutation(() => ({
     mutationFn: (content: string) => props.message.edit({ content }),
@@ -24,10 +28,11 @@ export function EditMessage(props: { message: Message }) {
     },
   }));
 
-  function saveMessage(content: string) {
-    if (content.length) {
-      // todo: refocus the message box
+  function saveMessage() {
+    const content = state.draft.editingMessageContent;
 
+    if (content?.length) {
+      state.draft._setNodeReplacement?.(["_focus"]); // focus message box
       change.mutate(content);
     } else {
       openModal({
@@ -37,51 +42,35 @@ export function EditMessage(props: { message: Message }) {
     }
   }
 
+  createKeybind(KeybindAction.CHAT_CANCEL_EDITING, () => {
+    state.draft.setEditingMessage(undefined);
+    state.draft._setNodeReplacement?.(["_focus"]); // focus message box
+  });
+
   return (
     <>
-      <TextField
-        ref={(el) =>
-          el.parentElement?.parentElement?.parentElement?.scrollIntoView({
-            behavior: "instant",
-            block: "center",
-          })
-        }
-        autoFocus
-        autosize
-        max-rows={10}
-        enterkeyhint="enter"
-        variant="outlined"
-        disabled={change.isPending}
-        value={state.draft.editingMessageContent}
-        onChange={(e) =>
-          state.draft.setEditingMessageContent(e.currentTarget.value)
-        }
-        use:autoComplete={{
-          client: client(),
-          onKeyDown(e) {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              saveMessage(e.currentTarget.value);
-            }
-
-            if (e.key === "Escape") {
-              state.draft.setEditingMessage(undefined);
-            }
-          },
-          searchSpace: props.message.channel?.server
-            ? {
-                members: client().serverMembers.filter(
-                  (member) =>
-                    member.id.server === props.message.channel!.serverId,
-                ),
-                channels: props.message.channel!.server.channels,
-                roles: [...props.message.channel!.server.roles.values()],
-              }
-            : props.message.channel?.type === "Group"
-              ? { users: props.message.channel.recipients, channels: [] }
-              : { channels: [] },
-        }}
-      />
+      <EditorBox class={css({ flexGrow: 1 })}>
+        <TextEditor
+          autoFocus
+          onComplete={saveMessage}
+          onChange={state.draft.setEditingMessageContent}
+          initialValue={initialValue}
+          autoCompleteSearchSpace={
+            props.message.channel?.server
+              ? {
+                  members: client().serverMembers.filter(
+                    (member) =>
+                      member.id.server === props.message.channel!.serverId,
+                  ),
+                  channels: props.message.channel.server.channels,
+                  roles: [...props.message.channel.server.roles.values()],
+                }
+              : props.message.channel?.type === "Group"
+                ? { users: props.message.channel!.recipients, channels: [] }
+                : { channels: [] }
+          }
+        />
+      </EditorBox>
 
       <Switch
         fallback={
@@ -90,12 +79,7 @@ export function EditMessage(props: { message: Message }) {
             <Action onClick={() => state.draft.setEditingMessage(undefined)}>
               cancel
             </Action>{" "}
-            &middot; enter to{" "}
-            <Action
-              onClick={() => saveMessage(state.draft.editingMessageContent!)}
-            >
-              save
-            </Action>
+            &middot; enter to <Action onClick={saveMessage}>save</Action>
           </Text>
         }
       >
@@ -106,6 +90,15 @@ export function EditMessage(props: { message: Message }) {
     </>
   );
 }
+
+const EditorBox = styled("div", {
+  base: {
+    background: "var(--md-sys-color-primary-container)",
+    color: "var(--md-sys-color-on-primary-container)",
+    borderRadius: "var(--borderRadius-sm)",
+    padding: "var(--gap-md)",
+  },
+});
 
 const Action = styled("span", {
   base: {

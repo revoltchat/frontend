@@ -11,11 +11,6 @@ import { AutoCompleteSearchSpace } from "@revolt/ui/components/design/TextEditor
 
 interface Props {
   /**
-   * Ref to the input element
-   */
-  ref: HTMLTextAreaElement | undefined;
-
-  /**
    * Initial content
    */
   initialValue: readonly [string];

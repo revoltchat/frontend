@@ -26,7 +26,6 @@ import {
   IconButton,
   MessageBox,
   MessageReplyPreview,
-  Row,
 } from "@revolt/ui";
 
 import MdEmoji from "@material-design-icons/svg/filled/emoji_emotions.svg?component-solid";
@@ -52,13 +51,13 @@ export function MessageComposition(props: Props) {
   const { t } = useLingui();
   const client = useClient();
 
-  /**
-   * Reference to the message input box
-   */
-  let ref: HTMLTextAreaElement | undefined;
+  createKeybind(KeybindAction.CHAT_JUMP_END, () =>
+    setNodeReplacement(["_focus"]),
+  );
 
-  createKeybind(KeybindAction.CHAT_JUMP_END, () => ref?.focus());
-  createKeybind(KeybindAction.CHAT_FOCUS_COMPOSITION, () => ref?.focus());
+  createKeybind(KeybindAction.CHAT_FOCUS_COMPOSITION, () =>
+    setNodeReplacement(["_focus"]),
+  );
 
   /**
    * Get the draft for the current channel
@@ -271,7 +270,6 @@ export function MessageComposition(props: Props) {
         }}
       </For>
       <MessageBox
-        ref={ref}
         initialValue={initialValue()}
         nodeReplacement={nodeReplacement()}
         onSendMessage={sendMessage}

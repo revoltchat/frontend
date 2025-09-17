@@ -124,6 +124,7 @@ export class Draft extends AbstractStore<"draft", TypeDraft> {
     this.fileCache = {};
 
     this.getFile = this.getFile.bind(this);
+    this.setEditingMessageContent = this.setEditingMessageContent.bind(this);
   }
 
   /**

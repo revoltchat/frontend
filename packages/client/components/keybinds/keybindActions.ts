@@ -42,6 +42,11 @@ export enum KeybindAction {
   CHAT_REMOVE_COMPOSITION_ELEMENT = "chat_remove_composition_element",
 
   /**
+   * Cancel editing the current message
+   */
+  CHAT_CANCEL_EDITING = "chat_cancel_editing",
+
+  /**
    * Close the currently active modal
    */
   CLOSE_MODAL = "close_modal",
@@ -65,6 +70,7 @@ export const ACTION_PRIORITY: KeybindAction[] = [
   KeybindAction.CLOSE_FLOATING,
   KeybindAction.CLOSE_MODAL,
   KeybindAction.CLOSE_SIDEBAR,
+  KeybindAction.CHAT_CANCEL_EDITING,
   KeybindAction.CHAT_REMOVE_COMPOSITION_ELEMENT,
   KeybindAction.CHAT_MARK_SERVER_AS_READ,
   KeybindAction.CHAT_JUMP_END,
@@ -93,9 +99,11 @@ export function keybindFilter(
 ) {
   if (keybind === KeybindAction.CHAT_FOCUS_COMPOSITION) {
     // don't allow focusing if modal/floating is open
+    // or if we're editing a message
     if (
       currentlyBound[KeybindAction.CLOSE_FLOATING] ||
-      currentlyBound[KeybindAction.CLOSE_MODAL]
+      currentlyBound[KeybindAction.CLOSE_MODAL] ||
+      currentlyBound[KeybindAction.CHAT_CANCEL_EDITING]
     )
       return false;
 

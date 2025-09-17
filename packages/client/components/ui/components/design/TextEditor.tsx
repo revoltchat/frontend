@@ -9,6 +9,7 @@ import {
   createMemo,
   createSignal,
   on,
+  onMount,
 } from "solid-js";
 import { onCleanup } from "solid-js";
 import { Portal } from "solid-js/web";
@@ -31,7 +32,7 @@ import { history, redo, undo } from "prosemirror-history";
 import { InputRule, inputRules } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
 import { Node } from "prosemirror-model";
-import { EditorState, EditorStateConfig } from "prosemirror-state";
+import { EditorState, EditorStateConfig, Selection } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { Channel, ServerMember, ServerRole, User } from "revolt.js";
 import { css, cva } from "styled-system/css";
@@ -57,6 +58,11 @@ const EMOJI_KEYS = Object.keys(emojiMapping).sort();
 const MAPPED_EMOJI_KEYS = EMOJI_KEYS.map((id) => ({ id, name: id }));
 
 interface Props {
+  /**
+   * Auto focus the input on creation
+   */
+  autoFocus?: boolean;
+
   /**
    * Placeholder to show when no text is shown
    */
@@ -734,7 +740,8 @@ export function TextEditor(props: Props) {
 
   const state = EditorState.create({
     ...config,
-    doc: markdownToProseMirrorModel(props.initialValue?.[0] ?? "", client()),
+    doc: blankModel(), // populated by initialValue effect
+    // doc: markdownToProseMirrorModel(props.initialValue?.[0] ?? "", client()),
   });
 
   const view = new EditorView(proseMirror, {
@@ -779,9 +786,9 @@ export function TextEditor(props: Props) {
           setValue(value[0]);
         }
       },
-      {
-        defer: true,
-      },
+      // {
+      //   defer: true,
+      // },
     ),
   );
 
@@ -820,6 +827,22 @@ export function TextEditor(props: Props) {
   proseMirror.addEventListener("click", onClick);
 
   onCleanup(() => proseMirror.removeEventListener("click", onClick));
+
+  // auto focus on mount
+  onMount(
+    () =>
+      props.autoFocus &&
+      setTimeout(() => {
+        view.dom.focus();
+
+        // ensure the cursor is at the end
+        view.updateState(
+          view.state.apply(
+            view.state.tr.setSelection(Selection.atEnd(view.state.doc)),
+          ),
+        );
+      }, 0),
+  );
 
   return (
     <>
