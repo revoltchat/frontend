@@ -50,6 +50,7 @@ import {
 import { useState } from "@revolt/state";
 
 import emojiMapping from "../../emojiMapping.json";
+import { AutoCompleteSearchSpace } from "../utils/autoComplete";
 
 import { Avatar } from "./Avatar";
 import { typography } from "./Text";
@@ -101,13 +102,6 @@ interface Props {
   onPreviousContext?: () => void;
 
   autoCompleteSearchSpace?: AutoCompleteSearchSpace;
-}
-
-export interface AutoCompleteSearchSpace {
-  users?: User[];
-  members?: ServerMember[];
-  channels?: Channel[];
-  roles?: ServerRole[];
 }
 
 interface AutoCompleteView {

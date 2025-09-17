@@ -10,6 +10,7 @@ import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
 import { Text, TextEditor } from "@revolt/ui";
+import { generateSearchSpaceFrom } from "@revolt/ui/components/utils/autoComplete";
 
 export function EditMessage(props: { message: Message }) {
   const state = useState();
@@ -55,20 +56,10 @@ export function EditMessage(props: { message: Message }) {
           onComplete={saveMessage}
           onChange={state.draft.setEditingMessageContent}
           initialValue={initialValue}
-          autoCompleteSearchSpace={
-            props.message.channel?.server
-              ? {
-                  members: client().serverMembers.filter(
-                    (member) =>
-                      member.id.server === props.message.channel!.serverId,
-                  ),
-                  channels: props.message.channel.server.channels,
-                  roles: [...props.message.channel.server.roles.values()],
-                }
-              : props.message.channel?.type === "Group"
-                ? { users: props.message.channel!.recipients, channels: [] }
-                : { channels: [] }
-          }
+          autoCompleteSearchSpace={generateSearchSpaceFrom(
+            props.message,
+            client(),
+          )}
         />
       </EditorBox>
 
