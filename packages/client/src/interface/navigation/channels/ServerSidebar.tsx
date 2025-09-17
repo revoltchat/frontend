@@ -26,13 +26,15 @@ import {
   Row,
   Tooltip,
   iconSize,
+  symbolSize,
   typography,
 } from "@revolt/ui";
 import { createDragHandle } from "@revolt/ui/components/utils/Draggable";
 
 import MdChevronRight from "@material-design-icons/svg/filled/chevron_right.svg?component-solid";
 import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?component-solid";
-import MdSettings from "@material-design-icons/svg/filled/settings.svg?component-solid";
+
+import MdSettings from "@material-symbols/svg-400/outlined/settings-fill.svg?component-solid";
 
 import { SidebarBase } from "./common";
 
@@ -247,10 +249,10 @@ function ServerInfo(
       <IconButton
         size="xs"
         width="narrow"
-        variant="_header"
+        variant={props.server.banner ? "_header" : "standard"}
         onPress={props.openServerSettings}
       >
-        <MdSettings />
+        <MdSettings {...symbolSize(24)} />
       </IconButton>
     </Row>
   );
