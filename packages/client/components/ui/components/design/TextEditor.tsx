@@ -773,8 +773,6 @@ export function TextEditor(props: Props) {
       () => props.initialValue,
       (value) => {
         if (value) {
-          console.info("recv", value);
-
           view.updateState(
             EditorState.create({
               ...config,
@@ -850,10 +848,13 @@ export function TextEditor(props: Props) {
       <AutoSizer initialWidth={0}>
         {(size) => {
           createEffect(() => {
-            proseMirror.style.width = size.width + "px";
+            proseMirror.style.minWidth = "0";
+            proseMirror.style.maxWidth = size.width + "px";
+            proseMirror.style.width = "100%";
             proseMirror.style.height = "100%";
             proseMirror.style.display = "flex";
           });
+
           return proseMirror;
         }}
       </AutoSizer>
