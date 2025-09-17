@@ -121,10 +121,10 @@ export function MFAFlowModal(
 
   function canSubmit() {
     return (
-      !Form2.canSubmit(group) &&
-      (group.controls.password ||
-        group.controls.totp_code ||
-        group.controls.recovery_code)
+      Form2.canSubmit(group) &&
+      (group.controls.password.value ||
+        group.controls.totp_code.value ||
+        group.controls.recovery_code.value)
     );
   }
 
