@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { Root, RootContent } from "mdast";
 import { Mark, Node } from "prosemirror-model";
 import { Client } from "revolt.js";
@@ -32,6 +33,11 @@ type RfmComponents =
       type: "unicodeEmoji";
       str: string;
       pack?: UnicodeEmojiPacks;
+    }
+  | {
+      type: "timestamp";
+      format: string;
+      date: Dayjs;
     };
 
 function map(
@@ -61,6 +67,17 @@ function map(
       return node.children.flatMap((child) =>
         map(child, client, {
           marks: [...(context.marks ?? []), schema.marks.em.create()],
+        }),
+      );
+    case "link":
+      return node.children.flatMap((child) =>
+        map(child, client, {
+          marks: [
+            ...(context.marks ?? []),
+            schema.marks.link.create({
+              href: node.url,
+            }),
+          ],
         }),
       );
     case "delete":
@@ -138,6 +155,8 @@ function map(
         pack: node.pack,
         src: unicodeEmojiUrl(node.pack, node.str),
       })!;
+    case "timestamp":
+      return schema.text(`<t:${node.date.unix()}:${node.format}>`);
 
     default: {
       console.info("Failing node:", node);

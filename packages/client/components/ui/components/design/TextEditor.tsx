@@ -231,6 +231,11 @@ export function TextEditor(props: Props) {
 
       listStyleType: "decimal",
     },
+
+    // anchors.ts
+    "& a": {
+      color: "var(--md-sys-color-primary) !important",
+    },
   });
 
   placeholder.className = css({
@@ -768,6 +773,8 @@ export function TextEditor(props: Props) {
       () => props.initialValue,
       (value) => {
         if (value) {
+          console.info("recv", value);
+
           view.updateState(
             EditorState.create({
               ...config,

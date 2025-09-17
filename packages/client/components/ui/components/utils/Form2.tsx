@@ -12,8 +12,16 @@ import {
 import { Trans } from "@lingui-solid/solid/macro";
 import { VirtualContainer } from "@minht11/solid-virtual-container";
 import { css } from "styled-system/css";
+import { styled } from "styled-system/jsx";
 
-import { Button, Checkbox, Radio2, Text, TextField } from "../design";
+import {
+  Button,
+  Checkbox,
+  Radio2,
+  Text,
+  TextEditor,
+  TextField,
+} from "../design";
 
 import { FileInput } from "./files";
 
@@ -48,6 +56,48 @@ const FormTextField = (
     </>
   );
 };
+
+/**
+ * Form wrapper for TextEditor
+ *
+ * You must manage the lifecycle of the `initialValue`
+ */
+const FormTextEditor = (
+  props: {
+    control: IFormControl<string>;
+  } & Omit<ComponentProps<typeof TextEditor>, "onChange">,
+) => {
+  const [local, remote] = splitProps(props, ["control"]);
+
+  return (
+    <EditorBox>
+      <TextEditor
+        {...remote}
+        onChange={(value) => {
+          local.control.setValue(value);
+          local.control.markDirty(true);
+        }}
+        // todo: required={local.control.isRequired}
+        // todo: disabled={local.control.isDisabled}
+      />
+
+      <Show when={local.control.isTouched && !local.control.isValid}>
+        <For each={Object.keys(local.control.errors!)}>
+          {(errorMsg: string) => <small>{errorMsg}</small>}
+        </For>
+      </Show>
+    </EditorBox>
+  );
+};
+
+const EditorBox = styled("div", {
+  base: {
+    background: "var(--md-sys-color-primary-container)",
+    color: "var(--md-sys-color-on-primary-container)",
+    borderRadius: "var(--borderRadius-sm)",
+    padding: "var(--gap-md)",
+  },
+});
 
 /**
  * Form wrapper for TextField.Select
@@ -375,6 +425,7 @@ function submitHandler(
 
 export const Form2 = {
   TextField: FormTextField,
+  TextEditor: FormTextEditor,
   FileInput: FormFileInput,
   Checkbox: FormCheckbox,
   Radio: FormRadio,
