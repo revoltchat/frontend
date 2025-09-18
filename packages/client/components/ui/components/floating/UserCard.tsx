@@ -45,7 +45,13 @@ export function UserCard(
   }
 
   return (
-    <div use:invisibleScrollable={{ class: base() }}>
+    <div
+      use:invisibleScrollable={{ class: base() }}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }}
+    >
       <Grid>
         <Profile.Banner
           width={2}

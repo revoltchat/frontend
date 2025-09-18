@@ -132,72 +132,18 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
   });
 
   /**
-   * Handle page clicks outside of floating element
-   * @param event Event
+   * Dismiss floating element when clicking elsewhere
    */
-  function onMouseDown(event: MouseEvent) {
+  function onMouseDown() {
     const currentlyShown = props.show();
     if (!currentlyShown?.contextMenu && !currentlyShown?.userCard) return;
 
-    // Check if we've clicked inside of the user card / context menu
-    const parentEl = floating();
-
-    let currentEl = event.target as HTMLElement | null;
-    while (currentEl && currentEl !== parentEl) {
-      currentEl = currentEl.parentElement;
-    }
-
-    if (currentEl === null) {
-      // If we're operating in card mode, don't hide yet if we click on the context menu
-      // jank alert!
-      if (currentlyShown.userCard) {
-        const targetEl = document.querySelector(".UserContextMenu");
-
-        if (targetEl) {
-          let currentEl = event.target as HTMLElement | null;
-          while (currentEl && currentEl !== targetEl) {
-            currentEl = currentEl.parentElement;
-          }
-
-          if (currentEl) return;
-        }
-      }
-
-      props.hide();
-    }
+    props.hide();
   }
 
   if (props.config().contextMenu || props.config().userCard) {
     onMount(() => document.addEventListener("mousedown", onMouseDown));
     onCleanup(() => document.removeEventListener("mousedown", onMouseDown));
-  }
-
-  /**
-   * Jank catcher 9000
-   * @param event Event
-   */
-  function onMouseUp(event: MouseEvent) {
-    const currentlyShown = props.show();
-    if (!currentlyShown?.userCard) return;
-
-    // Check if we've clicked inside of the user card
-    const parentEl = floating();
-
-    let currentEl = event.target as HTMLElement | null;
-    while (currentEl && currentEl !== parentEl) {
-      currentEl = currentEl.parentElement;
-    }
-
-    if (currentEl === null) {
-      props.hide();
-    }
-  }
-
-  if (props.config().userCard) {
-    onMount(() =>
-      setTimeout(() => document.addEventListener("click", onMouseUp), 0),
-    );
-    onCleanup(() => document.removeEventListener("click", onMouseUp));
   }
 
   /**
@@ -227,14 +173,14 @@ function Floating(props: FloatingElement & { mouseX: number; mouseY: number }) {
           position: position.strategy,
           top: `${position.y ?? 0}px`,
           left: `${position.x ?? 0}px`,
-          "z-index": "999",
+          "z-index": (999 - (props.show()?.userCard ? 1 : 0)).toString(),
         }}
       >
         <Switch>
           <Match when={props.show()?.tooltip}>
             <TooltipBase>
               {typeof props.show()!.tooltip!.content === "function"
-                ? (props.show()!.tooltip!.content as Function)({})
+                ? (props.show()!.tooltip!.content as (arg1: object) => void)({})
                 : props.show()!.tooltip!.content}
             </TooltipBase>
           </Match>

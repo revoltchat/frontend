@@ -382,27 +382,27 @@ export const schema = new Schema({
       },
     } as MarkSpec,
 
-    // link: {
-    //   attrs: {
-    //     href: {},
-    //     title: { default: null },
-    //   },
-    //   inclusive: false,
-    //   parseDOM: [
-    //     {
-    //       tag: "a[href]",
-    //       getAttrs(dom) {
-    //         return {
-    //           href: (dom as HTMLElement).getAttribute("href"),
-    //           title: dom.getAttribute("title"),
-    //         };
-    //       },
-    //     },
-    //   ],
-    //   toDOM(node) {
-    //     return ["a", node.attrs];
-    //   },
-    // },
+    link: {
+      attrs: {
+        href: {},
+        title: { default: null },
+      },
+      inclusive: false,
+      parseDOM: [
+        {
+          tag: "a[href]",
+          getAttrs(dom) {
+            return {
+              href: (dom as HTMLElement).getAttribute("href"),
+              title: dom.getAttribute("title"),
+            };
+          },
+        },
+      ],
+      toDOM(node) {
+        return ["a", node.attrs];
+      },
+    },
 
     code: {
       code: true,

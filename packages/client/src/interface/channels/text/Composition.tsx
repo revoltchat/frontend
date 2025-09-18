@@ -28,8 +28,9 @@ import {
   MessageBox,
   MessageReplyPreview,
   Row,
-  humanFileSize,
+  humanFileSize
 } from "@revolt/ui";
+import { generateSearchSpaceFrom } from "@revolt/ui/components/utils/autoComplete";
 
 import MdEmoji from "@material-design-icons/svg/filled/emoji_emotions.svg?component-solid";
 import MdSend from "@material-design-icons/svg/filled/send.svg?component-solid";
@@ -62,13 +63,13 @@ export function MessageComposition(props: Props) {
   const client = useClient();
   const { openModal } = useModals();
 
-  /**
-   * Reference to the message input box
-   */
-  let ref: HTMLTextAreaElement | undefined;
+  createKeybind(KeybindAction.CHAT_JUMP_END, () =>
+    setNodeReplacement(["_focus"]),
+  );
 
-  createKeybind(KeybindAction.CHAT_JUMP_END, () => ref?.focus());
-  createKeybind(KeybindAction.CHAT_FOCUS_COMPOSITION, () => ref?.focus());
+  createKeybind(KeybindAction.CHAT_FOCUS_COMPOSITION, () =>
+    setNodeReplacement(["_focus"]),
+  );
 
   /**
    * Get the draft for the current channel
@@ -305,7 +306,6 @@ export function MessageComposition(props: Props) {
         }}
       </For>
       <MessageBox
-        ref={ref}
         initialValue={initialValue()}
         nodeReplacement={nodeReplacement()}
         onSendMessage={sendMessage}
@@ -357,19 +357,10 @@ export function MessageComposition(props: Props) {
               : t`Message ${props.channel.name}`
         }
         sendingAllowed={props.channel.havePermission("SendMessage")}
-        autoCompleteSearchSpace={
-          props.channel.server
-            ? {
-                members: client().serverMembers.filter(
-                  (member) => member.id.server === props.channel.serverId,
-                ),
-                channels: props.channel.server.channels,
-                roles: [...props.channel.server.roles.values()],
-              }
-            : props.channel.type === "Group"
-              ? { users: props.channel.recipients, channels: [] }
-              : { channels: [] }
-        }
+        autoCompleteSearchSpace={generateSearchSpaceFrom(
+          props.channel,
+          client(),
+        )}
         updateDraftSelection={(start, end) =>
           state.draft.setSelection(props.channel.id, start, end)
         }

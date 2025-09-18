@@ -7,14 +7,9 @@ import { css } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
 import { Row, TextEditor } from "@revolt/ui";
-import { AutoCompleteSearchSpace } from "@revolt/ui/components/design/TextEditor";
+import { AutoCompleteSearchSpace } from "@revolt/ui/components/utils/autoComplete";
 
 interface Props {
-  /**
-   * Ref to the input element
-   */
-  ref: HTMLTextAreaElement | undefined;
-
   /**
    * Initial content
    */

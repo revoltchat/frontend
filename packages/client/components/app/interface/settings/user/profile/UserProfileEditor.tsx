@@ -1,5 +1,5 @@
 import { createFormControl, createFormGroup } from "solid-forms";
-import { Show, createEffect, on } from "solid-js";
+import { Show, createEffect, createSignal, on } from "solid-js";
 
 import { Trans, useLingui } from "@lingui-solid/solid/macro";
 import { useQuery } from "@tanstack/solid-query";
@@ -13,6 +13,7 @@ import {
   Column,
   Form2,
   Row,
+  Text,
 } from "@revolt/ui";
 
 import MdBadge from "@material-design-icons/svg/filled/badge.svg?component-solid";
@@ -26,9 +27,12 @@ interface Props {
 export function UserProfileEditor(props: Props) {
   const { t } = useLingui();
   const client = useClient();
+
   const profile = useQuery(() => ({
     queryKey: ["profile", props.user.id],
     queryFn: () => props.user.fetchProfile(),
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
   }));
 
   const { navigate } = useSettingsNavigation();
@@ -49,6 +53,8 @@ export function UserProfileEditor(props: Props) {
   // further changes outside of our control because it's
   // unlikely that the user is going to be doing this
 
+  const [initialBio, setInitialBio] = createSignal<readonly [string]>();
+
   // once profile data is loaded, copy it into the form
   createEffect(
     on(
@@ -60,6 +66,7 @@ export function UserProfileEditor(props: Props) {
           );
 
           editGroup.controls.bio.setValue(profileData.content || "");
+          setInitialBio([profileData.content || ""]);
         }
       },
     ),
@@ -76,6 +83,7 @@ export function UserProfileEditor(props: Props) {
       );
 
       editGroup.controls.bio.setValue(profile.data.content || "");
+      setInitialBio([profile.data.content || ""]);
     }
   }
 
@@ -165,15 +173,15 @@ export function UserProfileEditor(props: Props) {
           </CategoryButton>
         </Show>
 
-        <Form2.TextField
-          autosize
-          min-rows={5}
-          max-rows={10}
-          name="bio"
+        <Text class="label">
+          <Trans>Profile Bio</Trans>
+        </Text>
+        <Form2.TextEditor
+          initialValue={initialBio()}
           control={editGroup.controls.bio}
-          label={t`Profile Bio`}
           placeholder={t`Something cool about me...`}
         />
+
         <Row>
           <Form2.Reset group={editGroup} onReset={onReset} />
           <Form2.Submit group={editGroup}>
