@@ -895,6 +895,7 @@ function Suggestions(props: {
 }) {
   const element = () => props.state()!.element;
   const [floating, setFloating] = createSignal<HTMLDivElement>();
+  const state = useState();
 
   const position = useFloating(element, floating, {
     placement: "top-start",
@@ -928,6 +929,9 @@ function Suggestions(props: {
                     <>
                       <UnicodeEmoji
                         emoji={(match as { codepoint: string }).codepoint}
+                        pack={state.settings.getValue(
+                          "appearance:unicode_emoji",
+                        )}
                       />{" "}
                       <Name>:{match.name}:</Name>
                     </>
