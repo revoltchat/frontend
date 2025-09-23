@@ -25,7 +25,10 @@ export function Embed(props: { embed: MessageEmbed }) {
    */
   const isGIF = () =>
     props.embed.type === "Website" &&
-    (props.embed as WebsiteEmbed).specialContent?.type === "GIF";
+    ((props.embed as WebsiteEmbed).specialContent?.type === "GIF" ||
+      (props.embed as WebsiteEmbed).originalUrl?.startsWith(
+        "https://tenor.com",
+      ));
 
   /**
    * Whether there is a video

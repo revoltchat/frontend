@@ -145,7 +145,11 @@ export function EmojiPicker() {
         variant="filled"
         placeholder="Search for emojis..."
         value={filter()}
-        onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+        }}
         onInput={(e) => setFilter(e.currentTarget.value)}
       />
       <Row class={compositionContent()}>
