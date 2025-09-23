@@ -196,8 +196,8 @@ export const HomeSidebar = (props: Props) => {
  */
 const SidebarTitle = styled("p", {
   base: {
-    paddingBlock: "var(--gap-md)",
-    paddingInline: "var(--gap-lg)",
+    paddingBlock: "calc(var(--gap-md) + 15px)",
+    paddingInline: "calc(var(--gap-lg) + 5px)",
 
     ...typography.raw({ class: "title" }),
   },
