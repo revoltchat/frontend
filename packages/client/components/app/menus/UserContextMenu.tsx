@@ -29,6 +29,7 @@ import {
   ContextMenuButton,
   ContextMenuDivider,
 } from "./ContextMenu";
+import { NotificationContextMenu } from "./shared/NotificationContextMenu";
 
 /**
  * Context menu for users
@@ -207,6 +208,11 @@ export function UserContextMenu(props: {
               props.channel.type === "TextChannel"))
         }
       >
+        <ContextMenuDivider />
+      </Show>
+
+      <Show when={props.channel?.type === "DirectMessage"}>
+        <NotificationContextMenu channel={props.channel!} />
         <ContextMenuDivider />
       </Show>
 
