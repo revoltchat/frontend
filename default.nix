@@ -1,27 +1,55 @@
-let
-  # Pinned nixpkgs, deterministic. Last updated: 29-10-2024.
-  pkgs = import (fetchTarball (
-    "https://github.com/NixOS/nixpkgs/archive/0930fa9bab0e3877d4ab0682f805b2dc86ec5716.tar.gz"
-  )) { };
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
-  # Rolling updates, not deterministic.
-  # pkgs = import (fetchTarball ("channel:nixpkgs-unstable")) { };
-in
-pkgs.mkShell {
+with pkgs;
+mkShell {
   name = "revoltEnv";
 
   buildInputs = [
     # Tools
-    pkgs.git
-    pkgs.gh
-    pkgs.deno
+    git
+    gh
+    deno
 
     # Node
-    pkgs.nodejs
-    pkgs.nodejs.pkgs.pnpm
+    nodejs
+    nodejs.pkgs.pnpm
 
     # mdbook
-    pkgs.mdbook
-    pkgs.mdbook-mermaid
+    mdbook
+    mdbook-mermaid
+
+    # Tauri
+    pkg-config
+    gobject-introspection
+    cargo
+    rustc
+    rustfmt
+    at-spi2-atk
+    atkmm
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    harfbuzz
+    librsvg
+    libsoup_3
+    pango
+    webkitgtk_4_1
+    openssl
+    xdg-utils
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-libav
+    gst_all_1.gst-plugins-ugly
+    gst_all_1.gst-libav
+    libappindicator-gtk3
   ];
+
+  GIO_MODULE_DIR = "${glib-networking}/lib/gio/modules/";
+  LD_LIBRARY_PATH = "${libayatana-appindicator}/lib";
+  RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
 }

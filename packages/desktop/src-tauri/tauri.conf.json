@@ -1,15 +1,65 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Revolt",
+  "mainBinaryName": "Revolt",
+  "version": "0.1.0",
+  "identifier": "chat.revolt.desktop",
   "build": {
     "beforeDevCommand": "pnpm --filter client dev --port 6173",
     "frontendDist": "../handoff",
     "devUrl": "http://localhost:6173"
   },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "fullscreen": false,
+        "width": 1280,
+        "height": 720,
+        "resizable": true,
+        "title": "Revolt",
+        "visible": true,
+        "center": true,
+        "focus": true,
+        "decorations": false,
+        "titleBarStyle": "Overlay",
+        "minWidth": 940,
+        "minHeight": 500
+      }
+    ],
+    "security": {
+      "csp": null,
+      "capabilities": [
+        {
+          "identifier": "my-window-capabilities",
+          "windows": [
+            "*"
+          ],
+          "permissions": [
+            "core:window:allow-minimize",
+            "core:window:allow-toggle-maximize",
+            "core:window:allow-close",
+            "core:window:allow-start-dragging",
+            "core:window:allow-is-maximized",
+            "core:event:allow-listen"
+          ]
+        }
+      ]
+    },
+    "trayIcon": {
+      "iconPath": "../../client/assets/icons/tray/trayIcon.png",
+      "iconAsTemplate": true,
+      "title": "Revolt"
+    }
+  },
   "bundle": {
     "active": true,
     "category": "SocialNetworking",
     "copyright": "",
-    "targets": "all",
+    "targets": [
+      "app",
+      "deb"
+    ],
     "externalBin": [],
     "icon": [
       "../../client/assets/icons/favicon-16x16.png",
@@ -37,38 +87,6 @@
       "deb": {
         "depends": []
       }
-    }
-  },
-  "productName": "Revolt",
-  "mainBinaryName": "Revolt",
-  "version": "0.1.0",
-  "identifier": "chat.revolt.app",
-  "plugins": {},
-  "app": {
-    "withGlobalTauri": false,
-    "windows": [
-      {
-        "fullscreen": false,
-        "height": 720,
-        "resizable": true,
-        "title": "Revolt",
-        "width": 1280,
-        "visible": true,
-        "center": true,
-        "focus": true,
-        "decorations": false,
-        "titleBarStyle": "Overlay",
-        "minWidth": 940,
-        "minHeight": 500
-      }
-    ],
-    "security": {
-      "csp": null
-    },
-    "trayIcon": {
-      "iconPath": "../../client/assets/icons/tray/trayIcon.png",
-      "iconAsTemplate": true,
-      "title": "Revolt"
     }
   }
 }

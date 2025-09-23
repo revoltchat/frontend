@@ -18,7 +18,8 @@
     "build:web": "pnpm --filter client build",
     "build:prod": "pnpm --filter client build:prod",
     "build:desktop": "pnpm --filter desktop tauri build",
-    "start": "cd packages/client && pnpm run serve",
+    "start:web": "cd packages/client && pnpm run serve",
+    "start:desktop": "packages/desktop/src-tauri/target/release/Revolt",
     "fmt": "prettier --write 'packages/client/**/*.{ts,tsx,json}'",
     "fmt:check": "prettier --check 'packages/client/**/*.{ts,tsx,json}'",
     "typecheck": "cd packages/client && pnpm run typecheck"
