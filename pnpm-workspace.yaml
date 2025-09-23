@@ -1,6 +1,5 @@
 packages:
   - "packages/client"
-  - "packages/desktop"
   - "packages/revolt.js"
   - "packages/solid-livekit-components"
   - "packages/solid-dnd-directive"
