@@ -43,9 +43,11 @@ export function NotificationsWorker() {
     // Ignore blocked users
     if (message.author?.relationship === "Blocked") return;
 
+    // Ignore muted channels
+    if (state.notifications.isMuted(message.channel)) return;
+
     // Check channel notification settings
     switch (state.notifications.computeForChannel(message.channel!)) {
-      case "muted":
       case "none":
         return; // ignore if muted/none
       case "mention":
@@ -82,7 +84,7 @@ export function NotificationsWorker() {
     // Find image if applicable
     const image = message.attachments?.find(
       (x) => x.metadata.type === "Image",
-    )?.url;
+    )?.previewUrl;
 
     // Find body/icon
     let body, icon;
