@@ -1,4 +1,3 @@
-import { BiSolidHome, BiSolidNotepad, BiSolidUserDetail } from "solid-icons/bi";
 import { Match, Show, Switch, createMemo, splitProps } from "solid-js";
 
 import { Plural, Trans, useLingui } from "@lingui-solid/solid/macro";
@@ -18,6 +17,7 @@ import {
   Deferred,
   MenuButton,
   OverflowingText,
+  Symbol,
   Tooltip,
   UserStatus,
   typography,
@@ -77,7 +77,7 @@ export const HomeSidebar = (props: Props) => {
           <a href="/app">
             <MenuButton
               size="normal"
-              icon={<BiSolidHome size={24} />}
+              icon={<Symbol css={{alignSelf: "center", paddingBottom: "2px"}}>home</Symbol>}
               attention={location.pathname === "/app" ? "selected" : "normal"}
             >
               <ButtonTitle>
@@ -89,13 +89,14 @@ export const HomeSidebar = (props: Props) => {
           <a href="/friends">
             <MenuButton
               size="normal"
-              icon={<BiSolidUserDetail size={24} />}
+              icon={<Symbol css={{alignSelf: "center", paddingBottom: "2px"}}>note_stack</Symbol>}
               attention={
                 location.pathname === "/friends" ? "selected" : "normal"
               }
             >
               <ButtonTitle>
-                <Trans>Friends</Trans>{" "}
+                <Trans>Friends</Trans>
+                <div style={{ flex: "1 1 auto" }} />
                 <Show when={pendingRequests()}>
                   <PendingBadge>{pendingRequests()} requests</PendingBadge>
                 </Show>
@@ -108,7 +109,7 @@ export const HomeSidebar = (props: Props) => {
               <MenuButton
                 size="normal"
                 attention={"normal"}
-                icon={<BiSolidNotepad size={24} />}
+                icon={<Symbol css={{alignSelf: "center", paddingBottom: "2px"}}>note_stack</Symbol>}
                 onClick={() => props.openSavedNotes(navigate)}
               >
                 <ButtonTitle>
@@ -121,7 +122,7 @@ export const HomeSidebar = (props: Props) => {
               <a href={`/channel/${savedNotesChannelId()}`}>
                 <MenuButton
                   size="normal"
-                  icon={<BiSolidNotepad size={24} />}
+                  icon={<Symbol css={{alignSelf: "center", paddingBottom: "2px"}}>note_stack</Symbol>}
                   attention={
                     props.channelId && savedNotesChannelId() === props.channelId
                       ? "selected"
