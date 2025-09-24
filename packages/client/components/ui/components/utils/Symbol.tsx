@@ -50,7 +50,7 @@ export function Symbol({
     return css(
       {
         fontSize,
-        fontWeight: weight,
+        fontWeight: `${weight} !important`,
         fontOpticalSizing: opticalSize === "auto" ? "auto" : undefined,
       },
       styleProps,
