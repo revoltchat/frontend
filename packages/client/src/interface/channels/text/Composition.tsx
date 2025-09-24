@@ -5,6 +5,7 @@ import {
   Switch,
   createEffect,
   createSignal,
+  createMemo,
   on,
   onCleanup,
 } from "solid-js";
@@ -27,11 +28,8 @@ import {
   MessageReplyPreview,
 } from "@revolt/ui";
 import { generateSearchSpaceFrom } from "@revolt/ui/components/utils/autoComplete";
+import { Symbol } from "@revolt/ui/components/utils/Symbol"
 
-import MdAdd from "@material-design-icons/svg/filled/emoji_emotions.svg?component-solid";
-import MdEmoji from "@material-design-icons/svg/filled/emoji_emotions.svg?component-solid";
-import MdGif from "@material-design-icons/svg/filled/gif.svg?component-solid";
-import MdSend from "@material-design-icons/svg/filled/send.svg?component-solid";
 
 interface Props {
   /**
@@ -68,6 +66,14 @@ export function MessageComposition(props: Props) {
   function draft() {
     return state.draft.getDraft(props.channel.id);
   }
+
+  // Whether the send button should be active/clickable
+  const canSend = createMemo(() => {
+    const draftContent = draft()?.content ?? "";
+    const draftFiles = draft()?.files ?? [];
+
+    return draftContent.trim().length > 0 || draftFiles.length > 0;
+  });
 
   // TEMP
   function currentValue() {
@@ -284,7 +290,7 @@ export function MessageComposition(props: Props) {
             <Match when={props.channel.havePermission("UploadFiles")}>
               <MessageBox.InlineIcon size="wide">
                 <IconButton onPress={addFile}>
-                  <MdAdd />
+                  <Symbol>add</Symbol>
                 </IconButton>
               </MessageBox.InlineIcon>
             </Match>
@@ -299,12 +305,12 @@ export function MessageComposition(props: Props) {
               <>
                 <MessageBox.InlineIcon size="normal">
                   <IconButton onPress={triggerProps.onClickGif}>
-                    <MdGif />
+                    <Symbol>gif</Symbol>
                   </IconButton>
                 </MessageBox.InlineIcon>
                 <MessageBox.InlineIcon size="normal">
                   <IconButton onPress={triggerProps.onClickEmoji}>
-                    <MdEmoji />
+                    <Symbol>emoticon</Symbol>
                   </IconButton>
                 </MessageBox.InlineIcon>
 
@@ -333,11 +339,12 @@ export function MessageComposition(props: Props) {
             <IconButton
               _fullHeight
               size="sm"
-              variant="filled"
+              variant={canSend() ? "filled" : "tonal"}
               shape="square"
+              isDisabled={!canSend()}
               onPress={sendMessage}
             >
-              <MdSend />
+              <Symbol fill={true}>send</Symbol>
             </IconButton>
           </Show>
         }
