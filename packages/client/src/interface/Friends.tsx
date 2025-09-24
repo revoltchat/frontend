@@ -36,15 +36,8 @@ import {
   main,
 } from "@revolt/ui";
 
-import MdAdd from "@material-design-icons/svg/outlined/add.svg?component-solid";
-import MdBlock from "@material-design-icons/svg/outlined/block.svg?component-solid";
-import MdGroup from "@material-design-icons/svg/outlined/group.svg?component-solid";
-import MdNotifications from "@material-design-icons/svg/outlined/notifications.svg?component-solid";
-import MdWavingHand from "@material-design-icons/svg/outlined/waving_hand.svg?component-solid";
-
 import { HeaderIcon } from "./common/CommonHeader";
 import { Symbol } from "@revolt/ui/components/utils/Symbol"
-import { css } from "styled-system/css"
 
 /**
  * Base layout of the friends page
