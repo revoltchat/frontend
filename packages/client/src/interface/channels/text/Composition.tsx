@@ -18,6 +18,8 @@ import { debounce } from "@revolt/common";
 import { Keybind, KeybindAction, createKeybind } from "@revolt/keybinds";
 import { useModals } from "@revolt/modal";
 import { useState } from "@revolt/state";
+
+import { CONFIGURATION } from "@revolt/common";
 import {
   CompositionMediaPicker,
   FileCarousel,
@@ -36,12 +38,6 @@ import MdEmoji from "@material-design-icons/svg/filled/emoji_emotions.svg?compon
 import MdGif from "@material-design-icons/svg/filled/gif.svg?component-solid";
 import MdSend from "@material-design-icons/svg/filled/send.svg?component-solid";
 
-/**
- * Max file size allowed for uploads (in bytes)
- * 20 MB = 20 * 1024 * 1024 = 20,971,520 bytes
- * I kinda wonder if this should be a setting, or something fetched from the backend dynamically.
- */
-const MAX_FILE_SIZE = 20_000_000;
 
 interface Props {
   /**
@@ -192,7 +188,7 @@ export function MessageComposition(props: Props) {
     const validFiles: File[] = [];
 
     for (const file of files) {
-      if (file.size > MAX_FILE_SIZE) {
+      if (file.size > CONFIGURATION.MAX_FILE_SIZE) {
         console.log("File too large:", file);
         rejectedFiles.push(file);
       } else {
@@ -201,19 +197,19 @@ export function MessageComposition(props: Props) {
     }
 
     if (rejectedFiles.length > 0) {
-      const maxSizeFormatted = humanFileSize(MAX_FILE_SIZE);
+      const maxSizeFormatted = humanFileSize(CONFIGURATION.MAX_FILE_SIZE);
 
       if (rejectedFiles.length === 1) {
         const file = rejectedFiles[0];
         const fileSize = humanFileSize(file.size);
-        const error = new Error(`The file "${file.name}" (${fileSize}) exceeds the maximum size limit of ${maxSizeFormatted}.`);
+        const error = new Error(t`The file "${file.name}" (${fileSize}) exceeds the maximum size limit of ${maxSizeFormatted}.`);
         error.name = "File too large";
         openModal({
           type: "error2",
           error,
         });
       } else {
-        const error = new Error(`${rejectedFiles.length} files exceed the maximum size limit of ${maxSizeFormatted} and were not uploaded.`);
+        const error = new Error(t`${rejectedFiles.length} files exceed the maximum size limit of ${maxSizeFormatted} and were not uploaded.`);
         error.name = "Files too large";
         openModal({
           type: "error2",
