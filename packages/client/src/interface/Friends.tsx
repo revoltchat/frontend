@@ -43,6 +43,7 @@ import MdNotifications from "@material-design-icons/svg/outlined/notifications.s
 import MdWavingHand from "@material-design-icons/svg/outlined/waving_hand.svg?component-solid";
 
 import { HeaderIcon } from "./common/CommonHeader";
+import { Symbol } from "@revolt/ui/components/utils/Symbol"
 
 /**
  * Base layout of the friends page
@@ -113,7 +114,7 @@ export function Friends() {
     <Base>
       <Header placement="primary">
         <HeaderIcon>
-          <BiSolidUserDetail size={24} />
+          <Symbol>group</Symbol>
         </HeaderIcon>
         <Trans>Friends</Trans>
       </Header>

@@ -31,6 +31,7 @@ import MdKeep from "../../svg/keep.svg?component-solid";
 import { HeaderIcon } from "../common/CommonHeader";
 
 import { SidebarState } from "./text/TextChannel";
+import { Symbol } from "@revolt/ui/components/utils/Symbol"
 
 interface Props {
   /**
@@ -153,7 +154,7 @@ export function ChannelHeader(props: Props) {
         </Match>
         <Match when={props.channel.type === "SavedMessages"}>
           <HeaderIcon>
-            <BiSolidNotepad size={24} />
+            <Symbol>note_stack</Symbol>
           </HeaderIcon>
           <Trans>Saved Notes</Trans>
         </Match>

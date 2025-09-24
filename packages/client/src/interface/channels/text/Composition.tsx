@@ -26,9 +26,9 @@ import {
   IconButton,
   MessageBox,
   MessageReplyPreview,
-  Symbol,
 } from "@revolt/ui";
 import { generateSearchSpaceFrom } from "@revolt/ui/components/utils/autoComplete";
+import { Symbol } from "@revolt/ui/components/utils/Symbol"
 
 
 interface Props {

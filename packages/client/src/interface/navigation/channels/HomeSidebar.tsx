@@ -17,7 +17,6 @@ import {
   Deferred,
   MenuButton,
   OverflowingText,
-  Symbol,
   Tooltip,
   UserStatus,
   typography,
@@ -27,6 +26,7 @@ import MdPlus from "@material-design-icons/svg/outlined/add.svg?component-solid"
 import MdClose from "@material-design-icons/svg/outlined/close.svg?component-solid";
 
 import { SidebarBase } from "./common";
+import { Symbol } from "@revolt/ui/components/utils/Symbol"
 
 interface Props {
   /**
@@ -89,7 +89,7 @@ export const HomeSidebar = (props: Props) => {
           <a href="/friends">
             <MenuButton
               size="normal"
-              icon={<Symbol css={{alignSelf: "center", paddingBottom: "2px"}}>group</Symbol>}
+              icon={<Symbol css={{alignSelf: "center", paddingBottom: "1px"}}>group</Symbol>}
               attention={
                 location.pathname === "/friends" ? "selected" : "normal"
               }
