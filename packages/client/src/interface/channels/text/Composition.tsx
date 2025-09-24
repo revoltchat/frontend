@@ -1,4 +1,3 @@
-import { BiRegularPlus, BiSolidFileGif } from "solid-icons/bi";
 import {
   For,
   Match,
@@ -32,7 +31,9 @@ import {
 } from "@revolt/ui";
 import { generateSearchSpaceFrom } from "@revolt/ui/components/utils/autoComplete";
 
+import MdAdd from "@material-design-icons/svg/filled/emoji_emotions.svg?component-solid";
 import MdEmoji from "@material-design-icons/svg/filled/emoji_emotions.svg?component-solid";
+import MdGif from "@material-design-icons/svg/filled/gif.svg?component-solid";
 import MdSend from "@material-design-icons/svg/filled/send.svg?component-solid";
 
 /**
@@ -318,7 +319,7 @@ export function MessageComposition(props: Props) {
             <Match when={props.channel.havePermission("UploadFiles")}>
               <MessageBox.InlineIcon size="wide">
                 <IconButton onPress={addFile}>
-                  <BiRegularPlus size={24} />
+                  <MdAdd />
                 </IconButton>
               </MessageBox.InlineIcon>
             </Match>
@@ -331,13 +332,11 @@ export function MessageComposition(props: Props) {
           >
             {(triggerProps) => (
               <>
-                <Show when={state.experiments.isEnabled("gif_picker")}>
-                  <MessageBox.InlineIcon size="normal">
-                    <IconButton onPress={triggerProps.onClickGif}>
-                      <BiSolidFileGif size={24} />
-                    </IconButton>
-                  </MessageBox.InlineIcon>
-                </Show>
+                <MessageBox.InlineIcon size="normal">
+                  <IconButton onPress={triggerProps.onClickGif}>
+                    <MdGif />
+                  </IconButton>
+                </MessageBox.InlineIcon>
                 <MessageBox.InlineIcon size="normal">
                   <IconButton onPress={triggerProps.onClickEmoji}>
                     <MdEmoji />

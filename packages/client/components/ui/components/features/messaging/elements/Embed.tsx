@@ -25,7 +25,10 @@ export function Embed(props: { embed: MessageEmbed }) {
    */
   const isGIF = () =>
     props.embed.type === "Website" &&
-    (props.embed as WebsiteEmbed).specialContent?.type === "GIF";
+    ((props.embed as WebsiteEmbed).specialContent?.type === "GIF" ||
+      (props.embed as WebsiteEmbed).originalUrl?.startsWith(
+        "https://tenor.com",
+      ));
 
   /**
    * Whether there is a video
@@ -71,6 +74,14 @@ export function Embed(props: { embed: MessageEmbed }) {
             preload="metadata"
             // bypass proxy for known GIF providers
             src={isGIF() ? video()!.url : video()!.proxiedURL}
+            class={css({ cursor: isGIF() ? "pointer" : "unset" })}
+            onClick={() =>
+              isGIF() &&
+              openModal({
+                type: "image_viewer",
+                gif: video(),
+              })
+            }
           />
         </SizedContent>
       </Match>

@@ -22,6 +22,7 @@ import { Button } from "@revolt/ui/components/design";
 import { Row } from "@revolt/ui/components/layout";
 
 import { EmojiPicker } from "./EmojiPicker";
+import { GifPicker } from "./GifPicker";
 
 interface Props {
   /**
@@ -136,6 +137,9 @@ function Picker(
         </Row>
 
         <Switch fallback={<span>Not available yet.</span>}>
+          <Match when={props.show() === "gif"}>
+            <GifPicker />
+          </Match>
           <Match when={props.show() === "emoji"}>
             <EmojiPicker />
           </Match>
