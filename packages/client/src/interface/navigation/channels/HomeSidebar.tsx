@@ -89,7 +89,7 @@ export const HomeSidebar = (props: Props) => {
           <a href="/friends">
             <MenuButton
               size="normal"
-              icon={<Symbol css={{alignSelf: "center", paddingBottom: "2px"}}>note_stack</Symbol>}
+              icon={<Symbol css={{alignSelf: "center", paddingBottom: "2px"}}>group</Symbol>}
               attention={
                 location.pathname === "/friends" ? "selected" : "normal"
               }
