@@ -198,7 +198,7 @@ export const HomeSidebar = (props: Props) => {
 const SidebarTitle = styled("p", {
   base: {
     paddingBlock: "calc(var(--gap-md) + 15px)",
-    paddingInline: "calc(var(--gap-lg) + 5px)",
+    paddingInline: "var(--gap-md)",
 
     ...typography.raw({ class: "title" }),
   },
@@ -391,7 +391,7 @@ function Entry(
  */
 const List = styled("div", {
   base: {
-    paddingRight: "var(--gap-md)",
+    paddingLeft: "var(--gap-md)",
     width: "var(--layout-width-channel-sidebar)",
   },
 });
