@@ -331,8 +331,8 @@ function Category(
           }
           {...createDragHandle(props.dragDisabled, props.setDragDisabled)}
         >
-          <MdChevronRight {...iconSize(12)} />
           {props.category.title}
+          <MdChevronRight {...iconSize(12)} />
         </CategoryBase>
       </Show>
       <Draggable
@@ -383,23 +383,22 @@ const CategoryBase = styled("div", {
     gap: "var(--gap-sm)",
 
     padding: "0 var(--gap-sm)",
+    paddingLeft: "calc(var(--gap-lg) + 5px)",
+    paddingTop: "10px",
+
     cursor: "pointer",
     userSelect: "none",
-    textTransform: "uppercase",
     transition: "var(--transitions-fast) all",
 
-    "--color": "var(--md-sys-color-outline)",
+    "--color": "var(--md-sys-color-on-surface)",
     color: "var(--color)",
     fill: "var(--color)",
 
     ...typography.raw({ class: "label", size: "small" }),
+    fontSize: "13px",
 
     "&:hover": {
       "--color": "var(--md-sys-color-on-surface-variant)",
-    },
-
-    "&:active": {
-      "--color": "var(--md-sys-color-on-surface)",
     },
 
     "& svg": {
@@ -534,6 +533,5 @@ const ChannelIcon = styled("img", {
 const List = styled(Column, {
   base: {
     width: "var(--layout-width-channel-sidebar)",
-    paddingRight: "var(--gap-md)",
   },
 });
