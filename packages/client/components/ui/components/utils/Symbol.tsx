@@ -51,19 +51,23 @@ export function Symbol({
       {
         fontSize,
         fontWeight: weight,
-        fontFeatureSettings: `"FILL" ${fill ? 1 : 0}, "wght" 400, "GRAD" ${grade}${
-          opticalSize === "auto" ? "" : `, "opsz" ${opticalSize}`
-        }`,
         fontOpticalSizing: opticalSize === "auto" ? "auto" : undefined,
       },
       styleProps,
       cssProp,
     );
   });
+  const memoFontVarSettings = createMemo(() => {
+    return `"FILL" ${fill ? 1 : 0}, "wght" 400, "GRAD" ${grade}${
+          opticalSize === "auto" ? "" : `, "opsz" ${opticalSize}`
+        }`;
+  });
 
   return (
     <span
       class={`material-symbols-${type} ${memoClassName()}`}
+      style={{ "font-variation-settings": memoFontVarSettings() }}
+      aria-hidden="true"
       {...restProps}
     />
   );
