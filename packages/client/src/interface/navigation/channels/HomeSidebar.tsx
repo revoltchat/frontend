@@ -86,6 +86,8 @@ export const HomeSidebar = (props: Props) => {
             </MenuButton>
           </a>
 
+          <div style={{ height: "5px" }} />
+
           <a href="/friends">
             <MenuButton
               size="normal"
@@ -103,6 +105,8 @@ export const HomeSidebar = (props: Props) => {
               </ButtonTitle>
             </MenuButton>
           </a>
+            
+          <div style={{ height: "5px" }} />
 
           <Switch
             fallback={
@@ -156,7 +160,7 @@ export const HomeSidebar = (props: Props) => {
                 },
               }}
             >
-              <MdPlus {...iconSize(14)} />
+              <Symbol fontSize="1.4em !important" marginTop="2px">add</Symbol>
             </a>
           </Category>
 
@@ -229,12 +233,14 @@ const PendingBadge = styled("div", {
 const Category = styled("div", {
   base: {
     display: "flex",
-    paddingTop: "var(--gap-md)",
     paddingInline: "var(--gap-lg)",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingTop: "calc(var(--gap-xl) - 5px)",
+    paddingBottom: "var(--gap-md)",
 
     ...typography.raw({ class: "label", size: "small" }),
+    fontSize: "13px",
   },
 });
 

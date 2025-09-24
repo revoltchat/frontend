@@ -37,6 +37,7 @@ import MdPersonAdd from "@material-design-icons/svg/filled/person_add.svg?compon
 import MdSettings from "@material-symbols/svg-400/outlined/settings-fill.svg?component-solid";
 
 import { SidebarBase } from "./common";
+import { Symbol } from "@revolt/ui/components/utils/Symbol"
 
 interface Props {
   /**
@@ -456,18 +457,18 @@ function Entry(
     <a href={`/server/${props.channel.serverId}/channel/${props.channel.id}`}>
       <MenuButton
         use:floating={props.menuGenerator(props.channel)}
-        size="thin"
+        size="normal"
         alert={alertState()}
         attention={attentionState()}
         icon={
           <>
-            <Switch fallback={<BiRegularHash size={20} />}>
+            <Switch fallback={<Symbol fontSize="1.5em !important">grid_3x3</Symbol>}>
               <Match when={props.channel.type === "VoiceChannel"}>
-                <BiRegularPhoneCall size={20} />
+                <Symbol fontSize="1.5em !important">headset_mic</Symbol>
               </Match>
             </Switch>
             <Show when={props.channel.icon}>
-              <ChannelIcon src={props.channel.iconURL} />
+              <ChannelIcon src={props.channel.iconURL} css={{marginEnd: "0.2em"}} />
             </Show>
           </>
         }
@@ -483,7 +484,7 @@ function Entry(
                   openModal({ type: "create_invite", channel: props.channel });
                 }}
               >
-                <MdPersonAdd {...iconSize("14px")} />
+                <Symbol css={{fontSize: "1.2em !important", alignSelf: "center", marginTop: "7px"}} fill>person_add</Symbol>
               </a>
             </Show>
 
@@ -501,7 +502,7 @@ function Entry(
                   });
                 }}
               >
-                <MdSettings {...iconSize("14px")} />
+                <Symbol css={{fontSize: "1.1em !important", alignSelf: "center", marginTop: "7px"}} fill>settings</Symbol>
               </a>
             </Show>
           </>
