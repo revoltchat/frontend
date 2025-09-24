@@ -322,7 +322,7 @@ export function GroupMemberSidebar(props: Props) {
 export function DirectMessageSidebar(props: Props) {
   const client = useClient();
 
-const participants = createMemo(() => 
+const participants = createMemo(() =>
   [client().user, props.channel.recipient].filter(
     (u): u is User => u !== undefined,
   )
