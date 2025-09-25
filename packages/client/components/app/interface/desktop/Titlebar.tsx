@@ -39,13 +39,23 @@ export function Titlebar() {
 
   return (
     <Base>
-      <Title>
+      <Title
+        style={{
+          "-webkit-user-select": "none",
+          "-webkit-app-region": "drag",
+        }}
+      >
         My Cool Chat App{" "}
         <Show when={import.meta.env.DEV}>
           <MdBuild {...symbolSize(16)} />
         </Show>
       </Title>
-      <DragHandle data-tauri-drag-region />
+      <DragHandle
+        style={{
+          "-webkit-user-select": "none",
+          "-webkit-app-region": "drag",
+        }}
+      />
       <Show when={window.native}>
         <Action onClick={window.native.minimise}>
           <Ripple />
