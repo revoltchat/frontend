@@ -109,7 +109,7 @@ const TitlebarBase = styled("div", {
   },
 });
 
-export const Titlebar: Component<Props> = (props) => {
+export const Titlebar:  = (props) => {
   return (
     <TitlebarBase {...props}>
       <div data-tauri-drag-region class="title">
