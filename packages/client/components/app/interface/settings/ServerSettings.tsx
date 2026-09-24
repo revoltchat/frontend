@@ -8,11 +8,11 @@ import { ColouredText, Symbol } from "@revolt/ui";
 
 import { SettingsConfiguration } from ".";
 import { ChannelPermissionsEditor } from "./channel/permissions/ChannelPermissionsEditor";
-import { AuditLog } from "./server/AuditLog";
-import Overview from "./server/Overview";
+import { ListAuditLogs } from "./server/audit/ListAuditLogs";
 import { ListServerBans } from "./server/bans/ListBans";
 import { EmojiList } from "./server/emojis/EmojiList";
 import { ListServerInvites } from "./server/invites/ListServerInvites";
+import Overview from "./server/Overview";
 import { ServerRoleEditor } from "./server/roles/ServerRoleEditor";
 import { ServerRoleOverview } from "./server/roles/ServerRoleOverview";
 import { Discoverable } from "./shared/Discoverable";
@@ -74,7 +74,7 @@ const Config: SettingsConfiguration<Server> = {
       case "bans":
         return <ListServerBans server={server} />;
       case "audit":
-        return <AuditLog server={server} />;
+        return <ListAuditLogs server={server} />;
 
       default:
         return null;
