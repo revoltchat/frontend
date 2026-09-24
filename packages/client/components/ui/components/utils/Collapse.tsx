@@ -42,6 +42,7 @@ type ItemProps = {
    */
   value?: string;
   disabled?: boolean;
+  class?: string;
 
   onOpen?: () => void;
   onClose?: () => void;
@@ -53,7 +54,6 @@ function CollapseItem(props: ItemProps) {
 
   createEffect(
     on(ref, (ref) => {
-      console.log("Mounted");
       if (local.onOpen) {
         ref!.addEventListener("open", local.onOpen);
       }
