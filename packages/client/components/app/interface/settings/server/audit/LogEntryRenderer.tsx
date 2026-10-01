@@ -169,14 +169,21 @@ function useActionTranslation() {
         return t`@${user?.username} edited this server`;
       case "RoleEdit": {
         const role = thisServer.roles.get(action.role);
+
+        if (!role) {
+          return t`@${user?.username} edited a role`;
+        }
+
         return t`@${user?.username} edited the "${role?.name}" role`;
       }
       case "RoleCreate": {
         return t`@${user?.username} created the "${(entry.action as { type: "RoleCreate" } & API.AuditLogEntryAction).name}" role`;
       }
       case "RoleDelete": {
-        const role = thisServer.roles.get(action.role);
-        return t`@${user?.username} deleted the "${role?.name}" role`;
+        const name = (
+          entry.action as { type: "RoleDelete" } & API.AuditLogEntryAction
+        ).name;
+        return t`@${user?.username} deleted the "${name}" role`;
       }
       case "RolesReorder":
         return t`@${user?.username} reorganized roles`;
