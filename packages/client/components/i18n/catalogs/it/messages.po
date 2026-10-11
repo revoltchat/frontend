@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-29 18:29-0500\n"
-"PO-Revision-Date: 2026-10-03 06:29+0000\n"
+"PO-Revision-Date: 2026-10-12 02:09+0000\n"
 "Last-Translator: Luca Ferrari <lucaf8502@gmail.com>\n"
-"Language-Team: Italian <https://translate.stoat.chat/projects/revolt/"
-"revolt-for-web/it/>\n"
+"Language-Team: Italian <https://translate.stoat.chat/projects/revolt/revolt-"
+"for-web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. js-lingui-explicit-id
 #: components/i18n/dayjs.tsx
@@ -4295,8 +4295,9 @@ msgid "Your discriminator change has been ratelimited, please try again later."
 msgstr "La modifica del discriminatore è stata limitata per troppi tentativi, riprova più tardi."
 
 #: components/auth/src/flows/FlowCreate.tsx
+#, fuzzy
 msgid "Your email stays private"
-msgstr ""
+msgstr "Il tuo indirizzo e-mail rimane riservato"
 
 #: components/i18n/errors.tsx
 msgid "Your message is too long, please remove some characters and try again."
@@ -4307,16 +4308,20 @@ msgid "Your recovery codes"
 msgstr "I tuoi codici di recupero"
 
 #: components/i18n/errors.tsx
+#, fuzzy
 msgid "Your request failed. Please contact support."
-msgstr ""
+msgstr "La tua richiesta non è andata a buon fine. Contatta l'assistenza."
 
 #: components/i18n/errors.tsx
 msgid "Your role ranking is too low to take this action."
 msgstr "Il grado del tuo ruolo è troppo basso per fare questa azione."
 
 #: components/auth/src/flows/FlowLogin.tsx
+#, fuzzy
 msgid "Your session ended, possibly because you logged out on another device. Log in again to continue."
 msgstr ""
+"La tua sessione è terminata, probabilmente perché hai effettuato il logout "
+"su un altro dispositivo. Effettua nuovamente l'accesso per continuare."
 
 #: components/i18n/errors.tsx
 msgid "Your user has already been created? Try logging in again or refreshing the app."
