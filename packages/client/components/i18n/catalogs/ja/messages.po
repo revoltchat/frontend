@@ -3,16 +3,17 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-29 18:29-0500\n"
-"PO-Revision-Date: 2026-10-09 02:52+0000\n"
-"Last-Translator: コピ <cpy@ik.me>\n"
-"Language-Team: Japanese <https://translate.stoat.chat/projects/revolt/"
-"revolt-for-web/ja/>\n"
+"PO-Revision-Date: 2026-10-12 02:09+0000\n"
+"Last-Translator: Weblate for Stoat user 1964 "
+"<aki@users.noreply.translate.stoat.chat>\n"
+"Language-Team: Japanese <https://translate.stoat.chat/projects/revolt/revolt-"
+"for-web/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. js-lingui-explicit-id
 #: components/i18n/dayjs.tsx
@@ -1373,7 +1374,7 @@ msgstr ""
 
 #: components/modal/modals/BanMember.tsx
 msgid "Don't delete messages"
-msgstr ""
+msgstr "メッセージを削除しない"
 
 #: components/modal/modals/LeaveServer.tsx
 msgid "Don't notify others that you've left"
@@ -1381,7 +1382,7 @@ msgstr "退出を他の人に通知しない"
 
 #: src/AndroidNag.tsx
 msgid "Don't show this again"
-msgstr ""
+msgstr "今後表示しない"
 
 #: components/app/interface/settings/UserSettings.tsx
 msgid "Donate"
@@ -1401,7 +1402,7 @@ msgstr "完了"
 
 #: components/auth/src/AppUpsell.tsx
 msgid "Download for desktop"
-msgstr ""
+msgstr "デスクトップ版をダウンロード"
 
 #: components/modal/modals/ReportContent.tsx
 msgid "Drugs or illegal goods"
@@ -1409,7 +1410,7 @@ msgstr "薬物または違法物品"
 
 #: components/modal/modals/TimeoutMember.tsx
 msgid "Duration"
-msgstr ""
+msgstr "期間"
 
 #. placeholder {0}: props.member.displayName
 #: components/modal/modals/UserProfileRoles.tsx
@@ -1430,12 +1431,12 @@ msgstr "チャンネルの権限設定を編集できます"
 
 #: components/app/interface/settings/server/emojis/EmojiList.tsx
 msgid "Edit Emoji"
-msgstr ""
+msgstr "絵文字を編集"
 
 #: components/app/menus/ServerFolderContextMenu.tsx
 #: components/modal/modals/EditServerFolder.tsx
 msgid "Edit folder"
-msgstr ""
+msgstr "フォルダーを編集"
 
 #: components/app/interface/settings/user/profile/EditProfile.tsx
 msgid "Edit Global Profile"
@@ -1486,7 +1487,7 @@ msgstr "メールアドレス"
 
 #: components/app/interface/settings/server/emojis/EmojiList.tsx
 msgid "Emoji"
-msgstr ""
+msgstr "絵文字"
 
 #: components/app/interface/settings/server/emojis/EmojiList.tsx
 #: components/modal/modals/EditEmoji.tsx
@@ -1515,7 +1516,7 @@ msgstr "デスクトップ通知を有効にする"
 
 #: components/app/interface/settings/user/notifications/Notifications.tsx
 msgid "Enable Push Notifications"
-msgstr ""
+msgstr "プッシュ通知を有効にする"
 
 #: components/app/interface/settings/user/appearance/AppearanceMenu.tsx
 msgid "Enable transparency glass/blur effects (slow on older machines)"
@@ -1562,11 +1563,11 @@ msgstr "現在のパスワードを入力..."
 
 #: components/auth/src/flows/FlowResend.tsx
 msgid "Enter your email and we'll send you a fresh link."
-msgstr ""
+msgstr "メールアドレスを入力すると、新しいリンクをお送りします。"
 
 #: components/auth/src/flows/Form.tsx
 msgid "Enter your invite code."
-msgstr ""
+msgstr "招待コードを入力してください。"
 
 #: components/auth/src/flows/Form.tsx
 msgid "Enter your preferred username."
@@ -1577,7 +1578,7 @@ msgstr "好きなユーザー名を入力してください。"
 #: components/app/interface/settings/server/roles/ServerRoleOverview.tsx
 #: components/app/interface/settings/ServerSettings.tsx
 msgid "Everyone"
-msgstr ""
+msgstr "全員"
 
 #: components/modal/modals/LinkWarning.tsx
 msgid "External links can be dangerous!"
@@ -1593,11 +1594,13 @@ msgstr "過激な暴力、残虐な描写、または動物虐待"
 
 #: components/client/NotificationsController.ts
 msgid "Failed to enable notifications. Stoat does not have notification permission."
-msgstr ""
+msgstr "通知を有効にできませんでした。Stoatに通知の許可が与えられていません。"
 
 #: components/client/NotificationsController.ts
 msgid "Failed to enable push notifications. Please try again later."
 msgstr ""
+"プッシュ通知を有効にできませんでした。しばらくしてからもう一度お試しください"
+"。"
 
 #: components/i18n/errors.tsx
 msgid "Failed to process the image you provided."
@@ -1619,7 +1622,7 @@ msgstr "フィードバック"
 #. placeholder {0}: humanFileSize(local.maxSize)
 #: components/ui/components/utils/Form2.tsx
 msgid "File must be smaller than {0}"
-msgstr ""
+msgstr "ファイルサイズは{0}未満にしてください"
 
 #: src/interface/Home.tsx
 msgid "Find a community based on your hobbies or interests."
@@ -1637,11 +1640,11 @@ msgstr "集中"
 
 #: src/interface/navigation/servers/ServerList.tsx
 msgid "Folder"
-msgstr ""
+msgstr "フォルダー"
 
 #: components/modal/modals/EditServerFolder.tsx
 msgid "Folder colour"
-msgstr ""
+msgstr "フォルダーの色"
 
 #: components/app/menus/ServerContextMenu.tsx
 #: components/app/menus/shared/NotificationContextMenu.tsx
@@ -1670,7 +1673,7 @@ msgstr "8時間"
 
 #: components/auth/src/flows/FlowLogin.tsx
 msgid "Forgot password?"
-msgstr ""
+msgstr "パスワードをお忘れですか？"
 
 #: src/interface/Friends.tsx
 #: src/interface/navigation/channels/HomeSidebar.tsx
@@ -1708,23 +1711,27 @@ msgstr "現在のリカバリーコードを取得します"
 #: components/auth/src/AppUpsell.tsx
 #: src/AndroidNag.tsx
 msgid "Get it on Google Play"
-msgstr ""
+msgstr "Google Play で手に入れよう"
 
 #: components/auth/src/AppUpsell.tsx
 msgid "Get Stoat for Android and keep up with your friends wherever you are."
-msgstr ""
+msgstr "Android版Stoatを手に入れて、いつでもどこでも友達とつながりましょう。"
 
 #: components/auth/src/AppUpsell.tsx
 msgid "Get the desktop app for Windows, macOS and Linux and keep your conversations one click away."
 msgstr ""
+"Windows、macOS、Linux向けのデスクトップアプリを手に入れて、会話にワンクリック"
+"でアクセスしましょう。"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "Gifbox is our own GIF service, so you can keep sharing GIFs right here on Stoat."
 msgstr ""
+"GifboxはStoat独自のGIFサービスです。Stoatの中で、これまでどおりGIFを共有でき"
+"ます。"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "GIFs are now powered by Gifbox"
-msgstr ""
+msgstr "GIFがGifboxでの提供になりました"
 
 #: src/interface/Home.tsx
 msgid "Give feedback on Stoat"
@@ -1764,11 +1771,11 @@ msgstr "決定"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "Got a better GIF? Share it with everyone on Gifbox."
-msgstr ""
+msgstr "もっといいGIFを持っていますか？Gifboxでみんなにシェアしましょう。"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "Got it"
-msgstr ""
+msgstr "了解"
 
 #. placeholder {0}: countBits(props.context.rolePermissions![role.id].a)
 #. placeholder {1}: countBits(props.context.rolePermissions![role.id].d)
@@ -1782,7 +1789,7 @@ msgstr "グループ名"
 
 #: components/app/interface/settings/UserSettings.tsx
 msgid "Guidelines"
-msgstr ""
+msgstr "ガイドライン"
 
 #: components/modal/modals/ReportContent.tsx
 msgid "Harassment or cyberbullying"
@@ -1801,7 +1808,7 @@ msgstr "他の参加者の声を聞いたり、ビデオを表示できるよう
 
 #: components/auth/src/AuthPage.tsx
 msgid "Help"
-msgstr ""
+msgstr "ヘルプ"
 
 #: components/app/interface/settings/user/Language.tsx
 msgid "Help contribute to an existing or new language"
@@ -2063,7 +2070,7 @@ msgstr ""
 
 #: components/auth/src/flows/FlowLogin.tsx
 msgid "Log in to pick up right where you left off."
-msgstr ""
+msgstr "ログインして、前回の続きから始めましょう。"
 
 #: components/app/interface/settings/user/Sessions.tsx
 #: components/app/interface/settings/UserSettings.tsx
@@ -2080,7 +2087,7 @@ msgstr "他のデバイスからログアウト"
 
 #: components/auth/src/flows/FlowLogin.tsx
 msgid "Logging you in…"
-msgstr ""
+msgstr "ログイン中…"
 
 #~ msgid "Login"
 #~ msgstr "ログイン"
@@ -2091,11 +2098,11 @@ msgstr "このデバイスを除く、全てのデバイスでログアウトさ
 
 #: components/app/interface/settings/server/emojis/EmojiList.tsx
 msgid "Lowercase letters, numbers and underscores only."
-msgstr ""
+msgstr "使用できるのは英小文字、数字、アンダースコア（_）のみです。"
 
 #: components/ui/components/design/LoadingScreen.tsx
 msgid "Major Outage"
-msgstr ""
+msgstr "大規模な障害"
 
 #: components/modal/modals/ReportContent.tsx
 msgid "Malware or phishing"
@@ -2171,7 +2178,7 @@ msgstr "メンバー"
 #. placeholder {0}: slowmodeWaitTime()
 #: components/app/interface/channels/text/CompositionInfo.tsx
 msgid "Members can send one message every {0}."
-msgstr ""
+msgstr "メンバーは{0}ごとに1回メッセージを送信できます。"
 
 #: components/app/menus/UserContextMenu.tsx
 msgid "Mention"
@@ -2242,7 +2249,7 @@ msgstr "メッセージ"
 
 #: components/app/interface/settings/user/Account.tsx
 msgid "MFA setup canceled."
-msgstr ""
+msgstr "多要素認証の設定をキャンセルしました。"
 
 #: components/app/interface/settings/user/Native.tsx
 msgid "Minimise to Tray"
@@ -2296,7 +2303,7 @@ msgstr "メンバーをミュート"
 
 #: components/app/menus/UserContextMenu.tsx
 msgid "Mute Screen Share"
-msgstr ""
+msgstr "画面共有をミュート"
 
 #: components/app/menus/ServerContextMenu.tsx
 msgid "Mute Server"
@@ -2344,7 +2351,7 @@ msgstr "新規"
 
 #: components/app/menus/ServerContextMenu.tsx
 msgid "New folder"
-msgstr ""
+msgstr "新しいフォルダー"
 
 #. placeholder {0}: dayjs(decodeTime(props.lastId()!)).fromNow()
 #: components/ui/components/features/messaging/bars/NewMessages.tsx
@@ -2366,7 +2373,7 @@ msgstr "新しいStoatユーザー"
 
 #: components/auth/src/AuthPage.tsx
 msgid "New to Stoat?"
-msgstr ""
+msgstr "Stoatは初めてですか？"
 
 #: components/app/interface/channels/text/Message.tsx
 msgid "New to the server"
@@ -2374,7 +2381,7 @@ msgstr "新しいサーバー参加者"
 
 #: components/ui/components/features/navigation/UnreadCallout.tsx
 msgid "New unreads"
-msgstr ""
+msgstr "新着メッセージ"
 
 #: components/modal/modals/ServerIdentity.tsx
 msgid "Nickname"
@@ -2382,7 +2389,7 @@ msgstr "ニックネーム"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "No GIFs found"
-msgstr ""
+msgstr "GIFが見つかりませんでした"
 
 #: components/app/interface/settings/channel/permissions/ChannelPermissionsOverview.tsx
 msgid "No permissions set yet"
@@ -2461,7 +2468,7 @@ msgstr "最初の1000ユーザー!"
 
 #: components/ui/components/design/LoadingScreen.tsx
 msgid "Ongoing Maintenance"
-msgstr ""
+msgstr "メンテナンス中"
 
 #: components/ui/components/features/profiles/ProfileStatus.tsx
 #: src/interface/channels/text/MemberSidebar.tsx
@@ -2477,7 +2484,7 @@ msgstr "あなたへのメンションのみ通知されます"
 
 #: components/instance/index.tsx
 msgid "Oops, something went wrong! {e}"
-msgstr ""
+msgstr "問題が発生しました。{e}"
 
 #: components/modal/modals/Invite.tsx
 msgid "Open"
@@ -2519,7 +2526,7 @@ msgstr "概要"
 
 #: components/ui/components/features/profiles/ProfileOwner.tsx
 msgid "Owner"
-msgstr ""
+msgstr "オーナー"
 
 #: components/app/interface/settings/server/bans/ListBans.tsx
 msgid "Pardon User"
@@ -2527,7 +2534,7 @@ msgstr "BANを解除"
 
 #: components/ui/components/design/LoadingScreen.tsx
 msgid "Partial Outage"
-msgstr ""
+msgstr "一部障害"
 
 #: components/app/interface/settings/user/Account.tsx
 #: components/auth/src/flows/Form.tsx
@@ -2537,7 +2544,7 @@ msgstr "パスワード"
 
 #: components/modal/modals/EditPassword.tsx
 msgid "Password changed successfully."
-msgstr ""
+msgstr "パスワードを変更しました。"
 
 #: src/interface/Friends.tsx
 msgid "Pending"
@@ -2557,7 +2564,7 @@ msgstr ""
 
 #: components/modal/modals/ScreenSharePicker.tsx
 msgid "Pick a Screen to Share"
-msgstr ""
+msgstr "共有する画面を選択"
 
 #: components/auth/src/flows/FlowLogin.tsx
 msgid "Pick a username that you want people to be able to find you by. This can be changed later in your user settings."
@@ -2565,7 +2572,7 @@ msgstr "他のユーザーから検索されるように名前を決めましょ
 
 #: components/modal/modals/PinMessage.tsx
 msgid "Pin"
-msgstr ""
+msgstr "ピン留め"
 
 #: components/app/menus/MessageContextMenu.tsx
 #: components/modal/modals/PinMessage.tsx
@@ -2578,7 +2585,7 @@ msgstr "プラットフォームモデレーター"
 
 #: components/app/interface/settings/user/notifications/Sounds.tsx
 msgid "Play sound"
-msgstr ""
+msgstr "通知音を鳴らす"
 
 #: components/modal/modals/MFAFlow.tsx
 msgid "Please confirm this action using the selected method."
@@ -2614,16 +2621,16 @@ msgstr ""
 
 #: components/app/interface/settings/server/roles/ServerRoleEditor.tsx
 msgid "Preview"
-msgstr ""
+msgstr "プレビュー"
 
 #: components/app/interface/settings/UserSettings.tsx
 #: components/auth/src/AuthPage.tsx
 msgid "Privacy"
-msgstr ""
+msgstr "プライバシー"
 
 #: components/auth/src/flows/FlowCreate.tsx
 msgid "Privacy policy"
-msgstr ""
+msgstr "プライバシーポリシー"
 
 #~ msgid "Privacy Policy"
 #~ msgstr "プライバシーポリシー"
@@ -2648,7 +2655,7 @@ msgstr "有害な行為の助長"
 #: components/app/interface/settings/user/profile/UserProfileEditor.tsx
 #: components/modal/modals/ServerIdentity.tsx
 msgid "Pronouns"
-msgstr ""
+msgstr "代名詞"
 
 #: components/i18n/errors.tsx
 msgid "Provided email or password is wrong."
@@ -2687,7 +2694,7 @@ msgstr "理由"
 
 #: components/modal/modals/ReportContent.tsx
 msgid "Reason for report"
-msgstr ""
+msgstr "通報の理由"
 
 #. placeholder {0}: (dr.status as { Denied: string | null }) .Denied
 #: components/app/interface/settings/shared/Discoverable.tsx
