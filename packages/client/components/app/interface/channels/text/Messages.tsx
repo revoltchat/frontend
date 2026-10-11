@@ -382,6 +382,9 @@ export function Messages(props: Props) {
         return {
           scrollAnchorId: msgs[msgs.length - 1].id,
           commitToDOM() {
+            // The list may hold off committing until scrolling settles
+            if (preempted()) return;
+
             setMessagesSafely(messages(), result.messages);
 
             if (tooManyBy) {
@@ -456,6 +459,9 @@ export function Messages(props: Props) {
         return {
           scrollAnchorId: messages()[0].id,
           commitToDOM() {
+            // The list may hold off committing until scrolling settles
+            if (preempted()) return;
+
             setMessages(() => {
               return [...result.messages.reverse(), ...messages()];
             });
