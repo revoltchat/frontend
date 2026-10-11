@@ -8,6 +8,7 @@ import {
   createMemo,
   createSignal,
 } from "solid-js";
+import { Portal } from "solid-js/web";
 
 import { Trans, useLingui } from "@lingui/solid/macro";
 import { Channel, Server, User } from "stoat.js";
@@ -395,41 +396,43 @@ export const ServerList = (props: Props) => {
         </div>
         <Show when={heldEntry()}>
           {(held) => (
-            <div
-              class={railGhost}
-              style={{
-                left: `${(drag.pointer()?.x ?? 0) - 21}px`,
-                top: `${(drag.pointer()?.y ?? 0) - 21}px`,
-              }}
-            >
-              <Switch>
-                <Match when={held().type === "server" && held()}>
-                  {(item) => (
-                    <Avatar
-                      size={42}
-                      src={(item() as { server: Server }).server.iconURL}
-                      fallback={(item() as { server: Server }).server.name}
-                    />
-                  )}
-                </Match>
-                <Match when={held().type === "folder" && held()}>
-                  {(item) => (
-                    <Avatar
-                      size={42}
-                      fallback={
-                        <FolderPreview
-                          servers={(item() as { servers: Server[] }).servers}
-                          colour={
-                            (item() as { folder: { colour?: string } }).folder
-                              .colour
-                          }
-                        />
-                      }
-                    />
-                  )}
-                </Match>
-              </Switch>
-            </div>
+            <Portal mount={document.getElementById("floating")!}>
+              <div
+                class={railGhost}
+                style={{
+                  left: `${(drag.pointer()?.x ?? 0) - 21}px`,
+                  top: `${(drag.pointer()?.y ?? 0) - 21}px`,
+                }}
+              >
+                <Switch>
+                  <Match when={held().type === "server" && held()}>
+                    {(item) => (
+                      <Avatar
+                        size={42}
+                        src={(item() as { server: Server }).server.iconURL}
+                        fallback={(item() as { server: Server }).server.name}
+                      />
+                    )}
+                  </Match>
+                  <Match when={held().type === "folder" && held()}>
+                    {(item) => (
+                      <Avatar
+                        size={42}
+                        fallback={
+                          <FolderPreview
+                            servers={(item() as { servers: Server[] }).servers}
+                            colour={
+                              (item() as { folder: { colour?: string } }).folder
+                                .colour
+                            }
+                          />
+                        }
+                      />
+                    )}
+                  </Match>
+                </Switch>
+              </div>
+            </Portal>
           )}
         </Show>
         <Tooltip placement="right" content={"Create or join a server"}>
@@ -480,6 +483,17 @@ function ServerEntry(props: {
   drag: RailDrag;
 }) {
   const state = useState();
+
+  // Mention count for the server badge, excluding channel-muted channels
+  const mentions = () =>
+    props.server.channels.reduce(
+      (count, channel) =>
+        count +
+        (state.notifications.isChannelMuted(channel)
+          ? 0
+          : (channel.mentions?.size ?? 0)),
+      0,
+    );
 
   return (
     <Tooltip
@@ -544,7 +558,7 @@ function ServerEntry(props: {
             size={42}
             src={props.server.iconURL}
             holepunch={
-              props.server.mentions.length
+              mentions()
                 ? props.server.voiceStatus !== "none"
                   ? "right"
                   : "top-right"
@@ -554,15 +568,8 @@ function ServerEntry(props: {
             }
             overlay={
               <>
-                <Show
-                  when={
-                    props.server.mentions.length /* as opposed to item.unread */
-                  }
-                >
-                  <Unreads.Graphic
-                    count={props.server.mentions.length}
-                    unread
-                  />
+                <Show when={mentions() /* as opposed to item.unread */}>
+                  <Unreads.Graphic count={mentions()} unread />
                 </Show>
                 <Show when={props.server.voiceStatus !== "none"}>
                   <VoiceStatus.Graphic status={props.server.voiceStatus} />
@@ -594,9 +601,19 @@ function FolderEntry(props: {
 
   const folderName = () => props.entry.folder.name || t`Folder`;
 
+  // Mention count for the badge, excluding channel-muted channels
   const mentions = () =>
     props.entry.servers.reduce(
-      (count, server) => count + server.mentions.length,
+      (count, server) =>
+        count +
+        server.channels.reduce(
+          (n, channel) =>
+            n +
+            (state.notifications.isChannelMuted(channel)
+              ? 0
+              : (channel.mentions?.size ?? 0)),
+          0,
+        ),
       0,
     );
 

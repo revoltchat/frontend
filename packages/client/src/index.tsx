@@ -17,7 +17,6 @@ import FlowCheck from "@revolt/auth/src/flows/FlowCheck";
 import FlowConfirmReset from "@revolt/auth/src/flows/FlowConfirmReset";
 import FlowCreate from "@revolt/auth/src/flows/FlowCreate";
 import FlowDeleteAccount from "@revolt/auth/src/flows/FlowDelete";
-import FlowHome from "@revolt/auth/src/flows/FlowHome";
 import FlowLogin from "@revolt/auth/src/flows/FlowLogin";
 import FlowResend from "@revolt/auth/src/flows/FlowResend";
 import FlowReset from "@revolt/auth/src/flows/FlowReset";
@@ -155,7 +154,7 @@ const routes = () => (
       <Route path="/reset" component={FlowReset} />
       <Route path="/verify/:token" component={FlowVerify} />
       <Route path="/reset/:token" component={FlowConfirmReset} />
-      <Route path="/*" component={FlowHome} />
+      <Route path="/*" component={FlowLogin} />
     </Route>
     <Route path="/" component={Interface as never}>
       <Route path="/pwa" component={PWARedirect} />
@@ -177,23 +176,41 @@ const routes = () => (
 
 const snackbarCtrl = new SnackbarController();
 
-render(
-  () => (
-    <DeviceContext>
-      <I18nProvider>
-        <SnackbarProvider controller={snackbarCtrl}>
-          <Router>
-            <Route path="/i/:host" component={InstanceContext}>
-              {routes()}
-            </Route>
-            <Route path="/" component={InstanceContext}>
-              {routes()}
-            </Route>
-          </Router>
-          {/* <ReportBug /> */}
-        </SnackbarProvider>
-      </I18nProvider>
-    </DeviceContext>
-  ),
-  document.getElementById("root") as HTMLElement,
-);
+/**
+ * Move into top window if the client was loaded inside itself
+ */
+function escapeSelfEmbed() {
+  if (window.self === window.top) return false;
+
+  try {
+    // reading a cross-origin parent's location throws, leave those embeds be
+    if (window.top!.location.origin !== window.location.origin) return false;
+  } catch {
+    return false;
+  }
+
+  window.top!.location.href = window.location.href;
+  return true;
+}
+
+if (!escapeSelfEmbed())
+  render(
+    () => (
+      <DeviceContext>
+        <I18nProvider>
+          <SnackbarProvider controller={snackbarCtrl}>
+            <Router>
+              <Route path="/i/:host" component={InstanceContext}>
+                {routes()}
+              </Route>
+              <Route path="/" component={InstanceContext}>
+                {routes()}
+              </Route>
+            </Router>
+            {/* <ReportBug /> */}
+          </SnackbarProvider>
+        </I18nProvider>
+      </DeviceContext>
+    ),
+    document.getElementById("root") as HTMLElement,
+  );

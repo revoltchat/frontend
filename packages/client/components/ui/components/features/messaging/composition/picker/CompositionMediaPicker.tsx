@@ -23,6 +23,7 @@ import { useDevice } from "@revolt/common";
 import { Button } from "@revolt/ui/components/design";
 import { Row } from "@revolt/ui/components/layout";
 
+import { Channel } from "stoat.js";
 import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";
 
@@ -97,6 +98,7 @@ export function CompositionMediaPicker(props: Props) {
               transition={{ duration: 0.2, easing: [0.87, 0, 0.13, 1] }}
             >
               <Picker
+                channel={props.channel}
                 anchor={() => altRef || anchor()}
                 show={show}
                 setShow={setShow}
@@ -173,17 +175,26 @@ function Picker(
     >
       <Container>
         <Row gap="xs" justify class="CompositionButton">
-          <Button
-            groupActive={props.show() === "gif"}
-            onPress={() => props.setShow("gif")}
-            group="connected-start"
+          <Show
+            when={!props.channel || props.channel.havePermission("SendEmbeds")}
           >
-            GIFs
-          </Button>
+            <Button
+              groupActive={props.show() === "gif"}
+              onPress={() => props.setShow("gif")}
+              group="connected-start"
+            >
+              GIFs
+            </Button>
+          </Show>
+
           <Button
             groupActive={props.show() === "emoji"}
             onPress={() => props.setShow("emoji")}
-            group="connected-end"
+            group={
+              !props.channel || props.channel.havePermission("SendEmbeds")
+                ? "connected-end"
+                : undefined
+            }
           >
             Emoji
           </Button>
