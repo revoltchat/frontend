@@ -129,6 +129,19 @@ export function Messages(props: Props) {
   const [failure, setFailure] = createSignal(false);
 
   /**
+   * Whether the first render pass has settled
+   *
+   * The skeletons in ListView2 are watching for intersections. This flag
+   * prevents them from listening for the first render.
+   */
+  const [renderSettled, setRenderSettled] = createSignal(false);
+
+  // Immediately set render settled to true after first render
+  setTimeout(() => {
+    setRenderSettled(true);
+  });
+
+  /**
    * Collect messages during fetches
    *
    * The new message handler should write into this if it
@@ -369,6 +382,9 @@ export function Messages(props: Props) {
         return {
           scrollAnchorId: msgs[msgs.length - 1].id,
           commitToDOM() {
+            // The list may hold off committing until scrolling settles
+            if (preempted()) return;
+
             setMessagesSafely(messages(), result.messages);
 
             if (tooManyBy) {
@@ -443,6 +459,9 @@ export function Messages(props: Props) {
         return {
           scrollAnchorId: messages()[0].id,
           commitToDOM() {
+            // The list may hold off committing until scrolling settles
+            if (preempted()) return;
+
             setMessages(() => {
               return [...result.messages.reverse(), ...messages()];
             });
@@ -556,11 +575,22 @@ export function Messages(props: Props) {
      * Scroll to the nearest message (to the id) in history
      */
     const scrollToNearestMessage = () => {
-      const index = messagesWithTail().findIndex(
-        (entry) => entry.t === 0 && entry.message.id === messageId,
-      ); // use localeCompare
+      const entries = messagesWithTail();
 
-      listRef()!.children[index + (atStart() ? 1 : 0)].scrollIntoView({
+      // ULIDs sort by time, so take the first message at or after the id
+      let index = entries.findIndex(
+        (entry) =>
+          entry.t === 0 && entry.message.id.localeCompare(messageId) >= 0,
+      );
+
+      // Everything is older than the id, so fall back to the newest message
+      if (index === -1) {
+        index = entries.findLastIndex((entry) => entry.t === 0);
+      }
+
+      if (index === -1) return;
+
+      listRef()!.children[index + (atStart() ? 1 : 0)]?.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
@@ -936,7 +966,7 @@ export function Messages(props: Props) {
         fetchBottom={caseFetchDownwards}
         atStart={atStart}
         atEnd={atEnd}
-        permitFetching={() => typeof fetching() !== "string"}
+        permitFetching={() => typeof fetching() !== "string" && renderSettled()}
       >
         <Deferred>
           <div ref={setListRef}>
