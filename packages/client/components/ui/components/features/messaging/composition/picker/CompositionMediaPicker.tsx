@@ -23,7 +23,6 @@ import { useDevice } from "@revolt/common";
 import { Button } from "@revolt/ui/components/design";
 import { Row } from "@revolt/ui/components/layout";
 
-import { Channel } from "stoat.js";
 import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";
 
@@ -104,7 +103,6 @@ export function CompositionMediaPicker(props: Props) {
                 setShow={setShow}
                 onMessage={props.onMessage}
                 onTextReplacement={props.onTextReplacement}
-                channel={props.channel}
               />
             </Motion>
           </Portal>
