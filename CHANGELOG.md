@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.16.2](https://github.com/stoatchat/for-web/compare/stoat-for-web-v0.16.1...stoat-for-web-v0.16.2) (2026-10-12)
+
+
+### Bug Fixes
+
+* add polyfills to prevent startup crash on Safari &lt; 18.4 ([#1700](https://github.com/stoatchat/for-web/issues/1700)) ([b5e4b3e](https://github.com/stoatchat/for-web/commit/b5e4b3e89c9948cd4f93de58586595707af8f11c))
+* Attachment width & colors ([#1717](https://github.com/stoatchat/for-web/issues/1717)) ([18a474d](https://github.com/stoatchat/for-web/commit/18a474de87fb3a7a4efa3003d258c7aa5ed7a0b4))
+* break out of nested client when Discover iframe navigates to the app ([#1711](https://github.com/stoatchat/for-web/issues/1711)) ([fba5de3](https://github.com/stoatchat/for-web/commit/fba5de33c3572f3ed5c9d31b00842473c590dc1e))
+* Changing from home to a text channel no longer re-fetches upwards ([#1723](https://github.com/stoatchat/for-web/issues/1723)) ([9aad54e](https://github.com/stoatchat/for-web/commit/9aad54ef64359fc5dc05dc4d7f95a903e1334a59))
+* Channel will no longer be stuck when moving back and forth ([#1699](https://github.com/stoatchat/for-web/issues/1699)) ([91397cd](https://github.com/stoatchat/for-web/commit/91397cd6db14ff04b6971643104aef38a50278eb))
+* **ios:** keep the message box above the keyboard ([#1719](https://github.com/stoatchat/for-web/issues/1719)) ([4e50383](https://github.com/stoatchat/for-web/commit/4e50383e3f65f93fff758c0dcbbf696338f468a6))
+* **ios:** long press, sticky hover and stuck tooltips ([#1715](https://github.com/stoatchat/for-web/issues/1715)) ([f80785f](https://github.com/stoatchat/for-web/commit/f80785fe960369cfc666232118a588a4a3d23d37))
+* **ios:** stop message list jumping and pull-to-refresh while scrolling ([#1716](https://github.com/stoatchat/for-web/issues/1716)) ([1af30e5](https://github.com/stoatchat/for-web/commit/1af30e5f80b224768426d593ef027382b5730cb0))
+* scrollToNearestMessage handles message not found ([#1718](https://github.com/stoatchat/for-web/issues/1718)) ([8cd4875](https://github.com/stoatchat/for-web/commit/8cd48758a419e1f679c9f12cdb219821c5ca6553))
+* **ui:** avoid evaluating floating accessor in cleanup ([#1720](https://github.com/stoatchat/for-web/issues/1720)) ([531a3b2](https://github.com/stoatchat/for-web/commit/531a3b220aa2e74bce69e674b2c6eed0574af04d))
+* **ui:** suppress ping badges in muted channels  ([#1688](https://github.com/stoatchat/for-web/issues/1688)) ([398c8a5](https://github.com/stoatchat/for-web/commit/398c8a51d57100af522bcbc583190c26009c1e9c))
+* Update stoatjs for better websocket handling, less reconnects ([#1707](https://github.com/stoatchat/for-web/issues/1707)) ([019e27d](https://github.com/stoatchat/for-web/commit/019e27daf4f9987fcca2a28bdd9fb20829b787e2))
+
 ## [0.16.1](https://github.com/stoatchat/for-web/compare/stoat-for-web-v0.16.0...stoat-for-web-v0.16.1) (2026-10-01)
 
 
