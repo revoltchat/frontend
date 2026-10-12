@@ -3,11 +3,13 @@
 To add a new state store, you must:
 
 - Create a new state type
-- Add the new store type to the Store type in stores/index.ts
-- Create a new class extending AbstractStore
-- Add the new store class to the State class in index.ts
+- Add the new store type to the `UnsyncedStore` or `SyncedStore` type in `stores/index.ts`
+- Create a new class extending `AbstractStore` or `AbstractSyncedStore`
+- Add the new store class to the `State` class in index.ts
 
 In addition to this guide offering a starting point to creating a new state store, it will also serve as a guide to the components of the state store.
+
+To create a SyncedStore, follow the instructions here but replace `AbstractStore` with `AbstractSyncedStore` and put the store in the `SyncedStore` type and the `SYNCED_KEYS` array instead of `UnsyncedStore`. See existing synced stores for guidance.
 
 ## Creating a New State Type
 
@@ -37,7 +39,7 @@ import { TypeFavorites } from "./Favorites";
 import { TypeKeybinds } from "./Keybinds";
 . . .
 
-export type Store = {
+export type UnsyncedStore = {
   . . .
   experiments: TypeExperiments;
   favorites: TypeFavorites;

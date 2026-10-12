@@ -37,6 +37,7 @@ Currently, the following state stores are available:
 - notifications
 - ordering
 - release-notes
+- server-folders
 - settings
 - sounds
 - sync
@@ -47,15 +48,14 @@ Notable states should have a documentation page explaining them.
 
 ## State Syncing
 
-Some state stores are synced with the backend. Currently, the following state stores are synced:
+Any state store that extends `AbstractSyncedStore` will be synced with the backend. Currently, the following state stores are synced:
 
 - notifications
 - ordering
 - release-notes
+- server-folders
 
-Synced stores are fetched on login and merged with existing stores. Sync stores will also upload to the backend when changed locally. To add a store to be synced, you must modify stores/Sync.ts to account for the new store. Any store that is to be synced must export it's `get` function. See existing synced stores for guidance.
-
-Synced stores need to be refactored. When done so, this documentation should get updated to reflect new method for syncing stores.
+Synced stores are fetched on login and merged with existing stores. Sync stores will also upload to the backend when changed locally.
 
 ## Miscellaneous State Technicals
 
