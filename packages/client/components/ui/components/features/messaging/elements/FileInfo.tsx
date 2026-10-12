@@ -46,8 +46,11 @@ export function FileInfo(props: Props) {
   function download(url: string, name?: string) {
     const link = document.createElement("a");
     link.href = url;
-    if (name) link.download = name;
+    link.download = name || "file";
+    link.target = "_blank";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   }
 
   return (
@@ -87,7 +90,7 @@ export function FileInfo(props: Props) {
       <Show when={props.file}>
         <IconButton
           onPress={() =>
-            download(props.file!.originalUrl, props.file?.filename)
+            download(props.file!.originalUrl, props.file!.filename)
           }
         >
           <Symbol>download</Symbol>
