@@ -236,10 +236,12 @@ export class State {
 
       //Transfer legacy auth to new global store
       if (storeKeys?.contains(LEGACY_STORE)) {
-        const oldAuth = await localforage
-          .createInstance({ storeName: LEGACY_STORE })
-          .getItem("auth");
+        const oldStore = localforage.createInstance({
+          storeName: LEGACY_STORE,
+        });
+        const oldAuth = await oldStore.getItem("auth");
         if (oldAuth) await this.dbGlobal.setItem("auth", oldAuth);
+        await oldStore.dropInstance();
       }
     } else {
       //Reset defaults
@@ -289,10 +291,7 @@ export class State {
           (s) => `@${s.userId}`,
         );
       for (const key of storeKeys)
-        if (
-          key === LEGACY_STORE ||
-          (key.indexOf("@") !== -1 && !sesNames.includes(key))
-        ) {
+        if (key.indexOf("@") !== -1 && !sesNames.includes(key)) {
           console.warn(`[store] Deleted unused db ${key}`);
           await localforage.dropInstance({ storeName: key });
         }
