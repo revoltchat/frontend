@@ -1,6 +1,6 @@
 import { Trans, useLingui } from "@lingui/solid/macro";
 import { useDurationFormat } from "@revolt/i18n/durations";
-import { typography } from "@revolt/ui";
+import { typography, Avatar } from "@revolt/ui";
 import {
   createMemo,
   For,
@@ -9,7 +9,9 @@ import {
   children as resolveChildren,
   Show,
   Switch,
+  onMount,
 } from "solid-js";
+import { useInstance } from "@revolt/instance";
 import { API, Permission, Server } from "stoat.js";
 import { css, cva } from "styled-system/css";
 
@@ -98,6 +100,7 @@ function ObjectDiff(props: { action: ObjectEditAction }) {
 
   return (
     <DiffList>
+      <li>debug: {JSON.stringify(changes())}</li>
       <For each={Object.entries(changes())}>
         {([name, change]) => (
           <DiffField key={name} before={change.before} after={change.after} />
@@ -240,6 +243,11 @@ type FormatValueProps<T> = {
   after?: T;
 };
 
+function fileUrl(file: API.File): string {
+  const instance = useInstance();
+  return `${instance.mediaUrl}/${file.tag}/${file._id}`;
+}
+
 /**
  * Display the value of a diff
  */
@@ -252,6 +260,9 @@ function DiffField<T>(props: FormatValueProps<T>) {
       case "slowmode":
       case "timeout":
         return "duration";
+      case "icon":
+      case "banner":
+        return "image";
       case "system_messages":
       case "categories":
         return "complex";
@@ -259,6 +270,11 @@ function DiffField<T>(props: FormatValueProps<T>) {
         return undefined;
     }
   });
+
+  onMount(() => {
+    console.log(`DiffField: Computed rendering context for key ${props.key}: `, computedContext());
+  })
+  
 
   const Item = (props: { value: T }) => (
     <Switch fallback={<code>{JSON.stringify(props.value)}</code>}>
@@ -277,6 +293,11 @@ function DiffField<T>(props: FormatValueProps<T>) {
           {props.value as string}
         </span>
       </Match>
+      <Match when={computedContext() === "image"}>
+        <span class={css({ display: "inline-flex", maxHeight: "3em", transform: "translateY(25%)"})}>
+          <Avatar size={24} src={fileUrl(props.value)} />
+        </span>
+      </Match>
       <Match when={computedContext() === "duration"}>
         {duration({ seconds: props.value as number })}
       </Match>
@@ -291,7 +312,7 @@ function DiffField<T>(props: FormatValueProps<T>) {
             fallback={
               <Trans>
                 Changed {translateFieldName(props.key)} to{" "}
-                {<Item value={props.after!} />}
+                <Item value={props.after!} />
               </Trans>
             }
             when={computedContext() === "complex"}
@@ -442,7 +463,7 @@ function TranslatablePermissionName(props: {
         <Trans>Upload attachments and link previews</Trans>
       </Match>
       <Match when={props.permission === "Video"}>
-        <Trans>Enable screenshare and camera in voice</Trans>
+        <Trans>Share screen and use camera in voice channels</Trans>
       </Match>
       <Match when={props.permission === "ViewAuditLogs"}>
         <Trans>View audit logs</Trans>

@@ -109,7 +109,9 @@ function CollapseListItem(props: {
           </div>
         </mdui-list-item>
       </Show>
-      {local.children}
+      <Show when={open()}>
+        {local.children}
+      </Show>
     </Collapse.Item>
   );
 }
