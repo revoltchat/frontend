@@ -52,6 +52,8 @@ const DISK_WRITE_WAIT_MS = 1200;
  */
 const IGNORE_WRITE_DELAY = ["auth"];
 
+const LEGACY_STORE = "keyvaluepairs";
+
 const WriteQueue = new Map<string, [NodeJS.Timeout, () => Promise<void>]>();
 
 /**
@@ -226,7 +228,20 @@ export class State {
       await Promise.all(p);
     }
 
-    if (!global) {
+    let storeKeys: DOMStringList | undefined;
+    if (global) {
+      await this.dbGlobal.keys(); //Force localforage to init DB
+      storeKeys = (this.dbGlobal as { _dbInfo?: { db?: IDBDatabase } })._dbInfo
+        ?.db?.objectStoreNames;
+
+      //Transfer legacy auth to new global store
+      if (storeKeys?.contains(LEGACY_STORE)) {
+        const oldAuth = await localforage
+          .createInstance({ storeName: LEGACY_STORE })
+          .getItem("auth");
+        if (oldAuth) await this.dbGlobal.setItem("auth", oldAuth);
+      }
+    } else {
       //Reset defaults
       if (this.db)
         for (const [key, data] of Object.entries(this.defaults(true)))
@@ -268,23 +283,19 @@ export class State {
       if (store.global === global) store.hydrate();
 
     //Clear old sessions via some hackery
-    if (global) {
-      const stores = (this.dbGlobal as { _dbInfo?: { db?: IDBDatabase } })
-        ._dbInfo?.db?.objectStoreNames;
-      if (stores) {
-        const ses = this.store.auth.session,
-          sesNames = [...(ses ? [ses] : []), ...this.store.auth.saved].map(
-            (s) => `@${s.userId}`,
-          );
-        for (const key of stores)
-          if (
-            key === "keyvaluepairs" ||
-            (key.indexOf("@") !== -1 && !sesNames.includes(key))
-          ) {
-            console.warn(`[store] Deleted unused db ${key}`);
-            await localforage.dropInstance({ storeName: key });
-          }
-      }
+    if (storeKeys) {
+      const ses = this.store.auth.session,
+        sesNames = [...(ses ? [ses] : []), ...this.store.auth.saved].map(
+          (s) => `@${s.userId}`,
+        );
+      for (const key of storeKeys)
+        if (
+          key === LEGACY_STORE ||
+          (key.indexOf("@") !== -1 && !sesNames.includes(key))
+        ) {
+          console.warn(`[store] Deleted unused db ${key}`);
+          await localforage.dropInstance({ storeName: key });
+        }
     }
   }
 }
