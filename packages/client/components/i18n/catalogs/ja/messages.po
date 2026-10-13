@@ -4,10 +4,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-29 18:29-0500\n"
 "PO-Revision-Date: 2026-10-12 02:09+0000\n"
-"Last-Translator: Weblate for Stoat user 1964 "
-"<aki@users.noreply.translate.stoat.chat>\n"
-"Language-Team: Japanese <https://translate.stoat.chat/projects/revolt/revolt-"
-"for-web/ja/>\n"
+"Last-Translator: Weblate for Stoat user 1964 <aki@users.noreply.translate.stoat.chat>\n"
+"Language-Team: Japanese <https://translate.stoat.chat/projects/revolt/revolt-for-web/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -587,8 +585,7 @@ msgstr "チャンネルの低速モードを回避"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "Can't find the perfect GIF? Head to Gifbox and upload your own for everyone to use."
-msgstr "ぴったりのGIFが見つかりませんか？Gifboxで自分のGIFをアップロードして、みんな"
-"が使えるようにしましょう。"
+msgstr "ぴったりのGIFが見つかりませんか？Gifboxで自分のGIFをアップロードして、みんなが使えるようにしましょう。"
 
 #: components/app/interface/settings/shared/Discoverable.tsx
 msgid "Can't get discover request status right now"
@@ -1153,8 +1150,7 @@ msgstr "サーバーアイコンをトリミング"
 #. placeholder {0}: humanFileSize(e().maxSize)
 #: components/modal/modals/CropProcess.tsx
 msgid "Cropped image is too large — try a smaller crop area (max. {0})"
-msgstr "トリミングした画像が大きすぎます。トリミング範囲を小さくしてください（最大{0}"
-"）"
+msgstr "トリミングした画像が大きすぎます。トリミング範囲を小さくしてください（最大{0}）"
 
 #: components/modal/modals/EditEmail.tsx
 #: components/modal/modals/EditPassword.tsx
@@ -1598,9 +1594,7 @@ msgstr "通知を有効にできませんでした。Stoatに通知の許可が�
 
 #: components/client/NotificationsController.ts
 msgid "Failed to enable push notifications. Please try again later."
-msgstr ""
-"プッシュ通知を有効にできませんでした。しばらくしてからもう一度お試しください"
-"。"
+msgstr "プッシュ通知を有効にできませんでした。しばらくしてからもう一度お試しください。"
 
 #: components/i18n/errors.tsx
 msgid "Failed to process the image you provided."
@@ -1719,15 +1713,11 @@ msgstr "Android版Stoatを手に入れて、いつでもどこでも友達とつ
 
 #: components/auth/src/AppUpsell.tsx
 msgid "Get the desktop app for Windows, macOS and Linux and keep your conversations one click away."
-msgstr ""
-"Windows、macOS、Linux向けのデスクトップアプリを手に入れて、会話にワンクリック"
-"でアクセスしましょう。"
+msgstr "Windows、macOS、Linux向けのデスクトップアプリを手に入れて、会話にワンクリックでアクセスしましょう。"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "Gifbox is our own GIF service, so you can keep sharing GIFs right here on Stoat."
-msgstr ""
-"GifboxはStoat独自のGIFサービスです。Stoatの中で、これまでどおりGIFを共有でき"
-"ます。"
+msgstr "GifboxはStoat独自のGIFサービスです。Stoatの中で、これまでどおりGIFを共有できます。"
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "GIFs are now powered by Gifbox"
@@ -3431,13 +3421,11 @@ msgstr "パスワードが短すぎます。"
 
 #: components/i18n/errors.tsx
 msgid "The server has been removed from discover by moderators, the user must contact support."
-msgstr "このサーバーはモデレーターによってディスカバリーから削除されました。サポート"
-"までお問い合わせください。"
+msgstr "このサーバーはモデレーターによってディスカバリーから削除されました。サポートまでお問い合わせください。"
 
 #: components/i18n/errors.tsx
 msgid "The server is already on discover, the user must contact support to have it removed."
-msgstr "このサーバーはすでにディスカバリーに掲載されています。掲載を停止するには、サ"
-"ポートまでお問い合わせください。"
+msgstr "このサーバーはすでにディスカバリーに掲載されています。掲載を停止するには、サポートまでお問い合わせください。"
 
 #: components/app/interface/settings/user/Sync.tsx
 msgid "Theme"
@@ -3450,8 +3438,7 @@ msgstr ""
 
 #: components/i18n/errors.tsx
 msgid "This account is not activated! Please check your account's inbox and try again."
-msgstr "このアカウントはまだ有効化されていません。登録したメールアドレスの受信トレイ"
-"を確認して、もう一度お試しください。"
+msgstr "このアカウントはまだ有効化されていません。登録したメールアドレスの受信トレイを確認して、もう一度お試しください。"
 
 #: components/i18n/errors.tsx
 msgid "This bot is private and can only be added by the creator."
@@ -3467,8 +3454,7 @@ msgstr "このチャンネルは年齢制限付きに設定されています。
 
 #: src/interface/channels/AgeGate.tsx
 msgid "This channel is not available in your region while we review options on legal compliance."
-msgstr "法令遵守への対応を検討中のため、お住まいの地域ではこのチャンネルをご利用いた"
-"だけません。"
+msgstr "法令遵守への対応を検討中のため、お住まいの地域ではこのチャンネルをご利用いただけません。"
 
 #: src/interface/channels/AgeGate.tsx
 msgid "This content is not available in your region."
@@ -4130,10 +4116,8 @@ msgstr "ロールの順位が低いため、この操作を実行できません
 
 #: components/auth/src/flows/FlowLogin.tsx
 msgid "Your session ended, possibly because you logged out on another device. Log in again to continue."
-msgstr "セッションが終了しました。別のデバイスでログアウトした可能性があります。続行"
-"するには、もう一度ログインしてください。"
+msgstr "セッションが終了しました。別のデバイスでログアウトした可能性があります。続行するには、もう一度ログインしてください。"
 
 #: components/i18n/errors.tsx
 msgid "Your user has already been created? Try logging in again or refreshing the app."
-msgstr "このユーザーはすでに作成されています。もう一度ログインするか、アプリを再読み"
-"込みしてください。"
+msgstr "このユーザーはすでに作成されています。もう一度ログインするか、アプリを再読み込みしてください。"

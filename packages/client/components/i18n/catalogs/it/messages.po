@@ -5,8 +5,7 @@ msgstr ""
 "POT-Creation-Date: 2025-09-29 18:29-0500\n"
 "PO-Revision-Date: 2026-10-12 02:09+0000\n"
 "Last-Translator: Luca Ferrari <lucaf8502@gmail.com>\n"
-"Language-Team: Italian <https://translate.stoat.chat/projects/revolt/revolt-"
-"for-web/it/>\n"
+"Language-Team: Italian <https://translate.stoat.chat/projects/revolt/revolt-for-web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -137,9 +136,7 @@ msgstr "{0} si è spostato alla posizione {1} di {2}"
 #: src/interface/navigation/servers/railDrag.ts
 #, fuzzy
 msgid "{0} picked up, use the arrow keys to move it and space to drop it"
-msgstr ""
-"{0} raccolto; usa i tasti freccia per spostarlo e la barra spaziatrice per "
-"rilasciarlo"
+msgstr "{0} raccolto; usa i tasti freccia per spostarlo e la barra spaziatrice per rilasciarlo"
 
 #. placeholder {0}: (message.systemMessage as MessagePinnedSystemMessage).by?.username
 #: components/client/NotificationsWorker.tsx
@@ -200,8 +197,7 @@ msgstr "Ruoli di {0}"
 #: components/modal/modals/RemoveTimeout.tsx
 #, fuzzy
 msgid "{0}'s timeout will be removed and they will be able to interact with the server again."
-msgstr ""
-"Il timeout di {0} verrà rimosso e potrà nuovamente interagire con il server."
+msgstr "Il timeout di {0} verrà rimosso e potrà nuovamente interagire con il server."
 
 #~ msgid "{h} hours"
 #~ msgstr ""
@@ -661,9 +657,7 @@ msgstr "Non riesci a trovare la GIF giusta? Vai nel Gifbox e carica la tua per f
 #: components/app/interface/settings/shared/Discoverable.tsx
 #, fuzzy
 msgid "Can't get discover request status right now"
-msgstr ""
-"Al momento non è possibile ottenere lo stato della richiesta dalla sezione "
-"“Scopri”"
+msgstr "Al momento non è possibile ottenere lo stato della richiesta dalla sezione “Scopri”"
 
 #: components/auth/src/flows/FlowLogin.tsx
 #: components/modal/modals/AddBot.tsx
@@ -715,9 +709,7 @@ msgstr "Annulla"
 #: components/app/interface/settings/shared/Discoverable.tsx
 #, fuzzy
 msgid "Cancel your discover request and remove it from the review queue"
-msgstr ""
-"Annulla la tua richiesta nella sezione “Scopri” e rimuovila dalla coda di "
-"verifica"
+msgstr "Annulla la tua richiesta nella sezione “Scopri” e rimuovila dalla coda di verifica"
 
 #: components/app/interface/settings/user/Account.tsx
 msgid "Cannot delete account until servers are deleted or transferred"
@@ -1250,9 +1242,7 @@ msgstr "Ritaglia l'icona del server"
 #: components/modal/modals/CropProcess.tsx
 #, fuzzy
 msgid "Cropped image is too large — try a smaller crop area (max. {0})"
-msgstr ""
-"L'immagine ritagliata è troppo grande — prova a ridurre l'area di ritaglio ("
-"max. {0})"
+msgstr "L'immagine ritagliata è troppo grande — prova a ridurre l'area di ritaglio (max. {0})"
 
 #: components/modal/modals/EditEmail.tsx
 #: components/modal/modals/EditPassword.tsx
@@ -1408,9 +1398,7 @@ msgstr "Elimina Server"
 #: components/modal/modals/DeleteEmoji.tsx
 #, fuzzy
 msgid "Deleting this emoji will disallow future use. All past uses will remain."
-msgstr ""
-"Eliminando questa emoji non sarà più possibile utilizzarla. Gli utilizzi "
-"precedenti di questa emoji rimarranno."
+msgstr "Eliminando questa emoji non sarà più possibile utilizzarla. Gli utilizzi precedenti di questa emoji rimarranno."
 
 #. placeholder {0}: props.invite.username
 #: components/modal/modals/AddBot.tsx
@@ -1831,16 +1819,12 @@ msgstr "Scarica da Google Play"
 #: components/auth/src/AppUpsell.tsx
 #, fuzzy
 msgid "Get Stoat for Android and keep up with your friends wherever you are."
-msgstr ""
-"Scarica Stoat per Android e resta in contatto con i tuoi amici ovunque ti "
-"trovi."
+msgstr "Scarica Stoat per Android e resta in contatto con i tuoi amici ovunque ti trovi."
 
 #: components/auth/src/AppUpsell.tsx
 #, fuzzy
 msgid "Get the desktop app for Windows, macOS and Linux and keep your conversations one click away."
-msgstr ""
-"Scarica l'app desktop per Windows, macOS e Linux e tieni le tue "
-"conversazioni a portata di clic."
+msgstr "Scarica l'app desktop per Windows, macOS e Linux e tieni le tue conversazioni a portata di clic."
 
 #: components/ui/components/features/messaging/composition/picker/GifPicker.tsx
 msgid "Gifbox is our own GIF service, so you can keep sharing GIFs right here on Stoat."
@@ -3579,10 +3563,7 @@ msgstr "Il file \"{0}\" ({fileSize}) supera il limite massimo di dimensione di {
 #: components/i18n/errors.tsx
 #, fuzzy
 msgid "The item was removed by moderators, and as such future applications are prohibited. Contact support for more information."
-msgstr ""
-"Questo contenuto è stato rimosso dai moderatori; di conseguenza, è vietata "
-"qualsiasi nuova pubblicazione. Contatta il servizio di assistenza per "
-"ulteriori informazioni."
+msgstr "Questo contenuto è stato rimosso dai moderatori; di conseguenza, è vietata qualsiasi nuova pubblicazione. Contatta il servizio di assistenza per ulteriori informazioni."
 
 #: components/i18n/errors.tsx
 msgid "The password is too short."
@@ -3591,9 +3572,7 @@ msgstr "La password è troppo corta."
 #: components/i18n/errors.tsx
 #, fuzzy
 msgid "The server has been removed from discover by moderators, the user must contact support."
-msgstr ""
-"Il server è stato rimosso dalla sezione \"Esplora\" dai moderatori; l'utente "
-"deve contattare il servizio di assistenza."
+msgstr "Il server è stato rimosso dalla sezione \"Esplora\" dai moderatori; l'utente deve contattare il servizio di assistenza."
 
 #: components/i18n/errors.tsx
 msgid "The server is already on discover, the user must contact support to have it removed."
@@ -4010,23 +3989,17 @@ msgstr "Stiamo lavorando sodo per ottimizzare la nostra app web per dispositivi 
 #: components/auth/src/flows/FlowLogin.tsx
 #, fuzzy
 msgid "We couldn't finish logging you in. Try again, and if it keeps happening, check Stoat's status."
-msgstr ""
-"Non siamo riusciti a completare il tuo accesso. Prova di nuovo. Se il "
-"problema persiste, controlla lo stato di Stoat."
+msgstr "Non siamo riusciti a completare il tuo accesso. Prova di nuovo. Se il problema persiste, controlla lo stato di Stoat."
 
 #: components/auth/src/flows/FlowCreate.tsx
 #, fuzzy
 msgid "We only use it to verify your account and help you get back in if you're ever locked out. We'll never sell it or send you spam."
-msgstr ""
-"Lo utilizziamo esclusivamente per verificare il tuo account e aiutarti a "
-"accedervi nuovamente nel caso in cui dovessi trovarti bloccato. Non lo "
-"venderemo mai né ti invieremo mai spam."
+msgstr "Lo utilizziamo esclusivamente per verificare il tuo account e aiutarti a accedervi nuovamente nel caso in cui dovessi trovarti bloccato. Non lo venderemo mai né ti invieremo mai spam."
 
 #: components/auth/src/flows/FlowReset.tsx
 #, fuzzy
 msgid "We'll email you a secure link to choose a new password."
-msgstr ""
-"Ti invieremo via e-mail un link sicuro per scegliere una nuova password."
+msgstr "Ti invieremo via e-mail un link sicuro per scegliere una nuova password."
 
 #: components/auth/src/flows/FlowCheck.tsx
 msgid "We've sent you a verification email. Please allow up to 10 minutes for it to arrive."
@@ -4117,8 +4090,7 @@ msgstr "Sei stato bannato da questo server."
 #: components/ui/components/features/messaging/composition/MessageBox.tsx
 #, fuzzy
 msgid "You are timed out and can't send messages right now."
-msgstr ""
-"Sei stato temporaneamente limitato e al momento non puoi inviare messaggi."
+msgstr "Sei stato temporaneamente limitato e al momento non puoi inviare messaggi."
 
 #: src/interface/Home.tsx
 msgid "You can also click the gear icon in the bottom left."
@@ -4319,9 +4291,7 @@ msgstr "Il grado del tuo ruolo è troppo basso per fare questa azione."
 #: components/auth/src/flows/FlowLogin.tsx
 #, fuzzy
 msgid "Your session ended, possibly because you logged out on another device. Log in again to continue."
-msgstr ""
-"La tua sessione è terminata, probabilmente perché hai effettuato il logout "
-"su un altro dispositivo. Effettua nuovamente l'accesso per continuare."
+msgstr "La tua sessione è terminata, probabilmente perché hai effettuato il logout su un altro dispositivo. Effettua nuovamente l'accesso per continuare."
 
 #: components/i18n/errors.tsx
 msgid "Your user has already been created? Try logging in again or refreshing the app."
