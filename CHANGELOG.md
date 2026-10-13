@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.16.3](https://github.com/stoatchat/for-web/compare/stoat-for-web-v0.16.2...stoat-for-web-v0.16.3) (2026-10-13)
+
+
+### Reverts
+
+* Message toolbar not appearing on hybrid devices after PR 1715 ([#1726](https://github.com/stoatchat/for-web/issues/1726)) ([aa10325](https://github.com/stoatchat/for-web/commit/aa1032597b62e71571f1828877d65504c4be5506))
+* Message toolbar not appearing on hybrid devices after PR 1719 ([aa10325](https://github.com/stoatchat/for-web/commit/aa1032597b62e71571f1828877d65504c4be5506))
+
 ## [0.16.2](https://github.com/stoatchat/for-web/compare/stoat-for-web-v0.16.1...stoat-for-web-v0.16.2) (2026-10-12)
 
 
