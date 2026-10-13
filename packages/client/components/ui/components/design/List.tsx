@@ -82,11 +82,9 @@ function CollapseListItem(props: {
     <Collapse.Item
       value={props.id}
       onOpen={() => {
-        console.log("open");
         setOpen(true);
       }}
       onClose={() => {
-        console.log("close");
         setOpen(false);
       }}
       class={

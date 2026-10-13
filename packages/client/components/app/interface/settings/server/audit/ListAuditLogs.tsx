@@ -55,7 +55,6 @@ export function ListAuditLogs(props: Props) {
   }
 
   async function caseInitialLoad() {
-    console.log("[lv2] initial load");
     preempt();
     setFetching("initial");
     const preempted = newPreempted();
@@ -70,11 +69,9 @@ export function ListAuditLogs(props: Props) {
           limit: INITIAL_FETCH_LIMIT,
         })
         .then(({ audit_logs }) => audit_logs);
-      console.log(`[logs] got ${logs.length} logs`);
 
       if (preempted()) return;
       if (logs.length < INITIAL_FETCH_LIMIT) {
-        console.log(`[lv2] is at end`);
         setEnd(true);
       }
       setLogs(logs);
@@ -94,13 +91,10 @@ export function ListAuditLogs(props: Props) {
   }
 
   async function caseFetchTop(): Promise<ListView2Update | undefined> {
-    console.log(`[lv2] is at start? ${atStart()}\ncan fetch? ${canFetch()}`);
     if (atStart() || !canFetch()) return;
 
     setFetching("upwards");
     const preempted = newPreempted();
-
-    console.log("[lv2] trying to fetch entries at the top");
 
     try {
       const result = await props.server.getAuditLogs({
@@ -108,12 +102,9 @@ export function ListAuditLogs(props: Props) {
         after: logs()[0]._id,
       });
 
-      console.log(`[logs] got ${result.audit_logs.length} entries up`);
-
       if (preempted()) return;
 
       if (result.audit_logs.length < FETCH_LIMIT - 1) {
-        console.log(`[lv2] is at start of list`);
         setStart(true);
       }
 
@@ -124,7 +115,6 @@ export function ListAuditLogs(props: Props) {
         );
 
         if (tooManyBy > 0) {
-          console.log(`[lv2] is at middle of list, too many by ${tooManyBy}`);
           setStart(false);
         }
 
@@ -150,13 +140,10 @@ export function ListAuditLogs(props: Props) {
   }
 
   async function caseFetchBottom(): Promise<ListView2Update | undefined> {
-    console.log(`[lv2] is at end? ${atEnd()}\ncan fetch? ${canFetch()}`);
     if (atEnd() || !canFetch()) return;
 
     setFetching("downwards");
     const preempted = newPreempted();
-
-    console.log("[lv2] Fetching entries at the bottom");
 
     try {
       const result = await props.server.getAuditLogs({
@@ -164,12 +151,9 @@ export function ListAuditLogs(props: Props) {
         before: logs().splice(-1)[0]._id,
       });
 
-      console.log(`[logs] got ${result.audit_logs.length} entries down`);
-
       if (preempted()) return;
 
       if (result.audit_logs.length < FETCH_LIMIT - 1) {
-        console.log(`[lv2] is at bottom of list`);
         setEnd(true);
       }
 
@@ -180,7 +164,6 @@ export function ListAuditLogs(props: Props) {
         );
 
         if (tooManyBy > 0) {
-          console.log(`[lv2] is at middle of list, too many by ${tooManyBy}`);
           setStart(false);
         }
 
