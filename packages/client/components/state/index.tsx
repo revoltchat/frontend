@@ -19,7 +19,7 @@ import { LoadingScreen } from "@revolt/ui";
 import { SlideDrawer } from "@revolt/ui/components/navigation/SlideDrawer";
 
 import { AbstractStore, Store } from "./stores";
-import { Auth } from "./stores/Auth";
+import { Auth, TypeAuth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
 import { Keybinds } from "./stores/Keybinds";
@@ -236,10 +236,26 @@ export class State {
 
       //Transfer legacy auth to new global store
       if (storeKeys?.contains(LEGACY_STORE)) {
-        const oldAuth = await localforage
-          .createInstance({ storeName: LEGACY_STORE })
-          .getItem("auth");
+        const oldStore = localforage.createInstance({
+          storeName: LEGACY_STORE,
+        });
+        const oldAuth = (await oldStore.getItem("auth")) as TypeAuth;
         if (oldAuth) await this.dbGlobal.setItem("auth", oldAuth);
+
+        //If session exists, transfer stores
+        const ses = oldAuth?.session;
+        if (ses) {
+          const db = localforage.createInstance({
+            storeName: `@${ses.userId}`,
+          });
+          for (const store of this.iterStores())
+            if (!store.global) {
+              const key = store.getKey(),
+                data = await oldStore.getItem(key);
+              if (data) await db.setItem(key, data);
+            }
+        }
+        await oldStore.dropInstance();
       }
     } else {
       //Reset defaults
@@ -289,10 +305,7 @@ export class State {
           (s) => `@${s.userId}`,
         );
       for (const key of storeKeys)
-        if (
-          key === LEGACY_STORE ||
-          (key.indexOf("@") !== -1 && !sesNames.includes(key))
-        ) {
+        if (key.indexOf("@") !== -1 && !sesNames.includes(key)) {
           console.warn(`[store] Deleted unused db ${key}`);
           await localforage.dropInstance({ storeName: key });
         }
