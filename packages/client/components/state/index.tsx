@@ -19,7 +19,7 @@ import { LoadingScreen } from "@revolt/ui";
 import { SlideDrawer } from "@revolt/ui/components/navigation/SlideDrawer";
 
 import { AbstractStore, Store } from "./stores";
-import { Auth } from "./stores/Auth";
+import { Auth, TypeAuth } from "./stores/Auth";
 import { Draft } from "./stores/Draft";
 import { Experiments } from "./stores/Experiments";
 import { Keybinds } from "./stores/Keybinds";
@@ -239,8 +239,22 @@ export class State {
         const oldStore = localforage.createInstance({
           storeName: LEGACY_STORE,
         });
-        const oldAuth = await oldStore.getItem("auth");
+        const oldAuth = (await oldStore.getItem("auth")) as TypeAuth;
         if (oldAuth) await this.dbGlobal.setItem("auth", oldAuth);
+
+        //If session exists, transfer stores
+        const ses = oldAuth?.session;
+        if (ses) {
+          const db = localforage.createInstance({
+            storeName: `@${ses.userId}`,
+          });
+          for (const store of this.iterStores())
+            if (!store.global) {
+              const key = store.getKey(),
+                data = await oldStore.getItem(key);
+              if (data) await db.setItem(key, data);
+            }
+        }
         await oldStore.dropInstance();
       }
     } else {
