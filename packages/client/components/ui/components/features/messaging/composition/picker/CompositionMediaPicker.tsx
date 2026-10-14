@@ -15,6 +15,7 @@ import { Portal } from "solid-js/web";
 import { Motion, Presence } from "solid-motionone";
 
 import { flip, offset, shift } from "@floating-ui/dom";
+import type { Channel } from "stoat.js";
 import { cva } from "styled-system/css";
 import { styled } from "styled-system/jsx";
 
@@ -22,7 +23,6 @@ import { useDevice } from "@revolt/common";
 import { Button } from "@revolt/ui/components/design";
 import { Row } from "@revolt/ui/components/layout";
 
-import { Channel } from "stoat.js";
 import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";
 
@@ -49,6 +49,9 @@ interface Props {
    */
   onTextReplacement: (node: string) => void;
 
+  /**
+   * Channel to pick emoji for
+   */
   channel?: Channel;
 }
 
@@ -200,7 +203,7 @@ function Picker(
             <GifPicker />
           </Match>
           <Match when={props.show() === "emoji"}>
-            <EmojiPicker />
+            <EmojiPicker channel={props.channel} />
           </Match>
         </Switch>
       </Container>
