@@ -1,6 +1,8 @@
 import { Trans, useLingui } from "@lingui/solid/macro";
 import { useDurationFormat } from "@revolt/i18n/durations";
-import { typography } from "@revolt/ui";
+import { useInstance } from "@revolt/instance";
+import { Avatar, typography } from "@revolt/ui";
+import isEqual from "lodash.isequal";
 import {
   createMemo,
   For,
@@ -96,11 +98,27 @@ function ObjectDiff(props: { action: ObjectEditAction }) {
     diffObjects(props.action.before, props.action.after),
   );
 
+  const context = () => {
+    switch (props.action.type) {
+      case "ChannelEdit":
+        return "channel";
+      case "ServerEdit":
+        return "server";
+      default:
+        return undefined;
+    }
+  };
+
   return (
     <DiffList>
       <For each={Object.entries(changes())}>
         {([name, change]) => (
-          <DiffField key={name} before={change.before} after={change.after} />
+          <DiffField
+            key={name}
+            before={change.before}
+            after={change.after}
+            context={context()}
+          />
         )}
       </For>
     </DiffList>
@@ -238,7 +256,13 @@ type FormatValueProps<T> = {
   key: string;
   before?: T;
   after?: T;
+  context?: "role" | "server" | "channel";
 };
+
+function fileUrl(file: API.File): string {
+  const instance = useInstance();
+  return `${instance.mediaUrl}/${file.tag}/${file._id}`;
+}
 
 /**
  * Display the value of a diff
@@ -252,6 +276,9 @@ function DiffField<T>(props: FormatValueProps<T>) {
       case "slowmode":
       case "timeout":
         return "duration";
+      case "icon":
+      case "banner":
+        return "image";
       case "system_messages":
       case "categories":
         return "complex";
@@ -261,7 +288,7 @@ function DiffField<T>(props: FormatValueProps<T>) {
   });
 
   const Item = (props: { value: T }) => (
-    <Switch fallback={<code>{JSON.stringify(props.value)}</code>}>
+    <Switch fallback={<span>{JSON.stringify(props.value)}</span>}>
       <Match when={computedContext() === "colour"}>
         <span
           class={css({
@@ -277,6 +304,17 @@ function DiffField<T>(props: FormatValueProps<T>) {
           {props.value as string}
         </span>
       </Match>
+      <Match when={computedContext() === "image"}>
+        <span
+          class={css({
+            display: "inline-flex",
+            maxHeight: "3em",
+            transform: "translateY(25%)",
+          })}
+        >
+          <Avatar size={24} src={fileUrl(props.value as API.File)} />
+        </span>
+      </Match>
       <Match when={computedContext() === "duration"}>
         {duration({ seconds: props.value as number })}
       </Match>
@@ -290,8 +328,8 @@ function DiffField<T>(props: FormatValueProps<T>) {
           <Show
             fallback={
               <Trans>
-                Changed {translateFieldName(props.key)} to{" "}
-                {<Item value={props.after!} />}
+                Changed {translateFieldName(props.key, props.context)} to{" "}
+                <Item value={props.after!} />
               </Trans>
             }
             when={computedContext() === "complex"}
@@ -308,11 +346,12 @@ function DiffField<T>(props: FormatValueProps<T>) {
         }
       >
         <Match when={props.before && !props.after}>
-          <Trans>Cleared {translateFieldName(props.key)}</Trans>
+          <Trans>Cleared {translateFieldName(props.key, props.context)}</Trans>
         </Match>
         <Match when={!props.before && props.after}>
           <Trans>
-            Set {translateFieldName(props.key)} to <Item value={props.after!} />
+            Set {translateFieldName(props.key, props.context)} to{" "}
+            <Item value={props.after!} />
           </Trans>
         </Match>
       </Switch>
@@ -442,7 +481,7 @@ function TranslatablePermissionName(props: {
         <Trans>Upload attachments and link previews</Trans>
       </Match>
       <Match when={props.permission === "Video"}>
-        <Trans>Enable screenshare and camera in voice</Trans>
+        <Trans>Share screen and use camera in voice channels</Trans>
       </Match>
       <Match when={props.permission === "ViewAuditLogs"}>
         <Trans>View audit logs</Trans>
@@ -507,7 +546,12 @@ function RoleEditDiff<
       <For each={Object.entries(metaDiff())}>
         {([name, perm]) => {
           return (
-            <DiffField key={name} before={perm.before} after={perm.after} />
+            <DiffField
+              key={name}
+              before={perm.before}
+              after={perm.after}
+              context="role"
+            />
           );
         }}
       </For>
@@ -536,7 +580,7 @@ function diffObjects<T extends object>(
     const previousValue = before[key];
     const newValue = after[key];
 
-    if (JSON.stringify(previousValue) !== JSON.stringify(newValue)) {
+    if (!isEqual(previousValue, newValue)) {
       acc[key] = { before: previousValue, after: newValue };
     }
   }
