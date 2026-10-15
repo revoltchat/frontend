@@ -12,6 +12,7 @@ import {
 } from "solid-js";
 import { API, Permission, Server } from "stoat.js";
 import { css, cva } from "styled-system/css";
+import isEqual from "lodash.isequal";
 
 type WeakRecord<T extends string | number | symbol, ReturnValue> =
   | {
@@ -536,7 +537,7 @@ function diffObjects<T extends object>(
     const previousValue = before[key];
     const newValue = after[key];
 
-    if (JSON.stringify(previousValue) !== JSON.stringify(newValue)) {
+    if (!isEqual(previousValue, newValue)) {
       acc[key] = { before: previousValue, after: newValue };
     }
   }
