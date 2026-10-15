@@ -96,11 +96,22 @@ function ObjectDiff(props: { action: ObjectEditAction }) {
     diffObjects(props.action.before, props.action.after),
   );
 
+  const context = () => {
+    switch (props.action.type) {
+      case "ChannelEdit":
+        return "channel";
+      case "ServerEdit":
+        return "server";
+      default:
+        return undefined;
+    }
+  }
+
   return (
     <DiffList>
       <For each={Object.entries(changes())}>
         {([name, change]) => (
-          <DiffField key={name} before={change.before} after={change.after} />
+          <DiffField key={name} before={change.before} after={change.after} context={context()} />
         )}
       </For>
     </DiffList>
@@ -141,7 +152,7 @@ function MemberDiff(props: {
       </Show>
       <For each={Object.entries(changes())}>
         {([name, change]) => (
-          <DiffField key={name} before={change.before} after={change.after} />
+          <DiffField key={name} before={change.before} after={change.after} context="member" />
         )}
       </For>
       <Show when={roleChanges().added.length !== 0}>
@@ -238,6 +249,7 @@ type FormatValueProps<T> = {
   key: string;
   before?: T;
   after?: T;
+  context?: "role" | "server" | "channel";
 };
 
 /**
@@ -261,7 +273,7 @@ function DiffField<T>(props: FormatValueProps<T>) {
   });
 
   const Item = (props: { value: T }) => (
-    <Switch fallback={<code>{JSON.stringify(props.value)}</code>}>
+    <Switch fallback={<span>{JSON.stringify(props.value)}</span>}>
       <Match when={computedContext() === "colour"}>
         <span
           class={css({
@@ -290,7 +302,7 @@ function DiffField<T>(props: FormatValueProps<T>) {
           <Show
             fallback={
               <Trans>
-                Changed {translateFieldName(props.key)} to{" "}
+                Changed {translateFieldName(props.key, props.context)} to{" "}
                 {<Item value={props.after!} />}
               </Trans>
             }
@@ -308,11 +320,11 @@ function DiffField<T>(props: FormatValueProps<T>) {
         }
       >
         <Match when={props.before && !props.after}>
-          <Trans>Cleared {translateFieldName(props.key)}</Trans>
+          <Trans>Cleared {translateFieldName(props.key, props.context)}</Trans>
         </Match>
         <Match when={!props.before && props.after}>
           <Trans>
-            Set {translateFieldName(props.key)} to <Item value={props.after!} />
+            Set {translateFieldName(props.key, props.context)} to <Item value={props.after!} />
           </Trans>
         </Match>
       </Switch>
@@ -507,7 +519,7 @@ function RoleEditDiff<
       <For each={Object.entries(metaDiff())}>
         {([name, perm]) => {
           return (
-            <DiffField key={name} before={perm.before} after={perm.after} />
+            <DiffField key={name} before={perm.before} after={perm.after} context="role" />
           );
         }}
       </For>
