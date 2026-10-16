@@ -489,6 +489,9 @@ function TranslatablePermissionName(props: {
       <Match when={props.permission === "ViewChannel"}>
         <Trans>View channels</Trans>
       </Match>
+      <Match when={props.permission === "UseExternalEmojis"}>
+        <Trans>Use external custom emoji</Trans>
+      </Match>
     </Switch>
   );
 }
