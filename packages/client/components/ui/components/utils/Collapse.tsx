@@ -1,6 +1,6 @@
-import "mdui/components/collapse";
-import "mdui/components/collapse-item";
-import type { CollapseItem as MduiCollapseItem } from "mdui/components/collapse-item";
+import "mdui/components/collapse.js";
+import "mdui/components/collapse-item.js";
+import type { CollapseItem as MduiCollapseItem } from "mdui/components/collapse-item.js";
 
 import {
   createEffect,
