@@ -118,6 +118,8 @@ export function ListAuditLogs(props: Props) {
           setStart(false);
         }
 
+        setFailure(false);
+
         return {
           scrollAnchorId: logs()[0]?._id,
           commitToDOM() {
@@ -166,6 +168,8 @@ export function ListAuditLogs(props: Props) {
         if (tooManyBy > 0) {
           setStart(false);
         }
+
+        setFailure(false);
 
         return {
           scrollAnchorId: result.audit_logs[result.audit_logs.length - 1]._id,
