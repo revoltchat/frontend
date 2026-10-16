@@ -114,8 +114,8 @@ function useActionTranslation() {
       case "MessageBulkDelete": {
         const channel = client().channels.get(action.channel);
         return plural(action.count, {
-          one: `@${user?.username ?? "unknown"} deleted 1 message in '#'${channel?.name}`,
-          other: `@${user?.username ?? "unknown"} deleted ${action.count} messages in '#'${channel?.name}`,
+          one: `@${user?.username ?? "unknown"} deleted 1 message in #${channel?.name}`,
+          other: `@${user?.username ?? "unknown"} deleted ${action.count} messages in #${channel?.name}`,
         });
       }
       case "MessagePin": {
