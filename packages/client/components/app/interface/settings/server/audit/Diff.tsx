@@ -278,6 +278,7 @@ function DiffField<T>(props: FormatValueProps<T>) {
         return "duration";
       case "icon":
       case "banner":
+      case "avatar":
         return "image";
       case "system_messages":
       case "categories":
