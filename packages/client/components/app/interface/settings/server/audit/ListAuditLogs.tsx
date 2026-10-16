@@ -121,7 +121,7 @@ export function ListAuditLogs(props: Props) {
         return {
           scrollAnchorId: logs()[0]._id,
           commitToDOM() {
-            setLogs(result.audit_logs);
+            setLogs((prev) => result.audit_logs.concat(prev));
 
             if (tooManyBy) {
               setLogs((prev) => prev.slice(tooManyBy));
@@ -148,7 +148,7 @@ export function ListAuditLogs(props: Props) {
     try {
       const result = await props.server.getAuditLogs({
         limit: FETCH_LIMIT,
-        before: logs().splice(-1)[0]._id,
+        before: logs().slice(-1)[0]._id,
       });
 
       if (preempted()) return;
