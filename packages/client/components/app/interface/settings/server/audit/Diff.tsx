@@ -1,7 +1,7 @@
 import { Trans, useLingui } from "@lingui/solid/macro";
 import { useDurationFormat } from "@revolt/i18n/durations";
 import { useInstance } from "@revolt/instance";
-import { Avatar, typography } from "@revolt/ui";
+import { Avatar, Time, typography } from "@revolt/ui";
 import isEqual from "lodash.isequal";
 import {
   createMemo,
@@ -209,7 +209,6 @@ function translateFieldName(
     pronouns: t`their pronouns`,
     nsfw: t`not safe for work`,
     slowmode: t`the slowmode duration`,
-    timeout: t`the timeout duration`,
     icon:
       context === "server"
         ? t`the server icon`
@@ -273,8 +272,9 @@ function DiffField<T>(props: FormatValueProps<T>) {
     switch (props.key) {
       case "colour":
         return "colour";
-      case "slowmode":
       case "timeout":
+        return "datetime";
+      case "slowmode":
         return "duration";
       case "icon":
       case "banner":
@@ -318,6 +318,9 @@ function DiffField<T>(props: FormatValueProps<T>) {
       <Match when={computedContext() === "duration"}>
         {duration({ seconds: props.value as number })}
       </Match>
+      <Match when={computedContext() === "datetime"}>
+        <Time format="datetime" value={props.value as string} />
+      </Match>
     </Switch>
   );
 
@@ -346,13 +349,19 @@ function DiffField<T>(props: FormatValueProps<T>) {
         }
       >
         <Match when={props.before && !props.after}>
-          <Trans>Cleared {translateFieldName(props.key, props.context)}</Trans>
+          <Show when={computedContext() === "datetime" && props.key === "timeout"} fallback={<Trans>Cleared {translateFieldName(props.key, props.context)}</Trans>}>
+            <Trans>Cleared timeout</Trans>
+          </Show>
         </Match>
         <Match when={!props.before && props.after}>
-          <Trans>
-            Set {translateFieldName(props.key, props.context)} to{" "}
-            <Item value={props.after!} />
-          </Trans>
+          <Show when={computedContext() === "datetime" && props.key === "timeout"} fallback={
+            <Trans>
+              Set {translateFieldName(props.key, props.context)} to{" "}
+              <Item value={props.after!} />
+            </Trans>
+          }>
+            <Trans>Timed user out until <Item value={props.after!} /></Trans>
+          </Show>
         </Match>
       </Switch>
     </li>
