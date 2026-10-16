@@ -157,7 +157,7 @@ function MemberDiff(props: {
   return (
     <DiffList>
       <Show when={!hasChanges()}>
-        <li>No member changes recorded</li>
+        <li><Trans>No changes recorded</Trans></li>
       </Show>
       <For each={Object.entries(changes())}>
         {([name, change]) => (
