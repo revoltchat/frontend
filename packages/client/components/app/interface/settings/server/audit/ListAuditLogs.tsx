@@ -168,7 +168,7 @@ export function ListAuditLogs(props: Props) {
         }
 
         return {
-          scrollAnchorId: result.audit_logs[result.audit_logs.length - 1]._id,
+          scrollAnchorId: logs()[result.audit_logs.length - 1]._id,
           commitToDOM() {
             setLogs((logs) => logs.concat(result.audit_logs));
 
