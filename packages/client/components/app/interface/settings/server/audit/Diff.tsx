@@ -129,6 +129,8 @@ function MemberDiff(props: {
   action: Extract<API.AuditLogEntryAction, { type: "MemberEdit" }>;
   server: Server;
 }) {
+  const { t } = useLingui();
+
   const changes = createMemo(() => {
     const { roles: _beforeRoles, ...before } = props.action.before;
     const { roles: _afterRoles, ...after } = props.action.after;
@@ -165,14 +167,14 @@ function MemberDiff(props: {
       <Show when={roleChanges().added.length !== 0}>
         <RoleChangeList
           variant="allow"
-          title="Added roles"
+          title={t`Added roles`}
           roles={roleChanges().added.map(roleName)}
         />
       </Show>
       <Show when={roleChanges().removed.length !== 0}>
         <RoleChangeList
           variant="deny"
-          title="Removed roles"
+          title={t`Removed roles`}
           roles={roleChanges().removed.map(roleName)}
         />
       </Show>
@@ -556,10 +558,10 @@ function RoleEditDiff<
         }}
       </For>
       <PermissionDiff variant="allow" permissions={permsDiff().allow}>
-        Allowed permissions
+        <Trans>Allowed permissions</Trans>
       </PermissionDiff>
       <PermissionDiff variant="deny" permissions={permsDiff().deny}>
-        Denied permissions
+        <Trans>Denied permissions</Trans>
       </PermissionDiff>
     </DiffList>
   );
