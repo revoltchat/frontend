@@ -40,6 +40,7 @@ const subheader = cva({
  */
 function ListItem(props: {
   children: JSXElement;
+  id?: string;
   rounded?: boolean;
   disabled?: boolean;
   nonclickable?: boolean;

@@ -28,7 +28,7 @@ export function EntryRenderer(props: EntryProps) {
   return (
     <Show
       fallback={
-        <List.Item nonclickable>
+        <List.Item id={props.entry._id} nonclickable>
           <Icon slot="icon" type={props.entry.action.type} />
           <Title entry={props.entry} />
         </List.Item>
