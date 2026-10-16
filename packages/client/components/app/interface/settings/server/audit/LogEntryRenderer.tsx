@@ -128,11 +128,11 @@ function useActionTranslation() {
       }
       case "BanCreate": {
         const bannedUser = client().users.get(action.user);
-        return t`@${user?.username} banned @${bannedUser?.username}`;
+        return t`@${user?.username} banned @${bannedUser?.username ?? "unknown"}`;
       }
       case "BanDelete": {
         const bannedUser = client().users.get(action.user);
-        return t`@${user?.username} pardoned @${bannedUser?.username}`;
+        return t`@${user?.username} pardoned @${bannedUser?.username ?? "unknown"}`;
       }
       case "ChannelCreate":
         return t`@${user?.username} created #${action.name}`;
