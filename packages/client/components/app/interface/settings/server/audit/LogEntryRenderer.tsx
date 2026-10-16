@@ -28,7 +28,7 @@ export function EntryRenderer(props: EntryProps) {
   return (
     <Show
       fallback={
-        <List.Item nonclickable>
+        <List.Item id={props.entry._id} nonclickable>
           <Icon slot="icon" type={props.entry.action.type} />
           <Title entry={props.entry} />
         </List.Item>
@@ -114,8 +114,8 @@ function useActionTranslation() {
       case "MessageBulkDelete": {
         const channel = client().channels.get(action.channel);
         return plural(action.count, {
-          one: `@${user?.username ?? "unknown"} deleted 1 message in '#'${channel?.name}`,
-          other: `@${user?.username ?? "unknown"} deleted ${action.count} messages in '#'${channel?.name}`,
+          one: `@${user?.username ?? "unknown"} deleted 1 message in #${channel?.name}`,
+          other: `@${user?.username ?? "unknown"} deleted ${action.count} messages in #${channel?.name}`,
         });
       }
       case "MessagePin": {
@@ -128,11 +128,11 @@ function useActionTranslation() {
       }
       case "BanCreate": {
         const bannedUser = client().users.get(action.user);
-        return t`@${user?.username} banned @${bannedUser?.username}`;
+        return t`@${user?.username} banned @${bannedUser?.username ?? "unknown"}`;
       }
       case "BanDelete": {
         const bannedUser = client().users.get(action.user);
-        return t`@${user?.username} pardoned @${bannedUser?.username}`;
+        return t`@${user?.username} pardoned @${bannedUser?.username ?? "unknown"}`;
       }
       case "ChannelCreate":
         return t`@${user?.username} created #${action.name}`;
