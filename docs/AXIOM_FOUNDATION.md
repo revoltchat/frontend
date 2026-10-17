@@ -80,3 +80,20 @@ The Axiom starting layer is `packages/client/src/axiom-theme.css` and is now mou
 - **Branding incomplete:** browser favicon/PWA assets, upsell/promotional copy, i18n catalog entries, emails, instance configuration, and some UI strings may still say Stoat.
 - **Legal links intentionally remain upstream** until Axiom-specific policies/support contacts exist. Do not imply these links are Axiom's legal policies.
 - Pending: full pnpm build/typecheck/tests; audit visual contrast, language translations, settings navigation, account recovery, mobile scroll, theme switching and auth flow error states. Never deploy publicly until verified.
+
+## Phase 6: standalone product identity (draft)
+- Replaced the login page's promotion of Stoat-branded Android/desktop apps with an original Axiom introduction; removed the `AppUpsell` import from the auth page.
+- Created `packages/client/public/axiom-icon.svg` and switched the browser favicon to it.
+- Updated the Vite-generated PWA manifest name, description, colors, and icon reference to use Axiom.
+- Legal links still point to Stoat's existing terms/privacy/help pages and must not be presented as Axiom's policies. Axiom-specific policies and a support contact are required prior to independent public launch.
+- Left upstream code/package identifiers and license notices in place deliberately; rebranding is not a blanket identifier replacement.
+- The original upstream `AppUpsell.tsx` remains in source but is no longer rendered by the auth screen. It can be removed when all callers and translations have been audited.
+- The PWA currently references a vector icon; test installation in Chrome, Firefox and mobile, and add appropriately sized PNG icons if required for broad compatibility.
+- Static source checks confirmed the new hero, favicon and manifest references; **these are not a replacement for build/visual tests**.
+
+### Release blockers
+1. Full dependency install, build, TypeScript validation, and browser smoke tests have not been run.
+2. The upstream brand assets submodule in `.gitmodules` references a separate internal Git host. Verify access and replace/redistribute any required assets lawfully before trying to reproduce builds.
+3. Audit remaining Stoat references in localization catalogs, PWA/service-worker metadata, emails, URLs, default instance configuration, and backend user-visible strings.
+4. Review original component styles against accessibility and light-mode behavior; current Axiom skin is dark-first.
+5. Preserve required upstream attribution/license terms and create Axiom-specific privacy, terms, and reporting/contact resources.
