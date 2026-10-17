@@ -265,7 +265,7 @@ export const ServerList = (props: Props) => {
   };
 
   return (
-    <ServerListBase>
+    <ServerListBase class="axiom-server-rail">
       <div use:invisibleScrollable={{ direction: "y", class: listBase() }}>
         <a
           class={entryContainer({
