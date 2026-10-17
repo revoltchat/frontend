@@ -108,3 +108,61 @@
     transform: none;
   }
 }
+
+/* Phase 3 navigation: retain Stoat's live data, badges, and drag handlers. */
+.axiom-theme .axiom-server-rail {
+  background: var(--axiom-surface);
+  border-right: 1px solid var(--axiom-border);
+  min-height: 0;
+  padding: 7px 4px;
+}
+
+.axiom-theme .axiom-server-rail > div:first-child {
+  min-height: 0;
+  scrollbar-gutter: stable;
+}
+
+.axiom-theme .axiom-server-rail a {
+  border-radius: var(--axiom-radius-md);
+  cursor: pointer;
+  transition: background-color 160ms ease, filter 160ms ease;
+}
+
+.axiom-theme .axiom-server-rail a:hover {
+  background: color-mix(in srgb, var(--axiom-primary) 12%, transparent);
+}
+
+.axiom-theme .axiom-channel-sidebar {
+  background: var(--axiom-surface);
+  border-right: 1px solid var(--axiom-border);
+  border-radius: 0;
+  min-height: 0;
+}
+
+.axiom-theme .axiom-channel-sidebar :is(a, button) {
+  border-radius: var(--axiom-radius-sm);
+}
+
+.axiom-theme .axiom-channel-sidebar :is(a, button):hover {
+  background-color: color-mix(in srgb, var(--axiom-primary) 12%, transparent);
+}
+
+.axiom-theme .axiom-channel-sidebar :is(a, button):focus-visible,
+.axiom-theme .axiom-server-rail a:focus-visible {
+  outline: 2px solid var(--axiom-primary-hover);
+  outline-offset: -2px;
+}
+
+.axiom-theme .axiom-channel-sidebar [data-unread] {
+  position: relative;
+}
+
+.axiom-theme .axiom-channel-sidebar [data-mentions] {
+  --axiom-attention: var(--axiom-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .axiom-theme .axiom-server-rail a {
+    transition: none;
+  }
+}
