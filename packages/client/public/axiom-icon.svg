@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Axiom</title>
+  <rect width="512" height="512" rx="112" fill="#101010"/>
+  <path d="M112 366 243 134c9-16 26-16 35 0l132 232h-85l-65-121-67 121z" fill="#2698f3"/>
+  <path d="M200 319h119l29 47H174z" fill="#e9f6ff"/>
+</svg>
