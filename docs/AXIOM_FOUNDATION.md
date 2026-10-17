@@ -97,3 +97,10 @@ The Axiom starting layer is `packages/client/src/axiom-theme.css` and is now mou
 3. Audit remaining Stoat references in localization catalogs, PWA/service-worker metadata, emails, URLs, default instance configuration, and backend user-visible strings.
 4. Review original component styles against accessibility and light-mode behavior; current Axiom skin is dark-first.
 5. Preserve required upstream attribution/license terms and create Axiom-specific privacy, terms, and reporting/contact resources.
+
+## Phase 7 — Automated source validation and build triage
+- Added `scripts/validate-axiom.mjs`, a no-dependency Node 22 script that validates Axiom's mounted theme hooks, authentication and settings branding, asset references, accessibility CSS, and preserved attribution handoff notes.
+- Added `.github/workflows/axiom-smoke.yml`, which runs these checks on pull requests and Axiom feature-branch pushes **without recursive Git submodule checkout**.
+- The upstream `Build & Test` workflow still runs separately and must pass before merge. It uses recursive submodules and thus may encounter access issues with `packages/client/assets` at `https://git.stoatinternal.com/brand/assets.git`.
+- This smoke suite only checks source consistency. It cannot prove a successful Vite compilation, end-to-end messaging, authorization, accessibility compliance, or production-readiness.
+- Full-build remediation should come after obtaining lawful availability for missing upstream assets or replacing dependent assets with original Axiom resources, followed by a complete dependency and import audit.
