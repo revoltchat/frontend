@@ -220,7 +220,7 @@ export const ServerSidebar = (props: Props) => {
 
   return (
     <SidebarBase
-      class="channel_bar server"
+      class="channel_bar server axiom-channel-sidebar"
       use:floating={props.menuGenerator(props.server)}
     >
       <Switch
