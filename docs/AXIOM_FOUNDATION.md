@@ -41,3 +41,18 @@ The Axiom starting layer is `packages/client/src/axiom-theme.css` and is now mou
 - Signed-in app palette changes to Nexus-inspired charcoal surfaces with blue primary accents.
 - Focus-visible indicators and reduced-motion handling are retained.
 - **Not yet verified:** full pnpm build, visual screenshots, contrast audit, mobile layout, and theme switching. Do not merge for production until these checks pass.
+
+## Phase 3: navigation facelift (draft branch)
+- Added `axiom-server-rail` to the existing `ServerListBase`.
+- Added `axiom-channel-sidebar` to the existing HomeSidebar and ServerSidebar wrappers.
+- Extended the scoped Axiom stylesheet to style rail/backgrounds, hover treatments, accessibility focus, and reduced-motion behavior.
+- **No replacement of server ordering, channel selection, incoming request indicators, DM state, or permission-aware settings.**
+- Not yet implemented: final messaging surface and full settings/auth visual redesign.
+
+### Regression test checklist before merging
+- Confirm server drag-and-drop works with the new rail padding.
+- Confirm the channel rail still scrolls with many channels and folders.
+- Verify responsive layout on phone/tablet/desktop.
+- Verify colors with Stoat dark and light profiles (Axiom is currently dark-first).
+- Confirm friend-request/unread badges and channel selection remain visible.
+- Run `pnpm install --frozen-lockfile` and the project build/test scripts in a suitable development environment.
