@@ -23,6 +23,7 @@ import { LAYOUT_SECTIONS } from "@revolt/state/stores/Layout";
 import { LoadingScreen } from "@revolt/ui";
 
 import { SlideDrawer } from "../components/ui/components/navigation/SlideDrawer";
+import "./axiom-theme.css";
 import { Sidebar } from "./interface/Sidebar";
 
 /**
@@ -88,7 +89,7 @@ const Interface = (props: { children: JSX.Element }) => {
 
   return (
     <MessageCache client={client()}>
-      <AppRoot ref={rootRef} class="app_root">
+      <AppRoot ref={rootRef} class="app_root axiom-theme">
         <Titlebar />
         <Switch fallback={<LoadingScreen />}>
           <Match when={!isLoggedIn()}>
