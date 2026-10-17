@@ -232,7 +232,7 @@ export function MessageBox(props: Props) {
   );
 
   return (
-    <Parent>
+    <Parent class="axiom-composer">
       <Base hasActionsAppend={props.hasActionsAppend}>
         <Switch fallback={props.actionsStart}>
           <Match when={props.timeoutActive || !props.sendingAllowed}>
