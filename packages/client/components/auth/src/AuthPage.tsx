@@ -26,7 +26,6 @@ import { A, useLocation } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { IconButton, Symbol } from "@revolt/ui";
 
-import Wordmark from "../../../public/assets/web/wordmark.svg?component-solid";
 import { AppUpsell } from "./AppUpsell";
 import { BubbleMood, BubbleProvider, FlowBase, FlowBubble } from "./flows/Flow";
 
@@ -501,12 +500,12 @@ export function AuthPage(props: { children: JSX.Element }) {
   );
 
   return (
-    <div use:scrollable={{ class: root }}>
+    <div use:scrollable={{ class: root + " axiom-auth" }}>
       <Titlebar />
       <Page>
         <Hero>
           <Brand aria-hidden="true">
-            <Wordmark />
+            <span class="axiom-wordmark">AXIOM</span>
           </Brand>
           <AppUpsell />
         </Hero>
@@ -532,7 +531,7 @@ export function AuthPage(props: { children: JSX.Element }) {
                   <Symbol size={24}>arrow_back</Symbol>
                 </IconButton>
               </Show>
-              <Wordmark />
+              <span class="axiom-wordmark">AXIOM</span>
             </Brand>
 
             <AccountSwitch>
@@ -541,7 +540,7 @@ export function AuthPage(props: { children: JSX.Element }) {
                 fallback={
                   <>
                     <span>
-                      <Trans>New to Stoat?</Trans>
+                      <Trans>New to Axiom?</Trans>
                     </span>
                     <A href="/login/create">
                       <Trans>Create account</Trans>
