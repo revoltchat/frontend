@@ -170,7 +170,7 @@
 /* Phase 4 — message layout and composer. Visual only: existing
  * permission checks, uploads, keyboard shortcuts and menus are untouched.
  */
-.axiom-theme .axiom-message:not(:has([data-axiom-placeholder])) {
+.axiom-theme .axiom-message {
   border-radius: var(--axiom-radius-md);
   transition: background-color var(--axiom-motion-fast) ease;
 }
