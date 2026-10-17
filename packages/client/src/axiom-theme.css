@@ -1,0 +1,44 @@
+/*
+ * Axiom / Nexus visual foundation
+ * Opt-in: add class "axiom-theme" to the application root.
+ * Keep Stoat's auth, routing, theme providers and permissions unchanged.
+ * Phase 1 contains only design tokens and safe element-level polish.
+ */
+.axiom-theme {
+  --axiom-canvas: #050505;
+  --axiom-surface: #101010;
+  --axiom-raised: #171717;
+  --axiom-border: #303030;
+  --axiom-text: #eeeeee;
+  --axiom-muted: #858585;
+  --axiom-primary: #0878d5;
+  --axiom-primary-hover: #2698f3;
+  --axiom-danger: #f04452;
+  --axiom-radius-sm: 11px;
+  --axiom-radius-md: 12px;
+  --axiom-radius-lg: 22px;
+  --axiom-motion-fast: 160ms;
+  --axiom-motion-normal: 250ms;
+  color-scheme: dark;
+  color: var(--axiom-text);
+  background: var(--axiom-canvas);
+}
+
+.axiom-theme :is(button, a, input, textarea) {
+  transition:
+    background-color var(--axiom-motion-fast) ease,
+    border-color var(--axiom-motion-fast) ease,
+    color var(--axiom-motion-fast) ease,
+    box-shadow var(--axiom-motion-normal) ease;
+}
+
+.axiom-theme :is(button, a, input, textarea):focus-visible {
+  outline: 2px solid var(--axiom-primary-hover);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .axiom-theme :is(button, a, input, textarea) {
+    transition: none;
+  }
+}
