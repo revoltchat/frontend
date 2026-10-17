@@ -85,3 +85,52 @@
 @media (prefers-reduced-motion: reduce) {
   .axiom-auth :is(button, a) { transition: none; }
 }
+
+/* Axiom product hero — original presentation, no upstream app upsell. */
+.axiom-auth .axiom-auth-intro {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 520px;
+  padding-top: clamp(32px, 6vh, 90px);
+  position: relative;
+  z-index: 1;
+}
+.axiom-auth .axiom-auth-eyebrow {
+  letter-spacing: .24em;
+  font-size: .72rem;
+  font-weight: 750;
+  color: #80c9ff;
+}
+.axiom-auth .axiom-auth-intro h1 {
+  max-width: 12ch;
+  margin: 22px 0 0;
+  font-size: clamp(2.7rem, 4.4vw, 5.6rem);
+  line-height: 1.05;
+  letter-spacing: -.055em;
+  font-weight: 800;
+  color: #fff;
+}
+.axiom-auth .axiom-auth-intro p {
+  color: #b8cad9;
+  max-width: 38ch;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.6;
+  margin: 22px 0 0;
+}
+.axiom-auth .axiom-auth-signature {
+  display: flex;
+  gap: 8px;
+  margin-top: 42px;
+}
+.axiom-auth .axiom-auth-signature span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #1887dc;
+}
+.axiom-auth .axiom-auth-signature span:nth-child(2) { opacity: .76; }
+.axiom-auth .axiom-auth-signature span:nth-child(3) { opacity: .52; }
+.axiom-auth .axiom-auth-signature span:nth-child(4) { opacity: .28; }
