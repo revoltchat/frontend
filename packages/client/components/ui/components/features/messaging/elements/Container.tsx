@@ -341,7 +341,7 @@ export function MessageContainer(props: Props) {
       onMouseEnter={() => props.onHover && props.onHover(true)}
       onMouseLeave={() => props.onHover && props.onHover(false)}
       class={
-        "group " +
+        "group axiom-message " +
         base({
           tail: props.tail,
           mentioned: props.mentioned,
