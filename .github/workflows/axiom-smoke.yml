@@ -1,0 +1,38 @@
+name: Axiom Independent Smoke Checks
+
+on:
+  pull_request:
+    paths:
+      - "packages/client/**"
+      - "docs/AXIOM_FOUNDATION.md"
+      - "scripts/validate-axiom.mjs"
+      - ".github/workflows/axiom-smoke.yml"
+  push:
+    branches:
+      - "feature/axiom-**"
+    paths:
+      - "packages/client/**"
+      - "docs/AXIOM_FOUNDATION.md"
+      - "scripts/validate-axiom.mjs"
+      - ".github/workflows/axiom-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  axiom-source-validation:
+    name: Axiom Source Validation (No Submodules)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source only
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run Axiom smoke checks
+        run: node scripts/validate-axiom.mjs
