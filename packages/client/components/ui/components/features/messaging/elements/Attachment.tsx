@@ -62,7 +62,7 @@ export function Attachment(props: { file: File; message?: Message }) {
             <Spoiler contentType="Image" />
           </Show>
           <img
-            class={css({ cursor: "pointer" })}
+            class={"axiom-inline-image " + css({ cursor: "pointer" })}
             onClick={() =>
               openModal({
                 type: "image_viewer",
@@ -92,6 +92,7 @@ export function Attachment(props: { file: File; message?: Message }) {
             <Spoiler contentType="Video" />
           </Show>
           <video
+            class="axiom-inline-video"
             controls
             playsinline
             preload="metadata"
@@ -109,7 +110,7 @@ export function Attachment(props: { file: File; message?: Message }) {
         </SizedContent>
       </Match>
       <Match when={props.file.metadata.type === "Audio"}>
-        <AttachmentContainer>
+        <AttachmentContainer class="axiom-attachment">
           <FileInfo file={props.file} />
           <audio
             controls
@@ -127,12 +128,12 @@ export function Attachment(props: { file: File; message?: Message }) {
         </AttachmentContainer>
       </Match>
       <Match when={props.file.metadata.type === "File"}>
-        <AttachmentContainer dynamic="shrink">
+        <AttachmentContainer class="axiom-attachment" dynamic="shrink">
           <FileInfo file={props.file} />
         </AttachmentContainer>
       </Match>
       <Match when={props.file.metadata.type === "Text"}>
-        <AttachmentContainer dynamic="grow">
+        <AttachmentContainer class="axiom-attachment" dynamic="grow">
           <FileInfo file={props.file} />
           <TextFile file={props.file} />
         </AttachmentContainer>
