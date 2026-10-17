@@ -66,7 +66,7 @@ export const HomeSidebar = (props: Props) => {
   });
 
   return (
-    <SidebarBase class="channel_bar home">
+    <SidebarBase class="channel_bar home axiom-channel-sidebar">
       <div ref={scrollTargetElement} use:invisibleScrollable>
         <List>
           <Header>
