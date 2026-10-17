@@ -166,3 +166,45 @@
     transition: none;
   }
 }
+
+/* Phase 4 — message layout and composer. Visual only: existing
+ * permission checks, uploads, keyboard shortcuts and menus are untouched.
+ */
+.axiom-theme .axiom-message:not(:has([data-axiom-placeholder])) {
+  border-radius: var(--axiom-radius-md);
+  transition: background-color var(--axiom-motion-fast) ease;
+}
+.axiom-theme .axiom-message:hover {
+  background-color: color-mix(in srgb, var(--axiom-raised) 72%, transparent);
+}
+.axiom-theme .axiom-message .axiom-attachment {
+  background: var(--axiom-raised);
+  color: var(--axiom-text);
+  border: 1px solid var(--axiom-border);
+  border-radius: var(--axiom-radius-md);
+  box-shadow: 0 2px 12px #00000020;
+}
+.axiom-theme .axiom-message :is(.axiom-inline-image, .axiom-inline-video) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--axiom-radius-md);
+  border: 1px solid var(--axiom-border);
+}
+.axiom-theme .axiom-composer {
+  min-width: 0;
+  padding-inline: 8px;
+}
+.axiom-theme .axiom-composer > div {
+  border: 1px solid var(--axiom-border);
+  border-radius: var(--axiom-radius-lg);
+  background: var(--axiom-raised);
+  box-shadow: 0 3px 14px #00000024;
+}
+.axiom-theme .axiom-composer:focus-within > div {
+  border-color: var(--axiom-primary);
+  box-shadow: 0 0 0 1px var(--axiom-primary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .axiom-theme .axiom-message { transition: none; }
+}
