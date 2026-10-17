@@ -78,7 +78,7 @@ export function SettingsModal(
 }
 
 const settingsOverlay =
-  "settings_overlay " +
+  "settings_overlay axiom-settings-overlay " +
   css({
     display: "flex",
     height: "100%",
