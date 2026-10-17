@@ -70,28 +70,14 @@ export default defineConfig({
         display: "standalone",
         background_color: "#101010",
         theme_color: "#101010",
+        // Portable vector fallback; add verified PNG sizes for wider
+        // installed-PWA compatibility before publishing to app directories.
         icons: [
           {
-            src: `${base}assets/web/android-chrome-192x192.png`,
-            type: "image/png",
-            sizes: "192x192",
-          },
-          {
-            src: `${base}assets/web/android-chrome-512x512.png`,
-            type: "image/png",
-            sizes: "512x512",
-          },
-          {
-            src: `${base}assets/web/monochrome.svg`,
+            src: `${base}axiom-icon.svg`,
             type: "image/svg+xml",
-            sizes: "48x48 72x72 96x96 128x128 256x256",
-            purpose: "monochrome",
-          },
-          {
-            src: `${base}assets/web/masking-512x512.png`,
-            type: "image/png",
-            sizes: "512x512",
-            purpose: "maskable",
+            sizes: "any",
+            purpose: "any",
           },
         ],
         // TODO: take advantage of shortcuts
