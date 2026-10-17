@@ -1,0 +1,25 @@
+/* Axiom visual foundation: Nexus v12 palette. Opt-in, not loaded yet. */
+:root[data-axiom-theme="dark"] {
+  color-scheme: dark;
+  --axiom-canvas: #050505;
+  --axiom-panel: #101010;
+  --axiom-surface: #171717;
+  --axiom-surface-raised: #202020;
+  --axiom-border: #343434;
+  --axiom-text: #eeeeee;
+  --axiom-text-muted: #858585;
+  --axiom-accent: #167bda;
+  --axiom-accent-hover: #2792ef;
+  --axiom-danger: #f04452;
+  --axiom-radius-control: 11px;
+  --axiom-radius-panel: 22px;
+  --axiom-motion-fast: 140ms;
+  --axiom-motion-standard: 220ms;
+  --axiom-ease: cubic-bezier(.22, 1, .36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[data-axiom-theme="dark"] {
+    --axiom-motion-fast: 0ms;
+    --axiom-motion-standard: 0ms;
+  }
+}
