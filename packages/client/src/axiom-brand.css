@@ -1,0 +1,87 @@
+/*
+ * Axiom Phase 5: authentication and settings identity.
+ * Scoped to dedicated Axiom classes; Stoat's auth flows and permissions
+ * are left untouched.
+ */
+.axiom-auth {
+  --axiom-auth-canvas: #050505;
+  --axiom-auth-panel: #101010;
+  --axiom-auth-field: #171717;
+  --axiom-auth-border: #303030;
+  --md-sys-color-surface: var(--axiom-auth-canvas);
+  --md-sys-color-on-surface: #eeeeee;
+  --md-sys-color-on-surface-variant: #b0b0b0;
+  --md-sys-color-surface-container: #1d1d1d;
+  --md-sys-color-surface-container-high: #242424;
+  --md-sys-color-outline-variant: var(--axiom-auth-border);
+  --md-sys-color-primary: #2698f3;
+  --md-sys-color-on-primary: #ffffff;
+  color-scheme: dark;
+  background: var(--axiom-auth-canvas);
+  color: #eeeeee;
+}
+.axiom-auth main > section:first-child {
+  background:
+    radial-gradient(circle at 25% 25%, #10558a80, transparent 50%),
+    linear-gradient(145deg, #0d2032, #101010 68%, #050505) !important;
+  border: 1px solid #25435a;
+}
+.axiom-auth main > section:last-child {
+  background: var(--axiom-auth-canvas);
+}
+.axiom-wordmark {
+  display: inline-block;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  color: inherit;
+}
+.axiom-auth a:focus-visible,
+.axiom-auth button:focus-visible,
+.axiom-auth :is(input, textarea):focus-visible {
+  outline: 2px solid #2698f3;
+  outline-offset: 2px;
+}
+.axiom-auth mdui-text-field {
+  --mdui-color-surface-container-highest: #242424;
+  --mdui-color-primary: #2698f3;
+}
+.axiom-auth :is(button, a) {
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+.axiom-settings-overlay {
+  --md-sys-color-surface: #101010;
+  --md-sys-color-surface-container-low: #101010;
+  --md-sys-color-surface-container: #171717;
+  --md-sys-color-surface-container-high: #1d1d1d;
+  --md-sys-color-surface-container-highest: #171717;
+  --md-sys-color-on-surface: #eeeeee;
+  --md-sys-color-on-surface-variant: #b0b0b0;
+  --md-sys-color-outline-variant: #303030;
+  --md-sys-color-primary: #2698f3;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-error: #f04452;
+  --borderRadius-lg: 22px;
+  color-scheme: dark;
+  background: #101010;
+}
+.axiom-settings-overlay .settings_sidebar {
+  background: #101010;
+  border-right: 1px solid #303030;
+}
+.axiom-settings-overlay .settings_cont {
+  background: #101010;
+}
+.axiom-settings-overlay :is(button, a):focus-visible {
+  outline: 2px solid #2698f3;
+  outline-offset: 2px;
+}
+@media (max-width: 900px) {
+  .axiom-auth main > section:first-child { display: none; }
+  .axiom-settings-overlay .settings_sidebar { border-right: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .axiom-auth :is(button, a) { transition: none; }
+}
