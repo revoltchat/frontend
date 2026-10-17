@@ -19,7 +19,7 @@
 | Hover blue | `#2698f3` |
 | Notification/error red | `#f04452` |
 
-The opt-in starting layer is `packages/client/src/axiom-theme.css`; it intentionally is not enabled by default until integration tests confirm it works with Stoat's theme provider.
+The Axiom starting layer is `packages/client/src/axiom-theme.css` and is now mounted by the signed-in `Interface.tsx` app shell on this feature branch. The auth page and backend are unchanged. This remains a draft until the full client build, visual checks, and regressions pass.
 
 ## Implementation roadmap
 1. **Foundation** — confirm build, test and dependency health; upstream licenses; visually compare Nexus reference against Stoat client. Add opt-in color/motion tokens.
@@ -34,3 +34,10 @@ The opt-in starting layer is `packages/client/src/axiom-theme.css`; it intention
 - Reduced-motion preference is honored.
 - Theme can be toggled or removed cleanly without database changes.
 - No secrets, account stores, or user uploads enter Git.
+
+## Phase 2 integration status (draft)
+- `Interface.tsx` imports the scoped Axiom theme and mounts `axiom-theme` on `AppRoot`.
+- Existing Stoat server list, channel list, routes, account flows, and components remain authoritative.
+- Signed-in app palette changes to Nexus-inspired charcoal surfaces with blue primary accents.
+- Focus-visible indicators and reduced-motion handling are retained.
+- **Not yet verified:** full pnpm build, visual screenshots, contrast audit, mobile layout, and theme switching. Do not merge for production until these checks pass.
