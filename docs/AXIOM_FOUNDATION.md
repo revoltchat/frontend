@@ -70,3 +70,13 @@ The Axiom starting layer is `packages/client/src/axiom-theme.css` and is now mou
 - Media: image viewer, GIFs, video playback, spoilers, original file downloads, long filenames, failed image loads.
 - Check keyboard tab/focus, mobile composer safe area, reduced-motion settings, large attachments and responsive widths.
 - Run full workspace build/tests and inspect the new CSS in both default and customized Stoat themes. Status: NOT YET RUN.
+
+## Phase 5: authentication, settings and initial product branding (draft)
+- The browser tab title is now `Axiom`.
+- The existing logged-out Solid auth shell now shows an Axiom wordmark (text instead of the former Stoat SVG) and `New to Axiom?` copy.
+- Added `axiom-auth` scoped styling for a dark-first login/register frame with blue accents. Authentication endpoints, form submission, rate-limit behavior, and session lifecycle are unchanged.
+- Added `axiom-settings-overlay` scoped styling on Stoat's existing user, server, and channel settings modal; preserves all navigation, settings actions, and server-side permissions.
+- Added `packages/client/src/axiom-brand.css`, imported once from the client entrypoint.
+- **Branding incomplete:** browser favicon/PWA assets, upsell/promotional copy, i18n catalog entries, emails, instance configuration, and some UI strings may still say Stoat.
+- **Legal links intentionally remain upstream** until Axiom-specific policies/support contacts exist. Do not imply these links are Axiom's legal policies.
+- Pending: full pnpm build/typecheck/tests; audit visual contrast, language translations, settings navigation, account recovery, mobile scroll, theme switching and auth flow error states. Never deploy publicly until verified.
