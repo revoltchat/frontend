@@ -42,3 +42,69 @@
     transition: none;
   }
 }
+
+/*
+ * Phase 2: visual shell.
+ * Scoped to the signed-in shell, preserving the Stoat component tree and
+ * all existing server/friend/channel navigation logic.
+ */
+.axiom-theme {
+  --md-sys-color-background: var(--axiom-canvas);
+  --md-sys-color-surface: var(--axiom-surface);
+  --md-sys-color-surface-container-lowest: var(--axiom-canvas);
+  --md-sys-color-surface-container-low: var(--axiom-surface);
+  --md-sys-color-surface-container: var(--axiom-raised);
+  --md-sys-color-surface-container-high: #1d1d1d;
+  --md-sys-color-surface-container-highest: #242424;
+  --md-sys-color-on-surface: var(--axiom-text);
+  --md-sys-color-on-surface-variant: #b0b0b0;
+  --md-sys-color-outline: var(--axiom-muted);
+  --md-sys-color-outline-variant: var(--axiom-border);
+  --md-sys-color-primary: var(--axiom-primary-hover);
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #123755;
+  --md-sys-color-on-primary-container: #e0f2ff;
+  --md-sys-color-error: var(--axiom-danger);
+  --borderRadius-lg: var(--axiom-radius-lg);
+  --transitions-fast: 160ms ease;
+  --transitions-medium: 250ms ease;
+}
+
+.axiom-theme .main_bar {
+  background: var(--axiom-surface);
+  border-right: 1px solid var(--axiom-border);
+}
+
+.axiom-theme .app_body {
+  background: var(--axiom-canvas);
+  color: var(--axiom-text);
+  min-height: 0;
+  min-width: 0;
+}
+
+.axiom-theme :is(input, textarea) {
+  accent-color: var(--axiom-primary);
+}
+
+.axiom-theme ::selection {
+  background: #175b91;
+  color: #ffffff;
+}
+
+.axiom-theme :is(button, [role="button"]):not(:disabled) {
+  transition:
+    background-color var(--axiom-motion-fast) ease,
+    border-radius var(--axiom-motion-normal) ease,
+    transform var(--axiom-motion-fast) ease;
+}
+
+.axiom-theme :is(button, [role="button"]):not(:disabled):active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .axiom-theme :is(button, [role="button"]):not(:disabled) {
+    transition: none;
+    transform: none;
+  }
+}
