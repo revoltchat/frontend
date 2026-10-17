@@ -56,3 +56,17 @@ The Axiom starting layer is `packages/client/src/axiom-theme.css` and is now mou
 - Verify colors with Stoat dark and light profiles (Axiom is currently dark-first).
 - Confirm friend-request/unread badges and channel selection remain visible.
 - Run `pnpm install --frozen-lockfile` and the project build/test scripts in a suitable development environment.
+
+## Phase 4: Nexus-style messaging surfaces (draft)
+- Added `axiom-message` to Stoat's existing message container; its author, edited-state, reaction, highlight, toolbar and authorization behaviors are unchanged.
+- Added `axiom-composer` to the existing `MessageBox` layout, preserving the ProseMirror-based editor, send callbacks and timed-out/read-only state.
+- Added `axiom-attachment` and `axiom-inline-image` / `axiom-inline-video` hooks to Stoat's existing file renderer. Its image viewer, media URLs, spoiler treatment and context menus remain untouched.
+- Scoped message, inline-media, attachment-card, and composer styles to the `axiom-theme` root.
+- No backend changes; uploads and file authorization remain served by Stoat.
+
+### Required manual checks before merging
+- Composer: type, edit last message, mention autocomplete, emoji picker, drag-and-drop files, upload multiple attachments, cancel upload, send and permission-denied state.
+- Messages: context menu, reactions, replies, editing, deleting, timestamps, mentions, grouped messages, scrolling back through history.
+- Media: image viewer, GIFs, video playback, spoilers, original file downloads, long filenames, failed image loads.
+- Check keyboard tab/focus, mobile composer safe area, reduced-motion settings, large attachments and responsive widths.
+- Run full workspace build/tests and inspect the new CSS in both default and customized Stoat themes. Status: NOT YET RUN.
