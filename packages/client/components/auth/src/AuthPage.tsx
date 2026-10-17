@@ -26,7 +26,6 @@ import { A, useLocation } from "@revolt/routing";
 import { useState } from "@revolt/state";
 import { IconButton, Symbol } from "@revolt/ui";
 
-import { AppUpsell } from "./AppUpsell";
 import { BubbleMood, BubbleProvider, FlowBase, FlowBubble } from "./flows/Flow";
 
 import Bluesky from "./flows/bluesky.svg?component-solid";
@@ -507,7 +506,20 @@ export function AuthPage(props: { children: JSX.Element }) {
           <Brand aria-hidden="true">
             <span class="axiom-wordmark">AXIOM</span>
           </Brand>
-          <AppUpsell />
+          <div class="axiom-auth-intro">
+            <span class="axiom-auth-eyebrow">CONNECTED BY DESIGN</span>
+            <h1>Conversations without compromise.</h1>
+            <p>
+              Your communities, direct messages, and shared spaces, together
+              in one place.
+            </p>
+            <div class="axiom-auth-signature" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
         </Hero>
 
         <Content>
