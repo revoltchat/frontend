@@ -60,6 +60,10 @@ export class Device {
     typeof window !== "undefined" &&
     ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
+  /** Whether the primary input is a touchscreen (includes tablets) */
+  readonly hasCoarsePointer =
+    typeof window !== "undefined" && matchMedia("(pointer: coarse)").matches;
+
   private pMedia;
   private tMedia;
   private setLayout;

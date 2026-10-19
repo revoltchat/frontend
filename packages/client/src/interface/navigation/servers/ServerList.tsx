@@ -88,7 +88,7 @@ export const ServerList = (props: Props) => {
   const state = useState();
   const client = useClient();
   const navigate = useNavigate();
-  const { isMobile } = useDevice();
+  const { isMobile, hasCoarsePointer } = useDevice();
   const { openModal } = useModals();
   const { t } = useLingui();
   const instance = useInstance();
@@ -232,7 +232,7 @@ export const ServerList = (props: Props) => {
     },
     //TODO - No server ordering on mobile due to usability issue
     //Consider adding a way to enable reordering in user settings
-    disabled: () => isMobile,
+    disabled: () => isMobile || hasCoarsePointer,
     onFold: fold,
     onMove: (moved, before, parent) => place(moved, before, parent),
   });

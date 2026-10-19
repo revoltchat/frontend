@@ -98,7 +98,7 @@ type OrderingEvent =
  */
 export const ServerSidebar = (props: Props) => {
   const navigate = useNavigate();
-  const { isMobile } = useDevice();
+  const { isMobile, hasCoarsePointer } = useDevice();
 
   // Users can manage certain parts of the server individually, regardless of their ManageServer Permission
   const canManageServer = () =>
@@ -282,7 +282,7 @@ export const ServerSidebar = (props: Props) => {
             type="category"
             //TODO - No channel ordering on mobile due to usability issue
             //Consider adding a way to enable reordering with dragHandles in server settings
-            disabled={isMobile || noOrdering()}
+            disabled={isMobile || hasCoarsePointer || noOrdering()}
             items={categories().filter((category) => category.id !== "default")}
             onChange={(ids) => handleOrdering({ type: "categories", ids })}
           >
@@ -395,7 +395,7 @@ function Category(
 ) {
   const state = useState();
   const isOpen = () => state.layout.getSectionState(props.category.id, true);
-  const { isMobile } = useDevice();
+  const { isMobile, hasCoarsePointer } = useDevice();
 
   const channels = createMemo(() =>
     props.category.channels.filter(
@@ -439,7 +439,9 @@ function Category(
         }}
         //TODO - No channel ordering on mobile due to usability issue
         //Consider adding a way to enable reordering with dragHandles in server settings
-        disabled={isMobile || props.noOrdering() || !isOpen()}
+        disabled={
+          isMobile || hasCoarsePointer || props.noOrdering() || !isOpen()
+        }
         minimumDropAreaHeight="42px"
       >
         {(entry) => (
