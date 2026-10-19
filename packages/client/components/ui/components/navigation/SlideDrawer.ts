@@ -58,6 +58,8 @@ export class SlideDrawer {
     root.addEventListener("touchstart", this.start);
     root.addEventListener("touchmove", this.move);
     root.addEventListener("touchend", this.move);
+    // iOS sends touchcancel instead of touchend when the system takes over a swipe
+    root.addEventListener("touchcancel", this.move);
 
     createRoot((dispose) => {
       this.dispose = dispose;
@@ -94,7 +96,7 @@ export class SlideDrawer {
 
   private move(e: TouchEvent) {
     if (!this.touch) return;
-    const isEnd = e.type === "touchend";
+    const isEnd = e.type === "touchend" || e.type === "touchcancel";
     let t, tNew;
     for (t of e.changedTouches)
       if (t.identifier === this.touch.id) {
@@ -223,6 +225,7 @@ export class SlideDrawer {
     this.root.removeEventListener("touchstart", this.start);
     this.root.removeEventListener("touchmove", this.move);
     this.root.removeEventListener("touchend", this.move);
+    this.root.removeEventListener("touchcancel", this.move);
     this.dispose();
   }
 
