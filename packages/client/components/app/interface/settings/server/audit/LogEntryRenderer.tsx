@@ -102,8 +102,7 @@ function useActionTranslation() {
 
   return (entry: API.AuditLogEntry) => {
     const user = client().users.get(entry.user);
-    // This server will always be in cache unless it's deleted, then everything is fucked
-    const thisServer = client().servers.get(entry.server)!;
+    const thisServer = client().servers.get(entry.server);
     const action = entry.action;
     switch (action.type) {
       case "MessageDelete": {
@@ -143,7 +142,7 @@ function useActionTranslation() {
         return t`@${user?.username} edited #${channel?.name}`;
       }
       case "ChannelRolePermissionsEdit": {
-        const role = thisServer.roles.get(action.role);
+        const role = thisServer?.roles.get(action.role);
         const channel = client().channels.get(action.channel);
         return t`@${user?.username} edited permissions for "${role?.name}" in #${channel?.name}`;
       }
@@ -168,7 +167,7 @@ function useActionTranslation() {
       case "ServerEdit":
         return t`@${user?.username} edited this server`;
       case "RoleEdit": {
-        const role = thisServer.roles.get(action.role);
+        const role = thisServer?.roles.get(action.role);
 
         if (!role) {
           return t`@${user?.username} edited a role`;

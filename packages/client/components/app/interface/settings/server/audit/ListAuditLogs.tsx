@@ -60,8 +60,6 @@ export function ListAuditLogs(props: Props) {
     const preempted = newPreempted();
 
     setLogs([]);
-    setStart(true);
-    setEnd(false);
 
     try {
       const logs = await props.server
@@ -172,12 +170,12 @@ export function ListAuditLogs(props: Props) {
         setFailure(false);
 
         return {
-          scrollAnchorId: logs()[result.audit_logs.length - 1]?._id,
+          scrollAnchorId: logs()[logs().length - 1]?._id,
           commitToDOM() {
             setLogs((logs) => logs.concat(result.audit_logs));
 
             if (tooManyBy) {
-              setLogs((prev) => prev.slice(0, -tooManyBy));
+              setLogs((prev) => prev.slice(tooManyBy));
             }
 
             setFetching();
