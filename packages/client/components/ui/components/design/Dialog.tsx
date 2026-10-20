@@ -144,7 +144,9 @@ const Scrim = styled("div", {
     position: "fixed",
     zIndex: "998",
     maxHeight: "100%",
-    paddingBottom: "env(keyboard-inset-height)",
+    paddingTop: "var(--inset-top)",
+    paddingInline: "var(--inset-left) var(--inset-right)",
+    paddingBottom: "max(var(--inset-bottom), env(keyboard-inset-height, 0px))",
 
     animationName: "scrimFadeIn",
     animationDuration: "0.1s",

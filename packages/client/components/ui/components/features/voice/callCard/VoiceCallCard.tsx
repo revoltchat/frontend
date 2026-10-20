@@ -141,7 +141,10 @@ export function VoiceCallCardContext(props: { children: JSX.Element }) {
   function setFloat(float: FloatType) {
     const sty = ref!.style,
       x = float[1] === "l" ? PAD_X : `calc(100vw - var(--flt-w) - ${PAD_X})`,
-      y = float[0] === "t" ? PAD_Y : `calc(100vh - var(--flt-h) - ${PAD_Y})`;
+      y =
+        float[0] === "t"
+          ? `calc(var(--inset-top) + ${PAD_Y})`
+          : `calc(100dvh - var(--inset-bottom) - var(--flt-h) - ${PAD_Y})`;
     sty.transform = `translate(${x}, ${y})`;
     sty.width = "";
     sty.height = "";
