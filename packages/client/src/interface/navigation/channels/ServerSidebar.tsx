@@ -13,7 +13,7 @@ import { useLingui } from "@lingui/solid/macro";
 import type { Channel, Server, ServerFlags } from "stoat.js";
 import { styled } from "styled-system/jsx";
 
-import { useDevice } from "@revolt/common";
+import { getChannelIcon, useDevice } from "@revolt/common";
 import { KeybindAction, createKeybind } from "@revolt/keybinds";
 import { TextWithEmoji } from "@revolt/markdown";
 import { useModals } from "@revolt/modal";
@@ -99,7 +99,7 @@ type OrderingEvent =
  */
 export const ServerSidebar = (props: Props) => {
   const navigate = useNavigate();
-  const { isMobile } = useDevice();
+  const { isMobile, hasCoarsePointer } = useDevice();
 
   // Users can manage certain parts of the server individually, regardless of their ManageServer Permission
   const canManageServer = () =>
@@ -291,7 +291,7 @@ export const ServerSidebar = (props: Props) => {
             type="category"
             //TODO - No channel ordering on mobile due to usability issue
             //Consider adding a way to enable reordering with dragHandles in server settings
-            disabled={isMobile || noOrdering()}
+            disabled={isMobile || hasCoarsePointer || noOrdering()}
             items={categories().filter((category) => category.id !== "default")}
             onChange={(ids) => handleOrdering({ type: "categories", ids })}
           >
@@ -404,7 +404,7 @@ function Category(
 ) {
   const state = useState();
   const isOpen = () => state.layout.getSectionState(props.category.id, true);
-  const { isMobile } = useDevice();
+  const { isMobile, hasCoarsePointer } = useDevice();
 
   const channels = createMemo(() =>
     props.category.channels.filter(
@@ -453,7 +453,9 @@ function Category(
         }}
         //TODO - No channel ordering on mobile due to usability issue
         //Consider adding a way to enable reordering with dragHandles in server settings
-        disabled={isMobile || props.noOrdering() || !isOpen()}
+        disabled={
+          isMobile || hasCoarsePointer || props.noOrdering() || !isOpen()
+        }
         minimumDropAreaHeight="42px"
       >
         {(entry) => (
@@ -580,15 +582,15 @@ function Entry(
         attention={attentionState()}
         icon={
           <>
-            <Switch fallback={<Symbol>grid_3x3</Symbol>}>
-              <Match when={props.channel.isVoice}>
-                <Symbol
-                  color={inCall() ? "var(--md-sys-color-primary)" : undefined}
-                >
-                  headset_mic
-                </Symbol>
-              </Match>
-            </Switch>
+            <Symbol
+              color={
+                props.channel.isVoice && inCall()
+                  ? "var(--md-sys-color-primary)"
+                  : undefined
+              }
+            >
+              {getChannelIcon(props.channel)}
+            </Symbol>
             <Show when={props.channel.icon}>
               <ChannelIcon
                 src={props.channel.iconURL}

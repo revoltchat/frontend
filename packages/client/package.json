@@ -28,6 +28,7 @@
     "babel-plugin-codegen": "^4.1.5",
     "jsdom": "^25.0.1",
     "lnk": "^1.1.0",
+    "magic-string": "^0.30.21",
     "rehype-stringify": "^10.0.1",
     "stoat.js": "workspace:^",
     "typescript": "^6.0.3",

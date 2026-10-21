@@ -65,6 +65,7 @@ import { SignOutSessionsModal } from "./modals/SignOutSessions";
 import { SignedOutModal } from "./modals/SignedOut";
 import { SwapUserModal } from "./modals/SwapUser";
 import { TimeoutMemberModal } from "./modals/TimeoutMember";
+import { TransferOwnershipModal } from "./modals/TransferGroup";
 import { UserProfileModal } from "./modals/UserProfile";
 import { UserProfileMutualFriendsModal } from "./modals/UserProfileMutualFriends";
 import { UserProfileMutualGroupsModal } from "./modals/UserProfileMutualGroups";
@@ -222,6 +223,8 @@ export function RenderModal(props: ActiveModal & { onClose: () => void }) {
       return <SwapUserModal {...modalProps} />;
     case "view_as_role":
       return <ViewAsRoleModal {...modalProps} />;
+    case "transfer_ownership":
+      return <TransferOwnershipModal {...modalProps} />;
 
     default:
       console.error(

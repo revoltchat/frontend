@@ -60,8 +60,15 @@ export function CreateServerModal(
           <Text>
             <Trans>
               By creating this server, you agree to the{" "}
-              <a href="https://stoat.chat/aup" target="_blank" rel="noreferrer">
-                <Trans>Acceptable Use Policy</Trans>
+              <a
+                href="https://stoat.chat/legal/community-guidelines"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "var(--md-sys-color-primary)",
+                }}
+              >
+                <Trans>Community Guidelines</Trans>
               </a>
               .
             </Trans>
