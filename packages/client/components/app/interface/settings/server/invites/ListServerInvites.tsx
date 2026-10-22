@@ -139,7 +139,7 @@ export function ListServerInvites(props: { server: Server }) {
                     </DataTable.Cell>
                     <DataTable.Cell>
                       <Show when={item.expires} fallback={<Trans>Never</Trans>}>
-                        {new Date(item.expires!).toLocaleString()}
+                        {(expires) => expires().toLocaleString()}
                       </Show>
                     </DataTable.Cell>
                     <DataTable.Cell width="40px">

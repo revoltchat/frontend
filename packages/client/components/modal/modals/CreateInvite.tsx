@@ -8,7 +8,14 @@ import { styled } from "styled-system/jsx";
 import { useDurationFormat } from "@revolt/i18n/durations";
 import { useInstance } from "@revolt/instance";
 import Instance from "@revolt/instance/Instance";
-import { Column, Dialog, DialogProps, Form2, MenuItem } from "@revolt/ui";
+import {
+  CircularProgress,
+  Column,
+  Dialog,
+  DialogProps,
+  Form2,
+  MenuItem,
+} from "@revolt/ui";
 
 import { useModals } from "..";
 import { Modals } from "../types";
@@ -35,7 +42,16 @@ const Invite = styled("div", {
 export const getInviteLink = (id: string, inst: Instance) =>
   inst.isStoat ? `https://stt.gg/${id}` : inst.href(`/invite/${id}`);
 
-const EXPIRY_SECONDS = ["0", "3600", "86400", "604800", "2592000"] as const;
+const THIRTY_DAYS = 2592000;
+const CLOCK_SKEW_BUFFER = 120;
+
+const EXPIRY_SECONDS = [
+  "0",
+  "3600",
+  "86400",
+  "604800",
+  `${THIRTY_DAYS}`,
+] as const;
 const MAX_USES = ["0", "1", "5", "10", "25", "50", "100"] as const;
 
 /**
@@ -55,7 +71,7 @@ export function CreateInviteModal(
     "3600": duration({ hours: 1 }),
     "86400": duration({ days: 1 }),
     "604800": duration({ weeks: 1 }),
-    "2592000": duration({ days: 30 }),
+    [THIRTY_DAYS]: duration({ days: 30 }),
   };
 
   const form = createFormGroup({
@@ -68,10 +84,16 @@ export function CreateInviteModal(
       const expirySeconds = Number(form.controls.expiry.value);
       const maxUses = Number(form.controls.maxUses.value);
 
+      // Shave the 30-day max so a fast client clock is not rejected
+      const adjustedSeconds =
+        expirySeconds === THIRTY_DAYS
+          ? expirySeconds - CLOCK_SKEW_BUFFER
+          : expirySeconds;
+
       return props.channel
         .createInvite({
-          expires: expirySeconds
-            ? new Date(Date.now() + expirySeconds * 1000).toISOString()
+          expires: adjustedSeconds
+            ? new Date(Date.now() + adjustedSeconds * 1000).toISOString()
             : undefined,
           max_uses: maxUses || undefined,
         })
@@ -114,27 +136,37 @@ export function CreateInviteModal(
       <Show
         when={link()}
         fallback={
-          <Column gap="s">
-            <Form2.Select
-              label={t`Expire After`}
-              control={form.controls.expiry}
-            >
-              <For each={EXPIRY_SECONDS}>
-                {(value) => (
-                  <MenuItem value={value}>{expiryLabels[value]}</MenuItem>
-                )}
-              </For>
-            </Form2.Select>
-            <Form2.Select label={t`Max Uses`} control={form.controls.maxUses}>
-              <For each={MAX_USES}>
-                {(value) => (
-                  <MenuItem value={value}>
-                    {value === "0" ? <Trans>No limit</Trans> : value}
-                  </MenuItem>
-                )}
-              </For>
-            </Form2.Select>
-          </Column>
+          <Show
+            when={!fetchInvite.isPending}
+            fallback={
+              <Column gap="s" align>
+                <CircularProgress />
+                <Trans>Generating invite…</Trans>
+              </Column>
+            }
+          >
+            <Column gap="s">
+              <Form2.Select
+                label={t`Expire After`}
+                control={form.controls.expiry}
+              >
+                <For each={EXPIRY_SECONDS}>
+                  {(value) => (
+                    <MenuItem value={value}>{expiryLabels[value]}</MenuItem>
+                  )}
+                </For>
+              </Form2.Select>
+              <Form2.Select label={t`Max Uses`} control={form.controls.maxUses}>
+                <For each={MAX_USES}>
+                  {(value) => (
+                    <MenuItem value={value}>
+                      {value === "0" ? <Trans>No limit</Trans> : value}
+                    </MenuItem>
+                  )}
+                </For>
+              </Form2.Select>
+            </Column>
+          </Show>
         }
       >
         <Invite>
