@@ -192,8 +192,9 @@ export function NotificationsWorker() {
       body = t`Sent ${message.attachments!.length} attachments`;
     }
 
-    // Don't continue if we don't have notification permissions
+    // Don't continue without notification permissions (iOS only has Notification in home screen apps)
     if (
+      typeof Notification === "undefined" ||
       Notification.permission !== "granted" ||
       state.settings.desktopNotificationsState !== "allowed"
     )

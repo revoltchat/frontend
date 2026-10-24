@@ -106,6 +106,9 @@ const Base = styled("div", {
 
     _phone: {
       position: "absolute",
+      top: "var(--inset-top)",
+      bottom: "var(--inset-bottom)",
+      height: "auto",
       width: "100vw",
       paddingLeft: "12px",
 

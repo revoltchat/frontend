@@ -41,10 +41,10 @@ export function SettingsModal(
         style={{
           "z-index": 100,
           position: "fixed",
-          width: "100%",
-          height: "100vh",
           left: 0,
+          right: 0,
           top: 0,
+          bottom: 0,
           "pointer-events": "none",
         }}
       >
@@ -82,6 +82,9 @@ const settingsOverlay =
   css({
     display: "flex",
     height: "100%",
+    // Background fills the screen, content stays inside the safe area
+    padding:
+      "var(--inset-top) var(--inset-right) var(--inset-bottom) var(--inset-left)",
     pointerEvents: "all",
     color: "var(--md-sys-color-on-surface)",
     background: "var(--md-sys-color-surface-container-highest)",
