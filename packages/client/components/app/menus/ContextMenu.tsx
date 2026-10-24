@@ -63,6 +63,12 @@ export const ContextMenuItem = styled("a", {
         "color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent)",
     },
 
+    // Touch devices have no hover, so provide feedback while pressing
+    "&:active": {
+      background:
+        "color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent)",
+    },
+
     // let the label fill the row, but not <Symbol> icons (also spans)
     "& span:not([aria-hidden='true'])": {
       flexGrow: 1,
