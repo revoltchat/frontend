@@ -7,6 +7,7 @@ import { MessageContextMenu, useMessage } from "@revolt/app";
 import { useClient } from "@revolt/client";
 import { getChannelIcon } from "@revolt/common/lib/channels";
 import { normalizeHost } from "@revolt/common/lib/env";
+import { RE_APP_PRIV_PATH } from "@revolt/common/lib/links";
 import { DefaultHost, useInstance } from "@revolt/instance";
 import { useModals } from "@revolt/modal";
 import { paramsFromPathname } from "@revolt/routing";
@@ -50,8 +51,6 @@ const internalLink = cva({
 const Protocols = ["http:", "https:", "mailto:", "tel:"];
 
 const RE_INVITE = /^\/\w+$/;
-const RE_STOAT_PATH =
-  /^(?:\/i\/[\w:.]{1,32})?\/(?:(?:server\/[ABCDEFGHJKMNPQRSTVWXYZ\d]{26}\/)?channel\/[ABCDEFGHJKMNPQRSTVWXYZ\d]{26}(?:\/[ABCDEFGHJKMNPQRSTVWXYZ\d]{26})?|bot\/[ABCDEFGHJKMNPQRSTVWXYZ\d]{26}|invite\/\w+)\/?$/;
 
 export function RenderAnchor(
   props: { disabled?: boolean } & JSX.AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -87,7 +86,7 @@ export function RenderAnchor(
     } else url.host = normalizeHost(url.host);
 
     // Determine whether it's in our scope
-    if (RE_STOAT_PATH.test(url.pathname)) {
+    if (RE_APP_PRIV_PATH.test(url.pathname)) {
       const client = useClient(),
         params = paramsFromPathname(url.pathname);
 
